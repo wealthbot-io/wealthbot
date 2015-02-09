@@ -19,10 +19,13 @@ Local setup
 
 6. Install ImageMagick library:
 
+##### Example for ubuntu:
     $ apt-get install imagemagick
     $ service apache2 restart
 
 7. Check if app/console works by running commands below:
+
+##### Example:
 
     $ app/console doctrine:database:drop
     $ app/console doctrine:database:create

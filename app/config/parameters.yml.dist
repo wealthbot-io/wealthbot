@@ -7,7 +7,7 @@ parameters:
     database_password:
 
     mongodb_user: root
-    mongodb_password:
+    mongodb_password: password
     mongodb_host: 127.0.0.1
     mongodb_database: wealthbot
 

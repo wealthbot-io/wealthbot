@@ -52,4 +52,12 @@ class AppKernel extends Kernel
     {
         $loader->load(__DIR__.'/config/config_'.$this->getEnvironment().'.yml');
     }
+
+    protected function initializeContainer()
+    {
+        parent::initializeContainer();
+
+        $tz = $this->container->getParameter('time_zone');
+        date_default_timezone_set($tz);
+    }
 }

@@ -14,15 +14,12 @@
     bootstrap                   = "bootstrap.php.cache" >
 
     <testsuites>
-        <testsuite name="CE Symfony Tests">
+        <testsuite name="Wealthbot Symfony Tests">
             <directory>../src/*/*Bundle/Tests</directory>
             <directory>../src/*/Bundle/*Bundle/Tests</directory>
-<<<<<<< HEAD
         </testsuite>
-        <testsuite name="CE Backend Tests">
+        <testsuite name="Wealthbot Backend Tests">
             <directory>../system/Test/Case</directory>
-=======
->>>>>>> develop
         </testsuite>
     </testsuites>
 

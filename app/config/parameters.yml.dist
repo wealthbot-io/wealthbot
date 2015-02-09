@@ -8,6 +8,7 @@ parameters:
 
     mongodb_host: 127.0.0.1
     mongodb_database: wealthbot
+    mongodb_user: root
 
     mailer_transport:  smtp
     mailer_host:       your smtp server

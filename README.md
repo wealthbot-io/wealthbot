@@ -19,9 +19,12 @@ Local setup
 
 6. Install ImageMagick library:
 
-##### Example for ubuntu:
+##### For ubuntu, use apt-get:
     $ apt-get install imagemagick
     $ service apache2 restart
+    
+##### For Mac OS, use homebrew:
+    $ brew install imagemagick
 
 7. Check if app/console works by running commands below:
 

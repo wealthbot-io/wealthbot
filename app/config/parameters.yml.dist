@@ -12,7 +12,7 @@ parameters:
     mongodb_database: pas
 
     mailer_transport:  smtp
-    mailer_host:       email-smtp.us-east-1.amazonaws.com
+    mailer_host:       your smtp server
     mailer_user:       secretUser
     mailer_password:   secretPassword
     mailer_auth_mode:  login

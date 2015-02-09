@@ -6,6 +6,7 @@ parameters:
     database_user:     root
     database_password:
 
+    mongodb_host: 127.0.0.1
     mongodb_database: wealthbot
 
     mailer_transport:  smtp

@@ -1,0 +1,29 @@
+Wealthbot\RiaBundle\Entity\RiaDashboardBox:
+    type: entity
+    table: ria_dashboard_boxes
+    repositoryClass: Wealthbot\RiaBundle\Repository\RiaDashboardBoxRepository
+    fields:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+        ria_user_id:
+            type: integer
+            nullable: false
+        template:
+            type: string
+            length: 255
+            nullable: false
+        sequence:
+            type: integer
+            nullable: false
+    manyToOne:
+        ria:
+            targetEntity: Wealthbot\UserBundle\Entity\User
+            inversedBy: riaDashboardBoxes
+            joinColumn:
+                name: ria_user_id
+                referencedColumnName: id
+                onDelete: cascade
+            cascade: ['persist']

@@ -1,0 +1,78 @@
+<form id="delete_clients_batch_form" action="{{ path('rx_ria_prospects_delete') }}" method="post">
+    <table class="table table-striped prospects">
+        <thead>
+        {% set sort = (app.request.query.get('sort') in ['value', 'group', 'step']) ? app.request.query.get('sort') : 'name' %}
+        {% set order = app.request.query.get('order') == 'desc' ? 'asc' : 'desc' %}
+        {% set icon_direction = app.request.query.get('order') == 'desc' ? 'down' : 'up' %}
+
+        <tr>
+            <th>
+                <a href="{{ path('rx_ria_prospects', {'sort' : 'name', 'order' : order}) }}">
+                    <i class="icon-chevron-{{ sort == 'name' ? icon_direction : 'up' }}"></i> Prospect
+                    Name
+                </a>
+            </th>
+            <th>
+                <a href="{{ path('rx_ria_prospects', {'sort' : 'value', 'order' : order}) }}">
+                    <i class="icon-chevron-{{ sort == 'value' ? icon_direction : 'up' }}"></i> Portfolio
+                    Value
+                </a>
+            </th>
+            <th>
+                <a href="{{ path('rx_ria_prospects', {'sort' : 'group', 'order' : order}) }}">
+                    <i class="icon-chevron-{{ sort == 'group' ? icon_direction : 'up' }}"></i> Group
+                </a>
+            </th>
+            <th>
+                <a href="{{ path('rx_ria_prospects', {'sort' : 'step', 'order' : order}) }}">
+                    <i class="icon-chevron-{{ sort == 'step' ? icon_direction : 'up' }}"></i> Current
+                    Step
+                </a>
+            </th>
+            <th>Last Login</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% if clients_data is not empty %}
+            {% for item in clients_data %}
+                <tr>
+                    <td>
+                        <label class="checkbox">
+                            <input type="checkbox" class="delete-client-batch-checkbox" name="clients_ids[]" value="{{ item.client.id }}"/>
+
+                            {% set isSuggestedPortfolio = item.client.profile.registrationStep >= 3 %}
+                            {% if (isSuggestedPortfolio) %}
+                                <a href="{{ path('rx_ria_prospect_portfolio', {'client_id': item.client.id}) }}" class="show-prospect-btn">
+                                    {{ item.client.profile.lastName }}, {{ item.client.profile.firstName }}
+                                </a>
+                            {% else %}
+                                {{ item.client.profile.lastName }}, {{ item.client.profile.firstName }} -
+                                No Portfolio Suggested
+                            {% endif %}
+                        </label>
+                    </td>
+                    <td>${{ item.value_sum | number_format(2, '.', ',') }}</td>
+                    <td>{{ item.client.getGroupsAsString | ucfirst }}</td>
+                    <td>
+                        {% if (isSuggestedPortfolio) %}
+                            {{ item.client.profile.clientRegistrationStep }}
+                        {% else %}
+                            <a target="_blank" href="{{ path('rx_ria_login_as_client', {'username': item.client.username}) }}">
+                                {{ item.client.profile.clientRegistrationStep }}
+                            </a>
+                        {% endif %}
+                    </td>
+                    <td>{{ item.client.lastLogin ? item.client.lastLogin | date('m/d/Y - H:i') : 'Never' }}</td>
+                </tr>
+            {% endfor %}
+        {% else %}
+            <tr>
+                <td colspan="5">No prospects.</td>
+            </tr>
+        {% endif %}
+        </tbody>
+    </table>
+
+    <input class="btn" type="submit" name="Delete" value="Delete"/>
+    <span class="help-inline">Delete Selected Prospect</span>
+</form>

@@ -1,0 +1,27 @@
+{% extends 'WealthbotRiaBundle:Prospects:_client_account_list.html.twig' %}
+
+{% block table_class %}table table-condensed suggested-portfolio-finaccounts transfer-accounts-table{% endblock %}
+
+{% block sascache_column_head %}
+    {% if show_sas_cash is defined and show_sas_cash %}
+        <th>SAS Cash:</th>
+    {% endif %}
+{% endblock %}
+
+{% block sascache_column_total %}
+    {% if show_sas_cash is defined and show_sas_cash %}
+        <td class="sas-cash"><strong>${{ total.sas_cash | number_format(2, '.', ',') }}</strong></td>
+    {% endif %}
+{% endblock %}
+
+{% block table_body %}
+    {% for account in client_accounts %}
+        {% include 'WealthbotClientBundle:Portfolio:_accounts_list_row.html.twig' with {
+            'client': client,
+            'account': account,
+            'index': loop.index,
+            'with_edit': false,
+            'show_sas_cash': show_sas_cash
+        } %}
+    {% endfor %}
+{% endblock %}

@@ -1,0 +1,30 @@
+Wealthbot\AdminBundle\Entity\Fee:
+  type: entity
+  table: fees
+  repositoryClass: Wealthbot\AdminBundle\Repository\FeeRepository
+  fields:
+    id:
+      type: integer
+      id: true
+      generator:
+        strategy: AUTO
+    #deprecated
+    fee_with_retirement:
+      type: float
+      nullable: true
+    fee_without_retirement:
+      type: float
+      nullable: true
+    tier_top:
+      type: float
+      nullable: true
+  manyToOne:
+    billingSpec:
+      targetEntity: Wealthbot\AdminBundle\Entity\BillingSpec
+      inversedBy: fees
+      joinColumn:
+        name: billing_spec_id
+        referencedColumnName: id
+        onDelete: cascade
+      cascade: ['persist']
+  lifecycleCallbacks: {  }

@@ -1,0 +1,26 @@
+Wealthbot\AdminBundle\Entity\TransactionType:
+    type: entity
+    table: transaction_types
+    repositoryClass: Wealthbot\AdminBundle\Repository\TransactionTypeRepository
+    fields:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+        name:
+            type: string
+            length: 45
+            nullable: true
+        activity:
+            type: string
+            length: 45
+            nullable: true
+        report_as:
+            type: string
+            length: 45
+            nullable: true
+        description:
+            type: string
+            length: 255
+            nullable: true

@@ -1,0 +1,81 @@
+{% if client.clientAccounts.count > 0 %}
+
+    {% if is_transfer is defined and is_transfer %}
+        {% set is_transfer = true %}
+    {% else %}
+        {% set is_transfer = false %}
+    {% endif %}
+    <table class="table suggested-portfolio-finaccounts shadow">
+        <thead>
+        <tr>
+            <th></th>
+            {% if is_transfer %}
+                <th>Status</th>
+            {% endif %}
+            <th>Activity</th>
+            <th>Account Type</th>
+            <th>Estimated Value:</th>
+            <th>Estimated Monthly Contributions:</th>
+            <th>Estimated Monthly Distributions:</th>
+            {% if show_action_btn is defined %}
+                <th></th>
+            {% endif %}
+        </tr>
+        </thead>
+        <tbody class="accounts-list">
+
+        {% for account in client.clientAccounts %}
+            <tr data-account-row="{{ account.id }}" class="account-row-{{ account.id }}">
+                {% set group = account.groupName %}
+                {% set type = account.typeName %}
+
+                <td><strong>{{ loop.index }}.</strong></td>
+
+                {% if is_transfer %}
+                    <td>
+                        <a href="{{ path('rx_client_transfer_account', { account_id: account.id }) }}" class="op-frm">{{ account.process }}</a>
+                    </td>
+                {% endif %}
+
+                <td>{{ account.activity }}</td>
+                <td>
+                    {% if (group == 'old_employer_retirement' or group == 'financial_institution') %}
+                        {% set employer_name = account.financialInstitution %}
+                    {% elseif group == 'employer_retirement' %}
+                        {% set employer_financial_institurion = account.financialInstitution | split('(') %}
+                        {% set employer_name = employer_financial_institurion[1] | trim(' )') %}
+                    {% else %}
+                        {% set employer_name = null %}
+                    {% endif %}
+
+                    {{ account.ownersAsString }} {{ employer_name ? (employer_name ~ ' ' ~ type) : type }}
+                    {% if group == 'employer_retirement' %}
+                        <br/>
+                        <sup><a class="see-investments-btn" data-url="{{ path('rx_client_portfolio_outside_funds', {'account_id': account.id}) }}" href="javascript:void(0)">(See investments ▲)</a></sup>
+                    {% endif %}
+                </td>
+                <td>${{ account.value|number_format(2, '.', ',') }}</td>
+                <td>${{ account.monthlyContributions|number_format(2, '.', ',') }}</td>
+                <td>${{ account.monthlyDistributions|number_format(2, '.', ',') }}</td>
+                {% if show_action_btn is defined %}
+                    <td>
+                        <a class="edit-account-btn" href="{{ path("rx_client_edit_account", {'id': account.id}) }}">Edit</a>
+                        |
+                        <a class="remove-account-btn" href="{{ path('rx_client_delete_account', {'id': account.id}) }}">Delete</a>
+                    </td>
+                {% endif %}
+            </tr>
+        {% endfor %}
+
+        <tr class="row-total">
+            <td colspan="{{ is_transfer ? '4' : '3' }}"></td>
+            <td class="value"><strong>${{ total.value | number_format(2, '.', ',') }}</strong></td>
+            <td class="monthly-contributions"><strong>${{ total.monthly_contributions | number_format(2, '.', ',') }}</strong></td>
+            <td class="monthly-distributions"><strong>${{ total.monthly_distributions | number_format(2, '.', ',') }}</strong></td>
+            {% if show_action_btn is defined %}
+                <td></td>
+            {% endif %}
+        </tr>
+        </tbody>
+    </table>
+{% endif %}

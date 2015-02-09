@@ -1,0 +1,107 @@
+<div class="row">
+<div class="span8 well">
+<div class="control-group row-fluid">
+    <div class="span4">
+        {{ form_label(form.account_owner_first_name, 'First Name') }}
+        {{ form_errors(form.account_owner_first_name) }}
+        {{ form_widget(form.account_owner_first_name, { 'attr': { 'class': 'input-large not-presave' } }) }}
+    </div>
+    <div class="span2">
+        {{ form_label(form.account_owner_middle_name, 'Middle Initial') }}
+        {{ form_errors(form.account_owner_middle_name) }}
+        {{ form_widget(form.account_owner_middle_name, { 'attr': { 'class': 'input-small not-presave' } }) }}
+    </div>
+    <div class="span6">
+        {{ form_label(form.account_owner_last_name, 'Last Name') }}
+        {{ form_errors(form.account_owner_last_name) }}
+        {{ form_widget(form.account_owner_last_name, { 'attr': { 'class': 'input-large  not-presave' } }) }}
+    </div>
+</div>
+
+<div class="control-group row-fluid">
+    <div class="span12">
+        <a class="add-joint-account-owner-btn" href="javascript:void(0);">+ Add another name</a>
+    </div>
+</div>
+
+<div class="control-group row-fluid joint-account-owner" style="display:none;">
+    <div class="span4">
+        {{ form_label(form.joint_account_owner_first_name, 'First Name') }}
+        {{ form_errors(form.joint_account_owner_first_name) }}
+        {{ form_widget(form.joint_account_owner_first_name, { 'attr': { 'class': 'input-large  not-presave' } }) }}
+    </div>
+    <div class="span2">
+        {{ form_label(form.joint_account_owner_middle_name, 'Middle Initial') }}
+        {{ form_errors(form.joint_account_owner_middle_name) }}
+        {{ form_widget(form.joint_account_owner_middle_name, { 'attr': { 'class': 'input-small not-presave' } }) }}
+    </div>
+    <div class="span6">
+        {{ form_label(form.joint_account_owner_last_name, 'Last Name') }}
+        {{ form_errors(form.joint_account_owner_last_name) }}
+        {{ form_widget(form.joint_account_owner_last_name, { 'attr': { 'class': 'input-large not-presave' } }) }}
+    </div>
+</div>
+
+<div class="control-group row-fluid">
+    <div class="span4">
+        {{ form_label(form.name, 'Bank Name') }}
+        {{ form_errors(form.name) }}
+        {{ form_widget(form.name, { 'attr': { 'class': 'input-large not-presave' } }) }}
+    </div>
+    <div class="span4">
+        {{ form_label(form.account_title, 'Account Title') }}
+        {{ form_errors(form.account_title) }}
+        {{ form_widget(form.account_title, { 'attr': { 'class': 'input-large  not-presave' } }) }}
+    </div>
+    <div class="span4">
+        {{ form_label(form.phone_number, 'Phone Number') }}
+        {{ form_errors(form.phone_number) }}
+        {{ form_widget(form.phone_number, { 'attr': { 'class': 'input-medium not-presave', 'data-mask-type': 'phone' } }) }}
+    </div>
+</div>
+
+<div class="control-group row-fluid">
+    <div class="span4">
+        {{ form_label(form.routing_number, 'Routing Number') }}
+        {{ form_errors(form.routing_number) }}
+        {{ form_widget(form.routing_number, { 'attr': { 'class': 'input-medium not-presave' } }) }}
+    </div>
+    <div class="span4">
+        {{ form_label(form.account_number, 'Account Number') }}
+        {{ form_errors(form.account_number) }}
+        {{ form_widget(form.account_number, { 'attr': { 'class': 'input-medium not-presave' } }) }}
+    </div>
+    <div class="span4">
+        {{ form_label(form.account_type, 'Account Type') }}
+        <div>
+            {{ form_errors(form.account_type) }}
+        </div>
+        {% for radio in form.account_type %}
+            <div class="pull-left {{ (loop.index > 1) ? 'margin-left-15' : '' }}">
+                <label for="{{ radio.vars.id }}">{{ form_widget(radio, { 'attr': { 'class': 'not-presave' } }) }}{{ radio.vars.label }}</label>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+<div class="control-group row-fluid">
+    <div class="span12">
+        {% if form.vars.data and form.vars.data.pdfDocument %}
+            {% set label = 'You have already uploaded PDF copy file. Upload new PDF copy if you want to replace it.' %}
+        {% else %}
+            {% set label = 'Please upload a PDF copy of a voided check, deposit slip, or bank statement here.' %}
+        {% endif %}
+
+        {{ form_label(form.pdfDocument.file, label) }}
+        {{ form_errors(form.pdfDocument) }}
+        {{ form_errors(form.pdfDocument.file) }}
+        {{ form_widget(form.pdfDocument.file) }}
+    </div>
+</div>
+
+</div><!--end clearfix-->
+</div><!--end clearfix-->
+
+
+
+{{ form_rest(form) }}

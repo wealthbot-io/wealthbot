@@ -1,0 +1,22 @@
+<script id="tplAccountView" type="text/template">
+    <td><%= status %></td>
+    <td><%= lastName %></td>
+    <td><%= firstName %></td>
+    <td>&mdash;</td>
+    <td><%= accountType %></td>
+    <td><%= number %></td>
+    <td>&mdash;</td>
+    <td>&mdash;</td>
+    <td><%= ceModels %></td>
+    <td>$<%= totalValue.formatMoney() %></td>
+    <td>
+        <a data-client-id="<%= client_id %>" data-id="<%= id %>" class="account-transactions">
+            <i class="glyphicon glyphicon-list" title="Account Transactions List"></i>
+        </a>
+    </td>
+    <td>
+        <a data-id="<%= id %>" href="#" class="account-settings">
+            <i class="glyphicon glyphicon-wrench"></i>
+        </a>
+    </td>
+</script>

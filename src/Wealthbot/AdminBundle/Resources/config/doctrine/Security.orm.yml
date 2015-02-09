@@ -1,0 +1,43 @@
+Wealthbot\AdminBundle\Entity\Security:
+  type: entity
+  table: securities
+  repositoryClass: Wealthbot\AdminBundle\Repository\SecurityRepository
+  fields:
+    id:
+      type: integer
+      id: true
+      generator:
+        strategy: AUTO
+    security_type_id:
+      type: integer
+      nullable: true
+    name:
+      type: string(255)
+      nullable: false
+    symbol:
+      type: string(255)
+      nullable: false
+    expense_ratio:
+      type: float
+      nullable: true
+  uniqueConstraints:
+    symbol_unique:
+      name: symbol_UNIQUE
+      columns: [ symbol ]
+  oneToMany:
+    securityAssignments:
+      targetEntity: Wealthbot\AdminBundle\Entity\SecurityAssignment
+      mappedBy: security
+      cascade: ['persist']
+    securityPrices:
+      targetEntity: Wealthbot\AdminBundle\Entity\SecurityPrice
+      mappedBy: security
+      cascade: ['persist']
+  manyToOne:
+    securityType:
+      targetEntity: Wealthbot\AdminBundle\Entity\SecurityType
+      joinColumn:
+        name: security_type_id
+        referencedColumnName: id
+        onDelete: set null
+      cascade: ['persist']

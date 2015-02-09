@@ -1,0 +1,49 @@
+{% extends 'WealthbotAdminBundle:Pas:layout.html.twig' %}
+
+{% block tab_content %}
+    <table class="table pas-sec-files">
+        <thead>
+            <th>#</th>
+            <th>RIA</th>
+            <th>Custodian</th>
+            <th>Last Name</th>
+            <th>First Name</th>
+            <th>Acct Number</th>
+            <th>Symbol</th>
+            <th>Shares Sold</th>
+            <th>Proceeds</th>
+            <th>Cost</th>
+            <th>ST Gain/Loss</th>
+            <th>LT Gain/Loss</th>
+            <th>Trading Method</th>
+            <th>Lot Open Date</th>
+            <th>Lot Close Date</th>
+            <th>CE Match</th>
+        </thead>
+        <tbody>
+            {% for row in data %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td>{{ row.ria }}</td>
+                    <td>{{ row.custodian }}</td>
+                    <td>{{ row.last_name }}</td>
+                    <td>{{ row.first_name }}</td>
+                    <td>{{ row.acct_number }}</td>
+                    <td>{{ row.symbol }}</td>
+                    <td>{{ row.shares_sold }}</td>
+                    <td>{{ row.proceeds }}</td>
+                    <td>{{ row.cost }}</td>
+                    <td>{{ row.st_gain_loss }}</td>
+                    <td>{{ row.lt_gain_loss }}</td>
+                    <td>{{ row.trading_method }}</td>
+                    <td>{{ row.lot_open_date }}</td>
+                    <td>{{ row.lot_close_date }}</td>
+                    <td>{{ row.ce_match }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <div class="pagination pagination-centered">
+        {{ knp_pagination_render(pagination) }}
+    </div>
+{% endblock %}

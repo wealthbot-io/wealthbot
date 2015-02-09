@@ -1,0 +1,354 @@
+<div class="step-four-form">
+
+    {% if app.session.started %}
+        {% for flashMessage in app.session.flashbag.get('warning_change_profile') %}
+            <div class="alert alert-error">
+                {{ flashMessage }}
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <form id="portfolio_management_form" action="{{path('rx_ria_change_profile_save_portfolio_management')}}" method="post">
+
+        <div class="span12 alertable" id="is_allow_retirement" {#code_v2: NOT DELETE THIS CODE #}style="display: none;">
+            <legend>Outside Retirement Account <a class="pop" href="#" rel="popover" title="Outside Retirement Accounts" data-content="<p>We allow you to consider client's outside retirement accounts (401k's, 403b's, TSP's, etc.) in their overall portfolio. The client will be asked to give you the various choices they have in their plan, where you can then recommend the best options.</p>"><i class="mini-color mini-ico-info-sign"></i></a></legend>
+            <div class="control-group">
+                <div class="outsideretirementaccountinfo">
+                    {{ form_label(form.is_allow_retirement_plan, 'Do you want to allow a client’s current retirement plan (401k, 403b, 457, etc.) to be considered in the plan?') }}
+                    {% if show_alerts is defined and show_alerts %}
+                        <div class="alert alert-error" id="is_allow_retirement_alert" style="display: none;">
+                            <button type="button" class="close" data-dismiss="alert">&times;</button>
+                            <strong>Warning!</strong> This will affect only new clients coming into the system. You must manually close outside retirement accounts for current clients.
+                        </div>
+                    {% endif %}
+                    <div class="controls">
+                        {{ form_errors(form.is_allow_retirement_plan) }}
+                        {% for radio in form.is_allow_retirement_plan %}
+                            <label for="{{ radio.vars.id }}" class="radio inline">{{ form_widget(radio) }} {{ radio.vars.label }}</label>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="span12 alertable" id="account_type">
+            <legend>Portfolio Management Level <a class="pop" href="#" rel="popover" title="Portfolio Management Level" data-content="<ul>
+                    <li><strong>Account Level:</strong> Each account will be managed by its own model. <i>Note-All accounts must use the same model.</i></li>
+                    <li><strong>Household Level:</strong> The accounts will be managed as a group, rebalanced against an overall model.</li>
+                    <li><strong>Client by Client Basis:</strong> You will select a level on a client by client basis when discussing the suggested portfolio with the client.</li>
+                    </ul>"><i class="mini-color mini-ico-info-sign"></i></a></legend>
+            <div class="control-group">
+                {{ form_label(form.account_managed, 'Default portfolio management level:') }}
+                <div class="alert alert-error" id="account_type_alert" style="display: none;">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    <strong>Warning!</strong> This will affect only new clients coming on the system.
+                </div>
+                <div class="controls">
+                    {{ form_errors(form.account_managed) }}
+                    {% for radio in form.account_managed %}
+                        <label for="{{ radio.vars.id }}" class="radio inline">{{ form_widget(radio) }} <span class="account-type-label">{{ radio.vars.label }}</span></label>
+                    {% endfor %}
+                </div>
+                <div class="alert alert-block" id="outside_retirement_alert_id" style="display: none;">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    <strong>Warning!</strong> Because you choice to allow outside retirement accounts within client's plans, any client who brings in an outside account
+                    will be managed at a household level, as other client's will be managed on a <span id="alert_message_account_type">Client by Client Basis</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="span12 alertable" id="municipal_bonds">
+            <legend>Municipal Bonds</legend>
+            <div class="municipal-bonds">
+                <div class="control-group use-municipal-bond">
+                    {{ form_label(form.use_municipal_bond, 'Use municipal bonds when client meets tax bracket thershold:') }}
+                    <div class="alert alert-error" id="municipal_bonds_alert" style="display: none;">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        <strong>Warning!</strong> This will affect new and current clients on the system.
+                    </div>
+                    <div class="controls">
+                        {{ form_errors(form.use_municipal_bond) }}
+                        {% for radio in form.use_municipal_bond %}
+                            <label for="{{ radio.vars.id }}" class="radio inline">{{ form_widget(radio) }} {{ radio.vars.label }}</label>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="control-group clients-tax-bracket">
+                    {{ form_label(form.clients_tax_bracket, 'Tax bracket threshold is equal to or above:') }}
+                    <div class="controls">
+                        {{ form_errors(form.clients_tax_bracket) }}
+                        {{ form_widget(form.clients_tax_bracket) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="span12 alertable" id="rebalancing_level">
+            <legend>Rebalancing Level <a class="pop" href="#" rel="popover" title="Rebalancing Level" data-content="<ul>
+                    <li><b>Asset Class Rebalancing:</b> We will only rebalance a client’s portfolio when it exceeds your thresholds or is out of target on systematic basis you want rebalanced. Asset classes are stocks and bonds. This type of rebalancing will result in less rebalances, allowing markets to move.</li>
+                    <li><b>Subclass Rebalancing:</b> We will only rebalance when a client’s subclasses are out of balance (Small Value, REITs, Short Term Bonds, etc.) This type of rebalancing will result in more rebalances.</li>
+                    </ul>"><i class="mini-color mini-ico-info-sign"></i></a></legend>
+            <div class="control-group">
+                {{ form_label(form.rebalanced_method, 'Default rebalancing level:') }}
+                <div class="alert alert-error" id="rebalancing_level_alert" style="display: none;">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    <strong>Warning!</strong> This will affect new and current clients on the system.
+                </div>
+                <div class="controls">
+                    {{ form_errors(form.rebalanced_method) }}
+                    {{ form_widget(form.rebalanced_method, { 'label_attr' : { 'class': 'radio inline'}} ) }}
+                </div>
+            </div>
+        </div>
+
+        <div class="span12 alertable" id="rebalancer_frequency">
+            <legend>Rebalancing Frequency <a class="pop" href="#" rel="popover" title="Rebalancing Frequency" data-content="<ul>
+                    <li><strong>Quarterly:</strong> We will rebalance your client portfolios around 1/1, 4/1, 7/1, and 10/1.</li>
+                    <li><strong>Semi Annually:</strong> We will rebalance your client portfolios around 1/1 and 7/1.</li>
+                    <li><strong>Annually:</strong> We will rebalance your client portfolios each year around 1/1.</li>
+                    <li><strong>+/- 10, 20, or 30%:</strong> We will rebalance when the sum of all Asset Classes or Subclasses are above the target you choose. Then, based upon your chosen Rebalancing Level, we will rebalance any Asset Classes or Subclasses that are above or below your tolerance.</li>
+                    </ul>"><i class="mini-color mini-ico-info-sign"></i></a></legend>
+            <div class="control-group">
+                {{ form_label(form.rebalanced_frequency, 'Default methodology to trigger portfolio rebalances:') }}
+                <div class="alert alert-error" id="rebalancer_frequency_alert" style="display: none;">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    <strong>Warning!</strong> This will affect new and current clients on the system.
+                </div>
+                <div class="controls">
+                    {{ form_errors(form.rebalanced_frequency) }}
+                    {{ form_widget(form.rebalanced_frequency, { 'label_attr' : { 'class': 'radio inline'}} ) }}
+                </div>
+            </div>
+            {#<div class="control-group" id="tolerance_band_container">#}
+            {#{{ form_label(form.tolerance_band, 'Indicate the tolerance band you would like implemented:') }}#}
+            {#<div class="controls">#}
+            {#{{ form_errors(form.tolerance_band) }}#}
+            {#<div class="input-append">#}
+            {#{{ form_widget(form.tolerance_band, { 'attr' : { 'class': 'input-mini auto-numeric', 'placeholder': '00.00'}} ) }}#}
+            {#<span class="add-on">%</span>#}
+            {#</div>#}
+            {#</div>#}
+            {#</div>#}
+        </div>
+
+        <div class="span12 alertable" id="transactions_settings">
+            <legend>Transactions</legend>
+
+            <div class="alert alert-error" id="transactions_settings_alert" style="display: none;">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <strong>Warning!</strong> This will affect new and current clients on the system.
+            </div>
+
+            <div class="control-group transaction-amount">
+                {{ form_label(form.transaction_amount, 'Transaction minimum on a per trade basis. Choose dollar amount or percentage of account. System uses lesser of both.') }}
+                <div class="input-prepend">
+                    <span class="add-on">$</span>
+                    {{ form_widget(form.transaction_amount, {'attr': {'class': 'input-mini auto-numeric'}}) }}
+                </div>
+                <span class="middle">or</span>
+                <div class="input-append">
+                    {{ form_widget(form.transaction_amount_percent, { 'attr' : { 'class': 'input-mini auto-numeric', 'placeholder': '00.00'}} ) }}
+                </div>
+            </div>
+
+            <div class="control-group is-transaction-fees">
+                {{ form_label(form.is_transaction_fees, 'Consider transaction fees in rebalancing calculations:') }}
+                <div class="controls">
+                    {{ form_errors(form.is_transaction_fees) }}
+                    {% for radio in form.is_transaction_fees %}
+                        <label for="{{ radio.vars.id }}" class="radio inline">{{ form_widget(radio) }} {{ radio.vars.label }}</label>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="control-group is-transaction-minimums">
+                {{ form_label(form.is_transaction_minimums, 'Specific buy and sell minimums for securities:') }}
+                <div class="controls">
+                    {{ form_errors(form.is_transaction_minimums) }}
+                    {% for radio in form.is_transaction_minimums %}
+                        <label for="{{ radio.vars.id }}" class="radio inline">{{ form_widget(radio) }} {{ radio.vars.label }}</label>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="control-group is-transaction-redemption-fees">
+                {{ form_label(form.is_transaction_redemption_fees, 'Consider redemption fees in rebelancing calculations:') }}
+                <div class="controls">
+                    {{ form_errors(form.is_transaction_redemption_fees) }}
+                    {% for radio in form.is_transaction_redemption_fees %}
+                        <label for="{{ radio.vars.id }}" class="radio inline">{{ form_widget(radio) }} {{ radio.vars.label }}</label>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <div class="span12 alertable" id="tax_loss_harvesting">
+            <legend>Tax Loss Harvesting</legend>
+            <div class="tax-loss-harvesting">
+                <div class="control-group">
+
+                    <div class="alert alert-error" id="tax_loss_harvesting_alert" style="display: none;">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        <strong>Warning!</strong> This will affect new and current clients on the system.
+                    </div>
+
+                    {{ form_label(form.is_tax_loss_harvesting, 'Provide automated and opportunistic tax loss harvesting:') }}
+                    <div class="controls use-tlh-radio">
+                        {{ form_errors(form.is_tax_loss_harvesting) }}
+                        {% for radio in form.is_tax_loss_harvesting%}
+                            <label for="{{ radio.vars.id }}" class="radio inline">{{ form_widget(radio) }} {{ radio.vars.label }}</label>
+                        {% endfor %}
+                    </div>
+
+                    <div class="tax-loss-harvesting-controls" style="{{ form.is_tax_loss_harvesting.vars.data ? '' : 'display:none; '}}">
+
+                        <div class="control-group">
+                            {{ form_label(form.tax_loss_harvesting_percent, 'Tax loss harvest when client tax bracket is equal to or above:') }}
+                            <div class="controls">
+                                {{ form_errors(form.tax_loss_harvesting_percent) }}
+                                <div class="input-append">
+                                    {{ form_widget(form.tax_loss_harvesting_percent, {'attr': {'class': 'input-mini auto-numeric', 'placeholder': '00.00'}}) }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="clearfix"></div>
+
+                        <div class="control-group">
+                            {{ form_label(form.tax_loss_harvesting, 'Minimum client relationship value for tax loss harvesting:') }}
+                            <div class="controls">
+                                {{ form_errors(form.tax_loss_harvesting) }}
+                                <div class="input-prepend">
+                                    <span class="add-on">$</span>
+                                    {{ form_widget(form.tax_loss_harvesting, { 'attr' : { 'class': 'input-mini auto-numeric', 'placeholder': '00.00'}} ) }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="clearfix"></div>
+
+                        <div class="control-group">
+                            {{ form_label(form.tax_loss_harvesting_minimum_percent, 'Minimum tax lot loss percentage and dollar value:') }}
+                            <div class="controls">
+                                {{ form_errors(form.tax_loss_harvesting_minimum_percent) }}
+                                {{ form_errors(form.tax_loss_harvesting_minimum) }}
+                                <div class="input-append">
+                                    {{ form_widget(form.tax_loss_harvesting_minimum_percent, {'attr': {'class': 'input-mini auto-numeric', 'placeholder': '00.00'}}) }}
+                                </div>
+                                <span class="middle">and</span>
+                                <div class="input-prepend">
+                                    <span class="add-on">$</span>
+                                    {{ form_widget(form.tax_loss_harvesting_minimum, { 'attr' : { 'class': 'input-mini auto-numeric', 'placeholder': '00.00'}} ) }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="clearfix"></div>
+
+                        <div class="control-group">
+                            {{ form_label(form.stop_tlh_value, 'Stop tax loss harvesting when losses for a client reach the following value (yearly basis):') }}
+                            <div class="controls">
+                                {{ form_errors(form.stop_tlh_value) }}
+                                <div class="input-prepend">
+                                    <span class="add-on">$</span>
+                                    {{ form_widget(form.stop_tlh_value, {'attr': {'class': 'input-mini auto-numeric', 'placeholder': '00.00'}}) }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="clearfix"></div>
+
+                        <div class="control-group">
+                            {{ form_label(form.tlh_buy_back_original, 'Automatically buy back original security after 31 days:') }}
+                            <div class="controls">
+                                {{ form_errors(form.tlh_buy_back_original) }}
+                                {% for radio in form.tlh_buy_back_original%}
+                                    <label for="{{ radio.vars.id }}" class="radio inline">{{ form_widget(radio) }} {{ radio.vars.label }}</label>
+                                {% endfor %}
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {% if (form.subclasses is defined) %}
+            {% if form.subclasses|length > 0 and not isCustomModel %}
+                <div style="display: none;">
+                    <div class="span12 asset-block alertable" id="asset_block">
+                        <legend>Expected Asset Returns & Asset Location Optimization</legend>
+                        <div class="alert alert-error" id="asset_block_alert" style="display: none;">
+                            <button type="button" class="close" data-dismiss="alert">&times;</button>
+                            <strong>Warning!</strong> This will affect only new clients coming into the system.
+                        </div>
+                    <span class="help-block">
+                        <ol>
+                            <li class="message-1">We assume the following returns over the next 30 years for the following asset classes, please edit the returns if you choose.</li>
+                            <li class="message-2">If you choose to have some clients’ households managed on a household level, please choose your preference for where certain asset classes should be held. <a class="pop" href="#" rel="popover" title="Asset Location Optimization" data-placement="top" data-content="<p>
+                        You're able to override our default choices for where certain asset classes should be held. Client's can benefit from having more tax sensitive asset classes held in tax-free and tax-deferred accounts.
+                        </p>"><i class="mini-color mini-ico-info-sign"></i></a></li>
+                        </ol>
+                    </span>
+                        <div class="control-group">
+                            <div class="controls">
+                                <table class="table asset-settings-table shadow">
+                                    <thead>
+                                    <tr>
+                                        <th>Subclass</th>
+                                        <th>Expected Performance</th>
+                                        <th>Account Type</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody id="form_subclass_container" data-complete-url="{{ path('rx_ria_profile_complete_subclasses') }}">
+                                    {% for item in form.subclasses %}
+                                        <tr>
+                                            <td>
+                                                {{ item.get('value').name }}
+                                            </td>
+                                            <td class="expected-performance">
+                                                {{ form_errors(item.expected_performance) }}
+                                                <div class="input-append">
+                                                    {{ form_widget(item.expected_performance, {'attr': {'class': 'auto-numeric'}}) }}
+                                                    <span class="add-on">%</span>
+                                                </div>
+                                            </td>
+                                            <td class="account-type">
+                                                {{ form_errors(item.accountType) }}
+                                                {{ form_widget(item.accountType) }}
+                                            </td>
+                                        </tr>
+
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        {% endif %}
+
+        {{ form_widget(form._token) }}
+        <div class="span12">
+            <div class="form-actions">
+                <button type="submit" class="btn btn-ajax" data-loading-text="Saving...">Save</button>
+            </div>
+        </div>
+
+        {% if app.request.isXmlHttpRequest == true %}
+            {% javascripts
+            '@WealthbotRiaBundle/Resources/public/js/ria.portfolio.management.js'
+            %}
+            <script src="{{ asset_url }}"></script>
+            {% endjavascripts %}
+
+            <script type="text/javascript">
+                $(function(){
+                    $('.pop').popover();
+                });
+            </script>
+        {% endif %}
+
+    </form>
+</div>

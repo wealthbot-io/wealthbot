@@ -1,0 +1,64 @@
+<ul class="account-signature-list margin-left-70">
+    {% for account in accounts %}
+        {% set group = account.groupName %}
+        {% set type = account.typeName %}
+
+        {% spaceless %}
+            <li data-application="{{ account.id }}">
+                {% if (group == 'old_employer_retirement' or group == 'financial_institution')%}
+                    {% set employer_name = account.financialInstitution %}
+                {% elseif group == 'employer_retirement' %}
+                    {% set employer_financial_institurion = account.financialInstitution | split('(') %}
+                    {% set employer_name = employer_financial_institurion[1] | trim(' )') %}
+                {% else %}
+                    {% set employer_name = null %}
+                {% endif %}
+
+                {% if is_application_signed(account) %}
+                    <span class="account-status-lnk completed">{{ company_information.name }}'s Document Packet</span>
+                {% else %}
+                    <a class="electronically-signing-btn" href="javascript:void(0);" data-url="{{ path('wealthbot_docusign_application_sign', { account_id: account.id }) }}">
+                        {{ company_information.name }}'s Document Packet
+                    </a>
+                {% endif %}
+            </li>
+        {% endspaceless %}
+    {% endfor %}
+</ul>
+<p class="help-info margin-left-5">*You will be brought to a third party site which will navigate you to each signature line.</p>
+
+{#{% if application_signatures is not empty %}#}
+    {#<ol class="account-signature-list" type="1">#}
+        {#{% for signature in application_signatures %}#}
+            {#{% set source = document_signature_source(signature)  %}#}
+            {#{% set account = source.clientAccount %}#}
+            {#{% set group = account.groupName %}#}
+            {#{% set type = account.typeName %}#}
+
+            {#{% spaceless %}#}
+                {#<li data-signature="{{ signature.id }}">#}
+                    {#{% if (group == 'old_employer_retirement' or group == 'financial_institution')%}#}
+                        {#{% set employer_name = account.financialInstitution %}#}
+                    {#{% elseif group == 'employer_retirement' %}#}
+                        {#{% set employer_financial_institurion = account.financialInstitution | split('(') %}#}
+                        {#{% set employer_name = employer_financial_institurion[1] | trim(' )') %}#}
+                    {#{% else %}#}
+                        {#{% set employer_name = null %}#}
+                    {#{% endif %}#}
+
+                    {#{% if is_signature_completed(signature) %}#}
+                        {#<span class="account-status-lnk completed">#}
+                            {#{{ document_signature_activity(signature) }} - {{ account.ownersAsString }} [{{ employer_name ? (employer_name ~ ' ' ~ type) : type }}]#}
+                        {#</span>#}
+                    {#{% else %}#}
+                        {#<a class="electronically-signing-btn" href="javascript:void(0)" data-url="{{ path('wealthbot_docusign_sign', { signature_id: signature.id }) }}">#}
+                            {#{{ document_signature_activity(signature) }} - {{ account.ownersAsString }} [{{ employer_name ? (employer_name ~ ' ' ~ type) : type }}]#}
+                        {#</a>#}
+                    {#{% endif %}#}
+                {#</li>#}
+            {#{% endspaceless %}#}
+        {#{% endfor %}#}
+    {#</ol>#}
+{#{% else %}#}
+    {#<p class="empty">No applications.</p>#}
+{#{% endif %}#}

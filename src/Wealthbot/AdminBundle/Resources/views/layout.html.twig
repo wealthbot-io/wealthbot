@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>
+        {%- if block('title') -%}
+            {{ block('title') }} | wealthbot.io
+        {%- else -%}
+            wealthbot.io
+        {%- endif -%}
+    </title>
+
+    <link rel="stylesheet" href="/css/bootstrap.css">
+    <link rel="stylesheet" href="/css/bootstrap-responsive.css">
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/admin-styles.css">
+
+    {% block stylesheets %}
+        <link rel="stylesheet" href="/css/jquery-ui-1.9.2.custom.min.css"/>
+    {% endblock %}
+
+    <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" />
+</head>
+<body>
+
+
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </a>
+            <a class="brand" href="{{path('rx_admin_homepage')}}">wealthbot.io</a>
+            <div class="nav-collapse collapse">
+                <ul class="nav">
+                    <li {{ app.request.attributes.get('_route') == 'rx_admin_homepage' ? 'class="active"' : '' }}>
+                        <a href="{{ path('rx_admin_homepage') }}">Home</a>
+                    </li>
+                    <li class="divider-vertical"></li>
+                    <li><a href="{{ path('rx_admin_ria_index') }}">Advisors</a></li>
+                    <li class="divider-vertical"></li>
+                    <li><a href="{{ path('rx_admin_clients_index') }}">Clients</a></li>
+                    <li class="divider-vertical"></li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#1">
+                            PAS <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">Action</a></li>
+                            <li><a href="{{ path('rx_admin_pas_interfaces_file_index') }}">Interfaces</a></li>
+                            <li><a href="{{ path('rx_admin_securities') }}">Securities</a></li>
+                            <li><a href="{{ path('rx_admin_billing') }}">Billing</a></li>
+                        </ul>
+                    </li>
+                    <li class="divider-vertical"></li>
+                    <li><a href="{{ path('rx_admin_rebalancer') }}">Rebalancer</a></li>
+                    <li class="divider-vertical"></li>
+                    <li><a href="{{ path('rx_admin_custodians') }}">Custodians</a></li>
+                    <li class="divider-vertical"></li>
+                    {#<li {{ app.request.attributes.get('_route') == 'rx_admin_models' ? 'class="active"' : '' }}>
+                        <a href="{{ path('rx_admin_models') }}">Models</a>
+                    </li>
+                    <li class="divider-vertical"></li>
+                    <li {{ app.request.attributes.get('_route') == 'rx_admin_risks' ? 'class="active"' : '' }}>
+                        <a href="{{ path('rx_admin_risks') }}">Risks</a>
+                    </li>
+                    <li class="divider-vertical"></li>#}
+                    <li {{ app.request.attributes.get('_route') == 'rx_admin_general_settings' ? 'class="active"' : '' }}>
+                        <a href="{{ path('rx_admin_general_settings') }}">Settings</a>
+                    </li>
+                    <li class="divider-vertical"></li>
+                    <li><a href="{{ path('rx_admin_users') }}">Admin</a></li>
+                </ul>
+
+                {% if is_granted('ROLE_ADMIN') %}
+                    <div class="btn-group pull-right">
+                        <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+                            <i class="icon-user"></i> {{ app.user.username }}	<span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#"><i class="icon-wrench"></i> Settings</a></li>
+                            <li class="divider"></li>
+                            <li><a href="{{ path('rx_admin_logout') }}"><i class="icon-share"></i> Logout</a></li>
+                        </ul>
+                    </div>
+                {% endif %}
+            </div><!--/.nav-collapse -->
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid" style="margin-top: 50px;">
+    {% block flash_messages %}
+        {% for type, flashMessages in app.session.flashbag.all() %}
+            {% for flashMessage in flashMessages %}
+                <div class="alert alert-{{ type }}">
+                    {{ flashMessage }}
+                    <a class="close" data-dismiss="alert" href="#">&times;</a>
+                </div>
+            {% endfor %}
+        {% endfor %}
+    {% endblock %}
+
+    {% block body %}{% endblock %}
+</div>
+
+{% block modal_dialog %}
+    <div id="modal_dialog" class="modal hide longModal">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h3></h3>
+        </div>
+        <div class="modal-body">
+
+        </div>
+        <div class="modal-footer">
+            <button type="submit" class="btn save-modal-form-btn">Save</button>
+            <a href="#" class="btn" data-dismiss="modal" aria-hidden="true">Cancel</a>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script type="text/javascript" src="/js/jquery.form.js"></script>
+    <script type="text/javascript" src="/js/jquery.autoNumeric.js"></script>
+    <script type="text/javascript" src="/js/jquery.placeholder.min.js"></script>
+    <script type="text/javascript" src="/js/jquery-ui-1.9.2.custom.min.js"></script>
+    <script type="text/javascript" src="/js/inputmask/jquery.inputmask.js"></script>
+    <script type="text/javascript" src="/js/inputmask/jquery.inputmask.extensions.js"></script>
+    <script type="text/javascript" src="/js/custom.js"></script>
+    <script type="text/javascript" src="/js/bootstrap.min.js"></script>
+
+    <script src="/js/backbone.marionette/underscore.js"></script>
+    <script src="/js/backbone.marionette/backbone.js"></script>
+    <script src="/js/backbone.marionette/backbone.marionette.js"></script>
+    <script src="/js/src/app.js"></script>
+    <script src="/js/src/plugin/backbone.alert.js"></script>
+    <script src="/js/src/plugin/errorHandler.js"></script>
+    <script src="/js/src/util/util.js"></script>
+
+    <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+    <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
+{% endblock %}
+</body>
+</html>

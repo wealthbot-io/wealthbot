@@ -1,0 +1,5 @@
+<li class="beneficiary-item" data-item="{{ beneficiary.id }}">
+    Beneficiary: {{ beneficiary.firstName }} {{ beneficiary.lastName }} {{ beneficiary.relationship }} {{ beneficiary.share }}% share of assets
+    <a class="delete-beneficiary-btn" href="{{ path('rx_client_dashboard_delete_beneficiary', {'account_id': account.id, 'beneficiary_id': beneficiary.id}) }}">Delete</a>
+    or <a class="edit-beneficiary-btn" href="{{ path('rx_client_dashboard_edit_beneficiary', {'account_id': account.id, 'beneficiary_id': beneficiary.id}) }}">Edit</a>
+</li>

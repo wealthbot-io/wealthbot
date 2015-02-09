@@ -1,0 +1,12 @@
+<form method="post" action="{{
+        path('rx_ria_dashboard_household_settings_billing', {
+            'client_id': app.request.get('client_id')
+        })
+    }}">
+    {{ form_errors(form) }}
+
+    {{ form_row(form.billingSpec) }}
+    {{ form_row(form.paymentMethod) }}
+
+    {{ form_rest(form) }}
+</form>

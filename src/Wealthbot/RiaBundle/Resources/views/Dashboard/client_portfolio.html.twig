@@ -1,0 +1,21 @@
+{% extends 'WealthbotRiaBundle:Dashboard:show_client.html.twig' %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    {% javascripts '@WealthbotRiaBundle/Resources/public/js/ria.dashboard.clientPortfolio.js' %}
+        <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock %}
+
+{% block client_menu %}
+    {% include 'WealthbotClientBundle:Dashboard:_nav.html.twig' with {
+        'action' : 'Account Management', 'is_client_view': false
+    } %}
+{% endblock %}
+
+{% block content %}
+    {% render 'WealthbotClientBundle:Dashboard:accountManagement' with {
+        'active_tab': 'your_portfolio', 'is_clear_layout': true
+    } %}
+{% endblock %}

@@ -1,0 +1,48 @@
+{% extends 'WealthbotAdminBundle:Pas:layout.html.twig' %}
+
+{% block tab_content %}
+    {% if data is empty %}
+        <div class="center-text">
+            No data.
+        </div>
+    {% else %}
+        <table class="table pas-sec-files">
+            <thead>
+                <th>#</th>
+                <th>RIA</th>
+                <th>Custodian</th>
+                <th>Last Name</th>
+                <th>First Name</th>
+                <th>Acct Number</th>
+                <th>Symbol</th>
+                <th>Submitted Action</th>
+                <th>Executed Action</th>
+                <th>Submitted Amount</th>
+                <th>Executed Amount</th>
+            </thead>
+            <tbody>
+                {% for row in data %}
+                    <tr>
+                        <td>{{ loop.index }}</td>
+                        <td>{{ row.ria }}</td>
+                        <td>{{ row.custodian }}</td>
+                        <td>{{ row.last_name }}</td>
+                        <td>{{ row.first_name }}</td>
+                        <td>{{ row.acct_number }}</td>
+                        <td>{{ row.symbol }}</td>
+                        <td>{{ row.submitted_action }}</td>
+                        <td>{{ row.executed_action }}</td>
+                        <td>{{ row.submitted_amount }}</td>
+                        {% if row.error %}
+                            <td class="error">
+                        {% else %}
+                            <td>
+                        {% endif %}
+                            {{ row.executed_amount }}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends 'WealthbotAdminBundle:Pas:layout.html.twig' %}
+
+{% block tab_content %}
+    <table class="table pas-sec-files">
+        <thead>
+            <th>#</th>
+            <th>RIA</th>
+            <th>Last Name</th>
+            <th>First Name</th>
+            <th>Acct Number</th>
+            <th>Type</th>
+        </thead>
+        <tbody>
+            {% for row in data %}
+                <tr {% if row.warning %}class="warning"{% endif %}>
+                    <td>{{ loop.index }}</td>
+                    <td>{{ row.ria }}</td>
+                    <td>{{ row.last_name }}</td>
+                    <td>{{ row.first_name }}</td>
+                    <td>{{ row.acct_number }}</td>
+                    <td>{{ row.type }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

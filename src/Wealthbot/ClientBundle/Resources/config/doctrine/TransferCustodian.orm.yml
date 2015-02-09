@@ -1,0 +1,22 @@
+Wealthbot\ClientBundle\Entity\TransferCustodian:
+    type: entity
+    table: transfer_custodians
+    repositoryClass: Wealthbot\ClientBundle\Repository\TransferCustodianRepository
+    fields:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+        name:
+            type: string
+            length: 40
+    uniqueConstraints:
+        name_unique:
+            name: name_UNIQUE
+            columns: [ name ]
+    oneToOne:
+        transferCustodianQuestion:
+            targetEntity: Wealthbot\ClientBundle\Entity\TransferCustodianQuestion
+            mappedBy: transferCustodian
+            cascade: ['persist']

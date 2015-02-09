@@ -1,0 +1,72 @@
+{% extends 'WealthbotRiaBundle:Dashboard:index.html.twig' %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script type="text/javascript" src="/js/inputmask/jquery.inputmask.js"></script>
+    <script type="text/javascript" src="/js/inputmask/jquery.inputmask.extensions.js"></script>
+
+    {% javascripts
+        '@WealthbotRiaBundle/Resources/public/js/ria.fees.table.js'
+        '@WealthbotRiaBundle/Resources/public/js/ria.portfolio.management.js'
+        '@WealthbotRiaBundle/Resources/public/js/ria.change_profile.js'
+    %}
+        <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock %}
+
+{% block main_content %}
+    <h1>Admin Settings</h1>
+
+    <ul class="nav nav-tabs" id="myTab">
+        <li class="{{ active_tab == 'company_profile' ? 'active' : '' }}">
+            <a data-toggle="tab" href="#company_profile">Company Profile</a>
+        </li>
+        {#<li class="{{ active_tab == 'billing' ? 'active' : '' }}">
+            <a data-toggle="tab" href="#billing">Billing and Accounts</a>
+        </li>#}
+        <li class="{{ active_tab == 'rebalancing' ? 'active' : '' }}">
+            <a data-toggle="tab" href="#rebalancing">Rebalancing</a>
+        </li>
+        <li class="{{ active_tab == 'proposals' ? 'active' : '' }}">
+            <a data-toggle="tab" href="#proposals">Proposals</a>
+        </li>
+        <li class="{{ active_tab == 'custodians' ? 'active' : '' }}">
+            <a data-toggle="tab" href="#custodians">Custodians</a>
+        </li>
+        {#<li class="{{ active_tab == 'documents' ? 'active' : '' }}">
+            <a data-toggle="tab" href="#documents">Documents</a>
+        </li>#}
+    </ul>
+
+    <div class="tab-content change-profile">
+        <div class="tab-pane {{ active_tab == 'company_profile' ? 'active' : '' }}" id="company_profile">
+            {% include 'WealthbotRiaBundle:ChangeProfile:_company_profile_form.html.twig' with { 'form': companyForm } %}
+        </div>
+        {#<div class="tab-pane {{ active_tab == 'billing' ? 'active' : '' }}" id="billing">
+            {% include 'WealthbotRiaBundle:ChangeProfile:_billing_n_accounts_form.html.twig' with {
+                'form': billingAndAccountsForm,
+                'show_alerts': true
+            }  %}
+        </div>#}
+        <div class="tab-pane {{ active_tab == 'rebalancing' ? 'active' : '' }}" id="rebalancing">
+            {% include 'WealthbotRiaBundle:ChangeProfile:_rebalancing_form.html.twig' with {
+                'form': portfolioManagementForm,
+                'company_information': company_information
+            } %}
+        </div>
+        <div class="tab-pane {{ active_tab == 'proposals' ? 'active' : '' }}" id="proposals">
+            {% include 'WealthbotRiaBundle:ChangeProfile:_proposal_form.html.twig' with {'form': proposal_form} %}
+        </div>
+        <div class="tab-pane {{ active_tab == 'custodians' ? 'active' : '' }}" id="custodians">
+            {% render "WealthbotRiaBundle:ChangeProfile:custodianTab" %}
+        </div>
+        {#<div class="tab-pane {{ active_tab == 'documents' ? 'active' : '' }}" id="documents">
+            {% include 'WealthbotRiaBundle:ChangeProfile:_documents.html.twig' with {
+                'form': documents_form,
+                'admin_documents': admin_documents,
+                'documents': documents
+            } %}
+        </div>#}
+    </div>
+{% endblock %}

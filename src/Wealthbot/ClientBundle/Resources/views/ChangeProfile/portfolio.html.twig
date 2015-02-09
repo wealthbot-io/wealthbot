@@ -1,0 +1,18 @@
+{% if portfolio_information %}
+    {% include 'WealthbotClientBundle:Portfolio:_portfolio.html.twig' with {
+        'portfolio_information': portfolio_information,
+        'ria_company_information': ria_company_information,
+        'has_retirement_account': has_retirement_account,
+        'action': action
+    } %}
+
+    {% include 'WealthbotClientBundle:Portfolio:_accounts_list.html.twig' with {
+        'client': client,
+        'client_accounts': client_accounts,
+        'total': total,
+        'with_edit': false,
+        'show_sas_cash': show_sas_cash
+    } %}
+{% else %}
+    <p class="empty">Portfolio doesn't exist.</p>
+{% endif %}

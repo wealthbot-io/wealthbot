@@ -1,0 +1,46 @@
+{{ form_errors(form) }}
+
+<div class="control-group">
+    {{ form_label(form.first_name) }}
+    <div>
+        {{ form_errors(form.first_name) }}
+        {{ form_widget(form.first_name) }}
+    </div>
+</div>
+
+<div class="control-group">
+    {{ form_label(form.last_name) }}
+    <div>
+        {{ form_errors(form.last_name) }}
+        {{ form_widget(form.last_name) }}
+    </div>
+</div>
+
+<div class="control-group">
+    {{ form_label(form.email) }}
+    <div>
+        {{ form_errors(form.email) }}
+        {{ form_widget(form.email) }}
+    </div>
+</div>
+
+<div class="control-group">
+    {{ form_label(form.groups) }}
+    <div>
+        {{ form_errors(form.groups) }}
+        {{ form_widget(form.groups) }}
+    </div>
+</div>
+
+<div class="control-group">
+    {{ form_label(form.type) }}
+    <div>
+        {{ form_errors(form.type) }}
+        {{ form_widget(form.type) }}
+    </div>
+</div>
+
+
+{{ form_rest(form) }}
+
+<input class="btn" type="submit" value="Send Invite">

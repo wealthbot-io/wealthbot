@@ -1,0 +1,20 @@
+<div class="tabbable">
+    <ul class="nav nav-pills">
+        <li class="active">
+            <a href="#settings_tab1" data-toggle="tab">Information</a>
+        </li>
+        <li><a href="#settings_tab2" data-toggle="tab">Portfolio</a></li>
+        <li><a href="#settings_tab3" data-toggle="tab">Accounts</a></li>
+    </ul>
+    <div class="tab-content">
+        <div id="settings_tab1" class="tab-pane active">
+            {% include 'WealthbotAdminBundle:Client:_client_settings_information.html.twig' with { 'client': client } %}
+        </div>
+        <div id="settings_tab2" class="tab-pane">
+            {% include 'WealthbotAdminBundle:Client:_client_settings_portfolio.html.twig' with { 'questionnaire_answers': questionnaire_answers } %}
+        </div>
+        <div id="settings_tab3" class="tab-pane">
+            {% include 'WealthbotAdminBundle:Client:_client_settings_accounts.html.twig' with { 'client': client, 'retirement_accounts': retirement_accounts } %}
+        </div>
+    </div>
+</div>

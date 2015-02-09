@@ -1,0 +1,27 @@
+{% extends 'WealthbotAdminBundle::layout.html.twig' %}
+
+{% block body %}
+    <h1>Risk Profiling Methodology</h1>
+
+    <ol type="1" class="questions-list">
+        {% for question in questions %}
+            {% include 'WealthbotAdminBundle:Risks:_question_row.html.twig' with { 'question': question } %}
+        {% endfor %}
+    </ol>
+
+    {% if is_permitted('edit') %}
+        <div class="new-question">
+            <a class="create-question-btn btn" href="{{ path('rx_admin_risks_create_question') }}">New Question</a>
+        </div>
+    {% endif %}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script type="text/javascript" src="/js/jquery-ui-1.9.2.custom.min.js"></script>
+
+    {% javascripts '@WealthbotAdminBundle/Resources/public/js/admin.risk_questions.js' %}
+        <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock %}

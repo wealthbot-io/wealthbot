@@ -1,0 +1,54 @@
+Wealthbot\SignatureBundle\Entity\DocumentOwnerSignature:
+    type: entity
+    table: document_owner_signatures
+    repositoryClass: Wealthbot\SignatureBundle\Repository\DocumentOwnerSignatureRepository
+    fields:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+        document_signature_id:
+            type: integer
+        owner_client_user_id:
+            type: integer
+            nullable: true
+        owner_contact_id:
+            type: integer
+            nullable: true
+        status:
+            type: string
+            length: 45
+        created:
+            type: date
+            gedmo:
+                timestampable:
+                    on: create
+        updated:
+            type: datetime
+            gedmo:
+                timestampable:
+                    on: update
+    manyToOne:
+        documentSignature:
+            targetEntity: Wealthbot\SignatureBundle\Entity\DocumentSignature
+            inversedBy: ownerSignatures
+            joinColumn:
+                name: document_signature_id
+                referencedColumnName: id
+                onDelete: cascade
+            cascade: ['persist']
+        clientOwner:
+            targetEntity: Wealthbot\UserBundle\Entity\User
+            joinColumn:
+                name: owner_client_user_id
+                referencedColumnName: id
+                onDelete: cascade
+            cascade: ['persist']
+        contactOwner:
+            targetEntity: Wealthbot\ClientBundle\Entity\ClientAdditionalContact
+            joinColumn:
+                name: owner_contact_id
+                referencedColumnName: id
+                onDelete: cascade
+            cascade: ['persist']

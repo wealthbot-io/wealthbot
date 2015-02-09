@@ -1,0 +1,30 @@
+Wealthbot\ClientBundle\Entity\PortfolioTwrValue:
+    type: entity
+    table: portfolio_twr_values
+    repositoryClass: Wealthbot\ClientBundle\Repository\PortfolioTwrValueRepository
+    fields:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+        netValue:
+            type: float
+            nullable: true
+            column: net_value
+        grossValue:
+            type: float
+            nullable: true
+            column: gross_value
+        date:
+            type: date
+            nullable: true
+    manyToOne:
+        client:
+            targetEntity: Wealthbot\UserBundle\Entity\User
+            joinColumn:
+                name: client_id
+                referencedColumnName: id
+                onDelete: cascade
+            inversedBy: systemAccounts
+            cascade: ['persist']

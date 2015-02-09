@@ -1,0 +1,9 @@
+{% if form.delivering_account_title is defined %}
+    <li class="account-discrepancies">
+        <h5>Discrepancies of Account Name and Type</h5>
+        <div>
+            <p>If the account you are transferring is not like titled, please complete the following authorization. We hereby authorize a transfer from the account of</p>
+            <p>{{ form_errors(form.delivering_account_title) }}{{ form_widget(form.delivering_account_title) }} To the account at TD Ameritrade for {{ form_errors(form.ameritrade_account_title) }}{{ form_widget(form.ameritrade_account_title) }}</p>
+        </div>
+    </li>
+{% endif %}

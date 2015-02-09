@@ -1,0 +1,11 @@
+{% block subject %}
+    {% autoescape false %}
+    {{ 'Ria activated' }}
+    {% endautoescape %}
+{% endblock %}
+{% block body_text %}
+    {% autoescape false %}
+    {{ 'Ria "%firmname%" is ready for activation!' | trans({'%firmname%': company_information.name}) }}
+    {% endautoescape %}
+{% endblock %}
+{% block body_html %}{% endblock %}

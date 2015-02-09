@@ -1,0 +1,7 @@
+{% for type in types %}
+    <div>
+        <label class="checkbox" for="{{ type.get('id') }}">
+            {{ form_widget(type) }} {{ type.vars.label }}
+        </label>
+    </div>
+{% endfor %}

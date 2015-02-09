@@ -1,0 +1,66 @@
+Wealthbot\ClientBundle\Entity\Workflow:
+    type: entity
+    table: workflow
+    repositoryClass: Wealthbot\ClientBundle\Repository\WorkflowRepository
+    fields:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+        type:
+            type: smallint
+            nullable: false
+        object_id:
+            type: integer
+            nullable: true
+        object_ids:
+            type: array
+            nullable: true
+        object_type:
+            type: string(255)
+            nullable: false
+        message:
+            type: string(255)
+            nullable: true
+        message_code:
+            type: string(3)
+        note:
+            type: string(1000)
+            nullable: true
+        status:
+            type: smallint
+        client_status:
+            type: smallint
+        is_archived:
+            type: boolean
+            nullable: false
+        amount:
+            tyle: float
+            nullable: true
+        submitted:
+            type: datetime
+            gedmo:
+                timestampable:
+                    on: create
+    manyToOne:
+        client:
+            targetEntity: Wealthbot\UserBundle\Entity\User
+            joinColumn:
+                name: client_user_id
+                referencedColumnName: id
+                onDelete: cascade
+            cascade: ['persist']
+    manyToMany:
+        documentSignatures:
+            targetEntity: Wealthbot\SignatureBundle\Entity\DocumentSignature
+            joinTable:
+                name: workflow_document_signatures
+                joinColumns:
+                    workflow_id:
+                        referencedColumnName: id
+                inverseJoinColumns:
+                    document_signature_id:
+                        referencedColumnName: id
+                        unique: true
+            cascade: ['persist']

@@ -1,0 +1,92 @@
+parameters:
+#   wealthbot_mailer.example.class: Wealthbot\MailerBundle\Example
+    wealthbot_mailer.default.mailer.from_email: 'noreply@wealthbot.io'
+    wealthbot_mailer.template.admin.ria_activated: 'WealthbotMailerBundle:Admin:ria_activated.html.twig'
+    wealthbot_mailer.template.ria.not_finished_registration: 'WealthbotMailerBundle:Ria:not_finished_registration.html.twig'
+    wealthbot_mailer.template.ria.change_password: 'WealthbotMailerBundle:Ria:change_password.html.twig'
+    wealthbot_mailer.template.ria.ria_user_reset_password: 'WealthbotMailerBundle:Ria:ria_user_reset_password.html.twig'
+    wealthbot_mailer.template.ria.ria_user_create: 'WealthbotMailerBundle:Ria:ria_user_create.html.twig'
+    wealthbot_mailer.template.ria.client_suggested_portfolio: 'WealthbotMailerBundle:Ria:client_suggested_portfolio.html.twig'
+    wealthbot_mailer.template.ria.client_closed_accounts: 'WealthbotMailerBundle:Ria:client_closed_accounts.html.twig'
+    wealthbot_mailer.template.ria.activated: 'WealthbotMailerBundle:Ria:activated.html.twig'
+    wealthbot_mailer.template.client.not_finished_registration: 'WealthbotMailerBundle:Client:not_finished_registration.html.twig'
+    wealthbot_mailer.template.client.not_approved_portfoilio: 'WealthbotMailerBundle:Client:not_approved_portfolio.html.twig'
+    wealthbot_mailer.template.client.not_completed_all_applications: 'WealthbotMailerBundle:Client:not_completed_all_applications.html.twig'
+    wealthbot_mailer.template.client.rollover_instruction_401: 'WealthbotMailerBundle:Client:rollover_instruction_401.html.twig'
+    wealthbot_mailer.template.client.user_create: 'WealthbotMailerBundle:Client:user_create.html.twig'
+    wealthbot_mailer.template.client.reset_password: 'WealthbotMailerBundle:Client:reset_password.html.twig'
+    wealthbot_mailer.template.client.reset_self_password: 'WealthbotMailerBundle:Client:reset_self_password.html.twig'
+    wealthbot_mailer.template.client.updated_documents: 'WealthbotMailerBundle:Client:updated_documents.html.twig'
+    wealthbot_mailer.template.client.invite_prospect: 'WealthbotMailerBundle:Client:invite_prospect.html.twig'
+    wealthbot_mailer.template.client.invite_internal_prospect: 'WealthbotMailerBundle:Client:invite_internal_prospect.html.twig'
+    wealthbot_mailer.template.client.adv_copy: 'WealthbotMailerBundle:Client:adv_copy.html.twig'
+    wealthbot_mailer.template.client.portfolio_is_submitted: 'WealthbotMailerBundle:Client:portfolio_is_submitted.html.twig'
+    wealthbot_mailer.template.client.ria_uploaded_document: 'WealthbotMailerBundle:Client:ria_uploaded_document.html.twig'
+    wealthbot_mailer.template.docusign.joint_account_owner: 'WealthbotMailerBundle:Docusign:joint_account_owner.html.twig'
+    wealthbot_mailer.template.docusign.custodian_workflow_documents: 'WealthbotMailerBundle:Docusign:custodian_workflow_documents.html.twig'
+    wealthbot_mailer.alerts_configuration_class: 'Wealthbot\MailerBundle\Entity\AlertsConfiguration'
+
+services:
+#   wealthbot_mailer.example:
+#       class: %wealthbot_mailer.example.class%
+#       arguments: [@service_id, "plain_value", %parameter%]
+    wealthbot.mailer:
+        class: Wealthbot\MailerBundle\Mailer\TwigSwiftMailer
+        arguments:
+            - @mailer
+            - @router
+            - @twig
+            - @doctrine.orm.entity_manager
+            -
+                template:
+                    admin_ria_activated:                    %wealthbot_mailer.template.admin.ria_activated%
+                    ria_not_finished_registration:          %wealthbot_mailer.template.ria.not_finished_registration%
+                    ria_change_password:                    %wealthbot_mailer.template.ria.change_password%
+                    ria_user_reset_password:                %wealthbot_mailer.template.ria.ria_user_reset_password%
+                    ria_user_create:                        %wealthbot_mailer.template.ria.ria_user_create%
+                    ria_client_suggested_portfolio:         %wealthbot_mailer.template.ria.client_suggested_portfolio%
+                    ria_client_closed_accounts:             %wealthbot_mailer.template.ria.client_closed_accounts%
+                    ria_activated:                          %wealthbot_mailer.template.ria.activated%
+                    client_not_finished_registration:       %wealthbot_mailer.template.client.not_finished_registration%
+                    client_not_approved_portfolio:          %wealthbot_mailer.template.client.not_approved_portfoilio%
+                    client_not_completed_all_applications:  %wealthbot_mailer.template.client.not_completed_all_applications%
+                    client_rollover_instruction_401:        %wealthbot_mailer.template.client.rollover_instruction_401%
+                    client_user_create:                     %wealthbot_mailer.template.client.user_create%
+                    client_reset_password:                  %wealthbot_mailer.template.client.reset_password%
+                    client_reset_self_password:             %wealthbot_mailer.template.client.reset_self_password%
+                    client_updated_documents:               %wealthbot_mailer.template.client.updated_documents%
+                    client_invite_prospect:                 %wealthbot_mailer.template.client.invite_prospect%
+                    client_invite_internal_prospect:        %wealthbot_mailer.template.client.invite_internal_prospect%
+                    client_adv_copy:                        %wealthbot_mailer.template.client.adv_copy%
+                    client_portfolio_is_submitted:          %wealthbot_mailer.template.client.portfolio_is_submitted%
+                    client_ria_uploaded_document:           %wealthbot_mailer.template.client.ria_uploaded_document%
+                    docusign_joint_account_owner:           %wealthbot_mailer.template.docusign.joint_account_owner%
+                    docusign_custodian_workflow_documents:  %wealthbot_mailer.template.docusign.custodian_workflow_documents%
+                from_email:
+                    admin_ria_activated:                    %wealthbot_mailer.default.mailer.from_email%
+                    ria_not_finished_registration:          %wealthbot_mailer.default.mailer.from_email%
+                    ria_change_password:                    %wealthbot_mailer.default.mailer.from_email%
+                    ria_user_reset_password:                %wealthbot_mailer.default.mailer.from_email%
+                    ria_user_create:                        %wealthbot_mailer.default.mailer.from_email%
+                    ria_client_suggested_portfolio:         %wealthbot_mailer.default.mailer.from_email%
+                    ria_client_closed_accounts:             %wealthbot_mailer.default.mailer.from_email%
+                    ria_activated:                          %wealthbot_mailer.default.mailer.from_email%
+                    client_not_finished_registration:       %wealthbot_mailer.default.mailer.from_email%
+                    client_not_approved_portfolio:          %wealthbot_mailer.default.mailer.from_email%
+                    client_not_completed_all_applications:  %wealthbot_mailer.default.mailer.from_email%
+                    client_rollover_instruction_401:        %wealthbot_mailer.default.mailer.from_email%
+                    client_user_create:                     %wealthbot_mailer.default.mailer.from_email%
+                    client_reset_password:                  %wealthbot_mailer.default.mailer.from_email%
+                    client_reset_self_password:             %wealthbot_mailer.default.mailer.from_email%
+                    client_updated_documents:               %wealthbot_mailer.default.mailer.from_email%
+                    client_invite_prospect:                 %wealthbot_mailer.default.mailer.from_email%
+                    client_invite_internal_prospect:        %wealthbot_mailer.default.mailer.from_email%
+                    client_adv_copy:                        %wealthbot_mailer.default.mailer.from_email%
+                    client_portfolio_is_submitted:          %wealthbot_mailer.default.mailer.from_email%
+                    client_ria_uploaded_document:           %wealthbot_mailer.default.mailer.from_email%
+                    docusign_joint_account_owner:           %wealthbot_mailer.default.mailer.from_email%
+                    docusign_custodian_workflow_documents:  %wealthbot_mailer.default.mailer.from_email%
+
+    wealthbot_mailer.alerts_configuration_manager:
+        class: Wealthbot\MailerBundle\Manager\AlertsConfigurationManager
+        arguments: [@doctrine.orm.entity_manager, %wealthbot_mailer.alerts_configuration_class%]

@@ -1,0 +1,23 @@
+<form id="close_accounts_form" action="{{ path('rx_client_dashboard_close_accounts') }}" method="post">
+    {{ form_errors(form) }}
+
+    <div id="close_account_message" class="alert alert-danger" style="display: none;">If you close this account, it will no longer be considered in rebalancing and the client will not be able to contribute or distribute money from it on our system.<a class="close" data-dismiss="alert" href="#">&times;</a></div>
+    <div id="close_all_account_message" class="alert alert-danger" style="display: none;">By closing the account(s), you are indicating the client is ending the relationship with you. If you close this account, it will no longer be considered in rebalancing and the client will not be able to contribute or distribute money from it on our system.</div>
+    <div>
+        {{ form_label(form.messages) }}
+        {{ form_errors(form.messages) }}
+
+        <ol type="1">
+            {% for child in form.messages %}
+                <li>
+                    <label class="checkbox" for="{{ child.vars.id }}">{{ form_widget(child, {'attr': {'class': 'close-account-reason-checkbox'}}) }} {{ child.vars.label }}</label>
+                </li>
+            {% endfor %}
+        </ol>
+    </div>
+
+    <div class="form-actions">
+        {{ form_rest(form) }}
+        <input type="submit" class="btn" name="continue" value="Continue" />
+    </div>
+</form>

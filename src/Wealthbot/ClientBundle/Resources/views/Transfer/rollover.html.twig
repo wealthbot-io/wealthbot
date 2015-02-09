@@ -1,0 +1,35 @@
+{% extends 'WealthbotClientBundle:Transfer:index.html.twig' %}
+
+{% block body %}
+    {% block header_row %}
+        <div class="row-fluid">
+            <div class="span10">
+                {% block page_title %}
+                    <h3>Applications</h3>
+                {% endblock %}
+            </div>
+            <div class="save-and-logout">
+                <a class="btn" id="reg_save_btn" href="{{ path('fos_user_security_logout') }}">Logout</a>
+                <span class="help-block">We'll save your progress.</span>
+            </div>
+        </div>
+        <legend></legend>
+    {% endblock %}
+
+
+
+    {% block top_content %}
+        {% render 'WealthbotClientBundle:Transfer:progressMenu' with { 'account': account, 'step': 'rollover' } %}
+    {% endblock %}
+
+    <form action="{% block form_action %}{{ path('rx_client_transfer_rollover', { 'account_id': account.id }) }}{% endblock %}" method="post" class="def-form">
+        <h1>Your Rollover</h1>
+        {{ rollover_message ? rollover_message.message|raw : '' }}
+        <div class="form-actions">
+            <a href="{% block back_url %}{{ path('rx_client_transfer_back', {'account_id': account.id, 'action': 'rollover'}) }}{% endblock %}" class="btn btn-inverse">Back </a>
+            <input type="submit" class="btn" name="continue" value="Continue" />
+        </div>
+    </form>
+
+    <a class="btn" href="{{ path('rx_client_transfer') }}">Back to home screen</a>
+{% endblock %}

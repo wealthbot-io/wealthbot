@@ -1,0 +1,12 @@
+<ol>
+    {% for key, field in form %}
+        {% if key != '_token' %}
+            <li>
+                <div class="control-group">
+                    {{ form_label(field) }}
+                    {{ form_widget(field, { 'attr': { 'disabled': 'disabled' } }) }}
+                </div>
+            </li>
+        {% endif %}
+    {% endfor %}
+</ol>

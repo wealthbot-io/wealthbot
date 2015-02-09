@@ -1,0 +1,116 @@
+{% extends 'WealthbotClientBundle:Transfer:index.html.twig' %}
+
+{% block top_content %}
+    {% render 'WealthbotClientBundle:Transfer:progressMenu' with { 'account': account, 'step': 'additional_basic' } %}
+{% endblock %}
+
+{% block main_content %}
+    <form action="{% block form_action %}{{ path('rx_client_transfer_additional_basic', { 'account_id': account.id }) }}{% endblock %}" method="post" class="acc-form" data-presave="true" data-save="true">
+        <h2>Basics - Secondary Applicant</h2>
+        <div class="row">
+            <div class="span">
+                {{ form_label(form.first_name) }}
+                {{ form_errors(form.first_name) }}
+                {{ form_widget(form.first_name, { 'attr': { 'class': 'input-small' } }) }}
+            </div>
+            <div class="span">
+                {{ form_label(form.middle_name) }}
+                {{ form_errors(form.middle_name) }}
+                {{ form_widget(form.middle_name, { 'attr': { 'class': 'input-small' } }) }}
+            </div>
+            <div class="span">
+                {{ form_label(form.last_name) }}
+                {{ form_errors(form.last_name) }}
+                {{ form_widget(form.last_name, { 'attr': { 'class': 'input-small' } }) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="span">
+                {{ form_label(form.street, 'Street Address') }}
+                {{ form_errors(form.street) }}
+                {{ form_widget(form.street, { 'attr': { 'class': 'span5' } }) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="span">
+                {{ form_label(form.city) }}
+                {{ form_errors(form.city) }}
+                {{ form_widget(form.city, { 'attr': { 'class': 'input-small' } }) }}
+            </div>
+            <div class="span">
+                {{ form_label(form.state) }}
+                {{ form_errors(form.state) }}
+                {{ form_widget(form.state, { 'attr': { 'class': 'input-medium' } }) }}
+            </div>
+            <div class="span">
+                {{ form_label(form.zip) }}
+                {{ form_errors(form.zip) }}
+                {{ form_widget(form.zip, { 'attr': { 'class': 'input-mini' } }) }}
+                <span class="help-inline">United States</span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="span5">
+                {{ form_errors(form.is_different_address) }}
+                <label class="checkbox">
+                    {{ form_widget(form.is_different_address) }} {{ form.is_different_address.get('label') }}
+                </label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="span7 mailing-address">
+                <div class="control-group mailing-address-block" style="display:none;">
+                    <div class="span6">
+                        {{ form_label(form.mailing_street, 'Mailing Street') }}
+                        {{ form_errors(form.mailing_street) }}
+                        {{ form_widget(form.mailing_street, { 'attr': { 'class': 'span5' } }) }}
+                    </div>
+
+                    <div class="span">
+                        {{ form_label(form.mailing_city, 'Mailing City') }}
+                        {{ form_errors(form.mailing_city) }}
+                        {{ form_widget(form.mailing_city, { 'attr': { 'class': 'input-small' } }) }}
+                    </div>
+                    <div class="span">
+                        {{ form_label(form.mailingState, 'Mailing State') }}
+                        {{ form_errors(form.mailingState) }}
+                        {{ form_widget(form.mailingState, { 'attr': { 'class': 'input-medium' } }) }}
+                    </div>
+                    <div class="span">
+                        {{ form_label(form.mailing_zip, 'Mailing Zip Code') }}
+                        {{ form_errors(form.mailing_zip) }}
+                        {{ form_widget(form.mailing_zip, { 'attr': { 'class': 'input-mini' } }) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="span">
+                {{ form_label(form.birth_date, 'Birth Date') }}
+                <div>
+                    {{ form_errors(form.birth_date) }}
+                </div>
+                {{ form_widget(form.birth_date, { 'attr': { 'placeholder': 'MM-DD-YYYY' } }) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="span">
+                {{ form_label(form.phone_number, 'Phone Number') }}
+                {{ form_errors(form.phone_number) }}
+                {{ form_widget(form.phone_number, { 'attr': { 'class': 'input-medium', 'placeholder': '(###) ###-####', 'data-mask-type': 'phone' } }) }}
+            </div>
+            <div class="span">
+                {{ form_label(form.email, 'Email Address') }}
+                {{ form_errors(form.email) }}
+                {{ form_widget(form.email, { 'attr': { 'class': 'input-medium' } }) }}
+            </div>
+        </div>
+        <div class="row">
+            {{ form_rest(form) }}
+        </div>
+        <div class="form-actions">
+            <a href="{% block back_url %}{{ path('rx_client_transfer_back', {'account_id': account.id, 'action': 'additional_basic'}) }}{% endblock %}" class="btn btn-inverse">Back</a>
+            <input type="submit" class="btn" name="continue" value="Continue" />
+        </div>
+    </form>
+{% endblock %}

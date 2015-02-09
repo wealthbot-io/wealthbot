@@ -1,0 +1,9 @@
+{% extends 'WealthbotRiaBundle:Prospects:_consolidated_account_row.html.twig' %}
+
+{% block sascache_column %}
+    {% if show_sas_cash is defined and show_sas_cash %}
+        <td>${% block account_sascash_value %} {{ account.sasCash|number_format(2, '.', ',') }}{% endblock %}</td>
+    {% endif %}
+{% endblock %}
+
+{% block row_extended %}{% endblock %}

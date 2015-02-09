@@ -1,0 +1,18 @@
+<fieldset class="b-label" disabled>
+    {% include 'WealthbotClientBundle:Profile:_personal_information_form_type_fields.html.twig' with {'form': form} %}
+
+    {% include 'WealthbotClientBundle:Profile:_contact_information_form_type_fields.html.twig' with {'form': form, 'is_change_profile': true} %}
+
+    <div class="form-title">
+        <h4>Financial Status</h4>
+        <hr/>
+    </div>
+
+    {% include 'WealthbotClientBundle:Transfer:_employment_information_form_type_fields.html.twig' with {'form': form} %}
+
+    <div class="row">
+        <div class="span12">
+            {{ form_rest(form) }}
+        </div>
+    </div>
+</fieldset>

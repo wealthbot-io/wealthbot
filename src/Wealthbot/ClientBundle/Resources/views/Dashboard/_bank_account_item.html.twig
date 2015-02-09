@@ -1,0 +1,5 @@
+<div class="bank-item" data-bank-account-item="{{ bank_account.id }}">
+    <span>{{ bank_account }}</span>
+    <a class="edit-bank-account-btn margin-left-15" href="{{ path('rx_client_transfer_edit_bank_account', { 'account_id': 0, 'bank_id': bank_account.id }) }}">Edit</a>
+    <a class="delete-bank-account-btn margin-left-15" href="{{ path('rx_client_transfer_delete_bank_account', { 'bank_id': bank_account.id }) }}">Delete</a>
+</div>

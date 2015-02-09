@@ -1,0 +1,26 @@
+Wealthbot\ClientBundle\Entity\AccountTwrValue:
+    type: entity
+    table: account_twr_values
+    repositoryClass: Wealthbot\ClientBundle\Repository\AccountTwrValueRepository
+    fields:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+        netValue:
+            type: float
+            nullable: true
+            column: net_value
+        grossValue:
+            type: float
+            nullable: true
+            column: gross_value
+        date:
+            type: date
+            nullable: true
+        accountNumber:
+            type: string
+            length: 255
+            nullable: false
+            column: account_number

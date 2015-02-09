@@ -1,0 +1,23 @@
+{% extends 'WealthbotMailerBundle:Default:email_layout.html.twig' %}
+
+{% block subject %}
+    {% autoescape false %}
+    {{ 'Welcome' }}
+    {% endautoescape %}
+{% endblock %}
+
+{% block content %}
+    {% autoescape false %}
+        Someone created you login credentials on our platform:
+        <br><br>
+        Username: {{ username }}
+        <br>
+        Password: {{ password }}
+        <br><br>
+        Please <a href="{{ url('fos_user_security_login') }}">login</a> with your new password and reset if you like.
+        <br><br>
+        Thank you,
+        <br><br>
+        wealthbot.io
+    {% endautoescape %}
+{% endblock %}

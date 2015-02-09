@@ -1,0 +1,28 @@
+Wealthbot\ClientBundle\Entity\ClientSettings:
+    type: entity
+    table: client_settings
+    repositoryClass: Wealthbot\ClientBundle\Repository\ClientSettings
+    fields:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+        client_id:
+            type: integer
+            nullable: false
+        stop_tlh_value:
+            type: float
+            nullable: true
+        client_type:
+            type: string(10)
+            nullable: false
+    oneToOne:
+        client:
+            targetEntity: Wealthbot\UserBundle\Entity\User
+            inversedBy: clientSettings
+            joinColumn:
+                name: client_id
+                referencedColumnName: id
+                onDelete: cascade
+            cascade: ['persist']

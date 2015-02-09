@@ -1,0 +1,45 @@
+Wealthbot\ClientBundle\Entity\ClientActivitySummary:
+    type: entity
+    table: client_activity_summaries
+    repositoryClass: Wealthbot\ClientBundle\Repository\ClientActivitySummaryRepository
+    fields:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+        client_id:
+            type: integer
+            nullable: false
+        description:
+            type: string(255)
+            nullable: false
+        is_show_ria:
+            type: boolean
+            nullable: true
+        document_id:
+            type: integer
+            nullable: true
+        created:
+          type: datetime
+          gedmo:
+            timestampable:
+              on: create
+    oneToOne:
+        Document:
+            targetEntity: Wealthbot\UserBundle\Entity\Document
+            joinColumn:
+                name: document_id
+                referencedColumnName: id
+                onDelete: cascade
+            cascade: ['persist']
+    manyToOne:
+        client:
+            targetEntity: Wealthbot\UserBundle\Entity\User
+            inversedBy: clientActivitySummaries
+            joinColumn:
+                name: client_id
+                referencedColumnName: id
+                onDelete: cascade
+            cascade: ['persist']
+    lifecycleCallbacks: {  }

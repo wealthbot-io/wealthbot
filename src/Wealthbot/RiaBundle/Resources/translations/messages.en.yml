@@ -1,0 +1,10 @@
+bill:
+    accounts_require_attention: 'One account require attention|%count% accounts require attention'
+    status1: 'Bill Not Generated'
+    status2: 'Bill Generated'
+    status3: 'Bill Approved'
+    status4: 'Fee Can Not Be Generated'
+    status5: 'Fee Generated'
+    status6: 'Bill Collected'
+    status7: 'Will Not Bill'
+    status8: 'Bill Is Not Applicable'

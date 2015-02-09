@@ -1,0 +1,147 @@
+imports:
+    - { resource: parameters.yml }
+    - { resource: security.yml }
+
+framework:
+    #esi:             ~
+    translator:      { fallback: en }
+    secret:          %secret%
+    router:
+        resource: "%kernel.root_dir%/config/routing.yml"
+        strict_requirements: %kernel.debug%
+    form:            true
+    csrf_protection: true
+    validation:      { enable_annotations: true }
+    templating:      { engines: ['twig'] } #assets_version: SomeVersionScheme
+    default_locale:  en
+    trust_proxy_headers: false # Whether or not the Request object should trust proxy headers (X_FORWARDED_FOR/HTTP_CLIENT_IP)
+    session:
+        cookie_domain: %site_domain%
+        save_path: ~
+    validation:      { enabled: true }
+
+# Twig Configuration
+twig:
+    debug:            %kernel.debug%
+    strict_variables: %kernel.debug%
+    form:
+        resources:
+            - "::form_div_layout.html.twig"
+
+# Assetic Configuration
+assetic:
+    debug:          %kernel.debug%
+    use_controller: false
+    #bundles:        [ ]
+    #java: /usr/bin/java
+    filters:
+        cssrewrite: ~
+        #closure:
+        #    jar: %kernel.root_dir%/Resources/java/compiler.jar
+        #yui_css:
+        #    jar: %kernel.root_dir%/Resources/java/yuicompressor-2.4.7.jar
+
+# Doctrine Configuration
+doctrine:
+    dbal:
+        driver:   %database_driver%
+        host:     %database_host%
+        port:     %database_port%
+        dbname:   %database_name%
+        user:     %database_user%
+        password: %database_password%
+        charset:  UTF8
+
+    orm:
+        auto_generate_proxy_classes: %kernel.debug%
+        auto_mapping: true
+
+#Doctrine MongoDB
+doctrine_mongodb:
+    connections:
+        default:
+            server: mongodb://%mongodb_host%:27017
+            options:
+                username: %mongodb_user%
+                password: %mongodb_password%
+                db: %mongodb_database%
+    default_database: %mongodb_database%
+    document_managers:
+        default:
+            auto_mapping: true
+
+stof_doctrine_extensions:
+    orm:
+        default:
+            tree: true
+            sluggable: true
+            timestampable: true
+
+# Swiftmailer Configuration
+swiftmailer:
+    transport: %mailer_transport%
+    host:      %mailer_host%
+    username:  %mailer_user%
+    password:  %mailer_password%
+    auth_mode: %mailer_auth_mode%
+    encryption: %mailer_encryption%
+    #spool:     { type: memory }
+
+#FOSUserBundle Configuration
+fos_user:
+    db_driver: orm # other valid values are 'mongodb', 'couchdb' and 'propel'
+    firewall_name: main
+    user_class: Wealthbot\UserBundle\Entity\User
+    group:
+        group_class: Wealthbot\UserBundle\Entity\Group
+
+deploy:
+    prod:
+        rsync-options: '-azC --force --delete --progress -h --checksum'
+        host: 127.0.0.1
+        user: root
+        dir: /path/to/dir
+        port: 22
+    stage:
+        host: 127.0.0.1
+        user: root2
+        dir: /path/to/dir
+        port: 22
+
+knp_paginator:
+    page_range: 5                      # default page range used in pagination control
+    default_options:
+        page_name: page                # page query parameter name
+        sort_field_name: sort          # sort field query parameter name
+        sort_direction_name: direction # sort direction query parameter name
+        distinct: true                 # ensure distinct results, useful when ORM queries are using GROUP BY statements
+    template:
+        pagination: WealthbotAdminBundle::_pagination.html.twig     # sliding pagination controls template
+        sortable: WealthbotAdminBundle::_pagination_sortable.html.twig
+
+knp_snappy:
+    pdf:
+        enabled:    true
+        #WIN
+        #CentOS
+        binary:     %wkhtmltopdf_path%
+        options:    []
+
+
+jms_serializer:
+    metadata:
+        debug: %kernel.debug%
+        auto_detection: true
+
+#    property_naming:
+#        separator:
+#        lower_case: false
+
+parameters:
+    jms_serializer.camel_case_naming_strategy.class: JMS\Serializer\Naming\IdenticalPropertyNamingStrategy
+
+nelmio_api_doc: ~
+
+ornicar_apc:
+    host: %site_domain%
+    web_dir: %kernel.root_dir%/../web

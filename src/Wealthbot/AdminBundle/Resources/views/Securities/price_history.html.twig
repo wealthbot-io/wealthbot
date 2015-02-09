@@ -1,0 +1,9 @@
+{% extends 'WealthbotAdminBundle:Securities:index.html.twig' %}
+
+{% block body %}
+    <h1>{{ security.name }}({{ security.symbol }}) Price History</h1>
+
+    <form action="#" method="post">
+        {% include 'WealthbotAdminBundle:Securities:_price_history_list.html.twig' with { 'security': security } %}
+    </form>
+{% endblock %}

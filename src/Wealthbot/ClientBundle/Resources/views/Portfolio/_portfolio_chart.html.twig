@@ -1,0 +1,50 @@
+{% set client_is_use_municipal_bond = false %}
+
+{% if client is defined and client %}
+    {% set ria_tax_bracket = client.profile.ria.riaCompanyInformation.clientsTaxBracket %}
+    {% set client_income_tax = client.profile.estimatedIncomeTax %}
+
+    {% if client.profile.ria.riaCompanyInformation.useMunicipalBond and client_income_tax > ria_tax_bracket %}
+        {% set client_is_use_municipal_bond = true %}
+    {% endif %}
+{% endif %}
+<div class="box span6">
+    <div class="box-header shadow">
+        <h2>{{ portfolio.name }}</h2>
+    </div>
+    <div class="box-content shadow">
+        <table class="suggested-portfolio table shadow">
+            <thead>
+                <tr>
+                    <th colspan="3">
+                        <div>
+                            <div class="pie-chart" style="width: 350px; height: 200px; margin: auto;" data-entities="{{ json_entities }}"></div>
+                        </div>
+                    </th>
+                </tr>
+                <tr>
+                    <th>Asset Class</th>
+                    <th>Investment Name</th>
+                    <th>Allocation</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for entity in model_entities %}
+                    <tr>
+                        {% if client_is_use_municipal_bond and entity.isMunicipal %}
+                            <td>{{ entity.subclass.name }} <strong>*</strong></td>
+                        {% else %}
+                            <td>{{ entity.subclass.name }}</td>
+                        {% endif %}
+                        <td>{{ entity.securityAssignment.security.name }} - {{ entity.securityAssignment.security.symbol }}</td>
+                        <td>{{ entity.percent|number_format(2, '.', ',') }}%</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        {% if client_is_use_municipal_bond %}
+            <p><strong>*Due to your high tax bracket, we will buy tax-free bonds in taxable accounts for these asset classes.</strong></p>
+        {% endif %}
+    </div>
+</div>

@@ -1,0 +1,47 @@
+Wealthbot\AdminBundle\Entity\SecurityTransaction:
+  type: entity
+  table: security_transaction
+  repositoryClass: Wealthbot\AdminBundle\Repository\SecurityTransactionRepository
+  fields:
+    id:
+      type: integer
+      id: true
+      generator:
+        strategy: AUTO
+    security_assignment_id:
+      type: integer
+      nullable: false
+    transaction_fee:
+      type: float
+      nullable: true
+    transaction_fee_percent:
+      type: float
+      nullable: true
+    minimum_buy:
+      type: float
+      nullable: true
+    minimum_initial_buy:
+      type: float
+      nullable: true
+    minimum_sell:
+      type: float
+      nullable: true
+    redemption_penalty_interval:
+      type: integer
+      nullable: true
+    redemption_fee:
+      type: float
+      nullable: true
+    redemption_percent:
+      type: float
+      nullable: true
+  oneToOne:
+    securityAssignment:
+      targetEntity: Wealthbot\AdminBundle\Entity\SecurityAssignment
+      inversedBy: securityTransaction
+      joinColumn:
+        name: security_assignment_id
+        referencedColumnName: id
+        onDelete: cascade
+      cascade: ['persist']
+  lifecycleCallbacks: {  }

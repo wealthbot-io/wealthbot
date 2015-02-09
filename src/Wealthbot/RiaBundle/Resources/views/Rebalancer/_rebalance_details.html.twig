@@ -1,0 +1,32 @@
+{% set client = client_value.clientPortfolio.client %}
+{% set portfolio = client_value.clientPortfolio.portfolio %}
+
+<div class="row-fluid">
+    <div class="span4">
+        <h3>Relationship: {{ client.lastName ~ ', ' ~ client.firstName }}</h3>
+    </div>
+    <div class="span4">
+        <h4>Value: ${{ client_value.totalValue|number_format(2, '.', ',') }}</h4>
+    </div>
+    <div class="span4">
+        <h5>Model: {{ portfolio.name }}</h5>
+    </div>
+</div>
+
+<div class="row-fluid">
+    <div id="rebalance_trades">
+        <span class="text-bold">Trades:</span>
+        {% include 'WealthbotRiaBundle:Rebalancer:_trades_table.html.twig' with {'rebalancer_queue': rebalancer_queue} %}
+    </div>
+</div>
+
+<div class="row-fluid">
+    <div class="span8" id="rebalance_portfolio_allocation">
+        <span class="text-bold">Portfolio Allocation:</span>
+        {% include 'WealthbotRiaBundle:Rebalancer:_portfolio_allocation_table.html.twig' with {'allocations': allocations} %}
+    </div>
+    <div class="span4" id="rebalance_rebalancing_summary">
+        <span class="text-bold">Rebalancing Summary:</span>
+        {% include 'WealthbotRiaBundle:Rebalancer:_rebalancing_summary_table.html.twig' with {'summary': summary} %}
+    </div>
+</div>

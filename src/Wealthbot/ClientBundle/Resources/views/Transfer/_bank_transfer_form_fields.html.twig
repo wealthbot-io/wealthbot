@@ -1,0 +1,99 @@
+{% if form.bankInformation|length > 0 %}
+    {% set is_one_bank = (form.vars.data and not form.vars.data.bankInformation and form.bankInformation|length == 1) ? true : false %}
+
+    <div class="control-group row">
+        <div class="span">
+            {{ form_label(form.bankInformation, 'Current bank(s) on file:', { 'label_attr': {'class': 'control-label'}}) }}
+            <div class="controls">
+                {% for radio in form.bankInformation %}
+                    <div class="bank-item">
+                        <label for="{{ radio.vars.id }}">
+                            {% if is_one_bank %}
+                                {{ form_widget(radio, { 'attr': { 'checked': 'checked' } }) }}
+                            {% else %}
+                                {{ form_widget(radio) }}
+                            {% endif %}
+                            {{ radio.vars.label }}
+                        </label>
+                        <a class="edit-bank-account-btn" href="{{ path('rx_client_transfer_edit_bank_account', { 'account_id': account.id, 'bank_id': radio.vars.value }) }}">Edit</a>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <div class="control-group row">
+        <div class="span">
+            <a class="add-new-bank-btn" href="javascript:void(0);">+ Add New Bank</a>
+        </div>
+    </div>
+    <div class="add-new-bank-form"></div>
+
+    <div class="control-group row">
+        <div class="span">
+            <h5>Transfer Information</h5>
+            <div class="well clearfix">
+                <div class="form-inline row">
+                    <div class="span">
+                        <label>Start of transfer:</label>
+                        {{ form_errors(form.start_transfer_date_month) }}
+                        {{ form_errors(form.start_transfer_date_day) }}
+                        {{ form_widget(form.start_transfer_date_month, { 'attr': { 'class': 'input-mini', 'placeholder': 'MM' } }) }}
+                        {{ form_widget(form.start_transfer_date_day, { 'attr': { 'class': 'input-mini', 'placeholder': 'DD' } }) }}
+                    </div>
+                    <div class="span">
+                        {{ form_label(form.amount, 'Amount:') }}
+                        {{ form_errors(form.amount) }}
+                        <div class="input-prepend">
+                            <span class="add-on">$</span>
+                            {{ form_widget(form.amount, { 'attr': { 'class': 'input-medium auto-numeric' } }) }}
+                        </div>
+                    </div>
+
+                    {% if form.contribution_year is defined %}
+                        <div class="span">
+                            {{ form_label(form.contribution_year, 'Contribution Year:') }}
+                            {{ form_errors(form.contribution_year) }}
+                            {{ form_widget(form.contribution_year, { 'attr': { 'class': 'input-mini', 'placeholder': 'YYYY' } }) }}
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="row">
+                    <div class="span12 clearfix">
+                        {{ form_label(form.transaction_frequency, 'Frequency of transaction:') }}
+                        {{ form_errors(form.transaction_frequency) }}
+                    </div>
+
+                    {% if form.transaction_frequency|length > 4 %}
+                        <div class="span3">
+                        {% for radio in form.transaction_frequency %}
+                            {% if (loop.index == 5) or (loop.index == 9) %}
+                                </div><div class="span3">
+                            {% endif %}
+                            <label for="{{ radio.vars.id }}" class="radio">{{ form_widget(radio) }}{{ radio.vars.label }}</label>
+                        {% endfor %}
+                        </div>
+                    {% else %}
+                        <div class="inline-radio span12">
+                            {% for radio in form.transaction_frequency %}
+                                <div class="span"><label for="{{ radio.vars.id }}">{{ form_widget(radio) }}{{ radio.vars.label }}</label></div>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+
+                </div>
+            </div>
+            <p>
+                Transfers will take place on the same day as the start date, each quarter, month, or every other week as you have selected.
+            </p>
+        </div>
+    </div>
+{% else %}
+    <div class="control-group row">
+        <div class="span">
+            {{ form_errors(form.bankInformation) }}
+            <a class="add-new-bank-btn" href="javascript:void(0);">Add New Bank Account</a>
+        </div>
+    </div>
+    <div class="add-new-bank-form"></div>
+{% endif %}

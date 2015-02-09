@@ -1,0 +1,34 @@
+{% extends 'WealthbotAdminBundle:Pas:layout.html.twig' %}
+
+{% block tab_content %}
+    <table class="table pas-all-files">
+        <thead>
+            <th>#</th>
+            <th>RIA</th>
+            <th>Code</th>
+            <th>Securities</th>
+            <th>Prices</th>
+            <th>Portfolios</th>
+            <th>Positions</th>
+            <th>Transactions</th>
+            <th>Unrealized Gains</th>
+            <th>Realized Gains</th>
+        </thead>
+        <tbody>
+            {% for row in data %}
+                <tr>
+                    <td class="index">{{ loop.index }}</td>
+                    <td class="ria">{{ row.ria }}</td>
+                    <td class="code">{{ row.code }}</td>
+                    <td data-type="status">{{ row.securities }}</td>
+                    <td data-type="status">{{ row.prices }}</td>
+                    <td data-type="status">{{ row.portfolios }}</td>
+                    <td data-type="status">{{ row.positions }}</td>
+                    <td data-type="status">{{ row.transactions }}</td>
+                    <td data-type="status">{{ row.unrealized_gains }}</td>
+                    <td data-type="status">{{ row.realized_gains }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

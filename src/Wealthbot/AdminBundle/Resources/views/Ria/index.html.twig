@@ -1,0 +1,48 @@
+{% extends 'WealthbotAdminBundle::layout.html.twig' %}
+
+{% block body %}
+    <h3>RIA LIST</h3>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>{{ knp_pagination_sortable(pagination, 'Firm Name', 'ci.name') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'Status', 'ci.activated') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'Signed Up', 'ru.created') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'Process Step', 'p.registration_step') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'Main Contact', 'ci.primary_last_name') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'Email', 'ci.contact_email') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'Phone', 'ci.phone_number') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'City', 'ci.city') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'State', 's.name') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'Last Login', 'ru.lastLogin') }}</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for ria in pagination %}
+                {% set companyInformation = ria.riaCompanyInformation %}
+
+                <tr>
+                    <td><a href="{{ path('rx_admin_ria_specific_dashboard', {'id': ria.id} ) }}">
+                            {{ companyInformation ? companyInformation.name : ria.profile.company }}
+                        </a></td>
+                    <td>{{ companyInformation ? (companyInformation.activated ? 'Active' : 'Not Active') : 'Not Active' }}</td>
+                    <td>{{ ria.created | date("m/d/Y") }}</td>
+                    <td>{{ ria.profile.riaRegistrationStep }}</td>
+                    <td>{{ companyInformation ? (companyInformation.primaryLastName ~ ', ' ~ companyInformation.primaryFirstName) : '' }}</td>
+                    <td>
+                        <a href="mailto:{{ companyInformation ? companyInformation.contactEmail : '' }}">
+                            {{ companyInformation ? companyInformation.contactEmail : '' }}
+                        </a>
+                    </td>
+                    <td>{{ companyInformation ? companyInformation.phoneNumber : '' }}</td>
+                    <td>{{ companyInformation ? companyInformation.city : '' }}</td>
+                    <td>{{ companyInformation ? (companyInformation.state ? companyInformation.state.abbr : '') : '' }}</td>
+                    <td>{{ ria.lastLogin ? ria.lastLogin | date("m/d/Y - H:i") : 'Never' }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <div class="pagination pagination-centered">
+        {{ knp_pagination_render(pagination) }}
+    </div>
+{% endblock %}

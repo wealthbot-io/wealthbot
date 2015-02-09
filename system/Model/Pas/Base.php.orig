@@ -1,0 +1,159 @@
+<?php
+
+namespace Model\Pas;
+
+require_once(__DIR__ . '/../../AutoLoader.php');
+\AutoLoader::registerAutoloader();
+
+use Monolog\Logger as Logger;
+use Monolog\Handler\StreamHandler as StreamHandler;
+use Model\QueryBuilder as QB;
+use Lib\Ioc;
+
+class Base 
+{
+	/**
+	 * Holds logger instance
+	 * @var object
+	 */
+	protected $log;
+
+	/**
+	 * @var MongoDB
+	 */
+	protected $mongoDB;
+
+	/**
+	 * @var Mysqlidb
+	 */
+	protected $mySqlDB;
+
+<<<<<<< HEAD
+	public function __construct($mySqlDB, $mongoDB) {
+
+	   	$this->mySqlDB = $mySqlDB;
+       	$this->mongoDB = $mongoDB;
+
+		$this->log = new Logger('filesys');
+
+        $this->log->pushHandler(new StreamHandler(__DIR__ . DS.'..'.DS.'..'.DS.'..'.DS.'app'.DS.'logs'.DS.'normalizer.log', Logger::WARNING));
+=======
+    /**
+     * @var string
+     */
+    protected $lastQuery;
+
+    const POSITIONS_MYSQL_TABLE_NAME = 'positions';
+    const FUNDS_MYSQL_TABLE_NAME = 'funds';
+    const GERONIMO_SECURITIES = 'securities';
+    const PRICES_MYSQL_TABLE_NAME = 'prices';
+    const GAINS_LOSSES_MYSQL_TABLE_NAME = 'gains_losses';
+    const TRANSACTIONS_MYSQL_TABLE_NAME = 'transactions';
+    
+    const LOTS_MYSQL_TABLE_NAME = 'lots';
+    
+    const GERONIMO_CLIENT_ACCOUNTS = 'client_accounts';
+    const GERONIMO_SYSTEM_CLIENT_ACCOUNTS = 'system_client_accounts';
+    const GERONIMO_CLIENT_PERSONAL_INFORMATION = 'client_personal_information';
+    const GERONIMO_CLIENT_PORTFOLIO = 'client_portfolio';
+    const GERONIMO_ACCOUNT_TYPES = 'client_account_types';
+    const GERONIMO_ACCOUNT_OWNERS = 'client_account_owners';
+    const GERONIMO_ACCOUNT_GROUP_TYPES = 'client_account_group_types';
+    const GERONIMO_TRANSACTION_TYPES = 'transaction_types';
+    const GERONIMO_CLOSING_METHODS = 'closing_methods';
+    const CLIENT_PORTFOLIO_VALUE = 'client_portfolio_values';
+    const CLIENT_ACCOUNT_VALUE = 'client_account_values';
+
+    //incoming csv files location
+    const INCOMING_FILES_LOCATION = '../incoming_files/sample/';
+
+    /**
+     * @param $mySqlDB
+     * @param $mongoDB
+     */
+    public function __construct($mySqlDB = null, $mongoDB = null)
+    {
+        // Get current connection instance
+        $connection = Ioc::resolve('connection'); 
+        $this->mySqlDB = $connection->getMySqlDB();
+       	$this->mongoDB = $connection->getMongoDB();
+        
+        $this->bugTracker = Ioc::resolve('bugTracker');
+        
+        // TODO: deprecated
+        $this->log = $this->bugTracker->getLog(); 
+>>>>>>> develop
+	}
+
+	public function &getMongoDBData($collectionName, $start, $end)
+    {
+		// read raw data into array from mongoDB
+		$cursor = $this->mongoDB->{$collectionName}->find(
+			array(
+                'import_date' => array('$gte' => $start, '$lte' => $end)
+            )
+        );
+
+        $data = array();
+		foreach ($cursor as $key => $doc) {
+			$data[] = $doc;
+		}
+
+		return $data;
+	}
+
+<<<<<<< HEAD
+	const GERONIMO_POSITIONS_TABLE = 'positions';
+	const FUNDS_MYSQL_TABLE_NAME = 'funds';
+	const GERONIMO_SECURITIES = 'securities';
+	const PRICES_MYSQL_TABLE_NAME = 'prices';
+	const GAINS_LOSSES_MYSQL_TABLE_NAME = 'gain_loss';
+	const TRANSACTIONS_MYSQL_TABLE_NAME = 'transactions';
+	const GERONIMO_CLIENT_ACCOUNTS = 'client_accounts';
+	const GERONIMO_SYSTEM_CLIENT_ACCOUNTS = 'system_client_accounts';
+	const GERONIMO_CLIENT_PERSONAL_INFORMATION = 'client_personal_information';
+	const GERONIMO_CLIENT_PORTFOLIO = 'client_portfolio';
+	const GERONIMO_ACCOUNT_TYPES = 'client_account_types';
+	const GERONIMO_ACCOUNT_OWNERS = 'client_account_owners';
+	const GERONIMO_ACCOUNT_GROUP_TYPES = 'client_account_group_types';
+	const GERONIMO_TRANSACTION_TYPES = 'transaction_types';
+	const GERONIMO_CLOSING_METHODS = 'closing_methods';
+    const CLIENT_PORTFOLIO_VALUE = 'client_portfolio_values';
+    const CLIENT_ACCOUNT_VALUE = 'client_account_values';
+
+
+
+
+
+=======
+    /**
+     * @param $sql
+     * @param array $parameters
+     * @return array|null
+     */
+    public function query($sql, $parameters)
+    {
+        return $this->mySqlDB->q(QB::bind($sql, $parameters));
+    }
+    
+    /**
+     * Get insert id
+     * 
+     * @return null|int
+     */
+    public function getInsertId()
+    {
+        return $this->mySqlDB->handle()->insert_id;
+    }
+    
+    /**
+     * Get last query
+     * 
+     * @return $string
+     */
+    public function getLastQuery()
+    {
+        return QB::getLastQuery();
+    }
+>>>>>>> develop
+}

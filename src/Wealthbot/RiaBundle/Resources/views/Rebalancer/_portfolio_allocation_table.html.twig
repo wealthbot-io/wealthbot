@@ -1,0 +1,35 @@
+<table class="table table-bordered" id="rebalance_portfolio_allocation_table">
+    <thead>
+    <tr>
+        <th>Subclass</th>
+        <th colspan="2">Current</th>
+        <th colspan="2">Target</th>
+        <th colspan="2">Post</th>
+        <th colspan="2">Difference</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for allocation in allocations %}
+        {% set currentClassName = allocation['targetValue']|round(2) != allocation['currentValue']|round(2) ? 'red-text' : '' %}
+        {% set currentPercentClassName = allocation['targetPercent']|round(2) != allocation['currentPercent']|round(2) ? 'red-text' : '' %}
+
+        {% set postPercentClassName = allocation['targetPercent']|round(2) != allocation['postRebalancerPercent']|round(2) ? 'red-text' : '' %}
+        {% set postClassName = allocation['targetValue']|round(2) != allocation['postRebalancerValue']|round(2) ? 'red-text' : '' %}
+
+        {% set differencePercentClassName = allocation['targetPercent']|round(2) != allocation['differencePercent']|round(2) ? 'red-text' : '' %}
+        {% set differenceClassName = allocation['targetValue']|round(2) != allocation['differenceValue']|round(2) ? 'red-text' : '' %}
+
+        <tr>
+            <td>{{ allocation['subclassTitle'] }}</td>
+            <td class="{{ currentClassName }}">${{ allocation['currentValue']|number_format(2,'.',',') }}</td>
+            <td class="{{ currentPercentClassName }}">{{ allocation['currentPercent']|number_format(2,'.',',') }}%</td>
+            <td>${{ allocation['targetValue']|number_format(2,'.',',') }}</td>
+            <td>{{ allocation['targetPercent']|number_format(2,'.',',') }}%</td>
+            <td class="{{ postClassName }}">${{ allocation['postRebalancerValue']|number_format(2,'.',',') }}</td>
+            <td class="{{ postPercentClassName }}">{{ allocation['postRebalancerPercent']|number_format(2,'.',',') }}%</td>
+            <td class="{{ differenceClassName }}">${{ allocation['differenceValue']|number_format(2,'.',',') }}</td>
+            <td class="{{ differencePercentClassName }}">{{ allocation['differencePercent']|number_format(2,'.',',') }}%</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

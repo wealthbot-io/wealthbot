@@ -1,0 +1,24 @@
+{% extends 'WealthbotRiaBundle:Profile:_step_two_form.html.twig' %}
+
+{% block form_main_tag %}
+    <form action="{{ path('rx_ria_change_profile_save_company_profile') }}" method="post" id='company_profile_form' enctype="multipart/form-data">
+{% endblock %}
+
+{% block form_actions %}
+    <div class="span12">
+    {{ form_rest(form) }}
+    </div>
+
+        <div class="form-actions">
+            <button type="submit" class="btn btn-ajax" data-loading-text="Saving...">Save</button>
+        </div>
+
+
+    {% if app.request.isXmlHttpRequest %}
+        <script type="text/javascript">
+            // Company profile
+            $("#wealthbot_riabundle_riacompanyinformationtype_phone_number").inputmask("mask", {"mask": "(999) 999-9999"});
+            $("#company_profile .pop").popover();
+        </script>
+    {% endif %}
+{% endblock %}

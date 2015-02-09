@@ -1,0 +1,91 @@
+<table class="table">
+    <thead>
+    <tr>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th>Last Login:</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td><strong>Client Name:</strong></td>
+        <td><a href="#1"><strong>{{ client.profile.firstName }}, {{ client.profile.lastName }}</strong></a></td>
+        <td>
+            {% if is_permitted('edit') %}
+                <a href="{{ path('rx_reset_user_password', {'user_id': client.id }) }}">RESET Password</a>
+            {% endif %}
+        </td>
+        <td>{{ client.lastLogin ? client.lastLogin | date("m/d/Y - H:i") : 'Never' }}</td>
+    </tr>
+    <tr style="color: red">
+        <td><strong>Secondary User:</strong></td>
+        <td><a href="#1"><strong>Smith, Mary</strong></a></td>
+        <td>
+            {% if is_permitted('edit') %}
+                <a href="#1">RESET Password</a>
+            {% endif %}
+        </td>
+        <td></td>
+    </tr>
+    <tr>
+        <td><strong>Email Address:</strong></td>
+        <td>{{ client.email }}</td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td><strong>Phone:</strong></td>
+        <td>{{ client.profile.phoneNumber }}</td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td><strong>Address:</strong></td>
+        <td>{{ client.profile.street }}</td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td><strong>City</strong></td>
+        <td>{{ client.profile.city }}</td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td><strong>State</strong></td>
+        <td>{{ client.profile.state }}</td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td><strong>Zip code</strong></td>
+        <td>{{ client.profile.zip }}</td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td><strong>Sign Up date:</strong></td>
+        <td>{{ client.created | date("m/d/Y") }}</td>
+        <td></td>
+        <td></td>
+    </tr>
+    {% if is_permitted('edit') %}
+        <tr>
+            <td><strong>Login:</strong></td>
+            <td>
+                {% if (client.hasStatusProspect == false) %}
+                    <a href="{{ path('rx_admin_login_as', { 'username': client.ria.username, 'client_id': client.id }) }}" target="_blank">
+                        Login as Client (RIA View)
+                    </a>
+                    <br/>
+                {% endif %}
+                <a href="{{ path('rx_admin_login_as', { 'username': client.username }) }}" target="_blank">Login as Client (Client view)</a>
+            </td>
+            <td>
+            </td>
+            <td></td>
+        </tr>
+    {% endif %}
+    </tbody>
+</table>

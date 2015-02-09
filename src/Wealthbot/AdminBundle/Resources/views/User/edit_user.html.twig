@@ -1,0 +1,8 @@
+{% extends 'WealthbotAdminBundle:User:create_user.html.twig' %}
+
+{% block form_title %}<h3>Edit user: {{ user.username }}</h3>{% endblock %}
+
+{% block form_actions %}
+    {{ parent() }}
+    <a class="btn-danger btn" href="{{ path('rx_admin_user_delete', {id: user.id}) }}">Delete</a>
+{% endblock %}

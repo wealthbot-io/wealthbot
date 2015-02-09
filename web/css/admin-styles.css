@@ -1,0 +1,9 @@
+.navbar .container{
+    margin: 0 1%;
+    width: 98%;
+}
+
+table td td{
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+}

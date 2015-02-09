@@ -1,0 +1,9 @@
+{% include 'WealthbotAdminBundle:Rebalancer:_history_filter_form.html.twig' with {
+    'history_filter_form': history_filter_form
+} %}
+
+{% include 'WealthbotAdminBundle:Rebalancer:_rebalance.html.twig' with {
+    'client_values_pagination': client_values_pagination,
+    'is_history': true,
+    'form': null
+} %}

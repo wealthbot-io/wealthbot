@@ -1,0 +1,55 @@
+<script type="text/template" id="tplSummaryLayout">
+    <div class="row-fluid">
+        <div id="periodSelectorRegion" class="span4">
+            <div class="margin-bottom-10">
+                <select class="year-selector input-small">
+                    {% for year in years %}
+                        <option>{{ year }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="btn-group margin-bottom-10" id="intervals">
+                <div class="btn interval quarter" data-quarter="1">Quarter 1</div>
+                <div class="btn interval quarter" data-quarter="2">Quarter 2</div>
+                <div class="btn interval quarter" data-quarter="3">Quarter 3</div>
+                <div class="btn interval quarter" data-quarter="4">Quarter 4</div>
+                <div class="btn interval" data-quarter="0">Year</div>
+            </div>
+            <div class="margin-bottom-10">
+                <strong class="dates-interval">xx/xx/xxxx - xx/xx/xxxx</strong>
+            </div>
+            <div class="margin-bottom-10" id="clientActionRegion"></div>
+        </div>
+        <div id="billStatusRegion"></div>
+    </div>
+    <div class="row-fluid"><div id="clientListRegion" class="span12"></div></div>
+    <div class="row-fluid"><div id="accountListRegion" class="span12"></div></div>
+</script>
+
+{# Client actions #}
+<script type="text/template" id="tplClientAction">
+    <div class="btn-group">
+        <a class="dropdown-toggle btn" data-toggle="dropdown" href="#">Action <span class="caret"></span></a>
+        <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+            <li class="<%= (accountSelected == false) ? 'disabled' : '' %>">
+                <a href="<%= Routing.generate('rx_ria_billing_generate_bill', { client_id: curClient, year: curBillingYear, quarter: curBillingQuarter }) %>" id="btnGenerateBill">Generate bill</a>
+            </li>
+            <li class="disabled"><a href="#" id="btnApproveBill">Approve bill</a></li>
+            <li class="disabled"><a href="#" id="btnCollectedBill">Collected bill</a></li>
+            <li class="<%= (accountSelected == false) ? 'disabled' : '' %>">
+                <a href="<%= Routing.generate('rx_ria_billing_no_bill', { client_id: curClient, year: curBillingYear, quarter: curBillingQuarter }) %>" id="btnNoBill">Do Not Bill</a>
+            </li>
+            <li class="divider"></li>
+            <li><a href="<%= Routing.generate('rx_ria_billing_summary_report', { year: curBillingYear, quarter: curBillingQuarter }) %>" id="btnGenerateBillingSummary">Generate billing summary</a></li>
+            <li><a href="#" id="btnGenerateCustodianFeeFile">Generate custodian Fee File</a></li>
+            <li class="divider"></li>
+            <li class="<%= (accountSelected == false) ? 'disabled' : '' %>">
+                <a href="<%= Routing.generate('rx_ria_billing_email_report', { client_id: curClient, year: curBillingYear, quarter: curBillingQuarter }) %>" id="btnEmailBill">Email bill</a>
+            </li>
+            <li class="<%= (accountSelected == false) ? 'disabled' : '' %>">
+                <a href="#" id="btnPDFBill">PDF bill</a>
+            </li>
+        </ul>
+    </div>
+</script>
+{# end #}

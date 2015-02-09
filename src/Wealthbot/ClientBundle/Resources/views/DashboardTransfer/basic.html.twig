@@ -1,0 +1,15 @@
+{% extends 'WealthbotClientBundle:Transfer:basic.html.twig' %}
+
+{% block javascripts %}
+    {#{% javascripts '@WealthbotClientBundle/Resources/public/js/client.transfer.js' %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}#}
+{% endblock %}
+{% block header_row %}{% endblock %}
+{% block form_action %}{{ path('rx_client_dashboard_transfer_basic', { 'account_id': account.id }) }}{% endblock %}
+{% block back_url %}{{ path('rx_client_dashboard_transfer_back', {'account_id': account.id, 'action': 'basic'}) }}{% endblock %}
+{% block bottom_content %}{% endblock %}
+
+{% block form_buttons %}
+    <input type="submit" class="btn" name="continue" value="Continue" />
+{% endblock %}

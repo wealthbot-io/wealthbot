@@ -1,0 +1,13 @@
+<form method="post" action="{{
+        path('rx_ria_dashboard_household_close', {
+            'client_id': app.request.get('client_id')
+        })
+    }}">
+
+    {{ form_errors(form) }}
+    {{ form_row(form.enabled) }}
+    {{ form_widget(form.closed) }}
+    {{ form_errors(form.closed) }}
+
+    {{ form_rest(form) }}
+</form>

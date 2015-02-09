@@ -1,0 +1,25 @@
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>{{ knp_pagination_sortable(pagination, 'Client', 'lastName, firstName') }}</th>
+        <th>{{ knp_pagination_sortable(pagination, 'Date', 'createdAt') }}</th>
+        <th>{{ knp_pagination_sortable(pagination, 'Activity Summary', 'message') }}</th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+        {% if pagination|length > 0  %}
+            {% for activityItem in pagination %}
+                {% include 'WealthbotRiaBundle:Workflow:_workflow_activity_item.html.twig' with { 'activityItem': activityItem } %}
+            {% endfor %}
+        {% else %}
+            <tr class="empty"><td colspan="5">No activity.</td></tr>
+        {% endif %}
+    </tbody>
+</table>
+
+{% if show_pagination is not defined or show_pagination != 'false' %}
+    <div class="ajax-pagination pagination pagination-centered">
+        {{ knp_pagination_render(pagination) }}
+    </div>
+{% endif %}

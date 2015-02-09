@@ -1,0 +1,44 @@
+{% if rias is not empty %}
+    <table class="table table-striped">
+        <tr>
+            <th></th>
+            <th>Company Name:</th>
+            <th>Asset Minimum:</th>
+            <th>Email:</th>
+            <th>Phone:</th>
+            <th>Address:</th>
+            <th>City:</th>
+            <th>State:</th>
+            <th>Zip Code:</th>
+            <th>Action:</th>
+        </tr>
+
+        {% for ria in rias %}
+            {% if ria.riaCompanyInformation is not empty %}
+                {% set company_info = ria.riaCompanyInformation %}
+                <tr>
+                    <td>{{ loop.index }}.</td>
+                    <td><a href="{{ company_info.website }}" target="_blank">{{ company_info.name }}</a></td>
+                    <td>{{ company_info.minAssetSize > 0 ? '$'~company_info.minAssetSize|number_format(2, '.', ',') : 'None' }}</td>
+                    <td>{{ company_info.contactEmail }}</td>
+                    <td>{{ '(%s)%s-%s' | format(company_info.phoneNumber|slice(0, 3), company_info.phoneNumber|slice(3, 3), company_info.phoneNumber|slice(6)) }}</td>
+                    <td>{{ company_info.address }}</td>
+                    <td>{{ company_info.city }}</td>
+                    <td>{{ company_info.state.abbr }}</td>
+                    <td>{{ company_info.zipcode }}</td>
+                    <td>
+                        {% if not is_granted('IS_AUTHENTICATED_FULLY') %}
+                            {% if company_info.slug %}
+                                <a href="{{ subdomain_url(company_info, 'rx_client_register') }}">Register client</a>.
+                            {% else %}
+                                <a href="{{ path('rx_client_registration', { 'ria_id': ria.id }) }}">Register client</a>.
+                            {% endif %}
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endif %}
+        {% endfor %}
+    </table>
+{% else %}
+    <p class="empty">No results.</p>
+{% endif %}

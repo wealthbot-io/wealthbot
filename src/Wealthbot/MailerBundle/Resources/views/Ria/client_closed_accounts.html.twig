@@ -1,0 +1,24 @@
+{% extends 'WealthbotMailerBundle:Default:email_layout.html.twig' %}
+
+{% block subject %}
+    {% autoescape false %}
+    {{ 'Client Closed Account' }}
+    {% endautoescape %}
+{% endblock %}
+
+{% block content %}
+    {% autoescape false %}
+
+        {{ client.fullname }} closed their:<br/>
+
+        {% for account in accounts %}
+            {{ account.typeAsString }} – Ending in:{{ account.lastFourDigitsOfAccountNumber }}.<br/>
+        {% endfor %}
+
+        <a href="{{ url('rx_ria_dashboard_show_client', {client_id: client.id}) }}">Login</a> to view their profile.
+        <br/><br/>
+        Thank you,
+        <br/><br/>
+        wealthbot.io
+    {% endautoescape %}
+{% endblock %}

@@ -1,0 +1,73 @@
+Wealthbot\ClientBundle\Entity\Beneficiary:
+    type: entity
+    table: client_beneficiaries
+    repositoryClass: Wealthbot\ClientBundle\Repository\BeneficiaryRepository
+    fields:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+        account_id:
+            type: integer
+            nullable: false
+        type:
+            type: string
+            length: 255
+        first_name:
+            type: string
+            length: 255
+            nullable: true
+        last_name:
+            type: string
+            length: 255
+            nullable: true
+        middle_name:
+            type: string
+            length: 255
+            nullable: true
+        ssn:
+            type: string
+            length: 20
+            nullable: true
+        birth_date:
+            type: date
+            nullable: true
+        street:
+            type: string
+            length: 255
+            nullable: true
+        city:
+            type: string
+            length: 255
+            nullable: true
+        state_id:
+            type: integer
+            nullable: true
+        zip:
+            type: string
+            length: 255
+            nullable: true
+        relationship:
+            type: string
+            length: 255
+            nullable: true
+        share:
+            type: float
+            nullable: true
+    manyToOne:
+        state:
+            targetEntity: Wealthbot\AdminBundle\Entity\State
+            joinColumn:
+                name: state_id
+                referencedColumnName: id
+                onDelete: set null
+            cascade: ['persist']
+        account:
+            targetEntity: Wealthbot\ClientBundle\Entity\ClientAccount
+            joinColumn:
+                name: account_id
+                referencedColumnName: id
+                onDelete: cascade
+            inversedBy: beneficiaries
+            cascade: ['persist']

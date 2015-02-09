@@ -1,0 +1,24 @@
+Wealthbot\ClientBundle\Entity\ClientAccountDocusign:
+    type: entity
+    table: client_account_docusign
+    repositoryClass: Wealthbot\ClientBundle\Repository\ClientAccountDocusignRepository
+    fields:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+        client_account_id:
+            type: integer
+            nullable: false
+        is_used:
+            type: boolean
+            nullable: false
+    oneToOne:
+        clientAccount:
+            targetEntity: Wealthbot\ClientBundle\Entity\ClientAccount
+            joinColumn:
+                name: client_account_id
+                referencedColumnName: id
+                onDelete: cascade
+            cascade: ['persist']

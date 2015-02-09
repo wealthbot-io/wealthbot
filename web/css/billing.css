@@ -1,0 +1,169 @@
+.billing h3 {
+    margin-top: 30px;
+
+}
+
+.billing-spec-selector .span2 {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.billing .specs{
+    min-height: 30px;
+    min-width: 30px;
+}
+
+.billing .tab-content{
+    min-height: 300px;
+}
+
+input.has-error{
+    border-color: #A00;
+    box-shadow: inset 0 0 2px #F46;
+}
+
+.error-hint{
+    display: inline-block;
+    padding: 0 5px;
+    color: #A00;
+    font-size: 12px;
+}
+
+.billing{
+    position: relative;
+}
+.billing #specListRegion{
+    position: relative;
+}
+
+.bill-status-container
+{
+    border: 1px solid #E6E6E6;
+    padding: 15px
+}
+
+.bill-status-container .progress {
+    margin-bottom: 0;
+}
+
+.bill-status-container td {
+    padding: 5px;
+}
+.progress .bar-reverted
+{
+    background-color: #666666;
+    background-image: -moz-linear-gradient(top, #666666, #333333);
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#666666), to(#333333));
+    background-image: -webkit-linear-gradient(top, #666666, #333333);
+    background-image: -o-linear-gradient(top, #666666, #333333);
+    background-image: linear-gradient(to bottom, #666666, #333333);
+    background-repeat: repeat-x;
+    filter: progid:dximagetransform.microsoft.gradient(startColorstr='#ff666666', endColorstr='#ff333333', GradientType=0);
+}
+
+.progress .bar-approved
+{
+    background-color: #943796;
+    background-image: -moz-linear-gradient(top, #AD68AE, #943796);
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#AD68AE), to(#943796));
+    background-image: -webkit-linear-gradient(top, #AD68AE, #943796);
+    background-image: -o-linear-gradient(top, #AD68AE, #943796);
+    background-image: linear-gradient(to bottom, #AD68AE, #943796);
+    background-repeat: repeat-x;
+    filter: progid:dximagetransform.microsoft.gradient(startColorstr='#ffAD68AE', endColorstr='#ff943796', GradientType=0);
+}
+.action-table
+{
+    margin-bottom: 300px;
+}
+
+.billing input[type="checkbox"]{
+    margin-top: 0;
+}
+
+.billing input[type="radio"]{
+    margin: 0 5px 0 0;
+}
+
+.billing .label-name{
+    font-weight: bold;
+    float: left;
+    margin: 0 10px 0 0;
+    min-height: 10px;
+    min-width: 10px;
+}
+
+.billing .controls-line{
+    margin: 0;
+    display: block;
+    clear:both;
+}
+
+.billing .hidden{
+    display: none;
+}
+
+.billing .table th, .billing .table td {
+    border-top: none;
+}
+
+.table th.numberView, .table td.numberView{
+    text-align: right;
+}
+
+/*.billing #clientListRegion table tbody tr:hover{*/
+    /*background: #d7e5ff;*/
+    /*cursor: pointer;*/
+/*}*/
+
+.billing #clientListRegion table tbody tr.active{
+    background: #C6E4FA;
+    cursor: default;
+}
+
+.billing #newFormRegion{
+    margin-bottom: 40px;
+}
+
+.billing #specFormRegion .form-horizontal input[type="checkbox"]{
+    margin-top: -2px;
+}
+
+.billing #specFormRegion .masterBilling{
+    min-width: 170px;
+}
+
+.billing table.table-stripped tbody tr:nth-child(odd){
+    background: #F6FCFC;
+}
+
+.table .tier-value{
+    text-align: right;
+}
+
+.table .text-right, .table .text-right{
+    text-align: right;
+}
+
+.table th.sortable{
+    cursor: pointer;
+}
+
+.table .pays-for select{
+    width: 160px;
+}
+
+#clientListRegion table tbody tr{
+    cursor: pointer;
+}
+
+.status-message{
+    background: #ffe9e6;
+    color: #A00;
+    border-radius: 8px;
+    position: fixed;
+    z-index: 10000;
+    top: 8px;
+    padding: 10px 20px;
+    border: solid 1px;
+}

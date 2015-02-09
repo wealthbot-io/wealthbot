@@ -1,0 +1,33 @@
+<h5>Disclosures</h5>
+<form id="custodian_{{ custodian.id }}_documents_form" class="custodian-form form-horizontal"
+      action="{{ path('rx_admin_upload_custodian_documents', { 'id': custodian.id }) }}" method="post" enctype="multipart/form-data">
+
+    {{ form_errors(form) }}
+
+    {% for key, field in form %}
+        {% if key != '_token' %}
+            <div class="control-group">
+                {% if documents[key] is defined %}
+                    <label class="control-label">
+                        <a href="{{ documents[key].link }}" target="_blank">{{ field.vars.label }} <i class="icon-download"></i></a>
+                    </label>
+                {% else %}
+                    {{ form_label(field, null, { 'label_attr': { 'class': 'control-label' } }) }}
+                {% endif %}
+
+                <div class="controls">
+                    {{ form_errors(field) }}
+                    {{ form_widget(field) }}
+                </div>
+            </div>
+        {% endif %}
+    {% endfor %}
+
+    {{ form_rest(form) }}
+
+    {% if is_permitted('edit') %}
+        <div class="control-group">
+            <input class="btn" type="submit" value="Save"/>
+        </div>
+    {% endif %}
+</form>

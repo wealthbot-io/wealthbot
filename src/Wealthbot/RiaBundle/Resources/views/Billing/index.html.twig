@@ -1,0 +1,148 @@
+{% extends 'WealthbotRiaBundle::layout_themed.html.twig' %}
+
+
+{% block main_content %}
+
+
+<div class="billing">
+    <h1>Billing</h1>
+
+    <ul class="nav nav-tabs">
+        <li class="{{ active_tab == 'summary' ? 'active' : '' }}"><a href="#summary" data-toggle="tab">Billing Summary</a></li>
+        <li class="{{ active_tab == 'specs' ? 'active' : '' }}"><a href="#specs" data-toggle="tab">Billing Specs</a></li>
+        {#<li><a href="#old" data-toggle="tab">Old</a></li>#}
+    </ul>
+
+    <div class="tab-content" id="main">
+        <div class="tab-pane {{ active_tab == 'summary' ? 'active' : '' }}" id="summary">
+
+        </div>
+        <div class="tab-pane {{ active_tab == 'specs' ? 'active' : '' }}" id="specs">
+            <div id="newFormRegion"></div>
+            <div id="specListRegion"></div>
+            <div id="specFormRegion"></div>
+        </div>
+
+{#
+        <div id="old" class="tab-pane">
+
+
+            <div class="row-fluid">
+
+                {% include 'WealthbotRiaBundle:Profile:_step_three_form.html.twig' with { 'form': form } %}
+
+            </div>
+
+        </div>
+#}
+    </div>
+</div>
+
+<div id="fee_preview" class="modal hide longModal">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h3>Preview Final Billing Schedule</h3>
+    </div>
+    <div class="modal-body">
+
+    </div>
+    <div class="modal-footer">
+        <a href="#" class="btn" data-dismiss="modal" aria-hidden="true">Close</a>
+    </div>
+</div>
+
+{# BackBone templates #}
+    <script id="tpl-billing-spec" type="text/template">
+        <%= name %>
+    </script>
+
+
+    <script id="tplSpecCollection" type="text/template">
+
+        <h2>Specs</h2>
+        <div class="specs btn-group">
+        </div>
+        {#<button class="btn btn-primary add-new">Add new item</button>#}
+    </script>
+
+
+    <script id="tplTypeSelector" type="text/template">
+        <h2>Create new Billing Spec. Choose type:</h2>
+
+        <div class="span2">
+            <a href="#" class="flat-fee btn">Flat fee</a>
+        </div>
+
+        <div class="span2">
+            <a href="#" class="tier-fee btn">Tier fee</a>
+        </div>
+    </script>
+
+    {% include "WealthbotRiaBundle:Billing:_tpl_spec_name.html.twig" with {'is_relation_type_tamp': is_relation_type_tamp} %}
+    {% include "WealthbotRiaBundle:Billing:_tpl_flat_fee_form.html.twig" %}
+    {% include "WealthbotRiaBundle:Billing:_tpl_tier_fee_form.html.twig" %}
+    {% include "WealthbotRiaBundle:Billing:_tpl_tier_row.html.twig" %}
+    {% include "WealthbotRiaBundle:Billing:_tpl_tier_list.html.twig" %}
+    {% include "WealthbotRiaBundle:Billing:_tpl_tier_data_form.html.twig" %}
+
+    {% include "WealthbotRiaBundle:Billing:summary.html.twig" %}
+
+{% endblock %}
+
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script>
+        $('#myTab a').click(function (e) {
+            e.preventDefault();
+            $(this).tab('show');
+        })
+    </script>
+
+
+    {#{% javascripts '@WealthbotRiaBundle/Resources/public/js/ria.fees.table.js' %}#}
+    {#<script src="{{ asset_url }}"></script>#}
+    {#{% endjavascripts %}#}
+
+    <script src="/bundles/wealthbotria/js/ria.fees.table.js"></script>
+
+    {# @TODO use bower to manage such kind of deps #}
+    <script src="/js/backbone.marionette/underscore.js"></script>
+    <script src="/js/backbone.marionette/backbone.js"></script>
+    <script src="/js/backbone.marionette/backbone.marionette.js"></script>
+    <script src="/bundles/wealthbotria/js/src/Util.js"></script>
+    <script src="/bundles/wealthbotria/js/src/ErrorHandler.js"></script>
+    <script src="/bundles/wealthbotria/js/src/app.js"></script>
+    {% include "::js_constants.html.twig" %}
+    {% include "::js_alert.html.twig" %}
+    <script src="/bundles/wealthbotria/js/src/CollectionSorter.js"></script>
+    <script src="/bundles/wealthbotria/js/src/alert.js"></script>
+    <script src="/bundles/wealthbotria/js/src/fields.js"></script>
+    <script src="/bundles/wealthbotria/js/src/Billing/ria-dashboard.js"></script>
+    <script src="/bundles/wealthbotria/js/src/Billing/ria-summary.js"></script>
+
+    <script>
+        App.csrf = "{{ csrf }}";
+        App.Var.straightProcessing = {% if straight_portfolio_processing %}true{% else %}false{% endif %};
+        App.Var.riaCreatedAt = '{{ riaCreatedAt }}';
+        {% if currentYear is defined %}
+            App.Var.currentYear = '{{ currentYear }}';
+            App.Var.currentQuarter = '{{ currentQuarter }}';
+        {% endif %}
+
+        App.module('Wealthbot.Billing.RiaSpecs').start();
+        App.module('Wealthbot.Billing.RiaSummary').start();
+
+{#
+        $(function(){
+            setTimeout(function() {
+                $('a[href="#specs"]').click();
+
+                $("#specListRegion .add-new").click();
+                $(".tier-fee").click();
+            }, 5000);
+        });
+#}
+    </script>
+{% endblock %}

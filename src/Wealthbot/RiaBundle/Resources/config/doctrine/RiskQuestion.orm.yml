@@ -1,0 +1,35 @@
+Wealthbot\RiaBundle\Entity\RiskQuestion:
+    type: entity
+    repositoryClass: Wealthbot\RiaBundle\Repository\RiskQuestionRepository
+    table: risk_questions
+    fields:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+        owner_id:
+            type: integer
+        title:
+            type: string
+            length: 255
+        description:
+            type: text
+        is_withdraw_age_input:
+            type: boolean
+        sequence:
+            type: integer
+    manyToOne:
+        owner:
+            targetEntity: Wealthbot\UserBundle\Entity\User
+            joinColumn:
+                name: owner_id
+                referencedColumnName: id
+                onDelete: cascade
+            cascade: ['persist']
+    oneToMany:
+        answers:
+            targetEntity: Wealthbot\RiaBundle\Entity\RiskAnswer
+            mappedBy: question
+            cascade: ['persist']
+    lifecycleCallbacks: {  }

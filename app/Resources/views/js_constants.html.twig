@@ -1,0 +1,45 @@
+<script>
+    App.Const = {
+        BILLING_SPEC_TYPE_FLAT: {{ constant("Wealthbot\\AdminBundle\\Entity\\BillingSpec::TYPE_FLAT") }}
+        ,BILLING_SPEC_TYPE_TIER: {{ constant("Wealthbot\\AdminBundle\\Entity\\BillingSpec::TYPE_TIER") }}
+        ,PORTFOLIO_PROCESSING_STRAIGHT_THROUGH: {{ constant("Wealthbot\\RiaBundle\\Entity\\RiaCompanyInformation::PORTFOLIO_PROCESSING_STRAIGHT_THROUGH") }}
+        ,PAYMENT_METHOD_DIRECT_DEBIT: {{ constant("Wealthbot\\UserBundle\\Entity\\Profile::PAYMENT_METHOD_DIRECT_DEBIT") }}
+        ,PAYMENT_METHOD_OUTSIDE_PAYMENT: {{ constant("Wealthbot\\UserBundle\\Entity\\Profile::PAYMENT_METHOD_OUTSIDE_PAYMENT") }}
+    };
+
+    App.Const.PaymentMethods = {
+        '{{ constant("Wealthbot\\UserBundle\\Entity\\Profile::PAYMENT_METHOD_DIRECT_DEBIT") }}': 'Direct Debit',
+        '{{ constant("Wealthbot\\UserBundle\\Entity\\Profile::PAYMENT_METHOD_OUTSIDE_PAYMENT") }}': 'Outside Payment'
+    };
+
+    App.Const.AccountTypes = {
+        '{{ constant("Wealthbot\\ClientBundle\\Model\\SystemAccount::TYPE_PERSONAL_INVESTMENT") }}': 'Personal Investment',
+        '{{ constant("Wealthbot\\ClientBundle\\Model\\SystemAccount::TYPE_JOINT_INVESTMENT") }}': 'Joint Investment',
+        '{{ constant("Wealthbot\\ClientBundle\\Model\\SystemAccount::TYPE_ROTH_IRA") }}': 'Roth IRA',
+        '{{ constant("Wealthbot\\ClientBundle\\Model\\SystemAccount::TYPE_TRADITIONAL_IRA") }}': 'Traditional IRA',
+        '{{ constant("Wealthbot\\ClientBundle\\Model\\SystemAccount::TYPE_RETIREMENT") }}': 'Retirement'
+    };
+
+    App.Const.BillItemStatus = {
+        '{{ constant("Wealthbot\\ClientBundle\\Entity\\BillItem::STATUS_BILL_NOT_GENERATED") }}': 'Fee Not Generated',
+        '{{ constant("Wealthbot\\ClientBundle\\Entity\\BillItem::STATUS_BILL_GENERATED") }}': 'Fee Generated',
+        '{{ constant("Wealthbot\\ClientBundle\\Entity\\BillItem::STATUS_BILL_APPROVED") }}': 'Fee Approved',
+        '{{ constant("Wealthbot\\ClientBundle\\Entity\\BillItem::STATUS_FEE_CANNOT_BE_GENERATED") }}': 'Fee Cannot Be Generated',
+        '{{ constant("Wealthbot\\ClientBundle\\Entity\\BillItem::STATUS_FEE_GENERATED") }}': 'Fee Has Been Generated',
+        '{{ constant("Wealthbot\\ClientBundle\\Entity\\BillItem::STATUS_BILL_COLLECTED") }}': 'Bill Collected',
+        '{{ constant("Wealthbot\\ClientBundle\\Entity\\BillItem::STATUS_WILL_NOT_BILL") }}': 'Will Not Bill',
+        '{{ constant("Wealthbot\\ClientBundle\\Entity\\BillItem::STATUS_BILL_IS_NOT_APPLICABLE") }}': 'Bill Not Applicable'
+    };
+    
+    App.Const.BillItemStatusId = {
+        STATUS_BILL_NOT_GENERATED: '{{ constant("Wealthbot\\ClientBundle\\Entity\\BillItem::STATUS_BILL_NOT_GENERATED") }}',
+        STATUS_BILL_GENERATED: '{{ constant("Wealthbot\\ClientBundle\\Entity\\BillItem::STATUS_BILL_GENERATED") }}',
+        STATUS_BILL_APPROVED: '{{ constant("Wealthbot\\ClientBundle\\Entity\\BillItem::STATUS_BILL_APPROVED") }}',
+        STATUS_FEE_CANNOT_BE_GENERATED: '{{ constant("Wealthbot\\ClientBundle\\Entity\\BillItem::STATUS_FEE_CANNOT_BE_GENERATED") }}',
+        STATUS_FEE_GENERATED: '{{ constant("Wealthbot\\ClientBundle\\Entity\\BillItem::STATUS_FEE_GENERATED") }}',
+        STATUS_BILL_COLLECTED: '{{ constant("Wealthbot\\ClientBundle\\Entity\\BillItem::STATUS_BILL_COLLECTED") }}',
+        STATUS_WILL_NOT_BILL: '{{ constant("Wealthbot\\ClientBundle\\Entity\\BillItem::STATUS_WILL_NOT_BILL") }}',
+        STATUS_BILL_IS_NOT_APPLICABLE: '{{ constant("Wealthbot\\ClientBundle\\Entity\\BillItem::STATUS_BILL_IS_NOT_APPLICABLE") }}'
+    };
+
+</script>

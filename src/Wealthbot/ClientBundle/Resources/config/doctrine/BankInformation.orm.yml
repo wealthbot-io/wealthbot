@@ -1,0 +1,84 @@
+Wealthbot\ClientBundle\Entity\BankInformation:
+    type: entity
+    table: bank_information
+    repositoryClass: Wealthbot\ClientBundle\Repository\BankInformationRepository
+    fields:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+        client_id:
+            type: integer
+            nullable: true
+        account_owner_first_name:
+            type: string
+            length: 255
+            nullable: true
+        account_owner_middle_name:
+            type: string
+            length: 255
+            nullable: true
+        account_owner_last_name:
+            type: string
+            length: 255
+            nullable: true
+        joint_account_owner_first_name:
+            type: string
+            length: 255
+            nullable: true
+        joint_account_owner_middle_name:
+            type: string
+            length: 255
+            nullable: true
+        joint_account_owner_last_name:
+            type: string
+            length: 255
+            nullable: true
+        name:
+            type: string
+            length: 255
+            nullable: true
+        account_title:
+            type: string
+            length: 255
+            nullable: true
+        phone_number:
+            type: string
+            length: 255
+            nullable: true
+        routing_number:
+            type: string
+            length: 255
+            nullable: true
+        account_number:
+            type: string
+            length: 255
+            nullable: true
+        account_type:
+            type: string
+            length: 255
+            nullable: true
+        pdf_copy:
+            type: string
+            length: 255
+            nullable: true
+        updated:
+            type: datetime
+            nullable: true
+    manyToOne:
+        client:
+            targetEntity: Wealthbot\UserBundle\Entity\User
+            joinColumn:
+                name: client_id
+                referencedColumnName: id
+                onDelete: set null
+            cascade: ['persist']
+    oneToOne:
+        pdfDocument:
+            targetEntity: Wealthbot\UserBundle\Entity\Document
+            joinColumn:
+                name: pdf_document_id
+                referencedColumnName: id
+                onDelete: set null
+            cascade: ['persist']

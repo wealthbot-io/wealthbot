@@ -1,0 +1,18 @@
+<form id="{% block form_id %}document_form{% endblock %}"
+      action="{% block form_action %}{{ is_permitted('edit') ? path('rx_admin_upload_documents') : '#' }}{% endblock %}"
+      method="post" enctype="multipart/form-data">
+
+    {{ form_errors(form) }}
+
+    {{ form_label(form.file, ' ') }}
+    <div class="control-group">
+        <div class="controls">
+            {{ form_errors(form.file) }}
+            {{ form_widget(form.file) }}
+        </div>
+    </div>
+
+    <div>
+        {{ form_rest(form) }}
+    </div>
+</form>

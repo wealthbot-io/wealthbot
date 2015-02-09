@@ -1,0 +1,44 @@
+{% extends 'WealthbotRiaBundle:Dashboard:index.html.twig' %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script type="text/javascript" src="/js/inputmask/jquery.inputmask.js"></script>
+    <script type="text/javascript" src="/js/inputmask/jquery.inputmask.extensions.js"></script>
+
+    {% javascripts
+    '@WealthbotRiaBundle/Resources/public/js/ria.fees.table.js'
+    '@WealthbotRiaBundle/Resources/public/js/ria.portfolio.management.js'
+    '@WealthbotRiaBundle/Resources/public/js/ria.change_profile.js'
+    %}
+    <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock %}
+
+{% block main_content %}
+    <h1>Change Profile</h1>
+
+    <ul class="nav nav-tabs" id="myTab">
+        <li class="{{ active_tab == 'profile' ? 'active' : '' }}">
+            <a data-toggle="tab" href="#profile">My Profile</a>
+        </li>
+        <li class="{{ active_tab == 'change_password' ? 'active' : '' }}">
+            <a data-toggle="tab" href="#update_password">Update password</a>
+        </li>
+        <li class="{{ active_tab == 'alerts' ? 'active' : '' }}">
+            <a data-toggle="tab" href="#alerts">Alerts</a>
+        </li>
+    </ul>
+
+    <div class="tab-content change-profile">
+        <div class="tab-pane {{ active_tab == 'profile' ? 'active' : '' }}" id="profile">
+            {% include 'WealthbotRiaBundle:ChangeProfile:_profile_form.html.twig' with { 'form': profileForm } %}
+        </div>
+        <div class="tab-pane {{ active_tab == 'change_password' ? 'active' : '' }}" id="update_password">
+            {% include 'WealthbotRiaBundle:ChangeProfile:_update_password.html.twig' with { 'form': updatePasswordForm } %}
+        </div>
+        <div class="tab-pane {{ active_tab == 'alerts' ? 'active' : '' }}" id="alerts">
+            {% include 'WealthbotRiaBundle:ChangeProfile:_alerts_configuration_form.html.twig' with { 'form': alertsConfigurationForm } %}
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,16 @@
+<table class="table">
+    <thead>
+    <tr>
+        <th>Fund Name</th>
+        <th>Symbol</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for fund in account.accountOutsideFunds %}
+        <tr>
+            <td>{{ fund.securityAssignment.security.name }}</td>
+            <td>{{ fund.securityAssignment.security.symbol }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

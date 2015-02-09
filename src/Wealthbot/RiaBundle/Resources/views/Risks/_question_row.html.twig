@@ -1,0 +1,24 @@
+<li id="item_{{ question.id }}" class="q-row" data-row="q-row-{{ question.id }}">
+    {% if (question.owner.hasRole('ROLE_ADMIN')) %}
+        {% set uniq_class = 'admin-risk-profile-q-' ~ question.sequence %}
+    {% else %}
+        {% set uniq_class = 'ria-' ~ question.owner.id ~ '-risk-profile-q-' ~ question.sequence %}
+    {% endif %}
+
+    <div class="{{ uniq_class }} q-info">
+        {{ question.title }}
+            <sup>
+                <div class="risk-question-edit-delete">
+                    <a class="edit-question-btn btn-link" href="{{ path('rx_ria_risks_edit_question', {'id': question.id}) }}">Edit</a>
+                    |
+                    <a class="delete-question-btn btn-link {{ question.isWithdrawAgeInput ? 'withdraw-age' : '' }}" href="{{ path('rx_ria_risks_delete_question', {'id': question.id}) }}">Delete</a>
+                </div>
+            </sup>
+        
+        <ol type="a">
+            {% for answer in question.answers %}
+                <li>{{ answer.title }} = {{ answer.point }}</li>
+            {% endfor %}
+        </ol>
+    </div>
+</li>

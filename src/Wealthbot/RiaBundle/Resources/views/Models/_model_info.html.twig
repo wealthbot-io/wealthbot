@@ -1,0 +1,76 @@
+{% if is_use_qualified %}
+    <div align="center">
+        <a href="?is_qualified=1" class="qualified">Qualified</a>
+        &nbsp;|&nbsp;
+        <a href="?is_qualified=0">Non-Qualified</a>
+    </div>
+{% endif %}
+
+<table class="table shadow">
+    <thead>
+        <tr>
+            <td colspan="3">
+                <div class="pie-chart-center">
+                    <div class="pie-chart" style="width: 350px; height: 200px;" data-entities="{{ portfolio_information.modelEntitiesAsJson }}"></div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <th colspan="3">
+                <div class="center-text">{{ portfolio_information.model.name }}</div>
+            </th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% if portfolio_information.modelEntities is not empty %}
+            <tr>
+                <th>Asset Class</th>
+                <th>Investment Name</th>
+                <th>Percentage</th>
+            </tr>
+
+            {% for entity in portfolio_information.modelEntities %}
+                <tr>
+                    <td>{{ entity.subclass.name }}</td>
+                    <td>{{ entity.securityAssignment.security.name }} {{ entity.securityAssignment.security.symbol }}</td>
+                    <td>{{ entity.percent|number_format(2, '.', ',') }}%</td>
+                </tr>
+            {% endfor %}
+        {% else %}
+            <tr class="empty">
+                <td colspan="8">No Asset Classes Selected.</td>
+            </tr>
+        {% endif %}
+    </tbody>
+</table>
+<table class="table shadow">
+    <tbody>
+        <tr>
+            <th><div class="center-text">Costs:</div></th>
+        </tr>
+        <tr>
+            <td>
+                Fund Expenses: {{ '%.2f' | format(portfolio_information.fundExpenses) }}%/year <br/>
+            </td>
+        </tr>
+        <tr>
+            <th><div class="center-text">Expected Performance:</div></th>
+        </tr>
+        <tr>
+            <td>
+                Generous Investment Market: {{ '%.2f' | format(portfolio_information.generousInvestmentMarket) }}%
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Average Investment Market: {{ '%.2f' | format(portfolio_information.averageInvestmentMarket) }}%
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Low Investment Market: {{ '%.2f' | format(portfolio_information.lowInvestmentMarket) }}%
+            </td>
+        </tr>
+    </tbody>
+</table>

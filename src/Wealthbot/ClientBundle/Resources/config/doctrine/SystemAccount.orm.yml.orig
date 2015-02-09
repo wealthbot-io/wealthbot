@@ -1,0 +1,64 @@
+Wealthbot\ClientBundle\Entity\SystemAccount:
+    type: entity
+    table: system_client_accounts
+    repositoryClass: Wealthbot\ClientBundle\Repository\SystemAccountRepository
+    fields:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+        client_id:
+            type: integer
+            nullable: false
+        client_account_id:
+            type: integer
+            nullable: true
+        account_number:
+            type: string
+            length: 255
+            nullable: false
+        account_description:
+            type: string
+            length: 255
+            nullable: true
+        type:
+            type: smallint
+            nullable: false
+        status:
+            type: string
+            length: 50
+            nullable: false
+        source:
+            type: string
+<<<<<<< HEAD
+            length: 50
+            nullable: true
+
+=======
+            length: 45
+            nullable: true
+>>>>>>> develop
+    oneToOne:
+        clientAccount:
+            targetEntity: Wealthbot\ClientBundle\Entity\ClientAccount
+            joinColumn:
+                name: client_account_id
+                referencedColumnName: id
+                onDelete: set null
+            inversedBy: systemAccount
+            cascade: ['persist']
+    manyToOne:
+        client:
+            targetEntity: Wealthbot\UserBundle\Entity\User
+            joinColumn:
+                name: client_id
+                referencedColumnName: id
+                onDelete: cascade
+            inversedBy: systemAccounts
+            cascade: ['persist']
+    oneToMany:
+        transferInformations:
+            targetEntity: Wealthbot\ClientBundle\Entity\TransferInformation
+            mappedBy: systemAccount
+            cascade: ['persist']

@@ -1,0 +1,27 @@
+Wealthbot\AdminBundle\Entity\CustodianMessage:
+    type: entity
+    table: custodian_messages
+    repositoryClass: Wealthbot\AdminBundle\Repository\CustodianMessageRepository
+    fields:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+        custodian_id:
+            type: integer
+        message:
+            type: string
+            length: 255
+            nullable: true
+        type:
+            type: string
+            length: 45
+    manyToOne:
+        custodian:
+            targetEntity: Wealthbot\AdminBundle\Entity\Custodian
+            joinColumn:
+                name: custodian_id
+                referencedColumnName: id
+                onDelete: cascade
+            cascade: ['persist']

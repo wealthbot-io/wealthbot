@@ -1,0 +1,12 @@
+{% block subject %}
+{% autoescape false %}
+ADV Copy
+{% endautoescape %}
+{% endblock %}
+{% block body_text %}
+{% autoescape false %}
+{{ 'Hello, %client%!' | trans({ '%client%': client }) }}
+{{ 'Find please below ADV of the company %company%.' | trans({ '%company%': company }) }}
+{% endautoescape %}
+{% endblock %}
+{% block body_html %}{% endblock %}

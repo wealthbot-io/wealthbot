@@ -1,0 +1,7 @@
+{% extends 'WealthbotAdminBundle::layout.html.twig' %}
+
+{% block body %}
+    <h1>New Tier</h1>
+
+    {% include 'WealthbotAdminBundle:GeneralSettings:_form.html.twig' with {'form': form, 'action': path('rx_admin_fee_new')} %}
+{% endblock %}

@@ -1,0 +1,57 @@
+{% extends is_ajax is defined and is_ajax ? 'WealthbotClientBundle::clear_layout.html.twig' : 'WealthbotClientBundle:Dashboard:index.html.twig' %}
+
+{% block content %}
+    <!-- start: Account selector -->
+    {% include 'WealthbotClientBundle:Dashboard:account_selector.html.twig' with {
+        'client': client,
+        'is_client_view': is_client_view,
+        'action': layout_variables.action,
+        'accounts': accounts
+    } %}
+    <!-- end: Account selector -->
+
+    <!-- start: Content -->
+
+    <div class="row-fluid sortable">
+        <div class="box span12">
+            <div class="box-header shadow">
+                <h2>Recent Account Activity</h2>
+            </div>
+            <div class="box-content shadow">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th class="span6">
+                            {{ knp_pagination_sortable(pagination, 'Security', 'securities.name') }}
+                        </th>
+                        <th class="span2">
+                            {{ knp_pagination_sortable(pagination, 'Symbol', 'securities.symbol') }}
+                        </th>
+                        <th class="span2">
+                            {{ knp_pagination_sortable(pagination, 'Date of Transaction', 'transactions.txDate') }}
+                        </th>
+                        <th class="span2">
+                            {{ knp_pagination_sortable(pagination, 'Type', 'transaction_types.description') }}
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for transaction in pagination %}
+                        <tr>
+                            <td>{{ transaction.security.name|default('Not available') }}</td>
+                            <td>{{ transaction.security.symbol|default('Not available') }}</td>
+                            <td class="center">{{ transaction.txDate|date("M jS, Y") }}</td>
+                            <td class="center">{{ transaction.transactionType.description|default('Not available') }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                <div class="pagination pagination-centered">
+                    {{ knp_pagination_render(pagination) }}
+                </div>
+            </div>
+        </div><!--/span-->
+    </div><!--/row-->
+
+    <hr>
+{% endblock %}

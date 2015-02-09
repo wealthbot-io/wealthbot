@@ -1,0 +1,3 @@
+<form action="{{ path('rx_client_transfer_create_bank_account') }}" method="post" enctype="multipart/form-data">
+    {% include 'WealthbotClientBundle:Transfer:_create_bank_account_form.html.twig' with { 'form': form, 'account_id': 0 } %}
+</form>

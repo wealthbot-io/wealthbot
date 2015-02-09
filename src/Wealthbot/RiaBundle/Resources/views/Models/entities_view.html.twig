@@ -1,0 +1,45 @@
+<table class="table">
+    <thead>
+    <tr>
+        <th>Asset Class</th>
+        <th>Subclass</th>
+        <th>Security Name</th>
+        {% if (is_show_municipal_bond) %}
+            <th>Muni Substitution</th>
+        {% endif %}
+        {% if (is_show_tax_loss_harvesting) %}
+            <th>Tax Loss Harvesting Substitution</th>
+        {% endif %}
+        <th>Percent</th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody id="model_entities_list">
+    {% set totalPercent = 0 %}
+
+    {% if modelEntities is not empty %}
+        {% for entity in modelEntities %}
+            {% include 'WealthbotRiaBundle:Models:_entity_row.html.twig' with {'modelEntity': entity} %}
+
+            {% set totalPercent = totalPercent + entity.percent %}
+        {% endfor %}
+    {% else %}
+        <tr class="empty">
+            <td colspan="8">No Asset Classes Selected.</td>
+        </tr>
+    {% endif %}
+    </tbody>
+    <tfoot>
+    <tr>
+        {% if (is_show_municipal_bond) %}
+            <td></td>
+        {% endif %}
+        {% if (is_show_tax_loss_harvesting) %}
+            <td></td>
+        {% endif %}
+        <td colspan="3"></td>
+        <td><strong>Total:</strong></td>
+        <td class="total-percent" colspan="3"><strong>{{ totalPercent|number_format(2, '.', ',') }} %</strong></td>
+    </tr>
+    </tfoot>
+</table>

@@ -1,0 +1,129 @@
+Wealthbot\ClientBundle\Entity\TransferInformation:
+    type: entity
+    table: transfer_information
+    repositoryClass: Wealthbot\ClientBundle\Repository\TransferInformationRepository
+    fields:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+        system_account_id:
+            type: integer
+            nullable: true
+        client_account_id:
+            type: integer
+            nullable: false
+        transfer_custodian_id:
+            type: integer
+            nullable: true
+        title_first:
+            type: string
+            length: 40
+            nullable: true
+        title_middle:
+            type: string
+            length: 40
+            nullable: true
+        title_last:
+            type: string
+            length: 40
+            nullable: true
+        joint_title_first:
+            type: string
+            length: 40
+            nullable: true
+        joint_title_middle:
+            type: string
+            length: 40
+            nullable: true
+        joint_title_last:
+            type: string
+            length: 40
+            nullable: true
+        account_number:
+            type: string
+            length: 255
+            nullable: true
+        financial_institution:
+            type: string
+            length: 255
+            nullable: true
+        firm_address:
+            type: string
+            length: 255
+            nullable: true
+        phone_number:
+            type: string
+            length: 255
+            nullable: true
+        account_type:
+            type: string
+            length: 255
+            nullable: true
+        transfer_from:
+            type: smallint
+            nullable: true
+        transfer_shares_cash:
+            type: boolean
+            nullable: true
+        insurance_policy_type:
+            type: smallint
+            nullable: true
+        penalty_amount:
+            type: float
+            nullable: true
+        is_penalty_free:
+            type: boolean
+            nullable: true
+        redeem_certificates_deposit:
+            type: boolean
+            nullable: true
+        delivering_account_title:
+            type: string
+            length: 255
+            nullable: true
+        ameritrade_account_title:
+            type: string
+            length: 255
+            nullable: true
+        is_include_policy:
+            type: boolean
+            nullable: true
+    manyToOne:
+        systemAccount:
+            targetEntity: Wealthbot\ClientBundle\Entity\SystemAccount
+            joinColumn:
+                name: system_account_id
+                referencedColumnName: id
+                onDelete: cascade
+            inversedBy: transferInformations
+            cascade: ['persist']
+        transferCustodian:
+            targetEntity: Wealthbot\ClientBundle\Entity\TransferCustodian
+            joinColumn:
+                name: transfer_custodian_id
+                referencedColumnName: id
+                onDelete: set null
+            cascade: ['persist']
+    oneToOne:
+        clientAccount:
+            targetEntity: Wealthbot\ClientBundle\Entity\ClientAccount
+            joinColumn:
+                name: client_account_id
+                referencedColumnName: id
+                onDelete: cascade
+            inversedBy: transferInformation
+            cascade: ['persist']
+        statementDocument:
+            targetEntity: Wealthbot\UserBundle\Entity\Document
+            joinColumn:
+                name: statement_document_id
+                referencedColumnName: id
+                onDelete: set null
+            cascade: ['persist']
+    oneToMany:
+        questionnaireAnswers:
+            targetEntity: Wealthbot\ClientBundle\Entity\TransferCustodianQuestionAnswer
+            mappedBy: transferInformation
+            cascade: ['persist']

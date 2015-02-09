@@ -1,0 +1,12 @@
+{% extends 'WealthbotClientBundle:Transfer:_retirement_account_credentials_form.html.twig' %}
+
+{% block form_action %}
+    {{ path('rx_client_dashboard_edit_retirement_account_info', { 'account_id': account.id }) }}
+{% endblock %}
+
+{% block form_attributes %}id="edit_retirement_account_info_form"{% endblock %}
+
+{% block form_actions %}
+    <a class="cancel-btn btn" href="javascript:void(0)">Cancel</a>
+    <input type="submit" class="btn btn-success" name="submit" value="Save" />
+{% endblock %}

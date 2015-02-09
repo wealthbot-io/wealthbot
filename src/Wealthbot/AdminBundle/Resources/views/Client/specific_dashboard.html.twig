@@ -1,0 +1,30 @@
+{% extends 'WealthbotAdminBundle::layout.html.twig' %}
+
+{% block body %}
+    <h3>CLIENT SPECIFIC DASHBOARD</h3>
+    <div class="tabbable">
+        <ul class="nav nav-tabs">
+            <li class="active"><a href="#tab1" data-toggle="tab">Client Profile</a></li>
+            <li><a href="#tab2" data-toggle="tab">Transactions</a></li>
+            <li><a href="#tab3" data-toggle="tab">History</a></li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane active" id="tab1">
+                {% include 'WealthbotAdminBundle:Client:_client_profile.html.twig' with { 'client': client } %}
+            </div>
+            <div class="tab-pane" id="tab2">
+                Transactions
+            </div>
+            <div class="tab-pane" id="tab3">
+                {% include 'WealthbotAdminBundle:Ria:_history.html.twig' with { 'history_pagination': history_pagination } %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {% javascripts '@WealthbotAdminBundle/Resources/public/js/admin.client_dashboard.js' %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock %}

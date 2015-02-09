@@ -1,0 +1,18 @@
+{% extends 'WealthbotAdminBundle:Pas:layout.html.twig' %}
+
+{% block tab_content %}
+    <table class="table pas-sec-files">
+        <thead>
+            <th>#</th>
+            <th>Symbol</th>
+        </thead>
+        <tbody>
+            {% for row in data %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

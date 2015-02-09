@@ -1,0 +1,19 @@
+<form id="beneficiaries_signature_form" action="{{ path('rx_client_dashboard_beneficiaries_sign', { 'account_id': account.id }) }}" method="post">
+    <h4>Please sign the following documents. You will be brought to a third party site which will navigate you to each signature line.</h4>
+    <ol class="account-signature-list">
+        {% for signature in signatures %}
+            {% set activity = document_signature_activity(signature) %}
+            <li data-signature="{{ signature.id }}">
+                {% if is_signature_completed(signature) %}
+                    <span class="account-status-lnk completed">{{ activity }} - {{ account.clientAccount.typeString }}</span>
+                {% else %}
+                    <a class="electronically-signing-btn" href="javascript:void(0)" data-url="{{ path('wealthbot_docusign_sign', { signature_id: signature.id }) }}">{{ activity }} - {{ account.clientAccount.typeString }}</a>
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ol>
+
+    <div class="form-actions">
+        <input class="btn" type="submit" value="Submit" />
+    </div>
+</form>

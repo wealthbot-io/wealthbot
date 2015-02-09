@@ -1,0 +1,38 @@
+{% extends '::base_search_section.html.twig' %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {% javascripts '@WealthbotUserBundle/Resources/public/js/user.default.js' %}
+        <script type="text/javascript" src="/js/jquery.form.js"></script>
+
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock %}
+
+{% block body %}
+<div class="row">
+<div class="span12">
+<h1>Find the advisor who will help you reach your financial goals.</h1>
+<h4 class="muted">Search our AdvisorLink Directory to find an investment advisor in our your area who uses our platform to help clients like you.</h4>
+
+    <form id="search_ria_form" class="form-horizontal" action="{{ path('rx_search_ria') }}" method="post">
+        <div class="control-group">
+            <label class="checkbox">
+                The advisors location is not important to me.
+                {{ form_widget(form.is_not_locate) }}
+            </label>
+        </div>
+        <div class="control-group">
+            {{ form_errors(form.state) }}
+            {{ form_widget(form.state) }}
+            <input class="btn btn-info" type="submit" value="Search" />
+        </div>
+    </form>
+</div>
+</div>
+<div class="row">
+<div class="span12">
+    <div id="ria_search_results"></div>
+	</div>
+</div>
+{% endblock %}

@@ -1,0 +1,16 @@
+<script id="tplSummaryAccountItem" type="text/template">
+    <td><input type="checkbox"></td>
+    <td><%= name %></td>
+    <td><%= App.Const.AccountTypes[type] %></td>
+    <td><%= number %></td>
+    <td><%= status %></td>
+    <td class="pays-for" data-pays-for="<%= paysFor %>"><%= (paysFor == null ? ' - ' : paysFor) %></td>
+    <td>$<%= averageAccountValue.formatMoney() %></td>
+    <td><%= daysInPortfolio %></td>
+    <td>$<%= accountValue.formatMoney() %></td>
+    <td>$<%= cash.formatMoney() %></td>
+    <td><%= App.Const.BillItemStatus[billItemStatus] %></td>
+    <td class="editable" id="feeBilled">$<%= feeBilled.formatMoney() %></td>
+    <td class="editable" id="feeCollected">$<%= feeCollected.formatMoney() %></td>
+    <td><a href="#" id="btnEdit" class="<%= (billItemId == 0) ? 'disabled' : '' %>">Edit</a></td>
+</script>

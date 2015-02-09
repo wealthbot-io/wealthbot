@@ -1,0 +1,55 @@
+{% extends 'WealthbotRiaBundle:Dashboard:clients_list.html.twig' %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    {% javascripts
+        '@WealthbotClientBundle/Resources/public/js/client.account_selector.js'
+    %}
+        <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock %}
+
+{% block clients_header %}
+    <div class="ria-client-dashboard-header-content row-fluid span10">
+        <div class="span11">
+            <h1>
+                {% if app.request.query.get('showBreadcrumbs') %}
+                    {{ form_widget(searchForm.search, {
+                        'id': 'filter-by-client-name',
+                        'attr': {
+                            'class': 'typeahead ajaxed filter-by-client-name input-medium',
+                            'data-complete-url': path('rx_ria_dashboard_clients_search'),
+                            'autocomplete': 'off',
+                            'placeholder': 'Client Name'
+                        }
+                    }) }}
+                    <a href="{{ path('rx_ria_dashboard_clients') }}">Clients</a> &gt;
+                {% endif %}
+                {{ client.fullName }}
+            </h1>
+        </div>
+        <div>
+            <a href="{{ path('rx_ria_dashboard_client_view', {'client_id': client.id }) }}"
+               target="_blank" id="client_view_btn"
+               data-redirect-action="overview">Client View</a>
+        </div>
+    </div>
+{% endblock %}
+
+{% block clients_content %}
+    <div class="row-fluid">
+        <div id="ria_dashboard_client_menu">
+            {% block client_menu %}
+                {% include 'WealthbotClientBundle:Dashboard:_nav.html.twig' with {
+                    'action' : action, 'is_client_view': false
+                } %}
+            {% endblock %}
+        </div>
+
+        <div class="span10 margin-top-7">
+            <hr />
+            <div id="ria_dashboard_client_content"></div>
+        </div>
+    </div>
+{% endblock %}

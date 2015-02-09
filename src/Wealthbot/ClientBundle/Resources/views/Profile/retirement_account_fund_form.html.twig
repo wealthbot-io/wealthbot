@@ -1,0 +1,24 @@
+<form id="retirement_account_fund_form" action="{{ path("rx_client_profile_create_retirement_fund") }}" method="post" >
+    <table>
+        <tr>
+            <td>{{ form_label(form.security.name) }}</td>
+            <td class="padding-left-78">{{ form_label(form.security.symbol) }}</td>
+        </tr>
+        <tr>
+            <td>
+                {{ form_errors(form.security.name) }}
+                {{ form_widget(form.security.name) }}
+            </td>
+            <td>
+                {{ form_errors(form.security.symbol) }}
+                {{ form_widget(form.security.symbol) }}
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">{{ form_rest(form) }}</td>
+        </tr>
+        <tr>
+            <td colspan="2"><input class="btn" type="submit" name="submit" value="Add Fund"/></td>
+        </tr>
+    </table>
+</form>

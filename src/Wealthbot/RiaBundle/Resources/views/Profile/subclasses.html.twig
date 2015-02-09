@@ -1,0 +1,38 @@
+{% extends 'WealthbotRiaBundle::layout.html.twig' %}
+
+{% block body %}
+    <h1>Ria Subclasses</h1>
+
+    <form action="{{path('rx_ria_profile_subclasses')}}" method="post" enctype="multipart/form-data" >
+        <input id="prototype" type="hidden" value="{{ form_row(form.items.get('prototype'))|e }}" />
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Subclass</th>
+                    <th>Expected Performance (%)</th>
+                    <th>Account Type</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in form.items %}
+                    <tr>
+                        <td>
+                            {{ form.get('value').items[loop.index-1].subclass.name }}
+                        </td>
+                        <td>
+                            {{ form_errors(item.expected_performance) }}
+                            {{ form_widget(item.expected_performance) }}
+                        </td>
+                        <td>
+                            {{ form_errors(item.accountType) }}
+                            {{ form_widget(item.accountType) }}
+                        </td>
+                    </tr>
+
+                {% endfor %}
+            </tbody>
+        </table>
+        {{ form_rest(form) }}
+        <input class="btn" type="submit" name="submit" value="submit"/>
+    </form>
+{% endblock %}

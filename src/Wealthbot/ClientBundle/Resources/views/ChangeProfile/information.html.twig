@@ -1,0 +1,64 @@
+{% block flash_messages %}
+    {% for type, flashMessages in app.session.flashbag.all() %}
+        {% for flashMessage in flashMessages %}
+            <div class="alert alert-{{ type }}">
+                {{ flashMessage }}
+                <a class="close" data-dismiss="alert" href="#">&times;</a>
+            </div>
+        {% endfor %}
+    {% endfor %}
+{% endblock %}
+
+<form action="{{ path('rx_client_change_profile_information') }}" class="client-change-profile-form acc-form" method="post" enctype="multipart/form-data">
+    <fieldset class="b-label">
+        {% include 'WealthbotClientBundle:Profile:_personal_information_form_type_fields.html.twig' with {'form': form} %}
+
+        {% include 'WealthbotClientBundle:Profile:_contact_information_form_type_fields.html.twig' with {'form': form, 'is_change_profile': true} %}
+
+        <div class="form-title">
+            <h4>Financial Status</h4>
+            <hr/>
+        </div>
+
+        <div class="row">
+            <div class="span6">
+                <div class="control-group">
+                    {{ form_label(form.annual_income, 'Annual Income') }}
+                    {{ form_errors(form.annual_income) }}
+                    {{ form_widget(form.annual_income) }}
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="span6">
+                <div class="control-group">
+                    {{ form_label(form.estimated_income_tax) }}
+                    {{ form_errors(form.estimated_income_tax) }}
+                    {{ form_widget(form.estimated_income_tax, { 'attr': { 'class': 'input-xmini ' } } ) }}
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="span6">
+                <div class="control-group">
+                    {{ form_label(form.liquid_net_worth, 'Your Estimated Liquid Net Worth') }}
+                    {{ form_errors(form.liquid_net_worth) }}
+                    {{ form_widget(form.liquid_net_worth) }}
+                </div>
+            </div>
+        </div>
+
+        {% include 'WealthbotClientBundle:Transfer:_employment_information_form_type_fields.html.twig' with {'form': form} %}
+
+        <div class="row">
+            <div >
+                <div class="form-actions">
+                    {{ form_rest(form) }}
+                    <input class="btn" type="submit" name="Continue" value="Save"/>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+</form>

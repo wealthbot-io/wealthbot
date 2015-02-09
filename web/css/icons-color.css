@@ -1,0 +1,29 @@
+/* List styles
+=================================================================== */	
+
+.check_list li {background: url(../../img/icons/list/green/list_check.png) no-repeat 0% 50%; padding: 0 0 0 18px;}
+.plus_list  li {background: url(../../img/icons/list/green/list_plus.png) no-repeat 0% 50%; padding: 0 0 0 18px;}
+.minus_list  li {background: url(../../img/icons/list/green/list_minus.png) no-repeat 0% 50%; padding: 0 0 0 18px;}
+.star_list  li {background: url(../../img/icons/list/green/list_star.png) no-repeat 0% 50%; padding: 0 0 0 16px;}
+.arrow_list  li {background: url(../../img/icons/list/green/list_arrow.png) no-repeat 0% 50%; padding: 0 0 0 16px;}
+.square_list  li {background: url(../../img/icons/list/green/list_square.png) no-repeat 0% 50%; padding: 0 0 0 16px;}
+.circle_list  li {background: url(../../img/icons/list/green/list_circle.png) no-repeat 0% 50%; padding: 0 0 0 16px;}
+.cross_list  li {background: url(../../img/icons/list/green/list_cross.png) no-repeat 0% 50%; padding: 0 0 0 16px;}
+
+.project-info strong {
+	color: #89c236;
+}
+
+
+/* Icons Box
+=================================================================== */
+
+.ico-color {
+	background-image: url("../../img/icons/green/glyphicons.png");
+	opacity: 1;
+}
+
+.mini-color {
+  background-image: url("../../img/icons/green/glyphicons-mini.png");
+  opacity: 1;
+}

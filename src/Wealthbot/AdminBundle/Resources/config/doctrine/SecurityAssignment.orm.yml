@@ -1,0 +1,65 @@
+Wealthbot\AdminBundle\Entity\SecurityAssignment:
+  type: entity
+  table: securities_assignments
+  repositoryClass: Wealthbot\AdminBundle\Repository\SecurityAssignmentRepository
+  fields:
+    id:
+      type: integer
+      id: true
+      generator:
+        strategy: AUTO
+    security_id:
+      type: integer
+      nullable: false
+    subclass_id:
+      type: integer
+      nullable: true
+    model_id:
+      type: integer
+      nullable: true
+    is_preferred:
+      type: boolean
+      nullable: false
+    muni_substitution:
+      type: boolean
+      nullable: false
+  oneToOne:
+    securityTransaction:
+      targetEntity: Wealthbot\AdminBundle\Entity\SecurityTransaction
+      mappedBy: securityAssignment
+      cascade: ['persist']
+  oneToMany:
+    accountAssociations:
+      targetEntity: Wealthbot\ClientBundle\Entity\AccountOutsideFund
+      mappedBy: securityAssignment
+    ceModelEntity:
+      targetEntity: Wealthbot\AdminBundle\Entity\CeModelEntity
+      mappedBy: securityAssignment
+  manyToOne:
+    security:
+      targetEntity: Wealthbot\AdminBundle\Entity\Security
+      inversedBy: securityAssignments
+      joinColumn:
+        name: security_id
+        referencedColumnName: id
+        onDelete: cascade
+      cascade: ['persist']
+    subclass:
+      targetEntity: Wealthbot\AdminBundle\Entity\Subclass
+      inversedBy: securityAssignments
+      joinColumn:
+        name: subclass_id
+        referencedColumnName: id
+        onDelete: cascade
+      cascade: ['persist']
+    model:
+      targetEntity: Wealthbot\AdminBundle\Entity\CeModel
+      joinColumn:
+        name: model_id
+        referencedColumnName: id
+        onDelete: cascade
+      cascade: ['persist']
+  uniqueConstraints:
+    security_subclass_idx:
+      columns: security_id, subclass_id
+  lifecycleCallbacks: {  }

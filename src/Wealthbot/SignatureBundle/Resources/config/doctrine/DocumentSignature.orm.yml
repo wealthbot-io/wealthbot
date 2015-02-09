@@ -1,0 +1,49 @@
+Wealthbot\SignatureBundle\Entity\DocumentSignature:
+    type: entity
+    table: document_signatures
+    repositoryClass: Wealthbot\SignatureBundle\Repository\DocumentSignatureRepository
+    fields:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+        source_id:
+            type: integer
+        document_id:
+            type: integer
+        docusign_envelope_id:
+            type: string
+            length: 255
+            nullable: true
+        type:
+            type: string
+            length: 45
+        status:
+            type: string
+            length: 45
+        active:
+            type: boolean
+        created:
+            type: date
+            gedmo:
+                timestampable:
+                    on: create
+        updated:
+            type: datetime
+            gedmo:
+                timestampable:
+                    on: update
+    oneToOne:
+        document:
+            targetEntity: Wealthbot\UserBundle\Entity\Document
+            joinColumn:
+                name: document_id
+                referencedColumnName: id
+                onDelete: cascade
+            cascade: ['persist']
+    oneToMany:
+        ownerSignatures:
+            targetEntity: Wealthbot\SignatureBundle\Entity\DocumentOwnerSignature
+            mappedBy: documentSignature
+            cascade: ['persist']

@@ -1,0 +1,24 @@
+Wealthbot\ClientBundle\Entity\ClientAccount:
+    exclusion_policy: ALL
+    properties:
+        id:
+            expose: true
+            type: integer
+            groups: [summaryTable]
+        system_type:
+            expose: true
+            type: integer
+            groups: [summaryTable]
+
+    virtual_properties:
+        getOwnerNames:
+            serialized_name: name
+            groups: [summaryTable]
+
+#        getName:
+#            serialized_name: name
+#            groups: [summaryTable]
+#        getPaymentMethod:
+#            serialized_name: paymentMethod
+#            groups: [summaryTable]
+

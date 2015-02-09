@@ -1,0 +1,53 @@
+Wealthbot\RiaBundle\Entity\RiaModelCompletion:
+  type: entity
+  table: ria_model_completion
+  repositoryClass: Wealthbot\RiaBundle\Repository\RiaModelCompletionRepository
+  fields:
+    id:
+      type: integer
+      id: true
+      generator:
+        strategy: AUTO
+    ria_user_id:
+      type: integer
+      nullable: false
+    users_and_user_groups:
+      type: boolean
+      nullable: true
+    select_custodians:
+      type: boolean
+      nullable: true
+    rebalancing_settings:
+      type: boolean
+      nullable: true
+    create_securities:
+      type: boolean
+      nullable: true
+    assign_securities:
+      type: boolean
+      nullable: boolean
+    models_created:
+      type: boolean
+      nullable: true
+    customize_proposals:
+      type: boolean
+      nullable: true
+    billingComplete:
+      type: boolean
+      nullable: true
+      column: billing_complete
+    proposalDocuments:
+      type: boolean
+      nullable: true
+      column: proposal_documents
+
+  oneToOne:
+    ria:
+      targetEntity: Wealthbot\UserBundle\Entity\User
+      inversedBy:   riaModelCompletion
+      joinColumn:
+          name: ria_user_id
+          referencedColumnName: id
+          onDelete: cascade
+      cascade: ['persist']
+  lifecycleCallbacks: {  }

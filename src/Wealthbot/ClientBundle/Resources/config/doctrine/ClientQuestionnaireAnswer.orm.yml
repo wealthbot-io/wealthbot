@@ -1,0 +1,41 @@
+Wealthbot\ClientBundle\Entity\ClientQuestionnaireAnswer:
+  type: entity
+  table: client_questionnaire_answers
+  fields:
+    id:
+      type: integer
+      id: true
+      generator:
+        strategy: AUTO
+    client_id:
+      type: integer
+      nullable: false
+    question_id:
+      type: integer
+      nullable: false
+    answer_id:
+      type: integer
+      nullable: false
+  manyToOne:
+    client:
+      targetEntity: Wealthbot\UserBundle\Entity\User
+      joinColumn:
+        name: client_id
+        referencedColumnName: id
+        onDelete: cascade
+      cascade: ['persist']
+    question:
+      targetEntity: Wealthbot\RiaBundle\Entity\RiskQuestion
+      joinColumn:
+        name: question_id
+        referencedColumnName: id
+        onDelete: cascade
+      cascade: ['persist']
+    answer:
+      targetEntity: Wealthbot\RiaBundle\Entity\RiskAnswer
+      joinColumn:
+        name: answer_id
+        referencedColumnName: id
+        onDelete: cascade
+      cascade: ['persist']
+  lifecycleCallbacks: {  }

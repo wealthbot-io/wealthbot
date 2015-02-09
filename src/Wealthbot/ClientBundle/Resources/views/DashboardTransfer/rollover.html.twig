@@ -1,0 +1,23 @@
+{% extends 'WealthbotClientBundle:Transfer:rollover.html.twig' %}
+
+{% block javascripts %}
+    {#{% javascripts '@WealthbotClientBundle/Resources/public/js/client.transfer.js' %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}#}
+{% endblock %}
+{% block body %}
+    {% block top_content %}
+        {% render 'WealthbotClientBundle:Transfer:progressMenu' with { 'account': account, 'step': 'rollover' } %}
+    {% endblock %}
+
+    <form action="{% block form_action %}{{ path('rx_client_dashboard_transfer_rollover', { 'account_id': account.id }) }}{% endblock %}" method="post" class="def-form">
+        <h1>Your Rollover</h1>
+        {{ rollover_message ? rollover_message.message : '' }}
+        <div class="form-actions">
+            <a href="{% block back_url %}{{ path('rx_client_dashboard_transfer_back', {'account_id': account.id, 'action': 'rollover'}) }}{% endblock %}" class="btn btn-inverse">Back </a>
+            <input type="submit" class="btn" name="continue" value="Continue" />
+        </div>
+    </form>
+{% endblock %}
+{% block header_row %}{% endblock %}
+{% block bottom_content %}{% endblock %}

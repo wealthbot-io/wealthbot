@@ -1,0 +1,7 @@
+<div class="btn-toolbar">
+    <div class="btn-group">
+        {% for item in items.names %}
+            <a class="btn {{ (loop.index0 <= active) ? 'btn-inverse' : '' }} disabled" href="#">{{ loop.index }} {{ item }}</a>
+        {% endfor %}
+    </div>
+</div>

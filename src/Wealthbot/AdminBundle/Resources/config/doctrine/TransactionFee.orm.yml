@@ -1,0 +1,44 @@
+Wealthbot\AdminBundle\Entity\TransactionFee:
+    type: entity
+    table: transaction_fees
+    repositoryClass: Wealthbot\AdminBundle\Repository\TransactionFeeRepository
+    fields:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+        fee:
+            type: integer
+            nullable: false
+        transaction_id:
+            type: integer
+            nullable: false
+        fee_type_id:
+            type: integer
+            nullable: false
+    uniqueConstraints:
+        fee_unique:
+            name: fee_UNIQUE
+            columns: [fee]
+        fee_type_id_unique:
+            name: fee_type_id_UNIQUE
+            columns: [fee_type_id]
+        transaction_id_unique:
+            name: transaction_id_UNIQUE
+            columns: [transaction_id]
+    oneToOne:
+        transaction:
+            targetEntity: Wealthbot\AdminBundle\Entity\Transaction
+            joinColumn:
+                name: transaction_id
+                referencedColumnName: id
+                onDelete: cascade
+            cascade: ['persist']
+        feeType:
+            targetEntity: Wealthbot\AdminBundle\Entity\TransactionFeeType
+            joinColumn:
+                name: fee_type_id
+                referencedColumnName: id
+                onDelete: cascade
+            cascade: ['persist']

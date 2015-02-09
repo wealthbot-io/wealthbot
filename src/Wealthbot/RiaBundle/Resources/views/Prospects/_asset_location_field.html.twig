@@ -1,0 +1,26 @@
+{% if client_has_final_portfolio %}
+    <div class="alert alert-info">
+        <strong>Asset Location:</strong>
+        The client's portfolio will be rebalanced at the {{ client.profile.clientAccountManagedAsString|capitalize }}.
+    </div>
+{% else %}
+    {% if form.client_account_managed is defined %}
+        {% if "hidden" not in form.client_account_managed.vars.block_prefixes %}
+            <h5>Asset Location:</h5>
+            <p>Choose whether this client’s portfolio should be rebalanced at the household level or account level:</p>
+            <div>
+                {{ form_errors(form.client_account_managed) }}
+                {% for account in form.client_account_managed %}
+                    <label for="{{ account.vars.id }}" class="radio">{{ form_widget(account) }} {{ account.vars.label }}</label>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="alert alert-info">
+                <strong>Asset Location:</strong>
+                The client will be rebalanced at the household level because they would like a current retirement account managed.
+            </div>
+
+            {{ form_widget(form.client_account_managed) }}
+        {% endif %}
+    {% endif %}
+{% endif %}

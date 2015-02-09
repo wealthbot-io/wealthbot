@@ -1,0 +1,65 @@
+{% extends 'WealthbotRiaBundle::layout_themed.html.twig' %}
+
+{% block body %}
+
+    {% block ria_nav %}
+        <!-- start: RIA  nav/menu -->
+        {% include 'WealthbotRiaBundle::menu_nav.html.twig' %}
+        <!-- end: RIA nav/menu -->
+    {% endblock %}
+
+    <div id="ria_rebalancing_page_content">
+        {% block content %}
+            <div class="tabbable"> <!-- Only required for left/right tabs -->
+                <ul class="nav nav-tabs">
+                    <li {{ active_tab == 'rebalancer' ? 'class="active"' : '' }}><a href="#rebalancer_tab" data-toggle="tab">Rebalancer</a></li>
+                    <li {{ active_tab == 'history' ? 'class="active"' : '' }}><a href="#history_tab" data-toggle="tab">History</a></li>
+                    <li {{ active_tab == 'trade_recon' ? 'class="active"' : '' }}><a href="#trade_recon_tab" data-toggle="tab">Trade Recon</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane {{ active_tab == 'rebalancer' ? 'active' : '' }}" id="rebalancer_tab">
+                        {% render 'WealthbotRiaBundle:Rebalancer:index' %}
+                    </div>
+                    <div class="tab-pane {{ active_tab == 'history' ? 'active' : '' }}" id="history_tab">
+                        {% render 'WealthbotRiaBundle:Rebalancer:history' %}
+                    </div>
+                    <div class="tab-pane {{ active_tab == 'trade_recon' ? 'active' : '' }}" id="trade_recon_tab">
+                        {% render 'WealthbotRiaBundle:Rebalancer:tradeRecon' with {
+                            'date': app.request.query.get('date'),
+                            'client': app.request.query.get('client')
+                        }
+                        %}
+                    </div>
+                </div>
+            </div>
+        {% endblock %}
+    </div>
+
+    <div id="modal_dialog" class="modal hide longModal" style="width: 1170px; margin-left: -585px;">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h3 class="bbh3"></h3>
+        </div>
+        <div class="modal-body" style="height: auto;">
+
+        </div>
+        <div class="modal-footer">
+            <button type="submit" class="btn save-modal-form-btn">Save</button>
+            <a href="#" class="btn" data-dismiss="modal" aria-hidden="true">Cancel</a>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    {% javascripts
+    '@WealthbotRiaBundle/Resources/public/js/ria.rebalancing.js'
+    %}
+
+    <script type="text/javascript" src="/js/inputmask/jquery.inputmask.js"></script>
+    <script type="text/javascript" src="/js/inputmask/jquery.inputmask.extensions.js"></script>
+
+    <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock %}

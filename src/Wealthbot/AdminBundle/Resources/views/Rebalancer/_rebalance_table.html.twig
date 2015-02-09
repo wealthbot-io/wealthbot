@@ -1,0 +1,53 @@
+{#{% set riaCompanyInformation = ria.riaCompanyInformation %}#}
+<table class="table">
+    <thead>
+    <tr>
+        <th>{{ is_history ? 'Status' :  form_widget(form.is_all) }}</th>
+        <th>Action</th>
+        <th>{{ knp_pagination_sortable(client_values_pagination, 'Relationship', 'p.last_name, p.first_name') }}</th>
+        <th>{{ knp_pagination_sortable(client_values_pagination, 'Ria', 'rci.name') }}</th>
+        <th>{{ knp_pagination_sortable(client_values_pagination, 'Rebalancing Frequency', 'rci.rebalanced_frequency') }}</th>
+        <th>{{ knp_pagination_sortable(client_values_pagination, 'Account Number', 'sca.account_number') }}</th>
+        <th>{{ knp_pagination_sortable(client_values_pagination, 'Account Type', 't.name') }}</th>
+        <th>{{ knp_pagination_sortable(client_values_pagination, 'Value', 'cav.total_value') }}</th>
+        <th>{{ knp_pagination_sortable(client_values_pagination, 'Required Cash', 'cav.required_cash') }}</th>
+        <th>{{ knp_pagination_sortable(client_values_pagination, 'Ivestable Cash', 'cav.investable_cash') }}</th>
+        <th>{{ knp_pagination_sortable(client_values_pagination, 'Model', 'po.name') }}</th>
+        <th>{{ knp_pagination_sortable(client_values_pagination, 'Model Deviation', 'cav.model_deviation') }}</th>
+        <th>{{ knp_pagination_sortable(client_values_pagination, 'Previous Rebalance', 'cav.date') }}</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for client_value in client_values_pagination %}
+        {% set client = client_value.clientPortfolio.client %}
+        {% set portfolio = client_value.clientPortfolio.portfolio %}
+        <tr>
+            <td>
+                {% if (not is_history) %}
+                    {{ form_widget(form.client_value[loop.index0]) }}
+                {% endif %}
+            </td>
+            <td><a href="{{ path('rx_admin_rebalancer_show_details', {'id': client_value.id}) }}" class="rebalance-action-btn">We will get back to you</a></td>
+            <td>
+                <a class="show-rebalancing-accounts-btn" href="{{ path('rx_admin_rebalancer_accounts_view', {client_portfolio_id: client_value.clientPortfolio.id}) }}">
+                    {{ client.lastName ~ ', ' ~ client.firstName }}
+                </a>
+            </td>
+            <td>{{ client.riaCompanyInformation.name }}</td>
+            <td>{{ client.riaCompanyInformation.rebalancedFrequencyName }}</td>
+            <td>{{ client_value.systemClientAccount.accountNumber }}</td>
+            <td>{{ client_value.systemClientAccount.clientAccount.typeString }}</td>
+            <td>${{ client_value.totalValue|number_format(2, '.', ',') }}</td>
+            <td>${{ client_value.requiredCash|number_format(2, '.', ',') }}</td>
+            <td>${{ client_value.investableCash|number_format(2, '.', ',') }}</td>
+            <td>{{ portfolio.name }}</td>
+            <td>{{ client_value.modelDeviation|number_format(2, '.', ',') }} %</td>
+            <td>{{ client_value.date|date('m/d/Y') }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+<div class="ajax-pagination pagination pagination-centered">
+    {{ knp_pagination_render(client_values_pagination) }}
+</div>

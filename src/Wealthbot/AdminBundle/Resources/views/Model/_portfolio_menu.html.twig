@@ -1,0 +1,3 @@
+{% for portfolio in models %}
+    <li {{ selected_strategy_id == portfolio.id ? 'class="active"' : '' }}><a href="{{ path('rx_admin_models_index_strategy', {'slug': portfolio.slug}) }}">{{ portfolio.name }}</a></li>
+{% endfor %}

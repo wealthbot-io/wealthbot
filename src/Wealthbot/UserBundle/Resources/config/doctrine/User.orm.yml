@@ -1,0 +1,149 @@
+Wealthbot\UserBundle\Entity\User:
+  type: entity
+  table: users
+  repositoryClass: Wealthbot\UserBundle\Repository\UserRepository
+  fields:
+    id:
+      type: integer
+      id: true
+      generator:
+        strategy: AUTO
+    password_expired_at:
+      type: datetime
+    master_client_id:
+      type: integer
+      nullable: true
+    is_password_reset:
+      type: boolean
+      nullable: true
+    closed:
+      type: datetime
+      nullable: true
+    created:
+      type: date
+      gedmo:
+        timestampable:
+          on: create
+    updated:
+      type: datetime
+      gedmo:
+        timestampable:
+          on: update
+  uniqueConstraints:
+    email_unique:
+      name: email_UNIQUE
+      columns: [ email ]
+  oneToOne:
+    profile:
+      targetEntity: Wealthbot\UserBundle\Entity\Profile
+      mappedBy: user
+      cascade: ['persist']
+    clientPersonalInformation:
+      targetEntity: Wealthbot\ClientBundle\Entity\PersonalInformation
+      mappedBy: client
+      cascade: ['persist']
+    riaCompanyInformation:
+      targetEntity: Wealthbot\RiaBundle\Entity\RiaCompanyInformation
+      mappedBy: ria
+      cascade: ['persist']
+    riaModelCompletion:
+      targetEntity: Wealthbot\RiaBundle\Entity\RiaModelCompletion
+      mappedBy: ria
+      cascade: ['persist']
+    alertsConfiguration:
+      targetEntity: Wealthbot\MailerBundle\Entity\AlertsConfiguration
+      mappedBy: user
+      cascade: ['persist']
+    clientSettings:
+      targetEntity: Wealthbot\ClientBundle\Entity\ClientSettings
+      mappedBy: client
+      cascade: ['persist']
+  oneToMany:
+    clientPortfolios:
+      targetEntity: Wealthbot\ClientBundle\Entity\ClientPortfolio
+      mappedBy: client
+      cascade: ['persist']
+    billingSpecs:
+      targetEntity: Wealthbot\AdminBundle\Entity\BillingSpec
+      mappedBy: owner
+
+    clientAccounts:
+      targetEntity: Wealthbot\ClientBundle\Entity\ClientAccount
+      mappedBy: client
+      cascade: ['persist']
+    systemAccounts:
+      targetEntity: Wealthbot\ClientBundle\Entity\SystemAccount
+      mappedBy: client
+      cascade: ['persist']
+    additionalContacts:
+      targetEntity: Wealthbot\ClientBundle\Entity\ClientAdditionalContact
+      mappedBy: client
+      cascade: ['persist']
+    slaveClients:
+      targetEntity: Wealthbot\UserBundle\Entity\User
+      mappedBy: masterClient
+      cascade: ['persist']
+    riaDashboardBoxes:
+      targetEntity: Wealthbot\RiaBundle\Entity\RiaDashboardBox
+      mappedBy: ria
+      cascade: ['persist']
+    clientActivitySummaries:
+      targetEntity: Wealthbot\ClientBundle\Entity\ClientActivitySummary
+      mappedBy: client
+      cascade: ['persist']
+    bills:
+        targetEntity: Wealthbot\ClientBundle\Entity\Bill
+        mappedBy: client
+        cascade: ['persist']
+    ownGroups:
+      targetEntity: Wealthbot\UserBundle\Entity\Group
+      mappedBy: owner
+      cascade: ['persist']
+    ceModels:
+      targetEntity: Wealthbot\AdminBundle\Entity\CeModel
+      mappedBy: owner
+      cascade: ['persist']
+  manyToOne:
+    masterClient:
+      targetEntity: Wealthbot\UserBundle\Entity\User
+      inversedBy: slaveClients
+      joinColumn:
+        name: master_client_id
+        referencedColumnName: id
+        onDelete: set null
+      cascade: ['persist']
+    appointedBillingSpec:
+      targetEntity: Wealthbot\AdminBundle\Entity\BillingSpec
+      inversedBy: appointedUsers
+      joinColumn:
+        name: appointed_billing_spec_id
+        referencedColumnName: id
+        onDelete: set null
+
+  manyToMany:
+    userDocuments:
+      targetEntity: Wealthbot\UserBundle\Entity\Document
+      inversedBy: users
+      joinTable:
+        name: user_documents
+        joinColumns:
+          user_id:
+            referencedColumnName: id
+        inverseJoinColumns:
+          document_id:
+            referencedColumnName: id
+      cascade: ['persist']
+    groups:
+      targetEntity: Group
+      inversedBy: users
+      joinTable:
+        name: user_groups
+        joinColumns:
+          user_id:
+            referencedColumnName: id
+            onDelete: cascade
+        inverseJoinColumns:
+          group_id:
+            referencedColumnName: id
+            onDelete: cascade
+  lifecycleCallbacks: {  }

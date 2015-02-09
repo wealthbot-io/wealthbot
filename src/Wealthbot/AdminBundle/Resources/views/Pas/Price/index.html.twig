@@ -1,0 +1,20 @@
+{% extends 'WealthbotAdminBundle:Pas:layout.html.twig' %}
+
+{% block tab_content %}
+    <table class="table pas-sec-files">
+        <thead>
+            <th>#</th>
+            <th>Symbol</th>
+            <th>Price</th>
+        </thead>
+        <tbody>
+            {% for row in data %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td>{{ row.symbol }}</td>
+                    <td>${{ row.price | number_format(2, '.', ' ') }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

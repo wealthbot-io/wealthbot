@@ -1,0 +1,32 @@
+{% if retirementAccounts is not empty %}
+    <legend>
+        <h2>Employer Retirement Accounts</h2>
+    </legend>
+    <p>
+        <span>
+            If you would like personalized buy and sell recommendations for any of your retirement plans below, please input the available fund choices by clicking on a plan below:
+        </span>
+    </p>
+
+    <table class="table shadow">
+        <tr>
+            <th>Choose an Account</th>
+            <th>Financial Institution</th>
+            <th>Account Type</th>
+            <th>Estimated Value</th>
+            <th>Estimated Monthly Contributions</th>
+            <th></th>
+        </tr>
+
+        {% for item in retirementAccounts %}
+            <tr class="retirement-account-row-{{ item.id }}">
+                <td><input class="select-retirement-account" data-url="{{ path('rx_ria_client_outside_funds', {'account_id': item.id}) }}" type="radio" name="selected_retirement_account" value="{{ item.id }}" /></td>
+                <td>{{ item.financialInstitution }}</td>
+                <td>{{ item.accountType.name }}</td>
+                <td>{{ item.value ? '$'~item.value : ''}}</td>
+                <td>{{ item.monthlyContributions ? '$'~item.monthlyContributions : '' }}</td>
+                <td><a class="remove-account-btn" href="{{ path('rx_ria_client_delete_account', {'id': item.id}) }}">Delete</a></td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endif %}

@@ -1,0 +1,82 @@
+{% extends is_ajax is defined and is_ajax ? 'WealthbotClientBundle::clear_layout.html.twig' : 'WealthbotClientBundle:Dashboard:index.html.twig' %}
+
+{% block content %}
+    <!-- start: Account selector -->
+    {% include 'WealthbotClientBundle:Dashboard:account_selector.html.twig' with {
+        'client': client,
+        'is_client_view': is_client_view,
+        'action': layout_variables.action,
+        'accounts': accounts,
+        'client_portfolio': client_portfolio
+    } %}
+    <!-- end: Account selector -->
+
+    <div class="row-fluid sortable">
+        <div class="box span6">
+            <div class="box-header shadow">
+                <h2>Actual Allocation</h2>
+            </div>
+            <div class="box-content shadow">
+                <div class="pie-chart" data-entities='{{ actualData|json_encode() }}' data-style="client-dashboard" style="height: 300px"></div>
+            </div>
+        </div>
+
+        <div class="box span6">
+            <div class="box-header shadow">
+                <h2>Target Allocation</h2>
+            </div>
+            <div class="box-content shadow">
+                <div class="pie-chart" data-entities='{{ targetData|json_encode() }}' data-style="client-dashboard" style="height: 300px"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row-fluid sortable">
+        <div class="box span12">
+            <div class="box-header shadow">
+                <h2>Asset Allocation</h2>
+            </div>
+            <div class="box-content shadow">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>Description</th>
+                        <th>Current Percent</th>
+                        <th>Target Percent</th>
+                        <th>Target Value</th>
+                        <th>Current Value</th>
+                        <th>Dollar Variance</th>
+                        <th>Percent Variance</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for row in tableData %}
+                    <tr>
+                        <td>{{ row.subclassTitle }}</td>
+                        <td>{{ row.currentPercent|number_format(2) }}%</td>
+                        <td>{{ row.targetPercent|number_format(2) }}%</td>
+                        <td>${{ row.targetValue|number_format(2) }}</td>
+                        <td>${{ row.currentValue|number_format(2) }}</td>
+                        <td>
+                            {% if row.dollarVariance < 0 %}<span class="label-important">({% endif %}${{ row.dollarVariance|abs()|number_format(2) }}{% if row.dollarVariance < 0 %})</span>{% endif %}
+                        </td>
+                        <td>{{ row.percentVariance }}%</td>
+                    </tr>
+                    {% endfor %}
+                    <tr>
+	                    <td></td>
+	                    <td>{{ lastRow.currentPercent|number_format(2) }}%</td>
+	                    <td>{{ lastRow.targetPercent|number_format(2) }}%</td>
+	                    <td>${{ lastRow.targetValue|number_format(2) }}</td>
+	                    <td>${{ lastRow.currentValue|number_format(2) }}</td>
+	                    <td></td>
+	                    <td></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div><!--/span-->
+    </div><!--/row-->
+
+    <hr>
+{% endblock %}

@@ -1,0 +1,87 @@
+<tr data-account-row="{{ account.id }}">
+    {% set group = account.groupName %}
+    {% set type = account.typeName %}
+
+    {% block table_row_first_column %}<td><strong>{{ index }}.</strong></td>{% endblock %}
+    <td>
+        {% block activity_title %}
+            {% if account.consolidatedAccounts | length > 0 %}
+                Consolidated Accounts
+            {% else %}
+                {{ account.activity }}
+            {% endif %}
+        {% endblock %}
+    </td>
+    <td>
+        {% block account_type_column %}
+            {% if (group == 'old_employer_retirement' or group == 'financial_institution')%}
+                {% set employer_name = account.financialInstitution %}
+            {% elseif group == 'employer_retirement' %}
+                {% set employer_financial_institurion = account.financialInstitution | split('(') %}
+                {% set employer_name = employer_financial_institurion[1] | trim(' )') %}
+            {% else %}
+                {% set employer_name = null %}
+            {% endif %}
+
+            {{ account.ownersAsString }}
+            {% if (account.consolidatedAccounts | length > 0) %}
+                {% if account.systemType == 1 %}
+                    Personal Account
+                {% elseif account.systemType == 2 %}
+                    Joint Account
+                {% else %}
+                    {{ account.systemTypeAsString }}
+                {% endif %}
+            {% else %}
+                {{ employer_name ? (employer_name ~ ' ' ~ type) : type }}
+            {% endif %}
+        {% endblock %}
+
+        {% block see_consolidated_accounts %}
+            {% if account.consolidatedAccounts | length > 0 %}
+                <br/>
+                {% spaceless %}
+                    <sup>
+                        <a class="see-consolidated-accounts-btn" data-url="{% block see_consolidated_url %}{{ path('rx_ria_prospect_client_consolidated_accounts', {
+                            'client_id': client.id,
+                            'account_id': account.id
+                        }) }}{% endblock %}" href="javascript:void(0)">(See all accounts ▲)</a>
+                    </sup>
+                {% endspaceless %}
+            {% endif %}
+        {% endblock %}
+
+        {% if group == 'employer_retirement' %}
+            <br/>
+            {% spaceless %}
+                <sup>
+                    <a class="see-investments-btn" data-url="{% block see_investments_url %}{{ path('rx_ria_prospect_client_outside_funds', {
+                        'client_id': client.id,
+                        'account_id': account.id})
+                    }}{% endblock %}" href="javascript:void(0)">(See investments ▲)</a>
+                </sup>
+            {% endspaceless %}
+        {% endif %}
+    </td>
+    <td>${% block account_value %}{{ account.valueSum|number_format(2, '.', ',') }}{% endblock %}</td>
+    <td>${% block account_contributions_value %} {{ account.contributionsSum|number_format(2, '.', ',') }}{% endblock %}</td>
+    <td>${% block account_distributions_value %} {{ account.distributionsSum|number_format(2, '.', ',') }}{% endblock %}</td>
+
+    {% block sascache_column %}
+        <td>${% block account_sascash_value %} {{ account.sasCashSum|number_format(2, '.', ',') }}{% endblock %}</td>
+    {% endblock %}
+
+    {% block row_extended %}{% endblock %}
+
+    {% block row_actions_column %}
+        {% if (with_edit is defined and with_edit) %}
+            <td>
+            {% if (account.consolidatedAccounts | length == 0) %}
+                <a class="edit-client-account-btn" href="{{ path('rx_ria_prospect_edit_client_account', {'client_id': client.id, 'account_id': account.id}) }}">Edit</a>
+                &nbsp;|&nbsp;
+                <a class="remove-client-account-btn" href="{{ path('rx_ria_prospect_delete_client_account', {'client_id': client.id, 'account_id': account.id}) }}">Delete</a>
+            {% endif %}
+            </td>
+        {% endif %}
+    {% endblock %}
+</tr>

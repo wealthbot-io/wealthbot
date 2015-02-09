@@ -1,0 +1,13 @@
+<script type="text/template" id="tplSummaryClientItem">
+    <td><input type="checkbox" class="client-select"></td>
+    <td><%= name %></td>
+    <td><%= clientStatus %></td>
+    <td><%= billingSpecName %></td>
+    <td><%= App.Const.PaymentMethods[paymentMethod] %></td>
+    <td><%= status %></td>
+    <td><%= billCreatedAt %></td>
+    <td class="numberView">$<%= portfolioValue.formatMoney() %></td>
+    <td class="numberView">$<%= cash.formatMoney() %></td>
+    <td class="feeBilled">$<%= feeBilled.formatMoney() %></td>
+    <td class="feeCollected">$<%= feeCollected.formatMoney() %></td>
+</script>

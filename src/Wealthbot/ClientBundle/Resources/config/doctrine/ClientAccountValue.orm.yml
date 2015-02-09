@@ -1,0 +1,60 @@
+Wealthbot\ClientBundle\Entity\ClientAccountValue:
+    type: entity
+    table: client_account_values
+    repositoryClass: Wealthbot\ClientBundle\Repository\ClientAccountValueRepository
+    fields:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+        client_portfolio_id:
+            type: integer
+        system_client_account_id:
+            type: integer
+        source:
+            type: string
+            length: 255
+        total_value:
+            type: float
+        total_in_securities:
+            type: float
+        total_cash_in_account:
+            type: float
+        total_cash_in_money_market:
+            type: float
+        sas_cash:
+            type: float
+        cash_buffer:
+            type: float
+        billing_cash:
+            type: float
+        model_deviation:
+            type: float
+        required_cash:
+            type: float
+        investable_cash:
+            type: float
+        date:
+            type: date
+    manyToOne:
+        clientPortfolio:
+            targetEntity: Wealthbot\ClientBundle\Entity\ClientPortfolio
+            joinColumn:
+                name: client_portfolio_id
+                referencedColumnName: id
+                onDelete: cascade
+            cascade: ['persist']
+        systemClientAccount:
+            targetEntity: Wealthbot\ClientBundle\Entity\SystemAccount
+            inversedBy: clientAccountValues
+            joinColumn:
+                name: system_client_account_id
+                referencedColumnName: id
+                onDelete: cascade
+            cascade: ['persist']
+    oneToMany:
+        rebalancerActions:
+            targetEntity: Wealthbot\AdminBundle\Entity\RebalancerAction
+            mappedBy: clientAccountValue
+            cascade: ['persist']

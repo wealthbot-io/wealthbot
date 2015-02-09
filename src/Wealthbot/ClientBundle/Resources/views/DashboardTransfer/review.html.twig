@@ -1,0 +1,11 @@
+{% extends 'WealthbotClientBundle:Transfer:review.html.twig' %}
+
+{% block javascripts %}
+    {% javascripts '@WealthbotSignatureBundle/Resources/public/docusign.listeners.js' %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock %}
+{% block header_row %}{% endblock %}
+{% block form_action %}{{ path('rx_client_dashboard_transfer_review', { 'account_id': account.id }) }}{% endblock %}
+{% block back_url %}{{ path('rx_client_dashboard_transfer_back', {'account_id': account.id, 'action': 'review'}) }}{% endblock %}
+{% block bottom_content %}{% endblock %}

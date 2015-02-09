@@ -1,0 +1,5 @@
+{% set index_route           = index_route is defined  ? index_route : 'rx_ria_categories_index' %}
+{% set asset_delete_route    = index_route is defined  ? index_route : 'rx_ria_categories_asset_delete' %}
+{% set subclass_delete_route = index_route is defined  ? index_route : 'rx_ria_categories_subclass_delete' %}
+
+{% include 'WealthbotAdminBundle:Categories:index.html.twig' %}

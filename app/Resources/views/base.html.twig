@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+{% block html_head %}
+	<head>
+	    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	    <title>
+	        {%- if block('title') -%}
+	        {{ block('title') }} | wealthbot.io
+	        {%- else -%}
+	        wealthbot.io
+	        {%- endif -%}
+	    </title>
+		<meta content="width=device-width, initial-scale=1, maximum-scale=1" name="viewport">
+	    {% block stylesheets %}
+	        <link rel="stylesheet" href="/css/bootstrap.css">
+	        <link rel="stylesheet" href="/css/bootstrap-responsive.css">
+	        <link rel="stylesheet" href="/css/styles.css">
+            <link rel="stylesheet" href="/css/jquery-ui-1.9.2.custom.min.css"/>
+		    {% stylesheets
+		              'bundles/user/css/*'
+		              'bundles/wealthbotria/css/*'
+		              filter='cssrewrite'
+		            %}
+		        <link rel="stylesheet" href="{{ asset_url }}">
+		    {% endstylesheets %}
+	    {% endblock %}
+
+	    <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" />
+
+	</head>
+{% endblock %}
+
+{% block html_body %}
+	<body id="mainApp">
+	{% block headernav %}
+        {% if app.environment != 'prod' %}
+            <div class="navbar">
+                <div class="navbar-inner">
+                    <div class="container-fluid">
+                        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </a>
+                        <a class="brand" href="/" name="top">wealthbot.io</a>
+                        <div class="nav-collapse collapse">
+                            <ul class="nav">
+                                <li><a href="/">Home</a></li>
+                                <li><a href="#about">About</a></li>
+                                <li><a href="#contact">Contact</a></li>
+                                {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                                    <li><a href="{{ path('fos_user_security_logout') }}">Logout</a></li>
+                                {% else %}
+                                    <li><a href="{{ path('fos_user_security_login') }}">Login</a></li>
+                                    <li><a href="{{ path('rx_ria_register') }}">Register Ria</a></li>
+                                {% endif %}
+
+                                {% if is_granted('ROLE_PREVIOUS_ADMIN') %}
+                                    <li class="pull-right">
+                                        <a href="{{ path('rx_user_switch_to_admin', { _switch_user: '_exit' }) }}">Back to Admin</a>
+                                    </li>
+                                {% endif %}
+                            </ul>
+                        </div><!--/.nav-collapse -->
+                    </div>
+                    <!--/.container-fluid -->
+                </div>
+                <!--/.navbar-inner -->
+            </div>
+        {% endif %}
+	{% endblock %}
+
+	{% block main_container %}
+		<div class="container-fluid">
+		    {% block flash_messages %}
+		        {% for type, flashMessages in app.session.flashbag.all() %}
+		            {% for flashMessage in flashMessages %}
+		                <div class="alert alert-{{ type }}">
+		                    {{ flashMessage }}
+		                    <a class="close" data-dismiss="alert" href="#">&times;</a>
+		                </div>
+		            {% endfor %}
+		        {% endfor %}
+		    {% endblock %}
+
+			{% block body %}{% endblock %}
+		</div>
+	{% endblock %}
+
+	{% block javascripts %}
+	    <script type="text/javascript" src="/js/jquery.min.js"></script>
+	    <script type="text/javascript" src="/js/jquery-ui-1.9.2.custom.min.js"></script>
+	    <script type="text/javascript" src="/js/jquery.form.js"></script>
+	    <script type="text/javascript" src="/js/jquery.autoNumeric.js"></script>
+	    <script type="text/javascript" src="/js/jquery.placeholder.min.js"></script>
+	    <script type="text/javascript" src="/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="/js/custom.js"></script>
+		<script type="text/javascript">
+		  $(document).ready(function () {
+		    $("[rel=popover]").popover();
+		  });
+		</script>
+        <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+        <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
+	{% endblock %}
+	</body>
+{% endblock %}
+</html>

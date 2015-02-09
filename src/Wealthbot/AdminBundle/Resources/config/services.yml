@@ -1,0 +1,207 @@
+parameters:
+#    wealthbot_admin.example.class: Wealthbot\AdminBundle\Example
+    wealthbot_admin.mailer.ria_activated.template: 'WealthbotAdminBundle:Ria:email.txt.twig'
+    wealthbot_admin.mailer.ria_activated.from_email: 'noreply@wealthbot.io'
+    wealthbot_admin.ce_model_class: '\Wealthbot\AdminBundle\Entity\CeModel'
+    wealthbot_admin.user_history.class: '\Wealthbot\AdminBundle\Entity\UserHistory'
+    wealthbot_admin.mailer.created_user.template: 'WealthbotAdminBundle:User:email.html.twig'
+    wealthbot_admin.mailer.created_user.from_email: 'noreply@wealthbot.io'
+    validator.class: 'Wealthbot\AdminBundle\Validator\Validator'
+
+services:
+#    wealthbot_admin.example:
+#        class: %wealthbot_admin.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]
+
+    wealthbot_admin.validator.fee_tier:
+        class: Wealthbot\AdminBundle\Validator\Constraints\FeeTierValidator
+        arguments: [@doctrine.orm.entity_manager]
+        tags:
+            - { name: validator.constraint_validator, alias: validator.rx_fee_tier }
+
+    wealthbot.twig.rx_extension:
+        class: Wealthbot\AdminBundle\Twig\WealthbotExtension
+        tags:
+            - { name: twig.extension }
+
+    wealthbot_admin.mailer.ria_activated:
+        class: Wealthbot\AdminBundle\Mailer\TwigSwiftMailer
+        arguments: [@mailer, @router, @twig, { template: { ria_activated: %wealthbot_admin.mailer.ria_activated.template% }, from_email: { ria_activated: %wealthbot_admin.mailer.ria_activated.from_email% } }]
+
+    wealthbot_admin.mailer:
+        class: Wealthbot\AdminBundle\Mailer\TwigSwiftMailer
+        arguments:
+            - @mailer
+            - @router
+            - @twig
+            -
+                template:
+                    created_user: %wealthbot_admin.mailer.created_user.template%
+                    ria_activated: %wealthbot_admin.mailer.ria_activated.template%
+                from_email:
+                    created_user: %wealthbot_admin.mailer.created_user.from_email%
+                    ria_activated: %wealthbot_admin.mailer.ria_activated.from_email%
+
+    wealthbot_admin.ce_model_manager:
+        class: Wealthbot\AdminBundle\Manager\CeModelManager
+        arguments: [@doctrine.orm.entity_manager, %wealthbot_admin.ce_model_class%]
+
+    wealthbot_admin.portfolio_information_manager:
+        class: Wealthbot\ClientBundle\Manager\PortfolioInformationManager
+        arguments: [@doctrine.orm.entity_manager, @wealthbot.manager.fee]
+
+    wealthbot_admin.securities.form:
+        factory_method: createNamed
+        factory_service: form.factory
+        class: Symfony\Component\Form\Form
+        arguments: [admin_security_form, @wealthbot_admin.securities.form.type, null, []]
+
+    wealthbot_admin.securities.form.type:
+        class: Wealthbot\AdminBundle\Form\Type\SecurityFormType
+        tags:
+            - { name: form.type, alias: admin_security }
+
+    wealthbot_admin.securities.form.handler:
+        class: Wealthbot\AdminBundle\Form\Handler\SecurityFormHandler
+        scope: request
+        arguments: [@wealthbot_admin.securities.form, @request, @doctrine.orm.entity_manager, { security_context: @security.context }]
+
+    wealthbot_admin.security_prices.event_listener:
+        class: Wealthbot\AdminBundle\EventListener\SecurityPriceEventListener
+        tags:
+            - { name: doctrine.event_listener, event: prePersist }
+
+    wealthbot_admin.user_history.manager:
+        class: Wealthbot\AdminBundle\Manager\UserHistoryManager
+        arguments: [@doctrine.orm.entity_manager, %wealthbot_admin.user_history.class%, @security.context, @security.role_hierarchy]
+
+    wealthbot_admin.user_history.listener:
+        class: Wealthbot\AdminBundle\EventListener\UserHistoryEventListener
+        arguments: [@wealthbot_admin.user_history.manager]
+        tags:
+            - { name: kernel.event_subscriber }
+
+    wealthbot_admin.acl:
+        class: Wealthbot\AdminBundle\Model\Acl
+        arguments: [@security.context]
+
+    wealthbot_admin.twig.acl_extension:
+        class: Wealthbot\AdminBundle\Twig\AclExtension
+        arguments: [@wealthbot_admin.acl]
+        tags:
+            - { name: twig.extension }
+
+
+    wealthbot.manager.billing_spec:
+        class: Wealthbot\AdminBundle\Manager\BillingSpecManager
+        arguments: [@doctrine.orm.default_entity_manager]
+
+    wealthbot.manager.fee:
+        class: Wealthbot\AdminBundle\Manager\FeeManager
+        arguments:
+            - @doctrine.orm.default_entity_manager
+            - @wealthbot.manager.user
+            - @wealthbot_client.cash.manager
+            - @wealthbot_ria.period.manager
+            - @wealthbot.manager.billing_spec
+
+    wealthbot.manager.bill:
+        class: Wealthbot\AdminBundle\Manager\BillManager
+        arguments:
+            - @doctrine.orm.default_entity_manager
+            - @wealthbot.manager.fee
+
+    wealthbot.manager.twr_calculator:
+        class: Wealthbot\AdminBundle\Manager\TwrCalculatorManager
+        arguments:
+            - @doctrine.orm.default_entity_manager
+
+
+    wealthbot.manager.rebalancer_queue:
+        class: Wealthbot\AdminBundle\Manager\RebalancerQueueManager
+        arguments: [@doctrine.orm.default_entity_manager]
+
+
+    wealthbot_admin.pas_interface.information:
+        class: Wealthbot\AdminBundle\Service\PasInterfacesInformation
+        arguments:
+            - ""
+
+    #################################
+    ## Pas interface
+    #################################
+    wealthbot_admin.pas_interface.base:
+        class: Wealthbot\AdminBundle\PasInterfaces\BaseData
+        arguments:
+            - @doctrine.orm.entity_manager
+            - @doctrine.odm.mongodb.document_manager
+            - @knp_paginator
+            - %pager_per_page%
+
+    wealthbot_admin.pas_interface.all_loader:
+        class: Wealthbot\AdminBundle\PasInterfaces\AllFilesData
+        parent: wealthbot_admin.pas_interface.base
+        tags:
+            - {name: wealthbot_admin.pas_interface_loader}
+
+    wealthbot_admin.pas_interface.securities:
+        class: Wealthbot\AdminBundle\PasInterfaces\SecuritiesData
+        parent: wealthbot_admin.pas_interface.base
+        tags:
+            - {name: wealthbot_admin.pas_interface_loader}
+
+    wealthbot_admin.pas_interface.prices:
+        class: Wealthbot\AdminBundle\PasInterfaces\PricesData
+        parent: wealthbot_admin.pas_interface.base
+        tags:
+            - {name: wealthbot_admin.pas_interface_loader}
+
+    wealthbot_admin.pas_interface.accounts:
+        class: Wealthbot\AdminBundle\PasInterfaces\AccountsData
+        tags:
+            - {name: wealthbot_admin.pas_interface_loader}
+        arguments:
+            - @doctrine.orm.entity_manager
+            - @doctrine.odm.mongodb.document_manager
+            - @wealthbot_admin.business_calendar
+
+    wealthbot_admin.pas_interface.positions:
+        class: Wealthbot\AdminBundle\PasInterfaces\PositionsData
+        parent: wealthbot_admin.pas_interface.base
+        tags:
+            - {name: wealthbot_admin.pas_interface_loader}
+
+    wealthbot_admin.pas_interface.transactions:
+        class: Wealthbot\AdminBundle\PasInterfaces\TransactionsData
+        parent: wealthbot_admin.pas_interface.base
+        tags:
+            - {name: wealthbot_admin.pas_interface_loader}
+
+    wealthbot_admin.pas_interface.unrealized_gains:
+        class: Wealthbot\AdminBundle\PasInterfaces\UnrealizedGainsData
+        parent: wealthbot_admin.pas_interface.base
+        tags:
+            - {name: wealthbot_admin.pas_interface_loader}
+
+    wealthbot_admin.pas_interface.realized_gains:
+        class: Wealthbot\AdminBundle\PasInterfaces\RealizedGainsData
+        parent: wealthbot_admin.pas_interface.base
+        tags:
+            - {name: wealthbot_admin.pas_interface_loader}
+
+    wealthbot_admin.pas_interface.trade_recon:
+        class: Wealthbot\AdminBundle\PasInterfaces\TradeReconData
+        tags:
+            - {name: wealthbot_admin.pas_interface_loader}
+        arguments:
+            - @wealthbot_admin.trade_recon.manager
+
+    wealthbot_admin.business_calendar:
+        class: Wealthbot\AdminBundle\Service\BusinessCalendar
+        arguments:
+            - @doctrine.orm.entity_manager
+
+    wealthbot_admin.trade_recon.manager:
+        class: Wealthbot\AdminBundle\Manager\TradeReconManager
+        arguments:
+            - @doctrine.orm.entity_manager

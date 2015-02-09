@@ -1,0 +1,22 @@
+<div>
+    {{ form_label(form.owners.other_contact, 'Who is the other person this account is for?') }}
+    {{ form_errors(form.owners.other_contact) }}
+
+    {% set contact = form.owners.other_contact %}
+
+    <div>
+        {{ form_errors(contact.first_name) }}
+        {{ form_widget(contact.first_name, {'attr': { 'placeholder': 'First Name', 'class': 'span2' } }) }}
+
+        {{ form_errors(contact.middle_name) }}
+        {{ form_widget(contact.middle_name, {'attr': { 'placeholder': 'Middle Name', 'class': 'span2' } }) }}
+
+        {{ form_errors(contact.last_name) }}
+        {{ form_widget(contact.last_name, {'attr': { 'placeholder': 'Last Name', 'class': 'span2' } }) }}
+
+    </div>
+    <div>
+        {{ form_errors(contact.relationship) }}
+        {{ form_widget(contact.relationship, {'attr': { 'placeholder': 'Relationship', 'class': 'span2' } }) }}
+    </div>
+</div>

@@ -1,0 +1,24 @@
+<script id="tplClientView" type="text/template">
+    <tr class="client <%= status %>">
+        <td><%= status %></td>
+        <td><%= lastName %></td>
+        <td><%= firstName %></td>
+        <td><%= advisorSet %></td>
+        <td></td>
+        <td></td>
+        <td><%= custodian %></td>
+        <td><%= billingSpec %></td>
+        <td><%= ceModels %></td>
+        <td>$<%= totalValue.formatMoney() %></td>
+        <td>
+            <a data-id="<%= id %>" class="client-dashboard">
+                <i class="glyphicon glyphicon-dashboard" title="Client Dashboard"></i>
+            </a>
+        </td>
+        <td>
+            <a data-id="<%= id %>" href="#" class="client-settings">
+                <i class="glyphicon glyphicon-wrench"></i>
+            </a>
+        </td>
+    </tr>
+</script>

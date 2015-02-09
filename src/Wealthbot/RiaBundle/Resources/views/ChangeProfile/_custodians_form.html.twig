@@ -1,0 +1,49 @@
+<form id="billing_n_accounts_form" action="{{path('rx_ria_change_profile_save_custodians')}}" method="post">
+
+    <legend>Your Custodian</legend>
+    <span>Select the custodian you will use with wealthbot.io.</span>
+
+    <div class="control-group">
+        {{ form_errors(custodianForm.custodian) }}
+        {{ form_widget(custodianForm.custodian) }}
+    </div>
+
+    <div id="custodian_questions" class="control-group">
+        {{ form_label(custodianForm.allow_non_electronically_signing, 'Do you want to allow for non-electronically signed transfer forms?') }}
+        <div class="controls">
+            {{ form_errors(custodianForm.allow_non_electronically_signing) }}
+            {% for radio in custodianForm.allow_non_electronically_signing %}
+                <label for="{{ radio.vars.id }}" class="radio inline">{{ form_widget(radio) }} {{ radio.vars.label }}</label>
+            {% endfor %}
+        </div>
+    </div>
+
+    <legend>Custodial Master IDs</legend>
+    {{ form_errors(custodianForm) }}
+    {{ form_errors(advisorCodesForm) }}
+    <select id="custodian_id" name="custodian_id">
+        <option value="">Choose an Option</option>
+        {% for custodian in custodians  %}
+            <option value="{{ custodian.id }}"{% if custodian.id == app.request.get('custodian_id') %} selected="selected"{% endif %}>{{ custodian.name }}</option>
+        {% endfor %}
+    </select>
+
+    <div id="advisor-codes-list">
+        {% if 'rx_ria_change_profile_custodian_tab' == app.request.attributes.get('_route') %}
+            {% render "WealthbotRiaBundle:ChangeProfile:advisorCodes" with {'request': app.request} %}
+        {% else %}
+            {{ include('WealthbotRiaBundle:ChangeProfile:advisor_codes.html.twig') }}
+        {% endif %}
+    </div>
+    <a id="new-id" href="#">New ID</a>
+
+    {{ form_widget(custodianForm._token) }}
+    {{ form_widget(advisorCodesForm._token) }}
+
+    <div class="span12">
+        <div class="form-actions">
+            <button type="submit" class="btn btn-ajax" data-loading-text="Saving...">Save</button>
+        </div>
+    </div>
+
+</form>

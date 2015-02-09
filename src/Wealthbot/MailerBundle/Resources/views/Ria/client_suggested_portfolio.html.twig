@@ -1,0 +1,20 @@
+{% extends 'WealthbotMailerBundle:Default:email_layout.html.twig' %}
+
+{% block subject %}
+    {% autoescape false %}
+    {{ 'Client Suggested Portfolio' }}
+    {% endautoescape %}
+{% endblock %}
+
+{% block content %}
+    {% autoescape false %}
+    {{ client.fullname }} was suggested a portfolio. <a href="{{ url('rx_ria_prospect_portfolio', {client_id: client.id} ) }}">Login</a> to view their profile.
+    <br><br>
+    Thank you,
+    <br><br>
+    wealthbot.io
+    {% endautoescape %}
+{% endblock %}
+
+
+

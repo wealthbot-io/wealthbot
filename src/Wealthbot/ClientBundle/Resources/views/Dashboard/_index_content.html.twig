@@ -1,0 +1,140 @@
+{% if not is_init_rebalance %}
+    <div class="row-fluid">
+        <div class="alert alert-error">
+            <div class="row-fluid">
+                <div class="span10">
+                    These accounts have been set up on our system and <strong>{{ account_values.total.funded_percent }}%</strong> of the portfolio's projected value has
+                    been funded. Would you like to make the initial rebalance?
+                </div>
+                <div class="span2">
+                    <button class="btn initial-rebalance-btn" data-url="{{ path('rx_ria_rebalancing_start_initial_rebalance', { client_id: client.id }) }}">Rebalance</button>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endif %}
+
+<div class="row-fluid">
+    <form id="sas_cash_collection_form" action="{{ path('rx_ria_client_update_sas_cash', {client_id: client.id}) }}" method="POST">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Account Owner</th>
+                <th>Account Type</th>
+                <th>Account Number</th>
+                <th>Value</th>
+                {% if not is_init_rebalance %}
+                    <th>Projected Value</th>
+                    <th>Rebalance</th>
+                {% endif %}
+                <th>Monthly Contributions</th>
+                <th>Monthly Distributions</th>
+                {% if (is_client_view == false) %}
+                    <th>SAS Cash</th>
+                {% endif %}
+            </tr>
+            </thead>
+            <tbody>
+            {% for key, item in account_values %}
+                {% if key != 'total' %}
+                    {% set clientAccount = item.account.clientAccount %}
+                    <tr>
+                        <td>
+                            {{ item.account.status == 'closed' ? '<b>(Closed) - </b>' : '' }}{{ clientAccount.ownersAsString | default('---') }}
+                        </td>
+                        <td>{{ clientAccount.typeName | default('---') }}</td>
+                        <td>{{ item.account.accountNumber | default('---') }}</td>
+                        <td>${{ item.value|number_format(2, '.', ',') }}</td>
+
+                        {% if not is_init_rebalance %}
+                            <td>${{ item.projected_value|number_format(2, '.', ',') }}</td>
+                            <td>
+                                <input type="checkbox" name="rebalance_accounts[]" value="{{ item.account.id }}" {{ item.account.isInitRebalance ? 'checked="checked" disabled="disabled"' }}/>
+                            </td>
+                        {% endif %}
+
+                        <td>${{ item.contributions|number_format(2, '.', ',') }}</td>
+                        <td>${{ item.distributions|number_format(2, '.', ',') }}</td>
+                        {% if (is_client_view == false) %}
+                            <td>
+                                {{ form_errors(sas_cash_form.sas_cash_collection[clientAccount.id]) }}
+                                <div class="input-prepend">
+                                    <span class="add-on">$</span>
+                                    {{ form_widget(sas_cash_form.sas_cash_collection[clientAccount.id], {'attr': {class: 'input-mini auto-numeric'}}) }}
+                                </div>
+                            </td>
+                        {% endif %}
+                    </tr>
+                {% endif %}
+            {% endfor %}
+
+            <tr class="total-row">
+                <td colspan="3"></td>
+                <td><strong>${{ account_values.total.value|number_format(2, '.', ',') }}</strong></td>
+
+                {% if not is_init_rebalance %}
+                    <td><strong>${{ account_values.total.projected_value|number_format(2, '.', ',') }}</strong></td>
+                    <td></td>
+                {% endif %}
+
+                <td><strong>${{ account_values.total.contributions|number_format(2, '.', ',') }}</strong></td>
+                <td><strong>${{ account_values.total.distributions|number_format(2, '.', ',') }}</strong></td>
+
+                {% if (is_client_view == false) %}
+                    <td class="sas-cash-sum"><strong>${{ account_values.total.sas_cash|number_format(2, '.', ',') }}</strong></td>
+                {% endif %}
+            </tr>
+
+            {% if (is_client_view == false) %}
+                <tr class="last-row">
+                    <td colspan="{{ is_init_rebalance ? 6 : 7 }}">
+                        {{ form_rest(sas_cash_form) }}
+                    </td>
+                    <td>
+                        <input type="submit" class="btn btn-info" value="Update"/>
+                    </td>
+                </tr>
+            {% endif %}
+
+            </tbody>
+        </table>
+    </form>
+</div>
+
+<hr />
+
+<div class="row-fluid">
+    <div class="box span12 shadow" onTablet="span12" onDesktop="span12">
+        <div class="box-header">
+            <h2><i class="icon-signal"></i><span class="break"></span>Portfolio Growth</h2>
+        </div>
+        {% set first_portfolio_values = client_portfolio_values_information.firstPortfolioValues %}
+        {% set last_portfolio_values = client_portfolio_values_information.lastPortfolioValues %}
+        <div class="box-content">
+            <div class="pull-left">
+                {% if (first_portfolio_values) %}
+                    <div class="pull-left">
+                        <span id="xaxis_value">{{ first_portfolio_values.date|date('n/j/Y') }}</span>
+                    </div>
+                    {% spaceless %}
+                        <div class="pull-left margin-left-20">
+                            <span class="text-primary">$</span>
+                            <span class="text-primary" id="yaxis_value">{{ first_portfolio_values.totalValue|number_format(2, '.', ',') }}</span>
+                        </div>
+                    {% endspaceless %}
+                {% endif %}
+            </div>
+            {% if (last_portfolio_values) %}
+                <div class="right-text text-bold">${{ last_portfolio_values.totalValue|number_format(2, '.', ',') }}</div>
+            {% endif %}
+            <div id="overview_stats_chart" class="stats-chart center-text" class="center" style="height:300px"
+                 data-values="{{ client_portfolio_values_information.jsonData }}"
+                 data-maximum="{{ client_portfolio_values_information.maxTotalValue }}"
+                 data-minimum="{{ client_portfolio_values_information.minTotalValue }}"></div>
+            {#{% if (last_portfolio_values) %}#}
+            {#<div class="flot-right-text flot-right-text-up">${{ client_portfolio_values_information.maxTotalValueForGraph|number_format(2, '.', ',') }}</div>#}
+            {#<div class="flot-right-text flot-right-text-bottom">${{ client_portfolio_values_information.minTotalValueForGraph|number_format(2, '.', ',') }}</div>#}
+            {#{% endif %}#}
+        </div>
+    </div>
+</div>

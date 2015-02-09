@@ -1,0 +1,48 @@
+parameters:
+    database_driver:   pdo_mysql
+    database_host:     127.0.0.1
+    database_port:     ~
+    database_name:     wealthbot
+    database_user:     root
+    database_password: password
+
+    mongodb_user: root
+    mongodb_password: root
+    mongodb_host: 127.0.0.1
+    mongodb_database: pas
+
+    mailer_transport:  smtp
+    mailer_host:       email-smtp.us-east-1.amazonaws.com
+    mailer_user:       secretUser
+    mailer_password:   secretPassword
+    mailer_auth_mode:  login
+    mailer_encryption: tls
+
+    locale:            en
+    secret:            ThisTokenIsNotSoSecretChangeIt
+
+    pager_per_page:    10
+
+    site_domain:    local.wealthbot.io
+
+    uploads_dir: "%kernel.root_dir%/../uploads"
+    uploads_ria_company_logos_dir: %uploads_dir%/ria_company_logos
+    uploads_documents_dir: %uploads_dir%/documents
+    uploads_trade_files_dir: '%uploads_dir%/trade_files'
+    active_jobs_dir: '%kernel.root_dir%/../system/incoming_files/active_jobs'
+
+    # For dev.wealthbot.io
+    docusign_brand_id: bd5bd28d-c8f3-4760-b70c-2be64e67ebf4
+
+    # For app.wealthbot.io
+    #docusign_brand_id: 41bc41b6-9619-4849-89f5-4df12176b306
+
+    # For dev-app.wealthbot.io
+    #docusign_brand_id: 4b69d026-6acc-4845-975c-14424c778d42
+
+    # For staging-app.wealthbot.io
+    #docusign_brand_id: d1347a38-6495-425f-aa4f-0dec372e38b3
+
+    #WIN
+    #CentOS
+    wkhtmltopdf_path: "/opt/wkhtmltopdf/bin/wkhtmltopdf"

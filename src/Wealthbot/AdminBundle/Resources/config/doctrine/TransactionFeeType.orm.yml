@@ -1,0 +1,18 @@
+Wealthbot\AdminBundle\Entity\TransactionFeeType:
+    type: entity
+    table: transaction_fee_types
+    repositoryClass: Wealthbot\AdminBundle\Repository\TransactionFeeTypeRepository
+    fields:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+        name:
+            type: string
+            length: 45
+            nullable: true
+        description:
+            type: string
+            length: 45
+            nullable: true

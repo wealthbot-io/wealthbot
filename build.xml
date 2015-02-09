@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="Wealthbot" default="build">
+ <target name="build"
+   depends="prepare,lint"/>
+
+ <target name="build-parallel"
+   depends="prepare,lint,phpunit,tools-parallel,phpcb"/>
+
+ <target name="tools-parallel" description="Run tools in parallel">
+  <parallel threadCount="2">
+   <sequential>
+    <antcall target="pdepend"/>
+    <antcall target="phpmd-ci"/>
+   </sequential>
+ <antcall target="phpcpd"/>
+ <antcall target="phpcs-ci"/> 
+   <antcall target="phploc"/>
+   <antcall target="phpdox"/>
+  </parallel>
+ </target>
+
+<target name="clean" description="Cleanup build artifacts">
+  <delete dir="${basedir}/build/api"/>
+  <delete dir="${basedir}/build/code-browser"/>
+  <delete dir="${basedir}/build/coverage"/>
+  <delete dir="${basedir}/build/logs"/>
+  <delete dir="${basedir}/build/pdepend"/>
+ </target>
+
+ <target name="prepare" depends="clean" description="Prepare for build">
+  <!--antcall target="build-test"/-->
+
+  <mkdir dir="${basedir}/build/api"/>
+  <mkdir dir="${basedir}/build/code-browser"/>
+  <mkdir dir="${basedir}/build/coverage"/>
+  <mkdir dir="${basedir}/build/logs"/>
+  <mkdir dir="${basedir}/build/pdepend"/>
+  <mkdir dir="${basedir}/build/phpdox"/>
+ </target>
+
+ <target name="lint" description="Perform syntax check of sourcecode files">
+  <apply executable="php" failonerror="true">
+   <arg value="-l" />
+
+<!--
+  <fileset dir="${basedir}/src">
+    <include name="**/*.php" />
+    <modified />
+   </fileset>
+-->
+
+   <fileset dir="${basedir}/web">
+    <include name="**/*.php" />
+    <modified />
+   </fileset>
+
+   <fileset dir="${basedir}/app">
+    <include name="**/*.php" />
+    <exclude name="cache/**"/>
+    <modified />
+   </fileset>
+
+
+  </apply>
+ </target>
+
+ <target name="phploc" description="Measure project size using PHPLOC">
+  <exec executable="phploc">
+   <arg value="--log-csv" />
+   <arg value="${basedir}/build/logs/phploc.csv" />
+   <arg path="${basedir}/" />
+  </exec>
+ </target>
+
+ <target name="pdepend" description="Calculate software metrics using PHP_Depend">
+  <exec executable="pdepend">
+   <arg value="--jdepend-xml=${basedir}/build/logs/jdepend.xml" />
+   <arg value="--jdepend-chart=${basedir}/build/pdepend/dependencies.svg" />
+   <arg value="--overview-pyramid=${basedir}/build/pdepend/overview-pyramid.svg" />
+   <arg path="${basedir}/src" />
+  </exec>
+ </target>
+
+ <target name="phpmd"
+         description="Perform project mess detection using PHPMD and print human readable output. Intended for usage on the command line before committing.">
+  <exec executable="phpmd">
+   <arg path="${basedir}/src" />
+   <arg value="text" />
+   <arg value="${basedir}/build/phpmd.xml" />
+  </exec>
+ </target>
+
+ <target name="phpmd-ci" description="Perform project mess detection using PHPMD creating a log file for the continuous integration server">
+  <exec executable="phpmd">
+   <arg path="${basedir}/src"/>
+   <arg value="xml" />
+   <arg value="${basedir}/jenkins/phpmd.xml" />
+   <arg value="--reportfile" />
+   <arg value="${basedir}/build/logs/pmd.xml" />
+  </exec>
+ </target>
+
+ <target name="phpcs"
+         description="Find coding standard violations using PHP_CodeSniffer and print human readable output. Intended for usage on the command line before committing.">
+  <exec executable="phpcs">
+   <arg value="--standard=${basedir}/jenkins/phpcs.xml" /> 
+   <arg path="${basedir}/src" />
+  </exec>
+ </target>
+
+ <target name="phpcs-ci" description="Find coding standard violations using PHP_CodeSniffer creating a log file for the continuous integration server">
+  <exec executable="phpcs" output="/dev/null">
+   <arg value="--report=checkstyle" />
+   <arg value="--report-file=${basedir}/build/logs/checkstyle.xml" />
+   <arg value="--standard=${basedir}/jenkins/phpcs.xml" />
+   <arg path="${basedir}/src" />
+  </exec>
+ </target>
+
+ <target name="phpcpd" description="Find duplicate code using PHPCPD">
+  <exec executable="phpcpd">
+   <arg value="--log-pmd" />
+   <arg value="${basedir}/build/logs/pmd-cpd.xml" />
+   <arg path="${basedir}/src" />
+  </exec>
+ </target>
+
+ <target name="phpdox" description="Generate API documentation using phpDox">
+  <exec executable="phpdox">
+  <arg value="-f" />
+  <arg path="${basedir}/jenkins/phpdox.xml" />
+  </exec>
+ </target>
+
+
+ <target name="phpcb" description="Aggregate tool output with PHP_CodeBrowser">
+  <exec executable="phpcb">
+   <arg value="--log" />
+   <arg path="${basedir}/build/logs" />
+   <arg value="--source" />
+   <arg path="${basedir}/src" />
+   <arg value="--output" />
+   <arg path="${basedir}/build/code-browser" />
+  </exec>
+ </target>
+
+ <target name="phpunit" description="Run unit tests with PHPUnit">
+    <exec executable="phpunit" failonerror="true">
+      <arg value="-c" />
+      <arg path="${basedir}/jenkins/phpunit.xml" />
+      <arg value="--log-junit" />
+      <arg path="${basedir}/build/logs/junit.xml" />
+      <arg value="--coverage-clover" />
+      <arg path="${basedir}/build/logs/clover.xml" />
+      <arg value="--coverage-html" />
+      <arg path="${basedir}/build/coverage" />
+    </exec>
+  </target>
+
+
+    <target name="build-test" description="Build for CI server">
+        <property name="builddir">${basedir}</property>
+        <property name="console">${basedir}/app/console</property>
+        <property name="env">test</property>
+        <antcall target="vendors-install"/>
+        <antcall target="db-drop"/>
+        <antcall target="db-create"/>
+        <antcall target="schema-update"/>
+        <antcall target="fixtures-load"/>
+        <antcall target="publish-assets"/>
+        <!--<antcall target="fos-js-routes"/>-->
+        <antcall target="assetic-dump"/>
+    </target>
+
+
+    <target name="vendors-install" description="install vendors">
+        <exec executable="composer" failonerror="true">
+            <arg value="install"/>
+            <arg value="--dev"/>
+            <arg value="--prefer-dist"/>
+        </exec>
+    </target>
+
+    <target name="db-drop" description="Drop database">
+        <exec executable="${console}" failonerror="false">
+            <arg value="doctrine:database:drop"/>
+            <arg value="--force"/>
+            <arg value="--env=${env}"/>
+        </exec>
+    </target>
+
+    <target name="db-create" description="Create database">
+        <chmod dir="${builddir}/app/logs" perm="777"/>
+        <chmod dir="${builddir}/app/cache" perm="777"/>
+        <exec executable="${console}" failonerror="true">
+            <arg value="doctrine:database:create"/>
+            <arg value="--env=${env}"/>
+        </exec>
+    </target>
+
+    <target name="cache-warmup" description="Warm up the cache">
+        <exec executable="${console}" failonerror="true">
+            <arg value="cache:warmup"/>
+            <arg value="--env=prod"/>
+        </exec>
+    </target>
+
+    <target name="schema-update" description="Update schema">
+        <exec executable="${console}" failonerror="true">
+            <arg value="doctrine:schema:update"/>
+            <arg value="--force"/>
+            <arg value="--env=${env}"/>
+        </exec>
+    </target>
+
+    <target name="fixtures-load" description="load fixtures">
+        <exec executable="${console}" failonerror="true">
+            <arg value="doctrine:fixtures:load"/>
+            <arg value="--env=${env}"/>
+        </exec>
+    </target>
+
+    <target name="publish-assets" description="publish assets">
+        <exec executable="${console}">
+            <arg value="assets:install"/>
+            <arg value="web/"/>
+        </exec>
+    </target>
+
+    <target name="fos-js-routes" description="Dump js routes">
+        <exec executable="${console}" failonerror="true">
+            <arg value="fos:js-routing:dump"/>
+            <arg value="--env=${env}"/>
+        </exec>
+    </target>
+
+    <target name="assetic-dump" description="assetic-dump">
+        <exec executable="${console}">
+            <arg value="assetic:dump"/>
+            <arg value="--env=${env}"/>
+            <arg value="--no-debug"/>
+        </exec>
+    </target>
+
+	<!--
+    <target name="capifony-deploy" description="Deploynment via Capifony">
+        <exec executable="cap" failonerror="true">
+            <arg value="jenkins"/>
+            <arg value="deploy"/>
+        </exec>
+    </target>
+  <target name="vendors" description="Update vendors">
+    <exec executable="composer" failonerror="true">
+        <arg value="update" />
+    </exec>
+  </target>
+-->
+
+</project>

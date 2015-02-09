@@ -1,0 +1,90 @@
+Wealthbot\ClientBundle\Entity\Distribution:
+    type: entity
+    table: distributions
+    repositoryClass: Wealthbot\ClientBundle\Repository\DistributionRepository
+    fields:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+        type:
+            type: string
+            length: 25
+        transferMethod:
+            type: string
+            length: 25
+            column: transfer_method
+        amount:
+            type: float
+            nullable: true
+        transferDate:
+            type: date
+            nullable: true
+            column: transfer_date
+        frequency:
+            type: smallint
+            nullable: true
+        distributionMethod:
+            type: smallint
+            nullable: true
+            column: distribution_method
+        federalWithholding:
+            type: smallint
+            nullable: true
+            column: federal_withholding
+        federalWithholdMoney:
+            type: float
+            nullable: true
+            column: federal_withhold_money
+        federalWithholdPercent:
+            type: float
+            nullable: true
+            column: federal_withhold_percent
+        stateWithholding:
+            type: smallint
+            nullable: true
+            column: state_withholding
+        stateWithholdMoney:
+            type: float
+            nullable: true
+            column: state_withhold_money
+        stateWithholdPercent:
+            type: float
+            nullable: true
+            column: state_withhold_percent
+        createdAt:
+            type: datetime
+            column: created_at
+            gedmo:
+                timestampable:
+                    on: create
+        updatedAt:
+            type: datetime
+            column: updated_at
+            gedmo:
+                timestampable:
+                    on: update
+    manyToOne:
+        systemClientAccount:
+            targetEntity: Wealthbot\ClientBundle\Entity\SystemAccount
+            inversedBy: distributions
+            joinColumn:
+                name: system_client_account_id
+                referencedColumnName: id
+                onDelete: cascade
+            cascade: ['persist']
+        bankInformation:
+            targetEntity: Wealthbot\ClientBundle\Entity\BankInformation
+            joinColumn:
+                name: bank_information_id
+                referencedColumnName: id
+                onDelete: set null
+            cascade: ['persist']
+        residenceState:
+            targetEntity: Wealthbot\AdminBundle\Entity\State
+            joinColumn:
+                name: residence_state_id
+                referencedColumnName: id
+                onDelete: SET NULL
+            cascade: ['persist']

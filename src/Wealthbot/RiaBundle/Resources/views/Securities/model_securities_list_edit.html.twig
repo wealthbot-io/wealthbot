@@ -1,0 +1,52 @@
+{% extends 'WealthbotRiaBundle:Securities:model_securities_list.html.twig' %}
+
+{% block security_form %}
+    <form id="security_form" action="{{ path('rx_ria_model_securities_edit', { id: form.vars.value.id }) }}" method="post">
+        <table class="table table-striped sorted-table">
+            <thead>
+            <tr>
+                <th colspan="8">Update security:</th>
+            </tr>
+            <tr>
+                <th><a href="#1"><span class="caret"></span> Symbol</a></th>
+                <th><a href="#1"><span class="caret"></span> Security Name</a></th>
+                <th><a href="#1"><span class="caret"></span> Asset Class</a></th>
+                <th><a href="#1"><span class="caret"></span> Subclass</a></th>
+                <th><a href="#1"><span class="caret"></span> Type</a></th>
+                <th><a href="#1"><span class="caret"></span> Expense Ratio</a></th>
+                {% if (is_show_municipal_bond) %}
+                    <th>Muni<br/>Substitution</th>
+                {% endif %}
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% if not form.vars.valid %}
+                <tr>
+                    <td colspan="8">{{ form_errors(form) }}</td>
+                </tr>
+            {% endif %}
+            <tr>
+                <td>
+                    {{ form_widget(form.fund_symbol,
+                        {'attr': {
+                        'data-provide': 'typeahead',
+                        'class': 'typeahead input-small',
+                        'data-complete-url': path('rx_ria_model_securities_complete_funds', { model_id: app.request.get('model_id') }),
+                        'autocomplete': 'off'
+                        }, 'value': security_assignment.security.symbol })
+                    }}
+                </td>
+                <td id="security_name_row">{{ security_assignment.security.name }}</td>
+                <td>{{ form_widget(form.asset_class_id, {'attr': {'data-complete-url': path('rx_ria_model_securities_complete_subclasses') } }) }}</td>
+                <td>{{ form_widget(form.subclass_id) }}</td>
+                <td id="security_type_row">{{ security_assignment.security.type }}</td>
+                <td id="security_expense_ratio_row">{{ security_assignment.security.expenseRatio }}</td>
+                <td>{{ form_widget(form.muni_substitution) }}</td>
+                <td><input type="submit" name="Update" value="Update" class="btn btn-success" /></td>
+            </tr>
+            {{ form_rest(form) }}
+            </tbody>
+        </table>
+    </form>
+{% endblock %}

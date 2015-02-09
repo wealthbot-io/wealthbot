@@ -1,0 +1,62 @@
+Wealthbot\ClientBundle\Entity\RebalancerQueue:
+    type: entity
+    table: rebalancer_queue
+    repositoryClass: Wealthbot\ClientBundle\Repository\RebalancerQueueRepository
+    fields:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+        amount:
+            type: float
+            nullable: false
+        quantity:
+            type: integer
+            nullable: true
+        amount:
+            type: float
+            nullable: true
+        status:
+            type: string
+            nullable: false
+        is_deleted:
+            type: boolean
+            nullable: false
+    manyToOne:
+        rebalancerAction:
+            targetEntity: Wealthbot\AdminBundle\Entity\RebalancerAction
+            inversedBy: rebalancerQueue
+            joinColumn:
+                name: rebalancer_action_id
+                referencedColumnName: id
+                onDelete: cascade
+            cascade: ['persist']
+        security:
+            targetEntity: Wealthbot\AdminBundle\Entity\Security
+            joinColumn:
+                name: security_id
+                referencedColumnName: id
+                onDelete: cascade
+            cascade: ['persist']
+        subclass:
+            targetEntity: Wealthbot\AdminBundle\Entity\Subclass
+            joinColumn:
+              name: subclass_id
+              referencedColumnName: id
+              onDelete: cascade
+            cascade: ['persist']
+        lot:
+            targetEntity: Wealthbot\ClientBundle\Entity\Lot
+            joinColumn:
+                name: lot_id
+                referencedColumnName: id
+                onDelete: cascade
+            cascade: ['persist']
+        systemClientAccount:
+            targetEntity: Wealthbot\ClientBundle\Entity\SystemAccount
+            joinColumn:
+                name: system_client_account_id
+                referencedColumnName: id
+                onDelete: SET NULL
+            cascade: ['persist']

@@ -1,0 +1,28 @@
+<table class="table">
+    <thead>
+    <tr>
+        <th>Editor</th>
+        <th>Edit Description</th>
+        <th>Date</th>
+    </tr>
+    </thead>
+    <tbody>
+        {% if history_pagination.getTotalItemCount > 0 %}
+            {% for item in history_pagination %}
+                <tr>
+                    <td>{{ item.isUpdatedByAdmin ? 'Admin' : 'User' }}: {{ item.updater.email }}</td>
+                    <td>{{ item.description }}</td>
+                    <td>{{ item.created|date('m/d/Y - H:i') }}</td>
+                </tr>
+            {% endfor %}
+        {% else %}
+            <tr>
+                <td colspan="3">History is empty.</td>
+            </tr>
+        {% endif %}
+    </tbody>
+</table>
+
+<div class="pagination pagination-centered">
+    {{ knp_pagination_render(history_pagination) }}
+</div>

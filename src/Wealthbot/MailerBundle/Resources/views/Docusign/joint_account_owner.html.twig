@@ -1,0 +1,12 @@
+{% extends 'WealthbotMailerBundle:Client:_client_layout.html.twig' %}
+
+{% block subject %}
+    {% autoescape false %}
+    {{ 'Important Documents to be signed' }}
+    {% endautoescape %}
+{% endblock %}
+
+{% block message %}
+    {{ joint_owner.firstName }},<br/><br/>
+    We have sent you important documents via DocuSign we need you to sign. Please let us know if you did not receive the DocuSign email.
+{% endblock %}

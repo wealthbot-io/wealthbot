@@ -1,0 +1,29 @@
+<div class="row-fluid">
+    <div class="span4">
+        <h2>wealthbot.io Documents</h2>
+        <div class="margin-top-10 clearfix">
+            <h2>Privacy Policy</h2>
+            {% if admin_documents.privacy_policy is defined %}
+                <a href="{{ path('rx_download_document', {'filename': admin_documents.privacy_policy.filename}) }}" target="_blank">{{ admin_documents.privacy_policy.name }} <i class="icon-download"></i></a>
+            {% endif %}
+        </div>
+        <div class="margin-top-10 clearfix">
+            <h2>User Agreement</h2>
+            {% if admin_documents.user_agreement is defined %}
+                <a href="{{ path('rx_download_document', {'filename': admin_documents.user_agreement.filename}) }}" target="_blank">{{ admin_documents.user_agreement.name }} <i class="icon-download"></i></a>
+            {% endif %}
+        </div>
+        <div class="margin-top-10 clearfix">
+            <h2>ADV</h2>
+            {% if admin_documents.adv is defined %}
+                <a href="{{ path('rx_download_document', {'filename': admin_documents.adv.filename}) }}" target="_blank">{{ admin_documents.adv.name }} <i class="icon-download"></i></a>
+            {% endif %}
+        </div>
+    </div>
+    <div class="span8">
+        <h2>Your Documents</h2>
+        <div class="ria-documents-form">
+            {% include 'WealthbotRiaBundle:ChangeProfile:_documents_form.html.twig' with { 'form': form, 'documents': documents } %}
+        </div>
+    </div>
+</div>

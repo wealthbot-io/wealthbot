@@ -1,0 +1,87 @@
+{% extends 'WealthbotRiaBundle::layout_themed.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+
+    <link id="base-style" href="/css/bootstrap-glyphicons.css" rel="stylesheet">
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script src="/js/theme-js/jquery.flot.min.js"></script>
+    <script src="/js/theme-js/jquery.flot.pie.min.js"></script>
+    <script src="/js/theme-js/jquery.flot.stack.js"></script>
+    <script src="/js/theme-js/jquery.flot.resize.min.js"></script>
+    <script src="/js/theme-js/jquery.flot.tooltip.min.js"></script>
+    <script src="/js/theme-js/jquery.flot.crosshair.js"></script>
+    <script src="/js/theme-js/jquery.dataTables.min.js"></script>
+
+    {% javascripts
+        'js/backbone.marionette/underscore.js'
+        '@WealthbotRiaBundle/Resources/public/js/src/Util.js'
+        '@WealthbotRiaBundle/Resources/public/js/ria.model.chart.js'
+        '@WealthbotRiaBundle/Resources/public/js/ria.dashboard.js'
+        '@WealthbotRiaBundle/Resources/public/js/ria.models.js'
+        '@WealthbotRiaBundle/Resources/public/js/ria.workflow.js'
+    %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock %}
+
+{% block body %}
+
+{% block ria_nav %}
+<!-- start: RIA  nav/menu -->
+    {% include 'WealthbotRiaBundle::menu_nav.html.twig' %}
+<!-- end: RIA nav/menu -->
+{% endblock %}
+
+{% block main_content %}
+    <h1>{{ company_information.name }} Dashboard</h1>
+
+    <div id="swappable_content" data-url="{{ path('rx_ria_dashboard_swap_boxes') }}" style="display: none;" data-sequence="{{ blocks_sequence }}">
+        <div class="row-fluid">
+            <div class="span6 dashboard-box" data-id="0">
+                {% include 'WealthbotRiaBundle:Dashboard:_most_recent_activity_box.html.twig' with {
+                    'recent_activity_pagination': recent_activity_pagination
+                } %}
+            </div>
+
+            <div class="span6 dashboard-box" data-id="1">
+                {% include 'WealthbotRiaBundle:Dashboard:_workflow_box.html.twig' with {
+                'paperwork_counts': paperwork_counts,
+                'portfolios_counts': portfolios_counts
+                } %}
+            </div>
+        </div>
+
+        {#<div class="row-fluid">
+            <div class="span6 dashboard-box" data-id="2">
+                {% include 'WealthbotRiaBundle:Dashboard:_firm_metrics_box.html.twig' with { 'firm_metrics': firm_metrics } %}
+            </div>
+
+            <div class="span6 dashboard-box" data-id="3">
+                {% include 'WealthbotRiaBundle:Dashboard:_analytics_box.html.twig' with { 'securities_statistic': securities_statistic } %}
+            </div>
+        </div>#}
+    </div>
+
+
+{% endblock %}
+
+<div id="modal_dialog" class="modal hide longModal">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h3 class="bbh3"></h3>
+    </div>
+    <div class="modal-body">
+
+    </div>
+    <div class="modal-footer">
+        <button type="submit" class="btn save-modal-form-btn">Save</button>
+        <a href="#" class="btn cancel-modal-form-btn" data-dismiss="modal" aria-hidden="true">Cancel</a>
+    </div>
+</div>
+{% endblock %}

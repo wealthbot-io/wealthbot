@@ -1,0 +1,53 @@
+{% set accounts = client.clientAccounts %}
+
+<table class="table">
+    <tr>
+        <th>Financial Institution</th>
+        <th>Account Type</th>
+        <th>Estimated Value</th>
+        <th>Estimated Monthly Contributions</th>
+        <th>Estimated Monthly Distribution</th>
+    </tr>
+
+    {% if accounts | length > 0 %}
+        {% for item in accounts %}
+            <tr class="account-row-{{ item.id }}">
+                <td>{{ item.financialInstitution }}</td>
+                <td>{{ item.accountType }}</td>
+                <td>{{ item.value ? '$'~item.value|number_format(2, '.', ',') : ''}}</td>
+                <td>{{ item.monthlyContributions ? '$'~item.monthlyContributions|number_format(2, '.', ',') : '' }}</td>
+                <td>{{ item.monthlyDistributions ? '$'~item.monthlyDistributions|number_format(2, '.', ',') : '' }}</td>
+            </tr>
+        {% endfor %}
+    {% else %}
+        <p>No accounts.</p>
+    {% endif %}
+</table>
+
+{% if retirement_accounts is not empty %}
+    <br/>
+    <legend>
+        <h5>Employer Retirement Accounts</h5>
+    </legend>
+    <table class="table">
+        <tr>
+            <th>Choose an Account</th>
+            <th>Financial Institution</th>
+            <th>Account Type</th>
+            <th>Estimated Value</th>
+            <th>Estimated Monthly Contributions</th>
+        </tr>
+
+        {% for item in retirement_accounts %}
+            <tr class="account-row-{{ item.id }}">
+                <td><input class="select-retirement-account" data-url="{{ path('rx_admin_client_outside_funds', {'account_id': item.id}) }}" type="radio" name="selected_retirement_account" value="{{ item.id }}" /></td>
+                <td>{{ item.financialInstitution }}</td>
+                <td>{{ item.accountType }}</td>
+                <td>{{ item.value ? '$'~item.value|number_format(2, '.', ',') : ''}}</td>
+                <td>{{ item.monthlyContributions ? '$'~item.monthlyContributions|number_format(2, '.', ',') : '' }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endif %}
+
+<div class="retirement-account-funds"></div>

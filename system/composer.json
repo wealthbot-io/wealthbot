@@ -1,0 +1,8 @@
+{
+	"minimum-stability": "dev",
+    "require-dev": {
+        "phpunit/phpunit": "3.8.*@dev",
+        "phpunit/php-invoker": "dev-master",
+        "monolog/monolog": "1.6.*@dev"
+    }
+}

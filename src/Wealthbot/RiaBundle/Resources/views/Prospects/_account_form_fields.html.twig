@@ -1,0 +1,47 @@
+{% if (form.financial_institution is defined) %}
+    <div class="control-group">
+        {{ form_label(form.financial_institution, label|default(null)) }}
+        <div>
+            {{ form_errors(form.financial_institution) }}
+            {% if form.transferInformation is defined %}
+                {{ form_widget(form.financial_institution, { 'attr': {
+                class: 'input-xlarge fin-inst-typeahead ajaxed',
+                'data-complete-url': path('rx_complete_transfer_custodian'),
+                'data-update-url': path('rx_client_update_transfer_information'),
+                'autocomplete': 'off'
+                } }) }}
+
+                <div>
+                    {{ form_errors(form.transferInformation.is_firm_not_appear) }}
+                    <label class="checkbox" for="{{ form.transferInformation.is_firm_not_appear.vars.id }}">
+                        {{ form_widget(form.transferInformation.is_firm_not_appear) }}
+                        <span class="help-block">The name of the firm does not appear in the available choices.</span>
+                    </label>
+                </div>
+                <div>
+                    {{ form_widget(form.transferInformation.transfer_custodian_id) }}
+                </div>
+            {% else %}
+                {{ form_widget(form.financial_institution) }}
+            {% endif %}
+        </div>
+    </div>
+{% endif %}
+
+{% if (form.plan_provider is defined) %}
+    <div class="control-group">
+        {{ form_label(form.plan_provider, label|default(null)) }}
+        <div>
+            {{ form_errors(form.plan_provider) }}
+            {{ form_widget(form.plan_provider) }}
+        </div>
+    </div>
+{% endif %}
+
+<div class="control-group">
+    {{ form_label(form.groupType, label|default(null)) }}
+    <div>
+        {{ form_errors(form.groupType) }}
+        {{ form_widget(form.groupType) }}
+    </div>
+</div>

@@ -1,0 +1,37 @@
+Wealthbot\ClientBundle\Entity\Bill:
+    type: entity
+    table: bill
+    repositoryClass: Wealthbot\ClientBundle\Repository\BillRepository
+    fields:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+        quarter:
+            type: integer
+            nullable: true
+        year:
+            type: integer
+            nullable: true
+        approvedAt:
+            type: datetime
+            nullable: true
+        createdAt:
+            type: datetime
+            gedmo:
+                timestampable:
+                    on: create
+    oneToMany:
+        billItems:
+            targetEntity: Wealthbot\ClientBundle\Entity\BillItem
+            mappedBy: bill
+            cascade: ['persist']
+    manyToOne:
+        client:
+            targetEntity: Wealthbot\UserBundle\Entity\User
+            joinColumn:
+                name: client_id
+                referencedColumnName: id
+                onDelete: cascade
+            inversedBy: bills

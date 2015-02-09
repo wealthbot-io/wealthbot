@@ -1,0 +1,13 @@
+{% block subject %}
+    {% autoescape false %}
+    {{ 'Activate RIA' }}
+    {% endautoescape %}
+{% endblock %}
+
+{% block body_text %}{% endblock %}
+
+{% block body_html %}
+    {% autoescape false %}
+        {{ ria_name }} finished setting up wealthbot.io, please review and activate.
+    {% endautoescape %}
+{% endblock %}

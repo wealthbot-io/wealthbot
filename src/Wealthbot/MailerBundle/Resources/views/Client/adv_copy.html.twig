@@ -1,0 +1,12 @@
+{% extends 'WealthbotMailerBundle:Client:_client_layout.html.twig' %}
+
+{% block subject %}
+    {% autoescape false %}
+    {{ ria.riaCompanyInformation.name }} ADV Part II Delivery
+    {% endautoescape %}
+{% endblock %}
+
+{% block message %}
+    {{ client.firstName }},<br/><br/>
+    Attached is our company’s ADV Part II, as required by law to be delivered to you prior to us having a relationship.
+{% endblock %}

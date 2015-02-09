@@ -1,0 +1,22 @@
+<tr data-row="model-{{ modelEntity.id }}">
+    <td>{{ modelEntity.assetClass.name }}</td>
+    <td>{{ modelEntity.subclass.name }}</td>
+    <td>{{ modelEntity.securityAssignment.security.name }}</td>
+    {% if (is_show_municipal_bond) %}
+        <td>{{ modelEntity.muniSubstitution ? modelEntity.muniSubstitution.security.name : '' }}</td>
+    {% endif %}
+    {% if (is_show_tax_loss_harvesting) %}
+        <td>{{ modelEntity.taxLossHarvesting ? modelEntity.taxLossHarvesting.security.name : '' }}</td>
+    {% endif %}
+    <td class="percent">{{ modelEntity.percent|number_format(2, '.', ',') }} %</td>
+    <td>
+        <a href="{{ path('rx_ria_models_edit_entity', {'id' : modelEntity.id}) }}"
+           class="edit-btn">
+            Edit
+        </a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;
+        <a href="{{ path('rx_ria_models_delete_entity', {'id' : modelEntity.id}) }}"
+           class="delete-btn">
+            Delete
+        </a>
+    </td>
+</tr>

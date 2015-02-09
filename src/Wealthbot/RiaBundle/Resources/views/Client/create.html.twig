@@ -1,0 +1,16 @@
+{% extends 'WealthbotRiaBundle:Dashboard:index.html.twig' %}
+
+{% block main_content %}
+    <h3>Create Prospect</h3>
+
+    <div class="create-client-form">
+        {% include 'WealthbotRiaBundle:Client:_create_form.html.twig' with {'form': form} %}
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {% javascripts '@WealthbotRiaBundle/Resources/public/js/ria.client.js'%}
+        <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock %}

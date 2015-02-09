@@ -1,0 +1,8 @@
+{% extends 'WealthbotClientBundle:Transfer:index.html.twig' %}
+
+{% block top_content %}{% endblock %}
+
+{% block main_content %}
+    <p class="lead">Your applications:</p>
+    {% include 'WealthbotClientBundle:Transfer:_applications_list.html.twig' with { 'accounts': accounts, 'company_information': company_information } %}
+{% endblock %}

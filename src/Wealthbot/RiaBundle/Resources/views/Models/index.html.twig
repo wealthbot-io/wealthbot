@@ -1,0 +1,26 @@
+{% extends ((with_layout is defined and with_layout) ? 'WealthbotRiaBundle:Dashboard:index.html.twig' : 'WealthbotRiaBundle::model_tab_layout.html.twig') %}
+
+{% block main_content %}
+    <div id="models_tab">
+
+        {% include 'WealthbotRiaBundle:Models:_create_model_form.html.twig' with {'form': form, 'model_id': model.id} %}
+
+        <div class="row-fluid">
+            <div class="span12">
+                <h3>Models</h3>
+            </div>
+        </div>
+        {% if app.session.hasFlash('error') %}
+            <div class="alert alert-error">
+                <button type="button" class="close" data-dismiss="alert">×</button>
+                <strong>Error:</strong> {{ app.session.flash('notice') }}
+            </div>
+        {% endif %}
+
+        <div class="row-fluid">
+            <div class="span12 mb20" id="models_list">
+                {% include 'WealthbotRiaBundle:Models:_models_list.html.twig' with {'models': models} %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

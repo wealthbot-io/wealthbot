@@ -1,0 +1,26 @@
+Wealthbot\AdminBundle\Entity\RebalancerActionLog:
+  type: entity
+  table: rebalancer_action_logs
+  repositoryClass: Wealthbot\AdminBundle\Repository\RebalancerActionLogRepository
+  fields:
+    id:
+      type: integer
+      id: true
+      generator:
+        strategy: AUTO
+    action_name:
+      type: string(100)
+      nullable: false
+    result:
+      type: string(100)
+      nullable: true
+  manyToOne:
+    rebalancerAction:
+      targetEntity: Wealthbot\AdminBundle\Entity\RebalancerAction
+      inversedBy: rebalancerActionLogs
+      joinColumn:
+        name: rebalancer_action_id
+        referencedColumnName: id
+        onDelete: SET NULL
+      cascade: ['persist']
+  lifecycleCallbacks: {  }

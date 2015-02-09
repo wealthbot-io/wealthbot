@@ -1,0 +1,22 @@
+<script id="tplClientsHeader" type="text/template">
+    <div class="right-inner-addon span2">
+        <input id="filter-by-client-name" type="search" class="typeahead" autocomplete="off"
+               placeholder="Client Name" data-complete-url="{{ path('rx_ria_dashboard_clients_search') }}"/>
+        <i class="glyphicon glyphicon-remove"></i>
+    </div>
+
+    <span id="client-name"></span>
+    <div class="pull-right">
+        <select id="filter-by-type">
+            <option value="">Accounts & Households</option>
+            <option value="clients">Households</option>
+            <option value="accounts">Accounts</option>
+        </select>
+
+        <select id="filter-by-status">
+            <option value="">All</option>
+            <option value="active">Active</option>
+            <option value="closed">Closed</option>
+        </select>
+    </div>
+</script>

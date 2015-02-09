@@ -1,0 +1,10 @@
+{% if (action_url is defined) %}
+    <form id="edit_third_party_model_model_assumption_form" class="form-inline" action="{{ action_url }}" method="post">
+{% endif %}
+
+    {% include 'WealthbotAdminBundle:Model:_model_assumption_form_fields.html.twig' with {'form': form} %}
+
+    {{ form_rest(form) }}
+{% if (parent_model is defined) %}
+    </form>
+{% endif %}

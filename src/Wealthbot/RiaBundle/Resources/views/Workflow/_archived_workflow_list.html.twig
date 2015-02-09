@@ -1,0 +1,23 @@
+<table class="workflow-list table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>{{ knp_pagination_sortable(pagination, 'Client Name', 'cup.last_name, cup.first_name') }}</th>
+            <th>Workflow Type</th>
+            <th>{{ knp_pagination_sortable(pagination, 'Date Completed', 'w.submitted') }}</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% if pagination|length > 0  %}
+            {% for workflow in pagination %}
+                {% include 'WealthbotRiaBundle:Workflow:_archived_workflow_item.html.twig' with { 'workflow': workflow } %}
+            {% endfor %}
+        {% else %}
+            <tr class="empty"><td colspan="5">No archived workflow.</td></tr>
+        {% endif %}
+    </tbody>
+</table>
+
+<div class="ajax-pagination pagination pagination-centered">
+    {{ knp_pagination_render(pagination) }}
+</div>

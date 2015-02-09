@@ -1,0 +1,79 @@
+<form id="change_address_form" action="{{ path('rx_client_dashboard_change_address') }}" method="post" class="form-horizontal">
+    <fieldset>
+        <div class="control-group">
+                {{ form_label(form.street, 'Street Address', { 'label_attr': {'class': 'control-label'} }) }}
+                {{ form_errors(form.street) }}
+            <div class="controls">
+                {{ form_widget(form.street, { 'attr': { 'class': 'span5' } }) }}
+            </div>
+        </div>
+        <div class="control-group">
+                {{ form_label(form.city, 'City', { 'label_attr': {'class': 'control-label'} }) }}
+            <div class="controls">
+                {{ form_errors(form.city) }}
+                {{ form_widget(form.city, { 'attr': { 'class': 'input-small' } }) }}
+            </div>
+        </div>
+        <div class="control-group">
+                {{ form_label(form.state, 'State', { 'label_attr': {'class': 'control-label'} }) }}
+            <div class="controls">
+                {{ form_errors(form.state) }}
+                {{ form_widget(form.state, { 'attr': { 'class': 'input-medium' } }) }}
+            </div>
+        </div>
+        <div class="control-group">
+                {{ form_label(form.zip, 'Zip', { 'label_attr': {'class': 'control-label'} }) }}
+            <div class="controls">
+                {{ form_errors(form.zip) }}
+                {{ form_widget(form.zip, { 'attr': { 'class': 'input-mini' } }) }}
+                <span class="help-inline">United States Only</span>
+            </div>
+        </div>
+        <div class="control-group">
+                {{ form_errors(form.is_different_address) }}
+                <label class="checkbox">
+                    {{ form_widget(form.is_different_address) }} {{ form.is_different_address.get('label') }}
+                </label>
+            </div>
+        </div>
+
+        <div class="mailing-address mailing-address-block" style="display:none;">
+            <div class="control-group" >
+                    {{ form_label(form.mailing_street, 'Mailing Street', { 'label_attr': {'class': 'control-label'} }) }}
+                <div class="controls">
+                    {{ form_errors(form.mailing_street) }}
+                    {{ form_widget(form.mailing_street, { 'attr': { 'class': 'span5' } }) }}
+                </div>
+            </div>
+            <div class="control-group" >
+                    {{ form_label(form.mailing_city, 'Mailing City', { 'label_attr': {'class': 'control-label'} }) }}
+                <div class="controls">
+                    {{ form_errors(form.mailing_city) }}
+                    {{ form_widget(form.mailing_city, { 'attr': { 'class': 'input-small' } }) }}
+                </div>
+            </div>
+            <div class="control-group" >
+                    {{ form_label(form.mailingState, 'Mailing State', { 'label_attr': {'class': 'control-label'} }) }}
+                <div class="controls">
+                    {{ form_errors(form.mailingState) }}
+                    {{ form_widget(form.mailingState, { 'attr': { 'class': 'input-medium' } }) }}
+                </div>
+            </div>
+            <div class="control-group" >
+                    {{ form_label(form.mailing_zip, 'Mailing Zip Code', { 'label_attr': {'class': 'control-label'} }) }}
+                <div class="controls">
+                    {{ form_errors(form.mailing_zip) }}
+                    {{ form_widget(form.mailing_zip, { 'attr': { 'class': 'input-mini' } }) }}
+                </div>
+            </div>
+        </div>
+
+        <div class="control-group">
+            {{ form_rest(form) }}
+        </div>
+
+        <div class="form-actions">
+            <input type="submit" class="btn" name="update" value="Update" />
+        </div>
+    </fieldset>
+</form>

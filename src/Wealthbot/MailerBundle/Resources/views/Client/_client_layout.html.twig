@@ -1,0 +1,17 @@
+{% extends 'WealthbotMailerBundle:Default:email_layout.html.twig' %}
+
+{% block content %}
+    {% autoescape false %}
+        {% block message %}{% endblock %}
+
+        {% block footer %}
+            <br/><br/>
+            Thank you,<br/><br/>
+            {{ ria.riaCompanyInformation.name }}<br/>
+            {{ ria.riaCompanyInformation.address }} {{ ria.riaCompanyInformation.office }}<br/>
+            {{ ria.riaCompanyInformation.city }}, {{ ria.riaCompanyInformation.state }} {{ ria.riaCompanyInformation.zipcode }}<br/>
+            {{ ria.riaCompanyInformation.phoneNumber }}<br/>
+            {{ ria.riaCompanyInformation.contactEmail }}<br/>
+        {% endblock %}
+    {% endautoescape %}
+{% endblock %}

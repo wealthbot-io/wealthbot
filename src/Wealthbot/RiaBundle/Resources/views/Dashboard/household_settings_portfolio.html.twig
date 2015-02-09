@@ -1,0 +1,32 @@
+<form method="post" action="{{
+        path('rx_ria_dashboard_household_settings_portfolio', {
+            'client_id': app.request.get('client_id')
+        })
+    }}">
+    {{ form_errors(form) }}
+
+    <div class="h3 header-underlined">
+        Portfolio:
+    </div>
+    {{ form_row(form.portfolio) }}
+    {{ form_row(form.performanceInception) }}
+    {{ form_row(form.group) }}
+
+    <div class="h3 header-underlined">
+        Rebalancing:
+    </div>
+    {{ form_row(form.rebalancingLevel) }}
+    {{ form_row(form.stopTlhValue) }}
+
+    <div class="h3 header-underlined">
+        Financial Status
+    </div>
+    <div class="block-label financial-status">
+        {{ form_row(form.annualIncome) }}
+        {{ form_row(form.estimatedIncomeTax) }}
+        {{ form_row(form.liquidNetWorth) }}
+    </div>
+
+    {{ form_rest(form) }}
+
+</form>

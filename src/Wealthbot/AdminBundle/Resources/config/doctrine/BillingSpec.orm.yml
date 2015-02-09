@@ -1,0 +1,48 @@
+
+Wealthbot\AdminBundle\Entity\BillingSpec:
+  type: entity
+  table: billing_spec
+#  repositoryClass: Wealthbot\AdminBundle\Repository\BillingSpec
+  fields:
+    id:
+      type: integer
+      id: true
+      generator:
+        strategy: AUTO
+
+    name:
+      type: string
+      length: 255
+      nullable: false
+
+    master:
+      type: boolean
+      nullable: false
+
+    type:
+      type: integer
+      nullable: false
+
+    minimalFee:
+      type: float
+      nullable: false
+
+  manyToOne:
+    owner:
+      targetEntity: Wealthbot\UserBundle\Entity\User
+      inversedBy: fees
+      joinColumn:
+        name: owner_id
+        referencedColumnName: id
+        onDelete: cascade
+      cascade: ['persist']
+
+  oneToMany:
+    fees:
+      targetEntity: Wealthbot\AdminBundle\Entity\Fee
+      mappedBy: billingSpec
+      cascade: ['persist']
+    #appointedUsers - that is RIA for admin fees, and Client for RIA fees.
+    appointedUsers:
+      targetEntity: Wealthbot\UserBundle\Entity\User
+      mappedBy: appointedBillingSpec

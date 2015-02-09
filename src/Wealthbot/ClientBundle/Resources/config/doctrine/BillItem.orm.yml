@@ -1,0 +1,46 @@
+Wealthbot\ClientBundle\Entity\BillItem:
+    type: entity
+    table: bill_item
+    repositoryClass: Wealthbot\ClientBundle\Repository\BillItemRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        feeBilled:
+            type: float
+        feeCollected:
+            type: float
+        riaFee:
+            type: float
+        adminFee:
+            type: float
+        status:
+            type: smallint
+        custodianFee:
+            type: float
+        createdAt:
+            type: datetime
+            gedmo:
+                timestampable:
+                    on: create
+
+    manyToOne:
+        systemAccount:
+            targetEntity: Wealthbot\ClientBundle\Entity\SystemAccount
+            joinColumn:
+                name: system_account_id
+                referencedColumnName: id
+                onDelete: cascade
+            inversedBy: billItems
+        bill:
+            targetEntity: Wealthbot\ClientBundle\Entity\Bill
+            joinColumn:
+                name: bill_id
+                referencedColumnName: id
+                onDelete: cascade
+            inversedBy: billItems
+
+    lifecycleCallbacks: {  }

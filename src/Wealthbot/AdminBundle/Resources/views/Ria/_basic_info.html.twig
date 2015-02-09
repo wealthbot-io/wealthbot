@@ -1,0 +1,171 @@
+<table class="table">
+    {% set company_information = basicInfo.companyInformation %}
+
+    <thead>
+    <tr>
+        <th></th>
+        <th></th>
+        <th>Email:</th>
+        <th>Number</th>
+        <th>User Type:</th>
+        <th>Password Reset:</th>
+        <th>Last Login:</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% if company_information %}
+        <tr>
+            <td class="text-bold">Company Name:</td>
+            <td>{{  company_information.name }}</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td class="text-bold">Main Contact:</td>
+            <td>{{ company_information.primaryFirstName }} {{ company_information.primaryLastName }}</td>
+            <td><a href="mailto:{{ company_information.contactEmail }}">{{ company_information.contactEmail }}</a></td>
+            <td>{{ company_information.phoneNumber }}</td>
+            <td>Admin</td>
+            <td>
+                {% if is_permitted('edit') %}
+                   <a href="{{ path('rx_reset_user_password', {'user_id': company_information.ria.id }) }}">Reset Password</a>
+                {% endif %}
+            </td>
+            <td>{{ company_information.ria.lastLogin ? company_information.ria.lastLogin|date('m/d/Y - H:i') : 'Never' }}</td>
+        </tr>
+
+        {% for user in basicInfo.riaUsers %}
+            <tr>
+                <td class="text-bold">{{ loop.index == 1 ? 'Secondary Contacts:' : '' }}</td>
+                <td>{{ user.profile.firstName }} {{ user.profile.lastName }}</td>
+                <td><a href="mailto:{{ user.email }}">{{ user.email }}</a></td>
+                <td></td>
+                <td>{{ user.roles['0'] == 'ROLE_RIA_ADMIN' ? 'Admin' : 'User' }}</td>
+                <td>
+                    {% if is_permitted('edit') %}
+                        <a href="{{ path('rx_reset_user_password', {'user_id': user.id }) }}">Reset Password</a>
+                    {% endif %}
+                </td>
+                <td>{{ user.lastLogin ? user.lastLogin|date('m/d/Y - H:i') : 'Never' }}</td>
+            </tr>
+        {% endfor %}
+        <tr>
+            <td class="text-bold">Company Website:</td>
+            <td><a href="{{ company_information.website }}">{{ company_information.website }}</a></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td class="text-bold">City:</td>
+            <td>{{ company_information.city }}</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td class="text-bold">State:</td>
+            <td>{{ company_information.state }}</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td class="text-bold">ZIP code:</td>
+            <td>{{ company_information.zipcode }}</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td class="text-bold">Company Address:</td>
+            <td>{{ company_information.address }}</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td class="text-bold">Model Type:</td>
+            <td>{{ basicInfo.modelType }}</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td class="text-bold">Signed Up:</td>
+            <td>{{ company_information.ria.created|date('m/d/Y') }}</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+
+        {% if is_permitted('edit') %}
+            <tr>
+                <td class="text-bold">Activate:</td>
+                <td>
+                    <label class="checkbox">
+                        Active
+                        <input class="activate-checkbox" data-url="{{ path('rx_admin_ria_activate', {'id': company_information.ria.id, 'activate': company_information.activated ? '0' : '1'}) }}" type="checkbox" {{ company_information.activated ? 'checked="checked"' : '' }}" />
+                    </label>
+                </td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td class="text-bold">Relationship Type:</td>
+                <td>
+                    {% set relationship_form = basicInfo.relationship_form %}
+                    <form action="{{ path('rx_admin_ria_update_relationship', {'id': company_information.ria.id}) }}" class="form-inline margin-bottom-0" id="ria_update_relationship_form">
+                        {{ form_errors(relationship_form) }}
+
+                        {{ form_widget(relationship_form.relationship_type) }}
+
+                        {{ form_rest(relationship_form) }}
+                    </form>
+                </td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        {% endif %}
+
+        {% if is_granted('ROLE_ALLOWED_TO_SWITCH') %}
+            <tr>
+                <td class="text-bold">Login:</td>
+                <td>
+                    <a href="{{ path('rx_admin_login_as', { username: company_information.ria.username }) }}" target="_blank">Login as Ria</a>
+                </td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        {% endif %}
+    {% else %}
+        <tr><td colspan="7">No company information.</td></tr>
+    {% endif %}
+    </tbody>
+</table>

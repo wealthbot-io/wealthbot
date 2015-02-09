@@ -1,0 +1,54 @@
+html {
+    font-size: 100%;
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    line-height: 20px;
+    color: #333333;
+    background-color: #ffffff;
+}
+
+.container {
+    background-color: rgb(245, 245, 245);
+    padding: 20px 15px;
+    width: 80%;
+    margin: 0 auto;
+}
+
+p {
+    margin: 0 0 10px;
+}
+
+table {
+    max-width: 100%;
+    background-color: transparent;
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+.table {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.table th,
+.table td {
+    padding: 8px;
+    line-height: 20px;
+    text-align: left;
+    vertical-align: top;
+    border-top: 1px solid #dddddd;
+}
+
+.table th {
+    font-weight: bold;
+}
+
+.table thead th {
+    vertical-align: bottom;
+}

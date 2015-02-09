@@ -1,0 +1,74 @@
+{% set riaCompanyInformation = ria.riaCompanyInformation %}
+{% set mainTableAlias = (riaCompanyInformation.isHouseholdManagedLevel ? 'cpv' : 'cav') %}
+<table class="table">
+    <thead>
+    <tr>
+        <th>{{ is_history ? 'Status' :  form_widget(form.is_all) }}</th>
+        <th>Action</th>
+        <th>{{ knp_pagination_sortable(client_values_pagination, 'Relationship', 'p.last_name, p.first_name') }}</th>
+        {% if (not riaCompanyInformation.isHouseholdManagedLevel) %}
+            <th>{{ knp_pagination_sortable(client_values_pagination, 'Account Number', 'sca.account_number') }}</th>
+            <th>{{ knp_pagination_sortable(client_values_pagination, 'Account Type', 't.name') }}</th>
+        {% endif %}
+        {% if ria.hasGroup('All') %}
+            <th>{{ knp_pagination_sortable(client_values_pagination, 'Set', 'cg.name') }}</th>
+        {% endif %}
+        <th>{{ knp_pagination_sortable(client_values_pagination, 'Value', mainTableAlias ~ '.total_value') }}</th>
+        <th>{{ knp_pagination_sortable(client_values_pagination, 'Required Cash', mainTableAlias ~ '.required_cash') }}</th>
+        <th>{{ knp_pagination_sortable(client_values_pagination, 'Investable Cash', mainTableAlias ~ '.investable_cash') }}</th>
+        <th>{{ knp_pagination_sortable(client_values_pagination, 'Model', 'po.name') }}</th>
+        <th>{{ knp_pagination_sortable(client_values_pagination, 'Model Deviation', mainTableAlias ~ '.model_deviation') }}</th>
+        <th>{{ knp_pagination_sortable(client_values_pagination, 'Previous Rebalance', mainTableAlias ~ '.date') }}</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for client_value in client_values_pagination %}
+        {% set client = client_value.clientPortfolio.client %}
+        {% set portfolio = client_value.clientPortfolio.portfolio %}
+        <tr>
+            <td>
+                {% if is_history %}
+                    {% if client_value.reconciled %}
+                        Reconciled
+                    {% else %}
+                        <a href="{{ path('rx_ria_dashboard_rebalancing', { 'tab': 'trade_recon', 'client': client.name, 'date': client_value.date|date('m/d/Y') }) }}">Not Reconciled</a>
+                    {% endif %}
+                {% else %}
+                    {{ form_widget(form.client_value[loop.index0]) }}
+                {% endif %}
+            </td>
+            {% if (client_value.rebalancerAction and client_value.rebalancerAction.isRebalanced) %}
+                <td>
+                    <a href="{{ path('rx_ria_rebalancing_show_details', {'id': client_value.id}) }}" class="rebalance-action-btn">
+                        {{ client_value.rebalancerAction.statusToString }}
+                    </a>
+                </td>
+            {% else %}
+                <td class="center-text">-</td>
+            {% endif %}
+            <td>
+                <a class="show-rebalancing-accounts-btn" href="{{ path('rx_ria_rebalancing_accounts_view', {client_portfolio_id: client_value.clientPortfolio.id}) }}">
+                    {{ client.lastName ~ ', ' ~ client.firstName }}
+                </a>
+            </td>
+            {% if (not riaCompanyInformation.isHouseholdManagedLevel) %}
+                <td>{{ client_value.systemClientAccount.accountNumber }}</td>
+                <td>{{ client_value.systemClientAccount.clientAccount.typeString }}</td>
+            {% endif %}
+            {% if ria.hasGroup('All') %}
+                <td>{{ client.assignedGroupName }}</td>
+            {% endif %}
+            <td>${{ client_value.totalValue|number_format(2, '.', ',') }}</td>
+            <td>${{ client_value.requiredCash|number_format(2, '.', ',') }}</td>
+            <td>${{ client_value.investableCash|number_format(2, '.', ',') }}</td>
+            <td>{{ portfolio.name }}</td>
+            <td>{{ client_value.modelDeviation|number_format(2, '.', ',') }} %</td>
+            <td>{{ client_value.date|date('m/d/Y') }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+<div class="ajax-pagination pagination pagination-centered">
+    {{ knp_pagination_render(client_values_pagination) }}
+</div>

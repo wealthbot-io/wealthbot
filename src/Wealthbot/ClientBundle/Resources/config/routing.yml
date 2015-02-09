@@ -1,0 +1,548 @@
+wealthbot_client_holdings:
+    pattern:  /client/holdings
+    defaults: { _controller: WealthbotClientBundle:Dashboard:holdings }
+
+wealthbot_client_allocation:
+    pattern:  /client/allocation
+    defaults: { _controller: WealthbotClientBundle:Dashboard:allocation }
+
+wealthbot_client_gainslosses:
+    pattern:  /client/gainslosses
+    defaults: { _controller: WealthbotClientBundle:Dashboard:gainslosses }
+
+wealthbot_client_transactions:
+    pattern:  /client/transactions
+    defaults: { _controller: WealthbotClientBundle:Dashboard:transactions }
+
+wealthbot_client_billing:
+    pattern:  /client/billing
+    defaults: { _controller: WealthbotClientBundle:Dashboard:billing }
+
+wealthbot_client_billing_period:
+    pattern:  /client/billing/period
+    defaults: { _controller: WealthbotClientBundle:Dashboard:billingPeriod }
+    options:
+        expose: true
+
+wealthbot_client_documents:
+    pattern: /client/documents
+    defaults: { _controller: WealthbotClientBundle:Dashboard:documents }
+
+wealthbot_client_document_delete:
+    pattern: /client/document/delete/{document_id}
+    defaults: { _controller: WealthbotClientBundle:Dashboard:deleteDocument }
+
+wealthbot_client_performance:
+    pattern:  /client/performance
+    defaults: { _controller: WealthbotClientBundle:Dashboard:performance }
+
+wealthbot_client_performance_period:
+    pattern:  /client/performance/period
+    defaults: { _controller: WealthbotClientBundle:Dashboard:performancePeriod }
+    options:
+        expose: true
+
+wealthbot_client_activity:
+    pattern:  /client/activity
+    defaults: { _controller: WealthbotClientBundle:Dashboard:activity }
+
+rx_client_profile_step_one:
+    pattern:  /client/profile/step-one
+    defaults: { _controller: WealthbotClientBundle:Profile:stepOne }
+
+rx_client_profile_step_two:
+    pattern:  /client/profile/step-two/{question_nb}
+    defaults: { _controller: WealthbotClientBundle:Profile:stepTwo, question_nb: 0 }
+    requirements:
+        question_nb: \d+
+
+rx_client_profile_check_accounts_sum:
+    pattern:  /client/profile/check-accounts-sum
+    defaults: { _controller: WealthbotClientBundle:Profile:checkAccountsSum }
+
+rx_client_profile_step_three:
+    pattern:  /client/profile/step-three
+    defaults: { _controller: WealthbotClientBundle:Profile:stepThree }
+
+rx_client_step_three_back:
+    pattern:  /client/profile/step-three-back
+    defaults: { _controller: WealthbotClientBundle:Profile:stepThreeBack}
+
+rx_client_profile_step_three_complete:
+    pattern:  /client/profile/step-three-complete
+    defaults: { _controller: WealthbotClientBundle:Profile:completeStepThree }
+
+rx_client_profile_step_three_accounts_funds:
+    pattern:  /client/profile/step-three/accounts/funds
+    defaults: { _controller: WealthbotClientBundle:Profile:accountsFunds }
+
+rx_client_profile_step_three_accounts:
+    pattern:  /client/profile/step-three/accounts/{group}
+    defaults: { _controller: WealthbotClientBundle:Profile:accounts }
+    requirements:
+        type: financial_institution|deposit_money|old_employer_retirement|employer_retirement
+
+rx_client_profile_create_account:
+    pattern:  /client/profile/create-account/{group}
+    defaults: { _controller: WealthbotClientBundle:Profile:createAccount }
+    requirements:
+        type: financial_institution|deposit_money|old_employer_retirement|employer_retirement
+
+rx_client_profile_show_accounts_table:
+    pattern:  /client/profile/show-accounts-table
+    defaults: { _controller: WealthbotClientBundle:Profile:showAccountsTable }
+
+rx_client_profile_show_success_message:
+    pattern:  /client/profile/show-success-message
+    defaults: { _controller: WealthbotClientBundle:Profile:showSuccessMessage }
+
+rx_client_profile_show_account_form:
+    pattern:  /client/profile/show-account-form
+    defaults: { _controller: WealthbotClientBundle:Profile:showAccountForm }
+
+rx_client_profile_show_account_owner_form:
+    pattern:  /client/profile/show-account-owner-form
+    defaults: { _controller: WealthbotClientBundle:Profile:showAccountOwnerForm }
+
+rx_client_profile_update_account_owner_form:
+    pattern:  /client/profile/update-account-owner-form
+    defaults: { _controller: WealthbotClientBundle:Profile:updateAccountOwnerForm }
+
+rx_client_profile_update_account_form:
+    pattern:  /client/profile/update-account-form/{group}
+    defaults: { _controller: WealthbotClientBundle:Profile:updateAccountForm }
+
+rx_client_profile_show_deposit_account_form:
+    pattern:  /client/profile/show-deposit-account-form
+    defaults: { _controller: WealthbotClientBundle:Profile:showDepositAccountForm }
+
+rx_client_profile_create_retirement_fund:
+    pattern: /client/profile/create-outside-fund
+    defaults: { _controller: WealthbotClientBundle:Profile:createOutsideFund }
+
+rx_client_edit_account:
+    pattern:  /client/profile/account/{id}/edit
+    defaults: { _controller: WealthbotClientBundle:Profile:editAccount }
+    requirements:
+        id: \d+
+
+rx_client_delete_account:
+    pattern:  /client/profile/account/{id}/delete
+    defaults: { _controller: WealthbotClientBundle:Profile:deleteAccount }
+    requirements:
+        id: \d+
+
+rx_client_outside_funds:
+    pattern: /client/profile/account/{account_id}/funds
+    defaults: { _controller: WealthbotClientBundle:Profile:outsideFund }
+    requirements:
+        account_id: \d+
+
+rx_client_profile_delete_outside_fund:
+    pattern: /client/profile/account/{account_id}/outside-fund/{fund_id}/delete
+    defaults: { _controller: WealthbotClientBundle:Profile:deleteOutsideAccountFund }
+    requirements:
+        account_id: \d+
+        fund_id:    \d+
+
+rx_client_portfolio:
+    pattern:  /client/portfolio
+    defaults: { _controller: WealthbotClientBundle:Portfolio:index }
+
+rx_client_accept_final_portfolio:
+    pattern:  /client/portfolio/final/accept
+    defaults: { _controller: WealthbotClientBundle:Portfolio:acceptPortfolio }
+
+rx_client_portfolio_outside_funds:
+    pattern:  /client/portfolio/account/{account_id}/funds
+    defaults: { _controller: WealthbotClientBundle:Portfolio:outsideFunds }
+    requirements:
+        account_id: \d+
+
+rx_client_portfolio_consolidated_accounts:
+    pattern:  /client/portfolio/account/{account_id}/consolidated-accounts
+    defaults: { _controller: WealthbotClientBundle:Portfolio:consolidatedAccounts }
+    requirements:
+        account_id: \d+
+
+rx_client_portfolio_model_details:
+    pattern:  /client/portfolio/model/{model_id}/details
+    defaults: { _controller: WealthbotClientBundle:Portfolio:modelDetails }
+    requirements:
+        model_id: \d+
+
+rx_client_transfer:
+    pattern:  /client/transfer
+    defaults: { _controller: WealthbotClientBundle:Transfer:index }
+
+rx_client_transfer_delete_account:
+    pattern:  /client/transfer/account/{id}/delete
+    defaults: { _controller: WealthbotClientBundle:Transfer:delete }
+    requirements:
+        id: \d+
+
+rx_client_transfer_account:
+    pattern:  /client/transfer/account/{account_id}
+    defaults: { _controller: WealthbotClientBundle:Transfer:account }
+    requirements:
+        account_id: \d+
+
+rx_client_transfer_basic:
+    pattern:  /client/transfer/account/{account_id}/basic
+    defaults: { _controller: WealthbotClientBundle:Transfer:basic }
+    requirements:
+        account_id: \d+
+
+rx_client_transfer_additional_basic:
+    pattern:  /client/transfer/account/{account_id}/additional-basic
+    defaults: { _controller: WealthbotClientBundle:Transfer:additionalBasic }
+    requirements:
+        account_id: \d+
+
+rx_client_transfer_personal:
+    pattern:  /client/transfer/account/{account_id}/personal
+    defaults: { _controller: WealthbotClientBundle:Transfer:personal }
+    requirements:
+        account_id: \d+
+
+rx_client_transfer_additional_personal:
+    pattern:  /client/transfer/account/{account_id}/additional-personal
+    defaults: { _controller: WealthbotClientBundle:Transfer:additionalPersonal }
+    requirements:
+        account_id: \d+
+
+rx_client_transfer_beneficiaries:
+    pattern:  /client/transfer/account/{account_id}/beneficiaries
+    defaults: { _controller: WealthbotClientBundle:Transfer:beneficiaries }
+    requirements:
+        account_id: \d+
+
+rx_client_transfer_credentials:
+    pattern:  /client/transfer/credentials
+    defaults: { _controller: WealthbotClientBundle:Transfer:credentials }
+
+rx_client_transfer_funding_distributing:
+    pattern:  /client/transfer/account/{account_id}/funding-distributing
+    defaults: { _controller: WealthbotClientBundle:Transfer:fundingDistributing }
+    requirements:
+        account_id: \d+
+
+rx_client_transfer_rollover:
+    pattern:  /client/transfer/account/{account_id}/rollover
+    defaults: { _controller: WealthbotClientBundle:Transfer:rollover }
+    requirements:
+        account_id: \d+
+
+rx_client_transfer_review:
+    pattern:  /client/transfer/account/{account_id}/review
+    defaults: { _controller: WealthbotClientBundle:Transfer:review }
+    requirements:
+        account_id: \d+
+
+rx_client_transfer_finished:
+    pattern:  /client/transfer/finished
+    defaults: { _controller: WealthbotClientBundle:Transfer:finished }
+
+rx_client_transfer_applications:
+    pattern:  /client/transfer/applications
+    defaults: { _controller: WealthbotClientBundle:Transfer:applications }
+
+rx_client_transfer_edit_client_info:
+    pattern:  /client/transfer/edit-info
+    defaults: { _controller: WealthbotClientBundle:Transfer:editClientInfo }
+
+rx_client_transfer_transfer_account:
+    pattern:  /client/transfer/account/{account_id}/transfer-account/{account_index}
+    defaults: { _controller: WealthbotClientBundle:Transfer:transfer, account_index: 1 }
+
+rx_client_transfer_credentials:
+    pattern:  /client/transfer/account/{account_id}/credentials
+    defaults: { _controller: WealthbotClientBundle:Transfer:credentials }
+    requirements:
+        account_id: \d+
+
+rx_client_transfer_back:
+    pattern:  /client/transfer/account/{account_id}/{action}/back/{id}
+    defaults: { _controller: WealthbotClientBundle:Transfer:back, id: 0 }
+    requirements:
+        account_id: \d+
+
+rx_client_transfer_create_bank_account:
+    pattern:  /client/transfer/account/{account_id}/bank-account/create
+    defaults: { _controller: WealthbotClientBundle:Transfer:createBankInformation, account_id: 0 }
+    requirements:
+        account_id: \d+
+
+rx_client_transfer_edit_bank_account:
+    pattern:  /client/transfer/account/{account_id}/bank-account/{bank_id}/edit
+    defaults: { _controller: WealthbotClientBundle:Transfer:editBankInformation, account_id: 0 }
+    requirements:
+        account_id: \d+
+        bank_id: \d+
+
+rx_client_transfer_delete_bank_account:
+    pattern:  /client/transfer/bank-account/{bank_id}/delete
+    defaults: { _controller: WealthbotClientBundle:Transfer:deleteBankInformation }
+    requirements:
+        bank_id: \d+
+
+rx_client_transfer_update_transfer_form:
+    pattern:  /client/transfer/account/{account_id}/update-transfer-form
+    defaults: { _controller: WealthbotClientBundle:Transfer:updateTransferForm }
+    requirements:
+        account_id: \d+
+
+rx_client_transfer_account_documents:
+    pattern:  /client/transfer/account/{account_id}/documents
+    defaults: { _controller: WealthbotClientBundle:Transfer:accountDocuments }
+    requirements:
+        account_id: \d+
+
+rx_review_owner_information:
+    pattern:  /client/transfer/review-information/{owner_id}
+    defaults: { _controller: WealthbotClientBundle:BaseTransfer:reviewOwnerInformation }
+    requirements:
+        owner_id: \d+
+
+
+rx_client_dashboard:
+    pattern:  /client/dashboard
+    defaults: { _controller: WealthbotClientBundle:Dashboard:index }
+
+rx_client_dashboard_account_management:
+    pattern:  /client/dashboard/account-management
+    defaults: { _controller: WealthbotClientBundle:Dashboard:accountManagement }
+
+rx_client_dashboard_edit_retirement_account_info:
+    pattern:  /client/dashboard/account-management/account/{account_id}/edit-info
+    defaults: { _controller: WealthbotClientBundle:Dashboard:editRetirementAccountInfo }
+    requirements:
+        account_id: \d+
+
+rx_client_dashboard_account_beneficiaries:
+    pattern:  /client/dashboard/account-management/account/{account_id}/beneficiaries
+    defaults: { _controller: WealthbotClientBundle:Dashboard:accountBeneficiaries }
+    requirements:
+        account_id: \d+
+
+rx_client_dashboard_add_account_beneficiary:
+    pattern:  /client/dashboard/account-management/account/{account_id}/beneficiaries/add
+    defaults: { _controller: WealthbotClientBundle:Dashboard:addBeneficiary }
+    requirements:
+        account_id: \d+
+
+rx_client_dashboard_edit_beneficiary:
+    pattern:  /client/dashboard/account-management/account/{account_id}/beneficiary/{beneficiary_id}/edit
+    defaults: { _controller: WealthbotClientBundle:Dashboard:editBeneficiary }
+    requirements:
+        account_id: \d+
+        beneficiary_id: \d+
+
+rx_client_dashboard_delete_beneficiary:
+    pattern:  /client/dashboard/account-management/account/{account_id}/beneficiary/{beneficiary_id}/delete
+    defaults: { _controller: WealthbotClientBundle:Dashboard:deleteBeneficiary }
+    requirements:
+        account_id: \d+
+        beneficiary_id: \d+
+
+rx_client_dashboard_new_account:
+    pattern:  /client/dashboard/account-management/account/new
+    defaults: { _controller: WealthbotClientBundle:Dashboard:newAccount }
+
+rx_client_dashboard_change_address:
+    pattern:  /client/dashboard/account-management/change-address
+    defaults: { _controller: WealthbotClientBundle:Dashboard:editAddress }
+
+rx_client_dashboard_account_contribution:
+    pattern:  /client/dashboard/account-management/account/{account_id}/change-contribution/{type}
+    defaults: { _controller: WealthbotClientBundle:Dashboard:accountContribution }
+    requirements:
+      account_id: \d+
+      type: one_time|create|update
+
+rx_client_dashboard_account_contribution_sign:
+    pattern:  /client/dashboard/account-management/contribution-sign/{signature_id}
+    defaults: { _controller: WealthbotClientBundle:Dashboard:accountContributionActionSign }
+    requirements:
+      signature_id: \d+
+
+rx_client_dashboard_account_distribution_sign:
+    pattern:  /client/dashboard/account-management/distribution-sign/{signature_id}
+    defaults: { _controller: WealthbotClientBundle:Dashboard:accountDistributionActionSign }
+    requirements:
+      signature_id: \d+
+
+rx_client_dashboard_beneficiaries_sign:
+    pattern:  /client/dashboard/account-management/account/{account_id}/beneficiaries-sign
+    defaults: { _controller: WealthbotClientBundle:Dashboard:beneficiariesSign }
+
+rx_client_dashboard_bank_information_sign:
+    pattern:  /client/dashboard/account-management/bank-information-sign
+    defaults: { _controller: WealthbotClientBundle:Transfer:bankInformationSign }
+
+rx_client_dashboard_account_distribution:
+    pattern:  /client/dashboard/account-management/account/{account_id}/change-distribution/{type}
+    defaults: { _controller: WealthbotClientBundle:Dashboard:accountDistribution }
+    requirements:
+      account_id: \d+
+      type: scheduled|one_time
+
+rx_client_dashboard_change_portfolio:
+    pattern:  /client/dashboard/account-management/change-portfolio
+    defaults: { _controller: WealthbotClientBundle:Dashboard:changePortfolio }
+
+rx_client_dashboard_approve_portfolio:
+    pattern:  /client/dashboard/account-management/approve-portfolio
+    defaults: { _controller: WealthbotClientBundle:Dashboard:approvePortfolio }
+
+rx_client_dashboard_close_accounts:
+    pattern:  /client/dashboard/account-management/close
+    defaults: { _controller: WealthbotClientBundle:Dashboard:closeAccounts }
+
+
+
+
+
+rx_client_dashboard_transfer_account:
+    pattern:  /client/dashboard/transfer/account/{account_id}
+    defaults: { _controller: WealthbotClientBundle:DashboardTransfer:account }
+    requirements:
+        account_id: \d+
+
+rx_client_dashboard_transfer_basic:
+    pattern:  /client/dashboard/transfer/account/{account_id}/basic
+    defaults: { _controller: WealthbotClientBundle:DashboardTransfer:basic }
+    requirements:
+        account_id: \d+
+
+rx_client_dashboard_transfer_additional_basic:
+    pattern:  /client/dashboard/transfer/account/{account_id}/additional-basic
+    defaults: { _controller: WealthbotClientBundle:DashboardTransfer:additionalBasic }
+    requirements:
+        account_id: \d+
+
+rx_client_dashboard_transfer_personal:
+    pattern:  /client/dashboard/transfer/account/{account_id}/personal
+    defaults: { _controller: WealthbotClientBundle:DashboardTransfer:personal }
+    requirements:
+        account_id: \d+
+
+rx_client_dashboard_transfer_additional_personal:
+    pattern:  /client/dashboard/transfer/account/{account_id}/additional-personal
+    defaults: { _controller: WealthbotClientBundle:DashboardTransfer:additionalPersonal }
+    requirements:
+        account_id: \d+
+
+rx_client_dashboard_transfer_beneficiaries:
+    pattern:  /client/dashboard/transfer/account/{account_id}/beneficiaries
+    defaults: { _controller: WealthbotClientBundle:DashboardTransfer:beneficiaries }
+    requirements:
+        account_id: \d+
+
+rx_client_dashboard_transfer_transfer_account:
+    pattern:  /client/dashboard/transfer/account/{account_id}/transfer-account/{account_index}
+    defaults: { _controller: WealthbotClientBundle:DashboardTransfer:transfer, account_index: 1 }
+
+rx_client_dashboard_transfer_credentials:
+    pattern:  /client/dashboard/transfer/credentials
+    defaults: { _controller: WealthbotClientBundle:DashboardTransfer:credentials }
+
+rx_client_dashboard_transfer_funding_distributing:
+    pattern:  /client/dashboard/transfer/account/{account_id}/funding-distributing
+    defaults: { _controller: WealthbotClientBundle:DashboardTransfer:fundingDistributing }
+    requirements:
+        account_id: \d+
+
+rx_client_dashboard_transfer_rollover:
+    pattern:  /client/dashboard/transfer/account/{account_id}/rollover
+    defaults: { _controller: WealthbotClientBundle:DashboardTransfer:rollover }
+    requirements:
+        account_id: \d+
+
+rx_client_dashboard_transfer_create_bank_account:
+    pattern:  /client/dashboard/transfer/account/{account_id}/bank-account/create
+    defaults: { _controller: WealthbotClientBundle:DashboardTransfer:createBankInformation, account_id: 0 }
+    requirements:
+        account_id: \d+
+
+rx_client_dashboard_transfer_review:
+    pattern:  /client/dashboard/transfer/account/{account_id}/review
+    defaults: { _controller: WealthbotClientBundle:DashboardTransfer:review }
+    requirements:
+        account_id: \d+
+
+rx_client_dashboard_transfer_finished:
+    pattern:  /client/dashboard/transfer/finished
+    defaults: { _controller: WealthbotClientBundle:DashboardTransfer:finished }
+
+rx_client_dashboard_transfer_back:
+    pattern:  /client/dashboard/transfer/account/{account_id}/{action}/back/{id}
+    defaults: { _controller: WealthbotClientBundle:DashboardTransfer:back, id: 0 }
+    requirements:
+        account_id: \d+
+
+rx_client_dashboard_select_system_account:
+    pattern:  /client/dashboard/transfer/account/{account_id}/select_system_account
+    defaults: { _controller: WealthbotClientBundle:DashboardTransfer:selectSystemAccount }
+
+rx_client_change_profile_index:
+    pattern:  /client/dashboard/change-profile
+    defaults: { _controller: WealthbotClientBundle:ChangeProfile:index, tab: your_information }
+
+rx_client_change_profile_change_password:
+    pattern:  /client/dashboard/change-profile/change-password
+    defaults: { _controller: WealthbotClientBundle:ChangeProfile:index, tab: update_password }
+
+rx_client_change_profile_your_portfolio:
+    pattern:  /client/dashboard/change-profile/your-portfolio
+    defaults: { _controller: WealthbotClientBundle:ChangeProfile:index, tab: your_portfolio }
+    options:
+        expose: true
+
+rx_client_change_profile_documents:
+    pattern:  /client/dashboard/change-profile/documents
+    defaults: { _controller: WealthbotClientBundle:ChangeProfile:index, tab: documents }
+
+rx_client_change_profile_information:
+    pattern:  /client/dashboard/change-profile/information
+    defaults: { _controller: WealthbotClientBundle:ChangeProfile:information }
+
+rx_client_change_profile_portfolio:
+    pattern:  /client/dashboard/change-profile/portfolio/{client_portfolio_id}
+    defaults: { _controller: WealthbotClientBundle:ChangeProfile:portfolio, client_portfolio_id: null }
+
+rx_client_change_profile_update_password:
+    pattern:  /client/dashboard/change-profile/update-password
+    defaults: { _controller: WealthbotClientBundle:ChangeProfile:updatePassword }
+
+rx_client_change_profile_manage_users:
+    pattern:  /client/dashboard/change-profile/manage-users
+    defaults: { _controller: WealthbotClientBundle:ChangeProfile:manageUsers }
+
+rx_client_change_profile_manage_users_delete:
+    pattern:  /client/dashboard/change-profile/manage-users/{client_id}/delete
+    defaults: { _controller: WealthbotClientBundle:ChangeProfile:deleteUser }
+
+rx_client_change_profile_manage_users_edit:
+    pattern:  /client/dashboard/change-profile/manage-users/{client_id}/edit
+    defaults: { _controller: WealthbotClientBundle:ChangeProfile:editUser }
+
+rx_client_update_transfer_information:
+    pattern: /client/update-transfer-information
+    defaults: { _controller: WealthbotClientBundle:Profile:updateTransferInformationForm }
+
+rx_client_change_profile_temp_rebalance:
+    pattern: /client/dashboard/temp-portfolio/{id}/rebalance
+    defaults: { _controller: WealthbotClientBundle:ChangeProfile:tempPortfolioRebalance }
+
+rx_client_change_profile_submit_another_portfolio:
+    pattern: /client/dashboard/another-portfolio-submit
+    defaults: { _controller: WealthbotClientBundle:ChangeProfile:submitAnotherPortfolio }
+
+rx_client_change_profile_show_client_portfolio:
+    pattern: /client/dashboard/client-portfolio/{id}/show
+    defaults: { _controller: WealthbotClientBundle:ChangeProfile:showClientPortfolio }
+
+rx_client_change_profile_approve_another_portfolio:
+    pattern: /client/dashboard/another-portfolio-approve
+    defaults: { _controller: WealthbotClientBundle:ChangeProfile:approveAnotherPortfolio }

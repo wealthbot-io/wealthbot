@@ -1,0 +1,19 @@
+Wealthbot\ClientBundle\Entity\AccountGroup:
+  type: entity
+  table: client_account_groups
+  repositoryClass: Wealthbot\ClientBundle\Repository\AccountGroupRepository
+  fields:
+    id:
+      type: integer
+      id: true
+      generator:
+        strategy: AUTO
+    name:
+      type: string(255)
+      nullable: false
+  oneToMany:
+    groupTypes:
+      targetEntity: Wealthbot\ClientBundle\Entity\AccountGroupType
+      mappedBy: group
+      cascade: ['persist']
+  lifecycleCallbacks: {  }

@@ -1,0 +1,99 @@
+jms_security_extra:
+    secure_all_services: false
+    expressions: true
+
+security:
+    encoders:
+        #Symfony\Component\Security\Core\User\User: plaintext
+        FOS\UserBundle\Model\UserInterface: sha512
+
+    role_hierarchy:
+        ROLE_ADMIN:        [ROLE_USER, ROLE_CLIENT_FULL]
+        ROLE_ADMIN_MASTER: [ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
+        ROLE_ADMIN_PM:     [ROLE_ADMIN]
+        ROLE_ADMIN_CSR:    [ROLE_ADMIN]
+        ROLE_SUPER_ADMIN:  [ROLE_ADMIN_MASTER]
+        ROLE_CLIENT:       [ROLE_CLIENT_VIEW, ROLE_CLIENT_FULL]
+        ROLE_SLAVE_CLIENT: [ROLE_CLIENT_VIEW]
+        ROLE_RIA_USER:     [ROLE_RIA_BASE, ROLE_CLIENT_FULL]
+        ROLE_RIA_ADMIN:    [ROLE_RIA_USER]
+        ROLE_RIA:          [ROLE_RIA_ADMIN]
+
+    providers:
+        #in_memory:
+        #    memory:
+        #        users:
+        #            user:  { password: userpass, roles: [ 'ROLE_USER' ] }
+        #            admin: { password: adminpass, roles: [ 'ROLE_ADMIN' ] }
+        fos_userbundle:
+            id: fos_user.user_provider.username_email
+
+    firewalls:
+        dev:
+            pattern:  ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+
+        login:
+            pattern:  ^/demo/secured/login$
+            security: false
+
+        admin:
+            pattern:      /admin(.*)
+            form_login:
+                provider:       fos_userbundle
+                csrf_provider:  form.csrf_provider
+                login_path:     /admin/login
+                use_forward:    false
+                check_path:     /admin/login_check
+                failure_path:   null
+                default_target_path: /admin
+            logout:
+                path:           /admin/logout
+                target:         /admin/login
+            anonymous:    true
+            switch_user:  true
+            context: backend_auth
+
+        main:
+            pattern: ^/
+            form_login:
+                provider: fos_userbundle
+                csrf_provider: form.csrf_provider
+                default_target_path: /after-login
+            logout:       true
+            anonymous:    true
+            switch_user:  true
+            context: frontend_auth
+
+        secured_area:
+            pattern:    ^/demo/secured/
+            form_login:
+                check_path: /demo/secured/login_check
+                login_path: /demo/secured/login
+            logout:
+                path:   /demo/secured/logout
+                target: /demo/
+            #anonymous: ~
+            #http_basic:
+            #    realm: "Secured Demo Area"
+
+    access_control:
+        - { path: ^/admin/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/admin/logout$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/admin/login-check$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+
+        - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/admin, role: ROLE_ADMIN }
+        - { path: ^/ria/registration, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/ria, role: ROLE_RIA_BASE }
+        - { path: ^/ria/user/, role: ROLE_RIA_ADMIN }
+        - { path: ^/ria/user-management, role: ROLE_RIA_ADMIN }
+        - { path: ^/client/registration, role: IS_AUTHENTICATED_ANONYMOUSLY }
+#        - { path: ^/client/dashboard, role: ROLE_SLAVE_CLIENT }
+#        - { path: ^/client/transfer, role: ROLE_SLAVE_CLIENT }
+#        - { path: ^/client/profile, role: ROLE_SLAVE_CLIENT }
+        - { path: ^/client, role: ROLE_CLIENT_VIEW }
+        - { path: ^/signature/application-sign/callback, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/signature, role: ROLE_CLIENT }

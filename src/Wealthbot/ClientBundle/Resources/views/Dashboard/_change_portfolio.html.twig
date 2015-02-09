@@ -1,0 +1,16 @@
+<form id="change_portfolio_form" action="{{ path('rx_client_dashboard_change_portfolio') }}" method="post">
+    <ol class="client-riskquestions" type="1">
+        {% for key, field in form.children %}
+            {% if key != '_token' %}
+                <li class="client-riskquestions">{{ form_row(field) }}</li>
+            {% endif %}
+        {% endfor %}
+    </ol>
+
+    <div>
+        {{ form_rest(form) }}
+    </div>
+    <div class="form-actions">
+        <input class="btn btn-ajax" type="submit" name="Continue" value="Continue"/>
+    </div>
+</form>

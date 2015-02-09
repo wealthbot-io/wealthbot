@@ -1,0 +1,31 @@
+<table class="table shadow">
+    <thead>
+        <tr>
+            <th></th>
+            <th>Account Type</th>
+            <th>Value</th>
+            <th>Required Cash</th>
+            <th>Investable Cash</th>
+            <th>Monthly Contributions:</th>
+            <th>Monthly Distributions:</th>
+            <th>Sas Cash</th>
+            <th>Billing Cash</th>
+        </tr>
+    </thead>
+    <tbody class="client-accounts-list">
+        {% for client_account_value in client_account_values %}
+            {% set client_account = client_account_value.systemClientAccount.clientAccount %}
+            <tr>
+                <td>{{ loop.index }}.</td>
+                <td>{{ client_account.typeString }}</td>
+                <td>$ {{ client_account.value|number_format(2, '.', ',') }}</td>
+                <td>$ {{ (client_account_value.sasCash + client_account_value.cashBuffer)|number_format(2, '.', ',') }}</td>
+                <td>We will get back to you</td>
+                <td>$ {{ client_account.monthlyContributions|number_format(2, '.', ',') }}</td>
+                <td>$ {{ client_account.monthlyDistributions|number_format(2, '.', ',') }}</td>
+                <td>$ {{ client_account.sasCash|number_format(2, '.', ',') }}</td>
+                <td>$ {{ client_account_value.billingCash|number_format(2, '.', ',') }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>

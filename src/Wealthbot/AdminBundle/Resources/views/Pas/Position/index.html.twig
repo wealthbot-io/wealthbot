@@ -1,0 +1,37 @@
+{% extends 'WealthbotAdminBundle:Pas:layout.html.twig' %}
+
+{% block tab_content %}
+    <table class="table pas-sec-files">
+        <thead>
+        <th width="1%">#</th>
+        <th width="25%">RIA</th>
+        <th width="25%">Custodian</th>
+        <th width="22%">Last Name</th>
+        <th width="22%">First Name</th>
+        <th width="1%">Acct Number</th>
+        <th width="1%">Symbol</th>
+        <th width="1%">CE Shares</th>
+        <th width="1%">Custodial Shares</th>
+        <th width="1%">Difference</th>
+        </thead>
+        <tbody>
+        {% for row in data %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td>{{ row.ria }}</td>
+                <td>{{ row.custodian }}</td>
+                <td>{{ row.last_name }}</td>
+                <td>{{ row.first_name }}</td>
+                <td>{{ row.acct_number }}</td>
+                <td>{{ row.symbol }}</td>
+                <td>{{ row.ce_shares }}</td>
+                <td>{{ row.custodial_shares }}</td>
+                <td class="{{ row.difference > 0 ? 'error' : 'success' }}">{{ row.difference == 0 ? 'None' : row.difference }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <div class="pagination pagination-centered">
+        {{ knp_pagination_render(pagination) }}
+    </div>
+{% endblock %}

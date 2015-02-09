@@ -1,0 +1,51 @@
+#!/bin/bash
+PROCESS="fakeRebalancer"
+PID_FILE="$PROCESS.pid"
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+FILES_DIR="$DIR/../incoming_files/active_jobs"
+
+function start () {
+  if ! [ -f /var/run/$PID_FILE ]; then
+    sudo touch /var/run/$PID_FILE
+    while (true)
+    do
+      FILES=`find $FILES_DIR -type f -print0 | xargs --no-run-if-empty --null -n1 basename`
+
+      for file in $FILES
+      do
+        echo "sleep for file $file"
+        sleep 15
+        echo "end sleep for file $file"
+        php $DIR/fakeRebalancer.php -j $file
+        rm $FILES_DIR/$file
+      done
+      echo -ne "."
+      sleep 5
+    done
+  else
+    echo "Already running"
+  fi
+}
+
+function stop () {
+    sudo rm /var/run/$PID_FILE
+    killall $PROCESS
+}
+
+function usage () {
+    echo
+    echo "USAGE: $PROCESS { start | stop }"
+    echo
+}
+
+case "$1" in
+    start)
+ start
+ ;;
+    stop)
+ stop
+ ;;
+    *)
+ usage
+ ;;
+esac

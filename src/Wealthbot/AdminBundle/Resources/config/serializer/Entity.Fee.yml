@@ -1,0 +1,17 @@
+Wealthbot\AdminBundle\Entity\Fee:
+    exclusion_policy: ALL
+    properties:
+        id:
+            expose: true
+            type: integer
+            groups: [list, details]
+
+        tier_top:
+            expose: true
+            type: float
+            groups: [list, details]
+
+        fee_without_retirement:
+            expose: true
+            type: float
+            groups: [list, details]

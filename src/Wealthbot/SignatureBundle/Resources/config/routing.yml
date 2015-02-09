@@ -1,0 +1,23 @@
+wealthbot_docusign_index:
+    pattern:  /
+    defaults: { _controller: WealthbotSignatureBundle:Default:index }
+
+wealthbot_docusign_sign:
+    pattern:  /{signature_id}/sign
+    defaults: { _controller: WealthbotSignatureBundle:Docusign:sign }
+
+wealthbot_docusign_application_sign:
+    pattern:  /application/{account_id}/sign
+    defaults: { _controller: WealthbotSignatureBundle:Docusign:applicationSign }
+
+wealthbot_docusign_application_sign_callback:
+    pattern:  /application-sign/callback/{envelope_id}
+    defaults: { _controller: WealthbotSignatureBundle:Docusign:applicationSignCallback }
+
+wealthbot_docusign_check_application_signed:
+    pattern:  /check-application-signed/{account_id}
+    defaults: { _controller: WealthbotSignatureBundle:Default:checkApplicationSigned }
+
+wealthbot_docusign_fill_pdf:
+    pattern:  /fill-pdf
+    defaults: { _controller: WealthbotSignatureBundle:Default:fillPdf }

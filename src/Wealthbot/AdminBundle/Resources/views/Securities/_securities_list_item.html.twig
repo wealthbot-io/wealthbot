@@ -1,0 +1,18 @@
+<tr class="security-{{ security.id }}">
+    <td class="index">{{ security.id }}</td>
+    <td>{{ security.securityType ? security.securityType.description : '' }}</td>
+    <td>{{ security.name }}</td>
+    <td>{{ security.symbol }}</td>
+    <td>{{ security.expenseRatio }}</td>
+    <td>{#{{ security_assignment.isPreferred ? '&#10003;' : '' }}#}</td>
+    <td>{{ is_employer_account_owned ? '&#10003;' : '' }}</td>
+    <td>{{ is_employer_account_owned ? '&#10003;' : '' }}</td>
+    <td>{{ current_price }}</td>
+
+    {% if is_permitted('edit') %}
+        <td>
+            <a href="{{ path('rx_admin_security_edit', {'id': security.id}) }}" class="edit-security-btn">Edit</a><br/>
+            <a href="{{ path('rx_admin_security_delete', {'id': security.id}) }}" class="delete-security-btn">Delete</a>
+        </td>
+    {% endif %}
+</tr>

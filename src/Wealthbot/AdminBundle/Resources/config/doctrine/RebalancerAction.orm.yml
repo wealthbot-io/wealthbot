@@ -1,0 +1,60 @@
+Wealthbot\AdminBundle\Entity\RebalancerAction:
+  type: entity
+  table: rebalancer_actions
+  repositoryClass: Wealthbot\AdminBundle\Repository\RebalancerActionRepository
+  fields:
+    id:
+      type: integer
+      id: true
+      generator:
+        strategy: AUTO
+    name:
+      type: string(100)
+      nullable: true
+    status:
+      type: integer
+      nullable: true
+    started_at:
+      type: datetime
+      nullable: false
+    finished_at:
+      type: datetime
+      nullable: true
+    is_error:
+      type: boolean
+      nullable: false
+  manyToOne:
+    job:
+      targetEntity: Wealthbot\AdminBundle\Entity\Job
+      inversedBy: rebalancerActions
+      joinColumn:
+        name: job_id
+        referencedColumnName: id
+        onDelete: SET NULL
+      cascade: ['persist']
+    clientPortfolioValue:
+      targetEntity: Wealthbot\ClientBundle\Entity\ClientPortfolioValue
+      inversedBy: rebalancerActions
+      joinColumn:
+        name: client_portfolio_value_id
+        referencedColumnName: id
+        onDelete: SET NULL
+      cascade: ['persist']
+    clientAccountValue:
+      targetEntity: Wealthbot\ClientBundle\Entity\ClientAccountValue
+      inversedBy: rebalancerActions
+      joinColumn:
+        name: client_account_value_id
+        referencedColumnName: id
+        onDelete: SET NULL
+      cascade: ['persist']
+  oneToMany:
+    rebalancerQueue:
+      targetEntity: Wealthbot\AdminBundle\Entity\RebalancerActionLog
+      mappedBy: rebalancerAction
+      cascade: ['persist']
+    rebalancerActionLogs:
+      targetEntity: Wealthbot\AdminBundle\Entity\RebalancerActionLog
+      mappedBy: rebalancerAction
+      cascade: ['persist']
+  lifecycleCallbacks: {  }

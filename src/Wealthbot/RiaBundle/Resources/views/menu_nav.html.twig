@@ -1,0 +1,23 @@
+{% render 'WealthbotRiaBundle:Dashboard:companyInformation' %}
+
+<div class="row-fluid">
+    <div class="span12">
+        <div class="navbar ria-nav">
+            <div class="navbar-inner">
+                <div class="container">
+
+                    <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+
+                    <!-- Everything you want hidden at 940px or less, place within here -->
+                    {% set route = app.request.attributes.get('_route') %}
+                    {% render 'WealthbotRiaBundle:Dashboard:menu' with { 'route': route } %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

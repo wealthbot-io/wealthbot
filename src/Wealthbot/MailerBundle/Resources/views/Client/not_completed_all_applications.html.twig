@@ -1,0 +1,19 @@
+{% extends 'WealthbotMailerBundle:Client:_client_layout.html.twig' %}
+
+{% block subject %}
+    {% autoescape false %}
+    {{ 'Continue Your Applications' }}
+    {% endautoescape %}
+{% endblock %}
+
+{% block message %}
+    {% if (ria.riaCompanyInformation.slug) %}
+        {% set login_url = subdomain_url(client.ria.riaCompanyInformation, 'fos_user_security_login', {'redirect_url': url('rx_client_transfer')}) %}
+    {% else %}
+        {% set login_url = url('fos_user_security_login', {'redirect_url': url('rx_client_transfer')}) %}
+    {% endif %}
+
+    {{ client.firstName }},<br/><br/>
+    We noticed you haven’t completed all of your applications on our system yet. Please <a href="{{ login_url }}">
+    continue your applications</a> so we can help you reach your investment goals.
+{% endblock %}

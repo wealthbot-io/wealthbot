@@ -1,0 +1,38 @@
+# @deprecated
+Wealthbot\ClientBundle\Entity\AccountOutsideFund:
+  type: entity
+  table: account_outside_funds
+  repositoryClass: Wealthbot\ClientBundle\Repository\AccountOutsideFundRepository
+  id:
+    id:
+      type: integer
+      generator:
+        strategy: AUTO
+  fields:
+    account_id:
+      type: integer
+      nullable: false
+    security_assignment_id:
+      type: integer
+      nullable: false
+    is_preferred:
+      type: boolean
+      nullable: false
+  uniqueConstraints:
+    account_outside_fund:
+      columns:
+        - account_id
+        - security_assignment_id
+  manyToOne:
+    account:
+      targetEntity: Wealthbot\ClientBundle\Entity\ClientAccount
+      inversedBy: accountOutsideFunds
+      cascade: ['persist']
+    securityAssignment:
+      targetEntity: Wealthbot\AdminBundle\Entity\SecurityAssignment
+      inversedBy: accountAssociations
+      joinColumn:
+        name: security_assignment_id
+        referencedColumnName: id
+      cascade: ['persist']
+  lifecycleCallbacks: {  }

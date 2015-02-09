@@ -1,0 +1,75 @@
+Wealthbot\AdminBundle\Entity\Transaction:
+    type: entity
+    table: transactions
+    repositoryClass: Wealthbot\AdminBundle\Repository\TransactionRepository
+    fields:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+        qty:
+            type: float
+            nullable: true
+        netAmount:
+            type: float
+            nullable: true
+        grossAmount:
+            type: float
+            nullable: true
+        txDate:
+            type: datetime
+            nullable: true
+        settleDate:
+            type: datetime
+            nullable: true
+        accruedInterest:
+            type: float
+            nullable: true
+        notes:
+            type: text
+            nullable: true
+        status:
+            type: string
+            length: 50
+            nullable: true
+        cancelStatus:
+            type: boolean
+            nullable: true
+    manyToOne:
+        account:
+            targetEntity: Wealthbot\ClientBundle\Entity\SystemAccount
+            joinColumn:
+                name: account_id
+                referencedColumnName: id
+                onDelete: cascade
+            cascade: ['persist']
+        transactionType:
+            targetEntity: Wealthbot\AdminBundle\Entity\TransactionType
+            joinColumn:
+                name: transaction_type_id
+                referencedColumnName: id
+                onDelete: cascade
+            cascade: ['persist']
+        closingMethod:
+            targetEntity: Wealthbot\AdminBundle\Entity\ClosingMethod
+            joinColumn:
+                name: closing_method_id
+                referencedColumnName: id
+                onDelete: set null
+            cascade: ['persist']
+        lot:
+            targetEntity: Wealthbot\ClientBundle\Entity\Lot
+            inversedBy: transactions
+            joinColumn:
+                name: lot_id
+                referencedColumnName: id
+                onDelete: set null
+            cascade: ['persist']
+        security:
+            targetEntity: Wealthbot\AdminBundle\Entity\Security
+            joinColumn:
+                name: security_id
+                referencedColumnName: id
+                onDelete: set null
+            cascade: ['persist']

@@ -1,0 +1,39 @@
+Wealthbot\ClientBundle\Entity\AccountGroupType:
+  type: entity
+  table: client_account_group_types
+  repositoryClass: Wealthbot\ClientBundle\Repository\AccountGroupTypeRepository
+  fields:
+    id:
+      type: integer
+      id: true
+      generator:
+        strategy: AUTO
+    group_id:
+        type: integer
+        nullable: false
+    type_id:
+        type: integer
+        nullable: false
+  manyToOne:
+    group:
+      targetEntity: Wealthbot\ClientBundle\Entity\AccountGroup
+      inversedBy: groupTypes
+      joinColumn:
+        name: group_id
+        referencedColumnName: id
+        onDelete: cascade
+      cascade: ['persist']
+    type:
+      targetEntity: Wealthbot\ClientBundle\Entity\AccountType
+      inversedBy: groupTypes
+      joinColumn:
+        name: type_id
+        referencedColumnName: id
+        onDelete: cascade
+      cascade: ['persist']
+  oneToMany:
+    clientAccounts:
+      targetEntity: Wealthbot\ClientBundle\Entity\ClientAccount
+      mappedBy: groupType
+      cascade: ['persist']
+  lifecycleCallbacks: {  }

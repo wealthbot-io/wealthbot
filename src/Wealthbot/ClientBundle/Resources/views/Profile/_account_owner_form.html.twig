@@ -1,0 +1,24 @@
+<form id="account_owner_form" action="{{ path('rx_client_profile_show_account_owner_form') }}" method="post" data-save="false">
+{% spaceless %}
+    <h5>Who is this account for?</h5>
+
+    <div id="account_owner_choices">
+        {{ form_errors(form) }}
+        {% for child in form.owner_types %}
+            {% if (child.vars.value == 'self') %}
+                <label class="checkbox" for="{{ child.vars.id }}">{{ form_widget(child) }} {{ client.firstName }}</label>
+            {% elseif (child.vars.value == 'spouse') %}
+                <label class="checkbox" for="{{ child.vars.id }}">{{ form_widget(child) }} {{ client.spouseFirstName }}</label>
+            {% else %}
+                <label class="checkbox" for="{{ child.vars.id }}">
+                    {{ form_widget(child, { 'attr': { 'class': 'other-contact-owner', 'data-url': path('rx_client_profile_update_account_owner_form') } } ) }} {{ child.vars.label }}
+                </label>
+                <div id="other_contact_owner_fields"></div>
+            {% endif %}
+        {% endfor %}
+    </div>
+    <div>
+        {{ form_rest(form) }}
+    </div>
+{% endspaceless %}
+</form>

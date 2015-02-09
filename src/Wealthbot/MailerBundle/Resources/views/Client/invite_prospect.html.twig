@@ -1,0 +1,23 @@
+{% extends 'WealthbotMailerBundle:Client:_client_layout.html.twig' %}
+
+{% block subject %}
+    {% autoescape false %}
+    Welcome to {{ ria.riaCompanyInformation.name }}
+    {% endautoescape %}
+{% endblock %}
+
+{% block message %}
+    {% if group is defined and group|length > 0 %}
+        {% set params = { 'group': group } %}
+    {% else %}
+        {% set params = { } %}
+    {% endif %}
+    {% if (ria.riaCompanyInformation.slug) %}
+        {% set url = subdomain_url(ria.riaCompanyInformation, 'rx_client_register', params) %}
+    {% else %}
+        {% set params = params|merge({ 'ria_id': ria.id }) %}
+        {% set url = url('rx_client_registration', params) %}
+    {% endif %}
+
+    Please <a href="{{ url }}">register</a> on our system to allow us to help you reach your investment goals.
+{% endblock %}

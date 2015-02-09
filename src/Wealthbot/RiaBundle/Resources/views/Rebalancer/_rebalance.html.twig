@@ -1,0 +1,9 @@
+<div class="rebalance-table-content">
+    {% include 'WealthbotRiaBundle:Rebalancer:_rebalance_table.html.twig' with {
+        'client_values_pagination': client_values_pagination,
+        'is_history': is_history,
+        'form': form,
+    } %}
+</div>
+
+<div class="rebalance-account-table-content"></div>

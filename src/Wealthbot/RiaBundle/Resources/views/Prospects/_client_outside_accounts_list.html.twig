@@ -1,0 +1,21 @@
+<table class="table shadow">
+    <tr>
+        <th>Choose an Account</th>
+        <th>Financial Institution</th>
+        <th>Account Type</th>
+        <th>Estimated Value</th>
+        <th>Estimated Monthly Contributions</th>
+        <th></th>
+    </tr>
+
+    {% for item in retirement_accounts %}
+        <tr data-account-row="{{ item.id }}">
+            <td><input class="select-retirement-account" data-url="{{ path('rx_client_portfolio_outside_funds', {'account_id': item.id}) }}" type="radio" name="selected_account" value="{{ item.id }}" /></td>
+            <td>{{ item.financialInstitution }}</td>
+            <td>{{ item.typeName }}</td>
+            <td>{{ item.value ? '$'~item.value|number_format(2, '.', ',') : ''}}</td>
+            <td>{{ item.monthlyContributions ? '$'~item.monthlyContributions|number_format(2, '.', ',') : '' }}</td>
+            <td><a class="remove-client-account-btn" href="{{ path('rx_ria_prospect_delete_client_account', {'client_id': item.clientId, 'account_id': item.id}) }}">Delete</a></td>
+        </tr>
+    {% endfor %}
+</table>

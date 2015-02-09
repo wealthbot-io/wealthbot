@@ -1,0 +1,27 @@
+Wealthbot\RiaBundle\Entity\RiskAnswer:
+    type: entity
+    repositoryClass: Wealthbot\RiaBundle\Repository\RiskAnswerRepository
+    table: risk_answers
+    fields:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+        risk_question_id:
+            type: integer
+        title:
+            type: string
+            length: 255
+        point:
+            type: integer
+    manyToOne:
+        question:
+            targetEntity: Wealthbot\RiaBundle\Entity\RiskQuestion
+            inversedBy: answers
+            joinColumn:
+                name: risk_question_id
+                referencedColumnName: id
+                onDelete: cascade
+            cascade: ['persist']
+    lifecycleCallbacks: {  }

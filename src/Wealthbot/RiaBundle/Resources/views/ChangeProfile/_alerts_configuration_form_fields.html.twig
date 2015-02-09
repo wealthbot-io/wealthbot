@@ -1,0 +1,20 @@
+<fieldset>
+    <div class="control-group">
+        {{ form_errors(form.is_client_portfolio_suggestion) }}
+        <label class="control-label checkbox" for="wealthbot_riabundle_ria_alerts_configuration_form_type_is_client_portfolio_suggestion">
+            {{ form_widget(form.is_client_portfolio_suggestion) }}
+            Client Portfolio Suggestion
+        </label>
+    </div>
+
+    <div class="control-group">
+        {{ form_errors(form.is_client_driven_account_closures) }}
+        <label class="control-label checkbox" for="wealthbot_riabundle_ria_alerts_configuration_form_type_is_client_driven_account_closures">
+            {{ form_widget(form.is_client_driven_account_closures) }}
+            Client Driven Account Closures
+        </label>
+    </div>
+
+    {{ form_rest(form) }}
+    <button type="submit" class="btn btn-ajax">Save</button>
+</fieldset>

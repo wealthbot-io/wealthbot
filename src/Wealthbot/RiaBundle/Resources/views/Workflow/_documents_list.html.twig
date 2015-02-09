@@ -1,0 +1,9 @@
+{% if documents|length > 0 %}
+    <ol type="1">
+        {% for document in documents %}
+            <li>{{ document.originalName|slice(0, -4) }}</li>
+        {% endfor %}
+    </ol>
+{% else %}
+    <p>No envelope applications.</p>
+{% endif %}

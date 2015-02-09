@@ -1,0 +1,43 @@
+Wealthbot\AdminBundle\Entity\UserHistory:
+  type: entity
+  table: users_history
+  repositoryClass: Wealthbot\AdminBundle\Repository\UserHistoryRepository
+  fields:
+    id:
+      type: integer
+      id: true
+      generator:
+        strategy: AUTO
+    user_id:
+      type: integer
+      nullable: false
+    updated_by_id:
+      type: integer
+      nullable: false
+    description:
+      type: string(255)
+      nullable: false
+    updater_type:
+      type: integer
+      nullable: false
+    created:
+      type: datetime
+      gedmo:
+        timestampable:
+          on: create
+  manyToOne:
+    user:
+      targetEntity: Wealthbot\UserBundle\Entity\User
+      joinColumn:
+        name: user_id
+        referencedColumn: id
+        onDelete: cascade
+      cascade: ['persist']
+    updater:
+      targetEntity: Wealthbot\UserBundle\Entity\User
+      joinColumn:
+        name: updated_by_id
+        referencedColumn: id
+        onDelete: cascade
+      cascade: ['persist']
+  lifecycleCallbacks: {  }

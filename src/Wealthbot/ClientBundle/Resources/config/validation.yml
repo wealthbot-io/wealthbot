@@ -1,0 +1,44 @@
+Wealthbot\ClientBundle\Entity\ClientInvestmentAccount:
+    properties:
+        value:
+            - Min: 0
+        monthly_contributions:
+            - Min: 0
+        monthly_distributions:
+            - Min: 0
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: { fields: [client_id, account_type_id] }
+
+Wealthbot\ClientBundle\Entity\ClientRetirementAccount:
+    properties:
+        value:
+            - Min: 50000
+        monthly_contributions:
+            - Min: 0
+
+Wealthbot\ClientBundle\Entity\ClientAdditionalContact:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: email
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: ssn_tin
+
+Wealthbot\ClientBundle\Entity\PersonalInformation:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: ssn_tin
+
+Wealthbot\ClientBundle\Entity\SystemAccount:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: account_number
+    properties:
+        account_number:
+            - NotBlank: ~
+
+Wealthbot\ClientBundle\Entity\Distribution:
+    properties:
+        amount:
+            - Type:
+                type: float
+
+#Wealthbot\ClientBundle\Entity\ClientAccount:
+#    properties:
+#        owner:
+#            - Choice: { callback: getOwnerChoices }

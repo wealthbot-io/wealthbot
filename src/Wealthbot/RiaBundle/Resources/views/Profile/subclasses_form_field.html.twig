@@ -1,0 +1,22 @@
+{% for item in form.subclasses %}
+    <tr>
+        <td>
+            {{ item.get('value').name }}
+        </td>
+        <td class="expected-performance">
+            {{ form_errors(item.expected_performance) }}
+            <div class="input-append">
+                {{ form_widget(item.expected_performance, {'attr': {'class': 'auto-numeric'}}) }}
+                <span class="add-on">%</span>
+            </div>
+        </td>
+        <td class="account-type">
+            {{ form_errors(item.accountType) }}
+            {{ form_widget(item.accountType) }}
+        </td>
+    </tr>
+{% else %}
+    <tr>
+        <td colspan="3">This model does not have the subclasses.</td>
+    </tr>
+{% endfor %}

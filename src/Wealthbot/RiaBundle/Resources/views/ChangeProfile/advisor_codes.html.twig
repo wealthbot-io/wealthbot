@@ -1,0 +1,8 @@
+{% for key, advisorCode in advisorCodesForm.advisorCodes %}
+    <div class="advisor-code">
+        <span class="advisor-number">{{ key + 1 }}</span>
+        {{ form_widget(advisorCode.name) }}
+        <span class="icon-remove remove-advisor-code"></span>
+        {{ form_errors(advisorCode.name) }}
+    </div>
+{% endfor %}

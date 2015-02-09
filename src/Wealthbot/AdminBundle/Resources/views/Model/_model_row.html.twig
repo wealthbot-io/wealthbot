@@ -1,0 +1,17 @@
+<tr data-row="model-{{ modelEntity.id }}">
+    <td>{{ modelEntity.assetClass.name }}</td>
+    <td>{{ modelEntity.subclass.name }}</td>
+    <td>{{ modelEntity.securityAssignment.security.symbol }}</td>
+    <td>{{ modelEntity.securityAssignment.security.name }}</td>
+    <td>{{ modelEntity.muniSubstitution ? modelEntity.muniSubstitution.security.name : '' }}</td>
+    <td>{{ modelEntity.muniSubstitution ? modelEntity.muniSubstitution.security.symbol : '' }}</td>
+    <td class="percent">{{ modelEntity.percent|number_format(2, '.', ',') }} %</td>
+    <td>
+        <a href="{{ path('rx_admin_model_edit', {'id': modelEntity.id}) }}" class="edit-btn">
+            <i class="icon-pencil"></i> Edit
+        </a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;
+        <a href="{{ path('rx_admin_model_delete', {'id': modelEntity.id}) }}" class="delete-btn">
+            <i class="icon-trash"></i> Delete
+        </a>
+    </td>
+</tr>

@@ -1,0 +1,12 @@
+{% extends 'WealthbotClientBundle:Transfer:funding_distributing.html.twig' %}
+
+{% block javascripts %}
+    {#{% javascripts '@WealthbotClientBundle/Resources/public/js/client.transfer.js' %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}#}
+{% endblock %}
+{% block header_row %}{% endblock %}
+{% block page_title %}{% endblock %}
+{% block form_action %}{{ path('rx_client_dashboard_transfer_funding_distributing', { 'account_id': account.id }) }}{% endblock %}
+{% block back_url %}{{ path('rx_client_dashboard_transfer_back', {'account_id': account.id, 'action': 'funding_distributing'}) }}{% endblock %}
+{% block bottom_content %}{% endblock %}

@@ -1,0 +1,39 @@
+Wealthbot\AdminBundle\Entity\AssetClass:
+  type: entity
+  table: asset_classes
+  repositoryClass: Wealthbot\AdminBundle\Repository\AssetClassRepository
+  uniqueConstraints:
+    unique_asset_idx:
+      columns: [ model_id, name ]
+  fields:
+    id:
+      type: integer
+      id: true
+      generator:
+        strategy: AUTO
+    model_id:
+      type: integer
+      nullable: true
+    type:
+      type: string(10)
+      nullable: false
+    name:
+      type: string(255)
+      nullable: false
+    tolerance_band:
+      type: integer
+      nullable: true
+  oneToMany:
+    subclasses:
+      targetEntity: Wealthbot\AdminBundle\Entity\Subclass
+      mappedBy: assetClass
+      cascade: ['persist']
+  manyToOne:
+    model:
+      targetEntity: Wealthbot\AdminBundle\Entity\CeModel
+      joinColumn:
+        name: model_id
+        referencedColumn: id
+        onDelete: cascade
+      cascade: ['persist']
+  lifecycleCallbacks: {  }

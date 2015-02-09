@@ -1,0 +1,3 @@
+<form id="edit_bank_account_form" action="{{ path('rx_client_transfer_edit_bank_account', { 'account_id': account_id, 'bank_id': bank.id }) }}" method="post" enctype="multipart/form-data">
+    {% include 'WealthbotClientBundle:Transfer:_bank_account_form_fields.html.twig' with { 'form': form } %}
+</form>

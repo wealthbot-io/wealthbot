@@ -1,0 +1,48 @@
+<div class="box dashboard-cart" id="workflow_cart" data-include="WealthbotRiaBundle:Dashboard:_workflow_box.html.twig">
+    <div id="workflow_box" class="box-content">
+        <div class="row-fluid">
+            <h2><a href="{{ path('rx_ria_workflow') }}">Workflow</a></h2>
+
+            <div class="span5">
+                <h3>Paperwork</h3>
+                <div class="box-content box-statistic">
+                    <h3 class="title text-primary">{{ paperwork_counts.new }}</h3>
+                    <small>New</small>
+                    <div class="text-primary glyphicon glyphicon-inbox align-right"></div>
+                </div>
+                <div class="box-content box-statistic">
+                    <h3 class="title text-success">{{ paperwork_counts.in_progress }}</h3>
+                    <small>In process</small>
+                    <div class="text-success glyphicon glyphicon-check align-right"></div>
+                </div>
+                <div class="box-content box-statistic">
+                    <h3 class="title text-warning">{{ paperwork_counts.pending }}</h3>
+                    <small>Pending</small>
+                    <div class="text-warning glyphicon glyphicon-time align-right"></div>
+                </div>
+            </div>
+
+            <div class="span5 offset1">
+                <h3>Portfolios</h3>
+                <div class="box-content box-statistic">
+                    <h3 class="title text-info">{{ portfolios_counts.initial_rebalance }}</h3>
+                    <small>Initial Rebalance</small>
+                    <div class="text-info glyphicon glyphicon-refresh align-right"></div>
+                </div>
+                <div class="box-content box-statistic">
+                    <h3 class="title text-primary">{{ portfolios_counts.suggested_portfolios }}</h3>
+                    <small>Portfolio Proposals</small>
+                    <div class="text-primary glyphicon glyphicon-pie-chart align-right" style="right:1px !important;">
+                        <img width="48px" height="48px" src="/img/pie_chart.png" alt=""/>
+                    </div>
+                </div>
+                <div class="box-content box-statistic">
+                    <h3 class="title text-error">{{ portfolios_counts.prospects }}</h3>
+                    <small>Prospects</small>
+                    <div class="text-error glyphicon glyphicon-user align-right"></div>
+                </div>
+            </div>
+        </div>
+        {#{% render 'WealthbotRiaBundle:Workflow:index' with {'with_layout': false} %}#}
+    </div>
+</div>

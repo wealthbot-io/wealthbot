@@ -1,0 +1,37 @@
+<script id="tplFlatFeeForm" type="text/template">
+
+    <form class="form-horizontal">
+        <div class="control-group">
+            <div class="label-name"><%= name %></div>
+            <div class="span2 masterBilling">
+                <% if (!isNew() && master == true) { %>
+                <i class="icon-ok" title="To change it edit another Billing Spec and turn on &quot;master&quot; checkbox"></i>
+                <input type="checkbox" name="master" class="is_master hidden" checked="checked">
+                <% } else { %>
+                <input type="checkbox" name="master" class="is_master" <% if (master==true) { %> checked="checked"<% } %>>
+                <% } %>
+                Master Billing Schedule
+            </div>
+            <div class="span2">
+                <a href="#" class="delete-spec">Delete</a>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <h3>Fee:</h3>
+            <div class="controls-line">
+                <div class="input-prepend">
+                    <span class="add-on">$</span>
+                    <input type="text" name="fee_without_retirement" class="auto-numeric not-presave span6 fee" placeholder="Input Minimum Fee" value="<%= getFee().formatMoney(0) %>">
+                </div>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <div class="controls-line">
+                <button class="btn save-spec"> Save </button>
+            </div>
+        </div>
+    </form>
+
+</script>

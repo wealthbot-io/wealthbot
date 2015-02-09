@@ -1,0 +1,32 @@
+<table class="table shadow">
+    <tr>
+        <th>Financial Institution</th>
+        <th>Account Type</th>
+        <th>Estimated Value</th>
+        <th>Estimated Monthly Contributions</th>
+        <th>Estimated Monthly Distribution</th>
+        <th></th>
+    </tr>
+
+    {% for item in investmentAccounts %}
+        <tr class="investment-account-row-{{ item.id }}">
+            <td>{{ item.financialInstitution }}</td>
+            <td>{{ item.accountType.name }}</td>
+            <td>{{ item.value ? '$'~item.value|number_format(2, '.', ',') : ''}}</td>
+            <td>{{ item.monthlyContributions ? '$'~item.monthlyContributions|number_format(2, '.', ',') : '' }}</td>
+            <td>{{ item.monthlyDistributions ? '$'~item.monthlyDistributions|number_format(2, '.', ',') : '' }}</td>
+            <td><a class="remove-investment-account-btn" href="{{ path('rx_ria_client_delete_account', {'id': item.id}) }}">Delete</a></td>
+        </tr>
+    {% endfor %}
+
+    {% for item in retirementAccounts %}
+        <tr class="retirement-account-row-{{ item.id }}">
+            <td>{{ item.financialInstitution }}</td>
+            <td>{{ item.accountType.name }}</td>
+            <td>{{ item.value ? '$'~item.value|number_format(2, '.', ',') : ''}}</td>
+            <td>{{ item.monthlyContributions ? '$'~item.monthlyContributions|number_format(2, '.', ',') : '' }}</td>
+            <td></td>
+            <td><a class="remove-account-btn" href="{{ path('rx_ria_client_delete_account', {'id': item.id}) }}">Delete</a></td>
+        </tr>
+    {% endfor %}
+</table>

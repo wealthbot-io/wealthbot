@@ -1,0 +1,38 @@
+<style>
+    #container { width: 100%; }
+    .message { font-weight: bold; font-size: 18px; }
+    #container .message {
+        width: 500px;
+        margin: 100px auto 0;
+    }
+</style>
+
+<script type="text/javascript">
+    window.onload = function() {
+        var receiver = parent.window.opener;
+
+        var application_id = '{{ application_id }}';
+        var signature_id = '{{ signature_id }}';
+        var data = {
+            envelope_id:  '{{ envelope_id }}',
+            is_completed: '{{ is_completed }}',
+            message:      'account_signature'
+        };
+
+        if (application_id != '') {
+            data.application_id = application_id;
+        }
+
+        if (signature_id != '') {
+            data.signature_id = signature_id;
+        }
+
+        receiver.postMessage(data, '*');
+    };
+</script>
+
+<div id="container">
+    <div class="message">
+        {{ message|raw }}
+    </div>
+</div>

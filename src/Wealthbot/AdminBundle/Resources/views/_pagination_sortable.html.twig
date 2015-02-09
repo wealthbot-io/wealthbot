@@ -1,0 +1,20 @@
+{% set class = '' %}
+
+{% spaceless %}
+<a
+    {% for attr, value in options %}
+        {{ attr }}="{{ value }}"
+        {% if attr == 'class' %}
+            {% set class = value %}
+        {% endif %}
+    {% endfor %}>
+
+    {{ title }}
+
+    {% if class == 'desc' %}
+        <i class="icon-chevron-up"></i>
+    {% elseif class == 'asc' %}
+        <i class="icon-chevron-down"></i>
+    {% endif %}
+</a>
+{% endspaceless %}

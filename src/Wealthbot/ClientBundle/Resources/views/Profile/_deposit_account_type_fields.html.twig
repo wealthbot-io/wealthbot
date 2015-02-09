@@ -1,0 +1,31 @@
+{% for type in types %}
+    {% if type.vars.label == 'Personal Account' %}
+        {% set new_label = 'Personal Investment Account' %}
+        {% set new_sub_label = 'A standard, taxable account.' %}
+
+    {% elseif type.vars.label == 'Joint Account' %}
+        {% set new_label = 'Joint Investment Account' %}
+        {% set new_sub_label = 'A taxable joint account with rights of survivorship.' %}
+
+    {% elseif type.vars.label == 'Roth IRA' %}
+        {% set new_label = 'Roth IRA' %}
+        {% set new_sub_label = 'A tax-free retirement account. Contributions are not tax-deductible.' %}
+
+    {% elseif type.vars.label == 'Traditional IRA' %}
+        {% set new_label = 'Traditional IRA' %}
+        {% set new_sub_label = 'A tax-deferred retirement account. Contributions may be tax-deductible.' %}
+
+    {% endif %}
+
+    <div>
+        <label class="checkbox" for="{{ type.get('id') }}">
+            {{ form_widget(type) }}
+            {% if (new_label is defined) and (new_sub_label is defined) %}
+                {{ new_label }}<br/>
+                <span class="descr-lbl">{{ new_sub_label }}</span>
+            {% else %}
+                {{ form_label(type) }}
+            {% endif %}
+        </label>
+    </div>
+{% endfor %}

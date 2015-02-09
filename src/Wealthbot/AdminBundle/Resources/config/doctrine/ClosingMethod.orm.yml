@@ -1,0 +1,18 @@
+Wealthbot\AdminBundle\Entity\ClosingMethod:
+    type: entity
+    table: closing_methods
+    repositoryClass: Wealthbot\AdminBundle\Repository\ClosingMethodRepository
+    fields:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+        name:
+            type: string
+            length: 45
+            nullable: true
+        description:
+            type: string
+            length: 45
+            nullable: true

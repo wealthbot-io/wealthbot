@@ -1,0 +1,43 @@
+Wealthbot\ClientBundle\Entity\ClientAccountOwner:
+    type: entity
+    table: client_account_owners
+    repositoryClass: Wealthbot\ClientBundle\Repository\ClientAccountOwnerRepository
+    fields:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+        account_id:
+            type: integer
+            nullable: true
+        owner_contact_id:
+            type: integer
+            nullable: true
+        owner_client_id:
+            type: integer
+            nullable: true
+        owner_type:
+            type: string(10)
+            nullable: false
+    manyToOne:
+        account:
+            targetEntity: Wealthbot\ClientBundle\Entity\ClientAccount
+            inversedBy: accountOwners
+            joinColumn:
+                name: account_id
+                referencedColumnName: id
+                onDelete: cascade
+        contact:
+            targetEntity: Wealthbot\ClientBundle\Entity\ClientAdditionalContact
+            joinColumn:
+                name: owner_contact_id
+                referencedColumnName: id
+                onDelete: cascade
+            cascade: ['persist']
+        client:
+            targetEntity: Wealthbot\UserBundle\Entity\User
+            joinColumn:
+                name: owner_client_id
+                referencedColumnName: id
+                onDelete: cascade

@@ -1,0 +1,62 @@
+{% if with_edit is not defined %}
+    {% set with_edit = (client.hasApprovedPortfolio) ? false : true %}
+{% endif %}
+
+<table class="{% block table_class %} table suggested-portfolio-finaccounts{% endblock %} shadow">
+    <thead>
+    <tr>
+        {% block table_head_first_column %}<th></th>{% endblock %}
+        <th>Activity</th>
+        <th>Account Type</th>
+        <th>Estimated Value:</th>
+        <th>Estimated Monthly Contributions:</th>
+        <th>Estimated Monthly Distributions:</th>
+
+        {% block sascache_column_head %}
+            <th>SAS Cash:</th>
+        {% endblock %}
+
+        {% block table_head_extended %}{% endblock %}
+
+        {% block table_head_actions_column %}
+            {% if with_edit %}
+                <th></th>
+            {% endif %}
+        {% endblock %}
+    </tr>
+    </thead>
+    <tbody class="{% block table_body_class %}client-accounts-list{% endblock %}">
+    {% block table_body %}
+        {% for account in client_accounts %}
+            {% include 'WealthbotRiaBundle:Prospects:_client_account_row.html.twig' with {
+                'client': client,
+                'account': account,
+                'index': loop.index,
+                'with_edit': with_edit
+            } %}
+        {% endfor %}
+    {% endblock %}
+
+    <tr class="row-total">
+        {% block table_row_first_column %}<td colspan="3"></td>{% endblock %}
+        <td class="value"><strong>${{ total.value | number_format(2, '.', ',') }}</strong></td>
+        <td class="monthly-contributions"><strong>${{ total.monthly_contributions | number_format(2, '.', ',') }}</strong></td>
+        <td class="monthly-distributions"><strong>${{ total.monthly_distributions | number_format(2, '.', ',') }}</strong></td>
+
+        {% block sascache_column_total %}
+            <td class="sas-cash"><strong>${{ total.sas_cash | number_format(2, '.', ',') }}</strong></td>
+        {% endblock %}
+
+        {% block table_row_extended %}{% endblock %}
+
+        {% if with_edit %}
+            <td></td>
+        {% endif %}
+    </tr>
+    </tbody>
+</table>
+
+{% block advanced_html %}
+    <div id="consolidated_accounts_list" class="consolidated-accounts-list"></div>
+    <div class="outside-funds-list" id="outside_funds_list"></div>
+{% endblock %}

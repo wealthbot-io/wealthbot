@@ -1,0 +1,22 @@
+<li id="item_{{ question.id }}" class="q-row" data-row="q-row-{{ question.id }}">
+    <div class="q-info">
+        {{ question.title }}
+            {% if is_permitted('edit') %}
+                <sup>
+                    <div class="risk-question-edit-delete">
+                        <a class="edit-question-btn btn-link" href="{{ path('rx_admin_risks_edit_question', {'id': question.id}) }}">Edit</a>
+                        {% if not question.isWithdrawAgeInput %}
+                            |
+                            <a class="delete-question-btn btn-link" href="{{ path('rx_admin_risks_delete_question', {'id': question.id}) }}">Delete</a>
+                        {% endif %}
+                    </div>
+                </sup>
+            {% endif %}
+
+        <ol type="a">
+            {% for answer in question.answers %}
+                <li>{{ answer.title }} = {{ answer.point }}</li>
+            {% endfor %}
+        </ol>
+    </div>
+</li>

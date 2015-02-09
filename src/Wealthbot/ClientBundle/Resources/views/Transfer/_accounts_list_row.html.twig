@@ -1,0 +1,25 @@
+{% extends 'WealthbotRiaBundle:Prospects:_client_account_row.html.twig' %}
+
+{% block table_row_first_column %}
+    <td>
+        {% if (account.isCompleted) %}
+            <a href="{{ path('rx_client_transfer_account_documents', { account_id: account.id }) }}" class="op-frm account-status-lnk completed" target="_blank">{{ account.process }}</a>
+        {% else %}
+            <a href="{{ path('rx_client_transfer_account', { account_id: account.id }) }}" class="op-frm account-status-lnk">{{ account.process }}</a>
+        {% endif %}
+    </td>
+{% endblock %}
+
+{% block sascache_column %}
+    {% if show_sas_cash is defined and show_sas_cash %}
+        <td>${% block account_sascash_value %} {{ account.sasCashSum|number_format(2, '.', ',') }}{% endblock %}</td>
+    {% endif %}
+{% endblock %}
+
+{% block see_consolidated_url %}
+    {{ path('rx_client_portfolio_consolidated_accounts', { 'account_id': account.id }) }}
+{% endblock %}
+
+{% block see_investments_url %}
+    {{ path('rx_client_portfolio_outside_funds', {'account_id': account.id}) }}
+{% endblock %}

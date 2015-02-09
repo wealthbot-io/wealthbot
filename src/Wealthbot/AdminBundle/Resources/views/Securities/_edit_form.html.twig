@@ -1,0 +1,52 @@
+<legend>Edit Security</legend>
+
+<form id="edit_security_form" action="{{ is_permitted('edit') ? path('rx_admin_security_edit', {'id' : security.id}) : '#' }}"
+      data-update-subclass-url="{{ path('rx_admin_securities_update_subclass') }}">
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>{{ form_label(form.securityType) }}</th>
+            <th>{{ form_label(form.name, 'Security Name') }}</th>
+            <th>{{ form_label(form.symbol) }}</th>
+            <th>{{ form_label(form.expense_ratio) }}</th>
+            <th>{{ form_label(form.price) }}</th>
+            <th></th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>
+                {{ form_errors(form.securityType) }}
+                {{ form_widget(form.securityType, {'attr': {'class': 'input-medium'}}) }}
+            </td>
+            <td>
+                {{ form_errors(form.name) }}
+                {{ form_widget(form.name, {'attr': {'class': 'input-medium'}}) }}
+            </td>
+            <td>
+                {{ form_errors(form.symbol) }}
+                {{ form_widget(form.symbol, {'attr': {'class': 'input-mini'}}) }}
+            </td>
+            <td>
+                {{ form_errors(form.expense_ratio) }}
+                {{ form_widget(form.expense_ratio, {'attr': {'class': 'input-mini', 'placeholder': '0.00'}}) }}
+            </td>
+            <td>
+                {{ form_errors(form.price) }}
+                {{ form_widget(form.price, {'attr': {'class': 'input-mini', 'placeholder': '0.00'}}) }}
+            </td>
+            <td><a href="{{ path('rx_admin_security_price_history', { 'id': security.id }) }}" target="_blank">Price History</a></td>
+            <td>
+                {{ form_rest(form) }}
+
+                {% if is_permitted('edit') %}
+                    <input type="submit" class="btn-primary btn" value="Update" />
+                    <button class="cancel-edit-security-btn btn" data-url="{{ path('rx_admin_security_new') }}">Cancel</button>
+                {% endif %}
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</form>

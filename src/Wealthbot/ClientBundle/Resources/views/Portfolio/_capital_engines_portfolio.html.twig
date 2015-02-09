@@ -1,0 +1,55 @@
+<div class="row">
+    {% set is_used_muni = false %}
+
+    {% if client is defined %}
+        {% set ria_tax_bracket = client.profile.ria.riaCompanyInformation.clientsTaxBracket %}
+        {% set client_income_tax = client.profile.estimatedIncomeTax %}
+    {% endif %}
+
+    {% for model in portfolio_models %}
+        <div class="span4">
+            <table class="suggested-portfolio table table-bordered shadow {{ model['model'].id == selected_model.id ? 'active-table' : '' }}">
+                <thead>
+                <tr>
+                    <th colspan="3">
+                        <div class="pie-chart" style="width: 350px; height: 200px;" data-entities="{{ model['json_entities'] }}"></div>
+                    </th>
+                </tr>
+                <tr>
+                    <th>
+
+                        <input class="selected-model" data-model-id="{{ model['model'].id }}" data-url="{{ path('rx_client_portfolio_model_details', {'model_id': model['model'].id}) }}"
+                               type="radio" name="selected_model" value="{{ model['model'].id }}" {{ model['model'].id == selected_model.id ? 'checked="checked"' : '' }} />
+                    </th>
+                    <th colspan="2">{{ model['model'].name }} {{ portfolio.name|trans({}, 'portfolio_names') }}</th>
+                </tr>
+                <tr>
+                    <th>Asset Class</th>
+                    <th>Investment Name</th>
+                    <th>Allocation</th>
+                </tr>
+                </thead>
+                <tbody>
+                    {% if model['entities'] is not empty %}
+                        {% for entity in model['entities'] %}
+                            <tr>
+                                {% if ((client is defined) and (client_income_tax > ria_tax_bracket and entity.isBonds)) %}
+                                    {% set is_used_muni = true %}
+                                    <td>{{ entity.subclass.name }} <strong>*</strong></td>
+                                {% else %}
+                                    <td>{{ entity.subclass.name }}</td>
+                                {% endif %}
+                                <td>{{ entity.securityAssignment.security.name }} - {{ entity.securityAssignment.security.symbol }}</td>
+                                <td>{{ entity.percent }}%</td>
+                            </tr>
+                        {% endfor %}
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
+    {% endfor %}
+</div>
+
+{% if is_used_muni %}
+    <p><strong>*Due to your high tax bracket, we will buy tax-free bonds in taxable accounts for these asset classes.</strong></p>
+{% endif %}

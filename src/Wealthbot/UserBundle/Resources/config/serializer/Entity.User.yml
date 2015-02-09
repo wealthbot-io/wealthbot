@@ -1,0 +1,23 @@
+Wealthbot\UserBundle\Entity\User:
+    exclusion_policy: ALL
+    properties:
+        id:
+            expose: true
+            type: integer
+            groups: [billingClient]
+        created:
+            expose: true
+            type: DateTime
+            groups: [billingClient]
+
+    virtual_properties:
+        getFeeShedule:
+            serialized_name: billingSpecName
+            groups: [summaryTable]
+        getName:
+            serialized_name: name
+            groups: [summaryTable]
+        getPaymentMethod:
+            serialized_name: paymentMethod
+            groups: [summaryTable]
+

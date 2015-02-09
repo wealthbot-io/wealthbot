@@ -1,0 +1,15 @@
+{% extends 'WealthbotRiaBundle:Prospects:_client_account_row.html.twig' %}
+
+{% block sascache_column %}
+    {% if show_sas_cash is defined and show_sas_cash %}
+        <td>${% block account_sascash_value %} {{ account.sasCashSum|number_format(2, '.', ',') }}{% endblock %}</td>
+    {% endif %}
+{% endblock %}
+
+{% block see_consolidated_url %}
+    {{ path('rx_client_portfolio_consolidated_accounts', { 'account_id': account.id }) }}
+{% endblock %}
+
+{% block see_investments_url %}
+    {{ path('rx_client_portfolio_outside_funds', {'account_id': account.id}) }}
+{% endblock %}

@@ -1,0 +1,58 @@
+{% extends 'WealthbotAdminBundle::layout.html.twig' %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {% javascripts '@WealthbotAdminBundle/Resources/public/js/admin.securities.js' %}
+        <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock %}
+
+{% block body %}
+    <h1>Securities</h1>
+
+    <table class="securities-list table table-striped">
+        <thead>
+        <tr>
+            <th>{{ knp_pagination_sortable(pagination, '#', 's.id') }}</th>
+            <th>{{ knp_pagination_sortable(pagination, 'Type', 's.security_type_id') }}</th>
+            <th>{{ knp_pagination_sortable(pagination, 'Security Name', 's.name') }}</th>
+            <th>{{ knp_pagination_sortable(pagination, 'Symbol', 's.symbol') }}</th>
+            <th>{{ knp_pagination_sortable(pagination, 'Expense Ratio', 's.expense_ratio') }}</th>
+            <th>{{ knp_pagination_sortable(pagination, 'Preferred', 's.id') }}</th>
+            <th>{{ knp_pagination_sortable(pagination, 'Employer Account Owned', 's.id') }}</th>
+            <th>{{ knp_pagination_sortable(pagination, 'Employer Account Owned Preferred', 's.id') }}</th>
+            <th>{{ knp_pagination_sortable(pagination, 'Current Price', 'sp.price') }}</th>
+
+            {% if is_permitted('edit') %}
+                <th>Actions</th>
+            {% endif %}
+        </tr>
+        </thead>
+        <tbody>
+            {% if pagination|length > 0 %}
+
+                {% for security_item in pagination %}
+                    {% include 'WealthbotAdminBundle:Securities:_securities_list_item.html.twig' with {
+                        'security': security_item.data,
+                        'current_price': security_item.current_price,
+                        'is_employer_account_owned': is_employer_account_owned
+                    } %}
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td colspan="10">Securities doesn't exists.</td>
+                </tr>
+            {% endif %}
+        </tbody>
+    </table>
+
+    <div class="pagination pagination-centered">
+        {{ knp_pagination_render(pagination) }}
+    </div>
+
+    {% if is_permitted('edit') %}
+        <div class="security-form">
+            {% include 'WealthbotAdminBundle:Securities:_form.html.twig' with {'form': form} %}
+        </div>
+    {% endif %}
+{% endblock %}

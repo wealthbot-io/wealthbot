@@ -1,0 +1,31 @@
+Wealthbot\AdminBundle\Entity\BillingSpec:
+    exclusion_policy: ALL
+    properties:
+        id:
+            expose: true
+            type: integer
+            groups: [list, details]
+
+        name:
+            expose: true
+            type: string
+            groups: [list, details]
+
+        master:
+            expose: true
+            type: boolean
+            groups: [list, details]
+
+        type:
+            expose: true
+            type: integer
+            groups: [list, details]
+
+        fees:
+            max_depth: 2
+            expose: true
+            groups: [list, details]
+
+        minimalFee:
+            expose: true
+            groups: [list, details]

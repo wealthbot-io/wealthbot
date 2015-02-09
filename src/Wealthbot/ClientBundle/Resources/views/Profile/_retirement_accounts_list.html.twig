@@ -1,0 +1,33 @@
+{% if retirement_accounts is not empty %}
+    <legend>
+        <h5>Employer Retirement Accounts</h5>
+    </legend>
+    <p>
+        <span>
+            If you would like personalized buy and sell recommendations for any of your retirement plans below, please input the available fund choices by clicking on a plan below:
+        </span>
+    </p>
+
+    <table class="table shadow">
+        <tr>
+            <th>Choose an Account</th>
+            <th>Employer</th>
+            <th>Account Type</th>
+            <th>Estimated Value</th>
+            <th>Estimated Monthly Contributions</th>
+            <th></th>
+        </tr>
+
+        {% for item in retirement_accounts %}
+            {% set employer_financial_institurion = item.financialInstitution | split('(') %}
+            <tr class="account-row-{{ item.id }}">
+                <td><input class="select-retirement-account" data-url="{{ path('rx_client_outside_funds', {'account_id': item.id}) }}" type="radio" name="selected_retirement_account" value="{{ item.id }}" /></td>
+                <td>{{ employer_financial_institurion[1] | trim(' )') }}</td>
+                <td>{{ item.typeName }} - {{ employer_financial_institurion[0] | trim() }}</td>
+                <td>{{ item.value ? '$'~item.value|number_format(2, '.', ',') : ''}}</td>
+                <td>{{ item.monthlyContributions ? '$'~item.monthlyContributions|number_format(2, '.', ',') : '' }}</td>
+                <td><a class="remove-account-btn" href="{{ path('rx_client_delete_account', {'id': item.id}) }}">Delete</a></td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endif %}

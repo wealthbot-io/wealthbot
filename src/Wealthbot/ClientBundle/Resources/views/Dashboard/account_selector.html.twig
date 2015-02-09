@@ -1,0 +1,16 @@
+<div class="control-group">
+    <label class="control-label" for="select_account_type">Select Account</label>
+    <div class="controls">
+        <select id="select_account_type">
+            <option value="">All accounts</option>
+            {% for systemAccount in accounts %}
+                <option class="{{ systemAccount.status == 'closed' ? 'account-option-closed' : '' }}" value="{{ systemAccount.clientAccount.id }}"{% if systemAccount.clientAccount.id == app.request.query.get('account_id') %} selected="selected"{% endif %}>{{ systemAccount.clientAccount.ownersAsString }}</option>
+            {% endfor %}
+        </select>
+        {% if (action == 'Allocation') %}
+            <span class="text-bold padding-left-10">
+                {{ client_portfolio.portfolio.name ~ (is_client_view  ? '' : ' - '~ client.profile.clientAccountManagedAsString | capitalize ~' rebalancing') }}
+            </span>
+        {% endif %}
+    </div>
+</div>

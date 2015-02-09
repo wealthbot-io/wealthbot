@@ -1,0 +1,70 @@
+{% if (performance is defined and performance) %}
+    <div class="box span6">
+        <div class="box-content shadow">
+            <table class="table table-striped">
+                <tbody>
+                <tr>
+                    <td>Beginning Value:</td>
+                    <td>${{ performance.beginningValue|number_format(2, '.', ',') }}</td>
+                </tr>
+                <tr>
+                    <td>Contributions:</td>
+                    <td>${{ performance.contributions|number_format(2, '.', ',') }}</td>
+                </tr>
+                <tr>
+                    <td>Withdrawals:</td>
+                    <td>${{ performance.withdrawals|number_format(2, '.', ',') }}</td>
+                </tr>
+                <tr>
+                    <td>Ending Value:</td>
+                    <td>${{ performance.endingValue|number_format(2, '.', ',') }}</td>
+                </tr>
+                <tr>
+                    <td>Investment Gain/Loss:</td>
+                    <td>
+                        {% if performance.investmentGain >= 0 %}
+                            <span class="label label-success">
+                        {% else %}
+                            <span class="label label-important">
+                        {% endif %}
+                        ${{ performance.investmentGain|number_format(2, '.', ',') }}
+                        </span>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="box span6">
+        <div class="box-content shadow">
+            <table class="table table-striped">
+                <thead>
+                <th></th>
+                <th>Actual</th>
+                <th>
+                    Annualized
+                </th>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>TWR (net)</td>
+                    <td>{{ performance.netActual }}%</td>
+                    <td>{{ performance.netAnnualized }}%</td>
+                </tr>
+                <tr>
+                    <td>TWR (gross)</td>
+                    <td>{{ performance.grossActual }}%</td>
+                    <td>{{ performance.grossAnnualized }}%</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% else %}
+    <div class="box span12">
+        <div class="box-content shadow">
+            <div class="center-text text-bold">See your portfolio's performance here after you've been on our system for a month.</div>
+        </div>
+    </div>
+{% endif %}

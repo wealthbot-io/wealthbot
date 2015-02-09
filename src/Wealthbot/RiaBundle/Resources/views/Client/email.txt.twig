@@ -1,0 +1,11 @@
+{% block subject %}
+{% autoescape false %}
+{{ 'Hello %username%!'|trans({'%username%': user.username, '%confirmationUrl%': confirmationUrl}) }}
+{% endautoescape %}
+{% endblock %}
+{% block body_text %}
+{% autoescape false %}
+{{ 'Hello %username%, check your account! Your password is: %password% !'|trans({'%username%': user.username, '%confirmationUrl%': confirmationUrl, '%password%': user.plainPassword}) }}
+{% endautoescape %}
+{% endblock %}
+{% block body_html %}{% endblock %}

@@ -1,0 +1,111 @@
+<form method="post" action="{{
+        path('rx_ria_dashboard_household_settings_personal', {
+            'client_id': app.request.get('client_id')
+        })
+    }}">
+
+    {{ form_errors(householdForm) }}
+    {{ form_errors(spouseForm) }}
+
+    <div class="controls">
+        {{ form_row(householdForm.firstName) }}
+        {{ form_row(householdForm.middleName) }}
+        {{ form_row(householdForm.lastName) }}
+        <table>
+            <tr>
+                <td>{{ form_label(householdForm.birthDate) }}</td>
+                <td class="padding-left-10">{{ form_label(householdForm.citizenship) }}</td>
+            </tr>
+            <tr>
+                <td>{{ form_widget(householdForm.birthDate) }}</td>
+                <td class="padding-left-10">{{ form_widget(householdForm.citizenship) }}</td>
+                <td class="ssn">
+                    <label for="client_personal_settings_ssn1" class="margin-right-20">SSN:</label>
+                    {{ form_widget(householdForm.ssn1) }}
+                    {{ form_widget(householdForm.ssn2) }}
+                    {{ form_widget(householdForm.ssn3) }}
+                </td>
+            </tr>
+            <tr>
+                <td>{{ form_errors(householdForm.birthDate) }}</td>
+                <td>{{ form_errors(householdForm.citizenship) }}</td>
+                <td>
+                    {{ form_errors(householdForm.ssn1) }}
+                    {{ form_errors(householdForm.ssn2) }}
+                    {{ form_errors(householdForm.ssn3) }}
+                </td>
+            </tr>
+        </table>
+        {{ form_row(householdForm.employmentStatus) }}
+        <div id="user-employment">
+            {{ form_row(householdForm.employerName) }}
+            {{ form_row(householdForm.industry) }}
+            {{ form_row(householdForm.occupation) }}
+            <br/>
+            {{ form_row(householdForm.businessType) }}
+            {{ form_row(householdForm.employerAddress) }}
+            <br/>
+            {{ form_row(householdForm.employmentCity) }}
+            {{ form_row(householdForm.employmentState) }}
+            {{ form_row(householdForm.employmentZip) }}
+        </div>
+        <br/>
+        {{ form_row(householdForm.maritalStatus) }}
+        <br/>
+        <div id="spouse-data">
+            <label for="client_personal_settings_spouseFirstName">Spouse Name:</label>
+            <div class="pull-left">
+                {{ form_widget(spouseForm.firstName) }}
+            </div>
+            <div class="pull-left">
+                {{ form_widget(spouseForm.middleName) }}
+            </div>
+            <div class="pull-left">
+                {{ form_widget(spouseForm.lastName) }}
+            </div>
+            <table>
+                <tr>
+                    <td>{{ form_label(spouseForm.birthDate) }}</td>
+                    <td class="padding-left-10">{{ form_label(spouseForm.citizenship) }}</td>
+                </tr>
+                <tr>
+                    <td>{{ form_widget(spouseForm.birthDate) }}</td>
+                    <td class="padding-left-10">{{ form_widget(spouseForm.citizenship) }}</td>
+                    <td class="ssn">
+                        <label for="client_personal_settings_spouseSsn1" class="margin-right-20">SSN:</label>
+                        {{ form_widget(spouseForm.ssn1) }}
+                        {{ form_widget(spouseForm.ssn2) }}
+                        {{ form_widget(spouseForm.ssn3) }}
+                    </td>
+                </tr>
+                <tr>
+                    <td>{{ form_errors(spouseForm.birthDate) }}</td>
+                    <td>{{ form_errors(spouseForm.citizenship) }}</td>
+                    <td>
+                        {{ form_errors(spouseForm.ssn1) }}
+                        {{ form_errors(spouseForm.ssn2) }}
+                        {{ form_errors(spouseForm.ssn3) }}
+                    </td>
+                </tr>
+            </table>
+            {{ form_row(spouseForm.employmentType) }}
+            <div id="spouse-employment">
+                <br/>
+                {{ form_row(spouseForm.employerName) }}
+                {{ form_row(spouseForm.industry) }}
+                {{ form_row(spouseForm.occupation) }}
+                <br/>
+                {{ form_row(spouseForm.businessType) }}
+                {{ form_row(spouseForm.employerAddress) }}
+                <br/>
+                {{ form_row(spouseForm.employmentCity) }}
+                {{ form_row(spouseForm.employmentState) }}
+                {{ form_row(spouseForm.employmentZip) }}
+            </div>
+        </div>
+    </div>
+
+    {{ form_rest(householdForm) }}
+    {{ form_rest(spouseForm) }}
+
+</form>

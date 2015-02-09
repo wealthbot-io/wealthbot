@@ -1,0 +1,50 @@
+Wealthbot\ClientBundle\Entity\ClientPortfolio:
+  type: entity
+  table: client_portfolio
+  repositoryClass: Wealthbot\ClientBundle\Repository\ClientPortfolioRepository
+  fields:
+    id:
+      type: integer
+      id: true
+      generator:
+        strategy: AUTO
+    client_id:
+      type: integer
+      nullable: false
+    portfolio_id:
+      type: integer
+      nullable: false
+    status:
+      type: string
+      length: 20
+      nullable: false
+    is_active:
+      type: boolean
+      nullable: true
+    approved_at:
+      type: date
+      nullable: true
+    accepted_at:
+      type: date
+      nullable: true
+    created_at:
+      type: date
+      gedmo:
+        timestampable:
+          on: create
+  manyToOne:
+    client:
+      targetEntity: Wealthbot\UserBundle\Entity\User
+      inversedBy: clientPortfolios
+      joinColumn:
+        name: client_id
+        referencedColumnName: id
+        onDelete: cascade
+      cascade: ['persist']
+    portfolio:
+      targetEntity: Wealthbot\AdminBundle\Entity\CeModel
+      joinColumn:
+        name: portfolio_id
+        referencedColumnName: id
+        onDelete: cascade
+      cascade: ['persist']

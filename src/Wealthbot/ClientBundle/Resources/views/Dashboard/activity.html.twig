@@ -1,0 +1,33 @@
+{% extends is_ajax is defined and is_ajax ? 'WealthbotClientBundle::clear_layout.html.twig' : 'WealthbotClientBundle:Dashboard:index.html.twig' %}
+
+{% block content %}
+    <div class="box">
+        <div class="box-header shadow" data-original-title="">
+            <h2>Recent Activity</h2>
+        </div>
+        <div class="box-content shadow">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>{{ knp_pagination_sortable(pagination, 'Date', 'createdAt') }}</th>
+                        <th>{{ knp_pagination_sortable(pagination, 'Type', 'message') }}</th>
+                        <th>Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in pagination %}
+                        <tr>
+                            <td>{{ item.createdAt|date('m/d/Y') }}</td>
+                            <td>{{ item.message }}</td>
+                            <td>{{ item.amount ? '$' ~ item.amount|number_format(2, '.', ',') : '----' }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <div class="pagination pagination-centered">
+                {{ knp_pagination_render(pagination) }}
+            <div>
+        </div>
+    </div>
+{% endblock %}

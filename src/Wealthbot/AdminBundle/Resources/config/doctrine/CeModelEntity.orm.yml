@@ -1,0 +1,96 @@
+Wealthbot\AdminBundle\Entity\CeModelEntity:
+  type: entity
+  table: ce_model_entities
+  repositoryClass: Wealthbot\AdminBundle\Repository\CeModelEntityRepository
+  uniqueConstraints:
+    unique_row_idx:
+      columns: [ model_id, asset_class_id, subclass_id, security_assignment_id, is_qualified ]
+  fields:
+    id:
+      type: integer
+      id: true
+      generator:
+        strategy: AUTO
+    modelId:
+      type: integer
+      column: model_id
+      nullable: false
+    assetClassId:
+      type: integer
+      column: asset_class_id
+      nullable: false
+    subclassId:
+      type: integer
+      column: subclass_id
+      nullable: false
+    securityAssignmentId:
+      type: integer
+      column: security_assignment_id
+      nullable: false
+    muniSubstitutionId:
+      type: integer
+      column: muni_substitution_id
+      nullable: true
+    taxLossHarvestingId:
+      type: integer
+      column: tax_loss_harvesting_id
+      nullable: true
+    percent:
+      type: float
+      nullable: false
+    updated:
+      type: date
+      nullable: true
+    nbEdits:
+      type: smallint
+      column: nb_edits
+    isQualified:
+      type: boolean
+      column: is_qualified
+      nullable: false
+      default: false
+  manyToOne:
+    model:
+      targetEntity: Wealthbot\AdminBundle\Entity\CeModel
+      inversedBy:   modelEntities
+      joinColumn:
+        name: model_id
+        referencedColumnName: id
+        onDelete: cascade
+      cascade: ['persist']
+    assetClass:
+      targetEntity: Wealthbot\AdminBundle\Entity\AssetClass
+      joinColumn:
+        name: asset_class_id
+        referencedColumnName: id
+        onDelete: cascade
+      cascade: ['persist']
+    subclass:
+      targetEntity: Wealthbot\AdminBundle\Entity\Subclass
+      inversedBy: ceModelEntities
+      joinColumn:
+        name: subclass_id
+        referencedColumnName: id
+        onDelete: cascade
+      cascade: ['persist']
+    securityAssignment:
+      targetEntity: Wealthbot\AdminBundle\Entity\SecurityAssignment
+      joinColumn:
+        name: security_assignment_id
+        referencedColumnName: id
+        onDelete: cascade
+      cascade: ['persist']
+    muniSubstitution:
+      targetEntity: Wealthbot\AdminBundle\Entity\SecurityAssignment
+      joinColumn:
+        name: muni_substitution_id
+        referencedColumnName: id
+        onDelete: cascade
+      cascade: ['persist']
+    taxLossHarvesting:
+      targetEntity: Wealthbot\AdminBundle\Entity\SecurityAssignment
+      joinColumn:
+        name: tax_loss_harvesting_id
+        referencedColumnName: id
+        onDelete: cascade
+      cascade: ['persist']

@@ -1,0 +1,128 @@
+Wealthbot\ClientBundle\Entity\ClientAccount:
+    type: entity
+    table: client_accounts
+    repositoryClass: Wealthbot\ClientBundle\Repository\ClientAccountRepository
+    fields:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+        client_id:
+            type: integer
+            nullable: false
+        group_type_id:
+            type: integer
+            nullable: false
+        financial_institution:
+            type: string(255)
+            nullable: true
+        value:
+            type: float
+            nullable: false
+        monthly_contributions:
+            type: float
+            nullable: true
+        monthly_distributions:
+            type: float
+            nullable: true
+        sas_cash:
+            type: float
+            nullable: true
+        process_step:
+            type: integer
+            nullable: false
+        step_action:
+            type: string
+            length: 50
+            nullable: true
+        is_pre_saved:
+            type: boolean
+            nullable: false
+        consolidator_id:
+            type: integer
+            nullable: true
+        system_type:
+            type: integer
+            nullable: false
+        unconsolidated:
+            type: boolean
+            nullable: false
+        created:
+            type: datetime
+            gedmo:
+                timestampable:
+                    on: create
+        is_init_rebalanced:
+            type: boolean
+            nullable: false
+        modified:
+            type: datetime
+            nullable: true
+        modified_by:
+            type: string(20)
+            nullable: true
+    oneToOne:
+        retirementPlanInfo:
+            targetEntity: Wealthbot\ClientBundle\Entity\RetirementPlanInformation
+            mappedBy: account
+            cascade: ['persist']
+        transferInformation:
+            targetEntity: Wealthbot\ClientBundle\Entity\TransferInformation
+            mappedBy: clientAccount
+            cascade: ['persist']
+        systemAccount:
+            targetEntity: Wealthbot\ClientBundle\Entity\SystemAccount
+            mappedBy: clientAccount
+            cascade: ['persist']
+        accountContribution:
+            targetEntity: Wealthbot\ClientBundle\Entity\AccountContribution
+            mappedBy: account
+            cascade: ['persist']
+    oneToMany:
+        beneficiaries:
+            targetEntity: Wealthbot\ClientBundle\Entity\Beneficiary
+            mappedBy: account
+            cascade: ['persist']
+        accountOutsideFunds:
+            targetEntity: Wealthbot\ClientBundle\Entity\AccountOutsideFund
+            joinColumn:
+                name: id
+                referencedColumnName: account_id
+                onDelete: cascade
+            mappedBy: account
+            cascade: ['persist']
+        consolidatedAccounts:
+            targetEntity: Wealthbot\ClientBundle\Entity\ClientAccount
+            mappedBy: consolidator
+            cascade: ['persist']
+        accountOwners:
+            targetEntity: Wealthbot\ClientBundle\Entity\ClientAccountOwner
+            mappedBy: account
+            cascade: ['persist']
+    manyToOne:
+        client:
+            targetEntity: Wealthbot\UserBundle\Entity\User
+            inversedBy: clientAccounts
+            joinColumn:
+                name: client_id
+                referencedColumnName: id
+                onDelete: cascade
+            cascade: ['persist']
+        groupType:
+            targetEntity: Wealthbot\ClientBundle\Entity\AccountGroupType
+            inversedBy: clientAccounts
+            joinColumn:
+                name: group_type_id
+                referencedColumnName: id
+                onDelete: cascade
+            cascade: ['persist']
+        consolidator:
+            targetEntity: Wealthbot\ClientBundle\Entity\ClientAccount
+            inversedBy: consolidatedAccounts
+            joinColumn:
+                name: consolidator_id
+                referencedColumnName: id
+                onDelete: set null
+            cascade: ['persist']
+    lifecycleCallbacks: {  }

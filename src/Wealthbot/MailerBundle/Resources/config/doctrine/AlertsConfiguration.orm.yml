@@ -1,0 +1,28 @@
+Wealthbot\MailerBundle\Entity\AlertsConfiguration:
+    type: entity
+    table: alerts_configuration
+    repositoryClass: Wealthbot\MailerBundle\Repository\AlertsConfiguration
+    fields:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+        user_id:
+            type: integer
+            nullable: false
+        is_client_portfolio_suggestion:
+            type: boolean
+            nullable: true
+        is_client_driven_account_closures:
+            type: boolean
+            nullable: true
+    oneToOne:
+        user:
+            targetEntity: Wealthbot\UserBundle\Entity\User
+            inversedBy: alertsConfiguration
+            joinColumn:
+                name: user_id
+                referencedColumnName: id
+                onDelete: cascade
+            cascade: ['persist']

@@ -1,0 +1,16 @@
+Wealthbot\AdminBundle\Entity\State:
+  type: entity
+  table: states
+  fields:
+    id:
+      type: integer
+      id: true
+      generator:
+        strategy: AUTO
+    name:
+      type: string(255)
+      nullable: false
+    abbr:
+      type: string(4)
+      nullable: false
+  lifecycleCallbacks: {  }

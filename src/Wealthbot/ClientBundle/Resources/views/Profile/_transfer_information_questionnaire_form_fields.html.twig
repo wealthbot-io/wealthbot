@@ -1,0 +1,30 @@
+{% if form.transferInformation.is_include_policy is defined %}
+    {{ form_label(form.transferInformation.is_include_policy, "Does this account include an annuity or life insurance policy?", { 'label_attr': { 'class': 'text-bold' } }) }}
+    {% if not (hide_errors is defined) or not hide_errors %}
+        {{ form_errors(form.transferInformation.is_include_policy) }}
+    {% endif %}
+    <div class="row-fluid">
+        {% for child in form.transferInformation.is_include_policy %}
+            <div class="span1">
+                <label class="radio" for="{{ child.vars.id }}">{{ form_widget(child) }} {{ child.vars.label }}</label>
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}
+
+{% if form.transferInformation.questionnaireAnswers is defined %}
+    {% for field in form.transferInformation.questionnaireAnswers %}
+        {{ form_label(field, field.vars.data.question.title, { 'label_attr': { 'class': 'text-bold' } }) }}
+        {% if not (hide_errors is defined) or not hide_errors %}
+            {{ form_errors(field) }}
+            {{ form_errors(field.value) }}
+        {% endif %}
+        <div class="row-fluid">
+            {% for child in field.value %}
+                <div class="span1">
+                    <label class="radio" for="{{ child.vars.id }}">{{ form_widget(child) }} {{ child.vars.label }}</label>
+                </div>
+            {% endfor %}
+        </div>
+    {% endfor %}
+{% endif %}

@@ -1,0 +1,94 @@
+<style type="text/css">
+    table {
+        border: 1px solid #dddddd;
+        border-collapse: collapse;
+        border-spacing: 0;
+        width: 100%;
+    }
+
+    th, td {
+        border-left: 1px solid #dddddd;
+        border-top: 1px solid #dddddd;
+        vertical-align: middle;
+    }
+
+    .margin-bottom-10 {
+        margin-bottom: 10px!important;
+    }
+
+    .margin-bottom-30 {
+        margin-bottom: 30px!important;
+    }
+
+</style>
+
+<p><img width="200" src="{{ path('rx_file_download', {'ria_id': ria.id}) }}"/></p>
+
+<p>
+    <div>{{ client.firstName }} {{ client.firstName }}</div>
+
+    {% if client.profile.isDifferentAddress == false %}
+        <div class="margin-bottom-10">
+            <div>{{ client.profile.mailingStreet }}</div>
+            <div>{{ client.profile.mailingCity }} {{ client.profile.mailingState }} {{ client.profile.mailingZip }}</div>
+        </div>
+    {% endif %}
+
+    <div>{{ client.street }}</div>
+    <div>{{ client.city }} {{ client.state }} {{ client.zip }}</div>
+</p>
+
+<p>{{ client.firstName }},</p>
+
+<p>Please find your billing summary below. Your total bill for the period is ${{ feeTotal|number_format(2, '.', ',') }}.</p>
+
+<p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Account Name</th>
+                <th>Account Type</th>
+                <th>Account Number</th>
+                <th>Account Status</th>
+                <th>Average Account Value</th>
+                <th>Days in Portfolio</th>
+                <th>Fee</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for account in clientAccounts %}
+                <tr>
+                    <td>{{ account.name }}</td>
+                    <td>{{ account.type }}</td>
+                    <td>{{ account.number }}</td>
+                    <td>{{ account.status }}</td>
+                    <td>${{ account.averageAccountValue|number_format(2, '.', ',') }}</td>
+                    <td>{{ account.daysInPortfolio }}</td>
+                    <td>${{ account.fee|number_format(2, '.', ',') }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="5"></td>
+                <td><strong>Bill Total:</strong></td>
+                <td>${{ feeTotal|number_format(2, '.', ',') }}</td>
+            </tr>
+        </tfoot>
+    </table>
+</p>
+
+<div class="margin-bottom-30">
+    <div class="margin-bottom-10">Please remit payment to:</div>
+    <div>{{ ria.riaCompanyInformation.address }} {{ ria.riaCompanyInformation.office }}</div>
+    <div>{{ ria.riaCompanyInformation.city }}, {{ ria.riaCompanyInformation.state }} {{ ria.riaCompanyInformation.zipcode }}</div>
+</div>
+
+<div>
+    <div class="margin-bottom-10">Thank you,</div>
+    <div>{{ ria.riaCompanyInformation.name }}</div>
+    <div>{{ ria.riaCompanyInformation.address }} {{ ria.riaCompanyInformation.office }}</div>
+    <div>{{ ria.riaCompanyInformation.city }}, {{ ria.riaCompanyInformation.state }} {{ ria.riaCompanyInformation.zipcode }}</div>
+    <div>{{ ria.riaCompanyInformation.phoneNumber }}</div>
+    <div>{{ ria.riaCompanyInformation.contactEmail }}</div>
+</div>

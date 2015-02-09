@@ -1,0 +1,35 @@
+<h3>Change Profile</h3>
+
+{% block flash_messages %}
+    {% for type, flashMessages in app.session.flashbag.all() %}
+        {% for flashMessage in flashMessages %}
+            <div class="alert alert-{{ type }}">
+                {{ flashMessage }}
+                <a class="close" data-dismiss="alert" href="#">&times;</a>
+            </div>
+        {% endfor %}
+    {% endfor %}
+{% endblock %}
+
+<form action="{{ path('rx_ria_profile') }}" method="post">
+    {{ form_errors(form) }}
+    <fieldset>
+        <div class="control-group">
+            {{ form_label(form.profile.first_name) }}
+            {{ form_errors(form.profile.first_name) }}
+            {{ form_widget(form.profile.first_name) }}
+        </div>
+        <div class="control-group">
+            {{ form_label(form.profile.last_name) }}
+            {{ form_errors(form.profile.last_name) }}
+            {{ form_widget(form.profile.last_name) }}
+        </div>
+        <div class="control-group">
+            {{ form_label(form.email) }}
+            {{ form_errors(form.email) }}
+            {{ form_widget(form.email) }}
+        </div>
+        {{ form_rest(form) }}
+        <button type="submit" class="btn btn-ajax">Submit</button>
+    </fieldset>
+</form>

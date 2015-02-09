@@ -1,0 +1,12 @@
+{% extends 'WealthbotMailerBundle:Client:_client_layout.html.twig' %}
+
+{% block subject %}
+    {% autoescape false %}
+    {{ 'Custodian envelope documents' }}
+    {% endautoescape %}
+{% endblock %}
+
+{% block message %}
+    {{ custodian.name }},<br/><br/>
+    Advisor have sent you envelope documents.
+{% endblock %}

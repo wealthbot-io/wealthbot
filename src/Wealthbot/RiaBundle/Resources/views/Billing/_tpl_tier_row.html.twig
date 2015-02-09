@@ -1,0 +1,39 @@
+<script id="tplTierRow" type="text/template">
+    <td class="fee">
+
+        <input type="text" value="<%= fee_without_retirement.formatFee() %>"
+               class="not-presave fee_input"
+               required="required"
+               placeholder=".0000"
+               name="fee_without_retirement">
+    </td>
+    <td class="tier">
+
+        <div class="input-prepend">
+            <span class="add-on">$</span>
+            <input type="text"
+                   value="<%= tier_bottom.formatMoney() %>"
+                   class="auto-numeric not-presave input bottom_tier_input"
+                   readonly="readonly"
+                   required="required"
+                   name="tier_bottom">
+        </div>
+    </td>
+    <td class="tier">
+        <div class="pull-left">
+
+            <div class="input-prepend">
+                <span class="add-on">$</span>
+                <input type="text"
+                       class="for-auto-numeric not-presave top_tier_input input"
+                       value="<%= tier_top.formatMoney() %>"
+                       required="required"
+                       name="tier_top"
+                       data-value=""
+                       disabled="<%= (is_last == 1 ? 'disabled' : '') %>">
+            </div>
+        </div>
+
+    </td>
+    <td class="action"><a class="btn-remove" style="display: inline;">Remove Tier</a></td>
+</script>

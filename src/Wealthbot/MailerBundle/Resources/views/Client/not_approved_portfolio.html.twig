@@ -1,0 +1,15 @@
+{% extends 'WealthbotMailerBundle:Client:_client_layout.html.twig' %}
+
+{% block subject %}
+    {% autoescape false %}
+    {{ 'Approve Your Portfolio' }}
+    {% endautoescape %}
+{% endblock %}
+
+{% block message %}
+    {{ client.firstName }},<br/><br/>
+    We noticed you haven’t approved your portfolio yet. Please
+    <a href="{{ ria.riaCompanyInformation.slug ? subdomain_url(ria.riaCompanyInformation, 'fos_user_security_login') : url('fos_user_security_login') }}">
+        approve your portfolio
+    </a> so we can help you reach your investment goals.
+{% endblock %}

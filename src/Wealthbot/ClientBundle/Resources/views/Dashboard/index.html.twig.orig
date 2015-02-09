@@ -1,0 +1,42 @@
+{% extends 'WealthbotClientBundle::layout_styled.html.twig' %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    {% javascripts '@WealthbotRiaBundle/Resources/public/js/ria.model.chart.js' %}
+        <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+        <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock %}
+
+{% block body %}
+    {% set is_client_view_value = is_client_view is defined ? is_client_view : true %}
+
+    {% include 'WealthbotClientBundle:Dashboard:_dashboard_header.html.twig' %}
+
+    <div class="container-fluid">
+
+        <div class="row-fluid">
+            <img class="img-rounded" width="150px" src="{{ layout_variables.ria_logo }}"/>
+        </div>
+
+        <div class="row-fluid">
+
+            {% include 'WealthbotClientBundle:Dashboard:_nav.html.twig' with {'action' : layout_variables.action, 'is_client_view': is_client_view_value} %}
+
+<<<<<<< HEAD
+            <div id="content" class="span10">
+
+                {% include 'WealthbotClientBundle:Dashboard:_breadcrumbs.html.twig' with {'breadcrumbs': layout_variables.breadcrumbs} %}
+=======
+            <div id="content" class="span10 margin-top-7">
+
+                <hr />
+>>>>>>> develop
+                {% block content %}
+                    {% include 'WealthbotClientBundle:Dashboard:_index_content.html.twig' with {'client': client, 'is_client_view': is_client_view, 'sas_cash_form': sas_cash_form} %}
+                {% endblock %}
+            </div><!--/.fluid-container-->
+        </div>
+    </div>
+{% endblock %}

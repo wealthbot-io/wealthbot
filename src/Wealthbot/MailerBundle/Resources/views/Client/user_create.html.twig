@@ -1,0 +1,23 @@
+{% extends 'WealthbotMailerBundle:Client:_client_layout.html.twig' %}
+
+{% block subject %}
+    {% autoescape false %}
+    {{ 'Welcome' }}
+    {% endautoescape %}
+{% endblock %}
+
+{% block message %}
+    {% if (ria.riaCompanyInformation.slug) %}
+        {% set login_url = subdomain_url(ria.riaCompanyInformation, 'fos_user_security_login', {'redirect_url': url('rx_client_change_profile_change_password')}) %}
+    {% else %}
+        {% set login_url = url('fos_user_security_login', {'redirect_url': url('rx_client_change_profile_change_password')}) %}
+    {% endif %}
+
+    {{ new_client.firstName }},<br/><br/>
+    Someone created you login credentials on our platform:
+    <br/><br/>
+    Username: {{ new_client.email }}
+    Password: {{ new_password }}
+    <br/><br/>
+    Please <a href="{{ login_url }}">login</a> with your new password and reset if you like.
+{% endblock %}

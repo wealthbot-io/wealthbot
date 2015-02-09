@@ -1,0 +1,91 @@
+Wealthbot\AdminBundle\Entity\CeModel:
+  type: entity
+  table: ce_models
+  repositoryClass: Wealthbot\AdminBundle\Repository\CeModelRepository
+  fields:
+    id:
+      type: integer
+      id: true
+      generator:
+        strategy: AUTO
+    ownerId:
+      type: integer
+      column: owner_id
+      nullable: true
+    parentId:
+      type: integer
+      column: parent_id
+      nullable: true
+    type:
+      type: integer
+      nullable: false
+    name:
+      type: string
+      length: 255
+    slug:
+      type: string
+      length: 255
+      gedmo:
+        slug:
+          separator: _
+          style: default
+          fields:
+            - name
+    isDeleted:
+      type: boolean
+      column: is_deleted
+    riskRating:
+      type: integer
+      column: risk_rating
+      nullable: true
+    commissionMin:
+      type: float
+      column: commission_min
+      nullable: true
+    commissionMax:
+      type: float
+      column: commission_max
+      nullable: true
+    forecast:
+      type: integer
+      nullable: true
+    generousMarketReturn:
+      type: float
+      column: generous_market_return
+      nullable: true
+    lowMarketReturn:
+      type: float
+      column: low_market_return
+      nullable: true
+    isAssumptionLocked:
+      type: boolean
+      column: is_assumption_locked
+  manyToOne:
+    owner:
+      targetEntity: Wealthbot\UserBundle\Entity\User
+      inversedBy: ceModels
+      joinColumn:
+        name: owner_id
+        referencedColumnName: id
+        onDelete: cascade
+      cascade: ['persist']
+    parent:
+      targetEntity: Wealthbot\AdminBundle\Entity\CeModel
+      inversedBy: children
+      joinColumn:
+        name: parent_id
+        referencedColumnName: id
+        onDelete: SET NULL
+  oneToMany:
+    clientPortfolio:
+      targetEntity: Wealthbot\ClientBundle\Entity\ClientPortfolio
+      mappedBy: portfolio
+      cascade: ["persist"]
+    children:
+      targetEntity: Wealthbot\AdminBundle\Entity\CeModel
+      mappedBy: parent
+      cascade: ["persist"]
+    modelEntities:
+      targetEntity: Wealthbot\AdminBundle\Entity\CeModelEntity
+      mappedBy: model
+      cascade: ["persist"]

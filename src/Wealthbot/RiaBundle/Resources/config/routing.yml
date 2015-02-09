@@ -1,0 +1,855 @@
+wealthbot_ria_homepage:
+    pattern:  /hello/{name}
+    defaults: { _controller: WealthbotRiaBundle:Default:index }
+
+rx_ria_company_profile:
+    pattern: /ria/company-profile
+    defaults: { _controller: WealthbotRiaBundle:Profile:companyProfile }
+
+rx_ria_profile_step_one:
+    pattern: /ria/profile/step-one
+    defaults: { _controller: WealthbotRiaBundle:Profile:stepOne }
+
+rx_ria_profile_step_two:
+    pattern: /ria/profile/step-two
+    defaults: { _controller: WealthbotRiaBundle:Profile:stepTwo }
+
+rx_ria_profile_check_company_slug:
+    pattern: /ria/profile/sheck-company-url
+    defaults: { _controller: WealthbotRiaBundle:Profile:checkCompanySlug }
+
+rx_ria_profile_step_three:
+    pattern: /ria/profile/step-three
+    defaults: { _controller: WealthbotRiaBundle:Profile:stepThree }
+
+rx_ria_profile_step_four:
+    pattern: /ria/profile/step-four
+    defaults: { _controller: WealthbotRiaBundle:Profile:stepFour }
+
+rx_ria_profile_complete_subclasses:
+    pattern: /ria/profile/complete-subclasses
+    defaults: { _controller: WealthbotRiaBundle:Profile:completeSubclasses }
+
+rx_ria_profile_step_five:
+    pattern: /ria/profile/step-five
+    defaults: { _controller: WealthbotRiaBundle:Profile:stepFive }
+
+rx_ria_profile_fee_preview:
+    pattern: /ria/profile/fee-preview
+    defaults: { _controller: WealthbotRiaBundle:Profile:clientFeePreview }
+
+rx_ria_dashboard:
+    pattern: /ria/dashboard
+    defaults: { _controller: WealthbotRiaBundle:Dashboard:index }
+
+rx_ria_dashboard_clients:
+    pattern: /ria/dashboard/clients/{tab}
+    defaults: { _controller: WealthbotRiaBundle:Dashboard:clientsList, tab: '' }
+
+rx_ria_dashboard_ajax_clients:
+    pattern: /ria/dashboard/ajax-clients
+    defaults: { _controller: WealthbotRiaBundle:Dashboard:ajaxClientsList }
+    options:
+        expose: true
+
+rx_ria_dashboard_household_close:
+    pattern: /ria/dashboard/household-close/{client_id}
+    defaults: { _controller: WealthbotRiaBundle:Dashboard:householdClose }
+    options:
+        expose: true
+
+rx_ria_dashboard_household_settings_personal:
+    pattern: /ria/dashboard/household-settings-personal/{client_id}
+    defaults: { _controller: WealthbotRiaBundle:Dashboard:householdSettingsPersonal }
+    options:
+        expose: true
+
+rx_ria_dashboard_household_settings_contact:
+    pattern: /ria/dashboard/household-settings-contact/{client_id}
+    defaults: { _controller: WealthbotRiaBundle:Dashboard:householdSettingsContact }
+    options:
+        expose: true
+
+rx_ria_dashboard_household_settings_billing:
+    pattern: /ria/dashboard/household-settings-billing/{client_id}
+    defaults: { _controller: WealthbotRiaBundle:Dashboard:householdSettingsBilling }
+    options:
+        expose: true
+
+rx_ria_dashboard_household_settings_portfolio:
+    pattern: /ria/dashboard/household-settings-portfolio/{client_id}
+    defaults: { _controller: WealthbotRiaBundle:Dashboard:householdSettingsPortfolio }
+    options:
+        expose: true
+
+rx_ria_dashboard_account_settings:
+    pattern: /ria/dashboard/account-settings/{account_id}
+    defaults: { _controller: WealthbotRiaBundle:Dashboard:accountSettings }
+    options:
+        expose: true
+
+rx_ria_dashboard_show_client:
+    pattern:  /ria/dashboard/client/{client_id}
+    defaults: { _controller: WealthbotRiaBundle:Dashboard:showClient }
+    requirements:
+        client_id: \d+
+    options:
+        expose: true
+
+rx_ria_dashboard_client_portfolio:
+    pattern:  /ria/dashboard/client/{client_id}/portfolio
+    defaults: { _controller: WealthbotRiaBundle:Dashboard:clientPortfolio }
+    requirements:
+        client_id: \d+
+
+rx_ria_dashboard_clients_with_prospects_search:
+    pattern: /ria/dashboard/clients-with-prospects-search
+    defaults: { _controller: WealthbotRiaBundle:Dashboard:clientsSearch, with_prospects: 1 }
+
+rx_ria_dashboard_clients_search:
+    pattern: /ria/dashboard/clients-search
+    defaults: { _controller: WealthbotRiaBundle:Dashboard:clientsSearch, with_prospects: 0 }
+
+rx_ria_dashboard_client_view:
+    pattern: /ria/dashboard/client-view/{client_id}
+    defaults: { _controller: WealthbotRiaBundle:Dashboard:clientView }
+    requirements:
+        client_id: \d+
+
+rx_ria_dashboard_models_tab:
+    pattern: /ria/dashboard/models/tab/{tab}
+    defaults: { _controller: WealthbotRiaBundle:Dashboard:securities }
+
+rx_ria_dashboard_is_can_create_client:
+    pattern: /ria/dashboard/is-can-create-client
+    defaults: { _controller: WealthbotRiaBundle:Dashboard:isCanCreateClient }
+
+rx_ria_dashboard_company_information:
+    pattern: /ria/dashboard/company-information
+    defaults: { _controller: WealthbotRiaBundle:Dashboard:companyInformation }
+
+rx_ria_dashboard_swap_boxes:
+    pattern: /ria/dashboard/swap-boxes
+    defaults: { _controller: WealthbotRiaBundle:Dashboard:swapBoxes }
+
+rx_ria_dashboard_most_recent_activity_delete:
+    pattern: /ria/dashboard/most-recent-activity/{id}/delete
+    defaults: { _controller: WealthbotRiaBundle:Dashboard:deleteMostRecentActivity }
+
+rx_ria_dashboard_rebalancing:
+    pattern: /ria/dashboard/rebalancing
+    defaults: { _controller: WealthbotRiaBundle:Dashboard:rebalancing }
+
+rx_ria_models:
+    pattern: /ria/dashboard/models
+    defaults: { _controller: WealthbotRiaBundle:Models:index, withLayout: true }
+
+########################################################
+# Start billing routes
+########################################################
+rx_ria_billing:
+    pattern: /ria/dashboard/billing
+    defaults: { _controller: WealthbotRiaBundle:Billing:index }
+
+rx_ria_billing_tab:
+    pattern: /ria/dashboard/billing/tab/{tab}
+    defaults: { _controller: WealthbotRiaBundle:Billing:index }
+
+rx_ria_billing_by_quarter:
+    pattern: /ria/dashboard/billing/load/{year}/{quarter}
+    defaults: { _controller: WealthbotRiaBundle:Billing:quarterIndex }
+    options:
+        expose: true
+
+rx_ria_billing_summary_report:
+    pattern: /ria/dashboard/billing/summary-report/{year}/{quarter}
+    defaults: { _controller: WealthbotRiaBundle:Billing:summaryReport, quarter: 0 }
+    requirements:
+        _method: GET
+    options:
+        expose: true
+
+rx_ria_billing_no_bill:
+    pattern: /ria/dashboard/billing/no-bill/{client_id}/{year}/{quarter}
+    defaults: { _controller: WealthbotRiaBundle:Billing:noBill }
+    requirements:
+        _method: POST
+    options:
+        expose: true
+
+rx_ria_billing_generate_bill:
+    pattern: /ria/dashboard/billing/generate-bill/{client_id}/{year}/{quarter}
+    defaults: { _controller: WealthbotRiaBundle:Billing:generateBill }
+    requirements:
+        _method: POST
+    options:
+        expose: true
+
+rx_ria_billing_approve_bill:
+    pattern: /ria/dashboard/billing/approve-bill/{account_id}/{year}/{quarter}
+    defaults: { _controller: WealthbotRiaBundle:Billing:approveBill }
+    requirements:
+        _method: POST
+    options:
+        expose: true
+
+rx_ria_billing_generate_custodian_fee_file:
+    pattern: /ria/dashboard/billing/generate-fee-file/{year}/{quarter}
+    defaults: { _controller: WealthbotRiaBundle:Billing:generateCustodianFeeFile }
+    options:
+        expose: true
+
+rx_ria_billing_pdf_report:
+    pattern: /ria/dashboard/billing/pdf-report/{client_id}/{year}/{quarter}
+    defaults: { _controller: WealthbotRiaBundle:Billing:pdfReport }
+    requirements:
+        _method: GET
+    options:
+        expose: true
+
+rx_ria_billing_email_report:
+    pattern: /ria/dashboard/billing/email-report/{client_id}/{year}/{quarter}
+    defaults: { _controller: WealthbotRiaBundle:Billing:emailReport }
+    requirements:
+        _method: POST
+    options:
+        expose: true
+
+rx_ria_billing_update_account_pays_for:
+    pattern: /ria/dashboard/billing/account-pays-for/{account}
+    defaults: { _controller: WealthbotRiaBundle:Billing:updateAccountsPaysFor }
+    requirements:
+        _method: PUT
+    options:
+        expose: true
+
+########################################################
+# End billing routes
+########################################################
+
+rx_ria_models:
+    pattern: /ria/dashboard/models
+    defaults: { _controller: WealthbotRiaBundle:Models:index, withLayout: true }
+
+rx_ria_models_pdf:
+    pattern: /ria/dashboard/models-pdf
+    defaults: { _controller: WealthbotRiaBundle:Models:modelsPdf }
+
+rx_ria_models_risk_adjustment:
+    pattern: /ria/dashboard/models/risk-adjustment
+    defaults: { _controller: WealthbotRiaBundle:Models:riskAdjustment }
+
+rx_ria_models_update_entity_form:
+    pattern: /ria/dashboard/model/update-entity-form/model-entity-id/{model_entity_id}
+    defaults: { _controller: WealthbotRiaBundle:Models:updateEntityForm, model_entity_id: 0 }
+
+rx_ria_models_update_risk_rating:
+    pattern: /ria/dashboard/model/{model_id}/update-risk
+    defaults: { _controller: WealthbotRiaBundle:Models:updateModelRisk }
+    requirements:
+        model_id:  \d+
+
+rx_ria_models_view:
+    pattern: /ria/dashboard/model/{slug}
+    defaults: { _controller: WealthbotRiaBundle:Models:view }
+
+rx_ria_models_edit_models_assumption:
+    pattern:  /ria/dashboard/model/{model_id}/edit-models-assumption
+    defaults: { _controller: WealthbotRiaBundle:Models:editModelsAssumption }
+    requirements:
+        model_id:  \d+
+
+rx_ria_models_edit_model_assumption:
+    pattern:  /ria/dashboard/model/{model_id}/edit-model-assumption
+    defaults: { _controller: WealthbotRiaBundle:Models:editModelAssumption }
+    requirements:
+        model_id:  \d+
+
+rx_ria_models_update_completion:
+    pattern: /ria/dashboard/models/update-completion
+    defaults: { _controller: WealthbotRiaBundle:Dashboard:updateModelsCompletion }
+
+rx_ria_default_models:
+    pattern: /ria/dashboard/models/default/{slug}
+    defaults: { _controller: WealthbotRiaBundle:Models:models }
+
+rx_ria_models_edit:
+    pattern: /ria/dashboard/model/{slug}/edit
+    defaults: { _controller: WealthbotRiaBundle:Models:edit }
+
+rx_ria_models_assumption_save:
+    pattern: /ria/dashboard/models/{slug}/save-assumption
+    defaults: { _controller: WealthbotRiaBundle:Models:saveAssumption}
+
+rx_ria_models_delete:
+    pattern: /ria/dashboard/model/{slug}/delete
+    defaults: { _controller: WealthbotRiaBundle:Models:delete }
+
+rx_ria_models_create_entity:
+    pattern: /ria/dashboard/model/{slug}/create-entity
+    defaults: { _controller: WealthbotRiaBundle:Models:createEntity }
+
+rx_ria_models_delete_entity:
+    pattern: /ria/dashboard/models/entity/{id}/delete
+    defaults: { _controller: WealthbotRiaBundle:Models:deleteEntity }
+    requirements:
+        id:  \d+
+
+rx_ria_models_edit_entity:
+    pattern: /ria/dashboard/models/entity/{id}/edit
+    defaults: { _controller: WealthbotRiaBundle:Models:editEntity }
+    requirements:
+        id:  \d+
+
+rx_ria_models_view_entities:
+    pattern: /ria/dashboard/model/{slug}/view-entities
+    defaults: { _controller: WealthbotRiaBundle:Models:viewEntities }
+
+rx_ria_models_create:
+    pattern: /ria/dashboard/models/create
+    defaults: { _controller: WealthbotRiaBundle:Models:create }
+
+rx_ria_risk_profiling:
+    pattern: /ria/dashboard/risks
+    defaults: { _controller: WealthbotRiaBundle:Risks:index }
+
+rx_ria_risks_test:
+    pattern: /ria/dashboard/risks/test
+    defaults: { _controller: WealthbotRiaBundle:Risks:test }
+
+rx_ria_risks_test_result:
+    pattern: /ria/dashboard/risks/test/result
+    defaults: { _controller: WealthbotRiaBundle:Risks:testResult }
+
+#TODO: delete?
+#rx_ria_risk_test_result_details:
+#    pattern:  /ria/dashboard/risks/test/{model_id}/details
+#    defaults: { _controller: WealthbotRiaBundle:Prospects:riaModelDetails }
+#    requirements:
+#        model_id:  \d+
+
+rx_ria_risks_create_question:
+    pattern:  /ria/dashboard/risks/question/create
+    defaults: { _controller: WealthbotRiaBundle:Risks:createQuestion }
+
+rx_ria_risks_edit_question:
+    pattern:  /ria/dashboard/risks/question/{id}/edit
+    defaults: { _controller: WealthbotRiaBundle:Risks:editQuestion }
+    requirements:
+        id:  \d+
+
+rx_ria_risks_delete_question:
+    pattern:  /ria/dashboard/risks/question/{id}/delete
+    defaults: { _controller: WealthbotRiaBundle:Risks:deleteQuestion }
+    requirements:
+        id:  \d+
+
+rx_ria_risks_update_order:
+    pattern:  /ria/dashboard/risks/update-order
+    defaults: { _controller: WealthbotRiaBundle:Risks:updateOrder }
+
+rx_ria_client_create:
+    pattern: /ria/client/create
+    defaults: { _controller: WealthbotRiaBundle:Client:create }
+
+rx_ria_client_update_sas_cash:
+    pattern: /ria/client/{client_id}/update-sas-cash
+    defaults: { _controller: WealthbotRiaBundle:Client:updateSasCash }
+
+rx_ria_client_create_continue:
+    pattern: /ria/client/create-continue
+    defaults: { _controller: WealthbotRiaBundle:Client:createContinue }
+
+rx_ria_client_create_account:
+    pattern: /ria/client/create-account
+    defaults: { _controller: WealthbotRiaBundle:Client:createAccount }
+
+rx_ria_client_delete_account:
+    pattern: /ria/client/account/{id}/delete
+    defaults: { _controller: WealthbotRiaBundle:Client:deleteAccount }
+
+rx_ria_client_outside_funds:
+    pattern: /ria/client/account/{account_id}/outside-funds
+    defaults: { _controller: WealthbotRiaBundle:Client:outsideFunds }
+    requirements:
+        account_id:  \d+
+
+rx_ria_client_create_outside_fund:
+    pattern: /ria/client/create-outside-fund
+    defaults: { _controller: WealthbotRiaBundle:Client:createOutsideFund }
+
+rx_ria_client_delete_outside_fund:
+    pattern:  /ria/client/account/{account_id}/delete/{fund_id}/outside-fund
+    defaults: { _controller: WealthbotRiaBundle:Client:deleteOutsideFund }
+
+rx_ria_client_complete_models:
+    pattern:  /ria/client/complete-models
+    defaults: { _controller: WealthbotRiaBundle:Client:completeModels }
+
+rx_ria_save_ria_fee:
+    pattern: /ria/profile/save-fee
+    defaults: { _controller: WealthbotRiaBundle:Profile:saveRiaFee }
+
+rx_ria_prospects:
+    pattern: /ria/dashboard/prospects
+    defaults: { _controller: WealthbotRiaBundle:Prospects:index }
+
+rx_ria_prospects_delete:
+    pattern: /ria/dashboard/prospects/delete
+    defaults: { _controller: WealthbotRiaBundle:Prospects:delete }
+
+rx_ria_prospects_invite:
+    pattern: /ria/dashboard/prospects/invite
+    defaults: { _controller: WealthbotRiaBundle:Prospects:invite }
+
+rx_ria_prospect_portfolio:
+    pattern: /ria/dashboard/prospect/{client_id}/suggested-portfolio
+    defaults: { _controller: WealthbotRiaBundle:Prospects:suggestedPortfolio, client_view: 0 }
+    requirements:
+        client_id:  \d+
+
+rx_ria_prospect_portfolio_client_view:
+    pattern: /ria/dashboard/prospect/{client_id}/suggested-portfolio/client-view
+    defaults: { _controller: WealthbotRiaBundle:Prospects:suggestedPortfolio, client_view: 1 }
+    requirements:
+        client_id:  \d+
+
+rx_ria_prospect_update_asset_locaton:
+    pattern: /ria/dashboard/prospect/{client_id}/update-asset-location
+    defaults: { _controller: WealthbotRiaBundle:Prospects:updateAssetLocationFieldAction }
+    requirements:
+        client_id:  \d+
+
+rx_ria_prospect_client_outside_funds:
+    pattern: /ria/dashboard/prospect/{client_id}/account/{account_id}/outside-funds
+    defaults: { _controller: WealthbotRiaBundle:Prospects:clientOutsideFunds }
+    requirements:
+        client_id:  \d+
+        account_id:  \d+
+
+rx_ria_prospect_client_consolidated_accounts:
+    pattern: /ria/dashboard/prospect/{client_id}/account/{account_id}/consolidated-accounts
+    defaults: { _controller: WealthbotRiaBundle:Prospects:consolidatedAccounts }
+    requirements:
+        client_id:  \d+
+        account_id:  \d+
+
+rx_ria_prospect_create_client_outside_fund:
+    pattern: /ria/dashboard/prospect/{client_id}/account/{account_id}/outside-fund/create
+    defaults: { _controller: WealthbotRiaBundle:Prospects:createClientOutsideFund }
+    requirements:
+        client_id:  \d+
+        account_id:  \d+
+
+rx_ria_prospect_edit_client_outside_fund:
+    pattern: /ria/dashboard/prospect/{client_id}/account/{account_id}/outside-fund/{security_id}/edit
+    defaults: { _controller: WealthbotRiaBundle:Prospects:editClientOutsideFund }
+    requirements:
+        client_id:  \d+
+        account_id:  \d+
+        fund_id:  \d+
+
+rx_ria_prospect_delete_client_outside_fund:
+    pattern: /ria/dashboard/prospect/{client_id}/account/{account_id}/outside-fund/{fund_id}/delete
+    defaults: { _controller: WealthbotRiaBundle:Prospects:deleteClientOutsideFund }
+    requirements:
+        client_id:  \d+
+        account_id:  \d+
+        fund_id:  \d+
+
+rx_ria_prospect_client_model_details:
+    pattern:  /ria/dashboard/prospect/{client_id}/portfolio/model/{model_id}/details
+    defaults: { _controller: WealthbotClientBundle:Portfolio:modelDetails }
+    requirements:
+        client_id:  \d+
+        model_id:  \d+
+
+rx_ria_prospect_create_client_account:
+    pattern:  /ria/dashboard/prospect/{client_id}/account/create
+    defaults: { _controller: WealthbotRiaBundle:Prospects:createClientAccount }
+    requirements:
+        client_id:  \d+
+
+rx_ria_prospect_edit_client_account:
+    pattern:  /ria/dashboard/prospect/{client_id}/account/{account_id}/edit
+    defaults: { _controller: WealthbotRiaBundle:Prospects:editClientAccount }
+    requirements:
+        client_id:  \d+
+        account_id:  \d+
+
+rx_ria_prospect_update_client_account_form:
+    pattern:  /ria/dashboard/prospect/{client_id}/account/update-form
+    defaults: { _controller: WealthbotRiaBundle:Prospects:updateClientAccountForm }
+    requirements:
+        client_id:  \d+
+
+rx_ria_prospect_update_client_account_owners_form:
+    pattern:  /ria/dashboard/prospect/{client_id}/account/update-owners-form
+    defaults: { _controller: WealthbotRiaBundle:Prospects:updateClientAccountOwnersForm }
+    requirements:
+        client_id:  \d+
+
+rx_ria_prospect_delete_client_account:
+    pattern:  /ria/dashboard/prospect/{client_id}/account/{account_id}/delete
+    defaults: { _controller: WealthbotRiaBundle:Prospects:deleteClientAccount }
+    requirements:
+        client_id:  \d+
+        account_id:  \d+
+
+rx_ria_user_groups_create:
+    pattern:  /ria/user-groups/create
+    defaults: { _controller: WealthbotRiaBundle:User:createGroup }
+
+rx_ria_user_groups_edit:
+    pattern:  /ria/user-group/{group_id}/edit
+    defaults: { _controller: WealthbotRiaBundle:User:createGroup }
+    requirements:
+        group_id: \d+
+
+rx_ria_user_groups_delete:
+    pattern:  /ria/user-group/{group_id}/delete
+    defaults: { _controller: WealthbotRiaBundle:User:deleteGroup }
+    requirements:
+        group_id: \d+
+
+rx_ria_user_management:
+    pattern:  /ria/user-management
+    defaults: { _controller: WealthbotRiaBundle:User:index }
+
+rx_ria_user_reset_password:
+    pattern:  /ria/user/reset-password
+    defaults: { _controller: WealthbotRiaBundle:User:resetPassword }
+
+rx_ria_user_reset_self_password:
+    pattern:  /ria/user/reset-self-password
+    defaults: { _controller: WealthbotRiaBundle:User:resetSelfPassword }
+
+rx_ria_user_reset_internally_password:
+    pattern:  /ria/user/{user_id}/reset-internally-password
+    defaults: { _controller: WealthbotRiaBundle:User:resetInternallyPassword }
+    requirements:
+        user_id:  \d+
+
+rx_ria_user_create:
+    pattern:  /ria/user/create
+    defaults: { _controller: WealthbotRiaBundle:User:create }
+
+rx_ria_user_edit:
+    pattern:  /ria/user/{user_id}/edit
+    defaults: { _controller: WealthbotRiaBundle:User:edit }
+
+rx_ria_user_delete:
+    pattern:  /ria/user/{user_id}/delete
+    defaults: { _controller: WealthbotRiaBundle:User:delete }
+
+rx_ria_user_empty_create_form:
+    pattern:  /ria/user/reset-form
+    defaults: { _controller: WealthbotRiaBundle:User:cancel}
+
+rx_ria_change_profile:
+    pattern:  /ria/change-profile
+    defaults: { _controller: WealthbotRiaBundle:ChangeProfile:index, tab: company_profile }
+
+rx_ria_change_profile_custodians:
+    pattern:  /ria/change-profile/custodians
+    defaults: { _controller: WealthbotRiaBundle:ChangeProfile:index, tab: custodians }
+
+rx_ria_change_profile_rebalancing:
+    pattern:  /ria/change-profile/rebalancing
+    defaults: { _controller: WealthbotRiaBundle:ChangeProfile:index, tab: rebalancing }
+
+rx_ria_change_profile_proposals:
+    pattern:  /ria/change-profile/proposals
+    defaults: { _controller: WealthbotRiaBundle:ChangeProfile:index, tab: proposals }
+
+rx_ria_change_profile_change_password:
+    pattern:  /ria/change-profile/change-password
+    defaults: { _controller: WealthbotRiaBundle:ChangeProfile:index, tab: change_password }
+
+rx_ria_change_profile_advisor_codes:
+    pattern:  /ria/change-profile/advisor-codes
+    defaults: { _controller: WealthbotRiaBundle:ChangeProfile:advisorCodes }
+    options:
+        expose: true
+    requirements:
+        custodian_id:  \d+
+
+rx_ria_change_profile_custodian_tab:
+    pattern:  /ria/change-profile/custodian-tab
+    defaults: { _controller: WealthbotRiaBundle:ChangeProfile:custodianTab }
+    requirements:
+        custodian_id:  \d+
+
+rx_ria_change_profile_save_company_profile:
+    pattern:  /ria/change-profile/save-company-profile
+    defaults: { _controller: WealthbotRiaBundle:ChangeProfile:saveCompanyProfile }
+
+#rx_ria_change_profile_save_marketing:
+#    pattern:  /ria/change-profile/save-marketing
+#    defaults: { _controller: WealthbotRiaBundle:ChangeProfile:saveMarketing }
+
+rx_ria_change_profile_proposal_save:
+    pattern: /ria/change-profile/save-proposal
+    defaults: { _controller: WealthbotRiaBundle:ChangeProfile:saveProposal }
+
+rx_ria_change_profile_save_billing:
+    pattern:  /ria/change-profile/save-billing
+    defaults: { _controller: WealthbotRiaBundle:ChangeProfile:saveBilling }
+
+rx_ria_change_profile_save_portfolio_management:
+    pattern:  /ria/change-profile/save-portfolio-management
+    defaults: { _controller: WealthbotRiaBundle:ChangeProfile:savePortfolioManagement }
+
+rx_ria_change_profile_save_custodians:
+    pattern:  /ria/change-profile/save-custodians
+    defaults: { _controller: WealthbotRiaBundle:ChangeProfile:saveCustodians }
+
+rx_ria_change_profile_update_password:
+    pattern:  /ria/change-profile/update-password
+    defaults: { _controller: WealthbotRiaBundle:ChangeProfile:updatePassword }
+
+rx_ria_change_profile_upload_documents:
+    pattern:  /ria/change-profile/upload-documents
+    defaults: { _controller: WealthbotRiaBundle:ChangeProfile:uploadDocuments }
+
+rx_ria_change_profile_save_alerts_configuration:
+    pattern:  /ria/change-profile/save-alerts-configuration
+    defaults: { _controller: WealthbotRiaBundle:ChangeProfile:saveAlertsConfiguration }
+
+rx_ria_profile:
+    pattern:  /ria/change-profile/profile
+    defaults: { _controller: WealthbotRiaBundle:ChangeProfile:profile, tab: profile }
+
+
+# CATEGORIES ROUTING
+
+rx_ria_categories_index:
+    pattern: /ria/categories/index
+    defaults: { _controller: WealthbotRiaBundle:Categories:index }
+
+rx_ria_categories_asset_delete:
+    pattern: /ria/categories/asset/{id}/delete
+    defaults: { _controller: WealthbotRiaBundle:Categories:assetDelete }
+
+rx_ria_categories_subclass_delete:
+    pattern: /ria/categories/subclass/{id}/delete
+    defaults: { _controller: WealthbotRiaBundle:Categories:subclassDelete }
+
+# END CATEGORIES ROUTING
+
+# MODEL SECURITIES ROUTING
+
+rx_ria_model_securities_list:
+    pattern: /ria/model/{model_id}/securities/list
+    defaults: { _controller: WealthbotRiaBundle:Securities:modelSecuritiesList }
+
+rx_ria_model_securities_complete_funds:
+    pattern: /ria/model/securities/complete-funds
+    defaults: { _controller: WealthbotRiaBundle:Securities:completeFunds }
+
+rx_ria_model_securities_complete_subclasses:
+    pattern: /ria/model/securities/complete-subclasses
+    defaults: { _controller: WealthbotRiaBundle:Securities:completeSubclasses }
+
+rx_ria_model_securities_edit:
+    pattern: /ria/model/securities/{id}/edit
+    defaults: { _controller: WealthbotRiaBundle:Securities:editModelSecurity }
+
+rx_ria_model_securities_delete:
+    pattern: /ria/model/securities/{id}/delete
+    defaults: { _controller: WealthbotRiaBundle:Securities:deleteModelSecurity }
+
+# END MODEL SECURITIES ROUTING
+
+# SECURITY ROUTING
+
+rx_ria_security_edit_transaction:
+    pattern:  /ria/dashboard/security/transaction/edit/{security_id}
+    defaults: { _controller: WealthbotRiaBundle:Securities:editSecurityTransaction }
+
+rx_ria_login_as_client:
+    pattern: /ria/login-as/{username}
+    defaults: { _controller: WealthbotRiaBundle:Secured:loginAs }
+
+# WORKFLOW ROUTING
+
+rx_ria_workflow:
+    pattern:  /ria/dashboard/workflow
+    defaults: { _controller: WealthbotRiaBundle:Workflow:index, tab: active }
+
+rx_ria_workflow_tab:
+    pattern:  /ria/dashboard/workflow/{tab}
+    defaults: { _controller: WealthbotRiaBundle:Workflow:index }
+
+rx_ria_workflow_view:
+    pattern:  /ria/dashboard/workflow/{id}/view
+    defaults: { _controller: WealthbotRiaBundle:Workflow:view }
+
+rx_ria_workflow_archive:
+    pattern:  /ria/dashboard/workflow/{id}/archive
+    defaults: { _controller: WealthbotRiaBundle:Workflow:archive }
+
+rx_ria_workflow_delete:
+    pattern:  /ria/dashboard/workflow/{id}/delete
+    defaults: { _controller: WealthbotRiaBundle:Workflow:delete }
+
+rx_ria_workflow_update_status:
+    pattern:  /ria/dashboard/workflow/{id}/update-status/{status}
+    defaults: { _controller: WealthbotRiaBundle:Workflow:updateStatus }
+
+rx_ria_workflow_edit_note:
+    pattern:  /ria/dashboard/workflow/{id}/edit-note
+    defaults: { _controller: WealthbotRiaBundle:Workflow:editNote }
+
+rx_ria_workflow_activity_summary_delete:
+    pattern:  /ria/dashboard/workflow/activity-summary/{id}/delete
+    defaults: { _controller: WealthbotRiaBundle:Workflow:deleteActivitySummary }
+
+rx_ria_workflow_documents_list:
+    pattern:  /ria/dashboard/workflow/{id}/documents
+    defaults: { _controller: WealthbotRiaBundle:Workflow:documentsList }
+
+#APIs
+
+rx_ria_api_fee_rest_update:
+    pattern:  /ria/api/fees/{id}
+    defaults: { _controller: WealthbotRiaBundle:Billing:update }
+    requirements:
+        _method:  PUT
+
+rx_ria_api_billing_specs_rest:
+    pattern:  /ria/api/billing_specs
+    defaults: { _controller: WealthbotRiaBundle:BillingSpec:list }
+    requirements:
+        _method:  GET
+    options:
+        expose: true
+
+rx_ria_api_billing_specs_rest_post:
+    pattern:  /ria/api/billing_specs
+    defaults: { _controller: WealthbotRiaBundle:BillingSpec:create }
+    requirements:
+        _method:  POST
+
+rx_ria_api_billing_specs_rest_item:
+    pattern:  /ria/api/billing_specs/{id}
+    defaults: { _controller: WealthbotRiaBundle:BillingSpec:get }
+    requirements:
+        _method:  GET
+    options:
+        expose: true
+
+
+rx_ria_api_billing_specs_rest_delete_item:
+    pattern:  /ria/api/billing_specs/{id}
+    defaults: { _controller: WealthbotRiaBundle:BillingSpec:delete }
+    requirements:
+        _method:  DELETE
+
+
+rx_ria_api_billing_specs_rest_update_item:
+    pattern:  /ria/api/billing_specs/{id}
+    defaults: { _controller: WealthbotRiaBundle:BillingSpec:update }
+    requirements:
+        _method:  PUT
+
+
+test_33:
+    pattern:  /test/{id}
+    defaults: { _controller: WealthbotRiaBundle:BillingSpec:test }
+
+debug_action:
+    pattern: /testform
+    defaults: { _controller: WealthbotRiaBundle:Debug:index }
+
+rx_ria_billing_fee_preview:
+    pattern: /ria/dashboard/billing/fee-preview
+    defaults: { _controller: WealthbotRiaBundle:Billing:clientFeePreview }
+    options:
+        expose: true
+
+rx_ria_billing_summary_tab_load:
+    pattern: /ria/dashboard/billing/load-interval/{year}/{quarter}
+    defaults: { _controller: WealthbotRiaBundle:Billing:loadSummaryTab }
+    options:
+        expose: true
+
+
+########################################################
+# Bill Item API routes
+########################################################
+rx_ria_api_bill_item_update_fee:
+    pattern:  /ria/api/bill-items/{id}/fee
+    defaults: { _controller: WealthbotRiaBundle:BillItem:updateFee }
+    requirements:
+        _method:  PUT
+    options:
+        expose: true
+########################################################
+# End bill item routes
+########################################################
+    
+rx_ria_rebalancing_index:
+    pattern: /ria/dashboard/rebalancing/rebalancer
+    defaults: { _controller: WealthbotRiaBundle:Rebalancer:index }
+
+rx_ria_rebalancing_history:
+    pattern: /ria/dashboard/rebalancing/history
+    defaults: { _controller: WealthbotRiaBundle:Rebalancer:history }
+
+rx_ria_rebalancing_trade_recon:
+    pattern: /ria/dashboard/rebalancing/trade_recon
+    defaults: { _controller: WealthbotRiaBundle:Rebalancer:tradeRecon }
+
+rx_ria_rebalancing_accounts_view:
+    pattern: /ria/dashboard/rebalancing/accounts_view/client_portfolio/{client_portfolio_id}
+    defaults: { _controller: WealthbotRiaBundle:Rebalancer:accountsView }
+    requirements:
+        client_portfolio_id: \d+
+
+rx_ria_rebalancing_start_initial_rebalance:
+    pattern: /ria/dashboard/rebalancing/initial-rebalance/{client_id}
+    defaults: { _controller: WealthbotRiaBundle:Rebalancer:startInitialRebalance }
+    requirements:
+        client_id: \d+
+        _method: POST
+    options:
+        expose: true
+
+rx_ria_rebalancing_start_rebalance:
+    pattern: /ria/dashboard/rebalancing/start-rebalance
+    defaults: { _controller: WealthbotRiaBundle:Rebalancer:startRebalance }
+
+rx_ria_rebalancing_post_rebalance:
+    pattern: /ria/dashboard/rebalancing/post-rebalance
+    defaults: { _controller: WealthbotRiaBundle:Rebalancer:postRebalance }
+    options:
+        expose: true
+
+rx_ria_rebalancing_show_details:
+    pattern: /ria/dashboard/rebalancing/show-details/{id}
+    defaults: { _controller: WealthbotRiaBundle:Rebalancer:showDetails }
+    requirements:
+        id: \d+
+
+rx_ria_rebalancing_check_progress:
+    pattern: /ria/dashboard/rebalancing/check-progress
+    defaults: { _controller: WealthbotRiaBundle:Rebalancer:checkProgress }
+    options:
+        expose: true
+
+rx_ria_rebalancing_rebalancer_queue_delete:
+    pattern: /ria/dashboard/rebalancing/rebalancer-queue/{id}/delete
+    defaults: { _controller: WealthbotRiaBundle:Rebalancer:rebalancerQueueChangeState, state: 'deleted' }
+    options:
+        expose: true
+
+rx_ria_rebalancing_rebalancer_queue_restore:
+    pattern: /ria/dashboard/rebalancing/rebalancer-queue/{id}/restore
+    defaults: { _controller: WealthbotRiaBundle:Rebalancer:rebalancerQueueChangeState, state: 'restored' }
+    options:
+        expose: true
+
+rx_ria_rebalancing_generate_trade_file:
+    pattern: /ria/dashboard/rebalancing/generate-trade-file
+    defaults: { _controller: WealthbotRiaBundle:Rebalancer:generateTradeFile }

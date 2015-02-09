@@ -1,0 +1,192 @@
+
+{% set index_route           = index_route is defined  ? index_route : 'rx_admin_categories_index' %}
+{% set asset_delete_route    = index_route is defined  ? index_route : 'rx_admin_categories_asset_delete' %}
+{% set subclass_delete_route = index_route is defined  ? index_route : 'rx_admin_categories_subclass_delete' %}
+
+{% set subclass_prototype %}
+<tr id="asset___name___subclass___index___row" class="asset-__name__ subclass" data-asset-index="__name__" data-subclass-index="__index__">
+    {% if is_show_tolerance_band %}<td></td>{% endif %}
+    <td></td>
+    <td><input type="text" id="categories_assets___name___subclasses___index___name" name="categories[assets][__name__][subclasses][__index__][name]" required="required" /></td>
+    {% if is_show_tolerance_band %}
+        <td>
+            <div class="input-append">
+                <input class="input-xmini" type="text" id="categories_assets__name__subclasses__index__tolerance_band" name="categories[assets][__name__][subclasses][__index__][tolerance_band]"/>
+                <span class="add-on">%</span>
+            </div>
+        </td>
+    {% endif %}
+    {% if is_show_expected_asset %}
+        <td>
+            <div class="input-append">
+                <input class="input-xmini" type="text" id="categories_assets___name___subclasses___index___expected_performance" name="categories[assets][__name__][subclasses][__index__][expected_performance]" required="required" />
+                <span class="add-on">%</span>
+            </div>
+        </td>
+    {% endif %}
+    {% if is_show_account_type %}
+        <td>
+            <select id="categories_assets___name___subclasses___index___accountType" name="categories[assets][__name__][subclasses][__index__][accountType]" required="required" class="account-type-input input-middle">
+                <option value>Choose an Option</option>
+                {% for account_type in account_types %}
+                    <option value="{{ account_type.id }}">{{ account_type.name }}</option>
+                {% endfor %}
+            </select></td>{% endif %}
+    {% if is_show_priority %}<td><select id="categories_assets___name___subclasses___index___priority" name="categories[assets][__name__][subclasses][__index__][priority]" required="required" class="input-mini subclass-priority"></select></td>{% endif %}
+    <td><a href="javascript: void(0);" onclick="deleteSubclass(this); {{ is_show_priority ? 'rebuildPriority(this);' : '' }} return false;">Delete</a></td>
+</tr>
+{% endset %}
+
+{% set asset_prototype %}
+<tr class="assets">
+    <td><input type="text" id="categories_assets___name___name" name="categories[assets][__name__][name]" required="required" /></td>
+
+    {% if is_show_tolerance_band %}
+        <td>
+            <div class="input-append">
+                <input class="input-xmini" type="text" id="categories_assets__name__tolerance_band" name="categories[assets][__name__][tolerance_band]"/>
+                <span class="add-on">%</span>
+            </div>
+        </td>
+    {% endif %}
+    <td><a href="javascript: void(0);" onclick="addSubclass(this,__name__);">+ New Subclass</a></td>
+    {% if is_show_tolerance_band %}<td></td>{% endif %}
+    {% if is_show_expected_asset %}<td></td>{% endif %}
+    {% if is_show_account_type %}<td></td>{% endif %}
+    {% if is_show_priority %}<td></td>{% endif %}
+    <td><a href="javascript: void(0);" onclick="return deleteAsset(this,__name__);">Delete</a></td>
+</tr>
+{% endset %}
+
+<div class="tabbable">
+
+    <form id="categories_form" action="{{ path(index_route, {'model_id': app.request.get('model_id')}) }}" method="post">
+        <div class="tab-content">
+            <table class="table" id="classesTable">
+                <thead>
+                    <tr>
+                        <th style="width: 300px;">Asset Class</th>
+                        {% if is_show_tolerance_band %}
+                            <th>Tolerance Band</th>
+                        {% endif %}
+                        <th style="width: 300px;">Subclass</th>
+                        {% if is_show_tolerance_band %}
+                            <th>Tolerance Band</th>
+                        {% endif %}
+                        {% if is_show_expected_asset %}
+                            <th>Expected Performance</th>
+                        {% endif %}
+                        {% if is_show_account_type %}
+                            <th>
+                                {% if is_show_priority %}
+                                    <a class="account-type-order-btn" data-order="ASC" href="javascript: void(0);" onclick="orderByAccountType(this); return false;">
+                                        Account Type<span class="caret" style="vertical-align: middle;"></span>
+                                    </a>
+                                {% else %}
+                                    Account type
+                                {% endif %}
+                            </th>
+                        {% endif %}
+                        {% if is_show_priority %}
+                            <th>Priority</th>
+                        {% endif %}
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="asset_collections" data-subclass-prototype="{{ subclass_prototype|e }}" data-prototype="{{ asset_prototype|e }}">
+                {% for asset_form in form.assets %}
+                    {% set asset_index = loop.index0 %}
+                    {{ form_errors(asset_form) }}
+                    <tr class="assets">
+                        <td>
+                            {{ form_errors(asset_form.name) }}
+                            {{ form_widget(asset_form.name) }}
+                        </td>
+                        {% if is_show_tolerance_band %}
+                            <td>
+                                <div class="input-append">
+                                    {{ form_errors(asset_form.tolerance_band) }}
+                                    {{ form_widget(asset_form.tolerance_band, {'attr': {'class': 'input-xmini'}}) }}
+                                    <span class="add-on">%</span>
+                                </div>
+                            </td>
+                        {% endif %}
+                        <td><a href="javascript: void(0);" onclick="addSubclass(this,{{ asset_index }});">+ New Subclass</a></td>
+                        {% if is_show_tolerance_band %}<td></td>{% endif %}
+                        {% if is_show_expected_asset %}<td></td>{% endif %}
+                        {% if is_show_account_type %}<td></td>{% endif %}
+                        {% if is_show_priority %}<th></th>{% endif %}
+                        <td><a href="{{ path(asset_delete_route, { 'id': asset_form.vars.value.id }) }}" onclick="return deleteAsset(this,{{ asset_index }}, true);">Delete</a></td>
+                    </tr>
+
+                    {% for subclass_form in asset_form.subclasses %}
+                        <tr id="asset_{{ asset_index }}_subclass_{{ loop.index0 }}_row" class="asset-{{ asset_index }} subclass" data-asset-index="{{ asset_index }}" data-subclass-index="{{ loop.index0 }}">
+                            <td></td>
+                            {% if is_show_tolerance_band %}
+                                <td></td>
+                            {% endif %}
+                            <td>
+                                {{ form_errors(subclass_form.name) }}
+                                {{ form_widget(subclass_form.name) }}
+                            </td>
+
+                            {% if is_show_tolerance_band %}
+                                <td>
+                                    <div class="input-append">
+                                        {{ form_errors(subclass_form.tolerance_band) }}
+                                        {{ form_widget(subclass_form.tolerance_band, {'attr': {'class': 'input-xmini'}}) }}
+                                        <span class="add-on">%</span>
+                                    </div>
+                                </td>
+                            {% endif %}
+
+                            {% if is_show_expected_asset %}
+                                <td>
+                                    <div class="input-append">
+                                        {{ form_errors(subclass_form.expected_performance) }}
+                                        <div class="input-append">{{ form_widget(subclass_form.expected_performance, {'attr': {'class': 'input-xmini'}}) }}<span class="add-on">%</span></div>
+                                    </div>
+                                </td>
+                            {% endif %}
+                            {% if is_show_account_type %}
+                                <td>
+                                    {{ form_errors(subclass_form.accountType) }}
+                                    {{ form_widget(subclass_form.accountType, {'attr': {'class': 'account-type-input input-middle'}}) }}
+                                </td>
+                            {% endif %}
+                            {% if is_show_priority %}
+                                <td>
+                                    {{ form_errors(subclass_form.priority) }}
+                                    {{ form_widget(subclass_form.priority, {'attr': {'class': 'input-mini subclass-priority'}}) }}
+                                </td>
+                            {% endif %}
+                            <td>
+                                {% if subclass_form.vars.value.id %}
+                                    <a href="{{ path(subclass_delete_route, { 'id': subclass_form.vars.value.id }) }}" onclick="deleteSubclass(this, true); {{ is_show_priority ? 'rebuildPriority(this);' : '' }} return false;">Delete</a>
+                                {% else %}
+                                    <a href="javascript: void(0);" onclick="deleteSubclass(this); {{ is_show_priority ? 'rebuildPriority(this);' : '' }} return false;" class="subclass-delete-btn">Delete</a>
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+
+                {% endfor %}
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td><a href="#" class="add-asset">+ New Asset Class</a></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+        <div class="form-actions">
+            {{ form_widget(form._token) }}
+            <input class="btn btn-primary" type="submit" value="Update" name="Update"/>
+        </div>
+    </form>
+</div>

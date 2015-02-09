@@ -1,0 +1,33 @@
+Wealthbot\RiaBundle\Entity\RiaCompanyInformation:
+    properties:
+        slug:
+            - Regex: "/^[a-zA-Z0-9]+$/"
+        risk_adjustment:
+            - Min: 1
+            - Max: 10
+        contact_email:
+            - Email: ~
+        clients_tax_bracket:
+            - Min: 0
+            - Max: 100
+        logo_file:
+            - File:
+                maxSize: 1M
+                uploadIniSizeErrorMessage: The file is too large. Allowed maximum size is 1MB
+                mimeTypes: ['image/jpeg', 'image/gif', 'image/png']
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+            fields: [slug]
+            message: 'This url is already in use.'
+
+Wealthbot\RiaBundle\Entity\AdvisorCode:
+    properties:
+        name:
+            - NotBlank: ~
+            - Regex:
+                pattern: "/^[a-zA-Z0-9]+$/"
+                message: 'Illegal characters detected. You can use only letters and numbers in Advisor code.'
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+            fields: [ name, custodianId ]
+            message: 'This Advisor Code already used'

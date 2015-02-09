@@ -1,0 +1,17 @@
+<form id="select_system_account_form" action="{{ path('rx_client_dashboard_select_system_account', {'account_id': account.id}) }}" method="post">
+    {% if system_account %}
+        <h4>We will transfer the new account into this currently opened account:</h4>
+        {{ system_account.accountNumber }} - {{ system_account.accountDescription }}
+    {% else %}
+        <h4>Transfer this new account into one of the following currently opened accounts:</h4>
+        <div>
+            {% for radio in form.account %}
+                <label for="{{ radio.vars.id }}" class="radio">
+                    {{ form_widget(radio) }} {{ radio.vars.label }}
+                </label>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    {{ form_rest(form) }}
+</form>

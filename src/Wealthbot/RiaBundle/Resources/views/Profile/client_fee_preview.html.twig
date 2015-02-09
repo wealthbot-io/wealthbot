@@ -1,0 +1,107 @@
+{% javascripts '@WealthbotRiaBundle/Resources/public/js/ria.profile.js'%}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+{% endjavascripts %}
+
+<div class="mTable">
+    <div class="row-fluid">
+        <div class="span5">
+            <h4>wealthbot.io's Billing Schedule: <a class="pop" href="#" rel="popover" title="Our Billing Schedule Explained" data-content="<p>Our billing schedule is a flat fee, depending on whether a client brings an outside retirement plan into their portfolio.</p>"><i class="mini-color mini-ico-info-sign"></i></a></h4>
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>Fee{#code_v2: NOT DELETE THIS CODE #}{#(Without Retirement Plan)#}</th>
+                    {#code_v2: NOT DELETE THIS CODE #}
+                    {#<th>Fee (With Retirement Plan)</th>#}
+                    <th>Tier Bottom</th>
+                    <th>Tier Top</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% set bottom = 0%}
+                {% for fee in admin_fees %}
+                    <tr>
+                        <td class="fee-value">{{ fee.getFeeWithoutRetirement }}</td>
+                        {#code_v2: NOT DELETE THIS CODE #}
+                        {#<td class="fee-value">{{ fee.getFeeWithRetirement }}</td>#}
+                        {% if fee.getTierTop == 1000000000000 %}
+                            <td class="tier-value">$ {{ bottom | number_format(2, '.', ',') }} +</td>
+                            <td class="tier-value disabled"></td>
+                        {% else %}
+                            <td class="tier-value">$ {{ bottom | number_format(2, '.', ',') }}</td>
+                            <td class="tier-value">$ {{ fee.getTierTop | number_format(2, '.', ',') }}</td>
+                        {% endif %}
+                    </tr>
+                    {% set bottom = fee.getTierTop + 0.01 %}
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="span5">
+            <h4>Your Billing Schedule</h4>
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>Fee </th>
+                    <th>Tier Bottom</th>
+                    <th>Tier Top</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% set bottom = 0 %}
+                {% for fee in ria_fees %}
+                    <tr>
+                        <td class="fee-value">{{ fee.fee_without_retirement }}</td>
+                        {% if fee.tier_top == 1000000000000 %}
+                            <td class="tier-value">$ {{ bottom | number_format(2, '.', ',') }} +</td>
+                            <td class="tier-value disabled"></td>
+                        {% else %}
+                            <td class="tier-value">$ {{ bottom | number_format(2, '.', ',') }}</td>
+                            <td class="tier-value">$ {{ fee.tier_top | number_format(2, '.', ',') }}</td>
+                        {% endif %}
+                    </tr>
+                    {% set bottom = fee.tier_top + 0.01 %}
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="row-fluid">
+        <div class="span10">
+            <h4>Client Final Billing Schedule</h4>
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>Fee {#code_v2: NOT DELETE THIS CODE #}{#(Without a Retirement Plan)#}</th>
+                    {#code_v2: NOT DELETE THIS CODE #}
+                    {#{% if is_allow_retirement_plan %}#}
+                        {#<th>Fee (With a Retirement Plan)</th>#}
+                    {#{% endif %}#}
+                    <th>Tier Bottom</th>
+                    <th>Tier Top</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% set bottom = 0 %}
+                {% for fee in client_fees %}
+                    <tr>
+                        <td class="fee-value">{{ fee.fee_without_retirement }}</td>
+                        {#code_v2: NOT DELETE THIS CODE #}
+                        {#{% if is_allow_retirement_plan %}#}
+                            {#<td class="fee-value">{{ fee.fee_with_retirement }}</td>#}
+                        {#{% endif %}#}
+                        {% if fee.tier_top == 1000000000000 %}
+                            <td class="tier-value">$ {{ bottom | number_format(2, '.', ',') }} +</td>
+                            <td class="tier-value disabled"></td>
+                        {% else %}
+                            <td class="tier-value">$ {{ bottom | number_format(2, '.', ',') }}</td>
+                            <td class="tier-value">$ {{ fee.tier_top | number_format(2, '.', ',') }}</td>
+                        {% endif %}
+                    </tr>
+                    {% set bottom = fee.tier_top + 0.01 %}
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

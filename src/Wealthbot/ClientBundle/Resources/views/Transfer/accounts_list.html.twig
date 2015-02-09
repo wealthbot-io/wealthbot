@@ -1,0 +1,15 @@
+{% include 'WealthbotClientBundle:Transfer:_accounts_list.html.twig' with {
+    'client': client,
+    'total': total,
+    'client_accounts': client_accounts,
+    'with_edit': false,
+    'show_sas_cash': (show_sas_cash is defined) ? show_sas_cash : false
+} %}
+
+{% if app.environment != 'prod' %}
+    <div class="row">
+        <div class="span pull-right">
+            <a class="btn btn-primary" href="{{ path('rx_client_dashboard') }}">Go to dashboard</a>
+        </div>
+    </div>
+{% endif %}

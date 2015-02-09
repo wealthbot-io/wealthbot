@@ -1,0 +1,43 @@
+<table class="table">
+    <thead>
+    <tr>
+        <th>
+            {% set employer_financial_institurion = account.clientAccount.financialInstitution | split('(') %}
+            {{ employer_financial_institurion[1] | trim(' )') }} {{ account.clientAccount.typeName }}
+        </th>
+    </tr>
+    <tr>
+        <th colspan="3">
+            <div class="center-text">Outside Employer Funds</div>
+        </th>
+    </tr>
+    <tr>
+        <th>Symbol</th>
+        <th>Name</th>
+        <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% if account.clientAccount.accountOutsideFunds is not empty %}
+        {% for outsideFund in account.clientAccount.accountOutsideFunds %}
+            <tr>
+                <td>{{ outsideFund.securityAssignment.security.symbol }}</td>
+                <td>{{ outsideFund.securityAssignment.security.name }}</td>
+                <td><a href="#">Edit</a> | <a href="#">Delete</a></td>
+            </tr>
+        {% endfor %}
+    {% else %}
+        <tr>
+            <td colspan="3">
+                <div class="center-text">No funds.</div>
+            </td>
+        </tr>
+    {% endif %}
+    </tbody>
+</table>
+
+<a class="add-new-fund-btn btn" href="{{ path('rx_client_outside_funds', {'account_id': account.clientAccountId}) }}">Add new</a>
+
+{% include
+    'WealthbotClientBundle:Dashboard:_retirement_account_info_form.html.twig' with { 'account': account, 'form': form }
+%}

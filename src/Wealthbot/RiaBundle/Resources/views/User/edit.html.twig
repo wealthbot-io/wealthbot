@@ -1,0 +1,14 @@
+{% extends 'WealthbotRiaBundle:User:create.html.twig' %}
+
+{% block title %}
+    {{ 'Edit user ' ~ ria_user.firstName ~ ' ' ~ ria_user.lastName}}
+{% endblock %}
+
+{% block form_action %}
+    {{ path('rx_ria_user_edit', { 'user_id': ria_user.id }) }}
+{% endblock %}
+
+{% block form_buttons %}
+    <button type="submit" class="btn btn-ajax">Save</button>
+    <a class="btn cancel-edit-user-btn" href="{{ path('rx_ria_user_empty_create_form') }}">Cancel</a>
+{% endblock %}

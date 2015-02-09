@@ -1,0 +1,16 @@
+<h4>Beneficiaries</h4>
+
+{% if beneficiaries|length > 0 %}
+    <ol type="1" class="beneficiaries-list">
+        {% for beneficiary in beneficiaries %}
+            {% include 'WealthbotClientBundle:Dashboard:_beneficiary_row.html.twig' with {
+                'beneficiary': beneficiary,
+                'account': account
+            } %}
+        {% endfor %}
+    </ol>
+{% else %}
+    <p class="empty">No beneficiaries.</p>
+{% endif %}
+
+<a class="add-beneficiary-btn" href="{{ path('rx_client_dashboard_add_account_beneficiary', { 'account_id': account.id }) }}">Add Beneficiary</a>

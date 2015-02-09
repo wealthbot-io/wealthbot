@@ -1,0 +1,32 @@
+Wealthbot\ClientBundle\Entity\TransferCustodianQuestionAnswer:
+    type: entity
+    table: transfer_custodian_question_answers
+    repositoryClass: Wealthbot\ClientBundle\Repository\TransferCustodianQuestionAnswerRepository
+    fields:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+        transfer_custodian_question_id:
+            type: integer
+        transfer_information_id:
+            type: integer
+        value:
+            type: boolean
+    manyToOne:
+        question:
+            targetEntity: Wealthbot\ClientBundle\Entity\TransferCustodianQuestion
+            joinColumn:
+                name: transfer_custodian_question_id
+                referencedColumnName: id
+                onDelete: cascade
+            cascade: ['persist']
+        transferInformation:
+            targetEntity: Wealthbot\ClientBundle\Entity\TransferInformation
+            inversedBy: questionnaireAnswers
+            joinColumn:
+                name: transfer_information_id
+                referencedColumnName: id
+                onDelete: cascade
+            cascade: ['persist']

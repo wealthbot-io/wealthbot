@@ -1,0 +1,13 @@
+<h5>Messages</h5>
+
+<ul class="custodian-messages-list">
+    <li>
+        <a href="{{ path('rx_admin_custodian_message', { 'id': custodian.id, 'type': 'mail_check' }) }}">Mail Checks</a>
+    </li>
+    <li>
+        <a href="{{ path('rx_admin_custodian_message', { 'id': custodian.id, 'type': 'wire_transfer' }) }}">Wire Transfers</a>
+    </li>
+    <li>
+        <a href="{{ path('rx_admin_custodian_message', { 'id': custodian.id, 'type': 'rollover' }) }}">Rollovers</a>
+    </li>
+</ul>

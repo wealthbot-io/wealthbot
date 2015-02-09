@@ -1,0 +1,93 @@
+<div class="form-title">
+    <h4>Personal Information</h4>
+    <hr/>
+</div>
+
+<div class="row">
+    <div class="span2">
+        <div class="control-group">
+            {{ form_label(form.first_name, 'First Name') }}
+            {{ form_errors(form.first_name) }}
+            {{ form_widget(form.first_name, {'attr': {'class': 'input-medium '}} ) }}
+        </div>
+    </div>
+
+    <div class="span2">
+        <div class="control-group">
+            {{ form_label(form.middle_name, 'Middle Name') }}
+            {{ form_errors(form.middle_name) }}
+            {{ form_widget(form.middle_name, {'attr': {'class': 'input-medium '}} ) }}
+        </div>
+    </div>
+    <div class="span2">
+        <div class="control-group">
+            {{ form_label(form.last_name, 'Last Name') }}
+            {{ form_errors(form.last_name) }}
+            {{ form_widget(form.last_name, {'attr': {'class': 'input-medium '}} ) }}
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="span6">
+        <div class="control-group birthdate">
+            {{ form_label(form.birth_date, 'Birth Date') }}
+            {{ form_errors(form.birth_date) }}
+            {{ form_widget(form.birth_date, {'attr': {'placeholder': 'MM-DD-YYYY'}}) }}
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="span6">
+        <div class="control-group">
+            {{ form_label(form.marital_status, 'Marital Status') }}
+            {{ form_errors(form.marital_status) }}
+            {{ form_widget(form.marital_status) }}
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="span7 spouse-field">
+        <div class="control-group spouse-fields-block" style="display:none;">
+            <div class="span6">
+                <label for="wealthbot_client_bundle_profile_type_spouse_first_name">Spouse Name</label>
+            </div>
+            <div>
+                <div class="span2">
+                    {{ form_errors(form.spouse.first_name) }}
+                    {{ form_widget(form.spouse.first_name, { 'attr': { 'placeholder': 'First Name', 'class': 'input-medium ' } }) }}
+                </div>
+                <div class="span2">
+                    {{ form_errors(form.spouse.middle_name) }}
+                    {{ form_widget(form.spouse.middle_name, { 'attr': { 'placeholder': 'Middle Name', 'class': 'input-medium ' } }) }}
+                </div>
+                <div class="span2">
+                    {{ form_errors(form.spouse.last_name) }}
+                    {{ form_widget(form.spouse.last_name, { 'attr': { 'placeholder': 'Last Name', 'class': 'input-medium ' } }) }}
+                </div>
+            </div>
+            <div class="span12">
+                {{ form_label(form.spouse.birth_date, 'Spouse Date of Birth') }}
+                {{ form_errors(form.spouse.birth_date) }}
+                {{ form_widget(form.spouse.birth_date, {'attr': { 'placeholder': 'MM-DD-YYYY' }}) }}
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row" id="citizenship">
+    <div class="span6">
+        <div class="control-group">
+            <span class="main-label">{{ form_label(form.citizenship) }}</span>
+            <div class="controls">
+                {{ form_errors(form.citizenship) }}
+                {% for radio in form.citizenship %}
+                    <label for="{{ radio.vars.id }}"
+                           class="radio inline">{{ form_widget(radio) }} {{ radio.vars.label }}</label>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>

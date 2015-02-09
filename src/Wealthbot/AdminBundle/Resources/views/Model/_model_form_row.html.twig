@@ -1,0 +1,36 @@
+{% macro widget_prototype(widget, remove_text) %}
+    {% if widget.get('prototype') %}
+        {% set form = widget.get('prototype') %}
+        {% set name = widget.get('prototype').get('name') %}
+    {% else %}
+        {% set form = widget %}
+        {% set name = widget.get('full_name') %}
+    {% endif %}
+
+    <tr data-content="{{ name }}">
+        <td>
+            {{ form_errors(form.assetClass) }}
+            {{ form_widget(form.assetClass) }}
+        </td>
+        <td>
+            {{ form_errors(form.subclass) }}
+            {{ form_widget(form.subclass) }}
+        </td>
+        <td>
+            {{ form_errors(form.security) }}
+            {{ form_widget(form.security) }}
+        </td>
+        <td>
+            {{ form_errors(form.symbol) }}
+            {{ form_widget(form.symbol) }}
+        </td>
+        <td>
+            {{ form_errors(form.percent) }}
+            {{ form_widget(form.percent) }}
+        </td>
+    </tr>
+{% endmacro %}
+
+{% for widget in form.models.children %}
+    {{ _self.widget_prototype(widget, 'Remove model') }}
+{% endfor %}

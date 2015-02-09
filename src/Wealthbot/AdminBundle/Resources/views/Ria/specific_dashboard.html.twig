@@ -1,0 +1,49 @@
+{% extends 'WealthbotAdminBundle::layout.html.twig' %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script type="text/javascript" src="/js/inputmask/jquery.inputmask.js"></script>
+    <script type="text/javascript" src="/js/inputmask/jquery.inputmask.extensions.js"></script>
+
+    {% javascripts
+        '@WealthbotAdminBundle/Resources/public/js/admin.general_settings.js'
+        '@WealthbotAdminBundle/Resources/public/js/admin.ria_dashboard.js'
+    %}
+        <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock %}
+
+{% block body %}
+    <h3>RIA SPECIFIC DASHBOARD</h3>
+    <div class="tabbable">
+        <ul class="nav nav-tabs">
+            <li class="active"><a href="#tab1" data-toggle="tab">Basic Info</a></li>
+            <li><a href="#tab2" data-toggle="tab">Clients</a></li>
+
+            {% if is_permitted('edit') %}
+                <li><a href="#tab3" data-toggle="tab">Settings</a></li>
+            {% endif %}
+
+            <li><a href="#tab4" data-toggle="tab">History</a></li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane active" id="tab1">
+                {% include 'WealthbotAdminBundle:Ria:_basic_info.html.twig' with { 'basicInfo': basicInfo } %}
+            </div>
+            <div class="tab-pane" id="tab2">
+                {% include 'WealthbotAdminBundle:Ria:_clients_list.html.twig' with { 'pagination': pagination } %}
+            </div>
+
+            {% if is_permitted('edit') %}
+                <div class="tab-pane" id="tab3">
+                    {% render url('rx_admin_ria_sd_settings', { ria_id: app.request.get('id') }) %}
+                </div>
+            {% endif %}
+
+            <div class="tab-pane" id="tab4">
+                {% include 'WealthbotAdminBundle:Ria:_history.html.twig' with { 'history_pagination': history_pagination } %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

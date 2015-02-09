@@ -1,0 +1,7 @@
+<form id="workflow_note_form" action="{{ path('rx_ria_workflow_edit_note', { 'id': workflow.id }) }}" method="post">
+    {{ form_errors(form) }}
+    {{ form_errors(form.note) }}
+    {{ form_widget(form.note, { 'attr': { 'class': 'span', 'rows': 10 } }) }}
+
+    {{ form_rest(form) }}
+</form>

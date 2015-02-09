@@ -1,0 +1,214 @@
+Wealthbot\RiaBundle\Entity\RiaCompanyInformation:
+    type: entity
+    table: ria_company_information
+    repositoryClass: Wealthbot\RiaBundle\Repository\RiaCompanyInformationRepository
+    fields:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+        ria_user_id:
+            type: integer
+        name:
+            type: string
+            length: 255
+            nullable: true
+        primary_first_name:
+            type: string
+            length: 255
+            nullable: true
+        primary_last_name:
+            type: string
+            length: 255
+            nullable: true
+        website:
+            type: string
+            length: 255
+            nullable: true
+        address:
+            type: string
+            length: 255
+            nullable: true
+        office:
+            type: string
+            length: 255
+            nullable: true
+        city:
+            type: string
+            length: 255
+            nullable: true
+        state_id:
+            type: integer
+            nullable: true
+        zipcode:
+            type: string
+            length: 25
+            nullable: true
+        phone_number:
+            type: string
+            length: 25
+            nullable: true
+        fax_number:
+            type: string
+            length: 25
+            nullable: true
+        contact_email:
+            type: string
+            length: 255
+            nullable: true
+        logo:
+            type: string
+            length: 255
+            nullable: true
+        account_managed:
+            type: integer
+            nullable: true
+        is_allow_retirement_plan:
+            type: boolean
+            nullable: true
+        minimum_billing_fee:
+            type: float
+            nullable: true
+        is_show_client_expected_asset_class:
+            type: boolean
+            nullable: true
+        clients_tax_bracket:
+            type: float
+            nullable: true
+        use_municipal_bond:
+            type: boolean
+            nullable: false
+        rebalanced_method:
+            type: integer
+            nullable: true
+        rebalanced_frequency:
+            type: integer
+            nullable: true
+        risk_adjustment:
+            type: integer
+            nullable: true
+        is_searchable_db:
+            type: boolean
+            nullable: true
+        min_asset_size:
+            type: float
+            nullable: true
+        adv_copy:
+            type: string
+            lenght: 255
+            nullable: true
+        portfolio_model_id:
+            type: integer
+            nullable: true
+        activated:
+            type: boolean
+            nullable: false
+        transaction_amount:
+            type: float
+            nullable: true
+        transaction_amount_percent:
+            type: float
+            nullable: true
+        is_transaction_fees:
+            type: boolean
+            nullable: true
+        is_transaction_minimums:
+            type: boolean
+            nullable: true
+        is_transaction_redemption_fees:
+            type: boolean
+            nullable: true
+        is_tax_loss_harvesting:
+            type: boolean
+            nullable: true
+        is_show_expected_costs:
+            type: boolean
+            nullable: true
+        tax_loss_harvesting:
+            type: float
+            nullable: true
+        tax_loss_harvesting_percent:
+            type: float
+            nullable: true
+        tax_loss_harvesting_minimum:
+            type: float
+            nullable: true
+        tax_loss_harvesting_minimum_percent:
+            type: float
+            nullable: true
+        tlh_buy_back_original:
+            type: boolean
+            nullable: false
+        is_use_qualified_models:
+            type: boolean
+            nullable: false
+            default: false
+        portfolio_processing:
+            type: integer
+            nullable: true
+        custodian_id:
+            type: integer
+            nullable: true
+        allow_non_electronically_signing:
+            type: boolean
+            nullable: true
+        stop_tlh_value:
+            type: float
+            nullable: true
+        relationship_type:
+            type: integer
+            nullable: false
+        slug:
+          type: string
+          length: 45
+          nullable: true
+    uniqueConstraints:
+        contact_email_unique:
+            name: contact_email_UNIQUE
+            columns: [ contact_email ]
+        slug_unique:
+            name: slug_UNIQUE
+            columns: [ slug ]
+    oneToOne:
+        ria:
+            targetEntity: Wealthbot\UserBundle\Entity\User
+            inversedBy: riaCompanyInformation
+            joinColumn:
+                name: ria_user_id
+                referencedColumnName: id
+                onDelete: cascade
+            cascade: ['persist']
+    oneToMany:
+        advisorCodes:
+            targetEntity: Wealthbot\RiaBundle\Entity\AdvisorCode
+            mappedBy: riaCompany
+            cascade: ['persist']
+    manyToOne:
+        state:
+            targetEntity: Wealthbot\AdminBundle\Entity\State
+            joinColumn:
+                name: state_id
+                referencedColumnName: id
+            cascade: ['persist']
+        portfolioModel:
+            targetEntity: Wealthbot\AdminBundle\Entity\CeModel
+            joinColumn:
+                name: portfolio_model_id
+                referencedColumnName: id
+                onDelete: set null
+            cascade: ['persist']
+        custodian:
+            targetEntity: Wealthbot\AdminBundle\Entity\Custodian
+            joinColumn:
+                name: custodian_id
+                referencedColumnName: id
+                onDelete: set null
+            cascade: ['persist']
+    lifecycleCallbacks:
+      prePersist:  [ preUpload, preUploadAdvCopy ]
+      preUpdate:   [ preUpload, preUploadAdvCopy ]
+      postPersist: [ upload, uploadAdvCopy ]
+      postUpdate:  [ upload, uploadAdvCopy ]
+      postRemove:  [ removeUpload, removeUploadAdvCopy ]
+

@@ -1,0 +1,46 @@
+{% set client_url = (workflow.client.hasStatusProspect) ? 'rx_ria_prospect_portfolio' : 'rx_ria_dashboard_show_client' %}
+<tr class="workflow-item" data-item="{{ workflow.id }}">
+    <td><a href="{{ path(client_url, {'client_id': workflow.client.id}) }}">Client {{ workflow.client.lastName }}, {{ workflow.client.firstName }}</a></td>
+    <td>
+        {% set activity = workflow_activity(workflow) %}
+
+        {% if workflow.isPaperwork and workflow.messageCode != 'p9' %}
+            <a class="show-workflow-documents-list" data-url="{{ path('rx_ria_workflow_documents_list', { 'id': workflow.id }) }}" href="javascript:void(0)" >{{ activity }}</a>
+        {% elseif workflow.isPortfolioProposal %}
+            {% if workflow.client.hasStatusClient %}
+                {% set url = path('rx_ria_dashboard_client_portfolio', { 'client_id': workflow.client.id }) %}
+            {% else %}
+                {% set url = path('rx_ria_prospect_portfolio', { 'client_id': workflow.client.id }) %}
+            {% endif %}
+
+            <a href="{{ url }}" target="_blank" >{{ activity }}</a>
+        {% else %}
+            {{ activity }}
+        {% endif %}
+    </td>
+    <td>{{ workflow.submitted|date('m/d/Y') }}</td>
+    <td>
+        {% if workflow.isAlert %}
+            <a class="view-workflow-btn" href="{{ path('rx_ria_workflow_view', { 'id': workflow.id }) }}">View</a>
+        {% else %}
+            <div class="btn-group">
+                <button class="workflow-actions-btn btn dropdown-toggle" data-toggle="dropdown">
+                    Action
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu pull-right">
+                    {% if workflow.canHaveDocuments %}
+                        {% if workflow.isDocumentSignaturesCompleted %}
+                            <li>
+                                <a href="{{ download_archive_link(workflow.signaturesDocuments, 'workflow_'~workflow.id~'_documents') }}">Downloads</a>
+                            </li>
+                        {% else %}
+                            <li class="disabled"><a href="#1">Downloads</a></li>
+                        {% endif %}
+                    {% endif %}
+                    <li><a class="edit-workflow-note-btn" href="{{ path('rx_ria_workflow_edit_note', { 'id': workflow.id }) }}">Notes</a></li>
+                </ul>
+            </div>
+        {% endif %}
+    </td>
+</tr>

@@ -1,0 +1,39 @@
+Wealthbot\AdminBundle\Entity\SecurityPrice:
+    type: entity
+    table: security_prices
+    repositoryClass: Wealthbot\AdminBundle\Repository\SecurityPriceRepository
+    fields:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+        security_id:
+            type: integer
+        price:
+            type: float
+            nullable: true
+        source:
+            type: string
+            length: 255
+            nullable: true
+        is_posted:
+            type: boolean
+            nullable: false
+        is_current:
+            type: boolean
+            nullable: false
+        datetime:
+            type: datetime
+            gedmo:
+                timestampable:
+                    on: create
+    manyToOne:
+        security:
+            targetEntity: Wealthbot\AdminBundle\Entity\Security
+            inversedBy: securityPrices
+            joinColumn:
+                name: security_id
+                referencedColumnName: id
+                onDelete: cascade
+            cascade: ['persist']

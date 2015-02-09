@@ -1,0 +1,36 @@
+{% extends with_layout ? 'WealthbotRiaBundle:Dashboard:index.html.twig' : 'WealthbotRiaBundle::empty_layout.html.twig' %}
+
+{% block main_content %}
+    <h1>Workflow</h1>
+    <ul class="nav nav-tabs">
+        <li {{ tab == 'active' ? 'class="active"' : '' }}><a data-toggle="tab" href="#tab_active" >Active Workflow</a></li>
+        <li {{ tab == 'archived' ? 'class="active"' : '' }}><a data-toggle="tab" href="#tab_archived" >Archived Workflow</a></li>
+        <li {{ tab == 'activity' ? 'class="active"' : '' }}><a data-toggle="tab" href="#tab_activity" >Activity Summary</a></li>
+    </ul>
+
+    <div class="tab-content">
+        <div class="tab-pane {{ tab == 'active' ? 'active' : '' }}" id="tab_active" data-tab="active">
+            {% include 'WealthbotRiaBundle:Workflow:_active_workflow_list.html.twig' with { 'pagination': paginations['active'] } %}
+        </div>
+
+        <div class="tab-pane {{ tab == 'archived' ? 'active' : '' }}" id="tab_archived" data-tab="archived">
+            {% include 'WealthbotRiaBundle:Workflow:_archived_workflow_list.html.twig' with { 'pagination': paginations['archived'] } %}
+        </div>
+
+        <div class="tab-pane {{ tab == 'activity' ? 'active' : '' }}" id="tab_activity" data-tab="activity">
+            {% include 'WealthbotRiaBundle:Workflow:_workflow_activity_list.html.twig' with { 'pagination': paginations['activity'] } %}
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    {% if not with_layout %}
+        {% javascripts
+            '@WealthbotRiaBundle/Resources/public/js/ria.workflow.js'
+        %}
+            <script type="text/javascript" src="{{ asset_url }}"></script>
+        {% endjavascripts %}
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,67 @@
+<h3>Create Group</h3>
+
+{% block flash_messages %}
+    {% for type, flashMessages in app.session.flashbag.all() %}
+        {% for flashMessage in flashMessages %}
+            <div class="alert alert-{{ type }}">
+                {{ flashMessage }}
+                <a class="close" data-dismiss="alert" href="#">&times;</a>
+            </div>
+        {% endfor %}
+    {% endfor %}
+{% endblock %}
+
+{% if group is defined and group %}
+    {% set title = 'Edit Group ' ~ group.name %}
+    {% set url = path('rx_ria_user_groups_edit', { 'group_id': group.id }) %}
+{% else %}
+    {% set title = 'Create New Group' %}
+    {% set url = path('rx_ria_user_groups_create') %}
+{% endif %}
+
+<div class="row-fluid">
+    <form action="{{ url }}" method="post" class="form-horizontal span6">
+        {{ form_errors(form) }}
+        <fieldset>
+            <div class="control-group">
+                {{ form_label(form.name, null, { 'label_attr': { 'class': 'control-label' } }) }}
+                <div class="controls">
+                    {{ form_errors(form.name) }}
+                    {{ form_widget(form.name) }}
+                </div>
+            </div>
+
+            {{ form_rest(form) }}
+            <button type="submit" class="btn btn-ajax">Submit</button>
+        </fieldset>
+    </form>
+
+    <div class="span6">
+        <table id="users_list" class="table table-striped">
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Users</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% if groups|length > 0 %}
+                {% for group in groups   %}
+                    <tr>
+                        <td>{{ group.name }}</td>
+                        <td>{{ group.getRiaCount(ria.id) }}</td>
+                        <td>
+                            {% if not group.isAll %}
+                                <a class="btn edit_group_btn" href="{{ path('rx_ria_user_groups_edit', { 'group_id': group.id }) }}">Edit</a>
+                                <a class="btn delete_group_btn" href="{{ path('rx_ria_user_groups_delete', { 'group_id': group.id }) }}" class="margin-left-15">Delete</a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            {% else %}
+                <tr><td colspan="4">No groups.</td></tr>
+            {% endif %}
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,32 @@
+<table class="table table-bordered" id="rebalance_rebalancing_summary_table">
+    <tbody>
+    <tr>
+        <td>Rebalance Total:</td>
+        <td>${{ summary['rebalance_total']|number_format(2,'.',',') }}</td>
+    </tr>
+    <tr>
+        <td>Short Term Gains:</td>
+        <td>${{ summary['short_term_gains']|number_format(2,'.',',') }}</td>
+    </tr>
+    <tr>
+        <td>Long Term Gains:</td>
+        <td>${{ summary['long_term_gains']|number_format(2,'.',',') }}</td>
+    </tr>
+    <tr>
+        <td>Short Term Losses:</td>
+        <td>${{ summary['short_term_losses']|number_format(2,'.',',') }}</td>
+    </tr>
+    <tr>
+        <td>Long Term Losses:</td>
+        <td>${{ summary['long_term_losses']|number_format(2,'.',',') }}</td>
+    </tr>
+    <tr>
+        <td>Transactions Costs:</td>
+        <td>${{ summary['transactions_costs']|number_format(2,'.',',') }}</td>
+    </tr>
+    <tr>
+        <td>Tax Loss Harvesting Savings:</td>
+        <td>${{ summary['tlh_savings']|number_format(2,'.',',') }}</td>
+    </tr>
+    </tbody>
+</table>

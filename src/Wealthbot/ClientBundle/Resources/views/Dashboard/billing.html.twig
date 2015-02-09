@@ -1,0 +1,31 @@
+{% extends is_ajax is defined and is_ajax ? 'WealthbotClientBundle::clear_layout.html.twig' : 'WealthbotClientBundle:Dashboard:index.html.twig' %}
+
+{% block content %}
+    <div class="alert alert-info">
+        <button type="button" class="close" data-dismiss="alert">×</button>
+        <strong>This is not a bill.</strong> Your fees have been directly debited from your account.
+    </div>
+
+    <div class="box">
+        <div class="box-header shadow" data-original-title="">
+            <h2>Your Fees</h2>
+        </div>
+
+        <div id="billingDataContent" data-client-created-at="{{ client_created_at }}">{% include 'WealthbotClientBundle:Dashboard:_billing_data.html.twig' %}</div>
+    </div>
+
+    <div class="center-text">
+        You should take a moment to verify the accuracy of the fee calculation. The custodian of the account will not verify the accuracy of fee calculations. Should there be any questions regarding this statement, please contact your advisor at: (555) 555-5555
+    </div>
+
+    <hr>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    {% javascripts '@WealthbotClientBundle/Resources/public/js/client.billing.js' %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+
+{% endblock %}

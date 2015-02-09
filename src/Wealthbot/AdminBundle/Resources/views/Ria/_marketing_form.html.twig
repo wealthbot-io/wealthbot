@@ -1,0 +1,43 @@
+{% extends 'WealthbotRiaBundle:Profile:_step_five_form.html.twig' %}
+
+{% block form_main_tag %}
+    <form action="{{ is_permitted('edit') ? path('rx_admin_ria_sd_save_marketing', { ria_id: app.request.get('ria_id')}) : '#' }}" method="post" id='marketing_form'>
+    {{ form_errors(form) }}
+{% endblock %}
+
+{% block form_actions %}
+    {{ form_rest(form) }}
+
+    {% if is_permitted('edit') %}
+        <div class="span12">
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary btn-ajax" data-loading-text="Saving...">Save changes</button>
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}
+
+{% block inner_javascripts %}
+    {% if app.request.isXmlHttpRequest %}
+        <script type="text/javascript">
+            $(function(){
+                // Marketing events
+                var isSearchable = $('input:radio[name="wealthbot_riabundle_riacompanyinformationtype[is_searchable_db]"]:checked').val();
+
+                if(isSearchable == 0){
+                    $('#wealthbot_riabundle_riacompanyinformationtype_min_asset_size').closest('.control-group').hide();
+                }
+
+                $('input:radio[name="wealthbot_riabundle_riacompanyinformationtype[is_searchable_db]"]').change(function(){
+                    var isSearchable = $('input:radio[name="wealthbot_riabundle_riacompanyinformationtype[is_searchable_db]"]:checked').val();
+
+                    if(isSearchable == 0){
+                        $('#wealthbot_riabundle_riacompanyinformationtype_min_asset_size').closest('.control-group').hide();
+                    } else {
+                        $('#wealthbot_riabundle_riacompanyinformationtype_min_asset_size').closest('.control-group').show();
+                    }
+                });
+            });
+        </script>
+    {% endif %}
+{% endblock %}

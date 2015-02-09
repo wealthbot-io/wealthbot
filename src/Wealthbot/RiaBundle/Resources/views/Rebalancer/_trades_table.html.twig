@@ -1,0 +1,38 @@
+<table class="table table-bordered" id="rebalance_trades_table">
+    <thead>
+    <tr>
+        <th>Account</th>
+        <th>Account Type</th>
+        <th>Subclass</th>
+        <th>Trades</th>
+        <th>Symbol</th>
+        <th>Cost Basis</th>
+        <th>Market Value</th>
+        <th>Gain/Loss %</th>
+        <th>Gain/Loss $</th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for item in rebalancer_queue %}
+        <tr {{ item[0].isDeleted ? 'class="text-through-row"' : '' }}>
+            <td>{{ item[0].systemClientAccount.accountNumber }}</td>
+            <td>{{ item[0].systemClientAccount.typeAsString }}</td>
+            <td>{{ item[0].subclass.name }}</td>
+            <td style="color: {{ item[0].isBuy ? 'green' : 'red' }};">$({{ item['total_amount']|number_format(2,'.',',') }})</td>
+            <td>{{ item[0].security.symbol }}</td>
+            <td>${{ item[0].isSell ? item['total_cost_basis']|number_format(2,'.',',') : 0 }}</td>
+            <td>${{ item[0].isSell ? item['total_market_value']|number_format(2,'.',',') : 0 }}</td>
+            <td>{{ item[0].isSell ? item['total_gain_or_loss_percent']|number_format(2,'.',',') : 0 }}%</td>
+            <td>${{ item[0].isSell ? item['total_gain_or_loss']|number_format(2,'.',',') : 0 }}</td>
+            <td>
+                {% if item[0].isDeleted %}
+                    <a class="rebalancer-queue-change-state-btn" data-id="{{ item[0].id }}" data-state="deleted" href="{{ path('rx_ria_rebalancing_rebalancer_queue_restore', {'id': item[0].id}) }}">Restore</a>
+                {% else %}
+                    <a class="rebalancer-queue-change-state-btn" data-id="{{ item[0].id }}" data-state="active" href="{{ path('rx_ria_rebalancing_rebalancer_queue_delete', {'id': item[0].id}) }}">x</a>
+                {% endif %}
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

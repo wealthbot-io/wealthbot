@@ -1,0 +1,16 @@
+Wealthbot\AdminBundle\Entity\Holiday:
+  type: entity
+  table: holidays
+  repositoryClass: Wealthbot\AdminBundle\Repository\HolidayRepository
+  fields:
+    id:
+        type: integer
+        id: true
+        generator:
+            strategy: AUTO
+    date:
+        type: date
+        nullable: false
+    type:
+        type: integer
+        nullable: false

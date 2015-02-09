@@ -1,0 +1,18 @@
+{% extends 'WealthbotClientBundle:Transfer:index.html.twig' %}
+
+{% block top_message_box %}
+    <div class="row">
+        <div class="span12 transfer-mainmsg">
+            {% spaceless %}
+                <h4>
+                    {% if has_not_opened_accounts %}
+                        Please continue you have processed all your new accounts.
+                    {% else %}
+                        You have completed the account opening/transfer process. We will contact you via email when your
+                        accounts have been opened and transferred.
+                    {% endif %}
+                </h4>
+            {% endspaceless %}
+        </div>
+    </div>
+{% endblock %}

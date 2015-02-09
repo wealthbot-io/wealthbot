@@ -1,0 +1,17 @@
+{% extends 'WealthbotMailerBundle:Default:email_layout.html.twig' %}
+
+{% block subject %}
+    {% autoescape false %}
+        {{ 'Continue Setting Up wealthbot.io' }}
+    {% endautoescape %}
+{% endblock %}
+
+{% block content %}
+    {% autoescape false %}
+        We noticed you haven’t completed your registration and set-up of wealthbot.io yet. Please <a href="{{ url('fos_user_security_login') }}" target="_blank">login</a> and complete the process so you can start taking on more clients, profitably.
+        <br><br>
+        Thank you,
+        <br><br>
+        wealthbot.io
+    {% endautoescape %}
+{% endblock %}

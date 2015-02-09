@@ -1,0 +1,16 @@
+{% block flash_messages %}
+    {% for type, flashMessages in app.session.flashbag.all() %}
+        {% for flashMessage in flashMessages %}
+            <div class="alert alert-{{ type }}">
+                {{ flashMessage }}
+                <a class="close" data-dismiss="alert" href="#">&times;</a>
+            </div>
+        {% endfor %}
+    {% endfor %}
+{% endblock %}
+
+<h3>Alerts</h3>
+
+<form id="alerts_configuration_form" action="{{ path('rx_ria_change_profile_save_alerts_configuration') }}" method="post">
+    {% include 'WealthbotRiaBundle:ChangeProfile:_alerts_configuration_form_fields.html.twig' with { 'form': form } %}
+</form>

@@ -1,0 +1,14 @@
+{% extends 'WealthbotMailerBundle:Client:_client_layout.html.twig' %}
+
+{% block subject %}
+    {% autoescape false %}
+    {{ 'Your Rollover' }}
+    {% endautoescape %}
+{% endblock %}
+
+{% block message %}
+        {{ account.client.firstName }},<br/><br/>
+        In order to complete the rollover of your account: {{ account.client.firstName }} {{ account.financialInstitution }} {{ account.typeName }}, please following the instructions below:
+        <br/><br/>
+        {{ rollover_message|raw }}
+{% endblock %}

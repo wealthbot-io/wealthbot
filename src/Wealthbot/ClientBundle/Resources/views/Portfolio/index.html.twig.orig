@@ -1,0 +1,80 @@
+{% extends 'WealthbotClientBundle::layout_styled.html.twig' %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+
+    {% javascripts
+        '@WealthbotRiaBundle/Resources/public/js/ria.model.chart.js'
+        '@WealthbotClientBundle/Resources/public/js/client.portfolio.js' %}
+        <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock %}
+
+{% set ria_phone = ria_company_information.phoneNumber %}
+{% set ria_contact_email = ria_company_information.contactEmail %}
+
+{% block flash_messages %}
+    <div class="row">
+        <div class="span10">
+            {{ parent() }}
+            <div class="alert alert-success">
+                Your advisor has been notified of your suggested portfolio.
+                Please contact to set up a time to discuss your portfolio. You may contact the firm at
+                {{ ria_phone ? ('(%s) %s-%s' | format(ria_phone|slice(0, 3), ria_phone|slice(3, 3), ria_phone|slice(6))) : '' }}
+                or email them at: {{ ria_contact_email }}
+                <a class="close" data-dismiss="alert" href="#">&times;</a>
+            </div>
+        </div>
+        <div class="span2" style="float: right">
+            <a class="btn pull-right" href="{{ path('fos_user_security_logout') }}">Logout</a>
+        </div>
+    </div>
+{% endblock %}
+
+
+
+{% block body %}
+
+<div class="row-fluid">
+        {% include 'WealthbotClientBundle:Portfolio:_portfolio.html.twig' with {
+            'portfolio': portfolio_information.model,
+            'model_entities': portfolio_information.modelEntities,
+            'json_entities': portfolio_information.modelEntitiesAsJson,
+            'expected_performance': portfolio_information.expectedPerformance,
+            'assumption': portfolio_information.assumption
+        } %}
+
+<<<<<<< HEAD
+=======
+        <div class="box-content">
+            {% include 'WealthbotClientBundle:Portfolio:_portfolio.html.twig' with {
+                'portfolio': portfolio_information.model,
+                'model_entities': portfolio_information.modelEntities,
+                'json_entities': portfolio_information.modelEntitiesAsJson,
+                'expected_performance': portfolio_information.expectedPerformance,
+                'assumption': portfolio_information.assumption
+            } %}
+        </div>
+    </div>
+>>>>>>> 7f60a87330d55f4542ac5a87a9ff16a101aa7244
+
+        {% include 'WealthbotClientBundle:Portfolio:_model_details.html.twig' with {
+            'ria_company_information': ria_company_information,
+            'has_retirement_account': has_retirement_account,
+            'portfolio_information': portfolio_information,
+            'is_use_qualified_models': is_use_qualified_models
+        } %}
+
+</div>
+
+    {% include 'WealthbotClientBundle:Portfolio:_accounts_list.html.twig' with {
+        'client': client,
+        'client_accounts': client_accounts,
+        'total': total,
+        'with_edit': false,
+        'show_sas_cash': show_sas_cash
+    } %}
+
+{% endblock %}

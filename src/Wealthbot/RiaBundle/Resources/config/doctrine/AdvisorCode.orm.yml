@@ -1,0 +1,47 @@
+Wealthbot\RiaBundle\Entity\AdvisorCode:
+    type: entity
+    table: advisor_codes
+    repositoryClass: Wealthbot\RiaBundle\Repository\AdvisorCodeRepository
+    fields:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+        riaCompanyId:
+            type: integer
+            column: ria_company_id
+            nullable: false
+        custodianId:
+            type: integer
+            column: custodian_id
+            nullable: false
+        name:
+            type: string
+            length: 45
+            nullable: false
+    uniqueConstraints:
+        name_ria_unique:
+            name: name_ria_UNIQUE
+            columns: [ name, custodian_id ]
+    manyToOne:
+        riaCompany:
+            targetEntity: Wealthbot\RiaBundle\Entity\RiaCompanyInformation
+            inversedBy: advisorCodes
+            joinColumn:
+                name: ria_company_id
+                referencedColumnName: id
+                onDelete: cascade
+            cascade: ['persist']
+        custodian:
+            targetEntity: Wealthbot\AdminBundle\Entity\Custodian
+            inversedBy: advisorCodes
+            joinColumn:
+                name: custodian_id
+                referencedColumnName: id
+                onDelete: cascade
+            cascade: ['persist']
+    entityListeners:
+        AdvisorCodeEventListener:
+            preUpdate: [createDirectory]
+            prePersist: [createDirectory]

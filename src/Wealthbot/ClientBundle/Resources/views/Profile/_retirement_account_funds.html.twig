@@ -1,0 +1,8 @@
+{% if show_title_message is defined %}
+    {% set employer_financial_institurion = account.financialInstitution | split('(') %}
+    <h4>Tell us about your {{ employer_financial_institurion[1] | trim(' )') }} {{ account.groupType.type.name }} investment options:</h4>
+{% endif %}
+<div class="retirement-account-funds">
+    {% include 'WealthbotClientBundle:Profile:retirement_funds_list.html.twig' with {'account': account } %}
+</div>
+{% include 'WealthbotClientBundle:Profile:retirement_account_fund_form.html.twig' with {'form': form } %}

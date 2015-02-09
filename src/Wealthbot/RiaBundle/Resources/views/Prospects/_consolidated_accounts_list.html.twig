@@ -1,0 +1,30 @@
+{% extends 'WealthbotRiaBundle:Prospects:_client_account_list.html.twig' %}
+
+{% block table_class %}table suggested-portfolio-consolidated-accounts{% endblock %}
+
+{% block table_head_extended %}
+    {% if not client.clientPortfolio %}<th>Unconsolidate:</th>{% endif %}
+{% endblock %}
+
+{% block table_body %}
+    {% for account in consolidated_accounts %}
+        {% include 'WealthbotRiaBundle:Prospects:_consolidated_account_row.html.twig' with {
+            'client': client,
+            'account': account,
+            'index': loop.index,
+            'with_edit': with_edit
+        } %}
+    {% endfor %}
+{% endblock %}
+
+{% block table_row_extended %}
+    {% if not client.clientPortfolio %}<td></td>{% endif %}
+{% endblock %}
+
+{% block table_head_actions_column %}
+    {% if with_edit %}
+        <th></th>
+    {% endif %}
+{% endblock %}
+
+{% block advanced_html %}{% endblock %}

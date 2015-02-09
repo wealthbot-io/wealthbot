@@ -1,0 +1,45 @@
+Wealthbot\ClientBundle\Entity\Position:
+    #Trade Position, aggregates from lots for that account, security and date.
+    type: entity
+    table: positions
+    repositoryClass: Wealthbot\ClientBundle\Repository\PositionRepository
+    fields:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+        quantity:
+            type: float
+            nullable: true
+        amount:
+            type: float
+            nullable: true
+        date:
+            type: date
+            nullable: true
+        status:
+            type: integer
+            nullable: true
+
+    manyToOne:
+        clientSystemAccount:
+            targetEntity: Wealthbot\ClientBundle\Entity\SystemAccount
+            joinColumn:
+                name: client_system_account_id
+                referencedColumnName: id
+                onDelete: cascade
+            cascade: ['persist']
+        security:
+            targetEntity: Wealthbot\AdminBundle\Entity\Security
+            joinColumn:
+                name: security_id
+                referencedColumnName: id
+                onDelete: cascade
+            cascade: ['persist']
+
+    oneToMany:
+        lots:
+            targetEntity: Wealthbot\ClientBundle\Entity\Lot
+            mappedBy: position
+            cascade: ['persist']

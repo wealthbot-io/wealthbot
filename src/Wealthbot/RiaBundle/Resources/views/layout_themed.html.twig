@@ -1,0 +1,36 @@
+{% extends '::base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+
+    <link id="base-style" href="/css/theme-css/style.css" rel="stylesheet">
+
+{% endblock %}
+
+{% block headernav %}
+    <div class="row spacer"></div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    {% javascripts
+        'js/backbone.marionette/underscore.js'
+        '@WealthbotRiaBundle/Resources/public/js/src/Util.js'
+        '@WealthbotRiaBundle/Resources/public/js/ria.layout.js'
+    %}
+
+    <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock %}
+
+{% block body %}
+    {% block ria_nav %}
+        <!-- start: RIA  nav/menu -->
+        {% include 'WealthbotRiaBundle::menu_nav.html.twig' %}
+        <!-- end: RIA nav/menu -->
+    {% endblock %}
+
+    {% block main_content %}
+    {% endblock %}
+{% endblock %}

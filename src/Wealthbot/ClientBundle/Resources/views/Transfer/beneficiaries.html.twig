@@ -1,0 +1,9 @@
+{% extends 'WealthbotClientBundle:Transfer:index.html.twig' %}
+
+{% block top_content %}
+    {% render 'WealthbotClientBundle:Transfer:progressMenu' with { 'account': account, 'step': 'beneficiaries' } %}
+{% endblock %}
+
+{% block main_content %}
+    {% include 'WealthbotClientBundle:Transfer:_beneficiaries_form.html.twig' with { 'form': form, 'account': account } %}
+{% endblock %}

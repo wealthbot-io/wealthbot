@@ -1,0 +1,18 @@
+{% extends 'WealthbotClientBundle:Profile:client_intake.html.twig' %}
+
+
+{% block javascripts %}
+    {{ parent() }}
+
+    {% javascripts
+        '@WealthbotClientBundle/Resources/public/js/client.profile.js'
+        '@WealthbotClientBundle/Resources/public/js/client.accounts.js'
+        '@WealthbotClientBundle/Resources/public/js/client.portfolio.js'
+    %}
+        <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock %}
+
+{% block body %}
+    {% include 'WealthbotClientBundle:Profile:_open_or_transfer_account.html.twig' with { 'form': form, 'client': client } %}
+{% endblock %}

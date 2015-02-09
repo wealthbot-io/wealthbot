@@ -1,0 +1,31 @@
+<table class="table">
+    <thead>
+    <tr>
+        <th>{{ knp_pagination_sortable(pagination, 'Last Name', 'cup.last_name')}}</th>
+        <th>{{ knp_pagination_sortable(pagination, 'First Name', 'cup.first_name') }}</th>
+        <th>{{ knp_pagination_sortable(pagination, 'Signed Up', 'cu.created') }}</th>
+        <th>{{ knp_pagination_sortable(pagination, 'Process Step', 'cup.registration_step') }}</th>
+        <th>{{ knp_pagination_sortable(pagination, 'Email', 'cu.email') }}</th>
+        <th>{{ knp_pagination_sortable(pagination, 'City', 'cu.city') }}</th>
+        <th>{{ knp_pagination_sortable(pagination, 'State', 's.state') }}</th>
+        <th>{{ knp_pagination_sortable(pagination, 'Last Login', 'cu.lastLogin') }}</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for client in pagination %}
+        <tr>
+            <td><a href="{{ path("rx_admin_client_specific_dashboard", { 'id': client.id}) }}">{{ client.profile.lastName }}</a></td>
+            <td><a href="{{ path("rx_admin_client_specific_dashboard", { 'id': client.id}) }}">{{ client.profile.firstName }}</a></td>
+            <td>{{ client.created|date('m/d/Y') }}</td>
+            <td>{{ client.profile.clientRegistrationStep }}</td>
+            <td><a href="mailto:{{ client.email }}">{{ client.email }}</a></td>
+            <td>{{ client.profile.city }}</td>
+            <td>{{ client.profile.state }}</td>
+            <td>{{ client.lastLogin ? client.lastLogin|date('m/d/Y - H:i') : 'Never' }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+<div class="pagination pagination-centered">
+    {{ knp_pagination_render(pagination) }}
+</div>

@@ -1,0 +1,20 @@
+{% extends 'WealthbotMailerBundle:Client:_client_layout.html.twig' %}
+
+{% block subject %}
+    {% autoescape false %}
+    Welcome to {{ ria.riaCompanyInformation.name }}
+    {% endautoescape %}
+{% endblock %}
+
+{% block message %}
+
+    {% set url = url('fos_user_security_login') %}
+    {{ client.firstName }},
+    Please <a href="{{ url }}">login</a> with the following credentials to start the registration process:
+
+    <br/><br/>
+    Username: {{ client.email }}
+    Password: {{ new_password }}
+    <br/><br/>
+
+{% endblock %}

@@ -1,0 +1,108 @@
+{#{% if client is defined and client %}#}
+    {#{% set action_header = 'Edit user ' ~ client.firstName ~ ' ' ~ client.lastName %}#}
+    {#{% set btn_label = 'Edit' %}#}
+{#{% else %}#}
+    {#{% set action_header = 'Create User' %}#}
+    {#{% set btn_label = 'Create' %}#}
+{#{% endif %}#}
+
+<h3>{% block title %}Create User{% endblock %}</h3>
+
+{% block flash_messages %}
+    {% for type, flashMessages in app.session.flashbag.all() %}
+        {% for flashMessage in flashMessages %}
+            <div class="alert alert-{{ type }}">
+                {{ flashMessage }}
+                <a class="close" data-dismiss="alert" href="#">&times;</a>
+            </div>
+        {% endfor %}
+    {% endfor %}
+{% endblock %}
+
+<div class="row-fluid">
+    <form class="form-horizontal span6" action="{% block form_action %}{{ path('rx_client_change_profile_manage_users') }}{% endblock %}" method="post">
+        {{ form_errors(form) }}
+
+        <div class="control-group">
+            {{ form_label(form.profile.first_name, 'First Name:', { 'label_attr': { 'class': 'control-label' } }) }}
+            <div class="controls">
+                {{ form_errors(form.profile.first_name) }}
+                {{ form_widget(form.profile.first_name) }}
+            </div>
+        </div>
+        <div class="control-group">
+            {{ form_label(form.profile.last_name, 'Last Name:', { 'label_attr': { 'class': 'control-label' } }) }}
+            <div class="controls">
+                {{ form_errors(form.profile.last_name) }}
+                {{ form_widget(form.profile.last_name) }}
+            </div>
+        </div>
+        <div class="control-group">
+            {{ form_label(form.email, 'Email:', { 'label_attr': { 'class': 'control-label' } }) }}
+            <div class="controls">
+                {{ form_errors(form.email) }}
+                {{ form_widget(form.email) }}
+            </div>
+        </div>
+
+        <div class="control-group">
+            {{ form_label(form.access, 'Access:', { 'label_attr': { 'class': 'control-label' } }) }}
+            <div class="controls">
+                {{ form_errors(form.access) }}
+                {{ form_widget(form.access) }}
+            </div>
+        </div>
+
+        {{ form_rest(form) }}
+        {% block form_buttons %}
+            <button type="submit" class="btn btn-ajax">Create</button>
+        {% endblock %}
+
+    </form>
+
+    <div class="span6 margin-left-0">
+        <table class="table table-striped clients">
+            <thead>
+            <tr>
+                <th>
+                    <b>First Name</b>
+                </th>
+                <th>
+                    <b>Last Name</b>
+                </th>
+                <th>
+                    <b>Email</b>
+                </th>
+                <th>
+                    Access
+                </th>
+                <th></th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            {% if clients is not empty %}
+                {% for client in clients %}
+                    <tr>
+                        <td>{{ client.firstName }}</td>
+                        <td>{{ client.lastName }}</td>
+                        <td>{{ client.email }}</td>
+                        <td>{{ client.hasRole('ROLE_CLIENT_FULL') ? 'Full' : 'Limited' }}</td>
+                        <td>
+                            <a class="manage-users-edit-btn btn" href="{{ path('rx_client_change_profile_manage_users_edit', { 'client_id': client.id }) }}">Edit</a>
+                        </td>
+
+                        <td>
+                            <a class="manage-users-delete-btn btn" href="{{ path('rx_client_change_profile_manage_users_delete', { 'client_id': client.id }) }}">Delete</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td colspan="5">No clients.</td>
+                </tr>
+            {% endif %}
+            </tbody>
+        </table>
+    </div>
+</div>

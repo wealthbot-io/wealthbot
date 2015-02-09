@@ -1,0 +1,5 @@
+parameters:
+    database_name:     wealthbot_test
+    database_user:     wealthbot_test
+    database_password: wealthbot_test
+    mongodb_database: wealthbot_test

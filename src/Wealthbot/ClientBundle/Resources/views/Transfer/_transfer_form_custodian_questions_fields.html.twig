@@ -1,0 +1,22 @@
+{% if form.questionnaireAnswers is defined %}
+    {% for field in form.questionnaireAnswers %}
+        <li class="transfer-custodian-question">
+            <h5>{{ field.vars.data.question.title }}</h5>
+            <div>
+                {{ form_errors(field) }}
+                {{ form_errors(field.value) }}
+                <div class="row-fluid">
+                    <div class="span8">
+                        <div class="row-fluid">
+                            {% for child in field.value %}
+                                <div class="span1">
+                                    <label for="{{ child.vars.id }}">{{ form_widget(child, { 'attr': { 'class': 'not-presave' } }) }} {{ child.vars.label }}</label>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </li>
+    {% endfor %}
+{% endif %}

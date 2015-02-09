@@ -1,0 +1,28 @@
+{% block subject %}{% endblock %}
+
+{% block body_text %}{% endblock %}
+
+{% block body_html %}
+    <div style="background-color: rgb(245, 245, 245); padding: 20px 0; width: 80%; margin: 0 auto;">
+        <table style="background-color: white; width: 88%; border: 1px solid rgb(234, 234, 234); border-collapse: collapse; margin: 0 auto;">
+            <thead>
+            <tr>
+                <th style="text-align: left; width: 50%; padding-left: 20px; padding-top: 5px; vertical-align: top;">
+                    <img style="max-height: 100px; max-width: 200px" src="{{ logo }}" alt="LOGO"/>
+                </th>
+                <th style="text-align: right; padding-right: 20px;">
+                    {{ "now"|date("m/d/Y") }}
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td colspan="2" style="padding: 10px;">
+                    <hr style="margin: 0 35px 35px 35px; border: 1px solid rgb(245,245,245);"/>
+                    {% block content %}{% endblock %}
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

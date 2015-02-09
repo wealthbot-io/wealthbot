@@ -1,0 +1,797 @@
+Name;Symbol;Type;Expense Ratio
+SSgA IAM SHARES Fund;SIAMX;Mutual Fund  ;0,51
+SSgA Dynamic Small Cap Fund;SVSCX;Mutual Fund  ;3,51
+SSgA Enhanced Small Cap Fund;SESPX;Mutual Fund  ;1,58
+SSgA S&P 500 Index Fund;SVSPX;Mutual Fund  ;0,19
+"SSgA Clarion Real Estate&nbsp;Fund";SSREX;Mutual Fund  ;1,32
+SSgA International Stock Selection Fund;SSAIX;Mutual Fund  ;1,21
+SSgA Emerging Markets Fund;SSEMX;Mutual Fund  ;1,28
+SSgA Money Market Fund;SSMXX;Mutual Fund  ;0,39
+SSgA Prime Money Market Fund;SVPXX;Mutual Fund  ;0,25
+SSgA US Government Money Market Fund;SSGXX;Mutual Fund  ;0,39
+SSgA US Treasury Money Market Fund;SVTXX;Mutual Fund  ;0,2
+SSgA Bond Market Fund;SSBMX;Mutual Fund  ;1,28
+SSgA High Yield Bond Fund;SSHYX;Mutual Fund  ;0,9
+SSgA Intermediate Fund;SSINX;Mutual Fund  ;1,12
+SSgA Emerging Markets Fund - Select Class;SEMSX;Mutual Fund  ;1,05
+SPDR Russell Small Cap Completeness ETF;RSCO;ETF;0,16
+SPDR Russell 3000 ETF;THRK;ETF;0,11
+SPDR S&P 500 Growth ETF;SPYG;ETF;0,2
+SPDR S&P 500 Value ETF;SPYV;ETF;0,2
+SPDR Russell 1000 ETF;ONEK;ETF;0,1
+SPDR S&P 400 Mid Cap Value ETF;MDYV;ETF;0,28
+SPDR S&P 400 Mid Cap Growth ETF;MDYG;ETF;0,25
+SPDR S&P MidCap 400 ETF;MDY;ETF;0,25
+SPDR S&P 600 Small Cap Value ETF;SLYV;ETF;0,31
+SPDR Russell 2000 ETF;TWOK;ETF;0,18
+SPDR S&P 600 Small Cap ETF;SLY;ETF;0,23
+SPDR S&P 600 Small Cap Growth ETF;SLYG;ETF;0,31
+SPDR S&P Dividend ETF;SDY;ETF;0,35
+SPDR S&P 1500 Value Tilt ETF;VLU;ETF;0,35
+SPDR Dow Jones Industrial Average ETF;DIA;ETF;0,17
+SPDR S&P 500 ETF;SPY;ETF;0,11
+SPDR S&P 1500 Momentum Tilt ETF;MMTM;ETF;0,35
+SPDR Russell 2000Low Volatility ETF;SMLV;ETF;0,38
+SPDR Russell 1000 Low Volatility ETF;LGLV;ETF;0,2
+SPDR S&P International Consumer Discretionary Sector ETF;IPD;ETF;0,5
+SPDR S&P Retail ETF;XRT;ETF;0,35
+Consumer Discretionary Select Sector SPDR Fund;XLY;ETF;0,18
+SPDR S&P Homebuilders ETF;XHB;ETF;0,35
+SPDR S&P International Consumer Staples Sector ETF;IPS;ETF;0,5
+Consumer Staples Select Sector SPDR Fund;XLP;ETF;0,18
+SPDR S&P Oil & Gas Equipment & Services ETF;XES;ETF;0,35
+SPDR S&P Oil & Gas Exploration & Production ETF;XOP;ETF;0,35
+SPDR S&P International Energy Sector ETF;IPW;ETF;0,5
+Energy Select Sector SPDR Fund;XLE;ETF;0,18
+SPDR S&P Regional Banking ETF;KRE;ETF;0,35
+SPDR S&P International Financial Sector ETF;IPF;ETF;0,5
+SPDR S&P Capital Markets ETF;KCE;ETF;1,26
+SPDR S&P Bank ETF;KBE;ETF;0,35
+SPDR S&P Mortgage Finance ETF;KME;ETF;0,35
+SPDR S&P Insurance ETF;KIE;ETF;0,35
+Financial Select Sector SPDR Fund;XLF;ETF;0,18
+SPDR S&P International Health Care Sector ETF;IRY;ETF;0,5
+Health Care Select Sector SPDR Fund;XLV;ETF;0,18
+SPDR S&PHealth Care Services ETF;XHS;ETF;0,35
+SPDR S&P Health Care Equipment ETF;XHE;ETF;0,35
+SPDR S&P Biotech ETF;XBI;ETF;0,35
+SPDR S&P Pharmaceuticals ETF;XPH;ETF;0,35
+SPDR S&P Transportation ETF;XTN;ETF;0,35
+SPDR S&PAerospace & Defense ETF;XAR;ETF;0,35
+Industrial Select Sector SPDR Fund;XLI;ETF;0,18
+SPDR S&P International Industrial Sector ETF;IPN;ETF;0,5
+SPDR S&P Metals and Mining ETF;XME;ETF;0,35
+SPDR S&P International Materials Sector ETF;IRV;ETF;0,5
+Materials Select Sector SPDR Fund;XLB;ETF;0,18
+SPDR S&PSoftware & Services ETF;XSW;ETF;0,35
+SPDR S&P Semiconductor ETF;XSD;ETF;0,35
+SPDR S&P International Technology Sector ETF;IPK;ETF;0,5
+Technology Select Sector SPDR Fund;XLK;ETF;0,18
+SPDR Morgan Stanley Technology ETF;MTK;ETF;0,5
+SPDR S&P International Telecommunications Sector ETF;IST;ETF;0,5
+SPDR S&P Telecom ETF;XTL;ETF;0,35
+Utilities Select Sector SPDR Fund;XLU;ETF;0,18
+SPDR S&P International Utilities Sector ETF ;IPU;ETF;0,5
+SPDR Dow Jones REIT ETF;RWR;ETF;0,25
+SPDR Dow Jones Global Real Estate ETF;RWO;ETF;0,5
+SPDR Dow Jones International Real Estate ETF;RWX;ETF;0,59
+SPDR Gold Shares;GLD;ETF;0,4
+SPDR SSgA Global Allocation ETF ;GAL;ETF;0,35
+SPDR SSgA Multi-Asset Real Return ETF;RLY;ETF;0,7
+SPDR SSgA Income Allocation ETF;INKM;ETF;0,7
+SPDR Global Dow ETF;DGT;ETF;0,5
+SPDR S&P Small Cap Emerging Asia Pacific ETF;GMFS;ETF;0,65
+SPDR S&P Emerging Markets Dividend ETF;EDIV;ETF;0,59
+SPDR S&P BRIC 40 ETF;BIK;ETF;0,5
+SPDR MSCI EM 50 ETF;EMFT;ETF;0,5
+SPDR S&P Emerging Markets ETF;GMM;ETF;0,59
+SPDR S&P Emerging Markets Small Cap ETF;EWX;ETF;0,65
+SPDR MSCI ACWI IMI ETF;ACIM;ETF;0,25
+SPDR S&P Global Natural Resources ETF;GNR;ETF;0,4
+SPDR S&P World ex-US ETF;GWL;ETF;0,34
+SPDRS&PGlobal Infrastructure ETF;GII;ETF;0,4
+SPDR S&PGlobal Dividend ETF;WDIV;ETF;0,4
+SPDR MSCI ACWI ex-US ETF;CWI;ETF;0,34
+SPDR S&P International Dividend ETF;DWX;ETF;0,45
+SPDR S&P International Small Cap ETF;GWX;ETF;0,59
+SPDR S&P International Mid Cap ETF;MDD;ETF;0,45
+SPDR S&P China ETF;GXC;ETF;0,59
+SPDR S&P Emerging Asia Pacific ETF;GMF;ETF;0,59
+SPDR Russell/Nomura PRIME Japan ETF;JPP;ETF;0,5
+SPDR Russell/Nomura Small Cap Japan ETF;JSC;ETF;0,55
+SPDR STOXXEurope 50 ETF;FEU;ETF;0,29
+SPDR S&P Russia ETF;RBL;ETF;0,59
+SPDR EURO STOXX 50ETF;FEZ;ETF;0,29
+SPDR S&P Emerging Europe ETF;GUR;ETF;0,59
+SPDR S&P Emerging Latin America ETF;GML;ETF;0,59
+SPDR S&P Emerging Middle East & Africa ETF;GAF;ETF;0,59
+SPDR Barclays Aggregate Bond ETF;LAG;ETF;0,22
+SPDR Barclays Long Term Corporate Bond ETF;LWC;ETF;0,15
+SPDR Barclays Short Term Corporate Bond ETF;SCPB;ETF;0,12
+SPDR Barclays Intermediate Term Corporate Bond ETF;ITR;ETF;0,15
+SPDR BofA Merrill Lynch Crossover Corporate Bond ETF;XOVR;ETF;0,4
+SPDR Blackstone / GSO Senior Loan ETF;SRLN;ETF;0,9
+SPDR Barclays Issuer Scored Corporate Bond ETF;CBND;ETF;0,16
+SPDR Barclays International Treasury Bond ETF;BWX;ETF;0,5
+SPDR Barclays Emerging Markets Local Bond ETF;EBND;ETF;0,5
+SPDR BofA Merrill Lynch Emerging Markets Corporate Bond ETF;EMCD;ETF;0,5
+SPDR Barclays International Corporate Bond ETF;IBND;ETF;0,55
+SPDR Barclays Short Term International Treasury Bond ETF;BWZ;ETF;0,35
+SPDR Barclays 1-10 Year TIPS ETF;TIPX;ETF;0,15
+SPDR Barclays 1-3 Month T-Bill ETF;BIL;ETF;0,13
+SPDR Barclays Intermediate Term Treasury ETF;ITE;ETF;0,13
+SPDR Barclays Long Term Treasury ETF;TLO;ETF;0,13
+SPDR Barclays High Yield Bond ETF;JNK;ETF;0,4
+SPDR Wells Fargo Preferred Stock ETF;PSK;ETF;0,45
+SPDR Barclays Convertible Securities ETF;CWB;ETF;0,4
+SPDR DB International Government Inflation-Protected Bond ETF;WIP;ETF;0,5
+SPDR Barclays TIPS ETF;IPE;ETF;0,18
+SPDR Barclays Mortgage Backed Bond ETF;MBG;ETF;0,32
+SPDR Nuveen Barclays California Municipal Bond ETF;CXA;ETF;0,2
+SPDR Nuveen Barclays Build America Bond ETF;BABS;ETF;0,35
+SPDR Nuveen Barclays Municipal Bond ETF;TFI;ETF;0,3
+SPDR Nuveen Barclays Short Term Municipal Bond ETF;SHM;ETF;0,2
+SPDR Nuveen S&P High Yield Municipal Bond ETF;HYMB;ETF;0,5
+SPDR Nuveen S&P VRDO Municipal Bond ETF;VRD;ETF;0,2
+SPDR Nuveen Barclays New York Municipal Bond ETF;INY;ETF;0,2
+SPDR Barclays Short Term Treasury ETF;SST;ETF;0,12
+SPDR Barclays Short Term High Yield Bond ETF;SJNK;ETF;0,4
+SPDR Barclays Investment Grade Floating Rate ETF;FLRN;ETF;0,15
+iShares 2014 AMT-Free Muni Term ETF ;MUAC;ETF;0,3
+iShares 0-5 Year TIPS Bond ETF ;STIP;ETF;0,2
+iShares 1-3 Year Credit Bond ETF ;CSJ;ETF;0,2
+iShares 1-3 Year International Treasury Bond ETF ;ISHG;ETF;0,35
+iShares 1-3 Year Treasury Bond ETF ;SHY;ETF;0,15
+iShares 10+ Year Credit Bond ETF ;CLY;ETF;0,2
+iShares 10-20 Year Treasury Bond ETF ;TLH;ETF;0,15
+iShares 20+ Year Treasury Bond ETF ;TLT;ETF;0,15
+iShares 2013 AMT-Free Muni Term ETF ;MUAB;ETF;0,3
+iShares 2015 AMT-Free Muni Term ETF ;MUAD;ETF;0,3
+iShares 2016 AMT-Free Muni Term ETF ;MUAE;ETF;0,3
+iShares 2017 AMT-Free Muni Term ETF ;MUAF;ETF;0,3
+iShares 2018 AMT-Free Muni Term ETF ;MUAG;ETF;0,3
+iShares 3-7 Year Treasury Bond ETF ;IEI;ETF;0,15
+iShares 7-10 Year Treasury Bond ETF ;IEF;ETF;0,15
+iShares Aaa - A Rated Corporate Bond ETF ;QLTA;ETF;0,15
+iShares Agency Bond ETF ;AGZ;ETF;0,2
+iShares Aggressive Allocation ETF ;AOA;ETF;0,46
+iShares Asia 50 ETF ;AIA;ETF;0,5
+iShares Asia Developed Real Estate ETF ;IFAS;ETF;0,48
+iShares Asia/Pacific Dividend ETF ;DVYA;ETF;0,49
+iShares B - Ca Rated Corporate Bond ETF ;QLTC;ETF;0,55
+iShares Baa - Ba Rated Corporate Bond ETF ;QLTB;ETF;0,3
+iShares California AMT-Free Muni Bond ETF ;CMF;ETF;0,25
+iShares China Large-Cap ETF ;FXI;ETF;0,74
+iShares CMBS ETF ;CMBS;ETF;0,25
+iShares Cohen & Steers REIT ETF ;ICF;ETF;0,35
+iShares Conservative Allocation ETF ;AOK;ETF;0,44
+iShares Core Long-Term U.S. Bond ETF ;ILTB;ETF;0,12
+iShares Core MSCI EAFE ETF ;IEFA;ETF;0,14
+iShares Core MSCI Emerging Markets ETF ;IEMG;ETF;0,24
+iShares Core MSCI Total International Stock ETF ;IXUS;ETF;0,18
+iShares Core S&P 500 ETF ;IVV;ETF;0,07
+iShares Core S&P Mid-Cap ETF ;IJH;ETF;0,15
+iShares Core S&P Small-Cap ETF ;IJR;ETF;0,16
+iShares Core S&P Total U.S. Stock Market ETF ;ITOT;ETF;0,07
+iShares Core Short-Term U.S. Bond ETF ;ISTB;ETF;0,12
+iShares Core Total U.S. Bond Market ETF ;AGG;ETF;0,08
+iShares Credit Bond ETF ;CFT;ETF;0,2
+iShares Developed Small-Cap ex North America ETF ;IFSM;ETF;0,5
+iShares Dow Jones U.S. ETF ;IYY;ETF;0,2
+iShares Emerging Markets Corporate Bond ETF ;CEMB;ETF;0,6
+iShares Emerging Markets Dividend ETF ;DVYE;ETF;0,68
+iShares Emerging Markets High Yield Bond ETF ;EMHY;ETF;0,65
+iShares Emerging Markets Infrastructure ETF ;EMIF;ETF;0,78
+iShares Emerging Markets Local Currency Bond ETF ;LEMB;ETF;0,6
+iShares Enhanced U.S. Large-Cap ETF ;IELG;ETF;0,18
+iShares Enhanced U.S. Small-Cap ETF ;IESM;ETF;0,35
+iShares Europe Developed Real Estate ETF ;IFEU;ETF;0,48
+iShares Europe ETF ;IEV;ETF;0,6
+iShares Financials Bond ETF ;MONY;ETF;0,3
+iShares Floating Rate Bond ETF ;FLOT;ETF;0,2
+iShares FTSE China ETF ;FCHI;ETF;0,74
+iShares Global 100 ETF ;IOO;ETF;0,4
+iShares Global Clean Energy ETF ;ICLN;ETF;0,48
+iShares Global Consumer Discretionary ETF ;RXI;ETF;0,48
+iShares Global Consumer Staples ETF ;KXI;ETF;0,48
+iShares Global Energy ETF ;IXC;ETF;0,48
+iShares Global ex USD High Yield Corporate Bond ETF ;HYXU;ETF;0,55
+iShares Global Financials ETF ;IXG;ETF;0,48
+iShares Global Healthcare ETF ;IXJ;ETF;0,48
+iShares Global High Yield Corporate Bond ETF ;GHYG;ETF;0,55
+iShares Global Industrials ETF ;EXI;ETF;0,48
+iShares Global Inflation-Linked Bond ETF ;GTIP;ETF;0,4
+iShares Global Infrastructure ETF ;IGF;ETF;0,48
+iShares Global Materials ETF ;MXI;ETF;0,48
+iShares Global Nuclear Energy ETF ;NUCL;ETF;0,48
+iShares Global Tech ETF ;IXN;ETF;0,48
+iShares Global Telecom ETF ;IXP;ETF;0,48
+iShares Global Timber & Forestry ETF ;WOOD;ETF;0,48
+iShares Global Utilities ETF ;JXI;ETF;0,48
+iShares GNMA Bond ETF ;GNMA;ETF;0,32
+iShares Government/Credit Bond ETF ;GBF;ETF;0,2
+iShares Growth Allocation ETF ;AOR;ETF;0,45
+iShares High Dividend ETF ;HDV;ETF;0,4
+iShares iBoxx $ High Yield Corporate Bond ETF ;HYG;ETF;0,5
+iShares iBoxx $ Investment Grade Corporate Bond ETF ;LQD;ETF;0,15
+iShares India 50 ETF ;INDY;ETF;0,92
+iShares Industrial/Office Real Estate Capped ETF ;FNIO;ETF;0,48
+iShares Industrials Bond ETF ;ENGN;ETF;0,3
+iShares Intermediate Credit Bond ETF ;CIU;ETF;0,2
+iShares Intermediate Government/Credit Bond ETF ;GVI;ETF;0,2
+iShares International Developed Property ETF ;WPS;ETF;0,48
+iShares International Developed Real Estate ETF ;IFGL;ETF;0,48
+iShares International Inflation-Linked Bond ETF ;ITIP;ETF;0,4
+iShares International Preferred Stock ETF ;IPFF;ETF;0,55
+iShares International Select Dividend ETF ;IDV;ETF;0,5
+iShares International Treasury Bond ETF ;IGOV;ETF;0,35
+iShares J.P. Morgan USD Emerging Markets Bond ETF ;EMB;ETF;0,6
+iShares Japan Large-Cap ETF ;ITF;ETF;0,5
+iShares Latin America 40 ETF ;ILF;ETF;0,5
+iShares MBS Bond ETF ;MBB;ETF;0,27
+iShares Micro-Cap ETF ;IWC;ETF;0,69
+iShares Moderate Allocation ETF ;AOM;ETF;0,45
+iShares Morningstar Large-Cap ETF ;JKD;ETF;0,2
+iShares Morningstar Large-Cap Growth ETF ;JKE;ETF;0,25
+iShares Morningstar Large-Cap Value ETF ;JKF;ETF;0,25
+iShares Morningstar Mid-Cap ETF ;JKG;ETF;0,25
+iShares Morningstar Mid-Cap Growth ETF ;JKH;ETF;0,3
+iShares Morningstar Mid-Cap Value ETF ;JKI;ETF;0,3
+iShares Morningstar Multi-Asset Income ETF ;IYLD;ETF;0,65
+iShares Morningstar Small-Cap ETF ;JKJ;ETF;0,25
+iShares Morningstar Small-Cap Growth ETF ;JKK;ETF;0,3
+iShares Morningstar Small-Cap Value ETF ;JKL;ETF;0,3
+iShares Mortgage Real Estate Capped ETF ;REM;ETF;0,48
+iShares MSCI ACWI ETF ;ACWI;ETF;0,34
+iShares MSCI ACWI ex U.S. Consumer Discretionary ETF ;AXDI;ETF;0,48
+iShares MSCI ACWI ex U.S. Consumer Staples ETF ;AXSL;ETF;0,48
+iShares MSCI ACWI ex U.S. Energy ETF ;AXEN;ETF;0,48
+iShares MSCI ACWI ex U.S. ETF ;ACWX;ETF;0,34
+iShares MSCI ACWI ex U.S. Financials ETF ;AXFN;ETF;0,48
+iShares MSCI ACWI ex U.S. Healthcare ETF ;AXHE;ETF;0,48
+iShares MSCI ACWI ex U.S. Industrials ETF ;AXID;ETF;0,48
+iShares MSCI ACWI ex U.S. Information Technology ETF ;AXIT;ETF;0,48
+iShares MSCI ACWI ex U.S. Materials ETF ;AXMT;ETF;0,48
+iShares MSCI ACWI ex U.S. Telecommunication Services ETF ;AXTE;ETF;0,48
+iShares MSCI ACWI ex U.S. Utilities ETF ;AXUT;ETF;0,48
+iShares MSCI All Country Asia ex Japan ETF ;AAXJ;ETF;0,69
+iShares MSCI All Country Asia ex Japan Small-Cap ETF ;AXJS;ETF;0,75
+iShares MSCI All Country Asia Information Technology ETF ;AAIT;ETF;0,69
+iShares MSCI All Country World Minimum Volatility ETF ;ACWV;ETF;0,34
+iShares MSCI All Peru Capped ETF ;EPU;ETF;0,61
+iShares MSCI Australia ETF ;EWA;ETF;0,53
+iShares MSCI Australia Small-Cap ETF ;EWAS;ETF;0,59
+iShares MSCI Austria Capped ETF ;EWO;ETF;0,52
+iShares MSCI Belgium Capped ETF ;EWK;ETF;0,53
+iShares MSCI Brazil Capped ETF ;EWZ;ETF;0,61
+iShares MSCI Brazil Small-Cap ETF ;EWZS;ETF;0,61
+iShares MSCI BRIC ETF ;BKF;ETF;0,69
+iShares MSCI Canada ETF ;EWC;ETF;0,53
+iShares MSCI Canada Small-Cap ETF ;EWCS;ETF;0,59
+iShares MSCI Chile Capped ETF ;ECH;ETF;0,61
+iShares MSCI China ETF ;MCHI;ETF;0,61
+iShares MSCI China Small-Cap ETF ;ECNS;ETF;0,61
+iShares MSCI Colombia Capped ETF ;ICOL;ETF;0,61
+iShares MSCI Denmark Capped ETF ;EDEN;ETF;0,53
+iShares MSCI EAFE ETF ;EFA;ETF;0,34
+iShares MSCI EAFE Growth ETF ;EFG;ETF;0,4
+iShares MSCI EAFE Minimum Volatility ETF ;EFAV;ETF;0,34
+iShares MSCI EAFE Small-Cap ETF ;SCZ;ETF;0,4
+iShares MSCI EAFE Value ETF ;EFV;ETF;0,4
+iShares MSCI Emerging Markets Asia ETF ;EEMA;ETF;0,68
+iShares MSCI Emerging Markets Consumer Discretionary ETF ;EMDI;ETF;0,68
+iShares MSCI Emerging Markets Eastern Europe ETF ;ESR;ETF;0,69
+iShares MSCI Emerging Markets EMEA ETF ;EEME;ETF;0,68
+iShares MSCI Emerging Markets Energy Capped ETF ;EMEY;ETF;0,68
+iShares MSCI Emerging Markets ETF ;EEM;ETF;0,69
+iShares MSCI Emerging Markets Financials ETF ;EMFN;ETF;0,69
+iShares MSCI Emerging Markets Growth ETF ;EGRW;ETF;0,68
+iShares MSCI Emerging Markets Latin America ETF ;EEML;ETF;0,68
+iShares MSCI Emerging Markets Materials ETF ;EMMT;ETF;0,69
+iShares MSCI Emerging Markets Minimum Volatility ETF ;EEMV;ETF;0,69
+iShares MSCI Emerging Markets Small-Cap ETF ;EEMS;ETF;0,69
+iShares MSCI Emerging Markets Value ETF ;EVAL;ETF;0,68
+iShares MSCI EMU ETF ;EZU;ETF;0,53
+iShares MSCI Europe Financials ETF ;EUFN;ETF;0,48
+iShares MSCI Far East Financials ETF ;FEFN;ETF;0,48
+iShares MSCI Finland Capped ETF ;EFNL;ETF;0,53
+iShares MSCI France ETF ;EWQ;ETF;0,53
+iShares MSCI Frontier 100 ETF ;FM;ETF;0,79
+iShares MSCI Germany ETF ;EWG;ETF;0,53
+iShares MSCI Germany Small-Cap ETF ;EWGS;ETF;0,59
+iShares MSCI Global Agriculture Producers ETF ;VEGI;ETF;0,4
+iShares MSCI Global Energy Producers ETF ;FILL;ETF;0,39
+iShares MSCI Global Gold Miners ETF ;RING;ETF;0,39
+iShares MSCI Global Metals & Mining Producers ETF ;PICK;ETF;0,39
+iShares MSCI Global Silver Miners ETF ;SLVP;ETF;0,39
+iShares MSCI Hong Kong ETF ;EWH;ETF;0,53
+iShares MSCI Hong Kong Small-Cap ETF ;EWHS;ETF;0,59
+iShares MSCI India ETF ;INDA;ETF;0,67
+iShares MSCI India Small-Cap ETF ;SMIN;ETF;0,74
+iShares MSCI Indonesia ETF ;EIDO;ETF;0,61
+iShares MSCI Ireland Capped ETF ;EIRL;ETF;0,53
+iShares MSCI Israel Capped ETF ;EIS;ETF;0,61
+iShares MSCI Italy Capped ETF ;EWI;ETF;0,53
+iShares MSCI Japan ETF ;EWJ;ETF;0,53
+iShares MSCI Japan Small-Cap ETF ;SCJ;ETF;0,53
+iShares MSCI KLD 400 Social ETF ;DSI;ETF;0,5
+iShares MSCI Kokusai ETF ;TOK;ETF;0,25
+iShares MSCI Malaysia ETF ;EWM;ETF;0,53
+iShares MSCI Mexico Capped ETF ;EWW;ETF;0,53
+iShares MSCI Netherlands ETF ;EWN;ETF;0,53
+iShares MSCI New Zealand Capped ETF ;ENZL;ETF;0,53
+iShares MSCI Norway Capped ETF ;ENOR;ETF;0,53
+iShares MSCI Pacific ex Japan ETF ;EPP;ETF;0,5
+iShares MSCI Philippines ETF ;EPHE;ETF;0,61
+iShares MSCI Poland Capped ETF ;EPOL;ETF;0,61
+iShares MSCI Russia Capped ETF ;ERUS;ETF;0,61
+iShares MSCI Singapore ETF ;EWS;ETF;0,53
+iShares MSCI Singapore Small-Cap ETF ;EWSS;ETF;0,59
+iShares MSCI South Africa ETF ;EZA;ETF;0,61
+iShares MSCI South Korea Capped ETF ;EWY;ETF;0,61
+iShares MSCI Spain Capped ETF ;EWP;ETF;0,53
+iShares MSCI Sweden ETF ;EWD;ETF;0,53
+iShares MSCI Switzerland Capped ETF ;EWL;ETF;0,53
+iShares MSCI Taiwan ETF ;EWT;ETF;0,61
+iShares MSCI Thailand Capped ETF ;THD;ETF;0,61
+iShares MSCI Turkey ETF ;TUR;ETF;0,61
+iShares MSCI United Kingdom ETF ;EWU;ETF;0,53
+iShares MSCI United Kingdom Small-Cap ETF ;EWUS;ETF;0,59
+iShares MSCI USA ESG Select ETF ;KLD;ETF;0,5
+iShares MSCI USA ETF ;EUSA;ETF;0,15
+iShares MSCI USA Minimum Volatility ETF ;USMV;ETF;0,15
+iShares MSCI USA Momentum Factor ETF ;MTUM;ETF;0,15
+iShares MSCI USA Size Factor ETF ;SIZE;ETF;0,15
+iShares MSCI USA Value Factor ETF ;VLUE;ETF;0,15
+iShares MSCI World ETF ;URTH;ETF;0,24
+iShares Nasdaq Biotechnology ETF ;IBB;ETF;0,48
+iShares National AMT-Free Muni Bond ETF ;MUB;ETF;0,25
+iShares New York AMT-Free Muni Bond ETF ;NYF;ETF;0,25
+iShares North America Real Estate ETF ;IFNA;ETF;0,48
+iShares North American Natural Resources ETF ;IGE;ETF;0,48
+iShares North American Tech ETF ;IGM;ETF;0,48
+iShares North American Tech-Multimedia Networking ETF ;IGN;ETF;0,48
+iShares North American Tech-Software ETF ;IGV;ETF;0,48
+iShares NYSE 100 ETF ;NY;ETF;0,2
+iShares NYSE Composite ETF ;NYC;ETF;0,25
+iShares PHLX Semiconductor ETF ;SOXX;ETF;0,48
+iShares Real Estate 50 ETF ;FTY;ETF;0,48
+iShares Residential Real Estate Capped ETF ;REZ;ETF;0,48
+iShares Retail Real Estate Capped ETF ;RTL;ETF;0,48
+iShares Russell 1000 ETF ;IWB;ETF;0,15
+iShares Russell 1000 Growth ETF ;IWF;ETF;0,2
+iShares Russell 1000 Value ETF ;IWD;ETF;0,21
+iShares Russell 2000 ETF ;IWM;ETF;0,23
+iShares Russell 2000 Growth ETF ;IWO;ETF;0,25
+iShares Russell 2000 Value ETF ;IWN;ETF;0,37
+iShares Russell 3000 ETF ;IWV;ETF;0,2
+iShares Russell 3000 Growth ETF ;IWZ;ETF;0,25
+iShares Russell 3000 Value ETF ;IWW;ETF;0,25
+iShares Russell Mid-Cap ETF ;IWR;ETF;0,21
+iShares Russell Mid-Cap Growth ETF ;IWP;ETF;0,25
+iShares Russell Mid-Cap Value ETF ;IWS;ETF;0,28
+iShares Russell Top 200 ETF ;IWL;ETF;0,15
+iShares Russell Top 200 Growth ETF ;IWY;ETF;0,2
+iShares Russell Top 200 Value ETF ;IWX;ETF;0,2
+iShares S&P 100 ETF ;OEF;ETF;0,2
+iShares S&P 500 Growth ETF ;IVW;ETF;0,18
+iShares S&P 500 Value ETF ;IVE;ETF;0,18
+iShares S&P Mid-Cap 400 Growth ETF ;IJK;ETF;0,25
+iShares S&P Mid-Cap 400 Value ETF ;IJJ;ETF;0,27
+iShares S&P Small-Cap 600 Growth ETF ;IJT;ETF;0,25
+iShares S&P Small-Cap 600 Value ETF ;IJS;ETF;0,29
+iShares Select Dividend ETF ;DVY;ETF;0,4
+iShares Short Treasury Bond ETF ;SHV;ETF;0,15
+iShares Short-Term National AMT-Free Muni Bond ETF ;SUB;ETF;0,25
+iShares Target Date 2010 ETF ;TZD;ETF;0,44
+iShares Target Date 2015 ETF ;TZE;ETF;0,45
+iShares Target Date 2020 ETF ;TZG;ETF;0,46
+iShares Target Date 2025 ETF ;TZI;ETF;0,46
+iShares Target Date 2030 ETF ;TZL;ETF;0,45
+iShares Target Date 2035 ETF ;TZO;ETF;0,46
+iShares Target Date 2040 ETF ;TZV;ETF;0,46
+iShares Target Date 2045 ETF ;TZW;ETF;0,46
+iShares Target Date 2050 ETF ;TZY;ETF;0,47
+iShares Target Date Retirement Income ETF ;TGR;ETF;0,43
+iShares TIPS Bond ETF ;TIP;ETF;0,2
+iShares Transportation Average ETF ;IYT;ETF;0,47
+iShares U.S. Aerospace & Defense ETF ;ITA;ETF;0,47
+iShares U.S. Basic Materials ETF ;IYM;ETF;0,47
+iShares U.S. Broker-Dealers ETF ;IAI;ETF;0,47
+iShares U.S. Consumer Goods ETF ;IYK;ETF;0,47
+iShares U.S. Consumer Services ETF ;IYC;ETF;0,47
+iShares U.S. Energy ETF ;IYE;ETF;0,47
+iShares U.S. Financial Services ETF ;IYG;ETF;0,47
+iShares U.S. Financials ETF ;IYF;ETF;0,47
+iShares U.S. Healthcare ETF ;IYH;ETF;0,47
+iShares U.S. Healthcare Providers ETF ;IHF;ETF;0,47
+iShares U.S. Home Construction ETF ;ITB;ETF;0,47
+iShares U.S. Industrials ETF ;IYJ;ETF;0,47
+iShares U.S. Insurance ETF ;IAK;ETF;0,47
+iShares U.S. Medical Devices ETF ;IHI;ETF;0,47
+iShares U.S. Oil & Gas Exploration & Production ETF ;IEO;ETF;0,47
+iShares U.S. Oil Equipment & Services ETF ;IEZ;ETF;0,47
+iShares U.S. Pharmaceuticals ETF ;IHE;ETF;0,47
+iShares U.S. Preferred Stock ETF ;PFF;ETF;0,48
+iShares U.S. Real Estate ETF ;IYR;ETF;0,47
+iShares U.S. Regional Banks ETF ;IAT;ETF;0,47
+iShares U.S. Technology ETF ;IYW;ETF;0,47
+iShares U.S. Telecommunications ETF ;IYZ;ETF;0,47
+iShares U.S. Treasury Bond ETF ;GOVT;ETF;0,15
+iShares U.S. Utilities ETF ;IDU;ETF;0,47
+iShares Utilities Bond ETF ;AMPS;ETF;0,3
+iSharesBond 2016 Corporate ex-Financials Term ETF ;IBCB;ETF;0,1
+iSharesBond 2016 Corporate Term ETF ;IBDA;ETF;0,13
+iSharesBond 2018 Corporate ex-Financials Term ETF ;IBCC;ETF;0,1
+iSharesBond 2018 Corporate Term ETF ;IBDB;ETF;0,13
+iSharesBond 2020 Corporate ex-Financials Term ETF ;IBCD;ETF;0,1
+iSharesBond 2020 Corporate Term ETF ;IBDC;ETF;0,13
+iSharesBond 2023 Corporate ex-Financials Term ETF ;IBCE;ETF;0,1
+iSharesBond 2023 Corporate Term ETF ;IBDD;ETF;0,13
+DFA US Core Equity 1 Portfolio (I);DFEOX;Mutual Fund ;0,19
+DFA US Core Equity 2 Portfolio (I);DFQTX;Mutual Fund ;0,22
+DFA US Vector Equity Portfolio (I);DFVEX;Mutual Fund ;0,32
+DFA US Social Core Equity 2 Portfolio;DFUEX;Mutual Fund ;0,33
+DFA TA US Core Equity 2 Portfolio (I);DFTCX;Mutual Fund ;0,24
+DFA US Sustainability Core 1 Portfolio;DFSIX;Mutual Fund ;0,35
+DFA US Micro Cap Portfolio (I);DFSCX;Mutual Fund ;0,52
+DFA US Small Cap Portfolio (I);DFSTX;Mutual Fund ;0,37
+DFA US Small Cap Value Portfolio (I);DFSVX;Mutual Fund ;0,52
+DFA US Small Cap Growth Portfolio;DSCGX;Mutual Fund ;0,43
+DFA US Targeted Value Portfolio (I);DFFVX;Mutual Fund ;0,38
+DFA US Targeted Value Portfolio (R1);DFTVX;Mutual Fund ;0,48
+DFA US Targeted Value Portfolio (R2);DFTPX;Mutual Fund ;0,63
+DFA US Large Company Portfolio;DFUSX;Mutual Fund ;0,1
+DFA Enhanced US Large Co. Portfolio (I);DFELX;Mutual Fund ;0,25
+DFA US Large Cap Equity Portfolio;DUSQX;Mutual Fund ;0,24
+DFA US Large Cap Growth Portfolio;DUSLX;Mutual Fund ;0,24
+DFA US Large Cap Value Portfolio (I);DFLVX;Mutual Fund ;0,27
+DFA US Large Cap Value Portfolio II ;DFCVX;Mutual Fund ;0,17
+DFA US Large Cap Value Portfolio III ;DFUVX;Mutual Fund ;0,14
+DFA LWAS/DFA US High BtM Portfolio;DFBMX;Mutual Fund ;0,34
+DFA Tax-Mgd. US Small Cap Portfolio;DFTSX;Mutual Fund ;0,53
+DFA Tax-Mgd. US Targeted Value Portfolio;DTMVX;Mutual Fund ;0,44
+DFA Tax-Mgd. US Equity Portfolio;DTMEX;Mutual Fund ;0,22
+DFA Tax-Mgd. US Mktwd. Value Portfolio;DTMMX;Mutual Fund ;0,38
+DFA Tax-Mgd. US Mktwd. Value Portfolio II ;DFMVX;Mutual Fund ;0,23
+DFA Intl. Core Equity Portfolio (I);DFIEX;Mutual Fund ;0,4
+DFA World ex US Core Equity Portfolio;DFWIX;Mutual Fund ;1,36
+DFA TA World ex US Core Equity Portfolio;DFTWX;Mutual Fund ;0,49
+DFA Intl. Vector Equity Portfolio;DFVQX;Mutual Fund ;0,54
+DFA Intl. Sustainability Core 1 Portfolio;DFSPX;Mutual Fund ;0,56
+DFA Intl. Social Core Equity Portfolio;DSCLX;Mutual Fund ;0,58
+DFA Intl. Small Co. Portfolio (I);DFISX;Mutual Fund ;0,56
+DFA Intl. Small Cap Growth Portfolio;DISMX;Mutual Fund ;0,63
+DFA Continental Small Co. Portfolio (I);DFCSX;Mutual Fund ;0,59
+DFA Japanese Small Co. Portfolio (I);DFJSX;Mutual Fund ;0,57
+DFA Asia Pacific Small Co. Portfolio (I);DFRSX;Mutual Fund ;0,59
+DFA United Kingdom Small Co. Portfolio (I);DFUKX;Mutual Fund ;0,63
+DFA Intl. Small Cap Value Portfolio (I);DISVX;Mutual Fund ;0,71
+DFA Large Cap Intl. Portfolio (I);DFALX;Mutual Fund ;0,3
+DFA Intl. Value Portfolio (I);DFIVX;Mutual Fund ;0,45
+DFA Intl. Value Portfolio (R2);DFIPX;Mutual Fund ;0,71
+DFA Intl. Value Portfolio II ;DIVTX;Mutual Fund ;0,3
+DFA Intl. Value Portfolio III ;DFVIX;Mutual Fund ;0,26
+DFA Intl. Value Portfolio IV ;DFVFX;Mutual Fund ;0,28
+DFA Intl. Large Cap Growth Portfolio;DILRX;Mutual Fund ;0,34
+DFA Intl. Value ex Tobacco Portfolio;DFVLX;Mutual Fund ;0,62
+DFA World ex US Value Portfolio;DFWVX;Mutual Fund ;0,84
+DFA World ex US Targeted Value Portfolio;DWUSX;Mutual Fund ;1,27
+DFA LWAS/DFA Intl. High BtM Portfolio;DFHBX;Mutual Fund ;0,5
+DFA Tax-Mgd. Intl. Value Portfolio;DTMIX;Mutual Fund ;0,55
+DFA Emerging Markets Core Portfolio (I);DFCEX;Mutual Fund ;0,68
+DFA Emerging Markets Social Core Portfolio;DFESX;Mutual Fund ;0,75
+DFA Emerging Markets Small Cap Portfolio (I);DEMSX;Mutual Fund ;0,82
+DFA Emerging Markets Portfolio (I);DFEMX;Mutual Fund ;0,61
+DFA Emerging Markets Portfolio II ;DFETX;Mutual Fund ;0,38
+DFA Emerging Markets Value Portfolio (I);DFEVX;Mutual Fund ;0,61
+DFA Emerging Markets Value Portfolio (R2);DFEPX;Mutual Fund ;0,86
+DFA One-Year Fixed Income Portfolio (I);DFIHX;Mutual Fund ;0,17
+DFA LWAS/DFA Two-Year Govt. Portfolio;DFYGX;Mutual Fund ;0,28
+DFA LWAS/DFA Two-Year Fixed Portfolio;DFCFX;Mutual Fund ;0,3
+DFA Short-Term Govt. Portfolio;DFFGX;Mutual Fund ;0,2
+DFA Interm. Govt. Fixed Income Portfolio (I);DFIGX;Mutual Fund ;0,13
+DFA Inflation-Protected Securities Portfolio (I);DIPSX;Mutual Fund ;0,13
+DFA Short-Term Muni. Bond Portfolio (I);DFSMX;Mutual Fund ;0,22
+DFA Intermediate-Term Muni Bond Portfolio;DFTIX;Mutual Fund ;0,34
+DFA Calif. Short-Term Muni Bond Portfolio (I);DFCMX;Mutual Fund ;0,23
+DFA Calif. Intermediate-Term Muni Bond Portfolio;DCIBX;Mutual Fund ;0,41
+DFA Short-Term Extended Quality Portfolio;DFEQX;Mutual Fund ;0,23
+DFA Intermediate-Term Extended Quality Portfolio;DFTEX;Mutual Fund ;0,24
+DFA Investment Grade Portfolio;DFAPX;Mutual Fund ;0,41
+DFA Two-Year Global Fixed Portfolio (I);DFGFX;Mutual Fund ;0,18
+DFA Five-Year Global Fixed Portfolio (I);DFGBX;Mutual Fund ;0,28
+DFA Selectively Hedged Global Fixed Portfolio;DFSHX;Mutual Fund ;0,19
+DFA World Ex US Govt. Fixed Income Portfolio (I);DWFIX;Mutual Fund ;0,37
+DFA Global Equity Portfolio (I);DGEIX;Mutual Fund ;0,63
+DFA Global Equity Portfolio (R2);DGERX;Mutual Fund ;0,9
+DFA Selectively Hedged Global Equity Portfolio (I);DSHGX;Mutual Fund ;1
+DFA Global Allocation 60/40 Portfolio (I) ;DGSIX;Mutual Fund ;0,53
+DFA Global Allocation 60/40 Portfolio (R2) ;DFPRX;Mutual Fund ;0,79
+DFA Global Allocation 25/75 Portfolio (I) ;DGTSX;Mutual Fund ;0,45
+DFA Global Allocation 25/75 Portfolio (R2) ;DFGPX;Mutual Fund ;0,76
+DFA Real Estate Securities Portfolio (I);DFREX;Mutual Fund ;0,19
+DFA Intl. Real Estate Securities Portfolio (I);DFITX;Mutual Fund ;0,41
+DFA Global Real Estate Securities Portfolio;DFGEX;Mutual Fund ;0,64
+DFA Commodity Strategy Portfolio;DCMSX;Mutual Fund ;0,35
+Vanguard 500 Index;VFINX;Mutual Fund ;0,17
+Vanguard 500 Index Admiral Shares;VFIAX;Mutual Fund ;0,05
+Vanguard Admiral Treasury Money Market;VUSXX;Mutual Fund ;0,1
+Vanguard Balanced Index;VBINX;Mutual Fund ;0,24
+Vanguard Balanced Index Admiral Shares;VBIAX;Mutual Fund ;0,1
+Vanguard California Intermediate-Term Tax-Exempt;VCAIX;Mutual Fund ;0,2
+Vanguard California Intermediate-Term Tax-Exempt Admiral Shares;VCADX;Mutual Fund ;0,12
+Vanguard California Long-Term Tax-Exempt;VCITX;Mutual Fund ;0,2
+Vanguard California Long-Term Tax-Exempt Admiral Shares;VCLAX;Mutual Fund ;0,12
+Vanguard California Tax-Exempt Money Market;VCTXX;Mutual Fund ;0,16
+Vanguard Capital Opportunity;VHCOX;Mutual Fund ;0,48
+Vanguard Capital Opportunity Admiral Shares;VHCAX;Mutual Fund ;0,41
+Vanguard Capital Value;VCVLX;Mutual Fund ;0,47
+Vanguard Consumer Discretionary Index Admiral Shares;VCDAX;Mutual Fund ;0,14
+Vanguard Consumer Staples Index Admiral Shares;VCSAX;Mutual Fund ;0,14
+Vanguard Convertible Securities;VCVSX;Mutual Fund ;0,52
+Vanguard Developed Markets Index;VDMIX;Mutual Fund ;0,2
+Vanguard Developed Markets Index Admiral;VDMAX;Mutual Fund ;0,1
+Vanguard Diversified Equity;VDEQX;Mutual Fund ;0,4
+Vanguard Dividend Appreciation Index;VDAIX;Mutual Fund ;0,2
+Vanguard Dividend Growth;VDIGX;Mutual Fund ;0,29
+Vanguard Emerging Markets Government Bond Index ;VGOVX;Mutual Fund ;0,5
+Vanguard Emerging Markets Government Bond Index Admiral Shares;VGAVX;Mutual Fund ;0,35
+Vanguard Emerging Markets Select Stock;VMMSX;Mutual Fund ;0,92
+Vanguard Emerging Markets Stock Index;VEIEX;Mutual Fund ;0,33
+Vanguard Emerging Markets Stock Index Admiral Shares;VEMAX;Mutual Fund ;0,18
+Vanguard Energy;VGENX;Mutual Fund ;0,31
+Vanguard Energy Admiral Shares;VGELX;Mutual Fund ;0,26
+Vanguard Energy Index Admiral Shares;VENAX;Mutual Fund ;0,14
+Vanguard Equity Income;VEIPX;Mutual Fund ;0,3
+Vanguard Equity Income Admiral Shares;VEIRX;Mutual Fund ;0,21
+Vanguard European Stock Index;VEURX;Mutual Fund ;0,26
+Vanguard European Stock Index Admiral Shares;VEUSX;Mutual Fund ;0,12
+Vanguard Explorer;VEXPX;Mutual Fund ;0,49
+Vanguard Explorer Admiral Shares;VEXRX;Mutual Fund ;0,32
+Vanguard Explorer Value;VEVFX;Mutual Fund ;0,63
+Vanguard Extended Market Index;VEXMX;Mutual Fund ;0,28
+Vanguard Extended Market Index Admiral Shares;VEXAX;Mutual Fund ;0,14
+Vanguard Federal Money Market ;VMFXX;Mutual Fund ;0,16
+Vanguard Financials Index Admiral Shares;VFAIX;Mutual Fund ;0,19
+Vanguard Florida Focused Long-Term Tax-Exempt ;VFLTX;Mutual Fund ;0,2
+Vanguard Florida Focused Long-Term Tax-Exempt Admiral Shares ;VFLRX;Mutual Fund ;0,12
+Vanguard FTSE All-World ex-US Index;VFWIX;Mutual Fund ;0,3
+Vanguard FTSE All-World ex-US Index Admiral;VFWAX;Mutual Fund ;0,15
+Vanguard FTSE All-World ex-US Small-Cap Index ;VFSVX;Mutual Fund ;0,45
+Vanguard FTSE Social Index;VFTSX;Mutual Fund ;0,29
+Vanguard Global Equity;VHGEX;Mutual Fund ;0,59
+Vanguard Global ex-U.S. Real Estate Index ;VGXRX;Mutual Fund ;0,45
+Vanguard GNMA;VFIIX;Mutual Fund ;0,21
+Vanguard GNMA Admiral Shares;VFIJX;Mutual Fund ;0,11
+Vanguard Growth and Income;VQNPX;Mutual Fund ;0,36
+Vanguard Growth and Income Admiral Shares;VGIAX;Mutual Fund ;0,25
+Vanguard Growth Equity;VGEQX;Mutual Fund ;0,54
+Vanguard Growth Index;VIGRX;Mutual Fund ;0,24
+Vanguard Growth Index Admiral Shares;VIGAX;Mutual Fund ;0,1
+Vanguard Health Care;VGHCX;Mutual Fund ;0,35
+Vanguard Health Care Admiral Shares;VGHAX;Mutual Fund ;0,3
+Vanguard Health Care Index Admiral Shares;VHCIX;Mutual Fund ;0,14
+Vanguard High Dividend Yield Index;VHDYX;Mutual Fund ;0,2
+Vanguard High-Yield Corporate ;VWEHX;Mutual Fund ;0,23
+Vanguard High-Yield Corporate Admiral Shares ;VWEAX;Mutual Fund ;0,13
+Vanguard High-Yield Tax-Exempt;VWAHX;Mutual Fund ;0,2
+Vanguard High-Yield Tax-Exempt Admiral Shares;VWALX;Mutual Fund ;0,12
+Vanguard Industrials Index Admiral Shares;VINAX;Mutual Fund ;0,14
+Vanguard Inflation-Protected Securities;VIPSX;Mutual Fund ;0,2
+Vanguard Inflation-Protected Securities Admiral Shares;VAIPX;Mutual Fund ;0,1
+Vanguard Information Technology Index Admiral Shares;VITAX;Mutual Fund ;0,14
+Vanguard Intermediate-Term Bond Index;VBIIX;Mutual Fund ;0,2
+Vanguard Intermediate-Term Bond Index Admiral Shares;VBILX;Mutual Fund ;0,1
+Vanguard Intermediate-Term Investment-Grade;VFICX;Mutual Fund ;0,2
+Vanguard Intermediate-Term Investment-Grade Admiral Shares;VFIDX;Mutual Fund ;0,1
+Vanguard Intermediate-Term Tax-Exempt;VWITX;Mutual Fund ;0,2
+Vanguard Intermediate-Term Tax-Exempt Admiral Shares;VWIUX;Mutual Fund ;0,12
+Vanguard Intermediate-Term Treasury;VFITX;Mutual Fund ;0,2
+Vanguard Intermediate-Term Treasury Admiral Shares;VFIUX;Mutual Fund ;0,1
+Vanguard International Explorer;VINEX;Mutual Fund ;0,43
+Vanguard International Growth;VWIGX;Mutual Fund ;0,49
+Vanguard International Growth Admiral Shares;VWILX;Mutual Fund ;0,36
+Vanguard International Value;VTRIX;Mutual Fund ;0,41
+Vanguard Large-Cap Index;VLACX;Mutual Fund ;0,24
+Vanguard Large-Cap Index Admiral Shares;VLCAX;Mutual Fund ;0,1
+Vanguard LifeStrategy Conservative Growth;VSCGX;Mutual Fund ;0,15
+Vanguard LifeStrategy Growth;VASGX;Mutual Fund ;0,17
+Vanguard LifeStrategy Income;VASIX;Mutual Fund ;0,14
+Vanguard LifeStrategy Moderate Growth;VSMGX;Mutual Fund ;0,16
+Vanguard Limited-Term Tax-Exempt;VMLTX;Mutual Fund ;0,2
+Vanguard Limited-Term Tax-Exempt Admiral Shares;VMLUX;Mutual Fund ;0,12
+Vanguard Long-Term Bond Index;VBLTX;Mutual Fund ;0,2
+Vanguard Long-Term Investment-Grade;VWESX;Mutual Fund ;0,22
+Vanguard Long-Term Investment-Grade Admiral Shares;VWETX;Mutual Fund ;0,12
+Vanguard Long-Term Tax-Exempt;VWLTX;Mutual Fund ;0,2
+Vanguard Long-Term Tax-Exempt Admiral Shares;VWLUX;Mutual Fund ;0,12
+Vanguard Long-Term Treasury;VUSTX;Mutual Fund ;0,2
+Vanguard Long-Term Treasury Admiral Shares;VUSUX;Mutual Fund ;0,1
+Vanguard Managed Payout Distribution Focus;VPDFX;Mutual Fund ;0,51
+Vanguard Managed Payout Growth and Distribution;VPGDX;Mutual Fund ;0,43
+Vanguard Managed Payout Growth Focus;VPGFX;Mutual Fund ;0,35
+Vanguard Market Neutral;VMNFX;Mutual Fund ;1,9
+Vanguard Massachusetts Tax-Exempt;VMATX;Mutual Fund ;0,16
+Vanguard Materials Index Admiral Shares;VMIAX;Mutual Fund ;0,14
+Vanguard Mid-Cap Growth;VMGRX;Mutual Fund ;0,54
+Vanguard Mid-Cap Growth Index;VMGIX;Mutual Fund ;0,24
+Vanguard Mid-Cap Growth Index Admiral;VMGMX;Mutual Fund ;0,1
+Vanguard Mid-Cap Index;VIMSX;Mutual Fund ;0,24
+Vanguard Mid-Cap Index Admiral Shares;VIMAX;Mutual Fund ;0,1
+Vanguard Mid-Cap Value Index;VMVIX;Mutual Fund ;0,24
+Vanguard Mid-Cap Value Index Admiral;VMVAX;Mutual Fund ;0,1
+Vanguard Morgan Growth;VMRGX;Mutual Fund ;0,4
+Vanguard Morgan Growth Admiral Shares;VMRAX;Mutual Fund ;0,26
+Vanguard New Jersey Long-Term Tax-Exempt;VNJTX;Mutual Fund ;0,2
+Vanguard New Jersey Long-Term Tax-Exempt Admiral Shares;VNJUX;Mutual Fund ;0,12
+Vanguard New Jersey Tax-Exempt Money Market;VNJXX;Mutual Fund ;0,16
+Vanguard New York Long-Term Tax-Exempt;VNYTX;Mutual Fund ;0,2
+Vanguard New York Long-Term Tax-Exempt Admiral Shares;VNYUX;Mutual Fund ;0,12
+Vanguard New York Tax-Exempt Money Market;VYFXX;Mutual Fund ;0,16
+Vanguard Ohio Long-Term Tax-Exempt;VOHIX;Mutual Fund ;0,16
+Vanguard Ohio Tax-Exempt Money Market;VOHXX;Mutual Fund ;0,16
+Vanguard Pacific Stock Index;VPACX;Mutual Fund ;0,26
+Vanguard Pacific Stock Index Admiral Shares;VPADX;Mutual Fund ;0,12
+Vanguard Pennsylvania Long-Term Tax-Exempt;VPAIX;Mutual Fund ;0,2
+Vanguard Pennsylvania Long-Term Tax-Exempt Admiral Shares;VPALX;Mutual Fund ;0,12
+Vanguard Pennsylvania Tax-Exempt Money Market;VPTXX;Mutual Fund ;0,16
+Vanguard Precious Metals and Mining;VGPMX;Mutual Fund ;0,26
+Vanguard Prime Money Market;VMMXX;Mutual Fund ;0,16
+Vanguard PRIMECAP Core ;VPCCX;Mutual Fund ;0,5
+Vanguard PRIMECAP ;VPMCX;Mutual Fund ;0,45
+Vanguard PRIMECAP Admiral Shares ;VPMAX;Mutual Fund ;0,36
+Vanguard REIT Index;VGSIX;Mutual Fund ;0,24
+Vanguard REIT Index Admiral Shares;VGSLX;Mutual Fund ;0,1
+Vanguard Selected Value;VASVX;Mutual Fund ;0,38
+Vanguard Short-Term Bond Index;VBISX;Mutual Fund ;0,2
+Vanguard Short-Term Bond Index Admiral Shares;VBIRX;Mutual Fund ;0,1
+Vanguard Short-Term Federal;VSGBX;Mutual Fund ;0,2
+Vanguard Short-Term Federal Admiral Shares;VSGDX;Mutual Fund ;0,1
+Vanguard Short-Term Inflation-Protected Securities Index;VTIPX;Mutual Fund ;0,2
+Vanguard Short-Term Inflation-Protected Securities Index Admiral Shares;VTAPX;Mutual Fund ;0,1
+Vanguard Short-Term Investment-Grade;VFSTX;Mutual Fund ;0,2
+Vanguard Short-Term Investment-Grade Admiral Shares;VFSUX;Mutual Fund ;0,1
+Vanguard Short-Term Tax-Exempt;VWSTX;Mutual Fund ;0,2
+Vanguard Short-Term Tax-Exempt Admiral Shares;VWSUX;Mutual Fund ;0,12
+Vanguard Short-Term Treasury;VFISX;Mutual Fund ;0,2
+Vanguard Short-Term Treasury Admiral Shares;VFIRX;Mutual Fund ;0,1
+Vanguard Small-Cap Growth Index;VISGX;Mutual Fund ;0,24
+Vanguard Small-Cap Growth Index Admiral;VSGAX;Mutual Fund ;0,1
+Vanguard Small-Cap Index;NAESX;Mutual Fund ;0,24
+Vanguard Small-Cap Index Admiral Shares;VSMAX;Mutual Fund ;0,1
+Vanguard Small-Cap Value Index;VISVX;Mutual Fund ;0,24
+Vanguard Small-Cap Value Index Admiral;VSIAX;Mutual Fund ;0,1
+Vanguard STAR;VGSTX;Mutual Fund ;0,34
+Vanguard Strategic Equity;VSEQX;Mutual Fund ;0,29
+Vanguard Strategic Small-Cap Equity;VSTCX;Mutual Fund ;0,4
+Vanguard Tax-Exempt Money Market;VMSXX;Mutual Fund ;0,16
+Vanguard Tax-Managed Balanced Admiral Shares;VTMFX;Mutual Fund ;0,12
+Vanguard Tax-Managed Capital Appreciation Admiral Shares ;VTCLX;Mutual Fund ;0,12
+Vanguard Tax-Managed Growth and Income Admiral Shares ;VTGLX;Mutual Fund ;0,12
+Vanguard Tax-Managed International Admiral Shares;VTMGX;Mutual Fund ;0,1
+Vanguard Tax-Managed Small-Cap Admiral Shares;VTMSX;Mutual Fund ;0,14
+Vanguard Telecommunication Services Index Admiral Shares;VTCAX;Mutual Fund ;0,14
+Vanguard Total Bond Market Index;VBMFX;Mutual Fund ;0,2
+Vanguard Total Bond Market Index Admiral Shares;VBTLX;Mutual Fund ;0,1
+Vanguard Total International Bond Index;VTIBX;Mutual Fund ;0,23
+Vanguard Total International Bond Index Admiral Shares;VTABX;Mutual Fund ;0,2
+Vanguard Total International Stock Index;VGTSX;Mutual Fund ;0,22
+Vanguard Total International Stock Index Admiral Shares;VTIAX;Mutual Fund ;0,16
+Vanguard Total Stock Market Index;VTSMX;Mutual Fund ;0,17
+Vanguard Total Stock Market Index Admiral Shares;VTSAX;Mutual Fund ;0,05
+Vanguard Total World Stock Index;VTWSX;Mutual Fund ;0,35
+Vanguard U.S. Growth;VWUSX;Mutual Fund ;0,45
+Vanguard U.S. Growth Admiral Shares;VWUAX;Mutual Fund ;0,31
+Vanguard U.S. Value;VUVLX;Mutual Fund ;0,29
+Vanguard Utilities Index Admiral Shares;VUIAX;Mutual Fund ;0,14
+Vanguard Value Index;VIVAX;Mutual Fund ;0,24
+Vanguard Value Index Admiral Shares;VVIAX;Mutual Fund ;0,1
+Vanguard Wellesley Income;VWINX;Mutual Fund ;0,25
+Vanguard Wellesley Income Admiral Shares;VWIAX;Mutual Fund ;0,18
+Vanguard Wellington;VWELX;Mutual Fund ;0,25
+Vanguard Wellington Admiral Shares;VWENX;Mutual Fund ;0,17
+Vanguard Windsor;VWNDX;Mutual Fund ;0,41
+Vanguard Windsor Admiral Shares;VWNEX;Mutual Fund ;0,31
+Vanguard Windsor II;VWNFX;Mutual Fund ;0,35
+Vanguard Windsor II Admiral Shares;VWNAX;Mutual Fund ;0,27
+Vanguard Consumer Discretionary ETF;VCR;ETF;0,14
+Vanguard Consumer Staples ETF;VDC;ETF;0,14
+Vanguard Dividend Appreciation ETF;VIG;ETF;0,1
+Vanguard Emerging Markets Government Bond ETF;VWOB;ETF;0,35
+Vanguard Energy ETF;VDE;ETF;0,14
+Vanguard Extended Duration Treasury ETF;EDV;ETF;0,12
+Vanguard Extended Market ETF;VXF;ETF;0,14
+Vanguard Financials ETF;VFH;ETF;0,19
+Vanguard FTSE All-World ex-US ETF;VEU;ETF;0,15
+Vanguard FTSE All-World ex-US Small-Cap ETF;VSS;ETF;0,25
+Vanguard FTSE Developed Markets ETF;VEA;ETF;0,1
+Vanguard FTSE Emerging Markets ETF;VWO;ETF;0,18
+Vanguard FTSE Europe ETF;VGK;ETF;0,12
+Vanguard FTSE Pacific ETF;VPL;ETF;0,12
+Vanguard Global ex-U.S. Real Estate ETF;VNQI;ETF;0,32
+Vanguard Growth ETF;VUG;ETF;0,1
+Vanguard Health Care ETF;VHT;ETF;0,14
+Vanguard High Dividend Yield ETF;VYM;ETF;0,1
+Vanguard Industrials ETF;VIS;ETF;0,14
+Vanguard Information Technology ETF;VGT;ETF;0,14
+Vanguard Intermediate-Term Bond ETF;BIV;ETF;0,1
+Vanguard Intermediate-Term Corporate Bond ETF;VCIT;ETF;0,12
+Vanguard Intermediate-Term Government Bond ETF;VGIT;ETF;0,12
+Vanguard Large-Cap ETF;VV;ETF;0,1
+Vanguard Long-Term Bond ETF;BLV;ETF;0,1
+Vanguard Long-Term Corporate Bond ETF;VCLT;ETF;0,12
+Vanguard Long-Term Government Bond ETF;VGLT;ETF;0,12
+Vanguard Materials ETF;VAW;ETF;0,14
+Vanguard Mega Cap ETF;MGC;ETF;0,12
+Vanguard Mega Cap Growth ETF;MGK;ETF;0,12
+Vanguard Mega Cap Value ETF;MGV;ETF;0,12
+Vanguard Mid-Cap ETF;VO;ETF;0,1
+Vanguard Mid-Cap Growth ETF;VOT;ETF;0,1
+Vanguard Mid-Cap Value ETF;VOE;ETF;0,1
+Vanguard Mortgage-Backed Securities ETF;VMBS;ETF;0,12
+Vanguard REIT ETF;VNQ;ETF;0,1
+Vanguard S&P 500 ETF;VOO;ETF;0,05
+Vanguard Short-Term Bond ETF;BSV;ETF;0,1
+Vanguard Short-Term Corporate Bond ETF;VCSH;ETF;0,12
+Vanguard Short-Term Government Bond ETF;VGSH;ETF;0,12
+Vanguard Short-Term Inflation-Protected Securities ETF;VTIP;ETF;0,1
+Vanguard Small-Cap ETF;VB;ETF;0,1
+Vanguard Small-Cap Growth ETF;VBK;ETF;0,1
+Vanguard Small-Cap Value ETF;VBR;ETF;0,1
+Vanguard Telecommunication Services ETF;VOX;ETF;0,14
+Vanguard Total Bond Market ETF;BND;ETF;0,1
+Vanguard Total International Bond ETF;BNDX;ETF;0,2
+Vanguard Total International Stock ETF;VXUS;ETF;0,16
+Vanguard Total Stock Market ETF;VTI;ETF;0,05
+Vanguard Total World Stock ETF;VT;ETF;0,19
+Vanguard Utilities ETF;VPU;ETF;0,14
+Vanguard Value ETF;VTV;ETF;0,1
+Vanguard Russell 1000 ETF;VONE;ETF;0,12
+Vanguard Russell 1000 Growth ETF;VONG;ETF;0,15
+Vanguard Russell 1000 Value ETF;VONV;ETF;0,15
+Vanguard Russell 2000 ETF;VTWO;ETF;0,21
+Vanguard Russell 2000 Growth ETF;VTWG;ETF;0,2
+Vanguard Russell 2000 Value ETF;VTWV;ETF;0,32
+Vanguard Russell 3000 ETF;VTHR;ETF;0,15
+Vanguard S&P 500 ETF;VOO;ETF;0,05
+Vanguard S&P 500 Growth ETF;VOOG;ETF;0,15
+Vanguard S&P 500 Value ETF;VOOV;ETF;0,15
+Vanguard S&P Mid-Cap 400 ETF;IVOO;ETF;0,16
+Vanguard S&P Mid-Cap 400 Growth ETF;IVOG;ETF;0,2
+Vanguard S&P Mid-Cap 400 Value ETF;IVOV;ETF;0,22
+Vanguard S&P Small-Cap 600 ETF;VIOO;ETF;0,17
+Vanguard S&P Small-Cap 600 Growth ETF;VIOG;ETF;0,2
+Vanguard S&P Small-Cap 600 Value ETF;VIOV;ETF;0,24
+Artisan Value;ARTLX;Mutual Fund;1,06
+Dodge & Cox Stock;DODGX;Mutual Fund;0,52
+Fidelity Contrafund;FCNTX;Mutual Fund;0,74
+Mairs & Power Growth;MPGFX;Mutual Fund;0,7
+Akre Focus;AKREX;Mutual Fund;1,4
+Baron Small Cap;BSCFX;Mutual Fund;1,31
+Fidelity Low-Priced Stock;FLPSX;Mutual Fund;0,88
+Homestead Small-Company Stock;HSCSX;Mutual Fund;1
+T. Rowe Price Small-Cap Value;PRSVX;Mutual Fund;0,82
+Wells Fargo Advantage Discovery;STDIX;Mutual Fund;1,29
+Dodge & Cox Intl Stock;DODFX;Mutual Fund;0,64
+Harbor International;HIINX;Mutual Fund;1,14
+Harding Loevner Emerging Markets;HLEMX;Mutual Fund;1,49
+Matthews Asian Growth and Income;MACSX;Mutual Fund;1,11
+FPA Crescent;FPACX;Mutual Fund;1,16
+Merger Fund;MERFX;Mutual Fund;1,27
+DoubleLine Total Return;DLTNX;Mutual Fund;0,73
+Fidelity Intermediate Municipal Income;FLTMX;Mutual Fund;0,37
+Fidelity New Markets Income;FNMIX;Mutual Fund;0,84
+Harbor Bond Institutional;HABDX;Mutual Fund;0,54
+Metropolitan West Unconstrained Bond;MWCRX;Mutual Fund;0,99
+Osterweis Strategic Income Fund;OSTIX;Mutual Fund;0,91
+SunAmerica Foc Div Strategy A;FDSAX;Mutual Fund;0,98
+Delaware Large Cap Value Eqty;DPDEX;Mutual Fund;0,7
+GMO US Intrinsic Value III;GMVUX;Mutual Fund;0,46
+Weitz Series-Value;WVALX;Mutual Fund;1,2
+Lazard Gbl Listed Infr Open;GLFOX;Mutual Fund;1,5
+Commerce Value;CFVLX;Mutual Fund;0,7
+TCW Total Return Bond N;TGMNX;Mutual Fund;0,73
+ING Corp Leaders Trust;LEXCX;Mutual Fund;0,52
+Adv Inn Cir Frost Tot Ret Bd;FATRX;Mutual Fund;0,75
+Blue Chip Investor Fund;BCIFX;Mutual Fund;1,43

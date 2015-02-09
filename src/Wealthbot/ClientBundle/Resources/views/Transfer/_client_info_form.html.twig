@@ -1,0 +1,59 @@
+<form id="edit_client_info_form" action="{{ path('rx_client_transfer_edit_client_info') }}" method="post">
+    <div class="row">
+        <div class="span">
+            {{ form_label(form.first_name, 'First Name') }}
+            {{ form_errors(form.first_name) }}
+            {{ form_widget(form.first_name, { 'attr': { 'class': 'input-small' } }) }}
+        </div>
+        <div class="span">
+            {{ form_label(form.middle_name, 'Middle Name') }}
+            {{ form_errors(form.middle_name) }}
+            {{ form_widget(form.middle_name, { 'attr': { 'class': 'input-small' } }) }}
+        </div>
+        <div class="span">
+            {{ form_label(form.last_name, 'Last Name') }}
+            {{ form_errors(form.last_name) }}
+            {{ form_widget(form.last_name, { 'attr': { 'class': 'input-small' } }) }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="span">
+            {{ form_label(form.street) }}
+            {{ form_errors(form.street) }}
+            {{ form_widget(form.street, { 'attr': { 'class': 'span4' } }) }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="span">
+            {{ form_label(form.city) }}
+            {{ form_errors(form.city) }}
+            {{ form_widget(form.city, { 'attr': { 'class': 'input-small' } }) }}
+        </div>
+        <div class="span">
+            {{ form_label(form.state) }}
+            {{ form_errors(form.state) }}
+            {{ form_widget(form.state, { 'attr': { 'class': 'input-middle' } }) }}
+        </div>
+
+        <div class="span">
+            {{ form_label(form.zip, 'Zip Code') }}
+            {{ form_errors(form.zip) }}
+            {{ form_widget(form.zip, { 'attr': { 'class': 'input-small' } }) }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="span2">
+            {{ form_label(form.phone_number, 'Phone Number') }}
+            {{ form_errors(form.phone_number) }}
+            {{ form_widget(form.phone_number, { 'attr': { 'data-mask-type': 'phone' } }) }}
+        </div>
+
+
+        <div class="span2">
+            {{ form_label(form.ssn, 'Social Security Number') }}
+            {{ form_errors(form.ssn) }}
+            {{ form_widget(form.ssn) }}
+        </div>
+</div>
+    {{ form_rest(form) }}
+</form>

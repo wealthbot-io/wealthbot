@@ -1,0 +1,68 @@
+<form id='create_account_form_id' action="{{ path('rx_ria_client_create_account', { 'client_id': client.id } ) }}" method="post">
+    <div class="client-account-type-form">
+        {% if (form.financial_institution is defined) %}
+            <div class="control-group">
+                {{ form_label(form.financial_institution, 'Name of company client work for:') }}
+                <div class="controls">
+                    {{ form_errors(form.financial_institution) }}
+                    {{ form_widget(form.financial_institution) }}
+                </div>
+            </div>
+        {% endif %}
+
+        {% if (form.plan_provider is defined) %}
+            <div class="control-group">
+                {{ form_label(form.plan_provider) }}
+                <div class="controls">
+                    {{ form_errors(form.plan_provider) }}
+                    {{ form_widget(form.plan_provider) }}
+                </div>
+            </div>
+        {% endif %}
+
+        <div class="control-group">
+            {{ form_label(form.account_type, 'Account Type') }}
+            <div class="controls">
+                {{ form_errors(form.account_type) }}
+                {{ form_widget(form.account_type) }}
+            </div>
+        </div>
+
+        <div class="control-group">
+            {{ form_label(form.value) }}
+            <div class="controls">
+                {{ form_errors(form.value) }}
+			<div class="input-prepend">
+			<span class="add-on">$</span>	
+                {{ form_widget(form.value) }}
+			</div>	
+                <span class="retirement-value-help" style="display:none;">Minimum value must be $50,000 for retirement plans.</span>
+            </div>
+        </div>
+
+        <div class="control-group">
+            {{ form_label(form.monthly_contributions) }}
+            <div class="controls">
+                {{ form_errors(form.monthly_contributions) }}
+				<div class="input-prepend">
+			<span class="add-on">$</span>
+                {{ form_widget(form.monthly_contributions) }}
+			</div>	
+            </div>
+        </div>
+
+        <div class="control-group">
+            {{ form_label(form.monthly_distributions) }}
+            <div class="controls">
+                {{ form_errors(form.monthly_distributions) }}
+			<div class="input-prepend">
+			<span class="add-on">$</span>	
+                {{ form_widget(form.monthly_distributions) }}
+			</div>	
+            </div>
+        </div>
+
+        {{ form_rest(form) }}
+        <input class="btn" type="submit" name="submit" value="Add"/>
+    </div>
+</form>

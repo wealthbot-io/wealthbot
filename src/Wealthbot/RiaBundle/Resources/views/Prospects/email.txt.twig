@@ -1,0 +1,10 @@
+{% block subject %}
+    {% autoescape false %}
+    {{ 'Hello %lastName% %firstName%!'|trans({'%lastName%': invite.last_name, '%firstName%': invite.first_name}) }}
+    {% endautoescape %}
+{% endblock %}
+{% block body_text %}{% endblock %}
+{% block body_html %}
+    {{ 'Hello %lastName% %firstName%!'|trans({'%lastName%': invite.last_name, '%firstName%': invite.first_name}) }}
+    <a href="{{ url('rx_client_registration', { 'ria_id': invite.ria_id }) }}">Register</a>
+{% endblock %}

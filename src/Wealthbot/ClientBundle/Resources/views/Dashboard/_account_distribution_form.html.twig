@@ -1,0 +1,211 @@
+{% from 'WealthbotClientBundle:Transfer:_funding_form_fields.html.twig' import bank_info_fields%}
+
+{% macro transfer_info_fields(form, action) %}
+{% spaceless %}
+    <div class="well clearfix">
+        <div class="form-inline clearfix">
+            {% if (form.transfer_date_month is defined) and (form.transfer_date_day is defined)  %}
+                <div class="span margin-bottom-20 margin-right-20">
+                    <label>Start of transfer: </label>
+                    {{ form_errors(form.transfer_date_month) }}
+                    {{ form_errors(form.transfer_date_day) }}
+                    {{ form_widget(form.transfer_date_month, { 'attr': { 'class': 'input-mini margin-left-5', 'placeholder': 'MM' } }) }}
+                    {{ form_widget(form.transfer_date_day, { 'attr': { 'class': 'input-mini margin-left-5', 'placeholder': 'DD' } }) }}
+                </div>
+            {% endif %}
+            <div>
+                {{ form_label(form.amount, 'Amount: ') }}
+                {{ form_errors(form.amount) }}
+                <div class="input-prepend padding-left-10">
+                    <span class="add-on">$</span>
+                    {{ form_widget(form.amount, { 'attr': { 'class': 'input-mini auto-numeric' } }) }}
+                </div>
+            </div>
+        </div>
+        {% if form.frequency is defined %}
+            <div class="clearfix">
+                <div class="span12 clearfix">
+                    {{ form_label(form.frequency, 'Frequency of transaction: ') }}
+                    {{ form_errors(form.frequency) }}
+                </div>
+
+                {% if form.frequency|length > 4 %}
+                    <div class="span3">
+                    {% for radio in form.frequency %}
+                        {% if (loop.index == 5) or (loop.index == 9) %}
+                            </div><div class="span3">
+                        {% endif %}
+                        <label for="{{ radio.vars.id }}">{{ form_widget(radio) }}{{ radio.vars.label }}</label>
+                    {% endfor %}
+                    </div>
+                {% else %}
+                    <div class="inline-radio clearfix">
+                        {% for radio in form.frequency %}
+                            <div class="span"><label for="{{ radio.vars.id }}">{{ form_widget(radio) }}{{ radio.vars.label }}</label></div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+
+            </div>
+        {% endif %}
+    </div>
+    {% if form.frequency is defined %}
+        <p>
+            Transfers will take place on the same day as the start date, each quarter, month, or every other week as you have selected.
+        </p>
+    {% endif %}
+{% endspaceless %}
+{% endmacro %}
+
+{% macro general_fields(form, is_roth_ira) %}
+{% spaceless %}
+    {% if form.distribution_method is defined %}
+        <div class="distribution-method">
+            {{ form_errors(form.distribution_method) }}
+            {% for distrib_radio in form.distribution_method %}
+                <label for="{{ distrib_radio.vars.id }}">
+                    {{ form_widget(distrib_radio) }}{{ distrib_radio.vars.label | capitalize }}
+                    distribution {{ (distrib_radio.vars.value == 1 and is_roth_ira is defined and is_roth_ira) ? 'for a Roth IRA' : '' }}
+                </label>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    {% if form.federal_withholding is defined %}
+        <div class="federal-withholding">
+            <h4>Federal Withholding Section</h4>
+            {{ form_errors(form.federal_withholding) }}
+            {% for federal_radio in form.federal_withholding %}
+                <div class="form-inline">
+                    {% spaceless %}
+                    <label for="{{ federal_radio.vars.id }}" class="inline-label">
+                        {{ form_errors(federal_radio) }}
+                        {{ form_widget(federal_radio) }}{{ federal_radio.vars.label }}{{ federal_radio.vars.value == 1 ? ':' : '' }}
+                    </label>
+                    {% endspaceless %}
+                    {% if (federal_radio.vars.value == 1) %}
+                        <div class="inline-block">
+                            {{ form_errors(form.federal_withhold_percent) }}
+                            {{ form_widget(form.federal_withhold_percent, {'attr': {'class': 'input-mini auto-numeric'} }) }}
+
+                            <span class="inputs-separator">or</span>
+
+                            {{ form_errors(form.federal_withhold_money) }}
+                            <div class="input-prepend">
+                                <span class="add-on">$</span>
+                                {{ form_widget(form.federal_withhold_money, {'attr': {'class': 'input-mini auto-numeric'} }) }}
+                            </div>
+                            (not less then 10% of total distribution)
+                        </div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    {% if form.state_withholding is defined %}
+        <div class="state-withholding">
+            <h4>State Withholding Section</h4>
+            {{ form_errors(form.state_withholding) }}
+            {% for state_radio in form.state_withholding %}
+                <div class="form-inline">
+                    {% spaceless %}
+                    <label for="{{ state_radio.vars.id }}" class="inline-label">
+                        {{ form_errors(state_radio) }}
+                        {{ form_widget(state_radio) }}{{ state_radio.vars.label }}{{ state_radio.vars.value == 1 ? ':' : '' }}
+                    </label>
+                    {% endspaceless %}
+                        {% if (state_radio.vars.value == 1) %}
+                            <div class="inline-block">
+                                {{ form_errors(form.state_withhold_percent) }}
+                                {{ form_widget(form.state_withhold_percent, {'attr': {'class': 'input-mini auto-numeric'} }) }}
+
+                                <span class="inputs-separator">or</span>
+
+                                {{ form_errors(form.state_withhold_money) }}
+                                <div class="input-prepend">
+                                    <span class="add-on">$</span>
+                                    {{ form_widget(form.state_withhold_money, {'attr': {'class': 'input-mini auto-numeric'} }) }}
+                                </div>
+                                (not less then 10% of total distribution)
+                            </div>
+                        {% elseif (state_radio.vars.value == 2) %}
+                            <div class="inline-block">
+                                {{ form_errors(form.residenceState) }}
+                                {{ form_widget(form.residenceState, {'attr': {'class': 'input-medium'} }) }} ,
+
+                                and that my election should reflect the requirements of the state.
+                            </div>
+                        {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endspaceless %}
+{% endmacro %}
+
+<form id="distribute_account_form" class="def-form" action="{{ path('rx_client_dashboard_account_distribution', { 'account_id': account.id, 'type': type }) }}" method="post" data-general-fields="{{ _self.general_fields(form, account.isRothIraType) | escape }}" data-transfer-info-fields="{{ _self.transfer_info_fields(form, type) | escape }}" data-bank-info-fields="{{ bank_info_fields(form) | escape }}">
+    {% if form.transfer_method is defined %}
+
+        {% if type == 'one_time' %}
+            <h4>How would you like to receive money from this account?</h4>
+        {% endif %}
+        {% for radio in form.transfer_method %}
+            <label for="{{ radio.vars.id }}">{{ form_widget(radio, { 'attr': { 'class': 'distribution-type-radio' } }) }}{{ radio.vars.label }}</label>
+
+            {% if radio.vars.value == 'receive_check' %}
+                <div id="receive_check" class="inner-ch">
+                    <div class="distribution-form-general-fields well"></div>
+
+                    {% if type != 'one_time' %}
+                        <h5>Transfer Information</h5>
+                    {% endif %}
+                    <div class="distribution-form-transfer-info-fields"></div>
+                </div>
+            {% elseif radio.vars.value == 'wire_transfer' %}
+                <div id="wire_transfer" class="inner-ch">
+                    <div class="distribution-form-general-fields well"></div>
+
+                    <div class="bank-info well">
+                        <h5>Bank Information</h5>
+                        <div class="distribution-form-bank-info-fields"></div>
+                    </div>
+
+                    {% if type != 'one_time' %}
+                        <h5>Transfer Information</h5>
+                    {% endif %}
+                    <div class="distribution-form-transfer-info-fields"></div>
+                </div>
+            {% else %}
+                <div id="bank_transfer" class="inner-ch">
+                    <div class="distribution-form-general-fields well"></div>
+
+                    <div class="bank-info well">
+                        <h5>Bank Information</h5>
+                        <div class="distribution-form-bank-info-fields"></div>
+                    </div>
+
+                    <h5>Transfer Information</h5>
+                    <div class="distribution-form-transfer-info-fields"></div>
+                </div>
+            {% endif %}
+        {% endfor %}
+    {% else %}
+        <div id="auto_distribution" class="inner-ch">
+            <div class="distribution-form-general-fields well"></div>
+
+            <div class="bank-info well">
+                <h5>Bank Information</h5>
+                <div class="distribution-form-bank-info-fields"></div>
+            </div>
+
+            <h5>Transfer Information</h5>
+            <div class="distribution-form-transfer-info-fields"></div>
+        </div>
+    {% endif %}
+
+    <div class="form-actions">
+        {{ form_widget(form._token) }}
+        <input type="submit" class="btn" name="continue" value="Continue" />
+    </div>
+</form>

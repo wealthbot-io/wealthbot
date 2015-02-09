@@ -1,0 +1,20 @@
+<table class="table shadow">
+    <thead>
+        <tr>
+            <th>Security Name</th>
+            <th>Symbol</th>
+            <th>Asset Class</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for outside_fund in account.accountOutsideFunds %}
+            <tr>
+                <td>{{ outside_fund.securityAssignment.security.symbol }}</td>
+                <td>{{ outside_fund.securityAssignment.security.name }}</td>
+                <td>{{ outside_fund.securityAssignment.subclass.name }}</td>
+                <td><a class="remove-outside-fund-btn" href="{{ path('rx_ria_client_delete_outside_fund', {'account_id': account.id, 'fund_id': outside_fund.securityAssignment.security.id}) }}">Delete</a></td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>

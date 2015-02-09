@@ -1,0 +1,35 @@
+<form class="form-inline center-text" id="rebalance_history_filter_form" action="{% block form_action %}{{ path('rx_ria_rebalancing_history') }}{% endblock %}">
+    {{ form_errors(history_filter_form) }}
+
+    {% if (history_filter_form.set_id is defined) %}
+        <div class="control-group inline-block">
+            {{ form_label(history_filter_form.set_id, 'Set:') }}
+            {{ form_widget(history_filter_form.set_id) }}
+        </div>
+    {% endif %}
+
+    <div class="control-group inline-block">
+        {{ form_label(history_filter_form.client, 'Client:') }}
+        {{ form_widget(history_filter_form.client, {'attr': {
+        'placeholder': 'Client Quick Search',
+        'class': 'typeahead input-medium ajaxed ria-find-clients-filter-form-type-search',
+        'data-complete-url': path('rx_ria_dashboard_clients_search'),
+        'autocomplete': 'off'
+        } })
+        }}
+
+    </div>
+
+    <div class="control-group inline-block">
+        {{ form_label(history_filter_form.date_from, 'Date:') }}
+        {{ form_widget(history_filter_form.date_from, {'attr': {'class': 'input-small jq-date', 'placeholder': 'MM-DD-YYYY'}}) }}
+    </div>
+
+    <div class="control-group inline-block">
+        {{ form_label(history_filter_form.date_to, 'to') }}
+        {{ form_widget(history_filter_form.date_to, {'attr': {'class': 'input-small jq-date', 'placeholder': 'MM-DD-YYYY'}}) }}
+    </div>
+
+    <input type="submit" class="btn" value="Search"/>
+    {{ form_rest(history_filter_form) }}
+</form>

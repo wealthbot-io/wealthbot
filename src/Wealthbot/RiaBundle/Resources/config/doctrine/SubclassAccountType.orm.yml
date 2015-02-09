@@ -1,0 +1,13 @@
+Wealthbot\RiaBundle\Entity\SubclassAccountType:
+  type: entity
+  table: subclass_account_types
+  fields:
+    id:
+      type: integer
+      id: true
+      generator:
+        strategy: AUTO
+    name:
+      type: string(255)
+      nullable: false
+  lifecycleCallbacks: {  }

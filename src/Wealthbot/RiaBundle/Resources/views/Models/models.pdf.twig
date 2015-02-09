@@ -1,0 +1,28 @@
+<style type="text/css">
+    table {
+        border: 1px solid #dddddd;
+    }
+
+    th, td {
+        border-left: 1px solid #dddddd;
+        border-top: 1px solid #dddddd;
+    }
+
+    .span3 {
+        max-width: 300px;
+    }
+
+    .span1 {
+        max-width: 80px;
+    }
+
+</style>
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+
+{% for portfolio_information in portfolios_information %}
+    {% include 'WealthbotRiaBundle:Models:_model_info.pdf.twig' with {
+        'portfolio_information': portfolio_information,
+    } %}
+{% endfor %}

@@ -1,0 +1,56 @@
+Wealthbot\ClientBundle\Entity\GainLoss:
+    type: entity
+    table: gain_loss
+    repositoryClass: Wealthbot\ClientBundle\Repository\GainLossRepository
+    fields:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+        client_system_account_id:
+            type: integer
+        transaction_id:
+            type: integer
+        security_id:
+            type: integer
+        qty:
+            type: float
+            nullable: true
+        cost_basis:
+            type: float
+            nullable: true
+        value:
+            type: float
+            nullable: true
+        is_cost_basis_known:
+            type: boolean
+            nullable: true
+        is_wash_sale:
+            type: boolean
+            nullable: true
+        date:
+            type: date
+            nullable: true
+    manyToOne:
+        clientSystemAccount:
+            targetEntity: Wealthbot\ClientBundle\Entity\SystemAccount
+            joinColumn:
+                name: client_system_account_id
+                referencedColumnName: id
+                onDelete: cascade
+            cascade: ['persist']
+        transaction:
+            targetEntity: Wealthbot\AdminBundle\Entity\Transaction
+            joinColumn:
+                name: transaction_id
+                referencedColumnName: id
+                onDelete: cascade
+            cascade: ['persist']
+        security:
+            targetEntity: Wealthbot\AdminBundle\Entity\Security
+            joinColumn:
+                name: security_id
+                referencedColumnName: id
+                onDelete: cascade
+            cascade: ['persist']

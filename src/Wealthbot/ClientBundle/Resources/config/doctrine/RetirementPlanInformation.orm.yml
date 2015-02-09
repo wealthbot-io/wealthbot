@@ -1,0 +1,46 @@
+Wealthbot\ClientBundle\Entity\RetirementPlanInformation:
+    type: entity
+    table: client_retirement_plan_information
+    repositoryClass: Wealthbot\ClientBundle\Repository\RetirementPlanInformationRepository
+    fields:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+        account_id:
+            type: integer
+            nullable: false
+        financial_institution:
+            type: string
+            length: 255
+            nullable: true
+        account_number:
+            type: string
+            length: 255
+            nullable: true
+        account_description:
+            type: string
+            length: 255
+            nullable: true
+        web_address_login:
+            type: string
+            length: 255
+            nullable: true
+        username:
+            type: string
+            length: 255
+            nullable: true
+        password:
+            type: string
+            length: 255
+            nullable: true
+    oneToOne:
+        account:
+            targetEntity: Wealthbot\ClientBundle\Entity\ClientAccount
+            joinColumn:
+                name: account_id
+                referencedColumnName: id
+                onDelete: cascade
+            inversedBy: retirementPlanInfo
+            cascade: ['persist']

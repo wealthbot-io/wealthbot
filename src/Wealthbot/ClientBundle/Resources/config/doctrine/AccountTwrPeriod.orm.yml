@@ -1,0 +1,76 @@
+Wealthbot\ClientBundle\Entity\AccountTwrPeriod:
+    type: entity
+    table: account_twr_periods
+    repositoryClass: Wealthbot\ClientBundle\Repository\AccountTwrPeriodRepository
+    fields:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+
+        netMtd:
+            type: float
+            nullable: true
+            column: net_mtd
+
+        netQtd:
+            type: float
+            nullable: true
+            column: net_qtd
+
+        netYtd:
+            type: float
+            nullable: true
+            column: net_ytd
+
+        netYr1:
+            type: float
+            nullable: true
+            column: net_yr1
+
+        netYr3:
+            type: float
+            nullable: true
+            column: net_yr3
+
+        netSinceInception:
+            type: float
+            nullable: true
+            column: net_since_inception
+
+        grossMtd:
+            type: float
+            nullable: true
+            column: gross_mtd
+
+        grossQtd:
+            type: float
+            nullable: true
+            column: gross_qtd
+
+        grossYtd:
+            type: float
+            nullable: true
+            column: gross_ytd
+
+        grossYr1:
+            type: float
+            nullable: true
+            column: gross_yr1
+
+        grossYr3:
+            type: float
+            nullable: true
+            column: gross_yr3
+
+        grossSinceInception:
+            type: float
+            nullable: true
+            column: gross_since_inception
+
+        accountNumber:
+            type: string
+            length: 255
+            nullable: false
+            column: account_number

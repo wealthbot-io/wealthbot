@@ -1,0 +1,16 @@
+{% if questionnaire_answers | length > 0 %}
+    <ol type="1">
+        {% for answer in questionnaire_answers %}
+            <li class="control-group">
+                <div>
+                    <strong>Q:</strong> {{ answer.question.title }}
+                </div>
+                <div>
+                    <strong>A:</strong> {{ answer.answer.title }}
+                </div>
+            </li>
+        {% endfor %}
+    </ol>
+{% else %}
+    <p>No portfolio questionnaire answers.</p>
+{% endif %}

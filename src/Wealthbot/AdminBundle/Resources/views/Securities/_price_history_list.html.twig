@@ -1,0 +1,37 @@
+<table class="table table-striped price-history-list">
+    <thead>
+    <tr>
+        <th></th>
+        <th>Date</th>
+        <th>Price</th>
+        <th>Source</th>
+        <th>Posted</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% if security.securityPrices|length > 0 %}
+        {% for item in security.securityPrices %}
+            <tr data-item="{{ item.id }}">
+                <td><input type="checkbox" name="security_price_history_batch[]" value="{{ item.id }}"/></td>
+                <td>{{ item.datetime|date('m/d/Y H:i:s') }}</td>
+                <td>{{ item.price }}</td>
+                <td>{{ item.source }}</td>
+                <td>{{ item.isPosted ? 'Yes' : 'No' }}</td>
+            </tr>
+        {% endfor %}
+        <tr>
+            <td><a class="security-price-history-batch-btn delete-btn"  href="javascript:void(0)" data-url="{{ path('rx_admin_security_price_history_batch', { 'id': security.id, 'action': 'delete' }) }}">Delete</a></td>
+            <td>
+                <a class="security-price-history-batch-btn" href="javascript:void(0)" data-url="{{ path('rx_admin_security_price_history_batch', { 'id': security.id, 'action': 'unpost' }) }}">Unpost</a>
+                |
+                <a class="security-price-history-batch-btn" href="javascript:void(0)" data-url="{{ path('rx_admin_security_price_history_batch', { 'id': security.id, 'action': 'repost' }) }}">Repost</a>
+            </td>
+            <td colspan="3"></td>
+        </tr>
+    {% else %}
+        <tr>
+            <td colspan="4">Price history is empty.</td>
+        </tr>
+    {% endif %}
+    </tbody>
+</table>

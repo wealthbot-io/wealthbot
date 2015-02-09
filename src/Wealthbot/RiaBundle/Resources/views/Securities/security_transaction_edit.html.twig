@@ -1,0 +1,71 @@
+<form action="{{ path('rx_ria_security_edit_transaction', {'security_id': security_assignment_id}) }}" class="security-transaction-form" id="edit_security_transaction_form" method="POST">
+    <div>
+        {% if (ria_company_information.isTransactionFees) %}
+            <legend>Transaction Fees</legend>
+            <div class="control-group transaction-fees">
+                {{ form_errors(form.transaction_fee) }}
+
+                {{ form_label(form.transaction_fee, 'Transaction Fee:') }}
+                <div class="input-prepend">
+                    <span class="add-on">$</span>
+                    {{ form_widget(form.transaction_fee, {'attr': {'class': 'input-mini auto-numeric'}}) }}
+                </div>
+            </div>
+        {% endif %}
+
+        {% if (ria_company_information.isTransactionMinimums) %}
+            <legend>Minimums</legend>
+            <div class="control-group minimums">
+                <div>
+                    {{ form_errors(form.minimum_buy) }}
+                    {{ form_label(form.minimum_buy, 'Minimum Buy:') }}
+                    <div class="input-prepend">
+                        <span class="add-on">$</span>
+                        {{ form_widget(form.minimum_buy, {'attr': {'class': 'input-small auto-numeric'}}) }}
+                    </div>
+                </div>
+                <div>
+                    {{ form_errors(form.minimum_initial_buy) }}
+                    {{ form_label(form.minimum_initial_buy, 'Minimum Initial Buy:') }}
+                    <div class="input-prepend">
+                        <span class="add-on">$</span>
+                        {{ form_widget(form.minimum_initial_buy, {'attr': {'class': 'input-small auto-numeric'}}) }}
+                    </div>
+                </div>
+                <div>
+                    {{ form_errors(form.minimum_sell) }}
+                    {{ form_label(form.minimum_sell, 'Minimum Sell:') }}
+                    <div class="input-prepend">
+                        <span class="add-on">$</span>
+                        {{ form_widget(form.minimum_sell, {'attr': {'class': 'input-small auto-numeric'}}) }}
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+
+        {% if (ria_company_information.isTransactionRedemptionFees) %}
+            <legend>Redemption Fees</legend>
+            <div class="control-group redemption-fees">
+                <div class="clearfix">
+                    {{ form_errors(form.redemption_penalty_interval) }}
+                    {{ form_label(form.redemption_penalty_interval, 'Penalty Interval (days):') }}
+                    {{ form_widget(form.redemption_penalty_interval, {'attr': {'class': 'input-mini'}}) }}
+                </div>
+
+                {{ form_errors(form.redemption_percent) }}
+                {{ form_errors(form.redemption_fee) }}
+                <div class="redemption-fees-amount">
+                    {{ form_label(form.redemption_percent, 'Percent:') }}
+                    {{ form_widget(form.redemption_percent, {'attr': {'class': 'input-mini auto-numeric', 'placeholder': '00.00'}}) }}
+                    <span class="middle">or</span>
+                    {{ form_label(form.redemption_percent, 'Fee:') }}
+                    <div class="input-append">
+                        {{ form_widget(form.redemption_fee, { 'attr' : { 'class': 'input-mini auto-numeric'}} ) }}
+                        <span class="add-on">$</span>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+        {{ form_rest(form) }}
+    </div>
+</form>

@@ -1,0 +1,8 @@
+<ol>
+    {% for item in history %}
+        <li>
+            {{ item.account.accountNumber }} - {{ item.account.accountDescription }} :
+            {% for message in item.messages %}{{ message }}{{ loop.last == false ? '; ' : '' }}{% endfor %}
+        </li>
+    {% endfor %}
+</ol>

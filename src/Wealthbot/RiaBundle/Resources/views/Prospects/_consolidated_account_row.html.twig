@@ -1,0 +1,38 @@
+{% extends 'WealthbotRiaBundle:Prospects:_client_account_row.html.twig' %}
+
+{% block activity_title %}{{ account.activity }}{% endblock %}
+{% block see_consolidated_accounts %}{% endblock %}
+
+{% block account_value %}{{ account.value|number_format(2, '.', ',') }}{% endblock %}
+{% block account_contributions_value %}{{ account.monthlyContributions|number_format(2, '.', ',') }}{% endblock %}
+{% block account_distributions_value %}{{ account.monthlyDistributions|number_format(2, '.', ',') }}{% endblock %}
+{% block account_sascash_value %}{{ account.sasCash|number_format(2, '.', ',') }}{% endblock %}
+
+{% block account_type_column %}
+    {% if (group == 'old_employer_retirement' or group == 'financial_institution')%}
+        {% set employer_name = account.financialInstitution %}
+    {% elseif group == 'employer_retirement' %}
+        {% set employer_financial_institurion = account.financialInstitution | split('(') %}
+        {% set employer_name = employer_financial_institurion[1] | trim(' )') %}
+    {% else %}
+        {% set employer_name = null %}
+    {% endif %}
+
+    {{ account.ownersAsString }} {{ employer_name ? (employer_name ~ ' ' ~ type) : type }}
+{% endblock %}
+
+{% block row_extended %}
+    {% if not client.clientPortfolio %}
+        <td><input type="checkbox" class="select-unconsolidate-account" name="unconsolidate_accounts[]" value="{{ account.id }}"/></td>
+    {% endif %}
+{% endblock %}
+
+{% block row_actions_column %}
+    {% if (with_edit is defined and with_edit) %}
+        <td>
+            <a class="edit-client-account-btn" href="{{ path('rx_ria_prospect_edit_client_account', {'client_id': client.id, 'account_id': account.id}) }}">Edit</a>
+            &nbsp;|&nbsp;
+            <a class="remove-client-account-btn" href="{{ path('rx_ria_prospect_delete_client_account', {'client_id': client.id, 'account_id': account.id}) }}">Delete</a>
+        </td>
+    {% endif %}
+{% endblock %}

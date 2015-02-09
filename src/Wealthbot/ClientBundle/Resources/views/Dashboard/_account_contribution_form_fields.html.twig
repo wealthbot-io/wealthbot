@@ -1,0 +1,38 @@
+{% import 'WealthbotClientBundle:Transfer:_funding_form_fields.html.twig' as contribute_form %}
+
+{% if form.type is defined %}
+    {% for radio in form.type %}
+        <label for="{{ radio.vars.id }}">{{ form_widget(radio) }}{{ radio.vars.label }}</label>
+
+        {% if radio.vars.value == 'funding_bank_transfer' %}
+            <div id="banktrans" class="inner-ch">
+                <div class="bank-info">
+                    <h5>Bank Information</h5>
+                    {{ contribute_form.bank_info_fields(form) }}
+                </div>
+
+                {{ contribute_form.transfer_info_fields(form) }}
+            </div>
+
+        {% elseif radio.vars.value == 'funding_mail_check' %}
+            <div id="mailcheck" class="inner-ch well ">
+                {{ contribute_form.mail_info_fields(messages) }}
+            </div>
+
+        {% elseif radio.vars.value == 'funding_wire_transfer' %}
+            <div id="wiretrans" class="inner-ch well">
+                {{ contribute_form.wire_info_fields(messages) }}
+            </div>
+        {% endif %}
+    {% endfor %}
+
+{% else %}
+    <div class="inner-ch">
+        <div class="bank-info">
+            <h5>Bank Information</h5>
+            {{ contribute_form.bank_info_fields(form) }}
+        </div>
+
+        {{ contribute_form.transfer_info_fields(form) }}
+    </div>
+{% endif %}

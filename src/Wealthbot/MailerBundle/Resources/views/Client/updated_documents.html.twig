@@ -1,0 +1,20 @@
+{% extends 'WealthbotMailerBundle:Client:_client_layout.html.twig' %}
+
+{% block subject %}
+    {% autoescape false %}
+    {{ 'Updated Legal Documents' }}
+    {% endautoescape %}
+{% endblock %}
+
+{% block message %}
+    {% if (ria.riaCompanyInformation.slug) %}
+        {% set login_url = subdomain_url(ria.riaCompanyInformation, 'fos_user_security_login', {'redirect_url': url('rx_client_change_profile_documents')}) %}
+    {% else %}
+        {% set login_url = url('fos_user_security_login', {'redirect_url': url('rx_client_change_profile_documents')}) %}
+    {% endif %}
+
+    {{ client.firstName }},<br/><br/>
+    We’ve updated our {{ document_type }}.
+    Please <a href="{{ login_url }}">login</a> to see the updated documents.
+    Please let us know if you have any questions or concerns.
+{% endblock %}

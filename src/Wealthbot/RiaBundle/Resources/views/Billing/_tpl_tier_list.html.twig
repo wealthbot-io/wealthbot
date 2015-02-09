@@ -1,0 +1,34 @@
+<script id="tplTierList" type="text/template">
+    <div class="fees-form-block">
+
+        <div class="control-group">
+            <div class="label-name"><%= name %></div>
+            <div class="span2 masterBilling">
+                <% if (!isNew() && master == true) { %>
+                <i class="icon-ok" title="To change it edit another Billing Spec and turn on &quot;master&quot; checkbox"></i>
+                <input type="checkbox" name="master" class="is_master hidden" checked="checked">
+                <% } else { %>
+                <input type="checkbox" name="master" class="is_master" <% if (master==true) { %> checked="checked"<% } %>>
+                <% } %>
+                Master Billing Schedule
+            </div>
+            <div class="span2">
+                <a href="#" class="delete-spec">Delete</a>
+            </div>
+        </div>
+
+
+        <!--<p>You have the ability to charge a minimum billing fee, per quarter, you would like to charge each client.-->
+            <!--We will charge this amount if your AUM fee is less than minimum billing fee.</p>-->
+    </div>
+
+    <div class="control-group">
+        <h3>Minimum Fee:</h3>
+        <div class="controls-line">
+            <div class="input-prepend">
+                <span class="add-on">$</span>
+                <input type="text" name="minimalFee" class="auto-numeric not-presave span6 minimal-fee" value="<%= minimalFee.formatMoney(0) %>">
+            </div>
+        </div>
+    </div>
+</script>

@@ -1,0 +1,44 @@
+<script type="text/template" id="tplSummaryGraphs">
+    <table class="r5 span6 pull-right bill-status-container">
+        <tr>
+            <td width="1%" class="no-wrap">Bill Generated</td>
+            <td width="60%">
+                <div class="progress">
+                    <div class="bar bar-reverted bill-generated-bar" style="width: 100%" title="Users has Generated Bill"></div>
+                </div>
+            </td>
+            <td width="25%" class="no-wrap">$<%= billGeneratedValue.formatMoney() %></td>
+            <td width="14%"  class="no-wrap"><%= billGeneratedPercent %>%</td>
+        </tr>
+        <tr>
+            <td class="no-wrap">Bill Approved</td>
+            <td>
+                <div class="progress">
+                    <div class="bar  bar-approved bill-approved-bar" style="width: 100%"></div>
+                </div>
+            </td>
+            <td class="no-wrap">$<%= billApprovedValue.formatMoney() %></td>
+            <td class="no-wrap"><%= billApprovedPercent %>%</td>
+        </tr>
+        <tr>
+            <td class="no-wrap">Fee Generated</td>
+            <td>
+                <div class="progress">
+                    <div class="bar fee-generated-bar" style="width: 100%"></div>
+                </div>
+            </td>
+            <td class="no-wrap">$<%= billFeeGeneratedValue.formatMoney() %></td>
+            <td class="no-wrap"><%= billFeeGeneratedPercent %>%</td>
+        </tr>
+        <tr>
+            <td class="no-wrap">Bill Collected</td>
+            <td>
+                <div class="progress">
+                    <div class="bar bar-success bill-collected-bar" style="width: 100%"></div>
+                </div>
+            </td>
+            <td class="no-wrap">$<%= billCollectedValue.formatMoney() %></td>
+            <td class="no-wrap"><%= billCollectedPercent %>%</td>
+        </tr>
+    </table>
+</script>

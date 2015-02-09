@@ -1,0 +1,35 @@
+<table>
+    <thead>
+    <tr>
+        <th>
+            {% set employer_financial_institurion = account.financialInstitution | split('(') %}
+            {{ employer_financial_institurion[1] | trim(' )') }} {{ account.typeName }}
+        </th>
+    </tr>
+    <tr>
+        <th colspan="2">
+            <div class="center-text">Outside Employer Funds</div>
+        </th>
+    </tr>
+    <tr>
+        <th>Symbol</th>
+        <th>Name</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% if account.accountOutsideFunds is not empty %}
+        {% for outsideFund in account.accountOutsideFunds %}
+            <tr>
+                <td>{{ outsideFund.securityAssignment.security.symbol }}</td>
+                <td>{{ outsideFund.securityAssignment.security.name }}</td>
+            </tr>
+        {% endfor %}
+    {% else %}
+        <tr>
+            <td colspan="2">
+                <div class="center-text">No funds.</div>
+            </td>
+        </tr>
+    {% endif %}
+    </tbody>
+</table>

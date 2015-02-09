@@ -1,0 +1,3 @@
+{% extends 'WealthbotAdminBundle:GeneralSettings:_fees_form.html.twig' %}
+
+{% block form_action %}{{ is_permitted('edit') ? path('rx_admin_ria_update_fees', {'ria_id': ria.id}) : '#' }}{% endblock %}

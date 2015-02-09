@@ -1,0 +1,48 @@
+Wealthbot\UserBundle\Entity\Document:
+    type: entity
+    table: documents
+    repositoryClass: Wealthbot\UserBundle\Repository\DocumentRepository
+    fields:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+        filename:
+            length: string
+            length: 255
+            nullable: true
+        original_name:
+            type: string
+            length: 255
+            nullable: true
+        mime_type:
+            type: string
+            length: 255
+            nullable: true
+        type:
+            type: string
+            length: 45
+        created:
+            type: datetime
+            gedmo:
+                timestampable:
+                    on: create
+        owner_id:
+          type: integer
+          nullable: true
+    manyToOne:
+        owner:
+            targetEntity: Wealthbot\UserBundle\Entity\User
+            joinColumn:
+                name: owner_id
+                referencedColumnName: id
+                onDelete: cascade
+            cascade: ['persist']
+    manyToMany:
+        users:
+            targetEntity: Wealthbot\UserBundle\Entity\User
+            mappedBy: userDocuments
+        custodians:
+            targetEntity: Wealthbot\AdminBundle\Entity\Custodian
+            mappedBy: custodianDocuments

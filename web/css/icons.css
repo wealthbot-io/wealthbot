@@ -1,0 +1,2062 @@
+/* Glyphicons
+=================================================================== */
+.the-icons li {
+	margin: 0 0 -15px -20px;
+	padding: 0;
+	line-height: 0;
+}
+
+.the-icons b {
+	margin-top: 24px;
+	position: absolute;
+}
+
+
+[class^="ico-"],
+[class*="ico-"] {
+	display: inline-block;
+	width: 48px;
+	height: 48px;
+	*margin-right: .3em;
+	line-height: 48px;
+	vertical-align: text-top;
+	background-image: url("../img/icons/glyphicons.png");
+	background-position: 48px 48px;
+	background-repeat: no-repeat;
+}
+
+[class^="ico-"]:last-child,
+[class*="ico-"]:last-child {
+	*margin-left: 0;
+}
+
+.ico-white {
+	background-image: url("../img/icons/glyphicons-white.png");
+	opacity: 1;
+}
+
+.ico-glass {
+	background-position: -0px -0px;
+}
+
+.ico-leaf {
+	background-position: -48px -0px;
+}
+
+.ico-dog {
+	background-position: -96px -0px;
+}
+
+.ico-user {
+	background-position: -144px -0px;
+}
+
+.ico-girl {
+	background-position: -192px -0px;
+}
+
+.ico-car {
+	background-position: -240px -0px;
+}
+
+.ico-user-add {
+	background-position: -288px -0px;
+}
+
+.ico-user-remove {
+	background-position: -336px -0px;
+}
+
+.ico-film {
+	background-position: -384px -0px;
+}
+
+.ico-magic {
+	background-position: -432px -0px;
+}
+
+.ico-envelope {
+	background-position: -0px -48px;
+}
+
+.ico-camera {
+	background-position: -48px -48px;
+}
+
+.ico-heart {
+	background-position: -96px -48px;
+}
+
+.ico-beach-umbrella {
+	background-position: -144px -48px;
+}
+
+.ico-train {
+	background-position: -192px -48px;
+}
+
+.ico-print {
+	background-position: -240px -48px;
+}
+
+.ico-bin {
+	background-position: -288px -48px;
+}
+
+.ico-music {
+	background-position: -336px -48px;
+}
+
+.ico-note {
+	background-position: -384px -48px;
+}
+
+.ico-cogwheel {
+	background-position: -432px -48px;
+}
+
+.ico-home {
+	background-position: -0px -96px;
+}
+
+.ico-snowflake {
+	background-position: -48px -96px;
+}
+
+.ico-fire {
+	background-position: -96px -96px;
+}
+
+.ico-cogwheels {
+	background-position: -144px -96px;
+}
+
+.ico-parents {
+	background-position: -192px -96px;
+}
+
+.ico-binoculars {
+	background-position: -240px -96px;
+}
+
+.ico-road {
+	background-position: -288px -96px;
+}
+
+.ico-search {
+	background-position: -336px -96px;
+}
+
+.ico-cars {
+	background-position: -384px -96px;
+}
+
+.ico-notes-2 {
+	background-position: -432px -96px;
+}
+
+.ico-pencil {
+	background-position: -0px -144px;
+}
+
+.ico-bus {
+	background-position: -48px -144px;
+}
+
+.ico-wifi-alt {
+	background-position: -96px -144px;
+}
+
+.ico-luggage {
+	background-position: -144px -144px;
+}
+
+.ico-old-man {
+	background-position: -192px -144px;
+}
+
+.ico-woman {
+	background-position: -240px -144px;
+}
+
+.ico-file {
+	background-position: -288px -144px;
+}
+
+.ico-credit {
+	background-position: -336px -144px;
+}
+
+.ico-airplane {
+	background-position: -384px -144px;
+}
+
+.ico-notes {
+	background-position: -432px -144px;
+}
+
+.ico-stats {
+	background-position: -0px -192px;
+}
+
+.ico-charts {
+	background-position: -48px -192px;
+}
+
+.ico-pie-chart {
+	background-position: -96px -192px;
+}
+
+.ico-group {
+	background-position: -144px -192px;
+}
+
+.ico-keys {
+	background-position: -192px -192px;
+}
+
+.ico-calendar {
+	background-position: -240px -192px;
+}
+
+.ico-router {
+	background-position: -288px -192px;
+}
+
+.ico-camera-small {
+	background-position: -336px -192px;
+}
+
+.ico-dislikes {
+	background-position: -384px -192px;
+}
+
+.ico-star {
+	background-position: -432px -192px;
+}
+
+.ico-link {
+	background-position: -0px -240px;
+}
+
+.ico-eye-open {
+	background-position: -48px -240px;
+}
+
+.ico-eye-close {
+	background-position: -96px -240px;
+}
+
+.ico-alarm {
+	background-position: -144px -240px;
+}
+
+.ico-clock {
+	background-position: -192px -240px;
+}
+
+.ico-stopwatch {
+	background-position: -240px -240px;
+}
+
+.ico-projector {
+	background-position: -288px -240px;
+}
+
+.ico-history {
+	background-position: -336px -240px;
+}
+
+.ico-truck {
+	background-position: -384px -240px;
+}
+
+.ico-cargo {
+	background-position: -432px -240px;
+}
+
+.ico-compass {
+	background-position: -0px -288px;
+}
+
+.ico-keynote {
+	background-position: -48px -288px;
+}
+
+.ico-attach {
+	background-position: -96px -288px;
+}
+
+.ico-power {
+	background-position: -144px -288px;
+}
+
+.ico-lightbulb {
+	background-position: -192px -288px;
+}
+
+.ico-tag {
+	background-position: -240px -288px;
+}
+
+.ico-tags {
+	background-position: -288px -288px;
+}
+
+.ico-cleaning {
+	background-position: -336px -288px;
+}
+
+.ico-ruller {
+	background-position: -384px -288px;
+}
+
+.ico-gift {
+	background-position: -432px -288px;
+}
+
+.ico-umbrella {
+	background-position: -0px -336px;
+}
+
+.ico-book {
+	background-position: -48px -336px;
+}
+
+.ico-bookmark {
+	background-position: -96px -336px;
+}
+
+.ico-signal-alt {
+	background-position: -144px -336px;
+}
+
+.ico-cup {
+	background-position: -192px -336px;
+}
+
+.ico-stroller {
+	background-position: -240px -336px;
+}
+
+.ico-headphones {
+	background-position: -288px -336px;
+}
+
+.ico-headset {
+	background-position: -336px -336px;
+}
+
+.ico-warning-sign {
+	background-position: -384px -336px;
+}
+
+.ico-signal {
+	background-position: -432px -336px;
+}
+
+.ico-retweet {
+	background-position: -0px -384px;
+}
+
+.ico-refresh {
+	background-position: -48px -384px;
+}
+
+.ico-roundabout {
+	background-position: -96px -384px;
+}
+
+.ico-random {
+	background-position: -144px -384px;
+}
+
+.ico-heat {
+	background-position: -192px -384px;
+}
+
+.ico-repeat {
+	background-position: -240px -384px;
+}
+
+.ico-display {
+	background-position: -288px -384px;
+}
+
+.ico-log-book {
+	background-position: -336px -384px;
+}
+
+.ico-adress-book {
+	background-position: -384px -384px;
+}
+
+.ico-magnet {
+	background-position: -432px -384px;
+}
+
+.ico-table {
+	background-position: -0px -432px;
+}
+
+.ico-adjust {
+	background-position: -48px -432px;
+}
+
+.ico-tint {
+	background-position: -96px -432px;
+}
+
+.ico-crop {
+	background-position: -144px -432px;
+}
+
+.ico-vector-path-square {
+	background-position: -192px -432px;
+}
+
+.ico-vector-path-circle {
+	background-position: -240px -432px;
+}
+
+.ico-vector-path-polygon {
+	background-position: -288px -432px;
+}
+
+.ico-vector-path-line {
+	background-position: -336px -432px;
+}
+
+.ico-vector-path-curve {
+	background-position: -384px -432px;
+}
+
+.ico-vector-path-all {
+	background-position: -432px -432px;
+}
+
+.ico-font {
+	background-position: -0px -480px;
+}
+
+.ico-italic {
+	background-position: -48px -480px;
+}
+
+.ico-bold {
+	background-position: -96px -480px;
+}
+
+.ico-text-underline {
+	background-position: -144px -480px;
+}
+
+.ico-text-strike {
+	background-position: -192px -480px;
+}
+
+.ico-text-height {
+	background-position: -240px -480px;
+}
+
+.ico-text-width {
+	background-position: -288px -480px;
+}
+
+.ico-text-resize {
+	background-position: -336px -480px;
+}
+
+.ico-left-indent {
+	background-position: -384px -480px;
+}
+
+.ico-right-indent {
+	background-position: -432px -480px;
+}
+
+.ico-align-left {
+	background-position: -0px -528px;
+}
+
+.ico-align-center {
+	background-position: -48px -528px;
+}
+
+.ico-align-right {
+	background-position: -96px -528px;
+}
+
+.ico-justify {
+	background-position: -144px -528px;
+}
+
+.ico-list {
+	background-position: -192px -528px;
+}
+
+.ico-text-smaller {
+	background-position: -240px -528px;
+}
+
+.ico-text-bugger {
+	background-position: -288px -528px;
+}
+
+.ico-embed {
+	background-position: -336px -528px;
+}
+
+.ico-embed-close {
+	background-position: -384px -528px;
+}
+
+.ico-adjust-alt {
+	background-position: -432px -528px;
+}
+
+.ico-message-full {
+	background-position: -0px -576px;
+}
+
+.ico-message-empty {
+	background-position: -48px -576px;
+}
+
+.ico-message-in {
+	background-position: -96px -576px;
+}
+
+.ico-message-out {
+	background-position: -144px -576px;
+}
+
+.ico-message-plus {
+	background-position: -192px -576px;
+}
+
+.ico-message-minus {
+	background-position: -240px -576px;
+}
+
+.ico-message-ban {
+	background-position: -288px -576px;
+}
+
+.ico-message-flag {
+	background-position: -336px -576px;
+}
+
+.ico-message-lock {
+	background-position: -384px -576px;
+}
+
+.ico-message-new {
+	background-position: -432px -576px;
+}
+
+.ico-inbox {
+	background-position: -0px -624px;
+}
+
+.ico-inbox-plus {
+	background-position: -48px -624px;
+}
+
+.ico-inbox-minus {
+	background-position: -96px -624px;
+}
+
+.ico-inbox-lock {
+	background-position: -144px -624px;
+}
+
+.ico-inbox-in {
+	background-position: -192px -624px;
+}
+
+.ico-inbox-out {
+	background-position: -240px -624px;
+}
+
+.ico-computer-locked {
+	background-position: -288px -624px;
+}
+
+.ico-computer-service {
+	background-position: -336px -624px;
+}
+
+.ico-computer-process {
+	background-position: -384px -624px;
+}
+
+.ico-phone {
+	background-position: -432px -624px;
+}
+
+.ico-database-lock {
+	background-position: -0px -672px;
+}
+
+.ico-database-plus {
+	background-position: -48px -672px;
+}
+
+.ico-database-minus {
+	background-position: -96px -672px;
+}
+
+.ico-database-ban {
+	background-position: -144px -672px;
+}
+
+.ico-folder-open {
+	background-position: -192px -672px;
+}
+
+.ico-folder-plus {
+	background-position: -240px -672px;
+}
+
+.ico-folder-minus {
+	background-position: -288px -672px;
+}
+
+.ico-folder-lock {
+	background-position: -336px -672px;
+}
+
+.ico-folder-flag {
+	background-position: -384px -672px;
+}
+
+.ico-folder-new {
+	background-position: -432px -672px;
+}
+
+.ico-check {
+	background-position: -0px -720px;
+}
+
+.ico-edit {
+	background-position: -48px -720px;
+}
+
+.ico-new-window {
+	background-position: -96px -720px;
+}
+
+.ico-more-windows {
+	background-position: -144px -720px;
+}
+
+.ico-show-big-thumbnails {
+	background-position: -192px -720px;
+}
+
+.ico-show-thumbnails {
+	background-position: -240px -720px;
+}
+
+.ico-show-thumbnails-lines {
+	background-position: -288px -720px;
+}
+
+.ico-show-lines {
+	background-position: -336px -720px;
+}
+
+.ico-playlist {
+	background-position: -384px -720px;
+}
+
+.ico-picture {
+	background-position: -432px -720px;
+}
+
+.ico-imac {
+	background-position: -0px -768px;
+}
+
+.ico-macbook {
+	background-position: -48px -768px;
+}
+
+.ico-ipad {
+	background-position: -96px -768px;
+}
+
+.ico-iphone {
+	background-position: -144px -768px;
+}
+
+.ico-iphone-transfer {
+	background-position: -192px -768px;
+}
+
+.ico-iphone-exchange {
+	background-position: -240px -768px;
+}
+
+.ico-ipod {
+	background-position: -288px -768px;
+}
+
+.ico-ipod-shuffle {
+	background-position: -336px -768px;
+}
+
+.ico-ear-plugs {
+	background-position: -384px -768px;
+}
+
+.ico-albums {
+	background-position: -432px -768px;
+}
+
+.ico-step-backward {
+	background-position: -0px -816px;
+}
+
+.ico-fast-backward {
+	background-position: -48px -816px;
+}
+
+.ico-rewind {
+	background-position: -96px -816px;
+}
+
+.ico-play {
+	background-position: -144px -816px;
+}
+
+.ico-pause {
+	background-position: -192px -816px;
+}
+
+.ico-stop {
+	background-position: -240px -816px;
+}
+
+.ico-forward {
+	background-position: -288px -816px;
+}
+
+.ico-fast-forward {
+	background-position: -336px -816px;
+}
+
+.ico-step-forward {
+	background-position: -384px -816px;
+}
+
+.ico-eject {
+	background-position: -432px -816px;
+}
+
+.ico-facetime-video {
+	background-position: -0px -864px;
+}
+
+.ico-download-alt {
+	background-position: -48px -864px;
+}
+
+.ico-mute {
+	background-position: -96px -864px;
+}
+
+.ico-volume-up {
+	background-position: -144px -864px;
+}
+
+.ico-volume-down {
+	background-position: -192px -864px;
+}
+
+.ico-screenshot {
+	background-position: -240px -864px;
+}
+
+.ico-move {
+	background-position: -288px -864px;
+}
+
+.ico-more {
+	background-position: -336px -864px;
+}
+
+.ico-brightness-reduce {
+	background-position: -384px -864px;
+}
+
+.ico-brightness-increase {
+	background-position: -432px -864px;
+}
+
+.ico-circle-plus {
+	background-position: -0px -912px;
+}
+
+.ico-circle-minus {
+	background-position: -48px -912px;
+}
+
+.ico-circle-remove {
+	background-position: -96px -912px;
+}
+
+.ico-circle-ok {
+	background-position: -144px -912px;
+}
+
+.ico-circle-question-mark {
+	background-position: -192px -912px;
+}
+
+.ico-circle-info {
+	background-position: -240px -912px;
+}
+
+.ico-circle-exclamation-mark {
+	background-position: -288px -912px;
+}
+
+.ico-remove {
+	background-position: -336px -912px;
+}
+
+.ico-ok {
+	background-position: -384px -912px;
+}
+
+.ico-ban {
+	background-position: -432px -912px;
+}
+
+.ico-download {
+	background-position: -0px -960px;
+}
+
+.ico-upload {
+	background-position: -48px -960px;
+}
+
+.ico-shopping-cart {
+	background-position: -96px -960px;
+}
+
+.ico-lock {
+	background-position: -144px -960px;
+}
+
+.ico-unlock {
+	background-position: -192px -960px;
+}
+
+.ico-electricity {
+	background-position: -240px -960px;
+}
+
+.ico-ok-2 {
+	background-position: -288px -960px;
+}
+
+.ico-remove-2 {
+	background-position: -336px -960px;
+}
+
+.ico-cart-out {
+	background-position: -384px -960px;
+}
+
+.ico-cart-in {
+	background-position: -432px -960px;
+}
+
+.ico-left-arrow {
+	background-position: -0px -1008px;
+}
+
+.ico-right-arrow {
+	background-position: -48px -1008px;
+}
+
+.ico-down-arrow {
+	background-position: -96px -1008px;
+}
+
+.ico-up-arrow {
+	background-position: -144px -1008px;
+}
+
+.ico-resize-small {
+	background-position: -192px -1008px;
+}
+
+.ico-resize-full {
+	background-position: -240px -1008px;
+}
+
+.ico-circle-arrow-left {
+	background-position: -288px -1008px;
+}
+
+.ico-circle-arrow-right {
+	background-position: -336px -1008px;
+}
+
+.ico-circle-arrow-top {
+	background-position: -384px -1008px;
+}
+
+.ico-circle-arrow-down {
+	background-position: -432px -1008px;
+}
+
+.ico-play-button {
+	background-position: -0px -1056px;
+}
+
+.ico-unshare {
+	background-position: -48px -1056px;
+}
+
+.ico-share {
+	background-position: -96px -1056px;
+}
+
+.ico-thin-right-arrow {
+	background-position: -144px -1056px;
+}
+
+.ico-thin-left-arrow {
+	background-position: -192px -1056px;
+}
+
+.ico-bluetooth {
+	background-position: -240px -1056px;
+}
+
+.ico-euro {
+	background-position: -288px -1056px;
+}
+
+.ico-usd {
+	background-position: -336px -1056px;
+}
+
+.ico-bp {
+	background-position: -384px -1056px;
+}
+
+.ico-retweet-2 {
+	background-position: -432px -1056px;
+}
+
+.ico-moon {
+	background-position: -0px -1104px;
+}
+
+.ico-sun {
+	background-position: -48px -1104px;
+}
+
+.ico-cloud {
+	background-position: -96px -1104px;
+}
+
+.ico-direction {
+	background-position: -144px -1104px;
+}
+
+.ico-brush {
+	background-position: -192px -1104px;
+}
+
+.ico-pen {
+	background-position: -240px -1104px;
+}
+
+.ico-zoom-in {
+	background-position: -288px -1104px;
+}
+
+.ico-zoom-out {
+	background-position: -336px -1104px;
+}
+
+.ico-pin {
+	background-position: -384px -1104px;
+}
+
+.ico-riflescope {
+	background-position: -432px -1104px;
+}
+
+.ico-rotation-lock {
+	background-position: -0px -1152px;
+}
+
+.ico-flash {
+	background-position: -48px -1152px;
+}
+
+.ico-google-maps {
+	background-position: -96px -1152px;
+}
+
+.ico-anchor {
+	background-position: -144px -1152px;
+}
+
+.ico-conversation {
+	background-position: -192px -1152px;
+}
+
+.ico-chat {
+	background-position: -240px -1152px;
+}
+
+.ico-male {
+	background-position: -288px -1152px;
+}
+
+.ico-female {
+	background-position: -336px -1152px;
+}
+
+.ico-asterisk {
+	background-position: -384px -1152px;
+}
+
+.ico-divide {
+	background-position: -432px -1152px;
+}
+
+.ico-snorkel-diving {
+	background-position: -0px -1200px;
+}
+
+.ico-scuba-diving {
+	background-position: -96px -1200px;
+}
+
+.ico-oxygen-vottle {
+	background-position: -48px -1200px;
+}
+
+.ico-fins {
+	background-position: -144px -1200px;
+}
+
+.ico-fishes {
+	background-position: -192px -1200px;
+}
+
+.ico-boat {
+	background-position: -240px -1200px;
+}
+
+.ico-delete-point {
+	background-position: -288px -1200px;
+}
+
+.ico-sheriffs-star {
+	background-position: -336px -1200px;
+}
+
+.ico-qrcode {
+	background-position: -384px -1200px;
+}
+
+.ico-barcode {
+	background-position: -432px -1200px;
+}
+
+.ico-pool {
+	background-position: -0px -1248px;
+}
+
+.ico-buoy {
+	background-position: -48px -1248px;
+}
+
+.ico-spade {
+	background-position: -96px -1248px;
+}
+
+.ico-bank {
+	background-position: -144px -1248px;
+}
+
+.ico-vcard {
+	background-position: -192px -1248px;
+}
+
+.ico-electircal-plug {
+	background-position: -240px -1248px;
+}
+
+.ico-flag {
+	background-position: -288px -1248px;
+}
+
+.ico-credit-card {
+	background-position: -336px -1248px;
+}
+
+.ico-keyboard-wirelsss {
+	background-position: -384px -1248px;
+}
+
+.ico-keyboard-wired {
+	background-position: -432px -1248px;
+}
+
+.ico-shield {
+	background-position: -0px -1296px;
+}
+
+.ico-ring {
+	background-position: -48px -1296px;
+}
+
+.ico-cake {
+	background-position: -96px -1296px;
+}
+
+.ico-drink {
+	background-position: -144px -1296px;
+}
+
+.ico-beer {
+	background-position: -192px -1296px;
+}
+
+.ico-fast-food {
+	background-position: -240px -1296px;
+}
+
+.ico-cutlery {
+	background-position: -288px -1296px;
+}
+
+.ico-pizza {
+	background-position: -336px -1296px;
+}
+
+.ico-birthday-cake {
+	background-position: -384px -1296px;
+}
+
+.ico-tablet {
+	background-position: -432px -1296px;
+}
+
+.ico-settings {
+	background-position: -0px -1344px;
+}
+
+.ico-bullets {
+	background-position: -48px -1344px;
+}
+
+.ico-cardio {
+	background-position: -96px -1344px;
+}
+
+.ico-t-shirt {
+	background-position: -144px -1344px;
+}
+
+.ico-pants {
+	background-position: -192px -1344px;
+}
+
+.ico-sweater {
+	background-position: -240px -1344px;
+}
+
+.ico-fabric {
+	background-position: -288px -1344px;
+}
+
+.ico-leather {
+	background-position: -336px -1344px;
+}
+
+.ico-scissors {
+	background-position: -384px -1344px;
+}
+
+.ico-podium {
+	background-position: -432px -1344px;
+}
+
+.ico-skull {
+	background-position: -0px -1392px;
+}
+
+.ico-celebration {
+	background-position: -48px -1392px;
+}
+
+.ico-tea-kettle {
+	background-position: -96px -1392px;
+}
+
+.ico-french-press {
+	background-position: -144px -1392px;
+}
+
+.ico-coffe-cup {
+	background-position: -192px -1392px;
+}
+
+.ico-pot {
+	background-position: -240px -1392px;
+}
+
+.ico-grater {
+	background-position: -288px -1392px;
+}
+
+.ico-kettle {
+	background-position: -336px -1392px;
+}
+
+.ico-hospital {
+	background-position: -384px -1392px;
+}
+
+.ico-hospital-h {
+	background-position: -432px -1392px;
+}
+
+.ico-microphone {
+	background-position: -0px -1440px;
+}
+
+.ico-webcam {
+	background-position: -48px -1440px;
+}
+
+.ico-temple-church {
+	background-position: -96px -1440px;
+}
+
+.ico-temple-islam {
+	background-position: -144px -1440px;
+}
+
+.ico-temple-hindu {
+	background-position: -192px -1440px;
+}
+
+.ico-temple-buddhist {
+	background-position: -240px -1440px;
+}
+
+.ico-electrical-socket-eu {
+	background-position: -288px -1440px;
+}
+
+.ico-electrical-socket-us {
+	background-position: -336px -1440px;
+}
+
+.ico-bomb {
+	background-position: -384px -1440px;
+}
+
+.ico-comments {
+	background-position: -432px -1440px;
+}
+
+.ico-flower {
+	background-position: -0px -1488px;
+}
+
+.ico-baseball {
+	background-position: -48px -1488px;
+}
+
+.ico-rugby {
+	background-position: -96px -1488px;
+}
+
+.ico-ax {
+	background-position: -144px -1488px;
+}
+
+.ico-table-tennis {
+	background-position: -192px -1488px;
+}
+
+.ico-bowling {
+	background-position: -240px -1488px;
+}
+
+.ico-tree-conifer {
+	background-position: -288px -1488px;
+}
+
+.ico-tree-deciduous {
+	background-position: -336px -1488px;
+}
+
+.ico-more-items {
+	background-position: -384px -1488px;
+}
+
+.ico-sort {
+	background-position: -432px -1488px;
+}
+
+.ico-filter {
+	background-position: -0px -1536px;
+}
+
+.ico-gamepad {
+	background-position: -48px -1536px;
+}
+
+.ico-playing-dices {
+	background-position: -96px -1536px;
+}
+
+.ico-calculator {
+	background-position: -144px -1536px;
+}
+
+.ico-tie {
+	background-position: -192px -1536px;
+}
+
+.ico-wallet {
+	background-position: -240px -1536px;
+}
+
+.ico-share {
+	background-position: -288px -1536px;
+}
+
+.ico-sampler {
+	background-position: -336px -1536px;
+}
+
+.ico-piano {
+	background-position: -384px -1536px;
+}
+
+.ico-web-browser {
+	background-position: -432px -1536px;
+}
+
+.ico-blog {
+	background-position: -0px -1584px;
+}
+
+.ico-dashboard {
+	background-position: -48px -1584px;
+}
+
+.ico-certificate {
+	background-position: -96px -1584px;
+}
+
+.ico-bell {
+	background-position: -144px -1584px;
+}
+
+.ico-candle {
+	background-position: -192px -1584px;
+}
+
+.ico-pin-classic {
+	background-position: -240px -1584px;
+}
+
+.ico-iphone-shake {
+	background-position: -288px -1584px;
+}
+
+.ico-pin-flag {
+	background-position: -336px -1584px;
+}
+
+.ico-turtle {
+	background-position: -384px -1584px;
+}
+
+.ico-rabbit {
+	background-position: -432px -1584px;
+}
+
+.ico-globe {
+	background-position: -0px -1632px;
+}
+
+.ico-briefcase {
+	background-position: -48px -1632px;
+}
+
+.ico-hdd {
+	background-position: -96px -1632px;
+}
+
+.ico-thumbs-up {
+	background-position: -144px -1632px;
+}
+
+.ico-thumbs-down {
+	background-position: -192px -1632px;
+}
+
+.ico-hand-right {
+	background-position: -240px -1632px;
+}
+
+.ico-hand-left {
+	background-position: -288px -1632px;
+}
+
+.ico-hand-up {
+	background-position: -336px -1632px;
+}
+
+.ico-hand-down {
+	background-position: -384px -1632px;
+}
+
+.ico-fullscreen {
+	background-position: -432px -1632px;
+}
+
+.ico-shopping-bag {
+	background-position: -0px -1680px;
+}
+
+.ico-book-open {
+	background-position: -48px -1680px;
+}
+
+.ico-nameplate {
+	background-position: -96px -1680px;
+}
+
+.ico-nameplate-alt {
+	background-position: -144px -1680px;
+}
+
+.ico-vases {
+	background-position: -192px -1680px;
+}
+
+.ico-announcement {
+	background-position: -240px -1680px;
+}
+
+.ico-dumbbell {
+	background-position: -288px -1680px;
+}
+
+.ico-suitcase {
+	background-position: -336px -1680px;
+}
+
+.ico-file-import {
+	background-position: -384px -1680px;
+}
+
+.ico-file-export {
+	background-position: -432px -1680px;
+}
+
+/* Glyphicons Mini
+=================================================================== */
+[class^="mini-ico-"],
+[class*=" mini-ico-"] {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  *margin-right: .3em;
+  line-height: 14px;
+  vertical-align: text-top;
+  background-image: url("../img/icons/glyphicons-mini.png");
+  background-position: 14px 14px;
+  background-repeat: no-repeat;
+  opacity: 1;
+}
+
+[class^="mini-ico-"]:last-child,
+[class*=" mini-ico-"]:last-child {
+  *margin-left: 0;
+}
+
+.mini-white {
+  background-image: url("../img/icons/glyphicons-mini-white.png");
+  opacity: 1;
+}
+
+.mini-ico-glass {
+  background-position: 0 0;
+}
+
+.mini-ico-music {
+  background-position: -24px 0;
+}
+
+.mini-ico-search {
+  background-position: -48px 0;
+}
+
+.mini-ico-envelope {
+  background-position: -72px 0;
+}
+
+.mini-ico-heart {
+  background-position: -96px 0;
+}
+
+.mini-ico-star {
+  background-position: -120px 0;
+}
+
+.mini-ico-star-empty {
+  background-position: -144px 0;
+}
+
+.mini-ico-user {
+  background-position: -168px 0;
+}
+
+.mini-ico-film {
+  background-position: -192px 0;
+}
+
+.mini-ico-th-large {
+  background-position: -216px 0;
+}
+
+.mini-ico-th {
+  background-position: -240px 0;
+}
+
+.mini-ico-th-list {
+  background-position: -264px 0;
+}
+
+.mini-ico-ok {
+  background-position: -288px 0;
+}
+
+.mini-ico-remove {
+  background-position: -312px 0;
+}
+
+.mini-ico-zoom-in {
+  background-position: -336px 0;
+}
+
+.mini-ico-zoom-out {
+  background-position: -360px 0;
+}
+
+.mini-ico-off {
+  background-position: -384px 0;
+}
+
+.mini-ico-signal {
+  background-position: -408px 0;
+}
+
+.mini-ico-cog {
+  background-position: -432px 0;
+}
+
+.mini-ico-trash {
+  background-position: -456px 0;
+}
+
+.mini-ico-home {
+  background-position: 0 -24px;
+}
+
+.mini-ico-file {
+  background-position: -24px -24px;
+}
+
+.mini-ico-time {
+  background-position: -48px -24px;
+}
+
+.mini-ico-road {
+  background-position: -72px -24px;
+}
+
+.mini-ico-download-alt {
+  background-position: -96px -24px;
+}
+
+.mini-ico-download {
+  background-position: -120px -24px;
+}
+
+.mini-ico-upload {
+  background-position: -144px -24px;
+}
+
+.mini-ico-inbox {
+  background-position: -168px -24px;
+}
+
+.mini-ico-play-circle {
+  background-position: -192px -24px;
+}
+
+.mini-ico-repeat {
+  background-position: -216px -24px;
+}
+
+.mini-ico-refresh {
+  background-position: -240px -24px;
+}
+
+.mini-ico-list-alt {
+  background-position: -264px -24px;
+}
+
+.mini-ico-lock {
+  background-position: -287px -24px;
+}
+
+.mini-ico-flag {
+  background-position: -312px -24px;
+}
+
+.mini-ico-headphones {
+  background-position: -336px -24px;
+}
+
+.mini-ico-volume-off {
+  background-position: -360px -24px;
+}
+
+.mini-ico-volume-down {
+  background-position: -384px -24px;
+}
+
+.mini-ico-volume-up {
+  background-position: -408px -24px;
+}
+
+.mini-ico-qrcode {
+  background-position: -432px -24px;
+}
+
+.mini-ico-barcode {
+  background-position: -456px -24px;
+}
+
+.mini-ico-tag {
+  background-position: 0 -48px;
+}
+
+.mini-ico-tags {
+  background-position: -25px -48px;
+}
+
+.mini-ico-book {
+  background-position: -48px -48px;
+}
+
+.mini-ico-bookmark {
+  background-position: -72px -48px;
+}
+
+.mini-ico-print {
+  background-position: -96px -48px;
+}
+
+.mini-ico-camera {
+  background-position: -120px -48px;
+}
+
+.mini-ico-font {
+  background-position: -144px -48px;
+}
+
+.mini-ico-bold {
+  background-position: -167px -48px;
+}
+
+.mini-ico-italic {
+  background-position: -192px -48px;
+}
+
+.mini-ico-text-height {
+  background-position: -216px -48px;
+}
+
+.mini-ico-text-width {
+  background-position: -240px -48px;
+}
+
+.mini-ico-align-left {
+  background-position: -264px -48px;
+}
+
+.mini-ico-align-center {
+  background-position: -288px -48px;
+}
+
+.mini-ico-align-right {
+  background-position: -312px -48px;
+}
+
+.mini-ico-align-justify {
+  background-position: -336px -48px;
+}
+
+.mini-ico-list {
+  background-position: -360px -48px;
+}
+
+.mini-ico-indent-left {
+  background-position: -384px -48px;
+}
+
+.mini-ico-indent-right {
+  background-position: -408px -48px;
+}
+
+.mini-ico-facetime-video {
+  background-position: -432px -48px;
+}
+
+.mini-ico-picture {
+  background-position: -456px -48px;
+}
+
+.mini-ico-pencil {
+  background-position: 0 -72px;
+}
+
+.mini-ico-map-marker {
+  background-position: -24px -72px;
+}
+
+.mini-ico-adjust {
+  background-position: -48px -72px;
+}
+
+.mini-ico-tint {
+  background-position: -72px -72px;
+}
+
+.mini-ico-edit {
+  background-position: -96px -72px;
+}
+
+.mini-ico-share {
+  background-position: -120px -72px;
+}
+
+.mini-ico-check {
+  background-position: -144px -72px;
+}
+
+.mini-ico-move {
+  background-position: -168px -72px;
+}
+
+.mini-ico-step-backward {
+  background-position: -192px -72px;
+}
+
+.mini-ico-fast-backward {
+  background-position: -216px -72px;
+}
+
+.mini-ico-backward {
+  background-position: -240px -72px;
+}
+
+.mini-ico-play {
+  background-position: -264px -72px;
+}
+
+.mini-ico-pause {
+  background-position: -288px -72px;
+}
+
+.mini-ico-stop {
+  background-position: -312px -72px;
+}
+
+.mini-ico-forward {
+  background-position: -336px -72px;
+}
+
+.mini-ico-fast-forward {
+  background-position: -360px -72px;
+}
+
+.mini-ico-step-forward {
+  background-position: -384px -72px;
+}
+
+.mini-ico-eject {
+  background-position: -408px -72px;
+}
+
+.mini-ico-chevron-left {
+  background-position: -432px -72px;
+}
+
+.mini-ico-chevron-right {
+  background-position: -456px -72px;
+}
+
+.mini-ico-plus-sign {
+  background-position: 0 -96px;
+}
+
+.mini-ico-minus-sign {
+  background-position: -24px -96px;
+}
+
+.mini-ico-remove-sign {
+  background-position: -48px -96px;
+}
+
+.mini-ico-ok-sign {
+  background-position: -72px -96px;
+}
+
+.mini-ico-question-sign {
+  background-position: -96px -96px;
+}
+
+.mini-ico-info-sign {
+  background-position: -120px -96px;
+}
+
+.mini-ico-screenshot {
+  background-position: -144px -96px;
+}
+
+.mini-ico-remove-circle {
+  background-position: -168px -96px;
+}
+
+.mini-ico-ok-circle {
+  background-position: -192px -96px;
+}
+
+.mini-ico-ban-circle {
+  background-position: -216px -96px;
+}
+
+.mini-ico-arrow-left {
+  background-position: -240px -96px;
+}
+
+.mini-ico-arrow-right {
+  background-position: -264px -96px;
+}
+
+.mini-ico-arrow-up {
+  background-position: -289px -96px;
+}
+
+.mini-ico-arrow-down {
+  background-position: -312px -96px;
+}
+
+.mini-ico-share-alt {
+  background-position: -336px -96px;
+}
+
+.mini-ico-resize-full {
+  background-position: -360px -96px;
+}
+
+.mini-ico-resize-small {
+  background-position: -384px -96px;
+}
+
+.mini-ico-plus {
+  background-position: -408px -96px;
+}
+
+.mini-ico-minus {
+  background-position: -433px -96px;
+}
+
+.mini-ico-asterisk {
+  background-position: -456px -96px;
+}
+
+.mini-ico-exclamation-sign {
+  background-position: 0 -120px;
+}
+
+.mini-ico-gift {
+  background-position: -24px -120px;
+}
+
+.mini-ico-leaf {
+  background-position: -48px -120px;
+}
+
+.mini-ico-fire {
+  background-position: -72px -120px;
+}
+
+.mini-ico-eye-open {
+  background-position: -96px -120px;
+}
+
+.mini-ico-eye-close {
+  background-position: -120px -120px;
+}
+
+.mini-ico-warning-sign {
+  background-position: -144px -120px;
+}
+
+.mini-ico-plane {
+  background-position: -168px -120px;
+}
+
+.mini-ico-calendar {
+  background-position: -192px -120px;
+}
+
+.mini-ico-random {
+  background-position: -216px -120px;
+}
+
+.mini-ico-comment {
+  background-position: -240px -120px;
+}
+
+.mini-ico-magnet {
+  background-position: -264px -120px;
+}
+
+.mini-ico-chevron-up {
+  background-position: -288px -120px;
+}
+
+.mini-ico-chevron-down {
+  background-position: -313px -119px;
+}
+
+.mini-ico-retweet {
+  background-position: -336px -120px;
+}
+
+.mini-ico-shopping-cart {
+  background-position: -360px -120px;
+}
+
+.mini-ico-folder-close {
+  background-position: -384px -120px;
+}
+
+.mini-ico-folder-open {
+  background-position: -408px -120px;
+}
+
+.mini-ico-resize-vertical {
+  background-position: -432px -119px;
+}
+
+.mini-ico-resize-horizontal {
+  background-position: -456px -118px;
+}
+
+.mini-ico-hdd {
+  background-position: 0 -144px;
+}
+
+.mini-ico-bullhorn {
+  background-position: -24px -144px;
+}
+
+.mini-ico-bell {
+  background-position: -48px -144px;
+}
+
+.mini-ico-certificate {
+  background-position: -72px -144px;
+}
+
+.mini-ico-thumbs-up {
+  background-position: -96px -144px;
+}
+
+.mini-ico-thumbs-down {
+  background-position: -120px -144px;
+}
+
+.mini-ico-hand-right {
+  background-position: -144px -144px;
+}
+
+.mini-ico-hand-left {
+  background-position: -168px -144px;
+}
+
+.mini-ico-hand-up {
+  background-position: -192px -144px;
+}
+
+.mini-ico-hand-down {
+  background-position: -216px -144px;
+}
+
+.mini-ico-circle-arrow-right {
+  background-position: -240px -144px;
+}
+
+.mini-ico-circle-arrow-left {
+  background-position: -264px -144px;
+}
+
+.mini-ico-circle-arrow-up {
+  background-position: -288px -144px;
+}
+
+.mini-ico-circle-arrow-down {
+  background-position: -312px -144px;
+}
+
+.mini-ico-globe {
+  background-position: -336px -144px;
+}
+
+.mini-ico-wrench {
+  background-position: -360px -144px;
+}
+
+.mini-ico-tasks {
+  background-position: -384px -144px;
+}
+
+.mini-ico-filter {
+  background-position: -408px -144px;
+}
+
+.mini-ico-briefcase {
+  background-position: -432px -144px;
+}
+
+.mini-ico-fullscreen {
+  background-position: -456px -144px;
+}

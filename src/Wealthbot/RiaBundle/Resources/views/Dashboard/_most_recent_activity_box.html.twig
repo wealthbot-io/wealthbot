@@ -1,0 +1,34 @@
+<div class="box dashboard-cart" id="most_recent_activity_cart" data-include="WealthbotRiaBundle:Dashboard:_most_recent_activity_box.html.twig">
+    <div class="box-content">
+        <h2><a href="{{ path('rx_ria_workflow_tab', {tab: 'activity'}) }}">Most Recent Activity</a></h2>
+        <div>
+            {% include 'WealthbotRiaBundle:Workflow:_workflow_activity_list.html.twig'
+                with { 'pagination': recent_activity_pagination, 'show_pagination': 'false' } %}
+        </div>
+        {#<table class="table table-striped">
+            <thead>
+            <tr>
+                <th>{{ knp_pagination_sortable(recent_activity_pagination, 'Client', 'lastName, firstName') }}</th>
+                <th>{{ knp_pagination_sortable(recent_activity_pagination, 'Date', 'createdAt') }}</th>
+                <th>{{ knp_pagination_sortable(recent_activity_pagination, 'Activity Summary', 'message') }}</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+                {% for item in recent_activity_pagination %}
+                    {% set client_url = (item.client.hasStatusProspect) ? 'rx_ria_prospect_portfolio' : 'rx_ria_dashboard_show_client' %}
+                    <tr>
+                        <td>
+                            <a href="{{ path(client_url, {'client_id': item.client.id}) }}">
+                                {{ item.client.lastName }}, {{ item.client.firstName }}
+                            </a>
+                        </td>
+                        <td>{{ item.created|date('m/d/y') }}</td>
+                        <td><a href="">{{ item.description }}</a></td>
+                        <td><a class="close delete-most-recent-activity" href="{{ path('rx_ria_dashboard_most_recent_activity_delete', {'id': item.id}) }}">×</a></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>#}
+    </div>
+</div>

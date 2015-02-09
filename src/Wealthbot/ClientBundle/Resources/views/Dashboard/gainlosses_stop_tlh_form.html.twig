@@ -1,0 +1,11 @@
+<form id="stop_tlh_form" class="form-inline" action="{{ path('wealthbot_client_gainslosses') }}" method="post">
+    {{ form_errors(form) }}
+    {{ form_label(form.stop_tlh_value, 'Stop tax loss harvesting when losses for a client reach the following value:') }}
+    {{ form_errors(form.stop_tlh_value) }}
+    <div class="input-prepend">
+        <span class="add-on">$</span>
+        {{ form_widget(form.stop_tlh_value, {'attr': {'class': 'input-mini auto-numeric', 'placeholder': '00.00'}}) }}
+    </div>
+    {{ form_rest(form) }}
+    <input style="display:none;" type="submit" class="btn" value="save"/>
+</form>

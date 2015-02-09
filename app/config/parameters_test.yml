@@ -1,6 +1,0 @@
-# This file is auto-generated during the composer install
-parameters:
-    database_name: wealthbot_test
-    database_user: walthbot
-    database_password: pass
-    mongodb_database: system_test

@@ -5,7 +5,7 @@ wealthbot.io
 Local setup
 ---------------
 
-1) git clone git@github.com:wealthbot-io/core.gite
+1) git clone git@github.com:wealthbot-io/core.git
 2) Go to app/config folder and make a copy of the file parameters.yml.dist and rename it to parameters.yml
 3) Remove composer.lock file and run the 'php composer.phar install' command.
 4) Setup DB (MySQL and Mongo) and configure the parameters.yml

@@ -10,7 +10,7 @@ Local setup
 
      $ cp parameters.yml.dist parameters.yml
 
-3. Remove composer.lock file from /core and run
+3. Remove composer.lock file from /core, (install Composer)[https://getcomposer.org/doc/00-intro.md] and run
     
      $ php composer.phar install
 

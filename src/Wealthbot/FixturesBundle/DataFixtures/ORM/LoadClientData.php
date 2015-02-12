@@ -1,12 +1,4 @@
 <?php
-/**
- * Created by JetBrains PhpStorm.
- * User: amalyuhin
- * Date: 15.07.13
- * Time: 14:09
- * To change this template use File | Settings | File Templates.
- */
-
 namespace Wealthbot\FixturesBundle\DataFixtures\ORM;
 
 

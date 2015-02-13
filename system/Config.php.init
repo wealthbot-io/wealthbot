@@ -16,18 +16,18 @@ class Config {
     static public $MYSQL_PORT = 3306;
 
     static public $MYSQL_USERNAME = 'root';
-    static public $MYSQL_PASSWORD = '';
-	static public $MYSQL_DATABASE = 'ce_dev';
+    static public $MYSQL_PASSWORD = 'passowrd';
+	static public $MYSQL_DATABASE = 'wealthbot';
 
     static public $MYSQL_USERNAME_TEST = 'advisor_test';
     static public $MYSQL_PASSWORD_TEST = 'advisor_test';
 	static public $MYSQL_DATABASE_TEST = 'advisor_test';
 
 	static public $MONGODB_HOST = 'localhost';
-	static public $MONGODB_USERNAME = '';
-	static public $MONGODB_PASSWORD = '';
+	static public $MONGODB_USERNAME = 'root';
+	static public $MONGODB_PASSWORD = 'passowrd';
 	static public $MONGODB_PORT = 27017;
-	static public $MONGODB_DATABASE = 'pas';
+	static public $MONGODB_DATABASE = 'wealthbot';
 
     static public $ARCHIVE_SOURCE_PATH = "/mnt/windows_downloads/";
     static public $ARCHIVE_UNPACK_PATH = "/mnt/tmp/";
@@ -35,5 +35,5 @@ class Config {
     static public $UNPACK_DESTINATION_COMMAND = "-od";
 
     static public $from = 'noreply@wealthbot.io';
-    static public $to = 'vlad@wealthbot.io, josh@wealthbot.io';
+    static public $to = 'webo@wealthbot.io';
 }

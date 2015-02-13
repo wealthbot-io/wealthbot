@@ -17,12 +17,12 @@ class Config {
 	static public $MYSQL_USERNAME = 'root';
 	static public $MYSQL_PASSWORD = 'password';
 	static public $MYSQL_PORT = 3306;
-	static public $MYSQL_DATABASE = 'advisor';
-	static public $MYSQL_DATABASE_TEST = 'advisor_test';
+	static public $MYSQL_DATABASE = 'wealthbot';
+	static public $MYSQL_DATABASE_TEST = 'wealthbot_test';
 
 	static public $MONGODB_HOST = 'localhost';
-	static public $MONGODB_USERNAME = '';
-	static public $MONGODB_PASSWORD = '';
+	static public $MONGODB_USERNAME = 'root';
+	static public $MONGODB_PASSWORD = 'password';
 	static public $MONGODB_PORT = 27017;
-	static public $MONGODB_DATABASE = 'pas';
+	static public $MONGODB_DATABASE = 'wealthbot';
 }

@@ -55,7 +55,7 @@ To install the MongoDB binaries, issue the following command in a system shell:
     $ app/console doctrine:database:drop
     $ app/console doctrine:database:create
     $ app/console doctrine:schema:update --force
-    $ app/console doctrine:fixtures:load
+    $ [php -d memory_limit=536870912] app/console doctrine:fixtures:load
 
 8. Make sure APC (or APCu) is enabled
 

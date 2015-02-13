@@ -38,3 +38,4 @@ composer.phar
 
 # App Stuff
 uploads/
+system/Config.php

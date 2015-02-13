@@ -19,9 +19,9 @@ class Config {
     static public $MYSQL_PASSWORD = 'passowrd';
 	static public $MYSQL_DATABASE = 'wealthbot';
 
-    static public $MYSQL_USERNAME_TEST = 'advisor_test';
-    static public $MYSQL_PASSWORD_TEST = 'advisor_test';
-	static public $MYSQL_DATABASE_TEST = 'advisor_test';
+    static public $MYSQL_USERNAME_TEST = 'wealthbot_test';
+    static public $MYSQL_PASSWORD_TEST = 'wealthbot_test';
+	static public $MYSQL_DATABASE_TEST = 'wealthbot_test';
 
 	static public $MONGODB_HOST = 'localhost';
 	static public $MONGODB_USERNAME = 'root';

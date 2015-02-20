@@ -16,7 +16,7 @@ parameters:
     mailer_user:       secretUser
     mailer_password:   secretPassword
     mailer_encryption: tls
-
+    mailer_port: 587
     locale:            en
     secret:            ThisTokenIsNotSoSecretChangeIt
 

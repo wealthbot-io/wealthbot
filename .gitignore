@@ -39,3 +39,7 @@ composer.phar
 # App Stuff
 uploads/
 system/Config.php
+
+#testing stuff
+wealthbot_test
+wealthbot_test.db

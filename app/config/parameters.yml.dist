@@ -15,7 +15,6 @@ parameters:
     mailer_host:       your smtp server
     mailer_user:       secretUser
     mailer_password:   secretPassword
-    mailer_auth_mode:  login
     mailer_encryption: tls
 
     locale:            en

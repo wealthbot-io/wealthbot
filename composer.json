@@ -33,7 +33,8 @@
         "nelmio/api-doc-bundle": "2.1.0",
         "incenteev/composer-parameter-handler": "dev-master",
         "ornicar/apc-bundle": "1.0.*",
-        "phpoffice/phpexcel": "1.7.8"
+        "phpoffice/phpexcel": "1.7.8",
+        "instaclick/base-test-bundle": "dev-master"
     },
     "repositories": [{
         "type": "package",

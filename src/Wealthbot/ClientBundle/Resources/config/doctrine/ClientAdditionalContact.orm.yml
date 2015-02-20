@@ -164,10 +164,10 @@ Wealthbot\ClientBundle\Entity\ClientAdditionalContact:
             nullable: true
     uniqueConstraints:
         ssn_unique:
-            name: UNIQ_SSN_IDX
+            name: UNIQ_SSN_IDX_CACR
             columns: [ ssn_tin ]
         email_unique:
-            name: email_UNIQUE
+            name: email_UNIQUE_CACR
             columns: [ email ]
     manyToOne:
         client:

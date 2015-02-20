@@ -7,7 +7,7 @@ require_once(__DIR__ . '/../../AutoLoader.php');
 
 $loader = require_once __DIR__.'/../../../app/autoload.php';
 
-use Database\WealthbotMySqlConnection;
+use Database\WealthbotSqliteConnection;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\Console\Input\ArrayInput;
@@ -102,16 +102,16 @@ class ExtendedTestCase extends WebTestCase
 
     public static function setUpBeforeClass()
     {
-        \Config::$PROD_MODE = \Config::ENV_TEST;
-        WealthbotMySqlConnection::getInstance()->execute("use " . \Config::$MYSQL_DATABASE_TEST);
+        // \Config::$PROD_MODE = \Config::ENV_TEST;
+        // WealthbotSqliteConnection::getInstance()->execute("use " . \Config::$SQLITE_DATABASE_TEST);
 
         static::initialize();
     }
 
     public static function tearDownAfterClass()
     {
-        \Config::$PROD_MODE = \Config::ENV_PROD;
-        WealthbotMySqlConnection::getInstance()->execute("use " . \Config::$MYSQL_DATABASE);
+        // \Config::$PROD_MODE = \Config::ENV_PROD;
+        // WealthbotSqliteConnection::getInstance()->execute("use " . \Config::$SQLITE_DATABASE_TEST);
     }
 
     /**

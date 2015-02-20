@@ -85,7 +85,7 @@ Wealthbot\ClientBundle\Entity\PersonalInformation:
             nullable: true
     uniqueConstraints:
         unique_ssn:
-            name: UNIQ_SSN_IDX
+            name: UNIQ_SSN_IDX_PI
             columns: [ ssn_tin ]
     oneToOne:
         client:

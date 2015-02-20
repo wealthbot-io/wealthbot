@@ -13,7 +13,7 @@ Wealthbot\ClientBundle\Entity\TransferCustodian:
             length: 40
     uniqueConstraints:
         name_unique:
-            name: name_UNIQUE
+            name: name_UNIQUE_TC
             columns: [ name ]
     oneToOne:
         transferCustodianQuestion:

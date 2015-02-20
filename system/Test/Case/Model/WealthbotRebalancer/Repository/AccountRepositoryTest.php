@@ -29,7 +29,7 @@ class AccountRepositoryTest extends ExtendedTestCase
     public function testFindClientAccounts()
     {
         $clientRepo = new ClientRepository();
-        $client = $clientRepo->findClientByEmail('miles@wealthbot.io');
+        $client = $clientRepo->findClientByEmail('johnny@wealthbot.io');
 
         $accounts = $this->repository->findClientAccounts($client);
 
@@ -53,6 +53,7 @@ class AccountRepositoryTest extends ExtendedTestCase
     public function testFindOneByAccountNumber()
     {
         $account = $this->repository->findOneByAccountNumber('744888385');
+        var_dump($account);
         $this->assertEquals(Account::STATUS_ACTIVE, $account->getStatus());
     }
 

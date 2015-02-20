@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: virtustilus
- * Date: 04.02.14
- * Time: 1:35
- */
 
 namespace Wealthbot\AdminBundle\Tests\Controller;
 

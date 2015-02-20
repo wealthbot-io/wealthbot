@@ -31,7 +31,7 @@ Wealthbot\UserBundle\Entity\User:
           on: update
   uniqueConstraints:
     email_unique:
-      name: email_UNIQUE
+      name: email_UNIQUE_UR
       columns: [ email ]
   oneToOne:
     profile:

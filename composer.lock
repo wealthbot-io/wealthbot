@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "11eaa542d648b0ffab23306b043b466b",
+    "hash": "d08a46f8a755bdbf9efec3b7f1169ba5",
     "packages": [
         {
             "name": "PHPOffice/PHPExcel",
@@ -1337,6 +1337,48 @@
                 "parameters management"
             ],
             "time": "2014-12-17 16:24:52"
+        },
+        {
+            "name": "instaclick/base-test-bundle",
+            "version": "dev-master",
+            "target-dir": "IC/Bundle/Base/TestBundle",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/instaclick/ICBaseTestBundle.git",
+                "reference": "d1b5f9a7cb5ac601caffc25f0740a9f2f802762a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/instaclick/ICBaseTestBundle/zipball/d1b5f9a7cb5ac601caffc25f0740a9f2f802762a",
+                "reference": "d1b5f9a7cb5ac601caffc25f0740a9f2f802762a",
+                "shasum": ""
+            },
+            "require": {
+                "doctrine/doctrine-fixtures-bundle": "2.*",
+                "php": ">=5.3.2",
+                "symfony/framework-bundle": ">=2.0,<3.0-dev"
+            },
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-0": {
+                    "IC\\Bundle\\Base\\TestBundle": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "InstaClick Inc.",
+                    "homepage": "http://www.instaclick.com"
+                }
+            ],
+            "description": "This bundle provides lower level support for functional tests on Symfony2.",
+            "keywords": [
+                "Symfony2"
+            ],
+            "time": "2014-05-20 18:23:36"
         },
         {
             "name": "jdorn/sql-formatter",
@@ -3995,7 +4037,8 @@
         "doctrine/mongodb-odm": 20,
         "doctrine/mongodb-odm-bundle": 20,
         "jms/serializer-bundle": 20,
-        "incenteev/composer-parameter-handler": 20
+        "incenteev/composer-parameter-handler": 20,
+        "instaclick/base-test-bundle": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

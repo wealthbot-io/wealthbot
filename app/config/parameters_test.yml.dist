@@ -1,5 +1,5 @@
 parameters:
-    database_name:     wealthbot_test
-    database_user:     wealthbot_test
-    database_password: wealthbot_test
-    mongodb_database: wealthbot_test
+    database_name:     wealthbot
+    database_user:     root
+    database_password: password
+    mongodb_database: wealthbot

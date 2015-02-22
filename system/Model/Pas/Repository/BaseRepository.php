@@ -2,7 +2,8 @@
 
 namespace Model\Pas\Repository;
 
-use Database\WealthbotMySqlConnection;
+use Database\WealthbotSqliteConnection;
+use Database\WealthbotMysqlConnection;
 use Database\Builder\Fluent\FluentPDO;
 
 abstract class BaseRepository
@@ -28,7 +29,7 @@ abstract class BaseRepository
     const TABLE_CUSTODIAN = 'custodians';
     const TABLE_BILL_ITEM = 'bill_item';
 
-    protected $mySqlDB;
+    protected $db;
 
     /**
      * @var \Database\Builder\Fluent\FluentPDO
@@ -42,8 +43,13 @@ abstract class BaseRepository
 
     public function __construct()
     {
-        $this->mySqlDB = WealthbotMySqlConnection::getInstance();
-        $this->fpdo = new FluentPDO($this->mySqlDB->getPdo());
+        if (\Config::$PROD_MODE == 0) {
+            $this->db = WealthbotSqliteConnection::getInstance();
+        } else {
+            $this->db = WealthbotMysqlConnection::getInstance();
+        }
+
+        $this->fpdo = new FluentPDO($this->db->getPdo());
         //$this->fpdo->debug = true;
 
         $options = $this->getOptions();
@@ -153,17 +159,17 @@ abstract class BaseRepository
 
     public function commit()
     {
-        $this->mySqlDB->getPdo()->commit();
+        $this->db->getPdo()->commit();
     }
 
     public function rollback()
     {
-        $this->mySqlDB->getPdo()->rollback();
+        $this->db->getPdo()->rollback();
     }
 
     public function beginTransaction()
     {
-        $this->mySqlDB->getPdo()->beginTransaction();
+        $this->db->getPdo()->beginTransaction();
     }
 
     public function getBuilder()

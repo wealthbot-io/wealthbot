@@ -103,7 +103,7 @@ class AccountRepositoryTest extends ExtendedTestCase
     public function testFindAccountById()
     {
         $clientRepo = new ClientRepository();
-        $client = $clientRepo->findClientByEmail('miles@wealthbot.io');
+        $client = $clientRepo->findClientByEmail('johnny@wealthbot.io');
 
         $accounts = $this->repository->findClientAccounts($client);
 

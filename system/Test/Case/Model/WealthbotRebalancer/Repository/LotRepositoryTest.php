@@ -52,7 +52,7 @@ class LotRepositoryTest extends ExtendedTestCase
         $accountRepo = new AccountRepository();
 
         $security = $securityRepo->findOneBySymbol('RWX');
-        $client = $clientRepo->findClientByEmail('miles@wealthbot.io');
+        $client = $clientRepo->findClientByEmail('johnny@wealthbot.io');
         $portfolioRepo->findPortfolioByClient($client);
 
         $subclass = $subclassRepo->findByNameForPortfolio('Short', $client->getPortfolio());
@@ -151,7 +151,7 @@ class LotRepositoryTest extends ExtendedTestCase
         $security = $securityRepo->findOneBySymbol('RWX');
         $account = $accountRepo->findOneByAccountNumber('744888386');
 
-        $client = $clientRepo->findClientByEmail('miles@wealthbot.io');
+        $client = $clientRepo->findClientByEmail('johnny@wealthbot.io');
         $portfolioRepo->findPortfolioByClient($client);
 
         $account->setClient($client);
@@ -191,7 +191,7 @@ class LotRepositoryTest extends ExtendedTestCase
     public function testClientGainsOrLossesSumForYear()
     {
         $clientRepo = new ClientRepository();
-        $client = $clientRepo->findClientByEmail('miles@wealthbot.io');
+        $client = $clientRepo->findClientByEmail('johnny@wealthbot.io');
 
 
 

@@ -25,7 +25,7 @@ class PortfolioRepositoryTest extends ExtendedTestCase
     {
         $clientRepo = new ClientRepository();
 
-        $client = $clientRepo->findClientByEmail('miles@wealthbot.io');
+        $client = $clientRepo->findClientByEmail('johnny@wealthbot.io');
 
         $portfolio = $this->repository->findPortfolioByClient($client);
         $this->assertNotNull($portfolio->getId());
@@ -43,7 +43,7 @@ class PortfolioRepositoryTest extends ExtendedTestCase
     {
         $clientRepo = new ClientRepository();
 
-        $client = $clientRepo->findClientByEmail('miles@wealthbot.io');
+        $client = $clientRepo->findClientByEmail('johnny@wealthbot.io');
         $portfolio = $this->repository->findPortfolioByClient($client);
 
         $this->repository->loadPortfolioValues($client);

@@ -23,7 +23,7 @@ class WealthbotMysqlSqliteConnection
         }
 
         $options = array(
-            \PDO::ATTR_PERSISTENT => true, 
+            \PDO::ATTR_PERSISTENT => true,
             \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION
         );
 
@@ -32,7 +32,7 @@ class WealthbotMysqlSqliteConnection
                 case "sqlite":
                     $conn = "sqlite:{$sqlitedb}";
                     $this->db = new \PDO($conn);
-                    $this->db->setAttribute($options);
+                    $this->db->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
                     break;
                 case "mysql":
                     $conn = "mysql:host={$dbhost};dbname={$dbname}";
@@ -73,7 +73,7 @@ class WealthbotMysqlSqliteConnection
             $result->execute($bind);
             return $result;
 
-        } catch (PDOException $e) {
+        } catch (\PDOException $e) {
             echo $e->getMessage(); exit(1);
         }
     }
@@ -98,7 +98,7 @@ class WealthbotMysqlSqliteConnection
         $sql .= ";";
 
         $result = $this->run($sql, $bind);
-        $result->setFetchMode(PDO::FETCH_ASSOC);
+        $result->setFetchMode(\PDO::FETCH_ASSOC);
 
         $rows = array();
         while($row = $result->fetch()) {

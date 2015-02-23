@@ -24,4 +24,4 @@ doctrine:
         connections:
             default:
                 driver:   pdo_sqlite
-                path:     %kernel.cache_dir%/wealthbot_test.db
+                path:     wealthbot_test.db

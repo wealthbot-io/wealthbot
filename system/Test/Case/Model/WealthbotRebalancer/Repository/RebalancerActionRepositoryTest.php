@@ -5,7 +5,7 @@ namespace Test\Model\WealthbotRebalancer\Repository;
 require_once(__DIR__ . '/../../../../../AutoLoader.php');
 \AutoLoader::registerAutoloader();
 
-use Database\WealthbotMySqlConnection;
+use Database\WealthbotMySqlSqliteConnection;
 use Model\WealthbotRebalancer\Job;
 use Model\WealthbotRebalancer\RebalancerAction;
 use Model\WealthbotRebalancer\Repository\BaseRepository;
@@ -56,7 +56,7 @@ class RebalancerActionRepositoryTest extends ExtendedTestCase
 
         $job = $jobRepo->findFirst();
 
-        $client = $clientRepo->findClientByEmail('miles@wealthbot.io');
+        $client = $clientRepo->findClientByEmail('johnny@wealthbot.io');
         $portfolio = $portfolioRepo->findPortfolioByClient($client);
 
         $rebalancerActions = $this->repository->findByPortfolioAndJob($portfolio, $job);
@@ -78,7 +78,7 @@ class RebalancerActionRepositoryTest extends ExtendedTestCase
 
         $job = $jobRepo->findFirst();
 
-        $client = $clientRepo->findClientByEmail('miles@wealthbot.io');
+        $client = $clientRepo->findClientByEmail('johnny@wealthbot.io');
         $portfolio = $portfolioRepo->findPortfolioByClient($client);
 
         $rebalancerActions = $this->repository->findByPortfolioAndJob($portfolio, $job);
@@ -88,7 +88,7 @@ class RebalancerActionRepositoryTest extends ExtendedTestCase
 
         $sql = "SELECT * FROM ".BaseRepository::TABLE_REBALANCER_ACTION." ra where ra.id = :id";
 
-        $connection = WealthbotMySqlConnection::getInstance();
+        $connection = WealthbotMySqlSqliteConnection::getInstance();
         $pdo = $connection->getPdo();
         $statement = $pdo->prepare($sql);
         $statement->execute(array('id' => $rebalancerAction->getId()));

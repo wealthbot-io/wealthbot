@@ -2,8 +2,7 @@
 
 namespace Model\Pas\Repository;
 
-use Database\WealthbotSqliteConnection;
-use Database\WealthbotMysqlConnection;
+use Database\WealthbotMysqlSqliteConnection;
 use Database\Builder\Fluent\FluentPDO;
 
 abstract class BaseRepository
@@ -31,6 +30,8 @@ abstract class BaseRepository
 
     protected $db;
 
+    protected $testMode;
+    
     /**
      * @var \Database\Builder\Fluent\FluentPDO
      */
@@ -43,12 +44,7 @@ abstract class BaseRepository
 
     public function __construct()
     {
-        if (\Config::$PROD_MODE == 0) {
-            $this->db = WealthbotSqliteConnection::getInstance();
-        } else {
-            $this->db = WealthbotMysqlConnection::getInstance();
-        }
-
+        $this->db = WealthbotMysqlSqliteConnection::getInstance();
         $this->fpdo = new FluentPDO($this->db->getPdo());
         //$this->fpdo->debug = true;
 

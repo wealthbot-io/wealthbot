@@ -1,8 +1,7 @@
 <?php
 namespace Model\WealthbotRebalancer\Repository;
 
-use Database\WealthbotSqliteConnection;
-use Database\WealthbotMySqlConnection;
+use Database\WealthbotMysqlSqliteConnection;
 use Model\WealthbotRebalancer\ArrayCollection;
 use Model\WealthbotRebalancer\Base;
 
@@ -47,11 +46,7 @@ abstract class BaseRepository {
 
     public function __construct()
     {
-        if (\Config::$PROD_MODE == 0) {
-            $this->db =  WealthbotSqliteConnection::getInstance();
-        } else {
-            $this->db = WealthbotMySqlConnection::getInstance();
-        }
+        $this->db = WealthbotMysqlSqliteConnection::getInstance();
 
         $this->initAvailableTables();
 

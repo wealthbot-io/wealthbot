@@ -23,7 +23,7 @@ class PasInterfacesControllerTest extends ExtendedWebTestCase {
     public function adminAuth()
     {
         $this->authenticateUser(
-            'admin',
+            'webo',
             array('ROLE_SUPER_ADMIN'),
             'backend_auth'
         );

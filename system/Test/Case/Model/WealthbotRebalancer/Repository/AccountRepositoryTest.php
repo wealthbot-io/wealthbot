@@ -5,7 +5,7 @@ namespace Test\Model\WealthbotRebalancer\Repository;
 require_once(__DIR__ . '/../../../../../AutoLoader.php');
 \AutoLoader::registerAutoloader();
 
-use Database\WealthbotMySqlConnection;
+use Database\WealthbotMySqlSqliteConnection;
 use Model\WealthbotRebalancer\Account;
 use Model\WealthbotRebalancer\AccountCollection;
 use Model\WealthbotRebalancer\Client;
@@ -136,7 +136,7 @@ class AccountRepositoryTest extends ExtendedTestCase
             'rebalancerActionId' => $rebalancerAction->getId()
         );
 
-        $connection = WealthbotMySqlConnection::getInstance();
+        $connection = WealthbotMySqlSqliteConnection::getInstance();
         $pdo = $connection->getPdo();
         $statement = $pdo->prepare($sql);
         $statement->execute($parameters);

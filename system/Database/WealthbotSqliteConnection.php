@@ -20,7 +20,7 @@ class WealthbotSqliteConnection
             $database = \Config::$SQLITE_DATABASE_TEST;
         }
 
-        $this->db = new \SQLite3($database);
+        $this->db = new \PDO($database);
     }
 
     private function __clone() { }

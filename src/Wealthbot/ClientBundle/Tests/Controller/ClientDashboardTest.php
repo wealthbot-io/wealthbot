@@ -11,7 +11,7 @@ class ClientDashboardTest extends ExtendedWebTestCase
     /** @var Router */
     protected $router;
 
-    public function setUp()
+    public function setUp() 
     {
         parent::setUp();
 
@@ -23,7 +23,7 @@ class ClientDashboardTest extends ExtendedWebTestCase
      */
     public function testHoldingsAction()
     {
-        $this->authenticateUser('bot@wealthbot.io', array('ROLE_CLIENT'));
+        $this->authenticateUser('liu@wealthbot.io', array('ROLE_CLIENT'));
         $crawler = $this->client->request('GET', $this->router->generate('wealthbot_client_holdings'));
         $content = $this->client->getResponse()->getContent();
 
@@ -35,7 +35,7 @@ class ClientDashboardTest extends ExtendedWebTestCase
         );
 
         $this->assertContains('Holdings', $content, 'No Holdings text in content. May be wrong page returned? ');
-        $this->assertContains('Barbara', $content, 'No Barbara\'s account in content. May be wrong page returned? ');
+        $this->assertContains('Princess', $content, 'No Princess account in content. May be wrong page returned? ');
         $this->assertContains('client_holdings_table_test', $content, 'Not found client_holdings_table_test table in content. May be wrong page returned? ');
     }
 }

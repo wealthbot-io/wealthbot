@@ -25,9 +25,9 @@ class ProspectsControllerTest extends ExtendedWebTestCase {
 
     public function testSuggestedPortfolioAction()
     {
-        $this->authenticateUser('josh@wealthbot.io', array('ROLE_RIA'));
+        $this->authenticateUser('raiden@wealthbot.io', array('ROLE_RIA'));
 
-        $client = $this->em->getRepository('WealthbotUserBundle:User')->findOneBy(array('username'=>'boschen@wealthbot.io'));
+        $client = $this->em->getRepository('WealthbotUserBundle:User')->findOneBy(array('username' => 'liu@wealthbot.io'));
         $url = $this->router->generate('rx_ria_prospect_portfolio', array(
             'client_id' => $client->getId()
         ));
@@ -40,9 +40,9 @@ class ProspectsControllerTest extends ExtendedWebTestCase {
 
     public function testSuggestedPortfolioWrongUser()
     {
-        $this->authenticateUser('josh@wealthbot.io', array('ROLE_RIA'));
+        $this->authenticateUser('raiden@wealthbot.io', array('ROLE_RIA'));
 
-        $client = $this->em->getRepository('WealthbotUserBundle:User')->findOneBy(array('username'=>'miles@wealthbot.io'));
+        $client = $this->em->getRepository('WealthbotUserBundle:User')->findOneBy(array('username' => 'client'));
         $url = $this->router->generate('rx_ria_prospect_portfolio', array(
                 'client_id' => $client->getId()
         ));

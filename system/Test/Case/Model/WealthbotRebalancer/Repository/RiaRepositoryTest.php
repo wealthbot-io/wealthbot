@@ -27,7 +27,7 @@ class RiaRepositoryTest extends ExtendedTestCase
 
         $ria = $this->repository->findOneByClient($client);
 
-        $this->assertEquals('johnny@wealthbot.io', $ria->getEmail());
+        $this->assertEquals('raiden@wealthbot.io', $ria->getEmail());
         $this->assertEquals(true, $ria->getIsTlhEnabled());
         $this->assertEquals(0.1, $ria->getClientTaxBracket());
         $this->assertEquals(50000, $ria->getMinRelationshipValue());

@@ -33,7 +33,7 @@ class PortfolioRepository extends BaseRepository {
             'clientId' => $client->getId()
         );
 
-        $result = $this->mySqlDB->query($sql, $parameters);
+        $result = $this->db->query($sql, $parameters);
         $collection = $this->bindCollection($result);
 
         $portfolio = $collection->first();
@@ -60,7 +60,7 @@ class PortfolioRepository extends BaseRepository {
                 WHERE cp.portfolio_id = :portfolio_id AND u.id = :clientId
                 ORDER BY cpv.date desc LIMIT 1";
 
-        $pdo = $this->mySqlDB->getPdo();
+        $pdo = $this->db->getPdo();
 
         $portfolio = $client->getPortfolio();
 

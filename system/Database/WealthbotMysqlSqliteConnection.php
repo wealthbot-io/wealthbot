@@ -164,6 +164,12 @@ class WealthbotMysqlSqliteConnection
         return $statement->fetchAll($fetchStyle);
     }
 
+    public function queryOne($sql, array $parameters = array(), $fetchStyle = \PDO::FETCH_ASSOC)
+    {
+        $statement = $this->execute($sql, $parameters);
+
+        return $statement->fetch($fetchStyle);
+    }
     /**
      * Execute
      *
@@ -173,8 +179,10 @@ class WealthbotMysqlSqliteConnection
      */
     public function execute($sql, array $parameters = array())
     {
-        $sql = $this->interpolateQuery($sql, $parameters);
-        return $this->db->query($sql);
+        $statement = $this->db->prepare($sql);
+        $statement->execute($parameters);
+
+        return  $statement;
     }
 
 /**

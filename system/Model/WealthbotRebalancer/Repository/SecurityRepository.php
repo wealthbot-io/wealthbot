@@ -51,7 +51,7 @@ class SecurityRepository extends BaseRepository {
             'client_id' => $account->getClient()->getId()
         );
 
-        $result = $this->mySqlDB->query($sql, $parameters);
+        $result = $this->db->query($sql, $parameters);
 
         return $this->bindCollection($result);
     }
@@ -70,7 +70,7 @@ class SecurityRepository extends BaseRepository {
             'portfolioId' => $portfolio->getId()
         );
 
-        $result = $this->mySqlDB->query($sql, $parameters);
+        $result = $this->db->query($sql, $parameters);
 
         $securityCollection = $this->bindCollection($result);
 

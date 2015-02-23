@@ -28,7 +28,7 @@ class JobRepository extends BaseRepository {
             'jobName' => Job::JOB_NAME_REBALANCER
         );
 
-        $result = $this->mySqlDB->query($sql, $parameters);
+        $result = $this->db->query($sql, $parameters);
 
         return $this->bindCollection($result);
     }
@@ -42,6 +42,6 @@ class JobRepository extends BaseRepository {
             'jobId' => $job->getId()
         );
 
-        $this->mySqlDB->query($sql, $parameters);
+        $this->db->query($sql, $parameters);
     }
 }

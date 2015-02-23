@@ -53,7 +53,7 @@ class AccountRepository extends BaseRepository
             'status'    => self::STATUS_BILL_APPROVED
         );
 
-        $result = $this->mySqlDB->query($sql, $parameters);
+        $result = $this->db->query($sql, $parameters);
         $collection = $this->bindCollection($result);
 
         foreach ($collection as $item) {
@@ -76,7 +76,7 @@ class AccountRepository extends BaseRepository
             'status' => self::STATUS_BILL_APPROVED
         );
 
-        $result = $this->mySqlDB->query($sql, $parameters);
+        $result = $this->db->query($sql, $parameters);
 
         if (!isset($result[0])) {
             return null;
@@ -117,7 +117,7 @@ class AccountRepository extends BaseRepository
                 ORDER BY date DESC
                 LIMIT 1";
 
-        return $this->mySqlDB->queryOne($sql, array('account_id' => $account->getId()));
+        return $this->db->queryOne($sql, array('account_id' => $account->getId()));
     }
 
     /**

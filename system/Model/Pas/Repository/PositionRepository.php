@@ -129,7 +129,7 @@ class PositionRepository extends BaseRepository
      */
     public function getPositionBy($accountId, $securityId, $date)
     {
-        return $this->mySqlDB->query("SELECT * FROM {$this->table} WHERE client_system_account_id = :account_id AND security_id = :security_id AND date = DATE(:date)", array(
+        return $this->db->query("SELECT * FROM {$this->table} WHERE client_system_account_id = :account_id AND security_id = :security_id AND date = DATE(:date)", array(
             'account_id'  => $accountId,
             'security_id' => $securityId,
             'date'        => $date
@@ -159,7 +159,7 @@ class PositionRepository extends BaseRepository
      */
     public function changeStatus($positionId, $status)
     {
-        $this->mySqlDB->query("UPDATE {$this->table} SET status = :status WHERE id = :id", array(
+        $this->db->query("UPDATE {$this->table} SET status = :status WHERE id = :id", array(
             'status' => $status,
             'id'     => $positionId
         ));
@@ -172,7 +172,7 @@ class PositionRepository extends BaseRepository
      */
     public function getSumByAccountId($accountId, $date)
     {
-        $data = $this->mySqlDB->query("SELECT SUM(amount) as total FROM {$this->table} WHERE client_system_account_id = :account_id AND date = DATE(:date)", array(
+        $data = $this->db->query("SELECT SUM(amount) as total FROM {$this->table} WHERE client_system_account_id = :account_id AND date = DATE(:date)", array(
             'account_id' => $accountId,
             'date'       => $date
         ));

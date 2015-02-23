@@ -30,7 +30,7 @@ class RebalancerActionRepositoryTest extends ExtendedTestCase
     {
         $riaRepo = new RiaRepository();
         $ria = $riaRepo->findOneBy(array(
-            'email' => 'josh@wealthbot.io'
+            'email' => 'raiden@wealthbot.io'
         ));
 
         $jobRepo = new JobRepository();
@@ -78,7 +78,7 @@ class RebalancerActionRepositoryTest extends ExtendedTestCase
 
         $job = $jobRepo->findFirst();
 
-        $client = $clientRepo->findClientByEmail('johnny@wealthbot.io');
+        $client = $clientRepo->findClientByEmail('liu@wealthbot.io');
         $portfolio = $portfolioRepo->findPortfolioByClient($client);
 
         $rebalancerActions = $this->repository->findByPortfolioAndJob($portfolio, $job);

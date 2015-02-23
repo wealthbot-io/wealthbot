@@ -40,7 +40,7 @@ class Ria extends Base {
     private function __getRiaData()
     {
         $q = 'SELECT * FROM `ria_company_information` WHERE `ria_user_id` = ' . $this->id;
-        return $this->mySqlDB->q($q);
+        return $this->db->q($q);
     }
 
 	public function redemptionFee($val = null) {
@@ -58,7 +58,7 @@ class Ria extends Base {
 
 		if (!isset($this->billingFee) || is_null($this->billingFee)) {
 			$q = 'SELECT * FROM `ria_company_information` WHERE `ria_user_id` = ' . $this->id;
-			$res = $this->mySqlDB->q($q);
+			$res = $this->db->q($q);
 			$this->billingFee = $res[0]['minimum_billing_fee'];
 		}
 
@@ -165,7 +165,7 @@ class Ria extends Base {
 	 */
 	public function getAllActiveIds() {
 		$q = 'SELECT * FROM `ria_company_information` WHERE `activated` = 1';
-		$res = $this->mySqlDB->q($q);
+		$res = $this->db->q($q);
 
 		$res = Hash::extract($res, '{n}.id');
 		return $res;

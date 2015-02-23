@@ -37,7 +37,7 @@ class RiaRepository extends BaseRepository
                 WHERE cp.user_id = :client_id";
 
         $params = array('client_id' => $client->getId());
-        $result = $this->mySqlDB->query($sql, $params);
+        $result = $this->db->query($sql, $params);
         $collection = $this->bindCollection($result);
 
         return $collection->first();

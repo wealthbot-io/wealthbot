@@ -82,7 +82,7 @@ class AssetSubclass extends Base {
     private function __getData()
     {
         $q = 'SELECT * FROM subclasses s WHERE s.id = '.$this->id;
-        $res = $this->mySqlDB->q($q);
+        $res = $this->db->q($q);
         return $res;
     }
 }

@@ -35,7 +35,7 @@ class Base {
 	public function __construct() {
 		try {
 			$this->connection = new Connection();
-			$this->mySqlDB = $this->connection->getMySqlDB();
+			$this->db = $this->connection->getMySqlDB();
 		} catch (Exception $e) {
 			//could not connect
 		}

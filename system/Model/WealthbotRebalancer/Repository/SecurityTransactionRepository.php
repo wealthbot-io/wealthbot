@@ -45,7 +45,7 @@ class SecurityTransactionRepository extends BaseRepository
         );
 
 
-        $result = $this->mySqlDB->queryOne($sql, $params);
+        $result = $this->db->queryOne($sql, $params);
         if (!$result) {
             return null;
         }

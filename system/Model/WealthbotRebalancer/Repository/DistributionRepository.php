@@ -43,7 +43,7 @@ class DistributionRepository extends BaseRepository
             'date_to' => $dateTo->format('Y-m-d')
         );
 
-        $distributions = $this->mySqlDB->query($sql, $parameters);
+        $distributions = $this->db->query($sql, $parameters);
         if (!count($distributions)) {
             return 0;
         }
@@ -66,7 +66,7 @@ class DistributionRepository extends BaseRepository
             'account_id' => $account->getId(),
         );
 
-        $distributions = $this->mySqlDB->query($sql, $parameters);
+        $distributions = $this->db->query($sql, $parameters);
 
         $sum = 0;
         foreach ($distributions as $distribution) {

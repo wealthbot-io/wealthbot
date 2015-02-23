@@ -247,7 +247,7 @@ class RebalancerQueueRepositoryTest extends ExtendedTestCase
     {
         $riaRepo = new RiaRepository();
         $ria = $riaRepo->findOneBy(array(
-            'email' => 'johnny@wealthbot.io'
+            'email' => 'raiden@wealthbot.io'
         ));
 
         $jobRepo = new JobRepository();

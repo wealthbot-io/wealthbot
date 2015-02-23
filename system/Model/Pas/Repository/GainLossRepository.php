@@ -37,7 +37,7 @@ class GainLossRepository extends BaseRepository
                     DATE(:date))"
         ;
 
-        $this->mySqlDB->query($sql, array(
+        $this->db->query($sql, array(
             'client_system_account_id'  => $parameters['accountId'],
             'transaction_id'            => $parameters['transactionId'],
             'security_id'               => $parameters['securityId'],
@@ -57,7 +57,7 @@ class GainLossRepository extends BaseRepository
                 WHERE id = :id"
         ;
 
-        $this->mySqlDB->query($sql, array(
+        $this->db->query($sql, array(
             'id'    => $id,
             'value' => $parameters['value']
         ));
@@ -70,7 +70,7 @@ class GainLossRepository extends BaseRepository
                 LIMIT 1"
         ;
 
-        $data = $this->mySqlDB->query($sql, array('transaction_id' => $parameters['transactionId']));
+        $data = $this->db->query($sql, array('transaction_id' => $parameters['transactionId']));
 
         $data ? $this->update($data[0]['id'], $parameters) : $this->insert($parameters);
     }

@@ -467,19 +467,19 @@ class Security extends Base {
 		}
 
 		$q = 'SELECT * FROM `security_transaction` WHERE `security_assignment_id` = ' . $this->securityAssignmentId;
-		$res = $this->mySqlDB->q($q);
+		$res = $this->db->q($q);
 		return $res;
 	}
 
 	private function __getSecurityAssignmentData() {
 		$q = 'SELECT * FROM `securities_assignments` WHERE `security_id` = ' . $this->id;
-		$res = $this->mySqlDB->q($q);
+		$res = $this->db->q($q);
 		return $res;
 	}
 
 	private function __getSecurityData() {
 		$q = 'SELECT * FROM `securities` WHERE `symbol` = ' . $this->symbol;
-		$res = $this->mySqlDB->q($q);
+		$res = $this->db->q($q);
 		return $res;
 	}
 
@@ -492,13 +492,13 @@ class Security extends Base {
 				and (ria_company_information.is_use_qualified_models = false or ria_company_information.is_use_qualified_models = true
 				and ce_model_entities.is_qualified = false)
 				group by ria_company_information.ria_user_id';
-		$res = $this->mySqlDB->q($q);
+		$res = $this->db->q($q);
 		return $res;
 	}
 
 	private function __getCEModelData($modelId) {
 		$q = 'SELECT * FROM `ce_model_entities` WHERE `id` = ' . $modelId;
-		$res = $this->mySqlDB->q($q);
+		$res = $this->db->q($q);
 		return $res;
 	}
 
@@ -516,7 +516,7 @@ class Security extends Base {
 		$q = 'SELECT * FROM `positions`
 		INNER JOIN `securities_assignments` on `securities_assignments.security_id` = `positions.security_id`
 		WHERE `client_system_account_id` = ' . $systemAccountId;
-		$res = $this->mySqlDB->q($q);
+		$res = $this->db->q($q);
 
 		$seucrityIds = Hash::extract($res, '{n}.security_id');
 		return $res;

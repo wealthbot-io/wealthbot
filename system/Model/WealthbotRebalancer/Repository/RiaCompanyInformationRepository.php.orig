@@ -27,7 +27,7 @@ class RiaCompanyInformationRepository extends BaseRepository
 
         $params = array('riaId' => $ria->getId());
 
-        $result = $this->mySqlDB->queryOne($sql, $params);
+        $result = $this->db->queryOne($sql, $params);
         /** @var RiaCompanyInformation $riaCompanyInformation */
         $riaCompanyInformation = $this->bindObject($result);
         $riaCompanyInformation->setRia($ria);
@@ -50,7 +50,7 @@ class RiaCompanyInformationRepository extends BaseRepository
     private function __getRiaData($id) {
         $sql = 'SELECT * FROM `'. self::TABLE_RIA_COMPANY_INFORMATION. '` WHERE `ria_user_id` = :ria_id';
         $params = array('ria_id' => $id);
-        $res = $this->mySqlDB->query($sql, $params);
+        $res = $this->db->query($sql, $params);
 
         return $res;
     }

@@ -132,7 +132,7 @@ class Rebalancer {
 		$this->log->pushHandler(new StreamHandler(__DIR__ . '/../logs/rebalancer.log', Logger::WARNING));
 
 		$this->connection = new Connection();
-		$this->mySqlDB = $this->connection->getMySqlDB();
+		$this->db = $this->connection->getMySqlDB();
 	}
 
 	public function firstRun($val = null) {
@@ -519,7 +519,7 @@ class Rebalancer {
 	}
 	private function __getAccounts() {
 		$q = 'SElECT * from `system_client_accounts` WHERE `status` = "verified"';
-		$res = $this->mySqlDB->q($q);
+		$res = $this->db->q($q);
 		return $res;
 	}
 

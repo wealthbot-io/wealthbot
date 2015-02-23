@@ -12,8 +12,8 @@ class Config {
     const ENV_DEV =  1;
     const ENV_TEST = 2;
 
-    static public $SQLITE_DATABASE_TEST = '../app/cache/test/wealthbot_test.db';
-    static public $SQLITE_DATABASE = '../app/cache/test/wealthbot';
+    static public $SQLITE_DATABASE_TEST = 'wealthbot_test.db';
+    static public $SQLITE_DATABASE = 'wealthbot';
 
 	static public $MYSQL_HOST = 'localhost';
     static public $MYSQL_PORT = 3306;

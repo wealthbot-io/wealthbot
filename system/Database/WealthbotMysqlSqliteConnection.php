@@ -17,9 +17,11 @@ class WealthbotMysqlSqliteConnection
         $dbuser = \Config::$MYSQL_USERNAME;
         $dbpass = \Config::$MYSQL_PASSWORD;
         $dbname = \Config::$SQLITE_DATABASE;
+        $dbDriver = 'sqlite';
         if (isset($GLOBALS['__PHPUNIT_BOOTSTRAP'])) {
             $sqlitedb = \Config::$SQLITE_DATABASE_TEST;
-            $dbdriver = 'sqlite';
+        } else {
+            $dbDriver = 'mysql';
         }
 
         $options = array(
@@ -29,17 +31,17 @@ class WealthbotMysqlSqliteConnection
 
         try {
             switch($dbdriver) {
-                case "sqlite":
+                case 'sqlite':
                     $conn = "sqlite:{$sqlitedb}";
                     $this->db = new \PDO($conn);
                     $this->db->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
                     break;
-                case "mysql":
+                case 'mysql':
                     $conn = "mysql:host={$dbhost};dbname={$dbname}";
                     $this->db = new \PDO($conn, $dbuser, $dbpass, $options);
                     break;
                 default:
-                    echo "Unsuportted DB Driver! Check the configuration.";
+                    echo 'Unsuportted DB Driver! Check the configuration.';
                     exit(1);
             }
 

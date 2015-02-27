@@ -30,7 +30,7 @@ class WealthbotMysqlSqliteConnection
         );
 
         try {
-            switch($dbdriver) {
+            switch($dbDriver) {
                 case 'sqlite':
                     $conn = "sqlite:{$sqlitedb}";
                     $this->db = new \PDO($conn);

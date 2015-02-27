@@ -17,11 +17,17 @@ class WealthbotMysqlSqliteConnection
         $dbuser = \Config::$MYSQL_USERNAME;
         $dbpass = \Config::$MYSQL_PASSWORD;
         $dbname = \Config::$SQLITE_DATABASE;
+
+
         $dbDriver = 'sqlite';
         if (isset($GLOBALS['__PHPUNIT_BOOTSTRAP'])) {
             $sqlitedb = \Config::$SQLITE_DATABASE_TEST;
         } else {
             $dbDriver = 'mysql';
+        }
+
+        if (getenv('DRONE_TEST') == true) {
+            $dbDriver = 'sqlite';
         }
 
         $options = array(

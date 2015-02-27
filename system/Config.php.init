@@ -13,17 +13,17 @@ class Config {
     const ENV_TEST = 2;
 
     static public $SQLITE_DATABASE_TEST = 'wealthbot_test.db';
-    static public $SQLITE_DATABASE = 'wealthbot';
+    static public $SQLITE_DATABASE = 'wealthbot.db';
 
 	static public $MYSQL_HOST = 'localhost';
     static public $MYSQL_PORT = 3306;
 
     static public $MYSQL_USERNAME = 'root';
-    static public $MYSQL_PASSWORD = '';
+    static public $MYSQL_PASSWORD = 'password';
 	static public $MYSQL_DATABASE = 'wealthbot';
 
     static public $MYSQL_USERNAME_TEST = 'root';
-    static public $MYSQL_PASSWORD_TEST = '';
+    static public $MYSQL_PASSWORD_TEST = 'password';
 	static public $MYSQL_DATABASE_TEST = 'wealthbot_test';
 
 	static public $MONGODB_HOST = 'localhost';

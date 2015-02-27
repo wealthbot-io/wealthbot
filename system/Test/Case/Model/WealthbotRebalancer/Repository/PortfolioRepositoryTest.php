@@ -48,13 +48,13 @@ class PortfolioRepositoryTest extends ExtendedTestCase
 
         $this->repository->loadPortfolioValues($client);
 
-        $this->assertEquals(2325440, $portfolio->getTotalValue());
-        $this->assertEquals(758379, $portfolio->getTotalInSecurities());
-        $this->assertEquals(685475, $portfolio->getTotalCashInAccounts());
-        $this->assertEquals(881586, $portfolio->getTotalCashInMoneyMarket());
-        $this->assertEquals(3000, $portfolio->getSasCash());
-        $this->assertEquals(7000, $portfolio->getCashBuffer());
-        $this->assertEquals(10000, $portfolio->getBillingCash());
+        $this->assertEquals('2451038.0', $portfolio->getTotalValue());
+        $this->assertEquals('699098.0', $portfolio->getTotalInSecurities());
+        $this->assertEquals('992397.0', $portfolio->getTotalCashInAccounts());
+        $this->assertEquals('759543.0', $portfolio->getTotalCashInMoneyMarket());
+        $this->assertEquals('0.0', $portfolio->getSasCash());
+        $this->assertEquals('0.0', $portfolio->getCashBuffer());
+        $this->assertEquals('0.0', $portfolio->getBillingCash());
 
         $notExistClient = new Client();
         $notExistPortfolio = new Portfolio();

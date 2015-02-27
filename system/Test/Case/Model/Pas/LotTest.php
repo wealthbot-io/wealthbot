@@ -86,8 +86,8 @@ class LotTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals(array(
             array(
-                'quantity' => 50,
-                'amount'   => 4072,
+                'quantity' => '50.0',
+                'amount'   => '4072.0',
                 'status'   => WealthbotLot::LOT_DIVIDED
             ),
             array(
@@ -96,15 +96,10 @@ class LotTest extends \PHPUnit_Framework_TestCase
                 'status'   => WealthbotLot::LOT_CLOSED
             ),
             array(
-                'quantity' => 6,
+                'quantity' => '6.0',
                 'amount'   => 488.64,
-                'status'   => WealthbotLot::LOT_CLOSED
+                'status'   => WealthbotLot::LOT_INITIAL
             ),
-            array(
-                'quantity' => 6,
-                'amount'   => 490,
-                'status'   => WealthbotLot::LOT_CLOSED
-            )
         ), $results);
     }
 

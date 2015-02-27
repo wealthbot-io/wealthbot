@@ -63,7 +63,7 @@ class LotRepository extends BaseRepository
         }
 
         if (!is_null($parameters['was_closed'])) {
-            $query->where('wasClosed', $parameters['was_closed']);
+            $query->where('was_closed', $parameters['was_closed']);
         }
 
         if (!is_null($parameters['date_to'])) {
@@ -110,7 +110,7 @@ class LotRepository extends BaseRepository
         $results = $this->fpdo
             ->from($this->table)
             ->where('status', WealthbotLot::LOT_INITIAL)
-            ->where('wasClosed', false)
+            ->where('was_closed', false)
             ->where('date < DATE(?)', $date)
             ->orderBy('id ASC')
             ->fetchAll()
@@ -141,7 +141,7 @@ class LotRepository extends BaseRepository
     {
         $parameters['status'] = $status;
 
-        $status == WealthbotLot::LOT_CLOSED && $parameters['wasClosed'] = true;
+        $status == WealthbotLot::LOT_CLOSED && $parameters['was_closed'] = true;
 
         return $this->fpdo->update($this->table, $parameters, $id)->execute();
     }
@@ -219,8 +219,8 @@ class LotRepository extends BaseRepository
             'amount'              => $model->getAmount(),
             'status'              => $model->getStatus(),
             'cost_basis'          => $model->getCostBasis(),
-            'wasClosed'           => $model->getWasClosed(),
-            'realized_gain'       => $model->getRealizedGain(),
+            'was_closed'           => $model->getWasClosed(),
+            'realized_gain_loss'       => $model->getRealizedGain(),
             'date'                => $model->getDate(),
             'position_id'         => $model->getPositionId(),
             'is_cost_basis_known' => false,
@@ -242,8 +242,8 @@ class LotRepository extends BaseRepository
             'quantity'      => $model->getQuantity(),
             'amount'        => $model->getAmount(),
             'cost_basis'    => $model->getCostBasis(),
-            'wasClosed'     => $model->getWasClosed(),
-            'realized_gain' => $model->getRealizedGain(),
+            'was_closed'     => $model->getWasClosed(),
+            'realized_gain_loss' => $model->getRealizedGain(),
             'position_id'   => $model->getPositionId()
         ), $id)->execute();
 

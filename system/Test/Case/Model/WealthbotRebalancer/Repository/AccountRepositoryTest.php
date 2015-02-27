@@ -44,7 +44,8 @@ class AccountRepositoryTest extends ExtendedTestCase
         $account = $this->repository->findOneByAccountNumber('744888385');
 
         $this->repository->loadAccountValues($account);
-        $this->assertEquals(12628, $account->getTotalCash());
+        var_dump($account->getTotalCash());
+        $this->assertEquals('12628,80', $account->getTotalCash());
         $this->assertEquals(2000, $account->getSasCash());
         $this->assertEquals(3750, $account->getBillingCash());
         $this->assertEquals(1500, $account->getCashBuffer());

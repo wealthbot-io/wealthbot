@@ -987,10 +987,25 @@ class WealthbotRebalancerTest extends \PHPUnit_Framework_TestCase
         $security = $this->getMockSecurity(array(
             'price' => 150,
             'qty' => 10,
-            'amount' => 1500
+            'amount' => 1500,
+            'symbol' => 'VTI'
         ));
 
-        $account = $this->getMockAccount(array('client' => array('ria' => array())));
+        $account = $this->getMockAccount(array(
+            'client' => array(
+                'portfolio' => array(
+                    'id' => 1
+                ),
+                'ria' => array()
+            ),
+            'isReadyToRebalance' => true,
+            'scheduledDistribution' => 15000,
+            'oneTimeDistribution' => 3450,
+            'cashBuffer' => 2300,
+            'sasCash' => 3000,
+            'billingCash' => 3400,
+            'totalCash' => 30000,
+        ));
 
         /** @var WealthbotRebalancer $rebalancer */
         $rebalancer = $this->getMockWealthbotRebalancer(array('getJob', 'getRebalancerAction'), false);

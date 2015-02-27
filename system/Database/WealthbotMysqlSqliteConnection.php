@@ -28,6 +28,7 @@ class WealthbotMysqlSqliteConnection
 
         if (getenv('DRONE_TEST') == true) {
             $dbDriver = 'sqlite';
+            $sqlitedb = \Config::$SQLITE_DATABASE_TEST;
         }
 
         $options = array(

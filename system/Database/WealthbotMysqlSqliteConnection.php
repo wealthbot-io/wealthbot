@@ -26,7 +26,7 @@ class WealthbotMysqlSqliteConnection
             $dbDriver = 'mysql';
         }
 
-        if (getenv('DRONE_TEST') == true) {
+        if (getenv('DRONE_TEST') == 'true') {
             $dbDriver = 'sqlite';
             $sqlitedb = \Config::$SQLITE_DATABASE_TEST;
         }
@@ -35,7 +35,7 @@ class WealthbotMysqlSqliteConnection
             \PDO::ATTR_PERSISTENT => true,
             \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION
         );
-
+var_dump($dbDriver);
         try {
             switch($dbDriver) {
                 case 'sqlite':

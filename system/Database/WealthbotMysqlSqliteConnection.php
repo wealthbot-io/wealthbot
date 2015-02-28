@@ -52,7 +52,6 @@ class WealthbotMysqlSqliteConnection
                     exit(1);
             }
 
-
         } catch(\PDOException $e) {
             echo $e->getMessage(); exit(1);
         }

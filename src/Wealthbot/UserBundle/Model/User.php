@@ -119,28 +119,25 @@ class User extends BaseUser
         $password = $this->getPlainPassword();
 
         if($password == $this->getUsername()){
-            $context->addViolationAtSubPath('plainPassword', 'Email and password doesn\'t be equal!', array(), null);
+            $context->addViolationAtSubPath('plainPassword', 'Email and password cant be the same', array(), null);
         }
 
         if (strlen($password) > 0) {
             if (
-                !(strlen($password) >= 10 // at least 10 chars
+                !(strlen($password) >= 6 // at least 6 chars
                     && preg_match('`[A-Z]{1,}`',$password) // at least 1 uppercase
-                    && preg_match('`[a-z]{1,}`',$password) // at least 1 lowercase
                     && preg_match('`[0-9]{1,}`',$password) // at least 1 number
-                    && preg_match('`[^[:word:]]{1,}`',$password) // at least 1 symbol
-                    && preg_match('`[^[:word:]]|[0-9]{1,}`', substr($password, (strlen($password)/2) - 2, 5)) //At least one symbol or number should be in the middle of the password
                 )
             ) {
                 $context->addViolationAtSubPath('plainPassword', 'Password is not valid!', array(), null);
             }
 
             if(strlen(stristr($password, $this->getFirstName())) > 0){
-                $context->addViolationAtSubPath('plainPassword', 'Password is not valid (cant contain first name)!', array(), null);
+                $context->addViolationAtSubPath('plainPassword', 'Password cannot contain your name', array(), null);
             }
 
             if(strlen(stristr($password, $this->getLastName())) > 0){
-                $context->addViolationAtSubPath('plainPassword', 'Password is not valid (cant contain last name)!', array(), null);
+                $context->addViolationAtSubPath('plainPassword', 'Password cannot contain your name', array(), null);
             }
         }
     }

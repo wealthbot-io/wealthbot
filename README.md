@@ -22,6 +22,11 @@ cp parameters.yml.dist parameters.yml
 nano parameters.yml
 ```
 
+Create your databases like so (you may need to change passwords)
+```
+mysql -u root -e 'CREATE DATABASE wealthbot'   
+```
+
 4. Install the [Composer dependency manager](https://getcomposer.org/doc/00-intro.md), and run this command to install the wealthbot.io's dependencies:
     
 ```
@@ -76,9 +81,26 @@ To install the MongoDB binaries, issue the following command in a system shell:
     $ app/console doctrine:schema:update --force
     $ [php -d memory_limit=536870912] app/console doctrine:fixtures:load
 
-8. Use a PHP OpCache 
+8. Install APC
 
-Use [either APC, or PHP >=5.5](https://www.digitalocean.com/community/questions/how-to-install-alternative-php-cache-apc-on-ubuntu-14-04) depending on your `php --version`
+```
+sudo apt-get install php-apc
+```
 
+9. Setup your database:
+
+```
+php app/console doctrine:database:create
+php app/console doctrine:schema:create
+```
+
+10. Configure and start your webserver (Apache or nginx).  For testing, use Symfony2's mini web server
+
+```
+cd core
+php app/console server:run
+```
+
+11. Open your browser to `http://localhost:8000` to see your wealthbot.io.
 
 More specific docs are [here](app/Resources/doc).

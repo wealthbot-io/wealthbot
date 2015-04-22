@@ -18,5 +18,5 @@ Wealthbot\AdminBundle\Entity\SecurityType:
       nullable: true
   uniqueConstraints:
     name_unique:
-      name: name_UNIQUE
+      name: name_UNIQUE_ST
       columns: [ name ]

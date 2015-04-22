@@ -1,7 +1,7 @@
 <?php
 namespace Model\WealthbotRebalancer\Repository;
 
-use Database\WealthbotMySqlConnection;
+use Database\WealthbotMysqlSqliteConnection;
 use Model\WealthbotRebalancer\ArrayCollection;
 use Model\WealthbotRebalancer\Base;
 
@@ -42,15 +42,15 @@ abstract class BaseRepository {
 
     protected $table;
 
-    protected $mySqlDB;
+    protected $db;
 
     public function __construct()
     {
+        $this->db = WealthbotMysqlSqliteConnection::getInstance();
+
         $this->initAvailableTables();
 
         $this->validateOptions();
-
-        $this->mySqlDB = WealthbotMySqlConnection::getInstance();
 
         $options = $this->getOptions();
         $this->table = $options['table_name'];
@@ -72,7 +72,7 @@ abstract class BaseRepository {
     {
         $sql = "SELECT * FROM {$this->table}";
 
-        $results = $this->mySqlDB->query($sql);
+        $results = $this->db->query($sql);
 
         return $this->bindCollection($results);
     }
@@ -141,7 +141,7 @@ abstract class BaseRepository {
             $sql .= " LIMIT ".$limit;
         }
 
-        $results = $this->mySqlDB->query($sql, $criteria);
+        $results = $this->db->query($sql, $criteria);
 
         $collection = $this->bindCollection($results);
 
@@ -150,7 +150,7 @@ abstract class BaseRepository {
 
     public function getLastInsertId()
     {
-        return $this->mySqlDB->getLastInsertId();
+        return $this->db->getLastInsertId();
     }
 
     /**

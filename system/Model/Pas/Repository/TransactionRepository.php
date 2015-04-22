@@ -24,7 +24,7 @@ class TransactionRepository extends BaseRepository
 
     public function sumContribution($accountId, \DateTime $date)
     {
-        $result = $this->mySqlDB->query("
+        $result = $this->db->query("
             SELECT sum(netAmount) as total FROM {$this->table}
             WHERE
                 transaction_type_id in (SELECT id FROM ".static::TABLE_TRANSACTION_TYPE." WHERE name in ('DEP','CJOUR','REC'))
@@ -42,7 +42,7 @@ class TransactionRepository extends BaseRepository
             $names .= ",'MFEE'";
         }
 
-        $result = $this->mySqlDB->query("
+        $result = $this->db->query("
             SELECT sum(netAmount) as total FROM {$this->table}
             WHERE
                 transaction_type_id in (SELECT id FROM ".static::TABLE_TRANSACTION_TYPE." WHERE name in ({$names}))

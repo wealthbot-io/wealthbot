@@ -62,7 +62,7 @@
 //            'portfolioId' => $portfolio->getId()
 //        );
 //
-//        return $this->mySqlDB->query($sql, $parameters);
+//        return $this->db->query($sql, $parameters);
 //    }
 //
 //    private function getCurrentAllocations(Portfolio $portfolio)
@@ -90,7 +90,7 @@
 //            'statusClosed' => Account::STATUS_CLOSED
 //        );
 //
-//        return $this->mySqlDB->query($sql, $parameters);
+//        return $this->db->query($sql, $parameters);
 //    }
 //
 //    protected function bindCollection(array $data, SecurityCollection $securityCollection)

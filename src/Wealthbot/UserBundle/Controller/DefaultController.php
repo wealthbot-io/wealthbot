@@ -1,5 +1,4 @@
 <?php
-
 namespace Wealthbot\UserBundle\Controller;
 
 use Wealthbot\ClientBundle\Entity\TransferCustodian;

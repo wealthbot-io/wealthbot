@@ -5,7 +5,7 @@ namespace Test\Model\WealthbotRebalancer\Repository;
 require_once(__DIR__ . '/../../../../../AutoLoader.php');
 \AutoLoader::registerAutoloader();
 
-use Database\WealthbotMySqlConnection;
+use Database\WealthbotMySqlSqliteConnection;
 use Manager\BusinessCalendar;
 use Model\WealthbotRebalancer\Account;
 use Model\WealthbotRebalancer\Repository\BaseRepository;
@@ -25,7 +25,7 @@ class DistributionRepositoryTest extends ExtendedTestCase
 
     public function setUp()
     {
-        $connection = WealthbotMySqlConnection::getInstance();
+        $connection = WealthbotMySqlSqliteConnection::getInstance();
 
         $sql = "SELECT * FROM " . BaseRepository::TABLE_SYSTEM_ACCOUNT . " ORDER BY id ASC LIMIT 1";
         $result = $connection->query($sql);

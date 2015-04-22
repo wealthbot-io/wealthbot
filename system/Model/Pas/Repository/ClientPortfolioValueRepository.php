@@ -32,7 +32,7 @@ class ClientPortfolioValueRepository extends BaseRepository
                 ORDER BY cpv.date DESC
                 LIMIT 1";
 
-        $pdo = $this->mySqlDB->getPdo();
+        $pdo = $this->db->getPdo();
 
         $statement = $pdo->prepare($sql);
         $statement->execute(array('client_id' => $clientId, 'date' => $date->format('Y-m-d')));
@@ -55,7 +55,7 @@ class ClientPortfolioValueRepository extends BaseRepository
                 ORDER BY cpv.id DESC
                 LIMIT 1";
 
-        $pdo = $this->mySqlDB->getPdo();
+        $pdo = $this->db->getPdo();
 
         $statement = $pdo->prepare($sql);
         $statement->execute(array('client_id' => $clientId, 'portfolio_value_id' => $portfolioValueId));

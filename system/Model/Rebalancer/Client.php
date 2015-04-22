@@ -32,7 +32,7 @@ class Client extends Base {
 
 		if (!isset($this->taxRate) || is_null($this->taxRate)) {
 			$q = 'SELECT * FROM `user_profiles` WHERE `user_id` = ' . $this->id;
-			$res = $this->mySqlDB->q($q);
+			$res = $this->db->q($q);
 			$this->taxRate = isset($res[0]['estimated_income_tax']) ? $res[0]['estimated_income_tax'] : null;
 		}
 
@@ -115,7 +115,7 @@ class Client extends Base {
 			WHERE `ria_company_information`.`id`
 			IN (' . $riaIds . ') ';
 
-		$res = $this->mySqlDB->q($q);
+		$res = $this->db->q($q);
 		$res = Hash::extract($res, '{n}.id');
 
 		return $res;
@@ -133,7 +133,7 @@ class Client extends Base {
 			WHERE `ria_company_information`.`id`
 			IN (' . $riaIds . ') ';
 
-		$res = $this->mySqlDB->q($q);
+		$res = $this->db->q($q);
 		$res = Hash::extract($res, '{n}.owner_id');
 
 		return $res;
@@ -229,7 +229,7 @@ class Client extends Base {
           GROUP BY ceme.subclass_id;
         ';
 
-        $res = $this->mySqlDB->q($q);
+        $res = $this->db->q($q);
 
         $subclasses = array();
         foreach ($res as $dataRow) {
@@ -256,7 +256,7 @@ class Client extends Base {
           GROUP BY sa.subclass_id;
         ';
 
-        $res = $this->mySqlDB->q($q);
+        $res = $this->db->q($q);
 
         $values = array();
         $subclasses = array();
@@ -286,20 +286,20 @@ class Client extends Base {
 
 	private function __getClientDistributionData($clientAccountId) {
 		$q = 'SELECT * FROM `client_account_distribution` WHERE `client_account_distribution`.`account_id` = ' . $clientAccountId;
-		$res = $this->mySqlDB->q($q);
+		$res = $this->db->q($q);
 		return $res;
 	}
 
 	private function __getOneTimeDistributionData($systemAccountId) {
 		$q = 'SELECT * FROM `one_time_distribution` WHERE `system_account_id` = ' . $systemAccountId;
-		$res = $this->mySqlDB->q($q);
+		$res = $this->db->q($q);
 		return $res;
 	}
 
     private function __getProfile()
     {
         $q = 'SELECT * FROM user_profiles u WHERE u.user_id = '.$this->id;
-        $res = $this->mySqlDB->q($q);
+        $res = $this->db->q($q);
         return $res;
     }
 }

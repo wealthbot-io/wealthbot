@@ -70,21 +70,21 @@ class ClientRepositoryTest extends ExtendedTestCase
         /** @var Client $client */
         $client = $this->repository->getClientByRebalancerAction($rebalancerAction);
 
-        $this->assertEquals('miles@wealthbot.io', $client->getEmail());
+        $this->assertEquals('liu@wealthbot.io', $client->getEmail());
     }
 
     public function testLoadStopTlhValue()
     {
         $clientRepo = new ClientRepository();
 
-        $clientMiles = $clientRepo->findClientByEmail('miles@wealthbot.io');
+        $clientMiles = $clientRepo->findClientByEmail('johnny@wealthbot.io');
         $this->assertNull($clientMiles->getStopTlhValue());
 
         $this->repository->loadStopTlhValue($clientMiles);
 
         $this->assertEquals(4.2, $clientMiles->getStopTlhValue());
 
-        $clientBoshen = $clientRepo->findClientByEmail('boschen@wealthbot.io');
+        $clientBoshen = $clientRepo->findClientByEmail('liu@wealthbot.io');
         $this->repository->loadStopTlhValue($clientBoshen);
 
         $this->assertEquals(5.6, $clientBoshen->getStopTlhValue());

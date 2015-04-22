@@ -4,20 +4,19 @@ parameters:
     database_port:     ~
     database_name:     wealthbot
     database_user:     root
-    database_password: password
+    database_password:
 
-    mongodb_user: root
-    mongodb_password: root
     mongodb_host: 127.0.0.1
-    mongodb_database: pas
+    mongodb_database: wealthbot
+    mongodb_user: root
+    mongodb_password: password
 
     mailer_transport:  smtp
     mailer_host:       your smtp server
     mailer_user:       secretUser
     mailer_password:   secretPassword
-    mailer_auth_mode:  login
     mailer_encryption: tls
-
+    mailer_port: 587
     locale:            en
     secret:            ThisTokenIsNotSoSecretChangeIt
 

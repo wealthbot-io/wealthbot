@@ -25,7 +25,7 @@ class SecurityTransactionRepositoryTest extends ExtendedTestCase
     public function testFindOneByPortfolioAndSecurity()
     {
         $clientRepo = new ClientRepository();
-        $client = $clientRepo->findOneBy(array('email' =>'miles@wealthbot.io'));
+        $client = $clientRepo->findOneBy(array('email' => 'johnny@wealthbot.io'));
 
         $portfolioRepository = new PortfolioRepository();
         $portfolio = $portfolioRepository->findPortfolioByClient($client);

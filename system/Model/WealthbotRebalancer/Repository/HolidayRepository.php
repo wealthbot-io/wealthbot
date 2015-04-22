@@ -20,7 +20,7 @@ class HolidayRepository extends BaseRepository
         $sql = "SELECT * FROM ".$this->table." WHERE date >= :from AND date < :to";
         $parameters = array('from' => $dateFrom->format('Y-m-d'), 'to'   => $dateTo->format('Y-m-d'));
 
-        $result = $this->mySqlDB->query($sql, $parameters);
+        $result = $this->db->query($sql, $parameters);
 
         return $this->bindCollection($result);
     }

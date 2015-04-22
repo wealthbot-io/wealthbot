@@ -208,7 +208,7 @@ class Account extends Base {
 		}
 
 		$q = 'SELECT * FROM `client_account_values` WHERE `system_client_account_id` = ' . $this->systemAccountId;
-		$res = $this->mySqlDB->q($q);
+		$res = $this->db->q($q);
 
 		return $res;
 	}
@@ -219,7 +219,7 @@ class Account extends Base {
 		}
 
 		$q = "SELECT * FROM `system_client_accounts` WHERE `account_number` = '" . $accountNumber . "'";
-		$res = $this->mySqlDB->q($q);
+		$res = $this->db->q($q);
 
 		return $res;
 	}

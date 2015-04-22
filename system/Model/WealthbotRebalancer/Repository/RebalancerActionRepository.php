@@ -32,7 +32,7 @@ class RebalancerActionRepository extends BaseRepository {
             'jobId' => $job->getId()
         );
 
-        $results = $this->mySqlDB->query($sql, $parameters);
+        $results = $this->db->query($sql, $parameters);
 
         $collection = $this->bindCollection($results);
 
@@ -57,7 +57,7 @@ class RebalancerActionRepository extends BaseRepository {
             'jobId' => $job->getId()
         );
 
-        $results = $this->mySqlDB->query($sql, $parameters);
+        $results = $this->db->query($sql, $parameters);
         $collection = $this->bindCollection($results);
 
         foreach ($collection as $item) {
@@ -77,6 +77,6 @@ class RebalancerActionRepository extends BaseRepository {
             'status' => $rebalancerAction->getStatus()
         );
 
-        $this->mySqlDB->query($sql, $parameters);
+        $this->db->query($sql, $parameters);
     }
 }

@@ -73,6 +73,38 @@ class UserController extends Controller
         return $this->redirect($this->generateUrl('rx_ria_user_management'));
     }
 
+    public function createAction(Request $request)
+    {
+        $em = $this->get('doctrine.orm.entity_manager');
+        $userRepository = $em->getRepository('WealthbotUserBundle:User');
+        $ria = $this->getUser();
+        $form = $this->createForm(new CreateUserFormType('Wealthbot\UserBundle\Entity\User', $ria));
+
+        if ($request->isMethod('post')) {
+            $form->bind($request);
+
+            if ($form->isValid()) {
+                /** @var $user \Wealthbot\UserBundle\Entity\User */
+                $user = $form->getData();
+
+                $em->persist($user);
+                $em->flush();
+
+                $this->get('session')->setFlash('success', 'User has been successfully created.');
+                return $this->getEmptyUserManagement();
+            }
+        }
+
+        $riaUsers = $this->getRiaUsers();
+
+        return $this->render('WealthbotRiaBundle:User:edit.html.twig', array(
+            'form' => $form->createView(),
+            'ria_users' => $riaUsers,
+            'ria_user' => $riaUser,
+            'ria' => $ria
+        ));
+    }
+
     public function editAction(Request $request)
     {
         $em = $this->get('doctrine.orm.entity_manager');

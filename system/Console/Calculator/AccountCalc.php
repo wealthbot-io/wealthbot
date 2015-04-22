@@ -35,7 +35,7 @@ class Accountcalc extends Base
 		$totalCashInMoneyMarket = 0;
 		$total = 0;
         $tableName = self::CLIENT_PORTFOLIO_VALUE;
-        $accountsModel = new Accounts($this->mySqlDB, $this->mongoDB);
+        $accountsModel = new Accounts($this->db, $this->mongoDB);
         $clientIds = $accountsModel->getPortfolioAccountIds($portfolioId);
 		foreach ($clientIds as $clientId) {
 			try {
@@ -61,14 +61,14 @@ class Accountcalc extends Base
             	$q = "INSERT INTO {$tableName} (date, total_value, total_in_securities, total_cash_in_accounts, total_cash_in_money_market)
 					VALUES ('{$date}', '{$total}', '{$totalAmountInSecurities}', '{$totalCashInAccount}','{$totalCashInMoneyMarket}')";
         }
-        $res = $this->mySqlDB->q($q);
+        $res = $this->db->q($q);
          echo "END updatePortfolioValueMysql($portfolioId, $date) \n ------------------------------\n";
     }
 
     function updateAccountValueMysql($portfolioId, $clientId, $date){
 
    	 echo "updateAccountValueMysql($portfolioId, $clientId, $date )\n";
-		$accountsModel = new Accounts($this->mySqlDB, $this->mongoDB);
+		$accountsModel = new Accounts($this->db, $this->mongoDB);
         $totalAmountInSecurities=0;
         $totalCashInAccount=0;
         $totalCashInMoneyMarket=0;
@@ -95,7 +95,7 @@ class Accountcalc extends Base
            	$q = "INSERT INTO {$tableName} (system_client_account_id,source,date, total_value, total_in_securities, total_cash_in_account, total_cash_in_money_market)
 					VALUES ('{$accountId}','{$accountSource}','{$date}', '{$total}', '{$totalAmountInSecurities}', '{$totalCashInAccount}','{$totalCashInMoneyMarket}')";
             }
-        $res = $this->mySqlDB->q($q);
+        $res = $this->db->q($q);
               return array(
 		             'total_amount' => $total,
 		             'total_in_securities' => $totalAmountInSecurities,

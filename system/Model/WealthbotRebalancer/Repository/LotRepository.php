@@ -52,11 +52,11 @@ class LotRepository extends BaseRepository {
             'status_open' => Lot::LOT_IS_OPEN
         );
 
-        $data = $this->mySqlDB->query($sql, $params);
+        $data = $this->db->query($sql, $params);
         foreach ($data as $key => $item) {
             if (isset($item['initial_lot_id'])) {
                 $sql = "SELECT * FROM {$this->table} WHERE id = :id";
-                $data[$key]['initial'] = $this->mySqlDB->queryOne($sql, array('id' => $item['initial_lot_id']));
+                $data[$key]['initial'] = $this->db->queryOne($sql, array('id' => $item['initial_lot_id']));
             }
         }
 
@@ -228,7 +228,7 @@ class LotRepository extends BaseRepository {
 
         $sql .= " GROUP BY pos.client_system_account_id, pos.security_id";
 
-        return $this->mySqlDB->query($sql, $parameters);
+        return $this->db->query($sql, $parameters);
     }
 
     public function getLastPositionLots(Portfolio $portfolio, $securityId, $clientSystemAccountId, $isMuni = false)
@@ -250,7 +250,7 @@ class LotRepository extends BaseRepository {
             'portfolio_id' => $portfolio->getId()
         );
 
-        $lastPosition = $this->mySqlDB->queryOne($sql, $parameters);
+        $lastPosition = $this->db->queryOne($sql, $parameters);
 
         return $this->findLotsForPosition($lastPosition, $isMuni);
     }
@@ -273,7 +273,7 @@ class LotRepository extends BaseRepository {
             'statusOpen' => LOT::LOT_IS_OPEN
         );
 
-        $results = $this->mySqlDB->query($sql, $parameters);
+        $results = $this->db->query($sql, $parameters);
 
         $lotCollection = $this->bindCollection($results);
 
@@ -325,7 +325,7 @@ class LotRepository extends BaseRepository {
 
         $lossesSum = 0;
 
-        $data = $this->mySqlDB->queryOne($sql, $params);
+        $data = $this->db->queryOne($sql, $params);
         if (isset($data['losses_sum'])) {
             $lossesSum = $data['losses_sum'];
         }

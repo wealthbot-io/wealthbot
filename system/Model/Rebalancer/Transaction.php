@@ -607,7 +607,7 @@ class Transaction {
 			 ' . mysql_real_escape_string($data['status']) .  ',
 				)'
 		;
-		$res = $this->mySqlDB->q($q);
+		$res = $this->db->q($q);
 		var_dump($res);
 	}
 

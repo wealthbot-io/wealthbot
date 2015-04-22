@@ -52,14 +52,14 @@ class RebalancerQueueRepository extends BaseRepository {
             );
         }
 
-        $this->mySqlDB->query($sql, $parameters);
+        $this->db->query($sql, $parameters);
     }
 
     public function delete(QueueItem $item)
     {
         $sql = "DELETE FROM ".self::TABLE_REBALANCER_QUEUE." WHERE id = :id";
 
-        $this->mySqlDB->query($sql, array('id' => $item->getId()));
+        $this->db->query($sql, array('id' => $item->getId()));
     }
 
     public function findById($id)
@@ -70,7 +70,7 @@ class RebalancerQueueRepository extends BaseRepository {
                   WHERE rq.id = :id
                   ";
 
-        $result = $this->mySqlDB->queryOne($sql, array('id' => $id));
+        $result = $this->db->queryOne($sql, array('id' => $id));
 
         if (empty($result)) {
             return null;
@@ -133,7 +133,7 @@ class RebalancerQueueRepository extends BaseRepository {
             'jobId' => $job->getId()
         );
 
-        $results = $this->mySqlDB->query($sql, $paramaters);
+        $results = $this->db->query($sql, $paramaters);
 
         $tradeDataCollection = new ArrayCollection();
 
@@ -171,7 +171,7 @@ class RebalancerQueueRepository extends BaseRepository {
             'securityId' => $tradeData->getSecurityId()
         );
 
-        $results = $this->mySqlDB->query($sql, $paramaters);
+        $results = $this->db->query($sql, $paramaters);
 
         return $results;
     }

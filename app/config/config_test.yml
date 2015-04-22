@@ -5,6 +5,7 @@ imports:
 framework:
     test: ~
     session:
+        name: "wealthbot"
         storage_id: session.storage.mock_file
         cookie_domain: ""
     csrf_protection:
@@ -16,3 +17,11 @@ web_profiler:
 
 swiftmailer:
     disable_delivery: false
+
+doctrine:
+    dbal:
+        default_connection: default
+        connections:
+            default:
+                driver:   pdo_sqlite
+                path:     wealthbot_test.db

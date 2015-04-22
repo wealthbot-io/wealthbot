@@ -26,7 +26,7 @@ class SubclassRepositoryTest extends ExtendedTestCase
     public function setUp()
     {
         $clientRepo = new ClientRepository();
-        $client = $clientRepo->findOneBy(array('email' =>'miles@wealthbot.io'));
+        $client = $clientRepo->findOneBy(array('email' => 'johnny@wealthbot.io'));
 
         $portfolioRepo = new PortfolioRepository();
         $this->portfolio = $portfolioRepo->findPortfolioByClient($client);

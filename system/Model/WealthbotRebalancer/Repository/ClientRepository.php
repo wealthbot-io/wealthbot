@@ -33,7 +33,7 @@ class ClientRepository extends BaseRepository {
             'roles' => '%ROLE_CLIENT%'
         );
 
-        $result = $this->mySqlDB->query($sql, $parameters);
+        $result = $this->db->query($sql, $parameters);
 
         $collection = $this->bindCollection($result);
 
@@ -63,7 +63,7 @@ class ClientRepository extends BaseRepository {
             'roles' => '%ROLE_CLIENT%'
         );
 
-        $result = $this->mySqlDB->query($sql, $parameters);
+        $result = $this->db->query($sql, $parameters);
 
         $collection = $this->bindCollection($result);
 
@@ -89,7 +89,7 @@ class ClientRepository extends BaseRepository {
             'roles' => '%ROLE_CLIENT%'
         );
 
-        $result = $this->mySqlDB->queryOne($sql, $parameters);
+        $result = $this->db->queryOne($sql, $parameters);
         $client = $this->bindObject($result);
 
         $rebalancerAction->setClient($client);
@@ -112,7 +112,7 @@ class ClientRepository extends BaseRepository {
                 LEFT JOIN " . self::TABLE_CLIENT_SETTINGS . " cs ON (cs.client_id = c.id)
                 WHERE c.id = :client_id LIMIT 1";
 
-        $pdo = $this->mySqlDB->getPdo();
+        $pdo = $this->db->getPdo();
         $statement = $pdo->prepare($sql);
         $statement->execute(array('client_id' => $client->getId()));
 

@@ -93,13 +93,13 @@ class AssetClass extends Base {
 
 	private function __getCEModelData() {
 		$q = 'SELECT * FROM `ce_model_entities` WHERE `id` = ' . $this->id;
-		$res = $this->mySqlDB->q($q);
+		$res = $this->db->q($q);
 		return $res;
 	}
 
 	private function __getData() {
 		$q = 'SELECT * FROM `asset_classes` WHERE `id` = ' . $this->id;
-		$res = $this->mySqlDB->q($q);
+		$res = $this->db->q($q);
 		return $res;
 	}
 }

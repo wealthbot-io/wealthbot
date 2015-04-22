@@ -24,7 +24,7 @@ class RiaCompanyInformationRepositoryTest extends ExtendedTestCase
    {
        $riaRepo = new RiaRepository();
        $ria = $riaRepo->findOneBy(array(
-           'email' => 'josh@wealthbot.io'
+           'email' => 'johnny@wealthbot.io'
        ));
 
        $riaCompanyInformation = $this->riaCompanyInfoRepo->findOneByRia($ria);

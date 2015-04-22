@@ -34,7 +34,7 @@ class SecurityRepositoryTest extends ExtendedTestCase
     public function testFindSecuritiesByAccount()
     {
         $clientRepo = new ClientRepository();
-        $client = $clientRepo->findOneBy(array('email' =>'miles@wealthbot.io'));
+        $client = $clientRepo->findOneBy(array('email' =>'johnny@wealthbot.io'));
 
         $accountRepo = new AccountRepository();
         $account = $accountRepo->findOneByAccountNumber('744888385');
@@ -57,7 +57,7 @@ class SecurityRepositoryTest extends ExtendedTestCase
     public function testFindSecuritiesByPortfolio()
     {
         $clientRepo = new ClientRepository();
-        $client = $clientRepo->findOneBy(array('email' =>'miles@wealthbot.io'));
+        $client = $clientRepo->findOneBy(array('email' => 'johnny@wealthbot.io'));
 
         $portfolioRepo = new PortfolioRepository();
         $portfolio = $portfolioRepo->findPortfolioByClient($client);

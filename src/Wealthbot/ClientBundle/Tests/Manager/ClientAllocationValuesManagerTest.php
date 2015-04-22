@@ -257,7 +257,7 @@ class ClientAllocationValuesManagerTest extends ExtendedWebTestCase
 
     public function testGetValues()
     {
-        $this->client = $this->authenticateUser('miles@wealthbot.io', array('ROLE_CLIENT'));
+        $this->client = $this->authenticateUser('liu@wealthbot.io', array('ROLE_CLIENT'));
         $result = $this->allocationValuesManager->getValues($this->client);
 
         unset($result['actualData'][0]['subclass_id']);

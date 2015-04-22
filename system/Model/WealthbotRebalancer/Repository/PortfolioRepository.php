@@ -33,7 +33,7 @@ class PortfolioRepository extends BaseRepository {
             'clientId' => $client->getId()
         );
 
-        $result = $this->mySqlDB->query($sql, $parameters);
+        $result = $this->db->query($sql, $parameters);
         $collection = $this->bindCollection($result);
 
         $portfolio = $collection->first();
@@ -60,7 +60,7 @@ class PortfolioRepository extends BaseRepository {
                 WHERE cp.portfolio_id = :portfolio_id AND u.id = :clientId
                 ORDER BY cpv.date desc LIMIT 1";
 
-        $pdo = $this->mySqlDB->getPdo();
+        $pdo = $this->db->getPdo();
 
         $portfolio = $client->getPortfolio();
 
@@ -73,13 +73,13 @@ class PortfolioRepository extends BaseRepository {
         $data = $statement->fetch(\PDO::FETCH_ASSOC);
 
         if ($data) {
-            $portfolio->setTotalValue(isset($data['total_value']) ? $data['total_value'] : 0);
-            $portfolio->setTotalInSecurities(isset($data['total_in_securities']) ? $data['total_in_securities'] : 0);
-            $portfolio->setTotalCashInAccounts(isset($data['total_cash_in_accounts']) ? $data['total_cash_in_accounts'] : 0);
-            $portfolio->setTotalCashInMoneyMarket(isset($data['total_cash_in_money_market']) ? $data['total_cash_in_money_market'] : 0);
-            $portfolio->setSasCash(isset($data['sas_cash']) ? $data['sas_cash'] : 0);
-            $portfolio->setCashBuffer(isset($data['cash_buffer']) ? $data['cash_buffer'] : 0);
-            $portfolio->setBillingCash(isset($data['billing_cash']) ? $data['billing_cash'] : 0);
+            $portfolio->setTotalValue(isset($data['total_value']) ? round($data['total_value'], 2) : 0);
+            $portfolio->setTotalInSecurities(isset($data['total_in_securities']) ? round($data['total_in_securities'], 2) : 0);
+            $portfolio->setTotalCashInAccounts(isset($data['total_cash_in_accounts']) ? round($data['total_cash_in_accounts'], 2) : 0);
+            $portfolio->setTotalCashInMoneyMarket(isset($data['total_cash_in_money_market']) ? round($data['total_cash_in_money_market'], 2) : 0);
+            $portfolio->setSasCash(isset($data['sas_cash']) ? round($data['sas_cash'], 2) : 0);
+            $portfolio->setCashBuffer(isset($data['cash_buffer']) ? round($data['cash_buffer'], 2) : 0);
+            $portfolio->setBillingCash(isset($data['billing_cash']) ? round($data['billing_cash'], 2) : 0);
         }
     }
 }

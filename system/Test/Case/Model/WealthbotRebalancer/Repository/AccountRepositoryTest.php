@@ -5,7 +5,7 @@ namespace Test\Model\WealthbotRebalancer\Repository;
 require_once(__DIR__ . '/../../../../../AutoLoader.php');
 \AutoLoader::registerAutoloader();
 
-use Database\WealthbotMySqlConnection;
+use Database\WealthbotMySqlSqliteConnection;
 use Model\WealthbotRebalancer\Account;
 use Model\WealthbotRebalancer\AccountCollection;
 use Model\WealthbotRebalancer\Client;
@@ -29,7 +29,7 @@ class AccountRepositoryTest extends ExtendedTestCase
     public function testFindClientAccounts()
     {
         $clientRepo = new ClientRepository();
-        $client = $clientRepo->findClientByEmail('miles@wealthbot.io');
+        $client = $clientRepo->findClientByEmail('johnny@wealthbot.io');
 
         $accounts = $this->repository->findClientAccounts($client);
 
@@ -44,7 +44,8 @@ class AccountRepositoryTest extends ExtendedTestCase
         $account = $this->repository->findOneByAccountNumber('744888385');
 
         $this->repository->loadAccountValues($account);
-        $this->assertEquals(12628, $account->getTotalCash());
+        var_dump($account->getTotalCash());
+        $this->assertEquals('12628,80', $account->getTotalCash());
         $this->assertEquals(2000, $account->getSasCash());
         $this->assertEquals(3750, $account->getBillingCash());
         $this->assertEquals(1500, $account->getCashBuffer());
@@ -53,6 +54,7 @@ class AccountRepositoryTest extends ExtendedTestCase
     public function testFindOneByAccountNumber()
     {
         $account = $this->repository->findOneByAccountNumber('744888385');
+        var_dump($account);
         $this->assertEquals(Account::STATUS_ACTIVE, $account->getStatus());
     }
 
@@ -102,7 +104,7 @@ class AccountRepositoryTest extends ExtendedTestCase
     public function testFindAccountById()
     {
         $clientRepo = new ClientRepository();
-        $client = $clientRepo->findClientByEmail('miles@wealthbot.io');
+        $client = $clientRepo->findClientByEmail('johnny@wealthbot.io');
 
         $accounts = $this->repository->findClientAccounts($client);
 
@@ -135,7 +137,7 @@ class AccountRepositoryTest extends ExtendedTestCase
             'rebalancerActionId' => $rebalancerAction->getId()
         );
 
-        $connection = WealthbotMySqlConnection::getInstance();
+        $connection = WealthbotMySqlSqliteConnection::getInstance();
         $pdo = $connection->getPdo();
         $statement = $pdo->prepare($sql);
         $statement->execute($parameters);

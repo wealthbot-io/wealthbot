@@ -88,7 +88,7 @@ class TradeReconManagerTest extends ExtendedWebTestCase
     public function setUp()
     {
         parent::setUp();
-        $this->ria = $this->authenticateUser('bot@wealthbot.io', array('ROLE_RIA'));
+        $this->ria = $this->authenticateUser('johnny@wealthbot.io', array('ROLE_RIA'));
         $this->tradeReconManager = $this->container->get('wealthbot_admin.trade_recon.manager');
     }
 

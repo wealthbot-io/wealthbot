@@ -13,7 +13,7 @@ Add cron jobs to automatically run data import:
 > 35 6 \* \* \* /var/www/prod/app/system/load_data.sh  
 > 50 6 \* \* \* /var/www/staging/app/system/load_data.sh  
 > 10 7 \* \* \* /var/www/dev/app/system/load_data.sh  
-> 0-59 \* \* \* \* bash advisor_root_dir/system/Console/fakeRebalance start  
+> 0-59 \* \* \* \* bash wealthbot-core/system/Console/fakeRebalance start  
 
 #### Files and folders used by system scripts: ####
 */mnt/windows_downloads/* is a Windows folder, mounted to the Linux server using Samba filesystem. TD Ameritrade Download Scheduler on Windows server stores Zip 

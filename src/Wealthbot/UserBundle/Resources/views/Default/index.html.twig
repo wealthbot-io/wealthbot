@@ -1,4 +1,4 @@
-{% extends '::base_search_section.html.twig' %}
+{% extends '::base_demo_layout.html.twig' %}
 
 {% block javascripts %}
     {{ parent() }}
@@ -11,28 +11,23 @@
 
 {% block body %}
 <div class="row">
-<div class="span12">
-<h1>Find the advisor who will help you reach your financial goals.</h1>
-<h4 class="muted">Search our AdvisorLink Directory to find an investment advisor in our your area who uses our platform to help clients like you.</h4>
+    <div class="span12">
+        <h1><a href="/admin">Login as a super admin</a></h1>
+        <div>
+            Our platform allows you to create and manage multiple RIA firms under one installation. Use <strong>webo/weboDemo32</strong> to login.
+        </div>
 
-    <form id="search_ria_form" class="form-horizontal" action="{{ path('rx_search_ria') }}" method="post">
-        <div class="control-group">
-            <label class="checkbox">
-                The advisors location is not important to me.
-                {{ form_widget(form.is_not_locate) }}
-            </label>
+
+        <h1><a href="/ria/registration">Register RIA</a></h1>
+        <div>
+            Use wealthbot.io to offer SaaS for multiple RIA's, or run a single RIA entity on the same platform. The choice is yours.
         </div>
-        <div class="control-group">
-            {{ form_errors(form.state) }}
-            {{ form_widget(form.state) }}
-            <input class="btn btn-info" type="submit" value="Search" />
+
+        <h1><a href="/client/registration/9">Register Client</a></h1>
+        <div>
+            wealthbot.io will automatically select a matcing portfolio based on client's risk tollerence. This is how we establish a relationship between a client
+            and an RIA.
         </div>
-    </form>
-</div>
-</div>
-<div class="row">
-<div class="span12">
-    <div id="ria_search_results"></div>
-	</div>
+    </div>
 </div>
 {% endblock %}

@@ -9,6 +9,7 @@ var/cache/*
 var/logs/*
 !var/cache/.gitkeep
 !var/logs/.gitkeep
+app/build/logs/junit.xml
 
 # Parameters
 app/config/parameters.yml
@@ -38,3 +39,8 @@ composer.phar
 
 # App Stuff
 uploads/
+system/Config.php
+
+#testing stuff
+wealthbot_test
+wealthbot_test.db

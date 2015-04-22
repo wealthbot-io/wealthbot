@@ -41,7 +41,7 @@ class SubclassRepository extends BaseRepository {
             'portfolioId' => $portfolio->getId()
         );
 
-        $results = $this->mySqlDB->queryOne($sql, $parameters);
+        $results = $this->db->queryOne($sql, $parameters);
 
         if (false === $results) {
             return null;
@@ -100,7 +100,7 @@ class SubclassRepository extends BaseRepository {
             'portfolioId' => $portfolio->getId()
         );
 
-        return $this->mySqlDB->query($sql, $parameters);
+        return $this->db->query($sql, $parameters);
     }
 
     public function getCurrentAllocations(Portfolio $portfolio, Account $account = null)
@@ -126,7 +126,7 @@ class SubclassRepository extends BaseRepository {
 
         $sql .= " GROUP BY pos.client_system_account_id, pos.security_id";
 
-        $positions = $this->mySqlDB->query($sql, $parameters);
+        $positions = $this->db->query($sql, $parameters);
 
         $lastPositions = array();
         foreach ($positions as $position) {
@@ -181,7 +181,7 @@ class SubclassRepository extends BaseRepository {
             'portfolio_id' => $portfolio->getId()
         );
 
-        return $this->mySqlDB->queryOne($sql, $parameters);
+        return $this->db->queryOne($sql, $parameters);
     }
 
     protected function bindSubclassCollection(array $data, SecurityCollection $securityCollection)
@@ -209,7 +209,7 @@ class SubclassRepository extends BaseRepository {
                     'security_id' => $values['muni_substitution_id']
                 );
 
-                $securityPriceData = $this->mySqlDB->query($sql, $parameters);
+                $securityPriceData = $this->db->query($sql, $parameters);
 
                 $muni = new Security();
                 $muni->setId($values['muni_substitution_id']);

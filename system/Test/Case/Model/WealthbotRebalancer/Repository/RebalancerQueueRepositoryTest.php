@@ -36,7 +36,7 @@ class RebalancerQueueRepositoryTest extends ExtendedTestCase
         $expectedAccount = $accountRepository->findOneByAccountNumber('916985328');
 
         $riaRepo = new RiaRepository();
-        $ria = $riaRepo->findOneBy(array('email' => 'josh@wealthbot.io'));
+        $ria = $riaRepo->findOneBy(array('email' => 'johnny@wealthbot.io'));
 
         $jobRepo = new JobRepository();
         $expectedJob = $jobRepo->findOneBy(array('user_id' => $ria->getId()));
@@ -64,7 +64,7 @@ class RebalancerQueueRepositoryTest extends ExtendedTestCase
         $subclass = $subclassRepo->findFirst();
 
         $riaRepo = new RiaRepository();
-        $ria = $riaRepo->findOneBy(array('email' => 'josh@wealthbot.io'));
+        $ria = $riaRepo->findOneBy(array('email' => 'johnny@wealthbot.io'));
 
         $jobRepo = new JobRepository();
         $job = $jobRepo->findOneBy(array('user_id' => $ria->getId()));
@@ -125,7 +125,7 @@ class RebalancerQueueRepositoryTest extends ExtendedTestCase
         $subclass = $subclassRepo->findFirst();
 
         $riaRepo = new RiaRepository();
-        $ria = $riaRepo->findOneBy(array('email' => 'josh@wealthbot.io'));
+        $ria = $riaRepo->findOneBy(array('email' => 'johnny@wealthbot.io'));
 
         $jobRepo = new JobRepository();
         $job = $jobRepo->findOneBy(array('user_id' => $ria->getId()));
@@ -159,7 +159,7 @@ class RebalancerQueueRepositoryTest extends ExtendedTestCase
     {
         $riaRepo = new RiaRepository();
         $ria = $riaRepo->findOneBy(array(
-            'email' => 'josh@wealthbot.io'
+            'email' => 'johnny@wealthbot.io'
         ));
 
         $jobRepo = new JobRepository();
@@ -247,7 +247,7 @@ class RebalancerQueueRepositoryTest extends ExtendedTestCase
     {
         $riaRepo = new RiaRepository();
         $ria = $riaRepo->findOneBy(array(
-            'email' => 'josh@wealthbot.io'
+            'email' => 'raiden@wealthbot.io'
         ));
 
         $jobRepo = new JobRepository();

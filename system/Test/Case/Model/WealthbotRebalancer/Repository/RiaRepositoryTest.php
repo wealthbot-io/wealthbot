@@ -23,11 +23,11 @@ class RiaRepositoryTest extends ExtendedTestCase
     public function testFindOneByClient()
     {
         $clientRepo = new ClientRepository();
-        $client = $clientRepo->findClientByEmail('miles@wealthbot.io');
+        $client = $clientRepo->findClientByEmail('johnny@wealthbot.io');
 
         $ria = $this->repository->findOneByClient($client);
 
-        $this->assertEquals('josh@wealthbot.io', $ria->getEmail());
+        $this->assertEquals('raiden@wealthbot.io', $ria->getEmail());
         $this->assertEquals(true, $ria->getIsTlhEnabled());
         $this->assertEquals(0.1, $ria->getClientTaxBracket());
         $this->assertEquals(50000, $ria->getMinRelationshipValue());

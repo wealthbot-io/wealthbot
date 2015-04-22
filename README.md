@@ -17,8 +17,8 @@ Wealthbot.io is an open source wealth management platform which eliminates the c
 * Admin Control Panel - manage wealthbot.io installation, including RIA and Client accounts.
 * Client Dashboard - beautiful transaction, holding and performance reports on any screen.
 * RIA Portal - define asset classes and representative securities, setup custom portofilios and multi-tiered billing, create your own risk profile questionnaire,  manage clients and document workflows.
-* Rebalancer - Automattically rebalance client portfolios to match target allocations at the household or account-level, ad-hoc or on an set schedule.
-* Portfolio Accounting System - Integrate with custodians to verify customer demographics and reconcile transactions placed by the Rebalancer.
+* Rebalancer - automattically rebalance client portfolios to match target allocations at the household or account-level, ad-hoc or on an set schedule.
+* Portfolio Accounting System - integrate with custodians to verify customer demographics and reconcile transactions placed by the Rebalancer.
 
 **Yea, We've Got That**
 
@@ -30,7 +30,9 @@ Wealthbot.io is an open source wealth management platform which eliminates the c
 * Cash generating transactions while maintaining target asset allocation
 * Muni substitiution
 
+## Demo
 
+Go to http://demo.wealthbot.io to play with *all the features* before installing.
 
 ## Installation
 

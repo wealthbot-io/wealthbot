@@ -3,7 +3,7 @@ wealthbot.io
 
 ## Wealth Management, Set Free
 
-Wealthbot.io is an open source technology platform which eliminates the cost barriers associated with serving the mass affluent by offering
+Wealthbot.io is an open source wealth management platform which eliminates the cost barriers for Investment Advisors (RIAs) associated with serving the mass affluent.
 
 **Use Cases**
 

@@ -1,6 +1,8 @@
 wealthbot.io
 ===============
 
+[![Software License](https://img.shields.io/badge/license-GPL-green.svg)](LICENSE)
+
 ## Wealth Management, Set Free
 
 Wealthbot.io is an open source wealth management platform which eliminates the cost barriers for Investment Advisors (RIAs) associated with serving the mass affluent.

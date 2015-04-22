@@ -67,7 +67,7 @@ mysql -u root -e 'CREATE DATABASE wealthbot'
 php composer.phar install
 ```
 
-### Install MongoDB with Homebrew
+#### Install MongoDB with Homebrew
 Homebrew installs binary packages based on published “formulae.” This section describes how to update brew to the latest packages and install MongoDB. Homebrew requires some initial setup and configuration, which is beyond the scope of this document.
 
 1.  Update Homebrew’s package database.

@@ -1,8 +1,42 @@
 wealthbot.io
 ===============
 
+## Wealth Management, Set Free
 
-Local setup
+Wealthbot.io is an open source wealth management platform which eliminates the cost barriers for Investment Advisors (RIAs) associated with serving the mass affluent.
+
+**Use Cases**
+
+* Help human investment advisors compete with robo-advisors
+* Build your own SaaS robo-advisor
+* Manage a personal portolio
+* Run multiple RIA firms under a single installation
+
+**Modules**
+
+* Admin Control Panel - manage wealthbot.io installation, including RIA and Client accounts.
+* Client Dashboard - beautiful transaction, holding and performance reports on any screen.
+* RIA Portal - define asset classes and representative securities, setup custom portofilios and multi-tiered billing, create your own risk profile questionnaire,  manage clients and document workflows.
+* Rebalancer - automattically rebalance client portfolios to match target allocations at the household or account-level, ad-hoc or on an set schedule.
+* Portfolio Accounting System - integrate with custodians to verify customer demographics and reconcile transactions placed by the Rebalancer.
+
+**Yea, We've Got That**
+
+* Tax loss harvesting
+* Custom portolio models
+* Custom risk profiling
+* Integration with financial custodians
+* Automated onboarding document flow and e-signing
+* Cash generating transactions while maintaining target asset allocation
+* Muni substitiution
+
+## Demo
+
+Go to http://demo.wealthbot.io to play with *all the features* before installing.
+
+## Installation
+
+Setup
 ---------------
 
 1. git `clone git@github.com:wealthbot-io/core.git`
@@ -33,7 +67,7 @@ mysql -u root -e 'CREATE DATABASE wealthbot'
 php composer.phar install
 ```
 
-### Install MongoDB with Homebrew
+#### Install MongoDB with Homebrew
 Homebrew installs binary packages based on published “formulae.” This section describes how to update brew to the latest packages and install MongoDB. Homebrew requires some initial setup and configuration, which is beyond the scope of this document.
 
 1.  Update Homebrew’s package database.

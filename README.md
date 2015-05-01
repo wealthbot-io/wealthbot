@@ -11,7 +11,7 @@ wealthbot.io
 
 * Help human investment advisors compete with robo-advisors
 * Build your own SaaS robo-advisor
-* Manage a personal portolio
+* Manage a personal portfolio
 * Run multiple RIA firms under a single installation
 
 **Modules**
@@ -19,7 +19,7 @@ wealthbot.io
 * Admin Control Panel - manage wealthbot.io installation, including RIA and Client accounts.
 * Client Dashboard - beautiful transaction, holding and performance reports on any screen.
 * RIA Portal - define asset classes and representative securities, setup custom portofilios and multi-tiered billing, create your own risk profile questionnaire,  manage clients and document workflows.
-* Rebalancer - automattically rebalance client portfolios to match target allocations at the household or account-level, ad-hoc or on an set schedule.
+* Rebalancer - automatically rebalance client portfolios to match target allocations at the household or account-level, ad-hoc or on an set schedule.
 * Portfolio Accounting System - integrate with custodians to verify customer demographics and reconcile transactions placed by the Rebalancer.
 
 **Yea, We've Got That**

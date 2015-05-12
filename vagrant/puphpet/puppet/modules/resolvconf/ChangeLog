@@ -1,0 +1,13 @@
+* Create new file definition to manage Ubuntu resolv.conf.d files (#2).
+* Add support for sortlist parameter.
+
+2013-07-17 - 0.0.3
+* Add missing @ prefix for variables in the template.
+
+2013-05-07 - 0.0.2
+* Add support for domain parameter.
+* Add support for changing or removing the default "do not edit" header.
+
+2013-05-07 - 0.0.1
+* Initial module release.
+

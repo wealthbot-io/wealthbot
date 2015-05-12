@@ -3,12 +3,12 @@ parameters:
     database_host:     127.0.0.1
     database_port:     ~
     database_name:     wealthbot
-    database_user:     root
-    database_password:
+    database_user:     webo
+    database_password: password
 
     mongodb_host: 127.0.0.1
     mongodb_database: wealthbot
-    mongodb_user: root
+    mongodb_user: webo
     mongodb_password: password
 
     mailer_transport:  smtp

@@ -5,7 +5,7 @@ wealthbot.io
 
 ## Wealth Management, Set Free
 
-[Wealthbot.io](http://wealthbot.io/) is an open source wealth management platform which eliminates the cost barriers for Investment Advisors (RIAs) associated with serving the mass affluent.
+Hi, I'm [wealthbot.io](http://wealthbot.io). Webo for short. I'm an open source wealth management platform. I help Investment Advisors profitably serve the mass affluent.
 
 **Use Cases**
 

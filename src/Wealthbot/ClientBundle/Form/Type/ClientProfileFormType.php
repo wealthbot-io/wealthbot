@@ -166,9 +166,6 @@ class ClientProfileFormType extends AbstractType
         if ($form->has('first_name') && !$data->getFirstName()) {
             $form->get('first_name')->addError(new FormError('Required.'));
         }
-        if ($form->has('middle_name') && !preg_match('/[A-Za-z]/', $data->getMiddleName())) {
-            $form->get('middle_name')->addError(new FormError('Enter least 1 letter.'));
-        }
         if ($form->has('last_name') && !$data->getLastName()) {
             $form->get('last_name')->addError(new FormError('Required.'));
         }

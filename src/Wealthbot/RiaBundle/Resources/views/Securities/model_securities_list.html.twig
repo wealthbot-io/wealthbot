@@ -1,47 +1,3 @@
-<table class="table table-striped sorted-table" id="secTable">
-    <thead>
-    <tr>
-        <th><a href="#"><span class="caret"></span> #</a></th>
-        <th><a href="#1"><span class="caret"></span> Symbol</a></th>
-        <th><a href="#1"><span class="caret"></span> Security Name</a></th>
-        <th><a href="#1"><span class="caret"></span> Asset Class</a></th>
-            <th><a href="#1"><span class="caret"></span> Subclass</a></th>
-        <th><a href="#1"><span class="caret"></span> Type</a></th>
-        <th><a href="#1"><span class="caret"></span> Expense Ratio</a></th>
-        {% if (is_show_municipal_bond) %}
-            <th>Muni<br/>Substitution</th>
-        {% endif %}
-        {% if (is_show_transaction_edit) %}
-            <th>Transactions</th>
-        {% endif %}
-        <th>Actions</th>
-    </tr>
-    </thead>
-    <tbody>
-    {% for item in security_assignments %}
-        <tr>
-            <td>{{ loop.index }}.</td>
-            <td>{{ item.security.symbol }}</td>
-            <td>{{ item.security.name }}</td>
-            <td>{{ item.subclass.assetClass.name }}</td>
-            <td>{{ item.subclass.name }}</td>
-            <td>{{ item.security.type }}</td>
-            <td>{{ item.security.expenseRatio }}</td>
-            {% if (is_show_municipal_bond) %}
-                <td><input type="checkbox" {% if item.muniSubstitution %}checked="checked"{% endif %} disabled="disabled" /></td>
-            {% endif %}
-            {% if (is_show_transaction_edit) %}
-                <td><a class="security-transaction-edit-btn" href="{{ path('rx_ria_security_edit_transaction', {'security_id': item.id}) }}">Edit</a></td>
-            {% endif %}
-            <td>
-                <a href="{{ path('rx_ria_model_securities_edit', {'id': item.id }) }}" class="edit-model-security-btn">Edit</a>
-                &nbsp;|&nbsp;
-                <a href="{{ path('rx_ria_model_securities_delete', {'id': item.id }) }}" class="delete-model-security-btn">Delete</a>
-            </td>
-        </tr>
-    {% endfor %}
-    </tbody>
-</table>
 {% block security_form %}
     <form id="security_form" action="{{ path('rx_ria_model_securities_list', { model_id: app.request.get('model_id')}) }}" method="post">
         <table class="table table-striped sorted-table">
@@ -94,3 +50,47 @@
         </table>
     </form>
 {% endblock %}
+<table class="table table-striped sorted-table" id="secTable">
+    <thead>
+    <tr>
+        <th><a href="#"><span class="caret"></span> #</a></th>
+        <th><a href="#1"><span class="caret"></span> Symbol</a></th>
+        <th><a href="#1"><span class="caret"></span> Security Name</a></th>
+        <th><a href="#1"><span class="caret"></span> Asset Class</a></th>
+            <th><a href="#1"><span class="caret"></span> Subclass</a></th>
+        <th><a href="#1"><span class="caret"></span> Type</a></th>
+        <th><a href="#1"><span class="caret"></span> Expense Ratio</a></th>
+        {% if (is_show_municipal_bond) %}
+            <th>Muni<br/>Substitution</th>
+        {% endif %}
+        {% if (is_show_transaction_edit) %}
+            <th>Transactions</th>
+        {% endif %}
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for item in security_assignments %}
+        <tr>
+            <td>{{ loop.index }}.</td>
+            <td>{{ item.security.symbol }}</td>
+            <td>{{ item.security.name }}</td>
+            <td>{{ item.subclass.assetClass.name }}</td>
+            <td>{{ item.subclass.name }}</td>
+            <td>{{ item.security.type }}</td>
+            <td>{{ item.security.expenseRatio }}</td>
+            {% if (is_show_municipal_bond) %}
+                <td><input type="checkbox" {% if item.muniSubstitution %}checked="checked"{% endif %} disabled="disabled" /></td>
+            {% endif %}
+            {% if (is_show_transaction_edit) %}
+                <td><a class="security-transaction-edit-btn" href="{{ path('rx_ria_security_edit_transaction', {'security_id': item.id}) }}">Edit</a></td>
+            {% endif %}
+            <td>
+                <a href="{{ path('rx_ria_model_securities_edit', {'id': item.id }) }}" class="edit-model-security-btn">Edit</a>
+                &nbsp;|&nbsp;
+                <a href="{{ path('rx_ria_model_securities_delete', {'id': item.id }) }}" class="delete-model-security-btn">Delete</a>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

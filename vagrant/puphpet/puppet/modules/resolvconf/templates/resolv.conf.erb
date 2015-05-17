@@ -1,0 +1,18 @@
+<% if !@header.empty? -%>
+# <%= @header %>
+<% end -%>
+<% if !@search.empty? -%>
+search <%= @search.join(' ') %>
+<% end -%>
+<% if !@domain.empty? -%>
+domain <%= @domain %>
+<% end -%>
+<% if !@options.empty? -%>
+options <%= @options.join(' ') %>
+<% end -%>
+<% @nameserver.each do |ns| -%>
+nameserver <%= ns %>
+<% end -%>
+<% if !@sortlist.empty? -%>
+sortlist <%= @sortlist.join(' ') %>
+<% end -%>

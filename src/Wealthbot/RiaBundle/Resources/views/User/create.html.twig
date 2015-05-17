@@ -36,13 +36,6 @@
                     {{ form_widget(form.email) }}
                 </div>
             </div>
-            <div class="control-group">
-                {{ form_label(form.password, null, { 'label_attr': { 'class': 'control-label' } }) }}
-                <div class="controls">
-                    {{ form_errors(form.password) }}
-                    {{ form_widget(form.password) }}
-                </div>
-            </div>
             {% if form.offsetExists('type') %}
                 <div class="control-group">
                     {{ form_label(form.type, null, { 'label_attr': { 'class': 'control-label' } }) }}

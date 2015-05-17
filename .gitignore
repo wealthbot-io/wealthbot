@@ -44,3 +44,6 @@ system/Config.php
 #testing stuff
 wealthbot_test
 wealthbot_test.db
+
+# Random files
+.DS_Store

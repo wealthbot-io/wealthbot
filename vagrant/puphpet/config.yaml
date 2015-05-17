@@ -144,7 +144,7 @@ apache:
             servername: local.wealthbot.io
             serveraliases:
                 - app.wealthbot.io
-            docroot: /srv/wealthbot/core/web
+            docroot: /srv/wealthbot/web
             port: '80'
             setenv:
                 - 'APP_ENV dev'
@@ -155,7 +155,7 @@ apache:
             ssl_certs_dir: ''
             directories:
                 avd_l2hxavi6ityp:
-                    path: /srv/wealthbot/core/web
+                    path: /srv/wealthbot/web
                     options:
                         - Indexes
                         - FollowSymlinks
@@ -191,6 +191,7 @@ php:
         pear: {  }
         pecl:
             - pecl_http
+            - APCu
     ini:
         display_errors: On
         error_reporting: '-1'
@@ -340,4 +341,3 @@ solr:
     settings:
         version: 4.10.2
         port: '8984'
-

@@ -49,7 +49,7 @@ class LoadBillingSpecData extends AbstractFixture implements OrderedFixtureInter
 
         $billingSpec = new BillingSpec();
         $billingSpec->setMaster(false);
-        $billingSpec->setName('Wealthbot flat spec');
+        $billingSpec->setName('Webo Flat Spec');
         $billingSpec->setType(BillingSpec::TYPE_FLAT);
         $billingSpec->setOwner($joshUser);
         $billingSpec->setMinimalFee(10);
@@ -59,7 +59,7 @@ class LoadBillingSpecData extends AbstractFixture implements OrderedFixtureInter
 
         $billingSpec = new BillingSpec();
         $billingSpec->setMaster(true);
-        $billingSpec->setName('Josh tier spec');
+        $billingSpec->setName('Webo Tier Spec');
         $billingSpec->setType(BillingSpec::TYPE_TIER);
         $billingSpec->setOwner($joshUser);
         $billingSpec->setMinimalFee(20);

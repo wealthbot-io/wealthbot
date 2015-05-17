@@ -73,7 +73,7 @@ class LoadTransactionData extends AbstractCsvFixture implements OrderedFixtureIn
                 $transaction->setNetAmount($netAmount);
                 $transaction->setGrossAmount($netAmount * 1.03);
                 $transaction->setSettleDate(new \DateTime($settleDate));
-                $transaction->setAccruedInterest($accruedInterest);
+                $transaction->setAccruedInterest(!empty($accruedInterest) ?: null);
                 $transaction->setNotes($notes);
                 $transaction->setStatus(Transaction::STATUS_PLACED);
 

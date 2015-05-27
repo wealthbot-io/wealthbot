@@ -3,15 +3,15 @@ vagrantfile:
     vm:
         box: puphpet/ubuntu1404-x64
         box_url: puphpet/ubuntu1404-x64
-        hostname: local-wealthbot
+        hostname: webo
         memory: '1024'
-        cpus: '1'
+        cpus: '2'
         chosen_provider: virtualbox
         network:
             private_network: 192.168.56.103
             forwarded_port:
-                vflnp_m2hiwnq384zv:
-                    host: '8949'
+                vflnp_girkjxaiooix:
+                    host: '7372'
                     guest: '22'
         post_up_message: ''
         provider:
@@ -32,7 +32,7 @@ vagrantfile:
                     - '--hiera_config /vagrant/puphpet/puppet/hiera.yaml'
                     - '--parser future'
         synced_folder:
-            vflsf_dgsk5f1dr85i:
+            vflsf_6y12knezwr1i:
                 source: ../
                 target: /srv/wealthbot
                 sync_type: nfs
@@ -85,7 +85,7 @@ nginx:
         proxy_buffers: '4 256k'
     upstreams: {  }
     vhosts:
-        nxv_p62ch0uavet0:
+        nxv_qkz6kws15qw6:
             server_name: awesome.dev
             server_aliases:
                 - www.awesome.dev
@@ -100,10 +100,12 @@ nginx:
             ssl_cert: ''
             ssl_key: ''
             ssl_port: '443'
+            ssl_protocols: ''
+            ssl_ciphers: ''
             rewrite_to_https: '1'
             spdy: '1'
             locations:
-                nxvl_zz5dw7hf423h:
+                nxvl_5uiuvzmz00ke:
                     location: /
                     autoindex: off
                     try_files:
@@ -113,7 +115,7 @@ nginx:
                     fastcgi: ''
                     fastcgi_index: ''
                     fastcgi_split_path: ''
-                nxvl_76519ghkspun:
+                nxvl_uz67jvks9yq9:
                     location: '~ \.php$'
                     autoindex: off
                     try_files:
@@ -140,7 +142,7 @@ apache:
         - proxy_fcgi
         - rewrite
     vhosts:
-        av_w8l357xkcz6k:
+        av_qlt3x5h4bdq6:
             servername: local.wealthbot.io
             serveraliases:
                 - app.wealthbot.io
@@ -149,12 +151,15 @@ apache:
             setenv:
                 - 'APP_ENV dev'
             custom_fragment: ''
+            ssl: '0'
             ssl_cert: ''
             ssl_key: ''
             ssl_chain: ''
             ssl_certs_dir: ''
+            ssl_protocol: ''
+            ssl_cipher: ''
             directories:
-                avd_l2hxavi6ityp:
+                avd_4osswrdgcksw:
                     path: /srv/wealthbot/web
                     options:
                         - Indexes
@@ -166,7 +171,7 @@ apache:
                         - 'all granted'
                     custom_fragment: ''
                     files_match:
-                        avdfm_1my62obim2vs:
+                        avdfm_7kcrqfnt3wo9:
                             path: \.php$
                             sethandler: 'proxy:fcgi://127.0.0.1:9000'
                             custom_fragment: ''
@@ -181,13 +186,11 @@ php:
             - cli
             - intl
             - mcrypt
+            - imagick
             - mongo
             - curl
-            - imagick
             - mysql
             - sqlite
-            - gd
-            - geoip
         pear: {  }
         pecl:
             - pecl_http
@@ -197,6 +200,16 @@ php:
         error_reporting: '-1'
         session.save_path: /var/lib/php/session
         date.timezone: UTC
+    fpm_ini:
+        error_log: /var/log/php-fpm.log
+    fpm_pools:
+        phpfp_x8qxuux5jkq8:
+            ini:
+                prefix: www
+                listen: '127.0.0.1:9000'
+                security.limit_extensions: .php
+                user: www-user
+                group: www-data
     composer: '1'
     composer_home: ''
 xdebug:
@@ -263,16 +276,16 @@ mysql:
         override_options: {  }
     adminer: 0
     users:
-        mysqlnu_o5bhjnpc5d3c:
+        mysqlnu_zwy5xhwslih0:
             name: webo
             password: password
     databases:
-        mysqlnd_npvxgjesfskx:
+        mysqlnd_f1ru1vspmar5:
             name: wealthbot
             sql: ''
     grants:
-        mysqlng_v3h9tj2tuqaz:
-            user: webo
+        mysqlng_esh3oe56tb0a:
+            user: wealthbot
             table: '*.*'
             privileges:
                 - ALL
@@ -341,3 +354,4 @@ solr:
     settings:
         version: 4.10.2
         port: '8984'
+

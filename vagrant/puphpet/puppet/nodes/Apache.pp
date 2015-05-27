@@ -130,26 +130,41 @@ if array_true($apache_values, 'install') {
       require => Exec['Create apache webroot'],
     }
 
-    $ssl = array_true($vhost, 'ssl')
+    $allowed_ciphers = [
+      'ECDHE-RSA-AES256-GCM-SHA384', 'ECDHE-RSA-AES128-GCM-SHA256',
+      'DHE-RSA-AES256-GCM-SHA384', 'DHE-RSA-AES128-GCM-SHA256',
+      'ECDHE-RSA-AES256-SHA384', 'ECDHE-RSA-AES128-SHA256', 'ECDHE-RSA-AES256-SHA',
+      'ECDHE-RSA-AES128-SHA', 'DHE-RSA-AES256-SHA256', 'DHE-RSA-AES128-SHA256',
+      'DHE-RSA-AES256-SHA', 'DHE-RSA-AES128-SHA', 'ECDHE-RSA-DES-CBC3-SHA',
+      'EDH-RSA-DES-CBC3-SHA', 'AES256-GCM-SHA384', 'AES128-GCM-SHA256', 'AES256-SHA256',
+      'AES128-SHA256', 'AES256-SHA', 'AES128-SHA', 'DES-CBC3-SHA',
+      'HIGH', '!aNULL', '!eNULL', '!EXPORT', '!DES', '!MD5', '!PSK', '!RC4'
+    ]
 
+    $ssl = array_true($vhost, 'ssl')
     $ssl_cert = array_true($vhost, 'ssl_cert') ? {
       true    => $vhost['ssl_cert'],
       default => $puphpet::params::ssl_cert_location
     }
-
     $ssl_key = array_true($vhost, 'ssl_key') ? {
       true    => $vhost['ssl_key'],
       default => $puphpet::params::ssl_key_location
     }
-
     $ssl_chain = array_true($vhost, 'ssl_chain') ? {
       true    => $vhost['ssl_chain'],
       default => undef
     }
-
     $ssl_certs_dir = array_true($vhost, 'ssl_certs_dir') ? {
       true    => $vhost['ssl_certs_dir'],
       default => undef
+    }
+    $ssl_protocol = array_true($vhost, 'ssl_protocol') ? {
+      true    => $vhost['ssl_protocol'],
+      default => 'TLSv1 TLSv1.1 TLSv1.2',
+    }
+    $ssl_cipher = array_true($vhost, 'ssl_cipher') ? {
+      true    => $vhost['ssl_cipher'],
+      default => join($allowed_ciphers, ':'),
     }
 
     if array_true($vhost, 'directories') {
@@ -172,6 +187,8 @@ if array_true($apache_values, 'install') {
       'ssl_key'         => $ssl_key,
       'ssl_chain'       => $ssl_chain,
       'ssl_certs_dir'   => $ssl_certs_dir,
+      'ssl_protocol'    => $ssl_protocol,
+      'ssl_cipher'      => "\"${ssl_cipher}\"",
       'custom_fragment' => $vhost_custom_fragment,
       'manage_docroot'  => false
     })
@@ -216,15 +233,17 @@ if array_true($apache_values, 'install') {
   $default_vhost_index_file =
     "${puphpet::apache::params::default_vhost_dir}/index.html"
 
-  if ! defined(File[$default_vhost_index_file]) {
-    file { $default_vhost_index_file:
-      ensure  => present,
-      owner   => 'root',
-      group   => $webroot_group,
-      mode    => '0664',
-      source  => 'puppet:///modules/puphpet/webserver_landing.erb',
-      replace => true,
-      require => Exec['Create apache webroot'],
-    }
+  $default_vhost_source_file =
+    '/vagrant/puphpet/puppet/modules/puphpet/files/webserver_landing.html'
+
+  exec { "Set ${default_vhost_index_file} contents":
+    command => "cat ${default_vhost_source_file} > ${default_vhost_index_file} && \
+                chmod 644 ${default_vhost_index_file} && \
+                chown root ${default_vhost_index_file} && \
+                chgrp ${webroot_group} ${default_vhost_index_file} && \
+                touch /.puphpet-stuff/default_vhost_index_file_set",
+    returns => [0, 1],
+    creates => '/.puphpet-stuff/default_vhost_index_file_set',
+    require => Exec['Create apache webroot'],
   }
 }

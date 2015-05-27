@@ -45,7 +45,7 @@ Setup
 
 2. Install and setup [Vagrant](https://www.vagrantup.com/) 
 
-3. '$ vagrant up' in /wealthbot/vagrant
+3. `$vagrant up` in /wealthbot/vagrant
 
 4. Setup your database and import fixtures:
 

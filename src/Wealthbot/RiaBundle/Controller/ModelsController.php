@@ -1,11 +1,4 @@
 <?php
-/**
- * Created by JetBrains PhpStorm.
- * User: amalyuhin
- * Date: 08.11.12
- * Time: 11:54
- * To change this template use File | Settings | File Templates.
- */
 
 namespace Wealthbot\RiaBundle\Controller;
 

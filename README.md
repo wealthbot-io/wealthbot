@@ -41,102 +41,22 @@ Go to http://demo.wealthbot.io to play with *all the features* before installing
 Setup
 ---------------
 
-1. git `clone git@github.com:wealthbot-io/core.git`
+1. `git clone https://github.com/wealthbot-io/core.git wealthbot`
 
-2. Install and setup [LAMP](https://www.digitalocean.com/community/tutorials/how-to-install-linux-apache-mysql-php-lamp-stack-on-ubuntu-14-04) and [MongoDB](http://docs.mongodb.org/manual/tutorial/install-mongodb-on-ubuntu/#install-mongodb)
+2. Install and setup [Vagrant](https://www.vagrantup.com/) 
 
-You'll also need the PHP Mongo Driver.  In Ubuntu/Debian:
-```
-sudo apt-get php5-mongo
-```
-
-3. Go to `app/config` folder and copy `parameters.yml.dist` to `parameters.yml`.  This file configures wealthbot.io with database passwords, settings, and etc.  Be sure you can login to MySQL and Mongo with the settings in this file.
-
-```
-cd app/config
-cp parameters.yml.dist parameters.yml
-nano parameters.yml
-```
-
-Create your databases like so (you may need to change passwords)
-```
-mysql -u root -e 'CREATE DATABASE wealthbot'   
-```
-
-4. Install the [Composer dependency manager](https://getcomposer.org/doc/00-intro.md), and run this command to install the wealthbot.io's dependencies:
-    
-```
-php composer.phar install
-```
-
-#### Install MongoDB with Homebrew
-Homebrew installs binary packages based on published “formulae.” This section describes how to update brew to the latest packages and install MongoDB. Homebrew requires some initial setup and configuration, which is beyond the scope of this document.
-
-1.  Update Homebrew’s package database.
-In a system shell, issue the following command:
-
-```
-     $ brew update
-```
-
-2. Install MongoDB.
-To install the MongoDB binaries, issue the following command in a system shell:
-
-```
-     brew install mongodb
-```
-
-------
-
-5. Add parameters uploads_dir, uploads_ria_company_logos_dir and uploads_documents_dir in parameters.yml
-
-##### Example:
-
-```
-    uploads_dir: ../uploads
-    uploads_ria_company_logos_dir: %uploads_dir%/ria_company_logos
-    uploads_documents_dir: %uploads_dir%/documents
-```
-6. Install ImageMagick library:
-
-##### For ubuntu, use apt-get:
-```
-    $ apt-get install imagemagick
-    $ service apache2 restart
-```
-##### For Mac OS, use homebrew:
-```
-    $ brew install imagemagick
-```
-7. Check if app/console works by running commands below:
-
-##### Example:
-
-    $ app/console doctrine:database:drop
-    $ app/console doctrine:database:create
-    $ app/console doctrine:schema:update --force
-    $ [php -d memory_limit=536870912] app/console doctrine:fixtures:load
-
-8. Install APC
-
-```
-sudo apt-get install php-apc
-```
-
-9. Setup your database:
+3. `$vagrant up` in /wealthbot/vagrant
+4. `$vagrant ssh`
+5. cd to /srv/wealthbot
+6. run composer update
+7. Setup your database and import fixtures:
 
 ```
 php app/console doctrine:database:create
 php app/console doctrine:schema:create
+app/console doctrine:fixtures:load
 ```
 
-10. Configure and start your webserver (Apache or nginx).  For testing, use Symfony2's mini web server
-
-```
-cd core
-php app/console server:run
-```
-
-11. Open your browser to `http://localhost:8000` to see your wealthbot.io.
+8. Open your browser to `http://localhost` to see the wealthbot.io demo landing page
 
 More specific docs are [here](app/Resources/doc).

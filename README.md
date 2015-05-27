@@ -25,10 +25,10 @@ Hi, I'm [wealthbot.io](http://wealthbot.io). Webo for short. I'm an open source 
 **Yea, We've Got That**
 
 * Tax loss harvesting
-* Custom portolio models
+* Custom portfolio models
 * Custom risk profiling
 * Integration with financial custodians
-* Automated onboarding document flow and e-signing
+* Automated onboarding, document flow and e-signing
 * Cash generating transactions while maintaining target asset allocation
 * Muni substitiution
 
@@ -37,9 +37,6 @@ Hi, I'm [wealthbot.io](http://wealthbot.io). Webo for short. I'm an open source 
 Go to http://demo.wealthbot.io to play with *all the features* before installing.
 
 ## Installation
-
-Setup
----------------
 
 1. `git clone https://github.com/wealthbot-io/core.git wealthbot`
 

@@ -38,9 +38,6 @@ Go to http://demo.wealthbot.io to play with *all the features* before installing
 
 ## Installation
 
-Setup
----------------
-
 1. `git clone https://github.com/wealthbot-io/core.git wealthbot`
 
 2. Install and setup [Vagrant](https://www.vagrantup.com/) 

@@ -46,8 +46,10 @@ Setup
 2. Install and setup [Vagrant](https://www.vagrantup.com/) 
 
 3. `$vagrant up` in /wealthbot/vagrant
-
-4. Setup your database and import fixtures:
+4. `$vagrant ssh`
+5. cd to /srv/wealthbot
+6. run composer update
+7. Setup your database and import fixtures:
 
 ```
 php app/console doctrine:database:create
@@ -55,6 +57,6 @@ php app/console doctrine:schema:create
 app/console doctrine:fixtures:load
 ```
 
-5. Open your browser to `http://localhost` to see the wealthbot.io demo landing page
+8. Open your browser to `http://localhost` to see the wealthbot.io demo landing page
 
 More specific docs are [here](app/Resources/doc).

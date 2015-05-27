@@ -1,9 +1,0 @@
----
-.travis.yml:
-  extras:
-  - rvm: 1.9.3
-    env: PUPPET_GEM_VERSION="~> 3.5" STRICT_VARIABLES="yes"
-  - rvm: 2.0.0
-    env: PUPPET_GEM_VERSION="~> 3.5" STRICT_VARIABLES="yes"
-spec/spec_helper.rb:
-  unmanaged: true

@@ -38,22 +38,14 @@ Go to http://demo.wealthbot.io to play with *all the features* before installing
 
 ## Installation
 
+Our super easy, 7 Step Installation.
+
 1. `git clone https://github.com/wealthbot-io/core.git wealthbot`
-
-2. Install and setup [Vagrant](https://www.vagrantup.com/) 
-
-3. `$vagrant up` in /wealthbot/vagrant
-4. `$vagrant ssh`
-5. cd to /srv/wealthbot
-6. run composer update
-7. Setup your database and import fixtures:
-
-```
-php app/console doctrine:database:create
-php app/console doctrine:schema:create
-app/console doctrine:fixtures:load
-```
-
-8. Open your browser to `http://localhost` to see the wealthbot.io demo landing page
+2. Install [Vagrant](https://www.vagrantup.com/) and [Virtual Box](https://www.virtualbox.org/)
+3. `vagrant up` in /wealthbot/vagrant and wait
+4. Once complete, `vagrant ssh` in the same folder
+5. You are now in your Virtual Box. `cd /srv/wealthbot`
+6. run `composer update`
+7. Open your browser to `http://192.168.56.105/` to see the wealthbot.io demo landing page
 
 More specific docs are [here](app/Resources/doc).

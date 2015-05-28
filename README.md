@@ -48,4 +48,6 @@ Our super easy, 7 Step Installation.
 6. run `composer update`
 7. Open your browser to `http://192.168.56.105/` to see the wealthbot.io demo landing page
 
+Note: to register new clients, you'll need to setup the smtp server authentication in wealthbot/app/config/parameters.yml. Digital Ocean has [a good writeup on how to you can use your Gmail account](https://www.digitalocean.com/community/tutorials/how-to-use-google-s-smtp-server) for this. 
+
 More specific docs are [here](app/Resources/doc).

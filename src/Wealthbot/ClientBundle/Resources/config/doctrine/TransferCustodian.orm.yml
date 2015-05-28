@@ -10,7 +10,7 @@ Wealthbot\ClientBundle\Entity\TransferCustodian:
                 strategy: AUTO
         name:
             type: string
-            length: 40
+            length: 255
     uniqueConstraints:
         name_unique:
             name: name_UNIQUE_TC

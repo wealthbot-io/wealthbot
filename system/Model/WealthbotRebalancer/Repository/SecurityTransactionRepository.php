@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: amalyuhin
- * Date: 14.04.14
- * Time: 17:57
- */
 
 namespace Model\WealthbotRebalancer\Repository;
 

@@ -1,11 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: amalyuhin
- * Date: 23.04.14
- * Time: 18:54
- */
-
 namespace Lib\Logger\Writer;
 
 

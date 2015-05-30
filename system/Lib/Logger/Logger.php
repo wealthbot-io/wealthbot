@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: amalyuhin
- * Date: 23.04.14
- * Time: 18:36
- */
 
 namespace Lib\Logger;
 

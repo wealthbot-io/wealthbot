@@ -5,7 +5,7 @@ namespace Pas\TwrCalculator;
 class Functions
 {
     /**
-     * Calculate today`s TWR value
+     * Calculate today's TWR value
      *
      * @param float $todayValue
      * @param float $yesterdayCashFlow
@@ -55,7 +55,7 @@ class Functions
     public static function calculateAnnualizedTwr($actualTwr, $daysInTotalReviewPeriod)
     {
         if ($daysInTotalReviewPeriod == 0) {
-            throw new \RangeException('$daysInTotalReviewPeriod can`t be 0.');
+            throw new \RangeException('$daysInTotalReviewPeriod can\'t be 0.');
         }
 
         return ((1.0 + (float)$actualTwr) ^ (365 / $daysInTotalReviewPeriod ) - 1.0) * 100.0;

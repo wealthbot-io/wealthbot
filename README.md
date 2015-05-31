@@ -1,4 +1,4 @@
-wealthbot.io
+wealthbot.io 
 ===============
 
 [![Software License](https://img.shields.io/badge/license-GPL-green.svg)](LICENSE)

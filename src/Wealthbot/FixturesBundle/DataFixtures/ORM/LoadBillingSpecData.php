@@ -45,13 +45,13 @@ class LoadBillingSpecData extends AbstractFixture implements OrderedFixtureInter
 
         $this->setReference('ria-tier-spec', $billingSpec);
 
-        $joshUser = $this->getReference('user-wealthbot-io-ria');
+        $weboUserRia = $this->getReference('user-wealthbot-io-ria');
 
         $billingSpec = new BillingSpec();
         $billingSpec->setMaster(false);
         $billingSpec->setName('Webo Flat Spec');
         $billingSpec->setType(BillingSpec::TYPE_FLAT);
-        $billingSpec->setOwner($joshUser);
+        $billingSpec->setOwner($weboUserRia);
         $billingSpec->setMinimalFee(10);
         $manager->persist($billingSpec);
 
@@ -61,7 +61,7 @@ class LoadBillingSpecData extends AbstractFixture implements OrderedFixtureInter
         $billingSpec->setMaster(true);
         $billingSpec->setName('Webo Tier Spec');
         $billingSpec->setType(BillingSpec::TYPE_TIER);
-        $billingSpec->setOwner($joshUser);
+        $billingSpec->setOwner($weboUserRia);
         $billingSpec->setMinimalFee(20);
         $manager->persist($billingSpec);
 

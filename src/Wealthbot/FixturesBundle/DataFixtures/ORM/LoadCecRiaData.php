@@ -1,11 +1,4 @@
 <?php
-/**
- * Created by JetBrains PhpStorm.
- * User: amalyuhin
- * Date: 15.07.13
- * Time: 14:53
- * To change this template use File | Settings | File Templates.
- */
 
 namespace Wealthbot\FixturesBundle\DataFixtures\ORM;
 
@@ -821,7 +814,7 @@ class LoadCecRiaData extends AbstractFixture implements OrderedFixtureInterface,
         1 => array(
             1 => array(
                 'account_number' => '409888117',
-                'account_description' => 'Christine Personal Account',
+                'account_description' => 'Sonya Personal Account',
                 'type' => 1,
                 'status' => SystemAccount::STATUS_ACTIVE
             )
@@ -829,25 +822,25 @@ class LoadCecRiaData extends AbstractFixture implements OrderedFixtureInterface,
         2 => array(
             1 => array(
                 'account_number' => '744888385',
-                'account_description' => 'Babette Personal Account',
+                'account_description' => 'Princess Personal Account',
                 'type' => 1,
                 'status' => SystemAccount::STATUS_ACTIVE
             ),
             2 => array(
                 'account_number' => '744888386',
-                'account_description' => 'Kris & Babette Joint Account',
+                'account_description' => 'Liu & Princess Joint Account',
                 'type' => 2,
                 'status' => SystemAccount::STATUS_ACTIVE
             ),
             3 => array(
                 'account_number' => '214888609',
-                'account_description' => 'Kris Roth IRA',
+                'account_description' => 'Liu Roth IRA',
                 'type' => 3,
                 'status' => SystemAccount::STATUS_ACTIVE
             ),
             4 => array(
                 'account_number' => '480888811',
-                'account_description' => 'Babette Roth IRA',
+                'account_description' => 'Princess Roth IRA',
                 'type' => 3,
                 'status' => SystemAccount::STATUS_ACTIVE
             ),
@@ -869,7 +862,7 @@ class LoadCecRiaData extends AbstractFixture implements OrderedFixtureInterface,
         5 => array(
             3 => array(
                 'account_number' => '338484924',
-                'account_description' => 'Ricky Rollover IRA',
+                'account_description' => 'Saibot Rollover IRA',
                 'type' => 4,
                 'status' => SystemAccount::STATUS_ACTIVE
             ),

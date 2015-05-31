@@ -18,7 +18,7 @@ class WealthbotMysqlSqliteConnection
         $dbpass = \Config::$MYSQL_PASSWORD;
         $dbname = \Config::$SQLITE_DATABASE;
 
-
+var_dump($GLOBALS['__PHPUNIT_BOOTSTRAP']);
         $dbDriver = 'sqlite';
         if (isset($GLOBALS['__PHPUNIT_BOOTSTRAP'])) {
             $sqlitedb = \Config::$SQLITE_DATABASE_TEST;

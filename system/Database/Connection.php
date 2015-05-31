@@ -38,7 +38,7 @@ class Connection {
 	protected $dataDateTime;
 
 	public function __construct() {
-		$this->db = $this->getMySqlDB();
+		$this->mySqlDB = $this->getMySqlDB();
 		$this->mongoDB = $this->getMongoDB();
 	}
 
@@ -73,7 +73,7 @@ class Connection {
 	 * @return type
 	 */
     public function getMySqlDB($force = false) {
-        if (is_null($this->db) || $force) {
+        if (is_null($this->mySqlDB) || $force) {
             $username = \Config::$MYSQL_USERNAME;
             $password = \Config::$MYSQL_PASSWORD;
             $database = \Config::$MYSQL_DATABASE;
@@ -84,24 +84,24 @@ class Connection {
                 $database = \Config::$MYSQL_DATABASE_TEST;
             }
 
-            $this->db = new Database(
+            $this->mySqlDB = new Database(
                 \Config::$MYSQL_HOST,
                 $username,
                 $password,
                 $database,
                 \Config::$DEBUG);
 
-            if (!$this->db) {
+            if (!$this->mySqlDB) {
                 throw new Exception(
-                    'Can not connect to Mysql DB using mysqli driver.');
+                    'Can not connect to Mysql mySqlDB using mysqli driver.');
             }
         }
         if (\Config::$DEBUG) {
             // TEMP HACK:
             $q = 'SET foreign_key_checks = 0;';
-            $this->db->q($q);
+            $this->mySqlDB->q($q);
         }
 
-        return $this->db;
+        return $this->mySqlDB;
     }
 }

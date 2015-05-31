@@ -114,7 +114,7 @@ class SecurityController extends BaseSecurity
             'WealthbotUserBundle:Security:reset_password.html.twig',
             array(
                 'form' => $form->createView(),
-                'ria_logo' => $riaLogo
+                'ria_logo' => !empty($riaLogo) ? $riaLogo : null
             )
         );
 

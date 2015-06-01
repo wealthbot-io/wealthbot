@@ -37,12 +37,15 @@ Hi, I'm [wealthbot.io](http://wealthbot.io). Webo for short. I'm an open source 
 Go to http://demo.wealthbot.io to play with *all the features* before installing.
 
 ## Installation
+*Prereqs*: 
+* Install [Vagrant](https://www.vagrantup.com/) and [Virtual Box](https://www.virtualbox.org/)
+* You'll need an NFS plugin. Once vagrant is installed run: `vagrant plugin install vagrant-bindfs`
 
-1. `git clone https://github.com/wealthbot-io/core.git wealthbot`
-2. Install [Vagrant](https://www.vagrantup.com/) and [Virtual Box](https://www.virtualbox.org/) 
-3. You'll need an NFS plugin. Once vagrant is installed run: `vagrant plugin install vagrant-bindfs`
-4. Add `192.168.56.105  local.wealthbot.io` to your etc/hosts file
-5. `cd wealthbot/vagrant` and run `vagrant up` (it will take a while the first time you run it).
+And now, our super-simple, 3-step install
+
+1. `git clone https://github.com/wealthbot-io/wealthbot`
+2. Add `192.168.56.105  local.wealthbot.io` to your etc/hosts file
+3. `cd wealthbot/vagrant` and run `vagrant up` (it will take a while the first time you run it).
 
 Then simply go to http://local.wealthbot.io in your browser to see the wealthbot.io demo landing page.
 

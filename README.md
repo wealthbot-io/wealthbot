@@ -45,9 +45,11 @@ And now, our super-simple, 3-step install
 
 1. `git clone https://github.com/wealthbot-io/wealthbot`
 2. Add `192.168.56.105  local.wealthbot.io` to your etc/hosts file
-3. `cd wealthbot/vagrant` and run `vagrant up` (it will take a while the first time you run it).
+3. `cd wealthbot/vagrant` and run `vagrant up` 
 
-Then simply go to http://local.wealthbot.io in your browser to see the wealthbot.io demo landing page.
+Go grab a coffee or a beer ... this will take a while the first time you run it.
+
+Once complete, simply go to http://local.wealthbot.io in your browser to see the wealthbot.io demo landing page.
 
 Note: To use the app you'll need to setup an SMTP server with authentication. The config is in wealthbot/app/config/parameters.yml. Digital Ocean has [a good writeup on how to use your Gmail account](https://www.digitalocean.com/community/tutorials/how-to-use-google-s-smtp-server) for this. 
 

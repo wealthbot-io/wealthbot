@@ -59,6 +59,10 @@ Note: To use the app you'll need to setup an SMTP server with authentication. Th
 If you want to take a look around your vagrant box you can `vagrant ssh`.
 The config is located in `wealthbot\vagrant\puphpet\config.yaml`
 
-We strongly recommend running all console commands inside the vagrant box. 
+We strongly recommend running all console commands inside the vagrant box.
+
+# Contributing 
+
+We love pull requests from evreryone!
 
 

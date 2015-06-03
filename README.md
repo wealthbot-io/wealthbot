@@ -37,7 +37,6 @@ Hi, I'm [wealthbot.io](http://wealthbot.io). Webo for short. I'm an open source 
 Go to http://demo.wealthbot.io to play with *all the features* before installing.
 
 ## Installation
-*For development only, not for production.*
 
 **Prereqs:**
 * Install [Vagrant](https://www.vagrantup.com/) and [Virtual Box](https://www.virtualbox.org/)

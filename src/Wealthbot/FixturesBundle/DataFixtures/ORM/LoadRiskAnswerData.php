@@ -61,7 +61,7 @@ class LoadRiskAnswerData extends AbstractFixture implements OrderedFixtureInterf
         $this->setReference('risk-answer-3-1', $riskAnswer31);
 
         $riskAnswer32 = new RiskAnswer();
-        $riskAnswer32->setTitle('Interested in experiencing dramatic short term losses for better returns');
+        $riskAnswer32->setTitle('Interested in maximizing long term gains, even if I experience short term losses');
         $riskAnswer32->setQuestion($this->getReference('risk-question-3'));
         $manager->persist($riskAnswer32);
         $this->setReference('risk-answer-3-2', $riskAnswer32);

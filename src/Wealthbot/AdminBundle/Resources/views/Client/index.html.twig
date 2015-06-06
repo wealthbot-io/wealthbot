@@ -24,7 +24,7 @@
                 <td><a href="{{ path("rx_admin_client_specific_dashboard", { 'id': client.user.id}) }}">{{ client.user.profile.lastName }}</a></td>
                 <td>{{ client.user.created|date("m/d/Y") }}</td>
                 <td>{{ client.user.profile.clientRegistrationStep }}</td>
-                <td><a href="{{ path("rx_admin_ria_specific_dashboard", { 'id': client.user.profile.ria.id }) }}">{{ client.user.profile.ria.profile.company }}</a></td>
+                <td><a href="{{ path("rx_admin_ria_specific_dashboard", { 'id': client.user.ria.id }) }}">{{ client.user.RiaCompanyInformation.name}}</a></td>
                 <td><a href="mailto:{{ client.user.email }}">{{ client.user.email }}</a></td>
                 <td>{{ client.user.profile.city }}</td>
                 <td>{{ client.user.profile.state }}</td>

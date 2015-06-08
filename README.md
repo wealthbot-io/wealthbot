@@ -36,6 +36,22 @@ Hi, I'm [wealthbot.io](http://wealthbot.io). Webo for short. I'm an open source 
 
 Go to http://demo.wealthbot.io to play with *all the features* before installing.
 
+## Community
+
+Join our Slack server to discuss the project in realtime.
+* Talk to the core devs and the wealthbot.io community.
+* Learn from others and ask questions.
+* Share your work and demos.
+
+https://webo-chat.herokuapp.com/
+
+Contribute to our roadmap on Trello.
+* Follow our general vision
+* Submit new feature ideas
+* Comment on ideas, to-dos and in-progress work
+
+https://trello.com/b/klhsT5Xj/wealthbot-io-roadmap-and-ideas
+
 ## Installation
 
 **Prereqs:**

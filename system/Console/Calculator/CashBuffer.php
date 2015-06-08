@@ -14,7 +14,7 @@ require_once(__DIR__ . '/../../AutoLoader.php');
 
 class CashBufferCalculator {
 
-	private $this->cashBuffer;
+	private $cashBuffer;
 
 	public function __construct() {
 		$this->connection = new Connection();

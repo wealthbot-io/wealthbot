@@ -37,7 +37,7 @@ class TransactionTest extends \PHPUnit_Framework_TestCase
             }));
 
         $result = $transaction->create($accountModel, array(
-            'advisor_code'      => 'ZLU',
+            'advisor_code'      => 'ABC',
             'account_number'    => 916985328,
             'transaction_code'  => 'BUY',
             'symbol'            => 'RWX',

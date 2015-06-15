@@ -144,7 +144,7 @@ class LoadRiaData extends AbstractFixture implements OrderedFixtureInterface
         $advisorCode = new AdvisorCode();
         $advisorCode->setCustodian($custodian);
         $advisorCode->setRiaCompany($riaCompanyInfo);
-        $advisorCode->setName('ZLU');
+        $advisorCode->setName('ABC');
         $manager->persist($advisorCode);
 
         $advisorCode1 = clone($advisorCode);

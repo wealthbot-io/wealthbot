@@ -23,7 +23,7 @@ Wealthbot\ClientBundle\Entity\Lot:
             nullable: true
 
         #If we know costBasis value
-        #CostBasis need some value, however costBasisKnown can be false.
+        #CostBasis needs some value, however costBasisKnown can be false.
         costBasisKnown:
             column: is_cost_basis_known
             type: boolean

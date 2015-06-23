@@ -43,7 +43,7 @@ Join our Slack server to discuss the project in realtime.
 * Learn from others and ask questions.
 * Share your work and demos.
 
-https://webo-chat.herokuapp.com/
+https://webo-slack.herokuapp.com/
 
 Contribute to our roadmap on Trello.
 * Follow our general vision

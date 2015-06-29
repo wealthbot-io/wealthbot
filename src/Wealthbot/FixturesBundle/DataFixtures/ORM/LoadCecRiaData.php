@@ -137,6 +137,16 @@ class LoadCecRiaData extends AbstractFixture implements OrderedFixtureInterface,
                     array('asset_class_index' => 0, 'subclass_index' => 3, 'security' => 'IJS', 'muni_substitution_security' => null, 'tax_loss_harvesting_security' => null, 'percent' => 9.6),  // id: 167
                 )
             ),
+array(
+                'name' => 'Rick Ferri Two Fund Portfolio',
+                'index' => 'rf_two_fund_portfolio',
+                'risk_rating' => 3,
+                'is_assumption_locked' => 0,
+                'entities' => array(
+                    array('asset_class_index' => 3, 'subclass_index' => 0, 'security' => 'BND', 'muni_substitution_security' => null, 'tax_loss_harvesting_security' => null, 'percent' => 40),  
+                    array('asset_class_index' => 0, 'subclass_index' => 0, 'security' => 'VTI', 'muni_substitution_security' => null, 'tax_loss_harvesting_security' => null, 'percent' => 60),   
+                )
+            ),
             array(
                 'name' => 'Webo 60/40',
                 'index' => 'webo_60_40',

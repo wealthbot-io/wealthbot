@@ -105,11 +105,11 @@ class LoadSecurityData extends AbstractFixture implements OrderedFixtureInterfac
             'security_type' => 'EQ',
             'exp_ratio' => 0.14
         ),
-        array(
-            'name' => 'Vanguard Total Bond Market ETF',
-            'symbol' => 'BND',
+         array(
+            'name' => 'Vanguard Total International Stock ETF',
+            'symbol' => 'VXUS',
             'security_type' => 'EQ',
-            'exp_ratio' => 0.1
+            'exp_ratio' => 0.14
         ),
         array(
             'name' => 'Vanguard Interm-Tm Govt Bd Idx ETF',
@@ -140,6 +140,12 @@ class LoadSecurityData extends AbstractFixture implements OrderedFixtureInterfac
             'symbol' => 'VGSH',
             'security_type' => 'EQ',
             'exp_ratio' => 0.14
+        ),
+          array(
+            'name' => 'Vanguard Total Bond Market ETF',
+            'symbol' => 'BND',
+            'security_type' => 'EQ',
+            'exp_ratio' => 0.07
         ),
         array(
             'name' => 'SPDR Nuveen Barclays Capital S/T Muni Bond',

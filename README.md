@@ -81,3 +81,7 @@ We strongly recommend running all console commands inside the vagrant box.
 
 We love pull requests! The details on how to contribute to Wealthbot can be found [here](CONTRIBUTING.md).
 
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/wealthbot-io/wealthbot/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+

@@ -43,7 +43,7 @@ Join our Slack server to discuss the project in realtime.
 * Learn from others and ask questions.
 * Share your work and demos.
 
-https://webo-chat.herokuapp.com/
+https://webo-slack.herokuapp.com/
 
 Contribute to our roadmap on Trello.
 * Follow our general vision
@@ -80,4 +80,8 @@ We strongly recommend running all console commands inside the vagrant box.
 # Contributing 
 
 We love pull requests! The details on how to contribute to Wealthbot can be found [here](CONTRIBUTING.md).
+
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/wealthbot-io/wealthbot/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
 

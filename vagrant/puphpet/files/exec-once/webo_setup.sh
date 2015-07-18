@@ -1,5 +1,5 @@
 #disable default vhosts
-echo .... disable default vhost 80 .... 
+echo .... disable default vhost 80 ....
 sudo a2dissite 10-default_vhost_80.conf
 echo .... disable default vhost 443 ....
 sudo a2dissite 10-default_vhost_443.conf
@@ -9,7 +9,8 @@ sudo service apache2 reload
 
 #update dependencies
 cd /srv/wealthbot
-composer update
+composer clear-cache
+composer install --prefer-source
 
 #create mongo user webo
 echo .... creating mongo user 'webo' ....
@@ -29,7 +30,7 @@ app/console doctrine:schema:create
 app/console doctrine:fixtures:load
 
 #warming up cache
-echo .... warming up cache ....  
+echo .... warming up cache ....
 app/console cache:warmup --env=dev
 app/console cache:warmup --env=prod
 

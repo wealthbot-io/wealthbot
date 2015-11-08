@@ -44,7 +44,6 @@ class AccountRepositoryTest extends ExtendedTestCase
         $account = $this->repository->findOneByAccountNumber('744888385');
 
         $this->repository->loadAccountValues($account);
-        var_dump($account->getTotalCash());
         $this->assertEquals('12628,80', $account->getTotalCash());
         $this->assertEquals(2000, $account->getSasCash());
         $this->assertEquals(3750, $account->getBillingCash());
@@ -54,7 +53,6 @@ class AccountRepositoryTest extends ExtendedTestCase
     public function testFindOneByAccountNumber()
     {
         $account = $this->repository->findOneByAccountNumber('744888385');
-        var_dump($account);
         $this->assertEquals(Account::STATUS_ACTIVE, $account->getStatus());
     }
 
@@ -154,7 +152,6 @@ class AccountRepositoryTest extends ExtendedTestCase
         $collection = $this->repository->getAccountsByRebalancerAction($rebalancerAction);
 
         $this->assertCount(4, $collection);
-        //-------------------------------------------------------------------------
         $rebalancerAction->setAccountId($accounts->first()->getId());
 
         $client->setAccountManaged(Client::ACCOUNT_MANAGED_ACCOUNT);
@@ -185,4 +182,3 @@ class AccountRepositoryTest extends ExtendedTestCase
 //        return $collection;
 //    }
 }
- 

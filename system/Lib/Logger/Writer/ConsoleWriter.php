@@ -17,7 +17,7 @@ class ConsoleWriter extends AbstractWriter
         if ($message instanceof \Exception) {
             echo "{$message->getMessage()} in {$message->getFile()}:{$message->getLine()}";
         } elseif (is_array($message) || is_object($message)) {
-            var_dump($message);
+            print_r($message, true);
         } else {
             echo $message;
         }
@@ -56,4 +56,4 @@ class ConsoleWriter extends AbstractWriter
 
         return $color;
     }
-} 
+}

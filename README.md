@@ -1,7 +1,7 @@
 wealthbot.io
 ===============
 
-[![Software License](https://img.shields.io/badge/license-GPL-green.svg)](LICENSE)
+[![GitHub license](https://img.shields.io/github/license/mashape/apistatus.svg)]()
 
 ## Wealth Management, Set Free
 

@@ -8,13 +8,13 @@
 namespace Model\Pas\Calculator;
 use Model\Pas\Base;
 use Model\Pas\Accounts;
+
 class Accountcalc extends Base
 {
 
    public function processRawData($data) {
 		if (\Config::$DEBUG == 2) {
-			var_dump(count($data));
-			var_export($data[0]);
+			// debug logic
 		}
 		foreach($data as $index => $item) {
 			if (\Config::$DEBUG && $index>1) {

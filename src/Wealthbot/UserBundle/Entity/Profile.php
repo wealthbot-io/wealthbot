@@ -606,7 +606,7 @@ class Profile implements WorkflowableInterface
     static public function getMaritalStatusChoices()
     {
         // Build $_clientMaritalStatusValues if this is the first call
-        if (self::$_clientMaritalStatusValues ==== null) {
+        if (self::$_clientMaritalStatusValues === null) {
             self::$_clientMaritalStatusValues = array();
             $oClass = new \ReflectionClass('\Wealthbot\UserBundle\Entity\Profile');
             $classConstants = $oClass->getConstants();

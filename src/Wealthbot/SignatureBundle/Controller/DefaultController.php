@@ -80,7 +80,7 @@ trailer
         exec($command);
         unlink($dir . '/' . $filename . '_tmp.fdf');
 
-        die('Complete.');
+        return 'Complete.';
     }
 
     private function getJsonResponse(array $data, $code = 200)

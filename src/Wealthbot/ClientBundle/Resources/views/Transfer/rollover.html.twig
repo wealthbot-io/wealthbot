@@ -24,7 +24,7 @@
 
     <form action="{% block form_action %}{{ path('rx_client_transfer_rollover', { 'account_id': account.id }) }}{% endblock %}" method="post" class="def-form">
         <h1>Your Rollover</h1>
-        {{ rollover_message ? rollover_message.message|raw : '' }}
+        {{ rollover_message ? rollover_message.message : '' }}
         <div class="form-actions">
             <a href="{% block back_url %}{{ path('rx_client_transfer_back', {'account_id': account.id, 'action': 'rollover'}) }}{% endblock %}" class="btn btn-inverse">Back </a>
             <input type="submit" class="btn" name="continue" value="Continue" />

@@ -1,16 +1,12 @@
 {% block subject %}
-    {% autoescape false %}
     wealthbot.io
-    {% endautoescape %}
 {% endblock %}
 {% block body_html %}
     {% spaceless %}
-        {% autoescape false %}
         Hello, <strong>{{ client.profile.firstName }} {{ client.profile.lastName }}</strong>!<br/>
         Welcome to <a href="{{ url }}">wealthbot.io</a>. <br/>
         Your username: <strong>{{ client.username }}</strong><br/>
         Your password: <strong>{{ password }}</strong>
-        {% endautoescape %}
     {% endspaceless %}
 {% endblock %}
 {% block body_text %}{% endblock %}

@@ -1,11 +1,8 @@
 {% block subject %}
-    {% autoescape false %}
     Closing account.
-    {% endautoescape %}
 {% endblock %}
 {% block body_html %}
     {% spaceless %}
-        {% autoescape false %}
             Client <strong>{{ client.profile.firstName }} {{ client.profile.lastName }}</strong> closes the account. <br/>
             <strong>Accounts:</strong>
             <ol type=1>
@@ -20,7 +17,6 @@
                     <li>{{ message }}</li>
                 {% endfor %}
             </ul> <br/>
-        {% endautoescape %}
     {% endspaceless %}
 {% endblock %}
 {% block body_text %}{% endblock %}

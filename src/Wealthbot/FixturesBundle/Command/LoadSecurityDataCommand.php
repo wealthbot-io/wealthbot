@@ -55,21 +55,20 @@ class LoadSecurityDataCommand extends ContainerAwareCommand
 
             $security = $securityRepo->findOneBySymbol($symbol);
             if (!$security && $securityType) {
-                $security = new Security();
-                $security->setName($name);
-                $security->setSymbol($symbol);
-                $security->setSecurityType($securityType);
-                $security->setExpenseRatio($ratio);
-                $em->persist($security);
-
                 if ((++$i % 100) == 0) {
-                    $em->flush();
+                    $security = new Security();
+                    $security->setName($name);
+                    $security->setSymbol($symbol);
+                    $security->setSecurityType($securityType);
+                    $security->setExpenseRatio($ratio);
+                    $em->persist($security);
                     $output->writeln("Security items [{$i}] has been loaded.");
                 }
             }
         }
 
         $em->flush();
+        $em->clear();
         $output->writeln("Security items [{$i}] has been loaded.");
         $output->writeln("Success!");
     }

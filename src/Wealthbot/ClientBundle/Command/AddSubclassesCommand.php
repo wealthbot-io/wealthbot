@@ -57,8 +57,10 @@ EOT
             $subclassRepo->saveClientSubclasses($client, $ria);
 
             $clientCounter++;
-            $em->flush();
         }
+        $em->flush();
+        $em->clear();
+
         $output->writeln(sprintf('Clients updated %d', $clientCounter));
     }
 

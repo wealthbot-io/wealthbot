@@ -59,8 +59,9 @@ class CategoriesFormHandler extends AbstractFormHandler
             }
 
             $this->em->persist($asset);
-            $this->em->flush();
         }
+        $this->em->flush();
+        $this->em->clear();
 
         foreach($toDeleteAssets as $asset){
             $this->em->remove($asset);

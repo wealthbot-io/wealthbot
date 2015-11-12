@@ -234,7 +234,7 @@ class PasInterfacesController extends Controller
             return $date;
         }
 
-        if ($move == true) {
+        if ($move === true) {
             list($m, $d, $y) = preg_split('/\//', $date);
             $date = sprintf('%4d-%02d-%02d', $y, $m, $d);
         }
@@ -244,4 +244,4 @@ class PasInterfacesController extends Controller
 
         return $date;
     }
-} 
+}

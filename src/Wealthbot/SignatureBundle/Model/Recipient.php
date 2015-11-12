@@ -1,11 +1,4 @@
 <?php
-/**
- * Created by JetBrains PhpStorm.
- * User: amalyuhin
- * Date: 18.09.13
- * Time: 15:43
- * To change this template use File | Settings | File Templates.
- */
 
 namespace Wealthbot\SignatureBundle\Model;
 
@@ -152,7 +145,7 @@ class Recipient implements RecipientInterface
      */
     public static function getTypeChoices()
     {
-        if (null == self::$_types) {
+        if (null === self::$_types) {
             self::$_types = array();
 
             $rClass = new \ReflectionClass('Wealthbot\SignatureBundle\Model\Recipient');

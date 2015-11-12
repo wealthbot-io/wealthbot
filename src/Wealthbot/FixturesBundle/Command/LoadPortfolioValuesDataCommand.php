@@ -62,7 +62,7 @@ class LoadPortfolioValuesDataCommand extends ContainerAwareCommand
                 $stmt->bindValue('clientPortfolioId', $portfolio->getId());
                 $stmt->execute();
 
-                if ((bool) $stmt->fetchColumn() == false) {
+                if ((bool) $stmt->fetchColumn() === false) {
                     $portfolioValue = new ClientPortfolioValue();
                     $portfolioValue->setClientPortfolio($portfolio);
                     $portfolioValue->setTotalCashInMoneyMarket($money_market);

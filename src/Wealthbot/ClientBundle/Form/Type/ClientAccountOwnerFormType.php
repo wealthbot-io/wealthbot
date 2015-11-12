@@ -1,11 +1,4 @@
 <?php
-/**
- * Created by JetBrains PhpStorm.
- * User: amalyuhin
- * Date: 10.04.13
- * Time: 13:45
- * To change this template use File | Settings | File Templates.
- */
 
 namespace Wealthbot\ClientBundle\Form\Type;
 

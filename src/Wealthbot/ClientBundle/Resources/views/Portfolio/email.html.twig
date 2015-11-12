@@ -1,13 +1,9 @@
 {% block subject %}
-    {% autoescape false %}
         Portfolio was suggested.
-    {% endautoescape %}
 {% endblock %}
 {% block body_html %}
 {% spaceless %}
-    {% autoescape false %}
         {{ 'Portfolio' }} <strong>{{ '%portfolio%' | trans({ '%portfolio%': portfolio.name })  }}</strong> {{ 'was suggested a client' }} <strong>{{ '%client%' | trans({ '%client%': client.username}) }}</strong>.
-    {% endautoescape %}
 {% endspaceless %}
 {% endblock %}
 {% block body_text %}{% endblock %}

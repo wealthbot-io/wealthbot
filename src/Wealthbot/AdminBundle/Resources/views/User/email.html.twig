@@ -1,15 +1,11 @@
 {% block subject %}
-    {% autoescape false %}
     {{ 'wealthbot.io admin created.' }}
-    {% endautoescape %}
 {% endblock %}
 {% block body_text %}{% endblock %}
 {% block body_html %}
-    {% autoescape false %}
         <strong>{{ 'Hello %username%!'|trans({'%username%': user.username}) }}</strong><br/>
         {{ 'Your admin account information:' }}<br/>
         {{ 'Name: %username%'|trans({'%username%': user.username}) }}<br/>
         {{ 'Password: %pass%'|trans({'%pass%': pass}) }}<br/>
         {{ 'Level: %level%'|trans({'%level%': level}) }}<br/>
-    {% endautoescape %}
 {% endblock %}

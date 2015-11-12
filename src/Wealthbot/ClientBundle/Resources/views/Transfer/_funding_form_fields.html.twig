@@ -1,11 +1,11 @@
 {% macro mail_info_fields(messages) %}
     <b>Mail a check to:</b><br/>
-    {{ messages and messages.mail_check is defined ? messages.mail_check|raw : '' }}
+    {{ messages and messages.mail_check is defined ? messages.mail_check : '' }}
 {% endmacro %}
 
 {% macro wire_info_fields(messages) %}
     <b>Wire Transfer</b><br/>
-    {{ messages and messages.wire_transfer is defined ? messages.wire_transfer|raw : '' }}
+    {{ messages and messages.wire_transfer is defined ? messages.wire_transfer : '' }}
 {% endmacro %}
 
 {% macro bank_info_fields(form) %}

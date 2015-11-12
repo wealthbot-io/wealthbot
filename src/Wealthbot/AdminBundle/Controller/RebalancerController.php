@@ -283,6 +283,9 @@ class RebalancerController extends AclController
             $em->persist($job);
             $em->flush();
 
+            $em->clear();
+            $dm->clear();
+
             foreach ($clientValuesIds as $clientValueId) {
 
                 $accountValue = $clientAccountValuesManager->find($clientValueId);
@@ -291,12 +294,15 @@ class RebalancerController extends AclController
                 $rebalancerAction = $this->createRebalancerAction($job, $portfolioValue, $accountValue);
 
                 $em->persist($rebalancerAction);
-                $em->flush();
 
                 $progress->setCompleteCount($progress->getCompleteCount()+1);
                 $dm->persist($progress);
-                $dm->flush();
             }
+
+            $em->flush();
+            $dm->flush();
+            $em->clear();
+            $dm->cear();
 
             $job->setFinishedAt(new \DateTime());
             $job->setIsError(false);
@@ -304,6 +310,7 @@ class RebalancerController extends AclController
             $em->persist($job);
 
             $em->flush();
+            $em->clear();
 
             return $this->getJsonResponse(array(
                 'status' => 'success'

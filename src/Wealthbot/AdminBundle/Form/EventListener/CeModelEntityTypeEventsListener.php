@@ -66,7 +66,7 @@ class CeModelEntityTypeEventsListener implements EventSubscriberInterface
         /** @var $data CeModelEntity */
         $data = $event->getData();
 
-        if ($data == null) {
+        if ($data === null) {
             $this->updateMuniSubstitutionSymbol($form, null);
             $this->updateSecuritySymbol($form, null);
             $this->updateSecurity($form, null);
@@ -263,7 +263,7 @@ class CeModelEntityTypeEventsListener implements EventSubscriberInterface
     {
         if ($this->user->hasRole('ROLE_RIA') && $this->user->getRiaCompanyInformation()->getIsTaxLossHarvesting() &&
             (!$this->user->getRiaCompanyInformation()->getIsUseQualifiedModels() || ($this->user->getRiaCompanyInformation()->getIsUseQualifiedModels() && !$this->isQualifiedModel))) {
-            
+
             /** @var $securityAssignmentRepo SecurityAssignmentRepository */
             $securityAssignmentRepo = $this->em->getRepository('WealthbotAdminBundle:SecurityAssignment');
             $securityQueryBuilder = $securityAssignmentRepo->getSecuritiesQBBySubclassIdAndWithoutSecuritiesIds($subclassId, $withoutIds);

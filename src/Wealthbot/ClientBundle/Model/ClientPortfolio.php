@@ -63,7 +63,7 @@ class ClientPortfolio implements WorkflowableInterface
     static public function getStatusChoices()
     {
         // Build $_statusValues if this is the first call
-        if (self::$_statusValues == null) {
+        if (self::$_statusValues === null) {
             self::$_statusValues = array();
             $oClass = new \ReflectionClass('\Wealthbot\ClientBundle\Model\ClientPortfolio');
             $classConstants = $oClass->getConstants();

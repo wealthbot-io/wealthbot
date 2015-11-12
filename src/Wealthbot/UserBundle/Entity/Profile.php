@@ -71,7 +71,7 @@ class Profile implements WorkflowableInterface
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -87,14 +87,14 @@ class Profile implements WorkflowableInterface
     public function setCompany($company)
     {
         $this->company = $company;
-    
+
         return $this;
     }
 
     /**
      * Get company
      *
-     * @return string 
+     * @return string
      */
     public function getCompany()
     {
@@ -110,14 +110,14 @@ class Profile implements WorkflowableInterface
     public function setFirstName($firstName)
     {
         $this->first_name = $firstName;
-    
+
         return $this;
     }
 
     /**
      * Get first_name
      *
-     * @return string 
+     * @return string
      */
     public function getFirstName()
     {
@@ -133,14 +133,14 @@ class Profile implements WorkflowableInterface
     public function setLastName($lastName)
     {
         $this->last_name = $lastName;
-    
+
         return $this;
     }
 
     /**
      * Get last_name
      *
-     * @return string 
+     * @return string
      */
     public function getLastName()
     {
@@ -166,14 +166,14 @@ class Profile implements WorkflowableInterface
     public function setUserId($userId)
     {
         $this->user_id = $userId;
-    
+
         return $this;
     }
 
     /**
      * Get user_id
      *
-     * @return integer 
+     * @return integer
      */
     public function getUserId()
     {
@@ -189,7 +189,7 @@ class Profile implements WorkflowableInterface
     public function setUser(\Wealthbot\UserBundle\Entity\User $user = null)
     {
         $this->user = $user;
-    
+
         return $this;
     }
 
@@ -583,7 +583,7 @@ class Profile implements WorkflowableInterface
         }
 
         $this->marital_status = $maritalStatus;
-    
+
         return $this;
     }
 
@@ -606,7 +606,7 @@ class Profile implements WorkflowableInterface
     static public function getMaritalStatusChoices()
     {
         // Build $_clientMaritalStatusValues if this is the first call
-        if (self::$_clientMaritalStatusValues == null) {
+        if (self::$_clientMaritalStatusValues === null) {
             self::$_clientMaritalStatusValues = array();
             $oClass = new \ReflectionClass('\Wealthbot\UserBundle\Entity\Profile');
             $classConstants = $oClass->getConstants();
@@ -631,14 +631,14 @@ class Profile implements WorkflowableInterface
     public function setSpouseName($spouseName)
     {
         $this->spouse_name = $spouseName;
-    
+
         return $this;
     }
 
     /**
      * Get spouse_name
      *
-     * @return string 
+     * @return string
      */
     public function getSpouseName()
     {
@@ -661,7 +661,7 @@ class Profile implements WorkflowableInterface
         }
 
         $this->annual_income = $annualIncome;
-    
+
         return $this;
     }
 
@@ -684,7 +684,7 @@ class Profile implements WorkflowableInterface
     static public function getAnnualIncomeChoices()
     {
         // Build $_clientAnnualIncomeValues if this is the first call
-        if (self::$_clientAnnualIncomeValues == null) {
+        if (self::$_clientAnnualIncomeValues === null) {
             self::$_clientAnnualIncomeValues = array();
             $oClass = new \ReflectionClass('\Wealthbot\UserBundle\Entity\Profile');
             $classConstants = $oClass->getConstants();
@@ -708,7 +708,7 @@ class Profile implements WorkflowableInterface
     public function setEstimatedIncomeTax($estimatedIncomeTax)
     {
         $this->estimated_income_tax = $estimatedIncomeTax;
-    
+
         return $this;
     }
 
@@ -738,7 +738,7 @@ class Profile implements WorkflowableInterface
         }
 
         $this->liquid_net_worth = $liquidNetWorth;
-    
+
         return $this;
     }
 
@@ -761,7 +761,7 @@ class Profile implements WorkflowableInterface
     static public function getLiquidNetWorthChoices()
     {
         // Build $_clientLiquidNetWorthValues if this is the first call
-        if (self::$_clientLiquidNetWorthValues == null) {
+        if (self::$_clientLiquidNetWorthValues === null) {
             self::$_clientLiquidNetWorthValues = array();
             $oClass = new \ReflectionClass('\Wealthbot\UserBundle\Entity\Profile');
             $classConstants = $oClass->getConstants();
@@ -791,7 +791,7 @@ class Profile implements WorkflowableInterface
        }
 
         $this->employment_type = $employmentType;
-    
+
         return $this;
     }
 
@@ -814,7 +814,7 @@ class Profile implements WorkflowableInterface
     static public function getEmploymentTypeChoices()
     {
         // Build $_clientEmploymentTypeValues if this is the first call
-        if (self::$_clientEmploymentTypeValues == null) {
+        if (self::$_clientEmploymentTypeValues === null) {
             self::$_clientEmploymentTypeValues = array();
             $oClass = new \ReflectionClass('\Wealthbot\UserBundle\Entity\Profile');
             $classConstants = $oClass->getConstants();
@@ -843,14 +843,14 @@ class Profile implements WorkflowableInterface
     public function setRegistrationStep($registrationStep)
     {
         $this->registration_step = $registrationStep;
-    
+
         return $this;
     }
 
     /**
      * Get registration_step
      *
-     * @return integer 
+     * @return integer
      */
     public function getRegistrationStep()
     {
@@ -876,14 +876,14 @@ class Profile implements WorkflowableInterface
     public function setRiaUserId($riaUserId)
     {
         $this->ria_user_id = $riaUserId;
-    
+
         return $this;
     }
 
     /**
      * Get ria_user_id
      *
-     * @return integer 
+     * @return integer
      */
     public function getRiaUserId()
     {
@@ -899,7 +899,7 @@ class Profile implements WorkflowableInterface
     public function setRia(\Wealthbot\UserBundle\Entity\User $ria = null)
     {
         $this->ria = $ria;
-    
+
         return $this;
     }
 
@@ -929,14 +929,14 @@ class Profile implements WorkflowableInterface
     public function setQuestionnaireStep($questionnaireStep)
     {
         $this->questionnaire_step = $questionnaireStep;
-    
+
         return $this;
     }
 
     /**
      * Get questionnaire_step
      *
-     * @return integer 
+     * @return integer
      */
     public function getQuestionnaireStep()
     {
@@ -1014,14 +1014,14 @@ class Profile implements WorkflowableInterface
     public function setStateId($stateId)
     {
         $this->state_id = $stateId;
-    
+
         return $this;
     }
 
     /**
      * Get state_id
      *
-     * @return integer 
+     * @return integer
      */
     public function getStateId()
     {
@@ -1037,14 +1037,14 @@ class Profile implements WorkflowableInterface
     public function setMailingStateId($mailingStateId)
     {
         $this->mailing_state_id = $mailingStateId;
-    
+
         return $this;
     }
 
     /**
      * Get mailing_state_id
      *
-     * @return integer 
+     * @return integer
      */
     public function getMailingStateId()
     {
@@ -1065,7 +1065,7 @@ class Profile implements WorkflowableInterface
     public function setState(\Wealthbot\AdminBundle\Entity\State $state = null)
     {
         $this->state = $state;
-    
+
         return $this;
     }
 
@@ -1088,7 +1088,7 @@ class Profile implements WorkflowableInterface
     public function setMailingState(\Wealthbot\AdminBundle\Entity\State $mailingState = null)
     {
         $this->mailingState = $mailingState;
-    
+
         return $this;
     }
 
@@ -1126,14 +1126,14 @@ class Profile implements WorkflowableInterface
     public function setSpouseFirstName($spouseFirstName)
     {
         $this->spouse_first_name = $spouseFirstName;
-    
+
         return $this;
     }
 
     /**
      * Get spouse_first_name
      *
-     * @return string 
+     * @return string
      */
     public function getSpouseFirstName()
     {
@@ -1149,14 +1149,14 @@ class Profile implements WorkflowableInterface
     public function setSpouseMiddleName($spouseMiddleName)
     {
         $this->spouse_middle_name = $spouseMiddleName;
-    
+
         return $this;
     }
 
     /**
      * Get spouse_middle_name
      *
-     * @return string 
+     * @return string
      */
     public function getSpouseMiddleName()
     {
@@ -1172,14 +1172,14 @@ class Profile implements WorkflowableInterface
     public function setSpouseLastName($spouseLastName)
     {
         $this->spouse_last_name = $spouseLastName;
-    
+
         return $this;
     }
 
     /**
      * Get spouse_last_name
      *
-     * @return string 
+     * @return string
      */
     public function getSpouseLastName()
     {
@@ -1200,14 +1200,14 @@ class Profile implements WorkflowableInterface
     public function setWithdrawAge($withdrawAge)
     {
         $this->withdraw_age = $withdrawAge;
-    
+
         return $this;
     }
 
     /**
      * Get withdraw_age
      *
-     * @return integer 
+     * @return integer
      */
     public function getWithdrawAge()
     {
@@ -1233,14 +1233,14 @@ class Profile implements WorkflowableInterface
     public function setSuggestedPortfolioId($suggestedPortfolioId)
     {
         $this->suggested_portfolio_id = $suggestedPortfolioId;
-    
+
         return $this;
     }
 
     /**
      * Get suggested_portfolio_id
      *
-     * @return integer 
+     * @return integer
      */
     public function getSuggestedPortfolioId()
     {
@@ -1256,7 +1256,7 @@ class Profile implements WorkflowableInterface
     public function setSuggestedPortfolio(CeModel $suggestedPortfolio = null)
     {
         $this->suggestedPortfolio = $suggestedPortfolio;
-    
+
         return $this;
     }
 
@@ -1297,14 +1297,14 @@ class Profile implements WorkflowableInterface
         }
 
         $this->client_source = $clientSource;
-    
+
         return $this;
     }
 
     /**
      * Get client_source
      *
-     * @return integer 
+     * @return integer
      */
     public function getClientSource()
     {
@@ -1320,7 +1320,7 @@ class Profile implements WorkflowableInterface
     static public function getClientSourceChoices()
     {
         // Build $_clientEmploymentTypeValues if this is the first call
-        if (self::$_clientSourceValues == null) {
+        if (self::$_clientSourceValues === null) {
             self::$_clientSourceValues = array();
             $oClass = new \ReflectionClass('\Wealthbot\UserBundle\Entity\Profile');
             $classConstants = $oClass->getConstants();
@@ -1357,14 +1357,14 @@ class Profile implements WorkflowableInterface
     public function setClientAccountManaged($clientAccountManaged)
     {
         $this->client_account_managed = $clientAccountManaged;
-    
+
         return $this;
     }
 
     /**
      * Get client_account_managed
      *
-     * @return integer 
+     * @return integer
      */
     public function getClientAccountManaged()
     {
@@ -1407,14 +1407,14 @@ class Profile implements WorkflowableInterface
     public function setSpouseBirthDate($spouseBirthDate)
     {
         $this->spouse_birth_date = $spouseBirthDate;
-    
+
         return $this;
     }
 
     /**
      * Get spouse_birth_date
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getSpouseBirthDate()
     {
@@ -1440,14 +1440,14 @@ class Profile implements WorkflowableInterface
     public function setDependents($dependents)
     {
         $this->dependents = $dependents;
-    
+
         return $this;
     }
 
     /**
      * Get dependents
      *
-     * @return integer 
+     * @return integer
      */
     public function getDependents()
     {
@@ -1463,14 +1463,14 @@ class Profile implements WorkflowableInterface
     public function setSsnTin($ssnTin)
     {
         $this->ssn_tin = $ssnTin;
-    
+
         return $this;
     }
 
     /**
      * Get ssn_tin
      *
-     * @return string 
+     * @return string
      */
     public function getSsnTin()
     {
@@ -1526,14 +1526,14 @@ class Profile implements WorkflowableInterface
         }
 
         $this->client_status = $clientStatus;
-    
+
         return $this;
     }
 
     /**
      * Get client_status
      *
-     * @return integer 
+     * @return integer
      */
     public function getClientStatus()
     {

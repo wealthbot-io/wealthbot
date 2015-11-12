@@ -378,7 +378,6 @@ class RebalancerController extends Controller
                     $rebalancerAction = $this->createRebalancerAction($job, $clientPortfolioValue);
 
                     $em->persist($rebalancerAction);
-                    $em->flush();
                 } else {
                     $accountValues = array($clientAccountValuesManager->find($clientValueId));
 
@@ -392,7 +391,6 @@ class RebalancerController extends Controller
                         $rebalancerAction = $this->createRebalancerAction($job, $clientPortfolioValue, $accountValue);
 
                         $em->persist($rebalancerAction);
-                        $em->flush();
                     }
                 }
 
@@ -403,9 +401,12 @@ class RebalancerController extends Controller
 //
 //            $job->setFinishedAt(new \DateTime());
 //            $job->setIsError(false);
+            $em->flush();
+            $em->clear();
 
             $em->persist($job);
             $em->flush();
+            $em->clear();
 
             $filePath = $this->container->getParameter('active_jobs_dir').'/'.$job->getId();
 
@@ -657,8 +658,10 @@ class RebalancerController extends Controller
                 $queue->setIsDeleted($isDeleted);
 
                 $em->persist($queue);
-                $em->flush();
             }
+            $em->flush();
+            $em->clear();
+
         }
 
         $allocationValues = $clientAllocationManager->getValues($client);

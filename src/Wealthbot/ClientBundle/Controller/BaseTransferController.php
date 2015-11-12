@@ -1,11 +1,4 @@
 <?php
-/**
- * Created by JetBrains PhpStorm.
- * User: amalyuhin
- * Date: 23.05.13
- * Time: 15:23
- * To change this template use File | Settings | File Templates.
- */
 
 namespace Wealthbot\ClientBundle\Controller;
 
@@ -456,8 +449,9 @@ class BaseTransferController extends AclController
                     $account->removeBeneficiarie($beneficiary);
 
                     $em->remove($beneficiary);
-                    $em->flush();
                 }
+                $em->flush();
+                $em->clear();
 
                 $account->setStepAction(ClientAccount::STEP_ACTION_BENEFICIARIES);
                 $account->setIsPreSaved($isPreSaved);

@@ -1,11 +1,4 @@
 <?php
-/**
- * Created by JetBrains PhpStorm.
- * User: amalyuhin
- * Date: 23.05.13
- * Time: 17:34
- * To change this template use File | Settings | File Templates.
- */
 
 namespace Wealthbot\ClientBundle\Controller;
 
@@ -39,7 +32,7 @@ use Wealthbot\UserBundle\Entity\Profile;
 use Wealthbot\UserBundle\Entity\User;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedException;
 
 class DashboardTransferController extends BaseTransferController
 {
@@ -311,7 +304,7 @@ class DashboardTransferController extends BaseTransferController
         $this->denyAccessForCurrentRetirementAccount($account);
 
         if (!$account->hasGroup(AccountGroup::GROUP_FINANCIAL_INSTITUTION)) {
-            throw new AccessDeniedHttpException('Current account has not this step.');
+            throw new AccessDeniedException('Current account has not this step.');
         }
 
         $accountIndex = $request->get('account_index', 1);

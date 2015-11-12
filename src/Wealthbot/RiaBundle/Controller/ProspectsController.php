@@ -38,7 +38,7 @@ use Wealthbot\ClientBundle\Repository\ClientAccountRepository;
 use Wealthbot\RiaBundle\Form\Handler\OutsideFundAssociationFormHandler;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Wealthbot\RiaBundle\Form\Type\SuggestedPortfolioFormType;
-use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedException;
 
 class ProspectsController extends Controller
 {
@@ -72,7 +72,7 @@ class ProspectsController extends Controller
     {
         $ria = $this->getUser();
         if (!$request->isXmlHttpRequest()) {
-            throw new AccessDeniedHttpException();
+            throw new AccessDeniedException();
         }
 
         $user = new User();

@@ -302,7 +302,7 @@ class RebalancerController extends AclController
             $em->flush();
             $dm->flush();
             $em->clear();
-            $dm->cear();
+            $dm->clear();
 
             $job->setFinishedAt(new \DateTime());
             $job->setIsError(false);

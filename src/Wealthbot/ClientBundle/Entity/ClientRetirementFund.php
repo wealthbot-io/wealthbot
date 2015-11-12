@@ -3,6 +3,7 @@
 namespace Wealthbot\ClientBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Wealthbot\ClientBundle\Entity\ClientRetirementAccount;
 
 /**
  * Wealthbot\UserBundle\Entity\ClientRetiremenFund
@@ -31,11 +32,11 @@ class ClientRetirementFund
     {
         $this->accounts = new \Doctrine\Common\Collections\ArrayCollection();
     }
-    
+
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -51,14 +52,14 @@ class ClientRetirementFund
     public function setName($name)
     {
         $this->name = $name;
-    
+
         return $this;
     }
 
     /**
      * Get name
      *
-     * @return string 
+     * @return string
      */
     public function getName()
     {
@@ -74,7 +75,7 @@ class ClientRetirementFund
     public function addAccount(\Wealthbot\ClientBundle\Entity\ClientRetirementAccount $accounts)
     {
         $this->accounts[] = $accounts;
-    
+
         return $this;
     }
 
@@ -91,7 +92,7 @@ class ClientRetirementFund
     /**
      * Get accounts
      *
-     * @return Doctrine\Common\Collections\Collection 
+     * @return Doctrine\Common\Collections\Collection
      */
     public function getAccounts()
     {
@@ -112,14 +113,14 @@ class ClientRetirementFund
     public function setSymbol($symbol)
     {
         $this->symbol = $symbol;
-    
+
         return $this;
     }
 
     /**
      * Get symbol
      *
-     * @return string 
+     * @return string
      */
     public function getSymbol()
     {

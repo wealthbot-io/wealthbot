@@ -34,12 +34,12 @@ class LoadPortfolioValuesDataCommand extends ContainerAwareCommand
 
         $accountNumber = $input->getArgument('accountNumber');
         $systemAccount = $em->getRepository('WealthbotClientBundle:SystemAccount')->findOneBy(array('account_number' => $accountNumber));
-        if ($systemAccount == null) {
+        if ($systemAccount === null) {
             throw new EntityNotFoundException("System client account by account number [$accountNumber] not found.");
         }
 
         $portfolio = $em->getRepository('WealthbotClientBundle:ClientPortfolio')->findOneByClient($systemAccount->getClient());
-        if ($portfolio == null) {
+        if ($portfolio === null) {
             $clientId = $systemAccount->getClient()->getId();
             throw new EntityNotFoundException("Client portfolio by client id [$clientId] not found.");
         }

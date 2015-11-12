@@ -95,7 +95,7 @@ class ModelSecurityFormType extends AbstractType
             $form = $event->getForm();
             $data = $event->getData();
 
-            if($data == null){
+            if($data === null){
                 return;
             }
 

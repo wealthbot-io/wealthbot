@@ -63,7 +63,7 @@ class FeeFormType extends AbstractType
             $form = $event->getForm();
             $data = $event->getData();
 
-            if ($data == null) {
+            if ($data === null) {
                 $refreshTierTop($form, null);
             } else {
                 if($data->getTierTop()) {

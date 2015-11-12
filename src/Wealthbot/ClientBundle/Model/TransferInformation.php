@@ -1,11 +1,4 @@
 <?php
-/**
- * Created by JetBrains PhpStorm.
- * User: amalyuhin
- * Date: 13.02.13
- * Time: 13:16
- * To change this template use File | Settings | File Templates.
- */
 
 namespace Wealthbot\ClientBundle\Model;
 
@@ -67,7 +60,7 @@ class TransferInformation
     static public function getAccountTypeChoices()
     {
         // Build $_statusValues if this is the first call
-        if (self::$_accountTypeValues == null) {
+        if (self::$_accountTypeValues === null) {
             self::$_accountTypeValues = array();
             $oClass = new \ReflectionClass('\Wealthbot\ClientBundle\Model\TransferInformation');
             $classConstants = $oClass->getConstants();

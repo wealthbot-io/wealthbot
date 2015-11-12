@@ -160,7 +160,7 @@ class Distribution implements SignableInterface, PaymentWorkflowableInterface
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -193,7 +193,7 @@ class Distribution implements SignableInterface, PaymentWorkflowableInterface
     /**
      * Get type
      *
-     * @return string 
+     * @return string
      */
     public function getType()
     {
@@ -227,7 +227,7 @@ class Distribution implements SignableInterface, PaymentWorkflowableInterface
      */
     static public function getTransferMethodChoices()
     {
-        if (self::$_transferMethods == null) {
+        if (self::$_transferMethods === null) {
             self::$_transferMethods = array();
             $oClass = new \ReflectionClass('\Wealthbot\ClientBundle\Entity\Distribution');
             $classConstants = $oClass->getConstants();
@@ -263,7 +263,7 @@ class Distribution implements SignableInterface, PaymentWorkflowableInterface
     /**
      * Get transferMethod
      *
-     * @return string 
+     * @return string
      */
     public function getTransferMethod()
     {
@@ -286,7 +286,7 @@ class Distribution implements SignableInterface, PaymentWorkflowableInterface
     /**
      * Get amount
      *
-     * @return float 
+     * @return float
      */
     public function getAmount()
     {
@@ -309,7 +309,7 @@ class Distribution implements SignableInterface, PaymentWorkflowableInterface
     /**
      * Get transferDate
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getTransferDate()
     {
@@ -347,7 +347,7 @@ class Distribution implements SignableInterface, PaymentWorkflowableInterface
     /**
      * Get frequency
      *
-     * @return integer 
+     * @return integer
      */
     public function getFrequency()
     {
@@ -370,7 +370,7 @@ class Distribution implements SignableInterface, PaymentWorkflowableInterface
     /**
      * Get createdAt
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getCreatedAt()
     {
@@ -393,7 +393,7 @@ class Distribution implements SignableInterface, PaymentWorkflowableInterface
     /**
      * Get updatedAt
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getUpdatedAt()
     {
@@ -439,7 +439,7 @@ class Distribution implements SignableInterface, PaymentWorkflowableInterface
     /**
      * Get bankInformation
      *
-     * @return \Wealthbot\ClientBundle\Entity\BankInformation 
+     * @return \Wealthbot\ClientBundle\Entity\BankInformation
      */
     public function getBankInformation()
     {
@@ -482,7 +482,7 @@ class Distribution implements SignableInterface, PaymentWorkflowableInterface
     /**
      * Get distributionMethod
      *
-     * @return integer 
+     * @return integer
      */
     public function getDistributionMethod()
     {
@@ -539,7 +539,7 @@ class Distribution implements SignableInterface, PaymentWorkflowableInterface
     /**
      * Get federalWithholding
      *
-     * @return integer 
+     * @return integer
      */
     public function getFederalWithholding()
     {
@@ -562,7 +562,7 @@ class Distribution implements SignableInterface, PaymentWorkflowableInterface
     /**
      * Get federalWithholdMoney
      *
-     * @return float 
+     * @return float
      */
     public function getFederalWithholdMoney()
     {
@@ -585,7 +585,7 @@ class Distribution implements SignableInterface, PaymentWorkflowableInterface
     /**
      * Get federalWithholdPercent
      *
-     * @return float 
+     * @return float
      */
     public function getFederalWithholdPercent()
     {
@@ -628,7 +628,7 @@ class Distribution implements SignableInterface, PaymentWorkflowableInterface
     /**
      * Get stateWithholding
      *
-     * @return integer 
+     * @return integer
      */
     public function getStateWithholding()
     {
@@ -651,7 +651,7 @@ class Distribution implements SignableInterface, PaymentWorkflowableInterface
     /**
      * Get stateWithholdMoney
      *
-     * @return float 
+     * @return float
      */
     public function getStateWithholdMoney()
     {
@@ -674,7 +674,7 @@ class Distribution implements SignableInterface, PaymentWorkflowableInterface
     /**
      * Get stateWithholdPercent
      *
-     * @return float 
+     * @return float
      */
     public function getStateWithholdPercent()
     {
@@ -697,7 +697,7 @@ class Distribution implements SignableInterface, PaymentWorkflowableInterface
     /**
      * Get residenceState
      *
-     * @return \Wealthbot\AdminBundle\Entity\State 
+     * @return \Wealthbot\AdminBundle\Entity\State
      */
     public function getResidenceState()
     {

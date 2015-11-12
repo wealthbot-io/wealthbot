@@ -1,11 +1,4 @@
 <?php
-/**
- * Created by JetBrains PhpStorm.
- * User: amalyuhin
- * Date: 05.02.13
- * Time: 17:37
- * To change this template use File | Settings | File Templates.
- */
 
 namespace Wealthbot\ClientBundle\Form\Type;
 
@@ -205,7 +198,7 @@ class BeneficiaryFormType extends AbstractType
         if (null === $relationship || !is_string($relationship)) {
             $form->get('relationship')->addError(new FormError('Required.'));
         }
-        if (null == $share || !is_numeric($share)) {
+        if (null === $share || !is_numeric($share)) {
             $form->get('relationship')->addError(new FormError('Enter correct value.'));
         }
         if (round($share) < 0.01 || round($share) > 100) {

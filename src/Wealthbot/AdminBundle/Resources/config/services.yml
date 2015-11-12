@@ -33,7 +33,7 @@ services:
         arguments:
             - @mailer
             - @router
-            - @twigz
+            - @twig
             -
                 template:
                     created_user: %wealthbot_admin.mailer.created_user.template%

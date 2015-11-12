@@ -415,7 +415,6 @@ class RebalancerController extends Controller
             chmod($filePath, 0666);
 
             for ($i=0;$i < 5;$i++) {
-                sleep(5);
                 $em->refresh($job);
                 if ($job->getFinishedAt()) {
                     return $this->getJsonResponse(array(

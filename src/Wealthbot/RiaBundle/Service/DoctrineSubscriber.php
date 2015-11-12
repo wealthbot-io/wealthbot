@@ -104,7 +104,7 @@ class DoctrineSubscriber implements EventSubscriber{
                     if (isset($changedSpecs[$id]) || isset($deletedSpecs[$id]) || $foundMasterId == $id) {
                         continue;
                     }
-                    if (!$foundMasterId and $spec->getMaster()) {
+                    if (!$foundMasterId && $spec->getMaster()) {
                         $foundMasterId = $id;
                     }
                     $specs[$id] = $spec;

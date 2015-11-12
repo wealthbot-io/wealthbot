@@ -387,7 +387,7 @@ class RebalancerController extends Controller
                         if ($accountValue->getClientPortfolio()->getClient()->getRia() != $this->getUser()) {
                             continue;
                         }
-                        
+
                         $clientPortfolioValue = $clientPortfolioValuesManager->getLatestValuesForPortfolio($accountValue->getClientPortfolio());
                         $rebalancerAction = $this->createRebalancerAction($job, $clientPortfolioValue, $accountValue);
 

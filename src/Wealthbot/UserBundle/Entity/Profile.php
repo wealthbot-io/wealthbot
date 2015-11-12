@@ -684,7 +684,7 @@ class Profile implements WorkflowableInterface
     static public function getAnnualIncomeChoices()
     {
         // Build $_clientAnnualIncomeValues if this is the first call
-        if (self::$_clientAnnualIncomeValues ==== null) {
+        if (self::$_clientAnnualIncomeValues === null) {
             self::$_clientAnnualIncomeValues = array();
             $oClass = new \ReflectionClass('\Wealthbot\UserBundle\Entity\Profile');
             $classConstants = $oClass->getConstants();

@@ -133,11 +133,11 @@
             {{ block('form_widget_simple') }}
         {% else %}
             <div {{ block('widget_container_attributes') }}>
-                {% autoescape 'html' %}{{ date_pattern|replace({
+                {{ date_pattern|replace({
                 '{{ year }}':  form_widget(form.year),
                 '{{ month }}': form_widget(form.month),
                 '{{ day }}':   form_widget(form.day),
-                })|raw }}{% endautoescape %}
+                })|raw }}
             </div>
         {% endif %}
     {% endspaceless %}

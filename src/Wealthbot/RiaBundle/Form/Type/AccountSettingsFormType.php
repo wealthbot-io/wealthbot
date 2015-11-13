@@ -133,7 +133,7 @@ class AccountSettingsFormType extends AbstractType
         if (null === $systemAccount->getBillingAccount()) {
             $systemAccount->setBillingAccount($systemAccount);
         }
-        if (SystemAccount::STATUS_CLOSED == $systemAccount->getStatus() && null === $systemAccount->getClosed()) {
+        if (SystemAccount::STATUS_CLOSED === $systemAccount->getStatus() && null === $systemAccount->getClosed()) {
             $systemAccount->setClosed(new \DateTime());
         }
 

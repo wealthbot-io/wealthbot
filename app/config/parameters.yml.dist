@@ -18,7 +18,7 @@ parameters:
     mailer_encryption: tls
     mailer_port: 587
     locale:            en
-    secret:            ThisTokenIsNotSoSecretChangeIt
+    secret:            EA155B775CYU8E27997E385A5E4F8349SECRET
 
     pager_per_page:    10
 

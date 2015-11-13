@@ -10,6 +10,7 @@ use Wealthbot\SignatureBundle\Entity\DocumentSignature;
 use Wealthbot\SignatureBundle\Model\Envelope;
 use Wealthbot\UserBundle\Entity\User;
 
+
 /**
  * DocumentSignatureRepository
  *
@@ -128,8 +129,8 @@ class DocumentSignatureRepository extends EntityRepository
         ));
 
         $signatures = $query->getResult();
-        usort($signatures, function(Wealthbot\SignatureBundle\Entity\DocumentSignature $a,
-                Wealthbot\SignatureBundle\Entity\DocumentSignature $b) {
+        usort($signatures, function(\Wealthbot\SignatureBundle\Entity\DocumentSignature $a,
+                \Wealthbot\SignatureBundle\Entity\DocumentSignature $b) {
             /** @var DocumentSignature $a */
             /** @var DocumentSignature $b */
             return $a->getOrder() - $b->getOrder();

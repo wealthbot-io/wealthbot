@@ -17,6 +17,7 @@ framework:
     trust_proxy_headers: false # Whether or not the Request object should trust proxy headers (X_FORWARDED_FOR/HTTP_CLIENT_IP)
     session:
         cookie_domain: %site_domain%
+        name: webosess
         save_path: ~
     validation:      { enabled: true }
 

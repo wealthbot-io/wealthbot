@@ -244,7 +244,7 @@ class AccountSettingsFormType extends AbstractType
             ;
         }
 
-        if (SystemAccount::STATUS_CLOSED == $form->get('status')->getData() && null == $form->get('dateClosed')->getData()) {
+        if (SystemAccount::STATUS_CLOSED === $form->get('status')->getData() && null === $form->get('dateClosed')->getData()) {
             $form->get('dateClosed')->addError(new FormError('This field is required when closing account'));
         }
 

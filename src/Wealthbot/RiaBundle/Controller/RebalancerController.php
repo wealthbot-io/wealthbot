@@ -452,9 +452,7 @@ class RebalancerController extends Controller
         foreach ($incompleteJobs as $incompleteJob) {
             $incompleteJobIds[] = $incompleteJob->getId();
         }
-        return $this->getJsonResponse(array(
-            'status' => 'success',
-        ));
+
         if (empty($incompleteJobIds)) {
             return $this->getJsonResponse(array(
                 'status' => 'success',

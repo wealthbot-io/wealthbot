@@ -46,7 +46,7 @@ class PersonalInformation
     static public function getIncomeSourceChoices()
     {
         // Build $_incomeSourceValues if this is the first call
-        if (self::$_incomeSourceValues == null) {
+        if (self::$_incomeSourceValues === null) {
             self::$_incomeSourceValues = array();
             $oClass = new \ReflectionClass('\Wealthbot\ClientBundle\Model\PersonalInformation');
             $classConstants = $oClass->getConstants();

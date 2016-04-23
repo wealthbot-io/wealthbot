@@ -173,7 +173,7 @@ class HouseholdPortfolioSettingsFormType extends AbstractType
 
         $group = $this->em->getRepository('WealthbotUserBundle:Group')
             ->findOneBy(array('id' => $groupId, 'owner' => $client->getRia()));
-        if (null == $group) {
+        if (null === $group) {
             $group = array();
         }
 

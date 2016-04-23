@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: countzero
- * Date: 17.03.14
- * Time: 0:57
- */
 
 namespace Wealthbot\RiaBundle\Form\Type;
 
@@ -139,7 +133,7 @@ class AccountSettingsFormType extends AbstractType
         if (null === $systemAccount->getBillingAccount()) {
             $systemAccount->setBillingAccount($systemAccount);
         }
-        if (SystemAccount::STATUS_CLOSED == $systemAccount->getStatus() && null == $systemAccount->getClosed()) {
+        if (SystemAccount::STATUS_CLOSED === $systemAccount->getStatus() && null === $systemAccount->getClosed()) {
             $systemAccount->setClosed(new \DateTime());
         }
 
@@ -151,7 +145,7 @@ class AccountSettingsFormType extends AbstractType
             ))
         ;
 
-        if (null != $firstRebalance) {
+        if (null !== $firstRebalance) {
             $initialRebalanceDate = $firstRebalance->getStartedAt();
             if (null === $systemAccount->getPerformanceInception()) {
                 $systemAccount->setPerformanceInception($initialRebalanceDate);
@@ -250,7 +244,7 @@ class AccountSettingsFormType extends AbstractType
             ;
         }
 
-        if (SystemAccount::STATUS_CLOSED == $form->get('status')->getData() && null == $form->get('dateClosed')->getData()) {
+        if (SystemAccount::STATUS_CLOSED === $form->get('status')->getData() && null === $form->get('dateClosed')->getData()) {
             $form->get('dateClosed')->addError(new FormError('This field is required when closing account'));
         }
 

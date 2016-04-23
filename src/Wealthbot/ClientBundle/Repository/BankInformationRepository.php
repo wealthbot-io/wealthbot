@@ -5,6 +5,7 @@ namespace Wealthbot\ClientBundle\Repository;
 use Doctrine\ORM\EntityRepository;
 use Wealthbot\SignatureBundle\Entity\DocumentSignature;
 use Wealthbot\SignatureBundle\Repository\SignableObjectRepositoryInterface;
+use Wealthbot\SignatureBundle\Model\Envelope;
 
 /**
  * BankInformationRepository

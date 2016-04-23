@@ -407,7 +407,7 @@ class BankInformation implements WorkflowableInterface
     static public function getAccountTypeChoices()
     {
         // Build $_typeValues if this is the first call
-        if (self::$_accountTypeValues == null) {
+        if (self::$_accountTypeValues === null) {
             self::$_accountTypeValues = array();
             $oClass = new \ReflectionClass('\Wealthbot\ClientBundle\Entity\BankInformation');
             $classConstants = $oClass->getConstants();
@@ -669,7 +669,7 @@ class BankInformation implements WorkflowableInterface
     /**
      * Get pdfDocument
      *
-     * @return \Wealthbot\UserBundle\Entity\Document 
+     * @return \Wealthbot\UserBundle\Entity\Document
      */
     public function getPdfDocument()
     {

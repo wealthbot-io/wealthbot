@@ -3,6 +3,9 @@
 namespace Wealthbot\AdminBundle\Controller;
 
 use Doctrine\ORM\EntityManager;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Security\Core\Exception\AccountStatusException;
 use Wealthbot\AdminBundle\Entity\CeModel;
 use Wealthbot\AdminBundle\Entity\Fee;
 use Wealthbot\AdminBundle\Form\Type\AdminFeesType;
@@ -14,13 +17,12 @@ use Wealthbot\AdminBundle\Repository\CeModelRepository;
 use Wealthbot\AdminBundle\Repository\SubclassRepository;
 use Wealthbot\RiaBundle\Entity\RiaCompanyInformation;
 use Wealthbot\UserBundle\Entity\User;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Wealthbot\AdminBundle\Mailer\MailerInterface;
 use Wealthbot\RiaBundle\Form\Type\RiaCompanyInformationThreeType;
 use Wealthbot\RiaBundle\Form\Type\RiaCompanyInformationFourType;
 use Wealthbot\RiaBundle\Form\Type\RiaCompanyInformationTwoFormType;
 use Wealthbot\RiaBundle\Form\Type\RiaCompanyInformationType;
+
 
 class RiaController extends AclController
 {

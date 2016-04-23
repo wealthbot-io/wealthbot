@@ -7,7 +7,7 @@
         $(function(){
 
             var hasRetirementAccount = {{ retirementAccounts|json_encode() }};
-            var accountTypes = JSON.parse('{{ types|json_encode()|raw }}');
+            var accountTypes = JSON.parse('{{ types|json_encode() }}');
 
             if(hasRetirementAccount){
                 $('#current_employer_retirement_plan_1').attr('checked', true);

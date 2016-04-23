@@ -1,11 +1,4 @@
 <?php
-/**
- * Created by JetBrains PhpStorm.
- * User: amalyuhin
- * Date: 23.05.13
- * Time: 15:23
- * To change this template use File | Settings | File Templates.
- */
 
 namespace Wealthbot\ClientBundle\Controller;
 
@@ -49,7 +42,7 @@ use Wealthbot\UserBundle\Entity\Profile;
 use Wealthbot\UserBundle\Entity\User;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedException;
 
 class BaseTransferController extends AclController
 {
@@ -243,7 +236,7 @@ class BaseTransferController extends AclController
         $this->denyAccessForCurrentRetirementAccount($account);
 
         if (!$repo->isJointAccount($account)) {
-            throw new AccessDeniedHttpException('Current account has not this step.');
+            throw new AccessDeniedException('Current account has not this step.');
         }
 
         $secondaryApplicant = $account->getSecondaryApplicant();
@@ -352,7 +345,7 @@ class BaseTransferController extends AclController
         $this->denyAccessForCurrentRetirementAccount($account);
 
         if (!$repo->isJointAccount($account)) {
-            throw new AccessDeniedHttpException('Current account has not this step.');
+            throw new AccessDeniedException('Current account has not this step.');
         }
 
         $secondaryApplicant = $account->getSecondaryApplicant();
@@ -456,8 +449,9 @@ class BaseTransferController extends AclController
                     $account->removeBeneficiarie($beneficiary);
 
                     $em->remove($beneficiary);
-                    $em->flush();
                 }
+                $em->flush();
+                $em->clear();
 
                 $account->setStepAction(ClientAccount::STEP_ACTION_BENEFICIARIES);
                 $account->setIsPreSaved($isPreSaved);
@@ -609,7 +603,7 @@ class BaseTransferController extends AclController
         if ($account->getSystemType() !== SystemAccount::TYPE_ROTH_IRA &&
             !$account->hasGroup(AccountGroup::GROUP_OLD_EMPLOYER_RETIREMENT)
         ) {
-            throw new AccessDeniedHttpException('Current account has not this step.');
+            throw new AccessDeniedException('Current account has not this step.');
         }
 
         /** @var CustodianMessage $rolloverMessage */
@@ -661,7 +655,7 @@ class BaseTransferController extends AclController
 
         $isCurrentRetirement = $repo->findRetirementAccountById($account->getId()) ? true : false;
         if (!$isCurrentRetirement) {
-            throw new AccessDeniedHttpException('Not current retirement accounts has not this step.');
+            throw new AccessDeniedException('Not current retirement accounts has not this step.');
         }
 
         $planInfo = $account->getRetirementPlanInfo();
@@ -1262,7 +1256,7 @@ class BaseTransferController extends AclController
 
         $isCurrentRetirement = $repo->findRetirementAccountById($account->getId()) ? true : false;
         if ($isCurrentRetirement) {
-            throw new AccessDeniedHttpException('Current retirement accounts has not this step.');
+            throw new AccessDeniedException('Current retirement accounts has not this step.');
         }
     }
 

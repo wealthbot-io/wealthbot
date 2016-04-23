@@ -1,11 +1,4 @@
 <?php
-/**
- * Created by JetBrains PhpStorm.
- * User: amalyuhin
- * Date: 05.09.12
- * Time: 14:37
- * To change this template use File | Settings | File Templates.
- */
 
 namespace Wealthbot\UserBundle\Controller;
 
@@ -18,6 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use FOS\UserBundle\Model\UserInterface;
 use Wealthbot\UserBundle\Entity\User;
+use Symfony\Component\Security\Core\Exception\AccountStatusException;
 
 class ClientController extends Controller
 {

@@ -32,7 +32,7 @@ class Beneficiary implements WorkflowableInterface
     static public function getTypeChoices()
     {
         // Build $_typeValues if this is the first call
-        if (self::$_typeValues == null) {
+        if (self::$_typeValues === null) {
             self::$_typeValues = array();
             $oClass = new \ReflectionClass('\Wealthbot\ClientBundle\Model\Beneficiary');
             $classConstants = $oClass->getConstants();

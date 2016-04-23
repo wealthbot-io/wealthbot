@@ -1,11 +1,4 @@
 <?php
-/**
- * Created by JetBrains PhpStorm.
- * User: amalyuhin
- * Date: 02.04.13
- * Time: 16:27
- * To change this template use File | Settings | File Templates.
- */
 
 namespace Wealthbot\ClientBundle\Model;
 
@@ -75,7 +68,7 @@ class BaseContribution implements PaymentWorkflowableInterface
     static public function getTypeChoices()
     {
         // Build $_typeValues if this is the first call
-        if (self::$_typeValues == null) {
+        if (self::$_typeValues === null) {
             self::$_typeValues = array();
             $oClass = new \ReflectionClass('\Wealthbot\ClientBundle\Model\BaseContribution');
             $classConstants = $oClass->getConstants();

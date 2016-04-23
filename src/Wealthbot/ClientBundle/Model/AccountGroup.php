@@ -67,7 +67,7 @@ class AccountGroup
     static public function getGroupChoices()
     {
         // Build $_typeValues if this is the first call
-        if (self::$_groups == null) {
+        if (self::$_groups === null) {
             self::$_groups = array();
             $oClass = new \ReflectionClass('\Wealthbot\ClientBundle\Model\AccountGroup');
             $classConstants = $oClass->getConstants();

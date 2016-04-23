@@ -110,7 +110,7 @@ class AssetClass
     static public function getTypeChoices()
     {
         // Build $_typeValues if this is the first call
-        if (self::$_typeValues == null) {
+        if (self::$_typeValues === null) {
             self::$_typeValues = array();
             $oClass = new \ReflectionClass('\Wealthbot\AdminBundle\Entity\AssetClass');
             $classConstants = $oClass->getConstants();
@@ -296,7 +296,7 @@ class AssetClass
     /**
      * Get tolerance_band
      *
-     * @return integer 
+     * @return integer
      */
     public function getToleranceBand()
     {

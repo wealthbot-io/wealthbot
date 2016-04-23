@@ -378,7 +378,6 @@ class RebalancerController extends Controller
                     $rebalancerAction = $this->createRebalancerAction($job, $clientPortfolioValue);
 
                     $em->persist($rebalancerAction);
-                    $em->flush();
                 } else {
                     $accountValues = array($clientAccountValuesManager->find($clientValueId));
 
@@ -387,12 +386,11 @@ class RebalancerController extends Controller
                         if ($accountValue->getClientPortfolio()->getClient()->getRia() != $this->getUser()) {
                             continue;
                         }
-                        
+
                         $clientPortfolioValue = $clientPortfolioValuesManager->getLatestValuesForPortfolio($accountValue->getClientPortfolio());
                         $rebalancerAction = $this->createRebalancerAction($job, $clientPortfolioValue, $accountValue);
 
                         $em->persist($rebalancerAction);
-                        $em->flush();
                     }
                 }
 
@@ -403,9 +401,12 @@ class RebalancerController extends Controller
 //
 //            $job->setFinishedAt(new \DateTime());
 //            $job->setIsError(false);
+            $em->flush();
+            $em->clear();
 
             $em->persist($job);
             $em->flush();
+            $em->clear();
 
             $filePath = $this->container->getParameter('active_jobs_dir').'/'.$job->getId();
 
@@ -415,7 +416,6 @@ class RebalancerController extends Controller
             chmod($filePath, 0666);
 
             for ($i=0;$i < 5;$i++) {
-                sleep(5);
                 $em->refresh($job);
                 if ($job->getFinishedAt()) {
                     return $this->getJsonResponse(array(
@@ -452,9 +452,7 @@ class RebalancerController extends Controller
         foreach ($incompleteJobs as $incompleteJob) {
             $incompleteJobIds[] = $incompleteJob->getId();
         }
-        return $this->getJsonResponse(array(
-            'status' => 'success',
-        ));
+
         if (empty($incompleteJobIds)) {
             return $this->getJsonResponse(array(
                 'status' => 'success',
@@ -658,8 +656,10 @@ class RebalancerController extends Controller
                 $queue->setIsDeleted($isDeleted);
 
                 $em->persist($queue);
-                $em->flush();
             }
+            $em->flush();
+            $em->clear();
+
         }
 
         $allocationValues = $clientAllocationManager->getValues($client);

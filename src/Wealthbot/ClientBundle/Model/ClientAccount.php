@@ -259,7 +259,7 @@ class ClientAccount implements WorkflowableInterface, SignableInterface
     static public function getStepActionChoices()
     {
         // Build $_typeValues if this is the first call
-        if (self::$_stepActionValues == null) {
+        if (self::$_stepActionValues === null) {
             self::$_stepActionValues = array();
             $oClass = new \ReflectionClass('\Wealthbot\ClientBundle\Model\ClientAccount');
             $classConstants = $oClass->getConstants();

@@ -1,11 +1,4 @@
 <?php
-/**
- * Created by JetBrains PhpStorm.
- * User: amalyuhin
- * Date: 19.07.13
- * Time: 17:09
- * To change this template use File | Settings | File Templates.
- */
 
 namespace Wealthbot\ClientBundle\Event;
 
@@ -70,6 +63,11 @@ class WorkflowEvent extends Event
         return $this->type;
     }
 
+    /**
+     *  Get signatures
+     *
+     * @return signature
+     */
     public function getSignatures()
     {
         return $this->signatures;

@@ -48,6 +48,7 @@ wealthbot_test.db
 
 # Random files
 .DS_Store
+.idea
 
 #vagrant
 vagrant/\.vagrant/*

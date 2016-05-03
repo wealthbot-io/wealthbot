@@ -49,7 +49,7 @@
                 <div class="nav-collapse">
                     <!-- .nav, .navbar-search, .navbar-form, etc -->
                     <ul class="nav">
-                        {% render 'WealthbotAdminBundle:Model:portfolioMenu' %}
+                        {{ render(controller('WealthbotAdminBundle:Model:portfolioMenu')) }}
                     </ul>
                 </div>
 
@@ -78,7 +78,7 @@
     {% endif %}
 
     <div class="btn-group" data-toggle="buttons-radio">
-        {#{% render 'WealthbotAdminBundle:Model:modelMenu' with {'type': modelsType, 'portfolioSlug' : portfolioSlug, 'modelSlug' : modelSlug } %}#}
+        {#{{ render(controller('WealthbotAdminBundle:Model:modelMenu' with {'type': modelsType, 'portfolioSlug' : portfolioSlug, 'modelSlug' : modelSlug })) }}#}
     </div>
 
     {% if is_permitted('edit') %}

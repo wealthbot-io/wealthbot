@@ -11,7 +11,7 @@
 {% endif %}
 
 {% block top_content %}
-    {% render 'WealthbotClientBundle:Transfer:progressMenu' with { 'account': account, 'step': 'funding_distributing' } %}
+    {{ render(controller('WealthbotClientBundle:Transfer:progressMenu' with { 'account': account, 'step': 'funding_distributing' })) }}
 {% endblock %}
 
 {% block main_content %}

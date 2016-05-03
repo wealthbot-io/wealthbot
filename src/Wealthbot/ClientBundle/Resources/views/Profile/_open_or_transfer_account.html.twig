@@ -79,7 +79,7 @@
 
 <div id="accounts_table_container" class="client-accounts-list" data-fetch-url="{{ path('rx_client_profile_show_accounts_table') }}">
     {% block accounts_table %}
-        {% render 'WealthbotClientBundle:Profile:showAccountsTable' %}
+        {{ render(controller('WealthbotClientBundle:Profile:showAccountsTable')) }}
     {% endblock %}
 </div>
 

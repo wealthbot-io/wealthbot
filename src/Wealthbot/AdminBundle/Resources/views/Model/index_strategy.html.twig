@@ -31,7 +31,7 @@
                 <div class="nav-collapse">
                     <!-- .nav, .navbar-search, .navbar-form, etc -->
                     <ul class="nav">
-                        {% render 'WealthbotAdminBundle:Model:portfolioMenu' with {'selected_strategy_id': selected_strategy.id }%}
+                        {{ render(controller('WealthbotAdminBundle:Model:portfolioMenu' with {'selected_strategy_id': selected_strategy.id } )) }}
                     </ul>
                 </div>
 
@@ -48,10 +48,10 @@
         </ul>
         <div class="tab-content">
             <div class="tab-pane active" id="categories_tab">
-                {% render 'WealthbotAdminBundle:Categories:index' with {'model_id': selected_strategy.id } %}
+                {{ render(controller('WealthbotAdminBundle:Categories:index' with {'model_id': selected_strategy.id })) }}
             </div>
             <div class="tab-pane" id="securities_tab">
-                {% render 'WealthbotAdminBundle:Securities:modelSecuritiesList' with {'model_id': selected_strategy.id } %}
+                {{ render(controller('WealthbotAdminBundle:Securities:modelSecuritiesList' with {'model_id': selected_strategy.id } )) }}
             </div>
             <div class="tab-pane" id="models_tab">
                 {% include 'WealthbotAdminBundle:Model:_models_tab.html.twig' %}

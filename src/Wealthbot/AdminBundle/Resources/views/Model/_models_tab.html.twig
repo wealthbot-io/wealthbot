@@ -27,5 +27,5 @@
 {% endif %}
 
 <div class="btn-group" data-toggle="buttons-radio">
-    {% render 'WealthbotAdminBundle:Model:modelMenu' with {'strategySlug' : selected_strategy.slug } %}
+    {{ render(controller('WealthbotAdminBundle:Model:modelMenu' with {'strategySlug' : selected_strategy.slug })) }}
 </div>

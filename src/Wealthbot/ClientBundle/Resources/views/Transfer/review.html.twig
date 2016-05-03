@@ -9,7 +9,7 @@
 {% endblock %}
 
 {% block top_content %}
-    {% render 'WealthbotClientBundle:Transfer:progressMenu' with { 'account': account, 'step': 'review' } %}
+    {{ render(controller('WealthbotClientBundle:Transfer:progressMenu' with { 'account': account, 'step': 'review' })) }}
 {% endblock %}
 
 {% block main_content %}

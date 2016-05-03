@@ -1,17 +1,18 @@
 <?php
+
 namespace Wealthbot\UserBundle\Model;
 
 use FOS\UserBundle\Entity\User as BaseUser;
-use Wealthbot\ClientBundle\Model\Workflow;
-use Wealthbot\ClientBundle\Model\WorkflowableInterface;
 use Wealthbot\UserBundle\Entity\Group;
-use Symfony\Component\Validator\ExecutionContext;
+use Symfony\Component\Validator\Context\ExecutionContext;
 
 class User extends BaseUser
 {
+    // @todo
+    public $level;
 
     /**
-     * @var \DateTime $password_expired_at
+     * @var \DateTime
      */
     protected $password_expired_at;
 
@@ -31,7 +32,7 @@ class User extends BaseUser
     protected $clientActivitySummaries;
 
     /**
-     * Get profile
+     * Get profile.
      *
      * @return \Wealthbot\UserBundle\Entity\Profile
      */
@@ -41,7 +42,7 @@ class User extends BaseUser
     }
 
     /**
-     * Get user first name
+     * Get user first name.
      *
      * @return null|string
      */
@@ -51,7 +52,7 @@ class User extends BaseUser
     }
 
     /**
-     * Get user last name
+     * Get user last name.
      *
      * @return null|string
      */
@@ -65,7 +66,7 @@ class User extends BaseUser
         $this->plainPassword = $password;
 
         //TODO need remove to the configuration
-        if(!$expiredAfter) {
+        if (!$expiredAfter) {
             $expiredAfter = 'now +6 month';
         }
 
@@ -75,9 +76,10 @@ class User extends BaseUser
     }
 
     /**
-     * Set password_expired_at
+     * Set password_expired_at.
      *
      * @param \DateTime $passwordExpiredAt
+     *
      * @return User
      */
     public function setPasswordExpiredAt($passwordExpiredAt)
@@ -88,7 +90,7 @@ class User extends BaseUser
     }
 
     /**
-     * Get password_expired_at
+     * Get password_expired_at.
      *
      * @return \DateTime
      */
@@ -106,11 +108,10 @@ class User extends BaseUser
     {
         return $this->getPasswordExpiredAt() instanceof \DateTime &&
             $this->getPasswordExpiredAt()->getTimestamp() < time();
-
     }
 
     /**
-     * Validate password
+     * Validate password.
      *
      * @param ExecutionContext $context
      */
@@ -119,7 +120,7 @@ class User extends BaseUser
         $password = $this->getPlainPassword();
 
         if($password == $this->getUsername()){
-            $context->addViolationAtSubPath('plainPassword', 'Email and password cant be the same', array(), null);
+            $context->addViolationAt('plainPassword', 'Email and password cant be the same', array(), null);
         }
 
         if (strlen($password) > 0) {
@@ -129,48 +130,49 @@ class User extends BaseUser
                     && preg_match('`[0-9]{1,}`',$password) // at least 1 number
                 )
             ) {
-                $context->addViolationAtSubPath('plainPassword', 'Password is not valid!', array(), null);
+                $context->addViolationAt('plainPassword', 'Password is not valid!', array(), null);
             }
 
             if(strlen(stristr($password, $this->getFirstName())) > 0){
-                $context->addViolationAtSubPath('plainPassword', 'Password cannot contain your name', array(), null);
+                $context->addViolationAt('plainPassword', 'Password cannot contain your name', array(), null);
             }
 
             if(strlen(stristr($password, $this->getLastName())) > 0){
-                $context->addViolationAtSubPath('plainPassword', 'Password cannot contain your name', array(), null);
+                $context->addViolationAt('plainPassword', 'Password cannot contain your name', array(), null);
             }
         }
     }
 
     /**
-     * Generate temporary password
+     * Generate temporary password.
      *
      * @param int $length
+     *
      * @return string
      */
     public function generateTemporaryPassword($length = 16)
     {
-        $chars = array (
+        $chars = [
             'abcdefghijklmnopqrstuvwxyz',
             'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
             '0123456789',
-            '!@#$%^&*()[];:<>/+-.,'
-        );
+            '!@#$%^&*()[];:<>/+-.,',
+        ];
 
-        $counts = array(
-            mb_strlen($chars[0])-1,
-            mb_strlen($chars[1])-1,
-            mb_strlen($chars[2])-1,
-            mb_strlen($chars[3])-1,
-        );
+        $counts = [
+            mb_strlen($chars[0]) - 1,
+            mb_strlen($chars[1]) - 1,
+            mb_strlen($chars[2]) - 1,
+            mb_strlen($chars[3]) - 1,
+        ];
 
         $result = '';
-        for ($i = 0; $i < 4; $i++) {
+        for ($i = 0; $i < 4; ++$i) {
             $result .= mb_substr($chars[$i], rand(0, $counts[$i]), 1);
         }
 
-        for ($i = 4; $i < $length; $i++) {
-            if ($i == (int) $length / 2) {
+        for ($i = 4; $i < $length; ++$i) {
+            if ($i === (int) $length / 2) {
                 $category = rand(2, 3);
             } else {
                 $category = rand(0, 3);
@@ -183,7 +185,7 @@ class User extends BaseUser
     }
 
     /**
-     * Is user is admin
+     * Is user is admin.
      *
      * @return bool
      */
@@ -215,7 +217,7 @@ class User extends BaseUser
     }
 
     /**
-     * Set client status as prospect
+     * Set client status as prospect.
      *
      * @return $this
      */
@@ -227,7 +229,7 @@ class User extends BaseUser
     }
 
     /**
-     * Is client has status prospect
+     * Is client has status prospect.
      *
      * @return bool
      */
@@ -241,7 +243,7 @@ class User extends BaseUser
     }
 
     /**
-     * Set client status as client
+     * Set client status as client.
      *
      * @return $this
      */
@@ -253,7 +255,7 @@ class User extends BaseUser
     }
 
     /**
-     * Is client has status client
+     * Is client has status client.
      *
      * @return bool
      */
@@ -267,14 +269,15 @@ class User extends BaseUser
     }
 
     /**
-     * Get client status
+     * Get client status.
      *
      * @return int
+     *
      * @throws \RuntimeException
      */
     public function getClientStatus()
     {
-        if (!$this->hasRole("ROLE_CLIENT")) {
+        if (!$this->hasRole('ROLE_CLIENT')) {
             throw new \RuntimeException('User dose not have role: ROLE_CLIENT');
         }
 
@@ -282,14 +285,15 @@ class User extends BaseUser
     }
 
     /**
-     * Get client status as string
+     * Get client status as string.
      *
      * @return int
+     *
      * @throws \RuntimeException
      */
     public function getClientStatusAsString()
     {
-        if (!$this->hasRole("ROLE_CLIENT")) {
+        if (!$this->hasRole('ROLE_CLIENT')) {
             throw new \RuntimeException('User dose not have role: ROLE_CLIENT');
         }
 
@@ -297,9 +301,10 @@ class User extends BaseUser
     }
 
     /**
-     * Add clientActivitySummary
+     * Add clientActivitySummary.
      *
      * @param \Wealthbot\ClientBundle\Entity\ClientActivitySummary $clientActivitySummary
+     *
      * @return User
      */
     protected function addClientActivitySummarie(\Wealthbot\ClientBundle\Entity\ClientActivitySummary $clientActivitySummary)
@@ -315,7 +320,7 @@ class User extends BaseUser
     }
 
     /**
-     * Remove clientActivitySummary
+     * Remove clientActivitySummary.
      *
      * @param \Wealthbot\ClientBundle\Entity\ClientActivitySummary $clientActivitySummary
      */
@@ -332,7 +337,6 @@ class User extends BaseUser
     public function isHaveSuggestedPortfolio()
     {
         if ($this->hasRole('ROLE_CLIENT')) {
-
             $suggestedPortfolio = $this->getProfile()->getSuggestedPortfolio();
 
             if ($suggestedPortfolio && $suggestedPortfolio->getOwner()->hasRole('ROLE_RIA')) {
@@ -357,12 +361,11 @@ class User extends BaseUser
 
     public function getGroupIds()
     {
-        $ids = array();
+        $ids = [];
         foreach ($this->getGroups() as $group) {
             $ids[] = $group->getId();
         }
 
         return $ids;
     }
-
 }

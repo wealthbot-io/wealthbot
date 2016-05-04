@@ -3,8 +3,9 @@
 namespace Wealthbot\UserBundle\Form\Type;
 
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\Form\FormError;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Wealthbot\UserBundle\Entity\Profile;
 
 class ClientRegistrationFormType extends UserType
@@ -15,13 +16,12 @@ class ClientRegistrationFormType extends UserType
 
         $builder->remove('username')
             ->add('profile', new ClientProfileType())
-            ->add('is_accepted', 'checkbox', array(
-                'required' => true,
-                'property_path' => false
-            ))
+            ->add('is_accepted', 'checkbox', [
+                'required' => true
+            ])
         ;
 
-        $builder->addEventListener(\Symfony\Component\Form\FormEvents::BIND, function(\Symfony\Component\Form\Event\DataEvent $event)  {
+        $builder->addEventListener(\Symfony\Component\Form\FormEvents::SUBMIT, function(FormEvent $event)  {
             $form = $event->getForm();
             $client = $event->getData();
 
@@ -41,18 +41,18 @@ class ClientRegistrationFormType extends UserType
         });
     }
 
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
+        $resolver->setDefaults([
             'data_class' => 'Wealthbot\UserBundle\Entity\User',
             'csrf_protection' => true,
             'csrf_field_name' => '_token',
             'cascade_validation' => true,
-            'validation_groups'  => array('Registration', 'password')
-        ));
+            'validation_groups' => ['Registration', 'password'],
+        ]);
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'client_registration';
     }

@@ -3,11 +3,10 @@
  * Created by PhpStorm.
  * User: amalyuhin
  * Date: 28.12.13
- * Time: 14:54
+ * Time: 14:54.
  */
 
 namespace Wealthbot\UserBundle\Twig;
-
 
 use Wealthbot\UserBundle\Manager\DocumentManager;
 
@@ -23,10 +22,10 @@ class DocumentExtension extends \Twig_Extension
 
     public function getFunctions()
     {
-        return array(
-            new \Twig_SimpleFunction('download_document_link', array($this, 'getDownloadDocumentLink')),
-            new \Twig_SimpleFunction('download_archive_link', array($this, 'getDownloadArchiveLink'))
-        );
+        return [
+            new \Twig_SimpleFunction('download_document_link', [$this, 'getDownloadDocumentLink']),
+            new \Twig_SimpleFunction('download_archive_link', [$this, 'getDownloadArchiveLink']),
+        ];
     }
 
     public function getDownloadDocumentLink($filename, $originalName = null)
@@ -48,5 +47,4 @@ class DocumentExtension extends \Twig_Extension
     {
         return 'rx_document_extension';
     }
-
-} 
+}

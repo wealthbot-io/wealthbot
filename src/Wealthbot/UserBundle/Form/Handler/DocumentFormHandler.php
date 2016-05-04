@@ -9,20 +9,19 @@
 
 namespace Wealthbot\UserBundle\Form\Handler;
 
-
 use Doctrine\ORM\EntityManager;
+use Symfony\Component\Form\Form;
+use Symfony\Component\HttpFoundation\Request;
 use Wealthbot\AdminBundle\Form\Handler\AbstractFormHandler;
 use Wealthbot\MailerBundle\Mailer\MailerInterface;
 use Wealthbot\UserBundle\Entity\Document;
 use Wealthbot\UserBundle\Entity\User;
-use Symfony\Component\Form\Form;
-use Symfony\Component\HttpFoundation\Request;
 
 class DocumentFormHandler extends AbstractFormHandler
 {
     protected $mailer;
 
-    public function __construct(Form $form, Request $request, EntityManager $em,MailerInterface $mailer, $options = array())
+    public function __construct(Form $form, Request $request, EntityManager $em, MailerInterface $mailer, $options = [])
     {
         parent::__construct($form, $request, $em, $options);
 
@@ -60,15 +59,14 @@ class DocumentFormHandler extends AbstractFormHandler
         $this->em->persist($user);
         $this->em->flush();
 
-        if ($document->getType() == Document::TYPE_ADV || $document->getType() == Document::TYPE_INVESTMENT_MANAGEMENT_AGREEMENT) {
+        if ($document->getType() === Document::TYPE_ADV || $document->getType() === Document::TYPE_INVESTMENT_MANAGEMENT_AGREEMENT) {
             $this->sendEmailMessages($document->getType());
         }
-
     }
 
     private function getExistDocuments(User $user)
     {
-        $documents = array();
+        $documents = [];
         foreach ($user->getUserDocuments() as $document) {
             $documents[$document->getType()] = $document;
         }

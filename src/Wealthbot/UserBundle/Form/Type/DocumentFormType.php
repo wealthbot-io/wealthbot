@@ -2,14 +2,13 @@
 
 namespace Wealthbot\UserBundle\Form\Type;
 
-
-use Wealthbot\UserBundle\Entity\Document;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Wealthbot\UserBundle\Entity\Document;
 
 class DocumentFormType extends AbstractType
 {
@@ -19,7 +18,7 @@ class DocumentFormType extends AbstractType
             ->add('file', 'file')
             ->add('type', 'hidden');
 
-        $builder->addEventListener(FormEvents::BIND, array($this, 'onBind'));
+        $builder->addEventListener(FormEvents::SUBMIT, [$this, 'onBind']);
     }
 
     public function onBind(FormEvent $event)
@@ -27,19 +26,19 @@ class DocumentFormType extends AbstractType
         $form = $event->getForm();
         $data = $event->getData();
 
-        if ($data instanceof Document && $data->getType() == Document::TYPE_ADV && $data->getMimeType() != 'application/pdf') {
+        if ($data instanceof Document && $data->getType() === Document::TYPE_ADV && $data->getMimeType() !== 'application/pdf') {
             $form->get('file')->addError(new FormError('Only pdf files are allowed'));
         }
     }
 
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => 'Wealthbot\UserBundle\Entity\Document'
-        ));
+        $resolver->setDefaults([
+            'data_class' => 'Wealthbot\UserBundle\Entity\Document',
+        ]);
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'document';
     }

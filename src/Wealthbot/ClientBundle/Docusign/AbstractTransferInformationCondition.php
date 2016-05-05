@@ -9,17 +9,18 @@
 
 namespace Wealthbot\ClientBundle\Docusign;
 
-
 use Wealthbot\ClientBundle\Entity\TransferInformation;
 use Wealthbot\SignatureBundle\Docusign\DocusignConditionInterface;
 
 abstract class AbstractTransferInformationCondition implements DocusignConditionInterface
 {
     /**
-     * Check condition
+     * Check condition.
      *
      * @param $param
+     *
      * @return bool
+     *
      * @throws \InvalidArgumentException
      */
     public function check($param)
@@ -27,7 +28,7 @@ abstract class AbstractTransferInformationCondition implements DocusignCondition
         if (!($param instanceof TransferInformation)) {
             throw new \InvalidArgumentException(sprintf(
                 'Argument "param" must be instance of %s.',
-                get_class(new TransferInformation)
+                get_class(new TransferInformation())
             ));
         }
 

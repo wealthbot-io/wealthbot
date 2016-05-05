@@ -2,22 +2,20 @@
 
 namespace Wealthbot\ClientBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-
 /**
- * AccountOutsideFund
+ * AccountOutsideFund.
  *
  * @deprecated
  */
 class AccountOutsideFund
 {
     /**
-     * @var integer
+     * @var int
      */
     private $id;
 
     /**
-     * @var integer
+     * @var int
      */
     private $account_id;
 
@@ -27,7 +25,7 @@ class AccountOutsideFund
     private $account;
 
     /**
-     * @var integer
+     * @var int
      */
     private $security_assignment_id;
 
@@ -36,11 +34,10 @@ class AccountOutsideFund
      */
     private $securityAssignment;
 
-
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer 
+     * @return int
      */
     public function getId()
     {
@@ -48,22 +45,23 @@ class AccountOutsideFund
     }
 
     /**
-     * Set account_id
+     * Set account_id.
      *
-     * @param integer $accountId
+     * @param int $accountId
+     *
      * @return AccountOutsideFund
      */
     public function setAccountId($accountId)
     {
         $this->account_id = $accountId;
-    
+
         return $this;
     }
 
     /**
-     * Get account_id
+     * Get account_id.
      *
-     * @return integer 
+     * @return int
      */
     public function getAccountId()
     {
@@ -71,22 +69,23 @@ class AccountOutsideFund
     }
 
     /**
-     * Set account
+     * Set account.
      *
      * @param \Wealthbot\ClientBundle\Entity\ClientAccount $account
+     *
      * @return AccountOutsideFund
      */
     public function setAccount(\Wealthbot\ClientBundle\Entity\ClientAccount $account = null)
     {
         $this->account = $account;
-    
+
         return $this;
     }
 
     /**
-     * Get account
+     * Get account.
      *
-     * @return \Wealthbot\ClientBundle\Entity\ClientAccount 
+     * @return \Wealthbot\ClientBundle\Entity\ClientAccount
      */
     public function getAccount()
     {
@@ -94,22 +93,23 @@ class AccountOutsideFund
     }
 
     /**
-     * Set security_assignment_id
+     * Set security_assignment_id.
      *
-     * @param integer $securityId
+     * @param int $securityId
+     *
      * @return AccountOutsideFund
      */
     public function setSecurityAssignmentId($securityId)
     {
         $this->security_assignment_id = $securityId;
-    
+
         return $this;
     }
 
     /**
-     * Get security_assignment_id
+     * Get security_assignment_id.
      *
-     * @return integer 
+     * @return int
      */
     public function getSecurityAssignmentId()
     {
@@ -117,20 +117,21 @@ class AccountOutsideFund
     }
 
     /**
-     * Set securityAssignment
+     * Set securityAssignment.
      *
      * @param \Wealthbot\AdminBundle\Entity\SecurityAssignment $securityAssignment
+     *
      * @return AccountOutsideFund
      */
     public function setSecurityAssignment(\Wealthbot\AdminBundle\Entity\SecurityAssignment $securityAssignment = null)
     {
         $this->securityAssignment = $securityAssignment;
-    
+
         return $this;
     }
 
     /**
-     * Get securityAssignment
+     * Get securityAssignment.
      *
      * @return \Wealthbot\AdminBundle\Entity\SecurityAssignment
      */
@@ -139,28 +140,28 @@ class AccountOutsideFund
         return $this->securityAssignment;
     }
     /**
-     * @var boolean
+     * @var bool
      */
     private $is_preferred;
 
-
     /**
-     * Set is_preferred
+     * Set is_preferred.
      *
-     * @param boolean $isPreferred
+     * @param bool $isPreferred
+     *
      * @return AccountOutsideFund
      */
     public function setIsPreferred($isPreferred)
     {
         $this->is_preferred = $isPreferred;
-    
+
         return $this;
     }
 
     /**
-     * Get is_preferred
+     * Get is_preferred.
      *
-     * @return boolean 
+     * @return bool
      */
     public function getIsPreferred()
     {

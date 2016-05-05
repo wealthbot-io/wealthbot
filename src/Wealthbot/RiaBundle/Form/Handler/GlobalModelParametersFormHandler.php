@@ -9,12 +9,11 @@
 
 namespace Wealthbot\RiaBundle\Form\Handler;
 
-
 use Doctrine\ORM\EntityManager;
-use Wealthbot\AdminBundle\Entity\ModelAssumption;
-use Wealthbot\UserBundle\Entity\User;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
+use Wealthbot\AdminBundle\Entity\ModelAssumption;
+use Wealthbot\UserBundle\Entity\User;
 
 class GlobalModelParametersFormHandler
 {
@@ -32,7 +31,7 @@ class GlobalModelParametersFormHandler
     public function process(User $ria, array $models)
     {
         if ($this->request->isMethod('post')) {
-            $this->form->bind($this->request);
+            $this->form->submit($this->request);
 
             if ($this->form->isValid()) {
                 $this->success($ria, $models);
@@ -56,11 +55,11 @@ class GlobalModelParametersFormHandler
 
         foreach ($models as $model) {
             $assumption = $repo->findOneBy(
-                array(
+                [
                     'owner_id' => $ria->getId(),
                     'owner_type' => 'ria',
-                    'model_id' => $model->getId()
-                )
+                    'model_id' => $model->getId(),
+                ]
             );
 
             if (!$assumption) {

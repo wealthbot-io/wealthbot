@@ -2,9 +2,9 @@
 
 namespace Wealthbot\AdminBundle;
 
-use Wealthbot\AdminBundle\DependencyInjection\PasInterfacesLoadersPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
+use Wealthbot\AdminBundle\DependencyInjection\PasInterfacesLoadersPass;
 
 class WealthbotAdminBundle extends Bundle
 {

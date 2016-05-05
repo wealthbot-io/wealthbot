@@ -9,10 +9,9 @@
 
 namespace Wealthbot\RiaBundle\Form\Handler;
 
-
-use Wealthbot\UserBundle\Entity\Document;
 use Wealthbot\AdminBundle\Form\Handler\AbstractFormHandler;
 use Wealthbot\RiaBundle\Entity\RiaCompanyInformation;
+use Wealthbot\UserBundle\Entity\Document;
 use Wealthbot\UserBundle\Entity\User;
 
 class RegistrationStepOneFormHandler extends AbstractFormHandler
@@ -58,12 +57,11 @@ class RegistrationStepOneFormHandler extends AbstractFormHandler
 
     private function getExistDocuments(User $user)
     {
-        $documents = array();
+        $documents = [];
         foreach ($user->getUserDocuments() as $document) {
             $documents[$document->getType()] = $document;
         }
 
         return $documents;
     }
-
 }

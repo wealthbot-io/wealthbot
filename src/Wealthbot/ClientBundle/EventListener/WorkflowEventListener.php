@@ -9,11 +9,10 @@
 
 namespace Wealthbot\ClientBundle\EventListener;
 
-
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Wealthbot\ClientBundle\ClientEvents;
 use Wealthbot\ClientBundle\Event\WorkflowEvent;
 use Wealthbot\ClientBundle\Manager\WorkflowManager;
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class WorkflowEventListener implements EventSubscriberInterface
 {
@@ -27,9 +26,9 @@ class WorkflowEventListener implements EventSubscriberInterface
 
     public static function getSubscribedEvents()
     {
-        return array(
-            ClientEvents::CLIENT_WORKFLOW => 'createWorkflow'
-        );
+        return [
+            ClientEvents::CLIENT_WORKFLOW => 'createWorkflow',
+        ];
     }
 
     public function createWorkflow(WorkflowEvent $event)

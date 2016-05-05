@@ -19,7 +19,7 @@ use Wealthbot\UserBundle\Entity\User;
 
 class LoadAdminData extends AbstractFixture implements OrderedFixtureInterface
 {
-    function load(ObjectManager $manager)
+    public function load(ObjectManager $manager)
     {
         $adminUser = $this->createUser();
         $manager->persist($adminUser);
@@ -31,7 +31,7 @@ class LoadAdminData extends AbstractFixture implements OrderedFixtureInterface
         $manager->flush();
     }
 
-    function getOrder()
+    public function getOrder()
     {
         return 1;
     }
@@ -43,16 +43,16 @@ class LoadAdminData extends AbstractFixture implements OrderedFixtureInterface
         $adminUser->setEmail('webo@example.com');
         $adminUser->setPlainPassword('weboDemo32');
         $adminUser->setEnabled(true);
-        $adminUser->setRoles(array('ROLE_SUPER_ADMIN'));
+        $adminUser->setRoles(['ROLE_SUPER_ADMIN']);
 
         return $adminUser;
     }
 
     private function createAdminFees(ObjectManager $manager, User $adminUser)
     {
-        $fees = array(
-            array('fee_with_retirement' => 0.0040, 'fee_without_retirement' => 0.0025, 'tier_top'=> Fee::INFINITY )
-        );
+        $fees = [
+            ['fee_with_retirement' => 0.0040, 'fee_without_retirement' => 0.0025, 'tier_top' => Fee::INFINITY],
+        ];
 
         $adminBillingSpec = new BillingSpec();
         $adminBillingSpec->setName('Admin Billing Spec for new RIA');

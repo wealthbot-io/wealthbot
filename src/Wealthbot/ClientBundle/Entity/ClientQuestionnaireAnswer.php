@@ -2,30 +2,28 @@
 
 namespace Wealthbot\ClientBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-
 /**
- * Wealthbot\ClientBundle\Entity\ClientQuestionnaireAnswer
+ * Wealthbot\ClientBundle\Entity\ClientQuestionnaireAnswer.
  */
 class ClientQuestionnaireAnswer
 {
     /**
-     * @var integer $id
+     * @var int
      */
     private $id;
 
     /**
-     * @var integer $client_id
+     * @var int
      */
     private $client_id;
 
     /**
-     * @var integer $question_id
+     * @var int
      */
     private $question_id;
 
     /**
-     * @var integer $answer_id
+     * @var int
      */
     private $answer_id;
 
@@ -44,11 +42,10 @@ class ClientQuestionnaireAnswer
      */
     private $answer;
 
-
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer 
+     * @return int
      */
     public function getId()
     {
@@ -56,22 +53,23 @@ class ClientQuestionnaireAnswer
     }
 
     /**
-     * Set client_id
+     * Set client_id.
      *
-     * @param integer $clientId
+     * @param int $clientId
+     *
      * @return ClientQuestionnaireAnswer
      */
     public function setClientId($clientId)
     {
         $this->client_id = $clientId;
-    
+
         return $this;
     }
 
     /**
-     * Get client_id
+     * Get client_id.
      *
-     * @return integer 
+     * @return int
      */
     public function getClientId()
     {
@@ -79,22 +77,23 @@ class ClientQuestionnaireAnswer
     }
 
     /**
-     * Set question_id
+     * Set question_id.
      *
-     * @param integer $questionId
+     * @param int $questionId
+     *
      * @return ClientQuestionnaireAnswer
      */
     public function setQuestionId($questionId)
     {
         $this->question_id = $questionId;
-    
+
         return $this;
     }
 
     /**
-     * Get question_id
+     * Get question_id.
      *
-     * @return integer 
+     * @return int
      */
     public function getQuestionId()
     {
@@ -102,22 +101,23 @@ class ClientQuestionnaireAnswer
     }
 
     /**
-     * Set answer_id
+     * Set answer_id.
      *
-     * @param integer $answerId
+     * @param int $answerId
+     *
      * @return ClientQuestionnaireAnswer
      */
     public function setAnswerId($answerId)
     {
         $this->answer_id = $answerId;
-    
+
         return $this;
     }
 
     /**
-     * Get answer_id
+     * Get answer_id.
      *
-     * @return integer
+     * @return int
      */
     public function getAnswerId()
     {
@@ -125,22 +125,23 @@ class ClientQuestionnaireAnswer
     }
 
     /**
-     * Set client
+     * Set client.
      *
      * @param Wealthbot\UserBundle\Entity\User $client
+     *
      * @return ClientQuestionnaireAnswer
      */
     public function setClient(\Wealthbot\UserBundle\Entity\User $client = null)
     {
         $this->client = $client;
-    
+
         return $this;
     }
 
     /**
-     * Get client
+     * Get client.
      *
-     * @return Wealthbot\UserBundle\Entity\User 
+     * @return Wealthbot\UserBundle\Entity\User
      */
     public function getClient()
     {
@@ -148,22 +149,23 @@ class ClientQuestionnaireAnswer
     }
 
     /**
-     * Set question
+     * Set question.
      *
      * @param Wealthbot\RiaBundle\Entity\RiskQuestion $question
+     *
      * @return ClientQuestionnaireAnswer
      */
     public function setQuestion(\Wealthbot\RiaBundle\Entity\RiskQuestion $question = null)
     {
         $this->question = $question;
-    
+
         return $this;
     }
 
     /**
-     * Get question
+     * Get question.
      *
-     * @return Wealthbot\RiaBundle\Entity\RiskQuestion 
+     * @return Wealthbot\RiaBundle\Entity\RiskQuestion
      */
     public function getQuestion()
     {
@@ -171,20 +173,21 @@ class ClientQuestionnaireAnswer
     }
 
     /**
-     * Set answer
+     * Set answer.
      *
      * @param Wealthbot\RiaBundle\Entity\RiskAnswer $answer
+     *
      * @return ClientQuestionnaireAnswer
      */
     public function setAnswer(\Wealthbot\RiaBundle\Entity\RiskAnswer $answer = null)
     {
         $this->answer = $answer;
-    
+
         return $this;
     }
 
     /**
-     * Get answer
+     * Get answer.
      *
      * @return Wealthbot\RiaBundle\Entity\RiskAnswer
      */

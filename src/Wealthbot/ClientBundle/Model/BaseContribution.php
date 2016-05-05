@@ -2,7 +2,6 @@
 
 namespace Wealthbot\ClientBundle\Model;
 
-
 class BaseContribution implements PaymentWorkflowableInterface
 {
     /**
@@ -16,7 +15,7 @@ class BaseContribution implements PaymentWorkflowableInterface
     const TYPE_FUNDING_WIRE = 'funding_wire_transfer';
     const TYPE_NOT_FUNDING = 'not_funding';
 
-    static private $_typeValues = null;
+    private static $_typeValues = null;
 
     // ENUM values transaction_frequency column
     const TRANSACTION_FREQUENCY_ONE_TIME = 1;
@@ -24,12 +23,12 @@ class BaseContribution implements PaymentWorkflowableInterface
     const TRANSACTION_FREQUENCY_MONTHLY = 3;
     const TRANSACTION_FREQUENCY_QUARTERLY = 4;
 
-    static private $_transactionFrequencies = array(
+    private static $_transactionFrequencies = [
         self::TRANSACTION_FREQUENCY_ONE_TIME => 'One-time',
         self::TRANSACTION_FREQUENCY_EVERY_OTHER_WEEK => 'Every other week',
         self::TRANSACTION_FREQUENCY_MONTHLY => 'Monthly',
-        self::TRANSACTION_FREQUENCY_QUARTERLY => 'Quarterly'
-    );
+        self::TRANSACTION_FREQUENCY_QUARTERLY => 'Quarterly',
+    ];
 
     /**
      * @var float
@@ -45,7 +44,7 @@ class BaseContribution implements PaymentWorkflowableInterface
     protected $transaction_frequency;
 
     /**
-     * @var integer
+     * @var int
      */
     protected $bank_information_id;
 
@@ -60,19 +59,20 @@ class BaseContribution implements PaymentWorkflowableInterface
     protected $contribution_year;
 
     /**
-     * Get array ENUM values type column
+     * Get array ENUM values type column.
      *
      * @static
+     *
      * @return array
      */
-    static public function getTypeChoices()
+    public static function getTypeChoices()
     {
         // Build $_typeValues if this is the first call
         if (self::$_typeValues === null) {
-            self::$_typeValues = array();
+            self::$_typeValues = [];
             $oClass = new \ReflectionClass('\Wealthbot\ClientBundle\Model\BaseContribution');
             $classConstants = $oClass->getConstants();
-            $constantPrefix = "TYPE_";
+            $constantPrefix = 'TYPE_';
             foreach ($classConstants as $key => $val) {
                 if (substr($key, 0, strlen($constantPrefix)) === $constantPrefix) {
                     self::$_typeValues[$val] = $val;
@@ -84,10 +84,12 @@ class BaseContribution implements PaymentWorkflowableInterface
     }
 
     /**
-     * Set type
+     * Set type.
      *
      * @param string $type
+     *
      * @return BaseContribution
+     *
      * @throws \InvalidArgumentException
      */
     public function setType($type)
@@ -104,7 +106,7 @@ class BaseContribution implements PaymentWorkflowableInterface
     }
 
     /**
-     * Get type
+     * Get type.
      *
      * @return string
      */
@@ -114,7 +116,7 @@ class BaseContribution implements PaymentWorkflowableInterface
     }
 
     /**
-     * Get transaction_frequency choices
+     * Get transaction_frequency choices.
      *
      * @return array
      */
@@ -125,6 +127,7 @@ class BaseContribution implements PaymentWorkflowableInterface
 
     /**
      * @param $transactionFrequency
+     *
      * @return $this
      */
     public function setTransactionFrequency($transactionFrequency)
@@ -143,9 +146,10 @@ class BaseContribution implements PaymentWorkflowableInterface
     }
 
     /**
-     * Set amount
+     * Set amount.
      *
      * @param float $amount
+     *
      * @return $this
      */
     public function setAmount($amount)
@@ -156,7 +160,7 @@ class BaseContribution implements PaymentWorkflowableInterface
     }
 
     /**
-     * Get amount
+     * Get amount.
      *
      * @return float
      */
@@ -166,9 +170,10 @@ class BaseContribution implements PaymentWorkflowableInterface
     }
 
     /**
-     * Set start_transfer_date
+     * Set start_transfer_date.
      *
      * @param \DateTime $startTransferDate
+     *
      * @return AccountContribution
      */
     public function setStartTransferDate($startTransferDate)
@@ -179,7 +184,7 @@ class BaseContribution implements PaymentWorkflowableInterface
     }
 
     /**
-     * Get start_transfer_date
+     * Get start_transfer_date.
      *
      * @return \DateTime
      */
@@ -188,9 +193,8 @@ class BaseContribution implements PaymentWorkflowableInterface
         return $this->start_transfer_date;
     }
 
-
     /**
-     * Get workflow message code
+     * Get workflow message code.
      *
      * @return string
      */
@@ -200,7 +204,7 @@ class BaseContribution implements PaymentWorkflowableInterface
     }
 
     /**
-     * Get workflow amount
+     * Get workflow amount.
      *
      * @return float
      */
@@ -210,9 +214,10 @@ class BaseContribution implements PaymentWorkflowableInterface
     }
 
     /**
-     * Set bank_information_id
+     * Set bank_information_id.
      *
-     * @param integer $bankInformationId
+     * @param int $bankInformationId
+     *
      * @return AccountContribution
      */
     public function setBankInformationId($bankInformationId)
@@ -223,9 +228,9 @@ class BaseContribution implements PaymentWorkflowableInterface
     }
 
     /**
-     * Get bank_information_id
+     * Get bank_information_id.
      *
-     * @return integer
+     * @return int
      */
     public function getBankInformationId()
     {
@@ -233,9 +238,10 @@ class BaseContribution implements PaymentWorkflowableInterface
     }
 
     /**
-     * Set bankInformation
+     * Set bankInformation.
      *
      * @param \Wealthbot\ClientBundle\Entity\BankInformation $bankInformation
+     *
      * @return AccountContribution
      */
     public function setBankInformation(\Wealthbot\ClientBundle\Entity\BankInformation $bankInformation = null)
@@ -246,7 +252,7 @@ class BaseContribution implements PaymentWorkflowableInterface
     }
 
     /**
-     * Get bankInformation
+     * Get bankInformation.
      *
      * @return \Wealthbot\ClientBundle\Entity\BankInformation
      */
@@ -256,9 +262,10 @@ class BaseContribution implements PaymentWorkflowableInterface
     }
 
     /**
-     * Set contribution_year
+     * Set contribution_year.
      *
      * @param string $contributionYear
+     *
      * @return $this
      */
     public function setContributionYear($contributionYear)
@@ -269,7 +276,7 @@ class BaseContribution implements PaymentWorkflowableInterface
     }
 
     /**
-     * Get contribution_year
+     * Get contribution_year.
      *
      * @return string
      */

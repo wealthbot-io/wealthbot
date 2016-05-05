@@ -9,76 +9,75 @@
 
 namespace Wealthbot\FixturesBundle\DataFixtures\ORM;
 
-use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
-use Symfony\Component\DependencyInjection\ContainerInterface;
+use Doctrine\Common\Persistence\ObjectManager;
 use Wealthbot\AdminBundle\Entity\Subclass;
 
 class LoadSubclassData extends AbstractFixture implements OrderedFixtureInterface
 {
-    private $subclasses = array(
-        array(
+    private $subclasses = [
+        [
             'name' => 'Subclass 1',
             'asset_class_index' => 1,
             'expected_performance' => 1,
-            'account_type_index' => 1
-        ),
-        array(
+            'account_type_index' => 1,
+        ],
+        [
             'name' => 'Subclass 2',
             'asset_class_index' => 1,
             'expected_performance' => 1,
-            'account_type_index' => 1
-        ),
-        array(
+            'account_type_index' => 1,
+        ],
+        [
             'name' => 'Subclass 3',
             'asset_class_index' => 1,
             'expected_performance' => 1,
-            'account_type_index' => 1
-        ),
-        array(
+            'account_type_index' => 1,
+        ],
+        [
             'name' => 'Subclass 4',
             'asset_class_index' => 2,
             'expected_performance' => 1,
-            'account_type_index' => 1
-        ),
-        array(
+            'account_type_index' => 1,
+        ],
+        [
             'name' => 'Subclass 5',
             'asset_class_index' => 2,
             'expected_performance' => 1,
-            'account_type_index' => 1
-        ),
-        array(
+            'account_type_index' => 1,
+        ],
+        [
             'name' => 'Subclass 6',
             'asset_class_index' => 2,
             'expected_performance' => 1,
-            'account_type_index' => 1
-        ),
-        array(
+            'account_type_index' => 1,
+        ],
+        [
             'name' => 'Subclass 7',
             'asset_class_index' => 3,
             'expected_performance' => 1,
-            'account_type_index' => 1
-        ),
-        array(
+            'account_type_index' => 1,
+        ],
+        [
             'name' => 'Subclass 8',
             'asset_class_index' => 3,
             'expected_performance' => 1,
-            'account_type_index' => 1
-        ),
-        array(
+            'account_type_index' => 1,
+        ],
+        [
             'name' => 'Subclass 9',
             'asset_class_index' => 3,
             'expected_performance' => 1,
-            'account_type_index' => 1
-        )
-    );
+            'account_type_index' => 1,
+        ],
+    ];
 
     public function load(ObjectManager $manager)
     {
         foreach ($this->subclasses as $index => $item) {
-            $assetClass = $this->getReference('asset-class-' . $item['asset_class_index']);
-            $accountType = $this->getReference('subclass-account-type-' . $item['account_type_index']);
+            $assetClass = $this->getReference('asset-class-'.$item['asset_class_index']);
+            $accountType = $this->getReference('subclass-account-type-'.$item['account_type_index']);
 
             $subclass = new Subclass();
             $subclass->setName($item['name']);
@@ -87,7 +86,7 @@ class LoadSubclassData extends AbstractFixture implements OrderedFixtureInterfac
             $subclass->setAccountType($accountType);
 
             $manager->persist($subclass);
-            $this->addReference('subclass-' . ($index + 1), $subclass);
+            $this->addReference('subclass-'.($index + 1), $subclass);
         }
 
         $manager->flush();

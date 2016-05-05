@@ -6,7 +6,7 @@
  */
 
 namespace Wealthbot\MailerBundle\Mailer;
-use Wealthbot\AdminBundle\Entity\Custodian;
+
 use Wealthbot\ClientBundle\Entity\ClientAccount;
 use Wealthbot\ClientBundle\Entity\Workflow;
 use Wealthbot\ClientBundle\Model\AccountOwnerInterface;

@@ -2,30 +2,28 @@
 
 namespace Wealthbot\MailerBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-
 /**
- * AlertsConfiguration
+ * AlertsConfiguration.
  */
 class AlertsConfiguration
 {
     /**
-     * @var integer
+     * @var int
      */
     private $id;
 
     /**
-     * @var integer
+     * @var int
      */
     private $user_id;
 
     /**
-     * @var boolean
+     * @var bool
      */
     private $is_client_portfolio_suggestion;
 
     /**
-     * @var boolean
+     * @var bool
      */
     private $is_client_driven_account_closures;
 
@@ -34,11 +32,10 @@ class AlertsConfiguration
      */
     private $user;
 
-
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer 
+     * @return int
      */
     public function getId()
     {
@@ -46,22 +43,23 @@ class AlertsConfiguration
     }
 
     /**
-     * Set user_id
+     * Set user_id.
      *
-     * @param integer $userId
+     * @param int $userId
+     *
      * @return AlertsConfiguration
      */
     public function setUserId($userId)
     {
         $this->user_id = $userId;
-    
+
         return $this;
     }
 
     /**
-     * Get user_id
+     * Get user_id.
      *
-     * @return integer 
+     * @return int
      */
     public function getUserId()
     {
@@ -69,22 +67,23 @@ class AlertsConfiguration
     }
 
     /**
-     * Set is_client_portfolio_suggestion
+     * Set is_client_portfolio_suggestion.
      *
-     * @param boolean $isClientPortfolioSuggestion
+     * @param bool $isClientPortfolioSuggestion
+     *
      * @return AlertsConfiguration
      */
     public function setIsClientPortfolioSuggestion($isClientPortfolioSuggestion)
     {
         $this->is_client_portfolio_suggestion = $isClientPortfolioSuggestion;
-    
+
         return $this;
     }
 
     /**
-     * Get is_client_portfolio_suggestion
+     * Get is_client_portfolio_suggestion.
      *
-     * @return boolean 
+     * @return bool
      */
     public function getIsClientPortfolioSuggestion()
     {
@@ -92,22 +91,23 @@ class AlertsConfiguration
     }
 
     /**
-     * Set is_client_driven_account_closures
+     * Set is_client_driven_account_closures.
      *
-     * @param boolean $isClientDrivenAccountClosures
+     * @param bool $isClientDrivenAccountClosures
+     *
      * @return AlertsConfiguration
      */
     public function setIsClientDrivenAccountClosures($isClientDrivenAccountClosures)
     {
         $this->is_client_driven_account_closures = $isClientDrivenAccountClosures;
-    
+
         return $this;
     }
 
     /**
-     * Get is_client_driven_account_closures
+     * Get is_client_driven_account_closures.
      *
-     * @return boolean 
+     * @return bool
      */
     public function getIsClientDrivenAccountClosures()
     {
@@ -115,22 +115,23 @@ class AlertsConfiguration
     }
 
     /**
-     * Set user
+     * Set user.
      *
      * @param \Wealthbot\UserBundle\Entity\User $user
+     *
      * @return AlertsConfiguration
      */
     public function setUser(\Wealthbot\UserBundle\Entity\User $user = null)
     {
         $this->user = $user;
-    
+
         return $this;
     }
 
     /**
-     * Get user
+     * Get user.
      *
-     * @return \Wealthbot\UserBundle\Entity\User 
+     * @return \Wealthbot\UserBundle\Entity\User
      */
     public function getUser()
     {

@@ -2,20 +2,18 @@
 
 namespace Wealthbot\ClientBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-
 /**
- * RetirementPlanInformation
+ * RetirementPlanInformation.
  */
 class RetirementPlanInformation
 {
     /**
-     * @var integer
+     * @var int
      */
     private $id;
 
     /**
-     * @var integer
+     * @var int
      */
     private $account_id;
 
@@ -49,11 +47,10 @@ class RetirementPlanInformation
      */
     private $account;
 
-
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer 
+     * @return int
      */
     public function getId()
     {
@@ -61,22 +58,23 @@ class RetirementPlanInformation
     }
 
     /**
-     * Set account_id
+     * Set account_id.
      *
-     * @param integer $accountId
+     * @param int $accountId
+     *
      * @return RetirementPlanInformation
      */
     public function setAccountId($accountId)
     {
         $this->account_id = $accountId;
-    
+
         return $this;
     }
 
     /**
-     * Get account_id
+     * Get account_id.
      *
-     * @return integer 
+     * @return int
      */
     public function getAccountId()
     {
@@ -84,22 +82,23 @@ class RetirementPlanInformation
     }
 
     /**
-     * Set account_number
+     * Set account_number.
      *
      * @param string $accountNumber
+     *
      * @return RetirementPlanInformation
      */
     public function setAccountNumber($accountNumber)
     {
         $this->account_number = $accountNumber;
-    
+
         return $this;
     }
 
     /**
-     * Get account_number
+     * Get account_number.
      *
-     * @return string 
+     * @return string
      */
     public function getAccountNumber()
     {
@@ -107,22 +106,23 @@ class RetirementPlanInformation
     }
 
     /**
-     * Set account_description
+     * Set account_description.
      *
      * @param string $accountDescription
+     *
      * @return RetirementPlanInformation
      */
     public function setAccountDescription($accountDescription)
     {
         $this->account_description = $accountDescription;
-    
+
         return $this;
     }
 
     /**
-     * Get account_description
+     * Get account_description.
      *
-     * @return string 
+     * @return string
      */
     public function getAccountDescription()
     {
@@ -130,22 +130,23 @@ class RetirementPlanInformation
     }
 
     /**
-     * Set username
+     * Set username.
      *
      * @param string $username
+     *
      * @return RetirementPlanInformation
      */
     public function setUsername($username)
     {
         $this->username = $username;
-    
+
         return $this;
     }
 
     /**
-     * Get username
+     * Get username.
      *
-     * @return string 
+     * @return string
      */
     public function getUsername()
     {
@@ -153,22 +154,23 @@ class RetirementPlanInformation
     }
 
     /**
-     * Set account
+     * Set account.
      *
      * @param \Wealthbot\ClientBundle\Entity\ClientAccount $account
+     *
      * @return RetirementPlanInformation
      */
     public function setAccount(\Wealthbot\ClientBundle\Entity\ClientAccount $account = null)
     {
         $this->account = $account;
-    
+
         return $this;
     }
 
     /**
-     * Get account
+     * Get account.
      *
-     * @return \Wealthbot\ClientBundle\Entity\ClientAccount 
+     * @return \Wealthbot\ClientBundle\Entity\ClientAccount
      */
     public function getAccount()
     {
@@ -176,22 +178,23 @@ class RetirementPlanInformation
     }
 
     /**
-     * Set financial_institution
+     * Set financial_institution.
      *
      * @param string $financialInstitution
+     *
      * @return RetirementPlanInformation
      */
     public function setFinancialInstitution($financialInstitution)
     {
         $this->financial_institution = $financialInstitution;
-    
+
         return $this;
     }
 
     /**
-     * Get financial_institution
+     * Get financial_institution.
      *
-     * @return string 
+     * @return string
      */
     public function getFinancialInstitution()
     {
@@ -199,22 +202,23 @@ class RetirementPlanInformation
     }
 
     /**
-     * Set web_address_login
+     * Set web_address_login.
      *
      * @param string $webAddressLogin
+     *
      * @return RetirementPlanInformation
      */
     public function setWebAddressLogin($webAddressLogin)
     {
         $this->web_address_login = $webAddressLogin;
-    
+
         return $this;
     }
 
     /**
-     * Get web_address_login
+     * Get web_address_login.
      *
-     * @return string 
+     * @return string
      */
     public function getWebAddressLogin()
     {
@@ -225,24 +229,24 @@ class RetirementPlanInformation
      */
     private $password;
 
-
     /**
-     * Set password
+     * Set password.
      *
      * @param string $password
+     *
      * @return RetirementPlanInformation
      */
     public function setPassword($password)
     {
         $this->password = $password;
-    
+
         return $this;
     }
 
     /**
-     * Get password
+     * Get password.
      *
-     * @return string 
+     * @return string
      */
     public function getPassword()
     {

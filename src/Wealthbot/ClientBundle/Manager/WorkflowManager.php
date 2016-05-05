@@ -9,18 +9,17 @@
 
 namespace Wealthbot\ClientBundle\Manager;
 
-
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
 use Wealthbot\ClientBundle\Entity\BankInformation;
 use Wealthbot\ClientBundle\Entity\ClientPortfolio;
 use Wealthbot\ClientBundle\Entity\Distribution;
+use Wealthbot\ClientBundle\Entity\SystemAccount;
 use Wealthbot\ClientBundle\Entity\Workflow;
 use Wealthbot\ClientBundle\Model\BaseContribution;
 use Wealthbot\ClientBundle\Model\ClientAccount;
 use Wealthbot\ClientBundle\Model\PaymentWorkflowableInterface;
-use Wealthbot\ClientBundle\Entity\SystemAccount;
 use Wealthbot\ClientBundle\Model\WorkflowableInterface;
 use Wealthbot\SignatureBundle\Entity\DocumentSignature;
 use Wealthbot\SignatureBundle\Manager\DocumentSignatureManager;
@@ -58,9 +57,10 @@ class WorkflowManager
     }
 
     /**
-     * Find workflow
+     * Find workflow.
      *
-     * @param integer $id
+     * @param int $id
+     *
      * @return object
      */
     public function find($id)
@@ -69,9 +69,10 @@ class WorkflowManager
     }
 
     /**
-     * Find workflow object by criteria
+     * Find workflow object by criteria.
      *
      * @param array $criteria
+     *
      * @return Workflow
      */
     public function findOneBy(array $criteria)
@@ -81,6 +82,7 @@ class WorkflowManager
 
     /**
      * @param User $client
+     *
      * @return mixed
      */
     public function findNotCompletedInitRebalanceWorkflow(User $client)
@@ -92,22 +94,23 @@ class WorkflowManager
             ->andWhere('w.message_code = :message_code')
             ->andWhere('w.status != :status')
             ->setMaxResults(1)
-            ->setParameters(array(
+            ->setParameters([
                 'client' => $client,
                 'message_code' => Workflow::MESSAGE_CODE_PAPERWORK_INITIAL_REBALANCE,
-                'status' => Workflow::STATUS_COMPLETED
-            ));
+                'status' => Workflow::STATUS_COMPLETED,
+            ]);
 
         return $qb->getQuery()->getOneOrNullResult();
     }
 
     /**
-     * Find workflow objects by criteria
+     * Find workflow objects by criteria.
      *
      * @param array $criteria
      * @param array $orderBy
-     * @param null $limit
-     * @param null $offset
+     * @param null  $limit
+     * @param null  $offset
+     *
      * @return mixed
      */
     public function findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
@@ -116,11 +119,12 @@ class WorkflowManager
     }
 
     /**
-     * Find one workflow by client, object_type and type
+     * Find one workflow by client, object_type and type.
      *
-     * @param User $client
-     * @param integer $type
+     * @param User          $client
+     * @param int           $type
      * @param object|string $objectType
+     *
      * @return Workflow
      */
     public function findOneByClientAndTypeAndObjectType(User $client, $type, $objectType)
@@ -132,29 +136,30 @@ class WorkflowManager
         }
 
         return $this->findOneBy(
-            array(
+            [
                 'client' => $client,
                 'type' => $type,
-                'object_type' => $objectTypeClass
-            )
+                'object_type' => $objectTypeClass,
+            ]
         );
     }
 
     /**
-     * Find one by client and object and type
+     * Find one by client and object and type.
      *
-     * @param User $client
+     * @param User                  $client
      * @param WorkflowableInterface $object
      * @param $type
+     *
      * @return Workflow|null
      */
     public function findOneByClientAndObjectAndType(User $client, WorkflowableInterface $object, $type)
     {
-        $criteria = array(
-            'client'       => $client,
-            'type'         => $type,
-            'message_code' => $object->getWorkflowMessageCode()
-        );
+        $criteria = [
+            'client' => $client,
+            'type' => $type,
+            'message_code' => $object->getWorkflowMessageCode(),
+        ];
 
         if (method_exists($object, 'getId') && (null !== $object->getId())) {
             $criteria['object_id'] = $object->getId();
@@ -164,8 +169,9 @@ class WorkflowManager
     }
 
     /**
-     * @param User $client
+     * @param User                  $client
      * @param WorkflowableInterface $object
+     *
      * @return null|Workflow
      */
     public function findOneByClientAndObject(User $client, WorkflowableInterface $object)
@@ -182,9 +188,10 @@ class WorkflowManager
     }
 
     /**
-     * Find account application workflow
+     * Find account application workflow.
      *
      * @param ClientAccount $account
+     *
      * @return Workflow|null
      */
     public function findAccountApplicationWorkflow(ClientAccount $account)
@@ -193,10 +200,11 @@ class WorkflowManager
     }
 
     /**
-     * Returns query for all workflow by id of ria user
+     * Returns query for all workflow by id of ria user.
      *
-     * @param integer $riaId
-     * @param boolean|null $isArchived
+     * @param int       $riaId
+     * @param bool|null $isArchived
+     *
      * @return \Doctrine\ORM\Query
      */
     public function findByRiaIdQuery($riaId, $isArchived = null)
@@ -205,10 +213,11 @@ class WorkflowManager
     }
 
     /**
-     * Find all workflow by id of ria user
+     * Find all workflow by id of ria user.
      *
-     * @param integer $riaId
-     * @param boolean|null $isArchived
+     * @param int       $riaId
+     * @param bool|null $isArchived
+     *
      * @return array
      */
     public function findByRiaId($riaId, $isArchived = null)
@@ -217,11 +226,12 @@ class WorkflowManager
     }
 
     /**
-     * Find one workflow by id and id of ria user
+     * Find one workflow by id and id of ria user.
      *
-     * @param integer $id
-     * @param integer $riaId
-     * @param boolean|null $isArchived
+     * @param int       $id
+     * @param int       $riaId
+     * @param bool|null $isArchived
+     *
      * @return Workflow|null
      */
     public function findOneByIdAndRiaId($id, $riaId, $isArchived = null)
@@ -231,15 +241,16 @@ class WorkflowManager
 
     /**
      * Get workflowable object by workflow
-     * Returns object that primary key is contained in object_id column
+     * Returns object that primary key is contained in object_id column.
      *
      * @param Workflow $workflow
+     *
      * @return null|WorkflowableInterface
      */
     public function getObject(Workflow $workflow)
     {
         if (!$workflow->getObjectId()) {
-            return null;
+            return;
         }
 
         $repository = $this->om->getRepository($workflow->getObjectType());
@@ -249,14 +260,15 @@ class WorkflowManager
 
     /**
      * Get workflowable objects by workflow
-     * Returns objects that primary keys are contained in object_ids column
+     * Returns objects that primary keys are contained in object_ids column.
      *
      * @param Workflow $workflow
+     *
      * @return WorkflowableInterface[]
      */
     public function getObjects(Workflow $workflow)
     {
-        $result = array();
+        $result = [];
 
         $objectIds = $workflow->getObjectIds();
         if (is_array($objectIds) && !empty($objectIds)) {
@@ -273,9 +285,10 @@ class WorkflowManager
     }
 
     /**
-     * Get workflow activity
+     * Get workflow activity.
      *
      * @param Workflow $workflow
+     *
      * @return string
      */
     public function getActivity(Workflow $workflow)
@@ -287,9 +300,9 @@ class WorkflowManager
             $object = $this->getObject($workflow);
 
             if ($object instanceof ClientAccount) {
-                $activity .= ' - ' . $object->getTypeName();
+                $activity .= ' - '.$object->getTypeName();
             } elseif ($object instanceof SystemAccount) {
-                $activity .= ' - ' . $object->getClientAccount()->getTypeName();
+                $activity .= ' - '.$object->getClientAccount()->getTypeName();
             }
         }
 
@@ -297,10 +310,11 @@ class WorkflowManager
     }
 
     /**
-     * Update status of workflow
+     * Update status of workflow.
      *
      * @param Workflow $workflow
      * @param $status
+     *
      * @throws \InvalidArgumentException
      */
     public function updateStatus(Workflow $workflow, $status)
@@ -317,7 +331,7 @@ class WorkflowManager
     }
 
     /**
-     * Update status of workflow and save in db
+     * Update status of workflow and save in db.
      *
      * @param Workflow $workflow
      * @param $status
@@ -329,10 +343,10 @@ class WorkflowManager
     }
 
     /**
-     * Archive workflow
+     * Archive workflow.
      *
      * @param Workflow $workflow
-     * @param bool $archive
+     * @param bool     $archive
      */
     public function archive(Workflow $workflow, $archive = true)
     {
@@ -343,10 +357,10 @@ class WorkflowManager
     }
 
     /**
-     * Archive workflow and save in db
+     * Archive workflow and save in db.
      *
      * @param Workflow $workflow
-     * @param bool $archive
+     * @param bool     $archive
      */
     public function archiveAndSave(Workflow $workflow, $archive = true)
     {
@@ -355,9 +369,9 @@ class WorkflowManager
     }
 
     /**
-     * Update client status by system client account
+     * Update client status by system client account.
      *
-     * @param Workflow $workflow
+     * @param Workflow      $workflow
      * @param SystemAccount $account
      */
     public function updateClientStatusBySystemAccount(Workflow $workflow, SystemAccount $account)
@@ -372,7 +386,7 @@ class WorkflowManager
     }
 
     /**
-     * Update client status by document signatures
+     * Update client status by document signatures.
      *
      * @param Workflow $workflow
      */
@@ -388,9 +402,9 @@ class WorkflowManager
     }
 
     /**
-     * Update client status by client portfolio object
+     * Update client status by client portfolio object.
      *
-     * @param Workflow $workflow
+     * @param Workflow        $workflow
      * @param ClientPortfolio $clientPortfolio
      */
     public function updateClientStatusByClientPortfolio(Workflow $workflow, ClientPortfolio $clientPortfolio)
@@ -404,7 +418,7 @@ class WorkflowManager
     }
 
     /**
-     * Delete workflow
+     * Delete workflow.
      *
      * @param Workflow $workflow
      */
@@ -415,7 +429,7 @@ class WorkflowManager
     }
 
     /**
-     * Save workflow
+     * Save workflow.
      *
      * @param Workflow $workflow
      */
@@ -426,18 +440,19 @@ class WorkflowManager
     }
 
     /**
-     * Get workflow documents to download
+     * Get workflow documents to download.
      *
      * @param Workflow $workflow
-     * @param bool $filenameWithIndex
+     * @param bool     $filenameWithIndex
+     *
      * @return array
      */
     public function getDocumentsToDownload(Workflow $workflow, $filenameWithIndex = true)
     {
         $signatures = $workflow->getDocumentSignatures();
 
-        $documents = array();
-        $applicationDocuments = array();
+        $documents = [];
+        $applicationDocuments = [];
 
         /** @var DocumentSignature $signature */
         foreach ($signatures as $signature) {
@@ -457,17 +472,17 @@ class WorkflowManager
             foreach ($applicationDocuments as $orderedDocuments) {
                 /** @var Document $document */
                 foreach ($orderedDocuments as $document) {
-                    $document->setOriginalName($index . '.' . $document->getOriginalName());
+                    $document->setOriginalName($index.'.'.$document->getOriginalName());
                     $documents[] = $document;
-                    $index++;
+                    ++$index;
                 }
             }
 
             /** @var Document $document */
             foreach ($otherDocuments as $document) {
-                $document->setOriginalName($index . '.' . $document->getOriginalName());
+                $document->setOriginalName($index.'.'.$document->getOriginalName());
                 $documents[] = $document;
-                $index++;
+                ++$index;
             }
         }
 
@@ -475,14 +490,15 @@ class WorkflowManager
     }
 
     /**
-     * Get additional workflow documents
+     * Get additional workflow documents.
      *
      * @param Workflow $workflow
+     *
      * @return array
      */
     public function getAdditionalDocuments(Workflow $workflow)
     {
-        $documents = array();
+        $documents = [];
 
         $code = $workflow->getMessageCode();
         switch ($code) {
@@ -493,7 +509,7 @@ class WorkflowManager
                 $bankInfo = $object->getBankInformation();
                 break;
             case Workflow::MESSAGE_CODE_PAPERWORK_UPDATE_BANKING_INFORMATION:
-                /** @var BankInformation $object */
+                /* @var BankInformation $object */
                 $bankInfo = $this->getObject($workflow);
                 break;
             default:
@@ -506,7 +522,6 @@ class WorkflowManager
             if ($bankPdfDocument) {
                 $documents[] = $bankPdfDocument;
             }
-
         }
 
         /** @var DocumentSignature $signature */
@@ -519,14 +534,16 @@ class WorkflowManager
     }
 
     /**
-     * Create new workflow
+     * Create new workflow.
      *
-     * @param User $client
-     * @param WorkflowableInterface $object
-     * @param integer $type
+     * @param User                                  $client
+     * @param WorkflowableInterface                 $object
+     * @param int                                   $type
      * @param DocumentSignature|DocumentSignature[] $signatures
-     * @param array $objectIds
+     * @param array                                 $objectIds
+     *
      * @return Workflow|null
+     *
      * @throws \InvalidArgumentException
      */
     public function createWorkflow(
@@ -535,8 +552,7 @@ class WorkflowManager
         $type,
         $signatures = null,
         array $objectIds = null
-    )
-    {
+    ) {
         $class = $this->om->getClassMetadata(get_class($object))->getName();
 
         $workflow = new Workflow();
@@ -549,8 +565,8 @@ class WorkflowManager
             $workflow->setObjectId($object->getId());
         }
 
-        if ($type == Workflow::TYPE_PAPERWORK) {
-            $documentSignatures = array();
+        if ($type === Workflow::TYPE_PAPERWORK) {
+            $documentSignatures = [];
             if ((null === $signatures) && ($object instanceof SignableInterface)) {
                 $signature = $this->signatureManager->findDocumentSignatureBySource($object);
                 if ($signature) {
@@ -579,7 +595,6 @@ class WorkflowManager
             if ($object instanceof ClientPortfolio) {
                 $this->updateClientStatusByClientPortfolio($workflow, $object);
             }
-
         } elseif ($object instanceof SystemAccount) {
             $this->updateClientStatusBySystemAccount($workflow, $object);
         }

@@ -14,102 +14,102 @@ class ClientAllocationValuesManagerTest extends ExtendedWebTestCase
     /** @var  User */
     protected $client;
 
-    protected $actualData = array(
-        array (
+    protected $actualData = [
+         [
             'label' => 'Subclass 1',
             'price' => 61.58,
             'amount' => '1000',
             'color' => '#cfe932',
             'data' => 9.397,
-        ),
-        array (
+        ],
+         [
             'label' => 'Large',
             'price' => 61.58,
             'amount' => '2000',
             'color' => '#f46b8e',
             'data' => 18.795067046703,
-            'subclass_id' => 12
-        ),
-        array(
+            'subclass_id' => 12,
+        ],
+        [
             'label' => 'International REITS',
             'price' => 33.41,
             'amount' => '7641.09',
             'color' => '#bd25a8',
             'data' => 71.807399429946,
-            'subclass_id' => 18
-        )
-    );
+            'subclass_id' => 18,
+        ],
+    ];
 
-    protected $targetData = array(
-        0 => array(
+    protected $targetData = [
+        0 => [
             'label' => 'Large',
             'data' => 4.8,
             'color' => '#f46b8e',
-        ),
-        1 => array(
+        ],
+        1 => [
             'label' => 'Large Value',
             'data' => 7.2,
             'color' => '#0b4e0f',
-        ),
-        2 => array(
+        ],
+        2 => [
             'label' => 'Small',
             'data' => 4.8,
             'color' => '#eb8c55',
-        ),
-        3 => array(
+        ],
+        3 => [
             'label' => 'Small Value',
             'data' => 7.2,
             'color' => '#9e2f48',
-        ),
-        4 => array(
+        ],
+        4 => [
             'label' => 'Commodities',
             'data' => 3.0,
             'color' => '#2b0c53',
-        ),
-        5 => array(
+        ],
+        5 => [
             'label' => 'REITS',
             'data' => 4.5,
             'color' => '#e6fb98',
-        ),
-        6 => array(
+        ],
+        6 => [
             'label' => 'International REITS',
             'data' => 4.5,
             'color' => '#bd25a8',
-        ),
-        7 => array(
+        ],
+        7 => [
             'label' => 'Large',
             'data' => 4.5,
             'color' => '#bf9175',
-        ),
-        8 => array(
+        ],
+        8 => [
             'label' => 'Large Value',
             'data' => 5.4,
             'color' => '#ad1929',
-        ),
-        9 => array(
+        ],
+        9 => [
             'label' => 'Small',
             'data' => 4.5,
             'color' => '#7895e8',
-        ),
-        10 => array(
+        ],
+        10 => [
             'label' => 'Small Value',
             'data' => 5.4,
             'color' => '#20dde4',
-        ),
-        11 => array(
+        ],
+        11 => [
             'label' => 'Emerging Markets',
             'data' => 4.2,
             'color' => '#9166d5',
-        ),
-        12 => array(
+        ],
+        12 => [
             'label' => 'Intermediate',
             'data' => 40.0,
             'color' => '#4dc8a1',
-        )
-    );
+        ],
+    ];
 
-    protected $tableData = array(
-        array(
+    protected $tableData = [
+        [
             'subclassTitle' => 'Subclass 1',
             'targetPercent' => 0,
             'targetValue' => 0,
@@ -118,8 +118,8 @@ class ClientAllocationValuesManagerTest extends ExtendedWebTestCase
             'currentValue' => '1000',
             'dollarVariance' => '1000',
             'percentVariance' => 9.3975335233515,
-        ),
-        array(
+        ],
+        [
             'subclassTitle' => 'Large',
             'currentPercent' => 18.795067046703,
             'currentValue' => '2000',
@@ -127,9 +127,9 @@ class ClientAllocationValuesManagerTest extends ExtendedWebTestCase
             'percentVariance' => 13.995067046703,
             'targetPercent' => 4.8,
             'targetValue' => 510.77232,
-            'color' => '#f46b8e'
-        ),
-        array (
+            'color' => '#f46b8e',
+        ],
+         [
             'subclassTitle' => 'International REITS',
             'currentPercent' => 71.807399429946,
             'currentValue' => '7641.09',
@@ -137,9 +137,9 @@ class ClientAllocationValuesManagerTest extends ExtendedWebTestCase
             'percentVariance' => 67.307399429946,
             'targetPercent' => 4.5,
             'targetValue' => 478.84905,
-            'color' => '#bd25a8'
-        ),
-        array(
+            'color' => '#bd25a8',
+        ],
+        [
             'subclassTitle' => 'Large Value',
             'currentPercent' => 0,
             'currentValue' => 0,
@@ -147,8 +147,8 @@ class ClientAllocationValuesManagerTest extends ExtendedWebTestCase
             'percentVariance' => -7.2,
             'targetPercent' => 7.2,
             'targetValue' => 766.15848,
-        ),
-        array(
+        ],
+        [
             'subclassTitle' => 'Small',
             'currentPercent' => 0,
             'currentValue' => 0,
@@ -156,8 +156,8 @@ class ClientAllocationValuesManagerTest extends ExtendedWebTestCase
             'percentVariance' => -4.8,
             'targetPercent' => 4.8,
             'targetValue' => 510.77232,
-        ),
-        array(
+        ],
+        [
             'subclassTitle' => 'Small Value',
             'currentPercent' => 0,
             'currentValue' => 0,
@@ -165,8 +165,8 @@ class ClientAllocationValuesManagerTest extends ExtendedWebTestCase
             'percentVariance' => -7.2,
             'targetPercent' => 7.2,
             'targetValue' => 766.15848,
-        ),
-        array(
+        ],
+        [
             'subclassTitle' => 'Commodities',
             'currentPercent' => 0,
             'currentValue' => 0,
@@ -174,8 +174,8 @@ class ClientAllocationValuesManagerTest extends ExtendedWebTestCase
             'percentVariance' => -3.0,
             'targetPercent' => 3.0,
             'targetValue' => 319.2327,
-        ),
-        array(
+        ],
+        [
             'subclassTitle' => 'REITS',
             'currentPercent' => 0,
             'currentValue' => 0,
@@ -183,8 +183,8 @@ class ClientAllocationValuesManagerTest extends ExtendedWebTestCase
             'percentVariance' => -4.5,
             'targetPercent' => 4.5,
             'targetValue' => 478.84905,
-        ),
-        array(
+        ],
+        [
             'subclassTitle' => 'Large',
             'currentPercent' => 0,
             'currentValue' => 0,
@@ -192,8 +192,8 @@ class ClientAllocationValuesManagerTest extends ExtendedWebTestCase
             'percentVariance' => -4.5,
             'targetPercent' => 4.5,
             'targetValue' => 478.84905,
-        ),
-        array(
+        ],
+        [
             'subclassTitle' => 'Large Value',
             'currentPercent' => 0,
             'currentValue' => 0,
@@ -201,8 +201,8 @@ class ClientAllocationValuesManagerTest extends ExtendedWebTestCase
             'percentVariance' => -5.4,
             'targetPercent' => 5.4,
             'targetValue' => 574.61886,
-        ),
-        array(
+        ],
+        [
             'subclassTitle' => 'Small',
             'currentPercent' => 0,
             'currentValue' => 0,
@@ -210,8 +210,8 @@ class ClientAllocationValuesManagerTest extends ExtendedWebTestCase
             'percentVariance' => -4.5,
             'targetPercent' => 4.5,
             'targetValue' => 478.84905,
-        ),
-        array(
+        ],
+        [
             'subclassTitle' => 'Small Value',
             'currentPercent' => 0,
             'currentValue' => 0,
@@ -219,8 +219,8 @@ class ClientAllocationValuesManagerTest extends ExtendedWebTestCase
             'percentVariance' => -5.4,
             'targetPercent' => 5.4,
             'targetValue' => 574.61886,
-        ),
-        array(
+        ],
+        [
             'subclassTitle' => 'Emerging Markets',
             'currentPercent' => 0,
             'currentValue' => 0,
@@ -228,8 +228,8 @@ class ClientAllocationValuesManagerTest extends ExtendedWebTestCase
             'percentVariance' => -4.2,
             'targetPercent' => 4.2,
             'targetValue' => 446.92578,
-        ),
-        array(
+        ],
+        [
             'subclassTitle' => 'Intermediate',
             'currentPercent' => 0,
             'currentValue' => 0,
@@ -237,15 +237,15 @@ class ClientAllocationValuesManagerTest extends ExtendedWebTestCase
             'percentVariance' => -40.0,
             'targetPercent' => 40.0,
             'targetValue' => 4256.436,
-        )
-    );
+        ],
+    ];
 
-    protected $lastRow = array(
+    protected $lastRow = [
         'targetPercent' => 100.0,
         'targetValue' => 10641.09,
         'currentPercent' => 100.0,
         'currentValue' => 10641.09,
-    );
+    ];
 
     protected $totalAmount = 10641.09;
 
@@ -257,7 +257,7 @@ class ClientAllocationValuesManagerTest extends ExtendedWebTestCase
 
     public function testGetValues()
     {
-        $this->client = $this->authenticateUser('liu@wealthbot.io', array('ROLE_CLIENT'));
+        $this->client = $this->authenticateUser('liu@wealthbot.io', ['ROLE_CLIENT']);
         $result = $this->allocationValuesManager->getValues($this->client);
 
         unset($result['actualData'][0]['subclass_id']);
@@ -266,10 +266,10 @@ class ClientAllocationValuesManagerTest extends ExtendedWebTestCase
             unset($result['targetData'][$key]['subclass_id']);
         }
 
-        $this->assertEquals($this->actualData, $result['actualData'], 'Incorrect actual data.', 0.001);
-        $this->assertEquals($this->targetData, $result['targetData'], 'Incorrect target data.', 0.001);
-        $this->assertEquals($this->tableData, array_values($result['tableData']), 'Incorrect table data.', 0.001);
-        $this->assertEquals($this->lastRow, $result['lastRow'], 'Incorrect data in summary table row.', 0.001);
-        $this->assertEquals($this->totalAmount, $result['totalAmount'], 'Incorrect total portfolio amount.');
+        $this->assertSame($this->actualData, $result['actualData'], 'Incorrect actual data.', 0.001);
+        $this->assertSame($this->targetData, $result['targetData'], 'Incorrect target data.', 0.001);
+        $this->assertSame($this->tableData, array_values($result['tableData']), 'Incorrect table data.', 0.001);
+        $this->assertSame($this->lastRow, $result['lastRow'], 'Incorrect data in summary table row.', 0.001);
+        $this->assertSame($this->totalAmount, $result['totalAmount'], 'Incorrect total portfolio amount.');
     }
 }

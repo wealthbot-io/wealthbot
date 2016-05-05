@@ -4,9 +4,9 @@ namespace Wealthbot\ClientBundle\Manager;
 
 use Symfony\Component\Routing\RouterInterface;
 
-class BreadcrumbsManager {
-
-    private $breadcrumbs = array();
+class BreadcrumbsManager
+{
+    private $breadcrumbs = [];
 
     /** @var RouterInterface */
     private $router;
@@ -19,10 +19,10 @@ class BreadcrumbsManager {
 
     public function addCrumb($name, $route)
     {
-        $this->breadcrumbs[] = array(
+        $this->breadcrumbs[] = [
             'name' => $name,
-            'url' => $this->router->generate($route)
-        );
+            'url' => $this->router->generate($route),
+        ];
 
         return $this;
     }
@@ -33,6 +33,6 @@ class BreadcrumbsManager {
             return $this->breadcrumbs;
         }
 
-        return array();
+        return [];
     }
 }

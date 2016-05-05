@@ -39,14 +39,13 @@ class TempPortfolio
      */
     protected $status;
 
-
     public function __construct()
     {
         $this->status = self::STATUS_NOT_APPROVED;
     }
 
     /**
-     * Get id
+     * Get id.
      *
      * @return int $id
      */
@@ -56,19 +55,21 @@ class TempPortfolio
     }
 
     /**
-     * Set clientUserId
+     * Set clientUserId.
      *
      * @param int $clientUserId
+     *
      * @return self
      */
     public function setClientUserId($clientUserId)
     {
         $this->clientUserId = $clientUserId;
+
         return $this;
     }
 
     /**
-     * Get clientUserId
+     * Get clientUserId.
      *
      * @return int $clientUserId
      */
@@ -78,19 +79,21 @@ class TempPortfolio
     }
 
     /**
-     * Set modelId
+     * Set modelId.
      *
      * @param int $modelId
+     *
      * @return self
      */
     public function setModelId($modelId)
     {
         $this->modelId = $modelId;
+
         return $this;
     }
 
     /**
-     * Get modelId
+     * Get modelId.
      *
      * @return int $modelId
      */
@@ -100,10 +103,12 @@ class TempPortfolio
     }
 
     /**
-     * Set status
+     * Set status.
      *
      * @param string $status
+     *
      * @return self
+     *
      * @throws \InvalidArgumentException
      */
     public function setStatus($status)
@@ -113,11 +118,12 @@ class TempPortfolio
         }
 
         $this->status = $status;
+
         return $this;
     }
 
     /**
-     * Get status
+     * Get status.
      *
      * @return string $status
      */
@@ -127,12 +133,12 @@ class TempPortfolio
     }
 
     /**
-     * Is portfolio approved
+     * Is portfolio approved.
      *
      * @return bool
      */
     public function isApproved()
     {
-        return ($this->getStatus() === self::STATUS_APPROVED);
+        return $this->getStatus() === self::STATUS_APPROVED;
     }
 }

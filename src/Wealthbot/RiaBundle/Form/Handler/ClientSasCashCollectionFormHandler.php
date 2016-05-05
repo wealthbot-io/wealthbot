@@ -2,7 +2,6 @@
 
 namespace Wealthbot\RiaBundle\Form\Handler;
 
-
 use Wealthbot\AdminBundle\Form\Handler\AbstractFormHandler;
 
 class ClientSasCashCollectionFormHandler extends AbstractFormHandler

@@ -3,11 +3,10 @@
  * Created by PhpStorm.
  * User: amalyuhin
  * Date: 28.11.13
- * Time: 16:31
+ * Time: 16:31.
  */
 
 namespace Wealthbot\SignatureBundle\Model\TabsConfiguration;
-
 
 use Wealthbot\ClientBundle\Entity\Distribution;
 use Wealthbot\SignatureBundle\Model\SignableInterface;
@@ -25,9 +24,10 @@ class WireInstructions extends AbstractTabsConfiguration
     }
 
     /**
-     * Generate collection of tabs
+     * Generate collection of tabs.
      *
      * @return TabCollection
+     *
      * @throws \RuntimeException
      * @throws \InvalidArgumentException
      */
@@ -46,7 +46,7 @@ class WireInstructions extends AbstractTabsConfiguration
         $client = $clientAccount ? $clientAccount->getClient() : null;
         $companyInformation = $client ? $client->getRiaCompanyInformation() : null;
 
-        $tabs = array();
+        $tabs = [];
 
         $advisorCode = new TextTab();
         $advisorCode->setTabLabel('advisor#')->setValue($this->getAdvisorCode($companyInformation));
@@ -66,5 +66,4 @@ class WireInstructions extends AbstractTabsConfiguration
 
         return new TabCollection($tabs);
     }
-
-} 
+}

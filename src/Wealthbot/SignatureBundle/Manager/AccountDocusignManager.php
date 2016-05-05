@@ -9,14 +9,12 @@
 
 namespace Wealthbot\SignatureBundle\Manager;
 
-
 use Doctrine\Common\Persistence\ObjectManager;
-use Wealthbot\ClientBundle\Model\ClientAccount;
 use Wealthbot\ClientBundle\Entity\ClientAccountDocusign;
 use Wealthbot\ClientBundle\Entity\TransferInformation;
 use Wealthbot\ClientBundle\Model\AccountGroup;
+use Wealthbot\ClientBundle\Model\ClientAccount;
 use Wealthbot\SignatureBundle\Docusign\DocusignChecker;
-
 
 class AccountDocusignManager
 {
@@ -34,7 +32,7 @@ class AccountDocusignManager
     }
 
     /**
-     * Get object manager
+     * Get object manager.
      *
      * @return ObjectManager
      */
@@ -44,9 +42,10 @@ class AccountDocusignManager
     }
 
     /**
-     * Find client account docusign
+     * Find client account docusign.
      *
-     * @param integer $id
+     * @param int $id
+     *
      * @return object
      */
     public function find($id)
@@ -55,9 +54,10 @@ class AccountDocusignManager
     }
 
     /**
-     * Find client account docusign object by criteria
+     * Find client account docusign object by criteria.
      *
      * @param array $criteria
+     *
      * @return ClientAccountDocusign
      */
     public function findOneBy(array $criteria)
@@ -66,12 +66,13 @@ class AccountDocusignManager
     }
 
     /**
-     * Find client account docusign objects by criteria
+     * Find client account docusign objects by criteria.
      *
      * @param array $criteria
      * @param array $orderBy
-     * @param null $limit
-     * @param null $offset
+     * @param null  $limit
+     * @param null  $offset
+     *
      * @return mixed
      */
     public function findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
@@ -80,7 +81,7 @@ class AccountDocusignManager
     }
 
     /**
-     * Update client account docusign is_used attribute in DB
+     * Update client account docusign is_used attribute in DB.
      *
      * @param TransferInformation $transferInformation
      * @param $conditions
@@ -92,10 +93,11 @@ class AccountDocusignManager
     }
 
     /**
-     * Check is docusign allowed for transfer client account by conditions
+     * Check is docusign allowed for transfer client account by conditions.
      *
      * @param TransferInformation $transferInformation
      * @param $conditions
+     *
      * @return bool
      */
     public function isDocusignAllowed(TransferInformation $transferInformation, $conditions)
@@ -110,11 +112,11 @@ class AccountDocusignManager
      * If record with $accountId does not exist in DB create new.
      *
      * @param ClientAccount $account
-     * @param bool $isUsed
+     * @param bool          $isUsed
      */
     public function setIsUsedDocusign(ClientAccount $account, $isUsed)
     {
-        $accountDocusign = $this->findOneBy(array('client_account_id' => $account->getId()));
+        $accountDocusign = $this->findOneBy(['client_account_id' => $account->getId()]);
 
         if (!$accountDocusign) {
             $accountDocusign = new ClientAccountDocusign();
@@ -129,14 +131,15 @@ class AccountDocusignManager
 
     /**
      * Get is used docusign by account_id.
-     * If record does not exist returns false
+     * If record does not exist returns false.
      *
      * @param int $accountId
+     *
      * @return bool
      */
     public function isUsedDocusign($accountId)
     {
-        $accountDocusign = $this->findOneBy(array('client_account_id' => $accountId));
+        $accountDocusign = $this->findOneBy(['client_account_id' => $accountId]);
         if ($accountDocusign) {
             return $accountDocusign->getIsUsed();
         }
@@ -146,9 +149,10 @@ class AccountDocusignManager
 
     /**
      * Returns true if transfer account cannot use electronically signing
-     * and ria does not allow non electronically signing
+     * and ria does not allow non electronically signing.
      *
      * @param ClientAccount $account
+     *
      * @return bool
      */
     public function hasElectronicallySignError(ClientAccount $account)

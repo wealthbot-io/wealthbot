@@ -5,7 +5,6 @@ namespace Wealthbot\AdminBundle\Controller;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Security\Core\Exception\AccountStatusException;
 use Wealthbot\AdminBundle\Entity\CeModel;
 use Wealthbot\AdminBundle\Entity\Fee;
 use Wealthbot\AdminBundle\Form\Type\AdminFeesType;
@@ -16,13 +15,11 @@ use Wealthbot\AdminBundle\Repository\AssetClassRepository;
 use Wealthbot\AdminBundle\Repository\CeModelRepository;
 use Wealthbot\AdminBundle\Repository\SubclassRepository;
 use Wealthbot\RiaBundle\Entity\RiaCompanyInformation;
-use Wealthbot\UserBundle\Entity\User;
-use Wealthbot\AdminBundle\Mailer\MailerInterface;
-use Wealthbot\RiaBundle\Form\Type\RiaCompanyInformationThreeType;
 use Wealthbot\RiaBundle\Form\Type\RiaCompanyInformationFourType;
+use Wealthbot\RiaBundle\Form\Type\RiaCompanyInformationThreeType;
 use Wealthbot\RiaBundle\Form\Type\RiaCompanyInformationTwoFormType;
 use Wealthbot\RiaBundle\Form\Type\RiaCompanyInformationType;
-
+use Wealthbot\UserBundle\Entity\User;
 
 class RiaController extends AclController
 {
@@ -40,15 +37,15 @@ class RiaController extends AclController
             $this->container->getParameter('pager_per_page')/*limit per page*/
         );
 
-        return $this->render('WealthbotAdminBundle:Ria:index.html.twig', array(
-            'pagination' => $pagination
-        ));
+        return $this->render('WealthbotAdminBundle:Ria:index.html.twig', [
+            'pagination' => $pagination,
+        ]);
     }
 
     public function specificDashboardAction(Request $request)
     {
         /** @var $em EntityManager */
-        /** @var UserHistoryManager $historyManager */
+        /* @var UserHistoryManager $historyManager */
         $em = $this->get('doctrine.orm.entity_manager');
         $historyManager = $this->get('wealthbot_admin.user_history.manager');
 
@@ -65,29 +62,29 @@ class RiaController extends AclController
         );
 
         $historyPagination = $paginator->paginate(
-            $historyManager->findBy(array('user_id' => $ria->getId()), array('created' => 'DESC')),
+            $historyManager->findBy(['user_id' => $ria->getId()], ['created' => 'DESC']),
             $request->get('history_page', 1),
             $this->container->getParameter('pager_per_page'),
-            array('pageParameterName' => 'history_page')
+            ['pageParameterName' => 'history_page']
         );
 
         if ($request->isXmlHttpRequest()) {
             if ($request->get('page')) {
-                return $this->getJsonResponse(array(
+                return $this->getJsonResponse([
                     'status' => 'success',
-                    'content' => $this->renderView('WealthbotAdminBundle:Ria:_clients_list.html.twig', array('pagination' => $pagination)),
-                    'pagination_type' => 'clients'
-                ));
+                    'content' => $this->renderView('WealthbotAdminBundle:Ria:_clients_list.html.twig', ['pagination' => $pagination]),
+                    'pagination_type' => 'clients',
+                ]);
             } elseif ($request->get('history_page')) {
-                return $this->getJsonResponse(array(
+                return $this->getJsonResponse([
                     'status' => 'success',
-                    'content' => $this->renderView('WealthbotAdminBundle:Ria:_history.html.twig', array('history_pagination' => $historyPagination)),
-                    'pagination_type' => 'history'
-                ));
+                    'content' => $this->renderView('WealthbotAdminBundle:Ria:_history.html.twig', ['history_pagination' => $historyPagination]),
+                    'pagination_type' => 'history',
+                ]);
             } else {
-                return $this->getJsonResponse(array(
-                    'status' => 'error'
-                ));
+                return $this->getJsonResponse([
+                    'status' => 'error',
+                ]);
             }
         }
 
@@ -109,11 +106,11 @@ class RiaController extends AclController
             $basicInfo['modelType'] = 'No model';
         }
 
-        return $this->render('WealthbotAdminBundle:Ria:specific_dashboard.html.twig', array(
+        return $this->render('WealthbotAdminBundle:Ria:specific_dashboard.html.twig', [
             'basicInfo' => $basicInfo,
             'pagination' => $pagination,
-            'history_pagination' => $historyPagination
-        ));
+            'history_pagination' => $historyPagination,
+        ]);
     }
 
     public function activateAction(Request $request)
@@ -123,29 +120,29 @@ class RiaController extends AclController
         $this->checkAccess(Acl::PERMISSION_EDIT, $user);
 
         /** @var $em EntityManager */
-        /** @var $repo CeModelRepository */
+        /* @var $repo CeModelRepository */
         $em = $this->get('doctrine.orm.entity_manager');
         $repo = $em->getRepository('WealthbotAdminBundle:CeModel');
 
         $activate = (bool) $request->get('activate');
         $ria = $em->getRepository('WealthbotUserBundle:User')->find($request->get('id'));
         if (!$ria) {
-            return $this->getJsonResponse(array(
+            return $this->getJsonResponse([
                 'status' => 'error',
-                'message' => 'Ria does not exist.'
-            ));
+                'message' => 'Ria does not exist.',
+            ]);
         }
 
         $companyInformation = $ria->getRiaCompanyInformation();
         if (!$companyInformation) {
-            return $this->getJsonResponse(array(
+            return $this->getJsonResponse([
                 'status' => 'error',
-                'message' => 'Ria have not company information.'
-            ));
+                'message' => 'Ria have not company information.',
+            ]);
         }
 
         if ($activate) {
-            $errors = array();
+            $errors = [];
 
             /** @var AssetClassRepository $assetClassRepository */
             $assetClassRepository = $em->getRepository('WealthbotAdminBundle:AssetClass');
@@ -163,7 +160,7 @@ class RiaController extends AclController
                 $errors[] = 'Ria have not created asset and subclasses';
             }
 
-            $securityAssignments = $em->getRepository('WealthbotAdminBundle:SecurityAssignment')->findBy(array('model_id' => $companyInformation->getPortfolioModel()->getId()));
+            $securityAssignments = $em->getRepository('WealthbotAdminBundle:SecurityAssignment')->findBy(['model_id' => $companyInformation->getPortfolioModel()->getId()]);
             if (empty($securityAssignments)) {
                 $errors[] = 'Ria have not assigned classes and subclasses.';
             }
@@ -178,16 +175,16 @@ class RiaController extends AclController
                 $errors[] = 'Ria have models without risk rating.';
             }
 
-            $existQuestions = $em->getRepository('WealthbotRiaBundle:RiskQuestion')->findOneBy(array('owner_id' => $ria->getId()));
+            $existQuestions = $em->getRepository('WealthbotRiaBundle:RiskQuestion')->findOneBy(['owner_id' => $ria->getId()]);
             if (!$existQuestions) {
                 $errors[] = 'Ria have not completed risk profiling section.';
             }
 
             if (count($errors)) {
-                return $this->getJsonResponse(array(
+                return $this->getJsonResponse([
                     'status' => 'error',
-                    'message' => join(' ', $errors)
-                ));
+                    'message' => implode(' ', $errors),
+                ]);
             }
 
             $this->get('wealthbot.mailer')->sendRiaActivatedEmail($ria);
@@ -198,10 +195,10 @@ class RiaController extends AclController
 
         $em->flush();
 
-        return $this->getJsonResponse(array(
+        return $this->getJsonResponse([
             'status' => 'success',
-            'url' => $this->generateUrl('rx_admin_ria_activate', array('id' => $ria->getId(), 'activate' => (int) !$activate))
-        ));
+            'url' => $this->generateUrl('rx_admin_ria_activate', ['id' => $ria->getId(), 'activate' => (int) !$activate]),
+        ]);
     }
 
     public function riaSettingsAction($ria_id)
@@ -220,19 +217,18 @@ class RiaController extends AclController
         $form = $this->createForm(new AdminFeesType($admin, $ria));
         $form->get('fees')->setData($data);
 
-        return $this->render('WealthbotAdminBundle:Ria:_settings.html.twig', array(
+        return $this->render('WealthbotAdminBundle:Ria:_settings.html.twig', [
             'ria' => $ria,
-            'form' => $form->createView()
-        ));
+            'form' => $form->createView(),
+        ]);
     }
 
-    public function updateFeesAction($ria_id)
+    public function updateFeesAction($ria_id, Request $request)
     {
         $this->checkAccess(Acl::PERMISSION_EDIT);
 
         /** @var $em EntityManager */
         $em = $this->get('doctrine.orm.entity_manager');
-        $request = $this->get('request');
 
         $ria = $em->getRepository('WealthbotUserBundle:User')->find($ria_id);
         if (!$ria) {
@@ -245,7 +241,7 @@ class RiaController extends AclController
         $form = $this->createForm(new AdminFeesType($admin, $ria));
 
         if ($request->isMethod('post')) {
-            $form->bind($request);
+            $form->submit($request);
             $fees = $form->get('fees')->getData();
 
             if ($form->isValid()) {
@@ -269,26 +265,25 @@ class RiaController extends AclController
                 $formNew = $this->createForm(new AdminFeesType($admin, $ria));
                 $formNew->get('fees')->setData($fees);
 
-                return $this->getJsonResponse(array(
+                return $this->getJsonResponse([
                     'status' => 'success',
-                    'content' => $this->renderView('WealthbotAdminBundle:Ria:_ria_fees_form.html.twig', array(
+                    'content' => $this->renderView('WealthbotAdminBundle:Ria:_ria_fees_form.html.twig', [
                         'form' => $formNew->createView(),
-                        'ria' => $ria
-                    ))
-                ));
-
+                        'ria' => $ria,
+                    ]),
+                ]);
             } else {
-                return $this->getJsonResponse(array(
+                return $this->getJsonResponse([
                     'status' => 'error',
-                    'content' => $this->renderView('WealthbotAdminBundle:Ria:_ria_fees_form.html.twig', array(
+                    'content' => $this->renderView('WealthbotAdminBundle:Ria:_ria_fees_form.html.twig', [
                         'form' => $form->createView(),
-                        'ria' => $ria
-                    ))
-                ));
+                        'ria' => $ria,
+                    ]),
+                ]);
             }
         }
 
-        return $this->getJsonResponse(array('status' => 'success'));
+        return $this->getJsonResponse(['status' => 'success']);
     }
 
     public function updateRelationshipAction(Request $request)
@@ -307,14 +302,14 @@ class RiaController extends AclController
         $form = $this->createForm(new RiaRelationshipFormType(), $ria->getRiaCompanyInformation());
 
         if ($request->isMethod('post')) {
-            $form->bind($request);
+            $form->submit($request);
 
             if ($form->isValid()) {
 
                 /** @var RiaCompanyInformation $riaCompanyInformation */
                 $riaCompanyInformation = $form->getData();
 
-                if ($riaCompanyInformation->getRelationshipType() == RiaCompanyInformation::RELATIONSHIP_TYPE_LICENSE_FEE) {
+                if ($riaCompanyInformation->getRelationshipType() === RiaCompanyInformation::RELATIONSHIP_TYPE_LICENSE_FEE) {
                     $feeManager->resetRiaFee($ria);
                 }
 
@@ -328,25 +323,26 @@ class RiaController extends AclController
                 $feeForm = $this->createForm(new AdminFeesType($admin, $ria));
                 $feeForm->get('fees')->setData($fees);
 
-                return $this->getJsonResponse(array(
+                return $this->getJsonResponse([
                     'status' => 'success',
-                    'fees_content' => $this->renderView('WealthbotAdminBundle:Ria:_ria_fees_form.html.twig', array(
+                    'fees_content' => $this->renderView('WealthbotAdminBundle:Ria:_ria_fees_form.html.twig', [
                         'form' => $feeForm->createView(),
-                        'ria' => $ria
-                    ))
-                ));
+                        'ria' => $ria,
+                    ]),
+                ]);
             }
         }
 
-        return $this->getJsonResponse(array(
+        return $this->getJsonResponse([
             'status' => 'error',
-        ));
+        ]);
     }
 
     /**
-     * Save company information
+     * Save company information.
      *
      * @param Request $request
+     *
      * @return Response|\Symfony\Component\HttpKernel\Exception\NotFoundHttpException
      */
     public function saveCompanyProfileAction(Request $request)
@@ -362,32 +358,33 @@ class RiaController extends AclController
         }
 
         $riaCompanyInfo = $em->getRepository('WealthbotRiaBundle:RiaCompanyInformation')->findOneBy(
-            array('ria_user_id' => $user->getId())
+            ['ria_user_id' => $user->getId()]
         );
 
         if (!$riaCompanyInfo) {
-            return $this->createNotFoundException("Company profile with id %s not found");
+            return $this->createNotFoundException('Company profile with id %s not found');
         }
 
         $companyForm = $this->createForm(new RiaCompanyInformationType($user, false), $riaCompanyInfo);
 
-        if ($request->getMethod() == 'POST') {
-            $companyForm->bind($request);
+        if ($request->getMethod() === 'POST') {
+            $companyForm->submit($request);
 
-            if($companyForm->isValid()){
+            if ($companyForm->isValid()) {
                 $riaCompanyInfo = $companyForm->getData();
                 $em->persist($riaCompanyInfo);
                 $em->flush();
             }
         }
 
-        return $this->render('WealthbotAdminBundle:Ria:_company_profile_form.html.twig', array('form' => $companyForm->createView()));
+        return $this->render('WealthbotAdminBundle:Ria:_company_profile_form.html.twig', ['form' => $companyForm->createView()]);
     }
 
     /**
-     * Save marketing your firm information
+     * Save marketing your firm information.
      *
      * @param Request $request
+     *
      * @return Response|\Symfony\Component\HttpKernel\Exception\NotFoundHttpException
      */
     public function saveMarketingAction(Request $request)
@@ -403,17 +400,17 @@ class RiaController extends AclController
         }
 
         $riaCompanyInfo = $em->getRepository('WealthbotRiaBundle:RiaCompanyInformation')->findOneBy(
-            array('ria_user_id' => $user->getId())
+            ['ria_user_id' => $user->getId()]
         );
 
-        if(!$riaCompanyInfo){
-            return $this->createNotFoundException("Company profile with id %s not found");
+        if (!$riaCompanyInfo) {
+            return $this->createNotFoundException('Company profile with id %s not found');
         }
 
         $marketingForm = $this->createForm(new RiaCompanyInformationFourType($user, false), $riaCompanyInfo);
 
         if ($request->isMethod('post')) {
-            $marketingForm->bind($request);
+            $marketingForm->submit($request);
 
             if ($marketingForm->isValid()) {
                 $riaCompanyInfo = $marketingForm->getData();
@@ -422,7 +419,7 @@ class RiaController extends AclController
             }
         }
 
-        return $this->render('WealthbotAdminBundle:Ria:_marketing_form.html.twig', array('form' => $marketingForm->createView()));
+        return $this->render('WealthbotAdminBundle:Ria:_marketing_form.html.twig', ['form' => $marketingForm->createView()]);
     }
 
     public function saveBillingAction(Request $request)
@@ -438,20 +435,20 @@ class RiaController extends AclController
         }
 
         $riaCompanyInfo = $em->getRepository('WealthbotRiaBundle:RiaCompanyInformation')->findOneBy(
-            array('ria_user_id' => $user->getId())
+            ['ria_user_id' => $user->getId()]
         );
 
         if (!$riaCompanyInfo) {
-            return $this->createNotFoundException("Company profile with id %s not found");
+            return $this->createNotFoundException('Company profile with id %s not found');
         }
 
         $billingAndAccountsForm = $this->createForm(new RiaCompanyInformationTwoFormType($user, false), $riaCompanyInfo);
 
-        if ($request->getMethod() == 'POST') {
-            $billingAndAccountsForm->bind($request);
+        if ($request->getMethod() === 'POST') {
+            $billingAndAccountsForm->submit($request);
 
             if ($billingAndAccountsForm->isValid()) {
-                $originalFees = array();
+                $originalFees = [];
                 foreach ($user->getFees() as $fee) {
                     $originalFees[] = $fee;
                 }
@@ -479,7 +476,7 @@ class RiaController extends AclController
             }
         }
 
-        return $this->render('WealthbotAdminBundle:Ria:_billing_n_accounts_form.html.twig', array('form' => $billingAndAccountsForm->createView(), 'show_alert' => true));
+        return $this->render('WealthbotAdminBundle:Ria:_billing_n_accounts_form.html.twig', ['form' => $billingAndAccountsForm->createView(), 'show_alert' => true]);
     }
 
     public function savePortfolioManagementAction(Request $request)
@@ -487,7 +484,7 @@ class RiaController extends AclController
         $this->checkAccess(Acl::PERMISSION_EDIT);
 
         /** @var \Doctrine\ORM\EntityManager $em */
-        /** @var $subclassRepo SubclassRepository */
+        /* @var $subclassRepo SubclassRepository */
         $em = $this->get('doctrine.orm.entity_manager');
         $subclassRepo = $em->getRepository('WealthbotAdminBundle:Subclass');
         $userRepo = $em->getRepository('WealthbotUserBundle:User');
@@ -499,11 +496,11 @@ class RiaController extends AclController
         }
 
         $riaCompanyInfo = $riaCompanyRepo->findOneBy(
-            array('ria_user_id' => $ria->getId())
+            ['ria_user_id' => $ria->getId()]
         );
 
-        if(!$riaCompanyInfo){
-            return $this->createNotFoundException("Company profile with id %s not found");
+        if (!$riaCompanyInfo) {
+            return $this->createNotFoundException('Company profile with id %s not found');
         }
 
         /** @var $portfolioModel CeModel */
@@ -513,11 +510,11 @@ class RiaController extends AclController
         $portfolioManagementForm = $this->createForm(
             new RiaCompanyInformationThreeType($em, $ria, false, false),
             $riaCompanyInfo,
-            array('session' => $session)
+            ['session' => $session]
         );
 
-        if ($request->getMethod() == 'POST') {
-            $portfolioManagementForm->bind($request);
+        if ($request->getMethod() === 'POST') {
+            $portfolioManagementForm->submit($request);
 
             if ($portfolioManagementForm->isValid()) {
                 $riaCompanyInfo = $portfolioManagementForm->getData();
@@ -526,13 +523,13 @@ class RiaController extends AclController
                 $riaSubs = $subclassRepo->findRiaSubclasses($ria->getId());
                 $subclasses = $subclassRepo->findAdminSubclasses();
 
-                $riaSubclassCollection = array();
+                $riaSubclassCollection = [];
                 foreach ($riaSubs as $sub) {
                     $riaSubclassCollection[] = $sub;
                 }
 
                 foreach ($riaSubclassCollection as $key => $riaSubclass) {
-                    if($riaCompanyInfo->getAccountManaged() == 1 && !$riaCompanyInfo->getIsAllowRetirementPlan()){
+                    if ($riaCompanyInfo->getAccountManaged() === 1 && !$riaCompanyInfo->getIsAllowRetirementPlan()) {
                         $riaSubclass->setAccountType($subclasses[$key]->getAccountType());
                     }
                     $em->persist($riaSubclass);
@@ -540,21 +537,21 @@ class RiaController extends AclController
 
                 $em->flush();
 
-                return $this->redirect($this->generateUrl('rx_admin_ria_sd_save_portfolio_management', array('ria_id' => $ria->getId())));
+                return $this->redirect($this->generateUrl('rx_admin_ria_sd_save_portfolio_management', ['ria_id' => $ria->getId()]));
             }
         }
 
-        return $this->render('WealthbotAdminBundle:Ria:_portfolio_management_form.html.twig', array(
-            'form'                => $portfolioManagementForm->createView(),
+        return $this->render('WealthbotAdminBundle:Ria:_portfolio_management_form.html.twig', [
+            'form' => $portfolioManagementForm->createView(),
             'company_information' => $riaCompanyInfo,
-            'currentModel'        => $portfolioModel,
-        ));
+            'currentModel' => $portfolioModel,
+        ]);
     }
 
     protected function getJsonResponse(array $data, $code = 200)
     {
         $response = json_encode($data);
 
-        return new Response($response, $code, array('Content-Type' => 'application/json'));
+        return new Response($response, $code, ['Content-Type' => 'application/json']);
     }
 }

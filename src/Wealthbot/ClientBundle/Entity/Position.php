@@ -3,7 +3,6 @@
 namespace Wealthbot\ClientBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\ORM\Mapping as ORM;
 use Wealthbot\AdminBundle\Entity\Security;
 
 /**
@@ -17,7 +16,7 @@ class Position
     const POSITION_STATUS_IS_NOT_VERIFIED = 4;
 
     /**
-     * @var integer
+     * @var int
      */
     private $id;
 
@@ -47,7 +46,7 @@ class Position
     private $security;
 
     /**
-     * @var integer
+     * @var int
      */
     private $status;
 
@@ -56,7 +55,6 @@ class Position
      */
     private $lots;
 
-
     public function __construct()
     {
         $this->transactions = new ArrayCollection();
@@ -64,9 +62,9 @@ class Position
     }
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer 
+     * @return int
      */
     public function getId()
     {
@@ -74,22 +72,23 @@ class Position
     }
 
     /**
-     * Set quantity
+     * Set quantity.
      *
      * @param float $quantity
+     *
      * @return Position
      */
     public function setQuantity($quantity)
     {
         $this->quantity = $quantity;
-    
+
         return $this;
     }
 
     /**
-     * Get quantity
+     * Get quantity.
      *
-     * @return float 
+     * @return float
      */
     public function getQuantity()
     {
@@ -97,22 +96,23 @@ class Position
     }
 
     /**
-     * Set amount
+     * Set amount.
      *
      * @param float $amount
+     *
      * @return Position
      */
     public function setAmount($amount)
     {
         $this->amount = $amount;
-    
+
         return $this;
     }
 
     /**
-     * Get amount
+     * Get amount.
      *
-     * @return float 
+     * @return float
      */
     public function getAmount()
     {
@@ -120,22 +120,23 @@ class Position
     }
 
     /**
-     * Set date
+     * Set date.
      *
      * @param \DateTime $date
+     *
      * @return Position
      */
     public function setDate($date)
     {
         $this->date = $date;
-    
+
         return $this;
     }
 
     /**
-     * Get date
+     * Get date.
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getDate()
     {
@@ -143,22 +144,23 @@ class Position
     }
 
     /**
-     * Set clientSystemAccount
+     * Set clientSystemAccount.
      *
      * @param \Wealthbot\ClientBundle\Entity\SystemAccount $clientSystemAccount
+     *
      * @return Position
      */
     public function setClientSystemAccount(\Wealthbot\ClientBundle\Entity\SystemAccount $clientSystemAccount = null)
     {
         $this->clientSystemAccount = $clientSystemAccount;
-    
+
         return $this;
     }
 
     /**
-     * Get clientSystemAccount
+     * Get clientSystemAccount.
      *
-     * @return \Wealthbot\ClientBundle\Entity\SystemAccount 
+     * @return \Wealthbot\ClientBundle\Entity\SystemAccount
      */
     public function getClientSystemAccount()
     {
@@ -166,20 +168,21 @@ class Position
     }
 
     /**
-     * Set security
+     * Set security.
      *
      * @param \Wealthbot\AdminBundle\Entity\Security $security
+     *
      * @return Position
      */
     public function setSecurity(\Wealthbot\AdminBundle\Entity\Security $security = null)
     {
         $this->security = $security;
-    
+
         return $this;
     }
 
     /**
-     * Get security
+     * Get security.
      *
      * @return \Wealthbot\AdminBundle\Entity\Security
      */
@@ -222,22 +225,25 @@ class Position
 
     /**
      * @param Lot $lot
+     *
      * @return $this
      */
     public function addLot(Lot $lot)
     {
         $this->lots->add($lot);
+
         return $this;
     }
 
     /**
      * @param Lot $lot
+     *
      * @return $this
      */
     public function removeLot(Lot $lot)
     {
         $this->lots->removeElement($lot);
+
         return $this;
     }
-
 }

@@ -9,7 +9,6 @@
 
 namespace Wealthbot\SignatureBundle\Model;
 
-
 use Wealthbot\ClientBundle\Entity\Beneficiary;
 use Wealthbot\ClientBundle\Entity\Distribution;
 use Wealthbot\ClientBundle\Model\SystemAccount;
@@ -34,9 +33,10 @@ class AccountTabsConfigurationFactory implements TabsConfigurationFactoryInterfa
     }
 
     /**
-     * Create tab configuration object
+     * Create tab configuration object.
      *
      * @return TabsConfigurationInterface
+     *
      * @throws \InvalidArgumentException
      */
     public function create()
@@ -98,7 +98,7 @@ class AccountTabsConfigurationFactory implements TabsConfigurationFactoryInterfa
 
                     if (Distribution::TRANSFER_METHOD_RECEIVE_CHECK === $this->signableObject->getTransferMethod()) {
                         $configuration = new CheckRequest($this->signableObject);
-                    } elseif (Distribution::TRANSFER_METHOD_WIRE_TRANSFER == $this->signableObject->getTransferMethod()) {
+                    } elseif (Distribution::TRANSFER_METHOD_WIRE_TRANSFER === $this->signableObject->getTransferMethod()) {
                         $configuration = new WireInstructions($this->signableObject);
                     } else {
                         $configuration = new ElectronicFundsTransferForm($this->signableObject);
@@ -114,5 +114,4 @@ class AccountTabsConfigurationFactory implements TabsConfigurationFactoryInterfa
 
         return $configuration;
     }
-
 }

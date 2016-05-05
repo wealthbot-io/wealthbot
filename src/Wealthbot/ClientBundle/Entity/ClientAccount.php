@@ -2,43 +2,41 @@
 
 namespace Wealthbot\ClientBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
 use Wealthbot\ClientBundle\Manager\ClientToSystemAccountTypeAdapter;
 use Wealthbot\ClientBundle\Model\ClientAccount as BaseClientAccount;
-use Wealthbot\UserBundle\Entity\User;
 
 /**
- * Wealthbot\ClientBundle\Entity\ClientAccount
+ * Wealthbot\ClientBundle\Entity\ClientAccount.
  */
 class ClientAccount extends BaseClientAccount
 {
     /**
-     * @var integer $id
+     * @var int
      */
     protected $id;
 
     /**
-     * @var integer $client_id
+     * @var int
      */
     protected $client_id;
 
     /**
-     * @var string $financial_institution
+     * @var string
      */
     protected $financial_institution;
 
     /**
-     * @var float $value
+     * @var float
      */
     private $value;
 
     /**
-     * @var float $monthly_contributions
+     * @var float
      */
     protected $monthly_contributions;
 
     /**
-     * @var float $monthly_distributions
+     * @var float
      */
     protected $monthly_distributions;
 
@@ -53,7 +51,7 @@ class ClientAccount extends BaseClientAccount
     private $sas_cash;
 
     /**
-     * @var integer
+     * @var int
      */
     private $group_type_id;
 
@@ -63,7 +61,7 @@ class ClientAccount extends BaseClientAccount
     protected $groupType;
 
     /**
-     * @var integer
+     * @var int
      */
     protected $process_step;
 
@@ -73,7 +71,7 @@ class ClientAccount extends BaseClientAccount
     protected $step_action;
 
     /**
-     * @var boolean
+     * @var bool
      */
     private $is_pre_saved;
 
@@ -108,7 +106,7 @@ class ClientAccount extends BaseClientAccount
     protected $accountContribution;
 
     /**
-     * @var integer
+     * @var int
      */
     protected $consolidator_id;
 
@@ -123,12 +121,12 @@ class ClientAccount extends BaseClientAccount
     protected $consolidator;
 
     /**
-     * @var integer
+     * @var int
      */
     protected $system_type;
 
     /**
-     * @var boolean
+     * @var bool
      */
     private $unconsolidated;
 
@@ -143,7 +141,7 @@ class ClientAccount extends BaseClientAccount
     private $created;
 
     /**
-     * @var boolean
+     * @var bool
      */
     private $is_init_rebalanced;
 
@@ -158,7 +156,7 @@ class ClientAccount extends BaseClientAccount
     private $modified_by;
 
     /**
-     * Constructor
+     * Constructor.
      */
     public function __construct()
     {
@@ -171,9 +169,9 @@ class ClientAccount extends BaseClientAccount
     }
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer
+     * @return int
      */
     public function getId()
     {
@@ -181,9 +179,10 @@ class ClientAccount extends BaseClientAccount
     }
 
     /**
-     * Set client_id
+     * Set client_id.
      *
-     * @param integer $clientId
+     * @param int $clientId
+     *
      * @return ClientAccount
      */
     public function setClientId($clientId)
@@ -194,9 +193,9 @@ class ClientAccount extends BaseClientAccount
     }
 
     /**
-     * Get client_id
+     * Get client_id.
      *
-     * @return integer
+     * @return int
      */
     public function getClientId()
     {
@@ -204,9 +203,10 @@ class ClientAccount extends BaseClientAccount
     }
 
     /**
-     * Set financial_institution
+     * Set financial_institution.
      *
      * @param string $financialInstitution
+     *
      * @return ClientAccount
      */
     public function setFinancialInstitution($financialInstitution)
@@ -217,7 +217,7 @@ class ClientAccount extends BaseClientAccount
     }
 
     /**
-     * Get financial_institution
+     * Get financial_institution.
      *
      * @return string
      */
@@ -227,9 +227,10 @@ class ClientAccount extends BaseClientAccount
     }
 
     /**
-     * Set value
+     * Set value.
      *
-     * @param integer $value
+     * @param int $value
+     *
      * @return ClientAccount
      */
     public function setValue($value)
@@ -240,7 +241,7 @@ class ClientAccount extends BaseClientAccount
     }
 
     /**
-     * Get value
+     * Get value.
      *
      * @return float
      */
@@ -250,9 +251,10 @@ class ClientAccount extends BaseClientAccount
     }
 
     /**
-     * Set monthly_contributions
+     * Set monthly_contributions.
      *
      * @param float $monthlyContributions
+     *
      * @return ClientAccount
      */
     public function setMonthlyContributions($monthlyContributions)
@@ -263,7 +265,7 @@ class ClientAccount extends BaseClientAccount
     }
 
     /**
-     * Get monthly_contributions
+     * Get monthly_contributions.
      *
      * @return float
      */
@@ -273,9 +275,10 @@ class ClientAccount extends BaseClientAccount
     }
 
     /**
-     * Set monthly_distributions
+     * Set monthly_distributions.
      *
      * @param float $monthlyDistributions
+     *
      * @return ClientAccount
      */
     public function setMonthlyDistributions($monthlyDistributions)
@@ -286,7 +289,7 @@ class ClientAccount extends BaseClientAccount
     }
 
     /**
-     * Get monthly_distributions
+     * Get monthly_distributions.
      *
      * @return float
      */
@@ -296,9 +299,10 @@ class ClientAccount extends BaseClientAccount
     }
 
     /**
-     * Set client
+     * Set client.
      *
      * @param \Wealthbot\UserBundle\Entity\User $client
+     *
      * @return ClientAccount
      */
     public function setClient(\Wealthbot\UserBundle\Entity\User $client = null)
@@ -309,7 +313,7 @@ class ClientAccount extends BaseClientAccount
     }
 
     /**
-     * Get client
+     * Get client.
      *
      * @return \Wealthbot\UserBundle\Entity\User
      */
@@ -319,9 +323,10 @@ class ClientAccount extends BaseClientAccount
     }
 
     /**
-     * Set sas_cash
+     * Set sas_cash.
      *
      * @param float $sasCash
+     *
      * @return ClientAccount
      */
     public function setSasCash($sasCash)
@@ -332,7 +337,7 @@ class ClientAccount extends BaseClientAccount
     }
 
     /**
-     * Get sas_cash
+     * Get sas_cash.
      *
      * @return float
      */
@@ -342,9 +347,10 @@ class ClientAccount extends BaseClientAccount
     }
 
     /**
-     * Set group_type_id
+     * Set group_type_id.
      *
-     * @param integer $groupTypeId
+     * @param int $groupTypeId
+     *
      * @return ClientAccount
      */
     public function setGroupTypeId($groupTypeId)
@@ -355,9 +361,9 @@ class ClientAccount extends BaseClientAccount
     }
 
     /**
-     * Get group_type_id
+     * Get group_type_id.
      *
-     * @return integer
+     * @return int
      */
     public function getGroupTypeId()
     {
@@ -365,9 +371,10 @@ class ClientAccount extends BaseClientAccount
     }
 
     /**
-     * Set groupType
+     * Set groupType.
      *
      * @param \Wealthbot\ClientBundle\Entity\AccountGroupType $groupType
+     *
      * @return ClientAccount
      */
     public function setGroupType(\Wealthbot\ClientBundle\Entity\AccountGroupType $groupType = null)
@@ -384,7 +391,7 @@ class ClientAccount extends BaseClientAccount
     }
 
     /**
-     * Get groupType
+     * Get groupType.
      *
      * @return \Wealthbot\ClientBundle\Entity\AccountGroupType
      */
@@ -394,9 +401,10 @@ class ClientAccount extends BaseClientAccount
     }
 
     /**
-     * Set process_step
+     * Set process_step.
      *
-     * @param integer $processStep
+     * @param int $processStep
+     *
      * @return ClientAccount
      */
     public function setProcessStep($processStep)
@@ -405,9 +413,9 @@ class ClientAccount extends BaseClientAccount
     }
 
     /**
-     * Get process_step
+     * Get process_step.
      *
-     * @return integer
+     * @return int
      */
     public function getProcessStep()
     {
@@ -415,9 +423,10 @@ class ClientAccount extends BaseClientAccount
     }
 
     /**
-     * Add beneficiaries
+     * Add beneficiaries.
      *
      * @param \Wealthbot\ClientBundle\Entity\Beneficiary $beneficiaries
+     *
      * @return ClientAccount
      */
     public function addBeneficiarie(\Wealthbot\ClientBundle\Entity\Beneficiary $beneficiaries)
@@ -428,7 +437,7 @@ class ClientAccount extends BaseClientAccount
     }
 
     /**
-     * Remove beneficiaries
+     * Remove beneficiaries.
      *
      * @param Beneficiary $beneficiaries
      */
@@ -438,7 +447,7 @@ class ClientAccount extends BaseClientAccount
     }
 
     /**
-     * Get beneficiaries
+     * Get beneficiaries.
      *
      * @return \Doctrine\Common\Collections\Collection
      */
@@ -448,9 +457,10 @@ class ClientAccount extends BaseClientAccount
     }
 
     /**
-     * Set retirementPlanInfo
+     * Set retirementPlanInfo.
      *
      * @param RetirementPlanInformation $retirementPlanInfo
+     *
      * @return ClientAccount
      */
     public function setRetirementPlanInfo(\Wealthbot\ClientBundle\Entity\RetirementPlanInformation $retirementPlanInfo = null)
@@ -461,7 +471,7 @@ class ClientAccount extends BaseClientAccount
     }
 
     /**
-     * Get retirementPlanInfo
+     * Get retirementPlanInfo.
      *
      * @return \Wealthbot\ClientBundle\Entity\RetirementPlanInformation
      */
@@ -471,9 +481,10 @@ class ClientAccount extends BaseClientAccount
     }
 
     /**
-     * Set transferInformation
+     * Set transferInformation.
      *
      * @param TransferInformation $transferInformation
+     *
      * @return ClientAccount
      */
     public function setTransferInformation(\Wealthbot\ClientBundle\Entity\TransferInformation $transferInformation = null)
@@ -484,7 +495,7 @@ class ClientAccount extends BaseClientAccount
     }
 
     /**
-     * Get transferInformation
+     * Get transferInformation.
      *
      * @return \Wealthbot\ClientBundle\Entity\TransferInformation
      */
@@ -494,9 +505,10 @@ class ClientAccount extends BaseClientAccount
     }
 
     /**
-     * Set step_action
+     * Set step_action.
      *
      * @param string $stepAction
+     *
      * @return ClientAccount
      */
     public function setStepAction($stepAction)
@@ -505,7 +517,7 @@ class ClientAccount extends BaseClientAccount
     }
 
     /**
-     * Get step_action
+     * Get step_action.
      *
      * @return string
      */
@@ -515,9 +527,10 @@ class ClientAccount extends BaseClientAccount
     }
 
     /**
-     * Set is_pre_saved
+     * Set is_pre_saved.
      *
-     * @param boolean $isPreSaved
+     * @param bool $isPreSaved
+     *
      * @return ClientAccount
      */
     public function setIsPreSaved($isPreSaved)
@@ -528,9 +541,9 @@ class ClientAccount extends BaseClientAccount
     }
 
     /**
-     * Get is_pre_saved
+     * Get is_pre_saved.
      *
-     * @return boolean
+     * @return bool
      */
     public function getIsPreSaved()
     {
@@ -538,9 +551,10 @@ class ClientAccount extends BaseClientAccount
     }
 
     /**
-     * Add accountOutsideFunds
+     * Add accountOutsideFunds.
      *
      * @param AccountOutsideFund $accountOutsideFunds
+     *
      * @return ClientAccount
      */
     public function addAccountOutsideFund(\Wealthbot\ClientBundle\Entity\AccountOutsideFund $accountOutsideFunds)
@@ -551,7 +565,7 @@ class ClientAccount extends BaseClientAccount
     }
 
     /**
-     * Remove accountOutsideFunds
+     * Remove accountOutsideFunds.
      *
      * @param \Wealthbot\ClientBundle\Entity\AccountOutsideFund $accountOutsideFunds
      */
@@ -565,7 +579,7 @@ class ClientAccount extends BaseClientAccount
     }
 
     /**
-     * Get accountOutsideFunds
+     * Get accountOutsideFunds.
      *
      * @return \Doctrine\Common\Collections\Collection
      */
@@ -579,8 +593,8 @@ class ClientAccount extends BaseClientAccount
         $step = $this->getProcessStep();
         $group = $this->getGroupName();
 
-        if (($group == AccountGroup::GROUP_EMPLOYER_RETIREMENT && $step == self::PROCESS_STEP_COMPLETED_CREDENTIALS) ||
-            ($group != AccountGroup::GROUP_EMPLOYER_RETIREMENT && $step == self::PROCESS_STEP_FINISHED_APPLICATION)
+        if (($group === AccountGroup::GROUP_EMPLOYER_RETIREMENT && $step === self::PROCESS_STEP_COMPLETED_CREDENTIALS) ||
+            ($group !== AccountGroup::GROUP_EMPLOYER_RETIREMENT && $step === self::PROCESS_STEP_FINISHED_APPLICATION)
         ) {
             return true;
         }
@@ -589,9 +603,10 @@ class ClientAccount extends BaseClientAccount
     }
 
     /**
-     * Set systemAccount
+     * Set systemAccount.
      *
      * @param \Wealthbot\ClientBundle\Entity\SystemAccount $systemAccount
+     *
      * @return ClientAccount
      */
     public function setSystemAccount(\Wealthbot\ClientBundle\Entity\SystemAccount $systemAccount = null)
@@ -602,7 +617,7 @@ class ClientAccount extends BaseClientAccount
     }
 
     /**
-     * Get systemAccount
+     * Get systemAccount.
      *
      * @return \Wealthbot\ClientBundle\Entity\SystemAccount
      */
@@ -612,9 +627,10 @@ class ClientAccount extends BaseClientAccount
     }
 
     /**
-     * Set accountContribution
+     * Set accountContribution.
      *
      * @param \Wealthbot\ClientBundle\Entity\AccountContribution $accountContribution
+     *
      * @return ClientAccount
      */
     public function setAccountContribution(\Wealthbot\ClientBundle\Entity\AccountContribution $accountContribution = null)
@@ -625,7 +641,7 @@ class ClientAccount extends BaseClientAccount
     }
 
     /**
-     * Get accountContribution
+     * Get accountContribution.
      *
      * @return AccountContribution
      */
@@ -635,9 +651,10 @@ class ClientAccount extends BaseClientAccount
     }
 
     /**
-     * Set consolidator_id
+     * Set consolidator_id.
      *
-     * @param integer $consolidatorId
+     * @param int $consolidatorId
+     *
      * @return ClientAccount
      */
     public function setConsolidatorId($consolidatorId)
@@ -648,9 +665,9 @@ class ClientAccount extends BaseClientAccount
     }
 
     /**
-     * Get consolidator_id
+     * Get consolidator_id.
      *
-     * @return integer
+     * @return int
      */
     public function getConsolidatorId()
     {
@@ -658,9 +675,10 @@ class ClientAccount extends BaseClientAccount
     }
 
     /**
-     * Add consolidatedAccounts
+     * Add consolidatedAccounts.
      *
      * @param \Wealthbot\ClientBundle\Entity\ClientAccount $consolidatedAccounts
+     *
      * @return ClientAccount
      */
     public function addConsolidatedAccount(\Wealthbot\ClientBundle\Entity\ClientAccount $consolidatedAccounts)
@@ -671,7 +689,7 @@ class ClientAccount extends BaseClientAccount
     }
 
     /**
-     * Remove consolidatedAccounts
+     * Remove consolidatedAccounts.
      *
      * @param \Wealthbot\ClientBundle\Entity\ClientAccount $consolidatedAccounts
      */
@@ -681,7 +699,7 @@ class ClientAccount extends BaseClientAccount
     }
 
     /**
-     * Get consolidatedAccounts
+     * Get consolidatedAccounts.
      *
      * @return \Doctrine\Common\Collections\Collection
      */
@@ -691,9 +709,10 @@ class ClientAccount extends BaseClientAccount
     }
 
     /**
-     * Set consolidator
+     * Set consolidator.
      *
      * @param \Wealthbot\ClientBundle\Entity\ClientAccount $consolidator
+     *
      * @return ClientAccount
      */
     public function setConsolidator(\Wealthbot\ClientBundle\Entity\ClientAccount $consolidator = null)
@@ -704,7 +723,7 @@ class ClientAccount extends BaseClientAccount
     }
 
     /**
-     * Get consolidator
+     * Get consolidator.
      *
      * @return \Wealthbot\ClientBundle\Entity\ClientAccount
      */
@@ -714,9 +733,10 @@ class ClientAccount extends BaseClientAccount
     }
 
     /**
-     * Set system_type
+     * Set system_type.
      *
-     * @param integer $systemType
+     * @param int $systemType
+     *
      * @return ClientAccount
      */
     public function setSystemType($systemType)
@@ -727,9 +747,9 @@ class ClientAccount extends BaseClientAccount
     }
 
     /**
-     * Get system_type
+     * Get system_type.
      *
-     * @return integer
+     * @return int
      */
     public function getSystemType()
     {
@@ -737,9 +757,10 @@ class ClientAccount extends BaseClientAccount
     }
 
     /**
-     * Set unconsolidated
+     * Set unconsolidated.
      *
-     * @param boolean $unconsolidated
+     * @param bool $unconsolidated
+     *
      * @return ClientAccount
      */
     public function setUnconsolidated($unconsolidated)
@@ -750,9 +771,9 @@ class ClientAccount extends BaseClientAccount
     }
 
     /**
-     * Get unconsolidated
+     * Get unconsolidated.
      *
-     * @return boolean
+     * @return bool
      */
     public function getUnconsolidated()
     {
@@ -760,7 +781,7 @@ class ClientAccount extends BaseClientAccount
     }
 
     /**
-     * Get sum of the consolidated accounts values or value if account is not consolidated
+     * Get sum of the consolidated accounts values or value if account is not consolidated.
      *
      * @return float
      */
@@ -778,7 +799,7 @@ class ClientAccount extends BaseClientAccount
     }
 
     /**
-     * Get sum of the consolidated accounts monthly_contributions or monthly_contribution if account is not consolidated
+     * Get sum of the consolidated accounts monthly_contributions or monthly_contribution if account is not consolidated.
      *
      * @return float
      */
@@ -796,7 +817,7 @@ class ClientAccount extends BaseClientAccount
     }
 
     /**
-     * Get sum of the consolidated accounts monthly_distributions or monthly_distribution if account is not consolidated
+     * Get sum of the consolidated accounts monthly_distributions or monthly_distribution if account is not consolidated.
      *
      * @return float
      */
@@ -814,7 +835,7 @@ class ClientAccount extends BaseClientAccount
     }
 
     /**
-     * Get sum of the consolidated accounts sas_cache or sas_cache if account is not consolidated
+     * Get sum of the consolidated accounts sas_cache or sas_cache if account is not consolidated.
      *
      * @return float
      */
@@ -832,9 +853,10 @@ class ClientAccount extends BaseClientAccount
     }
 
     /**
-     * Add accountOwners
+     * Add accountOwners.
      *
      * @param \Wealthbot\ClientBundle\Model\ClientAccountOwner $accountOwner
+     *
      * @return ClientAccount
      */
     public function addAccountOwner(\Wealthbot\ClientBundle\Model\ClientAccountOwner $accountOwner)
@@ -845,7 +867,7 @@ class ClientAccount extends BaseClientAccount
     }
 
     /**
-     * Remove accountOwners
+     * Remove accountOwners.
      *
      * @param \Wealthbot\ClientBundle\Model\ClientAccountOwner $accountOwner
      */
@@ -855,7 +877,7 @@ class ClientAccount extends BaseClientAccount
     }
 
     /**
-     * Get accountOwners
+     * Get accountOwners.
      *
      * @return \Doctrine\Common\Collections\Collection
      */
@@ -864,11 +886,11 @@ class ClientAccount extends BaseClientAccount
         return parent::getAccountOwners();
     }
 
-
     /**
-     * Add beneficiaries
+     * Add beneficiaries.
      *
      * @param \Wealthbot\ClientBundle\Entity\Beneficiary $beneficiaries
+     *
      * @return ClientAccount
      */
     public function addBeneficiary(\Wealthbot\ClientBundle\Entity\Beneficiary $beneficiaries)
@@ -879,7 +901,7 @@ class ClientAccount extends BaseClientAccount
     }
 
     /**
-     * Remove beneficiaries
+     * Remove beneficiaries.
      *
      * @param \Wealthbot\ClientBundle\Entity\Beneficiary $beneficiaries
      */
@@ -892,12 +914,13 @@ class ClientAccount extends BaseClientAccount
     {
         $owners = $this->getAccountOwners()->getValues();
 
-        $names = array_map(function(\Wealthbot\ClientBundle\Model\ClientAccountOwner  $owner){
-                /** @var $owner ClientAccountOwner */
+        $names = array_map(function (\Wealthbot\ClientBundle\Model\ClientAccountOwner  $owner) {
+                /* @var $owner ClientAccountOwner */
                 $client = $owner->getClient();
                 if ($client) {
-                    return $client->getLastName() . ' ' . $client->getFirstName();
+                    return $client->getLastName().' '.$client->getFirstName();
                 }
+
                 return '';
         }, $owners);
 
@@ -905,9 +928,10 @@ class ClientAccount extends BaseClientAccount
     }
 
     /**
-     * Set created
+     * Set created.
      *
      * @param \DateTime $created
+     *
      * @return ClientAccount
      */
     public function setCreated($created)
@@ -918,7 +942,7 @@ class ClientAccount extends BaseClientAccount
     }
 
     /**
-     * Get created
+     * Get created.
      *
      * @return \DateTime
      */
@@ -928,9 +952,10 @@ class ClientAccount extends BaseClientAccount
     }
 
     /**
-     * Set is_init_rebalanced
+     * Set is_init_rebalanced.
      *
-     * @param boolean $isInitRebalanced
+     * @param bool $isInitRebalanced
+     *
      * @return ClientAccount
      */
     public function setIsInitRebalanced($isInitRebalanced)
@@ -941,9 +966,9 @@ class ClientAccount extends BaseClientAccount
     }
 
     /**
-     * Get is_init_rebalanced
+     * Get is_init_rebalanced.
      *
-     * @return boolean
+     * @return bool
      */
     public function getIsInitRebalanced()
     {
@@ -951,9 +976,10 @@ class ClientAccount extends BaseClientAccount
     }
 
     /**
-     * Set modified
+     * Set modified.
      *
      * @param \DateTime $modified
+     *
      * @return ClientAccount
      */
     public function setModified($modified)
@@ -964,7 +990,7 @@ class ClientAccount extends BaseClientAccount
     }
 
     /**
-     * Get modified
+     * Get modified.
      *
      * @return \DateTime
      */
@@ -974,9 +1000,10 @@ class ClientAccount extends BaseClientAccount
     }
 
     /**
-     * Set modified_by
+     * Set modified_by.
      *
      * @param string $modifiedBy
+     *
      * @return ClientAccount
      */
     public function setModifiedBy($modifiedBy)
@@ -987,7 +1014,7 @@ class ClientAccount extends BaseClientAccount
     }
 
     /**
-     * Get modified_by
+     * Get modified_by.
      *
      * @return string
      */

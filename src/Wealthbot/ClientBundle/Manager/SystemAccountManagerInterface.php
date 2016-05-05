@@ -9,16 +9,16 @@
 
 namespace Wealthbot\ClientBundle\Manager;
 
-
 use Wealthbot\ClientBundle\Entity\ClientAccount;
 use Wealthbot\ClientBundle\Entity\SystemAccount;
 
 interface SystemAccountManagerInterface
 {
     /**
-     * Create new system account for client account
+     * Create new system account for client account.
      *
      * @param ClientAccount $clientAccount
+     *
      * @return SystemAccount
      */
     public function createSystemAccountForClientAccount(ClientAccount $clientAccount);

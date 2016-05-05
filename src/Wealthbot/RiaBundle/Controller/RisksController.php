@@ -9,19 +9,18 @@
 
 namespace Wealthbot\RiaBundle\Controller;
 
-use Wealthbot\AdminBundle\Entity\CeModel;
-use Wealthbot\RiaBundle\Entity\RiskAnswer;
-use Wealthbot\RiaBundle\Entity\RiskQuestion;
-use Wealthbot\RiaBundle\Exception\AdvisorHasNoExistingModel;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Wealthbot\AdminBundle\Form\Type\RiskQuestionFormType;
-use Wealthbot\RiaBundle\Form\Handler\RiskQuestionsFormHandler;
-use Doctrine\ORM\EntityManager;
-use Wealthbot\RiaBundle\Form\Type\RiskQuestionsFormType;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Wealthbot\AdminBundle\Entity\CeModel;
+use Wealthbot\AdminBundle\Form\Type\RiskQuestionFormType;
+use Wealthbot\RiaBundle\Entity\RiskAnswer;
+use Wealthbot\RiaBundle\Entity\RiskQuestion;
+use Wealthbot\RiaBundle\Exception\AdvisorHasNoExistingModel;
+use Wealthbot\RiaBundle\Form\Handler\RiskQuestionsFormHandler;
+use Wealthbot\RiaBundle\Form\Type\RiskQuestionsFormType;
 
 class RisksController extends Controller
 {
@@ -39,10 +38,10 @@ class RisksController extends Controller
             $questions = $repo->getClonedAdminQuestions($user);
         }
 
-        return $this->render('WealthbotRiaBundle:Risks:index.html.twig', array(
+        return $this->render('WealthbotRiaBundle:Risks:index.html.twig', [
             'user' => $user,
-            'questions' => $questions
-        ));
+            'questions' => $questions,
+        ]);
     }
 
     public function createQuestionAction(Request $request)
@@ -62,7 +61,7 @@ class RisksController extends Controller
 
         $form = $this->createForm(new RiskQuestionFormType(), $question);
         if ($request->isMethod('post')) {
-            $form->bind($request);
+            $form->submit($request);
 
             if ($form->isValid()) {
                 $question = $form->getData();
@@ -76,24 +75,24 @@ class RisksController extends Controller
 
                 $em->flush();
 
-                return $this->getJsonResponse(array(
+                return $this->getJsonResponse([
                     'status' => 'success',
-                    'new_row' => $this->renderView('WealthbotRiaBundle:Risks:_question_row.html.twig', array('question' => $question))
-                ));
+                    'new_row' => $this->renderView('WealthbotRiaBundle:Risks:_question_row.html.twig', ['question' => $question]),
+                ]);
             } else {
-                return $this->getJsonResponse(array(
+                return $this->getJsonResponse([
                     'status' => 'error',
-                    'form' => $this->renderView('WealthbotRiaBundle:Risks:_question_form.html.twig', array('form' => $form->createView()))
-                ));
+                    'form' => $this->renderView('WealthbotRiaBundle:Risks:_question_form.html.twig', ['form' => $form->createView()]),
+                ]);
             }
         }
 
-        return $this->getJsonResponse(array(
+        return $this->getJsonResponse([
             'status' => 'success',
-            'content' => $this->renderView('WealthbotRiaBundle:Risks:_question_form.html.twig', array(
-                'form' => $form->createView()
-            ))
-        ));
+            'content' => $this->renderView('WealthbotRiaBundle:Risks:_question_form.html.twig', [
+                'form' => $form->createView(),
+            ]),
+        ]);
     }
 
     public function editQuestionAction(Request $request)
@@ -106,23 +105,23 @@ class RisksController extends Controller
         $em = $this->get('doctrine.orm.entity_manager');
 
         $user = $this->getUser();
-        $question = $em->getRepository('WealthbotRiaBundle:RiskQuestion')->findOneBy(array(
+        $question = $em->getRepository('WealthbotRiaBundle:RiskQuestion')->findOneBy([
             'id' => $request->get('id'),
-            'owner_id' => $user->getId()
-        ));
+            'owner_id' => $user->getId(),
+        ]);
 
         if (!$question) {
-            return $this->getJsonResponse(array('status' => 'error', 'message' => 'Question does not exist.'));
+            return $this->getJsonResponse(['status' => 'error', 'message' => 'Question does not exist.']);
         }
 
-        $originalAnswers = array();
+        $originalAnswers = [];
         foreach ($question->getAnswers() as $answer) {
             $originalAnswers[] = $answer;
         }
 
         $form = $this->createForm(new RiskQuestionFormType(), $question);
         if ($request->isMethod('post')) {
-            $form->bind($request);
+            $form->submit($request);
 
             if ($form->isValid()) {
                 $question = $form->getData();
@@ -145,24 +144,24 @@ class RisksController extends Controller
                 $em->persist($question);
                 $em->flush();
 
-                return $this->getJsonResponse(array(
+                return $this->getJsonResponse([
                     'status' => 'success',
-                    'content' => $this->renderView('WealthbotRiaBundle:Risks:_question_row.html.twig', array('question' => $question))
-                ));
+                    'content' => $this->renderView('WealthbotRiaBundle:Risks:_question_row.html.twig', ['question' => $question]),
+                ]);
             } else {
-                return $this->getJsonResponse(array(
+                return $this->getJsonResponse([
                     'status' => 'error',
-                    'form' => $this->renderView('WealthbotRiaBundle:Risks:_question_form.html.twig', array('form' => $form->createView()))
-                ));
+                    'form' => $this->renderView('WealthbotRiaBundle:Risks:_question_form.html.twig', ['form' => $form->createView()]),
+                ]);
             }
         }
 
-        return $this->getJsonResponse(array(
+        return $this->getJsonResponse([
             'status' => 'success',
-            'content' => $this->renderView('WealthbotRiaBundle:Risks:_question_form.html.twig', array(
-                'form' => $form->createView()
-            ))
-        ));
+            'content' => $this->renderView('WealthbotRiaBundle:Risks:_question_form.html.twig', [
+                'form' => $form->createView(),
+            ]),
+        ]);
     }
 
     public function deleteQuestionAction(Request $request)
@@ -175,19 +174,19 @@ class RisksController extends Controller
         $em = $this->get('doctrine.orm.entity_manager');
 
         $user = $this->getUser();
-        $question = $em->getRepository('WealthbotRiaBundle:RiskQuestion')->findOneBy(array(
+        $question = $em->getRepository('WealthbotRiaBundle:RiskQuestion')->findOneBy([
             'id' => $request->get('id'),
-            'owner_id' => $user->getId()
-        ));
+            'owner_id' => $user->getId(),
+        ]);
 
         if (!$question) {
-            return $this->getJsonResponse(array('status' => 'error', 'message' => 'Question does not exist.'));
+            return $this->getJsonResponse(['status' => 'error', 'message' => 'Question does not exist.']);
         }
 
         $em->remove($question);
         $em->flush();
 
-        return $this->getJsonResponse(array('status' => 'success'));
+        return $this->getJsonResponse(['status' => 'success']);
     }
 
     public function testAction(Request $request)
@@ -198,7 +197,7 @@ class RisksController extends Controller
         $form = $this->createForm(new RiskQuestionsFormType($em, $user, false));
 
         if ($request->isMethod('post')) {
-            $formHandler = new RiskQuestionsFormHandler($form, $request, $em, array('session' => $this->get('session')));
+            $formHandler = new RiskQuestionsFormHandler($form, $request, $em, ['session' => $this->get('session')]);
 
             try {
                 $process = $formHandler->process($user);
@@ -213,13 +212,13 @@ class RisksController extends Controller
             }
         }
 
-        return $this->render('WealthbotRiaBundle:Risks:test.html.twig', array('form' => $form->createView()));
+        return $this->render('WealthbotRiaBundle:Risks:test.html.twig', ['form' => $form->createView()]);
     }
 
     public function testResultAction(Request $request)
     {
         /** @var \Doctrine\ORM\EntityManager $em */
-        /** @var \Wealthbot\AdminBundle\Repository\CeModelRepository $repo */
+        /* @var \Wealthbot\AdminBundle\Repository\CeModelRepository $repo */
         $em = $this->get('doctrine.orm.entity_manager');
         $repo = $em->getRepository('WealthbotAdminBundle:CeModel');
 
@@ -235,8 +234,8 @@ class RisksController extends Controller
         $companyInformation = $ria->getRiaCompanyInformation();
         $isUseQualified = $companyInformation->getIsUseQualifiedModels();
 
-        if($isUseQualified) {
-            if($request->get('is_qualified') !== null) {
+        if ($isUseQualified) {
+            if ($request->get('is_qualified') !== null) {
                 $this->setIsQualifiedModel($request->get('is_qualified'));
             }
             $isQualified = $this->getIsQualifiedModel();
@@ -244,7 +243,7 @@ class RisksController extends Controller
             $isQualified = false;
         }
 
-        $data = array(
+        $data = [
             'is_final' => false,
             'is_risks_test' => true,
             'portfolio_information' => $portfolioInformationManager->getPortfolioInformation($ria, $sessionPortfolio, $isQualified),
@@ -252,8 +251,8 @@ class RisksController extends Controller
             'ria_company_information' => $ria->getRiaCompanyInformation(),
             'is_use_qualified_models' => $isUseQualified,
             'client' => null,
-            'action' => 'view_and_test'
-        );
+            'action' => 'view_and_test',
+        ];
 
         return $this->render('WealthbotClientBundle:Portfolio:index.html.twig', $data);
     }
@@ -266,10 +265,10 @@ class RisksController extends Controller
 
         $data = $request->get('item');
         if (!is_array($data) || empty($data)) {
-            return $this->getJsonResponse(array(
+            return $this->getJsonResponse([
                 'status' => 'error',
-                'message' => 'No data.'
-            ));
+                'message' => 'No data.',
+            ]);
         }
 
         $qb = $em->createQueryBuilder();
@@ -277,44 +276,47 @@ class RisksController extends Controller
             $qb->update('WealthbotRiaBundle:RiskQuestion rq')
                 ->set('rq.sequence', $position)
                 ->where('rq.id = :id AND rq.owner_id = :owner_id')
-                ->setParameters(array(
+                ->setParameters([
                         'id' => $id,
-                        'owner_id' => $user->getId()
-                    ))
+                        'owner_id' => $user->getId(),
+                    ])
                 ->getQuery()
                 ->execute()
             ;
         }
 
-        return $this->getJsonResponse(array('status' => 'success'));
+        return $this->getJsonResponse(['status' => 'success']);
     }
 
     protected function getJsonResponse(array $data, $code = 200)
     {
         $response = json_encode($data);
 
-        return new Response($response, $code, array('Content-Type'=>'application/json'));
+        return new Response($response, $code, ['Content-Type' => 'application/json']);
     }
 
     /**
-     * Set what type of models RIA will be used (qualified or non-qualified)
+     * Set what type of models RIA will be used (qualified or non-qualified).
+     *
      * @param bool $value
      */
     protected function setIsQualifiedModel($value)
     {
         /** @var Session $session */
         $session = $this->get('session');
-        $session->set('risk.is_qualified', (bool)$value);
+        $session->set('risk.is_qualified', (bool) $value);
     }
 
     /**
-     * Set what type of models RIA will be used (qualified or non-qualified)
+     * Set what type of models RIA will be used (qualified or non-qualified).
+     *
      * @return bool
      */
     protected function getIsQualifiedModel()
     {
         /** @var Session $session */
         $session = $this->get('session');
-        return (bool)$session->get('risk.is_qualified', false);
+
+        return (bool) $session->get('risk.is_qualified', false);
     }
 }

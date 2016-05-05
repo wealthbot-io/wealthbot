@@ -10,20 +10,18 @@
 namespace Wealthbot\AdminBundle\Form\EventListener;
 
 use Doctrine\ORM\EntityManager;
-use Doctrine\ORM\QueryBuilder;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\Form\FormError;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
+use Symfony\Component\Form\FormFactoryInterface;
+use Symfony\Component\Form\FormInterface;
 use Wealthbot\AdminBundle\Entity\CeModel;
 use Wealthbot\AdminBundle\Entity\CeModelEntity;
 use Wealthbot\AdminBundle\Entity\SecurityAssignment;
 use Wealthbot\AdminBundle\Entity\Subclass;
 use Wealthbot\AdminBundle\Repository\CeModelEntityRepository;
 use Wealthbot\AdminBundle\Repository\SecurityAssignmentRepository;
-use Wealthbot\RiaBundle\RiskManagement\BaselinePortfolio;
-use Symfony\Component\Form\FormError;
-use Symfony\Component\Form\FormEvent;
-use Symfony\Component\Form\FormInterface;
-use Symfony\Component\Form\FormFactoryInterface;
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\Form\FormEvents;
 use Wealthbot\UserBundle\Entity\User;
 
 class CeModelEntityTypeEventsListener implements EventSubscriberInterface
@@ -53,11 +51,11 @@ class CeModelEntityTypeEventsListener implements EventSubscriberInterface
 
     public static function getSubscribedEvents()
     {
-        return array(
+        return [
             FormEvents::POST_SET_DATA => 'preSetData',
-            FormEvents::PRE_BIND => 'preBind',
-            FormEvents::BIND => 'bind'
-        );
+            FormEvents::PRE_SUBMIT => 'preBind',
+            FormEvents::SUBMIT => 'bind',
+        ];
     }
 
     public function preSetData(FormEvent $event)
@@ -71,7 +69,7 @@ class CeModelEntityTypeEventsListener implements EventSubscriberInterface
             $this->updateSecuritySymbol($form, null);
             $this->updateSecurity($form, null);
             $this->updateSubclass($form, null);
-            $this->updateTaxLossHarvesting($form, null, array());
+            $this->updateTaxLossHarvesting($form, null, []);
             $this->updateTaxLossHarvestingIdSymbol($form, null);
         } else {
             if ($data->getMuniSubstitution()) {
@@ -80,7 +78,7 @@ class CeModelEntityTypeEventsListener implements EventSubscriberInterface
 
             if ($data->getSecurityAssignment()) {
                 $this->updateSecuritySymbol($form, $data->getSecurityAssignmentId());
-                $this->updateTaxLossHarvesting($form, $data->getSubclassId(), array($data->getSecurityAssignmentId(), $data->getMuniSubstitutionId()));
+                $this->updateTaxLossHarvesting($form, $data->getSubclassId(), [$data->getSecurityAssignmentId(), $data->getMuniSubstitutionId()]);
             }
 
             if ($data->getAssetClass()) {
@@ -117,7 +115,7 @@ class CeModelEntityTypeEventsListener implements EventSubscriberInterface
         $securityAssignment = array_key_exists('securityAssignment', $data) ? $data['securityAssignment'] : null;
         $this->updateSecuritySymbol($form, $securityAssignment);
 
-        $withoutIds = array($securityAssignment);
+        $withoutIds = [$securityAssignment];
         if (array_key_exists('muniSubstitution', $data)) {
             $withoutIds[] = $data['muniSubstitution'];
         }
@@ -147,7 +145,9 @@ class CeModelEntityTypeEventsListener implements EventSubscriberInterface
         /** @var $data CeModelEntity */
         $data = $event->getData();
 
-        if($data === null) return;
+        if ($data === null) {
+            return;
+        }
 
         $em = $this->em;
         $form = $event->getForm();
@@ -155,7 +155,7 @@ class CeModelEntityTypeEventsListener implements EventSubscriberInterface
         /** @var $ceModelEntityRepo CeModelEntityRepository */
         $ceModelEntityRepo = $em->getRepository('WealthbotAdminBundle:CeModelEntity');
 
-        if($data->getSubclass()){
+        if ($data->getSubclass()) {
             $exist = $ceModelEntityRepo->isExistSameSubclassesForModel(
                 $this->ceModel->getId(),
                 $data->getSubclass()->getId(),
@@ -163,12 +163,12 @@ class CeModelEntityTypeEventsListener implements EventSubscriberInterface
                 $data->getId()
             );
 
-            if($exist) {
-                if($data->getId()){
-                    if($exist->getId() != $data->getId()){
+            if ($exist) {
+                if ($data->getId()) {
+                    if ($exist->getId() !== $data->getId()) {
                         $form->get('subclass')->addError(new FormError('You already hold this subclass in the model.'));
                     }
-                }else{
+                } else {
                     $form->get('subclass')->addError(new FormError('You already hold this subclass in the model.'));
                 }
             }
@@ -178,18 +178,18 @@ class CeModelEntityTypeEventsListener implements EventSubscriberInterface
         $stock = 0;
         $bond = 0;
 
-        $modelEntities = $ceModelEntityRepo->findBy(array(
+        $modelEntities = $ceModelEntityRepo->findBy([
             'modelId' => $this->ceModel->getId(),
-            'isQualified' => $this->isQualifiedModel
-        ));
+            'isQualified' => $this->isQualifiedModel,
+        ]);
 
         foreach ($modelEntities as $entity) {
-            if (!$data->getId() || ($data->getId() != $entity->getId())) {
-                if ($entity->getAssetClass()->getType() == 'Stocks') {
+            if (!$data->getId() || ($data->getId() !== $entity->getId())) {
+                if ($entity->getAssetClass()->getType() === 'Stocks') {
                     $stock += $entity->getPercent();
                 }
 
-                if ($entity->getAssetClass()->getType() == 'Bonds') {
+                if ($entity->getAssetClass()->getType() === 'Bonds') {
                     $bond += $entity->getPercent();
                 }
             }
@@ -206,14 +206,14 @@ class CeModelEntityTypeEventsListener implements EventSubscriberInterface
     {
         $queryBuilder = $this->em->getRepository('WealthbotAdminBundle:Subclass')->getAvailableSubclassesQuery($assetClassId, $this->user);
 
-        $form->add($this->factory->createNamed('subclass', 'entity', null, array(
-            'class' => 'WealthbotAdminBundle:Subclass',
+        $form->add($this->factory->createNamed('subclass', 'entity', null, [
+            'class' => 'Wealthbot\\AdminBundle\\Entity\\Subclass',
             'property' => 'name',
             'required' => false,
-            'empty_value' => 'Choose Subclass',
+            'placeholder' => 'Choose Subclass',
             'query_builder' => $queryBuilder,
-            'attr' => is_null($assetClassId) ? array('disabled' => 'disabled') : array()
-        )));
+            'attr' => is_null($assetClassId) ? ['disabled' => 'disabled'] : [],
+        ]));
     }
 
     protected function updateMuniSubstitution(FormInterface $form, $subclass)
@@ -222,7 +222,7 @@ class CeModelEntityTypeEventsListener implements EventSubscriberInterface
             $subclass = $this->em->getRepository('WealthbotAdminBundle:Subclass')->find($subclass);
         }
 
-        if ( $this->user->hasRole('ROLE_ADMIN') || $this->user->hasRole('ROLE_SUPER_ADMIN') ||
+        if ($this->user->hasRole('ROLE_ADMIN') || $this->user->hasRole('ROLE_SUPER_ADMIN') ||
             ($this->user->hasRole('ROLE_RIA') && $this->user->getRiaCompanyInformation()->getUseMunicipalBond())
         ) {
 
@@ -232,16 +232,16 @@ class CeModelEntityTypeEventsListener implements EventSubscriberInterface
 
             $existMuniSubstitution = $repo->hasMuniSubstitution($parentModel, $subclass, $this->user);
 
-            if($existMuniSubstitution) {
+            if ($existMuniSubstitution) {
                 $queryBuilder = $repo->getAvailableMuniSubstitutionsQuery($parentModel->getId(), $subclass->getId());
 
-                $form->add($this->factory->createNamed('muniSubstitution', 'entity', null, array(
-                    'class' => 'WealthbotAdminBundle:SecurityAssignment',
+                $form->add($this->factory->createNamed('muniSubstitution', 'entity', null, [
+                    'class' => 'Wealthbot\\AdminBundle\\Entity\\SecurityAssignment',
                     'property' => 'security.name',
                     'required' => false,
-                    'empty_value' => 'Choose Muni Substitution',
-                    'query_builder' => $queryBuilder
-                )));
+                    'placeholder' => 'Choose Muni Substitution',
+                    'query_builder' => $queryBuilder,
+                ]));
             }
         }
     }
@@ -250,16 +250,16 @@ class CeModelEntityTypeEventsListener implements EventSubscriberInterface
     {
         $queryBuilder = $this->em->getRepository('WealthbotAdminBundle:SecurityAssignment')->getAvailableSecuritiesQuery($this->ceModel, $subclassId, $currentEntityId);
 
-        $form->add($this->factory->createNamed('securityAssignment', 'entity', null, array(
-            'class' => 'WealthbotAdminBundle:SecurityAssignment',
+        $form->add($this->factory->createNamed('securityAssignment', 'entity', null, [
+            'class' => 'Wealthbot\\AdminBundle\\Entity\\SecurityAssignment',
             'property' => 'security.name',
-            'empty_value' => 'Choose Security',
+            'placeholder' => 'Choose Security',
             'query_builder' => $queryBuilder,
-            'attr' => is_null($subclassId) ? array('disabled' => 'disabled') : array()
-        )));
+            'attr' => is_null($subclassId) ? ['disabled' => 'disabled'] : [],
+        ]));
     }
 
-    protected function updateTaxLossHarvesting(FormInterface $form, $subclassId, $withoutIds = array())
+    protected function updateTaxLossHarvesting(FormInterface $form, $subclassId, $withoutIds = [])
     {
         if ($this->user->hasRole('ROLE_RIA') && $this->user->getRiaCompanyInformation()->getIsTaxLossHarvesting() &&
             (!$this->user->getRiaCompanyInformation()->getIsUseQualifiedModels() || ($this->user->getRiaCompanyInformation()->getIsUseQualifiedModels() && !$this->isQualifiedModel))) {
@@ -268,14 +268,14 @@ class CeModelEntityTypeEventsListener implements EventSubscriberInterface
             $securityAssignmentRepo = $this->em->getRepository('WealthbotAdminBundle:SecurityAssignment');
             $securityQueryBuilder = $securityAssignmentRepo->getSecuritiesQBBySubclassIdAndWithoutSecuritiesIds($subclassId, $withoutIds);
 
-            $form->add($this->factory->createNamed('tax_loss_harvesting', 'entity', null, array(
-                'class' => 'WealthbotAdminBundle:SecurityAssignment',
+            $form->add($this->factory->createNamed('tax_loss_harvesting', 'entity', null, [
+                'class' => 'Wealthbot\\AdminBundle\\Entity\\SecurityAssignment',
                 'property' => 'security.name',
-                'empty_value' => 'Choose TLH Substitution',
+                'placeholder' => 'Choose TLH Substitution',
                 'query_builder' => $securityQueryBuilder,
-                'attr' => empty($withoutIds) ? array('disabled' => 'disabled') : array(),
-                'required' => false
-            )));
+                'attr' => empty($withoutIds) ? ['disabled' => 'disabled'] : [],
+                'required' => false,
+            ]));
         }
     }
 
@@ -303,13 +303,13 @@ class CeModelEntityTypeEventsListener implements EventSubscriberInterface
             $value = $obj->getSecurity()->getSymbol();
         }
 
-        $form->add($this->factory->createNamed($name, 'text', null, array(
-            'property_path' => false,
+        $form->add($this->factory->createNamed($name, 'text', null, [
+            // 'property_path' => '',
             'required' => false,
-            'attr' => array(
+            'attr' => [
                 'readonly' => 'readonly',
-                'value' => $value
-            ),
-        )));
+                'value' => $value,
+            ],
+        ]));
     }
 }

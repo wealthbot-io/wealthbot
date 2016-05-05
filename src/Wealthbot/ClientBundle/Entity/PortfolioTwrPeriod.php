@@ -2,15 +2,13 @@
 
 namespace Wealthbot\ClientBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-
 /**
- * PortfolioTwrPeriod
+ * PortfolioTwrPeriod.
  */
 class PortfolioTwrPeriod
 {
     /**
-     * @var integer
+     * @var int
      */
     protected $id;
 
@@ -80,9 +78,9 @@ class PortfolioTwrPeriod
     private $client;
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer
+     * @return int
      */
     public function getId()
     {
@@ -90,9 +88,10 @@ class PortfolioTwrPeriod
     }
 
     /**
-     * Set net mtd
+     * Set net mtd.
      *
      * @param float $netMtd
+     *
      * @return ClientTwrPeriod
      */
     public function setNetMtd($netMtd)
@@ -103,7 +102,7 @@ class PortfolioTwrPeriod
     }
 
     /**
-     * Get mtd
+     * Get mtd.
      *
      * @return float
      */
@@ -113,9 +112,10 @@ class PortfolioTwrPeriod
     }
 
     /**
-     * Set gross mtd
+     * Set gross mtd.
      *
      * @param float $grossMtd
+     *
      * @return ClientTwrPeriod
      */
     public function setGrossMtd($grossMtd)
@@ -126,7 +126,7 @@ class PortfolioTwrPeriod
     }
 
     /**
-     * Get gross mtd
+     * Get gross mtd.
      *
      * @return float
      */
@@ -136,9 +136,10 @@ class PortfolioTwrPeriod
     }
 
     /**
-     * Set net qtd
+     * Set net qtd.
      *
      * @param float $netQtd
+     *
      * @return ClientTwrPeriod
      */
     public function setNetQtd($netQtd)
@@ -149,7 +150,7 @@ class PortfolioTwrPeriod
     }
 
     /**
-     * Get net qtd
+     * Get net qtd.
      *
      * @return float
      */
@@ -159,9 +160,10 @@ class PortfolioTwrPeriod
     }
 
     /**
-     * Set gross qtd
+     * Set gross qtd.
      *
      * @param float $grossQtd
+     *
      * @return ClientTwrPeriod
      */
     public function setGrossQtd($grossQtd)
@@ -172,7 +174,7 @@ class PortfolioTwrPeriod
     }
 
     /**
-     * Get gross qtd
+     * Get gross qtd.
      *
      * @return float
      */
@@ -182,9 +184,10 @@ class PortfolioTwrPeriod
     }
 
     /**
-     * Set net ytd
+     * Set net ytd.
      *
      * @param float $netYtd
+     *
      * @return ClientTwrPeriod
      */
     public function setNetYtd($netYtd)
@@ -195,7 +198,7 @@ class PortfolioTwrPeriod
     }
 
     /**
-     * Get net ytd
+     * Get net ytd.
      *
      * @return float
      */
@@ -205,9 +208,10 @@ class PortfolioTwrPeriod
     }
 
     /**
-     * Set gross ytd
+     * Set gross ytd.
      *
      * @param float $grossYtd
+     *
      * @return ClientTwrPeriod
      */
     public function setGrossYtd($grossYtd)
@@ -218,7 +222,7 @@ class PortfolioTwrPeriod
     }
 
     /**
-     * Get gross ytd
+     * Get gross ytd.
      *
      * @return float
      */
@@ -228,9 +232,10 @@ class PortfolioTwrPeriod
     }
 
     /**
-     * Set net yr1
+     * Set net yr1.
      *
      * @param float $netYr1
+     *
      * @return ClientTwrPeriod
      */
     public function setNetYr1($netYr1)
@@ -241,7 +246,7 @@ class PortfolioTwrPeriod
     }
 
     /**
-     * Get net yr1
+     * Get net yr1.
      *
      * @return float
      */
@@ -251,9 +256,10 @@ class PortfolioTwrPeriod
     }
 
     /**
-     * Set gross yr1
+     * Set gross yr1.
      *
      * @param float $grossYr1
+     *
      * @return ClientTwrPeriod
      */
     public function setGrossYr1($grossYr1)
@@ -264,7 +270,7 @@ class PortfolioTwrPeriod
     }
 
     /**
-     * Get gross yr1
+     * Get gross yr1.
      *
      * @return float
      */
@@ -274,9 +280,10 @@ class PortfolioTwrPeriod
     }
 
     /**
-     * Set net yr3
+     * Set net yr3.
      *
      * @param float $netYr3
+     *
      * @return ClientTwrPeriod
      */
     public function setNetYr3($netYr3)
@@ -287,7 +294,7 @@ class PortfolioTwrPeriod
     }
 
     /**
-     * Get net yr3
+     * Get net yr3.
      *
      * @return float
      */
@@ -297,9 +304,10 @@ class PortfolioTwrPeriod
     }
 
     /**
-     * Set gross yr3
+     * Set gross yr3.
      *
      * @param float $grossYr3
+     *
      * @return ClientTwrPeriod
      */
     public function setGrossYr3($grossYr3)
@@ -310,7 +318,7 @@ class PortfolioTwrPeriod
     }
 
     /**
-     * Get gross yr3
+     * Get gross yr3.
      *
      * @return float
      */
@@ -320,9 +328,10 @@ class PortfolioTwrPeriod
     }
 
     /**
-     * Set net since inception
+     * Set net since inception.
      *
      * @param float $netSinceInception
+     *
      * @return ClientTwrPeriod
      */
     public function setNetSinceInception($netSinceInception)
@@ -333,7 +342,7 @@ class PortfolioTwrPeriod
     }
 
     /**
-     * Get net since inception
+     * Get net since inception.
      *
      * @return float
      */
@@ -343,9 +352,10 @@ class PortfolioTwrPeriod
     }
 
     /**
-     * Set gross since inception
+     * Set gross since inception.
      *
      * @param float $grossSinceInception
+     *
      * @return ClientTwrPeriod
      */
     public function setGrossSinceInception($grossSinceInception)
@@ -356,7 +366,7 @@ class PortfolioTwrPeriod
     }
 
     /**
-     * Get gross since inception
+     * Get gross since inception.
      *
      * @return float
      */
@@ -366,9 +376,10 @@ class PortfolioTwrPeriod
     }
 
     /**
-     * Set client
+     * Set client.
      *
      * @param \Wealthbot\UserBundle\Entity\User $client
+     *
      * @return SystemAccount
      */
     public function setClient(\Wealthbot\UserBundle\Entity\User $client = null)
@@ -379,7 +390,7 @@ class PortfolioTwrPeriod
     }
 
     /**
-     * Get client
+     * Get client.
      *
      * @return \Wealthbot\UserBundle\Entity\User
      */

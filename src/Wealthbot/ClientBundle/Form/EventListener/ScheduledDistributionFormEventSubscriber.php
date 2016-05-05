@@ -9,16 +9,15 @@
 
 namespace Wealthbot\ClientBundle\Form\EventListener;
 
-
-use Wealthbot\ClientBundle\Entity\Distribution;
-use Wealthbot\ClientBundle\Form\Validator\ScheduledDistributionFormValidator;
-use Wealthbot\ClientBundle\Form\Validator\BankInformationFormValidator;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
+use Wealthbot\ClientBundle\Entity\Distribution;
+use Wealthbot\ClientBundle\Form\Validator\BankInformationFormValidator;
+use Wealthbot\ClientBundle\Form\Validator\ScheduledDistributionFormValidator;
 
 class ScheduledDistributionFormEventSubscriber implements EventSubscriberInterface
 {
@@ -31,15 +30,15 @@ class ScheduledDistributionFormEventSubscriber implements EventSubscriberInterfa
 
     public static function getSubscribedEvents()
     {
-        return array(
+        return [
             FormEvents::PRE_SET_DATA => 'preSetData',
-            FormEvents::PRE_BIND     => 'preBind',
-            FormEvents::BIND         => 'bind'
-        );
+            FormEvents::PRE_SUBMIT => 'preBind',
+            FormEvents::SUBMIT => 'bind',
+        ];
     }
 
     /**
-     * PRE_SET_DATA event handler
+     * PRE_SET_DATA event handler.
      *
      * @param FormEvent $event
      */
@@ -48,7 +47,7 @@ class ScheduledDistributionFormEventSubscriber implements EventSubscriberInterfa
         $data = $event->getData();
         $form = $event->getForm();
 
-        $date = array('month' => '', 'day' => '');
+        $date = ['month' => '', 'day' => ''];
         if ($data !== null && $data->getTransferDate()) {
             /** @var \DateTime $transferDate */
             $transferDate = $data->getTransferDate();
@@ -61,18 +60,17 @@ class ScheduledDistributionFormEventSubscriber implements EventSubscriberInterfa
 
         $frequencyChoices = $this->getFrequencyChoices();
         if (is_array($frequencyChoices) && count($frequencyChoices)) {
-            $form->add($this->factory->createNamed('frequency', 'choice', null, array(
+            $form->add($this->factory->createNamed('frequency', 'choice', null, [
                 'choices' => $frequencyChoices,
                 'expanded' => true,
                 'multiple' => false,
-                'required' => false
-            )));
+                'required' => false,
+            ]));
         }
-
     }
 
     /**
-     * PRE_BIND event handler
+     * PRE_SUBMIT event handler.
      *
      * @param FormEvent $event
      */
@@ -82,17 +80,17 @@ class ScheduledDistributionFormEventSubscriber implements EventSubscriberInterfa
         $form = $event->getForm();
 
         if (array_key_exists('transfer_date_month', $data) && array_key_exists('transfer_date_day', $data)) {
-            $this->updateStartTransferDate($form, array(
+            $this->updateStartTransferDate($form, [
                     'day' => $data['transfer_date_day'],
-                    'month' => $data['transfer_date_month']
-                )
+                    'month' => $data['transfer_date_month'],
+                ]
             );
         }
     }
 
     /**
      * BIND event handler
-     * Validate form fields
+     * Validate form fields.
      *
      * @param FormEvent $event
      */
@@ -107,7 +105,7 @@ class ScheduledDistributionFormEventSubscriber implements EventSubscriberInterfa
             $year = date('Y');
 
             if ($month && $day) {
-                $date = new \DateTime($year . '-' . $month . '-' . $day);
+                $date = new \DateTime($year.'-'.$month.'-'.$day);
                 $data->setTransferDate($date);
             }
         }
@@ -127,31 +125,30 @@ class ScheduledDistributionFormEventSubscriber implements EventSubscriberInterfa
                 $bankInformationValidator->validate();
             }
         }
-
     }
 
     /**
-     * Add transfer date fields
+     * Add transfer date fields.
      *
      * @param FormInterface $form
-     * @param array $date
+     * @param array         $date
      */
     protected function updateStartTransferDate(FormInterface $form, array $date)
     {
-        $form->add($this->factory->createNamed('transfer_date_month', 'text', null, array(
-            'attr' => array('value' => $date['month']),
+        $form->add($this->factory->createNamed('transfer_date_month', 'text', null, [
+            'attr' => ['value' => $date['month']],
             'mapped' => false,
-            'required' => false
-        )))
-        ->add($this->factory->createNamed('transfer_date_day', 'text', null, array(
-            'attr' => array('value' => $date['day']),
+            'required' => false,
+        ]))
+        ->add($this->factory->createNamed('transfer_date_day', 'text', null, [
+            'attr' => ['value' => $date['day']],
             'mapped' => false,
-            'required' => false
-        )));
+            'required' => false,
+        ]));
     }
 
     /**
-     * Get choices for frequency field
+     * Get choices for frequency field.
      *
      * @return array
      */
@@ -159,5 +156,4 @@ class ScheduledDistributionFormEventSubscriber implements EventSubscriberInterfa
     {
         return array_reverse(Distribution::getFrequencyChoices(), true);
     }
-
 }

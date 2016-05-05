@@ -2,12 +2,11 @@
 
 namespace Wealthbot\RiaBundle\Form\Handler;
 
+use Doctrine\ORM\EntityManager;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
-use Doctrine\ORM\EntityManager;
-
-use Wealthbot\UserBundle\Entity\User;
 use Wealthbot\UserBundle\Entity\Profile;
+use Wealthbot\UserBundle\Entity\User;
 
 class CreateClientFormHandler
 {
@@ -24,13 +23,12 @@ class CreateClientFormHandler
 
     public function process(User $ria)
     {
-        if ('POST' == $this->request->getMethod()) {
-            $this->form->bind($this->request);
+        if ('POST' === $this->request->getMethod()) {
+            $this->form->submit($this->request);
 
             if ($this->form->isValid()) {
-
                 $client = $this->form->getData();
-                $client->setRoles(array('ROLE_CLIENT'));
+                $client->setRoles(['ROLE_CLIENT']);
 
                 $profile = $client->getProfile();
                 $profile->setRegistrationStep(0);
@@ -43,6 +41,7 @@ class CreateClientFormHandler
                 return true;
             }
         }
+
         return false;
     }
 }

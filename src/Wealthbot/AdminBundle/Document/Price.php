@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Wealthbot\AdminBundle\Document;
 
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
@@ -8,8 +7,8 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 /**
  * @MongoDB\Document(collection="prices")
  */
-class Price {
-
+class Price
+{
     /**
      * @MongoDB\Id
      */
@@ -198,7 +197,4 @@ class Price {
     {
         return $this->symbol;
     }
-
-
-
 }

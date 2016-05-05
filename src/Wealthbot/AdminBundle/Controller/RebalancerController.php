@@ -1,6 +1,9 @@
 <?php
+
 namespace Wealthbot\AdminBundle\Controller;
 
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Wealthbot\AdminBundle\Document\RebalanceProgress;
 use Wealthbot\AdminBundle\Entity\Job;
 use Wealthbot\AdminBundle\Entity\RebalancerAction;
@@ -12,8 +15,6 @@ use Wealthbot\ClientBundle\Manager\ClientAccountValuesManager;
 use Wealthbot\RiaBundle\Form\Handler\RebalanceHistoryFilterFormHandler;
 use Wealthbot\RiaBundle\Form\Type\RebalanceFormType;
 use Wealthbot\RiaBundle\Form\Type\RebalanceHistoryFilterFormType;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 
 class RebalancerController extends AclController
 {
@@ -30,7 +31,7 @@ class RebalancerController extends AclController
         $clientValuesPagination = $paginator->paginate($clientValues, $request->get('page', 1), 20);
         $clientValuesPagination->setUsedRoute('rx_admin_rebalancer');
 
-        $clientValueIds = array();
+        $clientValueIds = [];
         foreach ($clientValuesPagination->getItems() as $item) {
             $clientValueIds[$item->getId()] = $item->getId();
         }
@@ -38,20 +39,20 @@ class RebalancerController extends AclController
         $chooseRebalanceTypeForm = $this->createForm(new RebalanceFormType($clientValueIds, true));
 
         if ($request->isXmlHttpRequest()) {
-            return $this->getJsonResponse(array(
+            return $this->getJsonResponse([
                 'status' => 'success',
-                'content' => $this->renderView('WealthbotAdminBundle:Rebalancer:_rebalance_table.html.twig', array(
+                'content' => $this->renderView('WealthbotAdminBundle:Rebalancer:_rebalance_table.html.twig', [
                         'client_values_pagination' => $clientValuesPagination,
                         'is_history' => false,
-                        'form' => $chooseRebalanceTypeForm->createView()
-                    ))
-            ));
+                        'form' => $chooseRebalanceTypeForm->createView(),
+                    ]),
+            ]);
         }
 
-        return $this->render('WealthbotAdminBundle:Rebalancer:index.html.twig', array(
+        return $this->render('WealthbotAdminBundle:Rebalancer:index.html.twig', [
             'client_values_pagination' => $clientValuesPagination,
-            'form' => $chooseRebalanceTypeForm->createView()
-        ));
+            'form' => $chooseRebalanceTypeForm->createView(),
+        ]);
     }
 
     public function historyAction(Request $request)
@@ -61,25 +62,24 @@ class RebalancerController extends AclController
         $paginator = $this->get('knp_paginator');
         $session = $this->get('session');
 
-        $filters = $session->get('rebalance_history_filter', array());
+        $filters = $session->get('rebalance_history_filter', []);
 
         $historyFilterForm = $this->createForm(new RebalanceHistoryFilterFormType(), $filters);
 
         if ($request->get('is_filter')) {
-            $historyFilterFormHandler = new RebalanceHistoryFilterFormHandler($historyFilterForm, $request, $em, array(
-                'session' => $session
-            ));
+            $historyFilterFormHandler = new RebalanceHistoryFilterFormHandler($historyFilterForm, $request, $em, [
+                'session' => $session,
+            ]);
 
             if ($historyFilterFormHandler->process()) {
-                $filters = $session->get('rebalance_history_filter', array());
+                $filters = $session->get('rebalance_history_filter', []);
             } else {
-
-                $this->getJsonResponse(array(
+                $this->getJsonResponse([
                     'status' => 'error',
-                    'content' => $this->renderView('WealthbotRiaBundle:Rebalancer:_history_filter_form.html.twig', array(
-                            'history_filter_form' => $historyFilterForm
-                        ))
-                ));
+                    'content' => $this->renderView('WealthbotRiaBundle:Rebalancer:_history_filter_form.html.twig', [
+                            'history_filter_form' => $historyFilterForm,
+                        ]),
+                ]);
             }
         }
 
@@ -88,17 +88,17 @@ class RebalancerController extends AclController
         $historyClientValuesPagination = $paginator->paginate($historyClientValuesQuery, $request->get('page', 1), 20);
         $historyClientValuesPagination->setUsedRoute('rx_admin_rebalancer_history');
 
-        $responseData = array(
+        $responseData = [
             'client_values_pagination' => $historyClientValuesPagination,
             'is_history' => true,
-            'history_filter_form' => $historyFilterForm->createView()
-        );
+            'history_filter_form' => $historyFilterForm->createView(),
+        ];
 
         if ($request->isXmlHttpRequest()) {
-            return $this->getJsonResponse(array(
+            return $this->getJsonResponse([
                 'status' => 'success',
-                'content' => $this->renderView('WealthbotAdminBundle:Rebalancer:_rebalance_table.html.twig', $responseData)
-            ));
+                'content' => $this->renderView('WealthbotAdminBundle:Rebalancer:_rebalance_table.html.twig', $responseData),
+            ]);
         }
 
         return $this->render('WealthbotAdminBundle:Rebalancer:history.html.twig', $responseData);
@@ -115,24 +115,23 @@ class RebalancerController extends AclController
         $admin = $this->getUser();
 
         /** @var RebalanceProgress $rebalanceProgress */
-        $rebalanceProgress = $dm->getRepository('WealthbotAdminBundle:RebalanceProgress')->findOneBy(array('userId' => $admin->getId()));
+        $rebalanceProgress = $dm->getRepository('WealthbotAdminBundle:RebalanceProgress')->findOneBy(['userId' => $admin->getId()]);
 
         if (!$rebalanceProgress) {
-            return $this->getJsonResponse(array(
-                'status' => 'error'
-            ));
+            return $this->getJsonResponse([
+                'status' => 'error',
+            ]);
         }
 
         $total = $rebalanceProgress->getTotalCount();
         $complete = $rebalanceProgress->getCompleteCount();
         $progress = ($complete / $total) * 100;
 
-        return $this->getJsonResponse(array(
+        return $this->getJsonResponse([
             'status' => 'success',
-            'progress' => (int) $progress
-        ));
+            'progress' => (int) $progress,
+        ]);
     }
-
 
     public function postRebalanceAction(Request $request)
     {
@@ -142,8 +141,8 @@ class RebalancerController extends AclController
         $admin = $this->getUser();
 
         /** @var RebalanceProgress $progress */
-        $progress = $dm->getRepository('WealthbotAdminBundle:RebalanceProgress')->findOneBy(array('userId' => $admin->getId()));
-        if ($progress && $progress->getTotalCount() == $progress->getCompleteCount()) {
+        $progress = $dm->getRepository('WealthbotAdminBundle:RebalanceProgress')->findOneBy(['userId' => $admin->getId()]);
+        if ($progress && $progress->getTotalCount() === $progress->getCompleteCount()) {
             $dm->remove($progress);
             $dm->flush();
         }
@@ -162,24 +161,24 @@ class RebalancerController extends AclController
         $clientValuesPagination = $paginator->paginate($clientValues, $request->get('page', 1), 100);
         $clientValuesPagination->setUsedRoute('rx_admin_rebalance_post_rebalance');
 
-        $clientValuesIds = array();
+        $clientValuesIds = [];
         foreach ($clientValuesPagination->getItems() as $clientValue) {
             $clientValuesIds[] = $clientValue->getId();
         }
 
         $form = $this->createForm(new RebalanceFormType($clientValuesIds));
 
-        $responseData = array(
+        $responseData = [
             'client_values_pagination' => $clientValuesPagination,
             'is_history' => false,
-            'form' => $form->createView()
-        );
+            'form' => $form->createView(),
+        ];
 
         if ($request->isXmlHttpRequest()) {
-            return $this->getJsonResponse(array(
+            return $this->getJsonResponse([
                 'status' => 'success',
-                'content' => $this->renderView('WealthbotAdminBundle:Rebalancer:_rebalance_table.html.twig', $responseData)
-            ));
+                'content' => $this->renderView('WealthbotAdminBundle:Rebalancer:_rebalance_table.html.twig', $responseData),
+            ]);
         }
 
         return $this->render('WealthbotAdminBundle:Rebalancer:post_rebalance.html.twig', $responseData);
@@ -197,12 +196,12 @@ class RebalancerController extends AclController
 
         $clientValue = $clientAccountValuesManager->find($clientValueId);
 
-        return $this->getJsonResponse(array(
+        return $this->getJsonResponse([
             'status' => 'success',
-            'content' => $this->renderView('WealthbotRiaBundle:Rebalancer:_rebalance_details.html.twig', array(
-                    'client_value' => $clientValue
-                ))
-        ));
+            'content' => $this->renderView('WealthbotRiaBundle:Rebalancer:_rebalance_details.html.twig', [
+                    'client_value' => $clientValue,
+                ]),
+        ]);
     }
 
     public function accountsViewAction(Request $request)
@@ -218,20 +217,20 @@ class RebalancerController extends AclController
         $clientPortfolioValue = $em->getRepository('WealthbotClientBundle:ClientPortfolio')->find($clientPortfolioId);
 
         if (!$clientPortfolioValue) {
-            $this->getJsonResponse(array(
+            $this->getJsonResponse([
                 'status' => 'error',
-                'content' => 'client portfolio not found'
-            ));
+                'content' => 'client portfolio not found',
+            ]);
         }
 
         $clientAccountValues = $em->getRepository('WealthbotClientBundle:ClientAccountValue')->findLatestValuesForClientPortfolio($clientPortfolioId);
 
-        return $this->getJsonResponse(array(
+        return $this->getJsonResponse([
             'status' => 'success',
-            'content' => $this->renderView('WealthbotRiaBundle:Rebalancer:_rebalance_account_list.html.twig', array(
+            'content' => $this->renderView('WealthbotRiaBundle:Rebalancer:_rebalance_account_list.html.twig', [
                     'client_account_values' => $clientAccountValues,
-                ))
-        ));
+                ]),
+        ]);
     }
 
     public function startAction(Request $request)
@@ -247,10 +246,9 @@ class RebalancerController extends AclController
         $formValues = $request->get('rebalance_form');
 
         if (isset($formValues['is_all']) && $formValues['is_all']) {
-
             $clientValues = $clientAccountValuesManager->getLatestClientAccountValuesForAdmin($ria, $clientPortfolioManager);
 
-            $clientValuesIds = array();
+            $clientValuesIds = [];
             foreach ($clientValues as $clientValue) {
                 $clientValuesIds[] = $clientValue->getId();
             }
@@ -258,17 +256,15 @@ class RebalancerController extends AclController
             $clientValuesIds = $formValues['client_value'];
         }
 
-
         if (!$request->isXmlHttpRequest() || empty($clientValuesIds)) {
             throw $this->createNotFoundException();
         }
 
         $form = $this->createForm(new RebalanceFormType($clientValuesIds, true));
 
-        $form->bind($request);
+        $form->submit($request);
 
         if ($form->isValid()) {
-
             $formData = $form->getData();
 
             $rebalanceType = isset($formData['rebalance_type']) ? $formData['rebalance_type'] : null;
@@ -287,7 +283,6 @@ class RebalancerController extends AclController
             $dm->clear();
 
             foreach ($clientValuesIds as $clientValueId) {
-
                 $accountValue = $clientAccountValuesManager->find($clientValueId);
                 $portfolioValue = $clientPortfolioValuesManager->getLatestValuesForPortfolio($accountValue->getClientPortfolio());
 
@@ -295,7 +290,7 @@ class RebalancerController extends AclController
 
                 $em->persist($rebalancerAction);
 
-                $progress->setCompleteCount($progress->getCompleteCount()+1);
+                $progress->setCompleteCount($progress->getCompleteCount() + 1);
                 $dm->persist($progress);
             }
 
@@ -312,14 +307,14 @@ class RebalancerController extends AclController
             $em->flush();
             $em->clear();
 
-            return $this->getJsonResponse(array(
-                'status' => 'success'
-            ));
+            return $this->getJsonResponse([
+                'status' => 'success',
+            ]);
         }
 
-        return $this->getJsonResponse(array(
-            'status' => 'error'
-        ));
+        return $this->getJsonResponse([
+            'status' => 'error',
+        ]);
     }
 
     private function createJob($type)
@@ -333,9 +328,10 @@ class RebalancerController extends AclController
     }
 
     /**
-     * @param Job $job
+     * @param Job             $job
      * @param ClientPortfolio $clientPortfolio
-     * @param SystemAccount $systemAccount
+     * @param SystemAccount   $systemAccount
+     *
      * @return RebalancerAction
      */
     private function createRebalancerAction(Job $job, ClientPortfolioValue $clientPortfolioValue, ClientAccountValue $clientAccountValue = null)
@@ -357,6 +353,6 @@ class RebalancerController extends AclController
     {
         $response = json_encode($data);
 
-        return new Response($response, $code, array('Content-Type'=>'application/json'));
+        return new Response($response, $code, ['Content-Type' => 'application/json']);
     }
 }

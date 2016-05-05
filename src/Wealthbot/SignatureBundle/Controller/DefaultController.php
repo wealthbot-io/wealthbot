@@ -9,17 +9,10 @@
 
 namespace Wealthbot\SignatureBundle\Controller;
 
-
-use Wealthbot\SignatureBundle\Adapter\AccountOwnerRecipientAdapter;
-use Wealthbot\SignatureBundle\Entity\AccountOwnerSignature;
-use Wealthbot\SignatureBundle\Entity\DocumentOwnerSignature;
-use Wealthbot\SignatureBundle\Entity\DocumentSignature;
-use Wealthbot\SignatureBundle\Model\Envelope;
-use Wealthbot\UserBundle\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Wealthbot\UserBundle\Entity\User;
 
 class DefaultController extends Controller
 {
@@ -31,21 +24,21 @@ class DefaultController extends Controller
         $repository = $em->getRepository('WealthbotClientBundle:ClientAccount');
         $client = $this->getUser();
 
-        $account = $repository->findOneBy(array('id' => $account_id, 'client_id' => $client->getId()));
+        $account = $repository->findOneBy(['id' => $account_id, 'client_id' => $client->getId()]);
         if (!$account) {
-            return $this->getJsonResponse(array(
+            return $this->getJsonResponse([
                 'status' => 'error',
-                'message' => 'Account does not exist or does not belong to you.'
-            ));
+                'message' => 'Account does not exist or does not belong to you.',
+            ]);
         }
 
         if (!$accountSignatureManager->isApplicationSigned($account->getId())) {
-            $result = array(
+            $result = [
                 'status' => 'error',
-                'message' => 'You have not signed applications. Please sign all applications.'
-            );
+                'message' => 'You have not signed applications. Please sign all applications.',
+            ];
         } else {
-            $result = array('status' => 'success');
+            $result = ['status' => 'success'];
         }
 
         return $this->getJsonResponse($result);
@@ -60,7 +53,6 @@ class DefaultController extends Controller
         $primaryContact = 'RiaFirst RiaLast';
         $accountType = 'rollover_ira';
 
-
         $fdf = '%FDF-1.2
 1 0 obj<</FDF<< /Fields[
 <</T(firm_name)/V('.$firmName.')>>
@@ -72,13 +64,13 @@ trailer
 <</Root 1 0 R>>
 %%EOF';
 
-        file_put_contents($dir . '/' . $filename . '_tmp.fdf', $fdf);
+        file_put_contents($dir.'/'.$filename.'_tmp.fdf', $fdf);
 
         $command = 'cd uploads/signature_pdfs ';
-        $command .= '&& pdftk ' . $filename . '.pdf fill_form ' . $filename . '_tmp.fdf output ' . $filename . '_filled.pdf';
+        $command .= '&& pdftk '.$filename.'.pdf fill_form '.$filename.'_tmp.fdf output '.$filename.'_filled.pdf';
 
         exec($command);
-        unlink($dir . '/' . $filename . '_tmp.fdf');
+        unlink($dir.'/'.$filename.'_tmp.fdf');
 
         return 'Complete.';
     }
@@ -87,6 +79,6 @@ trailer
     {
         $response = json_encode($data);
 
-        return new Response($response, $code, array('Content-Type'=>'application/json'));
+        return new Response($response, $code, ['Content-Type' => 'application/json']);
     }
 }

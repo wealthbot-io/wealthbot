@@ -15,10 +15,11 @@ use Wealthbot\UserBundle\Entity\User;
 interface MailerInterface
 {
     /**
-     * Send an email to a $toEmail with message about ria activated
+     * Send an email to a $toEmail with message about ria activated.
      *
      * @param $toEmail
      * @param \Wealthbot\UserBundle\Entity\User $ria
+     *
      * @return mixed
      */
     public function sendRiaActivatedEmailMessage($toEmail, User $ria);

@@ -9,7 +9,6 @@
 
 namespace Wealthbot\SignatureBundle\Docusign;
 
-
 class DocusignChecker
 {
     private $conditions;
@@ -17,16 +16,17 @@ class DocusignChecker
     public function __construct($conditions)
     {
         if (!is_array($conditions)) {
-            $conditions = array($conditions);
+            $conditions = [$conditions];
         }
 
         $this->conditions = $conditions;
     }
 
     /**
-     * Check conditions by $param
+     * Check conditions by $param.
      *
      * @param $param
+     *
      * @return bool
      */
     public function checkConditions($param)

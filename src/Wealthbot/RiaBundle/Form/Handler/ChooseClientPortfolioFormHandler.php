@@ -2,13 +2,10 @@
 
 namespace Wealthbot\RiaBundle\Form\Handler;
 
-
 use Wealthbot\AdminBundle\Form\Handler\AbstractFormHandler;
 use Wealthbot\AdminBundle\Manager\CeModelManager;
 use Wealthbot\ClientBundle\Manager\ClientPortfolioManager;
-use Wealthbot\ClientBundle\Model\ClientPortfolio;
 use Wealthbot\UserBundle\Entity\Profile;
-use Symfony\Component\HttpFoundation\Request;
 
 class ChooseClientPortfolioFormHandler extends AbstractFormHandler
 {

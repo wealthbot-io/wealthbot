@@ -16,14 +16,14 @@ use Wealthbot\SignatureBundle\Entity\DocumentSignature;
 use Wealthbot\SignatureBundle\Model\SignableInterface;
 
 /**
- * Class ClientAccount
+ * Class ClientAccount.
  *
  * @Orm\MappedSuperClass
  */
 class ClientAccount implements WorkflowableInterface, SignableInterface
 {
     /**
-     * @var integer $id
+     * @var int
      */
     protected $id;
 
@@ -33,7 +33,7 @@ class ClientAccount implements WorkflowableInterface, SignableInterface
     protected $groupType;
 
     /**
-     * @var integer $client_id
+     * @var int
      */
     protected $client_id;
 
@@ -43,7 +43,7 @@ class ClientAccount implements WorkflowableInterface, SignableInterface
     protected $client;
 
     /**
-     * @var integer
+     * @var int
      */
     protected $process_step;
 
@@ -54,27 +54,27 @@ class ClientAccount implements WorkflowableInterface, SignableInterface
     const PROCESS_STEP_STARTED_TRANSFER = 1;
     const PROCESS_STEP_FINISHED_APPLICATION = 2;
 
-    protected static $_processSteps = array(
-        AccountGroup::GROUP_DEPOSIT_MONEY => array(
+    protected static $_processSteps = [
+        AccountGroup::GROUP_DEPOSIT_MONEY => [
             self::PROCESS_STEP_START_TRANSFER => 'Start Account Application',
             self::PROCESS_STEP_STARTED_TRANSFER => 'Continue Your Progress',
-            self::PROCESS_STEP_FINISHED_APPLICATION => 'Application Completed'
-        ),
-        AccountGroup::GROUP_FINANCIAL_INSTITUTION => array(
+            self::PROCESS_STEP_FINISHED_APPLICATION => 'Application Completed',
+        ],
+        AccountGroup::GROUP_FINANCIAL_INSTITUTION => [
             self::PROCESS_STEP_START_TRANSFER => 'Start Transfer Application',
             self::PROCESS_STEP_STARTED_TRANSFER => 'Continue Your Progress',
-            self::PROCESS_STEP_FINISHED_APPLICATION => 'Application Completed'
-        ),
-        AccountGroup::GROUP_OLD_EMPLOYER_RETIREMENT => array(
+            self::PROCESS_STEP_FINISHED_APPLICATION => 'Application Completed',
+        ],
+        AccountGroup::GROUP_OLD_EMPLOYER_RETIREMENT => [
             self::PROCESS_STEP_START_TRANSFER => 'Start Rollover Application',
             self::PROCESS_STEP_STARTED_TRANSFER => 'Continue Your Progress',
-            self::PROCESS_STEP_FINISHED_APPLICATION => 'Application Completed'
-        ),
-        AccountGroup::GROUP_EMPLOYER_RETIREMENT => array(
-            self::PROCESS_STEP_NEED_CREDENTIALS =>'Enter Credentials',
-            self::PROCESS_STEP_COMPLETED_CREDENTIALS => 'Application Completed'
-        )
-    );
+            self::PROCESS_STEP_FINISHED_APPLICATION => 'Application Completed',
+        ],
+        AccountGroup::GROUP_EMPLOYER_RETIREMENT => [
+            self::PROCESS_STEP_NEED_CREDENTIALS => 'Enter Credentials',
+            self::PROCESS_STEP_COMPLETED_CREDENTIALS => 'Application Completed',
+        ],
+    ];
 
     /**
      * @var string
@@ -94,7 +94,7 @@ class ClientAccount implements WorkflowableInterface, SignableInterface
     const STEP_ACTION_CREDENTIALS = 'credentials';
     const STEP_ACTION_FINISHED = 'finished';
 
-    static private $_stepActionValues = null;
+    private static $_stepActionValues = null;
 
     /**
      * @var \Wealthbot\ClientBundle\Entity\SystemAccount
@@ -102,17 +102,17 @@ class ClientAccount implements WorkflowableInterface, SignableInterface
     protected $systemAccount;
 
     /**
-     * @var string $financial_institution
+     * @var string
      */
     protected $financial_institution;
 
     /**
-     * @var float $monthly_contributions
+     * @var float
      */
     protected $monthly_contributions;
 
     /**
-     * @var float $monthly_distributions
+     * @var float
      */
     protected $monthly_distributions;
 
@@ -125,12 +125,12 @@ class ClientAccount implements WorkflowableInterface, SignableInterface
     const OWNER_SELF = 'self';
     const OWNER_SPOUSE = 'spouse';
 
-    static private $_ownerValues = null;
+    private static $_ownerValues = null;
 
     /**
      * @var \Wealthbot\ClientBundle\Entity\TransferInformation
      */
-    protected  $transferInformation;
+    protected $transferInformation;
 
     /**
      * @var \Doctrine\Common\Collections\Collection
@@ -138,12 +138,12 @@ class ClientAccount implements WorkflowableInterface, SignableInterface
     protected $beneficiaries;
 
     /**
-     * @var integer
+     * @var int
      */
     protected $system_type;
 
     /**
-     * @var integer
+     * @var int
      */
     protected $consolidator_id;
 
@@ -162,9 +162,8 @@ class ClientAccount implements WorkflowableInterface, SignableInterface
      */
     protected $accountOwners;
 
-
     /**
-     * Constructor
+     * Constructor.
      */
     public function __construct()
     {
@@ -172,9 +171,9 @@ class ClientAccount implements WorkflowableInterface, SignableInterface
     }
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer
+     * @return int
      */
     public function getId()
     {
@@ -182,9 +181,10 @@ class ClientAccount implements WorkflowableInterface, SignableInterface
     }
 
     /**
-     * Set client_id
+     * Set client_id.
      *
-     * @param integer $clientId
+     * @param int $clientId
+     *
      * @return ClientAccount
      */
     public function setClientId($clientId)
@@ -195,9 +195,9 @@ class ClientAccount implements WorkflowableInterface, SignableInterface
     }
 
     /**
-     * Get client_id
+     * Get client_id.
      *
-     * @return integer
+     * @return int
      */
     public function getClientId()
     {
@@ -205,9 +205,10 @@ class ClientAccount implements WorkflowableInterface, SignableInterface
     }
 
     /**
-     * Set client
+     * Set client.
      *
      * @param \Wealthbot\UserBundle\Entity\User $client
+     *
      * @return ClientAccount
      */
     public function setClient(\Wealthbot\UserBundle\Entity\User $client = null)
@@ -218,7 +219,7 @@ class ClientAccount implements WorkflowableInterface, SignableInterface
     }
 
     /**
-     * Get client
+     * Get client.
      *
      * @return \Wealthbot\UserBundle\Entity\User
      */
@@ -228,9 +229,10 @@ class ClientAccount implements WorkflowableInterface, SignableInterface
     }
 
     /**
-     * Set financial_institution
+     * Set financial_institution.
      *
      * @param string $financialInstitution
+     *
      * @return ClientAccount
      */
     public function setFinancialInstitution($financialInstitution)
@@ -241,7 +243,7 @@ class ClientAccount implements WorkflowableInterface, SignableInterface
     }
 
     /**
-     * Get financial_institution
+     * Get financial_institution.
      *
      * @return string
      */
@@ -251,19 +253,20 @@ class ClientAccount implements WorkflowableInterface, SignableInterface
     }
 
     /**
-     * Get array ENUM values step_action column
+     * Get array ENUM values step_action column.
      *
      * @static
+     *
      * @return array
      */
-    static public function getStepActionChoices()
+    public static function getStepActionChoices()
     {
         // Build $_typeValues if this is the first call
         if (self::$_stepActionValues === null) {
-            self::$_stepActionValues = array();
+            self::$_stepActionValues = [];
             $oClass = new \ReflectionClass('\Wealthbot\ClientBundle\Model\ClientAccount');
             $classConstants = $oClass->getConstants();
-            $constantPrefix = "STEP_ACTION_";
+            $constantPrefix = 'STEP_ACTION_';
             foreach ($classConstants as $key => $val) {
                 if (substr($key, 0, strlen($constantPrefix)) === $constantPrefix) {
                     self::$_stepActionValues[$val] = $val;
@@ -275,9 +278,10 @@ class ClientAccount implements WorkflowableInterface, SignableInterface
     }
 
     /**
-     * Set groupType
+     * Set groupType.
      *
      * @param \Wealthbot\ClientBundle\Entity\AccountGroupType $groupType
+     *
      * @return ClientAccount
      */
     public function setGroupType(\Wealthbot\ClientBundle\Entity\AccountGroupType $groupType = null)
@@ -288,7 +292,7 @@ class ClientAccount implements WorkflowableInterface, SignableInterface
     }
 
     /**
-     * Get groupType
+     * Get groupType.
      *
      * @return \Wealthbot\ClientBundle\Entity\AccountGroupType
      */
@@ -298,9 +302,10 @@ class ClientAccount implements WorkflowableInterface, SignableInterface
     }
 
     /**
-     * Set process_step
+     * Set process_step.
      *
-     * @param integer $processStep
+     * @param int $processStep
+     *
      * @return ClientAccount
      */
     public function setProcessStep($processStep)
@@ -311,9 +316,9 @@ class ClientAccount implements WorkflowableInterface, SignableInterface
     }
 
     /**
-     * Get process_step
+     * Get process_step.
      *
-     * @return integer
+     * @return int
      */
     public function getProcessStep()
     {
@@ -321,10 +326,12 @@ class ClientAccount implements WorkflowableInterface, SignableInterface
     }
 
     /**
-     * Get account process by process_step and account group
+     * Get account process by process_step and account group.
      *
      * @return mixed
+     *
      * @throws \Exception
+     *
      * @return string
      */
     public function getProcess()
@@ -348,10 +355,12 @@ class ClientAccount implements WorkflowableInterface, SignableInterface
     }
 
     /**
-     * Set step_action
+     * Set step_action.
      *
      * @param string $stepAction
+     *
      * @return ClientAccount
+     *
      * @throws \InvalidArgumentException
      */
     public function setStepAction($stepAction)
@@ -368,7 +377,7 @@ class ClientAccount implements WorkflowableInterface, SignableInterface
     }
 
     /**
-     * Get step_action
+     * Get step_action.
      *
      * @return string
      */
@@ -377,9 +386,8 @@ class ClientAccount implements WorkflowableInterface, SignableInterface
         return $this->step_action;
     }
 
-
     /**
-     * Get name of group of account
+     * Get name of group of account.
      *
      * @return null|string
      */
@@ -401,7 +409,7 @@ class ClientAccount implements WorkflowableInterface, SignableInterface
     }
 
     /**
-     * Get name of type of account
+     * Get name of type of account.
      *
      * @return null|string
      */
@@ -423,7 +431,7 @@ class ClientAccount implements WorkflowableInterface, SignableInterface
     }
 
     /**
-     * Get account type string
+     * Get account type string.
      *
      * @return string
      */
@@ -443,15 +451,15 @@ class ClientAccount implements WorkflowableInterface, SignableInterface
 
         $result = $this->getOwnersAsString();
         if (null !== $employerName) {
-            $result .= ' ' . $employerName;
+            $result .= ' '.$employerName;
         }
-        $result .= ' ' . $this->getTypeName();
+        $result .= ' '.$this->getTypeName();
 
         return $result;
     }
 
     /**
-     * Get account type by group
+     * Get account type by group.
      *
      * @return null|string
      */
@@ -481,7 +489,7 @@ class ClientAccount implements WorkflowableInterface, SignableInterface
     }
 
     /**
-     * Get account activity by group
+     * Get account activity by group.
      *
      * @return null|string
      */
@@ -511,9 +519,10 @@ class ClientAccount implements WorkflowableInterface, SignableInterface
     }
 
     /**
-     * Set transferInformation
+     * Set transferInformation.
      *
      * @param \Wealthbot\ClientBundle\Entity\TransferInformation $transferInformation
+     *
      * @return $this
      */
     public function setTransferInformation(\Wealthbot\ClientBundle\Entity\TransferInformation $transferInformation = null)
@@ -524,7 +533,7 @@ class ClientAccount implements WorkflowableInterface, SignableInterface
     }
 
     /**
-     * Get transferInformation
+     * Get transferInformation.
      *
      * @return \Wealthbot\ClientBundle\Entity\TransferInformation
      */
@@ -534,9 +543,10 @@ class ClientAccount implements WorkflowableInterface, SignableInterface
     }
 
     /**
-     * Add beneficiaries
+     * Add beneficiaries.
      *
      * @param \Wealthbot\ClientBundle\Entity\Beneficiary $beneficiaries
+     *
      * @return ClientAccount
      */
     public function addBeneficiarie(\Wealthbot\ClientBundle\Entity\Beneficiary $beneficiaries)
@@ -547,7 +557,7 @@ class ClientAccount implements WorkflowableInterface, SignableInterface
     }
 
     /**
-     * Remove beneficiaries
+     * Remove beneficiaries.
      *
      * @param \Wealthbot\ClientBundle\Entity\Beneficiary $beneficiaries
      */
@@ -557,7 +567,7 @@ class ClientAccount implements WorkflowableInterface, SignableInterface
     }
 
     /**
-     * Get beneficiaries
+     * Get beneficiaries.
      *
      * @return \Doctrine\Common\Collections\Collection
      */
@@ -567,10 +577,12 @@ class ClientAccount implements WorkflowableInterface, SignableInterface
     }
 
     /**
-     * Set system_type
+     * Set system_type.
      *
      * @param $systemType
+     *
      * @return $this
+     *
      * @throws \InvalidArgumentException
      */
     public function setSystemType($systemType)
@@ -589,7 +601,7 @@ class ClientAccount implements WorkflowableInterface, SignableInterface
     }
 
     /**
-     * Get system_type
+     * Get system_type.
      *
      * @return int
      */
@@ -599,7 +611,7 @@ class ClientAccount implements WorkflowableInterface, SignableInterface
     }
 
     /**
-     * Get system_type as string
+     * Get system_type as string.
      *
      * @return string
      */
@@ -611,9 +623,10 @@ class ClientAccount implements WorkflowableInterface, SignableInterface
     }
 
     /**
-     * Set accountContribution
+     * Set accountContribution.
      *
      * @param \Wealthbot\ClientBundle\Entity\AccountContribution $accountContribution
+     *
      * @return ClientAccount
      */
     public function setAccountContribution(\Wealthbot\ClientBundle\Entity\AccountContribution $accountContribution = null)
@@ -624,7 +637,7 @@ class ClientAccount implements WorkflowableInterface, SignableInterface
     }
 
     /**
-     * Get accountContribution
+     * Get accountContribution.
      *
      * @return \Wealthbot\ClientBundle\Entity\AccountContribution
      */
@@ -634,9 +647,10 @@ class ClientAccount implements WorkflowableInterface, SignableInterface
     }
 
     /**
-     * Set consolidator_id
+     * Set consolidator_id.
      *
-     * @param integer $consolidatorId
+     * @param int $consolidatorId
+     *
      * @return ClientAccount
      */
     public function setConsolidatorId($consolidatorId)
@@ -647,9 +661,9 @@ class ClientAccount implements WorkflowableInterface, SignableInterface
     }
 
     /**
-     * Get consolidator_id
+     * Get consolidator_id.
      *
-     * @return integer
+     * @return int
      */
     public function getConsolidatorId()
     {
@@ -657,9 +671,10 @@ class ClientAccount implements WorkflowableInterface, SignableInterface
     }
 
     /**
-     * Add consolidatedAccounts
+     * Add consolidatedAccounts.
      *
      * @param \Wealthbot\ClientBundle\Entity\ClientAccount $consolidatedAccounts
+     *
      * @return ClientAccount
      */
     public function addConsolidatedAccount(\Wealthbot\ClientBundle\Entity\ClientAccount $consolidatedAccounts)
@@ -670,7 +685,7 @@ class ClientAccount implements WorkflowableInterface, SignableInterface
     }
 
     /**
-     * Remove consolidatedAccounts
+     * Remove consolidatedAccounts.
      *
      * @param \Wealthbot\ClientBundle\Entity\ClientAccount $consolidatedAccounts
      */
@@ -680,7 +695,7 @@ class ClientAccount implements WorkflowableInterface, SignableInterface
     }
 
     /**
-     * Get consolidatedAccounts
+     * Get consolidatedAccounts.
      *
      * @return \Doctrine\Common\Collections\Collection
      */
@@ -690,9 +705,10 @@ class ClientAccount implements WorkflowableInterface, SignableInterface
     }
 
     /**
-     * Set consolidator
+     * Set consolidator.
      *
      * @param \Wealthbot\ClientBundle\Entity\ClientAccount $consolidator
+     *
      * @return ClientAccount
      */
     public function setConsolidator(\Wealthbot\ClientBundle\Entity\ClientAccount $consolidator = null)
@@ -703,9 +719,10 @@ class ClientAccount implements WorkflowableInterface, SignableInterface
     }
 
     /**
-     * Set systemAccount
+     * Set systemAccount.
      *
      * @param \Wealthbot\ClientBundle\Entity\SystemAccount $systemAccount
+     *
      * @return ClientAccount
      */
     public function setSystemAccount(\Wealthbot\ClientBundle\Entity\SystemAccount $systemAccount = null)
@@ -716,7 +733,7 @@ class ClientAccount implements WorkflowableInterface, SignableInterface
     }
 
     /**
-     * Get systemAccount
+     * Get systemAccount.
      *
      * @return \Wealthbot\ClientBundle\Entity\SystemAccount
      */
@@ -730,7 +747,7 @@ class ClientAccount implements WorkflowableInterface, SignableInterface
     }
 
     /**
-     * Has system account
+     * Has system account.
      *
      * @return bool
      */
@@ -742,7 +759,7 @@ class ClientAccount implements WorkflowableInterface, SignableInterface
     }
 
     /**
-     * Get account number
+     * Get account number.
      *
      * @return string
      */
@@ -754,9 +771,10 @@ class ClientAccount implements WorkflowableInterface, SignableInterface
     }
 
     /**
-     * Set monthly_contributions
+     * Set monthly_contributions.
      *
      * @param float $monthlyContributions
+     *
      * @return ClientAccount
      */
     public function setMonthlyContributions($monthlyContributions)
@@ -767,7 +785,7 @@ class ClientAccount implements WorkflowableInterface, SignableInterface
     }
 
     /**
-     * Get monthly_contributions
+     * Get monthly_contributions.
      *
      * @return float
      */
@@ -777,9 +795,10 @@ class ClientAccount implements WorkflowableInterface, SignableInterface
     }
 
     /**
-     * Set monthly_distributions
+     * Set monthly_distributions.
      *
      * @param float $monthlyDistributions
+     *
      * @return ClientAccount
      */
     public function setMonthlyDistributions($monthlyDistributions)
@@ -791,11 +810,11 @@ class ClientAccount implements WorkflowableInterface, SignableInterface
 
     public function hasMonthlyContributions()
     {
-        return (floatval($this->getMonthlyContributions()) > 0);
+        return floatval($this->getMonthlyContributions()) > 0;
     }
 
     /**
-     * Returns true if monthly_contributions > 0 and false otherwise
+     * Returns true if monthly_contributions > 0 and false otherwise.
      *
      * @return bool
      */
@@ -817,7 +836,7 @@ class ClientAccount implements WorkflowableInterface, SignableInterface
     }
 
     /**
-     * Returns true if monthly_distributions > 0 and false otherwise
+     * Returns true if monthly_distributions > 0 and false otherwise.
      *
      * @return bool
      */
@@ -839,7 +858,7 @@ class ClientAccount implements WorkflowableInterface, SignableInterface
     }
 
     /**
-     * Get monthly_distributions
+     * Get monthly_distributions.
      *
      * @return float
      */
@@ -849,7 +868,7 @@ class ClientAccount implements WorkflowableInterface, SignableInterface
     }
 
     /**
-     * Get consolidator
+     * Get consolidator.
      *
      * @return \Wealthbot\ClientBundle\Entity\ClientAccount
      */
@@ -859,65 +878,65 @@ class ClientAccount implements WorkflowableInterface, SignableInterface
     }
 
     /**
-     * Returns true if account has Personal Investment system_type and false otherwise
+     * Returns true if account has Personal Investment system_type and false otherwise.
      *
      * @return bool
      */
     public function isPersonalType()
     {
-        return ($this->getSystemType() == SystemAccount::TYPE_PERSONAL_INVESTMENT) ? true : false;
+        return ($this->getSystemType() === SystemAccount::TYPE_PERSONAL_INVESTMENT) ? true : false;
     }
 
     /**
-     * Returns true if account has Joint Investment system_type and false otherwise
+     * Returns true if account has Joint Investment system_type and false otherwise.
      *
      * @return bool
      */
     public function isJointType()
     {
-        return ($this->getSystemType() == SystemAccount::TYPE_JOINT_INVESTMENT) ? true : false;
+        return ($this->getSystemType() === SystemAccount::TYPE_JOINT_INVESTMENT) ? true : false;
     }
 
     /**
-     * Returns true if account has Roth IRA system_type and false otherwise
+     * Returns true if account has Roth IRA system_type and false otherwise.
      *
      * @return bool
      */
     public function isRothIraType()
     {
-        return ($this->getSystemType() == SystemAccount::TYPE_ROTH_IRA) ? true : false;
+        return ($this->getSystemType() === SystemAccount::TYPE_ROTH_IRA) ? true : false;
     }
 
     /**
-     * Returns true if account has Traditional IRA system_type and false otherwise
+     * Returns true if account has Traditional IRA system_type and false otherwise.
      *
      * @return bool
      */
     public function isTraditionalIraType()
     {
-        return ($this->getSystemType() == SystemAccount::TYPE_TRADITIONAL_IRA) ? true : false;
+        return ($this->getSystemType() === SystemAccount::TYPE_TRADITIONAL_IRA) ? true : false;
     }
 
     /**
-     * Returns true if account has Retirement system_type and false otherwise
+     * Returns true if account has Retirement system_type and false otherwise.
      *
      * @return bool
      */
     public function isRetirementType()
     {
-        return ($this->getSystemType() == SystemAccount::TYPE_RETIREMENT) ? true : false;
+        return ($this->getSystemType() === SystemAccount::TYPE_RETIREMENT) ? true : false;
     }
 
     /**
      * Returns true if account has group $group or if account has consolidated account with group $group
-     * and false otherwise
+     * and false otherwise.
      *
      * @param $group
+     *
      * @return bool
      */
     public function hasGroup($group)
     {
-
         if ($this->getGroupName() === $group) {
             return true;
         }
@@ -934,7 +953,7 @@ class ClientAccount implements WorkflowableInterface, SignableInterface
     }
 
     /**
-     * Get transfer consolidated accounts
+     * Get transfer consolidated accounts.
      *
      * @return ArrayCollection
      */
@@ -956,7 +975,7 @@ class ClientAccount implements WorkflowableInterface, SignableInterface
     }
 
     /**
-     * Get rollover consolidated accounts
+     * Get rollover consolidated accounts.
      *
      * @return ArrayCollection
      */
@@ -978,9 +997,10 @@ class ClientAccount implements WorkflowableInterface, SignableInterface
     }
 
     /**
-     * Add accountOwners
+     * Add accountOwners.
      *
      * @param ClientAccountOwner $accountOwners
+     *
      * @return ClientAccount
      */
     public function addAccountOwner(ClientAccountOwner $accountOwners)
@@ -991,7 +1011,7 @@ class ClientAccount implements WorkflowableInterface, SignableInterface
     }
 
     /**
-     * Remove accountOwners
+     * Remove accountOwners.
      *
      * @param ClientAccountOwner $accountOwners
      */
@@ -1001,7 +1021,7 @@ class ClientAccount implements WorkflowableInterface, SignableInterface
     }
 
     /**
-     * Get accountOwners
+     * Get accountOwners.
      *
      * @return ClientAccountOwner[]
      */
@@ -1011,13 +1031,13 @@ class ClientAccount implements WorkflowableInterface, SignableInterface
     }
 
     /**
-     * Get account owners as array
+     * Get account owners as array.
      *
      * @return array
      */
     public function getOwnersAsArray()
     {
-        $result = array();
+        $result = [];
 
         if ($this->getAccountOwners()) {
             foreach ($this->getAccountOwners() as $accountOwner) {
@@ -1030,30 +1050,30 @@ class ClientAccount implements WorkflowableInterface, SignableInterface
     }
 
     /**
-     * Get account owners as string
+     * Get account owners as string.
      *
      * @return string
      */
     public function getOwnersAsString()
     {
-        $result = array();
+        $result = [];
         foreach ($this->getAccountOwners() as $accountOwner) {
             $owner = $accountOwner->getOwner();
             $result[] = $owner->getFirstName();
         }
 
-        return join(' & ', $result);
+        return implode(' & ', $result);
     }
 
     /**
      * Get array of account owners.
-     * Key of array is type of account owner
+     * Key of array is type of account owner.
      *
      * @return AccountOwnerInterface[]
      */
     public function getOwners()
     {
-        $result = array();
+        $result = [];
         foreach ($this->getAccountOwners() as $accountOwner) {
             $result[$accountOwner->getOwnerType()] = $accountOwner->getOwner();
         }
@@ -1062,7 +1082,7 @@ class ClientAccount implements WorkflowableInterface, SignableInterface
     }
 
     /**
-     * Get primary applicant of account
+     * Get primary applicant of account.
      *
      * @return AccountOwnerInterface|null
      */
@@ -1085,14 +1105,14 @@ class ClientAccount implements WorkflowableInterface, SignableInterface
     }
 
     /**
-     * Get secondary applicant of account
+     * Get secondary applicant of account.
      *
      * @return AccountOwnerInterface|null
      */
     public function getSecondaryApplicant()
     {
         if (!$this->isJointType()) {
-            return null;
+            return;
         }
 
         $owners = $this->getOwners();
@@ -1110,21 +1130,22 @@ class ClientAccount implements WorkflowableInterface, SignableInterface
     }
 
     /**
-     * Get consolidated accounts collection
+     * Get consolidated accounts collection.
      *
      * @return ConsolidatedAccountsCollection
      */
     public function getConsolidatedAccountsCollection()
     {
-        $elements = array_merge(array($this), $this->consolidatedAccounts->getValues());
+        $elements = array_merge([$this], $this->consolidatedAccounts->getValues());
 
         return new ConsolidatedAccountsCollection($elements);
     }
 
     /**
-     * Get workflow message code
+     * Get workflow message code.
      *
      * @return string
+     *
      * @throws \RuntimeException
      */
     public function getWorkflowMessageCode()
@@ -1152,7 +1173,7 @@ class ClientAccount implements WorkflowableInterface, SignableInterface
     }
 
     /**
-     * Get client account object
+     * Get client account object.
      *
      * @return ClientAccount
      */
@@ -1162,7 +1183,7 @@ class ClientAccount implements WorkflowableInterface, SignableInterface
     }
 
     /**
-     * Get id of source object
+     * Get id of source object.
      *
      * @return mixed
      */
@@ -1172,7 +1193,7 @@ class ClientAccount implements WorkflowableInterface, SignableInterface
     }
 
     /**
-     * Get type of document signature
+     * Get type of document signature.
      *
      * @return string
      */
@@ -1180,5 +1201,4 @@ class ClientAccount implements WorkflowableInterface, SignableInterface
     {
         return DocumentSignature::TYPE_OPEN_OR_TRANSFER_ACCOUNT;
     }
-
 }

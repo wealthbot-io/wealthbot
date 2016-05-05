@@ -9,7 +9,6 @@
 
 namespace Wealthbot\ClientBundle\Model\TransferStepsConfiguration;
 
-
 use Wealthbot\ClientBundle\Model\AccountGroup;
 use Wealthbot\ClientBundle\Model\ClientAccount;
 use Wealthbot\ClientBundle\Model\TransferStepsConfigurationInterface;
@@ -34,10 +33,12 @@ class PersonalAccountConfiguration implements TransferStepsConfigurationInterfac
     }
 
     /**
-     * Get next transfer screen step by current step
+     * Get next transfer screen step by current step.
      *
      * @param string $currentStep
+     *
      * @return string
+     *
      * @throws \InvalidArgumentException
      */
     public function getNextStep($currentStep)
@@ -87,10 +88,12 @@ class PersonalAccountConfiguration implements TransferStepsConfigurationInterfac
     }
 
     /**
-     * Get previous  transfer screen step by current step
+     * Get previous  transfer screen step by current step.
      *
      * @param string $currentStep
+     *
      * @return string
+     *
      * @throws \InvalidArgumentException
      */
     public function getPreviousStep($currentStep)
@@ -120,10 +123,8 @@ class PersonalAccountConfiguration implements TransferStepsConfigurationInterfac
             case ClientAccount::STEP_ACTION_REVIEW:
                 if ($this->hasFundingSection()) {
                     $prevStep = ClientAccount::STEP_ACTION_FUNDING_DISTRIBUTING;
-
                 } elseif ($this->account->hasGroup(AccountGroup::GROUP_FINANCIAL_INSTITUTION)) {
                     $prevStep = ClientAccount::STEP_ACTION_TRANSFER;
-
                 } else {
                     $prevStep = ClientAccount::STEP_ACTION_PERSONAL;
                 }
@@ -148,7 +149,7 @@ class PersonalAccountConfiguration implements TransferStepsConfigurationInterfac
     }
 
     /**
-     * Is account has funding section
+     * Is account has funding section.
      *
      * @return bool
      */
@@ -160,10 +161,8 @@ class PersonalAccountConfiguration implements TransferStepsConfigurationInterfac
             $this->adm->hasElectronicallySignError($this->account)
         ) {
             return true;
-
         }
 
         return false;
     }
-
 }

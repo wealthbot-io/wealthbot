@@ -2,8 +2,10 @@
 
 namespace Wealthbot\ClientBundle\Controller;
 
-
 use Doctrine\ORM\EntityManager;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedException;
 use Wealthbot\AdminBundle\Entity\CustodianMessage;
 use Wealthbot\ClientBundle\ClientEvents;
 use Wealthbot\ClientBundle\Docusign\TransferInformationConsolidatorCondition;
@@ -24,6 +26,7 @@ use Wealthbot\ClientBundle\Form\Handler\TransferBasicFormHandler;
 use Wealthbot\ClientBundle\Form\Handler\TransferInformationFormHandler;
 use Wealthbot\ClientBundle\Form\Handler\TransferPersonalFormHandler;
 use Wealthbot\ClientBundle\Form\Type\AccountGroupsFormType;
+use Wealthbot\ClientBundle\Form\Type\AccountOwnerPersonalInformationFormType;
 use Wealthbot\ClientBundle\Form\Type\AccountOwnerReviewInformationFormType;
 use Wealthbot\ClientBundle\Form\Type\BankInformationFormType;
 use Wealthbot\ClientBundle\Form\Type\BeneficiariesCollectionFormType;
@@ -31,7 +34,6 @@ use Wealthbot\ClientBundle\Form\Type\RetirementPlanInfoFormType;
 use Wealthbot\ClientBundle\Form\Type\TransferBasicFormType;
 use Wealthbot\ClientBundle\Form\Type\TransferFundingDistributingFormType;
 use Wealthbot\ClientBundle\Form\Type\TransferInformationFormType;
-use Wealthbot\ClientBundle\Form\Type\AccountOwnerPersonalInformationFormType;
 use Wealthbot\ClientBundle\Form\Type\TransferReviewFormType;
 use Wealthbot\ClientBundle\Manager\SystemAccountManager;
 use Wealthbot\ClientBundle\Model\AccountOwnerInterface;
@@ -40,23 +42,20 @@ use Wealthbot\RiaBundle\Entity\RiaCompanyInformation;
 use Wealthbot\UserBundle\Entity\Document;
 use Wealthbot\UserBundle\Entity\Profile;
 use Wealthbot\UserBundle\Entity\User;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\AccessDeniedException;
 
 class BaseTransferController extends AclController
 {
     public function accountAction(Request $request)
     {
         /** @var $em EntityManager */
-        /** @var $repo ClientAccountRepository  */
+        /* @var $repo ClientAccountRepository  */
         $em = $this->get('doctrine.orm.entity_manager');
         $repo = $em->getRepository('WealthbotClientBundle:ClientAccount');
 
         $user = $this->getUser();
 
         /** @var $account ClientAccount */
-        $account = $repo->findOneBy(array('id' => $request->get('account_id'), 'client_id' => $user->getId()));
+        $account = $repo->findOneBy(['id' => $request->get('account_id'), 'client_id' => $user->getId()]);
         if (!$account) {
             $this->createNotFoundException('You have not account with id: '.$request->get('account_id').'.');
         }
@@ -68,7 +67,7 @@ class BaseTransferController extends AclController
             && $account->hasGroup(AccountGroup::GROUP_FINANCIAL_INSTITUTION)
             && $process !== ClientAccount::PROCESS_STEP_FINISHED_APPLICATION
         ) {
-            return $this->redirect($this->generateUrl($this->getRoutePrefix() . 'transfer_transfer_account', array('account_id' => $account->getId())));
+            return $this->redirect($this->generateUrl($this->getRoutePrefix().'transfer_transfer_account', ['account_id' => $account->getId()]));
         }
 
         if (!$action) {
@@ -85,8 +84,7 @@ class BaseTransferController extends AclController
         }
 
         if ($isPreSaved) {
-            return $this->redirect($this->generateUrl($this->getRouteUrl($action), array('account_id' => $account->getId())));
-
+            return $this->redirect($this->generateUrl($this->getRouteUrl($action), ['account_id' => $account->getId()]));
         } elseif (
             (
                 !$account->hasGroup(AccountGroup::GROUP_EMPLOYER_RETIREMENT)
@@ -104,9 +102,9 @@ class BaseTransferController extends AclController
 
     public function progressMenuAction(ClientAccount $account, $step)
     {
-        if ($step == ClientAccount::STEP_ACTION_ADDITIONAL_BASIC) {
+        if ($step === ClientAccount::STEP_ACTION_ADDITIONAL_BASIC) {
             $step = ClientAccount::STEP_ACTION_BASIC;
-        } else if ($step == ClientAccount::STEP_ACTION_ADDITIONAL_PERSONAL) {
+        } elseif ($step === ClientAccount::STEP_ACTION_ADDITIONAL_PERSONAL) {
             $step = ClientAccount::STEP_ACTION_PERSONAL;
         }
 
@@ -114,17 +112,16 @@ class BaseTransferController extends AclController
         $group = $account->getGroupName();
         $isRothOrIra = $account->isRothIraType();
 
-        if ($group != AccountGroup::GROUP_EMPLOYER_RETIREMENT) {
-            $items = array(
-                'names' => array('Basics', 'Personal'),
-                'steps' => array(ClientAccount::STEP_ACTION_BASIC, ClientAccount::STEP_ACTION_PERSONAL)
-            );
+        if ($group !== AccountGroup::GROUP_EMPLOYER_RETIREMENT) {
+            $items = [
+                'names' => ['Basics', 'Personal'],
+                'steps' => [ClientAccount::STEP_ACTION_BASIC, ClientAccount::STEP_ACTION_PERSONAL],
+            ];
 
             if ($account->hasGroup(AccountGroup::GROUP_OLD_EMPLOYER_RETIREMENT) || $isRothOrIra || $account->isTraditionalIraType()) {
                 $items['names'][] = 'Beneficiaries';
                 $items['steps'][] = ClientAccount::STEP_ACTION_BENEFICIARIES;
             }
-
 
             if ($account->hasGroup(AccountGroup::GROUP_FINANCIAL_INSTITUTION)) {
                 $items['names'][] = 'Transfer Screen';
@@ -155,31 +152,30 @@ class BaseTransferController extends AclController
 
             $items['names'][] = 'Review & Sign';
             $items['steps'][] = ClientAccount::STEP_ACTION_REVIEW;
-
         } else {
-            $items = array(
-                'names' => array('Need Credentials'),
-                'steps' => array(ClientAccount::STEP_ACTION_CREDENTIALS)
-            );
+            $items = [
+                'names' => ['Need Credentials'],
+                'steps' => [ClientAccount::STEP_ACTION_CREDENTIALS],
+            ];
         }
 
-        return $this->render($this->getTemplate('progress_menu.html.twig'), array(
-            'items'  => $items,
-            'active' => array_search($step, $items['steps'])
-        ));
+        return $this->render($this->getTemplate('progress_menu.html.twig'), [
+            'items' => $items,
+            'active' => array_search($step, $items['steps']),
+        ]);
     }
 
     public function basicAction(Request $request)
     {
         /** @var $em EntityManager */
-        /** @var $repo ClientAccountRepository  */
+        /* @var $repo ClientAccountRepository  */
         $em = $this->get('doctrine.orm.entity_manager');
         $repo = $em->getRepository('WealthbotClientBundle:ClientAccount');
 
         $client = $this->getUser();
 
         /** @var $account ClientAccount */
-        $account = $repo->findOneBy(array('id' => $request->get('account_id'), 'client_id' => $client->getId()));
+        $account = $repo->findOneBy(['id' => $request->get('account_id'), 'client_id' => $client->getId()]);
         if (!$account) {
             $this->createNotFoundException('You have not account with id: '.$request->get('account_id').'.');
         }
@@ -198,26 +194,26 @@ class BaseTransferController extends AclController
                 $redirectUrl = $this->getRedirectUrl($account, ClientAccount::STEP_ACTION_BASIC);
 
                 if ($isPreSaved) {
-                    return $this->getJsonResponse(array('status' => 'success', 'redirect_url' => $redirectUrl));
+                    return $this->getJsonResponse(['status' => 'success', 'redirect_url' => $redirectUrl]);
                 }
 
                 return $this->redirect($redirectUrl);
-            } else if ($isPreSaved) {
-                return $this->getJsonResponse(array('status' => 'error'));
+            } elseif ($isPreSaved) {
+                return $this->getJsonResponse(['status' => 'error']);
             }
         }
 
-        return $this->render($this->getTemplate('basic.html.twig'), array(
+        return $this->render($this->getTemplate('basic.html.twig'), [
             'client' => $client,
             'account' => $account,
-            'form' => $form->createView()
-        ));
+            'form' => $form->createView(),
+        ]);
     }
 
     public function additionalBasicAction(Request $request)
     {
         /** @var $em EntityManager */
-        /** @var $repo ClientAccountRepository  */
+        /* @var $repo ClientAccountRepository  */
         $em = $this->get('doctrine.orm.entity_manager');
         $repo = $em->getRepository('WealthbotClientBundle:ClientAccount');
 
@@ -225,10 +221,10 @@ class BaseTransferController extends AclController
         $client = $this->getUser();
 
         /** @var $account ClientAccount */
-        $account = $repo->findOneBy(array(
+        $account = $repo->findOneBy([
             'id' => $request->get('account_id'),
-            'client_id' => $client->getId()
-        ));
+            'client_id' => $client->getId(),
+        ]);
         if (!$account) {
             $this->createNotFoundException('You have not account with id: '.$request->get('account_id').'.');
         }
@@ -255,36 +251,36 @@ class BaseTransferController extends AclController
                 $redirectUrl = $this->getRedirectUrl($account, ClientAccount::STEP_ACTION_ADDITIONAL_BASIC);
 
                 if ($isPreSaved) {
-                    return $this->getJsonResponse(array('status' => 'success', 'redirect_url' => $redirectUrl));
+                    return $this->getJsonResponse(['status' => 'success', 'redirect_url' => $redirectUrl]);
                 }
 
                 return $this->redirect($redirectUrl);
-            } else if ($isPreSaved) {
-                return $this->getJsonResponse(array('status' => 'error'));
+            } elseif ($isPreSaved) {
+                return $this->getJsonResponse(['status' => 'error']);
             }
         }
 
-        return $this->render($this->getTemplate('additional_basic.html.twig'), array(
+        return $this->render($this->getTemplate('additional_basic.html.twig'), [
             'client' => $client,
             'account' => $account,
-            'form' => $form->createView()
-        ));
+            'form' => $form->createView(),
+        ]);
     }
 
     public function personalAction(Request $request)
     {
         /** @var $em EntityManager */
-        /** @var $repo ClientAccountRepository  */
+        /* @var $repo ClientAccountRepository  */
         $em = $this->get('doctrine.orm.entity_manager');
         $repo = $em->getRepository('WealthbotClientBundle:ClientAccount');
 
         $client = $this->getUser();
 
         /** @var $account ClientAccount */
-        $account = $repo->findOneBy(array(
+        $account = $repo->findOneBy([
             'id' => $request->get('account_id'),
-            'client_id' => $client->getId()
-        ));
+            'client_id' => $client->getId(),
+        ]);
         if (!$account) {
             $this->createNotFoundException('You have not account with id: '.$request->get('account_id').'.');
         }
@@ -294,12 +290,12 @@ class BaseTransferController extends AclController
         $primaryApplicant = $account->getPrimaryApplicant();
         $isPreSaved = $request->isXmlHttpRequest();
 
-        $isRollover = ($account->getGroupName() == AccountGroup::GROUP_OLD_EMPLOYER_RETIREMENT);
+        $isRollover = ($account->getGroupName() === AccountGroup::GROUP_OLD_EMPLOYER_RETIREMENT);
         $isRothOrIra = ($repo->isRothAccount($account) || $repo->isIraAccount($account));
         $withMaritalStatus = ($isRollover || $isRothOrIra);
 
         $form = $this->createForm(new AccountOwnerPersonalInformationFormType($primaryApplicant, $isPreSaved, $withMaritalStatus), $primaryApplicant);
-        $formHandler = new TransferPersonalFormHandler($form, $request, $em, array('validator' => $this->get('validator')));
+        $formHandler = new TransferPersonalFormHandler($form, $request, $em, ['validator' => $this->get('validator')]);
 
         if ($request->isMethod('post')) {
             $process = $formHandler->process($account, $withMaritalStatus);
@@ -307,26 +303,26 @@ class BaseTransferController extends AclController
                 $redirectUrl = $this->getRedirectUrl($account, ClientAccount::STEP_ACTION_PERSONAL);
 
                 if ($isPreSaved) {
-                    return $this->getJsonResponse(array('status' => 'success', 'redirect_url' => $redirectUrl));
+                    return $this->getJsonResponse(['status' => 'success', 'redirect_url' => $redirectUrl]);
                 }
 
                 return $this->redirect($redirectUrl);
-            } else if ($isPreSaved) {
-                return $this->getJsonResponse(array('status' => 'error'));
+            } elseif ($isPreSaved) {
+                return $this->getJsonResponse(['status' => 'error']);
             }
         }
 
-        return $this->render($this->getTemplate('personal.html.twig'), array(
+        return $this->render($this->getTemplate('personal.html.twig'), [
             'client' => $client,
             'account' => $account,
-            'form' => $form->createView()
-        ));
+            'form' => $form->createView(),
+        ]);
     }
 
     public function additionalPersonalAction(Request $request)
     {
         /** @var $em EntityManager */
-        /** @var $repo ClientAccountRepository  */
+        /* @var $repo ClientAccountRepository  */
         $em = $this->get('doctrine.orm.entity_manager');
         $repo = $em->getRepository('WealthbotClientBundle:ClientAccount');
 
@@ -334,10 +330,10 @@ class BaseTransferController extends AclController
         $client = $this->getUser();
 
         /** @var $account ClientAccount */
-        $account = $repo->findOneBy(array(
+        $account = $repo->findOneBy([
                 'id' => $request->get('account_id'),
-                'client_id' => $client->getId()
-            ));
+                'client_id' => $client->getId(),
+            ]);
         if (!$account) {
             $this->createNotFoundException('You have not account with id: '.$request->get('account_id').'.');
         }
@@ -363,26 +359,26 @@ class BaseTransferController extends AclController
                 $redirectUrl = $this->getRedirectUrl($account, ClientAccount::STEP_ACTION_ADDITIONAL_PERSONAL);
 
                 if ($isPreSaved) {
-                    return $this->getJsonResponse(array('status' => 'success', 'redirect_url' => $redirectUrl));
+                    return $this->getJsonResponse(['status' => 'success', 'redirect_url' => $redirectUrl]);
                 }
 
                 return $this->redirect($redirectUrl);
-            } else if ($isPreSaved) {
-                return $this->getJsonResponse(array('status' => 'error'));
+            } elseif ($isPreSaved) {
+                return $this->getJsonResponse(['status' => 'error']);
             }
         }
 
-        return $this->render($this->getTemplate('additional_personal.html.twig'), array(
+        return $this->render($this->getTemplate('additional_personal.html.twig'), [
             'client' => $client,
             'account' => $account,
-            'form' => $form->createView()
-        ));
+            'form' => $form->createView(),
+        ]);
     }
 
     public function beneficiariesAction(Request $request)
     {
         /** @var $em EntityManager */
-        /** @var $repo ClientAccountRepository  */
+        /* @var $repo ClientAccountRepository  */
         $em = $this->get('doctrine.orm.entity_manager');
         $repo = $em->getRepository('WealthbotClientBundle:ClientAccount');
 
@@ -391,10 +387,10 @@ class BaseTransferController extends AclController
         $profile = $client->getProfile();
 
         /** @var $account ClientAccount */
-        $account = $repo->findOneBy(array(
+        $account = $repo->findOneBy([
                 'id' => $request->get('account_id'),
-                'client_id' => $client->getId()
-            ));
+                'client_id' => $client->getId(),
+            ]);
         if (!$account) {
             $this->createNotFoundException('You have not account with id: '.$request->get('account_id').'.');
         }
@@ -403,7 +399,7 @@ class BaseTransferController extends AclController
 
         $beneficiaries = $account->getBeneficiaries();
         if (!$beneficiaries->count()) {
-            if ($profile->getMaritalStatus() == Profile::CLIENT_MARITAL_STATUS_MARRIED) {
+            if ($profile->getMaritalStatus() === Profile::CLIENT_MARITAL_STATUS_MARRIED) {
                 $stepActionsKeys = array_flip(array_keys(ClientAccount::getStepActionChoices()));
 
                 if ($stepActionsKeys[$account->getStepAction()] < $stepActionsKeys[ClientAccount::STEP_ACTION_BENEFICIARIES]) {
@@ -423,13 +419,13 @@ class BaseTransferController extends AclController
         $form = $this->createForm(new BeneficiariesCollectionFormType($isPreSaved));
         $form->get('beneficiaries')->setData($beneficiaries);
 
-        $originalBeneficiaries = array();
+        $originalBeneficiaries = [];
         foreach ($beneficiaries as $item) {
             $originalBeneficiaries[] = $item;
         }
 
         if ($request->isMethod('post')) {
-            $form->bind($request);
+            $form->submit($request);
 
             if ($form->isValid()) {
                 $beneficiaries = $form['beneficiaries']->getData();
@@ -462,20 +458,20 @@ class BaseTransferController extends AclController
                 $redirectUrl = $this->getRedirectUrl($account, ClientAccount::STEP_ACTION_BENEFICIARIES);
 
                 if ($isPreSaved) {
-                    return $this->getJsonResponse(array('status' => 'success', 'redirect_url' => $redirectUrl));
+                    return $this->getJsonResponse(['status' => 'success', 'redirect_url' => $redirectUrl]);
                 }
 
                 return $this->redirect($redirectUrl);
-            } else if ($isPreSaved) {
-                return $this->getJsonResponse(array('status' => 'error'));
+            } elseif ($isPreSaved) {
+                return $this->getJsonResponse(['status' => 'error']);
             }
         }
 
-        return $this->render($this->getTemplate('beneficiaries.html.twig'), array(
+        return $this->render($this->getTemplate('beneficiaries.html.twig'), [
             'client' => $client,
             'account' => $account,
-            'form' => $form->createView()
-        ));
+            'form' => $form->createView(),
+        ]);
     }
 
     public function fundingDistributingAction(Request $request)
@@ -492,7 +488,7 @@ class BaseTransferController extends AclController
         $riaCompanyInformation = $client->getRiaCompanyInformation();
 
         /** @var $account ClientAccount */
-        $account = $repo->findOneBy(array('id' => $request->get('account_id'), 'client_id' => $client->getId()));
+        $account = $repo->findOneBy(['id' => $request->get('account_id'), 'client_id' => $client->getId()]);
         if (!$account) {
             $this->createNotFoundException('You have not account with id: '.$request->get('account_id').'.');
         }
@@ -506,12 +502,12 @@ class BaseTransferController extends AclController
         }
 
         $isPreSaved = $request->isXmlHttpRequest();
-        $formData = array('funding' => $transferFunding);
+        $formData = ['funding' => $transferFunding];
         $form = $this->createForm(new TransferFundingDistributingFormType($em, $account, $isPreSaved), $formData);
         $bankInfoForm = $this->createForm(new BankInformationFormType());
 
         if ($request->isMethod('post')) {
-            $form->bind($request);
+            $form->submit($request);
 
             if ($form->isValid()) {
                 if ($account->hasFunding() ||
@@ -545,13 +541,12 @@ class BaseTransferController extends AclController
                 $redirectUrl = $this->getRedirectUrl($account, ClientAccount::STEP_ACTION_FUNDING_DISTRIBUTING);
 
                 if ($isPreSaved) {
-                    return $this->getJsonResponse(array('status' => 'success', 'redirect_url' => $redirectUrl));
+                    return $this->getJsonResponse(['status' => 'success', 'redirect_url' => $redirectUrl]);
                 }
 
                 return $this->redirect($redirectUrl);
-
-            } else if ($isPreSaved) {
-                return $this->getJsonResponse(array('status' => 'error'));
+            } elseif ($isPreSaved) {
+                return $this->getJsonResponse(['status' => 'error']);
             }
         }
 
@@ -563,24 +558,24 @@ class BaseTransferController extends AclController
             $hasDocusignError = (!$isAllowedNonElectronicallyTransfer && !$adm->isUsedDocusign($account->getId()));
         }
 
-        return $this->render($this->getTemplate('funding_distributing.html.twig'), array(
+        return $this->render($this->getTemplate('funding_distributing.html.twig'), [
             'client' => $client,
             'account' => $account,
             'transfer_funding' => $transferFunding,
             'form' => $form->createView(),
-            'bank_info_form' => $this->renderView($this->getTemplate('_create_bank_account_form.html.twig'), array(
+            'bank_info_form' => $this->renderView($this->getTemplate('_create_bank_account_form.html.twig'), [
                 'form' => $bankInfoForm->createView(),
-                'account_id' => $account->getId()
-            )),
+                'account_id' => $account->getId(),
+            ]),
             'messages' => $custodianMessagesRepo->getAssocByCustodianId($riaCompanyInformation->getCustodianId()),
-            'has_docusign_error' => $hasDocusignError
-        ));
+            'has_docusign_error' => $hasDocusignError,
+        ]);
     }
 
     public function rolloverAction(Request $request)
     {
         /** @var $em EntityManager */
-        /** @var $repo ClientAccountRepository  */
+        /* @var $repo ClientAccountRepository  */
         $em = $this->get('doctrine.orm.entity_manager');
         $repo = $em->getRepository('WealthbotClientBundle:ClientAccount');
         $custodianMessagesRepo = $em->getRepository('WealthbotAdminBundle:CustodianMessage');
@@ -590,10 +585,10 @@ class BaseTransferController extends AclController
         $riaCompanyInformation = $client->getRia()->getRiaCompanyInformation();
 
         /** @var $account ClientAccount */
-        $account = $repo->findOneBy(array(
+        $account = $repo->findOneBy([
             'id' => $request->get('account_id'),
-            'client_id' => $client->getId()
-        ));
+            'client_id' => $client->getId(),
+        ]);
         if (!$account) {
             $this->createNotFoundException('You have not account with id: '.$request->get('account_id').'.');
         }
@@ -627,28 +622,29 @@ class BaseTransferController extends AclController
             $em->flush();
 
             $this->get('session')->remove('is_send_email');
+
             return $this->redirect($this->getRedirectUrl($account, ClientAccount::STEP_ACTION_ROLLOVER));
         }
 
-        return $this->render($this->getTemplate('rollover.html.twig'), array(
+        return $this->render($this->getTemplate('rollover.html.twig'), [
             'client' => $client,
             'account' => $account,
-            'rollover_message' => $rolloverMessage
-        ));
+            'rollover_message' => $rolloverMessage,
+        ]);
     }
 
     // TODO: Method needs refactoring. Move common code with the method reviewAction
     public function credentialsAction(Request $request)
     {
         /** @var $em EntityManager */
-        /** @var $repo ClientAccountRepository  */
+        /* @var $repo ClientAccountRepository  */
         $em = $this->get('doctrine.orm.entity_manager');
         $repo = $em->getRepository('WealthbotClientBundle:ClientAccount');
 
         $client = $this->getUser();
 
         /** @var $account ClientAccount */
-        $account = $repo->findOneBy(array('id' => $request->get('account_id'), 'client_id' => $client->getId()));
+        $account = $repo->findOneBy(['id' => $request->get('account_id'), 'client_id' => $client->getId()]);
         if (!$account) {
             $this->createNotFoundException('You have not account with id: '.$request->get('account_id').'.');
         }
@@ -669,7 +665,7 @@ class BaseTransferController extends AclController
         $form = $this->createForm(new RetirementPlanInfoFormType(), $planInfo);
 
         if ($request->isMethod('post')) {
-            $form->bind($request);
+            $form->submit($request);
 
             if ($form->isValid()) {
                 $planInfo = $form->getData();
@@ -693,7 +689,7 @@ class BaseTransferController extends AclController
                 // If client complete all accounts
                 $hasNotOpenedAccounts = $repo->findOneNotOpenedAccountByClientId($client->getId()) ? true : false;
                 $profile = $client->getProfile();
-                if (!$hasNotOpenedAccounts && ($profile->getRegistrationStep() != 7)) {
+                if (!$hasNotOpenedAccounts && ($profile->getRegistrationStep() !== 7)) {
                     $profile->setRegistrationStep(7);
                     $profile->setClientStatus(Profile::CLIENT_STATUS_CLIENT);
                     $em->persist($profile);
@@ -703,20 +699,20 @@ class BaseTransferController extends AclController
                 $redirectUrl = $this->getRedirectUrl($account, ClientAccount::STEP_ACTION_CREDENTIALS);
 
                 if ($isPreSaved) {
-                    return $this->getJsonResponse(array('status' => 'success', 'redirect_url' => $redirectUrl));
+                    return $this->getJsonResponse(['status' => 'success', 'redirect_url' => $redirectUrl]);
                 }
 
                 return $this->redirect($redirectUrl);
-            } else if ($isPreSaved) {
-                return $this->getJsonResponse(array('status' => 'error'));
+            } elseif ($isPreSaved) {
+                return $this->getJsonResponse(['status' => 'error']);
             }
         }
 
-        return $this->render($this->getTemplate('credentials.html.twig'), array(
+        return $this->render($this->getTemplate('credentials.html.twig'), [
             'client' => $client,
             'account' => $account,
-            'form' => $form->createView()
-        ));
+            'form' => $form->createView(),
+        ]);
     }
 
     // TODO: Method needs refactoring. Move common code with the method credentialsAction
@@ -732,7 +728,7 @@ class BaseTransferController extends AclController
         $custodian = $client->getCustodian();
 
         /** @var $account ClientAccount */
-        $account = $repo->findOneBy(array('id' => $request->get('account_id'), 'client_id' => $client->getId()));
+        $account = $repo->findOneBy(['id' => $request->get('account_id'), 'client_id' => $client->getId()]);
         if (!$account) {
             $this->createNotFoundException('You have not account with id: '.$request->get('account_id').'.');
         }
@@ -764,10 +760,9 @@ class BaseTransferController extends AclController
 
         $isPreSaved = $request->isXmlHttpRequest();
         if ($request->isMethod('post')) {
-            $form->bind($request);
+            $form->submit($request);
 
             if ($form->isValid()) {
-
                 $account->setProcessStep(ClientAccount::PROCESS_STEP_FINISHED_APPLICATION);
                 foreach ($account->getConsolidatedAccounts() as $consolidated) {
                     $consolidated->setProcessStep(ClientAccount::PROCESS_STEP_FINISHED_APPLICATION);
@@ -787,7 +782,7 @@ class BaseTransferController extends AclController
                 // If client complete all accounts
                 $hasNotOpenedAccounts = $repo->findOneNotOpenedAccountByClientId($client->getId()) ? true : false;
                 $profile = $client->getProfile();
-                if (!$hasNotOpenedAccounts && ($profile->getRegistrationStep() != 7)) {
+                if (!$hasNotOpenedAccounts && ($profile->getRegistrationStep() !== 7)) {
                     $profile->setRegistrationStep(7);
                     $profile->setClientStatus(Profile::CLIENT_STATUS_CLIENT);
 
@@ -803,16 +798,16 @@ class BaseTransferController extends AclController
                 $redirectUrl = $this->getRedirectUrl($account, ClientAccount::STEP_ACTION_REVIEW);
 
                 if ($isPreSaved) {
-                    return $this->getJsonResponse(array('status' => 'success', 'redirect_url' => $redirectUrl));
+                    return $this->getJsonResponse(['status' => 'success', 'redirect_url' => $redirectUrl]);
                 }
 
                 return $this->redirect($redirectUrl);
-            } else if ($isPreSaved) {
-                return $this->getJsonResponse(array('status' => 'error'));
+            } elseif ($isPreSaved) {
+                return $this->getJsonResponse(['status' => 'error']);
             }
         }
 
-        return $this->render($this->getTemplate('review.html.twig'), array(
+        return $this->render($this->getTemplate('review.html.twig'), [
             'client' => $client,
             'account' => $account,
             'application_signatures' => $documentSignatureManager->findSignaturesByAccountConsolidatorId($account->getId()),
@@ -820,7 +815,7 @@ class BaseTransferController extends AclController
             'is_current_retirement' => $isCurrentRetirement,
             'custodian' => $custodian,
             'custodian_disclosures' => $custodianDisclosures,
-        ));
+        ]);
     }
 
     public function reviewOwnerInformationAction(Request $request, $owner_id)
@@ -834,7 +829,7 @@ class BaseTransferController extends AclController
 
         $accountOwner = $repository->find($owner_id);
         if (!$accountOwner) {
-            return $this->getJsonResponse(array('status' => 'error', 'message' => 'Owner does not exist.'));
+            return $this->getJsonResponse(['status' => 'error', 'message' => 'Owner does not exist.']);
         }
 
         $owner = $accountOwner->getOwner();
@@ -842,11 +837,11 @@ class BaseTransferController extends AclController
 
         $status = 'success';
         $content = $this->renderView('WealthbotClientBundle:Transfer:_review_owner_information_form.html.twig',
-            array('form' => $form->createView(), 'owner' => $accountOwner)
+            ['form' => $form->createView(), 'owner' => $accountOwner]
         );
 
         if ($request->isMethod('post')) {
-            $form->bind($request);
+            $form->submit($request);
 
             if ($form->isValid()) {
                 /** @var AccountOwnerInterface $data */
@@ -855,19 +850,17 @@ class BaseTransferController extends AclController
                 $em->persist($data->getObjectToSave());
                 $em->flush();
 
-                return $this->getJsonResponse(array('status' => 'success'));
-
+                return $this->getJsonResponse(['status' => 'success']);
             } else {
                 $status = 'error';
                 $content = $this->renderView('WealthbotClientBundle:Transfer:_review_owner_information_form.html.twig',
-                    array('form' => $form->createView(), 'owner' => $accountOwner)
+                    ['form' => $form->createView(), 'owner' => $accountOwner]
                 );
             }
         }
 
-        return $this->getJsonResponse(array('status' => $status, 'content' => $content));
+        return $this->getJsonResponse(['status' => $status, 'content' => $content]);
     }
-
 
     public function transferAction(Request $request)
     {
@@ -879,7 +872,7 @@ class BaseTransferController extends AclController
         $client = $this->getUser();
 
         /** @var $account ClientAccount */
-        $account = $repo->findOneBy(array('id' => $request->get('account_id'), 'client_id' => $client->getId()));
+        $account = $repo->findOneBy(['id' => $request->get('account_id'), 'client_id' => $client->getId()]);
         if (!$account) {
             $this->createNotFoundException('You have not account with id: '.$request->get('account_id').'.');
         }
@@ -909,7 +902,7 @@ class BaseTransferController extends AclController
 
         $isPreSaved = $request->isXmlHttpRequest();
         $form = $this->createForm(new TransferInformationFormType($adm, $isPreSaved), $information);
-        $formHandler = new TransferInformationFormHandler($form, $request, $em, array('client' => $client));
+        $formHandler = new TransferInformationFormHandler($form, $request, $em, ['client' => $client]);
 
         if ($request->isMethod('post')) {
             if ($formHandler->process()) {
@@ -918,12 +911,12 @@ class BaseTransferController extends AclController
                 $account->setStepAction(ClientAccount::STEP_ACTION_TRANSFER);
                 $account->setIsPreSaved($isPreSaved);
 
-                $isDocusignAllowed = $adm->isDocusignAllowed($information, array(
+                $isDocusignAllowed = $adm->isDocusignAllowed($information, [
                     new TransferInformationCustodianCondition(),
                     new TransferInformationPolicyCondition(),
                     new TransferInformationQuestionnaireCondition(),
-                    new TransferInformationConsolidatorCondition()
-                ));
+                    new TransferInformationConsolidatorCondition(),
+                ]);
 
                 $adm->setIsUsedDocusign($account, $isDocusignAllowed);
 
@@ -934,44 +927,43 @@ class BaseTransferController extends AclController
                 $redirectUrl = $this->getRedirectUrl($account, ClientAccount::STEP_ACTION_TRANSFER);
 
                 if ($isPreSaved) {
-                    return $this->getJsonResponse(array('status' => 'success', 'redirect_url' => $redirectUrl, 'route' => $this->getRouteUrl($this->get('wealthbot_client.transfer_screen_step.manager')->getNextStep($account, ClientAccount::STEP_ACTION_TRANSFER))));
+                    return $this->getJsonResponse(['status' => 'success', 'redirect_url' => $redirectUrl, 'route' => $this->getRouteUrl($this->get('wealthbot_client.transfer_screen_step.manager')->getNextStep($account, ClientAccount::STEP_ACTION_TRANSFER))]);
                 }
 
                 // If account has next consolidated transfer account than redirect to it
                 // else redirect to another step
                 if ($transferAccounts->containsNextKey($accountIndex)) {
                     return $this->redirect(
-                        $this->generateUrl($this->getRoutePrefix() . 'transfer_transfer_account', array(
+                        $this->generateUrl($this->getRoutePrefix().'transfer_transfer_account', [
                             'account_id' => $account->getId(),
-                            'account_index' => ($accountIndex + 1)
-                        ))
+                            'account_index' => ($accountIndex + 1),
+                        ])
                     );
-
                 } else {
                     return $this->redirect($redirectUrl);
                 }
-            } else if ($isPreSaved) {
-                return $this->getJsonResponse(array(
+            } elseif ($isPreSaved) {
+                return $this->getJsonResponse([
                     'status' => 'error',
-                    'form' => $this->renderView($this->getTemplate('_transfer_form.html.twig'), array(
+                    'form' => $this->renderView($this->getTemplate('_transfer_form.html.twig'), [
                         'account' => $account,
                         'current_account' => $currentAccount,
                         'account_index' => $accountIndex,
-                        'form' => $form->createView()
-                    ))
-                ));
+                        'form' => $form->createView(),
+                    ]),
+                ]);
             }
         }
 
-        return $this->render($this->getTemplate('transfer.html.twig'), array(
+        return $this->render($this->getTemplate('transfer.html.twig'), [
             'client' => $client,
             'account' => $account,
             'transfer_accounts' => $transferAccounts,
             'current_account' => $currentAccount,
             'account_index' => $accountIndex,
             'information' => $information,
-            'form' => $form->createView()
-        ));
+            'form' => $form->createView(),
+        ]);
     }
 
     public function updateTransferFormAction(Request $request)
@@ -980,8 +972,8 @@ class BaseTransferController extends AclController
         $adm = $this->get('wealthbot_docusign.account_docusign.manager');
 
         $account = $em->getRepository('WealthbotClientBundle:ClientAccount')->find($request->get('account_id'));
-        if (!$account || $account->getClient() != $this->getUser()) {
-            return $this->getJsonResponse(array('status' => 'error', 'message' => 'Account does not exist.'));
+        if (!$account || $account->getClient() !== $this->getUser()) {
+            return $this->getJsonResponse(['status' => 'error', 'message' => 'Account does not exist.']);
         }
 
         $accountIndex = $request->get('account_index', 1);
@@ -1004,7 +996,7 @@ class BaseTransferController extends AclController
 
         if ($request->isMethod('post')) {
             $form = $this->createForm(new TransferInformationFormType($adm, true), $transferInfo);
-            $form->bind($request);
+            $form->submit($request);
 
             /** @var TransferInformation $transferInfo */
             $transferInfo = $form->getData();
@@ -1018,42 +1010,42 @@ class BaseTransferController extends AclController
                 }
             }
 
-            $isDocusignAllowed = $adm->isDocusignAllowed($transferInfo, array(
+            $isDocusignAllowed = $adm->isDocusignAllowed($transferInfo, [
                 new TransferInformationCustodianCondition(),
                 new TransferInformationPolicyCondition(),
                 new TransferInformationQuestionnaireCondition(),
-                new TransferInformationConsolidatorCondition()
-            ));
+                new TransferInformationConsolidatorCondition(),
+            ]);
 
             $adm->setIsUsedDocusign($currentAccount, $isDocusignAllowed);
 
             $form = $this->createForm(new TransferInformationFormType($adm, true), $transferInfo);
             $formView = $form->createView();
 
-            return $this->getJsonResponse(array(
+            return $this->getJsonResponse([
                 'status' => 'success',
                 'custodian_questions_fields' => $this->renderView(
-                    'WealthbotClientBundle:Transfer:_transfer_form_custodian_questions_fields.html.twig', array(
-                        'form' => $formView
-                    )
+                    'WealthbotClientBundle:Transfer:_transfer_form_custodian_questions_fields.html.twig', [
+                        'form' => $formView,
+                    ]
                 ),
                 'account_discrepancies_fields' => $this->renderView(
-                    'WealthbotClientBundle:Transfer:_transfer_form_account_discrepancies_fields.html.twig', array(
-                        'form' => $formView
-                    )
-                )
-            ));
+                    'WealthbotClientBundle:Transfer:_transfer_form_account_discrepancies_fields.html.twig', [
+                        'form' => $formView,
+                    ]
+                ),
+            ]);
         }
 
         return $this->getJsonResponse(
-            array('status' => 'error', 'message' => 'The operation failed due to some errors.')
+            ['status' => 'error', 'message' => 'The operation failed due to some errors.']
         );
     }
 
     public function backAction($account_id, $action, $id = 0)
     {
         /** @var $em EntityManager */
-        /** @var $repo ClientAccountRepository */
+        /* @var $repo ClientAccountRepository */
         $em = $this->get('doctrine.orm.entity_manager');
         $repo = $em->getRepository('WealthbotClientBundle:ClientAccount');
         $transferStepManager = $this->get('wealthbot_client.transfer_screen_step.manager');
@@ -1061,13 +1053,13 @@ class BaseTransferController extends AclController
         $client = $this->getUser();
 
         /** @var $account ClientAccount */
-        $account = $repo->findOneBy(array('id' => $account_id, 'client_id' => $client->getId()));
+        $account = $repo->findOneBy(['id' => $account_id, 'client_id' => $client->getId()]);
         if (!$account) {
             $this->createNotFoundException(sprintf('You have not account with id: %s.', $account_id));
         }
 
         if ($id > 0) {
-            $consolidatedAccount = $repo->findOneBy(array('id' => $id, 'consolidator_id' => $account->getId()));
+            $consolidatedAccount = $repo->findOneBy(['id' => $id, 'consolidator_id' => $account->getId()]);
         } else {
             $consolidatedAccount = null;
         }
@@ -1079,11 +1071,11 @@ class BaseTransferController extends AclController
                 $transferAccounts = $account->getTransferConsolidatedAccounts();
                 $key = $transferAccounts->indexOf($consolidatedAccount);
 
-                if ($transferAccounts->containsKey($key-1)) {
-                    return $this->redirect($this->generateUrl($this->getRoutePrefix() . 'transfer_transfer_account', array(
+                if ($transferAccounts->containsKey($key - 1)) {
+                    return $this->redirect($this->generateUrl($this->getRoutePrefix().'transfer_transfer_account', [
                         'account_id' => $account->getId(),
-                        'account_index' => ($key)
-                    )));
+                        'account_index' => ($key),
+                    ]));
                 }
             }
         }
@@ -1095,35 +1087,34 @@ class BaseTransferController extends AclController
         }
 
         if ($account->getConsolidatedAccounts()) {
-            if ($route === ($this->getRoutePrefix() . 'transfer_transfer_account')) {
+            if ($route === ($this->getRoutePrefix().'transfer_transfer_account')) {
                 $transferCount = $account->getTransferConsolidatedAccounts()->count();
 
-                return $this->redirect($this->generateUrl($this->getRoutePrefix() . 'transfer_transfer_account', array(
+                return $this->redirect($this->generateUrl($this->getRoutePrefix().'transfer_transfer_account', [
                     'account_id' => $account->getId(),
-                    'account_index' => $transferCount
-                )));
-
-            } elseif ($route === ($this->getRoutePrefix() . 'transfer_rollover')) {
+                    'account_index' => $transferCount,
+                ]));
+            } elseif ($route === ($this->getRoutePrefix().'transfer_rollover')) {
                 $rolloverCount = $account->getRolloverConsolidatedAccounts()->count();
 
-                return $this->redirect($this->generateUrl($this->getRoutePrefix() . 'transfer_rollover', array(
+                return $this->redirect($this->generateUrl($this->getRoutePrefix().'transfer_rollover', [
                     'account_id' => $account->getId(),
-                    'account_index' => $rolloverCount
-                )));
+                    'account_index' => $rolloverCount,
+                ]));
             }
         }
 
-        if ($route === ($this->getRoutePrefix() . 'transfer')) {
+        if ($route === ($this->getRoutePrefix().'transfer')) {
             return $this->redirect($this->generateUrl($route));
         }
 
-        return $this->redirect($this->generateUrl($route, array('account_id' => $account->getId())));
+        return $this->redirect($this->generateUrl($route, ['account_id' => $account->getId()]));
     }
 
     public function finishedAction()
     {
         /** @var $em EntityManager */
-        /** @var $repo ClientAccountRepository  */
+        /* @var $repo ClientAccountRepository  */
         $em = $this->get('doctrine.orm.entity_manager');
         $repo = $em->getRepository('WealthbotClientBundle:ClientAccount');
 
@@ -1132,32 +1123,34 @@ class BaseTransferController extends AclController
 
         $riaCompanyInformation = $client->getRia()->getRiaCompanyInformation();
 
-        $data = array('groups' => $this->get('session')->get('client.accounts.groups'));
+        $data = ['groups' => $this->get('session')->get('client.accounts.groups')];
         $this->get('session')->set('client.accounts.is_consolidate_account', false);
 
         $form = $this->createForm(new AccountGroupsFormType($client), $data);
 
-        return $this->render($this->getTemplate('finished.html.twig'), array(
+        return $this->render($this->getTemplate('finished.html.twig'), [
             'client' => $client,
             'form' => $form->createView(),
             'has_not_opened_accounts' => $hasNotOpenedAccounts,
-            'ria_company_information' => $riaCompanyInformation
-        ));
+            'ria_company_information' => $riaCompanyInformation,
+        ]);
     }
 
     protected function getJsonResponse(array $data, $code = 200)
     {
         $response = json_encode($data);
 
-        return new Response($response, $code, array('Content-Type'=>'application/json'));
+        return new Response($response, $code, ['Content-Type' => 'application/json']);
     }
 
     /**
-     * Get next step of the transfer account process
+     * Get next step of the transfer account process.
      *
      * @param \Wealthbot\ClientBundle\Entity\ClientAccount $account
-     * @param string $action current step of the transfer account process
+     * @param string                                       $action  current step of the transfer account process
+     *
      * @return string
+     *
      * @throws \InvalidArgumentException
      */
     protected function getRedirectUrl(ClientAccount $account, $action)
@@ -1165,11 +1158,11 @@ class BaseTransferController extends AclController
         $transferStepManager = $this->get('wealthbot_client.transfer_screen_step.manager');
         $route = $this->getRouteUrl($transferStepManager->getNextStep($account, $action));
 
-        if ($route == ($this->getRoutePrefix() . 'transfer_finished')) {
+        if ($route === ($this->getRoutePrefix().'transfer_finished')) {
             return $this->generateUrl($route);
         }
 
-        return $this->generateUrl($route, array('account_id' => $account->getId()));
+        return $this->generateUrl($route, ['account_id' => $account->getId()]);
     }
 
     private function buildBeneficiaryByClient(User $client)
@@ -1194,10 +1187,12 @@ class BaseTransferController extends AclController
     }
 
     /**
-     * Ger route for action
+     * Ger route for action.
      *
      * @param string $action
+     *
      * @return string route
+     *
      * @throws \InvalidArgumentException
      */
     private function getRouteUrl($action)
@@ -1244,13 +1239,13 @@ class BaseTransferController extends AclController
                 break;
         }
 
-        return $this->getRoutePrefix() . $route;
+        return $this->getRoutePrefix().$route;
     }
 
     protected function denyAccessForCurrentRetirementAccount(ClientAccount $account)
     {
         /** @var $em EntityManager */
-        /** @var $repo ClientAccountRepository */
+        /* @var $repo ClientAccountRepository */
         $em = $this->get('doctrine.orm.entity_manager');
         $repo = $em->getRepository('WealthbotClientBundle:ClientAccount');
 
@@ -1261,7 +1256,7 @@ class BaseTransferController extends AclController
     }
 
     /**
-     * Get prefix for routing
+     * Get prefix for routing.
      *
      * @return string
      */
@@ -1271,30 +1266,32 @@ class BaseTransferController extends AclController
     }
 
     /**
-     * Get template
+     * Get template.
      *
      * @param $templateName
+     *
      * @return string
      */
     protected function getTemplate($templateName)
     {
-        $params = array(
+        $params = [
             'WealthbotClientBundle',
             $this->getViewsDir(),
-            $templateName
-        );
+            $templateName,
+        ];
 
         return implode(':', $params);
     }
 
     /**
      * Returns true if array contains ClientAccount objects with sas cache property value more than 0
-     * and false otherwise
+     * and false otherwise.
      *
      * @param array $accounts array of ClientAccount objects
+     *
      * @return bool
      */
-    protected function containsSasCash(array $accounts = array())
+    protected function containsSasCash(array $accounts = [])
     {
         foreach ($accounts as $account) {
             if ($account->getSasCash() && $account->getSasCash() > 0) {
@@ -1306,7 +1303,7 @@ class BaseTransferController extends AclController
     }
 
     /**
-     * Returns class name without 'Controller' substring
+     * Returns class name without 'Controller' substring.
      *
      * @return string
      */

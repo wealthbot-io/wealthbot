@@ -1,13 +1,11 @@
 <?php
 
-
 namespace Wealthbot\ClientBundle\Command;
 
-use Wealthbot\AdminBundle\Repository\SubclassRepository;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
-use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Wealthbot\AdminBundle\Repository\SubclassRepository;
 
 /**
  * @author Maxim Belyakov
@@ -36,27 +34,27 @@ EOT
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         /** @var \Doctrine\ORM\EntityManager $em */
-        /** @var $subclassRepo SubclassRepository */
+        /* @var $subclassRepo SubclassRepository */
         $em = $this->getContainer()->get('doctrine.orm.entity_manager');
         $subclassRepo = $em->getRepository('WealthbotAdminBundle:Subclass');
 
-        $q = $em->getRepository("WealthbotUserBundle:User")
-            ->createQueryBuilder("u")
-            ->leftJoin("u.clientSubclasses", "cs")
-            ->leftJoin("u.profile", "p")
+        $q = $em->getRepository('WealthbotUserBundle:User')
+            ->createQueryBuilder('u')
+            ->leftJoin('u.clientSubclasses', 'cs')
+            ->leftJoin('u.profile', 'p')
             ->where("u.roles LIKE '%ROLE_CLIENT%'")
-            ->andWhere("cs.id IS NULL")
-            ->groupBy("u.id")
+            ->andWhere('cs.id IS NULL')
+            ->groupBy('u.id')
         ;
 
         $clients = $q->getQuery()->getResult();
 
         $clientCounter = 0;
-        foreach($clients as $client) {
+        foreach ($clients as $client) {
             $ria = $client->getRia();
             $subclassRepo->saveClientSubclasses($client, $ria);
 
-            $clientCounter++;
+            ++$clientCounter;
         }
         $em->flush();
         $em->clear();

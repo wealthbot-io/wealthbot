@@ -2,25 +2,23 @@
 
 namespace Wealthbot\ClientBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-
 /**
- * ClientAccountDocusign
+ * ClientAccountDocusign.
  */
 class ClientAccountDocusign
 {
     /**
-     * @var integer
+     * @var int
      */
     private $id;
 
     /**
-     * @var integer
+     * @var int
      */
     private $client_account_id;
 
     /**
-     * @var boolean
+     * @var bool
      */
     private $is_used;
 
@@ -29,11 +27,10 @@ class ClientAccountDocusign
      */
     private $clientAccount;
 
-
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer 
+     * @return int
      */
     public function getId()
     {
@@ -41,22 +38,23 @@ class ClientAccountDocusign
     }
 
     /**
-     * Set client_account_id
+     * Set client_account_id.
      *
-     * @param integer $clientAccountId
+     * @param int $clientAccountId
+     *
      * @return ClientAccountDocusign
      */
     public function setClientAccountId($clientAccountId)
     {
         $this->client_account_id = $clientAccountId;
-    
+
         return $this;
     }
 
     /**
-     * Get client_account_id
+     * Get client_account_id.
      *
-     * @return integer 
+     * @return int
      */
     public function getClientAccountId()
     {
@@ -64,22 +62,23 @@ class ClientAccountDocusign
     }
 
     /**
-     * Set is_used
+     * Set is_used.
      *
-     * @param boolean $isUsed
+     * @param bool $isUsed
+     *
      * @return ClientAccountDocusign
      */
     public function setIsUsed($isUsed)
     {
         $this->is_used = $isUsed;
-    
+
         return $this;
     }
 
     /**
-     * Get is_used
+     * Get is_used.
      *
-     * @return boolean 
+     * @return bool
      */
     public function getIsUsed()
     {
@@ -87,20 +86,21 @@ class ClientAccountDocusign
     }
 
     /**
-     * Set clientAccount
+     * Set clientAccount.
      *
      * @param \Wealthbot\ClientBundle\Model\ClientAccount $clientAccount
+     *
      * @return ClientAccountDocusign
      */
     public function setClientAccount(\Wealthbot\ClientBundle\Model\ClientAccount $clientAccount = null)
     {
         $this->clientAccount = $clientAccount;
-    
+
         return $this;
     }
 
     /**
-     * Get clientAccount
+     * Get clientAccount.
      *
      * @return \Wealthbot\ClientBundle\Model\ClientAccount
      */

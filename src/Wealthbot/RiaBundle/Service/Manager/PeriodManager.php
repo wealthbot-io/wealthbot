@@ -7,14 +7,16 @@ class PeriodManager
     /**
      * @var array
      */
-    private $datesCache = array();
+    private $datesCache = [];
 
     /**
-     * Get quarter period
+     * Get quarter period.
      *
-     * @param integer $year
-     * @param null|integer $quarter
+     * @param int      $year
+     * @param null|int $quarter
+     *
      * @return array
+     *
      * @throws \InvalidArgumentException
      */
     public function getQuarterPeriod($year, $quarter = null)
@@ -26,19 +28,19 @@ class PeriodManager
         $period = new \DatePeriod($startDate, $periodInt, $endDate);
 
         $i = 1;
-        $periods = array();
-        foreach($period as $val) {
+        $periods = [];
+        foreach ($period as $val) {
             $end = clone $val;
             $end->add(new \DateInterval('P3M'));
 
-            $periods[$i] = array('startDate' => $val, 'endDate' => $end);
+            $periods[$i] = ['startDate' => $val, 'endDate' => $end];
 
-            $i++;
+            ++$i;
         }
 
-        if ( ! empty($quarter)) {
+        if (!empty($quarter)) {
             if (isset($periods[$quarter])) {
-                return array($quarter => $periods[$quarter]);
+                return [$quarter => $periods[$quarter]];
             }
 
             throw new \InvalidArgumentException();
@@ -56,6 +58,7 @@ class PeriodManager
      *
      * @param $year
      * @param null $quarter
+     *
      * @return \DateTime[]
      */
     public function getPeriod($year, $quarter = null)
@@ -68,20 +71,20 @@ class PeriodManager
 
         $periods = $this->getQuarterPeriod($year);
 
-        if ( ! $quarter) {
-            $result = array(
+        if (!$quarter) {
+            $result = [
                 'startDate' => $periods[1]['startDate'],
-                'endDate' => $periods[4]['endDate']
-            );
+                'endDate' => $periods[4]['endDate'],
+            ];
         } else {
-            $result = array(
+            $result = [
                 'startDate' => $periods[$quarter]['startDate'],
-                'endDate' => $periods[$quarter]['endDate']
-            );
+                'endDate' => $periods[$quarter]['endDate'],
+            ];
         }
 
-        if ( ! isset($this->datesCache[$year])) {
-            $this->datesCache[$year] = array();
+        if (!isset($this->datesCache[$year])) {
+            $this->datesCache[$year] = [];
         }
 
         $this->datesCache[$year][$q] = $result;
@@ -91,51 +94,55 @@ class PeriodManager
 
     /**
      * @param \DateTime $date
+     *
      * @return array
      */
     public function getPreviousQuarter(\DateTime $date)
     {
         $newDate = new \DateTime();
         $newDate->setTimestamp($date->getTimestamp());
-        $newDate->modify("-3 month");
-        return array(
+        $newDate->modify('-3 month');
+
+        return [
             'year' => $newDate->format('Y'),
-            'quarter' => ceil($newDate->format('m') / 3)
-        );
+            'quarter' => ceil($newDate->format('m') / 3),
+        ];
     }
 
     /**
      * @param $period
      * @param \DateTime $date
+     *
      * @return \DateTime
+     *
      * @throws \InvalidArgumentException
      */
     public function firstDayOf($period, \DateTime $date = null)
     {
         $period = strtolower($period);
-        $validPeriods = array('year', 'quarter', 'month', 'week');
+        $validPeriods = ['year', 'quarter', 'month', 'week'];
 
-        if ( ! in_array($period, $validPeriods)) {
-            throw new \InvalidArgumentException('Period must be one of: ' . implode(', ', $validPeriods));
+        if (!in_array($period, $validPeriods)) {
+            throw new \InvalidArgumentException('Period must be one of: '.implode(', ', $validPeriods));
         }
 
         $newDate = ($date === null) ? new \DateTime() : clone $date;
 
         switch ($period) {
             case 'year':
-                $newDate->modify('first day of january ' . $newDate->format('Y'));
+                $newDate->modify('first day of january '.$newDate->format('Y'));
                 break;
             case 'quarter':
-                $month = $newDate->format('n') ;
+                $month = $newDate->format('n');
 
                 if ($month < 4) {
-                    $newDate->modify('first day of january ' . $newDate->format('Y'));
+                    $newDate->modify('first day of january '.$newDate->format('Y'));
                 } elseif ($month > 3 && $month < 7) {
-                    $newDate->modify('first day of april ' . $newDate->format('Y'));
+                    $newDate->modify('first day of april '.$newDate->format('Y'));
                 } elseif ($month > 6 && $month < 10) {
-                    $newDate->modify('first day of july ' . $newDate->format('Y'));
+                    $newDate->modify('first day of july '.$newDate->format('Y'));
                 } elseif ($month > 9) {
-                    $newDate->modify('first day of october ' . $newDate->format('Y'));
+                    $newDate->modify('first day of october '.$newDate->format('Y'));
                 }
                 break;
             case 'month':
@@ -153,35 +160,37 @@ class PeriodManager
     /**
      * @param $period
      * @param \DateTime $date
+     *
      * @return \DateTime
+     *
      * @throws \InvalidArgumentException
      */
     public function lastDayOf($period, \DateTime $date = null)
     {
         $period = strtolower($period);
-        $validPeriods = array('year', 'quarter', 'month', 'week');
+        $validPeriods = ['year', 'quarter', 'month', 'week'];
 
-        if ( ! in_array($period, $validPeriods)) {
-            throw new \InvalidArgumentException('Period must be one of: ' . implode(', ', $validPeriods));
+        if (!in_array($period, $validPeriods)) {
+            throw new \InvalidArgumentException('Period must be one of: '.implode(', ', $validPeriods));
         }
 
         $newDate = ($date === null) ? new \DateTime() : clone $date;
 
         switch ($period) {
             case 'year':
-                $newDate->modify('last day of december ' . $newDate->format('Y'));
+                $newDate->modify('last day of december '.$newDate->format('Y'));
                 break;
             case 'quarter':
-                $month = $newDate->format('n') ;
+                $month = $newDate->format('n');
 
                 if ($month < 4) {
-                    $newDate->modify('last day of march ' . $newDate->format('Y'));
+                    $newDate->modify('last day of march '.$newDate->format('Y'));
                 } elseif ($month > 3 && $month < 7) {
-                    $newDate->modify('last day of june ' . $newDate->format('Y'));
+                    $newDate->modify('last day of june '.$newDate->format('Y'));
                 } elseif ($month > 6 && $month < 10) {
-                    $newDate->modify('last day of september ' . $newDate->format('Y'));
+                    $newDate->modify('last day of september '.$newDate->format('Y'));
                 } elseif ($month > 9) {
-                    $newDate->modify('last day of december ' . $newDate->format('Y'));
+                    $newDate->modify('last day of december '.$newDate->format('Y'));
                 }
                 break;
             case 'month':

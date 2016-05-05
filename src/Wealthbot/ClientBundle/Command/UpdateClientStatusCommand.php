@@ -2,12 +2,11 @@
 
 namespace Wealthbot\ClientBundle\Command;
 
-
-use Wealthbot\UserBundle\Entity\Profile;
-use Wealthbot\UserBundle\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Wealthbot\UserBundle\Entity\Profile;
+use Wealthbot\UserBundle\Entity\User;
 
 class UpdateClientStatusCommand extends ContainerAwareCommand
 {
@@ -39,7 +38,7 @@ EOT
         $clientCounter = 0;
 
         /** @var User $client */
-        foreach($clients as $client) {
+        foreach ($clients as $client) {
             $profile = $client->getProfile();
 
             $output->write(sprintf('Update client: %d ', $client->getId()));
@@ -51,10 +50,10 @@ EOT
             }
 
             $output->write(sprintf('set status: %s.', $profile->getClientStatusAsString()));
-            $output->writeln("");
+            $output->writeln('');
 
             $em->persist($client);
-            $clientCounter++;
+            ++$clientCounter;
         }
 
         $em->flush();

@@ -21,10 +21,10 @@ class AccountOutsideFundRepository extends EntityRepository
             ->where('s.security_id = :security_id')
             ->andWhere('aof.account_id = :account_id')
             ->setParameters(
-                array(
+                [
                     'security_id' => $securityId,
-                    'account_id' => $accountId
-                )
+                    'account_id' => $accountId,
+                ]
             )
             ->setMaxResults(1);
 

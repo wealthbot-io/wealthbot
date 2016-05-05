@@ -9,8 +9,8 @@
 
 namespace Wealthbot\ClientBundle\Form\Validator;
 
-use Wealthbot\ClientBundle\Entity\BankInformation;
 use Symfony\Component\Form\FormError;
+use Wealthbot\ClientBundle\Entity\BankInformation;
 
 class BankInformationFormValidator extends AbstractFormValidator
 {
@@ -44,8 +44,8 @@ class BankInformationFormValidator extends AbstractFormValidator
             $phoneDigits = 10;
 
             if (!is_numeric($phoneNumber)) {
-                $form->get('phone_number')->addError(new FormError("Enter correct phone number."));
-            } elseif (strlen($phoneNumber) != $phoneDigits) {
+                $form->get('phone_number')->addError(new FormError('Enter correct phone number.'));
+            } elseif (strlen($phoneNumber) !== $phoneDigits) {
                 $form->get('phone_number')->addError(
                     new FormError("Phone number must be {$phoneDigits} digits.")
                 );
@@ -68,14 +68,14 @@ class BankInformationFormValidator extends AbstractFormValidator
     }
 
     /**
-     * Returns true if string is null or empty
+     * Returns true if string is null or empty.
      *
      * @param $str
+     *
      * @return bool
      */
     private function isNullOrEmptyString($str)
     {
-        return (is_null($str) || trim($str) === '');
+        return is_null($str) || trim($str) === '';
     }
-
 }

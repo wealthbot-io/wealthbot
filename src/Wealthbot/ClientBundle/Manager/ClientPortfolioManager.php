@@ -21,7 +21,6 @@ class ClientPortfolioManager
     /** @var \Wealthbot\AdminBundle\Manager\CeModelManager */
     private $modelManager;
 
-
     public function __construct(ObjectManager $om, CeModelManager $modelManager)
     {
         $this->om = $om;
@@ -45,82 +44,88 @@ class ClientPortfolioManager
     }
 
     /**
-     * Find client current portfolio
+     * Find client current portfolio.
      *
      * @param User $client
+     *
      * @return ClientPortfolio
      */
     public function getCurrentPortfolio(User $client)
     {
-        return $this->findOneBy(array(
+        return $this->findOneBy([
             'client' => $client,
             'is_active' => true,
-            'status' => ClientPortfolio::STATUS_CLIENT_ACCEPTED
-        ));
+            'status' => ClientPortfolio::STATUS_CLIENT_ACCEPTED,
+        ]);
     }
 
     /**
-     * Find client active portfolio
+     * Find client active portfolio.
      *
      * @param User $client
+     *
      * @return ClientPortfolio
      */
     public function getActivePortfolio(User $client)
     {
-        return $this->findOneBy(array(
+        return $this->findOneBy([
             'client' => $client,
-            'is_active' => true
-        ));
+            'is_active' => true,
+        ]);
     }
 
     /**
-     * Find previous portfolios for client
+     * Find previous portfolios for client.
      *
      * @param User $client
+     *
      * @return array|\Wealthbot\ClientBundle\Entity\ClientPortfolio[]
      */
     public function getNotActivePortfolios(User $client)
     {
-        return $this->findBy(array(
+        return $this->findBy([
             'client' => $client,
             'is_active' => false,
-            'status' => ClientPortfolio::STATUS_CLIENT_ACCEPTED
-        ));
+            'status' => ClientPortfolio::STATUS_CLIENT_ACCEPTED,
+        ]);
     }
 
     /**
-     * Find proposed portfolio
+     * Find proposed portfolio.
      *
      * @param User $client
+     *
      * @return ClientPortfolio
      */
     public function getProposedClientPortfolio(User $client)
     {
-        return $this->findOneBy(array(
+        return $this->findOneBy([
             'client' => $client,
             'status' => ClientPortfolio::STATUS_PROPOSED,
-        ));
+        ]);
     }
 
     /**
-     * Find advisor approved portfolio which not accepted by client
+     * Find advisor approved portfolio which not accepted by client.
      *
      * @param User $client
+     *
      * @return ClientPortfolio
      */
     public function getApprovedClientPortfolio(User $client)
     {
-        return $this->findOneBy(array(
+        return $this->findOneBy([
             'client' => $client,
             'status' => ClientPortfolio::STATUS_ADVISOR_APPROVED,
-        ));
+        ]);
     }
 
     /**
-     * Propose portfolio for client
+     * Propose portfolio for client.
      *
-     * @param User $client
+     * @param User             $client
      * @param CeModelInterface $portfolio
+     *
      * @return ClientPortfolio
      */
     public function proposePortfolio(User $client, CeModelInterface $portfolio)
@@ -143,11 +148,13 @@ class ClientPortfolioManager
     }
 
     /**
-     * Approve proposed portfolio
+     * Approve proposed portfolio.
      *
-     * @param User $client
+     * @param User             $client
      * @param CeModelInterface $proposedModel
+     *
      * @return ClientPortfolio
+     *
      * @throws \RuntimeException
      */
     public function approveProposedPortfolio(User $client, CeModelInterface $proposedModel = null)
@@ -183,10 +190,12 @@ class ClientPortfolioManager
 
     /**
      * Accept approved portfolio.
-     * Clone approved CeModel and save it as accepted
+     * Clone approved CeModel and save it as accepted.
      *
      * @param User $client
+     *
      * @return ClientPortfolio
+     *
      * @throws \RuntimeException
      */
     public function acceptApprovedPortfolio(User $client)
@@ -214,11 +223,11 @@ class ClientPortfolioManager
 
     private function resetAcceptedPortfoliosActiveFlag(User $client)
     {
-        $portfolios = $this->findBy(array(
+        $portfolios = $this->findBy([
             'client' => $client,
             'status' => ClientPortfolio::STATUS_CLIENT_ACCEPTED,
-            'is_active' => true
-        ));
+            'is_active' => true,
+        ]);
 
         foreach ($portfolios as $portfolio) {
             $portfolio->setIsActive(false);
@@ -239,7 +248,5 @@ class ClientPortfolioManager
         }
 
         return $sum;
-
     }
-
 }

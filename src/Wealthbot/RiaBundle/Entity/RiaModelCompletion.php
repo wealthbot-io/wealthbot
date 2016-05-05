@@ -2,26 +2,25 @@
 
 namespace Wealthbot\RiaBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
 use Wealthbot\UserBundle\Entity\User;
 
 /**
- * Wealthbot\RiaBundle\Entity\RiaModelCompletion
+ * Wealthbot\RiaBundle\Entity\RiaModelCompletion.
  */
 class RiaModelCompletion
 {
     /**
-     * @var integer $id
+     * @var int
      */
     private $id;
 
     /**
-     * @var integer $ria_user_id
+     * @var int
      */
     private $ria_user_id;
 
     /**
-     * @var boolean $models_created
+     * @var bool
      */
     private $models_created;
 
@@ -31,48 +30,47 @@ class RiaModelCompletion
     private $ria;
 
     /**
-     * @var boolean
+     * @var bool
      */
     private $users_and_user_groups;
 
     /**
-     * @var boolean $billingComplete
+     * @var bool
      */
     private $billingComplete;
 
     /**
-     * @var boolean
+     * @var bool
      */
     private $select_custodians;
 
     /**
-     * @var boolean
+     * @var bool
      */
     private $rebalancing_settings;
 
     /**
-     * @var boolean
+     * @var bool
      */
     private $customize_proposals;
 
     /**
-     * @var boolean
+     * @var bool
      */
     private $create_securities;
 
     /**
-     * @var boolean
+     * @var bool
      */
     private $assign_securities;
 
     /**
-     * @var boolean
+     * @var bool
      */
     private $proposalDocuments;
 
     /**
-     * Class constructor
-     *
+     * Class constructor.
      */
     public function __construct()
     {
@@ -88,9 +86,9 @@ class RiaModelCompletion
     }
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer
+     * @return int
      */
     public function getId()
     {
@@ -98,9 +96,10 @@ class RiaModelCompletion
     }
 
     /**
-     * Set ria_user_id
+     * Set ria_user_id.
      *
-     * @param integer $riaUserId
+     * @param int $riaUserId
+     *
      * @return RiaModelCompletion
      */
     public function setRiaUserId($riaUserId)
@@ -111,9 +110,9 @@ class RiaModelCompletion
     }
 
     /**
-     * Get ria_user_id
+     * Get ria_user_id.
      *
-     * @return integer
+     * @return int
      */
     public function getRiaUserId()
     {
@@ -121,9 +120,10 @@ class RiaModelCompletion
     }
 
     /**
-     * Set models_created
+     * Set models_created.
      *
-     * @param boolean $modelsCreated
+     * @param bool $modelsCreated
+     *
      * @return RiaModelCompletion
      */
     public function setModelsCreated($modelsCreated)
@@ -134,9 +134,9 @@ class RiaModelCompletion
     }
 
     /**
-     * Get models_created
+     * Get models_created.
      *
-     * @return boolean
+     * @return bool
      */
     public function getModelsCreated()
     {
@@ -144,9 +144,10 @@ class RiaModelCompletion
     }
 
     /**
-     * Set ria
+     * Set ria.
      *
      * @param Wealthbot\UserBundle\Entity\User $ria
+     *
      * @return RiaModelCompletion
      */
     public function setRia(\Wealthbot\UserBundle\Entity\User $ria = null)
@@ -157,7 +158,7 @@ class RiaModelCompletion
     }
 
     /**
-     * Get ria
+     * Get ria.
      *
      * @return User
      */
@@ -170,9 +171,7 @@ class RiaModelCompletion
     {
         $progress = 0;
 
-
         if ($this->getRia()->getRiaCompanyInformation()->getPortfolioModel()->isCustom()) {
-
             $step = 11;
 
             if ($this->getUsersAndUserGroups()) {
@@ -212,7 +211,6 @@ class RiaModelCompletion
             }
 
             $progress += 1;
-
         } else {
             $step = 16;
 
@@ -248,13 +246,14 @@ class RiaModelCompletion
 
     public function isComplete()
     {
-        return $this->getProgress() == 100;
+        return $this->getProgress() === 100;
     }
 
     /**
-     * Set users_and_user_groups
+     * Set users_and_user_groups.
      *
-     * @param boolean $usersAndUserGroups
+     * @param bool $usersAndUserGroups
+     *
      * @return RiaModelCompletion
      */
     public function setUsersAndUserGroups($usersAndUserGroups)
@@ -265,9 +264,9 @@ class RiaModelCompletion
     }
 
     /**
-     * Get users_and_user_groups
+     * Get users_and_user_groups.
      *
-     * @return boolean
+     * @return bool
      */
     public function getUsersAndUserGroups()
     {
@@ -275,7 +274,7 @@ class RiaModelCompletion
     }
 
     /**
-     * @param boolean $billingComplete
+     * @param bool $billingComplete
      */
     public function setBillingComplete($billingComplete)
     {
@@ -283,7 +282,7 @@ class RiaModelCompletion
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function isBillingComplete()
     {
@@ -291,20 +290,20 @@ class RiaModelCompletion
     }
 
     /**
-     * Get billingComplete
+     * Get billingComplete.
      *
-     * @return boolean
+     * @return bool
      */
     public function getBillingComplete()
     {
         return $this->billingComplete;
     }
 
-
     /**
-     * Set select_custodians
+     * Set select_custodians.
      *
-     * @param boolean $selectCustodians
+     * @param bool $selectCustodians
+     *
      * @return RiaModelCompletion
      */
     public function setSelectCustodians($selectCustodians)
@@ -315,9 +314,9 @@ class RiaModelCompletion
     }
 
     /**
-     * Get select_custodians
+     * Get select_custodians.
      *
-     * @return boolean
+     * @return bool
      */
     public function getSelectCustodians()
     {
@@ -325,9 +324,10 @@ class RiaModelCompletion
     }
 
     /**
-     * Set rebalancing_settings
+     * Set rebalancing_settings.
      *
-     * @param boolean $rebalancingSettings
+     * @param bool $rebalancingSettings
+     *
      * @return RiaModelCompletion
      */
     public function setRebalancingSettings($rebalancingSettings)
@@ -338,9 +338,9 @@ class RiaModelCompletion
     }
 
     /**
-     * Get rebalancing_settings
+     * Get rebalancing_settings.
      *
-     * @return boolean
+     * @return bool
      */
     public function getRebalancingSettings()
     {
@@ -348,9 +348,10 @@ class RiaModelCompletion
     }
 
     /**
-     * Set customize_proposals
+     * Set customize_proposals.
      *
-     * @param boolean $customizeProposals
+     * @param bool $customizeProposals
+     *
      * @return RiaModelCompletion
      */
     public function setCustomizeProposals($customizeProposals)
@@ -361,9 +362,9 @@ class RiaModelCompletion
     }
 
     /**
-     * Get customize_proposals
+     * Get customize_proposals.
      *
-     * @return boolean
+     * @return bool
      */
     public function getCustomizeProposals()
     {
@@ -371,9 +372,10 @@ class RiaModelCompletion
     }
 
     /**
-     * Set create_securities
+     * Set create_securities.
      *
-     * @param boolean $createSecurities
+     * @param bool $createSecurities
+     *
      * @return RiaModelCompletion
      */
     public function setCreateSecurities($createSecurities)
@@ -384,9 +386,9 @@ class RiaModelCompletion
     }
 
     /**
-     * Get create_securities
+     * Get create_securities.
      *
-     * @return boolean
+     * @return bool
      */
     public function getCreateSecurities()
     {
@@ -394,9 +396,10 @@ class RiaModelCompletion
     }
 
     /**
-     * Set assign_securities
+     * Set assign_securities.
      *
-     * @param boolean $assignSecurities
+     * @param bool $assignSecurities
+     *
      * @return RiaModelCompletion
      */
     public function setAssignSecurities($assignSecurities)
@@ -407,9 +410,9 @@ class RiaModelCompletion
     }
 
     /**
-     * Get assign_securities
+     * Get assign_securities.
      *
-     * @return boolean
+     * @return bool
      */
     public function getAssignSecurities()
     {
@@ -417,9 +420,10 @@ class RiaModelCompletion
     }
 
     /**
-     * Set proposalDocuments
+     * Set proposalDocuments.
      *
-     * @param boolean $proposalDocuments
+     * @param bool $proposalDocuments
+     *
      * @return RiaModelCompletion
      */
     public function setProposalDocuments($proposalDocuments)
@@ -430,9 +434,9 @@ class RiaModelCompletion
     }
 
     /**
-     * Get proposalDocuments
+     * Get proposalDocuments.
      *
-     * @return boolean 
+     * @return bool
      */
     public function getProposalDocuments()
     {

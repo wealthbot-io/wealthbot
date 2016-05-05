@@ -2,15 +2,13 @@
 
 namespace Wealthbot\ClientBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-
 /**
- * ClosingAccountMessage
+ * ClosingAccountMessage.
  */
 class ClosingAccountMessage
 {
     /**
-     * @var integer
+     * @var int
      */
     private $id;
 
@@ -19,11 +17,10 @@ class ClosingAccountMessage
      */
     private $message;
 
-
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer 
+     * @return int
      */
     public function getId()
     {
@@ -31,22 +28,23 @@ class ClosingAccountMessage
     }
 
     /**
-     * Set message
+     * Set message.
      *
      * @param string $message
+     *
      * @return ClosingAccountMessage
      */
     public function setMessage($message)
     {
         $this->message = $message;
-    
+
         return $this;
     }
 
     /**
-     * Get message
+     * Get message.
      *
-     * @return string 
+     * @return string
      */
     public function getMessage()
     {

@@ -64,7 +64,7 @@ services:
     wealthbot_admin.securities.form.handler:
         class: Wealthbot\AdminBundle\Form\Handler\SecurityFormHandler
         scope: request
-        arguments: [@wealthbot_admin.securities.form, @request, @doctrine.orm.entity_manager, { security_context: @security.context }]
+        arguments: [@wealthbot_admin.securities.form, @request, @doctrine.orm.entity_manager, { token_storage : @security.token_storage }]
 
     wealthbot_admin.security_prices.event_listener:
         class: Wealthbot\AdminBundle\EventListener\SecurityPriceEventListener
@@ -73,7 +73,7 @@ services:
 
     wealthbot_admin.user_history.manager:
         class: Wealthbot\AdminBundle\Manager\UserHistoryManager
-        arguments: [@doctrine.orm.entity_manager, %wealthbot_admin.user_history.class%, @security.context, @security.role_hierarchy]
+        arguments: [@doctrine.orm.entity_manager, %wealthbot_admin.user_history.class%, @security.token_storage, @security.authorization_checker]
 
     wealthbot_admin.user_history.listener:
         class: Wealthbot\AdminBundle\EventListener\UserHistoryEventListener
@@ -83,7 +83,7 @@ services:
 
     wealthbot_admin.acl:
         class: Wealthbot\AdminBundle\Model\Acl
-        arguments: [@security.context]
+        arguments: [@security.token_storage,@security.authorization_checker]
 
     wealthbot_admin.twig.acl_extension:
         class: Wealthbot\AdminBundle\Twig\AclExtension

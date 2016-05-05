@@ -10,19 +10,20 @@ class BillingSpecVoter extends BaseVoter
 {
     /**
      * @param TokenInterface $token
-     * @param object $object
-     * @param array $attributes
+     * @param object         $object
+     * @param array          $attributes
+     *
      * @return int
      */
     public function vote(TokenInterface $token, $object, array $attributes)
     {
-        if ( ! $object instanceof BillingSpec) {
+        if (!$object instanceof BillingSpec) {
             return VoterInterface::ACCESS_ABSTAIN;
         }
 
         $user = $token->getUser();
 
-        if ($user == $object->getOwner()) {
+        if ($user === $object->getOwner()) {
             return VoterInterface::ACCESS_GRANTED;
         }
 

@@ -3,11 +3,10 @@
  * Created by PhpStorm.
  * User: amalyuhin
  * Date: 12.05.14
- * Time: 14:10
+ * Time: 14:10.
  */
 
 namespace Wealthbot\ClientBundle\Form\Validator;
-
 
 use Symfony\Component\Form\FormInterface;
 
@@ -23,4 +22,4 @@ abstract class AbstractFormValidator
     }
 
     abstract public function validate();
-} 
+}

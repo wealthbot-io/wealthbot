@@ -9,7 +9,6 @@
 
 namespace Wealthbot\AdminBundle\EventListener;
 
-
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Wealthbot\AdminBundle\Entity\SecurityPrice;
 

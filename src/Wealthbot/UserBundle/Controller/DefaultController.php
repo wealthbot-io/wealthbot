@@ -1,26 +1,27 @@
 <?php
+
 namespace Wealthbot\UserBundle\Controller;
 
-use Wealthbot\ClientBundle\Entity\TransferCustodian;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Wealthbot\ClientBundle\Entity\TransferCustodian;
 
 class DefaultController extends Controller
 {
     public function indexAction()
     {
         $form = $this->createFormBuilder()
-            ->add('is_not_locate', 'checkbox', array('required' => false))
-            ->add('state', 'entity', array(
-                'class' => 'WealthbotAdminBundle:State',
+            ->add('is_not_locate', 'checkbox', ['required' => false])
+            ->add('state', 'entity', [
+                'class' => 'Wealthbot\\AdminBundle\\Entity\\State',
                 'label' => 'State',
-                'empty_value' => 'Select a State',
-                'required' => false
-            ))
+                'placeholder' => 'Select a State',
+                'required' => false,
+            ])
             ->getForm();
 
-        return $this->render('WealthbotUserBundle:Default:index.html.twig', array('form' => $form->createView()));
+        return $this->render('WealthbotUserBundle:Default:index.html.twig', ['form' => $form->createView()]);
     }
 
     public function searchRiaAction(Request $request)
@@ -29,16 +30,16 @@ class DefaultController extends Controller
         $em = $this->container->get('doctrine.orm.entity_manager');
 
         $form = $this->createFormBuilder()
-            ->add('is_not_locate', 'checkbox', array('required' => false))
-            ->add('state', 'entity', array(
-                'class' => 'WealthbotAdminBundle:State',
+            ->add('is_not_locate', 'checkbox', ['required' => false])
+            ->add('state', 'entity', [
+                'class' => 'Wealthbot\\AdminBundle\\Entity\\State',
                 'label' => 'State',
-                'empty_value' => 'Select a State',
-                'required' => false
-            ))
+                'placeholder' => 'Select a State',
+                'required' => false,
+            ])
             ->getForm();
 
-        $form->bind($request);
+        $form->submit($request);
         $values = $form->getData();
 
         $query = $em->getRepository('WealthbotUserBundle:User')->createQueryBuilder('r')
@@ -46,19 +47,19 @@ class DefaultController extends Controller
             ->where('r.roles LIKE :role')
             ->andWhere('rci.activated = :activated')
             ->andWhere('rci.is_searchable_db = :searchable')
-            ->setParameters(array(
+            ->setParameters([
                 'role' => '%"ROLE_RIA"%',
                 'activated' => 1,
-                'searchable' => 1
-            ));
+                'searchable' => 1,
+            ]);
 
         if ($values['is_not_locate']) {
             $rias = $query->getQuery()->getResult();
 
-            return $this->getJsonResponse(array(
+            return $this->getJsonResponse([
                 'status' => 'success',
-                'content' => $this->renderView('WealthbotUserBundle:Default:_rias_list.html.twig', array('rias' => $rias))
-            ));
+                'content' => $this->renderView('WealthbotUserBundle:Default:_rias_list.html.twig', ['rias' => $rias]),
+            ]);
         } elseif ($values['state']) {
             $rias = $query->andWhere('rci.state_id = :state')
                 ->setParameter('state', $values['state'])
@@ -66,15 +67,15 @@ class DefaultController extends Controller
                 ->getResult()
             ;
 
-            return $this->getJsonResponse(array(
+            return $this->getJsonResponse([
                 'status' => 'success',
-                'content' => $this->renderView('WealthbotUserBundle:Default:_rias_list.html.twig', array('rias' => $rias))
-            ));
+                'content' => $this->renderView('WealthbotUserBundle:Default:_rias_list.html.twig', ['rias' => $rias]),
+            ]);
         } else {
-            return $this->getJsonResponse(array(
+            return $this->getJsonResponse([
                 'status' => 'error',
-                'content' => 'Missing parameters.'
-            ));
+                'content' => 'Missing parameters.',
+            ]);
         }
     }
 
@@ -90,18 +91,18 @@ class DefaultController extends Controller
 
         $transferCustodians = $em->getRepository('WealthbotClientBundle:TransferCustodian')->createQueryBuilder('tc')
             ->where('tc.name LIKE :name')
-            ->setParameter('name', '%' . $query . '%')
+            ->setParameter('name', '%'.$query.'%')
             ->getQuery()
             ->execute();
 
-        $result = array();
+        $result = [];
 
         /** @var TransferCustodian $item */
-        foreach($transferCustodians as $item) {
-            $card = array(
+        foreach ($transferCustodians as $item) {
+            $card = [
                 'id' => $item->getId(),
-                'name' => $item->getName()
-            );
+                'name' => $item->getName(),
+            ];
 
             $result[] = $card;
         }
@@ -113,6 +114,6 @@ class DefaultController extends Controller
     {
         $response = json_encode($data);
 
-        return new Response($response, $code, array('Content-Type'=>'application/json'));
+        return new Response($response, $code, ['Content-Type' => 'application/json']);
     }
 }

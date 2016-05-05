@@ -10,20 +10,21 @@ class RiaClientVoter extends BaseVoter
 {
     /**
      * @param TokenInterface $token
-     * @param object $object
-     * @param array $attributes
+     * @param object         $object
+     * @param array          $attributes
+     *
      * @return int
      */
     public function vote(TokenInterface $token, $object, array $attributes)
     {
-        if ( ! $object instanceof User) {
+        if (!$object instanceof User) {
             return VoterInterface::ACCESS_ABSTAIN;
         }
 
         /* @var $ria User */
         $ria = $token->getUser();
 
-        if ($ria == $object->getRia()) {
+        if ($ria === $object->getRia()) {
             return VoterInterface::ACCESS_GRANTED;
         }
 

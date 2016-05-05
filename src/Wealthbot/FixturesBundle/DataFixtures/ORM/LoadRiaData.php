@@ -12,13 +12,11 @@ namespace Wealthbot\FixturesBundle\DataFixtures\ORM;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
-use Model\WealthbotRebalancer\ArrayCollection;
 use Wealthbot\AdminBundle\Entity\CeModel;
 use Wealthbot\AdminBundle\Entity\Custodian;
-use Wealthbot\AdminBundle\Entity\Fee;
 use Wealthbot\AdminBundle\Manager\CeModelManager;
-use Wealthbot\RiaBundle\Entity\RiaCompanyInformation;
 use Wealthbot\RiaBundle\Entity\AdvisorCode;
+use Wealthbot\RiaBundle\Entity\RiaCompanyInformation;
 use Wealthbot\RiaBundle\Repository\RiskQuestionRepository;
 use Wealthbot\UserBundle\Entity\Document;
 use Wealthbot\UserBundle\Entity\Profile;
@@ -26,7 +24,7 @@ use Wealthbot\UserBundle\Entity\User;
 
 class LoadRiaData extends AbstractFixture implements OrderedFixtureInterface
 {
-    function load(ObjectManager $manager)
+    public function load(ObjectManager $manager)
     {
         $riaUser = $this->createUser();
         $manager->persist($riaUser);
@@ -60,7 +58,7 @@ class LoadRiaData extends AbstractFixture implements OrderedFixtureInterface
         $riaUser->setEmail('blankria@example.com');
         $riaUser->setPlainPassword('blankria');
         $riaUser->setEnabled(true);
-        $riaUser->setRoles(array('ROLE_RIA'));
+        $riaUser->setRoles(['ROLE_RIA']);
 
         $riaUserProfile = new Profile();
         $riaUserProfile->setUser($riaUser);
@@ -80,7 +78,7 @@ class LoadRiaData extends AbstractFixture implements OrderedFixtureInterface
         $riaUser->setEmail('ria@example.com');
         $riaUser->setPlainPassword('ria');
         $riaUser->setEnabled(true);
-        $riaUser->setRoles(array('ROLE_RIA'));
+        $riaUser->setRoles(['ROLE_RIA']);
 
         $riaUserProfile = new Profile();
         $riaUserProfile->setUser($riaUser);
@@ -114,7 +112,7 @@ class LoadRiaData extends AbstractFixture implements OrderedFixtureInterface
         $riaCompanyInfo->setOffice('408');
         $riaCompanyInfo->setState($this->getReference('state-Nevada'));
         $riaCompanyInfo->setPhoneNumber('3333333333');
-        $riaCompanyInfo->setPortfolioModel(NULL);
+        $riaCompanyInfo->setPortfolioModel(null);
         $riaCompanyInfo->setPrimaryFirstName('RiaFirst');
         $riaCompanyInfo->setPrimaryLastName('RiaLast');
         $riaCompanyInfo->setRebalancedFrequency(1);
@@ -147,11 +145,11 @@ class LoadRiaData extends AbstractFixture implements OrderedFixtureInterface
         $advisorCode->setName('ABC');
         $manager->persist($advisorCode);
 
-        $advisorCode1 = clone($advisorCode);
+        $advisorCode1 = clone $advisorCode;
         $advisorCode1->setName('AH5');
         $manager->persist($advisorCode1);
 
-        $advisorCode2 = clone($advisorCode);
+        $advisorCode2 = clone $advisorCode;
         $advisorCode2->setName('YKR');
         $manager->persist($advisorCode2);
     }
@@ -162,7 +160,7 @@ class LoadRiaData extends AbstractFixture implements OrderedFixtureInterface
         $strategy = $this->getReference('strategy-1');
         $modelManager = new CeModelManager($manager, '\Wealthbot\AdminBundle\Entity\CeModel');
 
-        $riaModel =  $modelManager->copyForOwner($strategy, $riaUser);
+        $riaModel = $modelManager->copyForOwner($strategy, $riaUser);
         $manager->persist($riaModel);
 
         return $riaModel;
@@ -175,15 +173,15 @@ class LoadRiaData extends AbstractFixture implements OrderedFixtureInterface
 
         $questions = $repo->getClonedAdminQuestions($riaUser);
         foreach ($questions as $index => $question) {
-            $this->addReference('ria-risk-question-' . ($index + 1), $question);
+            $this->addReference('ria-risk-question-'.($index + 1), $question);
 
             foreach ($question->getAnswers() as $answerIndex => $answer) {
-                $this->addReference('ria-risk-answer-' . ($index + 1) . '-' . ($answerIndex + 1), $answer);
+                $this->addReference('ria-risk-answer-'.($index + 1).'-'.($answerIndex + 1), $answer);
             }
         }
     }
 
-    function getOrder()
+    public function getOrder()
     {
         return 6;
     }

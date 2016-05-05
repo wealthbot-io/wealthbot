@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: countzero
  * Date: 01.05.14
- * Time: 10:44
+ * Time: 10:44.
  */
 
 namespace Wealthbot\AdminBundle\Manager;
@@ -24,7 +24,7 @@ class TradeReconManager
 
     public function getValues(\DateTime $dateFrom, \DateTime $dateTo, User $ria = null, $clientName = '')
     {
-        $tableData = array();
+        $tableData = [];
         $dateFrom->setTime(0, 0, 0);
         $dateTo->setTime(23, 59, 59);
 
@@ -35,7 +35,7 @@ class TradeReconManager
         $rebalancerQueueRepo = $this->em->getRepository('WealthbotClientBundle:RebalancerQueue');
 
         $rebalancerQueue = $rebalancerQueueRepo->getTradeRecon($dateFrom, $dateTo, $ria, $clientName);
-        $ids = array();
+        $ids = [];
         foreach ($rebalancerQueue as $queueItem) {
             /* @var \Wealthbot\ClientBundle\Entity\RebalancerQueue $queueItem */
             $lot = $queueItem->getLot();
@@ -52,7 +52,7 @@ class TradeReconManager
             $ria = $client->getRiaCompanyInformation();
             $lot = $queueItem->getLot();
 
-            $tableData[] = array(
+            $tableData[] = [
                 'ria' => $ria->getName(),
                 'custodian' => $ria->getCustodian()->getName(),
                 'last_name' => $client->getLastName(),
@@ -60,11 +60,11 @@ class TradeReconManager
                 'acct_number' => $systemAccount->getAccountNumber(),
                 'symbol' => $queueItem->getSecurity()->getName(),
                 'submitted_action' => $queueItem->getStatus(),
-                'executed_action' => $lot ? (Lot::LOT_CLOSED == $lot->getStatus() ? 'Sell' : 'Buy') : '',
+                'executed_action' => $lot ? (Lot::LOT_CLOSED === $lot->getStatus() ? 'Sell' : 'Buy') : '',
                 'submitted_amount' => $queueItem->getAmount(),
                 'executed_amount' => $lot ? $lot->getAmount() : '',
-                'error' => $queueItem->getAmount() == 0 || empty($lot) || $lot->getWasRebalancerDiff()
-            );
+                'error' => $queueItem->getAmount() === 0 || empty($lot) || $lot->getWasRebalancerDiff(),
+            ];
         }
 
         /* @var \Wealthbot\ClientBundle\Entity\Lot $transaction */
@@ -73,7 +73,7 @@ class TradeReconManager
             $client = $systemAccount->getClient();
             $ria = $client->getRiaCompanyInformation();
 
-            $tableData[] = array(
+            $tableData[] = [
                 'ria' => $ria->getName(),
                 'custodian' => $ria->getCustodian()->getName(),
                 'last_name' => $client->getLastName(),
@@ -81,12 +81,13 @@ class TradeReconManager
                 'acct_number' => $systemAccount->getAccountNumber(),
                 'symbol' => $transaction->getSecurity()->getName(),
                 'submitted_action' => '',
-                'executed_action' => Lot::LOT_CLOSED == $transaction->getStatus() ? 'Sell' : 'Buy',
+                'executed_action' => Lot::LOT_CLOSED === $transaction->getStatus() ? 'Sell' : 'Buy',
                 'submitted_amount' => '',
                 'executed_amount' => $transaction->getAmount(),
-                'error' => true
-            );
+                'error' => true,
+            ];
         }
+
         return $tableData;
     }
 }

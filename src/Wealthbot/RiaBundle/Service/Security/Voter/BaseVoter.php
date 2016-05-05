@@ -12,14 +12,14 @@ abstract class BaseVoter implements VoterInterface
      *
      * @param string $attribute An attribute
      *
-     * @return Boolean true if this Voter supports the attribute, false otherwise
+     * @return bool true if this Voter supports the attribute, false otherwise
      */
     public function supportsAttribute($attribute)
     {
-        return in_array($attribute, array(
+        return in_array($attribute, [
             'OWNER',
-            'OPERATOR'
-        ));
+            'OPERATOR',
+        ]);
     }
 
     /**
@@ -44,7 +44,7 @@ abstract class BaseVoter implements VoterInterface
      * @param object         $object     The object to secure
      * @param array          $attributes An array of attributes associated with the method being invoked
      *
-     * @return integer either ACCESS_GRANTED, ACCESS_ABSTAIN, or ACCESS_DENIED
+     * @return int either ACCESS_GRANTED, ACCESS_ABSTAIN, or ACCESS_DENIED
      */
     abstract public function vote(TokenInterface $token, $object, array $attributes);
 }

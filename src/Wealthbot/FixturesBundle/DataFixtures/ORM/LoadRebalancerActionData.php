@@ -2,22 +2,20 @@
 
 namespace Wealthbot\FixturesBundle\DataFixtures\ORM;
 
-
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Wealthbot\AdminBundle\Entity\RebalancerAction;
-use Wealthbot\ClientBundle\Entity\ClientPortfolio;
 use Wealthbot\UserBundle\Entity\User;
 
 class LoadRebalancerActionData extends AbstractFixture implements OrderedFixtureInterface
 {
     /**
-     * Load data fixtures with the passed EntityManager
+     * Load data fixtures with the passed EntityManager.
      *
      * @param \Doctrine\Common\Persistence\ObjectManager $manager
      */
-    function load(ObjectManager $manager)
+    public function load(ObjectManager $manager)
     {
         /** @var User $milesClient */
         $milesClient = $this->getReference('clientN2');
@@ -40,7 +38,7 @@ class LoadRebalancerActionData extends AbstractFixture implements OrderedFixture
 
         $clientPortfolioValue = $manager->getRepository('WealthbotClientBundle:ClientPortfolioValue')->getLastValueByClient($client);
 
-        $rebalancerAction= new RebalancerAction();
+        $rebalancerAction = new RebalancerAction();
         $rebalancerAction->setJob($job1);
         $rebalancerAction->setClientPortfolioValue($clientPortfolioValue);
         $rebalancerAction->setStartedAt(new \DateTime());
@@ -54,11 +52,11 @@ class LoadRebalancerActionData extends AbstractFixture implements OrderedFixture
     }
 
     /**
-     * Get the order of this fixture
+     * Get the order of this fixture.
      *
-     * @return integer
+     * @return int
      */
-    function getOrder()
+    public function getOrder()
     {
         return 21;
     }

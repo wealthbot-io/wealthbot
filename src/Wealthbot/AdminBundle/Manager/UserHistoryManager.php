@@ -9,24 +9,45 @@
 
 namespace Wealthbot\AdminBundle\Manager;
 
-
 use Doctrine\Common\Persistence\ObjectManager;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
+use Symfony\Component\Security\Core\Authorization\AuthorizationChecker;
+use Symfony\Component\Security\Core\Role\SwitchUserRole;
 use Wealthbot\AdminBundle\Entity\UserHistory;
 use Wealthbot\UserBundle\Entity\User;
-use Symfony\Component\Security\Core\Role\SwitchUserRole;
-use Symfony\Component\Security\Core\SecurityContextInterface;
 
 class UserHistoryManager
 {
+    /**
+     * @var ObjectManager
+     */
     private $om;
-    private $class;
-    private $repository;
-    private $securityContext;
 
-    public function __construct(ObjectManager $om, $class, SecurityContextInterface $securityContext)
+    /**
+     * @var string
+     */
+    private $class;
+
+    /**
+     * @var \Doctrine\Common\Persistence\ObjectRepository
+     */
+    private $repository;
+
+    /**
+     * @var TokenStorage
+     */
+    private $tokenStorage;
+
+    /**
+     * @var AuthorizationChecker
+     */
+    private $authorizationChecker;
+
+    public function __construct(ObjectManager $om, $class, TokenStorage $tokenStorage, AuthorizationChecker $authorizationChecker)
     {
         $this->om = $om;
-        $this->securityContext = $securityContext;
+        $this->tokenStorage = $tokenStorage;
+        $this->authorizationChecker = $authorizationChecker;
 
         $this->repository = $om->getRepository($class);
 
@@ -35,9 +56,10 @@ class UserHistoryManager
     }
 
     /**
-     * Find history item
+     * Find history item.
      *
-     * @param integer $id
+     * @param int $id
+     *
      * @return object
      */
     public function find($id)
@@ -46,9 +68,10 @@ class UserHistoryManager
     }
 
     /**
-     * Find history item by criteria
+     * Find history item by criteria.
      *
      * @param array $criteria
+     *
      * @return object
      */
     public function findOneBy(array $criteria)
@@ -57,12 +80,13 @@ class UserHistoryManager
     }
 
     /**
-     * Find history items by criteria
+     * Find history items by criteria.
      *
      * @param array $criteria
      * @param array $orderBy
-     * @param null $limit
-     * @param null $offset
+     * @param null  $limit
+     * @param null  $offset
+     *
      * @return mixed
      */
     public function findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
@@ -71,11 +95,13 @@ class UserHistoryManager
     }
 
     /**
-     * Save history item
+     * Save history item.
      *
      * @param User $user
      * @param $description
+     *
      * @return UserHistory
+     *
      * @throws \Exception
      */
     public function save(User $user, $description)
@@ -106,7 +132,7 @@ class UserHistoryManager
      */
     private function getUpdatedBy()
     {
-        $token = $this->securityContext->getToken();
+        $token = $this->tokenStorage->getToken();
 
         foreach ($token->getRoles() as $role) {
             if ($role instanceof SwitchUserRole) {
@@ -120,9 +146,10 @@ class UserHistoryManager
     }
 
     /**
-     * Find user in database
+     * Find user in database.
      *
      * @param int $id
+     *
      * @return User
      */
     private function findUser($id)
@@ -131,15 +158,15 @@ class UserHistoryManager
     }
 
     /**
-     * Get updater type by roles
+     * Get updater type by roles.
      *
      * @return int
      */
     private function getUpdaterType()
     {
-        if ($this->securityContext->isGranted('ROLE_PREVIOUS_ADMIN')) {
+        if ($this->authorizationChecker->isGranted('ROLE_PREVIOUS_ADMIN')) {
             $type = UserHistory::UPDATER_TYPE_ADMIN;
-        } elseif ($this->securityContext->isGranted('ROLE_RIA')) {
+        } elseif ($this->authorizationChecker->isGranted('ROLE_RIA')) {
             $type = UserHistory::UPDATER_TYPE_RIA;
         } else {
             $type = UserHistory::UPDATER_TYPE_CLIENT;

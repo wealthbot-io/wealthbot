@@ -84,7 +84,7 @@ services:
 
     wealthbot_client.acl:
         class: Wealthbot\ClientBundle\Model\Acl
-        arguments: [@security.context, @doctrine.orm.entity_manager]
+        arguments: [@service_container]
 
     wealthbot_client.transfer_screen_step.manager:
         class: Wealthbot\ClientBundle\Manager\TransferScreenStepManager

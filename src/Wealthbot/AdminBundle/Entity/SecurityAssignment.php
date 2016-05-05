@@ -3,21 +3,24 @@
 namespace Wealthbot\AdminBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\ORM\Mapping as ORM;
 use Wealthbot\AdminBundle\Model\CeModelInterface;
 
 /**
- * Wealthbot\AdminBundle\Entity\SecurityAssignment
+ * Wealthbot\AdminBundle\Entity\SecurityAssignment.
  */
 class SecurityAssignment
 {
+    // @todo
+    public $fund_symbol;
+    public $asset_class_id;
+
     /**
-     * @var integer $id
+     * @var int
      */
     private $id;
 
     /**
-     * @var integer $subclass_id
+     * @var int
      */
     private $subclass_id;
 
@@ -27,17 +30,17 @@ class SecurityAssignment
     private $subclass;
 
     /**
-     * @var boolean $is_preferred
+     * @var bool
      */
     private $is_preferred = false;
 
     /**
-     * @var integer $ria_user_id
+     * @var int
      */
     private $ria_user_id;
 
     /**
-     * @var integer
+     * @var int
      */
     private $security_id;
 
@@ -52,7 +55,7 @@ class SecurityAssignment
     private $accountAssociations;
 
     /**
-     * @var integer
+     * @var int
      */
     private $model_id;
 
@@ -62,7 +65,7 @@ class SecurityAssignment
     private $model;
 
     /**
-     * @var boolean
+     * @var bool
      */
     private $muni_substitution;
 
@@ -71,9 +74,8 @@ class SecurityAssignment
      */
     private $securityTransaction;
 
-
     /**
-     * Constructor
+     * Constructor.
      */
     public function __construct()
     {
@@ -83,9 +85,9 @@ class SecurityAssignment
     }
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer
+     * @return int
      */
     public function getId()
     {
@@ -93,9 +95,10 @@ class SecurityAssignment
     }
 
     /**
-     * Set subclass_id
+     * Set subclass_id.
      *
-     * @param integer $subclassId
+     * @param int $subclassId
+     *
      * @return SecurityAssignment
      */
     public function setSubclassId($subclassId)
@@ -106,9 +109,9 @@ class SecurityAssignment
     }
 
     /**
-     * Get subclass_id
+     * Get subclass_id.
      *
-     * @return integer
+     * @return int
      */
     public function getSubclassId()
     {
@@ -116,9 +119,10 @@ class SecurityAssignment
     }
 
     /**
-     * Set subclass
+     * Set subclass.
      *
      * @param \Wealthbot\AdminBundle\Entity\Subclass $subclass
+     *
      * @return SecurityAssignment
      */
     public function setSubclass(\Wealthbot\AdminBundle\Entity\Subclass $subclass = null)
@@ -129,7 +133,7 @@ class SecurityAssignment
     }
 
     /**
-     * Get subclass
+     * Get subclass.
      *
      * @return \Wealthbot\AdminBundle\Entity\Subclass
      */
@@ -139,9 +143,10 @@ class SecurityAssignment
     }
 
     /**
-     * Set is_preferred
+     * Set is_preferred.
      *
-     * @param boolean $isPreferred
+     * @param bool $isPreferred
+     *
      * @return SecurityAssignment
      */
     public function setIsPreferred($isPreferred)
@@ -152,20 +157,20 @@ class SecurityAssignment
     }
 
     /**
-     * Get is_preferred
+     * Get is_preferred.
      *
-     * @return boolean
+     * @return bool
      */
     public function getIsPreferred()
     {
         return $this->is_preferred;
     }
 
-
     /**
-     * Set security_id
+     * Set security_id.
      *
-     * @param integer $securityId
+     * @param int $securityId
+     *
      * @return SecurityAssignment
      */
     public function setSecurityId($securityId)
@@ -176,9 +181,9 @@ class SecurityAssignment
     }
 
     /**
-     * Get security_id
+     * Get security_id.
      *
-     * @return integer
+     * @return int
      */
     public function getSecurityId()
     {
@@ -186,9 +191,10 @@ class SecurityAssignment
     }
 
     /**
-     * Set security
+     * Set security.
      *
      * @param \Wealthbot\AdminBundle\Entity\Security $security
+     *
      * @return SecurityAssignment
      */
     public function setSecurity(\Wealthbot\AdminBundle\Entity\Security $security = null)
@@ -199,7 +205,7 @@ class SecurityAssignment
     }
 
     /**
-     * Get security
+     * Get security.
      *
      * @return \Wealthbot\AdminBundle\Entity\Security
      */
@@ -209,9 +215,10 @@ class SecurityAssignment
     }
 
     /**
-     * Set accountAssociations
+     * Set accountAssociations.
      *
      * @param \Wealthbot\ClientBundle\Entity\AccountOutsideFund $accountAssociations
+     *
      * @return SecurityAssignment
      */
     public function setAccountAssociations(\Wealthbot\ClientBundle\Entity\AccountOutsideFund $accountAssociations = null)
@@ -222,7 +229,7 @@ class SecurityAssignment
     }
 
     /**
-     * Get accountAssociations
+     * Get accountAssociations.
      *
      * @return \Wealthbot\ClientBundle\Entity\AccountOutsideFund
      */
@@ -232,9 +239,10 @@ class SecurityAssignment
     }
 
     /**
-     * Add accountAssociations
+     * Add accountAssociations.
      *
      * @param \Wealthbot\ClientBundle\Entity\AccountOutsideFund $accountAssociations
+     *
      * @return SecurityAssignment
      */
     public function addAccountAssociation(\Wealthbot\ClientBundle\Entity\AccountOutsideFund $accountAssociations)
@@ -245,7 +253,7 @@ class SecurityAssignment
     }
 
     /**
-     * Remove accountAssociations
+     * Remove accountAssociations.
      *
      * @param \Wealthbot\ClientBundle\Entity\AccountOutsideFund $accountAssociations
      */
@@ -255,9 +263,10 @@ class SecurityAssignment
     }
 
     /**
-     * Set model_id
+     * Set model_id.
      *
-     * @param integer $modelId
+     * @param int $modelId
+     *
      * @return SecurityAssignment
      */
     public function setModelId($modelId)
@@ -268,9 +277,9 @@ class SecurityAssignment
     }
 
     /**
-     * Get model_id
+     * Get model_id.
      *
-     * @return integer
+     * @return int
      */
     public function getModelId()
     {
@@ -278,9 +287,10 @@ class SecurityAssignment
     }
 
     /**
-     * Set model
+     * Set model.
      *
      * @param CeModelInterface $model
+     *
      * @return SecurityAssignment
      */
     public function setModel(CeModelInterface $model = null)
@@ -291,7 +301,7 @@ class SecurityAssignment
     }
 
     /**
-     * Get model
+     * Get model.
      *
      * @return \Wealthbot\AdminBundle\Entity\CeModel
      */
@@ -301,9 +311,10 @@ class SecurityAssignment
     }
 
     /**
-     * Set muni_substitution
+     * Set muni_substitution.
      *
-     * @param boolean $muniSubstitution
+     * @param bool $muniSubstitution
+     *
      * @return SecurityAssignment
      */
     public function setMuniSubstitution($muniSubstitution)
@@ -314,9 +325,9 @@ class SecurityAssignment
     }
 
     /**
-     * Get muni_substitution
+     * Get muni_substitution.
      *
-     * @return boolean
+     * @return bool
      */
     public function getMuniSubstitution()
     {
@@ -324,7 +335,7 @@ class SecurityAssignment
     }
 
     /**
-     * Get securityTransaction
+     * Get securityTransaction.
      *
      * @return SecurityTransaction
      */
@@ -334,9 +345,10 @@ class SecurityAssignment
     }
 
     /**
-     * Set securityTransaction
+     * Set securityTransaction.
      *
      * @param \Wealthbot\AdminBundle\Entity\SecurityTransaction $securityTransaction
+     *
      * @return SecurityAssignment
      */
     public function setSecurityTransaction(\Wealthbot\AdminBundle\Entity\SecurityTransaction $securityTransaction = null)
@@ -347,7 +359,7 @@ class SecurityAssignment
     }
 
     /**
-     * Get security expense_ratio
+     * Get security expense_ratio.
      *
      * @return float
      */
@@ -357,7 +369,7 @@ class SecurityAssignment
     }
 
     /**
-     * Get clone
+     * Get clone.
      *
      * @return SecurityAssignment
      */
@@ -376,11 +388,11 @@ class SecurityAssignment
      */
     private $ceModelEntity;
 
-
     /**
-     * Add ceModelEntity
+     * Add ceModelEntity.
      *
      * @param \Wealthbot\AdminBundle\Entity\CeModelEntity $ceModelEntity
+     *
      * @return SecurityAssignment
      */
     public function addCeModelEntity(\Wealthbot\AdminBundle\Entity\CeModelEntity $ceModelEntity)
@@ -391,7 +403,7 @@ class SecurityAssignment
     }
 
     /**
-     * Remove ceModelEntity
+     * Remove ceModelEntity.
      *
      * @param \Wealthbot\AdminBundle\Entity\CeModelEntity $ceModelEntity
      */
@@ -401,7 +413,7 @@ class SecurityAssignment
     }
 
     /**
-     * Get ceModelEntity
+     * Get ceModelEntity.
      *
      * @return \Doctrine\Common\Collections\Collection
      */

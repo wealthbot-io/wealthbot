@@ -14,7 +14,7 @@ use Wealthbot\SignatureBundle\Model\RecipientInterface;
 
 abstract class AbstractDocusign
 {
-    protected static $supportedMethods = array('get', 'post', 'put', 'delete');
+    protected static $supportedMethods = ['get', 'post', 'put', 'delete'];
 
     protected $username;
     protected $password;
@@ -37,7 +37,7 @@ abstract class AbstractDocusign
 
     /**
      * DocuSign authentication.
-     * Get account id and base url from DocuSign
+     * Get account id and base url from DocuSign.
      */
     public function authenticate()
     {
@@ -55,7 +55,7 @@ abstract class AbstractDocusign
     }
 
     /**
-     * Get DocuSign login information
+     * Get DocuSign login information.
      *
      * @return mixed
      */
@@ -65,20 +65,21 @@ abstract class AbstractDocusign
     }
 
     /**
-     * Send envelope
+     * Send envelope.
      *
      * @param Envelope $envelope
-     * @param array $options
+     * @param array    $options
+     *
      * @return mixed
      */
-    public function sendEnvelope(Envelope $envelope, array $options = array())
+    public function sendEnvelope(Envelope $envelope, array $options = [])
     {
-        $defaultOptions = array(
+        $defaultOptions = [
             'accountId' => $this->getAccountId(),
             'emailSubject' => $envelope->getEmailSubject(),
             'emailBlurb' => $envelope->getEmailBlurb(),
-            'status' => $envelope->getStatus()
-        );
+            'status' => $envelope->getStatus(),
+        ];
 
         if (null !== $this->brandId) {
             $defaultOptions['brandId'] = $this->brandId;
@@ -98,25 +99,26 @@ abstract class AbstractDocusign
         }
 
         $dataString = json_encode($data);
-        $headers = array('Content-Length: ' .strlen($dataString));
+        $headers = ['Content-Length: '.strlen($dataString)];
 
         //echo '<pre>' . $dataString; die;
 
         return $this->makeRequest(
-            $this->getBaseUrl() . '/envelopes',
-            array('method' => 'post', 'data' => $dataString, 'headers' => $headers)
+            $this->getBaseUrl().'/envelopes',
+            ['method' => 'post', 'data' => $dataString, 'headers' => $headers]
         );
     }
 
     /**
-     * Send envelope from template
+     * Send envelope from template.
      *
      * @param Envelope $envelope
      * @param $templateId
      * @param array $options
+     *
      * @return mixed
      */
-    public function sendEnvelopeFromTemplate(Envelope $envelope, $templateId, array $options = array())
+    public function sendEnvelopeFromTemplate(Envelope $envelope, $templateId, array $options = [])
     {
         $options['templateId'] = $templateId;
 
@@ -124,46 +126,48 @@ abstract class AbstractDocusign
     }
 
     /**
-     * Embedded signing
+     * Embedded signing.
      *
-     * @param string $envelopId
+     * @param string             $envelopId
      * @param RecipientInterface $recipient
-     * @param string $returnUrl
+     * @param string             $returnUrl
+     *
      * @return string
      */
     public function getEmbeddedSigningUrl($envelopId, RecipientInterface $recipient, $returnUrl)
     {
-        $data = array(
+        $data = [
             'returnUrl' => $returnUrl,
             'authenticationMethod' => 'None',
             'email' => $recipient->getEmail(),
-            'userName' => $recipient->getName()
-        );
+            'userName' => $recipient->getName(),
+        ];
 
         if (null !== $recipient->getClientUserId()) {
             $data['clientUserId'] = $recipient->getClientUserId();
         }
 
         $dataString = json_encode($data);
-        $headers = array('Content-Length: ' .strlen($dataString));
+        $headers = ['Content-Length: '.strlen($dataString)];
 
         $result = $this->makeRequest(
-            $this->getBaseUrl() . '/envelopes/' . $envelopId . '/views/recipient',
-            array('method' => 'post', 'data' => $dataString, 'headers' => $headers)
+            $this->getBaseUrl().'/envelopes/'.$envelopId.'/views/recipient',
+            ['method' => 'post', 'data' => $dataString, 'headers' => $headers]
         );
 
         return $result ? $result->url : null;
     }
 
     /**
-     * Get envelope status
+     * Get envelope status.
      *
      * @param string $envelopeId
+     *
      * @return string
      */
     public function getEnvelopeStatus($envelopeId)
     {
-        $url = $this->getBaseUrl() . '/envelopes/' . $envelopeId;
+        $url = $this->getBaseUrl().'/envelopes/'.$envelopeId;
         $result = $this->makeRequest($url);
 
         return $result->status;
@@ -171,17 +175,18 @@ abstract class AbstractDocusign
 
     /**
      * Get envelope signers statuses
-     * array(recipient_email => status)
+     * array(recipient_email => status).
      *
      * @param string $envelopeId
+     *
      * @return array
      */
     public function getEnvelopeRecipientsStatuses($envelopeId)
     {
-        $url = $this->getBaseUrl() . '/envelopes/' . $envelopeId . '/recipients';
+        $url = $this->getBaseUrl().'/envelopes/'.$envelopeId.'/recipients';
         $response = $this->makeRequest($url);
 
-        $result = array();
+        $result = [];
         foreach ($response->signers as $signer) {
             $result[$signer->email] = $signer->status;
         }
@@ -190,18 +195,19 @@ abstract class AbstractDocusign
     }
 
     /**
-     * Update user profile
+     * Update user profile.
      *
-     * @param string $userId
-     * @param array $names
+     * @param string      $userId
+     * @param array       $names
      * @param null|string $companyName
+     *
      * @return mixed|null
      */
-    public function updateUserProfile($userId, array $names = array(), $companyName = null)
+    public function updateUserProfile($userId, array $names = [], $companyName = null)
     {
-        $url = $this->getBaseUrl() . '/users/' . $userId . '/profile';
+        $url = $this->getBaseUrl().'/users/'.$userId.'/profile';
 
-        $data = array();
+        $data = [];
         if (null !== $companyName) {
             $data['companyName'] = $companyName;
         }
@@ -222,35 +228,37 @@ abstract class AbstractDocusign
         if (!empty($data)) {
             return $this->makeRequest(
                 $url,
-                array('method' => 'put', 'data' => json_encode($data), $headers = array('Accept: application/json'))
+                ['method' => 'put', 'data' => json_encode($data), $headers = ['Accept: application/json']]
             );
         }
 
-        return null;
+        return;
     }
 
     /**
-     * Update account profile
+     * Update account profile.
      *
-     * @param array $names
+     * @param array       $names
      * @param null|string $companyName
+     *
      * @return mixed|null
      */
-    public function updateAccountProfile(array $names = array(), $companyName = null)
+    public function updateAccountProfile(array $names = [], $companyName = null)
     {
         return $this->updateUserProfile($this->getUsername(), $names, $companyName);
     }
 
     /**
-     * Get envelope documents
+     * Get envelope documents.
      *
      * @param string $envelopeId
+     *
      * @return mixed
      */
     public function getEnvelopeDocuments($envelopeId)
     {
         $result = $this->makeRequest(
-            $this->getBaseUrl() . '/envelopes/' . $envelopeId . '/documents'
+            $this->getBaseUrl().'/envelopes/'.$envelopeId.'/documents'
         );
 
         return $result;
@@ -259,40 +267,42 @@ abstract class AbstractDocusign
     public function getEnvelopeDocument($envelopeId, $documentId)
     {
         $result = $this->makeRequest(
-            $this->getBaseUrl() . '/envelopes/' . $envelopeId . '/documents/' . $documentId
+            $this->getBaseUrl().'/envelopes/'.$envelopeId.'/documents/'.$documentId
         );
 
         return $result;
     }
 
     /**
-     * Call api url
+     * Call api url.
      *
      * @param string $url
-     * @param array $params
+     * @param array  $params
+     *
      * @return mixed
+     *
      * @throws \Exception
      */
-    public function makeRequest($url, array $params = array())
+    public function makeRequest($url, array $params = [])
     {
-        $authHeader = array(
+        $authHeader = [
             'Username' => $this->username,
             'Password' => $this->password,
-            'IntegratorKey' => $this->integratorKey
-        );
+            'IntegratorKey' => $this->integratorKey,
+        ];
 
         if (isset($params['authParams']) && is_array($params['authParams'])) {
             $authHeader = array_merge($params['authParams'], $authHeader);
         }
 
-        $curlParams = array(
+        $curlParams = [
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_SSL_VERIFYPEER => false,
-            CURLOPT_HTTPHEADER => array(
+            CURLOPT_HTTPHEADER => [
                 'Content-Type: application/json',
-                'X-DocuSign-Authentication: ' . json_encode($authHeader)
-            )
-        );
+                'X-DocuSign-Authentication: '.json_encode($authHeader),
+            ],
+        ];
 
         if (isset($params['method']) && in_array($params['method'], self::$supportedMethods)) {
             switch ($params['method']) {
@@ -327,7 +337,6 @@ abstract class AbstractDocusign
         if (false === $result) {
             curl_close($curl);
             throw new \Exception(sprintf('Server return status: %s. %s', $status, curl_error($curl)));
-
         } elseif (is_object($response) && property_exists($response, 'errorCode')) {
             curl_close($curl);
             throw new \Exception(sprintf('Server return error: %s. %s', $response->errorCode, $response->message));
@@ -339,19 +348,21 @@ abstract class AbstractDocusign
     }
 
     /**
-     * Set DocuSign user name
+     * Set DocuSign user name.
      *
      * @param string $username
+     *
      * @return $this
      */
     public function setUsername($username)
     {
         $this->username = $username;
+
         return $this;
     }
 
     /**
-     * Get DocuSign user name
+     * Get DocuSign user name.
      *
      * @return string
      */
@@ -361,19 +372,21 @@ abstract class AbstractDocusign
     }
 
     /**
-     * Set DocuSign user password
+     * Set DocuSign user password.
      *
      * @param string $password
+     *
      * @return $this
      */
     public function setPassword($password)
     {
         $this->password = $password;
+
         return $this;
     }
 
     /**
-     * Get DocuSign user password
+     * Get DocuSign user password.
      *
      * @return string
      */
@@ -383,19 +396,21 @@ abstract class AbstractDocusign
     }
 
     /**
-     * Set DocuSign user integrator key
+     * Set DocuSign user integrator key.
      *
      * @param string $integratorKey
+     *
      * @return $this
      */
     public function setIntegratorKey($integratorKey)
     {
         $this->integratorKey = $integratorKey;
+
         return $this;
     }
 
     /**
-     * Get DocuSign user integrator key
+     * Get DocuSign user integrator key.
      *
      * @return string
      */
@@ -405,19 +420,21 @@ abstract class AbstractDocusign
     }
 
     /**
-     * Set DocuSign account id
+     * Set DocuSign account id.
      *
      * @param string $accountId
+     *
      * @return $this
      */
     public function setAccountId($accountId)
     {
         $this->accountId = $accountId;
+
         return $this;
     }
 
     /**
-     * Get DocuSign account id
+     * Get DocuSign account id.
      *
      * @return string
      */
@@ -438,19 +455,21 @@ abstract class AbstractDocusign
     }
 
     /**
-     * Set DocuSign base url
+     * Set DocuSign base url.
      *
      * @param string $baseUrl
+     *
      * @return $this
      */
     public function setBaseUrl($baseUrl)
     {
         $this->baseUrl = $baseUrl;
+
         return $this;
     }
 
     /**
-     * Get DocuSign base url
+     * Get DocuSign base url.
      *
      * @return string
      */
@@ -471,20 +490,21 @@ abstract class AbstractDocusign
     }
 
     /**
-     * Returns prepared array of recipients
+     * Returns prepared array of recipients.
      *
      * @param Envelope $envelope
+     *
      * @return array
      */
     private function prepareRecipients(Envelope $envelope)
     {
-        $templateRoles = array();
+        $templateRoles = [];
 
         $recipients = $envelope->getRecipients();
         if (is_array($recipients) && count($recipients)) {
             foreach ($recipients as $recipient) {
                 if ($recipient instanceof RecipientInterface) {
-                    $templateRole = array(
+                    $templateRole = [
                         'name' => $recipient->getName(),
                         'email' => $recipient->getEmail(),
                         'roleName' => $recipient->getRoleName(),
@@ -512,7 +532,7 @@ abstract class AbstractDocusign
                                 "receiveInResponse" => false
                             )
                         )*/
-                    );
+                    ];
 
                     $tabs = $recipient->getTabs();
                     if ($tabs->count()) {
@@ -532,35 +552,32 @@ abstract class AbstractDocusign
     }
 
     /**
-     * Set $value data for $key in the persistent storage
+     * Set $value data for $key in the persistent storage.
      *
      * @param string $key
      * @param $value
-     * @return void
      */
     abstract protected function setPersistentData($key, $value);
 
     /**
-     * Get data for $key from the persistent storage
+     * Get data for $key from the persistent storage.
      *
      * @param string $key
-     * @param null $default
+     * @param null   $default
+     *
      * @return mixed
      */
     abstract protected function getPersistentData($key, $default = null);
 
     /**
-     * Remove data with $key from the persistent storage
+     * Remove data with $key from the persistent storage.
      *
      * @param string $key
-     * @return void
      */
     abstract protected function removePersistentData($key);
 
     /**
-     * Remove all data from the persistent storage
-     *
-     * @return void
+     * Remove all data from the persistent storage.
      */
     abstract protected function removeAllPersistentData();
 }

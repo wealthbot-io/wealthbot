@@ -2,12 +2,11 @@
 
 namespace Wealthbot\UserBundle\Controller;
 
-use Wealthbot\UserBundle\Entity\Group;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Request;
 use FOS\UserBundle\Model\UserInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\AccountStatusException;
+use Wealthbot\UserBundle\Entity\Group;
 
 class RiaController extends Controller
 {
@@ -21,7 +20,7 @@ class RiaController extends Controller
         if ($process) {
             $user = $form->getData();
 
-            $groupAll = $em->getRepository('WealthbotUserBundle:Group')->findOneBy(array('name' => Group::GROUP_NAME_ALL));
+            $groupAll = $em->getRepository('WealthbotUserBundle:Group')->findOneBy(['name' => Group::GROUP_NAME_ALL]);
             $user->addGroup($groupAll);
 
             $em->persist($user);
@@ -32,11 +31,11 @@ class RiaController extends Controller
             return $response;
         }
 
-        return $this->render('WealthbotUserBundle:Ria:registration.html.twig', array('form' => $form->createView()));
+        return $this->render('WealthbotUserBundle:Ria:registration.html.twig', ['form' => $form->createView()]);
     }
 
     /**
-     * Authenticate a user with Symfony Security
+     * Authenticate a user with Symfony Security.
      *
      * @param \FOS\UserBundle\Model\UserInterface        $user
      * @param \Symfony\Component\HttpFoundation\Response $response

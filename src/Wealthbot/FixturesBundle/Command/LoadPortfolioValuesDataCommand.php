@@ -4,10 +4,9 @@ namespace Wealthbot\FixturesBundle\Command;
 
 use Doctrine\ORM\EntityNotFoundException;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
+use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Input\InputOption;
-use Symfony\Component\Console\Input\InputArgument;
 use Wealthbot\ClientBundle\Entity\ClientPortfolioValue;
 
 class LoadPortfolioValuesDataCommand extends ContainerAwareCommand
@@ -33,7 +32,7 @@ class LoadPortfolioValuesDataCommand extends ContainerAwareCommand
         $em->getConnection()->getConfiguration()->setSQLLogger(null);
 
         $accountNumber = $input->getArgument('accountNumber');
-        $systemAccount = $em->getRepository('WealthbotClientBundle:SystemAccount')->findOneBy(array('account_number' => $accountNumber));
+        $systemAccount = $em->getRepository('WealthbotClientBundle:SystemAccount')->findOneBy(['account_number' => $accountNumber]);
         if ($systemAccount === null) {
             throw new EntityNotFoundException("System client account by account number [$accountNumber] not found.");
         }
@@ -46,9 +45,9 @@ class LoadPortfolioValuesDataCommand extends ContainerAwareCommand
 
         $i = 0;
         mt_srand(0);
-        foreach (array(2013, 2014) as $yr) {
+        foreach ([2013, 2014] as $yr) {
             $mo = ($yr === 2013) ? 13 : (int) date('m');
-            for ($m = 1; $m < $mo; $m++) {
+            for ($m = 1; $m < $mo; ++$m) {
                 $pdate = \DateTime::createFromFormat('m-d-Y', "{$m}-01-{$yr}");
 
                 $securities = mt_rand(0, 1000000);
@@ -56,7 +55,7 @@ class LoadPortfolioValuesDataCommand extends ContainerAwareCommand
                 $accounts = mt_rand(0, 1000000);
                 $total = $securities + $money_market + $accounts;
 
-                $sql = "SELECT * FROM client_portfolio_values cpv WHERE DATE(cpv.date) = DATE(:createdAt) AND cpv.client_portfolio_id = :clientPortfolioId LIMIT 1";
+                $sql = 'SELECT * FROM client_portfolio_values cpv WHERE DATE(cpv.date) = DATE(:createdAt) AND cpv.client_portfolio_id = :clientPortfolioId LIMIT 1';
                 $stmt = $em->getConnection()->prepare($sql);
                 $stmt->bindValue('createdAt', $pdate->format('Y-m-d'));
                 $stmt->bindValue('clientPortfolioId', $portfolio->getId());
@@ -77,13 +76,13 @@ class LoadPortfolioValuesDataCommand extends ContainerAwareCommand
                     $portfolioValue->setRequiredCash(mt_rand(1000, 300000));
                     $portfolioValue->setInvestableCash(mt_rand(1000, 30000));
                     $em->persist($portfolioValue);
-                    $i++;
+                    ++$i;
                 }
             }
         }
 
         $em->flush();
         $output->writeln("Client portfolio value [{$i}] has been loaded.");
-        $output->writeln("Success!");
+        $output->writeln('Success!');
     }
 }

@@ -9,11 +9,10 @@
 
 namespace Wealthbot\SignatureBundle\Model;
 
-
 interface TabsConfigurationInterface
 {
     /**
-     * Generate collection of tabs
+     * Generate collection of tabs.
      *
      * @return TabCollection
      */

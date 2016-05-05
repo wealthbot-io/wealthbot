@@ -9,15 +9,14 @@
 
 namespace Wealthbot\ClientBundle\Form\Handler;
 
-
 use Doctrine\ORM\EntityManager;
-use Wealthbot\ClientBundle\Entity\ClosingAccountHistory;
-use Wealthbot\ClientBundle\Entity\SystemAccount;
-use Wealthbot\MailerBundle\Mailer\TwigSwiftMailer;
-use Wealthbot\ClientBundle\Repository\SystemAccountRepository;
 use Symfony\Component\Form\Exception\NotValidException;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
+use Wealthbot\ClientBundle\Entity\ClosingAccountHistory;
+use Wealthbot\ClientBundle\Entity\SystemAccount;
+use Wealthbot\ClientBundle\Repository\SystemAccountRepository;
+use Wealthbot\MailerBundle\Mailer\TwigSwiftMailer;
 use Wealthbot\UserBundle\Entity\User;
 
 class CloseAccountsFormHandler
@@ -41,20 +40,22 @@ class CloseAccountsFormHandler
         $this->mailer = $mailer;
 
         $this->repo = $this->em->getRepository('WealthbotClientBundle:SystemAccount');
-        $this->savedObjects = array();
+        $this->savedObjects = [];
     }
 
     /**
-     * Submit form process
+     * Submit form process.
      *
      * @param User $client
+     *
      * @return bool
+     *
      * @throws NotValidException
      */
     public function process(User $client)
     {
         if ($this->request->isMethod('post')) {
-            $this->form->bind($this->request);
+            $this->form->submit($this->request);
 
             $accountsIds = $this->form->get('accounts_ids')->getData();
             if (!is_array($accountsIds) || empty($accountsIds)) {
@@ -74,7 +75,7 @@ class CloseAccountsFormHandler
     }
 
     /**
-     * Save valid data
+     * Save valid data.
      *
      * @param User $client
      */
@@ -83,7 +84,7 @@ class CloseAccountsFormHandler
         $accountsIds = $this->form->get('accounts_ids')->getData();
         $messagesObjects = $this->form->get('messages')->getData();
 
-        $messages = array();
+        $messages = [];
         foreach ($messagesObjects as $object) {
             $messages[] = $object->getMessage();
         }

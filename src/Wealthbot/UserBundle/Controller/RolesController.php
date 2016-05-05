@@ -9,13 +9,10 @@
 
 namespace Wealthbot\UserBundle\Controller;
 
-use FOS\UserBundle\Model\UserInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 use Wealthbot\RiaBundle\Entity\RiaCompanyInformation;
 use Wealthbot\UserBundle\Entity\User;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Security\Core\SecurityContext;
-use Symfony\Component\Security\Core\SecurityContextInterface;
 
 class RolesController extends Controller
 {
@@ -26,27 +23,28 @@ class RolesController extends Controller
             return $this->redirect($loginManager->generateUrl('rx_after_login'));
         }
 
-        $securityContext = $this->container->get('security.context');
-        $user = $this->getCurrentUser($securityContext);
+        $authorizationChecker = $this->container->get('security.authorization_checker');
+        $tokenStorage = $this->container->get('security.token_storage');
 
-        if ($securityContext->isGranted('ROLE_ADMIN')) {
+        $user = $this->getCurrentUser($tokenStorage);
+
+        if ($authorizationChecker->isGranted('ROLE_ADMIN')) {
             $redirectUrl = $this->generateUrl('rx_admin_homepage');
         } else {
             $this->checkIsPasswordExpired($user);
 
-            if (($securityContext->isGranted('ROLE_RIA') || $securityContext->isGranted('ROLE_RIA_USER'))) {
-
+            if (($authorizationChecker->isGranted('ROLE_RIA') || $authorizationChecker->isGranted('ROLE_RIA_USER'))) {
                 $session = $this->get('session');
                 if ($session->has('wealthbot.ria_view.client_id')) {
-                    $redirectUrl = $this->generateUrl('rx_ria_dashboard_show_client', array(
-                        'client_id' => $session->get('wealthbot.ria_view.client_id')
-                    ));
+                    $redirectUrl = $this->generateUrl('rx_ria_dashboard_show_client', [
+                        'client_id' => $session->get('wealthbot.ria_view.client_id'),
+                    ]);
                 } else {
                     $redirectUrl = $this->getRouteForRia($user);
                 }
-            } elseif ($securityContext->isGranted('ROLE_CLIENT')) {
+            } elseif ($authorizationChecker->isGranted('ROLE_CLIENT')) {
                 $redirectUrl = $this->getRouteForClient($user);
-            } elseif ($securityContext->isGranted('ROLE_SLAVE_CLIENT')) {
+            } elseif ($authorizationChecker->isGranted('ROLE_SLAVE_CLIENT')) {
                 $redirectUrl = $this->getSessionRedirectUrl();
 
                 if ($redirectUrl) {
@@ -54,7 +52,6 @@ class RolesController extends Controller
                 } else {
                     $redirectUrl = $this->generateUrl('rx_client_dashboard');
                 }
-
             } else {
                 $redirectUrl = $this->generateUrl('rx_user_homepage');
             }
@@ -64,18 +61,19 @@ class RolesController extends Controller
     }
 
     /**
-     * Get route for client user
+     * Get route for client user.
      *
      * @param User $user
+     *
      * @return string
      */
     protected function getRouteForClient(User $user)
     {
-
         $redirectUrl = $this->getSessionRedirectUrl();
 
         if ($redirectUrl) {
             $this->removeSessionRedirectUrl();
+
             return $redirectUrl;
         }
 
@@ -117,9 +115,10 @@ class RolesController extends Controller
     }
 
     /**
-     * Get route for ria user
+     * Get route for ria user.
      *
      * @param User $user
+     *
      * @return string
      */
     protected function getRouteForRia(User $user)
@@ -149,47 +148,34 @@ class RolesController extends Controller
                         $modelCompletion = $user->getRiaModelCompletion();
 
                         if ($companyInformation->getPortfolioModel()->isCustom()) {
-
                             if (!$modelCompletion || !$modelCompletion->getUsersAndUserGroups()) {
                                 $redirectUrl = $this->generateUrl('rx_ria_user_management');
-
                             } elseif (!$modelCompletion->getSelectCustodians()) {
                                 $redirectUrl = $this->generateUrl('rx_ria_change_profile_custodians');
-
                             } elseif (!$modelCompletion->getRebalancingSettings()) {
                                 $redirectUrl = $this->generateUrl('rx_ria_change_profile_rebalancing');
-
                             } elseif (!$modelCompletion->getCreateSecurities()) {
-                                $redirectUrl = $this->generateUrl('rx_ria_dashboard_models_tab', array('tab' => 'categories'));
-
+                                $redirectUrl = $this->generateUrl('rx_ria_dashboard_models_tab', ['tab' => 'categories']);
                             } elseif (!$modelCompletion->getAssignSecurities()) {
-                                $redirectUrl = $this->generateUrl('rx_ria_dashboard_models_tab', array('tab' => 'securities'));
-
+                                $redirectUrl = $this->generateUrl('rx_ria_dashboard_models_tab', ['tab' => 'securities']);
                             } elseif (!$modelCompletion->getModelsCreated()) {
-                                $redirectUrl = $this->generateUrl('rx_ria_dashboard_models_tab', array('tab' => 'models'));
-
+                                $redirectUrl = $this->generateUrl('rx_ria_dashboard_models_tab', ['tab' => 'models']);
                             } elseif (!$modelCompletion->getCustomizeProposals()) {
                                 $redirectUrl = $this->generateUrl('rx_ria_risk_profiling');
-
                             } else {
-                                $redirectUrl = $this->generateUrl('rx_ria_billing_tab', array('tab' => 'specs'));
+                                $redirectUrl = $this->generateUrl('rx_ria_billing_tab', ['tab' => 'specs']);
                             }
-
                         } else {
                             if (!$modelCompletion || !$modelCompletion->getUsersAndUserGroups()) {
                                 $redirectUrl = $this->generateUrl('rx_ria_user_management');
-
                             } elseif (!$modelCompletion->getSelectCustodians()) {
                                 $redirectUrl = $this->generateUrl('rx_ria_change_profile_custodians');
-
                             } elseif (!$modelCompletion->getRebalancingSettings()) {
                                 $redirectUrl = $this->generateUrl('rx_ria_change_profile_rebalancing');
-
                             } elseif (!$modelCompletion->getCustomizeProposals()) {
                                 $redirectUrl = $this->generateUrl('rx_ria_risk_profiling');
-
                             } else {
-                                $redirectUrl = $this->generateUrl('rx_ria_billing_tab', array('tab' => 'specs'));
+                                $redirectUrl = $this->generateUrl('rx_ria_billing_tab', ['tab' => 'specs']);
                             }
                         }
                     } else {
@@ -245,9 +231,10 @@ class RolesController extends Controller
 //    }
 
     /**
-     * Check if user password is expired
+     * Check if user password is expired.
      *
      * @param User $user
+     *
      * @return null|\Symfony\Component\HttpFoundation\RedirectResponse
      */
     private function checkIsPasswordExpired(User $user)
@@ -255,30 +242,31 @@ class RolesController extends Controller
         if ($user->isPasswordExpired()) {
             $this->get('session')->setFlash('error', 'Your password has expired.');
 
-            return $this->redirect($this->generateUrl("fos_user_change_password"));
+            return $this->redirect($this->generateUrl('fos_user_change_password'));
         }
 
-        return null;
+        return;
     }
 
     /**
      * Check if there are 'login as' user token in session then returns user for this token.
-     * Otherwise get a user from the Security Context.
+     * Otherwise get a user from the Token Storage.
      *
-     * @param SecurityContextInterface $securityContext
+     * @param TokenStorage $tokenStorage
+     *
      * @return \FOS\UserBundle\Model\UserInterface|mixed
      *
      * @see Wealthbot\AdminBundle\Controller\SecuredController::loginAsAction()
      */
-    private function getCurrentUser(SecurityContextInterface $securityContext = null)
+    private function getCurrentUser(TokenStorage $tokenStorage = null)
     {
-        if (null === $securityContext) {
-            $securityContext = $this->get('security.context');
+        if (null === $tokenStorage) {
+            $tokenStorage = $this->get('security.token_storage');
         }
 
         $user = $this->getUser();
 
-        $request = $this->get('request');
+        $request = $this->get('request_stack')->getCurrentRequest();
         $session = $request->getSession();
 
         if ($session->has('rx_admin.login_as_token')) {
@@ -289,7 +277,7 @@ class RolesController extends Controller
             $userManager->updateUser($user);
 
             $token->setUser($user);
-            $securityContext->setToken($token);
+            $tokenStorage->setToken($token);
 
             $session->remove('rx_admin.login_as_token');
         }

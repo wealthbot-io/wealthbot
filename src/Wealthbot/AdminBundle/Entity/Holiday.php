@@ -4,12 +4,11 @@ namespace Wealthbot\AdminBundle\Entity;
 
 class Holiday
 {
-
     const HOLIDAY_TYPE_WEEKEND = 1;
     const HOLIDAY_TYPE_MARKET_HOLIDAY = 2;
 
     /**
-     * @var integer
+     * @var int
      */
     private $id;
 
@@ -19,10 +18,9 @@ class Holiday
     private $date;
 
     /**
-     * @var integer
+     * @var int
      */
     private $type;
-
 
     public function __construct()
     {
@@ -68,5 +66,4 @@ class Holiday
     {
         return $this->type;
     }
-
 }

@@ -1,14 +1,15 @@
 <?php
+
 namespace Wealthbot\ClientBundle\Form\Handler;
 
+use Symfony\Component\Form\Form;
+use Symfony\Component\HttpFoundation\Request;
 use Wealthbot\ClientBundle\Docusign\TransferInformationCustodianCondition;
 use Wealthbot\ClientBundle\Entity\AccountGroup;
 use Wealthbot\ClientBundle\Entity\ClientAccount;
 use Wealthbot\ClientBundle\Entity\ClientAccountOwner;
 use Wealthbot\ClientBundle\Repository\ClientAccountRepository;
 use Wealthbot\SignatureBundle\Manager\AccountDocusignManager;
-use Symfony\Component\Form\Form;
-use Symfony\Component\HttpFoundation\Request;
 
 class ClientAccountFormHandler
 {
@@ -19,8 +20,7 @@ class ClientAccountFormHandler
     private $owners;
     private $consolidate;
 
-
-    public function __construct(Form $form, Request $request, AccountDocusignManager $adm, array $owners = array(), $consolidate = true)
+    public function __construct(Form $form, Request $request, AccountDocusignManager $adm, array $owners = [], $consolidate = true)
     {
         $this->form = $form;
         $this->request = $request;
@@ -32,8 +32,8 @@ class ClientAccountFormHandler
 
     public function process()
     {
-        if ('POST' == $this->request->getMethod()) {
-            $this->form->bind($this->request);
+        if ('POST' === $this->request->getMethod()) {
+            $this->form->submit($this->request);
 
             if ($this->form->isValid()) {
 
@@ -45,12 +45,11 @@ class ClientAccountFormHandler
                 if ($this->form->has('transferInformation')) {
                     $transferInformation = $this->saveTransferInformation($data);
 
-                    $isAllowed = $this->adm->isDocusignAllowed($transferInformation, array(
+                    $isAllowed = $this->adm->isDocusignAllowed($transferInformation, [
                         new TransferInformationCustodianCondition(),
-                    ));
+                    ]);
 
                     $this->adm->setIsUsedDocusign($data, $isAllowed);
-
                 } else {
                     $this->adm->setIsUsedDocusign($data, true);
                 }
@@ -72,7 +71,7 @@ class ClientAccountFormHandler
     }
 
     /**
-     * Set account_id for owners in $this->owners array
+     * Set account_id for owners in $this->owners array.
      *
      * @param ClientAccount $account
      */
@@ -87,7 +86,6 @@ class ClientAccountFormHandler
             $account->addAccountOwner($owner);
 
             $this->em->persist($owner);
-
         } else {
             $repo = $this->em->getRepository('WealthbotClientBundle:ClientAccountOwner');
 
@@ -99,25 +97,24 @@ class ClientAccountFormHandler
                 if ($ownerItem['owner_type'] === ClientAccountOwner::OWNER_TYPE_SELF) {
                     $client = $this->em->getRepository('WealthbotUserBundle:User')->find($ownerItem['owner_client_id']);
                     if ($client) {
-                        $exist = $repo->findOneBy(array(
+                        $exist = $repo->findOneBy([
                             'owner_type' => $ownerItem['owner_type'],
                             'owner_client_id' => $client->getId(),
-                            'account_id' => $account->getId()
-                        ));
+                            'account_id' => $account->getId(),
+                        ]);
                         if (!$exist) {
                             $owner->setClient($client);
                             $this->em->persist($owner);
                         }
                     }
-
                 } else {
                     $contact = $this->em->getRepository('WealthbotClientBundle:ClientAdditionalContact')->find($ownerItem['owner_contact_id']);
                     if ($contact) {
-                        $exist = $repo->findOneBy(array(
+                        $exist = $repo->findOneBy([
                             'owner_type' => $ownerItem['owner_type'],
                             'owner_contact_id' => $contact->getId(),
-                            'account_id' => $account->getId()
-                        ));
+                            'account_id' => $account->getId(),
+                        ]);
                         if (!$exist) {
                             $owner->setContact($contact);
                             $this->em->persist($owner);
@@ -134,9 +131,10 @@ class ClientAccountFormHandler
     }
 
     /**
-     * Save transfer information of account
+     * Save transfer information of account.
      *
      * @param ClientAccount $account
+     *
      * @return \Wealthbot\ClientBundle\Entity\TransferInformation
      */
     protected function saveTransferInformation(ClientAccount $account)
@@ -170,11 +168,11 @@ class ClientAccountFormHandler
     {
         $data = $this->form->getData();
 
-        return ($this->consolidate && $data->getGroupName() !== AccountGroup::GROUP_EMPLOYER_RETIREMENT);
+        return $this->consolidate && $data->getGroupName() !== AccountGroup::GROUP_EMPLOYER_RETIREMENT;
     }
 
     /**
-     * Consolidation account process
+     * Consolidation account process.
      */
     protected function consolidateAccount(ClientAccount $account)
     {

@@ -9,15 +9,14 @@
 
 namespace Wealthbot\ClientBundle\Form\Handler;
 
-
 use Doctrine\ODM\MongoDB\DocumentManager;
 use Doctrine\ORM\EntityManager;
+use Symfony\Component\Form\Form;
+use Symfony\Component\HttpFoundation\Request;
 use Wealthbot\ClientBundle\Document\TempPortfolio;
 use Wealthbot\ClientBundle\Document\TempQuestionnaire;
 use Wealthbot\ClientBundle\Manager\RiskToleranceManager;
 use Wealthbot\UserBundle\Entity\User;
-use Symfony\Component\Form\Form;
-use Symfony\Component\HttpFoundation\Request;
 
 class ClientTempQuestionsFormHandler
 {
@@ -36,7 +35,7 @@ class ClientTempQuestionsFormHandler
 
     public function process(User $user)
     {
-        $this->form->bind($this->request);
+        $this->form->submit($this->request);
 
         if ($this->form->isValid()) {
             $questionsOwner = $this->em->getRepository('WealthbotRiaBundle:RiskQuestion')->getQuestionsOwner($user);
@@ -73,14 +72,14 @@ class ClientTempQuestionsFormHandler
             $questionsOwner->getId()
         );
 
-        $answers = array();
+        $answers = [];
         foreach ($questions as $question) {
             $key = 'answer_'.$question->getId();
             $data = $this->form->get($key)->getData();
 
-            $answer = array(
+            $answer = [
                 'question' => $question,
-            );
+            ];
 
             if ($question->getIsWithdrawAgeInput()) {
                 $withdrawAge = (int) $answer;
@@ -126,5 +125,4 @@ class ClientTempQuestionsFormHandler
 
         $this->dm->persist($tmpPortfolio);
     }
-
 }

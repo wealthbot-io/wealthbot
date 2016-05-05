@@ -9,11 +9,9 @@
 
 namespace Wealthbot\ClientBundle\Manager;
 
-
 use Doctrine\ORM\EntityManager;
 use Wealthbot\AdminBundle\Manager\FeeManager;
 use Wealthbot\AdminBundle\Model\CeModelInterface;
-use Wealthbot\AdminBundle\Repository\FeeRepository;
 use Wealthbot\ClientBundle\Model\PortfolioInformation;
 use Wealthbot\UserBundle\Entity\User;
 

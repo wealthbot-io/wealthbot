@@ -9,23 +9,20 @@
 
 namespace Wealthbot\ClientBundle\Model;
 
-
 use Wealthbot\AdminBundle\Entity\CeModel;
 use Wealthbot\RiaBundle\Exception\AdvisorHasNoExistingModel;
 use Wealthbot\UserBundle\Entity\User;
 
 class RiskTolerance
 {
-
     /** @var \Wealthbot\UserBundle\Entity\User  */
     private $user;
 
     /** @var array $answers array of ClientQuestionnaireAnswer objects */
     private $userAnswers;
 
-    /** @var  integer $points */
+    /** @var  int $points */
     private $points;
-
 
     public function __construct(User $user, array $userAnswers)
     {
@@ -35,7 +32,7 @@ class RiskTolerance
     }
 
     /**
-     * Get answers points
+     * Get answers points.
      *
      * @return int
      */
@@ -49,16 +46,18 @@ class RiskTolerance
     }
 
     /**
-     * Returns suggested portfolio
+     * Returns suggested portfolio.
      *
      * @param $allowedModels
+     *
      * @return CeModel
+     *
      * @throws \Wealthbot\RiaBundle\Exception\AdvisorHasNoExistingModel
      */
     public function getSuggestedPortfolio($allowedModels)
     {
         $result = null;
-        $models = array();
+        $models = [];
         $points = $this->getPoints();
 
         foreach ($allowedModels as $model) {
@@ -101,7 +100,6 @@ class RiskTolerance
                 $ratingDiff = $tmpDiff;
                 $result = $model;
             } else {
-
                 if ($tmpDiff < $ratingDiff) {
                     $ratingDiff = $tmpDiff;
                     $result = $model;
@@ -113,7 +111,7 @@ class RiskTolerance
     }
 
     /**
-     * Recalculate answers points
+     * Recalculate answers points.
      */
     private function calculatePoints()
     {
@@ -127,7 +125,7 @@ class RiskTolerance
     }
 
     /**
-     * Get ria
+     * Get ria.
      *
      * @return User
      */

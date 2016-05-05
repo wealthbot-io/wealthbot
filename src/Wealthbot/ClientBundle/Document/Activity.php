@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: amalyuhin
  * Date: 15.01.14
- * Time: 19:21
+ * Time: 19:21.
  */
 
 namespace Wealthbot\ClientBundle\Document;
@@ -65,15 +65,13 @@ class Activity
      */
     protected $amount;
 
-
     public function __construct()
     {
         $this->isShowRia = true;
     }
 
-
     /**
-     * Get id
+     * Get id.
      *
      * @return id $id
      */
@@ -83,19 +81,21 @@ class Activity
     }
 
     /**
-     * Set clientUserId
+     * Set clientUserId.
      *
      * @param int $clientUserId
+     *
      * @return self
      */
     public function setClientUserId($clientUserId)
     {
         $this->clientUserId = $clientUserId;
+
         return $this;
     }
 
     /**
-     * Get clientUserId
+     * Get clientUserId.
      *
      * @return int $clientUserId
      */
@@ -105,19 +105,21 @@ class Activity
     }
 
     /**
-     * Set clientStatus
+     * Set clientStatus.
      *
      * @param int $clientStatus
+     *
      * @return self
      */
     public function setClientStatus($clientStatus)
     {
         $this->clientStatus = $clientStatus;
+
         return $this;
     }
 
     /**
-     * Get clientStatus
+     * Get clientStatus.
      *
      * @return int $clientStatus
      */
@@ -127,19 +129,21 @@ class Activity
     }
 
     /**
-     * Set riaUserId
+     * Set riaUserId.
      *
      * @param int $riaUserId
+     *
      * @return self
      */
     public function setRiaUserId($riaUserId)
     {
         $this->riaUserId = $riaUserId;
+
         return $this;
     }
 
     /**
-     * Get riaUserId
+     * Get riaUserId.
      *
      * @return int $riaUserId
      */
@@ -149,19 +153,21 @@ class Activity
     }
 
     /**
-     * Set firstName
+     * Set firstName.
      *
      * @param string $firstName
+     *
      * @return self
      */
     public function setFirstName($firstName)
     {
         $this->firstName = $firstName;
+
         return $this;
     }
 
     /**
-     * Get firstName
+     * Get firstName.
      *
      * @return string $firstName
      */
@@ -171,19 +177,21 @@ class Activity
     }
 
     /**
-     * Set lastName
+     * Set lastName.
      *
      * @param string $lastName
+     *
      * @return self
      */
     public function setLastName($lastName)
     {
         $this->lastName = $lastName;
+
         return $this;
     }
 
     /**
-     * Get lastName
+     * Get lastName.
      *
      * @return string $lastName
      */
@@ -193,19 +201,21 @@ class Activity
     }
 
     /**
-     * Set message
+     * Set message.
      *
      * @param string $message
+     *
      * @return self
      */
     public function setMessage($message)
     {
         $this->message = $message;
+
         return $this;
     }
 
     /**
-     * Get message
+     * Get message.
      *
      * @return string $message
      */
@@ -215,19 +225,21 @@ class Activity
     }
 
     /**
-     * Set createdAt
+     * Set createdAt.
      *
      * @param \DateTime $createdAt
+     *
      * @return self
      */
     public function setCreatedAt($createdAt)
     {
         $this->createdAt = $createdAt;
+
         return $this;
     }
 
     /**
-     * Get createdAt
+     * Get createdAt.
      *
      * @return \DateTime $createdAt
      */
@@ -237,21 +249,23 @@ class Activity
     }
 
     /**
-     * Set isShowRia
+     * Set isShowRia.
      *
-     * @param boolean $isShowRia
+     * @param bool $isShowRia
+     *
      * @return self
      */
     public function setIsShowRia($isShowRia)
     {
         $this->isShowRia = $isShowRia;
+
         return $this;
     }
 
     /**
-     * Get isShowRia
+     * Get isShowRia.
      *
-     * @return boolean $isShowRia
+     * @return bool $isShowRia
      */
     public function getIsShowRia()
     {
@@ -259,19 +273,21 @@ class Activity
     }
 
     /**
-     * Set amount
+     * Set amount.
      *
      * @param float $amount
+     *
      * @return self
      */
     public function setAmount($amount)
     {
         $this->amount = $amount;
+
         return $this;
     }
 
     /**
-     * Get amount
+     * Get amount.
      *
      * @return float $amount
      */

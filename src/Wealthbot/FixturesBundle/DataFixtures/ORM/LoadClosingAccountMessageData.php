@@ -9,7 +9,6 @@
 
 namespace Wealthbot\FixturesBundle\DataFixtures\ORM;
 
-
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -17,14 +16,14 @@ use Wealthbot\ClientBundle\Entity\ClosingAccountMessage;
 
 class LoadClosingAccountMessageData extends AbstractFixture implements OrderedFixtureInterface
 {
-    private $messages = array(
-        "Consolidating accounts.",
-        "Using money in account for something else.",
-        "Not happy with advisor.",
-        "Does not like web interface.",
-        "Moving to another advisor.",
-        "Going to manage their account themselves."
-    );
+    private $messages = [
+        'Consolidating accounts.',
+        'Using money in account for something else.',
+        'Not happy with advisor.',
+        'Does not like web interface.',
+        'Moving to another advisor.',
+        'Going to manage their account themselves.',
+    ];
 
     public function load(ObjectManager $manager)
     {

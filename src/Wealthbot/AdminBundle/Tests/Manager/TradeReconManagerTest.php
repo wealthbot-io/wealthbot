@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: countzero
  * Date: 01.05.14
- * Time: 10:57
+ * Time: 10:57.
  */
 
 namespace Wealthbot\AdminBundle\Tests\Manager;
@@ -16,13 +16,11 @@ class TradeReconManagerTest extends ExtendedWebTestCase
     /* @var TradeReconManager $tradeReconManager */
     protected $tradeReconManager;
 
-    protected
-        $ria,
+    protected $ria,
         $testResult,
-        $emptyArray = array(),
-        $wasRebalancerDiffIsSetData = array (
-            0 =>
-                array (
+        $emptyArray = [],
+        $wasRebalancerDiffIsSetData = [
+            0 => [
                     'ria' => 'Wealthbot.io - RIA',
                     'custodian' => 'TD Ameritrade',
                     'last_name' => 'Jhonny',
@@ -34,8 +32,8 @@ class TradeReconManagerTest extends ExtendedWebTestCase
                     'submitted_amount' => 0.0,
                     'executed_amount' => '',
                     'error' => true,
-                ),
-            1 => array(
+                ],
+            1 => [
                 'ria' => 'Wealthbot.io - RIA',
                 'custodian' => 'TD Ameritrade',
                 'last_name' => 'Jhonny',
@@ -47,13 +45,13 @@ class TradeReconManagerTest extends ExtendedWebTestCase
                 'submitted_amount' => '',
                 'executed_amount' => 1996.39,
                 'error' => true,
-            ),
-        ),
-        $transactionNotExecutedData = array (
+            ],
+        ],
+        $transactionNotExecutedData = [
 
-            ),
-        $correctWorkData = array (
-            0 => array(
+            ],
+        $correctWorkData = [
+            0 => [
                 'ria' => 'Wealthbot.io - RIA',
                 'custodian' => 'TD Ameritrade',
                 'last_name' => 'Jhonny',
@@ -64,12 +62,11 @@ class TradeReconManagerTest extends ExtendedWebTestCase
                 'executed_action' => 'Buy',
                 'submitted_amount' => '',
                 'executed_amount' => 3600.12,
-                'error' => true
-            )
-        ),
-        $notPlannedTransactionData = array (
-            0 =>
-                array (
+                'error' => true,
+            ],
+        ],
+        $notPlannedTransactionData = [
+            0 => [
                     'ria' => 'Wealthbot.io - RIA',
                     'custodian' => 'TD Ameritrade',
                     'last_name' => 'Jhonny',
@@ -81,30 +78,30 @@ class TradeReconManagerTest extends ExtendedWebTestCase
                     'submitted_amount' => '',
                     'executed_amount' => 390.49,
                     'error' => true,
-                ),
-            )
+                ],
+            ]
     ;
 
     public function setUp()
     {
         parent::setUp();
-        $this->ria = $this->authenticateUser('johnny@wealthbot.io', array('ROLE_RIA'));
+        $this->ria = $this->authenticateUser('johnny@wealthbot.io', ['ROLE_RIA']);
         $this->tradeReconManager = $this->container->get('wealthbot_admin.trade_recon.manager');
     }
 
     /**
-     * Test result should be an empty array because there is no any data for this date
+     * Test result should be an empty array because there is no any data for this date.
      */
     public function testEmptyData()
     {
         $date = '2013-02-11';
         $this->testResult = $this->tradeReconManager->getValues(new \DateTime($date), new \DateTime($date), $this->ria, '');
-        $this->assertEquals($this->emptyArray, $this->testResult, 'Test for empty data failed');
+        $this->assertSame($this->emptyArray, $this->testResult, 'Test for empty data failed');
     }
 
     /**
      * This test imitates situation when transaction was planned and executed, but result of transaction for some reason significantly differs from expected.
-     * Result of such operation should contain the following fields and values:
+     * Result of such operation should contain the following fields and values:.
      *
      * 'submitted_action' => not empty string ('buy' or 'sell'),
      * 'executed_action' => not empty string ('Buy' or 'Sell'),
@@ -116,12 +113,12 @@ class TradeReconManagerTest extends ExtendedWebTestCase
     {
         $date = '2013-02-13';
         $this->testResult = $this->tradeReconManager->getValues(new \DateTime($date), new \DateTime($date), $this->ria, 'Jhonny, Cage');
-        $this->assertEquals($this->wasRebalancerDiffIsSetData, $this->testResult, 'Test for Rebalancer Diff failed', 0.001);
+        $this->assertSame($this->wasRebalancerDiffIsSetData, $this->testResult, 'Test for Rebalancer Diff failed', 0.001);
     }
 
     /**
      * This test imitates transaction when operation was planned in Rebalancer, but for some reason it was not executed.
-     * Result of such operation should contain the following fields and values:
+     * Result of such operation should contain the following fields and values:.
      *
      * 'submitted_action' => not empty string ('buy' or 'sell'),
      * 'executed_action' => '',
@@ -133,12 +130,12 @@ class TradeReconManagerTest extends ExtendedWebTestCase
     {
         $date = '2013-02-14';
         $this->testResult = $this->tradeReconManager->getValues(new \DateTime($date), new \DateTime($date), $this->ria, 'Jhonny, Cage');
-        $this->assertEquals($this->transactionNotExecutedData, $this->testResult, 'Test for not executed transaction failed');
+        $this->assertSame($this->transactionNotExecutedData, $this->testResult, 'Test for not executed transaction failed');
     }
 
     /**
      * This test imitates situation when everything goes OK: transaction was planned and executed, and result of transaction is very similar to what is expected.
-     * Result of such operation should contain the following fields and values:
+     * Result of such operation should contain the following fields and values:.
      *
      * 'submitted_action' => not empty string ('buy' or 'sell'),
      * 'executed_action' => not empty string ('Buy' or 'Sell'),
@@ -150,12 +147,12 @@ class TradeReconManagerTest extends ExtendedWebTestCase
     {
         $date = '2013-02-16';
         $this->testResult = $this->tradeReconManager->getValues(new \DateTime($date), new \DateTime($date), $this->ria, 'Jhonny, Cage');
-        $this->assertEquals($this->correctWorkData, $this->testResult, 'Test for correct work failed', 0.001);
+        $this->assertSame($this->correctWorkData, $this->testResult, 'Test for correct work failed', 0.001);
     }
 
     /**
      * This test imitates situation when site gets an unexpected transaction from Custodian: this transaction was not planned by Rebalancer.
-     * Result of such operation should contain the following fields and values:
+     * Result of such operation should contain the following fields and values:.
      *
      * 'submitted_action' => '',
      * 'executed_action' => not empty string ('Buy' or 'Sell'),
@@ -167,7 +164,6 @@ class TradeReconManagerTest extends ExtendedWebTestCase
     {
         $date = '2013-03-22';
         $this->testResult = $this->tradeReconManager->getValues(new \DateTime($date), new \DateTime($date), $this->ria, 'Jhonny, Cage');
-        $this->assertEquals($this->notPlannedTransactionData, $this->testResult, 'Test for empty data failed', 0.001);
+        $this->assertSame($this->notPlannedTransactionData, $this->testResult, 'Test for empty data failed', 0.001);
     }
-
 }

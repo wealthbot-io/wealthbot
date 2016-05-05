@@ -9,195 +9,206 @@
 
 namespace Wealthbot\AdminBundle\Model;
 
-
 use Doctrine\Common\Collections\Collection;
 use FOS\UserBundle\Model\UserInterface;
 
 interface CeModelInterface
 {
     /**
-     * Strategy type of model
+     * Strategy type of model.
      */
     const TYPE_STRATEGY = 1;
 
     /**
-     * Custom type of model
+     * Custom type of model.
      */
-    const TYPE_CUSTOM   = 2;
+    const TYPE_CUSTOM = 2;
 
     /**
-     * Set id
+     * Set id.
      *
      * @return int
      */
     public function getId();
 
     /**
-     * Set id of model owner
+     * Set id of model owner.
      *
      * @param int $ownerId
+     *
      * @return self
      */
     public function setOwnerId($ownerId);
 
     /**
-     * Get id of model owner
+     * Get id of model owner.
+     *
      * @return int
      */
     public function getOwnerId();
 
     /**
-     * Set owner
+     * Set owner.
      *
      * @param UserInterface $owner
+     *
      * @return self
      */
     public function setOwner(UserInterface $owner);
 
     /**
-     * Get owner
+     * Get owner.
      *
      * @return UserInterface
      */
     public function getOwner();
 
     /**
-     * Set parent id
+     * Set parent id.
      *
      * @param int $parentId
+     *
      * @return self
      */
     public function setParentId($parentId);
 
     /**
-     * Get parent id
+     * Get parent id.
      *
      * @return int
      */
     public function getParentId();
 
     /**
-     * Set parent
+     * Set parent.
      *
      * @param CeModelInterface $parent
+     *
      * @return self
      */
     public function setParent(CeModelInterface $parent);
 
     /**
-     * Get parent
+     * Get parent.
      *
      * @return CeModelInterface
      */
     public function getParent();
 
     /**
-     * Set name
+     * Set name.
      *
      * @param string $name
+     *
      * @return self
      */
     public function setName($name);
 
     /**
-     * Get name
+     * Get name.
      *
      * @return string
      */
     public function getName();
 
     /**
-     * Set slug
+     * Set slug.
      *
      * @param string $slug
+     *
      * @return self
      */
     public function setSlug($slug);
 
     /**
-     * Get slug
+     * Get slug.
      *
      * @return string
      */
     public function getSlug();
 
     /**
-     * Set model risk rating
+     * Set model risk rating.
      *
      * @param int $riskRating
+     *
      * @return self
      */
     public function setRiskRating($riskRating);
 
     /**
-     * Get model risk rating
+     * Get model risk rating.
      *
      * @return int
      */
     public function getRiskRating();
 
     /**
-     * Set type
+     * Set type.
      *
      * @param int $type
+     *
      * @return self
      */
     public function setType($type);
 
     /**
-     * Get type
+     * Get type.
      *
      * @return int
      */
     public function getType();
 
     /**
-     * Returns true if model has $type type and false otherwise
+     * Returns true if model has $type type and false otherwise.
      *
      * @param int $type
-     * @return boolean
+     *
+     * @return bool
      */
     public function hasType($type);
 
     /**
-     * Returns true if model has strategy type and false otherwise
+     * Returns true if model has strategy type and false otherwise.
      *
-     * @return boolean
+     * @return bool
      */
     public function isStrategy();
 
     /**
-     * Returns true if model has custom type and false otherwise
+     * Returns true if model has custom type and false otherwise.
      *
-     * @return boolean
+     * @return bool
      */
     public function isCustom();
 
     /**
-     * Set commission min
+     * Set commission min.
      *
      * @param float $commissionMin
+     *
      * @return self
      */
     public function setCommissionMin($commissionMin);
 
     /**
-     * Get commission min
+     * Get commission min.
      *
      * @return float
      */
     public function getCommissionMin();
 
     /**
-     * Set commission max
+     * Set commission max.
      *
      * @param float $commissionMax
+     *
      * @return self
      */
     public function setCommissionMax($commissionMax);
 
     /**
-     * Get commission max
+     * Get commission max.
      *
      * @return float
      */
@@ -209,172 +220,176 @@ interface CeModelInterface
      *    then returns array(commissionMin, commissionMax)
      * If specified only commission_min or only commission_max,
      *    then returns array(commissionMin|commissionMax) with one value
-     * Otherwise return empty array
+     * Otherwise return empty array.
      *
      * @return array
      */
     public function getCommissions();
 
     /**
-     * Set forecast
+     * Set forecast.
      *
      * @param int $forecast
+     *
      * @return self
      */
     public function setForecast($forecast);
 
     /**
-     * Get forecast
+     * Get forecast.
      *
      * @return int
      */
     public function getForecast();
 
     /**
-     * Set generous market return
+     * Set generous market return.
      *
      * @param float $generousMarketReturn
+     *
      * @return self
      */
     public function setGenerousMarketReturn($generousMarketReturn);
 
     /**
-     * Get generous market return
+     * Get generous market return.
      *
      * @return float
      */
     public function getGenerousMarketReturn();
 
     /**
-     * Set low market return
+     * Set low market return.
+     *
      * @param float $lowMarketReturn
+     *
      * @return self
      */
     public function setLowMarketReturn($lowMarketReturn);
 
     /**
-     * Get low market return
+     * Get low market return.
      *
      * @return float
      */
     public function getLowMarketReturn();
 
     /**
-     * Set is assumption locked
+     * Set is assumption locked.
      *
-     * @param boolean $isAssumptionLocked
+     * @param bool $isAssumptionLocked
+     *
      * @return self
      */
     public function setIsAssumptionLocked($isAssumptionLocked);
 
     /**
-     * Get is assumption locked
+     * Get is assumption locked.
      *
-     * @return boolean
+     * @return bool
      */
     public function getIsAssumptionLocked();
 
     /**
-     * Add model entity
+     * Add model entity.
      *
      * @param CeModelEntityInterface $ceModelEntity
+     *
      * @return self
      */
     public function addModelEntity(CeModelEntityInterface $ceModelEntity);
 
     /**
-     * Remove model entity
+     * Remove model entity.
      *
      * @param CeModelEntityInterface $ceModelEntity
-     * @return void
      */
     public function removeModelEntity(CeModelEntityInterface $ceModelEntity);
 
     /**
-     * Get model entities
+     * Get model entities.
      *
      * @return Collection
      */
     public function getModelEntities();
 
     /**
-     * Get qualified model entities
+     * Get qualified model entities.
      *
      * @return array
      */
     public function getQualifiedModelEntities();
 
     /**
-     * Get non qualified model entities
+     * Get non qualified model entities.
      *
      * @return array
      */
     public function getNonQualifiedModelEntities();
 
     /**
-     * Add children
+     * Add children.
      *
      * @param CeModelInterface $ceModel
+     *
      * @return self
      */
     public function addChildren(CeModelInterface $ceModel);
 
     /**
-     * Set assumption values
+     * Set assumption values.
      *
      * @param array $assumption
      */
     public function setAssumption(array $assumption);
 
     /**
-     * Get array of assumption values
+     * Get array of assumption values.
      *
      * @return array
      */
     public function getAssumption();
 
     /**
-     * Remove children
+     * Remove children.
      *
      * @param CeModelInterface $ceModel
-     * @return void
      */
     public function removeChildren(CeModelInterface $ceModel);
 
     /**
-     * Get children
+     * Get children.
      *
      * @return Collection
      */
     public function getChildren();
 
     /**
-     * Set isDeleted
+     * Set isDeleted.
      *
-     * @param boolean $isDeleted
+     * @param bool $isDeleted
+     *
      * @return self
      */
     public function setIsDeleted($isDeleted);
 
     /**
-     * Get isDeleted
+     * Get isDeleted.
      *
-     * @return boolean
+     * @return bool
      */
     public function getIsDeleted();
 
     /**
      * Copy model
-     * returns new model with exist model data
+     * returns new model with exist model data.
      *
      * @return self
      */
     public function getCopy();
 
     /**
-     * Build group of model entities
-     *
-     * @return void
+     * Build group of model entities.
      */
     public function buildGroupModelEntities();
 }

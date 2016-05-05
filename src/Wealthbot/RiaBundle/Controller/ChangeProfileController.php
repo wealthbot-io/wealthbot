@@ -9,32 +9,29 @@
 
 namespace Wealthbot\RiaBundle\Controller;
 
-use Doctrine\ORM\Events;
-use Wealthbot\AdminBundle\AdminEvents;
-use Wealthbot\AdminBundle\Entity\CeModel;
-use Wealthbot\AdminBundle\Event\UserHistoryEvent;
-use Wealthbot\RiaBundle\Entity\AdvisorCode;
-use Wealthbot\RiaBundle\Entity\RiaCompanyInformation;
-use Wealthbot\RiaBundle\Form\Handler\RiaProposalFormHandler;
-use Wealthbot\RiaBundle\Form\Type\ProfileFormType;
-use Wealthbot\RiaBundle\Form\Type\RegistrationStepOneFormType;
-use Wealthbot\RiaBundle\Form\Type\RiaAdvisorCodeFormType;
-use Wealthbot\RiaBundle\Form\Type\RiaAlertsConfigurationFormType;
-use Wealthbot\RiaBundle\Form\Type\RiaCustodianFormType;
-use Wealthbot\RiaBundle\Form\Type\RiaProposalFormType;
-use Wealthbot\UserBundle\Form\Handler\DocumentsFormHandler;
-use Wealthbot\AdminBundle\Repository\SubclassRepository;
-use Wealthbot\RiaBundle\Form\Type\RiaCompanyInformationThreeType;
-use Wealthbot\RiaBundle\Form\Type\RiaCompanyInformationFourType;
-use Wealthbot\RiaBundle\Form\Type\RiaCompanyInformationTwoFormType;
-use Wealthbot\RiaBundle\Form\Type\RiaCompanyInformationType;
-use Wealthbot\RiaBundle\Form\Type\AdvisorCodesCollectionFormType;
-use Wealthbot\UserBundle\Form\Type\RiaDocumentsFormType;
-use Wealthbot\UserBundle\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Wealthbot\AdminBundle\AdminEvents;
+use Wealthbot\AdminBundle\Entity\CeModel;
+use Wealthbot\AdminBundle\Event\UserHistoryEvent;
+use Wealthbot\AdminBundle\Repository\SubclassRepository;
+use Wealthbot\RiaBundle\Entity\AdvisorCode;
+use Wealthbot\RiaBundle\Entity\RiaCompanyInformation;
+use Wealthbot\RiaBundle\Form\Handler\RiaProposalFormHandler;
+use Wealthbot\RiaBundle\Form\Type\AdvisorCodesCollectionFormType;
+use Wealthbot\RiaBundle\Form\Type\ProfileFormType;
+use Wealthbot\RiaBundle\Form\Type\RegistrationStepOneFormType;
+use Wealthbot\RiaBundle\Form\Type\RiaAlertsConfigurationFormType;
+use Wealthbot\RiaBundle\Form\Type\RiaCompanyInformationFourType;
+use Wealthbot\RiaBundle\Form\Type\RiaCompanyInformationThreeType;
+use Wealthbot\RiaBundle\Form\Type\RiaCompanyInformationTwoFormType;
+use Wealthbot\RiaBundle\Form\Type\RiaCompanyInformationType;
+use Wealthbot\RiaBundle\Form\Type\RiaCustodianFormType;
+use Wealthbot\RiaBundle\Form\Type\RiaProposalFormType;
+use Wealthbot\UserBundle\Entity\User;
+use Wealthbot\UserBundle\Form\Handler\DocumentsFormHandler;
+use Wealthbot\UserBundle\Form\Type\RiaDocumentsFormType;
 
 class ChangeProfileController extends Controller
 {
@@ -52,8 +49,8 @@ class ChangeProfileController extends Controller
 
 //        $admin = $this->get('wealthbot.manager.user')->getAdmin();
 
-        if(!$riaCompanyInfo){
-            throw $this->createNotFoundException("Company profile with id %s not found");
+        if (!$riaCompanyInfo) {
+            throw $this->createNotFoundException('Company profile with id %s not found');
         }
 
         $riaAlertsConfiguration = $user->getAlertsConfiguration();
@@ -67,7 +64,7 @@ class ChangeProfileController extends Controller
         $isCustomModel = $parentModel->isCustom();
         $session = $this->get('session');
 
-        $companyForm   = $this->createForm(new RiaCompanyInformationType($user, false), $riaCompanyInfo);
+        $companyForm = $this->createForm(new RiaCompanyInformationType($user, false), $riaCompanyInfo);
         $proposalForm = $this->createForm(new RiaProposalFormType($documentManager), $riaCompanyInfo);
 //        $marketingForm = $this->createForm(new RiaCompanyInformationFourType($user, false), $riaCompanyInfo);
         //$alertsConfigurationForm = $this->createForm(new RiaAlertsConfigurationFormType(), $riaAlertsConfiguration);
@@ -75,17 +72,17 @@ class ChangeProfileController extends Controller
         $portfolioManagementForm = $this->createForm(
             new RiaCompanyInformationThreeType($em, $user, false, false, true),
             $riaCompanyInfo,
-            array('session' => $session)
+            ['session' => $session]
         );
 
 //        RegistrationStepOneFormType
         return $this->render('WealthbotRiaBundle:ChangeProfile:index.html.twig',
-            array(
+            [
                 'company_information' => $riaCompanyInfo,
-                'currentModel'  => $parentModel,
+                'currentModel' => $parentModel,
                 'isCustomModel' => $isCustomModel,
-                'modelType'     => $parentModel->isCustom() ? 'Custom' : 'Strategy',
-                'companyForm'   => $companyForm->createView(),
+                'modelType' => $parentModel->isCustom() ? 'Custom' : 'Strategy',
+                'companyForm' => $companyForm->createView(),
                 'proposal_form' => $proposalForm->createView(),
 //                'marketingForm' => $marketingForm->createView(),
 //                'billingAndAccountsForm'  => $billingAndAccountsForm->createView(),
@@ -96,7 +93,7 @@ class ChangeProfileController extends Controller
 //                'documents_form' => $documentForm->createView(),
                 //'alertsConfigurationForm' => $alertsConfigurationForm->createView(),
                 'active_tab' => $request->get('tab', null),
-            )
+            ]
         );
     }
 
@@ -116,11 +113,11 @@ class ChangeProfileController extends Controller
         $custodians = $custodianRepo->findAll();
 
         return $this->render('WealthbotRiaBundle:ChangeProfile:_custodians_form.html.twig',
-            array(
+            [
                 'custodianForm' => $custodianForm->createView(),
                 'advisorCodesForm' => $advisorCodesForm->createView(),
                 'custodians' => $custodians,
-            ));
+            ]);
     }
 
     public function advisorCodesAction(Request $request)
@@ -132,23 +129,25 @@ class ChangeProfileController extends Controller
         $companyInformation = $this->getUser()->getRiaCompanyInformation();
 
         $advisorCodes = $em->getRepository('WealthbotRiaBundle:AdvisorCode')
-            ->findBy(array(
+            ->findBy([
                 'riaCompany' => $companyInformation,
-                'custodianId' => $custodianId
-        ));
+                'custodianId' => $custodianId,
+        ]);
 
-        $advisorCodesForm = $this->createForm(new AdvisorCodesCollectionFormType($em), array('advisorCodes' => $advisorCodes));
+        $advisorCodesForm = $this->createForm(new AdvisorCodesCollectionFormType($em), ['advisorCodes' => $advisorCodes]);
+
         return $this->render('WealthbotRiaBundle:ChangeProfile:advisor_codes.html.twig',
-            array(
+            [
                 'advisorCodesForm' => $advisorCodesForm->createView(),
-            )
+            ]
         );
     }
 
     /**
-     * Save company information
+     * Save company information.
      *
      * @param Request $request
+     *
      * @return Response|\Symfony\Component\HttpKernel\Exception\NotFoundHttpException
      */
     public function saveCompanyProfileAction(Request $request)
@@ -158,21 +157,20 @@ class ChangeProfileController extends Controller
         $user = $this->getUser();
 
         $riaCompanyInfo = $em->getRepository('WealthbotRiaBundle:RiaCompanyInformation')->findOneBy(
-            array('ria_user_id' => $user->getId())
+            ['ria_user_id' => $user->getId()]
         );
 
-        if(!$riaCompanyInfo){
-            return $this->createNotFoundException("Company profile with id %s not found");
+        if (!$riaCompanyInfo) {
+            return $this->createNotFoundException('Company profile with id %s not found');
         }
 
         $companyForm = $this->createForm(new RiaCompanyInformationType($this->getUser(), false), $riaCompanyInfo);
         $companyForm->get('name')->setData($companyForm->get('name')->getData());
 
-        if ($request->getMethod() == 'POST') {
+        if ($request->getMethod() === 'POST') {
+            $companyForm->submit($request);
 
-            $companyForm->bind($request);
-
-            if($companyForm->isValid()){
+            if ($companyForm->isValid()) {
                 $riaCompanyInformation = $companyForm->getData();
                 if (null !== $companyForm->get('logo_file')->getData()) {
                     $riaCompanyInformation->preUpload();
@@ -184,7 +182,7 @@ class ChangeProfileController extends Controller
             }
         }
 
-        return $this->render('WealthbotRiaBundle:ChangeProfile:_company_profile_form.html.twig', array('form' => $companyForm->createView()));
+        return $this->render('WealthbotRiaBundle:ChangeProfile:_company_profile_form.html.twig', ['form' => $companyForm->createView()]);
     }
 
     public function saveProposalAction(Request $request)
@@ -201,14 +199,14 @@ class ChangeProfileController extends Controller
         $riaCompanyInformation = $ria->getRiaCompanyInformation();
 
         $riaProposalForm = $this->createForm(new RiaProposalFormType($documentManager), $riaCompanyInformation);
-        $riaProposalFormHandler = new RiaProposalFormHandler($riaProposalForm, $request, $em, array('email_service' => $emailService));
+        $riaProposalFormHandler = new RiaProposalFormHandler($riaProposalForm, $request, $em, ['email_service' => $emailService]);
 
         $riaProposalFormHandler->process();
 
-        return $this->render('WealthbotRiaBundle:ChangeProfile:_proposal_form.html.twig', array(
+        return $this->render('WealthbotRiaBundle:ChangeProfile:_proposal_form.html.twig', [
             'form' => $riaProposalForm->createView(),
-            'documents' => $documentManager->getUserDocuments($ria->getId())
-        ));
+            'documents' => $documentManager->getUserDocuments($ria->getId()),
+        ]);
     }
 
 //    /**
@@ -235,7 +233,7 @@ class ChangeProfileController extends Controller
 //
 //        if ($request->isMethod('post')) {
 //
-//            $marketingForm->bind($request);
+//            $marketingForm->submit($request);
 //
 //            if($marketingForm->isValid()){
 //                $riaCompanyInfo = $marketingForm->getData();
@@ -256,21 +254,19 @@ class ChangeProfileController extends Controller
         $user = $this->getUser();
 
         $riaCompanyInfo = $em->getRepository('WealthbotRiaBundle:RiaCompanyInformation')->findOneBy(
-            array('ria_user_id' => $user->getId())
+            ['ria_user_id' => $user->getId()]
         );
 
-        if(!$riaCompanyInfo){
-            return $this->createNotFoundException("Company profile with id %s not found");
+        if (!$riaCompanyInfo) {
+            return $this->createNotFoundException('Company profile with id %s not found');
         }
 
         $billingAndAccountsForm = $this->createForm(new RiaCompanyInformationTwoFormType($user, false), $riaCompanyInfo);
 
-        if ($request->getMethod() == 'POST') {
-
-            $billingAndAccountsForm->bind($request);
+        if ($request->getMethod() === 'POST') {
+            $billingAndAccountsForm->submit($request);
             if ($billingAndAccountsForm->isValid()) {
-
-                $originalFees = array();
+                $originalFees = [];
                 foreach ($user->getFees() as $fee) {
                     $originalFees[] = $fee;
                 }
@@ -300,7 +296,7 @@ class ChangeProfileController extends Controller
             }
         }
 
-        return $this->render('WealthbotRiaBundle:ChangeProfile:_billing_n_accounts_form.html.twig', array('form' => $billingAndAccountsForm->createView(), 'show_alerts' => true));
+        return $this->render('WealthbotRiaBundle:ChangeProfile:_billing_n_accounts_form.html.twig', ['form' => $billingAndAccountsForm->createView(), 'show_alerts' => true]);
     }
 
     public function savePortfolioManagementAction(Request $request)
@@ -314,11 +310,11 @@ class ChangeProfileController extends Controller
         $user = $this->getUser();
 
         $riaCompanyInfo = $em->getRepository('WealthbotRiaBundle:RiaCompanyInformation')->findOneBy(
-            array('ria_user_id' => $user->getId())
+            ['ria_user_id' => $user->getId()]
         );
 
-        if(!$riaCompanyInfo){
-            return $this->createNotFoundException("Company profile with id %s not found");
+        if (!$riaCompanyInfo) {
+            return $this->createNotFoundException('Company profile with id %s not found');
         }
 
         /** @var $parentModel CeModel */
@@ -329,7 +325,7 @@ class ChangeProfileController extends Controller
         $riaSubs = $subclassRepo->findRiaSubclasses($user->getId());
         $subclasses = $subclassRepo->findAdminSubclasses();
 
-        $riaSubclassCollection = array();
+        $riaSubclassCollection = [];
         foreach ($riaSubs as $sub) {
             $riaSubclassCollection[] = $sub;
         }
@@ -339,23 +335,20 @@ class ChangeProfileController extends Controller
         $portfolioManagementForm = $this->createForm(
             new RiaCompanyInformationThreeType($em, $user, false, false, true),
             $riaCompanyInfo,
-            array('session' => $session)
+            ['session' => $session]
         );
 
         if ($request->isMethod('POST')) {
-
-            $portfolioManagementForm->bind($request);
+            $portfolioManagementForm->submit($request);
             if ($portfolioManagementForm->isValid()) {
-
                 $riaCompanyInfo = $portfolioManagementForm->getData();
 
                 $em->persist($riaCompanyInfo);
 
                 foreach ($riaSubclassCollection as $key => $riaSubclass) {
-                    if ($riaCompanyInfo->getAccountManaged() == 1 &&
+                    if ($riaCompanyInfo->getAccountManaged() === 1 &&
                         !$riaCompanyInfo->getIsAllowRetirementPlan() &&
                         isset($subclasses[$key])) {
-
                         $riaSubclass->setAccountType($subclasses[$key]->getAccountType());
                     }
                     $em->persist($riaSubclass);
@@ -366,17 +359,15 @@ class ChangeProfileController extends Controller
 
                 return $this->redirect($this->generateUrl('rx_ria_change_profile_save_portfolio_management'));
             }
-
         }
 
-
-        return $this->render('WealthbotRiaBundle:ChangeProfile:_rebalancing_form.html.twig', array(
-            'form'                => $portfolioManagementForm->createView(),
-            'isCustomModel'       => $isCustomModel,
+        return $this->render('WealthbotRiaBundle:ChangeProfile:_rebalancing_form.html.twig', [
+            'form' => $portfolioManagementForm->createView(),
+            'isCustomModel' => $isCustomModel,
             'company_information' => $riaCompanyInfo,
-            'currentModel'        => $parentModel,
-            'modelType'           => $isCustomModel ? 'Custom' : 'Strategy'
-        ));
+            'currentModel' => $parentModel,
+            'modelType' => $isCustomModel ? 'Custom' : 'Strategy',
+        ]);
     }
 
     public function updatePasswordAction()
@@ -398,7 +389,7 @@ class ChangeProfileController extends Controller
             return $this->redirect($this->generateUrl('rx_ria_change_profile_update_password'));
         }
 
-        return $this->render('WealthbotRiaBundle:ChangeProfile:_update_password.html.twig', array('form' => $form->createView()));
+        return $this->render('WealthbotRiaBundle:ChangeProfile:_update_password.html.twig', ['form' => $form->createView()]);
     }
 
 //    public function uploadDocumentsAction(Request $request)
@@ -431,29 +422,29 @@ class ChangeProfileController extends Controller
         $ria = $this->getUser();
 
         if (!$ria->getAlertsConfiguration()) {
-            return $this->createNotFoundException("Ria alerts configuration not found");
+            return $this->createNotFoundException('Ria alerts configuration not found');
         }
 
         $em = $this->get('doctrine.orm.entity_manager');
 
         $alertsConfigurationForm = $this->createForm(new RiaAlertsConfigurationFormType(), $ria->getAlertsConfiguration());
 
-        $alertsConfigurationForm->bind($request);
+        $alertsConfigurationForm->submit($request);
         if ($alertsConfigurationForm->isValid()) {
             $alertsConfiguration = $alertsConfigurationForm->getData();
 
             $em->persist($alertsConfiguration);
             $em->flush();
 
-            return $this->getJsonResponse(array('status' => 'success'));
+            return $this->getJsonResponse(['status' => 'success']);
         }
 
-        return $this->getJsonResponse(array(
+        return $this->getJsonResponse([
             'status' => 'error',
-            'content' => $this->renderView('WealthbotRiaBundle:ChangeProfile:_alerts_configuration_form_fields.html.twig', array(
-                'form' => $alertsConfigurationForm->createView()
-            ))
-        ));
+            'content' => $this->renderView('WealthbotRiaBundle:ChangeProfile:_alerts_configuration_form_fields.html.twig', [
+                'form' => $alertsConfigurationForm->createView(),
+            ]),
+        ]);
     }
 
     public function profileAction(Request $request)
@@ -466,8 +457,8 @@ class ChangeProfileController extends Controller
         $riaAlertsConfiguration = $user->getAlertsConfiguration();
         $alertsConfigurationForm = $this->createForm(new RiaAlertsConfigurationFormType(), $riaAlertsConfiguration);
 
-        if ($request->isMethod("post")) {
-            $profileForm->bind($request);
+        if ($request->isMethod('post')) {
+            $profileForm->submit($request);
             if ($profileForm->isValid()) {
                 $em->persist($profileForm->getData());
                 $em->flush();
@@ -475,12 +466,12 @@ class ChangeProfileController extends Controller
         }
 
         return $this->render('WealthbotRiaBundle:ChangeProfile:profile.html.twig',
-            array(
+            [
                 'profileForm' => $profileForm->createView(),
                 'updatePasswordForm' => $this->get('wealthbot_user.update_password.form')->createView(),
                 'alertsConfigurationForm' => $alertsConfigurationForm->createView(),
-                'active_tab' => $request->get('tab', null)
-            )
+                'active_tab' => $request->get('tab', null),
+            ]
         );
     }
 
@@ -495,13 +486,13 @@ class ChangeProfileController extends Controller
         $custodian = $custodianRepo->find($custodianId);
         $custodians = $custodianRepo->findAll();
 
-        $originalAdvisorCodes = array();
+        $originalAdvisorCodes = [];
 
         $advisorCodes = $em->getRepository('WealthbotRiaBundle:AdvisorCode')
-            ->findBy(array(
+            ->findBy([
                 'riaCompany' => $companyInformation,
-                'custodian' => $custodian
-        ));
+                'custodian' => $custodian,
+        ]);
 
         foreach ($advisorCodes as $advisorCode) {
             $originalAdvisorCodes[] = $advisorCode;
@@ -513,16 +504,16 @@ class ChangeProfileController extends Controller
 
         $advisorCodesForm = $this->createForm(
             $advisorCodesCollectionFormType,
-            array(
-                'advisorCodes' => $advisorCodes
-            )
+            [
+                'advisorCodes' => $advisorCodes,
+            ]
         );
 
         $custodianForm = $this->createForm(new RiaCustodianFormType($em), $companyInformation);
 
-        if ($request->isMethod("post")) {
-            $custodianForm->bind($request);
-            $advisorCodesForm->bind($request);
+        if ($request->isMethod('post')) {
+            $custodianForm->submit($request);
+            $advisorCodesForm->submit($request);
 
             if ($custodianForm->isValid() && $advisorCodesForm->isValid()) {
                 $advisorCodesData = $advisorCodesForm->getData();
@@ -542,21 +533,21 @@ class ChangeProfileController extends Controller
                 $em->persist($custodianForm->getData());
                 $em->flush();
 
-                return $this->redirect($this->generateUrl('rx_ria_change_profile_custodian_tab', array('custodian_id' => $custodianId)));
+                return $this->redirect($this->generateUrl('rx_ria_change_profile_custodian_tab', ['custodian_id' => $custodianId]));
             }
         }
 
         return $this->render('WealthbotRiaBundle:ChangeProfile:_custodians_form.html.twig',
-            array(
+            [
                 'custodianForm' => $custodianForm->createView(),
                 'advisorCodesForm' => $advisorCodesForm->createView(),
-                'custodians' => $custodians
-            )
+                'custodians' => $custodians,
+            ]
         );
     }
 
     /**
-     * Dispatch new UserHistoryEvent event
+     * Dispatch new UserHistoryEvent event.
      *
      * @param User $user
      * @param $description
@@ -571,6 +562,6 @@ class ChangeProfileController extends Controller
     {
         $response = json_encode($data);
 
-        return new Response($response, $code, array('Content-Type'=>'application/json'));
+        return new Response($response, $code, ['Content-Type' => 'application/json']);
     }
 }

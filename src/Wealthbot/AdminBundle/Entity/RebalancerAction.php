@@ -2,15 +2,13 @@
 
 namespace Wealthbot\AdminBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-
 /**
- * RebalancerAction
+ * RebalancerAction.
  */
 class RebalancerAction
 {
     /**
-     * @var integer
+     * @var int
      */
     private $id;
 
@@ -30,7 +28,7 @@ class RebalancerAction
     private $finished_at;
 
     /**
-     * @var boolean
+     * @var bool
      */
     private $is_error;
 
@@ -60,7 +58,7 @@ class RebalancerAction
     private $rebalancerQueue;
 
     /**
-     * Constructor
+     * Constructor.
      */
     public function __construct()
     {
@@ -70,9 +68,9 @@ class RebalancerAction
     }
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer 
+     * @return int
      */
     public function getId()
     {
@@ -80,9 +78,10 @@ class RebalancerAction
     }
 
     /**
-     * Set name
+     * Set name.
      *
      * @param string $name
+     *
      * @return RebalancerAction
      */
     public function setName($name)
@@ -93,9 +92,9 @@ class RebalancerAction
     }
 
     /**
-     * Get name
+     * Get name.
      *
-     * @return string 
+     * @return string
      */
     public function getName()
     {
@@ -103,9 +102,10 @@ class RebalancerAction
     }
 
     /**
-     * Set started_at
+     * Set started_at.
      *
      * @param \DateTime $startedAt
+     *
      * @return RebalancerAction
      */
     public function setStartedAt($startedAt)
@@ -116,9 +116,9 @@ class RebalancerAction
     }
 
     /**
-     * Get started_at
+     * Get started_at.
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getStartedAt()
     {
@@ -126,9 +126,10 @@ class RebalancerAction
     }
 
     /**
-     * Set finished_at
+     * Set finished_at.
      *
      * @param \DateTime $finishedAt
+     *
      * @return RebalancerAction
      */
     public function setFinishedAt($finishedAt)
@@ -139,9 +140,9 @@ class RebalancerAction
     }
 
     /**
-     * Get finished_at
+     * Get finished_at.
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getFinishedAt()
     {
@@ -149,9 +150,10 @@ class RebalancerAction
     }
 
     /**
-     * Set is_error
+     * Set is_error.
      *
-     * @param boolean $isError
+     * @param bool $isError
+     *
      * @return RebalancerAction
      */
     public function setIsError($isError)
@@ -162,9 +164,9 @@ class RebalancerAction
     }
 
     /**
-     * Get is_error
+     * Get is_error.
      *
-     * @return boolean 
+     * @return bool
      */
     public function getIsError()
     {
@@ -172,9 +174,10 @@ class RebalancerAction
     }
 
     /**
-     * Set job
+     * Set job.
      *
      * @param \Wealthbot\AdminBundle\Entity\Job $job
+     *
      * @return RebalancerAction
      */
     public function setJob(\Wealthbot\AdminBundle\Entity\Job $job = null)
@@ -185,9 +188,9 @@ class RebalancerAction
     }
 
     /**
-     * Get job
+     * Get job.
      *
-     * @return \Wealthbot\AdminBundle\Entity\Job 
+     * @return \Wealthbot\AdminBundle\Entity\Job
      */
     public function getJob()
     {
@@ -195,9 +198,10 @@ class RebalancerAction
     }
 
     /**
-     * Add rebalancerActionLogs
+     * Add rebalancerActionLogs.
      *
      * @param \Wealthbot\AdminBundle\Entity\RebalancerActionLog $rebalancerActionLogs
+     *
      * @return RebalancerAction
      */
     public function addRebalancerActionLog(\Wealthbot\AdminBundle\Entity\RebalancerActionLog $rebalancerActionLogs)
@@ -208,7 +212,7 @@ class RebalancerAction
     }
 
     /**
-     * Remove rebalancerActionLogs
+     * Remove rebalancerActionLogs.
      *
      * @param \Wealthbot\AdminBundle\Entity\RebalancerActionLog $rebalancerActionLogs
      */
@@ -218,9 +222,9 @@ class RebalancerAction
     }
 
     /**
-     * Get rebalancerActionLogs
+     * Get rebalancerActionLogs.
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getRebalancerActionLogs()
     {
@@ -228,9 +232,10 @@ class RebalancerAction
     }
 
     /**
-     * Set clientAccountValue
+     * Set clientAccountValue.
      *
      * @param \Wealthbot\ClientBundle\Entity\ClientAccountValue $clientAccountValue
+     *
      * @return RebalancerAction
      */
     public function setClientAccountValue(\Wealthbot\ClientBundle\Entity\ClientAccountValue $clientAccountValue = null)
@@ -241,9 +246,9 @@ class RebalancerAction
     }
 
     /**
-     * Get clientAccountValue
+     * Get clientAccountValue.
      *
-     * @return \Wealthbot\ClientBundle\Entity\ClientAccountValue 
+     * @return \Wealthbot\ClientBundle\Entity\ClientAccountValue
      */
     public function getClientAccountValue()
     {
@@ -251,9 +256,10 @@ class RebalancerAction
     }
 
     /**
-     * Set clientPortfolioValue
+     * Set clientPortfolioValue.
      *
      * @param \Wealthbot\ClientBundle\Entity\ClientPortfolioValue $clientPortfolioValue
+     *
      * @return RebalancerAction
      */
     public function setClientPortfolioValue(\Wealthbot\ClientBundle\Entity\ClientPortfolioValue $clientPortfolioValue = null)
@@ -264,24 +270,24 @@ class RebalancerAction
     }
 
     /**
-     * Get clientPortfolioValue
+     * Get clientPortfolioValue.
      *
-     * @return \Wealthbot\ClientBundle\Entity\ClientPortfolioValue 
+     * @return \Wealthbot\ClientBundle\Entity\ClientPortfolioValue
      */
     public function getClientPortfolioValue()
     {
         return $this->clientPortfolioValue;
     }
     /**
-     * @var integer
+     * @var int
      */
     private $status;
 
-
     /**
-     * Set status
+     * Set status.
      *
-     * @param integer $status
+     * @param int $status
+     *
      * @return RebalancerAction
      */
     public function setStatus($status)
@@ -292,9 +298,9 @@ class RebalancerAction
     }
 
     /**
-     * Get status
+     * Get status.
      *
-     * @return integer 
+     * @return int
      */
     public function getStatus()
     {
@@ -307,9 +313,10 @@ class RebalancerAction
     }
 
     /**
-     * Add rebalancerQueue
+     * Add rebalancerQueue.
      *
      * @param \Wealthbot\AdminBundle\Entity\RebalancerActionLog $rebalancerQueue
+     *
      * @return RebalancerAction
      */
     public function addRebalancerQueue(\Wealthbot\AdminBundle\Entity\RebalancerActionLog $rebalancerQueue)
@@ -320,7 +327,7 @@ class RebalancerAction
     }
 
     /**
-     * Remove rebalancerQueue
+     * Remove rebalancerQueue.
      *
      * @param \Wealthbot\AdminBundle\Entity\RebalancerActionLog $rebalancerQueue
      */
@@ -330,9 +337,9 @@ class RebalancerAction
     }
 
     /**
-     * Get rebalancerQueue
+     * Get rebalancerQueue.
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getRebalancerQueue()
     {

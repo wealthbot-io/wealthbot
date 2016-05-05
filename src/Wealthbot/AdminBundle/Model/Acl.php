@@ -9,9 +9,9 @@
 
 namespace Wealthbot\AdminBundle\Model;
 
-
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
+use Symfony\Component\Security\Core\Authorization\AuthorizationChecker;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
-use Symfony\Component\Security\Core\SecurityContextInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 class Acl
@@ -21,26 +21,41 @@ class Acl
     const PERMISSION_CREATE_USER = 'create_user';
     const PERMISSION_LOGIN_AS = 'login_as';
 
-    private $securityContext;
+    /**
+     * @var AuthorizationChecker
+     */
+    private $authorizationChecker;
 
-    private $permissionRoles = array(
-        self::PERMISSION_VIEW => array('ROLE_ADMIN'),
-        self::PERMISSION_EDIT => array('ROLE_ADMIN_MASTER', 'ROLE_ADMIN_PM'),
-        self::PERMISSION_CREATE_USER => array('ROLE_ADMIN_MASTER'),
-        self::PERMISSION_LOGIN_AS => array('ROLE_ALLOWED_TO_SWITCH'),
-    );
+    /**
+     * @var TokenStorage
+     */
+    private $tokenStorage;
 
-    public function __construct(SecurityContextInterface $securityContext)
+    private $permissionRoles = [
+        self::PERMISSION_VIEW => ['ROLE_ADMIN'],
+        self::PERMISSION_EDIT => ['ROLE_ADMIN_MASTER', 'ROLE_ADMIN_PM'],
+        self::PERMISSION_CREATE_USER => ['ROLE_ADMIN_MASTER'],
+        self::PERMISSION_LOGIN_AS => ['ROLE_ALLOWED_TO_SWITCH'],
+    ];
+
+    /**
+     * @param TokenStorage         $tokenStorage
+     * @param AuthorizationChecker $authorizationChecker
+     */
+    public function __construct(TokenStorage $tokenStorage, AuthorizationChecker $authorizationChecker)
     {
-        $this->securityContext = $securityContext;
+        $this->tokenStorage = $tokenStorage;
+        $this->authorizationChecker = $authorizationChecker;
     }
 
     /**
      * Check if user has permission.
      *
-     * @param string $permission
-     * @param UserInterface $user If is null then taken from security context
+     * @param string        $permission
+     * @param UserInterface $user       If is null then taken from security context
+     *
      * @return bool
+     *
      * @throws \InvalidArgumentException
      */
     public function isPermitted($permission, UserInterface $user = null)
@@ -55,15 +70,16 @@ class Acl
             $user = $this->getUser();
         }
 
-        return $this->securityContext->isGranted($roles, $user);
+        return $this->authorizationChecker->isGranted($roles, $user);
     }
 
     /**
      * Check user access.
-     * If user does not have access then throw AccessDeniedException
+     * If user does not have access then throw AccessDeniedException.
      *
-     * @param string $permission
+     * @param string        $permission
      * @param UserInterface $user
+     *
      * @throws \Symfony\Component\Security\Core\Exception\AccessDeniedException
      */
     public function checkAccess($permission, UserInterface $user = null)
@@ -78,6 +94,6 @@ class Acl
      */
     public function getUser()
     {
-        return $this->securityContext->getToken()->getUser();
+        return $this->tokenStorage->getToken()->getUser();
     }
 }

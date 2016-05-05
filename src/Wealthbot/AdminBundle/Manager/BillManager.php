@@ -22,7 +22,7 @@ class BillManager
 
     /**
      * @param EntityManager $em
-     * @param FeeManager $feeManager
+     * @param FeeManager    $feeManager
      */
     public function __construct(EntityManager $em, FeeManager $feeManager)
     {
@@ -32,9 +32,10 @@ class BillManager
 
     /**
      * @param User $client
-     * @param integer $year
-     * @param integer $quarter
+     * @param int  $year
+     * @param int  $quarter
      * @param bool $flush
+     *
      * @return Bill
      */
     public function createBill(User $client, $year, $quarter, $flush = true)
@@ -47,38 +48,42 @@ class BillManager
 
         $this->em->persist($bill);
 
-        if ($flush) $this->em->flush();
+        if ($flush) {
+            $this->em->flush();
+        }
 
         return $bill;
     }
 
     public function prepareBill(User $client, $year, $quarter, $flush = false)
     {
-        if ( ! $bill = $this->em->getRepository('WealthbotClientBundle:Bill')->findByClientAndPeriod($client, $year, $quarter)) {
+        if (!$bill = $this->em->getRepository('WealthbotClientBundle:Bill')->findByClientAndPeriod($client, $year, $quarter)) {
             $bill = $this->createBill($client, $year, $quarter, $flush);
         }
+
         return $bill;
     }
 
     /**
      * @param ClientAccount $account
-     * @param integer $year
-     * @param integer $quarter
-     * @param bool $flush
+     * @param int           $year
+     * @param int           $quarter
+     * @param bool          $flush
      */
     public function generateBill(ClientAccount $account, Bill $bill, $flush = false)
     {
-        if ( ! $billItem = $this->em->getRepository('WealthbotClientBundle:BillItem')->getByAccountAndPeriod($account, $bill->getYear(), $bill->getQuarter())) {
+        if (!$billItem = $this->em->getRepository('WealthbotClientBundle:BillItem')->getByAccountAndPeriod($account, $bill->getYear(), $bill->getQuarter())) {
             $this->createBillItem($account, $bill, $flush);
         }
     }
 
     /**
      * @param ClientAccount $account
-     * @param Bill $bill
-     * @param integer $year
-     * @param integer $quarter
-     * @param bool $flush
+     * @param Bill          $bill
+     * @param int           $year
+     * @param int           $quarter
+     * @param bool          $flush
+     *
      * @return BillItem
      */
     public function createBillItem(ClientAccount $account, Bill $bill, $flush = true)
@@ -110,6 +115,7 @@ class BillManager
      * @param ClientAccount $account
      * @param $year
      * @param $quarter
+     *
      * @return float|int
      */
     public function getRiaBillSumByPeriod(ClientAccount $account, $year, $quarter)
@@ -123,6 +129,7 @@ class BillManager
      * @param ClientAccount $account
      * @param $year
      * @param $quarter
+     *
      * @return float|int
      */
     public function getAdminBillSumByPeriod(ClientAccount $account, $year, $quarter)
@@ -134,9 +141,10 @@ class BillManager
 
     /**
      * @param ClientAccount $account
-     * @param float $fee
-     * @param int $year
-     * @param int $quarter
+     * @param float         $fee
+     * @param int           $year
+     * @param int           $quarter
+     *
      * @return float|int
      */
     public function calculateBillSumByPeriod(ClientAccount $account, $fee, $year, $quarter)
@@ -144,14 +152,14 @@ class BillManager
         $period = $this->feeManager->getPeriod($year, $quarter);
         $systemAccount = $account->getSystemAccount();
         $accountValues = $this->em->getRepository('WealthbotClientBundle:ClientAccountValue')->getAverageAccountValues($account, $period['startDate'], $period['endDate']);
-        $dayInPeriod   = $period['endDate']->diff($period['startDate'])->format('%a');
+        $dayInPeriod = $period['endDate']->diff($period['startDate'])->format('%a');
 
         return $this->feeManager->calculateFeeBilled($fee, $accountValues['count_values'], $dayInPeriod);
     }
 
     /**
      * @param BillItem $billItem
-     * @param bool $flush
+     * @param bool     $flush
      */
     public function setNoBill(BillItem $billItem, $flush = false)
     {
@@ -171,19 +179,20 @@ class BillManager
      * @param $year
      * @param $quarter
      * @param bool $flush
+     *
      * @throws \Exception
      */
     public function approveAccount(ClientAccount $account, $year, $quarter, $flush = false)
     {
         $client = $account->getClient();
         /** @var Bill $bill */
-        if (! $bill = $this->em->getRepository('WealthbotClientBundle:Bill')->findByClientAndPeriod($client, $year, $quarter)) {
+        if (!$bill = $this->em->getRepository('WealthbotClientBundle:Bill')->findByClientAndPeriod($client, $year, $quarter)) {
             throw new \Exception('Bill was not generated'); //todo: make custom exception
         }
         $bill->setApprovedAt(new \DateTime());
 
         if ($billItem = $this->em->getRepository('WealthbotClientBundle:BillItem')->getByAccountAndPeriod($account, $year, $quarter)) {
-            $billItem->getStatus() == BillItem::STATUS_BILL_GENERATED && $billItem->setStatus(BillItem::STATUS_BILL_APPROVED);
+            $billItem->getStatus() === BillItem::STATUS_BILL_GENERATED && $billItem->setStatus(BillItem::STATUS_BILL_APPROVED);
         } else {
             return false;
         }

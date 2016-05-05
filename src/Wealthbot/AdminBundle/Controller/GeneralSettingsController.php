@@ -2,20 +2,18 @@
 
 namespace Wealthbot\AdminBundle\Controller;
 
-use Wealthbot\AdminBundle\Entity\BillingSpec;
-use Wealthbot\AdminBundle\Entity\Fee;
-use Wealthbot\UserBundle\Entity\Document;
-use Wealthbot\UserBundle\Form\Handler\DocumentFormHandler;
-use Wealthbot\UserBundle\Form\Handler\DocumentsFormHandler;
-use Wealthbot\AdminBundle\Form\Type\AdminFeesType;
-use Wealthbot\UserBundle\Form\Type\DocumentFormType;
-use Wealthbot\UserBundle\Form\Type\DocumentsFormType;
-use Wealthbot\AdminBundle\Model\Acl;
-use Wealthbot\UserBundle\Entity\User;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Wealthbot\AdminBundle\Entity\BillingSpec;
+use Wealthbot\AdminBundle\Entity\Fee;
+use Wealthbot\AdminBundle\Form\Type\AdminFeesType;
 use Wealthbot\AdminBundle\Form\Type\FeeFormType;
 use Wealthbot\AdminBundle\Form\Type\SubclassType;
+use Wealthbot\AdminBundle\Model\Acl;
+use Wealthbot\UserBundle\Entity\Document;
+use Wealthbot\UserBundle\Entity\User;
+use Wealthbot\UserBundle\Form\Handler\DocumentFormHandler;
+use Wealthbot\UserBundle\Form\Type\DocumentFormType;
 
 // Todo: This controller must be refactored for BillingSpecs.
 class GeneralSettingsController extends AclController
@@ -29,11 +27,11 @@ class GeneralSettingsController extends AclController
         $superAdmin = $this->get('wealthbot.manager.user')->getAdmin();
 
         //Todo: Check if there can be several billingSpecs...
-        $billingSpec = $em->getRepository('WealthbotAdminBundle:BillingSpec')->findOneBy(array('owner' => null));
+        $billingSpec = $em->getRepository('WealthbotAdminBundle:BillingSpec')->findOneBy(['owner' => null]);
         if ($billingSpec) {
             $fees = $billingSpec->getFees()->getValues();
         } else {
-            $fees = array();
+            $fees = [];
         }
 
         $form = $this->createForm(new AdminFeesType($superAdmin));
@@ -42,22 +40,22 @@ class GeneralSettingsController extends AclController
         $documents = $documentManager->getUserDocuments($superAdmin->getId());
         $documentForm = $this->createForm(new DocumentFormType());
 
-        $documentTypes = array();
+        $documentTypes = [];
         foreach (Document::getAdminTypeChoices() as $key) {
             $type = str_replace('_', ' ', $key);
-            if ($type == 'adv') {
+            if ($type === 'adv') {
                 $type = 'ADV';
             }
             $documentTypes[$key] = ucwords($type);
         }
 
-        return $this->render('WealthbotAdminBundle:GeneralSettings:index.html.twig', array(
+        return $this->render('WealthbotAdminBundle:GeneralSettings:index.html.twig', [
             'fees' => $fees,
             'form' => $form->createView(),
             'document_form' => $documentForm->createView(),
             'documents' => $documents,
-            'document_types' => $documentTypes
-        ));
+            'document_types' => $documentTypes,
+        ]);
     }
 
     public function updateFeesAction(Request $request)
@@ -65,23 +63,23 @@ class GeneralSettingsController extends AclController
         $this->checkAccess(Acl::PERMISSION_EDIT);
 
         /** @var \Doctrine\ORM\EntityManager $em  */
-        /** @var $superAdmin User */
+        /* @var $superAdmin User */
         $em = $this->container->get('doctrine.orm.entity_manager');
         $superAdmin = $this->get('wealthbot.manager.user')->getAdmin();
 
         /** @var BillingSpec $billingSpec */
-        $billingSpec = $em->getRepository('WealthbotAdminBundle:BillingSpec')->findOneBy(array('owner' => null));
+        $billingSpec = $em->getRepository('WealthbotAdminBundle:BillingSpec')->findOneBy(['owner' => null]);
         if ($billingSpec) {
             $fees = $billingSpec->getFees()->getValues();
         } else {
-            $fees = array();
+            $fees = [];
         }
 
         $form = $this->createForm(new AdminFeesType($superAdmin));
         $form->get('fees')->setData($fees);
 
-        if ($request->getMethod() == 'POST') {
-            $form->bind($request);
+        if ($request->getMethod() === 'POST') {
+            $form->submit($request);
 
             if ($form->isValid()) {
                 foreach ($fees as $riaFee) {
@@ -102,22 +100,21 @@ class GeneralSettingsController extends AclController
                     $formNew = $this->createForm(new AdminFeesType($superAdmin));
                     $formNew->get('fees')->setData($form['fees']->getData());
 
-                    return $this->getJsonResponse(array(
+                    return $this->getJsonResponse([
                         'status' => 'success',
-                        'content' => $this->renderView('WealthbotAdminBundle:GeneralSettings:_fees_form.html.twig', array('form' => $formNew->createView()))
-                    ));
+                        'content' => $this->renderView('WealthbotAdminBundle:GeneralSettings:_fees_form.html.twig', ['form' => $formNew->createView()]),
+                    ]);
                 } else {
                     return $this->redirect($this->generateUrl('rx_ria_profile_step_four'));
                 }
-
             } elseif ($request->isXmlHttpRequest()) {
-                return $this->getJsonResponse(array(
+                return $this->getJsonResponse([
                     'status' => 'error',
-                    'content' => $this->renderView('WealthbotAdminBundle:GeneralSettings:_fees_form.html.twig', array('form' => $form->createView()))
-                ));
+                    'content' => $this->renderView('WealthbotAdminBundle:GeneralSettings:_fees_form.html.twig', ['form' => $form->createView()]),
+                ]);
             }
         } elseif ($request->isXmlHttpRequest()) {
-            return $this->getJsonResponse(array('status' => 'success'));
+            return $this->getJsonResponse(['status' => 'success']);
         }
 
         return $this->redirect($this->generateUrl('rx_admin_general_settings'));
@@ -128,14 +125,14 @@ class GeneralSettingsController extends AclController
         $this->checkAccess(Acl::PERMISSION_EDIT);
 
         /** @var \Doctrine\ORM\EntityManager $em  */
-        /** @var $superAdmin User */
+        /* @var $superAdmin User */
         $em = $this->container->get('doctrine.orm.entity_manager');
         $superAdmin = $this->get('wealthbot.manager.user')->getAdmin();
 
         $form = $this->createForm(new FeeFormType($superAdmin));
 
         if ($request->isMethod('post')) {
-            $form->bind($request);
+            $form->submit($request);
 
             if ($form->isValid()) {
                 $fee = $form->getData();
@@ -143,27 +140,27 @@ class GeneralSettingsController extends AclController
                 $em->persist($fee);
                 $em->flush();
 
-                return $this->redirect($this->generateUrl("rx_admin_general_settings"));
+                return $this->redirect($this->generateUrl('rx_admin_general_settings'));
             }
         }
 
-        return $this->render('WealthbotAdminBundle:GeneralSettings:fee_new.html.twig', array('form' => $form->createView()));
+        return $this->render('WealthbotAdminBundle:GeneralSettings:fee_new.html.twig', ['form' => $form->createView()]);
     }
 
-    public function editFeeAction($id)
+    public function editFeeAction($id, Request $request)
     {
         $this->checkAccess(Acl::PERMISSION_EDIT);
 
         /** @var \Doctrine\ORM\EntityManager $em  */
-        /** @var $superAdmin User */
+        /* @var $superAdmin User */
         $em = $this->container->get('doctrine.orm.entity_manager');
         $superAdmin = $this->get('wealthbot.manager.user')->getAdmin();
 
         $fee = $em->getRepository('WealthbotAdminBundle:Fee')->find($id);
         $form = $this->createForm(new FeeFormType($superAdmin), $fee);
 
-        if ($this->getRequest()->isMethod('post')) {
-            $form->bind($this->getRequest());
+        if ($request->isMethod('post')) {
+            $form->submit($request);
 
             if ($form->isValid()) {
                 $fee = $form->getData();
@@ -171,11 +168,11 @@ class GeneralSettingsController extends AclController
                 $em->persist($fee);
                 $em->flush();
 
-                return $this->redirect($this->generateUrl("rx_admin_general_settings"));
+                return $this->redirect($this->generateUrl('rx_admin_general_settings'));
             }
         }
 
-        return $this->render('WealthbotAdminBundle:GeneralSettings:fee_edit.html.twig', array('form' => $form->createView()));
+        return $this->render('WealthbotAdminBundle:GeneralSettings:fee_edit.html.twig', ['form' => $form->createView()]);
     }
 
     public function deleteFeeAction($id)
@@ -193,7 +190,7 @@ class GeneralSettingsController extends AclController
             $em->flush();
         }
 
-        return $this->redirect($this->generateUrl("rx_admin_general_settings"));
+        return $this->redirect($this->generateUrl('rx_admin_general_settings'));
     }
 
     public function uploadDocumentsAction(Request $request)
@@ -206,46 +203,46 @@ class GeneralSettingsController extends AclController
         /** @var User $superAdmin */
         $superAdmin = $this->get('wealthbot.manager.user')->getAdmin();
         $form = $this->createForm(new DocumentFormType());
-        $formHandler = new DocumentFormHandler($form, $request, $em, $this->get('wealthbot.mailer'), array('user' => $superAdmin));
+        $formHandler = new DocumentFormHandler($form, $request, $em, $this->get('wealthbot.mailer'), ['user' => $superAdmin]);
 
         if ($request->isMethod('post')) {
             $process = $formHandler->process();
 
             if (!$process) {
-                return $this->getJsonResponse(array(
+                return $this->getJsonResponse([
                     'status' => 'error',
-                    'content' => $this->renderView('WealthbotAdminBundle:GeneralSettings:_document_form.html.twig', array(
-                        'form' => $form->createView()
-                    ))
-                ));
+                    'content' => $this->renderView('WealthbotAdminBundle:GeneralSettings:_document_form.html.twig', [
+                        'form' => $form->createView(),
+                    ]),
+                ]);
             }
         }
 
-        $documentTypes = array();
+        $documentTypes = [];
         foreach (Document::getAdminTypeChoices() as $key) {
             $type = str_replace('_', ' ', $key);
-            if ($type == 'adv') {
+            if ($type === 'adv') {
                 $type = 'ADV';
             }
             $documentTypes[$key] = ucwords($type);
         }
 
         if ($request->isXmlHttpRequest()) {
-            return $this->getJsonResponse(array(
+            return $this->getJsonResponse([
                 'status' => 'success',
-                'content' => $this->renderView('WealthbotAdminBundle:GeneralSettings:_documents.html.twig', array(
+                'content' => $this->renderView('WealthbotAdminBundle:GeneralSettings:_documents.html.twig', [
                     'form' => $form->createView(),
                     'documents' => $documentManager->getUserDocuments($superAdmin->getId()),
-                    'types' => $documentTypes
-                ))
-            ));
+                    'types' => $documentTypes,
+                ]),
+            ]);
         }
 
-        return $this->render('WealthbotAdminBundle:GeneralSettings:_documents.html.twig', array(
+        return $this->render('WealthbotAdminBundle:GeneralSettings:_documents.html.twig', [
             'form' => $form->createView(),
             'documents' => $documentManager->getUserDocuments($superAdmin->getId()),
-            'types' => $documentTypes
-        ));
+            'types' => $documentTypes,
+        ]);
     }
 
     public function newSubclassAction(Request $request)
@@ -257,7 +254,7 @@ class GeneralSettingsController extends AclController
         $form = $this->createForm(new SubclassType());
 
         if ($request->isMethod('post')) {
-            $form->bind($request);
+            $form->submit($request);
 
             if ($form->isValid()) {
                 $subclass = $form->getData();
@@ -265,14 +262,14 @@ class GeneralSettingsController extends AclController
                 $em->persist($subclass);
                 $em->flush();
 
-                return $this->redirect($this->generateUrl("rx_admin_general_settings"));
+                return $this->redirect($this->generateUrl('rx_admin_general_settings'));
             }
         }
 
-        return $this->render('WealthbotAdminBundle:GeneralSettings:subclass_new.html.twig', array('form' => $form->createView()));
+        return $this->render('WealthbotAdminBundle:GeneralSettings:subclass_new.html.twig', ['form' => $form->createView()]);
     }
 
-    public function editSubclassAction($id)
+    public function editSubclassAction($id, Request $request)
     {
         $this->checkAccess(Acl::PERMISSION_EDIT);
 
@@ -282,8 +279,8 @@ class GeneralSettingsController extends AclController
 
         $form = $this->createForm(new SubclassType(), $subclass);
 
-        if ($this->getRequest()->isMethod('post')) {
-            $form->bind($this->getRequest());
+        if ($request->isMethod('post')) {
+            $form->submit($request);
 
             if ($form->isValid()) {
                 $subclass = $form->getData();
@@ -291,11 +288,11 @@ class GeneralSettingsController extends AclController
                 $em->persist($subclass);
                 $em->flush();
 
-                return $this->redirect($this->generateUrl("rx_admin_general_settings"));
+                return $this->redirect($this->generateUrl('rx_admin_general_settings'));
             }
         }
 
-        return $this->render('WealthbotAdminBundle:GeneralSettings:subclass_edit.html.twig', array('form' => $form->createView()));
+        return $this->render('WealthbotAdminBundle:GeneralSettings:subclass_edit.html.twig', ['form' => $form->createView()]);
     }
 
     public function deleteSubclassAction($id)
@@ -311,13 +308,13 @@ class GeneralSettingsController extends AclController
             $em->flush();
         }
 
-        return $this->redirect($this->generateUrl("rx_admin_general_settings"));
+        return $this->redirect($this->generateUrl('rx_admin_general_settings'));
     }
 
     protected function getJsonResponse(array $data, $code = 200)
     {
         $response = json_encode($data);
 
-        return new Response($response, $code, array('Content-Type'=>'application/json'));
+        return new Response($response, $code, ['Content-Type' => 'application/json']);
     }
 }

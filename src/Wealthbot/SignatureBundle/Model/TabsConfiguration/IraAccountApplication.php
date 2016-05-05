@@ -9,8 +9,8 @@
 
 namespace Wealthbot\SignatureBundle\Model\TabsConfiguration;
 
-use Wealthbot\ClientBundle\Model\AccountOwnerInterface;
 use Wealthbot\ClientBundle\Entity\Beneficiary;
+use Wealthbot\ClientBundle\Model\AccountOwnerInterface;
 use Wealthbot\ClientBundle\Model\ClientAccount;
 use Wealthbot\SignatureBundle\Model\Tab\CheckboxTab;
 use Wealthbot\SignatureBundle\Model\Tab\RadioGroupTab;
@@ -31,7 +31,7 @@ class IraAccountApplication extends AbstractTabsConfiguration
     }
 
     /**
-     * Generate collection of tabs
+     * Generate collection of tabs.
      *
      * @return TabCollection
      */
@@ -43,7 +43,7 @@ class IraAccountApplication extends AbstractTabsConfiguration
 
         $primaryApplicant = $this->account->getPrimaryApplicant();
 
-        $tabs = array();
+        $tabs = [];
 
         $advisorCode = new TextTab();
         $advisorCode->setTabLabel('Advisor#')->setValue($this->getAdvisorCode($companyInfo));
@@ -59,7 +59,7 @@ class IraAccountApplication extends AbstractTabsConfiguration
 
         $primaryContact = new TextTab();
         $primaryContact->setTabLabel('PrimaryContact')
-            ->setValue($companyInfo->getPrimaryFirstName() . ' ' . $companyInfo->getPrimaryLastName());
+            ->setValue($companyInfo->getPrimaryFirstName().' '.$companyInfo->getPrimaryLastName());
         $tabs[] = $primaryContact;
 
         $ownerTabs = $this->getOwnerInformationTabs($primaryApplicant);
@@ -83,8 +83,7 @@ class IraAccountApplication extends AbstractTabsConfiguration
         // Check employment type
         $employmentType = $primaryApplicant->getEmploymentType();
         if ($employmentType === Profile::CLIENT_EMPLOYMENT_TYPE_RETIRED ||
-            $employmentType === Profile::CLIENT_EMPLOYMENT_TYPE_UNEMPLOYED)
-        {
+            $employmentType === Profile::CLIENT_EMPLOYMENT_TYPE_UNEMPLOYED) {
             $employmentStatus = new RadioGroupTab();
             $employmentStatus->setGroupName('EmploymentStatus')->setValue($employmentType)->setSelected(true);
             $tabs[] = $employmentStatus;
@@ -92,10 +91,8 @@ class IraAccountApplication extends AbstractTabsConfiguration
             $incomeSource = new TextTab();
             $incomeSource->setTabLabel('SourceOfIncome')->setValue($primaryApplicant->getIncomeSource());
             $tabs[] = $incomeSource;
-
         } elseif ($employmentType === Profile::CLIENT_EMPLOYMENT_TYPE_EMPLOYED ||
-            $employmentType === Profile::CLIENT_EMPLOYMENT_TYPE_SELF_EMPLOYED)
-        {
+            $employmentType === Profile::CLIENT_EMPLOYMENT_TYPE_SELF_EMPLOYED) {
             $employerName = new TextTab();
             $employerName->setTabLabel('EmployerName')->setValue($primaryApplicant->getEmployerName());
             $tabs[] = $employerName;
@@ -137,9 +134,9 @@ class IraAccountApplication extends AbstractTabsConfiguration
             $isSeniorPoliticalFigure = new CheckboxTab();
             $isSeniorPoliticalFigure->setTabLabel('IsSeniorPoliticalFigure')->setSelected(true);
 
-            $fields = $primaryApplicant->getSeniorSpfName() . ', ' . $primaryApplicant->getSeniorPoliticalTitle() .
-                ', ' . $primaryApplicant->getSeniorAccountOwnerRelationship() .
-                ', ' . $primaryApplicant->getSeniorCountryOffice();
+            $fields = $primaryApplicant->getSeniorSpfName().', '.$primaryApplicant->getSeniorPoliticalTitle().
+                ', '.$primaryApplicant->getSeniorAccountOwnerRelationship().
+                ', '.$primaryApplicant->getSeniorCountryOffice();
 
             $spfFields = new TextTab();
             $spfFields->setTabLabel('SPFFields')->setValue($fields);
@@ -158,7 +155,7 @@ class IraAccountApplication extends AbstractTabsConfiguration
             $prefix = 'Joint';
         }
 
-        $tabs = array();
+        $tabs = [];
 
         $fullName = new TextTab();
         $fullName->setTabLabel(''.$prefix.'FullName')->setValue($owner->getFullName());
@@ -180,7 +177,7 @@ class IraAccountApplication extends AbstractTabsConfiguration
         $homeCity->setTabLabel(''.$prefix.'HomeAddressCity')->setValue($owner->getCity());
         $tabs[] = $homeCity;
 
-        $homeState= new TextTab();
+        $homeState = new TextTab();
         $homeState->setTabLabel(''.$prefix.'HomeAddressState')
             ->setValue($owner->getState() ? $owner->getState()->getName() : '');
         $tabs[] = $homeState;
@@ -222,7 +219,7 @@ class IraAccountApplication extends AbstractTabsConfiguration
 
     private function getBeneficiariesTabs()
     {
-        $tabs = array();
+        $tabs = [];
         $index = 1;
 
         /** @var Beneficiary $beneficiary */
@@ -230,49 +227,49 @@ class IraAccountApplication extends AbstractTabsConfiguration
             $prefix = 'Beneficiary';
 
             $name = new TextTab();
-            $name->setTabLabel($prefix . $index . 'Name')->setValue($beneficiary->getFullName());
+            $name->setTabLabel($prefix.$index.'Name')->setValue($beneficiary->getFullName());
             $tabs[] = $name;
 
             $birthday = new TextTab();
-            $birthday->setTabLabel($prefix . $index . 'DOB')->setValue($beneficiary->getBirthDate()->format('m-d-Y'));
+            $birthday->setTabLabel($prefix.$index.'DOB')->setValue($beneficiary->getBirthDate()->format('m-d-Y'));
             $tabs[] = $birthday;
 
             $ssn = new TextTab();
-            $ssn->setTabLabel($prefix . $index . 'SSN')->setValue($beneficiary->getSsn());
+            $ssn->setTabLabel($prefix.$index.'SSN')->setValue($beneficiary->getSsn());
             $tabs[] = $ssn;
 
             $street = new TextTab();
-            $street->setTabLabel($prefix . $index . 'HomeAddressStreet')->setValue($beneficiary->getStreet());
+            $street->setTabLabel($prefix.$index.'HomeAddressStreet')->setValue($beneficiary->getStreet());
             $tabs[] = $street;
 
             $city = new TextTab();
-            $city->setTabLabel($prefix . $index . 'HomeAddressCity')->setValue($beneficiary->getCity());
+            $city->setTabLabel($prefix.$index.'HomeAddressCity')->setValue($beneficiary->getCity());
             $tabs[] = $city;
 
             $state = new TextTab();
-            $state->setTabLabel($prefix . $index . 'HomeAddressState')
+            $state->setTabLabel($prefix.$index.'HomeAddressState')
                 ->setValue($beneficiary->getState() ? $beneficiary->getState()->getName() : '');
             $tabs[] = $state;
 
             $zip = new TextTab();
-            $zip->setTabLabel($prefix . $index . 'HomeAddressZip')->setValue($beneficiary->getZip());
+            $zip->setTabLabel($prefix.$index.'HomeAddressZip')->setValue($beneficiary->getZip());
             $tabs[] = $zip;
 
             $share = new TextTab();
-            $share->setTabLabel($prefix . $index . 'Share')->setValue(round($beneficiary->getShare(), 2));
+            $share->setTabLabel($prefix.$index.'Share')->setValue(round($beneficiary->getShare(), 2));
             $tabs[] = $share;
 
             $type = new RadioGroupTab();
-            $type->setGroupName($prefix . $index . 'Type')
+            $type->setGroupName($prefix.$index.'Type')
                 ->setValue(strtolower($beneficiary->getType()))
                 ->setSelected(true);
             $tabs[] = $type;
 
             $relationship = new TextTab();
-            $relationship->setTabLabel($prefix . $index . 'Relationship')->setValue($beneficiary->getRelationship());
+            $relationship->setTabLabel($prefix.$index.'Relationship')->setValue($beneficiary->getRelationship());
             $tabs[] = $relationship;
 
-            $index++;
+            ++$index;
         }
 
         return $tabs;

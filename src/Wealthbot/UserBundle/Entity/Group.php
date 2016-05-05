@@ -4,18 +4,16 @@ namespace Wealthbot\UserBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use FOS\UserBundle\Model\Group as BaseGroup;
-use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Wealthbot\UserBundle\Entity\Group
+ * Wealthbot\UserBundle\Entity\Group.
  */
 class Group extends BaseGroup
 {
     /**
-     * @var integer $id
+     * @var int
      */
     protected $id;
-
 
     /**
      * @var \Doctrine\Common\Collections\Collection
@@ -30,10 +28,10 @@ class Group extends BaseGroup
     /**
      * @var array
      */
-    protected  $roles;
+    protected $roles;
 
     /**
-     * @var integer
+     * @var int
      */
     private $owner_id;
 
@@ -44,8 +42,7 @@ class Group extends BaseGroup
 
     const GROUP_NAME_ALL = 'All';
 
-
-    public function __construct($name = null, $roles = array())
+    public function __construct($name = null, $roles = [])
     {
         $this->users = new ArrayCollection();
 
@@ -53,9 +50,9 @@ class Group extends BaseGroup
     }
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer 
+     * @return int
      */
     public function getId()
     {
@@ -63,9 +60,10 @@ class Group extends BaseGroup
     }
 
     /**
-     * Set name
+     * Set name.
      *
      * @param string $name
+     *
      * @return Group
      */
     public function setName($name)
@@ -76,7 +74,7 @@ class Group extends BaseGroup
     }
 
     /**
-     * Get name
+     * Get name.
      *
      * @return string
      */
@@ -94,9 +92,10 @@ class Group extends BaseGroup
     }
 
     /**
-     * Set roles
+     * Set roles.
      *
      * @param array $roles
+     *
      * @return Group
      */
     public function setRoles(array $roles)
@@ -107,7 +106,7 @@ class Group extends BaseGroup
     }
 
     /**
-     * Get roles
+     * Get roles.
      *
      * @return array
      */
@@ -116,22 +115,22 @@ class Group extends BaseGroup
         return parent::getRoles();
     }
 
-
     /**
-     * Add users
+     * Add users.
      *
      * @param \Wealthbot\UserBundle\Entity\User $users
+     *
      * @return Group
      */
     public function addUser(\Wealthbot\UserBundle\Entity\User $users)
     {
         $this->users[] = $users;
-    
+
         return $this;
     }
 
     /**
-     * Remove users
+     * Remove users.
      *
      * @param \Wealthbot\UserBundle\Entity\User $users
      */
@@ -141,20 +140,20 @@ class Group extends BaseGroup
     }
 
     /**
-     * Get users
+     * Get users.
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getUsers()
     {
         return $this->users;
     }
 
-
     /**
-     * Set owner_id
+     * Set owner_id.
      *
-     * @param integer $ownerId
+     * @param int $ownerId
+     *
      * @return Group
      */
     public function setOwnerId($ownerId)
@@ -165,9 +164,9 @@ class Group extends BaseGroup
     }
 
     /**
-     * Get owner_id
+     * Get owner_id.
      *
-     * @return integer
+     * @return int
      */
     public function getOwnerId()
     {
@@ -175,9 +174,10 @@ class Group extends BaseGroup
     }
 
     /**
-     * Set owner
+     * Set owner.
      *
      * @param \Wealthbot\UserBundle\Entity\User $owner
+     *
      * @return Group
      */
     public function setOwner(\Wealthbot\UserBundle\Entity\User $owner = null)
@@ -188,15 +188,14 @@ class Group extends BaseGroup
     }
 
     /**
-     * Get owner
+     * Get owner.
      *
-     * @return \Wealthbot\UserBundle\Entity\User 
+     * @return \Wealthbot\UserBundle\Entity\User
      */
     public function getOwner()
     {
         return $this->owner;
     }
-
 
     public function isAll()
     {
@@ -208,13 +207,12 @@ class Group extends BaseGroup
         $count = 0;
 
         /** @var User $user */
-        foreach($this->users as $user){
-            if (($user->hasRole('ROLE_RIA_ADMIN') || $user->hasRole('ROLE_RIA_USER')) && $user->getProfile()->getRia()->getId() == $riaId){
-                $count++;
+        foreach ($this->users as $user) {
+            if (($user->hasRole('ROLE_RIA_ADMIN') || $user->hasRole('ROLE_RIA_USER')) && $user->getProfile()->getRia()->getId() === $riaId) {
+                ++$count;
             }
         }
 
         return $count;
     }
-
 }

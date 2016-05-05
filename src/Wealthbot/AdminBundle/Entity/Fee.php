@@ -2,19 +2,15 @@
 
 namespace Wealthbot\AdminBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-use Wealthbot\UserBundle\Entity\User;
-use Symfony\Component\Validator\ExecutionContext;
-
 /**
- * Wealthbot\AdminBundle\Entity\Fee
+ * Wealthbot\AdminBundle\Entity\Fee.
  */
 class Fee
 {
     const INFINITY = 1000000000000;
-    
+
     /**
-     * @var integer
+     * @var int
      */
     private $id;
 
@@ -34,15 +30,24 @@ class Fee
     private $tier_top;
 
     /**
+     * @var float
+     */
+    private $tier_bottom;
+
+    /**
+     * @var float
+     */
+    private $is_final_tier;
+
+    /**
      * @var \Wealthbot\AdminBundle\Entity\BillingSpec
      */
     private $billingSpec;
 
-
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer 
+     * @return int
      */
     public function getId()
     {
@@ -50,9 +55,10 @@ class Fee
     }
 
     /**
-     * Set fee_with_retirement
+     * Set fee_with_retirement.
      *
      * @param float $feeWithRetirement
+     *
      * @return Fee
      */
     public function setFeeWithRetirement($feeWithRetirement)
@@ -63,9 +69,9 @@ class Fee
     }
 
     /**
-     * Get fee_with_retirement
+     * Get fee_with_retirement.
      *
-     * @return float 
+     * @return float
      */
     public function getFeeWithRetirement()
     {
@@ -73,9 +79,10 @@ class Fee
     }
 
     /**
-     * Set fee_without_retirement
+     * Set fee_without_retirement.
      *
      * @param float $feeWithoutRetirement
+     *
      * @return Fee
      */
     public function setFeeWithoutRetirement($feeWithoutRetirement)
@@ -86,9 +93,9 @@ class Fee
     }
 
     /**
-     * Get fee_without_retirement
+     * Get fee_without_retirement.
      *
-     * @return float 
+     * @return float
      */
     public function getFeeWithoutRetirement()
     {
@@ -96,9 +103,10 @@ class Fee
     }
 
     /**
-     * Set tier_top
+     * Set tier_top.
      *
      * @param float $tierTop
+     *
      * @return Fee
      */
     public function setTierTop($tierTop)
@@ -109,9 +117,9 @@ class Fee
     }
 
     /**
-     * Get tier_top
+     * Get tier_top.
      *
-     * @return float 
+     * @return float
      */
     public function getTierTop()
     {
@@ -119,9 +127,34 @@ class Fee
     }
 
     /**
-     * Set billingSpec
+     * Set tier_bottom.
+     *
+     * @param float $tierBottom
+     *
+     * @return Fee
+     */
+    public function setTierBottom($tierBottom)
+    {
+        $this->tier_bottom = $tierBottom;
+
+        return $this;
+    }
+
+    /**
+     * Get tier_bottom.
+     *
+     * @return float
+     */
+    public function getTierBottom()
+    {
+        return $this->tier_bottom;
+    }
+
+    /**
+     * Set billingSpec.
      *
      * @param \Wealthbot\AdminBundle\Entity\BillingSpec $billingSpec
+     *
      * @return Fee
      */
     public function setBillingSpec(\Wealthbot\AdminBundle\Entity\BillingSpec $billingSpec = null)
@@ -132,12 +165,36 @@ class Fee
     }
 
     /**
-     * Get billingSpec
+     * Get billingSpec.
      *
-     * @return \Wealthbot\AdminBundle\Entity\BillingSpec 
+     * @return \Wealthbot\AdminBundle\Entity\BillingSpec
      */
     public function getBillingSpec()
     {
         return $this->billingSpec;
+    }
+
+    /**
+     * Set is_final_tier.
+     *
+     * @param float $isFinalTier
+     *
+     * @return Fee
+     */
+    public function setIsFinalTier($isFinalTier)
+    {
+        $this->is_final_tier = $isFinalTier;
+
+        return $this;
+    }
+
+    /**
+     * Get is_final_tier.
+     *
+     * @return float
+     */
+    public function getIsFinalTier()
+    {
+        return $this->is_final_tier;
     }
 }

@@ -3,15 +3,16 @@
  * Created by PhpStorm.
  * User: amalyuhin
  * Date: 26.12.13
- * Time: 20:22
+ * Time: 20:22.
  */
 
 namespace Wealthbot\ClientBundle\Service;
 
 use Doctrine\Common\EventSubscriber;
-use Doctrine\ORM\Event\PostFlushEventArgs;
 use Doctrine\ORM\Event\OnFlushEventArgs;
+use Doctrine\ORM\Event\PostFlushEventArgs;
 use Doctrine\ORM\Events;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Wealthbot\ClientBundle\Document\Activity;
 use Wealthbot\ClientBundle\Entity\ClientPortfolio;
 use Wealthbot\ClientBundle\Entity\Distribution;
@@ -22,15 +23,13 @@ use Wealthbot\ClientBundle\Model\BaseContribution;
 use Wealthbot\ClientBundle\Repository\WorkflowRepository;
 use Wealthbot\SignatureBundle\Entity\DocumentSignature;
 use Wealthbot\UserBundle\Entity\User;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class DoctrineSubscriber implements EventSubscriber
 {
-    private
-        $container,                         /** @var \Symfony\Component\DependencyInjection\ContainerInterface */
-        $inserted = array(),
-        $updated = array(),
-        $messages = array()
+    private $container,                         /* @var \Symfony\Component\DependencyInjection\ContainerInterface */
+        $inserted = [],
+        $updated = [],
+        $messages = []
     ;
 
     public function __construct(ContainerInterface $container)
@@ -45,15 +44,15 @@ class DoctrineSubscriber implements EventSubscriber
      */
     public function getSubscribedEvents()
     {
-        return array(
+        return [
             Events::postFlush,
-            Events::onFlush
-        );
+            Events::onFlush,
+        ];
     }
 
     public function onFlush(OnFlushEventArgs $eventArgs)
     {
-        $this->updated = array();
+        $this->updated = [];
 
         $activityManager = $this->container->get('wealthbot.activity.manager');
         $workflowManager = $this->container->get('wealthbot.workflow.manager');
@@ -66,7 +65,7 @@ class DoctrineSubscriber implements EventSubscriber
         $meta = $em->getClassMetadata($repository->getClassName());
 
         $paperworkMessages = Workflow::getPaperworkMessageChoices();
-        $this->messages = array();
+        $this->messages = [];
 
         foreach ($uow->getScheduledEntityInsertions() as $entity) {
             $this->inserted[] = $entity;
@@ -75,11 +74,11 @@ class DoctrineSubscriber implements EventSubscriber
         foreach ($uow->getScheduledEntityUpdates() as $entity) {
             if ($entity instanceof ClientPortfolio) {
                 $objectType = $em->getClassMetadata(get_class($entity))->getName();
-                $workflow = $repository->findOneBy(array(
+                $workflow = $repository->findOneBy([
                     'object_id' => $entity->getId(),
                     'object_type' => $objectType,
-                    'message_code' => $entity->getWorkflowMessageCode()
-                ));
+                    'message_code' => $entity->getWorkflowMessageCode(),
+                ]);
 
                 if ($workflow) {
                     $workflowManager->updateClientStatusByClientPortfolio($workflow, $entity);
@@ -97,14 +96,13 @@ class DoctrineSubscriber implements EventSubscriber
                         $activityManager->updateActivity($activity);
                     }
                 }
-
             } elseif ($entity instanceof SystemAccount) {
                 $objectType = $em->getClassMetadata(get_class($entity))->getName();
-                $workflow = $repository->findOneBy(array(
+                $workflow = $repository->findOneBy([
                     'object_id' => $entity->getId(),
                     'object_type' => $objectType,
-                    'message_code' => $entity->getWorkflowMessageCode()
-                ));
+                    'message_code' => $entity->getWorkflowMessageCode(),
+                ]);
 
                 if ($workflow) {
                     $workflowManager->updateClientStatusBySystemAccount($workflow, $entity);
@@ -112,7 +110,6 @@ class DoctrineSubscriber implements EventSubscriber
 
                     $uow->computeChangeSet($meta, $workflow);
                 }
-
             } elseif ($entity instanceof DocumentSignature) {
                 $workflow = $repository->findOneByDocumentSignatureId($entity->getId());
                 if ($workflow && $workflow->isPaperwork()) {
@@ -157,7 +154,8 @@ class DoctrineSubscriber implements EventSubscriber
         }
     }
 
-    private function createActivity(User $client, $message, $amount) {
+    private function createActivity(User $client, $message, $amount)
+    {
         $activity = new Activity();
         $activity->setClientUserId($client->getId());
         $activity->setClientStatus($client->getProfile()->getClientStatus());
@@ -170,4 +168,4 @@ class DoctrineSubscriber implements EventSubscriber
 
         return $activity;
     }
-} 
+}

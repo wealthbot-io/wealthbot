@@ -10,14 +10,13 @@
 namespace Wealthbot\ClientBundle\Form\EventListener;
 
 use Doctrine\ORM\EntityManager;
-use Wealthbot\ClientBundle\Entity\AccountContribution;
-use Wealthbot\ClientBundle\Entity\ClientAccount;
-use Wealthbot\ClientBundle\Repository\ClientAccountRepository;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
+use Wealthbot\ClientBundle\Entity\AccountContribution;
+use Wealthbot\ClientBundle\Entity\ClientAccount;
 
 class TransferFundingFormEventSubscriber implements EventSubscriberInterface
 {
@@ -34,10 +33,10 @@ class TransferFundingFormEventSubscriber implements EventSubscriberInterface
 
     public static function getSubscribedEvents()
     {
-        return array(
+        return [
             FormEvents::PRE_SET_DATA => 'preSetData',
-            FormEvents::PRE_BIND     => 'preBind',
-        );
+            FormEvents::PRE_SUBMIT => 'preBind',
+        ];
     }
 
     public function preSetData(FormEvent $event)
@@ -48,7 +47,7 @@ class TransferFundingFormEventSubscriber implements EventSubscriberInterface
 
         $this->addContributionYearField($form);
 
-        $date = array('month' => '', 'day' => '');
+        $date = ['month' => '', 'day' => ''];
 
         if ($data && $data->getStartTransferDate()) {
             $startTransferDate = $data->getStartTransferDate();
@@ -63,7 +62,7 @@ class TransferFundingFormEventSubscriber implements EventSubscriberInterface
     protected function addContributionYearField(FormInterface $form)
     {
         if ($this->clientAccount->isRothIraType()) {
-            $form->add($this->factory->createNamed('contribution_year', 'text', null, array('required' => false)));
+            $form->add($this->factory->createNamed('contribution_year', 'text', null, ['required' => false]));
         }
     }
 
@@ -73,26 +72,26 @@ class TransferFundingFormEventSubscriber implements EventSubscriberInterface
         $data = $event->getData();
 
         if (array_key_exists('start_transfer_date_month', $data) && array_key_exists('start_transfer_date_day', $data)) {
-            $this->updateStartTransferDate($form, array(
+            $this->updateStartTransferDate($form, [
                     'day' => $data['start_transfer_date_day'],
-                    'month' => $data['start_transfer_date_month']
-                )
+                    'month' => $data['start_transfer_date_month'],
+                ]
             );
         }
     }
 
     private function updateStartTransferDate(FormInterface $form, array $date)
     {
-        $form->add($this->factory->createNamed('start_transfer_date_month', 'text', $date['month'], array(
-                'attr' => array('value' => $date['month']),
-                'property_path' => false,
-                'required' => false
-            )))
-            ->add($this->factory->createNamed('start_transfer_date_day', 'text', $date['day'], array(
-                'attr' => array('value' => $date['day']),
-                'property_path' => false,
-                'required' => false
-            )))
+        $form->add($this->factory->createNamed('start_transfer_date_month', 'text', $date['month'], [
+                'attr' => ['value' => $date['month']],
+                // 'property_path' => '',
+                'required' => false,
+            ]))
+            ->add($this->factory->createNamed('start_transfer_date_day', 'text', $date['day'], [
+                'attr' => ['value' => $date['day']],
+                // 'property_path' => '',
+                'required' => false,
+            ]))
         ;
     }
 }

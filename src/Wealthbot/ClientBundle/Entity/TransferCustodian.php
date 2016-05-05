@@ -2,15 +2,13 @@
 
 namespace Wealthbot\ClientBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-
 /**
- * TransferCustodian
+ * TransferCustodian.
  */
 class TransferCustodian
 {
     /**
-     * @var integer
+     * @var int
      */
     private $id;
 
@@ -19,11 +17,10 @@ class TransferCustodian
      */
     private $name;
 
-
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer 
+     * @return int
      */
     public function getId()
     {
@@ -31,22 +28,23 @@ class TransferCustodian
     }
 
     /**
-     * Set name
+     * Set name.
      *
      * @param string $name
+     *
      * @return TransferCustodian
      */
     public function setName($name)
     {
         $this->name = $name;
-    
+
         return $this;
     }
 
     /**
-     * Get name
+     * Get name.
      *
-     * @return string 
+     * @return string
      */
     public function getName()
     {
@@ -57,24 +55,24 @@ class TransferCustodian
      */
     private $transferCustodianQuestion;
 
-
     /**
-     * Set transferCustodianQuestion
+     * Set transferCustodianQuestion.
      *
      * @param \Wealthbot\ClientBundle\Entity\TransferCustodianQuestion $transferCustodianQuestion
+     *
      * @return TransferCustodian
      */
     public function setTransferCustodianQuestion(\Wealthbot\ClientBundle\Entity\TransferCustodianQuestion $transferCustodianQuestion = null)
     {
         $this->transferCustodianQuestion = $transferCustodianQuestion;
-    
+
         return $this;
     }
 
     /**
-     * Get transferCustodianQuestion
+     * Get transferCustodianQuestion.
      *
-     * @return \Wealthbot\ClientBundle\Entity\TransferCustodianQuestion 
+     * @return \Wealthbot\ClientBundle\Entity\TransferCustodianQuestion
      */
     public function getTransferCustodianQuestion()
     {

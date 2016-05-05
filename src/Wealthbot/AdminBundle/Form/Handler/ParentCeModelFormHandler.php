@@ -9,9 +9,7 @@
 
 namespace Wealthbot\AdminBundle\Form\Handler;
 
-
 use Wealthbot\AdminBundle\Entity\CeModel;
-use Symfony\Component\HttpFoundation\Request;
 
 class ParentCeModelFormHandler extends AbstractFormHandler
 {
@@ -22,5 +20,5 @@ class ParentCeModelFormHandler extends AbstractFormHandler
 
         $this->em->persist($ceModel);
         $this->em->flush();
-   }
+    }
 }

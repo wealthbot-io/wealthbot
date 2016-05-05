@@ -3,25 +3,23 @@
 namespace Wealthbot\AdminBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\ORM\Mapping as ORM;
 use FOS\UserBundle\Model\UserInterface;
 use Wealthbot\AdminBundle\Model\CeModel as BaseCeModel;
 use Wealthbot\AdminBundle\Model\CeModelEntityInterface;
 use Wealthbot\AdminBundle\Model\CeModelInterface;
 
 /**
- * CeModel
+ * CeModel.
  */
 class CeModel extends BaseCeModel
 {
-
     /**
-     * @var integer
+     * @var int
      */
     protected $id;
 
     /**
-     * @var integer
+     * @var int
      */
     protected $ownerId;
 
@@ -31,7 +29,7 @@ class CeModel extends BaseCeModel
     protected $owner;
 
     /**
-     * @var integer
+     * @var int
      */
     protected $parentId;
 
@@ -41,7 +39,7 @@ class CeModel extends BaseCeModel
     protected $parent;
 
     /**
-     * @var integer
+     * @var int
      */
     protected $type;
 
@@ -56,12 +54,12 @@ class CeModel extends BaseCeModel
     protected $slug;
 
     /**
-     * @var boolean
+     * @var bool
      */
     protected $isDeleted;
 
     /**
-     * @var integer
+     * @var int
      */
     protected $riskRating;
 
@@ -76,7 +74,7 @@ class CeModel extends BaseCeModel
     protected $commissionMax;
 
     /**
-     * @var integer
+     * @var int
      */
     protected $forecast;
 
@@ -91,7 +89,7 @@ class CeModel extends BaseCeModel
     protected $lowMarketReturn;
 
     /**
-     * @var boolean
+     * @var bool
      */
     protected $isAssumptionLocked;
 
@@ -105,9 +103,8 @@ class CeModel extends BaseCeModel
      */
     protected $modelEntities;
 
-
     /**
-     * Constructor
+     * Constructor.
      */
     public function __construct()
     {
@@ -117,11 +114,11 @@ class CeModel extends BaseCeModel
         $this->children = new ArrayCollection();
         $this->modelEntities = new ArrayCollection();
     }
-    
+
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer 
+     * @return int
      */
     public function getId()
     {
@@ -129,9 +126,10 @@ class CeModel extends BaseCeModel
     }
 
     /**
-     * Set ownerId
+     * Set ownerId.
      *
-     * @param integer $ownerId
+     * @param int $ownerId
+     *
      * @return CeModel
      */
     public function setOwnerId($ownerId)
@@ -142,9 +140,9 @@ class CeModel extends BaseCeModel
     }
 
     /**
-     * Get ownerId
+     * Get ownerId.
      *
-     * @return integer
+     * @return int
      */
     public function getOwnerId()
     {
@@ -152,22 +150,23 @@ class CeModel extends BaseCeModel
     }
 
     /**
-     * Set parentId
+     * Set parentId.
      *
-     * @param integer $parentId
+     * @param int $parentId
+     *
      * @return CeModel
      */
     public function setParentId($parentId)
     {
         parent::setParentId($parentId);
-    
+
         return $this;
     }
 
     /**
-     * Get parentId
+     * Get parentId.
      *
-     * @return integer 
+     * @return int
      */
     public function getParentId()
     {
@@ -175,22 +174,23 @@ class CeModel extends BaseCeModel
     }
 
     /**
-     * Set type
+     * Set type.
      *
-     * @param integer $type
+     * @param int $type
+     *
      * @return CeModel
      */
     public function setType($type)
     {
         parent::setType($type);
-    
+
         return $this;
     }
 
     /**
-     * Get type
+     * Get type.
      *
-     * @return integer 
+     * @return int
      */
     public function getType()
     {
@@ -198,9 +198,10 @@ class CeModel extends BaseCeModel
     }
 
     /**
-     * Set name
+     * Set name.
      *
      * @param string $name
+     *
      * @return CeModel
      */
     public function setName($name)
@@ -211,7 +212,7 @@ class CeModel extends BaseCeModel
     }
 
     /**
-     * Get name
+     * Get name.
      *
      * @return string
      */
@@ -221,22 +222,23 @@ class CeModel extends BaseCeModel
     }
 
     /**
-     * Set slug
+     * Set slug.
      *
      * @param string $slug
+     *
      * @return CeModel
      */
     public function setSlug($slug)
     {
         parent::setSlug($slug);
-    
+
         return $this;
     }
 
     /**
-     * Get slug
+     * Get slug.
      *
-     * @return string 
+     * @return string
      */
     public function getSlug()
     {
@@ -244,22 +246,23 @@ class CeModel extends BaseCeModel
     }
 
     /**
-     * Set isDeleted
+     * Set isDeleted.
      *
-     * @param boolean $isDeleted
+     * @param bool $isDeleted
+     *
      * @return CeModel
      */
     public function setIsDeleted($isDeleted)
     {
         parent::setIsDeleted($isDeleted);
-    
+
         return $this;
     }
 
     /**
-     * Get isDeleted
+     * Get isDeleted.
      *
-     * @return boolean 
+     * @return bool
      */
     public function getIsDeleted()
     {
@@ -267,22 +270,23 @@ class CeModel extends BaseCeModel
     }
 
     /**
-     * Set riskRating
+     * Set riskRating.
      *
-     * @param integer $riskRating
+     * @param int $riskRating
+     *
      * @return CeModel
      */
     public function setRiskRating($riskRating)
     {
         parent::setRiskRating($riskRating);
-    
+
         return $this;
     }
 
     /**
-     * Get riskRating
+     * Get riskRating.
      *
-     * @return integer 
+     * @return int
      */
     public function getRiskRating()
     {
@@ -290,22 +294,23 @@ class CeModel extends BaseCeModel
     }
 
     /**
-     * Set commissionMin
+     * Set commissionMin.
      *
      * @param float $commissionMin
+     *
      * @return CeModel
      */
     public function setCommissionMin($commissionMin)
     {
         parent::setCommissionMin($commissionMin);
-    
+
         return $this;
     }
 
     /**
-     * Get commissionMin
+     * Get commissionMin.
      *
-     * @return float 
+     * @return float
      */
     public function getCommissionMin()
     {
@@ -313,22 +318,23 @@ class CeModel extends BaseCeModel
     }
 
     /**
-     * Set commissionMax
+     * Set commissionMax.
      *
      * @param float $commissionMax
+     *
      * @return CeModel
      */
     public function setCommissionMax($commissionMax)
     {
         parent::setCommissionMax($commissionMax);
-    
+
         return $this;
     }
 
     /**
-     * Get commissionMax
+     * Get commissionMax.
      *
-     * @return float 
+     * @return float
      */
     public function getCommissionMax()
     {
@@ -336,22 +342,23 @@ class CeModel extends BaseCeModel
     }
 
     /**
-     * Set forecast
+     * Set forecast.
      *
-     * @param integer $forecast
+     * @param int $forecast
+     *
      * @return CeModel
      */
     public function setForecast($forecast)
     {
         parent::setForecast($forecast);
-    
+
         return $this;
     }
 
     /**
-     * Get forecast
+     * Get forecast.
      *
-     * @return integer 
+     * @return int
      */
     public function getForecast()
     {
@@ -359,22 +366,23 @@ class CeModel extends BaseCeModel
     }
 
     /**
-     * Set generousMarketReturn
+     * Set generousMarketReturn.
      *
      * @param float $generousMarketReturn
+     *
      * @return CeModel
      */
     public function setGenerousMarketReturn($generousMarketReturn)
     {
         parent::setGenerousMarketReturn($generousMarketReturn);
-    
+
         return $this;
     }
 
     /**
-     * Get generousMarketReturn
+     * Get generousMarketReturn.
      *
-     * @return float 
+     * @return float
      */
     public function getGenerousMarketReturn()
     {
@@ -382,22 +390,23 @@ class CeModel extends BaseCeModel
     }
 
     /**
-     * Set lowMarketReturn
+     * Set lowMarketReturn.
      *
      * @param float $lowMarketReturn
+     *
      * @return CeModel
      */
     public function setLowMarketReturn($lowMarketReturn)
     {
         parent::setLowMarketReturn($lowMarketReturn);
-    
+
         return $this;
     }
 
     /**
-     * Get lowMarketReturn
+     * Get lowMarketReturn.
      *
-     * @return float 
+     * @return float
      */
     public function getLowMarketReturn()
     {
@@ -405,20 +414,21 @@ class CeModel extends BaseCeModel
     }
 
     /**
-     * Add children
+     * Add children.
      *
      * @param CeModelInterface $children
+     *
      * @return CeModel
      */
     public function addChildren(CeModelInterface $children)
     {
         $this->children[] = $children;
-    
+
         return $this;
     }
 
     /**
-     * Remove children
+     * Remove children.
      *
      * @param CeModelInterface $children
      */
@@ -428,9 +438,9 @@ class CeModel extends BaseCeModel
     }
 
     /**
-     * Get children
+     * Get children.
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getChildren()
     {
@@ -438,20 +448,21 @@ class CeModel extends BaseCeModel
     }
 
     /**
-     * Add modelEntities
+     * Add modelEntities.
      *
      * @param CeModelEntityInterface $modelEntities
+     *
      * @return CeModel
      */
     public function addModelEntitie(CeModelEntityInterface $modelEntities)
     {
         parent::addModelEntity($modelEntities);
-    
+
         return $this;
     }
 
     /**
-     * Remove modelEntities
+     * Remove modelEntities.
      *
      * @param CeModelEntityInterface $modelEntities
      */
@@ -461,7 +472,7 @@ class CeModel extends BaseCeModel
     }
 
     /**
-     * Get modelEntities
+     * Get modelEntities.
      *
      * @return ArrayCollection|CeModelEntity[]
      */
@@ -471,22 +482,23 @@ class CeModel extends BaseCeModel
     }
 
     /**
-     * Set owner
+     * Set owner.
      *
      * @param UserInterface $owner
+     *
      * @return CeModel
      */
     public function setOwner(UserInterface $owner = null)
     {
         parent::setOwner($owner);
-    
+
         return $this;
     }
 
     /**
-     * Get owner
+     * Get owner.
      *
-     * @return \Wealthbot\UserBundle\Entity\User 
+     * @return \Wealthbot\UserBundle\Entity\User
      */
     public function getOwner()
     {
@@ -494,49 +506,50 @@ class CeModel extends BaseCeModel
     }
 
     /**
-     * Set parent
+     * Set parent.
      *
      * @param CeModelInterface $parent
+     *
      * @return CeModel
      */
     public function setParent(CeModelInterface $parent = null)
     {
         parent::setParent($parent);
-    
+
         return $this;
     }
 
     /**
-     * Get parent
+     * Get parent.
      *
-     * @return \Wealthbot\AdminBundle\Entity\CeModel 
+     * @return \Wealthbot\AdminBundle\Entity\CeModel
      */
     public function getParent()
     {
         return parent::getParent();
     }
     /**
-     * @var boolean
+     * @var bool
      */
 
-
     /**
-     * Set isAssumptionLocked
+     * Set isAssumptionLocked.
      *
-     * @param boolean $isAssumptionLocked
+     * @param bool $isAssumptionLocked
+     *
      * @return CeModel
      */
     public function setIsAssumptionLocked($isAssumptionLocked)
     {
         parent::setIsAssumptionLocked($isAssumptionLocked);
-    
+
         return $this;
     }
 
     /**
-     * Get isAssumptionLocked
+     * Get isAssumptionLocked.
      *
-     * @return boolean 
+     * @return bool
      */
     public function getIsAssumptionLocked()
     {
@@ -544,9 +557,10 @@ class CeModel extends BaseCeModel
     }
 
     /**
-     * Add children
+     * Add children.
      *
      * @param \Wealthbot\AdminBundle\Entity\CeModel $children
+     *
      * @return CeModel
      */
     public function addChild(\Wealthbot\AdminBundle\Entity\CeModel $children)
@@ -557,7 +571,7 @@ class CeModel extends BaseCeModel
     }
 
     /**
-     * Remove children
+     * Remove children.
      *
      * @param \Wealthbot\AdminBundle\Entity\CeModel $children
      */
@@ -567,9 +581,10 @@ class CeModel extends BaseCeModel
     }
 
     /**
-     * Add modelEntities
+     * Add modelEntities.
      *
      * @param CeModelEntityInterface $modelEntities
+     *
      * @return $this
      */
     public function addModelEntity(CeModelEntityInterface $modelEntities)
@@ -580,7 +595,7 @@ class CeModel extends BaseCeModel
     }
 
     /**
-     * Remove model entity
+     * Remove model entity.
      *
      * @param CeModelEntityInterface $modelEntities
      */
@@ -593,11 +608,11 @@ class CeModel extends BaseCeModel
      */
     private $clientPortfolio;
 
-
     /**
-     * Add clientPortfolio
+     * Add clientPortfolio.
      *
      * @param \Wealthbot\ClientBundle\Entity\ClientPortfolio $clientPortfolio
+     *
      * @return CeModel
      */
     public function addClientPortfolio(\Wealthbot\ClientBundle\Entity\ClientPortfolio $clientPortfolio)
@@ -608,7 +623,7 @@ class CeModel extends BaseCeModel
     }
 
     /**
-     * Remove clientPortfolio
+     * Remove clientPortfolio.
      *
      * @param \Wealthbot\ClientBundle\Entity\ClientPortfolio $clientPortfolio
      */
@@ -618,9 +633,9 @@ class CeModel extends BaseCeModel
     }
 
     /**
-     * Get clientPortfolio
+     * Get clientPortfolio.
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getClientPortfolio()
     {

@@ -2,11 +2,10 @@
 
 namespace Wealthbot\AdminBundle\Form\EventListener;
 
-use Doctrine\ORM\QueryBuilder;
-use Wealthbot\AdminBundle\Entity\CeModel;
-use Symfony\Component\Form\FormEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
+use Wealthbot\AdminBundle\Entity\CeModel;
 
 class ParentCeModelFormTypeEventsListener implements EventSubscriberInterface
 {
@@ -16,9 +15,9 @@ class ParentCeModelFormTypeEventsListener implements EventSubscriberInterface
 
     public static function getSubscribedEvents()
     {
-        return array(
-            FormEvents::BIND => 'bind'
-        );
+        return [
+            FormEvents::SUBMIT => 'bind',
+        ];
     }
 
     public function bind(FormEvent $event)

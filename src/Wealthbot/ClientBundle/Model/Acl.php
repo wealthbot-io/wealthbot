@@ -8,17 +8,14 @@ use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Core\Role\Role;
 
 /**
- * Class Acl
- * @package Wealthbot\ClientBundle\Model
+ * Class Acl.
  */
 class Acl
 {
-
     /**
      * @var Container
      */
     private $container;
-
 
     /**
      * @var object
@@ -29,7 +26,6 @@ class Acl
      * @var \Symfony\Component\Security\Core\Authorization\AuthorizationChecker
      */
     private $authorizationChecker;
-
 
     /**
      * @var \Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage

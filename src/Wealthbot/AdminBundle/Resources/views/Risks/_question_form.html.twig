@@ -27,7 +27,7 @@
 {% endmacro %}
 
 <div class="q-form">
-    {% set question_id = form.get('value') ? form.get('value').id : '' %}
+    {% set question_id = form.vars.value ? form.vars.value.id : '' %}
 
     <form id="question_form" action="{{ question_id ? path('rx_admin_risks_edit_question', {'id': question_id}) : path('rx_admin_risks_create_question') }}" method="post">
         {{ form_label(form.title) }}

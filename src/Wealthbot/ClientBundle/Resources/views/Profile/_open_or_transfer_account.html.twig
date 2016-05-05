@@ -37,24 +37,24 @@
             <div class="control-group spec-rx">
                 {{ form_errors(form.groups) }}
 
-                <div id="{{ form.groups.get('id') }}">
+                <div id="{{ form.groups.vars.id }}">
 
                     <div>
-                        <label class="checkbox" for="{{ form.groups[1].get('id') }}">
+                        <label class="checkbox" for="{{ form.groups[1].vars.id }}">
                             {{ form_widget(form.groups[1]) }} Open a new account
                             <span class="descr-lbl">Open a new investment account or retirement account.</span>
                         </label>
                     </div>
 
                     <div>
-                        <label class="checkbox" for="{{ form.groups[0].get('id') }}">
+                        <label class="checkbox" for="{{ form.groups[0].vars.id }}">
                             {{ form_widget(form.groups[0]) }} Transfer an account
                             <span class="descr-lbl">Move an IRA or other investment account.</span>
                         </label>
                     </div>
 
                     <div>
-                        <label class="checkbox" for="{{ form.groups[2].get('id') }}">
+                        <label class="checkbox" for="{{ form.groups[2].vars.id }}">
                             {{ form_widget(form.groups[2]) }} Rollover a 401(k) plan
                             <span class="descr-lbl">Move an employer-sponsorded retirement plan, such as a 401(k).</span>
                         </label>
@@ -62,7 +62,7 @@
 
                     {% if form.groups[3] is defined %}
                         <div {#code_v2: NOT DELETE THIS CODE#}style="display: none;">
-                            <label class="checkbox" for="{{ form.groups[3].get('id') }}">
+                            <label class="checkbox" for="{{ form.groups[3].vars.id }}">
                                 {{ form_widget(form.groups[3]) }} Advice for your current 401(k) plan <span class="descr-lbl">Receive advice on your current employer-sponsored retirement plan. <br /><b>$50,000 minimum account value.</b></span>
                             </label>
                         </div>

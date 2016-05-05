@@ -3,7 +3,7 @@
     <div class="control-group spec-rx">
         {{ form_errors(form) }}
 
-        <div id="{{ form.group_type.get('id') }}">
+        <div id="{{ form.group_type.vars.id }}">
             {% if (group == 'deposit_money') %}
                 {% include 'WealthbotClientBundle:Profile:_deposit_account_type_fields.html.twig'
                     with { 'types': form.group_type }

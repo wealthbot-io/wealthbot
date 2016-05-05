@@ -24,7 +24,7 @@
                 <div class="nav-collapse">
                     <!-- .nav, .navbar-search, .navbar-form, etc -->
                     <ul class="nav">
-                        {{ render(controller('WealthbotAdminBundle:Model:portfolioMenu' with {'selected_strategy_id': selected_strategy.id }%}
+                        {{ render(controller('WealthbotAdminBundle:Model:portfolioMenu', {'selected_strategy_id': selected_strategy.id })) }}
                     </ul>
                 </div>
 
@@ -33,7 +33,7 @@
     </div>
 
     <div class="btn-group" data-toggle="buttons-radio">
-        {{ render(controller('WealthbotAdminBundle:Model:modelMenu' with {'strategySlug' : selected_strategy.slug, 'modelSlug': model.slug } %}
+        {{ render(controller('WealthbotAdminBundle:Model:modelMenu', {'strategySlug' : selected_strategy.slug, 'modelSlug': model.slug })) }}
     </div>
 
     <div>

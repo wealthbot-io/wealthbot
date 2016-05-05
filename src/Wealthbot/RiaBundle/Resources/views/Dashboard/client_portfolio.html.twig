@@ -15,7 +15,7 @@
 {% endblock %}
 
 {% block content %}
-    {{ render(controller('WealthbotClientBundle:Dashboard:accountManagement' with {
+    {{ render(controller('WealthbotClientBundle:Dashboard:accountManagement',{
         'active_tab': 'your_portfolio', 'is_clear_layout': true
     })) }}
 {% endblock %}

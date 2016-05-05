@@ -1,7 +1,7 @@
 {% extends 'WealthbotClientBundle:Transfer:index.html.twig' %}
 
 {% block top_content %}
-    {{ render(controller('WealthbotClientBundle:Transfer:progressMenu' with { 'account': account, 'step': 'transfer' } %}
+    {{ render(controller('WealthbotClientBundle:Transfer:progressMenu', { 'account': account, 'step': 'transfer' })) }}
 {% endblock %}
 
 {% block main_content %}
@@ -10,5 +10,5 @@
         'account': account,
         'current_account': current_account,
         'account_index': account_index
-    })) }}
+    } %}
 {% endblock %}

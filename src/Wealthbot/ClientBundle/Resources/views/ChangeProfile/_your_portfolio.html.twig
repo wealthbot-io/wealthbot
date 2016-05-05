@@ -52,7 +52,7 @@
         </ol>
     {% endif %}
     <b>Current Portfolio:</b>
-    {{ render(controller('WealthbotClientBundle:ChangeProfile:portfolio' with {'client_portfolio_id': ((client_portfolio_id is defined and client_portfolio_id) ? client_portfolio_id : null) })) }}
+    {{ render(controller('WealthbotClientBundle:ChangeProfile:portfolio', {'client_portfolio_id': ((client_portfolio_id is defined and client_portfolio_id) ? client_portfolio_id : null) })) }}
 {% endif %}
 
 

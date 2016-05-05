@@ -1,10 +1,10 @@
 {% macro widget_prototype(widget, remove_text) %}
-    {% if widget.get('prototype') %}
-        {% set form = widget.get('prototype') %}
-        {% set name = widget.get('prototype').get('name') %}
+    {% if widget.vars.prototype %}
+        {% set form = widget.vars.prototype %}
+        {% set name = widget.vars.prototype.get('name') %}
     {% else %}
         {% set form = widget %}
-        {% set name = widget.get('full_name') %}
+        {% set name = widget.vars.full_name %}
     {% endif %}
 
     <tr data-content="{{ name }}">

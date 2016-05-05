@@ -24,7 +24,7 @@
                         {{ render(controller('WealthbotRiaBundle:Rebalancer:history')) }}
                     </div>
                     <div class="tab-pane {{ active_tab == 'trade_recon' ? 'active' : '' }}" id="trade_recon_tab">
-                        {{ render(controller('WealthbotRiaBundle:Rebalancer:tradeRecon' with {
+                        {{ render(controller('WealthbotRiaBundle:Rebalancer:tradeRecon', {
                             'date': app.request.query.get('date'),
                             'client': app.request.query.get('client')
                         } ))

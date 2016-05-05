@@ -78,7 +78,7 @@
     {% endif %}
 
     <div class="btn-group" data-toggle="buttons-radio">
-        {#{{ render(controller('WealthbotAdminBundle:Model:modelMenu' with {'type': modelsType, 'portfolioSlug' : portfolioSlug, 'modelSlug' : modelSlug })) }}#}
+        {#{{ render(controller('WealthbotAdminBundle:Model:modelMenu', {'type': modelsType, 'portfolioSlug' : portfolioSlug, 'modelSlug' : modelSlug })) }}#}
     </div>
 
     {% if is_permitted('edit') %}

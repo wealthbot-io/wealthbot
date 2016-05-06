@@ -1,11 +1,10 @@
 <?php
 
-
 namespace Wealthbot\RiaBundle\Form\Type;
 
 use FOS\UserBundle\Form\Type\GroupFormType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class UserGroupsFormType extends GroupFormType
 {
@@ -21,18 +20,18 @@ class UserGroupsFormType extends GroupFormType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('name', null, array('label' => 'Groups:'));
+        $builder->add('name', null, ['label' => 'Groups:']);
     }
 
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
+        $resolver->setDefaults([
             'data_class' => $this->class,
-            'intention'  => 'group',
-        ));
+            'intention' => 'group',
+        ]);
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'user_group_form';
     }

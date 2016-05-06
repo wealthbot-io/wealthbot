@@ -22,10 +22,10 @@ class TierFeeFormType extends AbstractType
             ->add('tier_top', 'number')
         ;
 
-        $builder->addEventListener(FormEvents::PRE_SUBMIT, [$this, 'onPreBind']);
+        $builder->addEventListener(FormEvents::PRE_SUBMIT, [$this, 'onPreSubmit']);
     }
 
-    public function onPreBind(FormEvent $event)
+    public function onPreSubmit(FormEvent $event)
     {
         $data = $event->getData();
 

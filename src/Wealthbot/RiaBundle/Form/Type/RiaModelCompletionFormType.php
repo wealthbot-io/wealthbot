@@ -9,14 +9,14 @@
 
 namespace Wealthbot\RiaBundle\Form\Type;
 
-use Symfony\Component\Form\AbstractType;
-use Wealthbot\UserBundle\Entity\User;
-use Symfony\Component\Form\FormBuilderInterface;
 use Doctrine\ORM\EntityManager;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Wealthbot\UserBundle\Entity\User;
 
-class RiaModelCompletionFormType extends AbstractType {
-
+class RiaModelCompletionFormType extends AbstractType
+{
     private $ria;
     private $em;
 
@@ -31,33 +31,32 @@ class RiaModelCompletionFormType extends AbstractType {
         $model = $this->ria->getRiaCompanyInformation()->getPortfolioModel();
 
         $builder
-            ->add('users_and_user_groups', 'checkbox', array('required' => false))
-            ->add('select_custodians', 'checkbox', array('required' => false))
-            ->add('rebalancing_settings', 'checkbox', array('required' => false))
-            ->add('customize_proposals', 'checkbox', array('required' => false))
-            ->add('billingComplete', 'checkbox', array('required' => false))
-            ->add('proposalDocuments', 'checkbox', array('required' => false))
+            ->add('users_and_user_groups', 'checkbox', ['required' => false])
+            ->add('select_custodians', 'checkbox', ['required' => false])
+            ->add('rebalancing_settings', 'checkbox', ['required' => false])
+            ->add('customize_proposals', 'checkbox', ['required' => false])
+            ->add('billingComplete', 'checkbox', ['required' => false])
+            ->add('proposalDocuments', 'checkbox', ['required' => false])
         ;
 
         if ($model->isCustom()) {
             $builder
-                ->add('create_securities', 'checkbox', array('required' => false))
-                ->add('assign_securities', 'checkbox', array('required' => false))
-                ->add('models_created', 'checkbox', array('required' => false))
+                ->add('create_securities', 'checkbox', ['required' => false])
+                ->add('assign_securities', 'checkbox', ['required' => false])
+                ->add('models_created', 'checkbox', ['required' => false])
             ;
         }
     }
 
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
+        $resolver->setDefaults([
             'data_class' => 'Wealthbot\RiaBundle\Entity\RiaModelCompletion',
-        ));
+        ]);
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'model_completion';
     }
-
 }

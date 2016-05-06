@@ -3,23 +3,23 @@
  * Created by PhpStorm.
  * User: countzero
  * Date: 26.03.14
- * Time: 23:21
+ * Time: 23:21.
  */
 
 namespace Wealthbot\RiaBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\Regex;
-use Symfony\Component\Validator\Constraints\True;
-use Symfony\Component\Form\FormEvent;
-use Symfony\Component\Form\FormEvents;
 use Wealthbot\ClientBundle\Entity\ClientAdditionalContact;
-use Wealthbot\UserBundle\Entity\User;
 use Wealthbot\UserBundle\Entity\Profile;
+use Wealthbot\UserBundle\Entity\User;
 
 class HouseholdSpouseFormType extends AbstractType
 {
@@ -35,100 +35,100 @@ class HouseholdSpouseFormType extends AbstractType
         $this->factory = $builder->getFormFactory();
 
         $builder
-            ->add('firstName', 'text', array(
-                'attr' => array(
+            ->add('firstName', 'text', [
+                'attr' => [
                     'class' => 'input-medium',
-                    'placeholder' => 'First Name'
-                ),
-                'required' => false
-            ))
-            ->add('middleName', 'text', array(
-                'attr' => array(
+                    'placeholder' => 'First Name',
+                ],
+                'required' => false,
+            ])
+            ->add('middleName', 'text', [
+                'attr' => [
                     'class' => 'input-small',
-                    'placeholder' => 'Middle Name'
-                ),
-                'required' => false
-            ))
-            ->add('lastName', 'text', array(
-                'attr' => array(
+                    'placeholder' => 'Middle Name',
+                ],
+                'required' => false,
+            ])
+            ->add('lastName', 'text', [
+                'attr' => [
                     'class' => 'input-medium',
-                    'placeholder' => 'Last Name'
-                ),
-                'required' => false
-            ))
-            ->add('birthDate', 'date', array(
-                'attr' => array(
+                    'placeholder' => 'Last Name',
+                ],
+                'required' => false,
+            ])
+            ->add('birthDate', 'date', [
+                'attr' => [
                     'class' => 'jq-ce-date input-small',
-                    'placeholder' => 'MM-DD-YYYY'
-                ),
+                    'placeholder' => 'MM-DD-YYYY',
+                ],
                 'format' => 'MM-dd-yyyy',
                 'label' => 'Birth Date',
                 'required' => false,
-                'widget' => 'single_text'
-            ))
-            ->add('citizenship', 'choice', array(
-                'choices' => array('1' => 'Yes', '0' => 'No'),
+                'widget' => 'single_text',
+            ])
+            ->add('citizenship', 'choice', [
+                'choices' => ['1' => 'Yes', '0' => 'No'],
                 'data' => 1,
                 'expanded' => true,
                 'label' => 'U.S. citizen?',
-                'property_path' => false,
-                'constraints' => array(
-                    new True(array('message' => 'Spouse of your client should be U.S. citizen.'))
-            )))
+                // 'property_path' => '',
+                'constraints' => [
+                    new IsTrue(['message' => 'Spouse of your client should be U.S. citizen.']),
+            ], ])
         ;
 
         $builder
-            ->add('employmentType', 'choice', array(
+            ->add('employmentType', 'choice', [
                 'choices' => Profile::getEmploymentTypeChoices(),
                 'expanded' => true,
                 'label' => 'Employment Status',
                 'multiple' => false,
-                'required' => true
-            ))
-            ->add('employerName', 'text', array(
-                'attr' => array('class' => 'input-medium'),
+                'required' => true,
+            ])
+            ->add('employerName', 'text', [
+                'attr' => ['class' => 'input-medium'],
                 'label' => 'Employer Name',
-                'required' => false
-            ))
-            ->add('industry', 'text', array(
-                'attr' => array('class' => 'input-medium'),
-                'required' => false
-            ))
-            ->add('occupation', 'text', array(
-                'attr' => array('class' => 'input-medium'),
-                'required' => false
-            ))
-            ->add('businessType', 'text', array(
-                'attr' => array('class' => 'input-medium'),
+                'required' => false,
+            ])
+            ->add('industry', 'text', [
+                'attr' => ['class' => 'input-medium'],
+                'required' => false,
+            ])
+            ->add('occupation', 'text', [
+                'attr' => ['class' => 'input-medium'],
+                'required' => false,
+            ])
+            ->add('businessType', 'text', [
+                'attr' => ['class' => 'input-medium'],
                 'label' => 'Type of Business',
-                'required' => false
-            ))
-            ->add('employerAddress', 'text', array(
-                'attr' => array('class' => 'input-large'),
+                'required' => false,
+            ])
+            ->add('employerAddress', 'text', [
+                'attr' => ['class' => 'input-large'],
                 'label' => 'Employer Address',
-                'required' => false
-            ))
-            ->add('employmentCity', 'text', array(
-                'attr' => array('class' => 'input-medium'),
+                'required' => false,
+            ])
+            ->add('employmentCity', 'text', [
+                'attr' => ['class' => 'input-medium'],
                 'label' => 'Employment City',
-                'required' => false
-            ))
-            ->add('employmentState', 'entity', array(
-                'attr' => array('class' => 'input-medium'),
-                'class' => 'WealthbotAdminBundle:State',
+                'required' => false,
+            ])
+            ->add('employmentState', 'entity', [
+                'attr' => ['class' => 'input-medium'],
+                'class' => 'Wealthbot\\AdminBundle\\Entity\\State',
                 'label' => 'State',
-                'empty_value' => 'Select a State',
-                'required' => false
-            ))
-            ->add('employmentZip', 'text', array(
-                'attr' => array('class' => 'input-mini'),
+                'placeholder' => 'Select a State',
+                'required' => false,
+            ])
+            ->add('employmentZip', 'text', [
+                'attr' => ['class' => 'input-mini'],
                 'label' => 'Zip Code',
-                'required' => false
-            ))
+                'required' => false,
+            ])
         ;
 
-        $builder->addEventListener(FormEvents::PRE_SET_DATA, array($this, 'onPreSetData'));
-        $builder->addEventListener(FormEvents::BIND, array($this, 'onBindData'));
+        $builder->addEventListener(FormEvents::PRE_SET_DATA, [$this, 'onPreSetData']);
+        $builder->addEventListener(FormEvents::SUBMIT, [$this, 'onSubmitData']);
     }
 
     public function onPresetData(FormEvent $event)
@@ -142,7 +142,7 @@ class HouseholdSpouseFormType extends AbstractType
             $form->get('employmentType')->setData(Profile::CLIENT_EMPLOYMENT_TYPE_EMPLOYED);
         }*/
 
-        $ssnParts = array(1 => null, null, null);
+        $ssnParts = [1 => null, null, null];
         if ($spouse) {
             $ssn = $spouse->getSsnTin();
             if (preg_match("~^(\d{3})(\d{2})(\d{4})$~", $ssn, $matches)) {
@@ -151,62 +151,65 @@ class HouseholdSpouseFormType extends AbstractType
         }
 
         $form
-            ->add($this->factory->createNamed('ssn1', 'number', $ssnParts[1], array(
-                'attr' => array(
+            ->add($this->factory->createNamed('ssn1', 'number', $ssnParts[1], [
+                'attr' => [
                     'class' => 'input-xmini',
                     'placeholder' => '###',
-                ),
-                'property_path' => false,
-                'constraints' => array(
-                    new NotBlank(array('message' => 'Can not be blank.')),
-                    new Regex(array('pattern'=>'/^\d+$/','message' => 'Must be a number.')),
-                    new Length(array(
+                ],
+                // 'property_path' => '',
+                'auto_initialize' => false,
+                'constraints' => [
+                    new NotBlank(['message' => 'Can not be blank.']),
+                    new Regex(['pattern' => '/^\d+$/', 'message' => 'Must be a number.']),
+                    new Length([
                         'min' => 3,
                         'max' => 3,
                         'minMessage' => 'SSN should be in the format: ### - ## - ####.',
                         'maxMessage' => 'SSN should be in the format: ### - ## - ####.',
-                        'exactMessage' => 'SSN should be in the format: ### - ## - ####.'
-                    ))
-            ))))
+                        'exactMessage' => 'SSN should be in the format: ### - ## - ####.',
+                    ]),
+            ], ]))
 
-            ->add($this->factory->createNamed('ssn2', 'number', $ssnParts[2], array(
-                'attr' => array(
+            ->add($this->factory->createNamed('ssn2', 'number', $ssnParts[2], [
+                'attr' => [
                     'class' => 'input-xmini',
                     'placeholder' => '##',
-                ),
-                'property_path' => false,
-                'constraints' => array(
-                    new NotBlank(array('message' => 'Can not be blank.')),
-                    new Regex(array('pattern'=>'/^\d+$/','message' => 'Must be a number.')),
-                    new Length(array(
+                ],
+                // 'property_path' => '',
+                'auto_initialize' => false,
+                'constraints' => [
+                    new NotBlank(['message' => 'Can not be blank.']),
+                    new Regex(['pattern' => '/^\d+$/', 'message' => 'Must be a number.']),
+                    new Length([
                         'min' => 2,
                         'max' => 2,
                         'minMessage' => 'SSN should be in the format: ### - ## - ####.',
                         'maxMessage' => 'SSN should be in the format: ### - ## - ####.',
-                        'exactMessage' => 'SSN should be in the format: ### - ## - ####.'
-                    ))
-            ))))
+                        'exactMessage' => 'SSN should be in the format: ### - ## - ####.',
+                    ]),
+            ], ]))
 
-            ->add($this->factory->createNamed('ssn3', 'number', $ssnParts[3], array(
-                'attr' => array(
+            ->add($this->factory->createNamed('ssn3', 'number', $ssnParts[3], [
+                'attr' => [
                     'class' => 'input-xmini',
                     'placeholder' => '####',
-                ),
-                'property_path' => false,
-                'constraints' => array(
-                    new NotBlank(array('message' => 'Can not be blank.')),
-                    new Regex(array('pattern'=>'/^\d+$/','message' => 'Must be a number.')),
-                    new Length(array(
+                ],
+                // 'property_path' => '',
+                'auto_initialize' => false,
+                'constraints' => [
+                    new NotBlank(['message' => 'Can not be blank.']),
+                    new Regex(['pattern' => '/^\d+$/', 'message' => 'Must be a number.']),
+                    new Length([
                         'min' => 4,
                         'max' => 4,
                         'minMessage' => 'SSN should be in the format: ### - ## - ####.',
                         'maxMessage' => 'SSN should be in the format: ### - ## - ####.',
-                        'exactMessage' => 'SSN should be in the format: ### - ## - ####.'
-                    ))
-            ))));
+                        'exactMessage' => 'SSN should be in the format: ### - ## - ####.',
+                    ]),
+            ], ]));
     }
 
-    public function onBindData(FormEvent $event)
+    public function onSubmitData(FormEvent $event)
     {
         $form = $event->getForm();
         $spouse = $event->getData();
@@ -217,18 +220,18 @@ class HouseholdSpouseFormType extends AbstractType
             $ssn1 = $form->get('ssn1')->getData();
             $ssn2 = $form->get('ssn2')->getData();
             $ssn3 = $form->get('ssn3')->getData();
-            $spouse->setSsnTin($ssn1 . $ssn2 . $ssn3);
+            $spouse->setSsnTin($ssn1.$ssn2.$ssn3);
         }
     }
 
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => 'Wealthbot\ClientBundle\Entity\ClientAdditionalContact'
-        ));
+        $resolver->setDefaults([
+            'data_class' => 'Wealthbot\ClientBundle\Entity\ClientAdditionalContact',
+        ]);
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'household_spouse_form';
     }

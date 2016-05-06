@@ -2,11 +2,11 @@
 
 namespace Wealthbot\RiaBundle\Form\Type;
 
+use FOS\UserBundle\Form\Type\RegistrationFormType as BaseType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use FOS\UserBundle\Form\Type\RegistrationFormType as BaseType;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class CreateClientType extends BaseType
 {
@@ -32,21 +32,21 @@ class CreateClientType extends BaseType
 
         $plainPassword = $this->generatePlainPassword();
 
-        $builder->addEventListener(FormEvents::BIND, function(FormEvent $event) use($plainPassword) {
+        $builder->addEventListener(FormEvents::SUBMIT, function (FormEvent $event) use ($plainPassword) {
             $user = $event->getData();
             $user->setUsername($user->getEmail());
             $user->setPlainPassword($plainPassword);
         });
     }
 
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => 'Wealthbot\UserBundle\Entity\User'
-        ));
+        $resolver->setDefaults([
+            'data_class' => 'Wealthbot\UserBundle\Entity\User',
+        ]);
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'wealthbot_riabundle_riacreateclienttype';
     }
@@ -56,7 +56,7 @@ class CreateClientType extends BaseType
         $chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
         $count = mb_strlen($chars);
 
-        for ($i = 0, $result = ''; $i < $length; $i++) {
+        for ($i = 0, $result = ''; $i < $length; ++$i) {
             $index = rand(0, $count - 1);
             $result .= mb_substr($chars, $index, 1);
         }

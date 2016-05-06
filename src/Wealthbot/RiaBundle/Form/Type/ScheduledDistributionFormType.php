@@ -43,7 +43,7 @@ class ScheduledDistributionFormType extends AbstractType
         );
 
         $builder->addEventListener(FormEvents::PRE_SET_DATA, [$this, 'onPreSetData']);
-        $builder->addEventListener(FormEvents::SUBMIT, [$this, 'onBindData']);
+        $builder->addEventListener(FormEvents::SUBMIT, [$this, 'onSubmitData']);
     }
 
     public function onPresetData(FormEvent $event)
@@ -91,7 +91,7 @@ class ScheduledDistributionFormType extends AbstractType
             ;
     }
 
-    public function onBindData(FormEvent $event)
+    public function onSubmitData(FormEvent $event)
     {
         $distribution = $event->getData();
         $form = $event->getForm();

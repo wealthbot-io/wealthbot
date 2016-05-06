@@ -2,17 +2,16 @@
 
 namespace Wealthbot\RiaBundle\Form\Type;
 
-use Wealthbot\AdminBundle\Entity\Job;
-use Wealthbot\AdminBundle\Entity\RebalancerAction;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Wealthbot\AdminBundle\Entity\Job;
 
-class RebalanceFormType extends AbstractType {
-
-    private $clientValueIds = array();
+class RebalanceFormType extends AbstractType
+{
+    private $clientValueIds = [];
 
     private $isShowType;
 
@@ -24,41 +23,42 @@ class RebalanceFormType extends AbstractType {
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('is_all', 'checkbox', array(
+        $builder->add('is_all', 'checkbox', [
             'label' => 'Check all',
-            'required' => false
-        ));
+            'required' => false,
+        ]);
 
         if ($this->isShowType) {
-            $builder->add('rebalance_type', 'choice', array(
-                'choices'   => Job::rebalanceTypeChoicesForSelect(),
-                'required'  => true,
-            ));
+            $builder->add('rebalance_type', 'choice', [
+                'choices' => Job::rebalanceTypeChoicesForSelect(),
+                'required' => true,
+            ]);
         }
 
         $factory = $builder->getFormFactory();
         $choices = $this->clientValueIds;
 
-        $builder->addEventListener(FormEvents::PRE_SET_DATA, function(FormEvent $event) use ($factory, $choices) {
+        $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) use ($factory, $choices) {
             $form = $event->getForm();
 
-            $form->add($factory->createNamed('client_value', 'choice', null, array(
+            $form->add($factory->createNamed('client_value', 'choice', null, [
                 'choices' => $choices,
                 'multiple' => true,
-                'expanded' => true
-            )));
+                'expanded' => true,
+                'auto_initialize' => false,
+            ]));
         });
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'rebalance_form';
     }
 
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
-            'csrf_protection'   => true,
-        ));
+        $resolver->setDefaults([
+            'csrf_protection' => true,
+        ]);
     }
 }

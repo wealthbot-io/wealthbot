@@ -10,12 +10,11 @@
 namespace Wealthbot\AdminBundle\Form\Type;
 
 use Doctrine\ORM\EntityManager;
-use Wealthbot\AdminBundle\Entity\CeModel;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Wealthbot\AdminBundle\Form\EventListener\CeModelFormTypeEventsListener;
 use Wealthbot\AdminBundle\Model\CeModelInterface;
 use Wealthbot\UserBundle\Entity\User;
-use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class CeModelFormType extends ParentCeModelFormType
 {
@@ -41,7 +40,7 @@ class CeModelFormType extends ParentCeModelFormType
         parent::buildForm($builder, $options);
 
         if ($this->isShowAssumption) {
-            $modelAssumptionType  = new ModelAssumptionFormType($this->em);
+            $modelAssumptionType = new ModelAssumptionFormType($this->em);
             $modelAssumptionType->buildForm($builder, $options);
         }
 
@@ -51,14 +50,14 @@ class CeModelFormType extends ParentCeModelFormType
     /**
      * @param OptionsResolverInterface $resolver
      */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => 'Wealthbot\AdminBundle\Entity\CeModel'
-        ));
+        $resolver->setDefaults([
+            'data_class' => 'Wealthbot\AdminBundle\Entity\CeModel',
+        ]);
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'third_party_model';
     }

@@ -40,7 +40,7 @@ class UserController extends Controller
         $process = $formHandler->process($this->getUser());
 
         if ($process) {
-            $this->get('session')->setFlash('success', 'Password successfully updated.');
+            $this->get('session')->getFlashBag()->add('success', 'Password successfully updated.');
 
             return $this->redirect($this->generateUrl('rx_ria_dashboard'));
         }
@@ -68,7 +68,7 @@ class UserController extends Controller
 
         $this->get('wealthbot.mailer')->sendRiaUserResetPasswordEmail($ria, $riaUser, $newPassword);
 
-        $this->get('session')->setFlash('success', 'New password was sent to the email.');
+        $this->get('session')->getFlashBag()->add('success', 'New password was sent to the email.');
 
         return $this->redirect($this->generateUrl('rx_ria_user_management'));
     }
@@ -90,7 +90,7 @@ class UserController extends Controller
                 $em->persist($user);
                 $em->flush();
 
-                $this->get('session')->setFlash('success', 'User has been successfully created.');
+                $this->get('session')->getFlashBag()->add('success', 'User has been successfully created.');
 
                 return $this->getEmptyUserManagement();
             }
@@ -126,7 +126,7 @@ class UserController extends Controller
                 $em->persist($user);
                 $em->flush();
 
-                $this->get('session')->setFlash('success', 'User successfully updated');
+                $this->get('session')->getFlashBag()->add('success', 'User successfully updated');
 
                 return $this->getEmptyUserManagement();
             }
@@ -149,11 +149,11 @@ class UserController extends Controller
         $user = $em->getRepository('WealthbotUserBundle:User')->getUserByRiaIdAndUserId($riaUser->getId(), $user_id);
 
         if (!$user) {
-            $this->get('session')->setFlash('error', 'User was not found');
+            $this->get('session')->getFlashBag()->add('error', 'User was not found');
         } else {
             $em->remove($user);
             $em->flush();
-            $this->get('session')->setFlash('success', 'User deleted successfully');
+            $this->get('session')->getFlashBag()->add('success', 'User deleted successfully');
         }
 
         return $this->getEmptyUserManagement();
@@ -209,7 +209,7 @@ class UserController extends Controller
                 $em->persist($group);
                 $em->flush();
 
-                $this->get('session')->setFlash('success', $message);
+                $this->get('session')->getFlashBag()->add('success', $message);
 
                 return $this->getEmptyGroupManagement();
             }
@@ -233,18 +233,18 @@ class UserController extends Controller
 
         if ($group) {
             if ($group->getUsers()->count()) {
-                $this->get('session')->setFlash('error', 'Group can\'t be deleted, it contains a users');
+                $this->get('session')->getFlashBag()->add('error', 'Group can\'t be deleted, it contains a users');
 
                 return $this->getEmptyGroupManagement();
             }
             $em->remove($group);
             $em->flush();
-            $this->get('session')->setFlash('success', 'Group deleted successfully');
+            $this->get('session')->getFlashBag()->add('success', 'Group deleted successfully');
 
             return $this->getEmptyGroupManagement();
         }
 
-        $this->get('session')->setFlash('error', 'Group was not found');
+        $this->get('session')->getFlashBag()->add('error', 'Group was not found');
 
         return $this->getEmptyGroupManagement();
     }

@@ -68,7 +68,7 @@ class ChangePasswordController extends BaseController
         $user->setPlainPassword($user->generateTemporaryPassword());
         $mailer->sendConfirmationEmailMessage($user);
 
-        $this->container->get('session')->setFlash('success', 'Password for user "'.$user->getProfile()->getLastName().' '.$user->getProfile()->getFirstName().'" has been reseted successfully.');
+        $this->container->get('session')->getFlashBag()->add('success', 'Password for user "'.$user->getProfile()->getLastName().' '.$user->getProfile()->getFirstName().'" has been reseted successfully.');
 
         $referer = $request->headers->get('referer');
 
@@ -89,7 +89,7 @@ class ChangePasswordController extends BaseController
 
     protected function setFlash($action, $value)
     {
-        $this->container->get('session')->setFlash($action, $value);
+        $this->container->get('session')->getFlashBag()->add($action, $value);
     }
 
     /**

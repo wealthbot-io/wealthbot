@@ -10,6 +10,10 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
  */
 class Document
 {
+    /* @todo */
+    public $is_client_notified;
+    public $is_for_all_clients;
+
     /**
      * @var int
      */

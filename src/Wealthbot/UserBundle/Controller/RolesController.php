@@ -240,7 +240,7 @@ class RolesController extends Controller
     private function checkIsPasswordExpired(User $user)
     {
         if ($user->isPasswordExpired()) {
-            $this->get('session')->setFlash('error', 'Your password has expired.');
+            $this->get('session')->getFlashBag()->add('error', 'Your password has expired.');
 
             return $this->redirect($this->generateUrl('fos_user_change_password'));
         }

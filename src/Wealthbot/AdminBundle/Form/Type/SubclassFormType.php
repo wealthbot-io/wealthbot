@@ -6,19 +6,18 @@
  * Time: 15:14
  * To change this template use File | Settings | File Templates.
  */
+
 namespace Wealthbot\AdminBundle\Form\Type;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManager;
-use Wealthbot\AdminBundle\Entity\Subclass;
-use Wealthbot\AdminBundle\Repository\SubclassRepository;
-use Wealthbot\RiaBundle\Entity\RiaCompanyInformation;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Range;
+use Wealthbot\AdminBundle\Entity\Subclass;
+use Wealthbot\AdminBundle\Repository\SubclassRepository;
 
 class SubclassFormType extends AbstractType
 {
@@ -41,37 +40,39 @@ class SubclassFormType extends AbstractType
         $em = $this->em;
         $allSubclasses = $this->allSubclasses;
 
-
         $builder
-            ->add('name', 'text', array('label' => 'Subclass'))
-            ->add('expected_performance', 'text', array('label' => 'Expected Performance (%)'))
-            ->add('accountType', 'entity', array(
+            ->add('name', 'text', ['label' => 'Subclass'])
+            ->add('expected_performance', 'text', ['label' => 'Expected Performance (%)'])
+            ->add('accountType', 'entity', [
                 'class' => 'Wealthbot\RiaBundle\Entity\SubclassAccountType',
-                'empty_value' => 'Choose an option'
-            ))
+                'placeholder' => 'Choose an option',
+            ])
         ;
 
         if ($user->hasRole('ROLE_RIA')) {
             if ($user->getRiaCompanyInformation()->isRebalancedFrequencyToleranceBand()) {
-                $builder->add('tolerance_band', 'number', array('precision' => 2));
+                $builder->add('tolerance_band', 'number', ['precision' => 2]);
             }
 
 //            if ($user->getRiaCompanyInformation()->isShowSubclassPriority()) {
               if (false) {
-                $factory = $builder->getFormFactory();
-                $refreshPriority = function($form, $choices) use ($factory, $em) {
-                    $form->add($factory->createNamed('priority', 'choice', null, array(
+                  $factory = $builder->getFormFactory();
+                  $refreshPriority = function ($form, $choices) use ($factory, $em) {
+                    $form->add($factory->createNamed('priority', 'choice', null, [
                         'choices' => $choices,
-                    )));
+                        'auto_initialize' => false,
+                    ]));
                 };
 
-                $builder->addEventListener(FormEvents::PRE_SET_DATA, function(FormEvent $event) use($refreshPriority, $user, $em) {
+                  $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) use ($refreshPriority, $user, $em) {
                     $form = $event->getForm();
                     $data = $event->getData();
 
-                    if($data === null) return;
+                    if ($data === null) {
+                        return;
+                    }
 
-                    if($data instanceof Subclass) {
+                    if ($data instanceof Subclass) {
                         /** @var $subclassRepo SubclassRepository */
                         $subclassRepo = $em->getRepository('WealthbotAdminBundle:Subclass');
                         $subclasses = $subclassRepo->findByOwnerIdAndAccountTypeId($user->getId(), $data->getAccountTypeId());
@@ -82,16 +83,18 @@ class SubclassFormType extends AbstractType
                     }
                 });
 
-                $builder->addEventListener(FormEvents::PRE_BIND, function(FormEvent $event) use($refreshPriority, $allSubclasses, $user) {
+                  $builder->addEventListener(FormEvents::PRE_SUBMIT, function (FormEvent $event) use ($refreshPriority, $allSubclasses, $user) {
                     $form = $event->getForm();
                     $data = $event->getData();
 
-                    if($data === null) return;
+                    if ($data === null) {
+                        return;
+                    }
 
                     $maxChoice = 0;
                     foreach ($allSubclasses as $subclass) {
-                        if ($data['accountType'] == $subclass['accountType']) {
-                            $maxChoice++;
+                        if ($data['accountType'] === $subclass['accountType']) {
+                            ++$maxChoice;
                         }
                     }
 
@@ -100,17 +103,17 @@ class SubclassFormType extends AbstractType
 
                     $refreshPriority($form, $choices);
                 });
-            }
+              }
         }
 
-
-        $builder->addEventListener(FormEvents::BIND, function(FormEvent $event) use ($user, $em){
+        $builder->addEventListener(FormEvents::SUBMIT, function (FormEvent $event) use ($user, $em) {
             $data = $event->getData();
 
-            if ($data === null) return;
+            if ($data === null) {
+                return;
+            }
 
             // Validate unique subclass name for strategy
-
 
             if (!$data->getExpectedPerformance()) {
                 $data->setExpectedPerformance(0);
@@ -122,14 +125,14 @@ class SubclassFormType extends AbstractType
         });
     }
 
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => 'Wealthbot\AdminBundle\Entity\Subclass'
-        ));
+        $resolver->setDefaults([
+            'data_class' => 'Wealthbot\AdminBundle\Entity\Subclass',
+        ]);
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'subclass';
     }

@@ -11,31 +11,31 @@ namespace Wealthbot\AdminBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class SubclassType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name', 'text', array('label' => 'Subclass'))
-            ->add('expected_performance', 'text', array('label' => 'Expected Performance (%)'))
-            ->add('assetClass', 'entity', array(
-                'class' => 'WealthbotAdminBundle:AssetClass',
-                'empty_value' => 'Choose Asset Class'
-            ))
+            ->add('name', 'text', ['label' => 'Subclass'])
+            ->add('expected_performance', 'text', ['label' => 'Expected Performance (%)'])
+            ->add('assetClass', 'entity', [
+                'class' => 'Wealthbot\\AdminBundle\\Entity\\AssetClass',
+                'placeholder' => 'Choose Asset Class',
+            ])
             ->add('accountType')
         ;
     }
 
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => 'Wealthbot\AdminBundle\Entity\Subclass'
-        ));
+        $resolver->setDefaults([
+            'data_class' => 'Wealthbot\AdminBundle\Entity\Subclass',
+        ]);
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'wealthbot_adminbundle_subclass_type';
     }

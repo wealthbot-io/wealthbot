@@ -396,7 +396,7 @@ class ModelsController extends Controller
                     ]);
                 }
 
-                $this->get('session')->setFlash('error', 'The model cannot be removed because used by clients.');
+                $this->get('session')->getFlashBag()->add('error', 'The model cannot be removed because used by clients.');
 
                 return $this->redirect($this->generateUrl('rx_ria_models'));
             }

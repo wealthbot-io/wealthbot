@@ -384,7 +384,7 @@ class ChangeProfileController extends Controller
             $this->dispatchHistoryEvent($user, 'Updated password.');
 
             $this->get('wealthbot.mailer')->sendRiaChangePasswordEmail($user);
-            $this->get('session')->setFlash('success', 'Password successfully updated.');
+            $this->get('session')->getFlashBag()->add('success', 'Password successfully updated.');
 
             return $this->redirect($this->generateUrl('rx_ria_change_profile_update_password'));
         }

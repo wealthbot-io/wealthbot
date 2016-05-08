@@ -62,7 +62,7 @@ class UserController extends AclController
                     $form->get('level')->getData()
                 );
 
-                $this->get('session')->setFlash('success', 'User has been successfully created.');
+                $this->get('session')->getFlashBag()->add('success', 'User has been successfully created.');
 
                 return $this->redirect($this->generateUrl('rx_admin_users'));
             }
@@ -99,7 +99,7 @@ class UserController extends AclController
                 $em->persist($userAccount);
                 $em->flush();
 
-                $this->get('session')->setFlash('success', 'User has been successfully updated.');
+                $this->get('session')->getFlashBag()->add('success', 'User has been successfully updated.');
 
                 return $this->redirect($this->generateUrl('rx_admin_users'));
             }
@@ -129,7 +129,7 @@ class UserController extends AclController
         $em->remove($user);
         $em->flush();
 
-        $this->get('session')->setFlash('success', 'User has been successfully deleted.');
+        $this->get('session')->getFlashBag()->add('success', 'User has been successfully deleted.');
 
         return $this->redirect($this->generateUrl('rx_admin_users'));
     }

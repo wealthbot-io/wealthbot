@@ -9,17 +9,16 @@
 
 namespace Wealthbot\AdminBundle\Form\Type;
 
-use Wealthbot\AdminBundle\Entity\ModelAssumption;
+use Doctrine\ORM\EntityManager;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\FormBuilder;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormError;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormEvent;
-use Wealthbot\UserBundle\Entity\User;
-use Doctrine\ORM\EntityManager;
+use Symfony\Component\Form\FormEvents;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Wealthbot\AdminBundle\Entity\ModelAssumption;
 use Wealthbot\AdminBundle\Entity\PortfolioModel;
+use Wealthbot\UserBundle\Entity\User;
 
 class StrategyModelFormType extends AbstractType
 {
@@ -35,7 +34,6 @@ class StrategyModelFormType extends AbstractType
     /** @var ModelAssumption */
     private $assumption;
 
-
     public function __construct(EntityManager $em, User $user, PortfolioModel $thirdParty = null, ModelAssumption $assumption = null)
     {
         $this->thirdParty = $thirdParty;
@@ -44,33 +42,30 @@ class StrategyModelFormType extends AbstractType
         $this->assumption = $assumption;
     }
 
-
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-
         $choices = range(0, 10);
 
         $thirdParty = $this->thirdParty;
-        $existsRatings = array();
+        $existsRatings = [];
         $riskRating = null;
         $assumption = $this->assumption;
 
         if ($thirdParty) {
             $data = $builder->getData();
             if ($data instanceof PortfolioModel && $data->getId()) {
-
                 $ownerId = null;
-                if($data->getParent()->getOwner()){
+                if ($data->getParent()->getOwner()) {
                     $ownerId = $data->getParent()->getOwner();
                 } else {
                     $superAdmin = $this->get('wealthbot.manager.user')->getAdmin();
                     $ownerId = $superAdmin->getId();
                 }
 
-                $modelRiskRating = $this->em->getRepository('WealthbotAdminBundle:ModelRiskRating')->findOneBy(array(
+                $modelRiskRating = $this->em->getRepository('WealthbotAdminBundle:ModelRiskRating')->findOneBy([
                     'owner_id' => $ownerId,
-                    'model_id' => $data->getId()
-                ));
+                    'model_id' => $data->getId(),
+                ]);
 
                 if ($modelRiskRating) {
                     $riskRating = $modelRiskRating->getRating();
@@ -84,15 +79,15 @@ class StrategyModelFormType extends AbstractType
         $builder->add('name', 'text');
 
         if ($this->user->isSuperAdmin() || $assumption) {
-            $builder->add('assumption', new ModelAssumptionFormType(), array(
-                'property_path' => false,
-                'data' => $assumption
-            ));
+            $builder->add('assumption', new ModelAssumptionFormType(), [
+                // 'property_path' => '',
+                'data' => $assumption,
+            ]);
         }
 
         $factory = $builder->getFormFactory();
 
-        $builder->addEventListener(FormEvents::PRE_SET_DATA, function(FormEvent $event) use ($factory, $choices, $riskRating){
+        $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) use ($factory, $choices, $riskRating) {
 
             $data = $event->getData();
             $form = $event->getForm();
@@ -102,21 +97,22 @@ class StrategyModelFormType extends AbstractType
             }
             // check if the product object is not "new"
             if ($data->getId()) {
-                $form->add($factory->createNamed('risk_rating', 'choice', $riskRating, array(
-                    'empty_value' => 'Select Risk Rating',
-                    'choices' => $choices
-                )));
+                $form->add($factory->createNamed('risk_rating', 'choice', $riskRating, [
+                    'placeholder' => 'Select Risk Rating',
+                    'choices' => $choices,
+                    'auto_initialize' => false,
+                ]));
             }
         });
 
-        $builder->addEventListener(FormEvents::BIND, function (FormEvent $event) use ($thirdParty, $existsRatings) {
+        $builder->addEventListener(FormEvents::SUBMIT, function (FormEvent $event) use ($thirdParty, $existsRatings) {
 
             $form = $event->getForm();
 
-            if($form->has('risk_rating')){
+            if ($form->has('risk_rating')) {
                 $riskRating = $form->get('risk_rating')->getData();
                 if (in_array($riskRating, $existsRatings)) {
-                    $form->get('risk_rating')->addError(new FormError('The risk with parameter :risk is already exists.', array(':risk' => $riskRating)));
+                    $form->get('risk_rating')->addError(new FormError('The risk with parameter :risk is already exists.', [':risk' => $riskRating]));
                 }
             }
         });
@@ -135,22 +131,23 @@ class StrategyModelFormType extends AbstractType
 
         $riaRiskRatings = $query->getResult();
 
-        $existsRatings = array();
+        $existsRatings = [];
         foreach ($riaRiskRatings as $object) {
-            if ($object->getRating() != $exclude) {
+            if ($object->getRating() !== $exclude) {
                 $existsRatings[] = $object->getRating();
             }
         }
+
         return $existsRatings;
     }
 
     protected function getModelsCount()
     {
-        $qb = $this->em->getRepository('WealthbotAdminBundle:PortfolioModel')->createQueryBuilder("pm")
-            ->select("count(pm.id)")
-            ->leftJoin("pm.parent", "p")
-            ->andWhere("p.id = :parent_id")
-            ->setParameter("parent_id", $this->thirdParty->getId())
+        $qb = $this->em->getRepository('WealthbotAdminBundle:PortfolioModel')->createQueryBuilder('pm')
+            ->select('count(pm.id)')
+            ->leftJoin('pm.parent', 'p')
+            ->andWhere('p.id = :parent_id')
+            ->setParameter('parent_id', $this->thirdParty->getId())
             ->getQuery();
 
         return $qb->getSingleScalarResult();
@@ -162,19 +159,19 @@ class StrategyModelFormType extends AbstractType
             ->createQueryBuilder('pm')
             ->where('pm.parent_id = :parent_id')
             ->andWhere('pm.name = :name')
-            ->setParameters(array(
+            ->setParameters([
                 'parent_id' => $parent->getId(),
-                'name'      => $name
-            ))->getQuery();
+                'name' => $name,
+            ])->getQuery();
 
         return $q->getFirstResult() ? true : false;
     }
 
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => 'Wealthbot\AdminBundle\Entity\PortfolioModel'
-        ));
+        $resolver->setDefaults([
+            'data_class' => 'Wealthbot\AdminBundle\Entity\PortfolioModel',
+        ]);
     }
 
     /**
@@ -182,9 +179,8 @@ class StrategyModelFormType extends AbstractType
      *
      * @return string The name of this type
      */
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'third_party_model';
     }
-
 }

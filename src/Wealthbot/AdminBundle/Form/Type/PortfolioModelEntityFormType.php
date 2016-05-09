@@ -9,17 +9,17 @@
 
 namespace Wealthbot\AdminBundle\Form\Type;
 
+use Doctrine\ORM\EntityRepository;
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Wealthbot\AdminBundle\Entity\CeModel;
 use Wealthbot\AdminBundle\Entity\CeModelEntity;
 use Wealthbot\AdminBundle\Form\EventListener\PortfolioModelEntityTypeEventsListener;
-use Wealthbot\UserBundle\Entity\User;
-use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use Doctrine\ORM\EntityRepository;
-use Symfony\Component\Form\FormEvents;
-use Symfony\Component\Form\FormEvent;
 use Wealthbot\RiaBundle\RiskManagement\BaselinePortfolio;
+use Wealthbot\UserBundle\Entity\User;
 
 class PortfolioModelEntityFormType extends AbstractType
 {
@@ -45,23 +45,23 @@ class PortfolioModelEntityFormType extends AbstractType
 
         $subscriber = new PortfolioModelEntityTypeEventsListener($builder->getFormFactory(), $this->em, $this->portfolioModel, $this->user);
 
-        $builder->add('assetClass', 'entity', array(
-            'class' => 'WealthbotAdminBundle:AssetClass',
-            'empty_value' => 'Choose Asset Class',
-            'query_builder' => function(EntityRepository $er) use ($strategy) {
-                return $er->createQueryBuilder("ac")
-                    ->andWhere("ac.model_id = :model_id")
-                    ->setParameter("model_id", $strategy->getId())
-                    ->orderBy("ac.id", "ASC");
+        $builder->add('assetClass', 'entity', [
+            'class' => 'Wealthbot\\AdminBundle\\Entity\\AssetClass',
+            'placeholder' => 'Choose Asset Class',
+            'query_builder' => function (EntityRepository $er) use ($strategy) {
+                return $er->createQueryBuilder('ac')
+                    ->andWhere('ac.model_id = :model_id')
+                    ->setParameter('model_id', $strategy->getId())
+                    ->orderBy('ac.id', 'ASC');
             },
-        ));
+        ]);
         $builder->addEventSubscriber($subscriber);
         $builder->add('percent');
 
-        $builder->addEventListener(FormEvents::BIND, array($this, 'onBind'));
+        $builder->addEventListener(FormEvents::SUBMIT, [$this, 'onSubmit']);
     }
 
-    public function onBind(FormEvent $event)
+    public function onSubmit(FormEvent $event)
     {
         $form = $event->getForm();
         /** @var CeModelEntity $data */
@@ -72,17 +72,17 @@ class PortfolioModelEntityFormType extends AbstractType
 
         /** @var \Wealthbot\AdminBundle\Repository\CeModelEntityRepository $modelRepo */
         $modelRepo = $this->em->getRepository('WealthbotAdminBundle:CeModel');
-        $modelEntities = $this->em->getRepository('WealthbotAdminBundle:CeModelEntity')->findBy(array(
-            'modelId' => $this->portfolioModel->getId()
-        ));
+        $modelEntities = $this->em->getRepository('WealthbotAdminBundle:CeModelEntity')->findBy([
+            'modelId' => $this->portfolioModel->getId(),
+        ]);
 
         foreach ($modelEntities as $entity) {
-            if (!$data->getId() || ($data->getId() != $entity->getId())) {
-                if ($entity->getAssetClass()->getType() == 'Stocks') {
+            if (!$data->getId() || ($data->getId() !== $entity->getId())) {
+                if ($entity->getAssetClass()->getType() === 'Stocks') {
                     $stock += $entity->getPercent();
                 }
 
-                if ($entity->getAssetClass()->getType() == 'Bonds') {
+                if ($entity->getAssetClass()->getType() === 'Bonds') {
                     $bond += $entity->getPercent();
                 }
             }
@@ -96,15 +96,15 @@ class PortfolioModelEntityFormType extends AbstractType
             $overAllStock = $data->getPercent() + $stock;
             $overAllBond = $data->getPercent() + $bond;
 
-            if ($data->getAssetClass()->getType() == 'Stocks') {
+            if ($data->getAssetClass()->getType() === 'Stocks') {
                 if ($overAllStock > $percentage['stock']) {
-                    $form->get('percent')->addError(new \Symfony\Component\Form\FormError('Sum of the stocks percents must be equal :value.', array(':value' => $percentage['stock'])));
+                    $form->get('percent')->addError(new \Symfony\Component\Form\FormError('Sum of the stocks percents must be equal :value.', [':value' => $percentage['stock']]));
                 }
             }
 
-            if ($data->getAssetClass()->getType() == 'Bonds') {
+            if ($data->getAssetClass()->getType() === 'Bonds') {
                 if ($overAllBond > $percentage['bond']) {
-                    $form->get('percent')->addError(new \Symfony\Component\Form\FormError('Sum of the bonds percents must be equal :value.', array(':value' => $percentage['bond'])));
+                    $form->get('percent')->addError(new \Symfony\Component\Form\FormError('Sum of the bonds percents must be equal :value.', [':value' => $percentage['bond']]));
                 }
             }
         }
@@ -114,14 +114,14 @@ class PortfolioModelEntityFormType extends AbstractType
         }
     }
 
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => 'Wealthbot\AdminBundle\Entity\CeModelEntity'
-        ));
+        $resolver->setDefaults([
+            'data_class' => 'Wealthbot\AdminBundle\Entity\CeModelEntity',
+        ]);
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'rx_admin_model_entity_form';
     }

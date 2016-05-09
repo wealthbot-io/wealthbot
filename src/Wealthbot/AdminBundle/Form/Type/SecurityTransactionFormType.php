@@ -9,17 +9,10 @@
 
 namespace Wealthbot\AdminBundle\Form\Type;
 
-use Wealthbot\AdminBundle\Entity\AssetClass;
-use Wealthbot\AdminBundle\Entity\SecurityAssignment;
-use Wealthbot\AdminBundle\Entity\SecurityTransaction;
-use Wealthbot\RiaBundle\Entity\RiaCompanyInformation;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\FormError;
-use Symfony\Component\Form\FormEvent;
-use Symfony\Component\Form\FormEvents;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Wealthbot\RiaBundle\Entity\RiaCompanyInformation;
 
 class SecurityTransactionFormType extends AbstractType
 {
@@ -36,11 +29,11 @@ class SecurityTransactionFormType extends AbstractType
             $builder->add(
                 'transaction_fee',
                 'number',
-                array(
+                [
                     'precision' => 2,
                     'grouping' => true,
-                    'required' => false
-                )
+                    'required' => false,
+                ]
             );
         }
 
@@ -49,29 +42,29 @@ class SecurityTransactionFormType extends AbstractType
                 ->add(
                     'minimum_buy',
                     'number',
-                    array(
+                    [
                         'precision' => 2,
                         'grouping' => true,
-                        'required' => false
-                    )
+                        'required' => false,
+                    ]
                 )
                 ->add(
                     'minimum_initial_buy',
                     'number',
-                    array(
+                    [
                         'precision' => 2,
                         'grouping' => true,
-                        'required' => false
-                    )
+                        'required' => false,
+                    ]
                 )
                 ->add(
                     'minimum_sell',
                     'number',
-                    array(
+                    [
                         'precision' => 2,
                         'grouping' => true,
-                        'required' => false
-                    )
+                        'required' => false,
+                    ]
                 );
         }
 
@@ -80,38 +73,38 @@ class SecurityTransactionFormType extends AbstractType
                 ->add(
                     'redemption_penalty_interval',
                     'number',
-                    array(
-                        'required' => false
-                    )
+                    [
+                        'required' => false,
+                    ]
                 )
                 ->add(
                     'redemption_fee',
                     'number',
-                    array(
+                    [
                         'precision' => 2,
                         'grouping' => true,
-                        'required' => false
-                    )
+                        'required' => false,
+                    ]
                 )
                 ->add(
                     'redemption_percent',
                     'percent',
-                    array(
+                    [
                         'precision' => 2,
-                        'required' => false
-                    )
+                        'required' => false,
+                    ]
                 );
         }
     }
 
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => 'Wealthbot\AdminBundle\Entity\SecurityTransaction'
-        ));
+        $resolver->setDefaults([
+            'data_class' => 'Wealthbot\AdminBundle\Entity\SecurityTransaction',
+        ]);
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'wealthbot_admin_security_transaction_type';
     }

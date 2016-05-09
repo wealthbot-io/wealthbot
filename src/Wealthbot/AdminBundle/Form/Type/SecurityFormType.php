@@ -9,38 +9,30 @@
 
 namespace Wealthbot\AdminBundle\Form\Type;
 
-use Wealthbot\AdminBundle\Entity\AssetClass;
-use Wealthbot\AdminBundle\Entity\Security;
-use Wealthbot\AdminBundle\Entity\SecurityAssignment;
-use Wealthbot\AdminBundle\Entity\SecurityPrice;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\FormInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use Doctrine\ORM\EntityRepository;
-use Symfony\Component\Form\FormEvents;
-use Symfony\Component\Form\FormEvent;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Wealthbot\AdminBundle\Entity\Security;
+use Wealthbot\AdminBundle\Entity\SecurityPrice;
 
 class SecurityFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-
-
         $builder
-            ->add('securityType', 'entity', array(
+            ->add('securityType', 'entity', [
                 'class' => 'Wealthbot\AdminBundle\Entity\SecurityType',
                 'property' => 'description',
-                'empty_value' => 'Choose an Option'
-            ))
+                'placeholder' => 'Choose an Option',
+            ])
             ->add('name', 'text')
             ->add('symbol', 'text')
             ->add('expense_ratio')
-            ->add('price', 'number', array(
+            ->add('price', 'number', [
                 'data' => $this->getPriceData($builder->getData()),
                 'mapped' => false,
-                'grouping' => true
-            ));
+                'grouping' => true,
+            ]);
     }
 
     private function getPriceData(Security $security = null)
@@ -54,17 +46,17 @@ class SecurityFormType extends AbstractType
             }
         }
 
-        return null;
+        return;
     }
 
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => 'Wealthbot\AdminBundle\Entity\Security'
-        ));
+        $resolver->setDefaults([
+            'data_class' => 'Wealthbot\AdminBundle\Entity\Security',
+        ]);
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'admin_security';
     }

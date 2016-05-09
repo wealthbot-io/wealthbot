@@ -609,7 +609,7 @@ class DashboardController extends AclController
             $isValid = $clientDocumentFormHandler->process();
 
             if ($isValid) {
-                $session->setFlash('success', 'Document Upload');
+                $session->getFlashBag()->add('success', 'Document Upload');
             }
         }
 

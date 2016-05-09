@@ -98,7 +98,7 @@ class ChangeProfileController extends AclController
             $formHandler = new ClientChangeProfileTransferPersonalFormHandler($form, $request, $em);
 
             if ($formHandler->process()) {
-                $this->get('session')->setFlash('success', 'Information successfully updated.');
+                $this->get('session')->getFlashBag()->add('success', 'Information successfully updated.');
 
                 $this->dispatchHistoryEvent($user, 'Updated personal information');
 
@@ -185,7 +185,7 @@ class ChangeProfileController extends AclController
         $process = $formHandler->process($user);
         if ($process) {
             $this->dispatchHistoryEvent($user, 'Updated password');
-            $this->get('session')->setFlash('success', 'Password successfully updated.');
+            $this->get('session')->getFlashBag()->add('success', 'Password successfully updated.');
 
             $this->get('wealthbot.mailer')->sendClientResetPasswordEmail($user);
 
@@ -209,7 +209,7 @@ class ChangeProfileController extends AclController
         if ($process) {
             $this->dispatchHistoryEvent($user, 'Created new user');
 
-            $this->get('session')->setFlash('success', 'User was created successfully.');
+            $this->get('session')->getFlashBag()->add('success', 'User was created successfully.');
             $form = $this->get('wealthbot_client.slave_client.form');
 
             return $this->redirect($this->generateUrl('rx_client_change_profile_manage_users'));
@@ -243,7 +243,7 @@ class ChangeProfileController extends AclController
                 $em->persist($client);
                 $em->flush();
 
-                $this->get('session')->setFlash('success', 'User was edited successfully.');
+                $this->get('session')->getFlashBag()->add('success', 'User was edited successfully.');
 
                 return $this->redirect($this->generateUrl('rx_client_change_profile_manage_users'));
             }
@@ -267,11 +267,11 @@ class ChangeProfileController extends AclController
             ->getClientByIdAndMasterClientId($client_id, $masterClient->getId());
 
         if (!$client) {
-            $this->get('session')->setFlash('error', 'User was not found');
+            $this->get('session')->getFlashBag()->add('error', 'User was not found');
         } else {
             $em->remove($client);
             $em->flush();
-            $this->get('session')->setFlash('success', 'User deleted successfully');
+            $this->get('session')->getFlashBag()->add('success', 'User deleted successfully');
         }
 
         return $this->redirect($this->generateUrl('rx_client_change_profile_manage_users'));

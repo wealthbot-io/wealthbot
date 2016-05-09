@@ -9,15 +9,14 @@
 
 namespace Wealthbot\ClientBundle\Form\Type;
 
-
-use Wealthbot\ClientBundle\Entity\BankInformation;
-use Wealthbot\ClientBundle\Form\Validator\BankInformationFormValidator;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Type;
+use Wealthbot\ClientBundle\Entity\BankInformation;
+use Wealthbot\ClientBundle\Form\Validator\BankInformationFormValidator;
 
 class BankInformationFormType extends AbstractType
 {
@@ -31,59 +30,58 @@ class BankInformationFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('account_owner_first_name', 'text', array('required' => false))
-            ->add('account_owner_middle_name', 'text', array('required' => false))
-            ->add('account_owner_last_name', 'text', array('required' => false))
-            ->add('joint_account_owner_first_name', 'text', array('required' => false))
-            ->add('joint_account_owner_middle_name', 'text', array('required' => false))
-            ->add('joint_account_owner_last_name', 'text', array('required' => false))
-            ->add('name', 'text', array('required' => false))
-            ->add('account_title', 'text', array('required' => false))
-            ->add('phone_number', 'text', array('required' => false))
-            ->add('routing_number', 'text', array(
-                'constraints' => array(
-                    new Type(array('type' => 'numeric'))
-                ),
-                'required' => false
-            ))
-            ->add('account_number', 'text', array(
-                'constraints' => array(
-                    new Type(array('type' => 'numeric'))
-                ),
-                'required' => false
-            ))
-            ->add('account_type', 'choice', array(
+            ->add('account_owner_first_name', 'text', ['required' => false])
+            ->add('account_owner_middle_name', 'text', ['required' => false])
+            ->add('account_owner_last_name', 'text', ['required' => false])
+            ->add('joint_account_owner_first_name', 'text', ['required' => false])
+            ->add('joint_account_owner_middle_name', 'text', ['required' => false])
+            ->add('joint_account_owner_last_name', 'text', ['required' => false])
+            ->add('name', 'text', ['required' => false])
+            ->add('account_title', 'text', ['required' => false])
+            ->add('phone_number', 'text', ['required' => false])
+            ->add('routing_number', 'text', [
+                'constraints' => [
+                    new Type(['type' => 'numeric']),
+                ],
+                'required' => false,
+            ])
+            ->add('account_number', 'text', [
+                'constraints' => [
+                    new Type(['type' => 'numeric']),
+                ],
+                'required' => false,
+            ])
+            ->add('account_type', 'choice', [
                 'choices' => BankInformation::getAccountTypeChoices(),
                 'expanded' => true,
                 'multiple' => false,
-                'required' => false
-            ))
+                'required' => false,
+            ])
             ->add('pdfDocument', new PdfDocumentFormType());
-        ;
 
-        $builder->addEventListener(FormEvents::BIND, array($this, 'onBind'));
+        $builder->addEventListener(FormEvents::SUBMIT, [$this, 'onSubmit']);
     }
 
-    public function onBind(FormEvent $event)
+    public function onSubmit(FormEvent $event)
     {
         $form = $event->getForm();
         $data = $event->getData();
 
-        $cleanedPhoneNumber = str_replace(array(' ', '-', '(', ')'), '', $data->getPhoneNumber());
+        $cleanedPhoneNumber = str_replace([' ', '-', '(', ')'], '', $data->getPhoneNumber());
         $data->setPhoneNumber($cleanedPhoneNumber);
 
         $bankInformationValidator = new BankInformationFormValidator($form, $data);
         $bankInformationValidator->validate();
     }
 
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => 'Wealthbot\ClientBundle\Entity\BankInformation'
-        ));
+        $resolver->setDefaults([
+            'data_class' => 'Wealthbot\ClientBundle\Entity\BankInformation',
+        ]);
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'bank_information';
     }

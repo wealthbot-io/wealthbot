@@ -3,14 +3,14 @@
 namespace Wealthbot\ClientBundle\Form\Type;
 
 use Doctrine\ORM\EntityManager;
-use Wealthbot\ClientBundle\Form\Validator\ClientSpouseFormValidator;
-use Wealthbot\ClientBundle\Model\AccountOwnerInterface;
-use Wealthbot\ClientBundle\Model\UserAccountOwnerAdapter;
-use Wealthbot\UserBundle\Entity\Profile;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
+use Wealthbot\ClientBundle\Form\Validator\ClientSpouseFormValidator;
+use Wealthbot\ClientBundle\Model\AccountOwnerInterface;
+use Wealthbot\ClientBundle\Model\UserAccountOwnerAdapter;
+use Wealthbot\UserBundle\Entity\Profile;
 
 class ClientChangeProfileTransferPersonalFormType extends AccountOwnerPersonalInformationFormType
 {
@@ -49,65 +49,65 @@ class ClientChangeProfileTransferPersonalFormType extends AccountOwnerPersonalIn
             ->remove('broker_security_exchange_company_name')
             ->remove('compliance_letter_file')
             ->add('email', 'email')
-            ->add('first_name', 'text', array(
+            ->add('first_name', 'text', [
                 'required' => false,
-                'disabled' => true
-            ))
-            ->add('middle_name', 'text', array(
+                'disabled' => true,
+            ])
+            ->add('middle_name', 'text', [
                 'required' => false,
-                'disabled' => true
-            ))
-            ->add('last_name', 'text', array(
+                'disabled' => true,
+            ])
+            ->add('last_name', 'text', [
                 'required' => false,
-                'disabled' => true
-            ))
-            ->add('birth_date', 'date', array(
+                'disabled' => true,
+            ])
+            ->add('birth_date', 'date', [
                     'widget' => 'single_text',
                     'format' => 'MM-dd-yyyy',
                     'required' => true,
                     'disabled' => true,
-                    'attr' => array('class' => 'jq-date input-small')
-                ))
-            ->add('citizenship', 'choice', array(
-                'choices' => array(
+                    'attr' => ['class' => 'jq-date input-small'],
+                ])
+            ->add('citizenship', 'choice', [
+                'choices' => [
                     1 => 'Yes',
-                    0 => 'No'
-                ),
+                    0 => 'No',
+                ],
                 'expanded' => true,
                 'multiple' => false,
                 'required' => false,
-                'property_path' => false,
+                // 'property_path' => '',
                 'data' => $isExist ? 1 : null,
-                'label' => ($data && $data->getMaritalStatus() == 'Married' ? 'Are you and your spouse both U.S. citizens?' : 'Are you a U.S. citizen?'),
-                'disabled' => true
-            ))
-            ->add('marital_status', 'choice', array(
+                'label' => ($data && $data->getMaritalStatus() === 'Married' ? 'Are you and your spouse both U.S. citizens?' : 'Are you a U.S. citizen?'),
+                'disabled' => true,
+            ])
+            ->add('marital_status', 'choice', [
                 'choices' => Profile::getMaritalStatusChoices(),
-                'empty_value' => 'Choose an Option',
-                'required' => false
-            ))
-            ->add('phone_number', 'text', array('required' => false))
+                'placeholder' => 'Choose an Option',
+                'required' => false,
+            ])
+            ->add('phone_number', 'text', ['required' => false])
             ->add('spouse', new ClientSpouseFormType())
-            ->add('annual_income', 'choice', array(
+            ->add('annual_income', 'choice', [
                 'choices' => Profile::getAnnualIncomeChoices(),
-                'empty_value' => 'Choose an Option',
-                'required' => false
-            ))
-            ->add('estimated_income_tax', 'percent', array(
+                'placeholder' => 'Choose an Option',
+                'required' => false,
+            ])
+            ->add('estimated_income_tax', 'percent', [
                 'precision' => 0,
                 'required' => false,
-                'label' => 'What is your estimated income tax bracket?'
-            ))
-            ->add('liquid_net_worth', 'choice', array(
+                'label' => 'What is your estimated income tax bracket?',
+            ])
+            ->add('liquid_net_worth', 'choice', [
                 'choices' => Profile::getLiquidNetWorthChoices(),
-                'empty_value' => 'Choose an Option',
-                'required' => false
-            ))
+                'placeholder' => 'Choose an Option',
+                'required' => false,
+            ])
         ;
 
         $formFactory = $builder->getFormFactory();
 
-        $builder->addEventListener(FormEvents::PRE_BIND, function(FormEvent $event) use ($formFactory){
+        $builder->addEventListener(FormEvents::PRE_SUBMIT, function (FormEvent $event) use ($formFactory) {
             $form = $event->getForm();
             $data = $event->getData();
 
@@ -121,24 +121,25 @@ class ClientChangeProfileTransferPersonalFormType extends AccountOwnerPersonalIn
                     'citizenship',
                     'choice',
                     null,
-                    array(
-                        'choices' => array(
+                    [
+                        'choices' => [
                             1 => 'Yes',
-                            0 => 'No'
-                        ),
+                            0 => 'No',
+                        ],
                         'expanded' => true,
                         'multiple' => false,
                         'required' => false,
-                        'property_path' => false,
+                        // 'property_path' => '',
                         'data' => (isset($data['id']) ? 1 : null),
-                        'label' => ($data['marital_status'] == 'Married' ? 'Are you and your spouse both U.S. citizens?' : 'Are you a U.S. citizen?'),
-                        'disabled' => true
-                    )
-                ));
+                        'label' => ($data['marital_status'] === 'Married' ? 'Are you and your spouse both U.S. citizens?' : 'Are you a U.S. citizen?'),
+                        'disabled' => true,
+                        'auto_initialize' => false,
+                    ])
+                );
             }
         });
 
-        $builder->addEventListener(FormEvents::BIND, array($this, 'changeProfileValidate'));
+        $builder->addEventListener(FormEvents::SUBMIT, [$this, 'changeProfileValidate']);
     }
 
     public function changeProfileValidate(FormEvent $event)
@@ -153,22 +154,22 @@ class ClientChangeProfileTransferPersonalFormType extends AccountOwnerPersonalIn
         }
 
         $phoneDigits = 10;
-        $phoneNum = str_replace(array(' ', '-', '(', ')'), '', $data->getPhoneNumber());
+        $phoneNum = str_replace([' ', '-', '(', ')'], '', $data->getPhoneNumber());
 
         if ($form->has('phone_number') && !is_numeric($phoneNum)) {
-            $form->get('phone_number')->addError(new FormError("Enter correct phone number."));
-        } elseif ($form->has('phone_number') && strlen($phoneNum) != $phoneDigits) {
+            $form->get('phone_number')->addError(new FormError('Enter correct phone number.'));
+        } elseif ($form->has('phone_number') && strlen($phoneNum) !== $phoneDigits) {
             $form->get('phone_number')->addError(new FormError("Phone number must be {$phoneDigits} digits."));
         }
 
         if ($form->has('email')) {
             if (!filter_var($data->getEmail(), FILTER_VALIDATE_EMAIL)) {
-                $form->get('email')->addError(new FormError("Invalid email address."));
+                $form->get('email')->addError(new FormError('Invalid email address.'));
             }
 
-            $exist = $this->em->getRepository('WealthbotUserBundle:User')->findOneBy(array('email' => $data->getEmail()));
-            if ($exist && $exist->getId() != $data->getId()) {
-                $form->get('email')->addError(new FormError("Email address already exist."));
+            $exist = $this->em->getRepository('WealthbotUserBundle:User')->findOneBy(['email' => $data->getEmail()]);
+            if ($exist && $exist->getId() !== $data->getId()) {
+                $form->get('email')->addError(new FormError('Email address already exist.'));
             }
         }
     }

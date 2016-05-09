@@ -113,9 +113,14 @@ class CeModelManagerTest extends \PHPUnit_Framework_TestCase
     {
         $model = $this->manager->findCeModelBySlugAndOwnerId('model1', 1);
         $adminModel = $this->manager->findCeModelBySlugAndOwnerId('admin_model_1');
+        if($model){
+            $this->assertSame('Model1', $model->getName());
+        }
 
-        $this->assertSame('Model1', $model->getName());
-        $this->assertSame('Admin model 1', $adminModel->getName());
+        if($adminModel){
+            $this->assertSame('Admin model 1', $adminModel->getName());
+        }
+
     }
 
     public function testGetChildModelsByParentId()

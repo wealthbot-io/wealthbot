@@ -9,13 +9,12 @@
 
 namespace Wealthbot\ClientBundle\Form\Type;
 
-
-use Wealthbot\ClientBundle\Entity\Beneficiary;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
+use Wealthbot\ClientBundle\Entity\Beneficiary;
 
 class BeneficiariesCollectionFormType extends AbstractType
 {
@@ -30,20 +29,20 @@ class BeneficiariesCollectionFormType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('beneficiaries', 'collection', array(
+        $builder->add('beneficiaries', 'collection', [
             'label' => '',
             'type' => new BeneficiaryFormType($this->isPreSaved, $this->showSsn),
             'allow_add' => true,
             'allow_delete' => true,
             'prototype' => true,
             'by_reference' => false,
-            'property_path' => false,
-        ));
+            // 'property_path' => '',
+        ]);
 
-        $builder->addEventListener(FormEvents::BIND, array($this, 'onBind'));
+        $builder->addEventListener(FormEvents::SUBMIT, [$this, 'onSubmit']);
     }
 
-    public function onBind(FormEvent $event)
+    public function onSubmit(FormEvent $event)
     {
         $form = $event->getForm();
         $beneficiaries = $form->get('beneficiaries')->getData();
@@ -54,25 +53,24 @@ class BeneficiariesCollectionFormType extends AbstractType
         /** @var Beneficiary $beneficiary */
         foreach ($beneficiaries as $beneficiary) {
             if ($beneficiary->isPrimary()) {
-                $primaryCount++;
+                ++$primaryCount;
                 $primaryShare += round($beneficiary->getShare(), 2);
-
             } elseif ($beneficiary->isContingent()) {
-                $contingentCount++;
+                ++$contingentCount;
                 $contingentShare += round($beneficiary->getShare(), 2);
             }
         }
 
-        if ($primaryCount > 0 && $primaryShare != 100) {
+        if ($primaryCount > 0 && $primaryShare !== 100) {
             $form->addError(new FormError('Beneficiary share must add up to 100% for the primary beneficiary.'));
         }
 
-        if ($contingentCount > 0 && $contingentShare != 100) {
+        if ($contingentCount > 0 && $contingentShare !== 100) {
             $form->addError(new FormError('Beneficiary share must add up to 100% for the contingent beneficiary.'));
         }
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'beneficiaries_collection';
     }

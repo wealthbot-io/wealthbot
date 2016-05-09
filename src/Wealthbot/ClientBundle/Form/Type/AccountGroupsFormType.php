@@ -9,18 +9,16 @@
 
 namespace Wealthbot\ClientBundle\Form\Type;
 
-
-use Wealthbot\ClientBundle\Entity\AccountGroup;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Wealthbot\UserBundle\Entity\User;
-use Wealthbot\ClientBundle\Entity\ClientAccount;
-use Symfony\Component\Form\FormEvents;
-use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormError;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
+use Wealthbot\ClientBundle\Entity\AccountGroup;
+use Wealthbot\UserBundle\Entity\User;
 
-class AccountGroupsFormType extends AbstractType {
-
+class AccountGroupsFormType extends AbstractType
+{
     private $client;
 
     public function __construct(User $client)
@@ -37,13 +35,13 @@ class AccountGroupsFormType extends AbstractType {
             unset($choices[AccountGroup::GROUP_EMPLOYER_RETIREMENT]);
         }
 
-        $builder->add('groups', 'choice', array(
+        $builder->add('groups', 'choice', [
             'choices' => $choices,
             'multiple' => false,
-            'expanded' => true
-        ));
+            'expanded' => true,
+        ]);
 
-        $builder->addEventListener(FormEvents::BIND, function(FormEvent $event) use ($choices) {
+        $builder->addEventListener(FormEvents::SUBMIT, function (FormEvent $event) use ($choices) {
             $form = $event->getForm();
             $types = $form->get('groups')->getData();
 
@@ -51,7 +49,7 @@ class AccountGroupsFormType extends AbstractType {
                 $form->get('groups')->addError(new FormError('Select value.'));
             }
 
-            if(is_array($types)){
+            if (is_array($types)) {
                 foreach ($types as $type) {
                     if (!in_array($type, $choices)) {
                         $form->get('groups')->addError(new FormError('Invalid value.'));
@@ -71,7 +69,7 @@ class AccountGroupsFormType extends AbstractType {
      *
      * @return string The name of this type
      */
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'client_account_types';
     }

@@ -431,7 +431,7 @@ class ProfileController extends AclController
         $group = $request->get('group');
 
         if (!is_array($groups) || !count($group)) {
-            $this->get('session')->setFlash('error', 'Choose types of accounts will we be managing for you.');
+            $this->get('session')->getFlashBag()->add('error', 'Choose types of accounts will we be managing for you.');
 
             return $this->redirect($this->generateUrl('rx_client_profile_step_three'));
         }
@@ -745,7 +745,7 @@ class ProfileController extends AclController
                 return $this->getJsonResponse(['status' => 'error', 'message' => $message]);
             }
 
-            $this->container->get('session')->setFlash('error', $message);
+            $this->container->get('session')->getFlashBag()->add('error', $message);
 
             return $this->redirect($this->generateUrl('rx_client_profile_step_three'));
         }
@@ -763,7 +763,7 @@ class ProfileController extends AclController
             ]);
         }
 
-        $this->container->get('session')->setFlash('success', $message);
+        $this->container->get('session')->getFlashBag()->add('success', $message);
 
         return $this->redirect($this->generateUrl('rx_client_profile_step_three'));
     }

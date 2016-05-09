@@ -9,14 +9,14 @@
 
 namespace Wealthbot\ClientBundle\Form\Type;
 
-use Wealthbot\ClientBundle\Entity\ClientAdditionalContact;
-use Wealthbot\ClientBundle\Form\Validator\ClientSpouseFormValidator;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use Symfony\Component\Form\FormError;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Wealthbot\ClientBundle\Entity\ClientAdditionalContact;
+use Wealthbot\ClientBundle\Form\Validator\ClientSpouseFormValidator;
 use Wealthbot\UserBundle\Entity\Profile;
 
 class ClientProfileFormType extends AbstractType
@@ -38,88 +38,88 @@ class ClientProfileFormType extends AbstractType
         $isExist = $data->getId();
 
         $builder
-            ->add('first_name', 'text', array(
-                'required' => false
-            ))
-            ->add('middle_name', 'text', array(
-                'required' => false
-            ))
-            ->add('last_name', 'text', array(
-                'required' => false
-            ))
-            ->add('street', 'text', array('required' => false))
-            ->add('city', 'text', array('required' => false))
-            ->add('state', 'entity', array(
-                'class' => 'WealthbotAdminBundle:State',
+            ->add('first_name', 'text', [
+                'required' => false,
+            ])
+            ->add('middle_name', 'text', [
+                'required' => false,
+            ])
+            ->add('last_name', 'text', [
+                'required' => false,
+            ])
+            ->add('street', 'text', ['required' => false])
+            ->add('city', 'text', ['required' => false])
+            ->add('state', 'entity', [
+                'class' => 'Wealthbot\\AdminBundle\\Entity\\State',
                 'label' => 'State',
-                'empty_value' => 'Select a State',
-                'required' => true
-            ))
-            ->add('zip', 'text', array('required' => false))
-            ->add('is_different_address', 'checkbox', array(
+                'placeholder' => 'Select a State',
+                'required' => true,
+            ])
+            ->add('zip', 'text', ['required' => false])
+            ->add('is_different_address', 'checkbox', [
                 'label' => 'Is your mailing address different than the one above?',
-                'required' => false
-            ))
-            ->add('mailing_street', 'text', array('required' => false))
-            ->add('mailing_city', 'text', array('required' => false))
-            ->add('mailingState', 'entity', array(
-                'class' => 'WealthbotAdminBundle:State',
+                'required' => false,
+            ])
+            ->add('mailing_street', 'text', ['required' => false])
+            ->add('mailing_city', 'text', ['required' => false])
+            ->add('mailingState', 'entity', [
+                'class' => 'Wealthbot\\AdminBundle\\Entity\\State',
                 'label' => 'Mailing state',
-                'empty_value' => 'Select a State',
-                'required' => false
-            ))
-            ->add('mailing_zip', 'text', array('required' => false))
-            ->add('birth_date', 'date', array(
+                'placeholder' => 'Select a State',
+                'required' => false,
+            ])
+            ->add('mailing_zip', 'text', ['required' => false])
+            ->add('birth_date', 'date', [
                 'widget' => 'single_text',
                 'format' => 'MM-dd-yyyy',
                 'required' => true,
-                'attr' => array('class' => 'jq-date input-small')
-            ))
-            ->add('phone_number', 'text', array('required' => false))
-            ->add('citizenship', 'choice', array(
-                'choices' => array(
+                'attr' => ['class' => 'jq-date input-small'],
+            ])
+            ->add('phone_number', 'text', ['required' => false])
+            ->add('citizenship', 'choice', [
+                'choices' => [
                     1 => 'Yes',
-                    0 => 'No'
-                ),
+                    0 => 'No',
+                ],
                 'expanded' => true,
                 'multiple' => false,
                 'required' => false,
-                'property_path' => false,
+                // 'property_path' => '',
                 'data' => $isExist ? 1 : null,
-                'label' => ($data && $data->getMaritalStatus() == 'Married' ? 'Are you and your spouse both U.S. citizens?' : 'Are you a U.S. citizen?')
-            ))
-            ->add('marital_status', 'choice', array(
+                'label' => ($data && $data->getMaritalStatus() === 'Married' ? 'Are you and your spouse both U.S. citizens?' : 'Are you a U.S. citizen?'),
+            ])
+            ->add('marital_status', 'choice', [
                 'choices' => Profile::getMaritalStatusChoices(),
-                'empty_value' => 'Choose an Option',
-                'required' => false
-            ))
-            ->add('spouse', new ClientSpouseFormType(), array(
-                'property_path' => 'user.spouse'
-            ))
-            ->add('annual_income', 'choice', array(
+                'placeholder' => 'Choose an Option',
+                'required' => false,
+            ])
+            ->add('spouse', new ClientSpouseFormType(), [
+                'property_path' => 'user.spouse',
+            ])
+            ->add('annual_income', 'choice', [
                 'choices' => Profile::getAnnualIncomeChoices(),
-                'empty_value' => 'Choose an Option',
-                'required' => false
-            ))
-            ->add('estimated_income_tax', 'percent', array(
+                'placeholder' => 'Choose an Option',
+                'required' => false,
+            ])
+            ->add('estimated_income_tax', 'percent', [
                 'precision' => 0,
                 'required' => false,
-                'label' => 'What is your estimated income tax bracket?'
-            ))
-            ->add('liquid_net_worth', 'choice', array(
+                'label' => 'What is your estimated income tax bracket?',
+            ])
+            ->add('liquid_net_worth', 'choice', [
                 'choices' => Profile::getLiquidNetWorthChoices(),
-                'empty_value' => 'Choose an Option',
-                'required' => false
-            ))
-            ->add('employment_type', 'choice', array(
+                'placeholder' => 'Choose an Option',
+                'required' => false,
+            ])
+            ->add('employment_type', 'choice', [
                 'choices' => Profile::getEmploymentTypeChoices(),
                 'expanded' => true,
                 'multiple' => false,
-                'required' => true
-            ))
+                'required' => true,
+            ])
         ;
 
-        $builder->addEventListener(FormEvents::PRE_BIND, function(FormEvent $event) use ($formFactory){
+        $builder->addEventListener(FormEvents::PRE_SUBMIT, function (FormEvent $event) use ($formFactory) {
             $form = $event->getForm();
             $data = $event->getData();
 
@@ -133,29 +133,28 @@ class ClientProfileFormType extends AbstractType
                     'citizenship',
                     'choice',
                     null,
-                    array(
-                        'choices' => array(
+                    [
+                        'choices' => [
                             1 => 'Yes',
-                            0 => 'No'
-                        ),
+                            0 => 'No',
+                        ],
                         'expanded' => true,
                         'multiple' => false,
                         'required' => false,
-                        'property_path' => false,
+                        'auto_initialize' => false,
                         'data' => (isset($data['id']) ? 1 : null),
-                        'label' => ($data['marital_status'] == 'Married' ? 'Are you and your spouse both U.S. citizens?' : 'Are you a U.S. citizen?')
-                    )
-                ));
+                        'label' => ($data['marital_status'] === 'Married' ? 'Are you and your spouse both U.S. citizens?' : 'Are you a U.S. citizen?'),
+                    ])
+                );
             }
         });
 
         if (!$this->isPreSave) {
-            $builder->addEventListener(FormEvents::BIND, array($this, 'validate'));
+            $builder->addEventListener(FormEvents::SUBMIT, [$this, 'validate']);
         }
 
-        $builder->addEventListener(FormEvents::BIND, array($this, 'validatePreSave'));
+        $builder->addEventListener(FormEvents::SUBMIT, [$this, 'validatePreSave']);
     }
-
 
     public function validate(FormEvent $event)
     {
@@ -189,15 +188,14 @@ class ClientProfileFormType extends AbstractType
         if ($form->has('annual_income') && !in_array($data->getAnnualIncome(), Profile::getAnnualIncomeChoices())) {
             $form->get('annual_income')->addError(new FormError('Required.'));
         }
-        if ($form->has('liquid_net_worth') && !in_array($data->getLiquidNetWorth(), array_keys(Profile::getLiquidNetWorthChoices())) ) {
+        if ($form->has('liquid_net_worth') && !in_array($data->getLiquidNetWorth(), array_keys(Profile::getLiquidNetWorthChoices()))) {
             $form->get('liquid_net_worth')->addError(new FormError('Required.'));
         }
-        if ($form->has('employment_type') && !in_array($data->getEmploymentType(), array_keys(Profile::getEmploymentTypeChoices())) ) {
+        if ($form->has('employment_type') && !in_array($data->getEmploymentType(), array_keys(Profile::getEmploymentTypeChoices()))) {
             $form->get('employment_type')->addError(new FormError('Required.'));
         }
 
         if ($form->has('birth_date')) {
-
             $birthDateData = $form->get('birth_date')->getData();
 
             if ($birthDateData && $birthDateData instanceof \DateTime) {
@@ -214,7 +212,7 @@ class ClientProfileFormType extends AbstractType
         if ($form->has('spouse') && $data->getMaritalStatus() === Profile::CLIENT_MARITAL_STATUS_MARRIED) {
             /** @var ClientAdditionalContact $spouse */
             $spouse = $form->get('spouse')->getData();
-            $phoneNum = str_replace(array(' ', '-', '(', ')'), '', $data->getPhoneNumber());
+            $phoneNum = str_replace([' ', '-', '(', ')'], '', $data->getPhoneNumber());
 
             $spouseValidator = new ClientSpouseFormValidator($form->get('spouse'), $data->getUser()->getSpouse());
             $spouseValidator->validate();
@@ -247,24 +245,24 @@ class ClientProfileFormType extends AbstractType
         $zipDigits = 5;
         $nowDate = new \DateTime('now');
 
-        $phoneNum = str_replace(array(' ', '-', '(', ')'), '', $clientProfile->getPhoneNumber());
-        $zip = str_replace(array(' ', '-'), '', $clientProfile->getZip());
-        $mailingZip = str_replace(array(' ', '-'), '', $clientProfile->getMailingZip());
+        $phoneNum = str_replace([' ', '-', '(', ')'], '', $clientProfile->getPhoneNumber());
+        $zip = str_replace([' ', '-'], '', $clientProfile->getZip());
+        $mailingZip = str_replace([' ', '-'], '', $clientProfile->getMailingZip());
 
         if (!$isPreSave) {
-            if ($citizenship && (is_null($citizenship->getData()) || (int) $citizenship->getData() == 0)) {
+            if ($citizenship && (is_null($citizenship->getData()) || (int) $citizenship->getData() === 0)) {
                 $citizenship->addError(new FormError('You must be US citizen or resident.'));
             }
 
             if ($form->has('phone_number') && !is_numeric($phoneNum)) {
-                $form->get('phone_number')->addError(new FormError("Enter correct phone number."));
-            } elseif ($form->has('phone_number') && strlen($phoneNum) != $phoneDigits) {
+                $form->get('phone_number')->addError(new FormError('Enter correct phone number.'));
+            } elseif ($form->has('phone_number') && strlen($phoneNum) !== $phoneDigits) {
                 $form->get('phone_number')->addError(new FormError("Phone number must be {$phoneDigits} digits."));
             }
 
             if ($form->has('zip') && !is_numeric($zip)) {
-                $form->get('zip')->addError(new FormError("Enter correct zip code."));
-            } elseif ($form->has('zip') && strlen($zip) != $zipDigits) {
+                $form->get('zip')->addError(new FormError('Enter correct zip code.'));
+            } elseif ($form->has('zip') && strlen($zip) !== $zipDigits) {
                 $form->get('zip')->addError(new FormError("Zip code must be {$zipDigits} digits."));
             } elseif ($form->has('zip')) {
                 $clientProfile->setZip($zip);
@@ -272,8 +270,8 @@ class ClientProfileFormType extends AbstractType
 
             if ($mailingZip) {
                 if ($form->has('mailing_zip') && !is_numeric($mailingZip)) {
-                    $form->get('mailing_zip')->addError(new FormError("Enter correct zip code."));
-                } elseif ($form->has('mailing_zip') && strlen($zip) != $zipDigits) {
+                    $form->get('mailing_zip')->addError(new FormError('Enter correct zip code.'));
+                } elseif ($form->has('mailing_zip') && strlen($zip) !== $zipDigits) {
                     $form->get('mailing_zip')->addError(new FormError("Zip code must be {$zipDigits} digits."));
                 } elseif ($form->has('mailing_zip')) {
                     $clientProfile->setMailingZip($zip);
@@ -301,16 +299,15 @@ class ClientProfileFormType extends AbstractType
         $clientProfile->setPhoneNumber($phoneNum);
     }
 
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
+        $resolver->setDefaults([
             'data_class' => 'Wealthbot\UserBundle\Entity\Profile',
-        ));
+        ]);
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'wealthbot_client_bundle_profile_type';
     }
-
 }

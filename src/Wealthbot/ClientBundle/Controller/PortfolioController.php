@@ -114,7 +114,7 @@ class PortfolioController extends AclController
         try {
             $clientPortfolioManager->acceptApprovedPortfolio($client);
         } catch (\RuntimeException $e) {
-            $this->get('session')->setFlash('error', 'Portfolio does not exist.');
+            $this->get('session')->getFlashBag()->add('error', 'Portfolio does not exist.');
 
             return $this->redirect($this->generateUrl('rx_user_homepage'));
         }

@@ -1,4 +1,4 @@
-set :stages, %w(jenkins prod staging)
+set :stages, %w(upgrade)
 set :stage_dir,     "./app/config/deploy"
 require 'capistrano/ext/multistage'
 

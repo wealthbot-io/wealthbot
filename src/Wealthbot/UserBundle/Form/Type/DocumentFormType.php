@@ -18,10 +18,10 @@ class DocumentFormType extends AbstractType
             ->add('file', 'file')
             ->add('type', 'hidden');
 
-        $builder->addEventListener(FormEvents::SUBMIT, [$this, 'onBind']);
+        $builder->addEventListener(FormEvents::SUBMIT, [$this, 'onSubmit']);
     }
 
-    public function onBind(FormEvent $event)
+    public function onSubmit(FormEvent $event)
     {
         $form = $event->getForm();
         $data = $event->getData();

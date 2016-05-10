@@ -381,7 +381,11 @@ mongodb:
         port: '27017'
     globals:
         version: 2.6.0
-    databases: {  }
+    databases:
+        mongodbnuad_louvsfvja7ij:
+            name: wealthbot
+            user: webo
+            password: password
 redis:
     install: '1'
     settings:

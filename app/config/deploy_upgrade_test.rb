@@ -22,7 +22,7 @@ default_run_options[:pty] = true
 
 set :model_manager, "doctrine"
 set  :keep_releases,  2
-set :deploy_via, :remote_cache
+set :deploy_via, :copy
 set :use_composer, true
 #set :update_vendors, true
 

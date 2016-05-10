@@ -19,7 +19,7 @@ describe 'apache::mod::peruser', :type => :class do
     end
     it do
       expect {
-        should compile
+        catalogue
       }.to raise_error(Puppet::Error, /Unsupported osfamily FreeBSD/)
     end
   end

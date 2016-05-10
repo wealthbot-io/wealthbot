@@ -3,12 +3,12 @@
 # This class installs the official ceph repo
 #
 class yum::repo::ceph (
-  $release = 'emperor'
+  $release = 'emperor',
 ) {
 
   yum::managed_yumrepo { 'ceph':
     descr          => "Ceph ${release} repository",
-    baseurl        => "http://ceph.com/rpm-${release}/\$releasever/\$basearch",
+    baseurl        => "http://ceph.com/rpm-${release}/el\$releasever/\$basearch",
     enabled        => 1,
     gpgcheck       => 1,
     failovermethod => 'priority',

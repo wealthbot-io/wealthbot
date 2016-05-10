@@ -8,8 +8,12 @@ class puphpet::phpmyadmin(
 
   if $::osfamily == 'debian' {
     if $::operatingsystem == 'ubuntu' {
-      apt::key { '80E7349A06ED541C': key_server => 'hkp://keyserver.ubuntu.com:80' }
-      apt::ppa { 'ppa:nijel/phpmyadmin': require => Apt::Key['80E7349A06ED541C'] }
+      apt::key { 'AD829E29A018BAF8C3842FB080E7349A06ED541C':
+        server => 'hkp://keyserver.ubuntu.com:80'
+      }
+      apt::ppa { 'ppa:nijel/phpmyadmin':
+        require => Apt::Key['AD829E29A018BAF8C3842FB080E7349A06ED541C']
+      }
     }
 
     $phpMyAdmin_package = 'phpmyadmin'

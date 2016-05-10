@@ -26,7 +26,7 @@
   SSLProxyEngine On
   <%- end -%>
   <%- if @ssl_protocol -%>
-  SSLProtocol             <%= @ssl_protocol %>
+  SSLProtocol             <%= [@ssl_protocol].flatten.compact.join(' ') %>
   <%- end -%>
   <%- if @ssl_cipher -%>
   SSLCipherSuite          <%= @ssl_cipher %>
@@ -40,7 +40,13 @@
   <%- if @ssl_verify_depth -%>
   SSLVerifyDepth          <%= @ssl_verify_depth %>
   <%- end -%>
+  <%- if @ssl_proxy_machine_cert -%>
+  SSLProxyMachineCertificateFile "<%= @ssl_proxy_machine_cert %>"
+  <%- end -%>
   <%- if @ssl_options -%>
   SSLOptions <%= Array(@ssl_options).join(' ') %>
+  <%- end -%>
+  <%- if @ssl_openssl_conf_cmd -%>
+  SSLOpenSSLConfCmd       <%= @ssl_openssl_conf_cmd %>
   <%- end -%>
 <% end -%>

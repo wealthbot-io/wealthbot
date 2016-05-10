@@ -38,7 +38,6 @@ class mongodb (
   $enable_10gen    = undef,
 
   $init            = $mongodb::params::service_provider,
-  $location        = '',
   $packagename     = undef,
   $version         = undef,
   $servicename     = $mongodb::params::service_name,
@@ -46,7 +45,7 @@ class mongodb (
   $logpath         = $mongodb::params::logpath,
   $logappend       = true,
   $fork            = $mongodb::params::fork,
-  $port            = 27017,
+  $port            = undef,
   $dbpath          = $mongodb::params::dbpath,
   $journal         = undef,
   $nojournal       = undef,
@@ -72,10 +71,15 @@ class mongodb (
   $only            = undef,
   $master          = undef,
   $source          = undef,
+  $configsvr       = undef,
+  $shardsvr        = undef,
   $replset         = undef,
   $rest            = undef,
+  $quiet           = undef,
   $slowms          = undef,
   $keyfile         = undef,
+  $key             = undef,
+  $ipv6            = undef,
   $bind_ip         = undef,
   $pidfilepath     = undef
 ) inherits mongodb::params {
@@ -96,7 +100,7 @@ class mongodb (
     settings to mongodb::server. Please verify this works in a safe test
     environment.': }
 
-  class { 'mongodb::server':
+  class { '::mongodb::server':
     package_name    => $packagename,
     logpath         => $logpath,
     logappend       => $logappend,
@@ -125,10 +129,15 @@ class mongodb (
     only            => $only,
     master          => $master,
     source          => $source,
+    configsvr       => $configsvr,
+    shardsvr        => $shardsvr,
     replset         => $replset,
     rest            => $rest,
+    quiet           => $quiet,
     slowms          => $slowms,
     keyfile         => $keyfile,
+    key             => $key,
+    ipv6            => $ipv6,
     bind_ip         => $bind_ip,
     pidfilepath     => $pidfilepath,
   }

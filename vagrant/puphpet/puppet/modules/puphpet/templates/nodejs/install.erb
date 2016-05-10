@@ -8,7 +8,7 @@ else
     FILENAME='linux-x64.tar.gz'
 fi
 
-LATEST_NODE=$(curl 'http://nodejs.org/dist/latest/SHASUMS.txt' | grep "${FILENAME}" | awk '{ print $2 }')
+LATEST_NODE=$(curl 'http://nodejs.org/dist/latest/SHASUMS256.txt' | grep "${FILENAME}" | awk '{ print $2 }')
 wget --quiet --tries=5 --connect-timeout=10 --no-check-certificate -O '/.puphpet-stuff/nodestable.tar.gz' "http://nodejs.org/dist/latest/${LATEST_NODE}"
 
 cd '/usr/local/'

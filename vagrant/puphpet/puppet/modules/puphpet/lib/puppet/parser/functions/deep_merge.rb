@@ -1,4 +1,4 @@
-require 'active_support'
+require 'deep_merge'
 
 module Puppet::Parser::Functions
   newfunction(:deep_merge, :type => :rvalue, :doc => <<-'ENDHEREDOC') do |args|
@@ -12,7 +12,7 @@ module Puppet::Parser::Functions
     hashA = args[0]
     hashB = args[1]
 
-    return hashA.deep_merge(hashB)
+    return hashA.deep_merge!(hashB)
   end
 
 end

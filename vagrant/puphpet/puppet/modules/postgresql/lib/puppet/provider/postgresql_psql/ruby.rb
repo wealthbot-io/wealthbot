@@ -14,7 +14,7 @@ Puppet::Type.type(:postgresql_psql).provide(:ruby) do
     command = [resource[:psql_path]]
     command.push("-d", resource[:db]) if resource[:db]
     command.push("-p", resource[:port]) if resource[:port]
-    command.push("-t", "-c", sql)
+    command.push("-t", "-c", '"' + sql.gsub('"', '\"') + '"')
 
     if resource[:cwd]
       Dir.chdir resource[:cwd] do
@@ -27,9 +27,38 @@ Puppet::Type.type(:postgresql_psql).provide(:ruby) do
 
   private
 
+  def get_environment
+    environment = {}
+    if envlist = resource[:environment]
+      envlist = [envlist] unless envlist.is_a? Array
+      envlist.each do |setting|
+        if setting =~ /^(\w+)=((.|\n)+)$/
+          env_name = $1
+          value = $2
+          if environment.include?(env_name) || environment.include?(env_name.to_sym)
+            warning "Overriding environment setting '#{env_name}' with '#{value}'"
+          end
+          environment[env_name] = value
+        else
+          warning "Cannot understand environment setting #{setting.inspect}"
+        end
+      end
+    end
+    return environment
+  end
+
   def run_command(command, user, group)
-    if Puppet::PUPPETVERSION.to_f < 3.4
-      Puppet::Util::SUIDManager.run_and_capture(command, user, group)
+    command = command.join ' '
+    environment = get_environment
+    if Puppet::PUPPETVERSION.to_f < 3.0
+      require 'puppet/util/execution'
+      Puppet::Util::Execution.withenv environment do
+        Puppet::Util::SUIDManager.run_and_capture(command, user, group)
+      end
+    elsif Puppet::PUPPETVERSION.to_f < 3.4
+      Puppet::Util.withenv environment do
+        Puppet::Util::SUIDManager.run_and_capture(command, user, group)
+      end
     else
       output = Puppet::Util::Execution.execute(command, {
         :uid                => user,
@@ -37,7 +66,7 @@ Puppet::Type.type(:postgresql_psql).provide(:ruby) do
         :failonfail         => false,
         :combine            => true,
         :override_locale    => true,
-        :custom_environment => {}
+        :custom_environment => environment
       })
       [output, $CHILD_STATUS.dup]
     end

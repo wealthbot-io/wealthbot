@@ -1,28 +1,20 @@
-#! /usr/bin/env ruby -S rspec
 require 'spec_helper'
 
-describe "the chop function" do
-  let(:scope) { PuppetlabsSpec::PuppetInternals.scope }
+describe 'chop' do
+  it { is_expected.not_to eq(nil) }
+  it { is_expected.to run.with_params().and_raise_error(Puppet::ParseError) }
+  it { is_expected.to run.with_params(1).and_raise_error(Puppet::ParseError) }
+  it {
+    pending("Current implementation ignores parameters after the first.")
+    is_expected.to run.with_params("a", "b").and_raise_error(Puppet::ParseError)
+  }
+  it { is_expected.to run.with_params("one").and_return("on") }
+  it { is_expected.to run.with_params("one\n").and_return("one") }
+  it { is_expected.to run.with_params("one\n\n").and_return("one\n") }
+  it { is_expected.to run.with_params(["one\n", "two", "three\n"]).and_return(["one", "tw", "three"]) }
 
-  it "should exist" do
-    expect(Puppet::Parser::Functions.function("chop")).to eq("function_chop")
-  end
-
-  it "should raise a ParseError if there is less than 1 arguments" do
-    expect { scope.function_chop([]) }.to( raise_error(Puppet::ParseError))
-  end
-
-  it "should chop the end of a string" do
-    result = scope.function_chop(["asdf\n"])
-    expect(result).to(eq("asdf"))
-  end
-
-  it "should accept objects which extend String" do
-    class AlsoString < String
-    end
-
-    value = AlsoString.new("abc\n")
-    result = scope.function_chop([value])
-    result.should(eq('abc'))
-  end
+  it { is_expected.to run.with_params(AlsoString.new("one")).and_return("on") }
+  it { is_expected.to run.with_params(AlsoString.new("one\n")).and_return("one") }
+  it { is_expected.to run.with_params(AlsoString.new("one\n\n")).and_return("one\n") }
+  it { is_expected.to run.with_params([AlsoString.new("one\n"), AlsoString.new("two"), "three\n"]).and_return(["one", "tw", "three"]) }
 end

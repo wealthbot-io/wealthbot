@@ -4,6 +4,9 @@ puppet-beanstalkd
 
 puppet module for managing beanstalkd, a simple and fast work queue - https://github.com/kr/beanstalkd
 
+## Maintainer status
+
+Currently looking for new maintainers (or someone to take this over entirely) - I hate abandonware, but I dont have the time to keep it up (since it's stretching into years since I worked with puppet).  
 
 ## Supported OSes
 

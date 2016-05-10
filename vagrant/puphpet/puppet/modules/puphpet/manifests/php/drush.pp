@@ -22,6 +22,7 @@ class puphpet::php::drush(
     composer::exec { 'drush':
       cmd     => 'install',
       cwd     => $drush_location,
+      dev     => false,
       require => Vcsrepo[$drush_location],
     } ->
     exec { 'first drush run':

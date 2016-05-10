@@ -20,7 +20,7 @@ class yum::repo::integ_ganeti (
   if $mirror_url {
     validate_re(
       $mirror_url,
-      '^(?:https?|ftp):\/\/[\da-zA-Z-][\da-zA-Z\.-]*\.[a-zA-Z]{2,6}\.?(?:\/[\w~-]*)*$',
+      '^(?:https?|ftp):\/\/[\da-zA-Z-][\da-zA-Z\.-]*\.[a-zA-Z]{2,6}\.?(?:\:[0-9]{1,5})?(?:\/[\w~-]*)*$',
       '$mirror must be a Clean URL with no query-string, a fully-qualified hostname and no trailing slash.'
     )
   }
@@ -51,19 +51,19 @@ class yum::repo::integ_ganeti (
   }
 
   yum::managed_yumrepo { 'integ-ganeti':
-    descr          => "Integ Ganeti Packages ${osver[0]} - \$basearch",
-    baseurl        => $baseurl_integ_ganeti,
-    enabled        => 1,
-    gpgcheck       => 0,
-    priority       => 15,
+    descr    => "Integ Ganeti Packages ${osver[0]} - \$basearch",
+    baseurl  => $baseurl_integ_ganeti,
+    enabled  => 1,
+    gpgcheck => 0,
+    priority => 15,
   }
 
   yum::managed_yumrepo { 'integ-ganeti-source':
-    descr          => "Integ Ganeti Packages ${osver[0]} - Source",
-    baseurl        => $baseurl_integ_ganeti_source,
-    enabled        => 0,
-    gpgcheck       => 0,
-    priority       => 15,
+    descr    => "Integ Ganeti Packages ${osver[0]} - Source",
+    baseurl  => $baseurl_integ_ganeti_source,
+    enabled  => 0,
+    gpgcheck => 0,
+    priority => 15,
   }
 
 }

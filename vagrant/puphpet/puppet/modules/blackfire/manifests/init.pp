@@ -9,7 +9,7 @@ class blackfire (
 
   validate_string($server_id)
   validate_string($server_token)
-  if !$server_id or !$server_token {
+  if empty($server_id) or empty($server_token) {
     fail 'server_id and server_token are required. Get them on https://blackfire.io/account/agents'
   }
   validate_hash($agent)

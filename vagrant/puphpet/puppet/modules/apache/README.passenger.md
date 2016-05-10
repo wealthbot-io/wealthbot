@@ -13,7 +13,7 @@ Also, general apache module loading parameters can be supplied to enable using
 a customized passenger module in place of a default-package-based version of
 the module.
 
-# Operating system support and Passenger versions
+## Operating system support and Passenger versions
 
 The most important configuration directive for the Apache Passenger module is
 `PassengerRoot`. Its value depends on the Passenger version used (2.x, 3.x or
@@ -35,7 +35,7 @@ RHEL with EPEL6  | 3.0.21             | /usr/lib/ruby/gems/1.8/gems/passenger-3.
 As mentioned in `README.md` there are no compatible packages available for
 RHEL/CentOS 5 or RHEL/CentOS 7.
 
-## Configuration files and locations on RHEL/CentOS
+### Configuration files and locations on RHEL/CentOS
 
 Notice two important points:
 
@@ -55,7 +55,7 @@ directives as described in the remainder of this document are placed in
 
 This pertains *only* to RHEL/CentOS, *not* Debian and Ubuntu.
 
-## Third-party and custom Passenger packages and versions
+### Third-party and custom Passenger packages and versions
 
 The Passenger version distributed by the default OS packages may be too old to
 be useful. Newer versions may be installed via Gems, from source or from
@@ -75,7 +75,7 @@ For Passenger 4.x packages on Debian and Ubuntu the `PassengerRoot` directive
 should almost universally be set to
 `/usr/lib/ruby/vendor_ruby/phusion_passenger/locations.ini`.
 
-# Parameters for `apache::mod::passenger`
+## Parameters for `apache::mod::passenger`
 
 The following class parameters configure Passenger in a global, server-wide
 context.
@@ -95,12 +95,12 @@ class { 'apache::mod::passenger':
 The general form is using the all lower-case version of the configuration
 directive, with underscores instead of CamelCase.
 
-## Parameters used with passenger.conf
+### Parameters used with passenger.conf
 
 If you pass a default value to `apache::mod::passenger` it will be ignored and
 not passed through to the configuration file. 
 
-### passenger_root
+#### passenger_root
 
 The location to the Phusion Passenger root directory. This configuration option
 is essential to Phusion Passenger, and allows Phusion Passenger to locate its
@@ -112,7 +112,7 @@ information.
 
 http://www.modrails.com/documentation/Users%20guide%20Apache.html#_passengerroot_lt_directory_gt
 
-### passenger_default_ruby
+#### passenger_default_ruby
 
 This option specifies the default Ruby interpreter to use for web apps as well
 as for all sorts of internal Phusion Passenger helper scripts, e.g. the one
@@ -126,7 +126,7 @@ set to '/usr/bin/ruby'.
 
 http://www.modrails.com/documentation/Users%20guide%20Apache.html#PassengerDefaultRuby
 
-### passenger_ruby
+#### passenger_ruby
 
 This directive is the same as `passenger_default_ruby` for Passenger versions
 < 4.x and must be used instead of `passenger_default_ruby` for such versions.
@@ -141,28 +141,28 @@ Defaults to `/usr/bin/ruby` for all supported operating systems except Ubuntu
 
 http://www.modrails.com/documentation/Users%20guide%20Apache.html#PassengerRuby
 
-### passenger_high_performance
+#### passenger_high_performance
 
 Default is `off`. When turned `on` Passenger runs in a higher performance mode
 that can be less compatible with other Apache modules.
 
 http://www.modrails.com/documentation/Users%20guide%20Apache.html#PassengerHighPerformance
 
-### passenger_max_pool_size
+#### passenger_max_pool_size
 
 Sets the maximum number of Passenger application processes that may
 simultaneously run. The default value is 6.
 
 http://www.modrails.com/documentation/Users%20guide%20Apache.html#_passengermaxpoolsize_lt_integer_gt
 
-### passenger_pool_idle_time
+#### passenger_pool_idle_time
 
 The maximum number of seconds a Passenger Application process will be allowed
 to remain idle before being shut down. The default value is 300.
 
 http://www.modrails.com/documentation/Users%20guide%20Apache.html#PassengerPoolIdleTime
 
-### passenger_max_requests
+#### passenger_max_requests
 
 The maximum number of request a Passenger application will process before being
 restarted. The default value is 0, which indicates that a process will only
@@ -170,14 +170,23 @@ shut down if the Pool Idle Time (see above) expires.
 
 http://www.modrails.com/documentation/Users%20guide%20Apache.html#PassengerMaxRequests
 
-### passenger_stat_throttle_rate
+#### passenger_spawn_method
+
+Sets the method by which Ruby application processes are spawned. Default is 'smart',
+which caches code using the app preloader.
+
+Passenger >= 4.0 renamed `conservative` to `direct` and `smart-lv2` to `smart`.
+
+https://www.phusionpassenger.com/documentation/Users%20guide%20Apache.html#PassengerSpawnMethod
+
+#### passenger_stat_throttle_rate
 
 Sets how often Passenger performs file system checks, at most once every _x_
 seconds. Default is 0, which means the checks are performed with every request.
 
 http://www.modrails.com/documentation/Users%20guide%20Apache.html#_passengerstatthrottlerate_lt_integer_gt
 
-### rack_autodetect
+#### rack_autodetect
 
 Should Passenger automatically detect if the document root of a virtual host is
 a Rack application. Not set by default (`undef`). Note that this directive has
@@ -186,7 +195,7 @@ Use this directive only on Passenger < 4.x.
 
 http://www.modrails.com/documentation/Users%20guide%20Apache.html#_rackautodetect_lt_on_off_gt
 
-### rails_autodetect
+#### rails_autodetect
 
 Should Passenger automatically detect if the document root of a virtual host is
 a Rails application.  Not set by default (`undef`). Note that this directive
@@ -195,13 +204,13 @@ instead. Use this directive only on Passenger < 4.x.
 
 http://www.modrails.com/documentation/Users%20guide%20Apache.html#_railsautodetect_lt_on_off_gt
 
-### passenger_use_global_queue
+#### passenger_use_global_queue
 
 Allows toggling of PassengerUseGlobalQueue.  NOTE: PassengerUseGlobalQueue is
 the default in Passenger 4.x and the versions >= 4.x have disabled this
 configuration option altogether.  Use with caution.
 
-### passenger_app_env
+#### passenger_app_env
 
 Sets the global default `PassengerAppEnv` for Passenger applications. Not set by
 default (`undef`) and thus defaults to Passenger's built-in value of 'production'.
@@ -209,43 +218,43 @@ This directive can be overridden in an `apache::vhost` resource.
 
 https://www.phusionpassenger.com/documentation/Users%20guide%20Apache.html#PassengerAppEnv
 
-## Parameters used to load the module
+### Parameters used to load the module
 
 Unlike the tuning parameters specified above, the following parameters are only
 used when loading customized passenger modules.
 
-### mod_package
+#### mod_package
 
 Allows overriding the default package name used for the passenger module
 package.
 
-### mod_package_ensure
+#### mod_package_ensure
 
 Allows overriding the package installation setting used by puppet when
 installing the passenger module. The default is 'present'.
 
-### mod_id
+#### mod_id
 
 Allows overriding the value used by apache to identify the passenger module.
 The default is 'passenger_module'.
 
-### mod_lib_path
+#### mod_lib_path
 
 Allows overriding the directory path used by apache when loading the passenger
 module. The default is the value of `$apache::params::lib_path`.
 
-### mod_lib
+#### mod_lib
 
 Allows overriding the library file name used by apache when loading the
 passenger module. The default is 'mod_passenger.so'.
 
-### mod_path
+#### mod_path
 
 Allows overriding the full path to the library file used by apache when loading
 the passenger module. The default is the concatenation of the `mod_lib_path`
 and `mod_lib` parameters.
 
-# Dependencies
+## Dependencies
 
 RedHat-based systems will need to configure additional package repositories in
 order to install Passenger, specifically:
@@ -256,7 +265,7 @@ order to install Passenger, specifically:
 Configuration of these repositories is beyond the scope of this module and is
 left to the user.
 
-# Attribution
+## Attribution
 
 The Passenger tuning parameters for the `apache::mod::passenger` Puppet class
 was modified by Aaron Hicks (hicksa@landcareresearch.co.nz) for work on the
@@ -268,7 +277,7 @@ PuppetLabs Apache module on GitHub.
 * http://www.nesi.org.nz//
 * https://tuakiri.ac.nz/confluence/display/Tuakiri/Home
 
-# Copyright and License
+## Copyright and License
 
 Copyright (C) 2012 [Puppet Labs](https://www.puppetlabs.com/) Inc
 

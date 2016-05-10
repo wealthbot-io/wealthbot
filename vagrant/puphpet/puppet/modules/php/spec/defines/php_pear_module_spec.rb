@@ -39,7 +39,7 @@ describe 'php::pear::module' do
     it 'should install pear module with exec commands' do
       should contain_exec('pear-Crypt-CHAP').with(
         'command' => 'pear -d preferred_state=stable install  pear.php.net/Crypt-CHAP',
-        'unless'  => 'pear info pear.php.net/Crypt-CHAP'
+        'unless'  => 'pear shell-test pear.php.net/Crypt-CHAP > 0'
       )
     end
   end

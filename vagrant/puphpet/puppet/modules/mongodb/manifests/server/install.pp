@@ -27,8 +27,8 @@ class mongodb::server::install {
   }
 
   package { 'mongodb_server':
-    ensure  => $my_package_ensure,
-    name    => $package_name,
-    tag     => 'mongodb',
+    ensure => $my_package_ensure,
+    name   => $package_name,
+    tag    => 'mongodb',
   }
 }

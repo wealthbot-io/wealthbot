@@ -1,25 +1,24 @@
-#! /usr/bin/env ruby -S rspec
 require 'spec_helper'
 
-describe "the loadyaml function" do
-  include PuppetlabsSpec::Files
-
-  let(:scope) { PuppetlabsSpec::PuppetInternals.scope }
-
-  it "should exist" do
-    expect(Puppet::Parser::Functions.function("loadyaml")).to eq("function_loadyaml")
+describe 'loadyaml' do
+  it { is_expected.not_to eq(nil) }
+  it { is_expected.to run.with_params().and_raise_error(Puppet::ParseError, /wrong number of arguments/i) }
+  it { is_expected.to run.with_params('', '').and_raise_error(Puppet::ParseError, /wrong number of arguments/i) }
+  context 'when a non-existing file is specified' do
+    let(:filename) { '/tmp/doesnotexist' }
+    before {
+      File.expects(:exists?).with(filename).returns(false).once
+      YAML.expects(:load_file).never
+    }
+    it { is_expected.to run.with_params(filename).and_return(nil) }
   end
-
-  it "should raise a ParseError if there is less than 1 arguments" do
-    expect { scope.function_loadyaml([]) }.to raise_error(Puppet::ParseError)
-  end
-
-  it "should convert YAML file to a data structure" do
-    yaml_file = tmpfilename ('yamlfile')
-    File.open(yaml_file, 'w') do |fh|
-      fh.write("---\n aaa: 1\n bbb: 2\n ccc: 3\n ddd: 4\n")
-    end
-    result = scope.function_loadyaml([yaml_file])
-    expect(result).to eq({"aaa" => 1, "bbb" => 2, "ccc" => 3, "ddd" => 4 })
+  context 'when an existing file is specified' do
+    let(:filename) { '/tmp/doesexist' }
+    let(:data) { { 'key' => 'value' } }
+    before {
+      File.expects(:exists?).with(filename).returns(true).once
+      YAML.expects(:load_file).with(filename).returns(data).once
+    }
+    it { is_expected.to run.with_params(filename).and_return(data) }
   end
 end

@@ -11,9 +11,9 @@
 #        /etc/php5/fpm/php-fpm.conf
 # ubuntu 14.04
 #    7.0
-#        /etc/php7/fpm/php-fpm.conf
+#        /etc/php/7.0/fpm/php-fpm.conf
 #    5.6
-#        /etc/php5/fpm/php-fpm.conf
+#        /etc/php/5.6/fpm/php-fpm.conf
 #    5.5
 #        /etc/php5/fpm/php-fpm.conf
 #    5.4
@@ -45,13 +45,33 @@ define puphpet::php::fpm::ini (
 
   $pool_name = 'global'
 
-  case $fpm_version {
-    '7.0', '70', '7': {
-      $dir_name = 'php7'
+  if $fpm_version in ['7.0', '70', '7'] {
+    case $::operatingsystem {
+      # Debian and Ubuntu slightly differ
+      'debian': {
+        $dir_name = 'php7'
+      }
+      'ubuntu': {
+        $dir_name = 'php/7.0'
+      }
+      'redhat', 'centos': {
+        $dir_name = 'php'
+      }
     }
-    default: {
-      $dir_name = 'php5'
+  } elsif $fpm_version in ['5.6', '56'] {
+    case $::operatingsystem {
+      'debian': {
+        $dir_name = 'php5'
+      }
+      'ubuntu': {
+        $dir_name = 'php/5.6'
+      }
+      'redhat', 'centos': {
+        $dir_name = 'php5'
+      }
     }
+  } else {
+    $dir_name = 'php5'
   }
 
   case $::osfamily {
@@ -65,9 +85,16 @@ define puphpet::php::fpm::ini (
 
   $conf_filename = "${pool_dir}/php-fpm.conf"
 
-  $changes = $ensure ? {
-    present => [ "set '${pool_name}/${entry}' '${value}'" ],
-    absent  => [ "rm '${pool_name}/${entry}'" ],
+  if '=' in $value {
+    $changes = $ensure ? {
+      present => [ "set '${pool_name}/${entry}' \"'${value}'\"" ],
+      absent  => [ "rm \"'${pool_name}/${entry}'\"" ],
+    }
+  } else {
+    $changes = $ensure ? {
+      present => [ "set '${pool_name}/${entry}' '${value}'" ],
+      absent  => [ "rm \"'${pool_name}/${entry}'\"" ],
+    }
   }
 
   augeas { "${pool_name}/${entry}: ${value}":

@@ -4,16 +4,16 @@
   <%- [@_directories].flatten.compact.each do |directory| -%>
     <%- if scope.function_versioncmp([@apache_version, '2.4']) >= 0 -%>
       <%- if directory['allow'] and ! [ false, 'false', '' ].include?(directory['allow']) -%>
-        <%- scope.function_fail(["Apache::Vhost: Using allow is not supported in your Apache version"]) -%>
+        <%- scope.function_warning(["Apache::Vhost: Using allow is deprecated in your Apache version"]) -%>
       <%- end -%>
       <%- if directory['deny'] and ! [ false, 'false', '' ].include?(directory['deny']) -%>
-        <%- scope.function_fail(["Apache::Vhost: Using deny is not supported in your Apache version"]) -%>
+        <%- scope.function_warning(["Apache::Vhost: Using deny is deprecated in your Apache version"]) -%>
       <%- end -%>
       <%- if directory['order'] and ! [ false, 'false', '' ].include?(directory['order']) -%>
-        <%- scope.function_fail(["Apache::Vhost: Using order is not supported in your Apache version"]) -%>
+        <%- scope.function_warning(["Apache::Vhost: Using order is deprecated in your Apache version"]) -%>
       <%- end -%>
       <%- if directory['satisfy'] and ! [ false, 'false', '' ].include?(directory['satisfy']) -%>
-        <%- scope.function_fail(["Apache::Vhost: Using satisfy is not supported in your Apache version"]) -%>
+        <%- scope.function_warning(["Apache::Vhost: Using satisfy is deprecated in your Apache version"]) -%>
       <%- end -%>
     <%- end -%>
     <%- if directory['path'] and directory['path'] != '' -%>
@@ -34,6 +34,9 @@
     Header <%= header %>
       <%- end -%>
     <%- end -%>
+    <%- if ! directory['geoip_enable'].nil? -%>
+    GeoIPEnable <%= scope.function_bool2httpd([directory['geoip_enable']]) %>
+    <%- end -%>
     <%- if directory['options'] -%>
     Options <%= Array(directory['options']).join(' ') %>
     <%- end -%>
@@ -43,6 +46,9 @@
       <%- end -%>
       <%- if directory['index_order_default'] -%>
     IndexOrderDefault <%= Array(directory['index_order_default']).join(' ') %>
+      <%- end -%>
+      <%- if directory['index_style_sheet'] -%>
+    IndexStyleSheet '<%= directory['index_style_sheet'] %>'
       <%- end -%>
       <%- if directory['allow_override'] -%>
     AllowOverride <%= Array(directory['allow_override']).join(' ') %>
@@ -192,6 +198,9 @@
     ExpiresByType <%= rule %>
     <%- end -%>
     <%- end -%>
+    <%- if directory['ext_filter_options'] -%>
+    ExtFilterOptions <%= directory['ext_filter_options'] %>
+    <%- end -%>
     <%- if directory['force_type'] -%>
     ForceType <%= directory['force_type'] %>
     <%- end -%>
@@ -233,6 +242,9 @@
     SetEnv <%= setenv %>
       <%- end -%>
     <%- end -%>
+    <%- if directory['set_output_filter'] -%>
+    SetOutputFilter <%= directory['set_output_filter'] %>
+    <%- end -%>
     <%- if @shibboleth_enabled -%>
       <%- if directory['shib_require_session'] and ! directory['shib_require_session'].empty? -%>
     ShibRequireSession <%= directory['shib_require_session'] %>
@@ -244,6 +256,37 @@
       <%- end -%>
       <%- if directory['shib_use_headers'] and ! directory['shib_use_headers'].empty? -%>
     ShibUseHeaders <%= directory['shib_use_headers'] %>
+      <%- end -%>
+    <%- end -%>
+    <%- if directory['mellon_enable'] -%>
+    MellonEnable "<%= directory['mellon_enable'] %>"
+      <%- if directory['mellon_endpoint_path'] -%>
+    MellonEndpointPath "<%= directory['mellon_endpoint_path'] %>"
+      <%- end -%>
+      <%- if directory['mellon_sp_private_key_file'] -%>
+    MellonSPPrivateKeyFile "<%= directory['mellon_sp_private_key_file'] %>"
+      <%- end -%>
+      <%- if directory['mellon_sp_cert_file'] -%>
+    MellonSPCertFile "<%= directory['mellon_sp_cert_file'] %>"
+      <%- end -%>
+      <%- if directory['mellon_idp_metadata_file'] -%>
+    MellonIDPMetadataFile "<%= directory['mellon_idp_metadata_file'] %>"
+      <%- end -%>
+      <%- if directory['mellon_set_env_no_prefix'] -%>
+        <%- directory['mellon_set_env_no_prefix'].each do |key, value| -%>
+    MellonSetEnvNoPrefix "<%= key %>" "<%= value %>"
+        <%- end -%>
+      <%- end -%>
+      <%- if directory['mellon_user'] -%>
+    MellonUser "<%= directory['mellon_user'] %>"
+      <%- end -%>
+      <%- if directory['mellon_saml_response_dump'] -%>
+    MellonSamlResponseDump "<%= directory['mellon_saml_response_dump'] %>"
+      <%- end -%>
+      <%- if directory['mellon_cond'] -%>
+        <%- Array(directory['mellon_cond']).each do |cond| -%>
+    MellonCond <%= cond %>
+         <%- end -%>
       <%- end -%>
     <%- end -%>
     <%- if directory['custom_fragment'] -%>

@@ -193,7 +193,7 @@ class solr (
   }
 
   # Whole solr configuration directory can be recursively overriden
-  if $solr::source_dir {
+  if $solr::source_dir and $solr::source_dir != '' {
     file { 'solr.dir':
       ensure  => directory,
       path    => $solr::config_dir,

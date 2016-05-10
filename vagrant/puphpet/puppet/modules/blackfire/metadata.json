@@ -1,6 +1,6 @@
 {
   "name": "s12v-blackfire",
-  "version": "1.2.2",
+  "version": "1.4.0",
   "author": "Sergey Novikov",
   "summary": "Module for managing and configuring Blackfire PHP Profiler",
   "license": "Apache-2.0",
@@ -14,11 +14,11 @@
     },
     {
       "name": "puppetlabs/inifile",
-      "version_requirement": ">= 1.0.0"
+      "version_requirement": ">= 1.0.0 < 2.0.0"
     },
     {
       "name": "puppetlabs/stdlib",
-      "version_requirement": ">= 4.0.0"
+      "version_requirement": ">= 4.0.0 < 5.0.0"
     }
   ],
   "requirements": [
@@ -28,7 +28,7 @@
     },
     {
       "name": "puppet",
-      "version_requirement": "3.x"
+      "version_requirement": ">=3.0.0 <5.0.0"
     }
   ],
   "operatingsystem_support": [
@@ -42,7 +42,7 @@
     },
     {
       "operatingsystem": "Debian",
-      "operatingsystemrelease": [ "6", "7" ]
+      "operatingsystemrelease": [ "6", "7", "8" ]
     },
     {
       "operatingsystem": "Ubuntu",

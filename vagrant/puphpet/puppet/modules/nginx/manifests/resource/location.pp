@@ -79,6 +79,8 @@
 #   [*priority*]              - Location priority. Default: 500. User priority
 #     401-499, 501-599. If the priority is higher than the default priority,
 #     the location will be defined after root, or before root.
+#   [*set*]                   - An array of variables to set
+#   [*rewrites*]              - Rewrite rules for the location
 #
 #
 # Actions:
@@ -151,7 +153,9 @@ define nginx::resource::location (
   $auth_basic           = undef,
   $auth_basic_user_file = undef,
   $rewrite_rules        = [],
-  $priority             = 500
+  $rewrites             = {},
+  $priority             = 500,
+  $set                  = [],
 ) {
 
   include nginx::params
@@ -265,6 +269,7 @@ define nginx::resource::location (
   if ($priority < 401) or ($priority > 899) {
     fail('$priority must be in the range 401-899.')
   }
+  validate_hash($rewrites)
 
   # # Shared Variables
   $ensure_real = $ensure ? {
@@ -285,7 +290,7 @@ define nginx::resource::location (
   if (($www_root == undef) and ($proxy == undef) and ($location_alias == undef) and ($stub_status == undef) and ($fastcgi == undef) and ($location_custom_cfg == undef)) {
     fail('Cannot create a location reference without a www_root, proxy, location_alias, fastcgi, stub_status, or location_custom_cfg defined')
   }
-  if (($www_root != undef) and ($proxy != undef)) {
+  if (($www_root != undef) and ($proxy != undef) and $proxy_redirect != 'off' and $proxy_set_header == undef) {
     fail('Cannot define both directory and proxy in a virtual host')
   }
 
@@ -321,6 +326,7 @@ define nginx::resource::location (
       target  => $config_file,
       content => join([
         template('nginx/vhost/location_header.erb'),
+        template('nginx/vhost/locations/set.erb'),
         $content_real,
         template('nginx/vhost/location_footer.erb')
       ], ''),
@@ -338,6 +344,7 @@ define nginx::resource::location (
       target  => $config_file,
       content => join([
         template('nginx/vhost/location_header.erb'),
+        template('nginx/vhost/locations/set.erb'),
         $content_real,
         template('nginx/vhost/location_footer.erb')
       ], ''),

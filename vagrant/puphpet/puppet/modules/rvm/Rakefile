@@ -9,7 +9,6 @@ require 'puppet_blacksmith/rake_tasks'
 CLEAN.include('spec/fixtures/manifests/', 'spec/fixtures/modules/', 'doc', 'pkg')
 CLOBBER.include('.tmp', '.librarian')
 
-ENV['STRICT_VARIABLES']='yes' unless Gem::Version.new(Puppet.version) < Gem::Version.new("3.5.0")
 
 task :librarian_spec_prep do
   sh "librarian-puppet install --path=spec/fixtures/modules/"

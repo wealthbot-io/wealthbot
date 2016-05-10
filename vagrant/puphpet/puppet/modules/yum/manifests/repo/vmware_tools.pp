@@ -1,3 +1,4 @@
+#
 class yum::repo::vmware_tools (
   $baseurl = 'http://packages.vmware.com/tools/esx/5.1latest/rhel$releasever/$basearch',
 ) {

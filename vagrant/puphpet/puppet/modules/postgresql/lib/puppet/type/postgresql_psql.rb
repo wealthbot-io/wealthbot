@@ -34,16 +34,30 @@ Puppet::Type.newtype(:postgresql_psql) do
 
     # Return true if a matching row is found
     def matches(value)
-      if Puppet::PUPPETVERSION.to_f < 4
-        output, status = provider.run_unless_sql_command(value)
-      else
-        output = provider.run_unless_sql_command(value)
-        status = output.exitcode
-      end
+      output, status = provider.run_unless_sql_command(value)
       self.fail("Error evaluating 'unless' clause, returned #{status}: '#{output}'") unless status == 0
 
       result_count = output.strip.to_i
       self.debug("Found #{result_count} row(s) executing 'unless' clause")
+      result_count > 0
+    end
+  end
+
+  newparam(:onlyif) do
+    desc "An optional SQL command to execute prior to the main :command; " +
+        "this is generally intended to be used for idempotency, to check " +
+        "for the existence of an object in the database to determine whether " +
+        "or not the main SQL command needs to be executed at all."
+
+    # Return true if a matching row is found
+    def matches(value)
+      output, status = provider.run_unless_sql_command(value)
+      status = output.exitcode if status.nil?
+
+      self.fail("Error evaluating 'onlyif' clause, returned #{status}: '#{output}'") unless status == 0
+
+      result_count = output.strip.to_i
+      self.debug("Found #{result_count} row(s) executing 'onlyif' clause")
       result_count > 0
     end
   end
@@ -80,6 +94,20 @@ Puppet::Type.newtype(:postgresql_psql) do
     defaultto("/tmp")
   end
 
+  newparam(:environment) do
+    desc "Any additional environment variables you want to set for a
+      SQL command. Multiple environment variables should be
+      specified as an array."
+
+    validate do |values|
+      Array(values).each do |value|
+        unless value =~ /\w+=/
+          raise ArgumentError, "Invalid environment setting '#{value}'"
+        end
+      end
+    end
+  end
+
   newparam(:refreshonly, :boolean => true) do
     desc "If 'true', then the SQL will only be executed via a notify/subscribe event."
 
@@ -88,7 +116,9 @@ Puppet::Type.newtype(:postgresql_psql) do
   end
 
   def should_run_sql(refreshing = false)
+    onlyif_param = @parameters[:onlyif]
     unless_param = @parameters[:unless]
+    return false if !onlyif_param.nil? && !onlyif_param.value.nil? && !onlyif_param.matches(onlyif_param.value)
     return false if !unless_param.nil? && !unless_param.value.nil? && unless_param.matches(unless_param.value)
     return false if !refreshing && @parameters[:refreshonly].value == :true
     true

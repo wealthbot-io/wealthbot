@@ -15,7 +15,7 @@ describe 'erlang', :type => :class do
       it { should contain_package('erlang-nox').with_ensure('present') }
       it { should contain_apt__source('erlang').with(
         'key_source' => 'http://packages.erlang-solutions.com/debian/erlang_solutions.asc',
-        'key'        => 'D208507CA14F4FCA'
+        'key'        => '434975BD900CCBE4F7EE1B1ED208507CA14F4FCA'
         ) }
     end
 
@@ -62,7 +62,7 @@ describe 'erlang', :type => :class do
     context 'with no parameters' do
       it { should contain_package('erlang').with_ensure('present') }
       it { should contain_exec('erlang-repo-download').with(
-        'command' => 'curl -o /etc/yum.repos.d/epel-erlang.repo http://repos.fedorapeople.org/repos/peter/erlang/epel-erlang.repo',
+        'command' => 'curl -o /etc/yum.repos.d/epel-erlang.repo https://repos.fedorapeople.org/repos/peter/erlang/epel-erlang.repo',
         'path'    => '/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin'
         )
       }

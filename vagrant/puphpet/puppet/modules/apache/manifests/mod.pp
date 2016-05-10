@@ -2,7 +2,7 @@ define apache::mod (
   $package        = undef,
   $package_ensure = 'present',
   $lib            = undef,
-  $lib_path       = $::apache::params::lib_path,
+  $lib_path       = $::apache::lib_path,
   $id             = undef,
   $path           = undef,
   $loadfile_name  = undef,
@@ -126,5 +126,42 @@ define apache::mod (
         notify  => Class['apache::service'],
       }
     }
+  } elsif $::osfamily == 'Suse' {
+    $enable_dir = $::apache::mod_enable_dir
+    file{ "${_loadfile_name} symlink":
+      ensure  => link,
+      path    => "${enable_dir}/${_loadfile_name}",
+      target  => "${mod_dir}/${_loadfile_name}",
+      owner   => 'root',
+      group   => $::apache::params::root_group,
+      mode    => '0644',
+      require => [
+        File[$_loadfile_name],
+        Exec["mkdir ${enable_dir}"],
+      ],
+      before  => File[$enable_dir],
+      notify  => Class['apache::service'],
+    }
+    # Each module may have a .conf file as well, which should be
+    # defined in the class apache::mod::module
+    # Some modules do not require this file.
+    if defined(File["${mod}.conf"]) {
+      file{ "${mod}.conf symlink":
+        ensure  => link,
+        path    => "${enable_dir}/${mod}.conf",
+        target  => "${mod_dir}/${mod}.conf",
+        owner   => 'root',
+        group   => $::apache::params::root_group,
+        mode    => '0644',
+        require => [
+          File["${mod}.conf"],
+          Exec["mkdir ${enable_dir}"],
+        ],
+        before  => File[$enable_dir],
+        notify  => Class['apache::service'],
+      }
+    }
   }
+
+  Apache::Mod[$name] -> Anchor['::apache::modules_set_up']
 }

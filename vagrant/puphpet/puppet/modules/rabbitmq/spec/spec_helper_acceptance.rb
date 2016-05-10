@@ -26,7 +26,7 @@ RSpec.configure do |c|
       shell("/bin/touch #{default['puppetpath']}/hiera.yaml")
       shell('puppet module install puppetlabs-stdlib', { :acceptable_exit_codes => [0,1] })
       if fact('osfamily') == 'Debian'
-        shell('puppet module install puppetlabs-apt --version 1.8.0 --force', { :acceptable_exit_codes => [0,1] })
+        shell('puppet module install puppetlabs-apt', { :acceptable_exit_codes => [0,1] })
       end
       shell('puppet module install nanliu-staging', { :acceptable_exit_codes => [0,1] })
       if fact('osfamily') == 'RedHat'

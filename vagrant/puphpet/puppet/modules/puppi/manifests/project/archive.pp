@@ -189,11 +189,11 @@ define puppi::project::archive (
     }
 
     puppi::deploy { "${name}-PreDeploy_Archive":
-      priority  => '25' ,
-      command   => 'predeploy.sh' ,
-      user      => 'root' ,
-      project   => $name ,
-      enable    => $enable ,
+      priority => '25' ,
+      command  => 'predeploy.sh' ,
+      user     => 'root' ,
+      project  => $name ,
+      enable   => $enable ,
     }
 
   if ($firewall_src_ip != '') {

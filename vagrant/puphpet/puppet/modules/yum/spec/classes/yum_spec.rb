@@ -4,7 +4,7 @@ describe 'yum' do
 
   let(:title) { 'yum' }
   let(:node) { 'rspec.example42.com' }
-  let(:facts) { { :ipaddress => '10.42.42.42' } }
+  let(:facts) { { :ipaddress => '10.42.42.42', :operatingsystemrelease => '6.6' } }
 
   describe 'Test minimal installation' do
     it { should contain_file('yum.conf').with_ensure('present') }

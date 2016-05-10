@@ -10,13 +10,18 @@ Puppet::Type.newtype(:mongodb_user) do
   end
 
   newparam(:name, :namevar=>true) do
-    desc "The name of the user."
+    desc "The name of the resource."
   end
 
-  newparam(:database) do
+  newproperty(:username) do
+    desc "The name of the user."
+    defaultto { @resource[:name] }
+  end
+
+  newproperty(:database) do
     desc "The user's target database."
     defaultto do
-      fail("Parameter 'database' must be set")
+      fail("Parameter 'database' must be set") if provider.database == :absent
     end
     newvalues(/^\w+$/)
   end
@@ -48,13 +53,13 @@ Puppet::Type.newtype(:mongodb_user) do
   newproperty(:password_hash) do
     desc "The password hash of the user. Use mongodb_password() for creating hash."
     defaultto do
-      fail("Property 'password_hash' must be set. Use mongodb_password() for creating hash.")
+      fail("Property 'password_hash' must be set. Use mongodb_password() for creating hash.") if provider.database == :absent
     end
     newvalue(/^\w+$/)
   end
 
   autorequire(:package) do
-    'mongodb'
+    'mongodb_client'
   end
 
   autorequire(:service) do

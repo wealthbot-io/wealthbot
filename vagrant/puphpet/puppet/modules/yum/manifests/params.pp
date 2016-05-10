@@ -12,11 +12,21 @@ class yum::params  {
 
   $clean_repos = false
 
+  $my_class = ''
+
   $plugins_config_dir = '/etc/yum/pluginconf.d'
 
   $source_repo_dir = undef
 
   $repo_dir = '/etc/yum.repos.d'
+
+  $manage_persist_dir = false
+
+  $persist_dir = '/var/lib/yum'
+
+  $manage_cache_dir = false
+
+  $cache_dir = '/var/cache/yum'
 
   $config_dir = '/etc/yum'
 
@@ -52,6 +62,7 @@ class yum::params  {
 
   $cron_param = ''
   $cron_dotw = '0123456'
+  $cron_clean_dotw = '0'
 
   # The following params are for cron.pp only for version 7
 
@@ -63,7 +74,7 @@ class yum::params  {
   $cron_email_host = 'localhost'
 
   $source = ''
-  $source_dir = ''
+  $source_dir = undef
   $source_dir_purge = false
   $template = ''
   $options = ''

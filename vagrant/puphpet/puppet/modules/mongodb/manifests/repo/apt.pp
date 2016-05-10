@@ -6,19 +6,19 @@ class mongodb::repo::apt inherits mongodb::repo {
   include ::apt
 
   if($::mongodb::repo::ensure == 'present' or $::mongodb::repo::ensure == true) {
-    apt::source { 'downloads-distro.mongodb.org':
+    apt::source { 'mongodb':
       location    => $::mongodb::repo::location,
       release     => 'dist',
       repos       => '10gen',
-      key         => '9ECBEC467F0CEB10',
-      key_server  => 'keyserver.ubuntu.com',
+      key         => '492EAFE8CD016A07919F1D2B9ECBEC467F0CEB10',
+      key_server  => 'hkp://keyserver.ubuntu.com:80',
       include_src => false,
     }
 
-    Apt::Source['downloads-distro.mongodb.org']->Package<|tag == 'mongodb'|>
+    Apt::Source['mongodb']->Package<|tag == 'mongodb'|>
   }
   else {
-    apt::source { 'downloads-distro.mongodb.org':
+    apt::source { 'mongodb':
       ensure => absent,
     }
   }

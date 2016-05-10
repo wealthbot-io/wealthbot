@@ -1,28 +1,15 @@
-#! /usr/bin/env ruby -S rspec
 require 'spec_helper'
 
-describe "the capitalize function" do
-  let(:scope) { PuppetlabsSpec::PuppetInternals.scope }
+describe 'capitalize' do
+  it { is_expected.not_to eq(nil) }
+  it { is_expected.to run.with_params().and_raise_error(Puppet::ParseError) }
+  it { is_expected.to run.with_params(100).and_raise_error(Puppet::ParseError) }
+  it { is_expected.to run.with_params("one").and_return("One") }
+  it { is_expected.to run.with_params("one two").and_return("One two") }
+  it { is_expected.to run.with_params("ONE TWO").and_return("One two") }
 
-  it "should exist" do
-    expect(Puppet::Parser::Functions.function("capitalize")).to eq("function_capitalize")
-  end
-
-  it "should raise a ParseError if there is less than 1 arguments" do
-    expect { scope.function_capitalize([]) }.to( raise_error(Puppet::ParseError))
-  end
-
-  it "should capitalize the beginning of a string" do
-    result = scope.function_capitalize(["abc"])
-    expect(result).to(eq("Abc"))
-  end
-
-  it "should accept objects which extend String" do
-    class AlsoString < String
-    end
-
-    value = AlsoString.new('abc')
-    result = scope.function_capitalize([value])
-    result.should(eq('Abc'))
-  end
+  it { is_expected.to run.with_params(AlsoString.new("one")).and_return("One") }
+  it { is_expected.to run.with_params([]).and_return([]) }
+  it { is_expected.to run.with_params(["one", "two"]).and_return(["One", "Two"]) }
+  it { is_expected.to run.with_params(["one", 1, "two"]).and_return(["One", 1, "Two"]) }
 end

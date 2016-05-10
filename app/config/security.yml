@@ -41,7 +41,7 @@ security:
             pattern:      /admin(.*)
             form_login:
                 provider:       fos_userbundle
-                csrf_provider:  security.csrf.token_manager
+                csrf_token_generator: security.csrf.token_manager
                 login_path:     /admin/login
                 use_forward:    false
                 check_path:     /admin/login_check
@@ -58,7 +58,7 @@ security:
             pattern: ^/
             form_login:
                 provider: fos_userbundle
-                csrf_provider: security.csrf.token_manager
+                csrf_token_generator: security.csrf.token_manager
                 default_target_path: /after-login
             logout:       true
             anonymous:    true

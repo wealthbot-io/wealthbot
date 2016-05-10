@@ -64,7 +64,7 @@ after "deploy", "apc:clear"
 namespace :apc do
   task :clear do
     capifony_pretty_print "--> Clear APC cache"
-      run "#{current_path}/app/console apc:clear --env=#{symfony_env_prod}"
+#      run "#{current_path}/app/console apc:clear --env=#{symfony_env_prod}"
     capifony_puts_ok
   end
 end
@@ -105,3 +105,6 @@ desc "Reload nginx configuration"
       run "#{sudo} /etc/init.d/nginx reload"
     end
 end
+
+
+logger.level = Logger::MAX_LEVEL

@@ -16,7 +16,7 @@ services:
         factory_method: createNamed
         factory_service: form.factory
         class: Symfony\Component\Form\Form
-        arguments: [%fos_user.registration.form.name%, @wealthbot_user.registration.ria.form.type, null, [] ]
+        arguments: [%fos_user.registration.form.name%, "@wealthbot_user.registration.ria.form.type", null, [] ]
 
     wealthbot_user.registration.ria.form.type:
         class: %wealthbot_user.ria.registration.form.class%
@@ -27,13 +27,13 @@ services:
     wealthbot_user.registration.ria.form.handler:
         class: %wealthbot_user.ria.registration.form.handler.class%
         scope: request
-        arguments: [@wealthbot_user.registration.ria.form, @request, @fos_user.user_manager, @fos_user.mailer, @fos_user.util.token_generator, @wealthbot.manager.fee]
+        arguments: ["@wealthbot_user.registration.ria.form", "@request", "@fos_user.user_manager", "@fos_user.mailer", "@fos_user.util.token_generator", "@wealthbot.manager.fee"]
 
     wealthbot_user.registration.client.form:
         factory_method: createNamed
         factory_service: form.factory
         class: Symfony\Component\Form\Form
-        arguments: [%fos_user.registration.form.name%, @wealthbot_user.registration.client.form.type, null, [] ]
+        arguments: [%fos_user.registration.form.name%, "@wealthbot_user.registration.client.form.type", null, [] ]
 
     wealthbot_user.registration.client.form.type:
         class: %wealthbot_user.client.registration.form.class%
@@ -44,19 +44,19 @@ services:
     wealthbot_user.registration.client.form.handler:
         class: %wealthbot_user.client.registration.form.handler.class%
         scope: request
-        arguments: [@wealthbot_user.registration.client.form, @request, @fos_user.user_manager, @fos_user.mailer, @fos_user.util.token_generator]
+        arguments: ["@wealthbot_user.registration.client.form", "@request", "@fos_user.user_manager", "@fos_user.mailer", "@fos_user.util.token_generator"]
 
 
     wealthbot_user.mailer:
         class: Wealthbot\UserBundle\Mailer\TwigSwiftMailer
-        arguments: [@mailer, @router, @twig, { template: { adv_copy: %wealthbot_user.mailer.adv_copy.template% }, from_email: { adv_copy: %wealthbot_user.mailer.adv_copy.from_email% } }]
+        arguments: ["@mailer", "@router", "@twig", { template: { adv_copy: %wealthbot_user.mailer.adv_copy.template% }, from_email: { adv_copy: %wealthbot_user.mailer.adv_copy.from_email% } }]
 
 
     wealthbot_user.update_password.form:
         factory_method: createNamed
         factory_service: form.factory
         class: Symfony\Component\Form\Form
-        arguments: [update_password_form, @wealthbot_user.update_password.form.type, null, { validation_groups: ['password', 'ChangePassword', 'Default'] } ]
+        arguments: [update_password_form, "@wealthbot_user.update_password.form.type", null, { validation_groups: ['password', 'ChangePassword', 'Default'] } ]
 
     wealthbot_user.update_password.form.type:
         class: Wealthbot\UserBundle\Form\Type\UpdatePasswordFormType
@@ -66,35 +66,35 @@ services:
     wealthbot_user.update_password.form.handler:
         class: Wealthbot\UserBundle\Form\Handler\UpdatePasswordFormHandler
         scope: request
-        arguments: [@wealthbot_user.update_password.form, @request, @fos_user.user_manager]
+        arguments: ["@wealthbot_user.update_password.form", "@request", "@fos_user.user_manager"]
 
     wealthbot_user.document_manager:
         class: Wealthbot\UserBundle\Manager\DocumentManager
-        arguments: [@doctrine.orm.entity_manager, %wealthbot_user.document_class%, @router]
+        arguments: ["@doctrine.orm.entity_manager", %wealthbot_user.document_class%, "@router"]
 
     wealthbot_user.subdomain_manager:
         class: Wealthbot\UserBundle\Manager\SubdomainManager
-        arguments: [@doctrine.orm.entity_manager, @router, %wealthbot_user.subdomain_manager.class%, %site_domain%]
+        arguments: ["@doctrine.orm.entity_manager", "@router", %wealthbot_user.subdomain_manager.class%, %site_domain%]
 
     wealthbot_user.twig.subdomain_routing_extension:
         class: Wealthbot\UserBundle\Twig\SubdomainRoutingExtension
-        arguments: [@wealthbot_user.subdomain_manager]
+        arguments: ["@wealthbot_user.subdomain_manager"]
         tags:
             - { name: twig.extension }
 
     wealthbot_user.twig.document_extension:
         class: Wealthbot\UserBundle\Twig\DocumentExtension
-        arguments: [@wealthbot_user.document_manager]
+        arguments: ["@wealthbot_user.document_manager"]
         tags:
             - { name: twig.extension }
 
     wealthbot.manager.user:
         class: Wealthbot\UserBundle\Manager\UserManager
         arguments:
-            - @security.encoder_factory
-            - @fos_user.util.username_canonicalizer
-            - @fos_user.util.email_canonicalizer
-            - @fos_user.entity_manager
+            - "@security.encoder_factory"
+            - "@fos_user.util.username_canonicalizer"
+            - "@fos_user.util.email_canonicalizer"
+            - "@fos_user.entity_manager"
             - Wealthbot\UserBundle\Entity\User
 
     wealthbot_user.listener.serializer:
@@ -102,5 +102,5 @@ services:
         tags:
             - { name: jms_serializer.event_subscriber, direction: serialization, format: json }
         arguments:
-            - @doctrine.orm.entity_manager
-            - @wealthbot_client.cash.manager
+            - "@doctrine.orm.entity_manager"
+            - "@wealthbot_client.cash.manager"

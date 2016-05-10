@@ -29,14 +29,14 @@ parameters:
 services:
 #   wealthbot_mailer.example:
 #       class: %wealthbot_mailer.example.class%
-#       arguments: [@service_id, "plain_value", %parameter%]
+#       arguments: ["@service_id", "plain_value", %parameter%]
     wealthbot.mailer:
         class: Wealthbot\MailerBundle\Mailer\TwigSwiftMailer
         arguments:
-            - @mailer
-            - @router
-            - @twig
-            - @doctrine.orm.entity_manager
+            - "@mailer"
+            - "@router"
+            - "@twig"
+            - "@doctrine.orm.entity_manager"
             -
                 template:
                     admin_ria_activated:                    %wealthbot_mailer.template.admin.ria_activated%
@@ -89,4 +89,4 @@ services:
 
     wealthbot_mailer.alerts_configuration_manager:
         class: Wealthbot\MailerBundle\Manager\AlertsConfigurationManager
-        arguments: [@doctrine.orm.entity_manager, %wealthbot_mailer.alerts_configuration_class%]
+        arguments: ["@doctrine.orm.entity_manager", %wealthbot_mailer.alerts_configuration_class%]

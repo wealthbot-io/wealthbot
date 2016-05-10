@@ -11,9 +11,9 @@ services:
     wealthbot_ria.mailer:
         class: Wealthbot\RiaBundle\Mailer\TwigSwiftMailer
         arguments:
-            - @mailer
-            - @router
-            - @twig
+            - "@mailer"
+            - "@router"
+            - "@twig"
             -
                 template:
                     confirmation: %wealthbot_ria.mailer.confirmation.template%
@@ -23,13 +23,13 @@ services:
 
     wealthbot_ria.mailer.invite:
         class: Wealthbot\RiaBundle\Mailer\TwigSwiftMailer
-        arguments: [@mailer, @router, @twig, { template: { invite: %wealthbot_ria.mailer.invite.template% }, from_email: { invite: %wealthbot_ria.mailer.invite.from_email% } }]
+        arguments: ["@mailer", "@router", "@twig", { template: { invite: %wealthbot_ria.mailer.invite.template% }, from_email: { invite: %wealthbot_ria.mailer.invite.from_email% } }]
 #    wealthbot_ria.mailer.not_finished_registration:
 #        class: Wealthbot\RiaBundle\Mailer\TwigSwiftMailer
 #        arguments: [@mailer, @router, @twig, { template: {not_finished_registration: }}]
     wealthbot_ria.flash_listener:
         class: Wealthbot\RiaBundle\EventListener\FlashListener
-        arguments: [@session]
+        arguments: ["@session"]
         tags:
             - { name: kernel.event_subscriber }
 
@@ -40,7 +40,7 @@ services:
 
     wealthbot_ria.validator.user_password:
         class: Wealthbot\RiaBundle\Validator\Constraint\CurrentPasswordValidator
-        arguments: [@wealthbot_client.acl, @security.encoder_factory]
+        arguments: ["@wealthbot_client.acl", "@security.encoder_factory"]
         tags:
             - { name: validator.constraint_validator, alias: wealthbot_ria.validator.user_password }
 
@@ -53,10 +53,10 @@ services:
     wealthbot_ria.summary_information.manager:
         class: Wealthbot\RiaBundle\Service\Manager\SummaryInformationManager
         arguments:
-            - @doctrine.orm.entity_manager
-            - @wealthbot_client.cash.manager
-            - @wealthbot_ria.period.manager
-            - @translator
+            - "@doctrine.orm.entity_manager"
+            - "@wealthbot_client.cash.manager"
+            - "@wealthbot_ria.period.manager"
+            - "@translator"
 
     wealthbot_ria.period.manager:
         class: Wealthbot\RiaBundle\Service\Manager\PeriodManager
@@ -64,11 +64,11 @@ services:
     wealthbot_ria.billing_report.manager:
         class: Wealthbot\RiaBundle\Service\Manager\BillingReportManager
         arguments:
-            - @doctrine.orm.entity_manager
-            - @twig
-            - @wealthbot_ria.summary_information.manager
-            - @wealthbot.manager.fee
-            - @wealthbot_ria.period.manager
+            - "@doctrine.orm.entity_manager"
+            - "@twig"
+            - "@wealthbot_ria.summary_information.manager"
+            - "@wealthbot.manager.fee"
+            - "@wealthbot_ria.period.manager"
 
     # Ria security
     wealthbot_ria.security.voter.ria_client:

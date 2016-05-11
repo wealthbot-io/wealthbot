@@ -27,7 +27,7 @@ app/console cache:clear --env=prod --no-debug
 app/console doctrine:database:drop --force
 app/console doctrine:database:create
 app/console doctrine:schema:create
-app/console doctrine:fixtures:load
+app/console doctrine:fixtures:load --append
 app/console assetic:dump
 
 #warming up cache

@@ -234,11 +234,10 @@ php:
             - fpm
             - xml
             - curl
+            - apcu
 
         pear: {  }
-        pecl:
-            - APCu
-            - mongo
+        pecl: {  }
     ini:
         display_errors: 'On'
         error_reporting: '-1'

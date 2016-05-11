@@ -1,6 +1,6 @@
 conn = new Mongo();
 db = conn.getDB("wealthbot_test");
-db.createUser(
+db.addUser(
     {
       user: "webo",
       pwd: "password",

@@ -84,7 +84,9 @@ vagrantfile:
         no_proxy: ''
 server:
     install: '1'
-    packages: {  }
+    packages:
+        - libsasl2-dev
+
 users_groups:
     install: '1'
     groups: {  }
@@ -231,12 +233,12 @@ php:
             - mcrypt
             - fpm
             - xml
-            - apcu
-            - mongo
             - curl
 
         pear: {  }
-        pecl: {  }
+        pecl:
+            - APCu
+            - mongo
     ini:
         display_errors: 'On'
         error_reporting: '-1'

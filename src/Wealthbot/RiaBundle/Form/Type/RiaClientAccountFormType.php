@@ -25,7 +25,7 @@ class RiaClientAccountFormType extends AbstractType
     private $isAllowRetirementPlan;
     private $validateAdditionalFields;
 
-    public function l__construct(User $client, EntityManager $em, $validateAdditionalFields = true)
+    public function __construct(User $client, EntityManager $em, $validateAdditionalFields = true)
     {
         $this->client = $client;
         $this->em = $em;

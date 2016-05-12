@@ -109,7 +109,7 @@ class FeeManagerTest extends \PHPUnit_Framework_TestCase
 
         ];
 
-        $this->assertSame($expectedResult, $calculatedResult);
+        $this->assertEquals($expectedResult, $calculatedResult, '', 0.00001);
     }
 
     public function getMockBillingSpecManager()

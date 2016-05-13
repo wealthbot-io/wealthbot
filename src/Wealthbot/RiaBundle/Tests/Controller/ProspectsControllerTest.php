@@ -27,7 +27,7 @@ class ProspectsControllerTest extends ExtendedWebTestCase
     {
         $this->authenticateUser('raiden@wealthbot.io', ['ROLE_RIA']);
 
-        $client = $this->em->getRepository('WealthbotUserBundle:User')->findOneBy(['username' => 'liu@wealthbot.io']);
+        $client = $this->em->getRepository('WealthbotUserBundle:User')->findOneBy(['username' => 'johnny@wealthbot.io']);
         $url = $this->router->generate('rx_ria_prospect_portfolio', [
             'client_id' => $client->getId(),
         ]);

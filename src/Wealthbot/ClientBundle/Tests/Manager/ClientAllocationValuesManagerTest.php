@@ -266,10 +266,10 @@ class ClientAllocationValuesManagerTest extends ExtendedWebTestCase
             unset($result['targetData'][$key]['subclass_id']);
         }
 
-        $this->assertSame($this->actualData, $result['actualData'], 'Incorrect actual data.', 0.001);
-        $this->assertSame($this->targetData, $result['targetData'], 'Incorrect target data.', 0.001);
-        $this->assertSame($this->tableData, array_values($result['tableData']), 'Incorrect table data.', 0.001);
-        $this->assertSame($this->lastRow, $result['lastRow'], 'Incorrect data in summary table row.', 0.001);
-        $this->assertSame($this->totalAmount, $result['totalAmount'], 'Incorrect total portfolio amount.');
+        $this->assertEquals($this->actualData, $result['actualData'], 'Incorrect actual data.', 0.001);
+        $this->assertEquals($this->targetData, $result['targetData'], 'Incorrect target data.', 0.001);
+        $this->assertEquals($this->tableData, array_values($result['tableData']), 'Incorrect table data.', 0.001);
+        $this->assertEquals($this->lastRow, $result['lastRow'], 'Incorrect data in summary table row.', 0.001);
+        $this->assertEquals($this->totalAmount, $result['totalAmount'], 'Incorrect total portfolio amount.');
     }
 }

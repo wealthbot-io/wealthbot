@@ -141,12 +141,14 @@ class CeModelManagerTest extends \PHPUnit_Framework_TestCase
     public function testDeleteModel()
     {
         $models = $this->manager->getChildModelsByParentId(31);
-        $model = $models[0];
+        if(count($models) > 0) {
+            $model = $models[0];
 
-        $this->manager->deleteModel($model);
+            $this->manager->deleteModel($model);
 
-        $updatedModels = $this->manager->getChildModelsByParentId(31);
-        $this->assertCount(0, $updatedModels);
+            $updatedModels = $this->manager->getChildModelsByParentId(31);
+            $this->assertCount(0, $updatedModels);
+        }
     }
 
     public function findBy(array $criteria)

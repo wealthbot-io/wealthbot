@@ -70,7 +70,7 @@ class BillingSpecControllerTest extends ExtendedWebTestCase
         $this->assertNotSame('Test name', $billingSpec->getName());
 
         $this->authenticateUser('ria', ['ROLE_RIA', 'ROLE_RIA_BASE', 'ROLE_ADMIN']);
-        $crawler = $this->client->request('POST', $this->router->generate('rx_ria_api_billing_specs_rest'), [
+        $crawler = $this->client->request('PUT', $this->router->generate('rx_ria_api_billing_specs_rest_update_item',['id' => 2]), [
             'billing_spec' => [
                 'minimalFee' => '100',
                 'name' => 'Test name',

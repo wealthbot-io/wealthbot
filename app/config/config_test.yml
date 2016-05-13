@@ -8,8 +8,8 @@ framework:
         name: "wealthbot"
         storage_id: session.storage.mock_file
         cookie_domain: ""
-#    csrf_protection:
-#        enabled: false
+    csrf_protection:
+        enabled: false
 
 web_profiler:
     toolbar: false

@@ -46,7 +46,7 @@ class ExtendedWebTestCase extends WebTestCase
 
     public function tearDown()
     {
-       // $this->em->rollback();
+        $this->em->rollback();
     }
 
     /**

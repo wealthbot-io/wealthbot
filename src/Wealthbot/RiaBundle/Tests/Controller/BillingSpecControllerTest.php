@@ -39,16 +39,11 @@ class BillingSpecControllerTest extends ExtendedWebTestCase
     public function testCreateAction()
     {
         $this->authenticateUser('ria', ['ROLE_RIA', 'ROLE_RIA_BASE', 'ROLE_ADMIN']);
-        $crawler = $this->client->request('POST', $this->router->generate('rx_ria_api_billing_specs_rest'), [
+        $crawler = $this->client->request('POST', $this->router->generate('rx_ria_api_billing_specs_rest_post'), [
             'billing_spec' => [
                 'minimalFee' => '100',
                 'name' => 'Test name',
-                'type' => BillingSpec::TYPE_TIER,
-                'fees' => [
-                    0 => [
-                        'fee_without_retirement' => 23,
-                    ],
-                ],
+                'type' => BillingSpec::TYPE_TIER
             ],
         ]);
 
@@ -83,7 +78,7 @@ class BillingSpecControllerTest extends ExtendedWebTestCase
             ],
         ]);
 
-        $billingSpec = $this->getLastBilling();
+        $billingSpec = $this->em->getRepository('WealthbotAdminBundle:BillingSpec')->find(2);
 
         $this->assertSame('Test name', $billingSpec->getName());
 

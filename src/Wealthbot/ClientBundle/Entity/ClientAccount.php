@@ -373,12 +373,16 @@ class ClientAccount extends BaseClientAccount
     /**
      * Set groupType.
      *
-     * @param \Wealthbot\ClientBundle\Entity\AccountGroupType $groupType
+     * @param mixed $groupType
      *
      * @return ClientAccount
      */
-    public function setGroupType(\Wealthbot\ClientBundle\Entity\AccountGroupType $groupType = null)
+    public function setGroupType($groupType = null)
     {
+        if(is_numeric($groupType)){
+            return $this;
+        };
+
         parent::setGroupType($groupType);
 
         // Update system_account field

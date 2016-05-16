@@ -280,11 +280,11 @@ class ClientAccount implements WorkflowableInterface, SignableInterface
     /**
      * Set groupType.
      *
-     * @param \Wealthbot\ClientBundle\Entity\AccountGroupType $groupType
+     * @param mixed $groupType
      *
      * @return ClientAccount
      */
-    public function setGroupType(\Wealthbot\ClientBundle\Entity\AccountGroupType $groupType = null)
+    public function setGroupType($groupType = null)
     {
         $this->groupType = $groupType;
 

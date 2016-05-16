@@ -58,7 +58,6 @@ after "symfony:composer:install", "symfony:assets:update_version"
 after "deploy:finalize_update", "deploy:write_version_file"
 
 after "deploy", "apc:clear"
-after "deploy:update", "deploy:cleanup"
 
 #################################################################
 

@@ -10,7 +10,7 @@
 namespace Wealthbot\ClientBundle\Model;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\ORM\Mapping as Orm;
+use Doctrine\ORM\Mapping\MappedSuperclass;
 use Wealthbot\ClientBundle\Collection\ConsolidatedAccountsCollection;
 use Wealthbot\SignatureBundle\Entity\DocumentSignature;
 use Wealthbot\SignatureBundle\Model\SignableInterface;
@@ -18,7 +18,7 @@ use Wealthbot\SignatureBundle\Model\SignableInterface;
 /**
  * Class ClientAccount.
  *
- * @Orm\MappedSuperClass
+ * @MappedSuperClass
  */
 class ClientAccount implements WorkflowableInterface, SignableInterface
 {

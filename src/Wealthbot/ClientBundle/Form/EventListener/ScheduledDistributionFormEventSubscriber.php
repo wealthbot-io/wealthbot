@@ -65,6 +65,7 @@ class ScheduledDistributionFormEventSubscriber implements EventSubscriberInterfa
                 'expanded' => true,
                 'multiple' => false,
                 'required' => false,
+                'auto_initialize' => false,
             ]));
         }
     }
@@ -139,11 +140,13 @@ class ScheduledDistributionFormEventSubscriber implements EventSubscriberInterfa
             'attr' => ['value' => $date['month']],
             'mapped' => false,
             'required' => false,
+            'auto_initialize' => false,
         ]))
         ->add($this->factory->createNamed('transfer_date_day', 'text', null, [
             'attr' => ['value' => $date['day']],
             'mapped' => false,
             'required' => false,
+            'auto_initialize' => false,
         ]));
     }
 

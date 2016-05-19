@@ -39,17 +39,21 @@ class BankInformationFormValidator extends AbstractFormValidator
 
         $phoneNumber = $data->getPhoneNumber();
         if ($this->isNullOrEmptyString($phoneNumber)) {
-            $form->get('phone_number')->addError(new FormError('Required.'));
+            if($form->has('phone_number')) {
+               $form->get('phone_number')->addError(new FormError('Required.'));
+            }
         } else {
             $phoneDigits = 10;
 
-            if (!is_numeric($phoneNumber)) {
-                $form->get('phone_number')->addError(new FormError('Enter correct phone number.'));
-            } elseif (strlen($phoneNumber) !== $phoneDigits) {
-                $form->get('phone_number')->addError(
-                    new FormError("Phone number must be {$phoneDigits} digits.")
-                );
-            }
+            if($form->has('phone_number')) {
+                if (!is_numeric($phoneNumber)) {
+                    $form->get('phone_number')->addError(new FormError('Enter correct phone number.'));
+                } elseif (strlen($phoneNumber) !== $phoneDigits) {
+                    $form->get('phone_number')->addError(
+                        new FormError("Phone number must be {$phoneDigits} digits.")
+                    );
+                }
+            };
         }
 
         if (!is_numeric($data->getRoutingNumber())) {
@@ -62,7 +66,7 @@ class BankInformationFormValidator extends AbstractFormValidator
             $form->get('account_type')->addError(new FormError('Required.'));
         }
 
-        if (!$data->getPdfDocument()) {
+        if (!$data->getPdfDocument() && $form->has('pdfDocument')) {
             $form->get('pdfDocument')->addError(new FormError('Upload a file.'));
         }
     }

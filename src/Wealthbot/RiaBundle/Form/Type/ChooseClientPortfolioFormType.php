@@ -48,7 +48,7 @@ class ChooseClientPortfolioFormType extends AbstractType
                             'owner_id' => $ria->getId(),
                         ]);
                 },
-            // 'property_path' => '',
+            'mapped' => false,
             'data' => $this->proposedPortfolio ? $this->proposedPortfolio->getPortfolio() : null,
         ]);
     }

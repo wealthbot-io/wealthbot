@@ -12,10 +12,6 @@ use Wealthbot\ClientBundle\Model\WorkflowableInterface;
  */
 class Profile implements WorkflowableInterface
 {
-    // @todo
-    public $action_type;
-    public $is_qualified;
-    public $citizenship;
 
     const PAYMENT_METHOD_DIRECT_DEBIT = 1;
     const PAYMENT_METHOD_OUTSIDE_PAYMENT = 2;

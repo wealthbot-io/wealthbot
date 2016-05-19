@@ -55,7 +55,7 @@ class RiskQuestionsFormType extends AbstractType
                     ])
                     ->add('answer_'.$question->getId(), 'text', [
                         'label' => $question->getTitle(),
-                        // 'property_path' => '',
+                        'mapped' => false,
                         'required' => true,
                         'data' => $this->user->getProfile()->getWithdrawAge(),
                     ])
@@ -80,7 +80,7 @@ class RiskQuestionsFormType extends AbstractType
                             },
                             'placeholder' => $userAnswer ? false : 'Choose an Option',
                             'property' => 'title',
-                            // 'property_path' => '',
+                            'mapped' => false,
                             'required' => true,
                             'label' => $question->getTitle(),
                             'preferred_choices' => $userAnswer ? [$userAnswer] : [],

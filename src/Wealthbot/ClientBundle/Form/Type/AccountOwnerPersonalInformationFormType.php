@@ -44,11 +44,11 @@ class AccountOwnerPersonalInformationFormType extends AbstractType
             ->add('citezen', 'choice', [
                 'label' => 'Citizenship',
                 'choices' => ['us' => 'United States', 'other' => 'Other'],
-                // 'property_path' => '',
+                'mapped' => false,
                 'data' => 'us',
             ])
             ->add('ssn_tin_1', 'text', [
-                // 'property_path' => '',
+                'mapped' => false,
                 'data' => '',
                 'constraints' => [
                     new NotBlank(['message' => 'Can not be blank.']),
@@ -63,7 +63,7 @@ class AccountOwnerPersonalInformationFormType extends AbstractType
                 ],
             ])
             ->add('ssn_tin_2', 'text', [
-                // 'property_path' => '',
+                'mapped' => false,
                 'data' => '',
                 'constraints' => [
                     new NotBlank(['message' => 'Can not be blank.']),
@@ -78,7 +78,7 @@ class AccountOwnerPersonalInformationFormType extends AbstractType
                 ],
             ])
             ->add('ssn_tin_3', 'text', [
-                // 'property_path' => '',
+                'mapped' => false,
                 'data' => '',
                 'constraints' => [
                     new NotBlank(['message' => 'Can not be blank.']),

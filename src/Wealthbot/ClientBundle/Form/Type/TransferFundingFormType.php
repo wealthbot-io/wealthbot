@@ -70,6 +70,7 @@ class TransferFundingFormType extends AbstractType
                 'expanded' => true,
                 'multiple' => false,
                 'required' => false,
+                'auto_initialize' => false
             ])
             ->add('amount', 'number', [
                 'precision' => 2,
@@ -81,6 +82,7 @@ class TransferFundingFormType extends AbstractType
                 'expanded' => true,
                 'multiple' => false,
                 'required' => false,
+                'auto_initialize' => false
             ])
         ;
 

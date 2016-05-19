@@ -169,7 +169,7 @@ class AccountSettingsFormType extends AbstractType
                     'class' => 'input-xmini',
                     'placeholder' => '###',
                 ],
-                // 'property_path' => '',
+                'mapped' => false,
                 'data' => $matches[1],
                 'auto_initialize' => false,
                 'constraints' => [
@@ -188,7 +188,7 @@ class AccountSettingsFormType extends AbstractType
                     'class' => 'input-xmini',
                     'placeholder' => '###',
                 ],
-                // 'property_path' => '',
+                'mapped' => false,
                 'data' => $matches[2],
                 'auto_initialize' => false,
                 'constraints' => [
@@ -207,7 +207,7 @@ class AccountSettingsFormType extends AbstractType
                     'class' => 'input-xmini',
                     'placeholder' => '###',
                 ],
-                // 'property_path' => '',
+                'mapped' => false,
                 'data' => $matches[3],
                 'auto_initialize' => false,
                 'constraints' => [

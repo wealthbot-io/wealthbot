@@ -71,7 +71,7 @@ class HouseholdSpouseFormType extends AbstractType
                 'data' => 1,
                 'expanded' => true,
                 'label' => 'U.S. citizen?',
-                // 'property_path' => '',
+                'mapped' => false,
                 'constraints' => [
                     new IsTrue(['message' => 'Spouse of your client should be U.S. citizen.']),
             ], ])
@@ -156,7 +156,7 @@ class HouseholdSpouseFormType extends AbstractType
                     'class' => 'input-xmini',
                     'placeholder' => '###',
                 ],
-                // 'property_path' => '',
+                'mapped' => false,
                 'auto_initialize' => false,
                 'constraints' => [
                     new NotBlank(['message' => 'Can not be blank.']),
@@ -175,7 +175,7 @@ class HouseholdSpouseFormType extends AbstractType
                     'class' => 'input-xmini',
                     'placeholder' => '##',
                 ],
-                // 'property_path' => '',
+                'mapped' => false,
                 'auto_initialize' => false,
                 'constraints' => [
                     new NotBlank(['message' => 'Can not be blank.']),
@@ -194,7 +194,7 @@ class HouseholdSpouseFormType extends AbstractType
                     'class' => 'input-xmini',
                     'placeholder' => '####',
                 ],
-                // 'property_path' => '',
+                'mapped' => false,
                 'auto_initialize' => false,
                 'constraints' => [
                     new NotBlank(['message' => 'Can not be blank.']),

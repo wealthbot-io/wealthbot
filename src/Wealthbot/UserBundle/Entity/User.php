@@ -18,9 +18,6 @@ use Wealthbot\UserBundle\Model\User as BaseUser;
  */
 class User extends BaseUser implements ActivityInterface
 {
-    // @todo
-    public $portfolio;
-    public $is_accepted;
 
     /**
      * @var int

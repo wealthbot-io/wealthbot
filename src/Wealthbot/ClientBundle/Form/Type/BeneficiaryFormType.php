@@ -59,7 +59,7 @@ class BeneficiaryFormType extends AbstractType
 
         $updateSsn = function (FormInterface $form, $ssn) use ($factory) {
             $form->add($factory->createNamed('ssn_1', 'text', null, [
-                    // 'property_path' => '',
+                    'mapped' => false,
                     'auto_initialize' => false,
                     'attr' => ['value' => $ssn[1]],
                     'constraints' => [
@@ -74,7 +74,7 @@ class BeneficiaryFormType extends AbstractType
                     ],
                 ]))
                 ->add($factory->createNamed('ssn_2', 'text', null, [
-                    // 'property_path' => '',
+                    'mapped' => false,
                     'auto_initialize' => false,
                     'attr' => ['value' => $ssn[2]],
                     'constraints' => [
@@ -89,7 +89,7 @@ class BeneficiaryFormType extends AbstractType
                     ],
                 ]))
                 ->add($factory->createNamed('ssn_3', 'text', null, [
-                    // 'property_path' => '',
+                    'mapped' => false,
                     'auto_initialize' => false,
                     'attr' => ['value' => $ssn[3]],
                     'constraints' => [

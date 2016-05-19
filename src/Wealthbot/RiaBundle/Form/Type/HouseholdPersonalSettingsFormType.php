@@ -55,7 +55,7 @@ class HouseholdPersonalSettingsFormType extends AbstractType
                 'label' => 'U.S. citizen?',
                 'data' => 1,
                 'choices' => ['1' => 'Yes', '0' => 'No'],
-                // 'property_path' => '',
+                'mapped' => false,
                 'constraints' => [
                     new IsTrue(['message' => 'Your client should be U. S. citizen.']),
             ], ])
@@ -156,7 +156,7 @@ class HouseholdPersonalSettingsFormType extends AbstractType
                     'placeholder' => '###',
                 ],
                 'auto_initialize' => false,
-                // 'property_path' => '',
+                'mapped' => false,
                 'constraints' => [
                     new NotBlank(['message' => 'Can not be blank.']),
                     new Regex(['pattern' => '/^\d+$/', 'message' => 'Must be a number.']),
@@ -175,7 +175,7 @@ class HouseholdPersonalSettingsFormType extends AbstractType
                     'placeholder' => '##',
                 ],
                 'auto_initialize' => false,
-                // 'property_path' => '',
+                'mapped' => false,
                 'constraints' => [
                     new NotBlank(['message' => 'Can not be blank.']),
                     new Regex(['pattern' => '/^\d+$/', 'message' => 'Must be a number.']),
@@ -193,7 +193,7 @@ class HouseholdPersonalSettingsFormType extends AbstractType
                     'class' => 'input-xmini',
                     'placeholder' => '####',
                 ],
-                // 'property_path' => '',
+                'mapped' => false,
                 'auto_initialize' => false,
                 'constraints' => [
                     new NotBlank(['message' => 'Can not be blank.']),

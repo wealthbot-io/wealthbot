@@ -93,12 +93,14 @@ class ClientAccountOwnerFormEventSubscriber implements EventSubscriberInterface
                 'choices' => $choices,
                 'expanded' => true,
                 'multiple' => true,
+                'auto_initialize' => false
             ]));
         } else {
             unset($choices['other']);
 
             $form->add($this->factory->createNamed('owner_types', 'choice', null, [
                 'mapped' => false,
+                'auto_initialize' => false,
                 'choices' => $choices,
                 'expanded' => true,
                 'multiple' => false,

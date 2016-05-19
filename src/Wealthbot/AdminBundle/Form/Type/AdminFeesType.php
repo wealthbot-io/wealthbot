@@ -39,7 +39,7 @@ class AdminFeesType extends AbstractType
             'prototype' => true,
             'prototype_name' => 'fee__name__',
             'by_reference' => false,
-           // // 'property_path' => '',
+           // 'mapped' => false,
         ]);
 
         $builder->addEventListener(FormEvents::SUBMIT, [$this, 'onSubmit']);

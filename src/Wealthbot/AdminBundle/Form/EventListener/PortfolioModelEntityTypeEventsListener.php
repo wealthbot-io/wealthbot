@@ -294,7 +294,7 @@ class PortfolioModelEntityTypeEventsListener implements EventSubscriberInterface
         }
 
         $form->add($this->factory->createNamed('symbol', 'text', null, [
-            // 'property_path' => '',
+            'mapped' => false,
             'required' => false,
             'attr' => [
                 'readonly' => 'readonly',
@@ -314,7 +314,7 @@ class PortfolioModelEntityTypeEventsListener implements EventSubscriberInterface
         }
 
         $form->add($this->factory->createNamed('muni_substitution_symbol', 'text', null, [
-            // 'property_path' => '',
+            'mapped' => false,
             'required' => false,
             'attr' => [
                 'readonly' => 'readonly',
@@ -334,7 +334,7 @@ class PortfolioModelEntityTypeEventsListener implements EventSubscriberInterface
         }
 
         $form->add($this->factory->createNamed('tax_loss_harvesting_symbol', 'text', null, [
-            // 'property_path' => '',
+            'mapped' => false,
             'required' => false,
             'attr' => [
                 'readonly' => 'readonly',

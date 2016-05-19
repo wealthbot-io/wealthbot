@@ -56,7 +56,7 @@ services:
             - "@doctrine.orm.entity_manager"
             - "@wealthbot_client.cash.manager"
             - "@wealthbot_ria.period.manager"
-            - "@translator"
+            - "@translator.default"
 
     wealthbot_ria.period.manager:
         class: Wealthbot\RiaBundle\Service\Manager\PeriodManager

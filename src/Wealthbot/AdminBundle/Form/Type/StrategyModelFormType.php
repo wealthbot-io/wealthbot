@@ -80,7 +80,7 @@ class StrategyModelFormType extends AbstractType
 
         if ($this->user->isSuperAdmin() || $assumption) {
             $builder->add('assumption', new ModelAssumptionFormType(), [
-                // 'property_path' => '',
+                'mapped' => false,
                 'data' => $assumption,
             ]);
         }

@@ -59,7 +59,7 @@ class ScheduledDistributionFormType extends AbstractType
                     'placeholder' => 'MM',
                 ],
                 'label' => 'Start of transfer: ',
-                // 'property_path' => '',
+                'mapped' => false,
                 'auto_initialize' => false,
                 'data' => $date ? $date->format('m') : null,
                 'constraints' => [
@@ -76,7 +76,7 @@ class ScheduledDistributionFormType extends AbstractType
                     'class' => 'input-xmini',
                     'placeholder' => 'DD',
                 ],
-                // 'property_path' => '',
+                'mapped' => false,
                 'auto_initialize' => false,
                 'data' => $date ? $date->format('d') : null,
                 'constraints' => [

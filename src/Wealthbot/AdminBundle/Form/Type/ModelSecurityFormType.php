@@ -41,7 +41,7 @@ class ModelSecurityFormType extends AbstractType
 
         $builder
             ->add('fund_symbol', 'text', [
-                //// 'property_path' => '' /*'fund.symbol'*/
+                //'mapped' => false /*'fund.symbol'*/
             ])
             ->add('security_id', 'hidden', ['constraints' => [new NotBlank(['message' => 'Please choice a Symbol from list.'])]])
             ->add('type', 'hidden', ['mapped' => false])
@@ -89,7 +89,7 @@ class ModelSecurityFormType extends AbstractType
                         ->orderBy('ac.name');
                 },
                 'placeholder' => 'Choose an option',
-                //// 'property_path' => '',
+                //'mapped' => false,
                 'data' => $assetClass ? $assetClass : null,
                 'auto_initialize' => false,
             ]));

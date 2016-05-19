@@ -276,7 +276,7 @@ class ClientAccountFormType extends AbstractType
             ])
             ->add('plan_provider', 'text', [
                 'label' => 'Retirement Plan Provider',
-                // 'property_path' => '',
+                'mapped' => false,
                 'data' => $provider,
             ])
             ->add('groupType', 'entity', [

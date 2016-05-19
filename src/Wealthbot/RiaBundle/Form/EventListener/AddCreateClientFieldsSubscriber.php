@@ -39,7 +39,7 @@ class AddCreateClientFieldsSubscriber implements EventSubscriberInterface
 
         // check if the client object is not "new"
         if ($data->getId()) {
-            //$form->add($this->factory->createNamed('username', 'text', array(// 'property_path' => '')));
+            //$form->add($this->factory->createNamed('username', 'text', array('mapped' => false)));
         }
     }
 }

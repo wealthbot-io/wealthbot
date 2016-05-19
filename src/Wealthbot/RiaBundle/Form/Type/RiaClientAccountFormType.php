@@ -59,7 +59,7 @@ class RiaClientAccountFormType extends AbstractType
 
         $builder->add('group', 'choice', [
                 'choices' => $groupChoices,
-                // 'property_path' => '',
+                'mapped' => false,
                 'placeholder' => false,
                 'data' => $selectedGroup,
             ])

@@ -159,7 +159,7 @@ class RiaClientAccountFormEventSubscriber implements EventSubscriberInterface
                 )->add(
                     $this->factory->createNamed('plan_provider', 'text', null, [
                             'label' => 'Retirement Plan Provide',
-                            // 'property_path' => '',
+                            'mapped' => false,
                             'data' => $provider,
                     ])
                 );

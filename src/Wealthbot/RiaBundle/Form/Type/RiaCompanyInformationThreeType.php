@@ -77,13 +77,13 @@ class RiaCompanyInformationThreeType extends AbstractType
                     'multiple' => false,
                     'expanded' => true,
                     'required' => false,
-                    // 'property_path' => '',
+                    'mapped' => false,
                 ])
                 ->add('strategy_model', 'choice', [
                     'choices' => $strategyChoices,
                     'multiple' => false,
                     'expanded' => true,
-                    // 'property_path' => '',
+                    'mapped' => false,
                     'required' => false,
                     'data' => ($portfolio && $portfolio->isStrategy() ? $portfolio->getId() : null),
                 ]);
@@ -223,7 +223,7 @@ class RiaCompanyInformationThreeType extends AbstractType
                 $form->add($factory->createNamed('subclasses', 'collection', null, [
                     'type' => new RiaSubclassType(),
                     'by_reference' => false,
-                    // 'property_path' => '',
+                    'mapped' => false,
                     'data' => $riaSubclasses,
                     'auto_initialize' => false,
                 ]));
@@ -231,7 +231,7 @@ class RiaCompanyInformationThreeType extends AbstractType
                 $form->add($factory->createNamed('subclasses', 'collection', null, [
                     'type' => new RiaSubclassType(),
                     'by_reference' => false,
-                    // 'property_path' => '',
+                    'mapped' => false,
                     'auto_initialize' => false,
                 ]));
             }

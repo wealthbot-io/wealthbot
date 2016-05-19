@@ -63,7 +63,7 @@ class AccountTransferInformationFormType extends AbstractType
         $form->add(
             $this->factory->createNamed('transfer_custodian_id', 'hidden', null, [
                 'data' => $transferCustodian ? $transferCustodian->getId() : null,
-                // 'property_path' => '',
+                'mapped' => false,
                 'auto_initialize' => false,
             ])
         )->add(

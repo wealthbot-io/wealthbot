@@ -29,7 +29,7 @@
             </div>
 
             <label class="is-final-tier-checkbox checkbox pull-left" style="display: none;">
-                {{ form_widget(form.is_final_tier) }} <span class="classify-tier">{{ form.is_final_tier.get('label') }}</span>
+                {{ form_widget(form.is_final_tier) }} <span class="classify-tier">{{ form.is_final_tier.vars.label }}</span>
             </label>
         </td>
         <td class="action"><a class="btn-remove" data-related="{{ name }}">{{ remove_text }}</a></td>

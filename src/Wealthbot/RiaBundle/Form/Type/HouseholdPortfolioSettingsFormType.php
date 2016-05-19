@@ -79,7 +79,7 @@ class HouseholdPortfolioSettingsFormType extends AbstractType
                 'data' => $selectedGroupId,
                 'placeholder' => '',
                 'label' => 'Advisor Set: ',
-                // 'property_path' => '',
+                'mapped' => false,
             ])
         ;
 
@@ -142,7 +142,7 @@ class HouseholdPortfolioSettingsFormType extends AbstractType
                 'attr' => ['class' => 'input-small'],
                 'format' => 'MM-dd-yy',
                 'label' => 'Performance Inception: ',
-                // 'property_path' => '',
+                'mapped' => false,
                 'read_only' => true,
                 'required' => false,
                 'widget' => 'single_text',
@@ -152,7 +152,7 @@ class HouseholdPortfolioSettingsFormType extends AbstractType
                 'attr' => ['class' => 'input-medium'],
                 'choices' => $portfolios,
                 'label' => 'Portfolio: ',
-                // 'property_path' => '',
+                'mapped' => false,
                 'auto_initialize' => false,
             ]))
         ;

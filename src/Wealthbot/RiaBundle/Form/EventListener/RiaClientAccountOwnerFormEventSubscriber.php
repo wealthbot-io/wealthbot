@@ -85,6 +85,7 @@ class RiaClientAccountOwnerFormEventSubscriber implements EventSubscriberInterfa
                     'expanded' => true,
                     'multiple' => true,
                     'data' => $data['owner_types'],
+                    'auto_initialize' => false
                 ])
             );
 
@@ -108,6 +109,7 @@ class RiaClientAccountOwnerFormEventSubscriber implements EventSubscriberInterfa
                     'expanded' => true,
                     'multiple' => false,
                     'data' => $data,
+                    'auto_initialize' => false
                 ])
             );
         }

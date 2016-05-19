@@ -42,7 +42,7 @@ class FeeFormType extends AbstractType
                     'attr' => $value === 1000000000000 ? ['checked' => 'checked'] : [],
                     'required' => false,
                     'auto_initialize' => false,
-                   // // 'property_path' => '',
+                   // 'mapped' => false,
                 ]))
             ;
         };
@@ -53,7 +53,7 @@ class FeeFormType extends AbstractType
             ->add('tier_bottom', 'number', [
                 'label' => 'Tier bottom ($)',
                 'required' => true,
-               // // 'property_path' => '',
+               // 'mapped' => false,
                 'grouping' => true,
                 'attr' => ['readonly' => 'readonly'],
             ])

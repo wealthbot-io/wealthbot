@@ -304,7 +304,7 @@ class CeModelEntityTypeEventsListener implements EventSubscriberInterface
         }
 
         $form->add($this->factory->createNamed($name, 'text', null, [
-            // 'property_path' => '',
+            'mapped' => false,
             'required' => false,
             'attr' => [
                 'readonly' => 'readonly',

@@ -62,7 +62,7 @@ class TransferFundingFormEventSubscriber implements EventSubscriberInterface
     protected function addContributionYearField(FormInterface $form)
     {
         if ($this->clientAccount->isRothIraType()) {
-            $form->add($this->factory->createNamed('contribution_year', 'text', null, ['required' => false]));
+            $form->add($this->factory->createNamed('contribution_year', 'text', null, ['required' => false,'auto_initialize'=>false]));
         }
     }
 
@@ -84,13 +84,15 @@ class TransferFundingFormEventSubscriber implements EventSubscriberInterface
     {
         $form->add($this->factory->createNamed('start_transfer_date_month', 'text', $date['month'], [
                 'attr' => ['value' => $date['month']],
-                // 'property_path' => '',
+                'auto_initialize' => false,
                 'required' => false,
+                'mapped' => false
             ]))
             ->add($this->factory->createNamed('start_transfer_date_day', 'text', $date['day'], [
                 'attr' => ['value' => $date['day']],
-                // 'property_path' => '',
+                'auto_initialize' => false,
                 'required' => false,
+                'mapped' => false
             ]))
         ;
     }

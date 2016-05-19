@@ -8,8 +8,6 @@ use Symfony\Component\Validator\Context\ExecutionContext;
 
 class User extends BaseUser
 {
-    // @todo
-    public $level;
 
     /**
      * @var \DateTime

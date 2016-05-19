@@ -84,7 +84,7 @@ class ClientProfileFormType extends AbstractType
                 'expanded' => true,
                 'multiple' => false,
                 'required' => false,
-                // 'property_path' => '',
+                'mapped' => false,
                 'data' => $isExist ? 1 : null,
                 'label' => ($data && $data->getMaritalStatus() === 'Married' ? 'Are you and your spouse both U.S. citizens?' : 'Are you a U.S. citizen?'),
             ])

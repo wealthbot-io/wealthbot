@@ -36,7 +36,7 @@ class BeneficiariesCollectionFormType extends AbstractType
             'allow_delete' => true,
             'prototype' => true,
             'by_reference' => false,
-            // 'property_path' => '',
+            'mapped' => false,
         ]);
 
         $builder->addEventListener(FormEvents::SUBMIT, [$this, 'onSubmit']);

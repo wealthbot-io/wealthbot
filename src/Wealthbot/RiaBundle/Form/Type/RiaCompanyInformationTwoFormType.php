@@ -56,7 +56,7 @@ class RiaCompanyInformationTwoFormType extends AbstractType
                 'prototype' => true,
                 'prototype_name' => '__name__',
                 'by_reference' => false,
-                // 'property_path' => '',
+                'mapped' => false,
                 'data' => $fees,
             ])
             ->add('minimum_billing_fee', 'number', [

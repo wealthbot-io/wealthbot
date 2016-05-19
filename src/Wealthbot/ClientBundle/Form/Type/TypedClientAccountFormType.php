@@ -35,7 +35,7 @@ class TypedClientAccountFormType extends ClientAccountFormType
         if ($this->groupType) {
             $builder->add('groupType', 'hidden', [
                 'data' => $this->groupType->getId(),
-                // 'property_path' => '',
+                'mapped' => false,
             ]);
         } else {
             $group = $this->group;
@@ -80,7 +80,7 @@ class TypedClientAccountFormType extends ClientAccountFormType
         if ($this->groupType) {
             $builder->add('groupType', 'hidden', [
                 'data' => $this->groupType->getId(),
-                // 'property_path' => '',
+                'mapped' => false,
             ]);
         } else {
             $group = $this->group;

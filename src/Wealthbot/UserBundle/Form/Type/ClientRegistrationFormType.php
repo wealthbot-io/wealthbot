@@ -17,7 +17,8 @@ class ClientRegistrationFormType extends UserType
         $builder->remove('username')
             ->add('profile', new ClientProfileType())
             ->add('is_accepted', 'checkbox', [
-                'required' => true
+                'required' => true,
+                'mapped' => false
             ])
         ;
 

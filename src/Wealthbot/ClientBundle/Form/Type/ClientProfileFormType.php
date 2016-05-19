@@ -138,6 +138,7 @@ class ClientProfileFormType extends AbstractType
                             1 => 'Yes',
                             0 => 'No',
                         ],
+                        'mapped' => false,
                         'expanded' => true,
                         'multiple' => false,
                         'required' => false,

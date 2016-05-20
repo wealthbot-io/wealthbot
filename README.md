@@ -58,12 +58,11 @@ https://trello.com/b/klhsT5Xj/wealthbot-io-roadmap-and-ideas
 * Install [Vagrant](https://www.vagrantup.com/) and [Virtual Box](https://www.virtualbox.org/)
 * You'll need an NFS plugin. Once vagrant is installed run: `vagrant plugin install vagrant-bindfs`
 
-And now, our super-simple, 4-step install
+And now, our super-simple, 3-step install
 
 1. `git clone https://github.com/wealthbot-io/wealthbot`
 2. Add `192.168.56.105  local.wealthbot.io` to your etc/hosts file
-3. `cd wealthbot/vagrant` and run `vagrant up`
-4. Run `vagrant provision`  (only first-run)
+3. `cd wealthbot/vagrant` and run `vagrant up` (run `vagrant provision` at first-run)
 
 *[If you prefer your instructions via Youtube](https://www.youtube.com/watch?v=cZQONErBFXo)*
 

@@ -288,7 +288,7 @@ class SecuritiesController extends AclController
         $this->checkAccess(Acl::PERMISSION_EDIT);
 
         $form = $this->createForm(new SecurityFormType());
-        $form->submit($request);
+        $form->handleRequest($request);
 
         $result = [
             'content' => $this->renderView('WealthbotAdminBundle:Securities:_security_subclass_form_field.html.twig', [

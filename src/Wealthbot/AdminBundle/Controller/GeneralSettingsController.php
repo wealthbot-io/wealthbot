@@ -79,7 +79,7 @@ class GeneralSettingsController extends AclController
         $form->get('fees')->setData($fees);
 
         if ($request->getMethod() === 'POST') {
-            $form->submit($request);
+            $form->handleRequest($request);
 
             if ($form->isValid()) {
                 foreach ($fees as $riaFee) {
@@ -132,7 +132,7 @@ class GeneralSettingsController extends AclController
         $form = $this->createForm(new FeeFormType($superAdmin));
 
         if ($request->isMethod('post')) {
-            $form->submit($request);
+            $form->handleRequest($request);
 
             if ($form->isValid()) {
                 $fee = $form->getData();
@@ -160,7 +160,7 @@ class GeneralSettingsController extends AclController
         $form = $this->createForm(new FeeFormType($superAdmin), $fee);
 
         if ($request->isMethod('post')) {
-            $form->submit($request);
+            $form->handleRequest($request);
 
             if ($form->isValid()) {
                 $fee = $form->getData();
@@ -254,7 +254,7 @@ class GeneralSettingsController extends AclController
         $form = $this->createForm(new SubclassType());
 
         if ($request->isMethod('post')) {
-            $form->submit($request);
+            $form->handleRequest($request);
 
             if ($form->isValid()) {
                 $subclass = $form->getData();
@@ -280,7 +280,7 @@ class GeneralSettingsController extends AclController
         $form = $this->createForm(new SubclassType(), $subclass);
 
         if ($request->isMethod('post')) {
-            $form->submit($request);
+            $form->handleRequest($request);
 
             if ($form->isValid()) {
                 $subclass = $form->getData();

@@ -63,7 +63,7 @@ class ProfileController extends AclController
         $form = $this->createForm(new ClientProfileFormType($isPreSave), $profile);
 
         if ($request->isMethod('post')) {
-            $form->submit($request);
+            $form->handleRequest($request);
 
             if ($form->isValid()) {
                 $profile = $form->getData();
@@ -165,7 +165,7 @@ class ProfileController extends AclController
         $form = $this->createForm(new AccountGroupsFormType($user));
 
         if ($request->isMethod('post')) {
-            $form->submit($request);
+            $form->handleRequest($request);
 
             if ($form->isValid()) {
                 $data = $form->getData();
@@ -281,7 +281,7 @@ class ProfileController extends AclController
             )
         );
 
-        $form->submit($request);
+        $form->handleRequest($request);
 
         return $this->getJsonResponse([
             'status' => 'success',
@@ -303,7 +303,7 @@ class ProfileController extends AclController
         $group = $this->getAccountGroup();
 
         $depositAccountGroupForm = $this->createForm(new AccountTypesFormType($client, $group));
-        $depositAccountGroupForm->submit($request);
+        $depositAccountGroupForm->handleRequest($request);
 
         if ($depositAccountGroupForm->isValid()) {
 
@@ -352,7 +352,7 @@ class ProfileController extends AclController
         $client = $this->getUser();
 
         $accountGroupForm = $this->createForm(new AccountGroupsFormType($client));
-        $accountGroupForm->submit($request);
+        $accountGroupForm->handleRequest($request);
 
         if ($accountGroupForm->isValid()) {
             $group = $this->getAccountGroup();
@@ -407,7 +407,7 @@ class ProfileController extends AclController
         $group = $request->get('group');
 
         $form = $this->createForm(new ClientAccountFormType($client, $group, false));
-        $form->submit($request);
+        $form->handleRequest($request);
 
         $step = $this->getAccountStep();
         if ($step === self::ACCOUNT_STEP_ACCOUNT_UPDATE_FORM) {
@@ -933,7 +933,7 @@ class ProfileController extends AclController
         $client = $this->getUser();
 
         $form = $this->createForm(new TypedClientAccountFormType($em, $client, $this->getAccountGroupType(), null, false));
-        $form->submit($request);
+        $form->handleRequest($request);
 
         return $this->getJsonResponse([
             'status' => 'success',

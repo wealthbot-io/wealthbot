@@ -45,7 +45,7 @@ class UserController extends AclController
         $form = $this->createForm(CreateAdminUserType::class, $user);
 
         if ($request->isMethod('post')) {
-            $form->submit($request);
+            $form->handleRequest($request);
 
             if ($form->isValid()) {
                 $userAccount = $form->getData();
@@ -89,7 +89,7 @@ class UserController extends AclController
         $form = $this->createForm(new CreateAdminUserType($user), $user);
 
         if ($request->isMethod('post')) {
-            $form->submit($request);
+            $form->handleRequest($request);
 
             if ($form->isValid()) {
                 $userAccount = $form->getData();

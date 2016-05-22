@@ -81,7 +81,7 @@ class UserController extends Controller
         $form = $this->createForm(new CreateUserFormType('Wealthbot\UserBundle\Entity\User', $ria));
 
         if ($request->isMethod('post')) {
-            $form->submit($request);
+            $form->handleRequest($request);
 
             if ($form->isValid()) {
                 /** @var $user \Wealthbot\UserBundle\Entity\User */
@@ -117,7 +117,7 @@ class UserController extends Controller
         $form = $this->createForm(new CreateUserFormType('Wealthbot\UserBundle\Entity\User', $ria), $riaUser);
 
         if ($request->isMethod('post')) {
-            $form->submit($request);
+            $form->handleRequest($request);
 
             if ($form->isValid()) {
                 /** @var $user \Wealthbot\UserBundle\Entity\User */
@@ -196,7 +196,7 @@ class UserController extends Controller
         $groupsForm = $this->createForm(new UserGroupsFormType('Wealthbot\UserBundle\Entity\Group'), $group);
 
         if ($request->isMethod('post')) {
-            $groupsForm->submit($request);
+            $groupsForm->handleRequest($request);
 
             if ($groupsForm->isValid()) {
                 $group = $groupsForm->getData();

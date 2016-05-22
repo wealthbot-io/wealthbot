@@ -44,7 +44,7 @@ class RisksController extends AclController
 
         $form = $this->createForm(new RiskQuestionFormType(), $question);
         if ($request->isMethod('post')) {
-            $form->submit($request);
+            $form->handleRequest($request);
 
             if ($form->isValid()) {
                 $superAdmin = $this->get('wealthbot.manager.user')->getAdmin();
@@ -108,7 +108,7 @@ class RisksController extends AclController
 
         $form = $this->createForm(new RiskQuestionFormType(), $question);
         if ($request->isMethod('post')) {
-            $form->submit($request);
+            $form->handleRequest($request);
 
             if ($form->isValid()) {
                 $question = $form->getData();

@@ -70,7 +70,7 @@ class DashboardTransferController extends BaseTransferController
             $form = $this->createForm(new DashboardSystemAccountsFormType($account, $systemAccounts));
 
             if ($request->isMethod('post')) {
-                $form->submit($request);
+                $form->handleRequest($request);
 
                 if ($form->isValid()) {
                     $systemAccount = $form->get('account')->getData();
@@ -211,7 +211,7 @@ class DashboardTransferController extends BaseTransferController
 
         $isPreSaved = $request->isXmlHttpRequest();
         if ($request->isMethod('post')) {
-            $form->submit($request);
+            $form->handleRequest($request);
 
             if ($form->isValid()) {
                 $account->setProcessStep(ClientAccount::PROCESS_STEP_FINISHED_APPLICATION);

@@ -71,7 +71,7 @@ class PasInterfacesController extends Controller
         $transaction = new Transaction();
 
         $form = $this->createForm(new TransactionFormType(), $transaction);
-        $form->submit($request);
+        $form->handleRequest($request);
 
         if ($form->isValid()) {
             $now = new \DateTime();

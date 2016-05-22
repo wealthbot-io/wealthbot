@@ -360,7 +360,7 @@ class TransferController extends BaseTransferController
         $form = $this->createForm(new TransferClientInfoFormType($clientInfo), $clientInfo);
 
         if ($request->isMethod('post')) {
-            $form->submit($request);
+            $form->handleRequest($request);
 
             if ($form->isValid()) {
                 $data = $form->getData();

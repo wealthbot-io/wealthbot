@@ -39,7 +39,7 @@ class DefaultController extends Controller
             ])
             ->getForm();
 
-        $form->submit($request);
+        $form->handleRequest($request);
         $values = $form->getData();
 
         $query = $em->getRepository('WealthbotUserBundle:User')->createQueryBuilder('r')

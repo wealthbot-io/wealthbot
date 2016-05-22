@@ -71,7 +71,7 @@ class SecurityController extends BaseSecurity
         }
 
         if ($request->isMethod('post')) {
-            $form->submit($request);
+            $form->handleRequest($request);
 
             if ($form->isValid()) {
                 $data = $form->getData();

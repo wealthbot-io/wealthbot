@@ -192,7 +192,7 @@ class DashboardController extends Controller
             ->createForm(new HouseholdCloseFormType(), $riaClient);
 
         if ($request->isMethod('POST')) {
-            $form->submit($request);
+            $form->handleRequest($request);
 
             if ($form->isValid()) {
                 $formData = $form->getData();
@@ -224,11 +224,11 @@ class DashboardController extends Controller
             ->createForm(new HouseholdSpouseFormType($riaClient), $riaClient->getSpouse());
 
         if ($request->isMethod('POST')) {
-            $householdForm->submit($request);
+            $householdForm->handleRequest($request);
 
             $spouseFormValid = true;
             if (Profile::CLIENT_MARITAL_STATUS_MARRIED === $householdForm->get('maritalStatus')->getData()) {
-                $spouseForm->submit($request);
+                $spouseForm->handleRequest($request);
 
                 $spouseFormValid = $spouseForm->isValid();
                 if ($spouseFormValid) {
@@ -265,7 +265,7 @@ class DashboardController extends Controller
             ->createForm(new HouseholdContactSettingsFormType(), $riaClient->getProfile());
 
         if ($request->isMethod('POST')) {
-            $form->submit($request);
+            $form->handleRequest($request);
 
             if ($form->isValid()) {
                 $formData = $form->getData();
@@ -292,7 +292,7 @@ class DashboardController extends Controller
             ->createForm(new HouseholdBillingSettingsFormType(), $riaClient);
 
         if ($request->isMethod('POST')) {
-            $form->submit($request);
+            $form->handleRequest($request);
 
             if ($form->isValid()) {
                 $formData = $form->getData();
@@ -321,7 +321,7 @@ class DashboardController extends Controller
             ->createForm(new HouseholdPortfolioSettingsFormType($em), $riaClient);
 
         if ($request->isMethod('POST')) {
-            $form->submit($request);
+            $form->handleRequest($request);
 
             if ($form->isValid()) {
                 $formData = $form->getData();
@@ -365,7 +365,7 @@ class DashboardController extends Controller
         $scheduledDistributionForm = $this->createForm(new ScheduledDistributionFormType(), $scheduledDistribution);
 
         if ($request->isMethod('POST')) {
-            $scheduledDistributionForm->submit($request);
+            $scheduledDistributionForm->handleRequest($request);
             if ($scheduledDistributionForm->isValid()) {
                 $scheduledDistributionFormData = $scheduledDistributionForm->getData();
                 if ($scheduledDistributionFormData->getAmount() > 0) {
@@ -374,7 +374,7 @@ class DashboardController extends Controller
                 }
             }
 
-            $oneTimeDistributionForm->submit($request);
+            $oneTimeDistributionForm->handleRequest($request);
             if ($oneTimeDistributionForm->isValid()) {
                 $oneTimeDistributionFormData = $oneTimeDistributionForm->getData();
                 if ($oneTimeDistributionFormData->getAmount() > 0) {
@@ -383,7 +383,7 @@ class DashboardController extends Controller
                 }
             }
 
-            $form->submit($request);
+            $form->handleRequest($request);
             if ($form->isValid()) {
                 $formData = $form->getData();
                 $em->persist($formData);
@@ -559,7 +559,7 @@ class DashboardController extends Controller
         $form = $this->createForm(new RiaModelCompletionFormType($user, $em), $modelCompletion);
 
         if ($request->isMethod('post')) {
-            $form->submit($request);
+            $form->handleRequest($request);
 
             if ($form->isValid()) {
                 /** @var $modelCompletion RiaModelCompletion */

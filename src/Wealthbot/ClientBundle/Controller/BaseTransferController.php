@@ -425,7 +425,7 @@ class BaseTransferController extends AclController
         }
 
         if ($request->isMethod('post')) {
-            $form->submit($request);
+            $form->handleRequest($request);
 
             if ($form->isValid()) {
                 $beneficiaries = $form['beneficiaries']->getData();
@@ -507,7 +507,7 @@ class BaseTransferController extends AclController
         $bankInfoForm = $this->createForm(new BankInformationFormType());
 
         if ($request->isMethod('post')) {
-            $form->submit($request);
+            $form->handleRequest($request);
 
             if ($form->isValid()) {
                 if ($account->hasFunding() ||
@@ -665,7 +665,7 @@ class BaseTransferController extends AclController
         $form = $this->createForm(new RetirementPlanInfoFormType(), $planInfo);
 
         if ($request->isMethod('post')) {
-            $form->submit($request);
+            $form->handleRequest($request);
 
             if ($form->isValid()) {
                 $planInfo = $form->getData();
@@ -760,7 +760,7 @@ class BaseTransferController extends AclController
 
         $isPreSaved = $request->isXmlHttpRequest();
         if ($request->isMethod('post')) {
-            $form->submit($request);
+            $form->handleRequest($request);
 
             if ($form->isValid()) {
                 $account->setProcessStep(ClientAccount::PROCESS_STEP_FINISHED_APPLICATION);
@@ -841,7 +841,7 @@ class BaseTransferController extends AclController
         );
 
         if ($request->isMethod('post')) {
-            $form->submit($request);
+            $form->handleRequest($request);
 
             if ($form->isValid()) {
                 /** @var AccountOwnerInterface $data */
@@ -996,7 +996,7 @@ class BaseTransferController extends AclController
 
         if ($request->isMethod('post')) {
             $form = $this->createForm(new TransferInformationFormType($adm, true), $transferInfo);
-            $form->submit($request);
+            $form->handleRequest($request);
 
             /** @var TransferInformation $transferInfo */
             $transferInfo = $form->getData();

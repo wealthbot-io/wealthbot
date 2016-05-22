@@ -251,7 +251,7 @@ class ModelsController extends Controller
         $form = $this->createForm(new ModelRiskRatingFormType());
 
         if ($request->isMethod('post')) {
-            $form->submit($request);
+            $form->handleRequest($request);
 
             if ($form->isValid()) {
                 $model = $form->getData();
@@ -444,7 +444,7 @@ class ModelsController extends Controller
 
         $form = $this->createForm(new CeModelEntityFormType($model, $em, $ria, $isQualifiedModel), $ceModelEntity);
 
-        $form->submit($request);
+        $form->handleRequest($request);
 
         $result = [
             'status' => 'success',
@@ -783,7 +783,7 @@ class ModelsController extends Controller
         $form = $this->createForm(new RiskAdjustmentFormType($portfolioModels));
 
         if ($request->isMethod('post')) {
-            $form->submit($request);
+            $form->handleRequest($request);
 
             if ($form->isValid()) {
                 $data = $form->getData();

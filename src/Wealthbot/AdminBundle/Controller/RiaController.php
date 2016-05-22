@@ -241,7 +241,7 @@ class RiaController extends AclController
         $form = $this->createForm(new AdminFeesType($admin, $ria));
 
         if ($request->isMethod('post')) {
-            $form->submit($request);
+            $form->handleRequest($request);
             $fees = $form->get('fees')->getData();
 
             if ($form->isValid()) {
@@ -302,7 +302,7 @@ class RiaController extends AclController
         $form = $this->createForm(new RiaRelationshipFormType(), $ria->getRiaCompanyInformation());
 
         if ($request->isMethod('post')) {
-            $form->submit($request);
+            $form->handleRequest($request);
 
             if ($form->isValid()) {
 
@@ -368,7 +368,7 @@ class RiaController extends AclController
         $companyForm = $this->createForm(new RiaCompanyInformationType($user, false), $riaCompanyInfo);
 
         if ($request->getMethod() === 'POST') {
-            $companyForm->submit($request);
+            $companyForm->handleRequest($request);
 
             if ($companyForm->isValid()) {
                 $riaCompanyInfo = $companyForm->getData();
@@ -410,7 +410,7 @@ class RiaController extends AclController
         $marketingForm = $this->createForm(new RiaCompanyInformationFourType($user, false), $riaCompanyInfo);
 
         if ($request->isMethod('post')) {
-            $marketingForm->submit($request);
+            $marketingForm->handleRequest($request);
 
             if ($marketingForm->isValid()) {
                 $riaCompanyInfo = $marketingForm->getData();
@@ -445,7 +445,7 @@ class RiaController extends AclController
         $billingAndAccountsForm = $this->createForm(new RiaCompanyInformationTwoFormType($user, false), $riaCompanyInfo);
 
         if ($request->getMethod() === 'POST') {
-            $billingAndAccountsForm->submit($request);
+            $billingAndAccountsForm->handleRequest($request);
 
             if ($billingAndAccountsForm->isValid()) {
                 $originalFees = [];
@@ -514,7 +514,7 @@ class RiaController extends AclController
         );
 
         if ($request->getMethod() === 'POST') {
-            $portfolioManagementForm->submit($request);
+            $portfolioManagementForm->handleRequest($request);
 
             if ($portfolioManagementForm->isValid()) {
                 $riaCompanyInfo = $portfolioManagementForm->getData();

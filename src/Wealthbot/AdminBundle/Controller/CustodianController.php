@@ -85,7 +85,7 @@ class CustodianController extends AclController
         $form = $this->createForm(new CustodianMessageFormType(), $message);
 
         if ($request->isMethod('post')) {
-            $form->submit($request);
+            $form->handleRequest($request);
 
             if ($form->isValid()) {
                 $message = $form->getData();

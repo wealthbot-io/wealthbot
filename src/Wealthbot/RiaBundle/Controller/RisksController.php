@@ -61,7 +61,7 @@ class RisksController extends Controller
 
         $form = $this->createForm(new RiskQuestionFormType(), $question);
         if ($request->isMethod('post')) {
-            $form->submit($request);
+            $form->handleRequest($request);
 
             if ($form->isValid()) {
                 $question = $form->getData();
@@ -121,7 +121,7 @@ class RisksController extends Controller
 
         $form = $this->createForm(new RiskQuestionFormType(), $question);
         if ($request->isMethod('post')) {
-            $form->submit($request);
+            $form->handleRequest($request);
 
             if ($form->isValid()) {
                 $question = $form->getData();

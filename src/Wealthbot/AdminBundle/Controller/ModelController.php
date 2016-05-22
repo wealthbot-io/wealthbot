@@ -417,7 +417,7 @@ class ModelController extends AclController
         }
 
         $form = $this->createForm(new CeModelEntityFormType($model, $em, $this->getUser()));
-        $form->submit($request);
+        $form->handleRequest($request);
 
         $result = [
             'status' => 'success',

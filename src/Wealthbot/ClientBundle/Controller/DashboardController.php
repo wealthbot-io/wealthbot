@@ -278,7 +278,7 @@ class DashboardController extends AclController
             $params = ['stop_tlh_form' => $stopTLHValueForm->createView()];
 
             if ($request->isMethod('post')) {
-                $stopTLHValueForm->submit($request);
+                $stopTLHValueForm->handleRequest($request);
                 if ($stopTLHValueForm->isValid()) {
                     $em->persist($clientSettings);
                     $em->flush();
@@ -715,7 +715,7 @@ class DashboardController extends AclController
         $form = $this->createForm(new DashboardRetirementPlanInfoFormType(), $accountInfo);
 
         if ($request->isMethod('post')) {
-            $form->submit($request);
+            $form->handleRequest($request);
 
             if ($form->isValid()) {
                 $accountInfo = $form->getData();
@@ -807,7 +807,7 @@ class DashboardController extends AclController
         $form = $this->createForm(new BeneficiaryFormType(false, true), $beneficiary);
 
         if ($request->isMethod('post')) {
-            $form->submit($request);
+            $form->handleRequest($request);
 
             if ($form->isValid()) {
                 /** @var Beneficiary $beneficiary */
@@ -904,7 +904,7 @@ class DashboardController extends AclController
         $form = $this->createForm(new BeneficiaryFormType(false, true), $beneficiary);
 
         if ($request->isMethod('post')) {
-            $form->submit($request);
+            $form->handleRequest($request);
 
             if ($form->isValid()) {
                 $beneficiary = $form->getData();
@@ -1076,7 +1076,7 @@ class DashboardController extends AclController
         $form = $this->createForm(new ClientAddressFormType(), $profile);
 
         if ($request->isMethod('post')) {
-            $form->submit($request);
+            $form->handleRequest($request);
 
             if ($form->isValid()) {
                 $profile = $form->getData();
@@ -1146,7 +1146,7 @@ class DashboardController extends AclController
         }
 
         if ($request->isMethod('post')) {
-            $form->submit($request);
+            $form->handleRequest($request);
 
             if ($form->isValid()) {
                 $contribution = $form->getData();
@@ -1262,7 +1262,7 @@ class DashboardController extends AclController
         }
 
         if ($request->isMethod('post')) {
-            $form->submit($request);
+            $form->handleRequest($request);
 
             if ($form->isValid()) {
                 $distribution = $form->getData();

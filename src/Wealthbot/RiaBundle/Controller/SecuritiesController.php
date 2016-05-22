@@ -127,7 +127,7 @@ class SecuritiesController extends BaseController
         $form = $this->createForm(new ModelSecurityFormType($model, $em), $securityAssignment);
 
         if ($request->isMethod('post')) {
-            $form->submit($request);
+            $form->handleRequest($request);
 
             if ($form->isValid()) {
                 $em->persist($securityAssignment);
@@ -164,7 +164,7 @@ class SecuritiesController extends BaseController
         $form = $this->createForm(new SecurityTransactionFormType($riaCompanyInformation), $securityAssignment->getSecurityTransaction());
 
         if ($request->isMethod('post')) {
-            $form->submit($request);
+            $form->handleRequest($request);
 
             if ($form->isValid()) {
                 /** @var $securityTransaction SecurityTransaction */

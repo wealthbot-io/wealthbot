@@ -58,7 +58,7 @@ class BillingSpecController extends Controller
 
         $form = $this->createForm($formType, $billingSpec);
 
-        $form->submit($request);
+        $form->handleRequest($request);
 
         if ($form->isValid()) {
             if ($riaCompanyInfo->getPortfolioProcessing() === RiaCompanyInformation::PORTFOLIO_PROCESSING_STRAIGHT_THROUGH) {
@@ -118,7 +118,7 @@ class BillingSpecController extends Controller
     {
         $form = $this->createForm(new BillingSpecFormType(), $billingSpec);
 
-        $form->submit($request);
+        $form->handleRequest($request);
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();

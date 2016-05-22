@@ -32,7 +32,7 @@ class ProfileController extends Controller
         $form = $this->createForm(new RiaCompanyProfileFormType($isPreSave), $ria->getRiaCompanyInformation());
 
         if ($request->isMethod('POST')) {
-            $form->submit($request);
+            $form->handleRequest($request);
 
             if ($form->isValid()) {
                 /** @var RiaCompanyInformation $riaCompanyInformation */

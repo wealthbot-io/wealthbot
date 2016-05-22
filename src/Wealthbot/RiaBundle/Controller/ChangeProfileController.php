@@ -168,7 +168,7 @@ class ChangeProfileController extends Controller
         $companyForm->get('name')->setData($companyForm->get('name')->getData());
 
         if ($request->getMethod() === 'POST') {
-            $companyForm->submit($request);
+            $companyForm->handleRequest($request);
 
             if ($companyForm->isValid()) {
                 $riaCompanyInformation = $companyForm->getData();
@@ -233,7 +233,7 @@ class ChangeProfileController extends Controller
 //
 //        if ($request->isMethod('post')) {
 //
-//            $marketingForm->submit($request);
+//            $marketingForm->handleRequest($request);
 //
 //            if($marketingForm->isValid()){
 //                $riaCompanyInfo = $marketingForm->getData();
@@ -264,7 +264,7 @@ class ChangeProfileController extends Controller
         $billingAndAccountsForm = $this->createForm(new RiaCompanyInformationTwoFormType($user, false), $riaCompanyInfo);
 
         if ($request->getMethod() === 'POST') {
-            $billingAndAccountsForm->submit($request);
+            $billingAndAccountsForm->handleRequest($request);
             if ($billingAndAccountsForm->isValid()) {
                 $originalFees = [];
                 foreach ($user->getFees() as $fee) {
@@ -339,7 +339,7 @@ class ChangeProfileController extends Controller
         );
 
         if ($request->isMethod('POST')) {
-            $portfolioManagementForm->submit($request);
+            $portfolioManagementForm->handleRequest($request);
             if ($portfolioManagementForm->isValid()) {
                 $riaCompanyInfo = $portfolioManagementForm->getData();
 
@@ -429,7 +429,7 @@ class ChangeProfileController extends Controller
 
         $alertsConfigurationForm = $this->createForm(new RiaAlertsConfigurationFormType(), $ria->getAlertsConfiguration());
 
-        $alertsConfigurationForm->submit($request);
+        $alertsConfigurationForm->handleRequest($request);
         if ($alertsConfigurationForm->isValid()) {
             $alertsConfiguration = $alertsConfigurationForm->getData();
 
@@ -458,7 +458,7 @@ class ChangeProfileController extends Controller
         $alertsConfigurationForm = $this->createForm(new RiaAlertsConfigurationFormType(), $riaAlertsConfiguration);
 
         if ($request->isMethod('post')) {
-            $profileForm->submit($request);
+            $profileForm->handleRequest($request);
             if ($profileForm->isValid()) {
                 $em->persist($profileForm->getData());
                 $em->flush();
@@ -512,8 +512,8 @@ class ChangeProfileController extends Controller
         $custodianForm = $this->createForm(new RiaCustodianFormType($em), $companyInformation);
 
         if ($request->isMethod('post')) {
-            $custodianForm->submit($request);
-            $advisorCodesForm->submit($request);
+            $custodianForm->handleRequest($request);
+            $advisorCodesForm->handleRequest($request);
 
             if ($custodianForm->isValid() && $advisorCodesForm->isValid()) {
                 $advisorCodesData = $advisorCodesForm->getData();

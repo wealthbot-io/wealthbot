@@ -235,7 +235,7 @@ class ChangeProfileController extends AclController
         $form = $this->createForm(new SlaveClientFormType(), $client);
 
         if ($request->isMethod('post')) {
-            $form->submit($request);
+            $form->handleRequest($request);
 
             if ($form->isValid()) {
                 $client = $form->getData();
@@ -295,7 +295,7 @@ class ChangeProfileController extends AclController
 
         $chooseClientPortfolioForm = $this->createForm(new ChooseClientPortfolioFormType($clientPortfolioManager->getProposedClientPortfolio($client)), $client);
 
-        $chooseClientPortfolioForm->submit($request);
+        $chooseClientPortfolioForm->handleRequest($request);
         if ($chooseClientPortfolioForm->isValid()) {
             /** @var ClientPortfolio $newPortfolioData */
             $newPortfolio = $chooseClientPortfolioForm->get('portfolio')->getData();

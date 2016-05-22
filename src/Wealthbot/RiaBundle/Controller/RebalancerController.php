@@ -187,7 +187,7 @@ class RebalancerController extends Controller
             ->getForm();
 
         if ($request->isMethod('POST')) {
-            $form->submit($request);
+            $form->handleRequest($request);
         }
 
         $clientName = $form->get('client')->getData();
@@ -341,7 +341,7 @@ class RebalancerController extends Controller
 
         $form = $this->createForm(new RebalanceFormType($clientValuesIds, true));
 
-        $form->submit($request);
+        $form->handleRequest($request);
 
         if ($form->isValid()) {
             $formData = $form->getData();
@@ -704,7 +704,7 @@ class RebalancerController extends Controller
 
         $form = $this->createForm(new RebalanceFormType($clientValuesIds, true));
 
-        $form->submit($request);
+        $form->handleRequest($request);
 
         if ($form->isValid()) {
             $tradeDataCollection = $rebalancerQueueManager->getTradeDataCollection($riaCompanyInformation, $clientValuesIds);

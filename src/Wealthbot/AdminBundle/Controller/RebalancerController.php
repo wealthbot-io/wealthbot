@@ -262,7 +262,7 @@ class RebalancerController extends AclController
 
         $form = $this->createForm(new RebalanceFormType($clientValuesIds, true));
 
-        $form->submit($request);
+        $form->handleRequest($request);
 
         if ($form->isValid()) {
             $formData = $form->getData();

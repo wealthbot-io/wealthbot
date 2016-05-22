@@ -172,6 +172,7 @@ class PortfolioModelEntityTypeEventsListener implements EventSubscriberInterface
             'property' => 'name',
             'required' => false,
             'placeholder' => 'Choose Subclass',
+            'auto_initialize' => false,
             'query_builder' => function (EntityRepository $er) use ($assetClassId, $owner) {
                 $query = $er->createQueryBuilder('s')
                     ->where('s.asset_class_id = :assetClassId')
@@ -229,6 +230,7 @@ class PortfolioModelEntityTypeEventsListener implements EventSubscriberInterface
                 $form->add($this->factory->createNamed('muniSubstitution', 'entity', null, [
                     'class' => 'Wealthbot\\AdminBundle\\Entity\\SecurityAssignment',
                     'property' => 'security.name',
+                    'auto_initialize' => false,
                     'required' => false,
                     'placeholder' => 'Choose Muni Substitution',
                     'query_builder' => function (EntityRepository $er) use ($selectedModel, $subclass) {
@@ -264,6 +266,7 @@ class PortfolioModelEntityTypeEventsListener implements EventSubscriberInterface
         $form->add($this->factory->createNamed('security', 'entity', null, [
             'class' => 'Wealthbot\\AdminBundle\\Entity\\SecurityAssignment',
             'property' => 'security.name',
+            'auto_initialize' => false,
             'placeholder' => 'Choose Security',
             'query_builder' => function (EntityRepository $er) use ($subclassId, $securitiesIds) {
                 $qb = $er->createQueryBuilder('s');
@@ -296,6 +299,7 @@ class PortfolioModelEntityTypeEventsListener implements EventSubscriberInterface
         $form->add($this->factory->createNamed('symbol', 'text', null, [
             'mapped' => false,
             'required' => false,
+            'auto_initialize' => false,
             'attr' => [
                 'readonly' => 'readonly',
                 'value' => $value,
@@ -315,6 +319,7 @@ class PortfolioModelEntityTypeEventsListener implements EventSubscriberInterface
 
         $form->add($this->factory->createNamed('muni_substitution_symbol', 'text', null, [
             'mapped' => false,
+            'auto_initialize' => false,
             'required' => false,
             'attr' => [
                 'readonly' => 'readonly',
@@ -336,6 +341,7 @@ class PortfolioModelEntityTypeEventsListener implements EventSubscriberInterface
         $form->add($this->factory->createNamed('tax_loss_harvesting_symbol', 'text', null, [
             'mapped' => false,
             'required' => false,
+            'auto_initialize' => false,
             'attr' => [
                 'readonly' => 'readonly',
                 'value' => $value,
@@ -353,6 +359,7 @@ class PortfolioModelEntityTypeEventsListener implements EventSubscriberInterface
             $form->add($this->factory->createNamed('tax_loss_harvesting', 'entity', null, [
                 'class' => 'Wealthbot\\AdminBundle\\Entity\\SecurityAssignment',
                 'property' => 'security.name',
+                'auto_initialize' => false,
                 'placeholder' => 'Choose TLH Substitution',
                 'query_builder' => $securityQueryBuilder,
                 'attr' => empty($withoutIds) ? ['disabled' => 'disabled'] : [],

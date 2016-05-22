@@ -4,6 +4,7 @@ namespace Wealthbot\AdminBundle\Controller;
 
 use Doctrine\ORM\EntityManager;
 use Knp\Bundle\PaginatorBundle\KnpPaginatorBundle;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Wealthbot\AdminBundle\Manager\UserHistoryManager;

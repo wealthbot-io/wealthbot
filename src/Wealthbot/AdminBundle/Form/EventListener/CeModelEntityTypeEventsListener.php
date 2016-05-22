@@ -209,6 +209,7 @@ class CeModelEntityTypeEventsListener implements EventSubscriberInterface
         $form->add($this->factory->createNamed('subclass', 'entity', null, [
             'class' => 'Wealthbot\\AdminBundle\\Entity\\Subclass',
             'property' => 'name',
+            'auto_initialize' => false,
             'required' => false,
             'placeholder' => 'Choose Subclass',
             'query_builder' => $queryBuilder,
@@ -238,6 +239,7 @@ class CeModelEntityTypeEventsListener implements EventSubscriberInterface
                 $form->add($this->factory->createNamed('muniSubstitution', 'entity', null, [
                     'class' => 'Wealthbot\\AdminBundle\\Entity\\SecurityAssignment',
                     'property' => 'security.name',
+                    'auto_initialize' => false,
                     'required' => false,
                     'placeholder' => 'Choose Muni Substitution',
                     'query_builder' => $queryBuilder,
@@ -253,6 +255,7 @@ class CeModelEntityTypeEventsListener implements EventSubscriberInterface
         $form->add($this->factory->createNamed('securityAssignment', 'entity', null, [
             'class' => 'Wealthbot\\AdminBundle\\Entity\\SecurityAssignment',
             'property' => 'security.name',
+            'auto_initialize' => false,
             'placeholder' => 'Choose Security',
             'query_builder' => $queryBuilder,
             'attr' => is_null($subclassId) ? ['disabled' => 'disabled'] : [],
@@ -271,6 +274,7 @@ class CeModelEntityTypeEventsListener implements EventSubscriberInterface
             $form->add($this->factory->createNamed('tax_loss_harvesting', 'entity', null, [
                 'class' => 'Wealthbot\\AdminBundle\\Entity\\SecurityAssignment',
                 'property' => 'security.name',
+                'auto_initialize' => false,
                 'placeholder' => 'Choose TLH Substitution',
                 'query_builder' => $securityQueryBuilder,
                 'attr' => empty($withoutIds) ? ['disabled' => 'disabled'] : [],
@@ -306,6 +310,7 @@ class CeModelEntityTypeEventsListener implements EventSubscriberInterface
         $form->add($this->factory->createNamed($name, 'text', null, [
             'mapped' => false,
             'required' => false,
+            'auto_initialize' => false,
             'attr' => [
                 'readonly' => 'readonly',
                 'value' => $value,

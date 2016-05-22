@@ -60,6 +60,7 @@ class ModelAssumptionFormTypeEventListener implements EventSubscriberInterface
                 'grouping' => true,
                 'data' => isset($commissions['minimum']) ? $commissions['minimum'] : 0.00,
                 'disabled' => true,
+                'auto_initialize' => false,
             ]));
 
             $form->add($this->factory->createNamed('commission_max', 'number', null, [
@@ -68,6 +69,7 @@ class ModelAssumptionFormTypeEventListener implements EventSubscriberInterface
                 'grouping' => true,
                 'data' => isset($commissions['maximum']) ? $commissions['maximum'] : 0.00,
                 'disabled' => true,
+                'auto_initialize' => false,
             ]));
         }
 
@@ -75,6 +77,7 @@ class ModelAssumptionFormTypeEventListener implements EventSubscriberInterface
             $form->add($this->factory->createNamed('forecast', 'number', null, [
                 'label' => 'Forecast:',
                 'data' => ($data && $data->getForecast() ? $data->getForecast() : 0),
+                'auto_initialize' => false
             ]));
         }
     }

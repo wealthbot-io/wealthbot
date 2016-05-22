@@ -50,7 +50,8 @@ class CeModelFormTypeEventsListener implements EventSubscriberInterface
             $form->add($this->factory->createNamed('risk_rating', 'choice', $data->getRiskRating(), [
                 'placeholder' => 'Select Risk Rating',
                 'choices' => array_combine(range(1, 100), range(1, 100)),
-                'mapped' => false
+                'mapped' => false,
+                'auto_initialize' => false,
             ]));
         }
     }

@@ -24,7 +24,7 @@ class CreateClientFormHandler
     public function process(User $ria)
     {
         if ('POST' === $this->request->getMethod()) {
-            $this->form->submit($this->request);
+            $this->form->handleRequest($this->request);
 
             if ($this->form->isValid()) {
                 $client = $this->form->getData();

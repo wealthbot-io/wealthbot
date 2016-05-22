@@ -55,7 +55,7 @@ class CloseAccountsFormHandler
     public function process(User $client)
     {
         if ($this->request->isMethod('post')) {
-            $this->form->submit($this->request);
+            $this->form->handleRequest($this->request);
 
             $accountsIds = $this->form->get('accounts_ids')->getData();
             if (!is_array($accountsIds) || empty($accountsIds)) {

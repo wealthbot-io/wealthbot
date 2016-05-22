@@ -35,7 +35,7 @@ class ClientTempQuestionsFormHandler
 
     public function process(User $user)
     {
-        $this->form->submit($this->request);
+        $this->form->handleRequest($this->request);
 
         if ($this->form->isValid()) {
             $questionsOwner = $this->em->getRepository('WealthbotRiaBundle:RiskQuestion')->getQuestionsOwner($user);

@@ -32,7 +32,7 @@ abstract class AbstractFormHandler
 
     public function process()
     {
-        $this->form->submit($this->request);
+        $this->form->handleRequest($this->request);
 
         if ($this->form->isValid()) {
             $this->success();

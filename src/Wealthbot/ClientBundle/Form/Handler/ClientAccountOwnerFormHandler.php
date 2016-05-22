@@ -40,7 +40,7 @@ class ClientAccountOwnerFormHandler
      */
     public function process()
     {
-        $this->form->submit($this->request);
+        $this->form->handleRequest($this->request);
         $result = [];
 
         if ($this->form->isValid()) {

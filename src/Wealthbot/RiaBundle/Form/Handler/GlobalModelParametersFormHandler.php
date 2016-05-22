@@ -31,7 +31,7 @@ class GlobalModelParametersFormHandler
     public function process(User $ria, array $models)
     {
         if ($this->request->isMethod('post')) {
-            $this->form->submit($this->request);
+            $this->form->handleRequest($this->request);
 
             if ($this->form->isValid()) {
                 $this->success($ria, $models);

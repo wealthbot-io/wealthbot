@@ -33,7 +33,7 @@ class ClientAccountFormHandler
     public function process()
     {
         if ('POST' === $this->request->getMethod()) {
-            $this->form->submit($this->request);
+            $this->form->handleRequest($this->request);
 
             if ($this->form->isValid()) {
 

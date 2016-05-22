@@ -34,7 +34,7 @@ abstract class AbstractOutsideFundFormHandler
     public function process(ClientAccount $account)
     {
         if ($this->request->isMethod('post')) {
-            $this->form->submit($this->request);
+            $this->form->handleRequest($this->request);
 
             if ($this->form->isValid()) {
                 $this->success($account);

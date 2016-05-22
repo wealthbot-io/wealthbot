@@ -41,7 +41,7 @@ class TransferPersonalFormHandler
     public function process(ClientAccount $account, $withMaritalStatus = false)
     {
         if ($this->request->isMethod('post')) {
-            $this->form->submit($this->request);
+            $this->form->handleRequest($this->request);
 
             /** @var AccountOwnerInterface $data */
             $data = $this->form->getData();

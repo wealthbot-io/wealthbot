@@ -33,7 +33,7 @@ class SlaveClientFormHandler
     public function process(User $masterClient)
     {
         if ($this->request->isMethod('post')) {
-            $this->form->submit($this->request);
+            $this->form->handleRequest($this->request);
 
             if ($this->form->isValid()) {
                 $this->onSuccess($masterClient);

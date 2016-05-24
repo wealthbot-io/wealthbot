@@ -12,8 +12,10 @@ describe 'postgresql::client', :type => :class do
   describe 'with parameters' do
     let :params do
       {
+        :validcon_script_path  => '/opt/bin/my-validate-con.sh',
         :package_ensure => 'absent',
-        :package_name => 'mypackage',
+        :package_name   => 'mypackage',
+        :file_ensure    => 'file'
       }
     end
 
@@ -22,6 +24,15 @@ describe 'postgresql::client', :type => :class do
         :ensure => 'absent',
         :name => 'mypackage',
         :tag => 'postgresql',
+      })
+    end
+
+    it 'should have specified validate connexion' do
+      should contain_file('/opt/bin/my-validate-con.sh').with({
+        :ensure => 'file',
+        :owner  => 0,
+        :group  => 0,
+        :mode   => '0755'
       })
     end
   end

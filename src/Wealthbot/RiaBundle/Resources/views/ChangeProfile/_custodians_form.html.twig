@@ -30,7 +30,7 @@
 
     <div id="advisor-codes-list">
         {% if 'rx_ria_change_profile_custodian_tab' == app.request.attributes.get('_route') %}
-            {% render "WealthbotRiaBundle:ChangeProfile:advisorCodes" with {'request': app.request} %}
+            {{ render(controller("WealthbotRiaBundle:ChangeProfile:advisorCodes", {'request': app.request})) }}
         {% else %}
             {{ include('WealthbotRiaBundle:ChangeProfile:advisor_codes.html.twig') }}
         {% endif %}

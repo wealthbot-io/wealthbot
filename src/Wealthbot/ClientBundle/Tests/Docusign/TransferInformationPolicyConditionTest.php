@@ -9,7 +9,6 @@
 
 namespace Wealthbot\ClientBundle\Tests\Docusign;
 
-
 use Wealthbot\ClientBundle\Docusign\TransferInformationPolicyCondition;
 use Wealthbot\ClientBundle\Entity\TransferInformation;
 
@@ -28,16 +27,16 @@ class TransferInformationPolicyConditionTest extends \PHPUnit_Framework_TestCase
         $transferInformation = new TransferInformation();
         $transferInformation->setIsIncludePolicy(true);
 
-        $this->assertEquals(false, $this->condition->check($transferInformation));
+        $this->assertFalse($this->condition->check($transferInformation));
     }
 
     public function testDocusignNotAllowed()
     {
         $transferInformation = new TransferInformation();
 
-        $this->assertEquals(true, $this->condition->check($transferInformation));
+        $this->assertTrue($this->condition->check($transferInformation));
 
         $transferInformation->setIsIncludePolicy(false);
-        $this->assertEquals(true, $this->condition->check($transferInformation));
+        $this->assertTrue($this->condition->check($transferInformation));
     }
 }

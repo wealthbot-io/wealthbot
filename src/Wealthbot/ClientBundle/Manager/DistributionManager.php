@@ -3,11 +3,10 @@
  * Created by PhpStorm.
  * User: amalyuhin
  * Date: 18.02.14
- * Time: 18:27
+ * Time: 18:27.
  */
 
 namespace Wealthbot\ClientBundle\Manager;
-
 
 use Doctrine\ORM\EntityManager;
 use Wealthbot\ClientBundle\Entity\Distribution;
@@ -21,7 +20,6 @@ class DistributionManager
     /** @var \Doctrine\ORM\EntityRepository */
     private $repository;
 
-
     public function __construct(EntityManager $em)
     {
         $this->em = $em;
@@ -29,25 +27,27 @@ class DistributionManager
     }
 
     /**
-     * Get scheduled distribution for account
+     * Get scheduled distribution for account.
      *
      * @param SystemAccount $account
+     *
      * @return Distribution|null
      */
     public function getScheduledDistribution(SystemAccount $account)
     {
-        return $this->findOneBy(array('systemClientAccount' => $account, 'type' => Distribution::TYPE_SCHEDULED));
+        return $this->findOneBy(['systemClientAccount' => $account, 'type' => Distribution::TYPE_SCHEDULED]);
     }
 
     /**
-     * Get one-time distributions for account
+     * Get one-time distributions for account.
      *
      * @param SystemAccount $account
+     *
      * @return Distribution[]
      */
     public function getOneTimeDistributions(SystemAccount $account)
     {
-        return $this->findBy(array('systemClientAccount' => $account, 'type' => Distribution::TYPE_ONE_TIME));
+        return $this->findBy(['systemClientAccount' => $account, 'type' => Distribution::TYPE_ONE_TIME]);
     }
 
     public function find($id)
@@ -66,9 +66,10 @@ class DistributionManager
     }
 
     /**
-     * Create new scheduled distribution
+     * Create new scheduled distribution.
      *
      * @param SystemAccount $account
+     *
      * @return Distribution
      */
     public function createScheduledDistribution(SystemAccount $account)
@@ -82,9 +83,10 @@ class DistributionManager
     }
 
     /**
-     * Create new one-time distribution
+     * Create new one-time distribution.
      *
      * @param SystemAccount $account
+     *
      * @return Distribution
      */
     public function createOneTimeDistribution(SystemAccount $account)
@@ -95,4 +97,4 @@ class DistributionManager
 
         return $distribution;
     }
-} 
+}

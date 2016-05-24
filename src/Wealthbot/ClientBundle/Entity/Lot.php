@@ -3,7 +3,6 @@
 namespace Wealthbot\ClientBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\ORM\Mapping as ORM;
 use Wealthbot\AdminBundle\Entity\Security;
 use Wealthbot\AdminBundle\Entity\Transaction;
 
@@ -13,14 +12,13 @@ use Wealthbot\AdminBundle\Entity\Transaction;
  */
 class Lot
 {
-
     const LOT_INITIAL = 1;
     const LOT_IS_OPEN = 2;
     const LOT_CLOSED = 3;
-    const LOT_DIVIDED  = 4;
+    const LOT_DIVIDED = 4;
 
     /**
-     * @var integer
+     * @var int
      */
     private $id;
 
@@ -40,7 +38,7 @@ class Lot
     private $transactions;
 
     /**
-     * @var integer
+     * @var int
      */
     private $status;
 
@@ -55,15 +53,15 @@ class Lot
     private $costBasis;
 
     /**
-     * @var boolean
+     * @var bool
      */
     private $costBasisKnown;
 
     /**
-     * @var boolean
+     * @var bool
      */
     private $washSale;
-    
+
     /**
      * @var \DateTime
      */
@@ -85,7 +83,7 @@ class Lot
     private $security;
 
     /**
-     * @var boolean
+     * @var bool
      */
     private $wasClosed;
 
@@ -95,7 +93,7 @@ class Lot
     private $realizedGain;
 
     /**
-     * @var boolean
+     * @var bool
      */
     private $wasRebalancerDiff;
 
@@ -108,9 +106,9 @@ class Lot
     }
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer 
+     * @return int
      */
     public function getId()
     {
@@ -118,22 +116,23 @@ class Lot
     }
 
     /**
-     * Set quantity
+     * Set quantity.
      *
      * @param float $quantity
+     *
      * @return Lot
      */
     public function setQuantity($quantity)
     {
         $this->quantity = $quantity;
-    
+
         return $this;
     }
 
     /**
-     * Get quantity
+     * Get quantity.
      *
-     * @return float 
+     * @return float
      */
     public function getQuantity()
     {
@@ -141,22 +140,23 @@ class Lot
     }
 
     /**
-     * Set amount
+     * Set amount.
      *
      * @param float $amount
+     *
      * @return Lot
      */
     public function setAmount($amount)
     {
         $this->amount = $amount;
-    
+
         return $this;
     }
 
     /**
-     * Get amount
+     * Get amount.
      *
-     * @return float 
+     * @return float
      */
     public function getAmount()
     {
@@ -165,11 +165,13 @@ class Lot
 
     /**
      * @param Transaction[]|ArrayCollection $transactions
+     *
      * @return $this
      */
     public function setTransactions($transactions)
     {
         $this->transactions = $transactions;
+
         return $this;
     }
 
@@ -184,12 +186,14 @@ class Lot
     public function addTransaction(Transaction $transaction)
     {
         $this->transactions->add($transaction);
+
         return $this;
     }
 
     public function removeTransaction(Transaction $transaction)
     {
         $this->transactions->remove($transaction);
+
         return $this;
     }
 
@@ -242,7 +246,7 @@ class Lot
     }
 
     /**
-     * @param boolean $costBasisKnown
+     * @param bool $costBasisKnown
      */
     public function setCostBasisKnown($costBasisKnown)
     {
@@ -250,7 +254,7 @@ class Lot
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function isCostBasisKnown()
     {
@@ -258,7 +262,7 @@ class Lot
     }
 
     /**
-     * @param boolean $washSale
+     * @param bool $washSale
      */
     public function setWashSale($washSale)
     {
@@ -266,30 +270,31 @@ class Lot
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function isWashSale()
     {
         return $this->washSale;
     }
-    
+
     /**
-     * Set date
+     * Set date.
      *
      * @param \DateTime $date
+     *
      * @return Position
      */
     public function setDate($date)
     {
         $this->date = $date;
-    
+
         return $this;
     }
 
     /**
-     * Get date
+     * Get date.
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getDate()
     {
@@ -297,22 +302,23 @@ class Lot
     }
 
     /**
-     * Set clientSystemAccount
+     * Set clientSystemAccount.
      *
      * @param \Wealthbot\ClientBundle\Entity\SystemAccount $clientSystemAccount
+     *
      * @return Position
      */
     public function setClientSystemAccount(\Wealthbot\ClientBundle\Entity\SystemAccount $clientSystemAccount = null)
     {
         $this->clientSystemAccount = $clientSystemAccount;
-    
+
         return $this;
     }
 
     /**
-     * Get clientSystemAccount
+     * Get clientSystemAccount.
      *
-     * @return \Wealthbot\ClientBundle\Entity\SystemAccount 
+     * @return \Wealthbot\ClientBundle\Entity\SystemAccount
      */
     public function getClientSystemAccount()
     {
@@ -320,20 +326,21 @@ class Lot
     }
 
     /**
-     * Set security
+     * Set security.
      *
      * @param \Wealthbot\AdminBundle\Entity\Security $security
+     *
      * @return Position
      */
     public function setSecurity(\Wealthbot\AdminBundle\Entity\Security $security = null)
     {
         $this->security = $security;
-    
+
         return $this;
     }
 
     /**
-     * Get security
+     * Get security.
      *
      * @return \Wealthbot\AdminBundle\Entity\Security
      */
@@ -343,9 +350,10 @@ class Lot
     }
 
     /**
-     * Set initial
+     * Set initial.
      *
      * @param \Wealthbot\ClientBundle\Entity\Lot $initial
+     *
      * @return Lot
      */
     public function setInitial(\Wealthbot\ClientBundle\Entity\Lot $initial = null)
@@ -356,7 +364,7 @@ class Lot
     }
 
     /**
-     * Get initial
+     * Get initial.
      *
      * @return \Wealthbot\ClientBundle\Entity\Lot
      */
@@ -366,7 +374,7 @@ class Lot
     }
 
     /**
-     * @param boolean $wasClosed
+     * @param bool $wasClosed
      */
     public function setWasClosed($wasClosed)
     {
@@ -374,7 +382,7 @@ class Lot
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function getWasClosed()
     {
@@ -382,9 +390,10 @@ class Lot
     }
 
     /**
-     * Set realizedGain
+     * Set realizedGain.
      *
      * @param float $realizedGain
+     *
      * @return Lot
      */
     public function setRealizedGain($realizedGain)
@@ -395,7 +404,7 @@ class Lot
     }
 
     /**
-     * Get realizedGain
+     * Get realizedGain.
      *
      * @return float
      */
@@ -406,29 +415,28 @@ class Lot
 
     public function getShortTermGain()
     {
-        if (!isset($this->initial))
-        {
-            return null;
+        if (!isset($this->initial)) {
+            return;
         }
         $difference = $this->date->diff($this->initial->getDate());
-        return ($difference > new \DateInterval("P365D")) ? 0 : $this->realizedGain;
+
+        return ($difference > new \DateInterval('P365D')) ? 0 : $this->realizedGain;
     }
 
     public function getLongTermGain()
     {
-        if (!isset($this->initial))
-        {
-            return null;
+        if (!isset($this->initial)) {
+            return;
         }
         $difference = $this->date->diff($this->initial->getDate());
-        return ($difference > new \DateInterval("P365D")) ? $this->realizedGain : 0;
+
+        return ($difference > new \DateInterval('P365D')) ? $this->realizedGain : 0;
     }
 
-
     /**
-     * Get costBasisKnown
+     * Get costBasisKnown.
      *
-     * @return boolean 
+     * @return bool
      */
     public function getCostBasisKnown()
     {
@@ -436,9 +444,9 @@ class Lot
     }
 
     /**
-     * Get washSale
+     * Get washSale.
      *
-     * @return boolean 
+     * @return bool
      */
     public function getWashSale()
     {
@@ -446,9 +454,9 @@ class Lot
     }
 
     /**
-     * Get wasRebalancerDiff
+     * Get wasRebalancerDiff.
      *
-     * @return boolean
+     * @return bool
      */
     public function getWasRebalancerDiff()
     {
@@ -457,11 +465,13 @@ class Lot
 
     /**
      * @param $wasRebalancerDiff
+     *
      * @return $this
      */
     public function setWasRebalancerDiff($wasRebalancerDiff)
     {
         $this->wasRebalancerDiff = $wasRebalancerDiff;
+
         return $this;
     }
 
@@ -478,6 +488,6 @@ class Lot
             $difference = $today->diff($this->getDate());
         }
 
-        return ($difference->d <= 365);
+        return $difference->d <= 365;
     }
 }

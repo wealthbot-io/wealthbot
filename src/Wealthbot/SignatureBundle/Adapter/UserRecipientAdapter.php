@@ -9,11 +9,10 @@
 
 namespace Wealthbot\SignatureBundle\Adapter;
 
-
 use Wealthbot\SignatureBundle\Exception\InvalidRecipientTypeException;
-use Wealthbot\SignatureBundle\Model\Tab\AbstractTab;
 use Wealthbot\SignatureBundle\Model\Recipient;
 use Wealthbot\SignatureBundle\Model\RecipientInterface;
+use Wealthbot\SignatureBundle\Model\Tab\AbstractTab;
 use Wealthbot\SignatureBundle\Model\TabCollection;
 use Wealthbot\UserBundle\Entity\User;
 
@@ -42,7 +41,7 @@ class UserRecipientAdapter implements RecipientInterface
     }
 
     /**
-     * Get recipient email
+     * Get recipient email.
      *
      * @return string
      */
@@ -52,7 +51,7 @@ class UserRecipientAdapter implements RecipientInterface
     }
 
     /**
-     * Get recipient name
+     * Get recipient name.
      *
      * @return string
      */
@@ -62,7 +61,7 @@ class UserRecipientAdapter implements RecipientInterface
     }
 
     /**
-     * Get recipient role name
+     * Get recipient role name.
      *
      * @return string
      */
@@ -80,17 +79,17 @@ class UserRecipientAdapter implements RecipientInterface
     }
 
     /**
-     * Get recipient client user id
+     * Get recipient client user id.
      *
      * @return int
      */
     public function getClientUserId()
     {
-        return 'primary_' . $this->user->getId();
+        return 'primary_'.$this->user->getId();
     }
 
     /**
-     * Set tab collection
+     * Set tab collection.
      *
      * @param \Wealthbot\SignatureBundle\Model\TabCollection $tabs
      */
@@ -100,10 +99,9 @@ class UserRecipientAdapter implements RecipientInterface
     }
 
     /**
-     * Add tab element
+     * Add tab element.
      *
      * @param AbstractTab $tab
-     * @return void
      */
     public function addTab(AbstractTab $tab)
     {
@@ -111,9 +109,10 @@ class UserRecipientAdapter implements RecipientInterface
     }
 
     /**
-     * Remove tab element
+     * Remove tab element.
      *
      * @param AbstractTab $tab
+     *
      * @return bool
      */
     public function removeTab(AbstractTab $tab)
@@ -122,7 +121,7 @@ class UserRecipientAdapter implements RecipientInterface
     }
 
     /**
-     * Get tab collection
+     * Get tab collection.
      *
      * @return \Wealthbot\SignatureBundle\Model\TabCollection
      */
@@ -132,10 +131,12 @@ class UserRecipientAdapter implements RecipientInterface
     }
 
     /**
-     * Set recipient type
+     * Set recipient type.
      *
      * @param string $type
+     *
      * @return mixed|void
+     *
      * @throws InvalidRecipientTypeException
      */
     public function setType($type)
@@ -148,7 +149,7 @@ class UserRecipientAdapter implements RecipientInterface
     }
 
     /**
-     * Get recipient type
+     * Get recipient type.
      *
      * @return string
      */
@@ -158,48 +159,46 @@ class UserRecipientAdapter implements RecipientInterface
     }
 
     /**
-     * Set recipient email
+     * Set recipient email.
      *
      * @param string $email
+     *
      * @return mixed
      */
     public function setEmail($email)
     {
-
     }
 
     /**
-     * Set recipient name
+     * Set recipient name.
      *
      * @param string $name
+     *
      * @return mixed
      */
     public function setName($name)
     {
-
     }
 
     /**
-     * Set recipient role name
+     * Set recipient role name.
      *
      * @param string $roleName
+     *
      * @return mixed
      */
     public function setRoleName($roleName)
     {
-
     }
 
     /**
-     * Set recipient client user id
+     * Set recipient client user id.
      *
      * @param int $clientUserId
+     *
      * @return mixed
      */
     public function setClientUserId($clientUserId)
     {
-
     }
-
-
 }

@@ -1,14 +1,12 @@
 <?php
 
-
 namespace Wealthbot\ClientBundle\Command;
 
-use Wealthbot\ClientBundle\Entity\AccountGroupType;
-use Wealthbot\ClientBundle\Model\AccountGroup;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Wealthbot\ClientBundle\Entity\AccountGroupType;
 
 /**
  * @author Maxim Belyakov
@@ -50,18 +48,16 @@ EOT
         /** @var \Doctrine\ORM\EntityManager $em */
         $em = $this->getContainer()->get('doctrine.orm.entity_manager');
 
-        $accountType1 = $em->getRepository("WealthbotClientBundle:AccountType")->find($id1);
-        $accountType2 = $em->getRepository("WealthbotClientBundle:AccountType")->find($id2);
-
-
+        $accountType1 = $em->getRepository('WealthbotClientBundle:AccountType')->find($id1);
+        $accountType2 = $em->getRepository('WealthbotClientBundle:AccountType')->find($id2);
 
         if (!$accountType1 || !$accountType2) {
             $output->writeln(sprintf('Client account types not found'));
         } else {
-            $accountGroups1 = $em->getRepository("WealthbotClientBundle:AccountGroupType")->findBy(array('type_id' => $id1));
-            $accountGroups2 = $em->getRepository("WealthbotClientBundle:AccountGroupType")->findBy(array('type_id' => $id2));
+            $accountGroups1 = $em->getRepository('WealthbotClientBundle:AccountGroupType')->findBy(['type_id' => $id1]);
+            $accountGroups2 = $em->getRepository('WealthbotClientBundle:AccountGroupType')->findBy(['type_id' => $id2]);
             foreach ($accountGroups1 as $accountGroup1) {
-                /** @var $accountGroup1 AccountGroupType*/
+                /* @var $accountGroup1 AccountGroupType*/
                 $accountGroup1->setTypeId($accountType2->getId());
                 $em->persist($accountGroup1);
                 $output->writeln(sprintf('Client account group types %d update type_id %d to %d', $accountGroup1->getId(), $accountType1->getId(), $accountType2->getId()));

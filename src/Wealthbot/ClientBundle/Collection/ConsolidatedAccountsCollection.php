@@ -3,11 +3,10 @@
  * Created by PhpStorm.
  * User: amalyuhin
  * Date: 31.10.13
- * Time: 15:45
+ * Time: 15:45.
  */
 
 namespace Wealthbot\ClientBundle\Collection;
-
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Wealthbot\ClientBundle\Model\AccountGroup;
@@ -27,42 +26,42 @@ class ConsolidatedAccountsCollection extends ArrayCollection
     }
 
     /**
-     * Returns a collection of transfer accounts
+     * Returns a collection of transfer accounts.
      *
      * @return self|static
      */
     public function getTransferAccounts()
     {
         $filter = function (ClientAccount $account) {
-            return ($account->getGroupName() === AccountGroup::GROUP_FINANCIAL_INSTITUTION);
+            return $account->getGroupName() === AccountGroup::GROUP_FINANCIAL_INSTITUTION;
         };
 
         return $this->filter($filter);
     }
 
     /**
-     * Returns a collection of rollover accounts
+     * Returns a collection of rollover accounts.
      *
      * @return self|static
      */
     public function getRolloverAccounts()
     {
         $filter = function (ClientAccount $account) {
-            return ($account->getGroupName() === AccountGroup::GROUP_OLD_EMPLOYER_RETIREMENT);
+            return $account->getGroupName() === AccountGroup::GROUP_OLD_EMPLOYER_RETIREMENT;
         };
 
         return $this->filter($filter);
     }
 
     /**
-     * Returns a collection of accounts which has funding section
+     * Returns a collection of accounts which has funding section.
      *
      * @return self|static
      */
     public function getFundingAccounts()
     {
         $filter = function (ClientAccount $account) {
-            return ($account->hasMonthlyContributions() || $account->getGroupName() === AccountGroup::GROUP_DEPOSIT_MONEY);
+            return $account->hasMonthlyContributions() || $account->getGroupName() === AccountGroup::GROUP_DEPOSIT_MONEY;
         };
 
         return $this->filter($filter);
@@ -74,7 +73,7 @@ class ConsolidatedAccountsCollection extends ArrayCollection
     public function getBankTransferredAccounts()
     {
         $filter = function (ClientAccount $account) {
-            return ($account->getAccountContribution() && $account->getAccountContribution()->getBankInformation());
+            return $account->getAccountContribution() && $account->getAccountContribution()->getBankInformation();
         };
 
         return $this->filter($filter);
@@ -89,7 +88,7 @@ class ConsolidatedAccountsCollection extends ArrayCollection
 
     public function indexOf($element)
     {
-        $index =  parent::indexOf($element);
+        $index = parent::indexOf($element);
         if (is_numeric($index)) {
             $index += 1;
         }
@@ -106,12 +105,12 @@ class ConsolidatedAccountsCollection extends ArrayCollection
 
     public function getPrev($key)
     {
-        return $this->get($key-1);
+        return $this->get($key - 1);
     }
 
     public function getNext($key)
     {
-        return $this->get($key+1);
+        return $this->get($key + 1);
     }
 
     public function set($key, $value)
@@ -130,19 +129,21 @@ class ConsolidatedAccountsCollection extends ArrayCollection
 
     public function containsPrevKey($key)
     {
-        return $this->containsKey($key-1);
+        return $this->containsKey($key - 1);
     }
 
     public function containsNextKey($key)
     {
-        return $this->containsKey($key+1);
+        return $this->containsKey($key + 1);
     }
 
     /**
-     * Prepare account index and check if index is 0 or less
+     * Prepare account index and check if index is 0 or less.
      *
      * @param int $key
+     *
      * @return int
+     *
      * @throws \InvalidArgumentException
      */
     private function prepareAccountIndex($key)

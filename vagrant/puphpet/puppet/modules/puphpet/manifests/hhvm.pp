@@ -30,10 +30,15 @@ class puphpet::hhvm(
         fail('Sorry, HHVM currently only works with Ubuntu 12.04, 13.10 and 14.04.')
       }
 
-      apt::key { '5D50B6BA': key_server => 'hkp://keyserver.ubuntu.com:80' }
+      apt::key { 'A6729974D728D7BA84154F8E4F7B93595D50B6BA':
+        server => 'hkp://keyserver.ubuntu.com:80'
+      }
 
       if $lsbdistcodename in ['lucid', 'precise'] {
-        apt::ppa { 'ppa:mapnik/boost': require => Apt::Key['5D50B6BA'], options => '' }
+        apt::ppa { 'ppa:mapnik/boost':
+          require => Apt::Key['A6729974D728D7BA84154F8E4F7B93595D50B6BA'],
+          options => ''
+        }
       }
     }
     'centos': {
@@ -62,17 +67,14 @@ class puphpet::hhvm(
 
   case $::osfamily {
     'debian': {
-      apt::key { 'hhvm':
-        key        => '16d09fb4',
-        key_source => 'http://dl.hhvm.com/conf/hhvm.gpg.key',
-      }
-
       apt::source { 'hhvm':
         location          => "http://dl.hhvm.com/${os}",
         repos             => 'main',
         required_packages => 'debian-keyring debian-archive-keyring',
-        include_src       => false,
-        require           => Apt::Key['hhvm']
+        key               => {
+          'id'      => '16d09fb4',
+          'source'  => 'http://dl.hhvm.com/conf/hhvm.gpg.key',
+        },
       }
     }
   }

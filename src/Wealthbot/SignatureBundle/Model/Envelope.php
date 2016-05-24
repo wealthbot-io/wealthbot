@@ -9,7 +9,6 @@
 
 namespace Wealthbot\SignatureBundle\Model;
 
-
 use Wealthbot\SignatureBundle\Exception\InvalidEnvelopeStatusException;
 
 class Envelope
@@ -47,15 +46,13 @@ class Envelope
 
     private static $_statuses = null;
 
-
-
     public function __construct()
     {
-        $this->recipients = array();
+        $this->recipients = [];
     }
 
     /**
-     * Set email blurb
+     * Set email blurb.
      *
      * @param string $emailBlurb
      */
@@ -65,7 +62,7 @@ class Envelope
     }
 
     /**
-     * Get email blurb
+     * Get email blurb.
      *
      * @return string
      */
@@ -75,7 +72,7 @@ class Envelope
     }
 
     /**
-     * Set email subject
+     * Set email subject.
      *
      * @param string $emailSubject
      */
@@ -85,7 +82,7 @@ class Envelope
     }
 
     /**
-     * Get email subject
+     * Get email subject.
      *
      * @return string
      */
@@ -95,7 +92,7 @@ class Envelope
     }
 
     /**
-     * Set recipients
+     * Set recipients.
      *
      * @param array $recipients
      */
@@ -105,7 +102,7 @@ class Envelope
     }
 
     /**
-     * Add recipient
+     * Add recipient.
      *
      * @param RecipientInterface $recipient
      */
@@ -115,7 +112,7 @@ class Envelope
     }
 
     /**
-     * Get recipients
+     * Get recipients.
      *
      * @return array
      */
@@ -125,14 +122,14 @@ class Envelope
     }
 
     /**
-     * Get status choices
+     * Get status choices.
      *
      * @return array
      */
     public static function getStatusChoices()
     {
         if (null === self::$_statuses) {
-            self::$_statuses = array();
+            self::$_statuses = [];
 
             $rClass = new \ReflectionClass('Wealthbot\SignatureBundle\Model\Envelope');
             $prefix = 'STATUS_';
@@ -148,9 +145,10 @@ class Envelope
     }
 
     /**
-     * Set status
+     * Set status.
      *
      * @param string $status
+     *
      * @throws \Wealthbot\SignatureBundle\Exception\InvalidEnvelopeStatusException
      */
     public function setStatus($status)
@@ -163,7 +161,7 @@ class Envelope
     }
 
     /**
-     * Get status
+     * Get status.
      *
      * @return string
      */

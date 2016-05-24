@@ -13,70 +13,70 @@
                             <form id="ria_model_completion_form" action="{{ path('rx_ria_models_update_completion') }}" method="post">
                                 <ol type="1">
                                     {% if form.users_and_user_groups is defined %}
-                                        <li {{ form.get('value')|length > 0 and form.get('value').usersAndUserGroups ? 'class=done' : '' }}>
+                                        <li {{ form.vars.value|length > 0 and form.vars.value.usersAndUserGroups ? 'class=done' : '' }}>
                                             <span class="v-align-middle">Create users and user groups.</span>
                                             {{ form_widget(form.users_and_user_groups, {'attr': {'data-url': path('rx_ria_user_management')} }) }}
                                         </li>
                                     {% endif %}
 
                                     {% if form.select_custodians is defined %}
-                                        <li {{ form.get('value')|length > 0 and form.get('value').selectCustodians ? 'class=done' : ''}}>
+                                        <li {{ form.vars.value|length > 0 and form.vars.value.selectCustodians ? 'class=done' : ''}}>
                                             <span class="v-align-middle">Select custodians.</span>
                                             {{ form_widget(form.select_custodians, {'attr': {'data-url': path('rx_ria_change_profile_custodians')} }) }}
                                         </li>
                                     {% endif %}
 
                                     {% if form.rebalancing_settings is defined %}
-                                        <li {{ (form.get('value')|length > 0 and form.get('value').rebalancingSettings) ? 'class=done' : '' }}>
+                                        <li {{ (form.vars.value|length > 0 and form.vars.value.rebalancingSettings) ? 'class=done' : '' }}>
                                             <span class="v-align-middle">Customize rebalancing settings.</span>
                                             {{ form_widget(form.rebalancing_settings, {'attr': {'data-url': path('rx_ria_change_profile_rebalancing')} }) }}
                                         </li>
                                     {% endif %}
 
                                     {% if form.create_securities is defined %}
-                                        <li {{ (form.get('value')|length > 0 and form.get('value').createSecurities) ? 'class=done' : '' }}>
+                                        <li {{ (form.vars.value|length > 0 and form.vars.value.createSecurities) ? 'class=done' : '' }}>
                                             <span class="v-align-middle">Create security categories.</span>
                                             {{ form_widget(form.create_securities, {'attr': {'data-url': path('rx_ria_dashboard_models_tab', {tab:'categories'})}}) }}
                                         </li>
                                     {% endif %}
 
                                     {% if form.assign_securities is defined %}
-                                        <li {{ (form.get('value')|length > 0 and form.get('value').assignSecurities) ? 'class=done' : '' }}>
+                                        <li {{ (form.vars.value|length > 0 and form.vars.value.assignSecurities) ? 'class=done' : '' }}>
                                             <span class="v-align-middle">Assign categories to securities.</span>
                                             {{ form_widget(form.assign_securities, {'attr': {'data-url': path('rx_ria_dashboard_models_tab', {tab:'securities'})}}) }}
                                         </li>
                                     {% endif %}
 
                                     {% if form.models_created is defined %}
-                                        <li {{ (form.get('value')|length > 0 and form.get('value').modelsCreated) ? 'class=done' : '' }}>
+                                        <li {{ (form.vars.value|length > 0 and form.vars.value.modelsCreated) ? 'class=done' : '' }}>
                                             <span class="v-align-middle">Create models and assign risk ratings.</span>
                                             {{ form_widget(form.models_created, {'attr': {'data-url': path('rx_ria_dashboard_models_tab', {tab:'models'})}}) }}
                                         </li>
                                     {% endif %}
 
                                     {#{% if (form.risk_rating_modified is defined) %}
-                                        <li {{ (form.get('value')|length > 0 and form.get('value').riskRatingModified) ? 'class=done' : '' }}>
+                                        <li {{ (form.vars.value|length > 0 and form.vars.value.riskRatingModified) ? 'class=done' : '' }}>
                                             <span class="v-align-middle">Modify the risk rating of the models (if necessary).</span>
                                             {{ form_widget(form.risk_rating_modified, {'attr': {'data-url': path('rx_ria_models')}}) }}
                                         </li>
                                     {% endif %}#}
 
                                     {% if (form.customize_proposals is defined) %}
-                                        <li {{ (form.get('value')|length > 0 and form.get('value').customizeProposals) ? 'class=done' : '' }}>
+                                        <li {{ (form.vars.value|length > 0 and form.vars.value.customizeProposals) ? 'class=done' : '' }}>
                                             <span id="risk_profiling_spn" data-url='{{ path('rx_ria_risk_profiling') }}' class="v-align-middle">Customize proposals.</span>
                                             {{ form_widget(form.customize_proposals, {'attr': {'data-url': path('rx_ria_risk_profiling')}}) }}
                                         </li>
                                     {% endif %}
 
                                     {% if (form.billingComplete is defined) %}
-                                        <li {{ (form.get('value')|length > 0 and form.get('value').billingComplete) ? 'class=done' : '' }}>
+                                        <li {{ (form.vars.value|length > 0 and form.vars.value.billingComplete) ? 'class=done' : '' }}>
                                             <span class="v-align-middle">Create billing specs.</span>
                                             {{ form_widget(form.billingComplete, {'attr': {'data-url': path('rx_ria_billing_tab', {tab: 'specs'})}}) }}
                                         </li>
                                     {% endif %}
 
                                     {% if form.proposalDocuments is defined %}
-                                        <li {{ (form.get('value')|length > 0 and form.get('value').proposalDocuments) ? 'class=done' : '' }}>
+                                        <li {{ (form.vars.value|length > 0 and form.vars.value.proposalDocuments) ? 'class=done' : '' }}>
                                             <span class="v-align-middle">Upload proposal documents.</span>
                                             {{ form_widget(form.proposalDocuments, {'attr': {'data-url': path('rx_ria_change_profile_proposals', {tab:'proposals'})}}) }}
                                         </li>

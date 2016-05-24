@@ -9,11 +9,10 @@
 
 namespace Wealthbot\RiaBundle\Form\Type;
 
-
 use Doctrine\ORM\EntityRepository;
-use Wealthbot\UserBundle\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Wealthbot\UserBundle\Entity\User;
 
 class RiaResetClientPasswordFormType extends AbstractType
 {
@@ -28,26 +27,25 @@ class RiaResetClientPasswordFormType extends AbstractType
     {
         $ria = $this->ria;
 
-        $builder->add('user', 'entity', array(
-            'class' => 'WealthbotUserBundle:User',
+        $builder->add('user', 'entity', [
+            'class' => 'Wealthbot\\UserBundle\\Entity\\User',
             'property' => 'email',
-            'query_builder' => function(EntityRepository $er) use ($ria){
+            'query_builder' => function (EntityRepository $er) use ($ria) {
                 return $er->createQueryBuilder('u')
                     ->leftJoin('u.profile', 'p')
                     ->where('p.ria_user_id = :ria_id')
                     ->andWhere('u.roles LIKE :role')
-                    ->setParameters(array(
+                    ->setParameters([
                         'ria_id' => $ria->getId(),
-                        'role' => '%ROLE_RIA%'
-                    ))
-                    ->orderBy("u.email", "ASC");
-            }
-        ));
+                        'role' => '%ROLE_RIA%',
+                    ])
+                    ->orderBy('u.email', 'ASC');
+            },
+        ]);
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'reset_password';
     }
-
 }

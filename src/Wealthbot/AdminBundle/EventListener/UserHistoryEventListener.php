@@ -9,11 +9,10 @@
 
 namespace Wealthbot\AdminBundle\EventListener;
 
-
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Wealthbot\AdminBundle\AdminEvents;
 use Wealthbot\AdminBundle\Event\UserHistoryEvent;
 use Wealthbot\AdminBundle\Manager\UserHistoryManager;
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class UserHistoryEventListener implements EventSubscriberInterface
 {
@@ -26,14 +25,13 @@ class UserHistoryEventListener implements EventSubscriberInterface
 
     public static function getSubscribedEvents()
     {
-        return array(
-            AdminEvents::USER_HISTORY => 'createHistoryItem'
-        );
+        return [
+            AdminEvents::USER_HISTORY => 'createHistoryItem',
+        ];
     }
 
     public function createHistoryItem(UserHistoryEvent $event)
     {
         $this->manager->save($event->getUser(), $event->getDescription());
     }
-
 }

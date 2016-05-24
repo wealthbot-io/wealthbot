@@ -6,5 +6,6 @@
 <% unless @scripts %> --no-scripts<% end -%>
 <% unless @interaction %> --no-interaction<% end -%>
 <% if @dev %> --dev<% end -%>
+<% unless @dev %> --no-dev<% end -%>
 <% if @verbose %> -v<% end -%>
 <% if @dry_run %> --dry-run<% end -%>

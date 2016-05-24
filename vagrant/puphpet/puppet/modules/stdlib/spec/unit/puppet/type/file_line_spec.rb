@@ -49,6 +49,9 @@ describe Puppet::Type.type(:file_line) do
   it 'should default to ensure => present' do
     expect(file_line[:ensure]).to eq :present
   end
+  it 'should default to replace => true' do
+    expect(file_line[:replace]).to eq :true
+  end
 
   it "should autorequire the file it manages" do
     catalog = Puppet::Resource::Catalog.new

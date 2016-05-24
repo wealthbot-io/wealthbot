@@ -9,14 +9,15 @@
 
 namespace Wealthbot\ClientBundle\Model;
 
-
 class AccountContribution extends BaseContribution
 {
     /**
-     * Set transaction_frequency
+     * Set transaction_frequency.
      *
-     * @param integer $transactionFrequency
+     * @param int $transactionFrequency
+     *
      * @return AccountContribution
+     *
      * @throws \InvalidArgumentException
      */
     public function setTransactionFrequency($transactionFrequency)
@@ -34,7 +35,7 @@ class AccountContribution extends BaseContribution
     }
 
     /**
-     * Get transaction_frequency as string
+     * Get transaction_frequency as string.
      *
      * @return string
      */
@@ -50,7 +51,7 @@ class AccountContribution extends BaseContribution
     }
 
     /**
-     * Returns true if transaction_frequency is TRANSACTION_FREQUENCY_ONE_TIME and false otherwise
+     * Returns true if transaction_frequency is TRANSACTION_FREQUENCY_ONE_TIME and false otherwise.
      *
      * @return bool
      */

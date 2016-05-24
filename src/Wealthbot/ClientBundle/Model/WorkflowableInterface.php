@@ -9,11 +9,10 @@
 
 namespace Wealthbot\ClientBundle\Model;
 
-
 interface WorkflowableInterface
 {
     /**
-     * Get workflow message code
+     * Get workflow message code.
      *
      * @return string
      */

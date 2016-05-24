@@ -2,28 +2,25 @@
 
 namespace Wealthbot\RiaBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-
 /**
- * Wealthbot\RiaBundle\Entity\SubclassAccountType
+ * Wealthbot\RiaBundle\Entity\SubclassAccountType.
  */
 class SubclassAccountType
 {
     /**
-     * @var integer $id
+     * @var int
      */
     private $id;
 
     /**
-     * @var string $name
+     * @var string
      */
     private $name;
 
-
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer 
+     * @return int
      */
     public function getId()
     {
@@ -31,22 +28,23 @@ class SubclassAccountType
     }
 
     /**
-     * Set name
+     * Set name.
      *
      * @param string $name
+     *
      * @return SubclassAccountType
      */
     public function setName($name)
     {
         $this->name = $name;
-    
+
         return $this;
     }
 
     /**
-     * Get name
+     * Get name.
      *
-     * @return string 
+     * @return string
      */
     public function getName()
     {

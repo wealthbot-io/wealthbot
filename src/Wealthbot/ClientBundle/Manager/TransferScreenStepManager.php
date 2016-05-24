@@ -9,7 +9,6 @@
 
 namespace Wealthbot\ClientBundle\Manager;
 
-
 use Wealthbot\ClientBundle\Model\ClientAccount;
 use Wealthbot\ClientBundle\Model\SystemAccount;
 use Wealthbot\ClientBundle\Model\TransferStepsConfiguration\JointAccountConfiguration;
@@ -33,10 +32,11 @@ class TransferScreenStepManager
     }
 
     /**
-     * Get next account transfer screen step by current step
+     * Get next account transfer screen step by current step.
      *
      * @param ClientAccount $account
-     * @param string $currentStep
+     * @param string        $currentStep
+     *
      * @return string
      */
     public function getNextStep(ClientAccount $account, $currentStep)
@@ -47,10 +47,11 @@ class TransferScreenStepManager
     }
 
     /**
-     * Get previous account transfer screen step by current step
+     * Get previous account transfer screen step by current step.
      *
      * @param ClientAccount $account
-     * @param string $currentStep
+     * @param string        $currentStep
+     *
      * @return string
      */
     public function getPreviousStep(ClientAccount $account, $currentStep)
@@ -61,10 +62,12 @@ class TransferScreenStepManager
     }
 
     /**
-     * Get transfer screen steps configuration object by client account
+     * Get transfer screen steps configuration object by client account.
      *
      * @param ClientAccount $account
+     *
      * @return TransferStepsConfigurationInterface
+     *
      * @throws \InvalidArgumentException
      */
     private function getStepsConfiguration(ClientAccount $account)

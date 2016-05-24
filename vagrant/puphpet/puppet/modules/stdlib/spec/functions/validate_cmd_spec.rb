@@ -1,85 +1,35 @@
-#! /usr/bin/env ruby -S rspec
 require 'spec_helper'
 
-TESTEXE = File.exists?('/usr/bin/test') ? '/usr/bin/test' : '/bin/test'
-TOUCHEXE = File.exists?('/usr/bin/touch') ? '/usr/bin/touch' : '/bin/touch'
+describe 'validate_cmd' do
+  let(:touch) { File.exists?('/usr/bin/touch') ? '/usr/bin/touch' : '/bin/touch' }
 
-describe Puppet::Parser::Functions.function(:validate_cmd) do
-  let(:scope) { PuppetlabsSpec::PuppetInternals.scope }
-
-  subject do
-    function_name = Puppet::Parser::Functions.function(:validate_cmd)
-    scope.method(function_name)
+  describe 'signature validation' do
+    it { is_expected.not_to eq(nil) }
+    it { is_expected.to run.with_params().and_raise_error(Puppet::ParseError, /wrong number of arguments/i) }
+    it { is_expected.to run.with_params('').and_raise_error(Puppet::ParseError, /wrong number of arguments/i) }
+    it { is_expected.to run.with_params('', '', '', 'extra').and_raise_error(Puppet::ParseError, /wrong number of arguments/i) }
+    it {
+      pending('should implement stricter type checking')
+      is_expected.to run.with_params([], '', '').and_raise_error(Puppet::ParseError, /content must be a string/)
+    }
+    it {
+      pending('should implement stricter type checking')
+      is_expected.to run.with_params('', [], '').and_raise_error(Puppet::ParseError, /checkscript must be a string/)
+    }
+    it {
+      pending('should implement stricter type checking')
+      is_expected.to run.with_params('', '', []).and_raise_error(Puppet::ParseError, /custom error message must be a string/)
+    }
   end
 
-  context 'with no % placeholder' do
-    describe "with an explicit failure message" do
-      it "prints the failure message on error" do
-        expect {
-          subject.call ['', '/bin/false', 'failure message!']
-        }.to raise_error Puppet::ParseError, /failure message!/
-      end
+  context 'when validation fails' do
+    context 'with % placeholder' do
+      it { is_expected.to run.with_params('', "#{touch} % /no/such/file").and_raise_error(Puppet::ParseError, /Execution of '#{touch} \S+ \/no\/such\/file' returned 1:.*(cannot touch|o such file or)/) }
+      it { is_expected.to run.with_params('', "#{touch} % /no/such/file", 'custom error').and_raise_error(Puppet::ParseError, /custom error/) }
     end
-
-    describe "on validation failure" do
-      it "includes the command error output" do
-        expect {
-          subject.call ['', "#{TOUCHEXE} /cant/touch/this"]
-        }.to raise_error Puppet::ParseError, /(cannot touch|o such file or)/
-      end
-
-      it "includes the command return value" do
-        expect {
-          subject.call ['', '/cant/run/this']
-        }.to raise_error Puppet::ParseError, /returned 1\b/
-      end
-    end
-
-    describe "when performing actual validation" do
-      it "can positively validate file content" do
-        expect { subject.call ["non-empty", "#{TESTEXE} -s"] }.to_not raise_error
-      end
-
-      it "can negatively validate file content" do
-        expect {
-          subject.call ["", "#{TESTEXE} -s"]
-        }.to raise_error Puppet::ParseError, /failed to validate.*test -s/
-      end
-    end
-  end
-
-  context 'with % placeholder' do
-    describe "with an explicit failure message" do
-      it "prints the failure message on error" do
-        expect {
-          subject.call ['', '/bin/false % -f', 'failure message!']
-        }.to raise_error Puppet::ParseError, /failure message!/
-      end
-    end
-    describe "on validation failure" do
-      it "includes the command error output" do
-        expect {
-          subject.call ['', "#{TOUCHEXE} /cant/touch/this"]
-        }.to raise_error Puppet::ParseError, /(cannot touch|o such file or)/
-      end
-
-      it "includes the command return value" do
-        expect {
-          subject.call ['', '/cant/run/this % -z']
-        }.to raise_error Puppet::ParseError, /Execution of '\/cant\/run\/this .+ -z' returned 1/
-      end
-    end
-
-    describe "when performing actual validation" do
-      it "can positively validate file content" do
-        expect { subject.call ["non-empty", "#{TESTEXE} -s %"] }.to_not raise_error
-      end
-
-      it "can negatively validate file content" do
-        expect {
-          subject.call ["", "#{TESTEXE} -s %"]
-        }.to raise_error Puppet::ParseError, /failed to validate.*test -s/
-      end
+    context 'without % placeholder' do
+      it { is_expected.to run.with_params('', "#{touch} /no/such/file").and_raise_error(Puppet::ParseError, /Execution of '#{touch} \/no\/such\/file \S+' returned 1:.*(cannot touch|o such file or)/) }
+      it { is_expected.to run.with_params('', "#{touch} /no/such/file", 'custom error').and_raise_error(Puppet::ParseError, /custom error/) }
     end
   end
 end

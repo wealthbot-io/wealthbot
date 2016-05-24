@@ -9,15 +9,14 @@
 
 namespace Wealthbot\RiaBundle\Form\Type;
 
-
 use Doctrine\ORM\EntityManager;
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Wealthbot\ClientBundle\Entity\AccountGroup;
 use Wealthbot\ClientBundle\Entity\ClientAccount;
 use Wealthbot\RiaBundle\Form\EventListener\RiaClientAccountFormEventSubscriber;
 use Wealthbot\UserBundle\Entity\User;
-use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class RiaClientAccountFormType extends AbstractType
 {
@@ -38,13 +37,13 @@ class RiaClientAccountFormType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $groupChoices = array(
-            AccountGroup::GROUP_DEPOSIT_MONEY           => 'New Account',
-            AccountGroup::GROUP_FINANCIAL_INSTITUTION   => 'Transfer',
+        $groupChoices = [
+            AccountGroup::GROUP_DEPOSIT_MONEY => 'New Account',
+            AccountGroup::GROUP_FINANCIAL_INSTITUTION => 'Transfer',
             AccountGroup::GROUP_OLD_EMPLOYER_RETIREMENT => 'Rollover',
             //code_v2: NOT DELETE THIS CODE
             //AccountGroup::GROUP_EMPLOYER_RETIREMENT     => 'Advice'
-        );
+        ];
 
         $factory = $builder->getFormFactory();
         //$isAllowRetirementPlan = $this->isAllowRetirementPlan;
@@ -58,37 +57,37 @@ class RiaClientAccountFormType extends AbstractType
             $consolidate = true;
         }
 
-        $builder->add('group', 'choice', array(
+        $builder->add('group', 'choice', [
                 'choices' => $groupChoices,
-                'property_path' => false,
-                'empty_value' => false,
-                'data' => $selectedGroup
-            ))
-            ->add('consolidate', 'checkbox', array(
                 'mapped' => false,
-                'attr' => $consolidate ? array('checked' => 'checked') : array(),
-                'required' => false
-            ))
-            ->add('value', 'number', array(
+                'placeholder' => false,
+                'data' => $selectedGroup,
+            ])
+            ->add('consolidate', 'checkbox', [
+                'mapped' => false,
+                'attr' => $consolidate ? ['checked' => 'checked'] : [],
+                'required' => false,
+            ])
+            ->add('value', 'number', [
                 'grouping' => true,
                 'precision' => 2,
-                'label' => 'Estimated Value'
-            ))
-            ->add('monthly_contributions', 'number', array(
+                'label' => 'Estimated Value',
+            ])
+            ->add('monthly_contributions', 'number', [
                 'grouping' => true,
                 'precision' => 2,
-                'label' => 'Estimated Monthly Contributions', 'required' => false
-            ))
-            ->add('monthly_distributions', 'number', array(
+                'label' => 'Estimated Monthly Contributions', 'required' => false,
+            ])
+            ->add('monthly_distributions', 'number', [
                 'grouping' => true,
                 'precision' => 2,
-                'label' => 'Estimated Monthly Distributions', 'required' => false
-            ))
-            ->add('sas_cash', 'number', array(
+                'label' => 'Estimated Monthly Distributions', 'required' => false,
+            ])
+            ->add('sas_cash', 'number', [
                 'grouping' => true,
                 'precision' => 2,
-                'required' => false
-            ));
+                'required' => false,
+            ]);
 
         $subscriber = new RiaClientAccountFormEventSubscriber(
             $factory,
@@ -99,14 +98,14 @@ class RiaClientAccountFormType extends AbstractType
         $builder->addEventSubscriber($subscriber);
     }
 
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => 'Wealthbot\ClientBundle\Entity\ClientAccount'
-        ));
+        $resolver->setDefaults([
+            'data_class' => 'Wealthbot\ClientBundle\Entity\ClientAccount',
+        ]);
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'ria_client_account';
     }

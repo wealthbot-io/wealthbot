@@ -2,25 +2,23 @@
 
 namespace Wealthbot\AdminBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-
 /**
- * UserHistory
+ * UserHistory.
  */
 class UserHistory
 {
     /**
-     * @var integer
+     * @var int
      */
     private $id;
 
     /**
-     * @var integer
+     * @var int
      */
     private $user_id;
 
     /**
-     * @var integer
+     * @var int
      */
     private $updated_by_id;
 
@@ -45,7 +43,7 @@ class UserHistory
     private $updater;
 
     /**
-     * @var integer
+     * @var int
      */
     private $updater_type;
 
@@ -53,17 +51,16 @@ class UserHistory
     const UPDATER_TYPE_RIA = 2;
     const UPDATER_TYPE_CLIENT = 3;
 
-    private static $_updaterTypes = array(
+    private static $_updaterTypes = [
         self::UPDATER_TYPE_ADMIN => 'Admin',
         self::UPDATER_TYPE_RIA => 'Ria',
-        self::UPDATER_TYPE_CLIENT => 'Client'
-    );
-
+        self::UPDATER_TYPE_CLIENT => 'Client',
+    ];
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer 
+     * @return int
      */
     public function getId()
     {
@@ -71,22 +68,23 @@ class UserHistory
     }
 
     /**
-     * Set user_id
+     * Set user_id.
      *
-     * @param integer $userId
+     * @param int $userId
+     *
      * @return UserHistory
      */
     public function setUserId($userId)
     {
         $this->user_id = $userId;
-    
+
         return $this;
     }
 
     /**
-     * Get user_id
+     * Get user_id.
      *
-     * @return integer 
+     * @return int
      */
     public function getUserId()
     {
@@ -94,22 +92,23 @@ class UserHistory
     }
 
     /**
-     * Set updated_by_id
+     * Set updated_by_id.
      *
-     * @param integer $updatedById
+     * @param int $updatedById
+     *
      * @return UserHistory
      */
     public function setUpdatedById($updatedById)
     {
         $this->updated_by_id = $updatedById;
-    
+
         return $this;
     }
 
     /**
-     * Get updated_by_id
+     * Get updated_by_id.
      *
-     * @return integer 
+     * @return int
      */
     public function getUpdatedById()
     {
@@ -117,22 +116,23 @@ class UserHistory
     }
 
     /**
-     * Set description
+     * Set description.
      *
      * @param string $description
+     *
      * @return UserHistory
      */
     public function setDescription($description)
     {
         $this->description = $description;
-    
+
         return $this;
     }
 
     /**
-     * Get description
+     * Get description.
      *
-     * @return string 
+     * @return string
      */
     public function getDescription()
     {
@@ -140,22 +140,23 @@ class UserHistory
     }
 
     /**
-     * Set created
+     * Set created.
      *
      * @param \DateTime $created
+     *
      * @return UserHistory
      */
     public function setCreated($created)
     {
         $this->created = $created;
-    
+
         return $this;
     }
 
     /**
-     * Get created
+     * Get created.
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getCreated()
     {
@@ -163,22 +164,23 @@ class UserHistory
     }
 
     /**
-     * Set user
+     * Set user.
      *
      * @param \Wealthbot\UserBundle\Entity\User $user
+     *
      * @return UserHistory
      */
     public function setUser(\Wealthbot\UserBundle\Entity\User $user = null)
     {
         $this->user = $user;
-    
+
         return $this;
     }
 
     /**
-     * Get user
+     * Get user.
      *
-     * @return \Wealthbot\UserBundle\Entity\User 
+     * @return \Wealthbot\UserBundle\Entity\User
      */
     public function getUser()
     {
@@ -186,22 +188,23 @@ class UserHistory
     }
 
     /**
-     * Set updater
+     * Set updater.
      *
      * @param \Wealthbot\UserBundle\Entity\User $updater
+     *
      * @return UserHistory
      */
     public function setUpdater(\Wealthbot\UserBundle\Entity\User $updater = null)
     {
         $this->updater = $updater;
-    
+
         return $this;
     }
 
     /**
-     * Get updater
+     * Get updater.
      *
-     * @return \Wealthbot\UserBundle\Entity\User 
+     * @return \Wealthbot\UserBundle\Entity\User
      */
     public function getUpdater()
     {
@@ -209,7 +212,7 @@ class UserHistory
     }
 
     /**
-     * Get updater_type choices
+     * Get updater_type choices.
      *
      * @return array
      */
@@ -219,10 +222,12 @@ class UserHistory
     }
 
     /**
-     * Set updater_type
+     * Set updater_type.
      *
      * @param int $updaterType
+     *
      * @return $this
+     *
      * @throws \InvalidArgumentException
      */
     public function setUpdaterType($updaterType)
@@ -232,14 +237,14 @@ class UserHistory
         }
 
         $this->updater_type = $updaterType;
-    
+
         return $this;
     }
 
     /**
-     * Get updater_type
+     * Get updater_type.
      *
-     * @return integer 
+     * @return int
      */
     public function getUpdaterType()
     {
@@ -247,7 +252,7 @@ class UserHistory
     }
 
     /**
-     * Get updater_type as string
+     * Get updater_type as string.
      *
      * @return string
      */
@@ -257,32 +262,32 @@ class UserHistory
     }
 
     /**
-     * Is updated by admin user
+     * Is updated by admin user.
      *
      * @return bool
      */
     public function isUpdatedByAdmin()
     {
-        return ($this->updater_type === self::UPDATER_TYPE_ADMIN);
+        return $this->updater_type === self::UPDATER_TYPE_ADMIN;
     }
 
     /**
-     * Is updated by ria user
+     * Is updated by ria user.
      *
      * @return bool
      */
     public function isUpdatedByRia()
     {
-        return ($this->updater_type === self::UPDATER_TYPE_RIA);
+        return $this->updater_type === self::UPDATER_TYPE_RIA;
     }
 
     /**
-     * Is updated by client
+     * Is updated by client.
      *
      * @return bool
      */
     public function isUpdatedByClient()
     {
-        return ($this->updater_type === self::UPDATER_TYPE_CLIENT);
+        return $this->updater_type === self::UPDATER_TYPE_CLIENT;
     }
 }

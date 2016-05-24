@@ -25,4 +25,7 @@
 <% if @ssl_options -%>
   SSLOptions <%= @ssl_options.compact.join(' ') %>
 <% end -%>
+<%- if @ssl_openssl_conf_cmd -%>
+  SSLOpenSSLConfCmd <%= @ssl_openssl_conf_cmd %>
+<%- end -%>
 </IfModule>

@@ -9,7 +9,6 @@
 
 namespace Wealthbot\ClientBundle\Tests\Docusign;
 
-
 use Wealthbot\ClientBundle\Docusign\TransferInformationQuestionnaireCondition;
 use Wealthbot\ClientBundle\Entity\TransferInformation;
 
@@ -27,7 +26,7 @@ class TransferInformationQuestionnaireConditionTest extends \PHPUnit_Framework_T
     {
         $transferInformation = new TransferInformation();
 
-        $this->assertEquals(true, $this->condition->check($transferInformation));
+        $this->assertTrue($this->condition->check($transferInformation));
 
         $questionMock = $this->getQuestionMock();
         $questionMock->setDocusignEligibleAnswer(true);
@@ -38,7 +37,7 @@ class TransferInformationQuestionnaireConditionTest extends \PHPUnit_Framework_T
 
         $transferInformation->addQuestionnaireAnswer($answerMock);
 
-        $this->assertEquals(true, $this->condition->check($transferInformation));
+        $this->assertTrue($this->condition->check($transferInformation));
     }
 
     public function testDocusignNotAllowed()
@@ -62,7 +61,7 @@ class TransferInformationQuestionnaireConditionTest extends \PHPUnit_Framework_T
         $transferInformation->addQuestionnaireAnswer($answerMock1);
         $transferInformation->addQuestionnaireAnswer($answerMock2);
 
-        $this->assertEquals(false, $this->condition->check($transferInformation));
+        $this->assertFalse($this->condition->check($transferInformation));
     }
 
     private function getQuestionMock()

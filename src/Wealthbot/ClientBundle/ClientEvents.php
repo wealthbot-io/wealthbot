@@ -9,7 +9,6 @@
 
 namespace Wealthbot\ClientBundle;
 
-
 final class ClientEvents
 {
     const CLIENT_WORKFLOW = 'client.workflow';

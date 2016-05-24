@@ -4,11 +4,12 @@
  * Created by PhpStorm.
  * User: countzero
  * Date: 23.02.14
- * Time: 0:31
+ * Time: 0:31.
  */
+
 namespace Wealthbot\RiaBundle\Entity;
 
-use \Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Filesystem\Filesystem;
 
 class AdvisorCodeEventListener
 {
@@ -21,7 +22,7 @@ class AdvisorCodeEventListener
 
     public function createDirectory(AdvisorCode $advisorCode)
     {
-        $filename = self::getIncomingFilesLocation() . $advisorCode->getName();
+        $filename = self::getIncomingFilesLocation().$advisorCode->getName();
 
         if (!$this->fs->exists($filename)) {
             $this->fs->mkdir($filename, 0777);
@@ -30,6 +31,6 @@ class AdvisorCodeEventListener
 
     public static function getIncomingFilesLocation()
     {
-        return __DIR__ . '/../../../../system/incoming_files/';
+        return __DIR__.'/../../../../system/incoming_files/';
     }
 }

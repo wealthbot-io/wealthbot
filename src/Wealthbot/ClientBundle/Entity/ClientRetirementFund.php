@@ -2,21 +2,18 @@
 
 namespace Wealthbot\ClientBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-use Wealthbot\ClientBundle\Entity\ClientRetirementAccount;
-
 /**
- * Wealthbot\UserBundle\Entity\ClientRetiremenFund
+ * Wealthbot\UserBundle\Entity\ClientRetiremenFund.
  */
 class ClientRetirementFund
 {
     /**
-     * @var integer $id
+     * @var int
      */
     private $id;
 
     /**
-     * @var string $name
+     * @var string
      */
     private $name;
 
@@ -26,7 +23,7 @@ class ClientRetirementFund
     private $accounts;
 
     /**
-     * Constructor
+     * Constructor.
      */
     public function __construct()
     {
@@ -34,9 +31,9 @@ class ClientRetirementFund
     }
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer
+     * @return int
      */
     public function getId()
     {
@@ -44,9 +41,10 @@ class ClientRetirementFund
     }
 
     /**
-     * Set name
+     * Set name.
      *
      * @param string $name
+     *
      * @return ClientRetiremenFund
      */
     public function setName($name)
@@ -57,7 +55,7 @@ class ClientRetirementFund
     }
 
     /**
-     * Get name
+     * Get name.
      *
      * @return string
      */
@@ -67,9 +65,10 @@ class ClientRetirementFund
     }
 
     /**
-     * Add accounts
+     * Add accounts.
      *
      * @param Wealthbot\ClientBundle\Entity\ClientRetirementAccount $accounts
+     *
      * @return ClientRetiremenFund
      */
     public function addAccount(\Wealthbot\ClientBundle\Entity\ClientRetirementAccount $accounts)
@@ -80,7 +79,7 @@ class ClientRetirementFund
     }
 
     /**
-     * Remove accounts
+     * Remove accounts.
      *
      * @param Wealthbot\ClientBundle\Entity\ClientRetirementAccount $accounts
      */
@@ -90,7 +89,7 @@ class ClientRetirementFund
     }
 
     /**
-     * Get accounts
+     * Get accounts.
      *
      * @return Doctrine\Common\Collections\Collection
      */
@@ -99,15 +98,15 @@ class ClientRetirementFund
         return $this->accounts;
     }
     /**
-     * @var string $symbol
+     * @var string
      */
     private $symbol;
 
-
     /**
-     * Set symbol
+     * Set symbol.
      *
      * @param string $symbol
+     *
      * @return ClientRetirementFund
      */
     public function setSymbol($symbol)
@@ -118,7 +117,7 @@ class ClientRetirementFund
     }
 
     /**
-     * Get symbol
+     * Get symbol.
      *
      * @return string
      */

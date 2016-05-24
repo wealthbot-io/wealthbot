@@ -2,49 +2,46 @@
 
 namespace Wealthbot\UserBundle\Form\Type;
 
-use Symfony\Component\Form\AbstractType;
+use FOS\UserBundle\Form\Type\RegistrationFormType as BaseType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use FOS\UserBundle\Form\Type\RegistrationFormType as BaseType;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Wealthbot\UserBundle\Entity\Profile;
-use Wealthbot\UserBundle\Form\Type\RiaProfileType;
 
 class RiaRegistrationType extends BaseType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('profile', new RiaProfileType(), array('label' => ' '));
+        $builder->add('profile', new RiaProfileType(), ['label' => ' ']);
 
         parent::buildForm($builder, $options);
 
         $builder->remove('username');
 
-        $builder->addEventListener(FormEvents::BIND, function(FormEvent $event)  {
+        $builder->addEventListener(FormEvents::SUBMIT, function (FormEvent $event) {
             $user = $event->getData();
             $user->setUsername($user->getEmail());
         });
     }
 
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
+        $resolver->setDefaults([
             'data_class' => 'Wealthbot\UserBundle\Entity\User',
             'csrf_protection' => true,
             'csrf_field_name' => '_token',
             'cascade_validation' => true,
-            'validation_groups'  => array('Registration', 'password')
-        ));
+            'validation_groups' => ['Registration', 'password'],
+        ]);
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'ria_registration';
     }
 
     protected function addRiaFieldsValidator(FormBuilderInterface $builder)
     {
-
     }
 }

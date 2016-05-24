@@ -9,11 +9,10 @@
 
 namespace Wealthbot\ClientBundle\Tests\Docusign;
 
-
-use Wealthbot\ClientBundle\Entity\SystemAccount;
 use Wealthbot\ClientBundle\Docusign\TransferInformationConsolidatorCondition;
 use Wealthbot\ClientBundle\Entity\ClientAccount;
 use Wealthbot\ClientBundle\Entity\ClientAccountOwner;
+use Wealthbot\ClientBundle\Entity\SystemAccount;
 
 class TransferInformationConsolidatorConditionTest extends \PHPUnit_Framework_TestCase
 {
@@ -55,7 +54,7 @@ class TransferInformationConsolidatorConditionTest extends \PHPUnit_Framework_Te
         $this->accountMock->setSystemType(SystemAccount::TYPE_PERSONAL_INVESTMENT);
         $this->transferInformationMock->setTitleFirst('TestF')->setTitleMiddle('TestM')->setTitleLast('TestL');
 
-        $this->assertEquals(false, $this->condition->check($this->transferInformationMock));
+        $this->assertFalse($this->condition->check($this->transferInformationMock));
 
         $this->consolidatorMock->setSystemType(SystemAccount::TYPE_JOINT_INVESTMENT);
         $this->accountMock->setSystemType(SystemAccount::TYPE_JOINT_INVESTMENT);
@@ -68,7 +67,7 @@ class TransferInformationConsolidatorConditionTest extends \PHPUnit_Framework_Te
             ->setJointTitleMiddle('TestM')
             ->setJointTitleLast('TestL');
 
-        $this->assertEquals(false, $this->condition->check($this->transferInformationMock));
+        $this->assertFalse($this->condition->check($this->transferInformationMock));
     }
 
     public function testDocusignAllowed()
@@ -80,7 +79,7 @@ class TransferInformationConsolidatorConditionTest extends \PHPUnit_Framework_Te
             ->setTitleMiddle('PrimaryMiddleName')
             ->setTitleLast('PrimaryLastName');
 
-        $this->assertEquals(true, $this->condition->check($this->transferInformationMock));
+        $this->assertTrue($this->condition->check($this->transferInformationMock));
 
         $this->consolidatorMock->setSystemType(SystemAccount::TYPE_JOINT_INVESTMENT);
         $this->accountMock->setSystemType(SystemAccount::TYPE_JOINT_INVESTMENT);
@@ -89,14 +88,14 @@ class TransferInformationConsolidatorConditionTest extends \PHPUnit_Framework_Te
             ->setJointTitleMiddle('SecondaryMiddleName')
             ->setJointTitleLast('SecondaryLastName');
 
-        $this->assertEquals(true, $this->condition->check($this->transferInformationMock));
+        $this->assertTrue($this->condition->check($this->transferInformationMock));
     }
 
     private function getUserMock()
     {
         $userMock = $this->getMock(
             'Wealthbot\UserBundle\Entity\User',
-            array('getFirstName', 'getLastName', 'getMiddleName', 'isMarried')
+            ['getFirstName', 'getLastName', 'getMiddleName', 'isMarried']
         );
 
         $userMock->expects($this->any())
@@ -119,7 +118,7 @@ class TransferInformationConsolidatorConditionTest extends \PHPUnit_Framework_Te
     {
         $contactMock = $this->getMock(
             'Wealthbot\ClientBundle\Entity\ClientAdditionalContact',
-            array('getFirstName', 'getLastName', 'getMiddleName')
+            ['getFirstName', 'getLastName', 'getMiddleName']
         );
 
         $contactMock->expects($this->any())

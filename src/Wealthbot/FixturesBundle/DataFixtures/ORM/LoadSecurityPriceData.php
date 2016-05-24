@@ -9,7 +9,6 @@
 
 namespace Wealthbot\FixturesBundle\DataFixtures\ORM;
 
-
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -18,11 +17,11 @@ use Wealthbot\AdminBundle\Entity\SecurityPrice;
 class LoadSecurityPriceData extends AbstractFixture implements OrderedFixtureInterface
 {
     /**
-     * Load data fixtures with the passed EntityManager
+     * Load data fixtures with the passed EntityManager.
      *
      * @param \Doctrine\Common\Persistence\ObjectManager $manager
      */
-    function load(ObjectManager $manager)
+    public function load(ObjectManager $manager)
     {
         $securities = $manager->getRepository('WealthbotAdminBundle:Security')->findAll();
         $securityPrice = null;
@@ -32,7 +31,7 @@ class LoadSecurityPriceData extends AbstractFixture implements OrderedFixtureInt
             $iterations = 6;
             $firstDate = new \DateTime('04-01-2013 08:05:00');
 
-            for ($i = 0; $i < $iterations; $i++) {
+            for ($i = 0; $i < $iterations; ++$i) {
                 $securityPrice = new SecurityPrice();
 
                 $securityPrice->setSecurity($security);
@@ -40,7 +39,7 @@ class LoadSecurityPriceData extends AbstractFixture implements OrderedFixtureInt
                 $securityPrice->setPrice($this->getRandom(25, 150));
                 $securityPrice->setIsCurrent(false);
 
-                $currentDate = clone($firstDate->add(new \DateInterval('P7D')));
+                $currentDate = clone $firstDate->add(new \DateInterval('P7D'));
                 $securityPrice->setDatetime($currentDate);
                 $manager->persist($securityPrice);
             }
@@ -49,7 +48,6 @@ class LoadSecurityPriceData extends AbstractFixture implements OrderedFixtureInt
                 $securityPrice->setIsCurrent(true);
                 $manager->persist($securityPrice);
             }
-
         }
 
         $manager->flush();
@@ -66,13 +64,12 @@ class LoadSecurityPriceData extends AbstractFixture implements OrderedFixtureInt
     }
 
     /**
-     * Get the order of this fixture
+     * Get the order of this fixture.
      *
-     * @return integer
+     * @return int
      */
-    function getOrder()
+    public function getOrder()
     {
         return 5;
     }
-
 }

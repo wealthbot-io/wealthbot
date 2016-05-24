@@ -2,7 +2,6 @@
 
 namespace Wealthbot\FixturesBundle\DataFixtures\ORM;
 
-
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -12,16 +11,16 @@ use Wealthbot\UserBundle\Entity\User;
 class LoadJobData extends AbstractFixture implements OrderedFixtureInterface
 {
     /**
-     * Load data fixtures with the passed EntityManager
+     * Load data fixtures with the passed EntityManager.
      *
      * @param \Doctrine\Common\Persistence\ObjectManager $manager
      */
-    function load(ObjectManager $manager)
+    public function load(ObjectManager $manager)
     {
         /** @var User $ria */
-        $ria = $manager->getRepository('WealthbotUserBundle:User')->findOneBy(array(
-            'email' => 'raiden@wealthbot.io'
-        ));
+        $ria = $manager->getRepository('WealthbotUserBundle:User')->findOneBy([
+            'email' => 'raiden@wealthbot.io',
+        ]);
 
         $job1 = new Job();
         $job1->setUser($ria);
@@ -39,7 +38,7 @@ class LoadJobData extends AbstractFixture implements OrderedFixtureInterface
         $job2->setFinishedAt($date);
 
         $manager->persist($job2);
-        
+
         $job3 = new Job();
         $job3->setUser($ria);
         $job3->setStartedAt(new \DateTime('2013-02-16'));
@@ -62,11 +61,11 @@ class LoadJobData extends AbstractFixture implements OrderedFixtureInterface
     }
 
     /**
-     * Get the order of this fixture
+     * Get the order of this fixture.
      *
-     * @return integer
+     * @return int
      */
-    function getOrder()
+    public function getOrder()
     {
         return 9;
     }

@@ -7,7 +7,7 @@ describe 'rvm::gpg' do
       :kernel => 'Linux',
       :osfamily => 'RedHat'
     }}
-    it { should contain_package('gnupg2') }
+    it { should contain_package('gnupg') }
   end
 
   context "Debian", :compile do
@@ -15,14 +15,15 @@ describe 'rvm::gpg' do
       :kernel => 'Linux',
       :osfamily => 'Debian'
     }}
-    it { should contain_package('gnupg2') }
+    it { should contain_package('gnupg') }
   end
 
-  context "OS X", :compile do
-    let(:facts) {{
-      :kernel => 'Darwin',
-      :osfamily => 'Darwin'
-    }}
-    it { should contain_package('gnupg2') }
-  end
+  # Not supported by gnupg module
+  # context "OS X", :compile do
+  #   let(:facts) {{
+  #     :kernel => 'Darwin',
+  #     :osfamily => 'Darwin'
+  #   }}
+  #   it { should contain_package('gnupg') }
+  # end
 end

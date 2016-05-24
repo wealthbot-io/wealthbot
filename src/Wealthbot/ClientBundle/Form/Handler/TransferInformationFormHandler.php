@@ -3,11 +3,10 @@
  * Created by PhpStorm.
  * User: amalyuhin
  * Date: 11.02.14
- * Time: 17:20
+ * Time: 17:20.
  */
 
 namespace Wealthbot\ClientBundle\Form\Handler;
-
 
 use Wealthbot\AdminBundle\Form\Handler\AbstractFormHandler;
 use Wealthbot\ClientBundle\Entity\TransferInformation;
@@ -41,11 +40,9 @@ class TransferInformationFormHandler extends AbstractFormHandler
             if (!file_exists($statement->getAbsolutePath())) {
                 $statement->upload();
             }
-
         }
 
         $this->em->persist($data);
         $this->em->flush();
     }
-
-} 
+}

@@ -9,20 +9,19 @@
 
 namespace Wealthbot\SignatureBundle\Model;
 
-
 use Wealthbot\SignatureBundle\Model\Tab\AbstractTab;
 
 class TabCollection
 {
     private $tabs;
 
-    public function __construct(array $tabs = array())
+    public function __construct(array $tabs = [])
     {
         $this->tabs = $tabs;
     }
 
     /**
-     * Add tab element
+     * Add tab element.
      *
      * @param AbstractTab $tab
      */
@@ -32,9 +31,10 @@ class TabCollection
     }
 
     /**
-     * Remove tab element by key
+     * Remove tab element by key.
      *
      * @param $key
+     *
      * @return AbstractTab|null
      */
     public function remove($key)
@@ -46,13 +46,14 @@ class TabCollection
             return $removed;
         }
 
-        return null;
+        return;
     }
 
     /**
-     * Remove tab element
+     * Remove tab element.
      *
      * @param AbstractTab $tab
+     *
      * @return bool
      */
     public function removeTab(AbstractTab $tab)
@@ -68,9 +69,10 @@ class TabCollection
     }
 
     /**
-     * Is contains element with key $key
+     * Is contains element with key $key.
      *
      * @param $key
+     *
      * @return bool
      */
     public function containsKey($key)
@@ -79,9 +81,10 @@ class TabCollection
     }
 
     /**
-     * Is contains element
+     * Is contains element.
      *
      * @param AbstractTab $tab
+     *
      * @return bool
      */
     public function contains(AbstractTab $tab)
@@ -90,7 +93,7 @@ class TabCollection
     }
 
     /**
-     * Get count of elements
+     * Get count of elements.
      *
      * @return int
      */
@@ -100,17 +103,18 @@ class TabCollection
     }
 
     /**
-     * Convert tabs data to array
+     * Convert tabs data to array.
      *
      * @return array
+     *
      * @throws \RuntimeException
      */
     public function toArray()
     {
-        $result = array();
-        $textTabs = array();
-        $checkboxTabs = array();
-        $radioTabs = array('radios' => array());
+        $result = [];
+        $textTabs = [];
+        $checkboxTabs = [];
+        $radioTabs = ['radios' => []];
 
         foreach ($this->tabs as $tab) {
             if (!($tab instanceof AbstractTab)) {
@@ -123,21 +127,21 @@ class TabCollection
 
             $type = $tab->getType();
             if ($type === AbstractTab::TYPE_TEXT) {
-                $textTabs[] = array(
+                $textTabs[] = [
                     'tabLabel' => $tab->getTabLabel(),
-                    'value' => $tab->getValue()
-                );
+                    'value' => $tab->getValue(),
+                ];
             } elseif ($type === AbstractTab::TYPE_RADIO_GROUP) {
                 $radioTabs[$tab->getGroupName()]['groupName'] = $tab->getGroupName();
-                $radioTabs[$tab->getGroupName()]['radios'][] = array(
+                $radioTabs[$tab->getGroupName()]['radios'][] = [
                     'selected' => $tab->getSelected(),
-                    'value' => $tab->getValue()
-                );
+                    'value' => $tab->getValue(),
+                ];
             } elseif ($type === AbstractTab::TYPE_CHECKBOX) {
-                $checkboxTabs[] = array(
+                $checkboxTabs[] = [
                     'tabLabel' => $tab->getTabLabel(),
-                    'selected' => $tab->getSelected()
-                );
+                    'selected' => $tab->getSelected(),
+                ];
             }
         }
 

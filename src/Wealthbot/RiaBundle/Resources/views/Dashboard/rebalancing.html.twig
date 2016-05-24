@@ -18,17 +18,17 @@
                 </ul>
                 <div class="tab-content">
                     <div class="tab-pane {{ active_tab == 'rebalancer' ? 'active' : '' }}" id="rebalancer_tab">
-                        {% render 'WealthbotRiaBundle:Rebalancer:index' %}
+                        {{ render(controller('WealthbotRiaBundle:Rebalancer:index')) }}
                     </div>
                     <div class="tab-pane {{ active_tab == 'history' ? 'active' : '' }}" id="history_tab">
-                        {% render 'WealthbotRiaBundle:Rebalancer:history' %}
+                        {{ render(controller('WealthbotRiaBundle:Rebalancer:history')) }}
                     </div>
                     <div class="tab-pane {{ active_tab == 'trade_recon' ? 'active' : '' }}" id="trade_recon_tab">
-                        {% render 'WealthbotRiaBundle:Rebalancer:tradeRecon' with {
+                        {{ render(controller('WealthbotRiaBundle:Rebalancer:tradeRecon', {
                             'date': app.request.query.get('date'),
                             'client': app.request.query.get('client')
-                        }
-                        %}
+                        } ))
+                        }}
                     </div>
                 </div>
             </div>

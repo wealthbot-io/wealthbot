@@ -9,11 +9,11 @@
 
 namespace Wealthbot\ClientBundle\Form\Type;
 
-use Wealthbot\ClientBundle\Model\AccountOwnerInterface;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormEvent;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Wealthbot\ClientBundle\Model\AccountOwnerInterface;
 
 class TransferBasicFormType extends ClientProfileFormType
 {
@@ -45,10 +45,10 @@ class TransferBasicFormType extends ClientProfileFormType
             $email = $data->getEmail();
         }
 
-        $builder->add('email', 'email', array(
-            'attr' => array('value' => $email),
-            'required' => false
-        ));
+        $builder->add('email', 'email', [
+            'attr' => ['value' => $email],
+            'required' => false,
+        ]);
     }
 
     public function validate(FormEvent $event)
@@ -61,19 +61,19 @@ class TransferBasicFormType extends ClientProfileFormType
             $email = $form->get('email')->getData();
 
             if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-                $form->get('email')->addError(new FormError("Invalid email address."));
+                $form->get('email')->addError(new FormError('Invalid email address.'));
             }
         }
     }
 
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => $this->class
-        ));
+        $resolver->setDefaults([
+            'data_class' => $this->class,
+        ]);
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'transfer_basic';
     }

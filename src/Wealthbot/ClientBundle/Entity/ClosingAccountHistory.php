@@ -2,21 +2,20 @@
 
 namespace Wealthbot\ClientBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
 use Wealthbot\ClientBundle\Model\ClosingAccountHistory as BaseClosingAccountHistory;
 
 /**
- * ClosingAccountHistory
+ * ClosingAccountHistory.
  */
 class ClosingAccountHistory extends BaseClosingAccountHistory
 {
     /**
-     * @var integer
+     * @var int
      */
     private $id;
 
     /**
-     * @var integer
+     * @var int
      */
     private $account_id;
 
@@ -35,11 +34,10 @@ class ClosingAccountHistory extends BaseClosingAccountHistory
      */
     private $account;
 
-
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer 
+     * @return int
      */
     public function getId()
     {
@@ -47,22 +45,23 @@ class ClosingAccountHistory extends BaseClosingAccountHistory
     }
 
     /**
-     * Set account_id
+     * Set account_id.
      *
-     * @param integer $accountId
+     * @param int $accountId
+     *
      * @return ClosingAccountHistory
      */
     public function setAccountId($accountId)
     {
         $this->account_id = $accountId;
-    
+
         return $this;
     }
 
     /**
-     * Get account_id
+     * Get account_id.
      *
-     * @return integer 
+     * @return int
      */
     public function getAccountId()
     {
@@ -70,22 +69,23 @@ class ClosingAccountHistory extends BaseClosingAccountHistory
     }
 
     /**
-     * Set closing_date
+     * Set closing_date.
      *
      * @param \DateTime $closingDate
+     *
      * @return ClosingAccountHistory
      */
     public function setClosingDate($closingDate)
     {
         $this->closing_date = $closingDate;
-    
+
         return $this;
     }
 
     /**
-     * Get closing_date
+     * Get closing_date.
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getClosingDate()
     {
@@ -93,22 +93,23 @@ class ClosingAccountHistory extends BaseClosingAccountHistory
     }
 
     /**
-     * Set account
+     * Set account.
      *
      * @param \Wealthbot\ClientBundle\Entity\SystemAccount $account
+     *
      * @return ClosingAccountHistory
      */
     public function setAccount(\Wealthbot\ClientBundle\Entity\SystemAccount $account = null)
     {
         $this->account = $account;
-    
+
         return $this;
     }
 
     /**
-     * Get account
+     * Get account.
      *
-     * @return \Wealthbot\ClientBundle\Entity\SystemAccount 
+     * @return \Wealthbot\ClientBundle\Entity\SystemAccount
      */
     public function getAccount()
     {
@@ -116,22 +117,23 @@ class ClosingAccountHistory extends BaseClosingAccountHistory
     }
 
     /**
-     * Set messages
+     * Set messages.
      *
      * @param array $messages
+     *
      * @return ClosingAccountHistory
      */
     public function setMessages(array $messages)
     {
         parent::setMessages($messages);
-    
+
         return $this;
     }
 
     /**
-     * Get messages
+     * Get messages.
      *
-     * @return array 
+     * @return array
      */
     public function getMessages()
     {

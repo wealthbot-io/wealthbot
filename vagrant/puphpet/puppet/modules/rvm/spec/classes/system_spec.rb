@@ -37,4 +37,14 @@ describe 'rvm::system' do
     it { should contain_exec('system-rvm-get').with_environment("[\"http_proxy=#{params[:proxy_url]}\", \"https_proxy=#{params[:proxy_url]}\", \"no_proxy=#{params[:no_proxy]}\", \"HOME=/root\"]") }
   end
 
+  context "with gnupg", :compile do
+    let(:pre_condition) { "class { '::gnupg': }" }
+    it { should contain_gnupg_key('rvm_D39DC0E3').with_key_id('D39DC0E3').with_key_server('hkp://keys.gnupg.net') }
+  end
+
+  context "with gnupg customized", :compile do
+    let(:params) {{ :key_server => 'hkp://example.com', :gnupg_key_id => 'AAAAAAAA' }}
+    let(:pre_condition) { "class { '::gnupg': }" }
+    it { should contain_gnupg_key('rvm_AAAAAAAA').with_key_id('AAAAAAAA').with_key_server('hkp://example.com') }
+  end
 end

@@ -1,25 +1,28 @@
-#! /usr/bin/env ruby -S rspec
 require 'spec_helper'
 
-describe "the delete_at function" do
-  let(:scope) { PuppetlabsSpec::PuppetInternals.scope }
+describe 'delete_at' do
+  it { is_expected.not_to eq(nil) }
+  it { is_expected.to run.with_params().and_raise_error(Puppet::ParseError) }
+  it { is_expected.to run.with_params('one', 1).and_raise_error(Puppet::ParseError) }
+  it { is_expected.to run.with_params(1, 1).and_raise_error(Puppet::ParseError) }
+  it { is_expected.to run.with_params(['one'], 'two').and_raise_error(Puppet::ParseError) }
+  it {
+    pending("Current implementation ignores parameters after the first two.")
+    is_expected.to run.with_params(['one'], 0, 1).and_raise_error(Puppet::ParseError)
+  }
 
-  it "should exist" do
-    expect(Puppet::Parser::Functions.function("delete_at")).to eq("function_delete_at")
+  describe 'argument validation' do
+    it { is_expected.to run.with_params([0, 1, 2], 3).and_raise_error(Puppet::ParseError) }
   end
 
-  it "should raise a ParseError if there is less than 1 arguments" do
-    expect { scope.function_delete_at([]) }.to( raise_error(Puppet::ParseError))
-  end
+  it { is_expected.to run.with_params([0, 1, 2], 1).and_return([0, 2]) }
+  it { is_expected.to run.with_params([0, 1, 2], -1).and_return([0, 1]) }
+  it { is_expected.to run.with_params([0, 1, 2], -4).and_return([0, 1, 2]) }
 
-  it "should delete an item at specified location from an array" do
-    result = scope.function_delete_at([['a','b','c'],1])
-    expect(result).to(eq(['a','c']))
-  end
-
-  it "should not change origin array passed as argument" do
-    origin_array = ['a','b','c','d']
-    result = scope.function_delete_at([origin_array, 1])
-    expect(origin_array).to(eq(['a','b','c','d']))
+  it "should leave the original array intact" do
+    argument = [1, 2, 3]
+    original = argument.dup
+    result = subject.call([argument,2])
+    expect(argument).to eq(original)
   end
 end

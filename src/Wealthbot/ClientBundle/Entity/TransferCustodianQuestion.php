@@ -2,20 +2,18 @@
 
 namespace Wealthbot\ClientBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-
 /**
- * TransferCustodianQuestion
+ * TransferCustodianQuestion.
  */
 class TransferCustodianQuestion
 {
     /**
-     * @var integer
+     * @var int
      */
     private $id;
 
     /**
-     * @var integer
+     * @var int
      */
     private $transfer_custodian_id;
 
@@ -25,15 +23,14 @@ class TransferCustodianQuestion
     private $title;
 
     /**
-     * @var boolean
+     * @var bool
      */
     private $docusign_eligible_answer;
 
-
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer 
+     * @return int
      */
     public function getId()
     {
@@ -41,22 +38,23 @@ class TransferCustodianQuestion
     }
 
     /**
-     * Set transfer_custodian_id
+     * Set transfer_custodian_id.
      *
-     * @param integer $transferCustodianId
+     * @param int $transferCustodianId
+     *
      * @return TransferCustodianQuestion
      */
     public function setTransferCustodianId($transferCustodianId)
     {
         $this->transfer_custodian_id = $transferCustodianId;
-    
+
         return $this;
     }
 
     /**
-     * Get transfer_custodian_id
+     * Get transfer_custodian_id.
      *
-     * @return integer 
+     * @return int
      */
     public function getTransferCustodianId()
     {
@@ -64,22 +62,23 @@ class TransferCustodianQuestion
     }
 
     /**
-     * Set title
+     * Set title.
      *
      * @param string $title
+     *
      * @return TransferCustodianQuestion
      */
     public function setTitle($title)
     {
         $this->title = $title;
-    
+
         return $this;
     }
 
     /**
-     * Get title
+     * Get title.
      *
-     * @return string 
+     * @return string
      */
     public function getTitle()
     {
@@ -90,24 +89,24 @@ class TransferCustodianQuestion
      */
     private $transferCustodian;
 
-
     /**
-     * Set transferCustodian
+     * Set transferCustodian.
      *
      * @param \Wealthbot\ClientBundle\Entity\TransferCustodian $transferCustodian
+     *
      * @return TransferCustodianQuestion
      */
     public function setTransferCustodian(\Wealthbot\ClientBundle\Entity\TransferCustodian $transferCustodian = null)
     {
         $this->transferCustodian = $transferCustodian;
-    
+
         return $this;
     }
 
     /**
-     * Get transferCustodian
+     * Get transferCustodian.
      *
-     * @return \Wealthbot\ClientBundle\Entity\TransferCustodian 
+     * @return \Wealthbot\ClientBundle\Entity\TransferCustodian
      */
     public function getTransferCustodian()
     {
@@ -115,22 +114,23 @@ class TransferCustodianQuestion
     }
 
     /**
-     * Set docusign_eligible_answer
+     * Set docusign_eligible_answer.
      *
-     * @param boolean $docusignEligibleAnswer
+     * @param bool $docusignEligibleAnswer
+     *
      * @return TransferCustodianQuestion
      */
     public function setDocusignEligibleAnswer($docusignEligibleAnswer)
     {
         $this->docusign_eligible_answer = $docusignEligibleAnswer;
-    
+
         return $this;
     }
 
     /**
-     * Get docusign_eligible_answer
+     * Get docusign_eligible_answer.
      *
-     * @return boolean 
+     * @return bool
      */
     public function getDocusignEligibleAnswer()
     {

@@ -43,7 +43,7 @@
 #   (Epel is used by many modules)
 #   Note: This variable is ignored if you provide a custom source_repo_dir
 #
-# [*plugins_source_dir*]
+# [*plugins_config_dir*]
 #   The path of the plugins configuration directory
 #
 # [*repo_dir*]
@@ -153,44 +153,61 @@
 # [*log_file*]
 #   Log file(s). Used by puppi
 #
+# [*persist_dir*]
+#   Persistent information store directory path
+#
+# [*cache_dir*]
+#   cache and db files directory path
+#
 # [*bool_priorities_plugin*]
 #   Boolean. If true, the priorities plugin will be installed automatically
 #   Default: true
 #
 class yum (
-  $install_all_keys    = params_lookup( 'install_all_keys' ),
-  $update              = params_lookup( 'update' ),
-  $update_disable      = params_lookup( 'update_disable' ),
-  $defaultrepo         = params_lookup( 'defaultrepo' ),
-  $extrarepo           = params_lookup( 'extrarepo' ),
-  $plugins_source_dir  = params_lookup( 'plugins_source_dir' ),
-  $repo_dir            = params_lookup( 'repo_dir' ),
-  $source_repo_dir     = params_lookup( 'source_repo_dir' ),
-  $clean_repos         = params_lookup( 'clean_repos' ),
-  $my_class            = params_lookup( 'my_class' ),
-  $source              = params_lookup( 'source' ),
-  $source_dir          = params_lookup( 'source_dir' ),
-  $source_dir_purge    = params_lookup( 'source_dir_purge' ),
-  $template            = params_lookup( 'template' ),
-  $options             = params_lookup( 'options' ),
-  $absent              = params_lookup( 'absent' ),
-  $disable             = params_lookup( 'disable' ),
-  $disableboot         = params_lookup( 'disableboot' ),
-  $puppi               = params_lookup( 'puppi' , 'global' ),
-  $puppi_helper        = params_lookup( 'puppi_helper' , 'global' ),
-  $debug               = params_lookup( 'debug' , 'global' ),
-  $audit_only          = params_lookup( 'audit_only' , 'global' ),
-  $config_dir          = params_lookup( 'config_dir' ),
-  $config_file         = params_lookup( 'config_file' ),
-  $config_file_mode    = params_lookup( 'config_file_mode' ),
-  $config_file_owner   = params_lookup( 'config_file_owner' ),
-  $config_file_group   = params_lookup( 'config_file_group' ),
-  $update_template     = params_lookup( 'update_template' ),
-  $cron_param          = params_lookup( 'cron_param' ),
-  $cron_mailto         = params_lookup( 'cron_mailto' ),
-  $cron_dotw           = params_lookup( 'cron_dotw' ),
-  $log_file            = params_lookup( 'log_file' ),
-  $priorities_plugin   = params_lookup( 'priorities_plugin' )
+  $install_all_keys     = params_lookup( 'install_all_keys' ),
+  $update               = params_lookup( 'update' ),
+  $update_disable       = params_lookup( 'update_disable' ),
+  $defaultrepo          = params_lookup( 'defaultrepo' ),
+  $extrarepo            = params_lookup( 'extrarepo' ),
+  $plugins_config_dir   = params_lookup( 'plugins_config_dir' ),
+  $repo_dir             = params_lookup( 'repo_dir' ),
+  $source_repo_dir      = params_lookup( 'source_repo_dir' ),
+  $clean_repos          = params_lookup( 'clean_repos' ),
+  $my_class             = params_lookup( 'my_class' ),
+  $source               = params_lookup( 'source' ),
+  $source_dir           = params_lookup( 'source_dir' ),
+  $source_dir_purge     = params_lookup( 'source_dir_purge' ),
+  $template             = params_lookup( 'template' ),
+  $options              = params_lookup( 'options' ),
+  $absent               = params_lookup( 'absent' ),
+  $disable              = params_lookup( 'disable' ),
+  $disableboot          = params_lookup( 'disableboot' ),
+  $puppi                = params_lookup( 'puppi' , 'global' ),
+  $puppi_helper         = params_lookup( 'puppi_helper' , 'global' ),
+  $debug                = params_lookup( 'debug' , 'global' ),
+  $audit_only           = params_lookup( 'audit_only' , 'global' ),
+  $config_dir           = params_lookup( 'config_dir' ),
+  $config_file          = params_lookup( 'config_file' ),
+  $config_file_mode     = params_lookup( 'config_file_mode' ),
+  $config_file_owner    = params_lookup( 'config_file_owner' ),
+  $config_file_group    = params_lookup( 'config_file_group' ),
+  $update_template      = params_lookup( 'update_template' ),
+  $cron_param           = params_lookup( 'cron_param' ),
+  $cron_mailto          = params_lookup( 'cron_mailto' ),
+  $cron_dotw            = params_lookup( 'cron_dotw' ),
+  $cron_clean_dotw      = params_lookup( 'cron_clean_dotw' ),
+  $cron_update_cmd      = params_lookup( 'cron_update_cmd' ),
+  $cron_update_messages = params_lookup( 'cron_update_messages' ),
+  $cron_apply_updates   = params_lookup( 'cron_apply_updates' ),
+  $cron_random_sleep    = params_lookup( 'cron_random_sleep' ),
+  $cron_emit_via        = params_lookup( 'cron_emit_via' ),
+  $cron_email_host      = params_lookup( 'cron_email_host' ),
+  $log_file             = params_lookup( 'log_file' ),
+  $manage_persist_dir   = params_lookup( 'manage_persist_dir' ),
+  $persist_dir          = params_lookup( 'persist_dir'),
+  $manage_cache_dir     = params_lookup( 'manage_cache_dir' ),
+  $cache_dir            = params_lookup( 'cache_dir'),
+  $priorities_plugin    = params_lookup( 'priorities_plugin' )
   ) inherits yum::params {
 
   $bool_install_all_keys=any2bool($install_all_keys)
@@ -205,8 +222,13 @@ class yum (
   $bool_audit_only=any2bool($audit_only)
   $bool_priorities_plugin=any2bool($priorities_plugin)
   $bool_update_disable=any2bool($update_disable)
+  $bool_manage_persist_dir=any2bool($manage_persist_dir)
+  $bool_manage_cache_dir=any2bool($manage_cache_dir)
 
-  $osver = split($::operatingsystemrelease, '[.]')
+  $osver = $::operatingsystem ? {
+    'XenServer' => [ '5' ],
+    default     => split($::operatingsystemrelease, '[.]')
+  }
 
   $manage_service_enable = $yum::bool_disableboot ? {
     true    => false,
@@ -258,17 +280,22 @@ class yum (
     default    => false,
   }
 
+  # XXX param_lookup returns '' instead of undef
+  $real_source_repo_dir = $yum::source_repo_dir ? {
+    ''      => undef,
+    default => $yum::source_repo_dir,
+  }
   file { 'yum.repo_dir':
     ensure  => directory,
     path    => $yum::repo_dir,
-    source  => $yum::source_repo_dir,
+    source  => $real_source_repo_dir,
     recurse => true,
     purge   => $yum::bool_clean_repos,
     replace => $yum::manage_file_replace,
     audit   => $yum::manage_audit,
   }
 
-  if $yum::source_repo_dir == undef {
+  if $real_source_repo_dir == undef {
     include yum::defaults
   }
 
@@ -286,7 +313,7 @@ class yum (
   }
 
   # The whole yum configuration directory can be recursively overriden
-  if $yum::source_dir {
+  if $yum::source_dir and $yum::source_dir != '' {
     file { 'yum.dir':
       ensure  => directory,
       path    => $yum::config_dir,
@@ -298,13 +325,36 @@ class yum (
     }
   }
 
+  # set the premissions for the cache and persist dirs recursively
+  if $bool_manage_persist_dir {
+    file { 'yum.persist.dir':
+      ensure  => directory,
+      path    => $yum::persist_dir,
+      mode    => $yum::config_file_mode,
+      owner   => $yum::config_file_owner,
+      group   => $yum::config_file_group,
+      recurse => true,
+    }
+  }
+
+  if $bool_manage_cache_dir {
+    file { 'yum.cache.dir':
+      ensure  => directory,
+      path    => $yum::cache_dir,
+      mode    => $yum::config_file_mode,
+      owner   => $yum::config_file_owner,
+      group   => $yum::config_file_group,
+      recurse => true,
+    }
+  }
+
   ### Manage Automatic Updates
   if $yum::manage_updates {
     include $yum::update
   }
 
   ### Include custom class if $my_class is set
-  if $yum::my_class {
+  if $yum::my_class and $yum::my_class != '' {
     include $yum::my_class
   }
 

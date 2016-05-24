@@ -9,17 +9,16 @@
 
 namespace Wealthbot\AdminBundle\Form\EventListener;
 
-use Doctrine\ORM\QueryBuilder;
+use Doctrine\ORM\EntityRepository;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\Form\FormError;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
+use Symfony\Component\Form\FormFactoryInterface;
+use Symfony\Component\Form\FormInterface;
 use Wealthbot\AdminBundle\Entity\CeModel;
 use Wealthbot\AdminBundle\Entity\CeModelEntity;
 use Wealthbot\AdminBundle\Repository\SecurityAssignmentRepository;
-use Symfony\Component\Form\FormError;
-use Symfony\Component\Form\FormEvent;
-use Symfony\Component\Form\FormInterface;
-use Symfony\Component\Form\FormFactoryInterface;
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\Form\FormEvents;
-use Doctrine\ORM\EntityRepository;
 use Wealthbot\UserBundle\Model\User;
 
 class PortfolioModelEntityTypeEventsListener implements EventSubscriberInterface
@@ -49,11 +48,11 @@ class PortfolioModelEntityTypeEventsListener implements EventSubscriberInterface
 
     public static function getSubscribedEvents()
     {
-        return array(
+        return [
             FormEvents::POST_SET_DATA => 'preSetData',
-            FormEvents::PRE_BIND => 'preBind',
-            FormEvents::BIND => 'bind'
-        );
+            FormEvents::PRE_SUBMIT => 'preBind',
+            FormEvents::SUBMIT => 'bind',
+        ];
     }
 
     public function preSetData(FormEvent $event)
@@ -67,7 +66,7 @@ class PortfolioModelEntityTypeEventsListener implements EventSubscriberInterface
             $this->updateSecuritySymbol($form, null);
             $this->updateSecurity($form, null);
             $this->updateSubclass($form, null);
-            $this->updateTaxLossHarvesting($form, null, array());
+            $this->updateTaxLossHarvesting($form, null, []);
             $this->updateTaxLossHarvestingIdSymbol($form, null);
         } else {
             if ($data->getMuniSubstitution()) {
@@ -76,7 +75,7 @@ class PortfolioModelEntityTypeEventsListener implements EventSubscriberInterface
 
             if ($data->getSecurityAssignment()) {
                 $this->updateSecuritySymbol($form, $data->getSecurityAssignmentId());
-                $this->updateTaxLossHarvesting($form, $data->getSubclassId(), array($data->getSecurityAssignmentId(), $data->getMuniSubstitutionId()));
+                $this->updateTaxLossHarvesting($form, $data->getSubclassId(), [$data->getSecurityAssignmentId(), $data->getMuniSubstitutionId()]);
             }
 
             if ($data->getAssetClass()) {
@@ -110,7 +109,7 @@ class PortfolioModelEntityTypeEventsListener implements EventSubscriberInterface
         if (array_key_exists('security', $data) && $data['security']) {
             $this->updateSecuritySymbol($form, $data['security']);
 
-            $withoutIds = array($data['security']);
+            $withoutIds = [$data['security']];
             if (array_key_exists('muniSubstitution', $data)) {
                 $withoutIds[] = $data['muniSubstitution'];
             }
@@ -140,22 +139,24 @@ class PortfolioModelEntityTypeEventsListener implements EventSubscriberInterface
         $data = $event->getData();
         $em = $this->em;
 
-        if($data === null) return;
+        if ($data === null) {
+            return;
+        }
 
-        if($data->getSubclass() && $data->getSecurityAssignment()){
-            $exist = $em->getRepository('WealthbotAdminBundle:CeModelEntity')->findOneBy(array(
+        if ($data->getSubclass() && $data->getSecurityAssignment()) {
+            $exist = $em->getRepository('WealthbotAdminBundle:CeModelEntity')->findOneBy([
                 'modelId' => $this->portfolioModel->getId(),
                 'assetClassId' => $data->getAssetClass()->getId(),
                 'subclassId' => $data->getSubclass()->getId(),
                 'securityAssignmentId' => $data->getSecurityAssignemnt()->getId(),
-                'isQualified' => $this->isQualifiedModel
-            ));
-            if($exist) {
-                if($data->getId()){
-                    if($exist->getId() != $data->getId()){
+                'isQualified' => $this->isQualifiedModel,
+            ]);
+            if ($exist) {
+                if ($data->getId()) {
+                    if ($exist->getId() !== $data->getId()) {
                         $form->get('subclass')->addError(new FormError('You already hold this subclass in the model.'));
                     }
-                }else{
+                } else {
                     $form->get('subclass')->addError(new FormError('You already hold this subclass in the model.'));
                 }
             }
@@ -166,19 +167,20 @@ class PortfolioModelEntityTypeEventsListener implements EventSubscriberInterface
     {
         $owner = $this->user;
 
-        $form->add($this->factory->createNamed('subclass', 'entity', null, array(
-            'class' => 'WealthbotAdminBundle:Subclass',
+        $form->add($this->factory->createNamed('subclass', 'entity', null, [
+            'class' => 'Wealthbot\\AdminBundle\\Entity\\Subclass',
             'property' => 'name',
             'required' => false,
-            'empty_value' => 'Choose Subclass',
+            'placeholder' => 'Choose Subclass',
+            'auto_initialize' => false,
             'query_builder' => function (EntityRepository $er) use ($assetClassId, $owner) {
                 $query = $er->createQueryBuilder('s')
                     ->where('s.asset_class_id = :assetClassId')
                     ->andWhere("s.name NOT IN ('Intermediate Muni', 'Short Muni')")
-                    ->setParameters(array('assetClassId' => $assetClassId))
+                    ->setParameters(['assetClassId' => $assetClassId])
                     ->orderBy('s.id', 'ASC');
 
-                if($owner->hasRole('ROLE_RIA') || $owner->hasRole('ROLE_CLIENT')) {
+                if ($owner->hasRole('ROLE_RIA') || $owner->hasRole('ROLE_CLIENT')) {
                     $query->leftJoin('s.securityAssignments', 'sec');
                     $query->andWhere('sec.model_id IS NOT NULL');
                     $query->andWhere('s.owner_id = :owner_id');
@@ -189,8 +191,8 @@ class PortfolioModelEntityTypeEventsListener implements EventSubscriberInterface
 
                 return $query;
             },
-            'attr' => is_null($assetClassId) ? array('disabled' => 'disabled') : array()
-        )));
+            'attr' => is_null($assetClassId) ? ['disabled' => 'disabled'] : [],
+        ]));
     }
 
     protected function updateMuniSubstitution(FormInterface $form, $subclass)
@@ -199,51 +201,50 @@ class PortfolioModelEntityTypeEventsListener implements EventSubscriberInterface
             $subclass = $this->em->getRepository('WealthbotAdminBundle:Subclass')->find($subclass);
         }
 
-        if ( $this->user->hasRole('ROLE_ADMIN') || $this->user->hasRole('ROLE_SUPER_ADMIN') ||
+        if ($this->user->hasRole('ROLE_ADMIN') || $this->user->hasRole('ROLE_SUPER_ADMIN') ||
             ($this->user->hasRole('ROLE_RIA') && $this->user->getRiaCompanyInformation()->getUseMunicipalBond())
         ) {
-
             $model = $this->portfolioModel;
             $selectedModel = $model->getParent();
 
             //TODO need move to the repository
-            $qb = $this->em->getRepository("WealthbotAdminBundle:SecurityAssignment")->createQueryBuilder("s");
+            $qb = $this->em->getRepository('WealthbotAdminBundle:SecurityAssignment')->createQueryBuilder('s');
 
-            if($this->user->hasRole('ROLE_RIA') || $this->user->hasRole('ROLE_SUPER_ADMIN')){
-                $qb->where("s.ria_user_id IS NULL");
-            }else{
-                $qb->where("s.ria_user_id = :ria_user_id")->setParameter("ria_user_id", $this->user->getId());
+            if ($this->user->hasRole('ROLE_RIA') || $this->user->hasRole('ROLE_SUPER_ADMIN')) {
+                $qb->where('s.ria_user_id IS NULL');
+            } else {
+                $qb->where('s.ria_user_id = :ria_user_id')->setParameter('ria_user_id', $this->user->getId());
             }
 
-            $qb->andWhere("s.model_id = :model_id")
-                ->andWhere("s.subclass_id = :subclass_id")
-                ->andWhere("s.muni_substitution = 1")
-                ->setParameter("model_id", $selectedModel->getId())
-                ->setParameter("subclass_id", $subclass->getId())
+            $qb->andWhere('s.model_id = :model_id')
+                ->andWhere('s.subclass_id = :subclass_id')
+                ->andWhere('s.muni_substitution = 1')
+                ->setParameter('model_id', $selectedModel->getId())
+                ->setParameter('subclass_id', $subclass->getId())
                 ->setMaxResults(1)
             ;
 
             $existMuniSubstitution = $qb->getQuery()->getOneOrNullResult();
 
-            if($existMuniSubstitution) {
-
-                $form->add($this->factory->createNamed('muniSubstitution', 'entity', null, array(
-                    'class' => 'WealthbotAdminBundle:SecurityAssignment',
+            if ($existMuniSubstitution) {
+                $form->add($this->factory->createNamed('muniSubstitution', 'entity', null, [
+                    'class' => 'Wealthbot\\AdminBundle\\Entity\\SecurityAssignment',
                     'property' => 'security.name',
+                    'auto_initialize' => false,
                     'required' => false,
-                    'empty_value' => 'Choose Muni Substitution',
+                    'placeholder' => 'Choose Muni Substitution',
                     'query_builder' => function (EntityRepository $er) use ($selectedModel, $subclass) {
                         $query = $er->createQueryBuilder('s')
-                            ->where("s.model_id = :model_id")
-                            ->andWhere("s.muni_substitution = 1")
-                            ->andWhere("s.subclass_id = :subclass_id")
-                            ->setParameter("model_id", $selectedModel->getId())
-                            ->setParameter("subclass_id", $subclass->getId())
+                            ->where('s.model_id = :model_id')
+                            ->andWhere('s.muni_substitution = 1')
+                            ->andWhere('s.subclass_id = :subclass_id')
+                            ->setParameter('model_id', $selectedModel->getId())
+                            ->setParameter('subclass_id', $subclass->getId())
                         ;
 
                         return $query;
-                    }
-                )));
+                    },
+                ]));
             }
         }
     }
@@ -252,20 +253,21 @@ class PortfolioModelEntityTypeEventsListener implements EventSubscriberInterface
     {
         $entities = $this->portfolioModel->getModelEntities();
 
-        $securitiesIds = array();
+        $securitiesIds = [];
         //TODO discuss with Andrey about this code
-        if($currentEntityId){
+        if ($currentEntityId) {
             foreach ($entities as $entity) {
-                if (!$currentEntityId || $currentEntityId != $entity->getId()) {
+                if (!$currentEntityId || $currentEntityId !== $entity->getId()) {
                     $securitiesIds[] = $entity->getSecurityAssignmentId();
                 }
             }
         }
 
-        $form->add($this->factory->createNamed('security', 'entity', null, array(
-            'class' => 'WealthbotAdminBundle:SecurityAssignment',
+        $form->add($this->factory->createNamed('security', 'entity', null, [
+            'class' => 'Wealthbot\\AdminBundle\\Entity\\SecurityAssignment',
             'property' => 'security.name',
-            'empty_value' => 'Choose Security',
+            'auto_initialize' => false,
+            'placeholder' => 'Choose Security',
             'query_builder' => function (EntityRepository $er) use ($subclassId, $securitiesIds) {
                 $qb = $er->createQueryBuilder('s');
                 $qb->where('s.subclass_id = :subclassId AND s.ria_user_id IS NULL');
@@ -280,8 +282,8 @@ class PortfolioModelEntityTypeEventsListener implements EventSubscriberInterface
 
                 return $qb;
             },
-            'attr' => is_null($subclassId) ? array('disabled' => 'disabled') : array()
-        )));
+            'attr' => is_null($subclassId) ? ['disabled' => 'disabled'] : [],
+        ]));
     }
 
     protected function updateSecuritySymbol(FormInterface $form, $securityAssignmentId)
@@ -294,14 +296,15 @@ class PortfolioModelEntityTypeEventsListener implements EventSubscriberInterface
             $value = '';
         }
 
-        $form->add($this->factory->createNamed('symbol', 'text', null, array(
-            'property_path' => false,
+        $form->add($this->factory->createNamed('symbol', 'text', null, [
+            'mapped' => false,
             'required' => false,
-            'attr' => array(
+            'auto_initialize' => false,
+            'attr' => [
                 'readonly' => 'readonly',
-                'value' => $value
-            ),
-        )));
+                'value' => $value,
+            ],
+        ]));
     }
 
     protected function updateMuniSubstitutionSymbol(FormInterface $form, $muniSubstitutionId)
@@ -314,14 +317,15 @@ class PortfolioModelEntityTypeEventsListener implements EventSubscriberInterface
             $value = $obj->getSecurity()->getSymbol();
         }
 
-        $form->add($this->factory->createNamed('muni_substitution_symbol', 'text', null, array(
-            'property_path' => false,
+        $form->add($this->factory->createNamed('muni_substitution_symbol', 'text', null, [
+            'mapped' => false,
+            'auto_initialize' => false,
             'required' => false,
-            'attr' => array(
+            'attr' => [
                 'readonly' => 'readonly',
-                'value' => $value
-            ),
-        )));
+                'value' => $value,
+            ],
+        ]));
     }
 
     protected function updateTaxLossHarvestingIdSymbol(FormInterface $form, $taxLossHarvestingId)
@@ -334,31 +338,33 @@ class PortfolioModelEntityTypeEventsListener implements EventSubscriberInterface
             $value = $obj->getSecurity()->getSymbol();
         }
 
-        $form->add($this->factory->createNamed('tax_loss_harvesting_symbol', 'text', null, array(
-            'property_path' => false,
+        $form->add($this->factory->createNamed('tax_loss_harvesting_symbol', 'text', null, [
+            'mapped' => false,
             'required' => false,
-            'attr' => array(
+            'auto_initialize' => false,
+            'attr' => [
                 'readonly' => 'readonly',
-                'value' => $value
-            ),
-        )));
+                'value' => $value,
+            ],
+        ]));
     }
 
-    protected function updateTaxLossHarvesting(FormInterface $form, $subclassId, $withoutIds = array())
+    protected function updateTaxLossHarvesting(FormInterface $form, $subclassId, $withoutIds = [])
     {
         if ($this->user->hasRole('ROLE_RIA') && $this->user->getRiaCompanyInformation()->getIsTaxLossHarvesting()) {
             /** @var $securityAssignmentRepo SecurityAssignmentRepository */
             $securityAssignmentRepo = $this->em->getRepository('WealthbotAdminBundle:SecurityAssignment');
             $securityQueryBuilder = $securityAssignmentRepo->getSecuritiesQBBySubclassIdAndWithoutSecuritiesIds($subclassId, $withoutIds);
 
-            $form->add($this->factory->createNamed('tax_loss_harvesting', 'entity', null, array(
-                'class' => 'WealthbotAdminBundle:SecurityAssignment',
+            $form->add($this->factory->createNamed('tax_loss_harvesting', 'entity', null, [
+                'class' => 'Wealthbot\\AdminBundle\\Entity\\SecurityAssignment',
                 'property' => 'security.name',
-                'empty_value' => 'Choose TLH Substitution',
+                'auto_initialize' => false,
+                'placeholder' => 'Choose TLH Substitution',
                 'query_builder' => $securityQueryBuilder,
-                'attr' => empty($withoutIds) ? array('disabled' => 'disabled') : array(),
-                'required' => ($securityQueryBuilder->getQuery()->getResult() ? true : false )
-            )));
+                'attr' => empty($withoutIds) ? ['disabled' => 'disabled'] : [],
+                'required' => ($securityQueryBuilder->getQuery()->getResult() ? true : false),
+            ]));
         }
     }
 }

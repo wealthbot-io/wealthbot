@@ -2,10 +2,9 @@
 
 namespace Wealthbot\UserBundle\Manager;
 
-
 use Doctrine\Common\Persistence\ObjectManager;
-use Wealthbot\RiaBundle\Entity\RiaCompanyInformation;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
+use Wealthbot\RiaBundle\Entity\RiaCompanyInformation;
 
 class SubdomainManager
 {
@@ -30,28 +29,28 @@ class SubdomainManager
 
     /**
      * Returns RiaCompanyInformation by slug or null.
-     * The slug is taken from the host (example: slug.site.com)
+     * The slug is taken from the host (example: slug.site.com).
      *
      * @return null|object
      */
     public function getRiaCompanyInformation()
     {
         if ($this->hasSubDomain()) {
-            return $this->repository->findOneBy(array('slug' => $this->getSubDomain()));
+            return $this->repository->findOneBy(['slug' => $this->getSubDomain()]);
         }
 
-        return null;
+        return;
     }
 
     public function getSubDomain()
     {
         $routerContext = $this->router->getContext();
-        $matches = array();
+        $matches = [];
 
         if (preg_match('/^([a-zA-Z0-9-]+)\./', $routerContext->getHost(), $matches)) {
             if (!empty($matches) && count($matches) > 1) {
                 $slug = $matches[1];
-                $currentHost = $slug . '.' . $this->getDomain();
+                $currentHost = $slug.'.'.$this->getDomain();
 
                 if ($currentHost === $this->router->getContext()->getHost()) {
                     return $slug;
@@ -63,7 +62,7 @@ class SubdomainManager
     }
 
     /**
-     * Has http host subdomain
+     * Has http host subdomain.
      *
      * @return bool
      */
@@ -73,39 +72,40 @@ class SubdomainManager
     }
 
     /**
-     * Returns login url string with subdomain
+     * Returns login url string with subdomain.
      *
      * @param RiaCompanyInformation $companyInformation
-     * @param string $name
-     * @param array $parameters
+     * @param string                $name
+     * @param array                 $parameters
+     *
      * @return string
      */
-    public function generateSubDomainUrl(RiaCompanyInformation $companyInformation, $name, $parameters = array())
+    public function generateSubDomainUrl(RiaCompanyInformation $companyInformation, $name, $parameters = [])
     {
         $slug = $companyInformation->getSlug();
-        $this->router->getContext()->setHost($slug . '.' . $this->getDomain());
+        $this->router->getContext()->setHost($slug.'.'.$this->getDomain());
 
         return $this->router->generate($name, $parameters, true);
     }
 
     /**
-     * Returns url string without subdomain
+     * Returns url string without subdomain.
      *
      * @param string $name
-     * @param array $parameters
+     * @param array  $parameters
+     *
      * @return string
      */
-    public function generateUrl($name, $parameters = array())
+    public function generateUrl($name, $parameters = [])
     {
         $this->router->getContext()->setHost($this->getDomain());
         $url = $this->router->generate($name, $parameters, true);
 
         return $url;
-
     }
 
     /**
-     * Get site host
+     * Get site host.
      *
      * @return mixed
      */

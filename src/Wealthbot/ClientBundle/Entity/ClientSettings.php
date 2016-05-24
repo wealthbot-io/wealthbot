@@ -2,20 +2,18 @@
 
 namespace Wealthbot\ClientBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-
 /**
- * ClientSettings
+ * ClientSettings.
  */
 class ClientSettings
 {
     /**
-     * @var integer
+     * @var int
      */
     private $id;
 
     /**
-     * @var integer
+     * @var int
      */
     private $client_id;
 
@@ -39,17 +37,15 @@ class ClientSettings
 
     private static $_clientTypes = null;
 
-
     public function __construct()
     {
         $this->client_type = self::CLIENT_TYPE_NEW;
     }
 
-
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer 
+     * @return int
      */
     public function getId()
     {
@@ -57,22 +53,23 @@ class ClientSettings
     }
 
     /**
-     * Set client_id
+     * Set client_id.
      *
-     * @param integer $clientId
+     * @param int $clientId
+     *
      * @return ClientSettings
      */
     public function setClientId($clientId)
     {
         $this->client_id = $clientId;
-    
+
         return $this;
     }
 
     /**
-     * Get client_id
+     * Get client_id.
      *
-     * @return integer 
+     * @return int
      */
     public function getClientId()
     {
@@ -80,22 +77,23 @@ class ClientSettings
     }
 
     /**
-     * Set stop_tlh_value
+     * Set stop_tlh_value.
      *
      * @param float $stopTlhValue
+     *
      * @return ClientSettings
      */
     public function setStopTlhValue($stopTlhValue)
     {
         $this->stop_tlh_value = $stopTlhValue;
-    
+
         return $this;
     }
 
     /**
-     * Get stop_tlh_value
+     * Get stop_tlh_value.
      *
-     * @return float 
+     * @return float
      */
     public function getStopTlhValue()
     {
@@ -103,22 +101,23 @@ class ClientSettings
     }
 
     /**
-     * Set client
+     * Set client.
      *
      * @param \Wealthbot\UserBundle\Entity\User $client
+     *
      * @return ClientSettings
      */
     public function setClient(\Wealthbot\UserBundle\Entity\User $client = null)
     {
         $this->client = $client;
-    
+
         return $this;
     }
 
     /**
-     * Get client
+     * Get client.
      *
-     * @return \Wealthbot\UserBundle\Entity\User 
+     * @return \Wealthbot\UserBundle\Entity\User
      */
     public function getClient()
     {
@@ -126,15 +125,16 @@ class ClientSettings
     }
 
     /**
-     * Get client type choices
+     * Get client type choices.
      *
      * @static
+     *
      * @return array
      */
-    static public function getClientTypeChoices()
+    public static function getClientTypeChoices()
     {
         if (null === self::$_clientTypes) {
-            self::$_clientTypes = array();
+            self::$_clientTypes = [];
 
             $rClass = new \ReflectionClass('Wealthbot\ClientBundle\Entity\ClientSettings');
             $prefix = 'CLIENT_TYPE_';
@@ -149,10 +149,12 @@ class ClientSettings
     }
 
     /**
-     * Set client_type
+     * Set client_type.
      *
      * @param $clientType
+     *
      * @return ClientSettings
+     *
      * @throws \InvalidArgumentException
      */
     public function setClientType($clientType)
@@ -170,7 +172,7 @@ class ClientSettings
     }
 
     /**
-     * Set client type value to 'new'
+     * Set client type value to 'new'.
      *
      * @return ClientSettings
      */
@@ -180,7 +182,7 @@ class ClientSettings
     }
 
     /**
-     * Set client type value to 'current'
+     * Set client type value to 'current'.
      *
      * @return ClientSettings
      */
@@ -190,9 +192,9 @@ class ClientSettings
     }
 
     /**
-     * Get client_type
+     * Get client_type.
      *
-     * @return string 
+     * @return string
      */
     public function getClientType()
     {

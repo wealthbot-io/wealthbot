@@ -9,31 +9,30 @@
 
 namespace Wealthbot\ClientBundle\Model;
 
-
 use Wealthbot\UserBundle\Entity\User;
 
 class Workflow implements PaymentActivityInterface
 {
     /**
-     * @var integer
+     * @var int
      */
     protected $id;
 
     /**
-     * @var integer
+     * @var int
      */
     protected $type;
 
     const TYPE_PAPERWORK = 1;
     const TYPE_ALERT = 2;
 
-    protected static $_types = array(
+    protected static $_types = [
         self::TYPE_PAPERWORK => 'Paperwork',
-        self::TYPE_ALERT     => 'Alert'
-    );
+        self::TYPE_ALERT => 'Alert',
+    ];
 
     /**
-     * @var integer
+     * @var int
      */
     protected $object_id;
 
@@ -58,99 +57,99 @@ class Workflow implements PaymentActivityInterface
     protected $message_code;
 
     // Message code constants for paperwork
-    const MESSAGE_CODE_PAPERWORK_NEW_ACCOUNT                = 'p1';
-    const MESSAGE_CODE_PAPERWORK_TRANSFER                   = 'p2';
-    const MESSAGE_CODE_PAPERWORK_ROLLOVER                   = 'p3';
-    const MESSAGE_CODE_PAPERWORK_UPDATE_BENEFICIARY         = 'p4';
-    const MESSAGE_CODE_PAPERWORK_UPDATE_ADDRESS             = 'p5';
+    const MESSAGE_CODE_PAPERWORK_NEW_ACCOUNT = 'p1';
+    const MESSAGE_CODE_PAPERWORK_TRANSFER = 'p2';
+    const MESSAGE_CODE_PAPERWORK_ROLLOVER = 'p3';
+    const MESSAGE_CODE_PAPERWORK_UPDATE_BENEFICIARY = 'p4';
+    const MESSAGE_CODE_PAPERWORK_UPDATE_ADDRESS = 'p5';
     const MESSAGE_CODE_PAPERWORK_UPDATE_BANKING_INFORMATION = 'p6';
-    const MESSAGE_CODE_PAPERWORK_UPDATE_CONTRIBUTIONS       = 'p7';
-    const MESSAGE_CODE_PAPERWORK_UPDATE_DISTRIBUTIONS       = 'p8';
-    const MESSAGE_CODE_PAPERWORK_PORTFOLIO_PROPOSED         = 'p9';
-    const MESSAGE_CODE_PAPERWORK_INITIAL_REBALANCE          = 'p10';
+    const MESSAGE_CODE_PAPERWORK_UPDATE_CONTRIBUTIONS = 'p7';
+    const MESSAGE_CODE_PAPERWORK_UPDATE_DISTRIBUTIONS = 'p8';
+    const MESSAGE_CODE_PAPERWORK_PORTFOLIO_PROPOSED = 'p9';
+    const MESSAGE_CODE_PAPERWORK_INITIAL_REBALANCE = 'p10';
 
     // Message code constants for alerts
-    const MESSAGE_CODE_ALERT_NEW_RETIREMENT_ACCOUNT         = 'a1';
-    const MESSAGE_CODE_ALERT_CLOSED_ACCOUNT                 = 'a3';
+    const MESSAGE_CODE_ALERT_NEW_RETIREMENT_ACCOUNT = 'a1';
+    const MESSAGE_CODE_ALERT_CLOSED_ACCOUNT = 'a3';
     //const MESSAGE_CODE_ALERT_INITIAL_REBALANCE              = 'a4';
     //const MESSAGE_CODE_ALERT_PORTFOLIO_PROPOSED             = 'a2';
 
     private static $_messageCodeValues = null;
 
     /**
-     * Messages for paperwork
+     * Messages for paperwork.
      *
      * @var array
      */
-    private static $_paperworkMessages = array(
-        self::MESSAGE_CODE_PAPERWORK_NEW_ACCOUNT                => 'New Account',
-        self::MESSAGE_CODE_PAPERWORK_TRANSFER                   => 'Transfer',
-        self::MESSAGE_CODE_PAPERWORK_ROLLOVER                   => 'Rollover',
-        self::MESSAGE_CODE_PAPERWORK_UPDATE_BENEFICIARY         => 'New/Update Beneficiary',
-        self::MESSAGE_CODE_PAPERWORK_UPDATE_ADDRESS             => 'Address Update',
+    private static $_paperworkMessages = [
+        self::MESSAGE_CODE_PAPERWORK_NEW_ACCOUNT => 'New Account',
+        self::MESSAGE_CODE_PAPERWORK_TRANSFER => 'Transfer',
+        self::MESSAGE_CODE_PAPERWORK_ROLLOVER => 'Rollover',
+        self::MESSAGE_CODE_PAPERWORK_UPDATE_BENEFICIARY => 'New/Update Beneficiary',
+        self::MESSAGE_CODE_PAPERWORK_UPDATE_ADDRESS => 'Address Update',
         self::MESSAGE_CODE_PAPERWORK_UPDATE_BANKING_INFORMATION => 'Banking Information Update',
-        self::MESSAGE_CODE_PAPERWORK_UPDATE_CONTRIBUTIONS       => 'New/Update Contributions',
-        self::MESSAGE_CODE_PAPERWORK_UPDATE_DISTRIBUTIONS       => 'New/Update Distributions',
-        self::MESSAGE_CODE_PAPERWORK_PORTFOLIO_PROPOSED         => 'Portfolio Proposal',
-        self::MESSAGE_CODE_PAPERWORK_INITIAL_REBALANCE          => 'Initial Rebalance'
-    );
+        self::MESSAGE_CODE_PAPERWORK_UPDATE_CONTRIBUTIONS => 'New/Update Contributions',
+        self::MESSAGE_CODE_PAPERWORK_UPDATE_DISTRIBUTIONS => 'New/Update Distributions',
+        self::MESSAGE_CODE_PAPERWORK_PORTFOLIO_PROPOSED => 'Portfolio Proposal',
+        self::MESSAGE_CODE_PAPERWORK_INITIAL_REBALANCE => 'Initial Rebalance',
+    ];
 
     /**
-     * Messages for alerts
+     * Messages for alerts.
      *
      * @var array
      */
-    private static $_alertMessages = array(
+    private static $_alertMessages = [
         self::MESSAGE_CODE_ALERT_NEW_RETIREMENT_ACCOUNT => 'New Retirement Account',
-        self::MESSAGE_CODE_ALERT_CLOSED_ACCOUNT         => 'Closed Account',
+        self::MESSAGE_CODE_ALERT_CLOSED_ACCOUNT => 'Closed Account',
         //self::MESSAGE_CODE_ALERT_INITIAL_REBALANCE      => 'Initial Rebalance',
         //self::MESSAGE_CODE_ALERT_PORTFOLIO_PROPOSED    => 'Portfolio Proposal',
-    );
+    ];
 
     /**
-     * @var integer
+     * @var int
      */
     protected $status;
 
-    const STATUS_NEW         = 0;
+    const STATUS_NEW = 0;
     const STATUS_IN_PROGRESS = 1;
-    const STATUS_PENDING     = 2;
-    const STATUS_COMPLETED   = 3;
+    const STATUS_PENDING = 2;
+    const STATUS_COMPLETED = 3;
 
-    protected static $_statuses = array(
-        self::STATUS_NEW         => 'new',
+    protected static $_statuses = [
+        self::STATUS_NEW => 'new',
         self::STATUS_IN_PROGRESS => 'in progress',
-        self::STATUS_PENDING     => 'pending',
-        self::STATUS_COMPLETED   => 'completed'
-    );
+        self::STATUS_PENDING => 'pending',
+        self::STATUS_COMPLETED => 'completed',
+    ];
 
     /**
-     * @var integer
+     * @var int
      */
     protected $client_status;
 
-    const CLIENT_STATUS_DEFAULT                    = 0;
-    const CLIENT_STATUS_ENVELOPE_CREATED           = 1;
-    const CLIENT_STATUS_ENVELOPE_OPENED            = 2;
-    const CLIENT_STATUS_ENVELOPE_COMPLETED         = 3;
-    const CLIENT_STATUS_PORTFOLIO_PROPOSED         = 4;
-    const CLIENT_STATUS_PORTFOLIO_CLIENT_ACCEPTED  = 5;
-    const CLIENT_STATUS_ACCOUNT_OPENED             = 6;
-    const CLIENT_STATUS_ACCOUNT_FUNDED             = 7;
+    const CLIENT_STATUS_DEFAULT = 0;
+    const CLIENT_STATUS_ENVELOPE_CREATED = 1;
+    const CLIENT_STATUS_ENVELOPE_OPENED = 2;
+    const CLIENT_STATUS_ENVELOPE_COMPLETED = 3;
+    const CLIENT_STATUS_PORTFOLIO_PROPOSED = 4;
+    const CLIENT_STATUS_PORTFOLIO_CLIENT_ACCEPTED = 5;
+    const CLIENT_STATUS_ACCOUNT_OPENED = 6;
+    const CLIENT_STATUS_ACCOUNT_FUNDED = 7;
 
-    protected static $_clientStatuses = array(
-        self::CLIENT_STATUS_DEFAULT                    => '',
-        self::CLIENT_STATUS_ENVELOPE_CREATED           => 'envelope created',
-        self::CLIENT_STATUS_ENVELOPE_OPENED            => 'envelope opened',
-        self::CLIENT_STATUS_ENVELOPE_COMPLETED         => 'envelope completed',
-        self::CLIENT_STATUS_PORTFOLIO_PROPOSED         => 'portfolio proposed',
-        self::CLIENT_STATUS_PORTFOLIO_CLIENT_ACCEPTED  => 'client accepted portfolio',
-        self::CLIENT_STATUS_ACCOUNT_OPENED             => 'account opened',
-        self::CLIENT_STATUS_ACCOUNT_FUNDED             => 'account funded'
-    );
+    protected static $_clientStatuses = [
+        self::CLIENT_STATUS_DEFAULT => '',
+        self::CLIENT_STATUS_ENVELOPE_CREATED => 'envelope created',
+        self::CLIENT_STATUS_ENVELOPE_OPENED => 'envelope opened',
+        self::CLIENT_STATUS_ENVELOPE_COMPLETED => 'envelope completed',
+        self::CLIENT_STATUS_PORTFOLIO_PROPOSED => 'portfolio proposed',
+        self::CLIENT_STATUS_PORTFOLIO_CLIENT_ACCEPTED => 'client accepted portfolio',
+        self::CLIENT_STATUS_ACCOUNT_OPENED => 'account opened',
+        self::CLIENT_STATUS_ACCOUNT_FUNDED => 'account funded',
+    ];
 
     /**
-     * @var boolean
+     * @var bool
      */
     protected $is_archived;
 
@@ -174,19 +173,18 @@ class Workflow implements PaymentActivityInterface
      */
     protected $amount;
 
-
     public function __construct()
     {
-        $this->object_ids = array();
+        $this->object_ids = [];
         $this->is_archived = false;
         $this->status = self::STATUS_NEW;
         $this->client_status = self::CLIENT_STATUS_DEFAULT;
     }
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer
+     * @return int
      */
     public function getId()
     {
@@ -194,7 +192,7 @@ class Workflow implements PaymentActivityInterface
     }
 
     /**
-     * Get type choices
+     * Get type choices.
      *
      * @return array
      */
@@ -204,10 +202,12 @@ class Workflow implements PaymentActivityInterface
     }
 
     /**
-     * Set type
+     * Set type.
      *
-     * @param integer $type
+     * @param int $type
+     *
      * @return Workflow
+     *
      * @throws \InvalidArgumentException
      */
     public function setType($type)
@@ -222,9 +222,9 @@ class Workflow implements PaymentActivityInterface
     }
 
     /**
-     * Get type
+     * Get type.
      *
-     * @return integer
+     * @return int
      */
     public function getType()
     {
@@ -232,9 +232,10 @@ class Workflow implements PaymentActivityInterface
     }
 
     /**
-     * Set object_id
+     * Set object_id.
      *
-     * @param integer $objectId
+     * @param int $objectId
+     *
      * @return Workflow
      */
     public function setObjectId($objectId)
@@ -245,9 +246,9 @@ class Workflow implements PaymentActivityInterface
     }
 
     /**
-     * Get object_id
+     * Get object_id.
      *
-     * @return integer
+     * @return int
      */
     public function getObjectId()
     {
@@ -255,9 +256,10 @@ class Workflow implements PaymentActivityInterface
     }
 
     /**
-     * Set object_ids
+     * Set object_ids.
      *
      * @param array $objectIds
+     *
      * @return Workflow
      */
     public function setObjectIds(array $objectIds)
@@ -268,7 +270,7 @@ class Workflow implements PaymentActivityInterface
     }
 
     /**
-     * Get object_ids
+     * Get object_ids.
      *
      * @return array
      */
@@ -278,9 +280,10 @@ class Workflow implements PaymentActivityInterface
     }
 
     /**
-     * Set object_type
+     * Set object_type.
      *
      * @param string $objectType
+     *
      * @return Workflow
      */
     public function setObjectType($objectType)
@@ -291,7 +294,7 @@ class Workflow implements PaymentActivityInterface
     }
 
     /**
-     * Get object_type
+     * Get object_type.
      *
      * @return string
      */
@@ -301,14 +304,14 @@ class Workflow implements PaymentActivityInterface
     }
 
     /**
-     * Get message code choices
+     * Get message code choices.
      *
      * @return array
      */
     public static function getMessageCodeChoices()
     {
         if (null === self::$_messageCodeValues) {
-            self::$_messageCodeValues = array();
+            self::$_messageCodeValues = [];
 
             $rClass = new \ReflectionClass('Wealthbot\ClientBundle\Model\Workflow');
             $prefix = 'MESSAGE_CODE_';
@@ -324,10 +327,12 @@ class Workflow implements PaymentActivityInterface
     }
 
     /**
-     * Set message_code
+     * Set message_code.
      *
      * @param $messageCode
+     *
      * @return Workflow
+     *
      * @throws \InvalidArgumentException
      */
     public function setMessageCode($messageCode)
@@ -345,7 +350,7 @@ class Workflow implements PaymentActivityInterface
     }
 
     /**
-     * Get paperwork message choices
+     * Get paperwork message choices.
      *
      * @return array
      */
@@ -355,7 +360,7 @@ class Workflow implements PaymentActivityInterface
     }
 
     /**
-     * Get alert message choices
+     * Get alert message choices.
      *
      * @return array
      */
@@ -365,7 +370,7 @@ class Workflow implements PaymentActivityInterface
     }
 
     /**
-     * Get message_code
+     * Get message_code.
      *
      * @return string
      */
@@ -376,9 +381,10 @@ class Workflow implements PaymentActivityInterface
 
     /**
      * TODO: remove
-     * Set message
+     * Set message.
      *
      * @param string $message
+     *
      * @return Workflow
      */
     public function setMessage($message)
@@ -389,7 +395,7 @@ class Workflow implements PaymentActivityInterface
     }
 
     /**
-     * Get message
+     * Get message.
      *
      * @return string
      */
@@ -403,7 +409,7 @@ class Workflow implements PaymentActivityInterface
     }
 
     /**
-     * Get message from db
+     * Get message from db.
      *
      * @return string
      */
@@ -413,7 +419,7 @@ class Workflow implements PaymentActivityInterface
     }
 
     /**
-     * Get status choices
+     * Get status choices.
      *
      * @return array
      */
@@ -423,10 +429,12 @@ class Workflow implements PaymentActivityInterface
     }
 
     /**
-     * Set status
+     * Set status.
      *
-     * @param integer $status
+     * @param int $status
+     *
      * @return Workflow
+     *
      * @throws \InvalidArgumentException
      */
     public function setStatus($status)
@@ -441,9 +449,9 @@ class Workflow implements PaymentActivityInterface
     }
 
     /**
-     * Get status
+     * Get status.
      *
-     * @return integer
+     * @return int
      */
     public function getStatus()
     {
@@ -451,7 +459,7 @@ class Workflow implements PaymentActivityInterface
     }
 
     /**
-     * Get status as string
+     * Get status as string.
      *
      * @return string
      */
@@ -461,47 +469,47 @@ class Workflow implements PaymentActivityInterface
     }
 
     /**
-     * Is status new
+     * Is status new.
      *
      * @return bool
      */
     public function isNew()
     {
-        return ($this->status == self::STATUS_NEW);
+        return $this->status === self::STATUS_NEW;
     }
 
     /**
-     * Is status in progress
+     * Is status in progress.
      *
      * @return bool
      */
     public function isInProgress()
     {
-        return ($this->status == self::STATUS_IN_PROGRESS);
+        return $this->status === self::STATUS_IN_PROGRESS;
     }
 
     /**
-     * Is status pending
+     * Is status pending.
      *
      * @return bool
      */
     public function isPending()
     {
-        return ($this->status == self::STATUS_PENDING);
+        return $this->status === self::STATUS_PENDING;
     }
 
     /**
-     * Is status completed
+     * Is status completed.
      *
      * @return bool
      */
     public function isCompleted()
     {
-        return ($this->status == self::STATUS_COMPLETED);
+        return $this->status === self::STATUS_COMPLETED;
     }
 
     /**
-     * Get client status choices
+     * Get client status choices.
      *
      * @return array
      */
@@ -511,10 +519,12 @@ class Workflow implements PaymentActivityInterface
     }
 
     /**
-     * Set client status
+     * Set client status.
      *
-     * @param integer $clientStatus
+     * @param int $clientStatus
+     *
      * @return Workflow
+     *
      * @throws \InvalidArgumentException
      */
     public function setClientStatus($clientStatus)
@@ -529,7 +539,7 @@ class Workflow implements PaymentActivityInterface
     }
 
     /**
-     * Get client status
+     * Get client status.
      *
      * @return int
      */
@@ -539,7 +549,7 @@ class Workflow implements PaymentActivityInterface
     }
 
     /**
-     * Get client status as string
+     * Get client status as string.
      *
      * @return string
      */
@@ -549,79 +559,80 @@ class Workflow implements PaymentActivityInterface
     }
 
     /**
-     * Is client status envelope created
+     * Is client status envelope created.
      *
      * @return bool
      */
     public function isClientStatusEnvelopeCreated()
     {
-        return ($this->client_status === self::CLIENT_STATUS_ENVELOPE_CREATED);
+        return $this->client_status === self::CLIENT_STATUS_ENVELOPE_CREATED;
     }
 
     /**
-     * Is client status envelope opened
+     * Is client status envelope opened.
      *
      * @return bool
      */
     public function isClientStatusEnvelopeOpened()
     {
-        return ($this->client_status === self::CLIENT_STATUS_ENVELOPE_OPENED);
+        return $this->client_status === self::CLIENT_STATUS_ENVELOPE_OPENED;
     }
 
     /**
-     * Is client status envelope completed
+     * Is client status envelope completed.
      *
      * @return bool
      */
     public function isClientStatusEnvelopeCompleted()
     {
-        return ($this->client_status === self::CLIENT_STATUS_ENVELOPE_COMPLETED);
+        return $this->client_status === self::CLIENT_STATUS_ENVELOPE_COMPLETED;
     }
 
     /**
-     * Is client status portfolio proposed
+     * Is client status portfolio proposed.
      *
      * @return bool
      */
     public function isClientStatusPortfolioProposed()
     {
-        return ($this->client_status === self::CLIENT_STATUS_PORTFOLIO_PROPOSED);
+        return $this->client_status === self::CLIENT_STATUS_PORTFOLIO_PROPOSED;
     }
 
     /**
-     * Is client status portfolio accepted
+     * Is client status portfolio accepted.
      *
      * @return bool
      */
     public function isClientStatusPortfolioAccepted()
     {
-        return ($this->client_status === self::CLIENT_STATUS_PORTFOLIO_CLIENT_ACCEPTED);
+        return $this->client_status === self::CLIENT_STATUS_PORTFOLIO_CLIENT_ACCEPTED;
     }
 
     /**
-     * Is client status account opened
+     * Is client status account opened.
      *
      * @return bool
      */
     public function isClientStatusAccountOpened()
     {
-        return ($this->client_status === self::CLIENT_STATUS_ACCOUNT_OPENED);
+        return $this->client_status === self::CLIENT_STATUS_ACCOUNT_OPENED;
     }
 
     /**
-     * Is client status account funded
+     * Is client status account funded.
      *
      * @return bool
      */
     public function isClientStatusAccountFunded()
     {
-        return ($this->client_status === self::CLIENT_STATUS_ACCOUNT_FUNDED);
+        return $this->client_status === self::CLIENT_STATUS_ACCOUNT_FUNDED;
     }
 
     /**
-     * Set is_archived
+     * Set is_archived.
      *
-     * @param boolean $isArchived
+     * @param bool $isArchived
+     *
      * @return Workflow
      */
     public function setIsArchived($isArchived)
@@ -632,9 +643,9 @@ class Workflow implements PaymentActivityInterface
     }
 
     /**
-     * Get is_archived
+     * Get is_archived.
      *
-     * @return boolean
+     * @return bool
      */
     public function getIsArchived()
     {
@@ -642,9 +653,10 @@ class Workflow implements PaymentActivityInterface
     }
 
     /**
-     * Set submitted
+     * Set submitted.
      *
      * @param \DateTime $submitted
+     *
      * @return Workflow
      */
     public function setSubmitted($submitted)
@@ -655,7 +667,7 @@ class Workflow implements PaymentActivityInterface
     }
 
     /**
-     * Get submitted
+     * Get submitted.
      *
      * @return \DateTime
      */
@@ -665,9 +677,10 @@ class Workflow implements PaymentActivityInterface
     }
 
     /**
-     * Set client
+     * Set client.
      *
      * @param \Wealthbot\UserBundle\Entity\User $client
+     *
      * @return Workflow
      */
     public function setClient(\Wealthbot\UserBundle\Entity\User $client = null)
@@ -678,7 +691,7 @@ class Workflow implements PaymentActivityInterface
     }
 
     /**
-     * Get client
+     * Get client.
      *
      * @return \Wealthbot\UserBundle\Entity\User
      */
@@ -688,29 +701,30 @@ class Workflow implements PaymentActivityInterface
     }
 
     /**
-     * Is paperwork workflow
+     * Is paperwork workflow.
      *
      * @return bool
      */
     public function isPaperwork()
     {
-        return (self::TYPE_PAPERWORK === $this->getType());
+        return self::TYPE_PAPERWORK === $this->getType();
     }
 
     /**
-     * Is alert workflow
+     * Is alert workflow.
      *
      * @return bool
      */
     public function isAlert()
     {
-        return (self::TYPE_ALERT === $this->getType());
+        return self::TYPE_ALERT === $this->getType();
     }
 
     /**
-     * Set note
+     * Set note.
      *
      * @param string $note
+     *
      * @return Workflow
      */
     public function setNote($note)
@@ -721,7 +735,7 @@ class Workflow implements PaymentActivityInterface
     }
 
     /**
-     * Get note
+     * Get note.
      *
      * @return string
      */
@@ -731,9 +745,10 @@ class Workflow implements PaymentActivityInterface
     }
 
     /**
-     * Set amount
+     * Set amount.
      *
      * @param string $amount
+     *
      * @return Workflow
      */
     public function setAmount($amount)
@@ -744,7 +759,7 @@ class Workflow implements PaymentActivityInterface
     }
 
     /**
-     * Get amount
+     * Get amount.
      *
      * @return string
      */
@@ -754,32 +769,32 @@ class Workflow implements PaymentActivityInterface
     }
 
     /**
-     * Workflow can have documents
+     * Workflow can have documents.
      *
      * @return bool
      */
     public function canHaveDocuments()
     {
-        $paperworkWithoutDocuments = array(
+        $paperworkWithoutDocuments = [
             self::MESSAGE_CODE_PAPERWORK_PORTFOLIO_PROPOSED,
-            self::MESSAGE_CODE_PAPERWORK_INITIAL_REBALANCE
-        );
+            self::MESSAGE_CODE_PAPERWORK_INITIAL_REBALANCE,
+        ];
 
-        return ($this->isPaperwork() && !in_array($this->message_code, $paperworkWithoutDocuments));
+        return $this->isPaperwork() && !in_array($this->message_code, $paperworkWithoutDocuments);
     }
 
     /**
-     * Is portfolio proposal workflow
+     * Is portfolio proposal workflow.
      *
      * @return bool
      */
     public function isPortfolioProposal()
     {
-        return ($this->isPaperwork() && $this->message_code === self::MESSAGE_CODE_PAPERWORK_PORTFOLIO_PROPOSED);
+        return $this->isPaperwork() && $this->message_code === self::MESSAGE_CODE_PAPERWORK_PORTFOLIO_PROPOSED;
     }
 
     /**
-     * Get activity message
+     * Get activity message.
      *
      * @return string
      */
@@ -818,7 +833,7 @@ class Workflow implements PaymentActivityInterface
     }
 
     /**
-     * Get activity client
+     * Get activity client.
      *
      * @return User
      */
@@ -828,7 +843,7 @@ class Workflow implements PaymentActivityInterface
     }
 
     /**
-     * Get activity amount
+     * Get activity amount.
      *
      * @return float
      */
@@ -838,18 +853,18 @@ class Workflow implements PaymentActivityInterface
     }
 
     /**
-     * Is advisor status editable
+     * Is advisor status editable.
      *
      * @return bool
      */
     public function isAdvisorStatusEditable()
     {
-        return ($this->isPortfolioProposal() || $this->isInitialRebalance() || $this->isClientStatusEnvelopeCompleted());
+        return $this->isPortfolioProposal() || $this->isInitialRebalance() || $this->isClientStatusEnvelopeCompleted();
     }
 
     /**
      * Returns true if new account or transfer or rollover paperwork
-     * and false otherwise
+     * and false otherwise.
      *
      * @return bool
      */
@@ -861,15 +876,15 @@ class Workflow implements PaymentActivityInterface
 
         $code = $this->getMessageCode();
 
-        return (
+        return
             $code === self::MESSAGE_CODE_PAPERWORK_NEW_ACCOUNT ||
             $code === self::MESSAGE_CODE_PAPERWORK_TRANSFER ||
             $code === self::MESSAGE_CODE_PAPERWORK_ROLLOVER
-        );
+        ;
     }
 
     public function isInitialRebalance()
     {
-        return ($this->message_code === self::MESSAGE_CODE_PAPERWORK_INITIAL_REBALANCE);
+        return $this->message_code === self::MESSAGE_CODE_PAPERWORK_INITIAL_REBALANCE;
     }
 }

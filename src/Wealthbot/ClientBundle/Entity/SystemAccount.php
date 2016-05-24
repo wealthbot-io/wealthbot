@@ -3,26 +3,25 @@
 namespace Wealthbot\ClientBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\ORM\Mapping as ORM;
 use Wealthbot\ClientBundle\Model\SystemAccount as BaseSystemAccount;
 
 /**
- * SystemAccount
+ * SystemAccount.
  */
 class SystemAccount extends BaseSystemAccount
 {
     /**
-     * @var integer
+     * @var int
      */
     private $id;
 
     /**
-     * @var integer
+     * @var int
      */
     private $client_id;
 
     /**
-     * @var integer
+     * @var int
      */
     private $client_account_id;
 
@@ -42,7 +41,7 @@ class SystemAccount extends BaseSystemAccount
     private $transferInformations;
 
     /**
-     * @var integer
+     * @var int
      */
     protected $type;
 
@@ -92,15 +91,14 @@ class SystemAccount extends BaseSystemAccount
     protected $closed;
 
     /**
-     * @var integer
+     * @var int
      */
     protected $creationType;
-
 
     const SOURCE_SAMPLE = 'sample';
 
     /**
-     * Constructor
+     * Constructor.
      */
     public function __construct()
     {
@@ -114,9 +112,9 @@ class SystemAccount extends BaseSystemAccount
     }
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer
+     * @return int
      */
     public function getId()
     {
@@ -124,9 +122,10 @@ class SystemAccount extends BaseSystemAccount
     }
 
     /**
-     * Set client_id
+     * Set client_id.
      *
-     * @param integer $clientId
+     * @param int $clientId
+     *
      * @return SystemAccount
      */
     public function setClientId($clientId)
@@ -137,9 +136,9 @@ class SystemAccount extends BaseSystemAccount
     }
 
     /**
-     * Get client_id
+     * Get client_id.
      *
-     * @return integer
+     * @return int
      */
     public function getClientId()
     {
@@ -147,9 +146,10 @@ class SystemAccount extends BaseSystemAccount
     }
 
     /**
-     * Set account_number
+     * Set account_number.
      *
      * @param string $accountNumber
+     *
      * @return SystemAccount
      */
     public function setAccountNumber($accountNumber)
@@ -158,7 +158,7 @@ class SystemAccount extends BaseSystemAccount
     }
 
     /**
-     * Get account_number
+     * Get account_number.
      *
      * @return string
      */
@@ -168,9 +168,10 @@ class SystemAccount extends BaseSystemAccount
     }
 
     /**
-     * Set account_description
+     * Set account_description.
      *
      * @param string $accountDescription
+     *
      * @return SystemAccount
      */
     public function setAccountDescription($accountDescription)
@@ -181,7 +182,7 @@ class SystemAccount extends BaseSystemAccount
     }
 
     /**
-     * Get account_description
+     * Get account_description.
      *
      * @return string
      */
@@ -191,9 +192,10 @@ class SystemAccount extends BaseSystemAccount
     }
 
     /**
-     * Add transferInformations
+     * Add transferInformations.
      *
      * @param \Wealthbot\ClientBundle\Entity\TransferInformation $transferInformations
+     *
      * @return SystemAccount
      */
     public function addTransferInformation(\Wealthbot\ClientBundle\Entity\TransferInformation $transferInformations)
@@ -204,7 +206,7 @@ class SystemAccount extends BaseSystemAccount
     }
 
     /**
-     * Remove transferInformations
+     * Remove transferInformations.
      *
      * @param \Wealthbot\ClientBundle\Entity\TransferInformation $transferInformations
      */
@@ -214,7 +216,7 @@ class SystemAccount extends BaseSystemAccount
     }
 
     /**
-     * Get transferInformations
+     * Get transferInformations.
      *
      * @return \Doctrine\Common\Collections\Collection
      */
@@ -224,9 +226,10 @@ class SystemAccount extends BaseSystemAccount
     }
 
     /**
-     * Set client
+     * Set client.
      *
      * @param \Wealthbot\UserBundle\Entity\User $client
+     *
      * @return SystemAccount
      */
     public function setClient(\Wealthbot\UserBundle\Entity\User $client = null)
@@ -237,7 +240,7 @@ class SystemAccount extends BaseSystemAccount
     }
 
     /**
-     * Get client
+     * Get client.
      *
      * @return \Wealthbot\UserBundle\Entity\User
      */
@@ -247,9 +250,10 @@ class SystemAccount extends BaseSystemAccount
     }
 
     /**
-     * Set type
+     * Set type.
      *
-     * @param integer $type
+     * @param int $type
+     *
      * @return SystemAccount
      */
     public function setType($type)
@@ -260,9 +264,9 @@ class SystemAccount extends BaseSystemAccount
     }
 
     /**
-     * Get type
+     * Get type.
      *
-     * @return integer
+     * @return int
      */
     public function getType()
     {
@@ -270,9 +274,10 @@ class SystemAccount extends BaseSystemAccount
     }
 
     /**
-     * Set client_account_id
+     * Set client_account_id.
      *
-     * @param integer $clientAccountId
+     * @param int $clientAccountId
+     *
      * @return SystemAccount
      */
     public function setClientAccountId($clientAccountId)
@@ -283,9 +288,9 @@ class SystemAccount extends BaseSystemAccount
     }
 
     /**
-     * Get client_account_id
+     * Get client_account_id.
      *
-     * @return integer
+     * @return int
      */
     public function getClientAccountId()
     {
@@ -293,9 +298,10 @@ class SystemAccount extends BaseSystemAccount
     }
 
     /**
-     * Set clientAccount
+     * Set clientAccount.
      *
      * @param \Wealthbot\ClientBundle\Entity\ClientAccount $clientAccount
+     *
      * @return SystemAccount
      */
     public function setClientAccount(\Wealthbot\ClientBundle\Entity\ClientAccount $clientAccount = null)
@@ -306,7 +312,7 @@ class SystemAccount extends BaseSystemAccount
     }
 
     /**
-     * Get clientAccount
+     * Get clientAccount.
      *
      * @return \Wealthbot\ClientBundle\Entity\ClientAccount
      */
@@ -316,7 +322,7 @@ class SystemAccount extends BaseSystemAccount
     }
 
     /**
-     * Get account contribution
+     * Get account contribution.
      *
      * @return null|AccountContribution
      */
@@ -326,7 +332,7 @@ class SystemAccount extends BaseSystemAccount
     }
 
     /**
-     * Returns true if exist account contribution with not one-time transaction_frequency and false otherwise
+     * Returns true if exist account contribution with not one-time transaction_frequency and false otherwise.
      *
      * @return bool
      */
@@ -342,13 +348,14 @@ class SystemAccount extends BaseSystemAccount
 
     public function __toString()
     {
-        return $this->getAccountNumber() . ' - ' . $this->getAccountDescription();
+        return $this->getAccountNumber().' - '.$this->getAccountDescription();
     }
 
     /**
-     * Set status
+     * Set status.
      *
      * @param string $status
+     *
      * @return SystemAccount
      */
     public function setStatus($status)
@@ -359,7 +366,7 @@ class SystemAccount extends BaseSystemAccount
     }
 
     /**
-     * Get status
+     * Get status.
      *
      * @return string
      */
@@ -369,9 +376,10 @@ class SystemAccount extends BaseSystemAccount
     }
 
     /**
-     * Set source
+     * Set source.
      *
      * @param string $source
+     *
      * @return SystemAccount
      */
     public function setSource($source)
@@ -382,7 +390,7 @@ class SystemAccount extends BaseSystemAccount
     }
 
     /**
-     * Get source
+     * Get source.
      *
      * @return string
      */
@@ -393,13 +401,15 @@ class SystemAccount extends BaseSystemAccount
 
     public function addBillItem(BillItem $billItem)
     {
-        $this->billItems[]=$billItem;
+        $this->billItems[] = $billItem;
+
         return $this;
     }
 
     public function removeBillItem(BillItem $billItem)
     {
         $this->billItems->removeElement($billItem);
+
         return $this;
     }
 
@@ -411,6 +421,7 @@ class SystemAccount extends BaseSystemAccount
     public function setBillItems($billItems)
     {
         $this->billItems = $billItems;
+
         return $this;
     }
 
@@ -422,25 +433,29 @@ class SystemAccount extends BaseSystemAccount
     public function setClientAccountValues($clientAccountValues)
     {
         $this->clientAccountValues = $clientAccountValues;
+
         return $this;
     }
 
     public function addClientAccountValue(ClientAccountValue $clientAccountValue)
     {
-        $this->clientAccountValues[]=$clientAccountValue;
+        $this->clientAccountValues[] = $clientAccountValue;
+
         return $this;
     }
 
     public function removeClientAccountValue(ClientAccountValue $clientAccountValue)
     {
         $this->clientAccountValues->removeElement($clientAccountValue);
+
         return $this;
     }
 
     /**
-     * Add rebalancerActions
+     * Add rebalancerActions.
      *
      * @param \Wealthbot\AdminBundle\Entity\RebalancerAction $rebalancerActions
+     *
      * @return SystemAccount
      */
     public function addRebalancerAction(\Wealthbot\AdminBundle\Entity\RebalancerAction $rebalancerActions)
@@ -451,7 +466,7 @@ class SystemAccount extends BaseSystemAccount
     }
 
     /**
-     * Remove rebalancerActions
+     * Remove rebalancerActions.
      *
      * @param \Wealthbot\AdminBundle\Entity\RebalancerAction $rebalancerActions
      */
@@ -461,9 +476,9 @@ class SystemAccount extends BaseSystemAccount
     }
 
     /**
-     * Get rebalancerActions
+     * Get rebalancerActions.
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getRebalancerActions()
     {
@@ -471,9 +486,10 @@ class SystemAccount extends BaseSystemAccount
     }
 
     /**
-     * Set activated_on
+     * Set activated_on.
      *
      * @param \DateTime $activatedOn
+     *
      * @return SystemAccount
      */
     public function setActivatedOn($activatedOn)
@@ -484,9 +500,9 @@ class SystemAccount extends BaseSystemAccount
     }
 
     /**
-     * Get activated_on
+     * Get activated_on.
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getActivatedOn()
     {
@@ -494,9 +510,10 @@ class SystemAccount extends BaseSystemAccount
     }
 
     /**
-     * Set closed
+     * Set closed.
      *
      * @param \DateTime $closed
+     *
      * @return SystemAccount
      */
     public function setClosed($closed)
@@ -507,9 +524,9 @@ class SystemAccount extends BaseSystemAccount
     }
 
     /**
-     * Get closed
+     * Get closed.
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getClosed()
     {
@@ -533,11 +550,11 @@ class SystemAccount extends BaseSystemAccount
      */
     private $distributions;
 
-
     /**
-     * Add distributions
+     * Add distributions.
      *
      * @param \Wealthbot\ClientBundle\Entity\Distribution $distributions
+     *
      * @return SystemAccount
      */
     public function addDistribution(\Wealthbot\ClientBundle\Entity\Distribution $distributions)
@@ -548,7 +565,7 @@ class SystemAccount extends BaseSystemAccount
     }
 
     /**
-     * Remove distributions
+     * Remove distributions.
      *
      * @param \Wealthbot\ClientBundle\Entity\Distribution $distributions
      */
@@ -558,9 +575,9 @@ class SystemAccount extends BaseSystemAccount
     }
 
     /**
-     * Get distributions
+     * Get distributions.
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getDistributions()
     {
@@ -583,7 +600,6 @@ class SystemAccount extends BaseSystemAccount
         return $this->creationType;
     }
 
-
     /**
      * @var \DateTime
      */
@@ -594,11 +610,11 @@ class SystemAccount extends BaseSystemAccount
      */
     private $billingInception;
 
-
     /**
-     * Set performanceInception
+     * Set performanceInception.
      *
      * @param \DateTime $performanceInception
+     *
      * @return SystemAccount
      */
     public function setPerformanceInception($performanceInception)
@@ -609,7 +625,7 @@ class SystemAccount extends BaseSystemAccount
     }
 
     /**
-     * Get performanceInception
+     * Get performanceInception.
      *
      * @return \DateTime
      */
@@ -619,9 +635,10 @@ class SystemAccount extends BaseSystemAccount
     }
 
     /**
-     * Set billingInception
+     * Set billingInception.
      *
      * @param \DateTime $billingInception
+     *
      * @return SystemAccount
      */
     public function setBillingInception($billingInception)
@@ -632,7 +649,7 @@ class SystemAccount extends BaseSystemAccount
     }
 
     /**
-     * Get billingInception
+     * Get billingInception.
      *
      * @return \DateTime
      */
@@ -645,11 +662,11 @@ class SystemAccount extends BaseSystemAccount
      */
     private $billingAccount;
 
-
     /**
-     * Set billingAccount
+     * Set billingAccount.
      *
      * @param \Wealthbot\ClientBundle\Entity\SystemAccount $billingAccount
+     *
      * @return SystemAccount
      */
     public function setBillingAccount(\Wealthbot\ClientBundle\Entity\SystemAccount $billingAccount = null)
@@ -660,7 +677,7 @@ class SystemAccount extends BaseSystemAccount
     }
 
     /**
-     * Get billingAccount
+     * Get billingAccount.
      *
      * @return \Wealthbot\ClientBundle\Entity\SystemAccount
      */

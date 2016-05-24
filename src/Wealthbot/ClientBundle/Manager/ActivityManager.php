@@ -3,17 +3,16 @@
  * Created by PhpStorm.
  * User: amalyuhin
  * Date: 16.01.14
- * Time: 14:51
+ * Time: 14:51.
  */
 
 namespace Wealthbot\ClientBundle\Manager;
 
-
 use Doctrine\ODM\MongoDB\DocumentManager;
 use Wealthbot\ClientBundle\Document\Activity;
 use Wealthbot\ClientBundle\Entity\ClosingAccountHistory;
-use Wealthbot\ClientBundle\Model\ActivityInterface;
 use Wealthbot\ClientBundle\Entity\Workflow;
+use Wealthbot\ClientBundle\Model\ActivityInterface;
 use Wealthbot\ClientBundle\Model\PaymentActivityInterface;
 use Wealthbot\UserBundle\Entity\User;
 
@@ -81,7 +80,7 @@ class ActivityManager
     }
 
     /**
-     * Save activity by workflow
+     * Save activity by workflow.
      *
      * @param ActivityInterface $object
      */
@@ -119,9 +118,10 @@ class ActivityManager
     }
 
     /**
-     * Create activity by object
+     * Create activity by object.
      *
      * @param ActivityInterface $object
+     *
      * @return null|Activity
      */
     public function createActivity(ActivityInterface $object)
@@ -149,7 +149,7 @@ class ActivityManager
     }
 
     /**
-     * Update activity
+     * Update activity.
      *
      * @param Activity $activity
      */
@@ -160,4 +160,4 @@ class ActivityManager
             $this->dm->flush();
         }
     }
-} 
+}

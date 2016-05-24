@@ -1,3 +1,46 @@
+## 2015-10-07 - Version 5.3.1
+### Summary
+Adds a new resource type and a few ssl management parameters
+
+#### Features
+- Add rabbitmq\_parameter type
+- Add management\_ssl parameter to rabbitmq class
+- Add stomp\_ssl\_only parameter to rabbitmq class
+
+#### Bugfixes
+- file\_limit validation and el7 management
+- Fix mnesia dir not getting wiped
+- Fix message-ttl and max-length integer conversion in rabbitmq\_policy
+- Allow managing erlang cookie without config\_cluster
+
+## 2015-05-26 - Version 5.3.0 [YANKED]
+### Summary
+This is a deleted release. It did not follow semver.
+
+## 2015-06-23 - Version 5.2.3
+### Summary
+This is a patch release that updates the dependency requirements in the metadata.
+
+## 2015-06-09 - Version 5.2.2
+### Summary
+This is a bugfix to allow the rabbitmq\_exchange type's internal/durable/auto\_delete attributes work when they are not explicitly passed.
+
+### Bugfixes
+- Fix rabbitmq\_exchange create when internal/durable/auto\_delete are not specified
+- Start unit testing on puppet 4
+- Add default value to tcp\_listen\_options
+
+## 2015-05-26 - Version 5.2.1
+###Summary
+This release includes a fix for idempotency between puppet runs, as well as Readme updates
+
+####Features
+- Readme updates
+- Testing updates
+
+####Bugfixes
+- Ensure idempotency between Puppet runs
+
 ## 2015-04-28 - Version 5.2.0
 ###Summary
 This release adds several new features for expanded configuration, support for SSL Ciphers, several bugfixes, and improved tests.

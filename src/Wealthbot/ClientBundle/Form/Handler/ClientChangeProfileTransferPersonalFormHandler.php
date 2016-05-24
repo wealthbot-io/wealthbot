@@ -13,5 +13,4 @@ class ClientChangeProfileTransferPersonalFormHandler extends AbstractFormHandler
         $this->em->persist($data->getObjectToSave());
         $this->em->flush();
     }
-
 }

@@ -9,183 +9,182 @@
 
 namespace Wealthbot\FixturesBundle\DataFixtures\ORM;
 
-
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
-use Wealthbot\AdminBundle\Entity\SecurityAssignment;
 use Wealthbot\AdminBundle\Entity\Security;
+use Wealthbot\AdminBundle\Entity\SecurityAssignment;
 use Wealthbot\AdminBundle\Entity\SecurityType;
 use Wealthbot\AdminBundle\Entity\Subclass;
 
 class LoadSecurityData extends AbstractFixture implements OrderedFixtureInterface
 {
-    private $securities = array(
-        array(
+    private $securities = [
+        [
             'name' => 'Vanguard Total Stock Market ETF',
             'symbol' => 'VTI',
             'security_type' => 'EQ',
-            'exp_ratio' => 0.06
-        ),
-        array(
+            'exp_ratio' => 0.06,
+        ],
+        [
             'name' => 'iShares S&P 500 Index',
             'symbol' => 'IVV',
             'security_type' => 'EQ',
-            'exp_ratio' => 0.09
-        ),
-        array(
+            'exp_ratio' => 0.09,
+        ],
+        [
             'name' => 'Vanguard Value ETF',
             'symbol' => 'VTV',
             'security_type' => 'EQ',
-            'exp_ratio' => 0.1
-        ),
-        array(
+            'exp_ratio' => 0.1,
+        ],
+        [
             'name' => 'iShares S&P SmallCap 600 Index Fund',
             'symbol' => 'IJR',
             'security_type' => 'EQ',
-            'exp_ratio' => 0.2
-        ),
-        array(
+            'exp_ratio' => 0.2,
+        ],
+        [
             'name' => 'iShares S&P SmallCap 600 Value Index',
             'symbol' => 'IJS',
             'security_type' => 'EQ',
-            'exp_ratio' => 0.25
-        ),
-        array(
+            'exp_ratio' => 0.25,
+        ],
+        [
             'name' => 'Vanguard Europe Pacific ETF',
             'symbol' => 'VEA',
             'security_type' => 'EQ',
-            'exp_ratio' => 0.12
-        ),
-        array(
+            'exp_ratio' => 0.12,
+        ],
+        [
             'name' => 'iShares MSCI EAFE Value Index',
             'symbol' => 'EFV',
             'security_type' => 'EQ',
-            'exp_ratio' => 0.4
-        ),
-        array(
+            'exp_ratio' => 0.4,
+        ],
+        [
             'name' => 'Vanguard FTSE All-Wld ex-US SmCp Idx ETF',
             'symbol' => 'VSS',
             'security_type' => 'EQ',
-            'exp_ratio' => 0.28
-        ),
-        array(
+            'exp_ratio' => 0.28,
+        ],
+        [
             'name' => 'iShares MSCI EAFE Small Cap Index',
             'symbol' => 'SCZ',
             'security_type' => 'EQ',
-            'exp_ratio' => 0.4
-        ),
-        array(
+            'exp_ratio' => 0.4,
+        ],
+        [
             'name' => 'Vanguard Emerging Markets Stock ETF',
             'symbol' => 'VWO',
             'security_type' => 'EQ',
-            'exp_ratio' => 0.2
-        ),
-        array(
+            'exp_ratio' => 0.2,
+        ],
+        [
             'name' => 'PowerShares DB Commodity Index Tracking',
             'symbol' => 'DBC',
             'security_type' => 'EQ',
-            'exp_ratio' => 0.75
-        ),
-        array(
+            'exp_ratio' => 0.75,
+        ],
+        [
             'name' => 'Vanguard REIT Index ETF',
             'symbol' => 'VNQ',
             'security_type' => 'EQ',
-            'exp_ratio' => 0.1
-        ),
-        array(
+            'exp_ratio' => 0.1,
+        ],
+        [
             'name' => 'SPDR Dow Jones Intl Real Estate',
             'symbol' => 'RWX',
             'security_type' => 'EQ',
-            'exp_ratio' => 0.59
-        ),
-        array(
+            'exp_ratio' => 0.59,
+        ],
+        [
             'name' => 'Vanguard Interm-Tm Corp Bd Idx ETF',
             'symbol' => 'VCIT',
             'security_type' => 'EQ',
-            'exp_ratio' => 0.14
-        ),
-         array(
+            'exp_ratio' => 0.14,
+        ],
+         [
             'name' => 'Vanguard Total International Stock ETF',
             'symbol' => 'VXUS',
             'security_type' => 'EQ',
-            'exp_ratio' => 0.14
-        ),
-        array(
+            'exp_ratio' => 0.14,
+        ],
+        [
             'name' => 'Vanguard Interm-Tm Govt Bd Idx ETF',
             'symbol' => 'VGIT',
             'security_type' => 'EQ',
-            'exp_ratio' => 0.14
-        ),
-        array(
+            'exp_ratio' => 0.14,
+        ],
+        [
             'name' => 'iShares S&P National AMT-Free Muni Bond',
             'symbol' => 'MUB',
             'security_type' => 'EQ',
-            'exp_ratio' => 0.25
-        ),
-        array(
+            'exp_ratio' => 0.25,
+        ],
+        [
             'name' => 'Vanguard Short-Term Bond ETF',
             'symbol' => 'BSV',
             'security_type' => 'EQ',
-            'exp_ratio' => 0.11
-        ),
-        array(
+            'exp_ratio' => 0.11,
+        ],
+        [
             'name' => 'Vanguard Short-Term Corp Bd Idx ETF',
             'symbol' => 'VCSH',
             'security_type' => 'EQ',
-            'exp_ratio' => 0.14
-        ),
-        array(
+            'exp_ratio' => 0.14,
+        ],
+        [
             'name' => 'Vanguard Short-Term Govt Bd Idx ETF',
             'symbol' => 'VGSH',
             'security_type' => 'EQ',
-            'exp_ratio' => 0.14
-        ),
-          array(
+            'exp_ratio' => 0.14,
+        ],
+          [
             'name' => 'Vanguard Total Bond Market ETF',
             'symbol' => 'BND',
             'security_type' => 'EQ',
-            'exp_ratio' => 0.07
-        ),
-        array(
+            'exp_ratio' => 0.07,
+        ],
+        [
             'name' => 'SPDR Nuveen Barclays Capital S/T Muni Bond',
             'symbol' => 'SHM',
             'security_type' => 'EQ',
-            'exp_ratio' => 0.2
-        ),
-        array(
+            'exp_ratio' => 0.2,
+        ],
+        [
             'name' => 'iShares Barclays TIPS Bond',
             'symbol' => 'TIP',
             'security_type' => 'EQ',
-            'exp_ratio' => 0.2
-        ),
-        array(
+            'exp_ratio' => 0.2,
+        ],
+        [
             'name' => 'SPDR Barclays Capital High Yield Bond',
             'symbol' => 'JNK',
             'security_type' => 'EQ',
-            'exp_ratio' => 0.4
-        ),
-        array(
+            'exp_ratio' => 0.4,
+        ],
+        [
             'name' => 'PowerShares Emerging Mkts Sovereign Debt',
             'symbol' => 'PCY',
             'security_type' => 'EQ',
-            'exp_ratio' => 0.5
-        ),
-        array(
+            'exp_ratio' => 0.5,
+        ],
+        [
             'name' => 'SPDR Barclays Capital Intl Treasury Bond',
             'symbol' => 'BWX',
             'security_type' => 'EQ',
-            'exp_ratio' => 0.5
-        ),
-        array(
+            'exp_ratio' => 0.5,
+        ],
+        [
             'name' => 'SPDR DB Intl Govt Infl-Protected Bond',
             'symbol' => 'WIP',
             'security_type' => 'EQ',
-            'exp_ratio' => 0.5
-        )
-    );
+            'exp_ratio' => 0.5,
+        ],
+    ];
 
-    function load(ObjectManager $manager)
+    public function load(ObjectManager $manager)
     {
         $this->loadSecurities($manager);
         $this->loadModelSecurities($manager);
@@ -202,7 +201,7 @@ class LoadSecurityData extends AbstractFixture implements OrderedFixtureInterfac
 
             if (!$security) {
                 /** @var SecurityType $securityType */
-                $securityType = $this->getReference('security-type-' . $item['security_type']);
+                $securityType = $this->getReference('security-type-'.$item['security_type']);
 
                 $security = new Security();
                 $security->setName($item['name']);
@@ -213,7 +212,7 @@ class LoadSecurityData extends AbstractFixture implements OrderedFixtureInterfac
                 $manager->persist($security);
             }
 
-            $this->addReference('security-' . $item['symbol'], $security);
+            $this->addReference('security-'.$item['symbol'], $security);
         }
     }
 
@@ -226,13 +225,13 @@ class LoadSecurityData extends AbstractFixture implements OrderedFixtureInterfac
         $i = 1;
         foreach ($this->securities as $item) {
             if ($i > ($maxSecuritiesCount * $subclassIndex) && $subclassIndex < $subclassesCount) {
-                $subclassIndex++;
+                ++$subclassIndex;
             }
 
             /** @var Security $security */
-            /** @var Subclass $subclass */
-            $security = $this->getReference('security-' . $item['symbol']);
-            $subclass = $this->getReference('subclass-' . $subclassIndex);
+            /* @var Subclass $subclass */
+            $security = $this->getReference('security-'.$item['symbol']);
+            $subclass = $this->getReference('subclass-'.$subclassIndex);
 
             $securityAssignment = new SecurityAssignment();
             $securityAssignment->setSecurity($security);
@@ -240,9 +239,9 @@ class LoadSecurityData extends AbstractFixture implements OrderedFixtureInterfac
             $securityAssignment->setModel($subclass->getAssetClass()->getModel());
 
             $manager->persist($securityAssignment);
-            $this->addReference('model-security-assignment-' . $i, $securityAssignment);
+            $this->addReference('model-security-assignment-'.$i, $securityAssignment);
 
-            $i++;
+            ++$i;
         }
     }
 

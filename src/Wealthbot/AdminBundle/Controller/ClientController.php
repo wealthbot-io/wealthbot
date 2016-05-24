@@ -4,15 +4,15 @@ namespace Wealthbot\AdminBundle\Controller;
 
 use Doctrine\ORM\EntityManager;
 use Knp\Bundle\PaginatorBundle\KnpPaginatorBundle;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Wealthbot\AdminBundle\Manager\UserHistoryManager;
 use Wealthbot\ClientBundle\Entity\AccountGroup;
 use Wealthbot\ClientBundle\Entity\ClientAccount;
 use Wealthbot\ClientBundle\Repository\ClientAccountRepository;
 use Wealthbot\UserBundle\Entity\User;
 use Wealthbot\UserBundle\Repository\UserRepository;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Security\Core\SecurityContext;
 
 class ClientController extends AclController
 {
@@ -31,7 +31,7 @@ class ClientController extends AclController
         $order = $request->get('direction');
         $sort = $request->get('sort');
 
-        $orderValue = (($order == 'desc') ? 'desc' : 'asc');
+        $orderValue = (($order === 'desc') ? 'desc' : 'asc');
         switch ($sort) {
             case 'first_name':
                 $sortFiled = 'p.first_name';
@@ -69,19 +69,19 @@ class ClientController extends AclController
         }
 
         $qb = $repository->createQueryBuilder('cu');
-        $clients = $qb->select(array(
+        $clients = $qb->select([
                 'cu as user',
-                "(SELECT COUNT(ca.id) FROM WealthbotClientBundle:ClientAccount ca LEFT JOIN ca.groupType gt
-                 LEFT JOIN gt.group g WHERE cu.id = ca.client_id AND g.name = :group) as nb_funds"
-            ))
+                '(SELECT COUNT(ca.id) FROM WealthbotClientBundle:ClientAccount ca LEFT JOIN ca.groupType gt
+                 LEFT JOIN gt.group g WHERE cu.id = ca.client_id AND g.name = :group) as nb_funds',
+            ])
             ->leftJoin('cu.profile', 'p')
             ->leftJoin('p.ria', 'r')
             ->leftJoin('r.profile', 'rp')
             ->where('cu.roles LIKE :role')
-            ->setParameters(array(
+            ->setParameters([
                 'role' => '%"ROLE_CLIENT"%',
-                'group' => AccountGroup::GROUP_EMPLOYER_RETIREMENT
-            ))
+                'group' => AccountGroup::GROUP_EMPLOYER_RETIREMENT,
+            ])
             ->orderBy($sortFiled, $orderValue)
             ->getQuery()
             ->getResult()
@@ -96,16 +96,16 @@ class ClientController extends AclController
             $this->container->getParameter('pager_per_page')/*limit per page*/
         );
 
-        return $this->render('WealthbotAdminBundle:Client:index.html.twig', array(
-            'pagination' => $pagination
-        ));
+        return $this->render('WealthbotAdminBundle:Client:index.html.twig', [
+            'pagination' => $pagination,
+        ]);
     }
 
     public function specificDashboardAction(Request $request)
     {
         /** @var $em EntityManager */
-        /** @var $repo ClientAccountRepository */
-        /** @var UserHistoryManager $historyManager */
+        /* @var $repo ClientAccountRepository */
+        /* @var UserHistoryManager $historyManager */
         $em = $this->get('doctrine.orm.entity_manager');
         $repo = $em->getRepository('WealthbotClientBundle:ClientAccount');
         $historyManager = $this->get('wealthbot_admin.user_history.manager');
@@ -120,30 +120,30 @@ class ClientController extends AclController
 
         $paginator = $this->get('knp_paginator');
         $historyPagination = $paginator->paginate(
-            $historyManager->findBy(array('user_id' => $client->getId()), array('created' => 'DESC')),
+            $historyManager->findBy(['user_id' => $client->getId()], ['created' => 'DESC']),
             $request->get('history_page', 1),
             $this->container->getParameter('pager_per_page'),
-            array('pageParameterName' => 'history_page')
+            ['pageParameterName' => 'history_page']
         );
 
         if ($request->isXmlHttpRequest()) {
-            return $this->getJsonResponse(array(
+            return $this->getJsonResponse([
                 'status' => 'success',
-                'content' => $this->renderView('WealthbotAdminBundle:Ria:_history.html.twig', array('history_pagination' => $historyPagination))
-            ));
+                'content' => $this->renderView('WealthbotAdminBundle:Ria:_history.html.twig', ['history_pagination' => $historyPagination]),
+            ]);
         }
 
         $questionnaireAnswers = $em->getRepository('WealthbotClientBundle:ClientQuestionnaireAnswer')
-            ->findBy(array('client_id' => $client->getId()));
+            ->findBy(['client_id' => $client->getId()]);
 
         $retirementAccounts = $repo->findByClientIdAndGroup($client->getId(), AccountGroup::GROUP_EMPLOYER_RETIREMENT);
 
-        return $this->render('WealthbotAdminBundle:Client:specific_dashboard.html.twig', array(
+        return $this->render('WealthbotAdminBundle:Client:specific_dashboard.html.twig', [
             'client' => $client,
             'questionnaire_answers' => $questionnaireAnswers,
             'retirement_accounts' => $retirementAccounts,
-            'history_pagination' => $historyPagination
-        ));
+            'history_pagination' => $historyPagination,
+        ]);
     }
 
     public function outsideFundsAction(Request $request)
@@ -155,21 +155,21 @@ class ClientController extends AclController
 
         $account = $repo->find($request->get('account_id'));
         if (!$account) {
-            return $this->getJsonResponse(array('status' => 'error', 'message' => 'Account does not exist.'));
+            return $this->getJsonResponse(['status' => 'error', 'message' => 'Account does not exist.']);
         }
 
-        return $this->getJsonResponse(array(
+        return $this->getJsonResponse([
             'status' => 'success',
-            'content' => $this->renderView('WealthbotAdminBundle:Client:_client_settings_accounts_funds_list.html.twig', array(
-                'account' => $account
-            ))
-        ));
+            'content' => $this->renderView('WealthbotAdminBundle:Client:_client_settings_accounts_funds_list.html.twig', [
+                'account' => $account,
+            ]),
+        ]);
     }
 
     protected function getJsonResponse(array $data, $code = 200)
     {
         $response = json_encode($data);
 
-        return new Response($response, $code, array('Content-Type' => 'application/json'));
+        return new Response($response, $code, ['Content-Type' => 'application/json']);
     }
 }

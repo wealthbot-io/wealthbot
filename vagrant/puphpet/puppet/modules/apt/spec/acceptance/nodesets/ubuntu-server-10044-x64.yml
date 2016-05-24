@@ -7,5 +7,4 @@ HOSTS:
     box_url : http://puppet-vagrant-boxes.puppetlabs.com/ubuntu-server-10044-x64-vbox4210-nocm.box
     hypervisor : vagrant
 CONFIG:
-  log_level: debug
-  type: git
+  type: foss

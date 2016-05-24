@@ -3,16 +3,16 @@
 namespace Wealthbot\ClientBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Wealthbot\ClientBundle\Model\WorkflowableInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Wealthbot\ClientBundle\Model\WorkflowableInterface;
 
 /**
- * BankInformation
+ * BankInformation.
  */
 class BankInformation implements WorkflowableInterface
 {
     /**
-     * @var integer
+     * @var int
      */
     private $id;
 
@@ -80,7 +80,7 @@ class BankInformation implements WorkflowableInterface
     const ACCOUNT_TYPE_CHECK = 'checking';
     const ACCOUNT_TYPE_SAVING = 'saving';
 
-    static private $_accountTypeValues = null;
+    private static $_accountTypeValues = null;
 
     /**
      * @var string
@@ -98,7 +98,7 @@ class BankInformation implements WorkflowableInterface
     private $updated;
 
     /**
-     * @var integer
+     * @var int
      */
     private $client_id;
 
@@ -112,11 +112,10 @@ class BankInformation implements WorkflowableInterface
      */
     private $pdfDocument;
 
-
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer
+     * @return int
      */
     public function getId()
     {
@@ -124,9 +123,10 @@ class BankInformation implements WorkflowableInterface
     }
 
     /**
-     * Set account_owner_first_name
+     * Set account_owner_first_name.
      *
      * @param string $accountOwnerFirstName
+     *
      * @return BankInformation
      */
     public function setAccountOwnerFirstName($accountOwnerFirstName)
@@ -137,7 +137,7 @@ class BankInformation implements WorkflowableInterface
     }
 
     /**
-     * Get account_owner_first_name
+     * Get account_owner_first_name.
      *
      * @return string
      */
@@ -147,9 +147,10 @@ class BankInformation implements WorkflowableInterface
     }
 
     /**
-     * Set account_owner_middle_name
+     * Set account_owner_middle_name.
      *
      * @param string $accountOwnerMiddleName
+     *
      * @return BankInformation
      */
     public function setAccountOwnerMiddleName($accountOwnerMiddleName)
@@ -160,7 +161,7 @@ class BankInformation implements WorkflowableInterface
     }
 
     /**
-     * Get account_owner_middle_name
+     * Get account_owner_middle_name.
      *
      * @return string
      */
@@ -170,9 +171,10 @@ class BankInformation implements WorkflowableInterface
     }
 
     /**
-     * Set account_owner_last_name
+     * Set account_owner_last_name.
      *
      * @param string $accountOwnerLastName
+     *
      * @return BankInformation
      */
     public function setAccountOwnerLastName($accountOwnerLastName)
@@ -183,7 +185,7 @@ class BankInformation implements WorkflowableInterface
     }
 
     /**
-     * Get account_owner_last_name
+     * Get account_owner_last_name.
      *
      * @return string
      */
@@ -193,20 +195,21 @@ class BankInformation implements WorkflowableInterface
     }
 
     /**
-     * Get account owner full name
+     * Get account owner full name.
      *
      * @return string
      */
     public function getAccountOwnerFullName()
     {
-        return $this->getAccountOwnerFirstName() . ' ' . $this->getAccountOwnerMiddleName() . ' '
-            . $this->getAccountOwnerLastName();
+        return $this->getAccountOwnerFirstName().' '.$this->getAccountOwnerMiddleName().' '
+            .$this->getAccountOwnerLastName();
     }
 
     /**
-     * Set joint_account_owner_first_name
+     * Set joint_account_owner_first_name.
      *
      * @param string $jointAccountOwnerFirstName
+     *
      * @return BankInformation
      */
     public function setJointAccountOwnerFirstName($jointAccountOwnerFirstName)
@@ -217,7 +220,7 @@ class BankInformation implements WorkflowableInterface
     }
 
     /**
-     * Get joint_account_owner_first_name
+     * Get joint_account_owner_first_name.
      *
      * @return string
      */
@@ -227,9 +230,10 @@ class BankInformation implements WorkflowableInterface
     }
 
     /**
-     * Set joint_account_owner_middle_name
+     * Set joint_account_owner_middle_name.
      *
      * @param string $jointAccountOwnerMiddleName
+     *
      * @return BankInformation
      */
     public function setJointAccountOwnerMiddleName($jointAccountOwnerMiddleName)
@@ -240,7 +244,7 @@ class BankInformation implements WorkflowableInterface
     }
 
     /**
-     * Get joint_account_owner_middle_name
+     * Get joint_account_owner_middle_name.
      *
      * @return string
      */
@@ -250,9 +254,10 @@ class BankInformation implements WorkflowableInterface
     }
 
     /**
-     * Set joint_account_owner_last_name
+     * Set joint_account_owner_last_name.
      *
      * @param string $jointAccountOwnerLastName
+     *
      * @return BankInformation
      */
     public function setJointAccountOwnerLastName($jointAccountOwnerLastName)
@@ -263,7 +268,7 @@ class BankInformation implements WorkflowableInterface
     }
 
     /**
-     * Get joint_account_owner_last_name
+     * Get joint_account_owner_last_name.
      *
      * @return string
      */
@@ -273,20 +278,21 @@ class BankInformation implements WorkflowableInterface
     }
 
     /**
-     * Get joint account owner full name
+     * Get joint account owner full name.
      *
      * @return string
      */
     public function getJointAccountOwnerFullName()
     {
-        return $this->getJointAccountOwnerFirstName() . ' ' . $this->getJointAccountOwnerMiddleName() . ' '
-            . $this->getJointAccountOwnerLastName();
+        return $this->getJointAccountOwnerFirstName().' '.$this->getJointAccountOwnerMiddleName().' '
+            .$this->getJointAccountOwnerLastName();
     }
 
     /**
-     * Set name
+     * Set name.
      *
      * @param string $name
+     *
      * @return BankInformation
      */
     public function setName($name)
@@ -297,7 +303,7 @@ class BankInformation implements WorkflowableInterface
     }
 
     /**
-     * Get name
+     * Get name.
      *
      * @return string
      */
@@ -307,9 +313,10 @@ class BankInformation implements WorkflowableInterface
     }
 
     /**
-     * Set account_title
+     * Set account_title.
      *
      * @param string $accountTitle
+     *
      * @return BankInformation
      */
     public function setAccountTitle($accountTitle)
@@ -320,7 +327,7 @@ class BankInformation implements WorkflowableInterface
     }
 
     /**
-     * Get account_title
+     * Get account_title.
      *
      * @return string
      */
@@ -330,9 +337,10 @@ class BankInformation implements WorkflowableInterface
     }
 
     /**
-     * Set phone_number
+     * Set phone_number.
      *
      * @param string $phoneNumber
+     *
      * @return BankInformation
      */
     public function setPhoneNumber($phoneNumber)
@@ -343,7 +351,7 @@ class BankInformation implements WorkflowableInterface
     }
 
     /**
-     * Get phone_number
+     * Get phone_number.
      *
      * @return string
      */
@@ -353,9 +361,10 @@ class BankInformation implements WorkflowableInterface
     }
 
     /**
-     * Set routing_number
+     * Set routing_number.
      *
      * @param string $routingNumber
+     *
      * @return BankInformation
      */
     public function setRoutingNumber($routingNumber)
@@ -366,7 +375,7 @@ class BankInformation implements WorkflowableInterface
     }
 
     /**
-     * Get routing_number
+     * Get routing_number.
      *
      * @return string
      */
@@ -376,9 +385,10 @@ class BankInformation implements WorkflowableInterface
     }
 
     /**
-     * Set account_number
+     * Set account_number.
      *
      * @param string $accountNumber
+     *
      * @return BankInformation
      */
     public function setAccountNumber($accountNumber)
@@ -389,7 +399,7 @@ class BankInformation implements WorkflowableInterface
     }
 
     /**
-     * Get account_number
+     * Get account_number.
      *
      * @return string
      */
@@ -399,19 +409,20 @@ class BankInformation implements WorkflowableInterface
     }
 
     /**
-     * Get array ENUM values type column
+     * Get array ENUM values type column.
      *
      * @static
+     *
      * @return array
      */
-    static public function getAccountTypeChoices()
+    public static function getAccountTypeChoices()
     {
         // Build $_typeValues if this is the first call
         if (self::$_accountTypeValues === null) {
-            self::$_accountTypeValues = array();
+            self::$_accountTypeValues = [];
             $oClass = new \ReflectionClass('\Wealthbot\ClientBundle\Entity\BankInformation');
             $classConstants = $oClass->getConstants();
-            $constantPrefix = "ACCOUNT_TYPE_";
+            $constantPrefix = 'ACCOUNT_TYPE_';
             foreach ($classConstants as $key => $val) {
                 if (substr($key, 0, strlen($constantPrefix)) === $constantPrefix) {
                     self::$_accountTypeValues[$val] = $val;
@@ -423,10 +434,12 @@ class BankInformation implements WorkflowableInterface
     }
 
     /**
-     * Set account_type
+     * Set account_type.
      *
      * @param string $accountType
+     *
      * @return BankInformation
+     *
      * @throws \InvalidArgumentException
      */
     public function setAccountType($accountType)
@@ -443,7 +456,7 @@ class BankInformation implements WorkflowableInterface
     }
 
     /**
-     * Get account_type
+     * Get account_type.
      *
      * @return string
      */
@@ -453,9 +466,10 @@ class BankInformation implements WorkflowableInterface
     }
 
     /**
-     * Set pdf_copy
+     * Set pdf_copy.
      *
      * @param string $pdfCopy
+     *
      * @return BankInformation
      */
     public function setPdfCopy($pdfCopy)
@@ -466,7 +480,7 @@ class BankInformation implements WorkflowableInterface
     }
 
     /**
-     * Get pdf_copy
+     * Get pdf_copy.
      *
      * @return string
      */
@@ -476,9 +490,10 @@ class BankInformation implements WorkflowableInterface
     }
 
     /**
-     * Set pdf_copy_file
+     * Set pdf_copy_file.
      *
      * @param $pdfCopyFile
+     *
      * @return BankInformation
      */
     public function setPdfCopyFile($pdfCopyFile)
@@ -490,7 +505,7 @@ class BankInformation implements WorkflowableInterface
     }
 
     /**
-     * Get pdf_copy_file
+     * Get pdf_copy_file.
      *
      * @return UploadedFile
      */
@@ -498,7 +513,6 @@ class BankInformation implements WorkflowableInterface
     {
         return $this->pdf_copy_file;
     }
-
 
     public function getAbsolutePdfCopy()
     {
@@ -529,7 +543,6 @@ class BankInformation implements WorkflowableInterface
     public function preUpload()
     {
         if (null !== $this->pdf_copy_file) {
-
             $oldFile = $this->getAbsolutePdfCopy();
             if (file_exists($oldFile)) {
                 unlink($oldFile);
@@ -570,9 +583,10 @@ class BankInformation implements WorkflowableInterface
     }
 
     /**
-     * Set updated
+     * Set updated.
      *
      * @param \DateTime $updated
+     *
      * @return BankInformation
      */
     public function setUpdated($updated)
@@ -583,7 +597,7 @@ class BankInformation implements WorkflowableInterface
     }
 
     /**
-     * Get updated
+     * Get updated.
      *
      * @return \DateTime
      */
@@ -593,9 +607,10 @@ class BankInformation implements WorkflowableInterface
     }
 
     /**
-     * Set client_id
+     * Set client_id.
      *
-     * @param integer $clientId
+     * @param int $clientId
+     *
      * @return BankInformation
      */
     public function setClientId($clientId)
@@ -606,9 +621,9 @@ class BankInformation implements WorkflowableInterface
     }
 
     /**
-     * Get client_id
+     * Get client_id.
      *
-     * @return integer
+     * @return int
      */
     public function getClientId()
     {
@@ -616,9 +631,10 @@ class BankInformation implements WorkflowableInterface
     }
 
     /**
-     * Set client
+     * Set client.
      *
      * @param \Wealthbot\UserBundle\Entity\User $client
+     *
      * @return BankInformation
      */
     public function setClient(\Wealthbot\UserBundle\Entity\User $client = null)
@@ -629,7 +645,7 @@ class BankInformation implements WorkflowableInterface
     }
 
     /**
-     * Get client
+     * Get client.
      *
      * @return \Wealthbot\UserBundle\Entity\User
      */
@@ -639,7 +655,7 @@ class BankInformation implements WorkflowableInterface
     }
 
     /**
-     * Get workflow message code
+     * Get workflow message code.
      *
      * @return string
      */
@@ -650,13 +666,14 @@ class BankInformation implements WorkflowableInterface
 
     public function __toString()
     {
-        return $this->getName() . ', Account Number: ' . $this->getAccountNumber();
+        return $this->getName().', Account Number: '.$this->getAccountNumber();
     }
 
     /**
-     * Set pdfDocument
+     * Set pdfDocument.
      *
      * @param \Wealthbot\UserBundle\Entity\Document $pdfDocument
+     *
      * @return BankInformation
      */
     public function setPdfDocument(\Wealthbot\UserBundle\Entity\Document $pdfDocument = null)
@@ -667,7 +684,7 @@ class BankInformation implements WorkflowableInterface
     }
 
     /**
-     * Get pdfDocument
+     * Get pdfDocument.
      *
      * @return \Wealthbot\UserBundle\Entity\Document
      */

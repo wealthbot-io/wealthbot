@@ -14,7 +14,7 @@ define puphpet::ruby::install (
     rvm_system_ruby { $version:
         default_use => $default_true,
         ensure      => present,
-        require     => File_line['rvm_autoupdate_flag=0 >> ~/.rvmrc'],
+        require     => File_line['rvm_autoupdate_flag=0 >> /root/.rvmrc'],
     }
 
     if $bundler_true == true {

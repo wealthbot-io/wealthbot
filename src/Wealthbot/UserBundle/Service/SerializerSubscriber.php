@@ -2,18 +2,16 @@
 
 namespace Wealthbot\UserBundle\Service;
 
-
 use Doctrine\ORM\EntityManager;
 use JMS\Serializer\EventDispatcher\Events;
 use JMS\Serializer\EventDispatcher\EventSubscriberInterface;
 use JMS\Serializer\EventDispatcher\ObjectEvent;
-use JMS\Serializer\EventDispatcher\PreSerializeEvent;
 use JMS\Serializer\GenericSerializationVisitor;
 use Wealthbot\ClientBundle\Manager\CashCalculationManager;
 use Wealthbot\UserBundle\Entity\User;
 
-class SerializerSubscriber implements EventSubscriberInterface{
-
+class SerializerSubscriber implements EventSubscriberInterface
+{
     /**
      * @var EntityManager
      */
@@ -32,9 +30,9 @@ class SerializerSubscriber implements EventSubscriberInterface{
 
     public static function getSubscribedEvents()
     {
-        return array(
-            array('event' => Events::POST_SERIALIZE, 'method' => 'onSerializeUser', 'class' => 'Wealthbot\UserBundle\Entity\User', 'format' => 'json')
-        );
+        return [
+            ['event' => Events::POST_SERIALIZE, 'method' => 'onSerializeUser', 'class' => 'Wealthbot\UserBundle\Entity\User', 'format' => 'json'],
+        ];
     }
 
     public function onSerializeUser(ObjectEvent $event)
@@ -50,11 +48,10 @@ class SerializerSubscriber implements EventSubscriberInterface{
                 $visitor->addData('portfolioValue', $portfolioValue);
             }
             if ($object->additionalSerializerFields) {
-                foreach($object->additionalSerializerFields as $key => $value){
+                foreach ($object->additionalSerializerFields as $key => $value) {
                     $visitor->addData($key, $value);
                 }
             }
         }
     }
-
-} 
+}

@@ -2,15 +2,13 @@
 
 namespace Wealthbot\AdminBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-
 /**
- * Job
+ * Job.
  */
 class Job
 {
     /**
-     * @var integer
+     * @var int
      */
     private $id;
 
@@ -30,7 +28,7 @@ class Job
     private $finished_at;
 
     /**
-     * @var boolean
+     * @var bool
      */
     private $is_error;
 
@@ -45,17 +43,17 @@ class Job
     private $rebalancerActions;
 
     /**
-     * @var integer
+     * @var int
      */
     private $rebalance_type;
 
     const JOB_NAME_REBALANCER = 'rebalancer';
 
-    const REBALANCE_TYPE_FULL          = 0;
+    const REBALANCE_TYPE_FULL = 0;
     const REBALANCE_TYPE_REQUIRED_CASH = 1;
-    const REBALANCE_TYPE_FULL_AND_TLH  = 2;
-    const REBALANCE_TYPE_NO_ACTIONS    = 3;
-    const REBALANCE_TYPE_INITIAL       = 4;
+    const REBALANCE_TYPE_FULL_AND_TLH = 2;
+    const REBALANCE_TYPE_NO_ACTIONS = 3;
+    const REBALANCE_TYPE_INITIAL = 4;
 
     public function __construct()
     {
@@ -65,22 +63,22 @@ class Job
 
     public static function rebalanceTypeChoicesForSelect()
     {
-        return array(
+        return [
             self::REBALANCE_TYPE_FULL => 'Full Rebalance',
             self::REBALANCE_TYPE_REQUIRED_CASH => 'Required Cash',
-            self::REBALANCE_TYPE_FULL_AND_TLH => 'Full Rebalance & Tax Loss Harvest'
-        );
+            self::REBALANCE_TYPE_FULL_AND_TLH => 'Full Rebalance & Tax Loss Harvest',
+        ];
     }
 
     public static function rebalanceTypeChoices()
     {
-        return array(
+        return [
             self::REBALANCE_TYPE_FULL => 'Full Rebalance',
             self::REBALANCE_TYPE_REQUIRED_CASH => 'Required Cash',
             self::REBALANCE_TYPE_FULL_AND_TLH => 'Full Rebalance & Tax Loss Harvest',
             self::REBALANCE_TYPE_NO_ACTIONS => 'No Actions',
-            self::REBALANCE_TYPE_INITIAL => 'Initial Rebalance'
-        );
+            self::REBALANCE_TYPE_INITIAL => 'Initial Rebalance',
+        ];
     }
 
     public static function getRebalanceTypeByIndex($index)
@@ -90,11 +88,10 @@ class Job
         return isset($choices[$index]) ? $choices[$index] : false;
     }
 
-
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer 
+     * @return int
      */
     public function getId()
     {
@@ -102,9 +99,10 @@ class Job
     }
 
     /**
-     * Set name
+     * Set name.
      *
      * @param string $name
+     *
      * @return Job
      */
     public function setName($name)
@@ -120,9 +118,9 @@ class Job
     }
 
     /**
-     * Get name
+     * Get name.
      *
-     * @return string 
+     * @return string
      */
     public function getName()
     {
@@ -130,9 +128,10 @@ class Job
     }
 
     /**
-     * Set started_at
+     * Set started_at.
      *
      * @param \DateTime $startedAt
+     *
      * @return Job
      */
     public function setStartedAt($startedAt)
@@ -143,9 +142,9 @@ class Job
     }
 
     /**
-     * Get started_at
+     * Get started_at.
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getStartedAt()
     {
@@ -153,9 +152,10 @@ class Job
     }
 
     /**
-     * Set finished_at
+     * Set finished_at.
      *
      * @param \DateTime $finishedAt
+     *
      * @return Job
      */
     public function setFinishedAt($finishedAt)
@@ -166,9 +166,9 @@ class Job
     }
 
     /**
-     * Get finished_at
+     * Get finished_at.
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getFinishedAt()
     {
@@ -176,9 +176,10 @@ class Job
     }
 
     /**
-     * Set is_error
+     * Set is_error.
      *
-     * @param boolean $isError
+     * @param bool $isError
+     *
      * @return Job
      */
     public function setIsError($isError)
@@ -189,9 +190,9 @@ class Job
     }
 
     /**
-     * Get is_error
+     * Get is_error.
      *
-     * @return boolean 
+     * @return bool
      */
     public function getIsError()
     {
@@ -199,9 +200,10 @@ class Job
     }
 
     /**
-     * Set user
+     * Set user.
      *
      * @param \Wealthbot\UserBundle\Entity\User $user
+     *
      * @return Job
      */
     public function setUser(\Wealthbot\UserBundle\Entity\User $user = null)
@@ -212,9 +214,9 @@ class Job
     }
 
     /**
-     * Get user
+     * Get user.
      *
-     * @return \Wealthbot\UserBundle\Entity\User 
+     * @return \Wealthbot\UserBundle\Entity\User
      */
     public function getUser()
     {
@@ -222,9 +224,10 @@ class Job
     }
 
     /**
-     * Add rebalancerActions
+     * Add rebalancerActions.
      *
      * @param \Wealthbot\AdminBundle\Entity\RebalancerAction $rebalancerActions
+     *
      * @return Job
      */
     public function addRebalancerAction(\Wealthbot\AdminBundle\Entity\RebalancerAction $rebalancerActions)
@@ -235,7 +238,7 @@ class Job
     }
 
     /**
-     * Remove rebalancerActions
+     * Remove rebalancerActions.
      *
      * @param \Wealthbot\AdminBundle\Entity\RebalancerAction $rebalancerActions
      */
@@ -245,9 +248,9 @@ class Job
     }
 
     /**
-     * Get rebalancerActions
+     * Get rebalancerActions.
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getRebalancerActions()
     {
@@ -255,9 +258,10 @@ class Job
     }
 
     /**
-     * Set rebalance_type
+     * Set rebalance_type.
      *
-     * @param integer $rebalanceType
+     * @param int $rebalanceType
+     *
      * @return Job
      */
     public function setRebalanceType($rebalanceType)
@@ -268,9 +272,9 @@ class Job
     }
 
     /**
-     * Get rebalance_type
+     * Get rebalance_type.
      *
-     * @return integer 
+     * @return int
      */
     public function getRebalanceType()
     {

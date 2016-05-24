@@ -1,10 +1,10 @@
 {% macro widget_prototype(widget, remove_text) %}
-    {% if widget.get('prototype') %}
-        {% set form = widget.get('prototype') %}
-        {% set name = widget.get('prototype').get('name') %}
+    {% if widget.vars.prototype is defined and widget.vars.prototype is not null %}
+        {% set form = widget.vars.prototype %}
+        {% set name = widget.vars.prototype.vars.name %}
     {% else %}
         {% set form = widget %}
-        {% set name = widget.get('full_name') %}
+        {% set name = widget.vars.full_name %}
     {% endif %}
 
     <li data-content="{{ name }}" class="risk-list">
@@ -30,7 +30,7 @@
 {% endmacro %}
 
 <div class="q-form">
-    {% set question_id = form.get('value') ? form.get('value').id : '' %}
+    {% set question_id = form.vars.value ? form.vars.value.id : '' %}
 
     <form id="question_form" action="{{ question_id ? path('rx_ria_risks_edit_question', {'id': question_id}) : path('rx_ria_risks_create_question') }}" method="post">
         {{ form_label(form.title, 'Question:') }}

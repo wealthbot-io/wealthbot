@@ -87,6 +87,18 @@ Puppet::Type.newtype(:rabbitmq_policy) do
         raise ArgumentError, "Invalid expires value '#{expires_val}'"
       end
     end
+    if definition.key? 'message-ttl'
+      message_ttl_val = definition['message-ttl']
+      unless message_ttl_val.to_i.to_s == message_ttl_val
+        raise ArgumentError, "Invalid message-ttl value '#{message_ttl_val}'"
+      end
+    end
+    if definition.key? 'max-length'
+      max_length_val = definition['max-length']
+      unless max_length_val.to_i.to_s == max_length_val
+        raise ArgumentError, "Invalid max-length value '#{max_length_val}'"
+      end
+    end
   end
 
   def munge_definition(definition)
@@ -95,6 +107,12 @@ Puppet::Type.newtype(:rabbitmq_policy) do
     end
     if definition.key? 'expires'
       definition['expires'] = definition['expires'].to_i
+    end
+    if definition.key? 'message-ttl'
+      definition['message-ttl'] = definition['message-ttl'].to_i
+    end
+    if definition.key? 'max-length'
+      definition['max-length'] = definition['max-length'].to_i
     end
     definition
   end

@@ -9,10 +9,9 @@
 
 namespace Wealthbot\ClientBundle\Form\Validator;
 
-
-use Wealthbot\ClientBundle\Entity\Distribution;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormInterface;
+use Wealthbot\ClientBundle\Entity\Distribution;
 
 class OneTimeDistributionFormValidator extends ScheduledDistributionFormValidator
 {
@@ -23,7 +22,7 @@ class OneTimeDistributionFormValidator extends ScheduledDistributionFormValidato
     }
 
     /**
-     * Validate form fields
+     * Validate form fields.
      */
     public function validate()
     {
@@ -39,7 +38,7 @@ class OneTimeDistributionFormValidator extends ScheduledDistributionFormValidato
     }
 
     /**
-     * Validate type field
+     * Validate type field.
      */
     private function validateTransferMethod()
     {
@@ -49,7 +48,7 @@ class OneTimeDistributionFormValidator extends ScheduledDistributionFormValidato
     }
 
     /**
-     * Validate distribution_method field
+     * Validate distribution_method field.
      */
     private function validateDistributionMethod()
     {
@@ -64,7 +63,7 @@ class OneTimeDistributionFormValidator extends ScheduledDistributionFormValidato
     }
 
     /**
-     * Validate federal_withholding and child fields
+     * Validate federal_withholding and child fields.
      */
     private function validateFederalWithholding()
     {
@@ -73,10 +72,8 @@ class OneTimeDistributionFormValidator extends ScheduledDistributionFormValidato
 
             if (!in_array($federalWithholding, array_keys(Distribution::getFederalWithholdingChoices()))) {
                 $this->form->get('federal_withholding')->addError(new FormError('Choose an option.'));
-
             } else {
-                if ($federalWithholding == Distribution::FEDERAL_WITHHOLDING_TAXES) {
-
+                if ($federalWithholding === Distribution::FEDERAL_WITHHOLDING_TAXES) {
                     $percentRate = $this->data->getFederalWithholdPercent();
                     $moneyRate = $this->data->getFederalWithholdMoney();
 
@@ -85,8 +82,7 @@ class OneTimeDistributionFormValidator extends ScheduledDistributionFormValidato
                     } elseif (is_numeric($percentRate) && is_numeric($moneyRate)) {
                         $this->form->get('federal_withholding')->addError(new FormError('Please enter percent or money withhold taxes rate.'));
                     }
-
-                } elseif ($federalWithholding != Distribution::FEDERAL_WITHHOLDING_TAXES) {
+                } elseif ($federalWithholding !== Distribution::FEDERAL_WITHHOLDING_TAXES) {
                     $this->data->setFederalWithholdPercent(null);
                     $this->data->setFederalWithholdMoney(null);
                 }
@@ -95,7 +91,7 @@ class OneTimeDistributionFormValidator extends ScheduledDistributionFormValidato
     }
 
     /**
-     * Validate state_withholding and child fields
+     * Validate state_withholding and child fields.
      */
     private function validateStateWithholding()
     {
@@ -104,8 +100,7 @@ class OneTimeDistributionFormValidator extends ScheduledDistributionFormValidato
 
             if (!in_array($stateWithholding, array_keys(Distribution::getStateWithholdingChoices()))) {
                 $this->form->get('state_withholding')->addError(new FormError('Choose an option.'));
-
-            } elseif ($stateWithholding == Distribution::STATE_WITHHOLDING_TAXES) {
+            } elseif ($stateWithholding === Distribution::STATE_WITHHOLDING_TAXES) {
                 $percentRate = $this->data->getStateWithholdPercent();
                 $moneyRate = $this->data->getStateWithholdMoney();
 
@@ -116,13 +111,11 @@ class OneTimeDistributionFormValidator extends ScheduledDistributionFormValidato
                 }
 
                 $this->data->setResidenceState(null);
-
-            } elseif ($stateWithholding == Distribution::STATE_WITHHOLDING_RESIDENCE_STATE && !$this->data->getResidenceState()) {
+            } elseif ($stateWithholding === Distribution::STATE_WITHHOLDING_RESIDENCE_STATE && !$this->data->getResidenceState()) {
                 $this->form->get('residenceState')->addError(new FormError('Choose an option.'));
 
                 $this->data->setStateWithholdPercent(null);
                 $this->data->setStateWithholdMoney(null);
-
             } else {
                 $this->data->setStateWithholdPercent(null);
                 $this->data->setStateWithholdMoney(null);

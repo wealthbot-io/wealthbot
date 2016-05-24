@@ -3,11 +3,10 @@
  * Created by PhpStorm.
  * User: amalyuhin
  * Date: 02.06.14
- * Time: 18:59
+ * Time: 18:59.
  */
 
 namespace Wealthbot\SignatureBundle\Model\TabsConfiguration;
-
 
 use Wealthbot\ClientBundle\Entity\Beneficiary;
 use Wealthbot\SignatureBundle\Model\Tab\TextTab;
@@ -24,7 +23,7 @@ class BeneficiaryDesignationForm extends AbstractTabsConfiguration
     }
 
     /**
-     * Generate collection of tabs
+     * Generate collection of tabs.
      *
      * @return TabCollection
      */
@@ -33,7 +32,7 @@ class BeneficiaryDesignationForm extends AbstractTabsConfiguration
         $clientAccount = $this->beneficiary->getClientAccount();
         $companyInformation = $clientAccount->getClient()->getRiaCompanyInformation();
 
-        $tabs = array();
+        $tabs = [];
 
         $advisorCode = new TextTab();
         $advisorCode->setTabLabel('advisor#')->setValue($this->getAdvisorCode($companyInformation));
@@ -57,7 +56,7 @@ class BeneficiaryDesignationForm extends AbstractTabsConfiguration
      */
     private function getBeneficiariesInformationTabs()
     {
-        $tabs = array();
+        $tabs = [];
         $primary = 0;
         $alternative = 0;
 
@@ -65,35 +64,34 @@ class BeneficiaryDesignationForm extends AbstractTabsConfiguration
         $accountBeneficiaries = $this->beneficiary->getAccount()->getBeneficiaries();
         foreach ($accountBeneficiaries as $beneficiary) {
             if ($beneficiary->isPrimary()) {
-                $primary++;
-                $prefix = 'beneficiary_' . $primary . '_';
+                ++$primary;
+                $prefix = 'beneficiary_'.$primary.'_';
             } else {
-                $alternative++;
-                $prefix = 'alternative_beneficiary_' . $alternative . '_';
+                ++$alternative;
+                $prefix = 'alternative_beneficiary_'.$alternative.'_';
             }
 
             $nameTab = new TextTab();
-            $nameTab->setTabLabel($prefix . 'name')->setValue($beneficiary->getFullName());
+            $nameTab->setTabLabel($prefix.'name')->setValue($beneficiary->getFullName());
             $tabs[] = $nameTab;
 
             $relationshipTab = new TextTab();
-            $relationshipTab->setTabLabel($prefix . 'relationship')->setValue($beneficiary->getRelationship());
+            $relationshipTab->setTabLabel($prefix.'relationship')->setValue($beneficiary->getRelationship());
             $tabs[] = $relationshipTab;
 
             $birthDateTab = new TextTab();
-            $birthDateTab->setTabLabel($prefix . 'birth_date')->setValue($beneficiary->getBirthDate()->format('m-d-Y'));
+            $birthDateTab->setTabLabel($prefix.'birth_date')->setValue($beneficiary->getBirthDate()->format('m-d-Y'));
             $tabs[] = $birthDateTab;
 
             $ssnTab = new TextTab();
-            $ssnTab->setTabLabel($prefix . 'ssn')->setValue($beneficiary->getSsn());
+            $ssnTab->setTabLabel($prefix.'ssn')->setValue($beneficiary->getSsn());
             $tabs[] = $ssnTab;
 
             $shareTab = new TextTab();
-            $shareTab->setTabLabel($prefix . 'share')->setValue($beneficiary->getShare());
+            $shareTab->setTabLabel($prefix.'share')->setValue($beneficiary->getShare());
             $tabs[] = $shareTab;
         }
 
         return $tabs;
     }
-
-} 
+}

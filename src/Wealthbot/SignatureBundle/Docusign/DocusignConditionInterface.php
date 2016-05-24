@@ -9,13 +9,13 @@
 
 namespace Wealthbot\SignatureBundle\Docusign;
 
-
 interface DocusignConditionInterface
 {
     /**
-     * Check condition
+     * Check condition.
      *
      * @param $param
+     *
      * @return mixed
      */
     public function check($param);

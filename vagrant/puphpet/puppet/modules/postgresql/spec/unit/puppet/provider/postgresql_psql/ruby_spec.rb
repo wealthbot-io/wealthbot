@@ -14,10 +14,10 @@ describe Puppet::Type.type(:postgresql_psql).provider(:ruby) do
 
       it "executes with the given psql_path on the given DB" do
         expect(provider).to receive(:run_command).with(['psql', '-d',
-          attributes[:db], '-t', '-c', 'SELECT something'], 'postgres',
+          attributes[:db], '-t', '-c', '"SELECT \'something\' as \"Custom column\""'], 'postgres',
           'postgres')
 
-        provider.run_sql_command("SELECT something")
+        provider.run_sql_command('SELECT \'something\' as "Custom column"')
       end
     end
     describe "with psql_path and db" do
@@ -32,10 +32,10 @@ describe Puppet::Type.type(:postgresql_psql).provider(:ruby) do
       it "executes with the given psql_path on the given DB" do
         expect(Dir).to receive(:chdir).with(attributes[:cwd]).and_yield
         expect(provider).to receive(:run_command).with([attributes[:psql_path],
-          '-d', attributes[:db], '-t', '-c', 'SELECT something'],
+          '-d', attributes[:db], '-t', '-c', '"SELECT \'something\' as \"Custom column\""'],
           attributes[:psql_user], attributes[:psql_group])
 
-        provider.run_sql_command("SELECT something")
+        provider.run_sql_command('SELECT \'something\' as "Custom column"')
       end
     end
     describe "with search_path string" do
@@ -45,10 +45,10 @@ describe Puppet::Type.type(:postgresql_psql).provider(:ruby) do
 
       it "executes with the given search_path" do
         expect(provider).to receive(:run_command).with(['psql', '-t', '-c',
-          'set search_path to schema1; SELECT something'],
+          '"set search_path to schema1; SELECT \'something\' as \"Custom column\""'],
           'postgres', 'postgres')
 
-        provider.run_sql_command("SELECT something")
+        provider.run_sql_command('SELECT \'something\' as "Custom column"')
       end
     end
     describe "with search_path array" do
@@ -58,12 +58,12 @@ describe Puppet::Type.type(:postgresql_psql).provider(:ruby) do
 
       it "executes with the given search_path" do
         expect(provider).to receive(:run_command).with(['psql', '-t', '-c',
-          'set search_path to schema1,schema2; SELECT something'],
+          '"set search_path to schema1,schema2; SELECT \'something\' as \"Custom column\""'],
           'postgres',
           'postgres'
         )
 
-        provider.run_sql_command("SELECT something")
+        provider.run_sql_command('SELECT \'something\' as "Custom column"')
       end
     end
   end
@@ -73,7 +73,7 @@ describe Puppet::Type.type(:postgresql_psql).provider(:ruby) do
       it "executes with the given port" do
         expect(provider).to receive(:run_command).with(["psql",
         "-p", "5555",
-        "-t", "-c", "SELECT something"],
+        "-t", "-c", "\"SELECT something\""],
         "postgres", "postgres")
 
         provider.run_sql_command("SELECT something")

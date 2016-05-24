@@ -3,7 +3,6 @@
 namespace Wealthbot\UserBundle\Controller;
 
 use FOS\UserBundle\Controller\SecurityController as BaseSecurity;
-use Wealthbot\RiaBundle\Form\Type\RiaResetClientPasswordFormType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Security\Core\SecurityContext;
@@ -12,9 +11,6 @@ class SecurityController extends BaseSecurity
 {
     public function loginAction()
     {
-//        $this->container->get('wealthbot.mailer')->sendClientAdvCopyEmailMessage($this->container->get('doctrine.orm.entity_manager')->getRepository('WealthbotUserBundle:User')->find(99));
-//        die();
-        $request = $this->container->get('request');
         /* @var $request \Symfony\Component\HttpFoundation\Request */
         $session = $request->getSession();
         /* @var $session Session */
@@ -35,14 +31,14 @@ class SecurityController extends BaseSecurity
         // last username entered by the user
         $lastUsername = (null === $session) ? '' : $session->get(SecurityContext::LAST_USERNAME);
 
-        $csrfToken = $this->container->get('form.csrf_provider')->generateCsrfToken('authenticate');
+        $csrfToken = $this->container->get('security.csrf.token_manager')->getToken('authenticate')->getValue();
         $riaLogo = null;
 
         $subDomainManager = $this->container->get('wealthbot_user.subdomain_manager');
         $riaCompanyInformation = $subDomainManager->getRiaCompanyInformation();
 
         if ($riaCompanyInformation) {
-            $riaLogo = $this->container->get('router')->generate('rx_file_download', array('ria_id' => $riaCompanyInformation->getRia()->getId()), true);
+            $riaLogo = $this->container->get('router')->generate('rx_file_download', ['ria_id' => $riaCompanyInformation->getRia()->getId()], true);
         }
 
         $redirectUrl = $request->get('redirect_url', null);
@@ -51,35 +47,35 @@ class SecurityController extends BaseSecurity
             $session->set('redirect_url', $redirectUrl);
         }
 
-        return $this->renderLogin(array(
+        return $this->renderLogin([
             'last_username' => $lastUsername,
-            'error'         => $error,
+            'error' => $error,
             'csrf_token' => $csrfToken,
-            'ria_logo' => $riaLogo
-        ));
+            'ria_logo' => $riaLogo,
+        ]);
     }
 
     public function resetPasswordAction(Request $request)
     {
         $em = $this->container->get('doctrine.orm.entity_manager');
 
-        $form = $this->container->get('form.factory')->createBuilder('form', null, array())
-            ->add('email', 'email', array('label' => 'Enter in your email bellow and we\'ll send you a link to reset your password.'))
+        $form = $this->container->get('form.factory')->createBuilder('form', null, [])
+            ->add('email', 'email', ['label' => 'Enter in your email bellow and we\'ll send you a link to reset your password.'])
             ->getForm();
 
         $subDomainManager = $this->container->get('wealthbot_user.subdomain_manager');
         $riaCompanyInformation = $subDomainManager->getRiaCompanyInformation();
 
         if ($riaCompanyInformation) {
-            $riaLogo = $this->container->get('router')->generate('rx_file_download', array('ria_id' => $riaCompanyInformation->getRia()->getId()), true);
+            $riaLogo = $this->container->get('router')->generate('rx_file_download', ['ria_id' => $riaCompanyInformation->getRia()->getId()], true);
         }
 
         if ($request->isMethod('post')) {
-            $form->bind($request);
+            $form->handleRequest($request);
 
-            if ($form->isValid()){
+            if ($form->isValid()) {
                 $data = $form->getData();
-                $user = $em->getRepository('WealthbotUserBundle:User')->findOneBy(array('email' => $data['email']));
+                $user = $em->getRepository('WealthbotUserBundle:User')->findOneBy(['email' => $data['email']]);
 
                 if ($user) {
                     $newPassword = $user->generateTemporaryPassword();
@@ -89,7 +85,7 @@ class SecurityController extends BaseSecurity
                     $em->persist($user);
                     $em->flush();
 
-                    $mailer =  $this->container->get('wealthbot.mailer');
+                    $mailer = $this->container->get('wealthbot.mailer');
                     if ($user->hasRole('ROLE_CLIENT')) {
                         $mailer->sendClientResetSelfPasswordEmail($user, $newPassword);
                     } else {
@@ -98,25 +94,22 @@ class SecurityController extends BaseSecurity
 
                     return $this->container->get('templating')->renderResponse(
                         'WealthbotUserBundle:Security:reset_password.html.twig',
-                        array(
+                        [
                             'form' => $form->createView(),
                             'success' => true,
-                            'ria_logo' => $riaLogo
-                        )
+                            'ria_logo' => $riaLogo,
+                        ]
                     );
                 }
-
             }
         }
 
-
         return $this->container->get('templating')->renderResponse(
             'WealthbotUserBundle:Security:reset_password.html.twig',
-            array(
+            [
                 'form' => $form->createView(),
-                'ria_logo' => !empty($riaLogo) ? $riaLogo : null
-            )
+                'ria_logo' => !empty($riaLogo) ? $riaLogo : null,
+            ]
         );
-
     }
 }

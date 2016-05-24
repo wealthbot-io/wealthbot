@@ -1,8 +1,9 @@
 Wealthbot\UserBundle\Entity\Profile:
     properties:
         estimated_income_tax:
-            - Min: 0
-            - Max: 100
+            - Range:
+                min: 0
+                max: 100
 Wealthbot\UserBundle\Entity\User:
     constraints:
         - Callback:

@@ -9,13 +9,12 @@
 
 namespace Wealthbot\ClientBundle\Form\Type;
 
-
-use Wealthbot\ClientBundle\Entity\ClientAdditionalContact;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Wealthbot\ClientBundle\Entity\ClientAdditionalContact;
 
 class OtherAccountOwnerFormType extends AbstractType
 {
@@ -26,7 +25,7 @@ class OtherAccountOwnerFormType extends AbstractType
         $this->default = $default;
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options = array())
+    public function buildForm(FormBuilderInterface $builder, array $options = [])
     {
         if ($this->default) {
             $firstName = $this->default->getFirstName();
@@ -40,22 +39,22 @@ class OtherAccountOwnerFormType extends AbstractType
             $relationship = null;
         }
 
-        $builder->add('first_name', 'text', array('attr' => array('value' => $firstName)))
-            ->add('middle_name', 'text', array('attr' => array('value' => $middleName)))
-            ->add('last_name', 'text', array('attr' => array('value' => $lastName)))
-            ->add('relationship', 'text', array('attr' => array('value' => $relationship)));
+        $builder->add('first_name', 'text', ['attr' => ['value' => $firstName]])
+            ->add('middle_name', 'text', ['attr' => ['value' => $middleName]])
+            ->add('last_name', 'text', ['attr' => ['value' => $lastName]])
+            ->add('relationship', 'text', ['attr' => ['value' => $relationship]]);
 
-        $builder->addEventListener(FormEvents::BIND, function (FormEvent $event) {
+        $builder->addEventListener(FormEvents::SUBMIT, function (FormEvent $event) {
             $data = $event->getData();
             $data->setType(ClientAdditionalContact::TYPE_OTHER);
         });
     }
 
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => 'Wealthbot\ClientBundle\Entity\ClientAdditionalContact'
-        ));
+        $resolver->setDefaults([
+            'data_class' => 'Wealthbot\ClientBundle\Entity\ClientAdditionalContact',
+        ]);
     }
 
     /**
@@ -63,9 +62,8 @@ class OtherAccountOwnerFormType extends AbstractType
      *
      * @return string The name of this type
      */
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'other_account_owner';
     }
-
 }

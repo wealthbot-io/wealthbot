@@ -9,14 +9,14 @@
 
 namespace Wealthbot\AdminBundle\Validator\Constraints;
 
+use Doctrine\ORM\EntityManager;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
-use Doctrine\ORM\EntityManager;
 
 class FeeTierValidator extends ConstraintValidator
 {
     /**
-     * @var EntityManager $em
+     * @var EntityManager
      */
     protected $em;
 
@@ -26,7 +26,7 @@ class FeeTierValidator extends ConstraintValidator
     }
 
     /**
-     * @param \Wealthbot\AdminBundle\Entity\Fee $fee
+     * @param \Wealthbot\AdminBundle\Entity\Fee       $fee
      * @param \Symfony\Component\Validator\Constraint $constraint
      */
     public function validate($fee, Constraint $constraint)

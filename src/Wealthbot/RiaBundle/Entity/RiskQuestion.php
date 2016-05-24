@@ -2,40 +2,38 @@
 
 namespace Wealthbot\RiaBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-
 /**
- * Wealthbot\RiaBundle\Entity\RiskQuestion
+ * Wealthbot\RiaBundle\Entity\RiskQuestion.
  */
 class RiskQuestion
 {
     /**
-     * @var integer $id
+     * @var int
      */
     private $id;
 
     /**
-     * @var string $title
+     * @var string
      */
     private $title;
 
     /**
-     * @var string $description
+     * @var string
      */
     private $description = 'description';
 
     /**
-     * @var integer $sequence
+     * @var int
      */
     private $sequence = 100;
 
     /**
-     * @var boolean $is_withdraw_age_input
+     * @var bool
      */
     private $is_withdraw_age_input = false;
 
     /**
-     * @var integer $owner_id
+     * @var int
      */
     private $owner_id;
 
@@ -45,7 +43,7 @@ class RiskQuestion
     private $owner;
 
     /**
-     * Constructor
+     * Constructor.
      */
     public function __construct()
     {
@@ -53,9 +51,10 @@ class RiskQuestion
     }
 
     /**
-     * Set id
+     * Set id.
      *
-     * @param integer $id
+     * @param int $id
+     *
      * @return RiskQuestion
      */
     public function setId($id)
@@ -66,9 +65,9 @@ class RiskQuestion
     }
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer 
+     * @return int
      */
     public function getId()
     {
@@ -76,22 +75,23 @@ class RiskQuestion
     }
 
     /**
-     * Set title
+     * Set title.
      *
      * @param string $title
+     *
      * @return RiskQuestion
      */
     public function setTitle($title)
     {
         $this->title = $title;
-    
+
         return $this;
     }
 
     /**
-     * Get title
+     * Get title.
      *
-     * @return string 
+     * @return string
      */
     public function getTitle()
     {
@@ -99,22 +99,23 @@ class RiskQuestion
     }
 
     /**
-     * Set description
+     * Set description.
      *
      * @param string $description
+     *
      * @return RiskQuestion
      */
     public function setDescription($description)
     {
         $this->description = $description;
-    
+
         return $this;
     }
 
     /**
-     * Get description
+     * Get description.
      *
-     * @return string 
+     * @return string
      */
     public function getDescription()
     {
@@ -122,22 +123,23 @@ class RiskQuestion
     }
 
     /**
-     * Set sequence
+     * Set sequence.
      *
-     * @param integer $sequence
+     * @param int $sequence
+     *
      * @return RiskQuestion
      */
     public function setSequence($sequence)
     {
         $this->sequence = $sequence;
-    
+
         return $this;
     }
 
     /**
-     * Get sequence
+     * Get sequence.
      *
-     * @return integer 
+     * @return int
      */
     public function getSequence()
     {
@@ -148,22 +150,23 @@ class RiskQuestion
      * @var \Doctrine\Common\Collections\ArrayCollection
      */
     private $answers;
-    
+
     /**
-     * Add answers
+     * Add answers.
      *
      * @param Wealthbot\RiaBundle\Entity\RiskAnswer $answers
+     *
      * @return RiskQuestion
      */
     public function addAnswer(\Wealthbot\RiaBundle\Entity\RiskAnswer $answers)
     {
         $this->answers[] = $answers;
-    
+
         return $this;
     }
 
     /**
-     * Remove answers
+     * Remove answers.
      *
      * @param Wealthbot\RiaBundle\Entity\RiskAnswer $answers
      */
@@ -173,9 +176,9 @@ class RiskQuestion
     }
 
     /**
-     * Get answers
+     * Get answers.
      *
-     * @return Doctrine\Common\Collections\Collection 
+     * @return Doctrine\Common\Collections\Collection
      */
     public function getAnswers()
     {
@@ -183,22 +186,23 @@ class RiskQuestion
     }
 
     /**
-     * Set is_withdraw_age_input
+     * Set is_withdraw_age_input.
      *
-     * @param boolean $isWithdrawAgeInput
+     * @param bool $isWithdrawAgeInput
+     *
      * @return RiskQuestion
      */
     public function setIsWithdrawAgeInput($isWithdrawAgeInput)
     {
         $this->is_withdraw_age_input = $isWithdrawAgeInput;
-    
+
         return $this;
     }
 
     /**
-     * Get is_withdraw_age_input
+     * Get is_withdraw_age_input.
      *
-     * @return boolean 
+     * @return bool
      */
     public function getIsWithdrawAgeInput()
     {
@@ -206,22 +210,23 @@ class RiskQuestion
     }
 
     /**
-     * Set owner_id
+     * Set owner_id.
      *
-     * @param integer $ownerId
+     * @param int $ownerId
+     *
      * @return RiskQuestion
      */
     public function setOwnerId($ownerId)
     {
         $this->owner_id = $ownerId;
-    
+
         return $this;
     }
 
     /**
-     * Get owner_id
+     * Get owner_id.
      *
-     * @return integer 
+     * @return int
      */
     public function getOwnerId()
     {
@@ -229,22 +234,23 @@ class RiskQuestion
     }
 
     /**
-     * Set owner
+     * Set owner.
      *
      * @param Wealthbot\UserBundle\Entity\User $owner
+     *
      * @return RiskQuestion
      */
     public function setOwner(\Wealthbot\UserBundle\Entity\User $owner = null)
     {
         $this->owner = $owner;
-    
+
         return $this;
     }
 
     /**
-     * Get owner
+     * Get owner.
      *
-     * @return Wealthbot\UserBundle\Entity\User 
+     * @return Wealthbot\UserBundle\Entity\User
      */
     public function getOwner()
     {

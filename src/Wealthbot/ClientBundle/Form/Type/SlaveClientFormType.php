@@ -9,13 +9,12 @@
 
 namespace Wealthbot\ClientBundle\Form\Type;
 
-
 use FOS\UserBundle\Form\Type\RegistrationFormType;
-use Wealthbot\UserBundle\Entity\User;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Wealthbot\UserBundle\Entity\User;
 
 class SlaveClientFormType extends RegistrationFormType
 {
@@ -40,43 +39,44 @@ class SlaveClientFormType extends RegistrationFormType
             $access = 'limited';
 
             if ($user && $user->hasRole('ROLE_CLIENT_FULL')) {
-               $access = 'full';
+                $access = 'full';
             }
 
-            $form->add($factory->createNamed('access', 'choice', $access, array(
-                'choices' => array('full' => 'Full', 'limited' => 'Limited'),
-                'mapped' => false
-            )));
+            $form->add($factory->createNamed('access', 'choice', $access, [
+                'choices' => ['full' => 'Full', 'limited' => 'Limited'],
+                'mapped' => false,
+                'auto_initialize' => false,
+            ]));
         });
 
-        $builder->addEventListener(FormEvents::BIND, function (FormEvent $event) {
+        $builder->addEventListener(FormEvents::SUBMIT, function (FormEvent $event) {
             $form = $event->getForm();
             $user = $event->getData();
 
             $access = $form->get('access')->getData();
 
-            if ($user->hasRole('ROLE_CLIENT_FULL') && $access === 'limited'){
+            if ($user->hasRole('ROLE_CLIENT_FULL') && $access === 'limited') {
                 $user->removeRole('ROLE_CLIENT_FULL');
             }
 
-            if (!$user->hasRole('ROLE_CLIENT_FULL') && $access === 'full'){
+            if (!$user->hasRole('ROLE_CLIENT_FULL') && $access === 'full') {
                 $user->addRole('ROLE_CLIENT_FULL');
             }
 
-            /** @var User $user */
+            /* @var User $user */
             $user->setUsername($user->getEmail());
         });
     }
 
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
+        $resolver->setDefaults([
             'data_class' => 'Wealthbot\UserBundle\Entity\User',
-            'intention'  => 'registration'
-        ));
+            'intention' => 'registration',
+        ]);
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'slave_client';
     }

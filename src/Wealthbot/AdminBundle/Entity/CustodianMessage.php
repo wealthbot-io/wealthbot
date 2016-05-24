@@ -2,20 +2,18 @@
 
 namespace Wealthbot\AdminBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-
 /**
- * CustodianMessage
+ * CustodianMessage.
  */
 class CustodianMessage
 {
     /**
-     * @var integer
+     * @var int
      */
     private $id;
 
     /**
-     * @var integer
+     * @var int
      */
     private $custodian_id;
 
@@ -44,11 +42,10 @@ class CustodianMessage
      */
     private $custodian;
 
-
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer 
+     * @return int
      */
     public function getId()
     {
@@ -56,22 +53,23 @@ class CustodianMessage
     }
 
     /**
-     * Set custodian_id
+     * Set custodian_id.
      *
-     * @param integer $custodianId
+     * @param int $custodianId
+     *
      * @return CustodianMessage
      */
     public function setCustodianId($custodianId)
     {
         $this->custodian_id = $custodianId;
-    
+
         return $this;
     }
 
     /**
-     * Get custodian_id
+     * Get custodian_id.
      *
-     * @return integer 
+     * @return int
      */
     public function getCustodianId()
     {
@@ -79,22 +77,23 @@ class CustodianMessage
     }
 
     /**
-     * Set message
+     * Set message.
      *
      * @param string $message
+     *
      * @return CustodianMessage
      */
     public function setMessage($message)
     {
         $this->message = $message;
-    
+
         return $this;
     }
 
     /**
-     * Get message
+     * Get message.
      *
-     * @return string 
+     * @return string
      */
     public function getMessage()
     {
@@ -102,14 +101,14 @@ class CustodianMessage
     }
 
     /**
-     * Get type choices
+     * Get type choices.
      *
      * @return array|null
      */
     public static function getTypeChoices()
     {
         if (null === self::$_types) {
-            self::$_types = array();
+            self::$_types = [];
 
             $oClass = new \ReflectionClass('\Wealthbot\AdminBundle\Entity\CustodianMessage');
             $classConstants = $oClass->getConstants();
@@ -126,10 +125,12 @@ class CustodianMessage
     }
 
     /**
-     * * Set type
+     * * Set type.
      *
      * @param string $type
+     *
      * @return $this
+     *
      * @throws \InvalidArgumentException
      */
     public function setType($type)
@@ -139,14 +140,14 @@ class CustodianMessage
         }
 
         $this->type = $type;
-    
+
         return $this;
     }
 
     /**
-     * Get type
+     * Get type.
      *
-     * @return string 
+     * @return string
      */
     public function getType()
     {
@@ -154,22 +155,23 @@ class CustodianMessage
     }
 
     /**
-     * Set custodian
+     * Set custodian.
      *
      * @param \Wealthbot\AdminBundle\Entity\Custodian $custodian
+     *
      * @return CustodianMessage
      */
     public function setCustodian(\Wealthbot\AdminBundle\Entity\Custodian $custodian = null)
     {
         $this->custodian = $custodian;
-    
+
         return $this;
     }
 
     /**
-     * Get custodian
+     * Get custodian.
      *
-     * @return \Wealthbot\AdminBundle\Entity\Custodian 
+     * @return \Wealthbot\AdminBundle\Entity\Custodian
      */
     public function getCustodian()
     {

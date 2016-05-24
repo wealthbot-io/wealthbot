@@ -26,7 +26,6 @@ class ModelAssumptionFormHandler extends AbstractFormHandler
 
         /** @var CeModel $model */
         foreach ($modelManager->getChildModels($parentModel) as $model) {
-
             if ($model->getIsAssumptionLocked() || $model->getIsDeleted()) {
                 continue;
             }

@@ -25,7 +25,9 @@ define apache::vhost(
   $ssl_honorcipherorder        = undef,
   $ssl_verify_client           = undef,
   $ssl_verify_depth            = undef,
+  $ssl_proxy_machine_cert      = undef,
   $ssl_options                 = undef,
+  $ssl_openssl_conf_cmd        = undef,
   $ssl_proxyengine             = false,
   $priority                    = undef,
   $default_vhost               = false,
@@ -79,8 +81,10 @@ define apache::vhost(
   $redirectmatch_regexp        = undef,
   $redirectmatch_dest          = undef,
   $rack_base_uris              = undef,
+  $passenger_base_uris         = undef,
   $headers                     = undef,
   $request_headers             = undef,
+  $filters                     = undef,
   $rewrites                    = undef,
   $rewrite_base                = undef,
   $rewrite_rule                = undef,
@@ -105,6 +109,7 @@ define apache::vhost(
   $fastcgi_socket              = undef,
   $fastcgi_dir                 = undef,
   $additional_includes         = [],
+  $use_optional_includes       = $::apache::use_optional_includes,
   $apache_version              = $::apache::apache_version,
   $allow_encoded_slashes       = undef,
   $suexec_user_group           = undef,
@@ -119,13 +124,21 @@ define apache::vhost(
   $modsec_disable_ids          = undef,
   $modsec_disable_ips          = undef,
   $modsec_body_limit           = undef,
+  $auth_kerb                   = false,
+  $krb_method_negotiate        = 'on',
+  $krb_method_k5passwd         = 'on',
+  $krb_authoritative           = 'on',
+  $krb_auth_realms             = [],
+  $krb_5keytab                 = undef,
+  $krb_local_user_mapping      = undef,
+  $limit_request_field_size    = undef,
 ) {
   # The base class must be included first because it is used by parameter defaults
   if ! defined(Class['apache']) {
     fail('You must include the apache base class before using any apache defined resources')
   }
 
-  $apache_name = $::apache::params::apache_name
+  $apache_name = $::apache::apache_name
 
   validate_re($ensure, '^(present|absent)$',
   "${ensure} is not supported for ensure.
@@ -147,7 +160,7 @@ define apache::vhost(
   # Input validation begins
 
   if $suexec_user_group {
-    validate_re($suexec_user_group, '^\w+ \w+$',
+    validate_re($suexec_user_group, '^[\w-]+ [\w-]+$',
     "${suexec_user_group} is not supported for suexec_user_group.  Must be 'user group'.")
   }
 
@@ -186,8 +199,7 @@ define apache::vhost(
   Allowed values are 'directory' and 'absent'.")
 
   if $log_level {
-    validate_re($log_level, '^(emerg|alert|crit|error|warn|notice|info|debug)$',
-    "Log level '${log_level}' is not one of the supported Apache HTTP Server log levels.")
+    validate_apache_log_level($log_level)
   }
 
   if $access_log_file and $access_log_pipe {
@@ -210,12 +222,27 @@ define apache::vhost(
     validate_re($allow_encoded_slashes, '(^on$|^off$|^nodecode$)', "${allow_encoded_slashes} is not permitted for allow_encoded_slashes. Allowed values are 'on', 'off' or 'nodecode'.")
   }
 
+  validate_bool($auth_kerb)
+
+  if $limit_request_field_size {
+    validate_integer($limit_request_field_size)
+  }
+
+  # Validate the docroot as a string if:
+  # - $manage_docroot is true
+  if $manage_docroot {
+    validate_string($docroot)
+  }
   # Input validation ends
 
   if $ssl and $ensure == 'present' {
     include ::apache::mod::ssl
     # Required for the AddType lines.
     include ::apache::mod::mime
+  }
+
+  if $auth_kerb and $ensure == 'present' {
+    include ::apache::mod::auth_kerb
   }
 
   if $virtual_docroot {
@@ -250,7 +277,7 @@ define apache::vhost(
 
   # This ensures that the docroot exists
   # But enables it to be specified across multiple vhost resources
-  if ! defined(File[$docroot]) and $manage_docroot {
+  if $manage_docroot and $docroot and ! defined(File[$docroot]) {
     file { $docroot:
       ensure  => directory,
       owner   => $docroot_owner,
@@ -318,8 +345,8 @@ define apache::vhost(
 
   if $ip {
     if $port {
-      $listen_addr_port = "${ip}:${port}"
-      $nvh_addr_port = "${ip}:${port}"
+      $listen_addr_port = suffix(any2array($ip),":${port}")
+      $nvh_addr_port = suffix(any2array($ip),":${port}")
     } else {
       $listen_addr_port = undef
       $nvh_addr_port = $ip
@@ -343,13 +370,13 @@ define apache::vhost(
     if $ip and defined(Apache::Listen["${port}"]) {
       fail("Apache::Vhost[${name}]: Mixing IP and non-IP Listen directives is not possible; check the add_listen parameter of the apache::vhost define to disable this")
     }
-    if ! defined(Apache::Listen["${listen_addr_port}"]) and $listen_addr_port and $ensure == 'present' {
-      ::apache::listen { "${listen_addr_port}": }
+    if $listen_addr_port and $ensure == 'present' {
+      ensure_resource('apache::listen', $listen_addr_port)
     }
   }
   if ! $ip_based {
-    if ! defined(Apache::Namevirtualhost[$nvh_addr_port]) and $ensure == 'present' and (versioncmp($apache_version, '2.4') < 0) {
-      ::apache::namevirtualhost { $nvh_addr_port: }
+    if $ensure == 'present' and (versioncmp($apache_version, '2.4') < 0) {
+      ensure_resource('apache::namevirtualhost', $nvh_addr_port)
     }
   }
 
@@ -361,8 +388,8 @@ define apache::vhost(
   }
 
   # Load mod_alias if needed and not yet loaded
-  if ($scriptalias or $scriptaliases != []) or ($redirect_source and $redirect_dest) {
-    if ! defined(Class['apache::mod::alias']) {
+  if ($scriptalias or $scriptaliases != []) or ($aliases and $aliases != []) or ($redirect_source and $redirect_dest) {
+    if ! defined(Class['apache::mod::alias'])  and ($ensure == 'present') {
       include ::apache::mod::alias
     }
   }
@@ -384,6 +411,11 @@ define apache::vhost(
     }
   }
 
+  # Load mod_passenger if needed and not yet loaded
+  if $passenger_base_uris {
+      include ::apache::mod::passenger
+  }
+
   # Load mod_fastci if needed and not yet loaded
   if $fastcgi_server and $fastcgi_socket {
     if ! defined(Class['apache::mod::fastcgi']) {
@@ -395,6 +427,13 @@ define apache::vhost(
   if $headers or $request_headers {
     if ! defined(Class['apache::mod::headers']) {
       include ::apache::mod::headers
+    }
+  }
+
+  # Check if mod_filter is required to process $filters
+  if $filters {
+    if ! defined(Class['apache::mod::filter']) {
+      include ::apache::mod::filter
     }
   }
 
@@ -410,7 +449,7 @@ define apache::vhost(
       fail("Apache::Vhost[${name}]: 'directories' must be either a Hash or an Array of Hashes")
     }
     $_directories = $directories
-  } else {
+  } elsif $docroot {
     $_directory = {
       provider       => 'directory',
       path           => $docroot,
@@ -485,10 +524,12 @@ define apache::vhost(
   # Template uses:
   # - $virtual_docroot
   # - $docroot
-  concat::fragment { "${name}-docroot":
-    target  => "${priority_real}${filename}.conf",
-    order   => 10,
-    content => template('apache/vhost/_docroot.erb'),
+  if $docroot {
+    concat::fragment { "${name}-docroot":
+      target  => "${priority_real}${filename}.conf",
+      order   => 10,
+      content => template('apache/vhost/_docroot.erb'),
+    }
   }
 
   # Template uses:
@@ -625,9 +666,10 @@ define apache::vhost(
   # Template uses:
   # - $proxy_dest
   # - $proxy_pass
+  # - $proxy_pass_match
   # - $proxy_preserve_host
   # - $no_proxy_uris
-  if $proxy_dest or $proxy_pass {
+  if $proxy_dest or $proxy_pass or $proxy_pass_match or $proxy_dest_match {
     concat::fragment { "${name}-proxy":
       target  => "${priority_real}${filename}.conf",
       order   => 140,
@@ -642,6 +684,16 @@ define apache::vhost(
       target  => "${priority_real}${filename}.conf",
       order   => 150,
       content => template('apache/vhost/_rack.erb'),
+    }
+  }
+
+  # Template uses:
+  # - $passenger_base_uris
+  if $passenger_base_uris {
+    concat::fragment { "${name}-passenger_uris":
+      target  => "${priority_real}${filename}.conf",
+      order   => 155,
+      content => template('apache/vhost/_passenger_base_uris.erb'),
     }
   }
 
@@ -728,13 +780,31 @@ define apache::vhost(
   # - $ssl_honorcipherorder
   # - $ssl_verify_client
   # - $ssl_verify_depth
+  # - $ssl_proxy_machine_cert
   # - $ssl_options
+  # - $ssl_openssl_conf_cmd
   # - $apache_version
   if $ssl {
     concat::fragment { "${name}-ssl":
       target  => "${priority_real}${filename}.conf",
       order   => 210,
       content => template('apache/vhost/_ssl.erb'),
+    }
+  }
+
+  # Template uses:
+  # - $auth_kerb
+  # - $krb_method_negotiate
+  # - $krb_method_k5passwd
+  # - $krb_authoritative
+  # - $krb_auth_realms
+  # - $krb_5keytab 
+  # - $krb_local_user_mapping
+  if $auth_kerb {
+    concat::fragment { "${name}-auth_kerb":
+      target  => "${priority_real}${filename}.conf",
+      order   => 210,
+      content => template('apache/vhost/_auth_kerb.erb'),
     }
   }
 
@@ -877,6 +947,25 @@ define apache::vhost(
       target  => "${priority_real}${filename}.conf",
       order   => 320,
       content => template('apache/vhost/_security.erb')
+    }
+  }
+
+  # Template uses:
+  # - $filters
+  if $filters and ! empty($filters) {
+    concat::fragment { "${name}-filters":
+      target  => "${priority_real}${filename}.conf",
+      order   => 330,
+      content => template('apache/vhost/_filters.erb'),
+    }
+  }
+  # Template uses:
+  # - $limit_request_field_size
+  if $limit_request_field_size {
+    concat::fragment { "${name}-limits":
+      target  => "${priority_real}${filename}.conf",
+      order   => 330,
+      content => template('apache/vhost/_limits.erb'),
     }
   }
 

@@ -47,3 +47,14 @@
     <%= line %>
     <%- end -%>
 <% end %>
+<% if (defined? @rewrites) -%>
+  <%- @rewrites.each do |i, rewrite| -%>
+    <%- if (rewrite['when'] && !rewrite['when'].empty?) -%>
+    if (<%= rewrite['when'] %>) {
+      rewrite "<%= rewrite['regex'] %>" <%= rewrite['target'] %>;
+    }
+    <%- else -%>
+    rewrite <%= rewrite['regex'] %> <%= rewrite['target'] -%>;
+    <%- end -%>
+  <%- end -%>
+<% end %>

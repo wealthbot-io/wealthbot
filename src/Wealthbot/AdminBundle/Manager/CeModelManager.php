@@ -9,13 +9,10 @@
 
 namespace Wealthbot\AdminBundle\Manager;
 
-
 use Doctrine\Common\Persistence\ObjectManager;
 use Wealthbot\AdminBundle\Entity\SecurityAssignment;
 use Wealthbot\AdminBundle\Model\CeModelEntityInterface;
 use Wealthbot\AdminBundle\Model\CeModelInterface;
-use Wealthbot\ClientBundle\Entity\ClientPortfolio;
-use Wealthbot\ClientBundle\Manager\ClientPortfolioManager;
 use Wealthbot\UserBundle\Entity\User;
 
 class CeModelManager
@@ -43,26 +40,26 @@ class CeModelManager
         $metadata = $om->getClassMetadata($class);
         $this->class = $metadata->getName();
 
-        $this->clonedSecurityAssignments = array();
+        $this->clonedSecurityAssignments = [];
     }
 
     /**
-     * Copy model with children, model entities, asset classes and subclasses
+     * Copy model with children, model entities, asset classes and subclasses.
      *
      * @param CeModelInterface $model
-     * @param User $owner
+     * @param User             $owner
+     *
      * @return CeModelInterface
      */
     public function copyForOwner(CeModelInterface $model, User $owner)
     {
-        $assetClasses = array();
-        $subclasses = array();
+        $assetClasses = [];
+        $subclasses = [];
 
         $children = $this->getChildModels($model);
 
         if (!count($children)) {
             $clone = $this->copyModelWithRelationsForOwner($model, $owner, $assetClasses, $subclasses);
-
         } else {
             $clone = $model->getCopy();
             $clone->setOwner($owner);
@@ -88,12 +85,13 @@ class CeModelManager
     }
 
     /**
-     * Copy model with model entities, asset classes and subclasses
+     * Copy model with model entities, asset classes and subclasses.
      *
      * @param CeModelInterface $model
-     * @param User $owner
-     * @param array $assetClasses
-     * @param array $subclasses
+     * @param User             $owner
+     * @param array            $assetClasses
+     * @param array            $subclasses
+     *
      * @return CeModelInterface
      */
     private function copyModelWithRelationsForOwner(CeModelInterface $model, User $owner, array &$assetClasses, array &$subclasses)
@@ -101,7 +99,7 @@ class CeModelManager
         $clone = $model->getCopy();
         $clone->setOwner($owner);
 
-        if ($owner->hasRole('ROLE_CLIENT') ) {
+        if ($owner->hasRole('ROLE_CLIENT')) {
             $commissions = $this->objectManager->getRepository('WealthbotAdminBundle:SecurityAssignment')->findMinAndMaxTransactionFeeForModel($model->getParentId());
             $commissions = array_filter($commissions);
 
@@ -126,7 +124,6 @@ class CeModelManager
                 $assetClass = $subclass->getAssetClass();
                 if (isset($assetClasses[$assetClass->getId()])) {
                     $cloneAssetClass = $assetClasses[$assetClass->getId()];
-
                 } else {
                     $cloneAssetClass = $assetClass->getCopy();
                     $assetClasses[$assetClass->getId()] = $cloneAssetClass;
@@ -134,7 +131,7 @@ class CeModelManager
 
                 $cloneAssetClass->addSubclasse($cloneSubclass);
                 $cloneSubclass->setAssetClass($cloneAssetClass);
-            }else{
+            } else {
                 $cloneSubclass = $subclasses[$subclass->getId()];
             }
 
@@ -142,20 +139,20 @@ class CeModelManager
                 $found = null;
 
                 #Searching one SA that has needed subclass and security.
-                foreach($this->clonedSecurityAssignments as $sa) {
-                    if ($sa->getSubclass() == $cloneSubclass
-                        && $sa->getSecurity() == $securityAssignment->getSecurity()
-                    ){
+                foreach ($this->clonedSecurityAssignments as $sa) {
+                    if ($sa->getSubclass() === $cloneSubclass
+                        && $sa->getSecurity() === $securityAssignment->getSecurity()
+                    ) {
                         $found = $sa;
                         break;
                     }
                 }
 
                 if (!$found) {
-                    $found = $this->objectManager->getRepository('WealthbotAdminBundle:SecurityAssignment')->findOneBy(array(
+                    $found = $this->objectManager->getRepository('WealthbotAdminBundle:SecurityAssignment')->findOneBy([
                             'security' => $securityAssignment->getSecurity(),
-                            'subclass' => $cloneSubclass
-                        ));
+                            'subclass' => $cloneSubclass,
+                        ]);
                 }
 
                 if (!$found) {
@@ -198,32 +195,33 @@ class CeModelManager
     }
 
     /**
-     * Create custom model
+     * Create custom model.
      *
      * @param User $owner
+     *
      * @return CeModelInterface
      */
     public function createCustomModel(User $owner)
     {
         /** @var CeModelInterface $model */
-        $model = new $this->class;
+        $model = new $this->class();
 
         $model->setType(CeModelInterface::TYPE_CUSTOM);
         $model->setOwner($owner);
-        $model->setName("RIA_". $owner->getId());
+        $model->setName('RIA_'.$owner->getId());
 
         return $model;
     }
 
     /**
-     * Create strategy model
+     * Create strategy model.
      *
      * @return CeModelInterface
      */
     public function createStrategyModel()
     {
         /** @var CeModelInterface $model */
-        $model = new $this->class;
+        $model = new $this->class();
 
         $model->setType(CeModelInterface::TYPE_STRATEGY);
 
@@ -231,15 +229,16 @@ class CeModelManager
     }
 
     /**
-     * Create child for model
+     * Create child for model.
      *
      * @param CeModelInterface $parent
+     *
      * @return CeModelInterface
      */
     public function createChild(CeModelInterface $parent)
     {
         /** @var CeModelInterface $model */
-        $model = new $this->class;
+        $model = new $this->class();
 
         $model->setType($parent->getType());
         $model->setParent($parent);
@@ -250,9 +249,10 @@ class CeModelManager
     }
 
     /**
-     * Find one model by criteria
+     * Find one model by criteria.
      *
      * @param array $criteria
+     *
      * @return CeModelInterface
      */
     public function findCeModelBy(array $criteria)
@@ -261,9 +261,10 @@ class CeModelManager
     }
 
     /**
-     * Find models by criteria
+     * Find models by criteria.
      *
      * @param array $criteria
+     *
      * @return mixed
      */
     public function findCeModelsBy(array $criteria)
@@ -272,32 +273,34 @@ class CeModelManager
     }
 
     /**
-     * Find model by slug and id of owner
+     * Find model by slug and id of owner.
      *
      * @param string $slug
-     * @param int $ownerId
+     * @param int    $ownerId
+     *
      * @return CeModelInterface
      */
     public function findCeModelBySlugAndOwnerId($slug, $ownerId = null)
     {
         if (!$ownerId) {
             return $this->findCeModelBy(
-                array(
+                [
                     'slug' => $slug,
                     'type' => CeModelInterface::TYPE_STRATEGY,
                     'ownerId' => null,
-                    'isDeleted' => 0
-                )
+                    'isDeleted' => 0,
+                ]
             );
         }
 
-        return $this->findCeModelBy(array('slug' => $slug, 'ownerId' => $ownerId, 'isDeleted' => 0));
+        return $this->findCeModelBy(['slug' => $slug, 'ownerId' => $ownerId, 'isDeleted' => 0]);
     }
 
     /**
-     * Get child models by parent model
+     * Get child models by parent model.
      *
      * @param CeModelInterface $parent
+     *
      * @return mixed
      */
     public function getChildModels(CeModelInterface $parent)
@@ -308,47 +311,49 @@ class CeModelManager
     }
 
     /**
-     * Find child models by id of parent model
+     * Find child models by id of parent model.
      *
      * @param int $parentId
+     *
      * @return mixed
      */
     public function getChildModelsByParentId($parentId)
     {
-        return $this->findCeModelsBy(array('parentId' => $parentId, 'isDeleted' => 0));
+        return $this->findCeModelsBy(['parentId' => $parentId, 'isDeleted' => 0]);
     }
 
     /**
-     * Find child models by id of parent model and id of owner
+     * Find child models by id of parent model and id of owner.
      *
      * @param int $parentId
      * @param int $ownerId
+     *
      * @return mixed
      */
     public function getChildModelsByParentIdAndOwnerId($parentId, $ownerId)
     {
-        return $this->findCeModelsBy(array('parentId' => $parentId, 'ownerId' => $ownerId, 'isDeleted' => 0));
+        return $this->findCeModelsBy(['parentId' => $parentId, 'ownerId' => $ownerId, 'isDeleted' => 0]);
     }
 
     /**
-     * Find strategy models without id of parent and id of owner
+     * Find strategy models without id of parent and id of owner.
      *
      * @return mixed
      */
     public function getAdminStrategyParentModels()
     {
         return $this->findCeModelsBy(
-            array(
+            [
                 'type' => CeModelInterface::TYPE_STRATEGY,
                 'parentId' => null,
                 'ownerId' => null,
                 'isDeleted' => 0,
-            )
+            ]
         );
     }
 
     /**
-     * Mark model as deleted
+     * Mark model as deleted.
      *
      * @param CeModelInterface $model
      */
@@ -364,7 +369,7 @@ class CeModelManager
             $riskRating = $child->getRiskRating();
 
             if ($riskRating > $model->getRiskRating()) {
-                $child->setRiskRating($riskRating-1);
+                $child->setRiskRating($riskRating - 1);
                 $this->objectManager->persist($child);
             }
         }

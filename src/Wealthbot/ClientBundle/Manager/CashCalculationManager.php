@@ -2,14 +2,12 @@
 
 namespace Wealthbot\ClientBundle\Manager;
 
-
 use Doctrine\ORM\EntityManager;
 use Wealthbot\ClientBundle\Entity\ClientAccount;
 use Wealthbot\UserBundle\Entity\User;
 
 class CashCalculationManager
 {
-
     /** @var  EntityManager */
     private $em;
 
@@ -59,11 +57,10 @@ class CashCalculationManager
                 $date
             );
         }
-        if ($v == 0) {
+        if ($v === 0) {
             $v = $account->getValue();
         }
 
         return $v;
     }
-
 }

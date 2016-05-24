@@ -10,14 +10,13 @@
 namespace Wealthbot\AdminBundle\Form\Type;
 
 use Doctrine\ORM\EntityManager;
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Wealthbot\AdminBundle\Entity\CeModel;
 use Wealthbot\AdminBundle\Form\EventListener\CeModelEntityTypeEventsListener;
 use Wealthbot\AdminBundle\Model\CeModelInterface;
 use Wealthbot\UserBundle\Entity\User;
-use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use Wealthbot\RiaBundle\RiskManagement\BaselinePortfolio;
 
 class CeModelEntityFormType extends AbstractType
 {
@@ -46,24 +45,24 @@ class CeModelEntityFormType extends AbstractType
 
         $subscriber = new CeModelEntityTypeEventsListener($builder->getFormFactory(), $this->em, $this->ceModel, $this->user, $this->isQualifiedModel);
 
-        $builder->add('assetClass', 'entity', array(
-            'class' => 'WealthbotAdminBundle:AssetClass',
-            'empty_value' => 'Choose Asset Class',
+        $builder->add('assetClass', 'entity', [
+            'class' => 'Wealthbot\\AdminBundle\\Entity\\AssetClass',
+            'placeholder' => 'Choose Asset Class',
             'query_builder' => $this->em->getRepository('WealthbotAdminBundle:AssetClass')->getAssetClassesForModelQB($parentModel->getId()),
-        ));
+        ]);
 
         $builder->addEventSubscriber($subscriber);
         $builder->add('percent');
     }
 
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => 'Wealthbot\AdminBundle\Entity\CeModelEntity'
-        ));
+        $resolver->setDefaults([
+            'data_class' => 'Wealthbot\AdminBundle\Entity\CeModelEntity',
+        ]);
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
         if ($this->user->hasRole('ROLE_RIA')) {
             return 'rx_ria_model_entity_form';

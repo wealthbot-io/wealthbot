@@ -9,8 +9,6 @@
 
 namespace Wealthbot\ClientBundle\Model;
 
-
-use Wealthbot\UserBundle\Entity\Profile;
 use Wealthbot\UserBundle\Entity\User;
 
 class UserAccountOwnerAdapter implements AccountOwnerInterface
@@ -28,8 +26,6 @@ class UserAccountOwnerAdapter implements AccountOwnerInterface
             $this->user->setClientPersonalInformation($personalInformation);
         }
     }
-
-
 
     public function getId()
     {
@@ -74,7 +70,7 @@ class UserAccountOwnerAdapter implements AccountOwnerInterface
 
     public function getFullName()
     {
-        return $this->getFirstName() . ' ' . $this->getMiddleName() . ' ' . $this->getLastName();
+        return $this->getFirstName().' '.$this->getMiddleName().' '.$this->getLastName();
     }
 
     public function getEmail()
@@ -217,7 +213,7 @@ class UserAccountOwnerAdapter implements AccountOwnerInterface
 
     public function getPhoneNumber()
     {
-       return $this->user->getProfile()->getPhoneNumber();
+        return $this->user->getProfile()->getPhoneNumber();
     }
 
     public function setPhoneNumber($phoneNumber)
@@ -228,9 +224,10 @@ class UserAccountOwnerAdapter implements AccountOwnerInterface
     }
 
     /**
-     * Set dependents
+     * Set dependents.
      *
-     * @param integer $dependents
+     * @param int $dependents
+     *
      * @return \Wealthbot\ClientBundle\Entity\ClientAdditionalContact
      */
     public function setDependents($dependents)
@@ -241,9 +238,9 @@ class UserAccountOwnerAdapter implements AccountOwnerInterface
     }
 
     /**
-     * Get dependents
+     * Get dependents.
      *
-     * @return integer
+     * @return int
      */
     public function getDependents()
     {
@@ -251,9 +248,10 @@ class UserAccountOwnerAdapter implements AccountOwnerInterface
     }
 
     /**
-     * Set ssn_tin
+     * Set ssn_tin.
      *
      * @param string $ssnTin
+     *
      * @return \Wealthbot\ClientBundle\Entity\ClientAdditionalContact
      */
     public function setSsnTin($ssnTin)
@@ -264,7 +262,7 @@ class UserAccountOwnerAdapter implements AccountOwnerInterface
     }
 
     /**
-     * Get ssn_tin
+     * Get ssn_tin.
      *
      * @return string
      */
@@ -274,9 +272,10 @@ class UserAccountOwnerAdapter implements AccountOwnerInterface
     }
 
     /**
-     * Set income_source
+     * Set income_source.
      *
      * @param string $incomeSource
+     *
      * @return \Wealthbot\ClientBundle\Entity\ClientAdditionalContact
      */
     public function setIncomeSource($incomeSource)
@@ -287,7 +286,7 @@ class UserAccountOwnerAdapter implements AccountOwnerInterface
     }
 
     /**
-     * Get income_source
+     * Get income_source.
      *
      * @return string
      */
@@ -297,9 +296,10 @@ class UserAccountOwnerAdapter implements AccountOwnerInterface
     }
 
     /**
-     * Set employer_name
+     * Set employer_name.
      *
      * @param string $employerName
+     *
      * @return \Wealthbot\ClientBundle\Entity\ClientAdditionalContact
      */
     public function setEmployerName($employerName)
@@ -310,7 +310,7 @@ class UserAccountOwnerAdapter implements AccountOwnerInterface
     }
 
     /**
-     * Get employer_name
+     * Get employer_name.
      *
      * @return string
      */
@@ -320,9 +320,10 @@ class UserAccountOwnerAdapter implements AccountOwnerInterface
     }
 
     /**
-     * Set industry
+     * Set industry.
      *
      * @param string $industry
+     *
      * @return \Wealthbot\ClientBundle\Entity\ClientAdditionalContact
      */
     public function setIndustry($industry)
@@ -333,7 +334,7 @@ class UserAccountOwnerAdapter implements AccountOwnerInterface
     }
 
     /**
-     * Get industry
+     * Get industry.
      *
      * @return string
      */
@@ -343,9 +344,10 @@ class UserAccountOwnerAdapter implements AccountOwnerInterface
     }
 
     /**
-     * Set occupation
+     * Set occupation.
      *
      * @param string $occupation
+     *
      * @return \Wealthbot\ClientBundle\Entity\ClientAdditionalContact
      */
     public function setOccupation($occupation)
@@ -356,7 +358,7 @@ class UserAccountOwnerAdapter implements AccountOwnerInterface
     }
 
     /**
-     * Get occupation
+     * Get occupation.
      *
      * @return string
      */
@@ -366,9 +368,10 @@ class UserAccountOwnerAdapter implements AccountOwnerInterface
     }
 
     /**
-     * Set business_type
+     * Set business_type.
      *
      * @param string $businessType
+     *
      * @return \Wealthbot\ClientBundle\Entity\ClientAdditionalContact
      */
     public function setBusinessType($businessType)
@@ -379,7 +382,7 @@ class UserAccountOwnerAdapter implements AccountOwnerInterface
     }
 
     /**
-     * Get business_type
+     * Get business_type.
      *
      * @return string
      */
@@ -389,9 +392,10 @@ class UserAccountOwnerAdapter implements AccountOwnerInterface
     }
 
     /**
-     * Set employer_address
+     * Set employer_address.
      *
      * @param string $employerAddress
+     *
      * @return \Wealthbot\ClientBundle\Entity\ClientAdditionalContact
      */
     public function setEmployerAddress($employerAddress)
@@ -402,7 +406,7 @@ class UserAccountOwnerAdapter implements AccountOwnerInterface
     }
 
     /**
-     * Get employer_address
+     * Get employer_address.
      *
      * @return string
      */
@@ -412,9 +416,10 @@ class UserAccountOwnerAdapter implements AccountOwnerInterface
     }
 
     /**
-     * Set employment_city
+     * Set employment_city.
      *
      * @param string $employmentCity
+     *
      * @return \Wealthbot\ClientBundle\Entity\ClientAdditionalContact
      */
     public function setEmploymentCity($employmentCity)
@@ -425,7 +430,7 @@ class UserAccountOwnerAdapter implements AccountOwnerInterface
     }
 
     /**
-     * Get employment_city
+     * Get employment_city.
      *
      * @return string
      */
@@ -435,9 +440,10 @@ class UserAccountOwnerAdapter implements AccountOwnerInterface
     }
 
     /**
-     * Set employment_zip
+     * Set employment_zip.
      *
      * @param string $employmentZip
+     *
      * @return \Wealthbot\ClientBundle\Entity\ClientAdditionalContact
      */
     public function setEmploymentZip($employmentZip)
@@ -448,7 +454,7 @@ class UserAccountOwnerAdapter implements AccountOwnerInterface
     }
 
     /**
-     * Get employment_zip
+     * Get employment_zip.
      *
      * @return string
      */
@@ -470,9 +476,10 @@ class UserAccountOwnerAdapter implements AccountOwnerInterface
     }
 
     /**
-     * Set is_senior_political_figure
+     * Set is_senior_political_figure.
      *
-     * @param boolean $isSeniorPoliticalFigure
+     * @param bool $isSeniorPoliticalFigure
+     *
      * @return AccountOwnerInterface
      */
     public function setIsSeniorPoliticalFigure($isSeniorPoliticalFigure)
@@ -483,9 +490,9 @@ class UserAccountOwnerAdapter implements AccountOwnerInterface
     }
 
     /**
-     * Get is_senior_political_figure
+     * Get is_senior_political_figure.
      *
-     * @return boolean
+     * @return bool
      */
     public function getIsSeniorPoliticalFigure()
     {
@@ -493,9 +500,10 @@ class UserAccountOwnerAdapter implements AccountOwnerInterface
     }
 
     /**
-     * Set senior_spf_name
+     * Set senior_spf_name.
      *
      * @param string $seniorSpfName
+     *
      * @return AccountOwnerInterface
      */
     public function setSeniorSpfName($seniorSpfName)
@@ -506,7 +514,7 @@ class UserAccountOwnerAdapter implements AccountOwnerInterface
     }
 
     /**
-     * Get senior_spf_name
+     * Get senior_spf_name.
      *
      * @return string
      */
@@ -516,9 +524,10 @@ class UserAccountOwnerAdapter implements AccountOwnerInterface
     }
 
     /**
-     * Set senior_political_title
+     * Set senior_political_title.
      *
      * @param string $seniorPoliticalTitle
+     *
      * @return AccountOwnerInterface
      */
     public function setSeniorPoliticalTitle($seniorPoliticalTitle)
@@ -529,7 +538,7 @@ class UserAccountOwnerAdapter implements AccountOwnerInterface
     }
 
     /**
-     * Get senior_political_title
+     * Get senior_political_title.
      *
      * @return string
      */
@@ -539,9 +548,10 @@ class UserAccountOwnerAdapter implements AccountOwnerInterface
     }
 
     /**
-     * Set senior_account_owner_relationship
+     * Set senior_account_owner_relationship.
      *
      * @param string $seniorAccountOwnerRelationship
+     *
      * @return AccountOwnerInterface
      */
     public function setSeniorAccountOwnerRelationship($seniorAccountOwnerRelationship)
@@ -552,7 +562,7 @@ class UserAccountOwnerAdapter implements AccountOwnerInterface
     }
 
     /**
-     * Get senior_account_owner_relationship
+     * Get senior_account_owner_relationship.
      *
      * @return string
      */
@@ -562,9 +572,10 @@ class UserAccountOwnerAdapter implements AccountOwnerInterface
     }
 
     /**
-     * Set senior_country_office
+     * Set senior_country_office.
      *
      * @param string $seniorCountryOffice
+     *
      * @return AccountOwnerInterface
      */
     public function setSeniorCountryOffice($seniorCountryOffice)
@@ -575,7 +586,7 @@ class UserAccountOwnerAdapter implements AccountOwnerInterface
     }
 
     /**
-     * Get senior_country_office
+     * Get senior_country_office.
      *
      * @return string
      */
@@ -585,9 +596,10 @@ class UserAccountOwnerAdapter implements AccountOwnerInterface
     }
 
     /**
-     * Set is_publicly_traded_company
+     * Set is_publicly_traded_company.
      *
-     * @param boolean $isPubliclyTradedCompany
+     * @param bool $isPubliclyTradedCompany
+     *
      * @return AccountOwnerInterface
      */
     public function setIsPubliclyTradedCompany($isPubliclyTradedCompany)
@@ -598,9 +610,9 @@ class UserAccountOwnerAdapter implements AccountOwnerInterface
     }
 
     /**
-     * Get is_publicly_traded_company
+     * Get is_publicly_traded_company.
      *
-     * @return boolean
+     * @return bool
      */
     public function getIsPubliclyTradedCompany()
     {
@@ -608,9 +620,10 @@ class UserAccountOwnerAdapter implements AccountOwnerInterface
     }
 
     /**
-     * Set publicle_company_name
+     * Set publicle_company_name.
      *
      * @param string $publicleCompanyName
+     *
      * @return AccountOwnerInterface
      */
     public function setPublicleCompanyName($publicleCompanyName)
@@ -621,19 +634,20 @@ class UserAccountOwnerAdapter implements AccountOwnerInterface
     }
 
     /**
-     * Get publicle_company_name
+     * Get publicle_company_name.
      *
      * @return string
      */
     public function getPublicleCompanyName()
     {
-        return  $this->user->getClientPersonalInformation() ?$this->user->getClientPersonalInformation()->getPublicleCompanyName() : null;
+        return  $this->user->getClientPersonalInformation() ? $this->user->getClientPersonalInformation()->getPublicleCompanyName() : null;
     }
 
     /**
-     * Set publicle_address
+     * Set publicle_address.
      *
      * @param string $publicleAddress
+     *
      * @return AccountOwnerInterface
      */
     public function setPublicleAddress($publicleAddress)
@@ -644,7 +658,7 @@ class UserAccountOwnerAdapter implements AccountOwnerInterface
     }
 
     /**
-     * Get publicle_address
+     * Get publicle_address.
      *
      * @return string
      */
@@ -654,9 +668,10 @@ class UserAccountOwnerAdapter implements AccountOwnerInterface
     }
 
     /**
-     * Set publicle_city
+     * Set publicle_city.
      *
      * @param string $publicleCity
+     *
      * @return AccountOwnerInterface
      */
     public function setPublicleCity($publicleCity)
@@ -667,7 +682,7 @@ class UserAccountOwnerAdapter implements AccountOwnerInterface
     }
 
     /**
-     * Get publicle_city
+     * Get publicle_city.
      *
      * @return string
      */
@@ -677,9 +692,10 @@ class UserAccountOwnerAdapter implements AccountOwnerInterface
     }
 
     /**
-     * Set publicleState
+     * Set publicleState.
      *
      * @param \Wealthbot\AdminBundle\Entity\State $publicleState
+     *
      * @return AccountOwnerInterface
      */
     public function setPublicleState(\Wealthbot\AdminBundle\Entity\State $publicleState = null)
@@ -690,7 +706,7 @@ class UserAccountOwnerAdapter implements AccountOwnerInterface
     }
 
     /**
-     * Get publicleState
+     * Get publicleState.
      *
      * @return \Wealthbot\AdminBundle\Entity\State
      */
@@ -699,11 +715,11 @@ class UserAccountOwnerAdapter implements AccountOwnerInterface
         return $this->user->getClientPersonalInformation() ? $this->user->getClientPersonalInformation()->getPublicleState() : null;
     }
 
-
     /**
-     * Set is_broker_security_exchange_person
+     * Set is_broker_security_exchange_person.
      *
-     * @param boolean $isBrokerSecurityExchangePerson
+     * @param bool $isBrokerSecurityExchangePerson
+     *
      * @return AccountOwnerInterface
      */
     public function setIsBrokerSecurityExchangePerson($isBrokerSecurityExchangePerson)
@@ -714,9 +730,9 @@ class UserAccountOwnerAdapter implements AccountOwnerInterface
     }
 
     /**
-     * Get is_broker_security_exchange_person
+     * Get is_broker_security_exchange_person.
      *
-     * @return boolean
+     * @return bool
      */
     public function getIsBrokerSecurityExchangePerson()
     {
@@ -724,9 +740,10 @@ class UserAccountOwnerAdapter implements AccountOwnerInterface
     }
 
     /**
-     * Set broker_security_exchange_company_name
+     * Set broker_security_exchange_company_name.
      *
      * @param string $brokerSecurityExchangeCompanyName
+     *
      * @return AccountOwnerInterface
      */
     public function setBrokerSecurityExchangeCompanyName($brokerSecurityExchangeCompanyName)
@@ -737,7 +754,7 @@ class UserAccountOwnerAdapter implements AccountOwnerInterface
     }
 
     /**
-     * Get broker_security_exchange_company_name
+     * Get broker_security_exchange_company_name.
      *
      * @return string
      */
@@ -747,9 +764,10 @@ class UserAccountOwnerAdapter implements AccountOwnerInterface
     }
 
     /**
-     * Set broker_security_exchange_compliance_letter
+     * Set broker_security_exchange_compliance_letter.
      *
      * @param string $brokerSecurityExchangeComplianceLetter
+     *
      * @return AccountOwnerInterface
      */
     public function setBrokerSecurityExchangeComplianceLetter($brokerSecurityExchangeComplianceLetter)
@@ -760,7 +778,7 @@ class UserAccountOwnerAdapter implements AccountOwnerInterface
     }
 
     /**
-     * Get broker_security_exchange_compliance_letter
+     * Get broker_security_exchange_compliance_letter.
      *
      * @return string
      */
@@ -770,9 +788,10 @@ class UserAccountOwnerAdapter implements AccountOwnerInterface
     }
 
     /**
-     * Set compliance_letter_file
+     * Set compliance_letter_file.
      *
      * @param $complianceLetterFile
+     *
      * @return AccountOwnerInterface
      */
     public function setComplianceLetterFile($complianceLetterFile)
@@ -783,7 +802,7 @@ class UserAccountOwnerAdapter implements AccountOwnerInterface
     }
 
     /**
-     * Get compliance_letter_file
+     * Get compliance_letter_file.
      *
      * @return \Symfony\Component\HttpFoundation\File\UploadedFile
      */
@@ -793,9 +812,10 @@ class UserAccountOwnerAdapter implements AccountOwnerInterface
     }
 
     /**
-     * Set employment_type
+     * Set employment_type.
      *
      * @param string $employmentType
+     *
      * @return AccountOwnerInterface
      */
     public function setEmploymentType($employmentType)
@@ -806,7 +826,7 @@ class UserAccountOwnerAdapter implements AccountOwnerInterface
     }
 
     /**
-     * Get employment_type
+     * Get employment_type.
      *
      * @return string
      */
@@ -816,9 +836,10 @@ class UserAccountOwnerAdapter implements AccountOwnerInterface
     }
 
     /**
-     * Set marital status
+     * Set marital status.
      *
      * @param string $maritalStatus
+     *
      * @return AccountOwnerInterface
      */
     public function setMaritalStatus($maritalStatus)
@@ -829,7 +850,7 @@ class UserAccountOwnerAdapter implements AccountOwnerInterface
     }
 
     /**
-     * Get marital status
+     * Get marital status.
      *
      * @return string
      */
@@ -885,9 +906,10 @@ class UserAccountOwnerAdapter implements AccountOwnerInterface
     }
 
     /**
-     * Set first name of spouse
+     * Set first name of spouse.
      *
      * @param string $spouseFirstName
+     *
      * @return self
      */
     public function setSpouseFirstName($spouseFirstName)
@@ -900,7 +922,7 @@ class UserAccountOwnerAdapter implements AccountOwnerInterface
     }
 
     /**
-     * Get first name of spouse
+     * Get first name of spouse.
      *
      * @return string
      */
@@ -910,9 +932,10 @@ class UserAccountOwnerAdapter implements AccountOwnerInterface
     }
 
     /**
-     * Set middle name of spouse
+     * Set middle name of spouse.
      *
      * @param string $spouseMiddleName
+     *
      * @return self
      */
     public function setSpouseMiddleName($spouseMiddleName)
@@ -925,7 +948,7 @@ class UserAccountOwnerAdapter implements AccountOwnerInterface
     }
 
     /**
-     * Get middle name of spouse
+     * Get middle name of spouse.
      *
      * @return string
      */
@@ -935,9 +958,10 @@ class UserAccountOwnerAdapter implements AccountOwnerInterface
     }
 
     /**
-     * Set last name of spouse
+     * Set last name of spouse.
      *
      * @param string $spouseLastName
+     *
      * @return self
      */
     public function setSpouseLastName($spouseLastName)
@@ -950,7 +974,7 @@ class UserAccountOwnerAdapter implements AccountOwnerInterface
     }
 
     /**
-     * Get last name of spouse
+     * Get last name of spouse.
      *
      * @return string
      */
@@ -960,9 +984,10 @@ class UserAccountOwnerAdapter implements AccountOwnerInterface
     }
 
     /**
-     * Set spouse_birth_date
+     * Set spouse_birth_date.
      *
      * @param \DateTime $spouseBirthDate
+     *
      * @return self
      */
     public function setSpouseBirthDate($spouseBirthDate)
@@ -975,7 +1000,7 @@ class UserAccountOwnerAdapter implements AccountOwnerInterface
     }
 
     /**
-     * Get spouse_birth_date
+     * Get spouse_birth_date.
      *
      * @return \DateTime|null
      */
@@ -985,7 +1010,7 @@ class UserAccountOwnerAdapter implements AccountOwnerInterface
     }
 
     /**
-     * Create new spouse object for user
+     * Create new spouse object for user.
      *
      * @return \Wealthbot\ClientBundle\Entity\ClientAdditionalContact
      */

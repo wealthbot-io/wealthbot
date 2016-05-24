@@ -2,27 +2,26 @@
 
 namespace Wealthbot\ClientBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
 use Wealthbot\AdminBundle\Model\CeModelInterface;
 use Wealthbot\ClientBundle\Model\ClientPortfolio as BaseClientPortfolio;
 
 /**
- * Wealthbot\ClientBundle\Entity\ClientPortfolio
+ * Wealthbot\ClientBundle\Entity\ClientPortfolio.
  */
 class ClientPortfolio extends BaseClientPortfolio
 {
     /**
-     * @var integer $id
+     * @var int
      */
     private $id;
 
     /**
-     * @var integer $client_id
+     * @var int
      */
     private $client_id;
 
     /**
-     * @var integer $portfolio_id
+     * @var int
      */
     private $portfolio_id;
 
@@ -37,9 +36,9 @@ class ClientPortfolio extends BaseClientPortfolio
     private $portfolio;
 
     /**
-     * @var string $status
+     * @var string
      */
-    protected  $status;
+    protected $status;
 
     /**
      * @var \DateTime
@@ -57,10 +56,9 @@ class ClientPortfolio extends BaseClientPortfolio
     protected $created_at;
 
     /**
-     * @var boolean
+     * @var bool
      */
     protected $is_active;
-
 
     public function __construct()
     {
@@ -68,9 +66,9 @@ class ClientPortfolio extends BaseClientPortfolio
     }
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer 
+     * @return int
      */
     public function getId()
     {
@@ -78,22 +76,23 @@ class ClientPortfolio extends BaseClientPortfolio
     }
 
     /**
-     * Set client_id
+     * Set client_id.
      *
-     * @param integer $clientId
+     * @param int $clientId
+     *
      * @return ClientPortfolio
      */
     public function setClientId($clientId)
     {
         $this->client_id = $clientId;
-    
+
         return $this;
     }
 
     /**
-     * Get client_id
+     * Get client_id.
      *
-     * @return integer 
+     * @return int
      */
     public function getClientId()
     {
@@ -101,22 +100,23 @@ class ClientPortfolio extends BaseClientPortfolio
     }
 
     /**
-     * Set portfolio_id
+     * Set portfolio_id.
      *
-     * @param integer $portfolioId
+     * @param int $portfolioId
+     *
      * @return ClientPortfolio
      */
     public function setPortfolioId($portfolioId)
     {
         $this->portfolio_id = $portfolioId;
-    
+
         return $this;
     }
 
     /**
-     * Get portfolio_id
+     * Get portfolio_id.
      *
-     * @return integer 
+     * @return int
      */
     public function getPortfolioId()
     {
@@ -124,20 +124,21 @@ class ClientPortfolio extends BaseClientPortfolio
     }
 
     /**
-     * Set client
+     * Set client.
      *
      * @param \Wealthbot\UserBundle\Entity\User $client
+     *
      * @return ClientPortfolio
      */
     public function setClient(\Wealthbot\UserBundle\Entity\User $client = null)
     {
         $this->client = $client;
-    
+
         return $this;
     }
 
     /**
-     * Get client
+     * Get client.
      *
      * @return \Wealthbot\UserBundle\Entity\User
      */
@@ -147,20 +148,21 @@ class ClientPortfolio extends BaseClientPortfolio
     }
 
     /**
-     * Set portfolio
+     * Set portfolio.
      *
      * @param CeModelInterface $portfolio
+     *
      * @return ClientPortfolio
      */
     public function setPortfolio(CeModelInterface $portfolio = null)
     {
         $this->portfolio = $portfolio;
-    
+
         return $this;
     }
 
     /**
-     * Get portfolio
+     * Get portfolio.
      *
      * @return CeModelInterface
      */
@@ -170,10 +172,12 @@ class ClientPortfolio extends BaseClientPortfolio
     }
 
     /**
-     * Set status
+     * Set status.
      *
      * @param string $status
+     *
      * @return ClientPortfolio
+     *
      * @throws \InvalidArgumentException
      */
     public function setStatus($status)
@@ -182,9 +186,9 @@ class ClientPortfolio extends BaseClientPortfolio
     }
 
     /**
-     * Get status
+     * Get status.
      *
-     * @return string 
+     * @return string
      */
     public function getStatus()
     {
@@ -192,9 +196,10 @@ class ClientPortfolio extends BaseClientPortfolio
     }
 
     /**
-     * Set approved_at
+     * Set approved_at.
      *
      * @param \DateTime $approvedAt
+     *
      * @return ClientPortfolio
      */
     public function setApprovedAt($approvedAt)
@@ -203,9 +208,9 @@ class ClientPortfolio extends BaseClientPortfolio
     }
 
     /**
-     * Get approved_at
+     * Get approved_at.
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getApprovedAt()
     {
@@ -213,9 +218,10 @@ class ClientPortfolio extends BaseClientPortfolio
     }
 
     /**
-     * Set accepted_at
+     * Set accepted_at.
      *
      * @param \DateTime $acceptedAt
+     *
      * @return ClientPortfolio
      */
     public function setAcceptedAt($acceptedAt)
@@ -226,7 +232,7 @@ class ClientPortfolio extends BaseClientPortfolio
     }
 
     /**
-     * Get accepted_at
+     * Get accepted_at.
      *
      * @return \DateTime
      */
@@ -236,9 +242,10 @@ class ClientPortfolio extends BaseClientPortfolio
     }
 
     /**
-     * Set created_at
+     * Set created_at.
      *
      * @param \DateTime $createdAt
+     *
      * @return ClientPortfolio
      */
     public function setCreatedAt($createdAt)
@@ -249,7 +256,7 @@ class ClientPortfolio extends BaseClientPortfolio
     }
 
     /**
-     * Get created_at
+     * Get created_at.
      *
      * @return \DateTime
      */
@@ -259,9 +266,10 @@ class ClientPortfolio extends BaseClientPortfolio
     }
 
     /**
-     * Set is_active
+     * Set is_active.
      *
-     * @param boolean $isActive
+     * @param bool $isActive
+     *
      * @return ClientPortfolio
      */
     public function setIsActive($isActive)
@@ -272,9 +280,9 @@ class ClientPortfolio extends BaseClientPortfolio
     }
 
     /**
-     * Get is_active
+     * Get is_active.
      *
-     * @return boolean
+     * @return bool
      */
     public function getIsActive()
     {

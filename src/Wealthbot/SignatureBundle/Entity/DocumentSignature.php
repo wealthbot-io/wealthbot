@@ -2,27 +2,26 @@
 
 namespace Wealthbot\SignatureBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
 use Wealthbot\SignatureBundle\Exception\InvalidEnvelopeStatusException;
 use Wealthbot\SignatureBundle\Model\Envelope;
 
 /**
- * DocumentSignature
+ * DocumentSignature.
  */
 class DocumentSignature
 {
     /**
-     * @var integer
+     * @var int
      */
     private $id;
 
     /**
-     * @var integer
+     * @var int
      */
     private $source_id;
 
     /**
-     * @var integer
+     * @var int
      */
     private $document_id;
 
@@ -50,7 +49,7 @@ class DocumentSignature
     const TYPE_CHANGE_BENEFICIARY = 'change_beneficiary';
 
     //const TYPE_BANK_INFORMATION = 'bank_information';
-    
+
     // TODO: uncomment after beta release
     /*const TYPE_CHANGE_ADDRESS = 'change_address';*/
 
@@ -62,7 +61,7 @@ class DocumentSignature
     private $status;
 
     /**
-     * @var boolean
+     * @var bool
      */
     private $active;
 
@@ -82,18 +81,18 @@ class DocumentSignature
     private $ownerSignatures;
 
     /**
-     * Constructor
+     * Constructor.
      */
     public function __construct()
     {
         $this->ownerSignatures = new \Doctrine\Common\Collections\ArrayCollection();
         $this->active = false;
     }
-    
+
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer 
+     * @return int
      */
     public function getId()
     {
@@ -101,9 +100,10 @@ class DocumentSignature
     }
 
     /**
-     * Set source_id
+     * Set source_id.
      *
-     * @param integer $sourceId
+     * @param int $sourceId
+     *
      * @return DocumentSignature
      */
     public function setSourceId($sourceId)
@@ -114,9 +114,9 @@ class DocumentSignature
     }
 
     /**
-     * Get source_id
+     * Get source_id.
      *
-     * @return integer
+     * @return int
      */
     public function getSourceId()
     {
@@ -124,9 +124,10 @@ class DocumentSignature
     }
 
     /**
-     * Set document_id
+     * Set document_id.
      *
-     * @param integer $documentId
+     * @param int $documentId
+     *
      * @return DocumentSignature
      */
     public function setDocumentId($documentId)
@@ -137,9 +138,9 @@ class DocumentSignature
     }
 
     /**
-     * Get document_id
+     * Get document_id.
      *
-     * @return integer
+     * @return int
      */
     public function getDocumentId()
     {
@@ -147,9 +148,10 @@ class DocumentSignature
     }
 
     /**
-     * Set document
+     * Set document.
      *
      * @param \Wealthbot\UserBundle\Entity\Document $document
+     *
      * @return DocumentSignature
      */
     public function setDocument(\Wealthbot\UserBundle\Entity\Document $document = null)
@@ -160,7 +162,7 @@ class DocumentSignature
     }
 
     /**
-     * Get document
+     * Get document.
      *
      * @return \Wealthbot\UserBundle\Entity\Document
      */
@@ -170,22 +172,23 @@ class DocumentSignature
     }
 
     /**
-     * Set docusign_envelope_id
+     * Set docusign_envelope_id.
      *
      * @param string $docusignEnvelopeId
+     *
      * @return DocumentSignature
      */
     public function setDocusignEnvelopeId($docusignEnvelopeId)
     {
         $this->docusign_envelope_id = $docusignEnvelopeId;
-    
+
         return $this;
     }
 
     /**
-     * Get docusign_envelope_id
+     * Get docusign_envelope_id.
      *
-     * @return string 
+     * @return string
      */
     public function getDocusignEnvelopeId()
     {
@@ -193,14 +196,14 @@ class DocumentSignature
     }
 
     /**
-     * Get type choices
+     * Get type choices.
      *
      * @return array
      */
     public static function getTypeChoices()
     {
         if (null === self::$_types) {
-            self::$_types = array();
+            self::$_types = [];
 
             $rClass = new \ReflectionClass('Wealthbot\SignatureBundle\Entity\DocumentSignature');
             $prefix = 'TYPE_';
@@ -216,10 +219,12 @@ class DocumentSignature
     }
 
     /**
-     * Set type
+     * Set type.
      *
      * @param $type
+     *
      * @return $this
+     *
      * @throws \InvalidArgumentException
      */
     public function setType($type)
@@ -232,14 +237,14 @@ class DocumentSignature
         }
 
         $this->type = $type;
-    
+
         return $this;
     }
 
     /**
-     * Get type
+     * Get type.
      *
-     * @return string 
+     * @return string
      */
     public function getType()
     {
@@ -247,10 +252,12 @@ class DocumentSignature
     }
 
     /**
-     * Set status
+     * Set status.
      *
      * @param string $status
+     *
      * @return $this
+     *
      * @throws \Wealthbot\SignatureBundle\Exception\InvalidEnvelopeStatusException
      */
     public function setStatus($status)
@@ -265,9 +272,9 @@ class DocumentSignature
     }
 
     /**
-     * Get status
+     * Get status.
      *
-     * @return string 
+     * @return string
      */
     public function getStatus()
     {
@@ -276,43 +283,44 @@ class DocumentSignature
 
     /**
      * Is signature created.
-     * Returns true if status is 'created' or 'sent'
+     * Returns true if status is 'created' or 'sent'.
      *
      *
      * @return bool
      */
     public function isCreated()
     {
-        return (Envelope::STATUS_CREATED === $this->status);
+        return Envelope::STATUS_CREATED === $this->status;
     }
 
     /**
-     * Is signature completed
+     * Is signature completed.
      *
      * @return bool
      */
     public function isCompleted()
     {
-        return (Envelope::STATUS_COMPLETED === $this->status || Envelope::STATUS_SIGNED === $this->status);
+        return Envelope::STATUS_COMPLETED === $this->status || Envelope::STATUS_SIGNED === $this->status;
     }
 
     /**
-     * Set active
+     * Set active.
      *
-     * @param boolean $active
+     * @param bool $active
+     *
      * @return DocumentSignature
      */
     public function setActive($active)
     {
         $this->active = $active;
-    
+
         return $this;
     }
 
     /**
-     * Get active
+     * Get active.
      *
-     * @return boolean 
+     * @return bool
      */
     public function getActive()
     {
@@ -320,7 +328,7 @@ class DocumentSignature
     }
 
     /**
-     * Is active
+     * Is active.
      *
      * @return bool
      */
@@ -330,22 +338,23 @@ class DocumentSignature
     }
 
     /**
-     * Set created
+     * Set created.
      *
      * @param \DateTime $created
+     *
      * @return DocumentSignature
      */
     public function setCreated($created)
     {
         $this->created = $created;
-    
+
         return $this;
     }
 
     /**
-     * Get created
+     * Get created.
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getCreated()
     {
@@ -353,22 +362,23 @@ class DocumentSignature
     }
 
     /**
-     * Set updated
+     * Set updated.
      *
      * @param \DateTime $updated
+     *
      * @return DocumentSignature
      */
     public function setUpdated($updated)
     {
         $this->updated = $updated;
-    
+
         return $this;
     }
 
     /**
-     * Get updated
+     * Get updated.
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getUpdated()
     {
@@ -376,20 +386,21 @@ class DocumentSignature
     }
 
     /**
-     * Add ownerSignatures
+     * Add ownerSignatures.
      *
      * @param \Wealthbot\SignatureBundle\Entity\DocumentOwnerSignature $ownerSignatures
+     *
      * @return DocumentSignature
      */
     public function addOwnerSignature(\Wealthbot\SignatureBundle\Entity\DocumentOwnerSignature $ownerSignatures)
     {
         $this->ownerSignatures[] = $ownerSignatures;
-    
+
         return $this;
     }
 
     /**
-     * Remove ownerSignatures
+     * Remove ownerSignatures.
      *
      * @param \Wealthbot\SignatureBundle\Entity\DocumentOwnerSignature $ownerSignatures
      */
@@ -399,9 +410,9 @@ class DocumentSignature
     }
 
     /**
-     * Get ownerSignatures
+     * Get ownerSignatures.
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getOwnerSignatures()
     {
@@ -409,7 +420,7 @@ class DocumentSignature
     }
 
     /**
-     * Get signature order
+     * Get signature order.
      *
      * @return int
      */

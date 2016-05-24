@@ -9,13 +9,12 @@
 
 namespace Wealthbot\ClientBundle\Form\Handler;
 
-
 use Doctrine\ORM\EntityManager;
+use Symfony\Component\Form\FormInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Wealthbot\ClientBundle\Entity\ClientAccount;
 use Wealthbot\ClientBundle\Model\AccountOwnerInterface;
 use Wealthbot\ClientBundle\Model\UserAccountOwnerAdapter;
-use Symfony\Component\Form\FormInterface;
-use Symfony\Component\HttpFoundation\Request;
 
 class TransferBasicFormHandler
 {
@@ -33,7 +32,7 @@ class TransferBasicFormHandler
     public function process(ClientAccount $account, $isPreSaved = false)
     {
         if ($this->request->isMethod('post')) {
-            $this->form->bind($this->request);
+            $this->form->handleRequest($this->request);
 
             if ($this->form->isValid()) {
                 $this->onSuccess($account, $isPreSaved);

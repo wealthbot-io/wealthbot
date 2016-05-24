@@ -1,15 +1,13 @@
 class puphpet::adminer(
   $location,
-  $owner       = 'www-data',
-  $php_package = 'php'
+  $owner = 'www-data'
 ) {
 
   if ! defined(File[$location]) {
     file { $location:
       replace => no,
       ensure  => directory,
-      mode    => 775,
-      require => Package[$php_package]
+      mode    => '0775',
     }
   }
 

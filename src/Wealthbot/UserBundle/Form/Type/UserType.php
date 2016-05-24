@@ -2,11 +2,10 @@
 
 namespace Wealthbot\UserBundle\Form\Type;
 
-use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use FOS\UserBundle\Form\Type\RegistrationFormType as BaseType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Wealthbot\UserBundle\Entity\Profile;
-use Wealthbot\UserBundle\Form\Type\ProfileType;
 
 class UserType extends BaseType
 {
@@ -17,14 +16,14 @@ class UserType extends BaseType
         $builder->add('profile', new ProfileType());
     }
 
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => 'Wealthbot\UserBundle\Entity\User'
-        ));
+        $resolver->setDefaults([
+            'data_class' => 'Wealthbot\UserBundle\Entity\User',
+        ]);
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'user';
     }

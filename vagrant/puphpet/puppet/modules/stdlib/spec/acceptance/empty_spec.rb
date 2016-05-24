@@ -31,6 +31,20 @@ describe 'empty function', :unless => UNSUPPORTED_PLATFORMS.include?(fact('opera
         expect(r.stdout).to match(/Notice: output correct/)
       end
     end
+    it 'handles numerical values' do
+      pp = <<-EOS
+      $a = 7
+      $b = false
+      $o = empty($a)
+      if $o == $b {
+        notify { 'output correct': }
+      }
+      EOS
+
+      apply_manifest(pp, :catch_failures => true) do |r|
+        expect(r.stdout).to match(/Notice: output correct/)
+      end
+    end
   end
   describe 'failure' do
     it 'handles improper argument counts'

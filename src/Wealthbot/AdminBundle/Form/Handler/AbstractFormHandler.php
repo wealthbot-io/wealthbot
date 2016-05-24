@@ -9,7 +9,6 @@
 
 namespace Wealthbot\AdminBundle\Form\Handler;
 
-
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
@@ -23,7 +22,7 @@ abstract class AbstractFormHandler
 
     abstract protected function success();
 
-    public function __construct(Form $form, Request $request, EntityManager $em, array $options = array())
+    public function __construct(Form $form, Request $request, EntityManager $em, array $options = [])
     {
         $this->form = $form;
         $this->request = $request;
@@ -33,7 +32,7 @@ abstract class AbstractFormHandler
 
     public function process()
     {
-        $this->form->bind($this->request);
+        $this->form->handleRequest($this->request);
 
         if ($this->form->isValid()) {
             $this->success();
@@ -42,10 +41,12 @@ abstract class AbstractFormHandler
         }
 
         $this->error();
+
         return false;
     }
 
-    protected function getOption($name, $defaultValue = null) {
+    protected function getOption($name, $defaultValue = null)
+    {
         if ($this->hasOption($name)) {
             return $this->options[$name];
         }
@@ -53,10 +54,12 @@ abstract class AbstractFormHandler
         return $defaultValue;
     }
 
-    protected function hasOption($name) {
+    protected function hasOption($name)
+    {
         return isset($this->options[$name]);
     }
 
-    protected function error() {}
-
+    protected function error()
+    {
+    }
 }

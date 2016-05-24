@@ -9,9 +9,14 @@
 
 namespace Wealthbot\RiaBundle\Form\EventListener;
 
-
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\Form\FormError;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
+use Symfony\Component\Form\FormFactoryInterface;
+use Symfony\Component\Form\FormInterface;
 use Wealthbot\ClientBundle\Entity\AccountGroup;
 use Wealthbot\ClientBundle\Entity\AccountGroupType;
 use Wealthbot\ClientBundle\Entity\ClientAccount;
@@ -20,16 +25,9 @@ use Wealthbot\ClientBundle\Form\Type\AccountTransferInformationFormType;
 use Wealthbot\ClientBundle\Model\ClientAccountOwner;
 use Wealthbot\RiaBundle\Form\Type\RiaClientAccountOwnerFormType;
 use Wealthbot\UserBundle\Entity\User;
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\Form\FormError;
-use Symfony\Component\Form\FormEvent;
-use Symfony\Component\Form\FormEvents;
-use Symfony\Component\Form\FormFactoryInterface;
-use Symfony\Component\Form\FormInterface;
 
 class RiaClientAccountFormEventSubscriber implements EventSubscriberInterface
 {
-
     private $factory;
     private $client;
     private $em;
@@ -45,15 +43,15 @@ class RiaClientAccountFormEventSubscriber implements EventSubscriberInterface
 
     public static function getSubscribedEvents()
     {
-        return array(
+        return [
             FormEvents::PRE_SET_DATA => 'preSetData',
-            FormEvents::PRE_BIND     => 'preBind',
-            FormEvents::BIND         => 'bind'
-        );
+            FormEvents::PRE_SUBMIT => 'preBind',
+            FormEvents::SUBMIT => 'bind',
+        ];
     }
 
     /**
-     * PRE_SET_DATA event handler
+     * PRE_SET_DATA event handler.
      *
      * @param FormEvent $event
      */
@@ -80,7 +78,7 @@ class RiaClientAccountFormEventSubscriber implements EventSubscriberInterface
     }
 
     /**
-     * PRE_BIND event handler
+     * PRE_SUBMIT event handler.
      *
      * @param FormEvent $event
      */
@@ -107,7 +105,7 @@ class RiaClientAccountFormEventSubscriber implements EventSubscriberInterface
     }
 
     /**
-     * BIND event handler
+     * BIND event handler.
      *
      * @param FormEvent $event
      */
@@ -120,7 +118,7 @@ class RiaClientAccountFormEventSubscriber implements EventSubscriberInterface
     }
 
     /**
-     * Update form fields by group
+     * Update form fields by group.
      *
      * @param FormInterface $form
      * @param $group
@@ -137,9 +135,9 @@ class RiaClientAccountFormEventSubscriber implements EventSubscriberInterface
 
             case AccountGroup::GROUP_OLD_EMPLOYER_RETIREMENT:
                 $form->add(
-                    $this->factory->createNamed('financial_institution', 'text', null, array(
-                        'label' => 'Former Employer'
-                    ))
+                    $this->factory->createNamed('financial_institution', 'text', null, [
+                        'label' => 'Former Employer',
+                    ])
                 );
                 break;
 
@@ -154,16 +152,16 @@ class RiaClientAccountFormEventSubscriber implements EventSubscriberInterface
                 }
 
                 $form->add(
-                    $this->factory->createNamed('financial_institution', 'text', null, array(
+                    $this->factory->createNamed('financial_institution', 'text', null, [
                         'label' => 'Employer Name',
-                        'data' => $company
-                    ))
+                        'data' => $company,
+                    ])
                 )->add(
-                    $this->factory->createNamed('plan_provider', 'text', null, array(
+                    $this->factory->createNamed('plan_provider', 'text', null, [
                             'label' => 'Retirement Plan Provide',
-                            'property_path' => false,
-                            'data' => $provider
-                    ))
+                            'mapped' => false,
+                            'data' => $provider,
+                    ])
                 );
                 break;
 
@@ -171,15 +169,15 @@ class RiaClientAccountFormEventSubscriber implements EventSubscriberInterface
                 //$group = AccountGroup::GROUP_FINANCIAL_INSTITUTION;
 
                 $form->add(
-                    $this->factory->createNamed('financial_institution', 'text', null, array(
-                        'label' => 'Financial Institution'
-                    ))
+                    $this->factory->createNamed('financial_institution', 'text', null, [
+                        'label' => 'Financial Institution',
+                    ])
                 )->add(
                     $this->factory->createNamed(
                         'transferInformation',
                         new AccountTransferInformationFormType($this->em),
                         null,
-                        array('label' => ' ')
+                        ['label' => ' ']
                     )
                 );
                 break;
@@ -196,7 +194,7 @@ class RiaClientAccountFormEventSubscriber implements EventSubscriberInterface
     }
 
     /**
-     * Update groupType field by group
+     * Update groupType field by group.
      *
      * @param FormInterface $form
      * @param $group
@@ -204,9 +202,9 @@ class RiaClientAccountFormEventSubscriber implements EventSubscriberInterface
     private function updateGroupTypeField(FormInterface $form, $group)
     {
         $form->add(
-            $this->factory->createNamed('groupType', 'entity', null, array(
-                'class' => 'WealthbotClientBundle:AccountGroupType',
-                'query_builder' => function(EntityRepository $er) use ($group) {
+            $this->factory->createNamed('groupType', 'entity', null, [
+                'class' => 'Wealthbot\\ClientBundle\\Entity\\AccountGroupType',
+                'query_builder' => function (EntityRepository $er) use ($group) {
                     $qb = $er->createQueryBuilder('gt');
                     $qb->leftJoin('gt.group', 'g')
                         ->leftJoin('gt.type', 't')
@@ -218,14 +216,15 @@ class RiaClientAccountFormEventSubscriber implements EventSubscriberInterface
                 },
                 'property' => 'type.name',
                 'label' => 'Account Type',
-                'empty_value' => 'Select Type'
-            ))
+                'placeholder' => 'Select Type',
+                'auto_initialize' => false,
+            ])
         );
     }
 
     private function updateOwnersField(FormInterface $form, AccountGroupType $groupType, ClientAccount $account = null)
     {
-        $isJoint = ($groupType->getType() && $groupType->getType()->getName() == 'Joint Account');
+        $isJoint = ($groupType->getType() && $groupType->getType()->getName() === 'Joint Account');
 
         if ($this->client->isMarried() || $isJoint) {
             $form->add(
@@ -233,16 +232,16 @@ class RiaClientAccountFormEventSubscriber implements EventSubscriberInterface
                     'owners',
                     new RiaClientAccountOwnerFormType($this->client, $account, $isJoint),
                     null,
-                    array(
-                        'mapped' => false
-                    )
+                    [
+                        'mapped' => false,
+                    ]
                 )
             );
         }
     }
 
     /**
-     * Validate form data
+     * Validate form data.
      *
      * @param FormInterface $form
      * @param ClientAccount $data
@@ -254,7 +253,7 @@ class RiaClientAccountFormEventSubscriber implements EventSubscriberInterface
         if ($data) {
             $data->setClient($this->client);
 
-            if ($group == AccountGroup::GROUP_EMPLOYER_RETIREMENT) {
+            if ($group === AccountGroup::GROUP_EMPLOYER_RETIREMENT) {
                 $data->setMonthlyDistributions(null);
                 $data->setSasCash(null);
 
@@ -264,12 +263,12 @@ class RiaClientAccountFormEventSubscriber implements EventSubscriberInterface
 
                 if ($form->get('plan_provider')->getData()) {
                     $financialInstitution = $data->getFinancialInstitution();
-                    $data->setFinancialInstitution($form->get('plan_provider')->getData()." (".$financialInstitution.")");
+                    $data->setFinancialInstitution($form->get('plan_provider')->getData().' ('.$financialInstitution.')');
                 }
             }
 
             if ($this->validateAdditionalFields && $form->has(('owners'))) {
-                if ($data->getTypeName() == 'Joint Account') {
+                if ($data->getTypeName() === 'Joint Account') {
                     $ownerTypes = $form->get('owners')->get('owner_types')->getData();
 
                     if (!is_array($ownerTypes) || count($ownerTypes) !== 2) {
@@ -282,28 +281,27 @@ class RiaClientAccountFormEventSubscriber implements EventSubscriberInterface
                         /** @var ClientAdditionalContact $otherContact */
                         $otherContact = $form->get('owners')->get('other_contact')->getData();
 
-                        if (!$otherContact->getFirstName() || trim($otherContact->getFirstName() == '')) {
+                        if (!$otherContact->getFirstName() || trim($otherContact->getFirstName() === '')) {
                             $form->get('owners')->get('other_contact')->get('first_name')->addError(
                                 new FormError('Required.')
                             );
                         }
-                        if (!$otherContact->getMiddleName() || trim($otherContact->getMiddleName() == '')) {
+                        if (!$otherContact->getMiddleName() || trim($otherContact->getMiddleName() === '')) {
                             $form->get('owners')->get('other_contact')->get('middle_name')->addError(
                                 new FormError('Required.')
                             );
                         }
-                        if (!$otherContact->getLastName() || trim($otherContact->getLastName() == '')) {
+                        if (!$otherContact->getLastName() || trim($otherContact->getLastName() === '')) {
                             $form->get('owners')->get('other_contact')->get('last_name')->addError(
                                 new FormError('Required.')
                             );
                         }
-                        if (!$otherContact->getRelationship() || trim($otherContact->getRelationship() == '')) {
+                        if (!$otherContact->getRelationship() || trim($otherContact->getRelationship() === '')) {
                             $form->get('owners')->get('other_contact')->get('relationship')->addError(
                                 new FormError('Required.')
                             );
                         }
                     }
-
                 } elseif ($this->client->isMarried()) {
                     $ownerType = $form->get('owners')->get('owner_types')->getData();
                     $choices = ClientAccountOwner::getOwnerTypeChoices();
@@ -319,5 +317,4 @@ class RiaClientAccountFormEventSubscriber implements EventSubscriberInterface
             }
         }
     }
-
 }

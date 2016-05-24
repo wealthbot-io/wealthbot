@@ -2,20 +2,18 @@
 
 namespace Wealthbot\AdminBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-
 /**
- * SecurityPrice
+ * SecurityPrice.
  */
 class SecurityPrice
 {
     /**
-     * @var integer
+     * @var int
      */
     private $id;
 
     /**
-     * @var integer
+     * @var int
      */
     private $security_id;
 
@@ -30,12 +28,12 @@ class SecurityPrice
     private $source;
 
     /**
-     * @var boolean
+     * @var bool
      */
     private $is_posted;
 
     /**
-     * @var boolean
+     * @var bool
      */
     private $is_current;
 
@@ -49,16 +47,15 @@ class SecurityPrice
      */
     private $security;
 
-
     public function __construct()
     {
         $this->is_posted = true;
     }
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer 
+     * @return int
      */
     public function getId()
     {
@@ -66,22 +63,23 @@ class SecurityPrice
     }
 
     /**
-     * Set security_id
+     * Set security_id.
      *
-     * @param integer $securityId
+     * @param int $securityId
+     *
      * @return SecurityPrice
      */
     public function setSecurityId($securityId)
     {
         $this->security_id = $securityId;
-    
+
         return $this;
     }
 
     /**
-     * Get security_id
+     * Get security_id.
      *
-     * @return integer 
+     * @return int
      */
     public function getSecurityId()
     {
@@ -89,22 +87,23 @@ class SecurityPrice
     }
 
     /**
-     * Set price
+     * Set price.
      *
      * @param float $price
+     *
      * @return SecurityPrice
      */
     public function setPrice($price)
     {
         $this->price = $price;
-    
+
         return $this;
     }
 
     /**
-     * Get price
+     * Get price.
      *
-     * @return float 
+     * @return float
      */
     public function getPrice()
     {
@@ -112,22 +111,23 @@ class SecurityPrice
     }
 
     /**
-     * Set source
+     * Set source.
      *
      * @param string $source
+     *
      * @return SecurityPrice
      */
     public function setSource($source)
     {
         $this->source = $source;
-    
+
         return $this;
     }
 
     /**
-     * Get source
+     * Get source.
      *
-     * @return string 
+     * @return string
      */
     public function getSource()
     {
@@ -135,22 +135,23 @@ class SecurityPrice
     }
 
     /**
-     * Set is_posted
+     * Set is_posted.
      *
-     * @param boolean $isPosted
+     * @param bool $isPosted
+     *
      * @return SecurityPrice
      */
     public function setIsPosted($isPosted)
     {
         $this->is_posted = $isPosted;
-    
+
         return $this;
     }
 
     /**
-     * Get is_posted
+     * Get is_posted.
      *
-     * @return boolean 
+     * @return bool
      */
     public function getIsPosted()
     {
@@ -158,22 +159,23 @@ class SecurityPrice
     }
 
     /**
-     * Set is_current
+     * Set is_current.
      *
-     * @param boolean $isCurrent
+     * @param bool $isCurrent
+     *
      * @return SecurityPrice
      */
     public function setIsCurrent($isCurrent)
     {
         $this->is_current = $isCurrent;
-    
+
         return $this;
     }
 
     /**
-     * Get is_current
+     * Get is_current.
      *
-     * @return boolean 
+     * @return bool
      */
     public function getIsCurrent()
     {
@@ -181,22 +183,23 @@ class SecurityPrice
     }
 
     /**
-     * Set datetime
+     * Set datetime.
      *
      * @param \DateTime $datetime
+     *
      * @return SecurityPrice
      */
     public function setDatetime($datetime)
     {
         $this->datetime = $datetime;
-    
+
         return $this;
     }
 
     /**
-     * Get datetime
+     * Get datetime.
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getDatetime()
     {
@@ -204,22 +207,23 @@ class SecurityPrice
     }
 
     /**
-     * Set security
+     * Set security.
      *
      * @param \Wealthbot\AdminBundle\Entity\Security $security
+     *
      * @return SecurityPrice
      */
     public function setSecurity(\Wealthbot\AdminBundle\Entity\Security $security = null)
     {
         $this->security = $security;
-    
+
         return $this;
     }
 
     /**
-     * Get security
+     * Get security.
      *
-     * @return \Wealthbot\AdminBundle\Entity\Security 
+     * @return \Wealthbot\AdminBundle\Entity\Security
      */
     public function getSecurity()
     {

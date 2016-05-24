@@ -9,9 +9,8 @@
 
 namespace Wealthbot\AdminBundle\Event;
 
-
-use Wealthbot\UserBundle\Entity\User;
 use Symfony\Component\EventDispatcher\Event;
+use Wealthbot\UserBundle\Entity\User;
 
 class UserHistoryEvent extends Event
 {

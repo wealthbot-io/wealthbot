@@ -2,14 +2,11 @@
 
 namespace Wealthbot\ClientBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-
 /**
- * BillItem
+ * BillItem.
  */
 class BillItem
 {
-
     /**
      * Bill statuses
      * Must be integer for getClientBillStatus
@@ -18,17 +15,17 @@ class BillItem
      *
      * @const
      */
-    const STATUS_BILL_NOT_GENERATED         = 1;
-    const STATUS_BILL_GENERATED             = 2;
-    const STATUS_BILL_APPROVED              = 3;
-    const STATUS_FEE_CANNOT_BE_GENERATED    = 4;
-    const STATUS_FEE_GENERATED              = 5;
-    const STATUS_BILL_COLLECTED             = 6;
-    const STATUS_WILL_NOT_BILL              = 7;
-    const STATUS_BILL_IS_NOT_APPLICABLE     = 8;
+    const STATUS_BILL_NOT_GENERATED = 1;
+    const STATUS_BILL_GENERATED = 2;
+    const STATUS_BILL_APPROVED = 3;
+    const STATUS_FEE_CANNOT_BE_GENERATED = 4;
+    const STATUS_FEE_GENERATED = 5;
+    const STATUS_BILL_COLLECTED = 6;
+    const STATUS_WILL_NOT_BILL = 7;
+    const STATUS_BILL_IS_NOT_APPLICABLE = 8;
 
     /**
-     * @var integer
+     * @var int
      */
     private $id;
 
@@ -53,7 +50,7 @@ class BillItem
     private $adminFee;
 
     /**
-     * @var integer
+     * @var int
      */
     private $status;
 
@@ -68,7 +65,7 @@ class BillItem
     private $bill;
 
     /**
-     * @var double
+     * @var float
      */
     private $custodianFee;
 
@@ -88,9 +85,9 @@ class BillItem
     }
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer 
+     * @return int
      */
     public function getId()
     {
@@ -98,9 +95,10 @@ class BillItem
     }
 
     /**
-     * Set feeBilled
+     * Set feeBilled.
      *
      * @param float $feeBilled
+     *
      * @return BillItem
      */
     public function setFeeBilled($feeBilled)
@@ -111,9 +109,9 @@ class BillItem
     }
 
     /**
-     * Get feeBilled
+     * Get feeBilled.
      *
-     * @return float 
+     * @return float
      */
     public function getFeeBilled()
     {
@@ -121,9 +119,10 @@ class BillItem
     }
 
     /**
-     * Set feeCollected
+     * Set feeCollected.
      *
      * @param float $feeCollected
+     *
      * @return BillItem
      */
     public function setFeeCollected($feeCollected)
@@ -134,9 +133,9 @@ class BillItem
     }
 
     /**
-     * Get feeCollected
+     * Get feeCollected.
      *
-     * @return float 
+     * @return float
      */
     public function getFeeCollected()
     {
@@ -144,9 +143,10 @@ class BillItem
     }
 
     /**
-     * Set status
+     * Set status.
      *
-     * @param integer $status
+     * @param int $status
+     *
      * @return BillItem
      */
     public function setStatus($status)
@@ -157,9 +157,9 @@ class BillItem
     }
 
     /**
-     * Get status
+     * Get status.
      *
-     * @return integer 
+     * @return int
      */
     public function getStatus()
     {
@@ -261,6 +261,4 @@ class BillItem
     {
         return $this->createdAt;
     }
-
-
 }

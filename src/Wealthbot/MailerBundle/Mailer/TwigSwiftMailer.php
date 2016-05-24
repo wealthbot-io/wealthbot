@@ -7,19 +7,16 @@
 
 namespace Wealthbot\MailerBundle\Mailer;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManager;
+use Symfony\Component\DependencyInjection\Exception\ParameterNotFoundException;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Wealthbot\AdminBundle\Entity\Custodian;
 use Wealthbot\ClientBundle\Entity\ClientAccount;
-use Wealthbot\ClientBundle\Entity\SystemAccount;
 use Wealthbot\ClientBundle\Entity\Workflow;
 use Wealthbot\ClientBundle\Model\AccountOwnerInterface;
-use Wealthbot\MailerBundle\Mailer\MailerInterface;
 use Wealthbot\SignatureBundle\Entity\DocumentSignature;
 use Wealthbot\UserBundle\Entity\Document;
 use Wealthbot\UserBundle\Entity\User;
-use Symfony\Component\DependencyInjection\Exception\ParameterNotFoundException;
-use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 /**
  * @author
@@ -38,8 +35,7 @@ class TwigSwiftMailer implements MailerInterface
         \Twig_Environment $twig,
         EntityManager $em,
         array $parameters
-    )
-    {
+    ) {
         $this->mailer = $mailer;
         $this->router = $router;
         $this->twig = $twig;
@@ -53,14 +49,14 @@ class TwigSwiftMailer implements MailerInterface
     {
         $template = $this->parameters['template']['admin_ria_activated'];
 
-        $context = array(
-            'ria_name' => $ria->getRiaCompanyInformation()->getName()
-        );
+        $context = [
+            'ria_name' => $ria->getRiaCompanyInformation()->getName(),
+        ];
 
         $repository = $this->em->getRepository('WealthbotUserBundle:User');
         $admins = $repository->getAllAdmins();
 
-        $toEmails = array();
+        $toEmails = [];
         /** @var User $admin */
         foreach ($admins as $admin) {
             $toEmails[] = $admin->getEmail();
@@ -75,9 +71,9 @@ class TwigSwiftMailer implements MailerInterface
     {
         $template = $this->parameters['template']['ria_not_finished_registration'];
 
-        $context = array(
-            'logo' => $this->router->getContext()->getHost().'/img/logo.png'
-        );
+        $context = [
+            'logo' => $this->router->getContext()->getHost().'/img/logo.png',
+        ];
 
         $this->sendMessage($template, $this->parameters['from_email']['ria_not_finished_registration'], $ria->getEmail(), $context);
     }
@@ -86,23 +82,22 @@ class TwigSwiftMailer implements MailerInterface
     {
         $template = $this->parameters['template']['ria_change_password'];
 
-        $context = array(
-            'logo' => $this->router->getContext()->getHost().'/img/logo.png'
-        );
+        $context = [
+            'logo' => $this->router->getContext()->getHost().'/img/logo.png',
+        ];
 
         $this->sendMessage($template, $this->parameters['from_email']['ria_change_password'], $ria->getEmail(), $context);
     }
-
 
     public function sendRiaUserResetPasswordEmail(User $ria, User $riaUser, $newPassword)
     {
         $template = $this->parameters['template']['ria_user_reset_password'];
 
-        $context = array(
+        $context = [
             'ria_name' => $ria->getFullName(),
             'new_password' => $newPassword,
-            'logo' => $this->router->getContext()->getHost().'/img/logo.png'
-        );
+            'logo' => $this->router->getContext()->getHost().'/img/logo.png',
+        ];
 
         $this->sendMessage($template, $this->parameters['from_email']['ria_user_reset_password'], $riaUser->getEmail(), $context);
     }
@@ -111,11 +106,11 @@ class TwigSwiftMailer implements MailerInterface
     {
         $template = $this->parameters['template']['ria_user_create'];
 
-        $context = array(
+        $context = [
             'username' => $riaUser->getUsername(),
             'password' => $password,
-            'logo' => $this->router->getContext()->getHost().'/img/logo.png'
-        );
+            'logo' => $this->router->getContext()->getHost().'/img/logo.png',
+        ];
 
         $this->sendMessage($template, $this->parameters['from_email']['ria_user_create'], $riaUser->getEmail(), $context);
     }
@@ -125,15 +120,15 @@ class TwigSwiftMailer implements MailerInterface
         $riaAlertsConfiguration = $client->getRia()->getAlertsConfiguration();
 
         if ($riaAlertsConfiguration && !$riaAlertsConfiguration->getIsClientPortfolioSuggestion()) {
-            return null;
+            return;
         }
 
         $template = $this->parameters['template']['ria_client_suggested_portfolio'];
 
-        $context = array(
+        $context = [
             'client' => $client,
-            'logo' => $this->router->getContext()->getHost().'/img/logo.png'
-        );
+            'logo' => $this->router->getContext()->getHost().'/img/logo.png',
+        ];
 
         $this->sendRiaEmails($client->getRia(), $template, $this->parameters['from_email']['ria_client_suggested_portfolio'], $context);
     }
@@ -143,16 +138,16 @@ class TwigSwiftMailer implements MailerInterface
         $riaAlertsConfiguration = $client->getRia()->getAlertsConfiguration();
 
         if ($riaAlertsConfiguration && !$riaAlertsConfiguration->getIsClientDrivenAccountClosures()) {
-            return null;
+            return;
         }
 
         $template = $this->parameters['template']['ria_client_closed_accounts'];
 
-        $context = array(
+        $context = [
             'client' => $client,
             'accounts' => $accounts,
-            'logo' => $this->router->getContext()->getHost().'/img/logo.png'
-        );
+            'logo' => $this->router->getContext()->getHost().'/img/logo.png',
+        ];
 
         $this->sendRiaEmails($client->getRia(), $template, $this->parameters['from_email']['ria_client_closed_accounts'], $context);
     }
@@ -161,9 +156,9 @@ class TwigSwiftMailer implements MailerInterface
     {
         $template = $this->parameters['template']['ria_activated'];
 
-        $context = array(
-            'logo' => $this->router->getContext()->getHost().'/img/logo.png'
-        );
+        $context = [
+            'logo' => $this->router->getContext()->getHost().'/img/logo.png',
+        ];
 
         $this->sendRiaEmails($ria, $template, $this->parameters['from_email']['ria_activated'], $context);
     }
@@ -188,11 +183,11 @@ class TwigSwiftMailer implements MailerInterface
 
         $ria = $client->getRia();
 
-        $context = array(
+        $context = [
             'client' => $client,
             'ria' => $ria,
-            'logo' => $this->getRiaLogo($ria->getId())
-        );
+            'logo' => $this->getRiaLogo($ria->getId()),
+        ];
 
         $this->sendMessage($template, $this->parameters['from_email']['client_not_finished_registration'], $client->getEmail(), $context);
     }
@@ -203,11 +198,11 @@ class TwigSwiftMailer implements MailerInterface
 
         $ria = $client->getRia();
 
-        $context = array(
+        $context = [
             'client' => $client,
             'ria' => $ria,
-            'logo' => $this->getRiaLogo($ria->getId())
-        );
+            'logo' => $this->getRiaLogo($ria->getId()),
+        ];
 
         $this->sendMessage($template, $this->parameters['from_email']['client_not_approved_portfolio'], $client->getEmail(), $context);
     }
@@ -218,11 +213,11 @@ class TwigSwiftMailer implements MailerInterface
 
         $ria = $client->getRia();
 
-        $context = array(
+        $context = [
             'client' => $client,
             'ria' => $ria,
-            'logo' => $this->getRiaLogo($ria->getId())
-        );
+            'logo' => $this->getRiaLogo($ria->getId()),
+        ];
 
         $this->sendMessage($template, $this->parameters['from_email']['client_not_completed_all_applications'], $client->getEmail(), $context);
     }
@@ -234,12 +229,12 @@ class TwigSwiftMailer implements MailerInterface
         $client = $account->getClient();
         $ria = $client->getRia();
 
-        $context = array(
+        $context = [
             'account' => $account,
             'ria' => $ria,
             'rollover_message' => $rolloverMessage,
-            'logo' => $this->getRiaLogo($ria->getId())
-        );
+            'logo' => $this->getRiaLogo($ria->getId()),
+        ];
 
         $this->sendMessage($template, $this->parameters['from_email']['client_rollover_instruction_401'], $client->getEmail(), $context);
     }
@@ -250,12 +245,12 @@ class TwigSwiftMailer implements MailerInterface
 
         $ria = $clientUser->getMasterClient()->getRia();
 
-        $context = array(
+        $context = [
             'new_client' => $clientUser,
             'new_password' => $password,
             'ria' => $ria,
-            'logo' => $this->getRiaLogo($ria->getId())
-        );
+            'logo' => $this->getRiaLogo($ria->getId()),
+        ];
 
         $this->sendMessage($template, $this->parameters['from_email']['client_user_create'], $clientUser->getEmail(), $context);
     }
@@ -266,12 +261,12 @@ class TwigSwiftMailer implements MailerInterface
 
         $ria = $client->getRia();
 
-        $context = array(
+        $context = [
             'new_password' => $newPassword,
             'client' => $client,
             'ria' => $ria,
-            'logo' => $this->getRiaLogo($ria->getId())
-        );
+            'logo' => $this->getRiaLogo($ria->getId()),
+        ];
 
         $this->sendMessage($template, $this->parameters['from_email']['client_reset_self_password'], $client->getEmail(), $context);
     }
@@ -282,11 +277,11 @@ class TwigSwiftMailer implements MailerInterface
 
         $ria = $client->getRia();
 
-        $context = array(
+        $context = [
             'client' => $client,
             'ria' => $ria,
-            'logo' => $this->getRiaLogo($ria->getId())
-        );
+            'logo' => $this->getRiaLogo($ria->getId()),
+        ];
 
         $this->sendMessage($template, $this->parameters['from_email']['client_reset_password'], $client->getEmail(), $context);
     }
@@ -308,12 +303,12 @@ class TwigSwiftMailer implements MailerInterface
 
         $ria = $client->getMasterClientId() ? $client->getMasterClient()->getRia() : $client->getRia();
 
-        $context = array(
+        $context = [
             'client' => $client,
             'document_type' => $documentStr,
             'ria' => $ria,
-            'logo' => $this->getRiaLogo($ria->getId())
-        );
+            'logo' => $this->getRiaLogo($ria->getId()),
+        ];
 
         $this->sendMessage($template, $this->parameters['from_email']['client_updated_documents'], $client->getEmail(), $context);
     }
@@ -322,11 +317,11 @@ class TwigSwiftMailer implements MailerInterface
     {
         $template = $this->parameters['template']['client_invite_prospect'];
 
-        $context = array(
+        $context = [
             'ria' => $ria,
             'logo' => $this->getRiaLogo($ria->getId()),
-            'group' => $group
-        );
+            'group' => $group,
+        ];
 
         $this->sendMessage($template, $this->parameters['from_email']['client_invite_prospect'], $clientEmail, $context);
     }
@@ -335,12 +330,12 @@ class TwigSwiftMailer implements MailerInterface
     {
         $template = $this->parameters['template']['client_invite_internal_prospect'];
 
-        $context = array(
+        $context = [
             'ria' => $ria,
             'logo' => $this->getRiaLogo($ria->getId()),
             'new_password' => $tmpPassword,
-            'client' => $client
-        );
+            'client' => $client,
+        ];
 
         $this->sendMessage($template, $this->parameters['from_email']['client_invite_internal_prospect'], $client->getEmail(), $context);
     }
@@ -352,17 +347,17 @@ class TwigSwiftMailer implements MailerInterface
 
         $template = $this->parameters['template']['client_adv_copy'];
         $fromEmail = $this->parameters['from_email']['client_adv_copy'];
-        $context = array(
+        $context = [
             'client' => $client,
             'ria' => $ria,
             'company' => $companyInformation,
-            'logo' => $this->getRiaLogo($ria->getId())
-        );
+            'logo' => $this->getRiaLogo($ria->getId()),
+        ];
 
         $adv = $companyInformation->getAdvDocument();
 
         $extension = pathinfo($adv->getFilename(), PATHINFO_EXTENSION);
-        $attachments = array('ADV Copy.'.$extension => $adv->getAbsolutePath());
+        $attachments = ['ADV Copy.'.$extension => $adv->getAbsolutePath()];
 
         $this->sendMessage($template, $fromEmail, $client->getEmail(), $context, $attachments);
     }
@@ -374,11 +369,11 @@ class TwigSwiftMailer implements MailerInterface
         $template = $this->parameters['template']['client_portfolio_is_submitted'];
         $fromEmail = $this->parameters['from_email']['client_portfolio_is_submitted'];
 
-        $context = array(
+        $context = [
             'client' => $client,
             'ria' => $ria,
-            'logo' => $this->getRiaLogo($ria->getId())
-        );
+            'logo' => $this->getRiaLogo($ria->getId()),
+        ];
 
         $this->sendMessage($template, $fromEmail, $client->getEmail(), $context);
     }
@@ -390,11 +385,11 @@ class TwigSwiftMailer implements MailerInterface
         $template = $this->parameters['template']['client_ria_uploaded_document'];
         $fromEmail = $this->parameters['from_email']['client_ria_uploaded_document'];
 
-        $context = array(
+        $context = [
             'client' => $client,
             'ria' => $ria,
-            'logo' => $this->getRiaLogo($ria->getId())
-        );
+            'logo' => $this->getRiaLogo($ria->getId()),
+        ];
 
         $this->sendMessage($template, $fromEmail, $client->getEmail(), $context);
     }
@@ -404,26 +399,26 @@ class TwigSwiftMailer implements MailerInterface
         $template = $this->parameters['template']['docusign_joint_account_owner'];
         $fromEmail = $this->parameters['from_email']['docusign_joint_account_owner'];
 
-        $context = array(
+        $context = [
             'joint_owner' => $jointOwner,
             'ria' => $ria,
-            'logo' => $this->getRiaLogo($ria->getId())
-        );
+            'logo' => $this->getRiaLogo($ria->getId()),
+        ];
 
         $this->sendMessage($template, $fromEmail, $jointOwner->getEmail(), $context);
     }
 
     public function sendCustodianWorkflowDocuments(User $ria, Workflow $workflow)
     {
-        $documents = array();
+        $documents = [];
         if ($workflow->canHaveDocuments()) {
             /** @var DocumentSignature $signature */
             foreach ($workflow->getDocumentSignatures() as $signature) {
                 $document = $signature->getDocument();
-                $documents[$document->getOriginalName()] = $this->router->generate('rx_download_document', array(
+                $documents[$document->getOriginalName()] = $this->router->generate('rx_download_document', [
                     'filename' => $document->getFilename(),
-                    'originalName' => $document->getOriginalName()
-                ), true);
+                    'originalName' => $document->getOriginalName(),
+                ], true);
             }
         }
 
@@ -432,11 +427,11 @@ class TwigSwiftMailer implements MailerInterface
             $fromEmail = $this->parameters['from_email']['docusign_custodian_workflow_documents'];
             $custodian = $ria->getCustodian();
 
-            $context = array(
+            $context = [
                 'custodian' => $custodian,
                 'ria' => $ria,
-                'logo' => $this->getRiaLogo($ria->getId())
-            );
+                'logo' => $this->getRiaLogo($ria->getId()),
+            ];
 
             return $this->sendMessage($template, $fromEmail, $custodian->getEmail(), $context, $documents);
         }
@@ -445,16 +440,17 @@ class TwigSwiftMailer implements MailerInterface
     }
 
     /**
-     * Send email message
+     * Send email message.
      *
-     * @param string $templateName
+     * @param string       $templateName
      * @param array|string $fromEmails
      * @param array|string $toEmails
-     * @param array $context
-     * @param array $attachments
+     * @param array        $context
+     * @param array        $attachments
+     *
      * @return int
      */
-    private function sendMessage($templateName, $fromEmails, $toEmails, $context = array(), $attachments = array())
+    private function sendMessage($templateName, $fromEmails, $toEmails, $context = [], $attachments = [])
     {
         $template = $this->twig->loadTemplate($templateName);
         $subject = $template->renderBlock('subject', $context);
@@ -478,7 +474,6 @@ class TwigSwiftMailer implements MailerInterface
 
                 //TODO need to assure to use correct absolute path!
                 if ($this->fileExists($path)) {
-
                     $attachment = \Swift_Attachment::fromPath($path);
                     if (is_string($filename)) {
                         $attachment->setFilename($filename);
@@ -507,7 +502,6 @@ class TwigSwiftMailer implements MailerInterface
 
     private function getRiaLogo($riaId)
     {
-        return $this->router->generate('rx_file_download', array('ria_id' => $riaId), true);
+        return $this->router->generate('rx_file_download', ['ria_id' => $riaId], true);
     }
-
 }

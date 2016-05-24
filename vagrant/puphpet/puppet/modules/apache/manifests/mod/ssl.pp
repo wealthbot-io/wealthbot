@@ -2,7 +2,8 @@ class apache::mod::ssl (
   $ssl_compression         = false,
   $ssl_cryptodevice        = 'builtin',
   $ssl_options             = [ 'StdEnvVars' ],
-  $ssl_cipher              = 'HIGH:MEDIUM:!aNULL:!MD5',
+  $ssl_openssl_conf_cmd    = undef,
+  $ssl_cipher              = 'HIGH:MEDIUM:!aNULL:!MD5:!RC4',
   $ssl_honorcipherorder    = 'On',
   $ssl_protocol            = [ 'all', '-SSLv2', '-SSLv3' ],
   $ssl_pass_phrase_dialog  = 'builtin',
@@ -11,12 +12,6 @@ class apache::mod::ssl (
   $apache_version          = $::apache::apache_version,
   $package_name            = undef,
 ) {
-  $session_cache = $::osfamily ? {
-    'debian'  => "\${APACHE_RUN_DIR}/ssl_scache(512000)",
-    'redhat'  => '/var/cache/mod_ssl/scache(512000)',
-    'freebsd' => '/var/run/ssl_scache(512000)',
-    'gentoo'  => '/var/run/ssl_scache(512000)',
-  }
 
   case $::osfamily {
     'debian': {
@@ -37,9 +32,20 @@ class apache::mod::ssl (
     'gentoo': {
       $ssl_mutex = 'default'
     }
+    'Suse': {
+      $ssl_mutex = 'default'
+    }
     default: {
       fail("Unsupported osfamily ${::osfamily}")
     }
+  }
+
+  $session_cache = $::osfamily ? {
+    'debian'  => "\${APACHE_RUN_DIR}/ssl_scache(512000)",
+    'redhat'  => '/var/cache/mod_ssl/scache(512000)',
+    'freebsd' => '/var/run/ssl_scache(512000)',
+    'gentoo'  => '/var/run/ssl_scache(512000)',
+    'Suse'    => '/var/lib/apache2/ssl_scache(512000)'
   }
 
   ::apache::mod { 'ssl':
@@ -57,6 +63,7 @@ class apache::mod::ssl (
   # $ssl_cipher
   # $ssl_honorcipherorder
   # $ssl_options
+  # $ssl_openssl_conf_cmd
   # $session_cache
   # $ssl_mutex
   # $ssl_random_seed_bytes

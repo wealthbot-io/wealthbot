@@ -1,25 +1,30 @@
-#! /usr/bin/env ruby -S rspec
-
 require 'spec_helper'
 
-describe "the abs function" do
-  let(:scope) { PuppetlabsSpec::PuppetInternals.scope }
+describe 'abs' do
+  it { is_expected.not_to eq(nil) }
 
-  it "should exist" do
-    expect(Puppet::Parser::Functions.function("abs")).to eq("function_abs")
+  describe 'signature validation in puppet3', :unless => RSpec.configuration.puppet_future do
+    it { is_expected.to run.with_params().and_raise_error(Puppet::ParseError, /wrong number of arguments/i) }
+    it {
+      pending("Current implementation ignores parameters after the first.")
+      is_expected.to run.with_params(1, 2).and_raise_error(Puppet::ParseError, /wrong number of arguments/i)
+    }
   end
 
-  it "should raise a ParseError if there is less than 1 arguments" do
-    expect { scope.function_abs([]) }.to( raise_error(Puppet::ParseError))
+  describe 'signature validation in puppet4', :if => RSpec.configuration.puppet_future do
+    it { pending "the puppet 4 implementation"; is_expected.to run.with_params().and_raise_error(ArgumentError) }
+    it { pending "the puppet 4 implementation"; is_expected.to run.with_params(1, 2).and_raise_error(ArgumentError) }
+    it { pending "the puppet 4 implementation"; is_expected.to run.with_params([]).and_raise_error(ArgumentError) }
+    it { pending "the puppet 4 implementation"; is_expected.to run.with_params({}).and_raise_error(ArgumentError) }
+    it { pending "the puppet 4 implementation"; is_expected.to run.with_params(true).and_raise_error(ArgumentError) }
   end
 
-  it "should convert a negative number into a positive" do
-    result = scope.function_abs(["-34"])
-    expect(result).to(eq(34))
-  end
-
-  it "should do nothing with a positive number" do
-    result = scope.function_abs(["5678"])
-    expect(result).to(eq(5678))
-  end
+  it { is_expected.to run.with_params(-34).and_return(34) }
+  it { is_expected.to run.with_params("-34").and_return(34) }
+  it { is_expected.to run.with_params(34).and_return(34) }
+  it { is_expected.to run.with_params("34").and_return(34) }
+  it { is_expected.to run.with_params(-34.5).and_return(34.5) }
+  it { is_expected.to run.with_params("-34.5").and_return(34.5) }
+  it { is_expected.to run.with_params(34.5).and_return(34.5) }
+  it { is_expected.to run.with_params("34.5").and_return(34.5) }
 end

@@ -2,15 +2,13 @@
 
 namespace Wealthbot\ClientBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-
 /**
- * PortfolioTwrValue
+ * PortfolioTwrValue.
  */
 class PortfolioTwrValue
 {
     /**
-     * @var integer
+     * @var int
      */
     protected $id;
 
@@ -35,9 +33,9 @@ class PortfolioTwrValue
     private $client;
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer
+     * @return int
      */
     public function getId()
     {
@@ -45,9 +43,10 @@ class PortfolioTwrValue
     }
 
     /**
-     * Set net value
+     * Set net value.
      *
      * @param float $netValue
+     *
      * @return this
      */
     public function setNetValue($netValue)
@@ -58,7 +57,7 @@ class PortfolioTwrValue
     }
 
     /**
-     * Get net value
+     * Get net value.
      *
      * @return float
      */
@@ -68,9 +67,10 @@ class PortfolioTwrValue
     }
 
     /**
-     * Set gross value
+     * Set gross value.
      *
      * @param float $grossValue
+     *
      * @return this
      */
     public function setGrossValue($grossValue)
@@ -81,7 +81,7 @@ class PortfolioTwrValue
     }
 
     /**
-     * Get gross value
+     * Get gross value.
      *
      * @return float
      */
@@ -91,9 +91,10 @@ class PortfolioTwrValue
     }
 
     /**
-     * Set date
+     * Set date.
      *
      * @param \DateTime $date
+     *
      * @return Position
      */
     public function setDate($date)
@@ -104,7 +105,7 @@ class PortfolioTwrValue
     }
 
     /**
-     * Get date
+     * Get date.
      *
      * @return \DateTime
      */
@@ -114,9 +115,10 @@ class PortfolioTwrValue
     }
 
     /**
-     * Set client
+     * Set client.
      *
      * @param \Wealthbot\UserBundle\Entity\User $client
+     *
      * @return SystemAccount
      */
     public function setClient(\Wealthbot\UserBundle\Entity\User $client = null)
@@ -127,7 +129,7 @@ class PortfolioTwrValue
     }
 
     /**
-     * Get client
+     * Get client.
      *
      * @return \Wealthbot\UserBundle\Entity\User
      */

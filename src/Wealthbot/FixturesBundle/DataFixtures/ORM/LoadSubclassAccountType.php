@@ -9,12 +9,9 @@
 
 namespace Wealthbot\FixturesBundle\DataFixtures\ORM;
 
-use Doctrine\Common\Persistence\ObjectManager;
-use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
-use Symfony\Component\DependencyInjection\ContainerAwareInterface;
-use Symfony\Component\DependencyInjection\ContainerInterface;
+use Doctrine\Common\Persistence\ObjectManager;
 use Wealthbot\RiaBundle\Entity\SubclassAccountType;
 
 class LoadSubclassAccountType extends AbstractFixture implements OrderedFixtureInterface

@@ -11,10 +11,9 @@ namespace Wealthbot\RiaBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\Form\FormError;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Wealthbot\UserBundle\Entity\User;
-use Wealthbot\RiaBundle\Entity\RiaCompanyInformation;
 
 class RiaCompanyInformationFourType extends AbstractType
 {
@@ -40,29 +39,29 @@ class RiaCompanyInformationFourType extends AbstractType
         }*/
 
         $builder
-            ->add('is_searchable_db', 'hidden', array(
+            ->add('is_searchable_db', 'hidden', [
 //                'choices' => array( true => 'Yes', false => 'No'),
 //                'required' => false,
 //                'expanded' => true,
                 'data' => true,
 //                'hidden' => true
-            ))
-            ->add('min_asset_size', 'number', array(
+            ])
+            ->add('min_asset_size', 'number', [
                 'precision' => 2,
                 'grouping' => true,
-                'required' => false
-            ))
-            ->add('logo_file', 'file', array('required' => false))
+                'required' => false,
+            ])
+            ->add('logo_file', 'file', ['required' => false])
         ;
 
         if (!$this->isPreSave) {
-            $this->addOnBindValidator($builder);
+            $this->addOnSubmitValidator($builder);
         }
     }
 
-    protected function addOnBindValidator(FormBuilderInterface $builder)
+    protected function addOnSubmitValidator(FormBuilderInterface $builder)
     {
-        $builder->addEventListener(\Symfony\Component\Form\FormEvents::BIND, function(\Symfony\Component\Form\FormEvent $event){
+        $builder->addEventListener(\Symfony\Component\Form\FormEvents::SUBMIT, function (\Symfony\Component\Form\FormEvent $event) {
             $form = $event->getForm();
 
             /** @var \Wealthbot\RiaBundle\Entity\RiaCompanyInformation $data */
@@ -84,14 +83,14 @@ class RiaCompanyInformationFourType extends AbstractType
         });
     }
 
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => 'Wealthbot\RiaBundle\Entity\RiaCompanyInformation'
-        ));
+        $resolver->setDefaults([
+            'data_class' => 'Wealthbot\RiaBundle\Entity\RiaCompanyInformation',
+        ]);
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'wealthbot_riabundle_riacompanyinformationtype';
     }

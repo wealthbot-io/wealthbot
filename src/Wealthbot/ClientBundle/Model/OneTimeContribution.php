@@ -9,7 +9,6 @@
 
 namespace Wealthbot\ClientBundle\Model;
 
-
 class OneTimeContribution extends BaseContribution
 {
     public function getTransactionFrequency()

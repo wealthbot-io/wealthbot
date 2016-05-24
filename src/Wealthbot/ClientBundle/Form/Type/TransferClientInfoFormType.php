@@ -9,14 +9,12 @@
 
 namespace Wealthbot\ClientBundle\Form\Type;
 
-
-use Wealthbot\ClientBundle\Model\AccountOwnerInterface;
-use Wealthbot\UserBundle\Entity\Profile;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormInterface;
+use Wealthbot\ClientBundle\Model\AccountOwnerInterface;
 
 class TransferClientInfoFormType extends TransferBasicFormType
 {
@@ -35,18 +33,19 @@ class TransferClientInfoFormType extends TransferBasicFormType
 
         $factory = $builder->getFormFactory();
         $updateSsn = function (FormInterface $form, $ssn) use ($factory) {
-            $form->add($factory->createNamed('ssn', 'text', null, array(
+            $form->add($factory->createNamed('ssn', 'text', null, [
                 'required' => false,
                 'mapped' => false,
-                'attr' => array('value' => $ssn)
-            )));
+                'attr' => ['value' => $ssn],
+                'auto_initialize' => false,
+            ]));
         };
 
-        $builder->addEventListener(FormEvents::PRE_BIND, function (FormEvent $event) use ($updateSsn) {
+        $builder->addEventListener(FormEvents::PRE_SUBMIT, function (FormEvent $event) use ($updateSsn) {
             $form = $event->getForm();
             $data = $event->getData();
 
-            if(array_key_exists('ssn', $data)) {
+            if (array_key_exists('ssn', $data)) {
                 $updateSsn($form, $data['ssn']);
             }
         });
@@ -59,18 +58,18 @@ class TransferClientInfoFormType extends TransferBasicFormType
             $updateSsn($form, $data->getSsnTin());
         });
 
-        $builder->addEventListener(FormEvents::BIND, function(FormEvent $event){
+        $builder->addEventListener(FormEvents::SUBMIT, function (FormEvent $event) {
             /** @var $data AccountOwnerInterface */
             $data = $event->getData();
             $form = $event->getForm();
 
             if ($form->has('ssn')) {
                 $ssnDigits = 9;
-                $ssn = str_replace(array(' ', '-', '(', ')'), '', $form->get('ssn')->getData());
+                $ssn = str_replace([' ', '-', '(', ')'], '', $form->get('ssn')->getData());
 
                 if (!is_numeric($ssn)) {
-                    $form->get('ssn')->addError(new FormError("Enter correct ssn."));
-                } elseif (strlen($ssn) != $ssnDigits) {
+                    $form->get('ssn')->addError(new FormError('Enter correct ssn.'));
+                } elseif (strlen($ssn) !== $ssnDigits) {
                     $form->get('ssn')->addError(new FormError("Ssn must be {$ssnDigits} digits."));
                 }
 
@@ -79,7 +78,7 @@ class TransferClientInfoFormType extends TransferBasicFormType
         });
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'client_info';
     }

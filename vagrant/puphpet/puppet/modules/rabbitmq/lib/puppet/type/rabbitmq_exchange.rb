@@ -24,16 +24,19 @@ Puppet::Type.newtype(:rabbitmq_exchange) do
   newparam(:durable) do
     desc 'Exchange durability to be set *on creation*'
     newvalues(/^\S+$/)
+    defaultto 'false'
   end
 
   newparam(:auto_delete) do
     desc 'Exchange auto delete option to be set *on creation*'
     newvalues(/^\S+$/)
+    defaultto 'false'
   end
 
   newparam(:internal) do
     desc 'Exchange internal option to be set *on creation*'
     newvalues(/^\S+$/)
+    defaultto 'false'
   end
 
   newparam(:arguments) do

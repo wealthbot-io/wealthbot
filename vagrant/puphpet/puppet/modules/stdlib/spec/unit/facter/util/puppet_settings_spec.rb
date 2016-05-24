@@ -25,6 +25,7 @@ describe Facter::Util::PuppetSettings do
       before :each do
         Puppet.expects(:[]).with(:vardir).returns vardir
       end
+
       it 'should yield to the block' do
         subject.with_puppet { Puppet[:vardir] }
       end

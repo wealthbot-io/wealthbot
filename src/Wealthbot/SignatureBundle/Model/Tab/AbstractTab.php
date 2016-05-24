@@ -9,7 +9,6 @@
 
 namespace Wealthbot\SignatureBundle\Model\Tab;
 
-
 abstract class AbstractTab
 {
     /**
@@ -31,11 +30,11 @@ abstract class AbstractTab
     const TYPE_CHECKBOX = 'Checkbox';
     const TYPE_RADIO_GROUP = 'Radio Group';
 
-
     /**
-     * Set tab label
+     * Set tab label.
      *
      * @param string $tabLabel
+     *
      * @return $this
      */
     public function setTabLabel($tabLabel)
@@ -46,7 +45,7 @@ abstract class AbstractTab
     }
 
     /**
-     * Get tab label
+     * Get tab label.
      *
      * @return string
      */
@@ -56,9 +55,10 @@ abstract class AbstractTab
     }
 
     /**
-     * Set value
+     * Set value.
      *
      * @param string $value
+     *
      * @return $this
      */
     public function setValue($value)
@@ -69,7 +69,7 @@ abstract class AbstractTab
     }
 
     /**
-     * Get value
+     * Get value.
      *
      * @return string
      */
@@ -79,7 +79,7 @@ abstract class AbstractTab
     }
 
     /**
-     * Get type
+     * Get type.
      *
      * @return string
      */
@@ -87,6 +87,4 @@ abstract class AbstractTab
     {
         return $this->type;
     }
-
-
 }

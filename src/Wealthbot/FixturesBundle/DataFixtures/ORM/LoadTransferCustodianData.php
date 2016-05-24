@@ -9,7 +9,6 @@
 
 namespace Wealthbot\FixturesBundle\DataFixtures\ORM;
 
-
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Wealthbot\ClientBundle\Entity\TransferCustodian;
@@ -18,15 +17,17 @@ use Wealthbot\FixturesBundle\Model\AbstractCsvFixture;
 class LoadTransferCustodianData extends AbstractCsvFixture implements OrderedFixtureInterface
 {
     /**
-     * Load data fixtures with the passed EntityManager
+     * Load data fixtures with the passed EntityManager.
      *
      * @param \Doctrine\Common\Persistence\ObjectManager $manager
      */
-    function load(ObjectManager $manager)
+    public function load(ObjectManager $manager)
     {
         $data = $this->getCsvData('transfer_custodians.csv');
         foreach ($data as $index => $item) {
-            if ($index === 0) continue;
+            if ($index === 0) {
+                continue;
+            }
 
             $name = trim($item[0]);
 
@@ -34,20 +35,19 @@ class LoadTransferCustodianData extends AbstractCsvFixture implements OrderedFix
             $transferCustodian->setName($name);
 
             $manager->persist($transferCustodian);
-            $this->setReference('transfer-custodian-' . $index, $transferCustodian);
+            $this->setReference('transfer-custodian-'.$index, $transferCustodian);
         }
 
         $manager->flush();
     }
 
     /**
-     * Get the order of this fixture
+     * Get the order of this fixture.
      *
-     * @return integer
+     * @return int
      */
-    function getOrder()
+    public function getOrder()
     {
         return 1;
     }
-
 }

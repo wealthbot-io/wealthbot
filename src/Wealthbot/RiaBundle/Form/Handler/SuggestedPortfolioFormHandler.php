@@ -15,7 +15,6 @@ use Wealthbot\ClientBundle\Manager\ClientPortfolioManager;
 use Wealthbot\ClientBundle\Repository\ClientAccountRepository;
 use Wealthbot\MailerBundle\Mailer\MailerInterface;
 use Wealthbot\UserBundle\Entity\Profile;
-use Symfony\Component\HttpFoundation\Request;
 
 class SuggestedPortfolioFormHandler extends AbstractFormHandler
 {
@@ -34,15 +33,15 @@ class SuggestedPortfolioFormHandler extends AbstractFormHandler
 
         $this->unconsolidateAccounts($this->form->get('unconsolidated_ids')->getData());
 
-        if ($action == 'submit') {
+        if ($action === 'submit') {
             $this->submit($profile);
-        } elseif ($action == 'update') {
+        } elseif ($action === 'update') {
             $this->update();
         }
     }
 
     /**
-     * Unconsolidate accounts
+     * Unconsolidate accounts.
      *
      * @param array $accountIds
      */
@@ -62,12 +61,11 @@ class SuggestedPortfolioFormHandler extends AbstractFormHandler
                 if ($consolidator) {
                     $oldConsolidatorId = $consolidator->getId();
                     $needConsolidate = $consolidator->getConsolidatedAccounts();
-
                 } else {
                     $consolidator = $accounts[0]->getConsolidator();
 
                     $oldConsolidatorId = null;
-                    $needConsolidate = array();
+                    $needConsolidate = [];
                 }
 
                 foreach ($accounts as $account) {
@@ -93,7 +91,6 @@ class SuggestedPortfolioFormHandler extends AbstractFormHandler
                         foreach ($needConsolidate as $item) {
                             if ($item->getId() === $newConsolidator->getId()) {
                                 $item->setConsolidator(null);
-
                             } else {
                                 $newConsolidator->addConsolidatedAccount($item);
                                 $item->setConsolidator($newConsolidator);
@@ -120,7 +117,7 @@ class SuggestedPortfolioFormHandler extends AbstractFormHandler
     }
 
     /**
-     * Update client suggested portfolio
+     * Update client suggested portfolio.
      */
     private function update()
     {
@@ -135,7 +132,7 @@ class SuggestedPortfolioFormHandler extends AbstractFormHandler
     }
 
     /**
-     * Submit client suggested portfolio
+     * Submit client suggested portfolio.
      *
      * @param Profile $profile
      */
@@ -162,8 +159,5 @@ class SuggestedPortfolioFormHandler extends AbstractFormHandler
         if ($mailer instanceof MailerInterface) {
             $mailer->sendClientPortfolioIsSubmittedEmail($client);
         }
-
-
     }
-
 }

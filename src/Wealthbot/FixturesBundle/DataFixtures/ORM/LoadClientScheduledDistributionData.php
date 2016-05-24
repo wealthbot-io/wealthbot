@@ -1,6 +1,6 @@
 <?php
-namespace Wealthbot\FixturesBundle\DataFixtures\ORM;
 
+namespace Wealthbot\FixturesBundle\DataFixtures\ORM;
 
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
@@ -10,11 +10,11 @@ use Wealthbot\ClientBundle\Entity\Distribution;
 class LoadClientScheduledDistributionData extends AbstractFixture implements OrderedFixtureInterface
 {
     /**
-     * Load data fixtures with the passed EntityManager
+     * Load data fixtures with the passed EntityManager.
      *
      * @param \Doctrine\Common\Persistence\ObjectManager $manager
      */
-    function load(ObjectManager $manager)
+    public function load(ObjectManager $manager)
     {
         $distribution = new Distribution();
         $distribution->setType(Distribution::TYPE_SCHEDULED);
@@ -39,13 +39,12 @@ class LoadClientScheduledDistributionData extends AbstractFixture implements Ord
     }
 
     /**
-     * Get the order of this fixture
+     * Get the order of this fixture.
      *
-     * @return integer
+     * @return int
      */
-    function getOrder()
+    public function getOrder()
     {
         return 9;
     }
-
 }

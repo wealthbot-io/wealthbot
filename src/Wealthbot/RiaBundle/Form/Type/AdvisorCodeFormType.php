@@ -3,17 +3,17 @@
  * Created by PhpStorm.
  * User: countzero
  * Date: 24.03.14
- * Time: 15:39
+ * Time: 15:39.
  */
 
 namespace Wealthbot\RiaBundle\Form\Type;
 
-use Wealthbot\AdminBundle\Entity\Custodian;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Wealthbot\AdminBundle\Entity\Custodian;
 
 class AdvisorCodeFormType extends AbstractType
 {
@@ -36,11 +36,11 @@ class AdvisorCodeFormType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('name', 'text', array('attr' => array('class' => 'input-small')));
-        $builder->addEventListener(FormEvents::BIND, array($this, 'onBindData'));
+        $builder->add('name', 'text', ['attr' => ['class' => 'input-small']]);
+        $builder->addEventListener(FormEvents::SUBMIT, [$this, 'onSubmitData']);
     }
 
-    public function onBindData(FormEvent $event)
+    public function onSubmitData(FormEvent $event)
     {
         $advisorCode = $event->getData();
 
@@ -49,14 +49,14 @@ class AdvisorCodeFormType extends AbstractType
         $advisorCode->setRiaCompany($this->riaCompany);
     }
 
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => 'Wealthbot\RiaBundle\Entity\AdvisorCode'
-        ));
+        $resolver->setDefaults([
+            'data_class' => 'Wealthbot\RiaBundle\Entity\AdvisorCode',
+        ]);
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'ria_advisor_code';
     }

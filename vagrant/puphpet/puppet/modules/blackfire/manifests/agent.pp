@@ -19,6 +19,8 @@ class blackfire::agent inherits blackfire {
   }
   $params = merge($default_params, $::blackfire::agent)
 
+  $log_level = 0 + $params['log_level']
+
   validate_bool($params['manage'])
   validate_string($params['version'])
   validate_bool($params['manage_service'])
@@ -27,8 +29,8 @@ class blackfire::agent inherits blackfire {
   validate_string($params['server_token'])
   validate_string($params['socket'])
   validate_string($params['log_file'])
-  if $params['log_level'] < 1 or $params['log_level'] > 4 {
-    fail 'Ivalid log_level. Valid levels are: 4 - debug, 3 - info, 2 - warning, 1 - error'
+  if $log_level < 1 or $log_level > 4 {
+    fail 'Invalid log_level. Valid levels are: 4 - debug, 3 - info, 2 - warning, 1 - error'
   }
   validate_string($params['collector'])
   validate_string($params['http_proxy'])

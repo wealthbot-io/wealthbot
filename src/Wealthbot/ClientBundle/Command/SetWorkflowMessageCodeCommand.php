@@ -2,11 +2,10 @@
 
 namespace Wealthbot\ClientBundle\Command;
 
-
-use Wealthbot\ClientBundle\Entity\Workflow;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Wealthbot\ClientBundle\Entity\Workflow;
 
 class SetWorkflowMessageCodeCommand extends ContainerAwareCommand
 {
@@ -47,7 +46,7 @@ EOT
 
             $workflowItem->setMessageCode($messageCodes[$workflowItem->getDbMessage()]);
             $em->persist($workflowItem);
-            $count++;
+            ++$count;
         }
 
         $em->flush();

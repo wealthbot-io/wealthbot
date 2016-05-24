@@ -9,20 +9,18 @@
 
 namespace Wealthbot\ClientBundle\Form\Type;
 
-
 use Doctrine\Common\Collections\ArrayCollection;
-use Wealthbot\ClientBundle\Entity\TransferCustodianQuestionAnswer;
-use Wealthbot\ClientBundle\Entity\TransferInformation;
-use Wealthbot\SignatureBundle\Manager\AccountDocusignManager;
-use Wealthbot\UserBundle\Entity\Document;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Wealthbot\ClientBundle\Entity\TransferCustodianQuestionAnswer;
+use Wealthbot\ClientBundle\Entity\TransferInformation;
+use Wealthbot\SignatureBundle\Manager\AccountDocusignManager;
 
 class TransferInformationFormType extends AbstractType
 {
@@ -37,44 +35,44 @@ class TransferInformationFormType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('title_first', 'text', array(
-                'constraints' => array(new NotBlank())
-            ))
-            ->add('title_middle', 'text', array(
-                'constraints' => array(new NotBlank())
-            ))
-            ->add('title_last', 'text', array(
-                'constraints' => array(new NotBlank())
-            ))
-            ->add('transfer_from', 'choice', array(
+        $builder->add('title_first', 'text', [
+                'constraints' => [new NotBlank()],
+            ])
+            ->add('title_middle', 'text', [
+                'constraints' => [new NotBlank()],
+            ])
+            ->add('title_last', 'text', [
+                'constraints' => [new NotBlank()],
+            ])
+            ->add('transfer_from', 'choice', [
                 'choices' => TransferInformation::getTransferFromChoices(),
                 'expanded' => true,
                 'multiple' => false,
-                'required' => false
-            ))
-            ->add('account_number', 'text', array('required' => true))
-            ->add('firm_address', 'text', array('required' => true))
-            ->add('phone_number', 'text', array('required' => true))
-            ->add('is_include_policy', 'choice', array(
-                'choices' => array(true => 'Yes', false => 'No'),
+                'required' => false,
+            ])
+            ->add('account_number', 'text', ['required' => true])
+            ->add('firm_address', 'text', ['required' => true])
+            ->add('phone_number', 'text', ['required' => true])
+            ->add('is_include_policy', 'choice', [
+                'choices' => [true => 'Yes', false => 'No'],
                 'expanded' => true,
                 'label' => ' ',
-                'constraints' => array(new NotBlank())
-            ))
-            ->add('transfer_shares_cash', 'choice', array(
-                'choices' => array(1 => 'Transfer my shares in-kind OR', 0 => 'sell my shares, and then transfer cash'),
+                'constraints' => [new NotBlank()],
+            ])
+            ->add('transfer_shares_cash', 'choice', [
+                'choices' => [1 => 'Transfer my shares in-kind OR', 0 => 'sell my shares, and then transfer cash'],
                 'expanded' => true,
                 'multiple' => false,
-                'required' => false
-            ))
-            ->add('insurance_policy_type', 'choice', array(
+                'required' => false,
+            ])
+            ->add('insurance_policy_type', 'choice', [
                 'choices' => TransferInformation::getInsurancePolicyTypeChoices(),
                 'expanded' => true,
                 'multiple' => false,
-                'required' => false
-            ))
-            ->add('penalty_amount', 'number', array('required' => false))
-            ->add('redeem_certificates_deposit', 'radio', array('required' => false))
+                'required' => false,
+            ])
+            ->add('penalty_amount', 'number', ['required' => false])
+            ->add('redeem_certificates_deposit', 'radio', ['required' => false])
             ->add('statementDocument', new PdfDocumentFormType());
 
         $factory = $builder->getFormFactory();
@@ -84,37 +82,43 @@ class TransferInformationFormType extends AbstractType
             $account = $data->getClientAccount();
             if ($account) {
                 if (!$adm->isUsedDocusign($account->getId())) {
-                    $form->add($factory->createNamed('delivering_account_title', 'text', null, array(
-                            'required' => false
-                        )))
-                        ->add($factory->createNamed('ameritrade_account_title', 'text', null, array(
-                            'required' => false
-                        )));
+                    $form->add($factory->createNamed('delivering_account_title', 'text', null, [
+                            'required' => false,
+                            'auto_initialize' => false,
+                        ]))
+                        ->add($factory->createNamed('ameritrade_account_title', 'text', null, [
+                            'required' => false,
+                            'auto_initialize' => false,
+                        ]));
                 }
 
-                $form->add($factory->createNamed('financial_institution', 'text', null, array(
+                $form->add($factory->createNamed('financial_institution', 'text', null, [
                     'required' => true,
                     'read_only' => true,
-                    'data' => $account->getFinancialInstitution()
-                )));
+                    'data' => $account->getFinancialInstitution(),
+                    'auto_initialize' => false,
+                ]));
 
                 if ($account->isJointType()) {
-                    $form->add($factory->createNamed('joint_title_first', 'text', null, array(
-                            'constraints' => array(new NotBlank())
-                        )))
-                        ->add($factory->createNamed('joint_title_middle', 'text', null, array(
-                            'constraints' => array(new NotBlank())
-                        )))
-                        ->add($factory->createNamed('joint_title_last', 'text', null, array(
-                            'constraints' => array(new NotBlank())
-                        )));
+                    $form->add($factory->createNamed('joint_title_first', 'text', null, [
+                            'constraints' => [new NotBlank()],
+                            'auto_initialize' => false,
+                        ]))
+                        ->add($factory->createNamed('joint_title_middle', 'text', null, [
+                            'constraints' => [new NotBlank()],
+                            'auto_initialize' => false,
+                        ]))
+                        ->add($factory->createNamed('joint_title_last', 'text', null, [
+                            'constraints' => [new NotBlank()],
+                            'auto_initialize' => false,
+                        ]));
                 }
             }
 
             if ($data->getTransferCustodian()) {
                 $answers = $data->getQuestionnaireAnswers();
                 if ($answers->isEmpty()) {
-                    $questions = array($data->getTransferCustodian()->getTransferCustodianQuestion());
+                    $questions = [$data->getTransferCustodian()->getTransferCustodianQuestion()];
 
                     $answers = new ArrayCollection();
                     foreach ($questions as $question) {
@@ -129,10 +133,11 @@ class TransferInformationFormType extends AbstractType
                 }
 
                 if ($answers->count()) {
-                    $form->add($factory->createNamed('questionnaireAnswers', 'collection', $answers, array(
+                    $form->add($factory->createNamed('questionnaireAnswers', 'collection', $answers, [
                         'type' => new TransferInformationQuestionAnswerFormType(),
-                        'label' => ' '
-                    )));
+                        'label' => ' ',
+                        'auto_initialize' => false,
+                    ]));
                 }
             }
         };
@@ -142,13 +147,15 @@ class TransferInformationFormType extends AbstractType
             $data = $event->getData();
             $form = $event->getForm();
 
-            if (null === $data) return;
+            if (null === $data) {
+                return;
+            }
 
             $updateFields($form, $data);
         });
 
         if (!$this->isPreSaved) {
-            $builder->addEventListener(FormEvents::BIND, array($this, 'validate'));
+            $builder->addEventListener(FormEvents::SUBMIT, [$this, 'validate']);
         }
     }
 
@@ -170,12 +177,11 @@ class TransferInformationFormType extends AbstractType
         $insurancePolicyType = $data->getInsurancePolicyType();
         $penaltyAmount = $data->getPenaltyAmount();
 
-        if (($insurancePolicyType == TransferInformation::INSURANCE_POLICY_TYPE_TERMINATE_CONTACT_POLICY) ||
-            ($insurancePolicyType == TransferInformation::INSURANCE_POLICY_TYPE_TRANSFER_PENALTY_FREE)
+        if (($insurancePolicyType === TransferInformation::INSURANCE_POLICY_TYPE_TERMINATE_CONTACT_POLICY) ||
+            ($insurancePolicyType === TransferInformation::INSURANCE_POLICY_TYPE_TRANSFER_PENALTY_FREE)
         ) {
             $data->setPenaltyAmount(null);
-
-        } elseif ($insurancePolicyType == TransferInformation::INSURANCE_POLICY_TYPE_TRANSFER_PENALTY_FREE_AMOUNT) {
+        } elseif ($insurancePolicyType === TransferInformation::INSURANCE_POLICY_TYPE_TRANSFER_PENALTY_FREE_AMOUNT) {
             if (null === $penaltyAmount || filter_var($penaltyAmount, FILTER_VALIDATE_FLOAT) === false) {
                 $form->get('penalty_amount')->addError(new FormError('Enter valid penalty amount.'));
             }
@@ -206,11 +212,11 @@ class TransferInformationFormType extends AbstractType
     protected function validatePhone(FormInterface $form, TransferInformation $data)
     {
         $phoneDigits = 10;
-        $phoneNum = str_replace(array(' ', '-', '(', ')'), '', $data->getPhoneNumber());
+        $phoneNum = str_replace([' ', '-', '(', ')'], '', $data->getPhoneNumber());
 
         if (!is_numeric($phoneNum)) {
-            $form->get('phone_number')->addError(new FormError("Enter correct phone number."));
-        } elseif (strlen($phoneNum) != $phoneDigits) {
+            $form->get('phone_number')->addError(new FormError('Enter correct phone number.'));
+        } elseif (strlen($phoneNum) !== $phoneDigits) {
             $form->get('phone_number')->addError(new FormError("Phone number must be {$phoneDigits} digits."));
         } else {
             $data->setPhoneNumber($phoneNum);
@@ -272,15 +278,15 @@ class TransferInformationFormType extends AbstractType
         }
     }
 
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
+        $resolver->setDefaults([
             'data_class' => 'Wealthbot\ClientBundle\Entity\TransferInformation',
             'cascade_validation' => true,
-        ));
+        ]);
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'transfer_information';
     }

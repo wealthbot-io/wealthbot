@@ -17,40 +17,39 @@ use Wealthbot\UserBundle\Entity\User;
 
 class FeeManagerTest extends \PHPUnit_Framework_TestCase
 {
-
-    protected  $adminFeeData = array(
-        array(
+    protected $adminFeeData = [
+        [
             'top_tier' => 10000,
-            'fee_without_retirement' => 0.0010
-        ),
-        array(
+            'fee_without_retirement' => 0.0010,
+        ],
+        [
             'top_tier' => 20000,
-            'fee_without_retirement' => 0.0020
-        ),
-        array(
+            'fee_without_retirement' => 0.0020,
+        ],
+        [
             'top_tier' => Fee::INFINITY,
-            'fee_without_retirement' => 0.0020
-        )
-    );
+            'fee_without_retirement' => 0.0020,
+        ],
+    ];
 
-    protected $feeData = array(
-        array(
+    protected $feeData = [
+        [
             'top_tier' => 100000,
-            'fee_without_retirement' => 0.1
-        ),
-        array(
+            'fee_without_retirement' => 0.1,
+        ],
+        [
             'top_tier' => 500000,
-            'fee_without_retirement' => 0.01
-        ),
-        array(
+            'fee_without_retirement' => 0.01,
+        ],
+        [
             'top_tier' => 500000.01,
-            'fee_without_retirement' => 0.005
-        ),
-        array(
+            'fee_without_retirement' => 0.005,
+        ],
+        [
             'top_tier' => 10000000000,
-            'fee_without_retirement' => 0.025
-        )
-    );
+            'fee_without_retirement' => 0.025,
+        ],
+    ];
 
     public function testGetClientFees()
     {
@@ -64,53 +63,53 @@ class FeeManagerTest extends \PHPUnit_Framework_TestCase
 
         $riaUser = $this->getRiaUser();
 
-        $riaFees = array(
-            array(
+        $riaFees = [
+            [
                 'tier_top' => 1000,
-                'fee_without_retirement' => 0.0021
-            ),
-            array(
+                'fee_without_retirement' => 0.0021,
+            ],
+            [
                 'tier_top' => 11000,
-                'fee_without_retirement' => 0.0022
-            ),
-            array(
+                'fee_without_retirement' => 0.0022,
+            ],
+            [
                 'tier_top' => Fee::INFINITY,
-                'fee_without_retirement' => 0.0023
-            )
-        );
+                'fee_without_retirement' => 0.0023,
+            ],
+        ];
 
         $calculatedResult = $feeManager->getClientFees($riaUser, $riaFees);
 
-        $expectedResult = array(
-            array(
-                'tier_bottom'            => 0,
-                'tier_top'               => 1000,
-                'fee_without_retirement' => 0.0031
-            ),
-            array(
-                'tier_bottom'            => 1000.01,
-                'tier_top'               => 10000,
-                'fee_without_retirement' => 0.0032
-            ),
-            array(
-                'tier_bottom'            => 10000.01,
-                'tier_top'               => 11000,
-                'fee_without_retirement' => 0.0042
-            ),
-            array(
-                'tier_bottom'            => 11000.01,
-                'tier_top'               => 20000,
-                'fee_without_retirement' => 0.0043
-            ),
-            array(
-                'tier_bottom'            => 20000.01,
-                'tier_top'               => Fee::INFINITY,
-                'fee_without_retirement' => 0.0043
-            )
+        $expectedResult = [
+            [
+                'tier_bottom' => 0,
+                'tier_top' => 1000,
+                'fee_without_retirement' => 0.0031,
+            ],
+            [
+                'tier_bottom' => 1000.01,
+                'tier_top' => 10000,
+                'fee_without_retirement' => 0.0032,
+            ],
+            [
+                'tier_bottom' => 10000.01,
+                'tier_top' => 11000,
+                'fee_without_retirement' => 0.0042,
+            ],
+            [
+                'tier_bottom' => 11000.01,
+                'tier_top' => 20000,
+                'fee_without_retirement' => 0.0043,
+            ],
+            [
+                'tier_bottom' => 20000.01,
+                'tier_top' => Fee::INFINITY,
+                'fee_without_retirement' => 0.0043,
+            ],
 
-        );
+        ];
 
-        $this->assertEquals($expectedResult, $calculatedResult);
+        $this->assertEquals($expectedResult, $calculatedResult, '', 0.00001);
     }
 
     public function getMockBillingSpecManager()
@@ -123,7 +122,6 @@ class FeeManagerTest extends \PHPUnit_Framework_TestCase
         return $mock;
     }
 
-
     public function getUserManagerMock()
     {
         $mb = $this->getMockBuilder('Wealthbot\UserBundle\Manager\UserManager')
@@ -131,14 +129,13 @@ class FeeManagerTest extends \PHPUnit_Framework_TestCase
 
         $mock = $mb->getMock();
 
-
         return $mock;
     }
 
     private function getMockEntityManager()
     {
         $mockEm = $this->getMockBuilder('Doctrine\ORM\EntityManager')
-            ->setMethods(array('getRepository', 'persist', 'flush'))
+            ->setMethods(['getRepository', 'persist', 'flush'])
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -167,7 +164,6 @@ class FeeManagerTest extends \PHPUnit_Framework_TestCase
         return $mock;
     }
 
-
     private function getMockRepository()
     {
         $mockRepository = $this->getMockBuilder('Doctrine\ORM\EntityRepository')
@@ -180,7 +176,6 @@ class FeeManagerTest extends \PHPUnit_Framework_TestCase
 
         return $mockRepository;
     }
-
 
     protected function getRiaUser()
     {
@@ -203,7 +198,7 @@ class FeeManagerTest extends \PHPUnit_Framework_TestCase
     {
         $a = new ArrayCollection();
 
-        foreach($this->feeData as $feeData) {
+        foreach ($this->feeData as $feeData) {
             $fee = new Fee();
             $fee->setTierTop($feeData['top_tier']);
             $fee->setFeeWithoutRetirement($feeData['fee_without_retirement']);
@@ -218,7 +213,7 @@ class FeeManagerTest extends \PHPUnit_Framework_TestCase
     {
         $a = new ArrayCollection();
 
-        foreach($this->adminFeeData as $feeData) {
+        foreach ($this->adminFeeData as $feeData) {
             $fee = new Fee();
             $fee->setTierTop($feeData['top_tier']);
             $fee->setFeeWithoutRetirement($feeData['fee_without_retirement']);
@@ -241,7 +236,7 @@ class FeeManagerTest extends \PHPUnit_Framework_TestCase
 
         $fees = $this->returnFees();
         $c = $feeManager->calculateFee(600000, $fees);
-        $this->assertEquals(16500.0, $c, "Invalid calculated fee value (FeeManager::calculateFee): " . $c);
+        $this->assertSame(16500.0, $c, 'Invalid calculated fee value (FeeManager::calculateFee): '.$c);
     }
 
     public function testFeeBilled()
@@ -255,9 +250,9 @@ class FeeManagerTest extends \PHPUnit_Framework_TestCase
         );
 
         $fees = $this->returnFees();
-        $fee  = $feeManager->calculateFee(600000, $fees);
-        $c    = $feeManager->calculateFeeBilled($fee, 30, 45);
+        $fee = $feeManager->calculateFee(600000, $fees);
+        $c = $feeManager->calculateFeeBilled($fee, 30, 45);
 
-        $this->assertEquals(11000.0, $c, "Invalid calculated fee billed (FeeManager::calculateFeeBilled): {$c}");
+        $this->assertSame(11000.0, $c, "Invalid calculated fee billed (FeeManager::calculateFeeBilled): {$c}");
     }
 }

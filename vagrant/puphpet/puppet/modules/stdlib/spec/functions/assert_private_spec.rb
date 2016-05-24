@@ -1,15 +1,7 @@
-#! /usr/bin/env ruby -S rspec
 require 'spec_helper'
 
-describe Puppet::Parser::Functions.function(:assert_private) do
-  let(:scope) { PuppetlabsSpec::PuppetInternals.scope }
-
-  subject do
-    function_name = Puppet::Parser::Functions.function(:assert_private)
-    scope.method(function_name)
-  end
-
-  context "when called from inside module" do
+describe 'assert_private' do
+  context 'when called from inside module' do
     it "should not fail" do
       scope.expects(:lookupvar).with('module_name').returns('foo')
       scope.expects(:lookupvar).with('caller_module_name').returns('foo')

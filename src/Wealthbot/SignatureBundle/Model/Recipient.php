@@ -2,7 +2,6 @@
 
 namespace Wealthbot\SignatureBundle\Model;
 
-
 use Wealthbot\SignatureBundle\Exception\InvalidRecipientTypeException;
 use Wealthbot\SignatureBundle\Model\Tab\AbstractTab;
 
@@ -34,7 +33,7 @@ class Recipient implements RecipientInterface
     private $tabs;
 
     /**
-     * @var $type
+     * @var
      */
     private $type;
 
@@ -47,16 +46,16 @@ class Recipient implements RecipientInterface
 
     private static $_types = null;
 
-
     public function __construct()
     {
         $this->tabs = new TabCollection();
     }
 
     /**
-     * Set recipient email
+     * Set recipient email.
      *
      * @param string $email
+     *
      * @return mixed|void
      */
     public function setEmail($email)
@@ -64,9 +63,8 @@ class Recipient implements RecipientInterface
         $this->email = $email;
     }
 
-
     /**
-     * Get recipient email
+     * Get recipient email.
      *
      * @return string
      */
@@ -76,9 +74,10 @@ class Recipient implements RecipientInterface
     }
 
     /**
-     * Set recipient name
+     * Set recipient name.
      *
      * @param string $name
+     *
      * @return mixed
      */
     public function setName($name)
@@ -87,7 +86,7 @@ class Recipient implements RecipientInterface
     }
 
     /**
-     * Get recipient name
+     * Get recipient name.
      *
      * @return string
      */
@@ -97,9 +96,10 @@ class Recipient implements RecipientInterface
     }
 
     /**
-     * Set recipient role name
+     * Set recipient role name.
      *
      * @param string $roleName
+     *
      * @return mixed
      */
     public function setRoleName($roleName)
@@ -108,7 +108,7 @@ class Recipient implements RecipientInterface
     }
 
     /**
-     * Get recipient role name
+     * Get recipient role name.
      *
      * @return string
      */
@@ -118,9 +118,10 @@ class Recipient implements RecipientInterface
     }
 
     /**
-     * Set recipient client user id
+     * Set recipient client user id.
      *
      * @param int $clientUserId
+     *
      * @return mixed
      */
     public function setClientUserId($clientUserId)
@@ -129,7 +130,7 @@ class Recipient implements RecipientInterface
     }
 
     /**
-     * Get recipient client user id
+     * Get recipient client user id.
      *
      * @return int
      */
@@ -139,14 +140,14 @@ class Recipient implements RecipientInterface
     }
 
     /**
-     * Get type choices for recipients
+     * Get type choices for recipients.
      *
      * @return array|null
      */
     public static function getTypeChoices()
     {
         if (null === self::$_types) {
-            self::$_types = array();
+            self::$_types = [];
 
             $rClass = new \ReflectionClass('Wealthbot\SignatureBundle\Model\Recipient');
             $prefix = 'TYPE_';
@@ -162,10 +163,12 @@ class Recipient implements RecipientInterface
     }
 
     /**
-     * Set recipient type
+     * Set recipient type.
      *
      * @param string $type
+     *
      * @return mixed|void
+     *
      * @throws InvalidRecipientTypeException
      */
     public function setType($type)
@@ -178,7 +181,7 @@ class Recipient implements RecipientInterface
     }
 
     /**
-     * Get recipient type
+     * Get recipient type.
      *
      * @return string
      */

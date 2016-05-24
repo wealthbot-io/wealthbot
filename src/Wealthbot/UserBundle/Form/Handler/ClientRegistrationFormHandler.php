@@ -9,7 +9,6 @@
 
 namespace Wealthbot\UserBundle\Form\Handler;
 
-
 use FOS\UserBundle\Form\Handler\RegistrationFormHandler;
 use FOS\UserBundle\Model\UserInterface;
 
@@ -28,7 +27,7 @@ class ClientRegistrationFormHandler extends RegistrationFormHandler
             $user->setEnabled(true);
         }
 
-        $user->setRoles(array('ROLE_CLIENT'));
+        $user->setRoles(['ROLE_CLIENT']);
         $user->setEnabled(true);
         $user->setLastLogin(new \DateTime());
     }

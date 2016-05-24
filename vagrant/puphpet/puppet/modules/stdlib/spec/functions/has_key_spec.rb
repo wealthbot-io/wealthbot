@@ -1,42 +1,15 @@
-#! /usr/bin/env ruby -S rspec
 require 'spec_helper'
 
-describe Puppet::Parser::Functions.function(:has_key) do
-  let(:scope) { PuppetlabsSpec::PuppetInternals.scope }
+describe 'has_key' do
+  it { is_expected.not_to eq(nil) }
+  it { is_expected.to run.with_params().and_raise_error(Puppet::ParseError, /wrong number of arguments/i) }
+  it { is_expected.to run.with_params("one").and_raise_error(Puppet::ParseError, /wrong number of arguments/i) }
+  it { is_expected.to run.with_params("one", "two", "three").and_raise_error(Puppet::ParseError, /wrong number of arguments/i) }
+  it { is_expected.to run.with_params("one", "two").and_raise_error(Puppet::ParseError, /expects the first argument to be a hash/) }
+  it { is_expected.to run.with_params(1, "two").and_raise_error(Puppet::ParseError, /expects the first argument to be a hash/) }
+  it { is_expected.to run.with_params([], "two").and_raise_error(Puppet::ParseError, /expects the first argument to be a hash/) }
 
-  describe 'when calling has_key from puppet' do
-    it "should not compile when no arguments are passed" do
-      skip("Fails on 2.6.x, see bug #15912") if Puppet.version =~ /^2\.6\./
-      Puppet[:code] = '$x = has_key()'
-      expect {
-        scope.compiler.compile
-      }.to raise_error(Puppet::ParseError, /wrong number of arguments/)
-    end
-
-    it "should not compile when 1 argument is passed" do
-      skip("Fails on 2.6.x, see bug #15912") if Puppet.version =~ /^2\.6\./
-      Puppet[:code] = "$x = has_key('foo')"
-      expect {
-        scope.compiler.compile
-      }.to raise_error(Puppet::ParseError, /wrong number of arguments/)
-    end
-
-    it "should require the first value to be a Hash" do
-      skip("Fails on 2.6.x, see bug #15912") if Puppet.version =~ /^2\.6\./
-      Puppet[:code] = "$x = has_key('foo', 'bar')"
-      expect {
-        scope.compiler.compile
-      }.to raise_error(Puppet::ParseError, /expects the first argument to be a hash/)
-    end
-  end
-
-  describe 'when calling the function has_key from a scope instance' do
-    it 'should detect existing keys' do
-      expect(scope.function_has_key([{'one' => 1}, 'one'])).to be_truthy
-    end
-
-    it 'should detect existing keys' do
-      expect(scope.function_has_key([{'one' => 1}, 'two'])).to be_falsey
-    end
-  end
+  it { is_expected.to run.with_params({ 'key' => 'value' }, "key").and_return(true) }
+  it { is_expected.to run.with_params({}, "key").and_return(false) }
+  it { is_expected.to run.with_params({ 'key' => 'value'}, "not a key").and_return(false) }
 end

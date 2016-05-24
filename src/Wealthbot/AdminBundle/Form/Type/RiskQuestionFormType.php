@@ -11,28 +11,28 @@ namespace Wealthbot\AdminBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use Symfony\Component\Form\FormEvents;
-use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormError;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class RiskQuestionFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('title', 'textarea', array(
-                'attr' => array('rows' => 3)
-            ))
-            ->add('answers', 'collection', array(
+            ->add('title', 'textarea', [
+                'attr' => ['rows' => 3],
+            ])
+            ->add('answers', 'collection', [
                 'type' => new RiskAnswerFormType(),
                 'allow_add' => true,
                 'allow_delete' => true,
-                'by_reference' => false
-            ))
+                'by_reference' => false,
+            ])
         ;
 
-        $builder->addEventListener(FormEvents::BIND, function(FormEvent $event) {
+        $builder->addEventListener(FormEvents::SUBMIT, function (FormEvent $event) {
             /** @var \Wealthbot\RiaBundle\Entity\RiskQuestion $data */
             $data = $event->getData();
             $form = $event->getForm();
@@ -40,18 +40,18 @@ class RiskQuestionFormType extends AbstractType
             $answersCount = $data->getAnswers()->count();
 
             if ($answersCount < 2) {
-                $form->get('title')->addError(new FormError('The question should have at least %nb_answers% answers', array('%nb_answers%' => 2)));
+                $form->get('title')->addError(new FormError('The question should have at least %nb_answers% answers', ['%nb_answers%' => 2]));
             } elseif ($answersCount > 5) {
-                $form->get('title')->addError(new FormError('The question should have no more than %nb_answers% answers', array('%nb_answers%' => 5)));
+                $form->get('title')->addError(new FormError('The question should have no more than %nb_answers% answers', ['%nb_answers%' => 5]));
             }
         });
     }
 
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => 'Wealthbot\RiaBundle\Entity\RiskQuestion'
-        ));
+        $resolver->setDefaults([
+            'data_class' => 'Wealthbot\RiaBundle\Entity\RiskQuestion',
+        ]);
     }
 
     /**
@@ -59,9 +59,8 @@ class RiskQuestionFormType extends AbstractType
      *
      * @return string The name of this type
      */
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'rx_risk_question';
     }
-
 }

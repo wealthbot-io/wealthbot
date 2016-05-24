@@ -9,7 +9,6 @@
 
 namespace Wealthbot\ClientBundle\Model\TransferStepsConfiguration;
 
-
 use Wealthbot\ClientBundle\Model\AccountGroup;
 use Wealthbot\ClientBundle\Model\ClientAccount;
 use Wealthbot\ClientBundle\Model\TransferStepsConfigurationInterface;
@@ -34,10 +33,12 @@ class RothIraAccountConfiguration implements TransferStepsConfigurationInterface
     }
 
     /**
-     * Get next transfer screen step by current step
+     * Get next transfer screen step by current step.
      *
      * @param string $currentStep
+     *
      * @return string
+     *
      * @throws \InvalidArgumentException
      */
     public function getNextStep($currentStep)
@@ -54,13 +55,10 @@ class RothIraAccountConfiguration implements TransferStepsConfigurationInterface
             case ClientAccount::STEP_ACTION_BENEFICIARIES:
                 if ($this->account->hasGroup(AccountGroup::GROUP_FINANCIAL_INSTITUTION)) {
                     $nextStep = ClientAccount::STEP_ACTION_TRANSFER;
-
                 } elseif ($this->account->hasGroup(AccountGroup::GROUP_OLD_EMPLOYER_RETIREMENT)) {
                     $nextStep = ClientAccount::STEP_ACTION_ROLLOVER;
-
                 } elseif ($this->hasFundingSection()) {
                     $nextStep = ClientAccount::STEP_ACTION_FUNDING_DISTRIBUTING;
-
                 } else {
                     $nextStep = ClientAccount::STEP_ACTION_REVIEW;
                 }
@@ -70,10 +68,8 @@ class RothIraAccountConfiguration implements TransferStepsConfigurationInterface
             case ClientAccount::STEP_ACTION_TRANSFER:
                 if ($this->account->hasGroup(AccountGroup::GROUP_OLD_EMPLOYER_RETIREMENT)) {
                     $nextStep = ClientAccount::STEP_ACTION_ROLLOVER;
-
                 } elseif ($this->hasFundingSection()) {
                     $nextStep = ClientAccount::STEP_ACTION_FUNDING_DISTRIBUTING;
-
                 } else {
                     $nextStep = ClientAccount::STEP_ACTION_REVIEW;
                 }
@@ -83,7 +79,6 @@ class RothIraAccountConfiguration implements TransferStepsConfigurationInterface
             case ClientAccount::STEP_ACTION_ROLLOVER:
                 if ($this->hasFundingSection()) {
                     $nextStep = ClientAccount::STEP_ACTION_FUNDING_DISTRIBUTING;
-
                 } else {
                     $nextStep = ClientAccount::STEP_ACTION_REVIEW;
                 }
@@ -112,10 +107,12 @@ class RothIraAccountConfiguration implements TransferStepsConfigurationInterface
     }
 
     /**
-     * Get previous  transfer screen step by current step
+     * Get previous  transfer screen step by current step.
      *
      * @param string $currentStep
+     *
      * @return string
+     *
      * @throws \InvalidArgumentException
      */
     public function getPreviousStep($currentStep)
@@ -160,13 +157,10 @@ class RothIraAccountConfiguration implements TransferStepsConfigurationInterface
             case ClientAccount::STEP_ACTION_REVIEW:
                 if ($this->hasFundingSection()) {
                     $prevStep = ClientAccount::STEP_ACTION_FUNDING_DISTRIBUTING;
-
                 } elseif ($this->account->hasGroup(AccountGroup::GROUP_OLD_EMPLOYER_RETIREMENT)) {
                     $prevStep = ClientAccount::STEP_ACTION_ROLLOVER;
-
                 } elseif ($this->account->hasGroup(AccountGroup::GROUP_FINANCIAL_INSTITUTION)) {
                     $prevStep = ClientAccount::STEP_ACTION_TRANSFER;
-
                 } else {
                     $prevStep = ClientAccount::STEP_ACTION_BENEFICIARIES;
                 }
@@ -191,7 +185,7 @@ class RothIraAccountConfiguration implements TransferStepsConfigurationInterface
     }
 
     /**
-     * Is account has funding section
+     * Is account has funding section.
      *
      * @return bool
      */
@@ -203,10 +197,8 @@ class RothIraAccountConfiguration implements TransferStepsConfigurationInterface
             $this->adm->hasElectronicallySignError($this->account)
         ) {
             return true;
-
         }
 
         return false;
     }
-
 }

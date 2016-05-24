@@ -4,22 +4,30 @@
 #
 # === Parameters
 #
+# [*ensure*]
+#   String. Controls if the managed resources shall be <tt>present</tt> or
+#   <tt>absent</tt>. If set to <tt>absent</tt>:
+#   * The managed software packages are being uninstalled.
+#   * Any traces of the packages will be purged as good as possible. This may
+#     include existing configuration files. The exact behavior is provider
+#     dependent. Q.v.:
+#     * Puppet type reference: {package, "purgeable"}[http://j.mp/xbxmNP]
+#     * {Puppet's package provider source code}[http://j.mp/wtVCaL]
+#   * System modifications (if any) will be reverted as good as possible
+#     (e.g. removal of created users, services, changed log settings, ...).
+#   * This is thus destructive and should be used with care.
+#   Defaults to <tt>present</tt>.
+#
 # [*file*]
 #   File path of the template ( json file )
 #   Value type is string
 #   Default value: undef
 #   This variable is optional
 #
-# [*replace*]
-#   Set to 'true' if you intend to replace the existing template
-#   Value type is boolean
-#   Default value: false
-#   This variable is optional
-#
-# [*delete*]
-#   Set to 'true' if you intend to delete the existing template
-#   Value type is boolean
-#   Default value: false
+# [*content*]
+#   Contents of the template ( json )
+#   Value type is string
+#   Default value: undef
 #   This variable is optional
 #
 # [*host*]
@@ -36,11 +44,12 @@
 #
 # === Authors
 #
-# * Richard Pijnenburg <mailto:richard@ispavailability.com>
+# * Richard Pijnenburg <mailto:richard.pijnenburg@elasticsearch.com>
 #
 define elasticsearch::template(
   $ensure  = 'present',
   $file    = undef,
+  $content = undef,
   $host    = 'localhost',
   $port    = 9200
 ) {
@@ -59,8 +68,8 @@ define elasticsearch::template(
   Exec {
     path      => [ '/bin', '/usr/bin', '/usr/local/bin' ],
     cwd       => '/',
-    tries     => 3,
-    try_sleep => 10
+    tries     => 6,
+    try_sleep => 10,
   }
 
   # Build up the url
@@ -70,10 +79,11 @@ define elasticsearch::template(
 
   if ($ensure == 'present') {
 
-    # Fail when no file is supplied
-    if $file == undef {
-      fail('The variable "file" cannot be empty when inserting or updating a template')
-
+    # Fail when no file or content is supplied
+    if $file == undef and $content == undef {
+      fail('The variables "file" and "content" cannot be empty when inserting or updating a template.')
+    } elsif $file != undef and $content != undef {
+      fail('The variables "file" and "content" cannot be used together when inserting or updating a template.')
     } else { # we are good to go. notify to insert in case we deleted
       $insert_notify = Exec[ "insert_template_${name}" ]
     }
@@ -90,23 +100,44 @@ define elasticsearch::template(
     command     => "curl -s -XDELETE ${es_url}",
     onlyif      => "test $(curl -s '${es_url}?pretty=true' | wc -l) -gt 1",
     notify      => $insert_notify,
-    refreshonly => true
+    refreshonly => true,
+  }
+
+  if ($ensure == 'absent') {
+
+    # delete the template file on disk and then on the server
+    file { "${elasticsearch::params::homedir}/templates_import/elasticsearch-template-${name}.json":
+      ensure  => 'absent',
+      notify  => Exec[ "delete_template_${name}" ],
+      require => File[ "${elasticsearch::params::homedir}/templates_import" ],
+    }
   }
 
   if ($ensure == 'present') {
 
-    # place the template file
-    file { "${elasticsearch::confdir}/templates_import/elasticsearch-template-${name}.json":
-      ensure  => 'present',
-      source  => $file,
-      notify  => Exec[ "delete_template_${name}" ],
-      require => Exec[ 'mkdir_templates' ],
+    if $content == undef {
+      # place the template file using the file source
+      file { "${elasticsearch::params::homedir}/templates_import/elasticsearch-template-${name}.json":
+        ensure  => file,
+        source  => $file,
+        notify  => Exec[ "delete_template_${name}" ],
+        require => File[ "${elasticsearch::params::homedir}/templates_import" ],
+      }
+    } else {
+      # place the template file using content
+      file { "${elasticsearch::params::homedir}/templates_import/elasticsearch-template-${name}.json":
+        ensure  => file,
+        content => $content,
+        notify  => Exec[ "delete_template_${name}" ],
+        require => File[ "${elasticsearch::params::homedir}/templates_import" ],
+      }
     }
 
     exec { "insert_template_${name}":
-      command     => "curl -s -XPUT ${es_url} -d @${elasticsearch::confdir}/templates_import/elasticsearch-template-${name}.json",
+      command     => "curl -sL -w \"%{http_code}\\n\" -XPUT ${es_url} -d @${elasticsearch::params::homedir}/templates_import/elasticsearch-template-${name}.json -o /dev/null | egrep \"(200|201)\" > /dev/null",
       unless      => "test $(curl -s '${es_url}?pretty=true' | wc -l) -gt 1",
-      refreshonly => true
+      refreshonly => true,
+      loglevel    => 'debug',
     }
 
   }

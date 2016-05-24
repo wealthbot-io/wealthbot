@@ -55,7 +55,7 @@ fqdn=$(facter fqdn)
 
 environment=$(facter ${env_key} -p)
 
-if [ -z "${environment} ]
+if [ -z "${environment}" ]
 then
     environment=$(facter ${fallback_key} -p)
 fi

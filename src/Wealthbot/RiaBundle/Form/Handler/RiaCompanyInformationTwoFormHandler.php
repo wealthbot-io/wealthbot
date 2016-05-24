@@ -9,7 +9,6 @@
 
 namespace Wealthbot\RiaBundle\Form\Handler;
 
-
 use Wealthbot\AdminBundle\Form\Handler\AbstractFormHandler;
 use Wealthbot\UserBundle\Entity\User;
 
@@ -38,7 +37,7 @@ class RiaCompanyInformationTwoFormHandler extends AbstractFormHandler
 
     private function getOriginalFees(User $ria)
     {
-        $originalFees = array();
+        $originalFees = [];
         foreach ($ria->getFees() as $fee) {
             $originalFees[] = $fee;
         }

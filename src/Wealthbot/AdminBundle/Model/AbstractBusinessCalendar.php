@@ -2,7 +2,6 @@
 
 namespace Wealthbot\AdminBundle\Model;
 
-
 abstract class AbstractBusinessCalendar
 {
     /** @var array */
@@ -12,7 +11,7 @@ abstract class AbstractBusinessCalendar
 
     public function __construct()
     {
-        $this->holidays = array();
+        $this->holidays = [];
     }
 
     /**
@@ -21,11 +20,12 @@ abstract class AbstractBusinessCalendar
      *
      * @param \DateTime $date
      * @param $daysCount
+     *
      * @return \DateTime
      */
     public function addBusinessDays(\DateTime $date, $daysCount)
     {
-        if ($daysCount == 0) {
+        if ($daysCount === 0) {
             return $date;
         }
 
@@ -43,7 +43,7 @@ abstract class AbstractBusinessCalendar
 
         if ($daysCount < 0) {
             $this->loadHolidays($dateTo, $dateFrom);
-        }else{
+        } else {
             $this->loadHolidays($dateFrom, $dateTo);
         }
         $sign = ($daysCount < 0 ? -1 : 1);
@@ -51,7 +51,7 @@ abstract class AbstractBusinessCalendar
         $tryHolidays = true;
         while ($tryHolidays) {
             $holidays = 0;
-            while ($timeFrom != $timeTo) {
+            while ($timeFrom !== $timeTo) {
                 $timeFrom += $sign * self::SECONDS_IN_DAY;
                 $dateFrom->setTimestamp($timeFrom);
                 $dateStr = $dateFrom->format('m/d/Y');
@@ -64,8 +64,9 @@ abstract class AbstractBusinessCalendar
         }
 
         $dateTo->setTimestamp($timeFrom + $timeDiff);
+
         return $dateTo;
     }
 
     abstract protected function loadHolidays(\DateTime $dateFrom, \DateTime $dateTo);
-} 
+}

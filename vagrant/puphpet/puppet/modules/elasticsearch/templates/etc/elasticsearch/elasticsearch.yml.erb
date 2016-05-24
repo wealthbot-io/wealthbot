@@ -6,14 +6,14 @@
     depth.times { spacer += "  "}
     hash.keys.sort.each do |sorted_key|
       @yml_string += spacer + sorted_key + ": "
-      if hash[sorted_key].is_a?(Array)
+      if hash[sorted_key].is_a?(::Array)
          keyspacer = ""
          sorted_key.length.times { keyspacer += " " }
          @yml_string += "\n"
          hash[sorted_key].each do |item|
            @yml_string += spacer + keyspacer + "- " + item +"\n"
          end
-      elsif hash[sorted_key].is_a?(Hash)
+      elsif hash[sorted_key].is_a?(::Hash)
         @yml_string += "\n"
         recursive_hash_to_yml_string(hash[sorted_key], depth+1)
       else
@@ -33,7 +33,7 @@
         return_vals << stuff
       end
     else
-      if val.is_a?(Hash)
+      if val.is_a?(::Hash)
         transform(val).each do |stuff|
           return_vals << { key => stuff }
         end
@@ -52,12 +52,12 @@
     target = dup
 
     hash.keys.each do |key|
-      if hash[key].is_a? Hash and self[key].is_a? Hash
+      if hash[key].is_a? ::Hash and self[key].is_a? ::Hash
         target[key] = target[key].deep_merge_with_array_values_concatenated(hash[key])
         next
       end
 
-      if hash[key].is_a?(Array) && target[key].is_a?(Array)
+      if hash[key].is_a?(::Array) && target[key].is_a?(::Array)
         target[key] = target[key] + hash[key]
       else
         target[key] = hash[key]
@@ -71,12 +71,12 @@
   # initial string
   @yml_string = "### MANAGED BY PUPPET ###\n"
 
-  if !scope.lookupvar('elasticsearch::config').empty?
+  if !@data.empty?
 
     @yml_string += "---\n"
 
     ## Transform shorted keys into full write up
-    transformed_config = transform(scope.lookupvar('elasticsearch::config'))
+    transformed_config = transform(@data)
 
     # Merge it back into a hash
     tmphash = { }

@@ -29,11 +29,13 @@ class puppi::params  {
 
   $archivedir = $::puppi_archivedir ? {
     ''      => '/var/lib/puppi/archive',
+    undef   => '/var/lib/puppi/archive',
     default => $::puppi_archivedir,
   }
 
   $workdir = $::puppi_workdir ? {
     ''      => '/tmp/puppi',
+    undef   => '/tmp/puppi',
     default => $::puppi_workdir,
   }
 

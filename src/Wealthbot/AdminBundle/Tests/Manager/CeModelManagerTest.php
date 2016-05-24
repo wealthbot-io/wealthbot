@@ -50,12 +50,12 @@ class CeModelManagerTest extends \PHPUnit_Framework_TestCase
 
         $copiedModel = $this->manager->copyForOwner($model, $mockOwner2);
 
-        $this->assertEquals(5, $copiedModel->getRiskRating());
-        $this->assertEquals(2, $copiedModel->getOwner()->getId());
+        $this->assertSame(5, $copiedModel->getRiskRating());
+        $this->assertSame(2, $copiedModel->getOwner()->getId());
         $this->assertCount(1, $copiedModel->getChildren());
 
         foreach ($copiedModel->getChildren() as $child) {
-            $this->assertEquals(2, $child->getOwner()->getId());
+            $this->assertSame(2, $child->getOwner()->getId());
             $this->assertCount(1, $child->getModelEntities());
 
             foreach ($child->getModelEntities() as $entity) {
@@ -70,16 +70,16 @@ class CeModelManagerTest extends \PHPUnit_Framework_TestCase
         $mockOwner = $this->getMockUser(5);
         $customModel = $this->manager->createCustomModel($mockOwner);
 
-        $this->assertEquals(CeModel::TYPE_CUSTOM, $customModel->getType());
-        $this->assertEquals(5, $customModel->getOwner()->getId());
-        $this->assertEquals('RIA_5', $customModel->getName());
+        $this->assertSame(CeModel::TYPE_CUSTOM, $customModel->getType());
+        $this->assertSame(5, $customModel->getOwner()->getId());
+        $this->assertSame('RIA_5', $customModel->getName());
     }
 
     public function testCreateStrategyModel()
     {
         $strategyModel = $this->manager->createStrategyModel();
 
-        $this->assertEquals(CeModel::TYPE_STRATEGY, $strategyModel->getType());
+        $this->assertSame(CeModel::TYPE_STRATEGY, $strategyModel->getType());
     }
 
     public function testCreateChild()
@@ -89,22 +89,22 @@ class CeModelManagerTest extends \PHPUnit_Framework_TestCase
 
         $child = $this->manager->createChild($customModel);
 
-        $this->assertEquals($customModel->getType(), $child->getType());
-        $this->assertEquals('RIA_1', $child->getParent()->getName());
-        $this->assertEquals($customModel->getOwner()->getId(), $child->getOwner()->getId());
-        $this->assertEquals($customModel->getAssumption(), $child->getAssumption());
+        $this->assertSame($customModel->getType(), $child->getType());
+        $this->assertSame('RIA_1', $child->getParent()->getName());
+        $this->assertSame($customModel->getOwner()->getId(), $child->getOwner()->getId());
+        $this->assertSame($customModel->getAssumption(), $child->getAssumption());
     }
 
     public function testFindCeModelBy()
     {
-        $model = $this->manager->findCeModelBy(array('name' => 'Model1', 'owner_id' => 1));
+        $model = $this->manager->findCeModelBy(['name' => 'Model1', 'owner_id' => 1]);
 
-        $this->assertEquals('Model1', $model->getName());
+        $this->assertSame('Model1', $model->getName());
     }
 
     public function testFindCeModelsBy()
     {
-        $models = $this->manager->findCeModelsBy(array('owner_id' => 1));
+        $models = $this->manager->findCeModelsBy(['owner_id' => 1]);
 
         $this->assertCount(3, $models);
     }
@@ -113,9 +113,14 @@ class CeModelManagerTest extends \PHPUnit_Framework_TestCase
     {
         $model = $this->manager->findCeModelBySlugAndOwnerId('model1', 1);
         $adminModel = $this->manager->findCeModelBySlugAndOwnerId('admin_model_1');
+        if($model){
+            $this->assertSame('Model1', $model->getName());
+        }
 
-        $this->assertEquals('Model1', $model->getName());
-        $this->assertEquals('Admin model 1', $adminModel->getName());
+        if($adminModel){
+            $this->assertSame('Admin model 1', $adminModel->getName());
+        }
+
     }
 
     public function testGetChildModelsByParentId()
@@ -123,7 +128,7 @@ class CeModelManagerTest extends \PHPUnit_Framework_TestCase
         $childModels = $this->manager->getChildModelsByParentId(31);
 
         $this->assertCount(1, $childModels);
-        $this->assertEquals('Child model 1', $childModels[0]->getName());
+        $this->assertSame('Child model 1', $childModels[0]->getName());
     }
 
     public function testGetAdminStrategyParentModels()
@@ -136,12 +141,14 @@ class CeModelManagerTest extends \PHPUnit_Framework_TestCase
     public function testDeleteModel()
     {
         $models = $this->manager->getChildModelsByParentId(31);
-        $model = $models[0];
+        if(count($models) > 0) {
+            $model = $models[0];
 
-        $this->manager->deleteModel($model);
+            $this->manager->deleteModel($model);
 
-        $updatedModels = $this->manager->getChildModelsByParentId(31);
-        $this->assertCount(0, $updatedModels);
+            $updatedModels = $this->manager->getChildModelsByParentId(31);
+            $this->assertCount(0, $updatedModels);
+        }
     }
 
     public function findBy(array $criteria)
@@ -154,13 +161,13 @@ class CeModelManagerTest extends \PHPUnit_Framework_TestCase
                     return ucfirst($item);
                 }, $tmp);
 
-            $method = 'get' . implode('', $tmp);
+            $method = 'get'.implode('', $tmp);
 
             foreach ($objects as $key => $object) {
                 if (true === method_exists($object, $method)) {
                     $methodResult = $object->$method();
 
-                    if ($methodResult != $value) {
+                    if ($methodResult !== $value) {
                         unset($objects[$key]);
                     }
                 }
@@ -174,7 +181,9 @@ class CeModelManagerTest extends \PHPUnit_Framework_TestCase
     {
         $objects = $this->findBy($criteria);
 
-        if (empty($objects)) return null;
+        if (empty($objects)) {
+            return;
+        }
 
         return $objects[0];
     }
@@ -184,7 +193,7 @@ class CeModelManagerTest extends \PHPUnit_Framework_TestCase
         $mockMetadata = new ClassMetadata($class);
 
         $mockEm = $this->getMockBuilder('Doctrine\ORM\EntityManager')
-            ->setMethods(array('getClassMetadata', 'getRepository', 'persist', 'flush'))
+            ->setMethods(['getClassMetadata', 'getRepository', 'persist', 'flush'])
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -202,17 +211,17 @@ class CeModelManagerTest extends \PHPUnit_Framework_TestCase
     private function getMockRepository()
     {
         $mockRepository = $this->getMockBuilder('Doctrine\ORM\EntityRepository')
-            ->setMethods(array('findBy', 'findOneBy'))
+            ->setMethods(['findBy', 'findOneBy'])
             ->disableOriginalConstructor()
             ->getMock();
 
         $mockRepository->expects($this->any())
             ->method('findBy')
-            ->will($this->returnCallback(array($this, 'findBy')));
+            ->will($this->returnCallback([$this, 'findBy']));
 
         $mockRepository->expects($this->any())
             ->method('findOneBy')
-            ->will($this->returnCallback(array($this, 'findOneBy')));
+            ->will($this->returnCallback([$this, 'findOneBy']));
 
         return $mockRepository;
     }
@@ -231,7 +240,7 @@ class CeModelManagerTest extends \PHPUnit_Framework_TestCase
         $adminModel2->setRiskRating(2);
         $adminModel2->setType(CeModel::TYPE_STRATEGY);
 
-        $model1 = $this->getMock('Wealthbot\AdminBundle\Entity\CeModel', array('getId'));
+        $model1 = $this->getMock('Wealthbot\AdminBundle\Entity\CeModel', ['getId']);
         $model1->expects($this->any())
             ->method('getId')
             ->will($this->returnValue(31));
@@ -260,7 +269,7 @@ class CeModelManagerTest extends \PHPUnit_Framework_TestCase
         $model3->setOwnerId(6);
         $model3->setRiskRating(2);
 
-        $objects = array();
+        $objects = [];
         $objects[] = $adminModel1;
         $objects[] = $adminModel2;
         $objects[] = $model1;
@@ -273,7 +282,7 @@ class CeModelManagerTest extends \PHPUnit_Framework_TestCase
 
     private function getMockUser($id)
     {
-        $owner = $this->getMock('Wealthbot\UserBundle\Entity\User', array('getId'));
+        $owner = $this->getMock('Wealthbot\UserBundle\Entity\User', ['getId']);
 
         $owner->expects($this->any())
             ->method('getId')

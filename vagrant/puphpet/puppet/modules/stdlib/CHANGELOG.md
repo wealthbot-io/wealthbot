@@ -1,17 +1,147 @@
-##2015-01-14 - Supported Release 4.6.0
+## Supported Release 4.11.0
 ###Summary
 
-Improved functionality and preparing for Puppet Next with new parser
+Provides a validate_absolute_paths and Debian 8 support. There is a fix to the is_package_provider fact and a test improvement.
 
 ####Features
-- MODULES-444: concat can now take more than two arrays
-- basename function added to have Ruby File.basename functionality
-- delete function can now take an array of items to remove
-- MODULES-1473: deprecate type function in favor of type_of
+-  Adds new parser called is_absolute_path
+-  Supports Debian 8
 
 ####Bugfixes
-- Several test case fixes
-- Ensure_resource is more verbose on debug mode
+-  Allow package_provider fact to resolve on PE 3.x
+
+####Improvements
+- ensures that the test passes independently of changes to rubygems for ensure_resource
+
+##2015-12-15 - Supported Release 4.10.0
+###Summary
+
+Includes the addition of several new functions and considerable improvements to the existing functions, tests and documentation. Includes some bug fixes which includes compatibility, test and fact issues.
+
+####Features
+- Adds service_provider fact
+- Adds is_a() function
+- Adds package_provider fact
+- Adds validate_ip_address function
+- Adds seeded_rand function
+
+####Bugfixes
+- Fix backwards compatibility from an improvement to the parseyaml function
+- Renaming of load_module_metadata test to include _spec.rb
+- Fix root_home fact on AIX 5.x, now '-c' rather than '-C'
+- Fixed Gemfile to work with ruby 1.8.7
+
+####Improvements
+- (MODULES-2462) Improvement of parseyaml function
+- Improvement of str2bool function
+- Improvement to readme
+- Improvement of intersection function
+- Improvement of validate_re function
+- Improved speed on Facter resolution of service_provider
+- empty function now handles numeric values
+- Package_provider now prevents deprecation warning about the allow_virtual parameter
+- load_module_metadata now succeeds on empty file
+- Check added to ensure puppetversion value is not nil
+- Improvement to bool2str to return a string of choice using boolean
+- Improvement to naming convention in validate_ipv4_address function
+
+## Supported Release 4.9.1
+###Summary
+
+Small release for support of newer PE versions. This increments the version of PE in the metadata.json file.
+
+##2015-09-08 - Supported Release 4.9.0
+###Summary
+
+This release adds new features including the new functions dos2unix, unix2dos, try_get_value, convert_base as well as other features and improvements.
+
+####Features
+- (MODULES-2370) allow `match` parameter to influence `ensure => absent` behavior
+- (MODULES-2410) Add new functions dos2unix and unix2dos
+- (MODULE-2456) Modify union to accept more than two arrays
+- Adds a convert_base function, which can convert numbers between bases
+- Add a new function "try_get_value"
+
+####Bugfixes
+- n/a
+
+####Improvements
+- (MODULES-2478) Support root_home fact on AIX through "lsuser" command
+- Acceptance test improvements
+- Unit test improvements
+- Readme improvements
+
+## 2015-08-10 - Supported Release 4.8.0
+### Summary
+This release adds a function for reading metadata.json from any module, and expands file\_line's abilities.
+
+#### Features
+- New parameter `replace` on `file_line`
+- New function `load_module_metadata()` to load metadata.json and return the content as a hash.
+- Added hash support to `size()`
+
+#### Bugfixes
+- Fix various docs typos
+- Fix `file_line` resource on puppet < 3.3
+
+##2015-06-22 - Supported Release 4.7.0
+###Summary
+
+Adds Solaris 12 support along with improved Puppet 4 support. There are significant test improvements, and some minor fixes.
+
+####Features
+- Add support for Solaris 12
+
+####Bugfixes
+- Fix for AIO Puppet 4
+- Fix time for ruby 1.8.7
+- Specify rspec-puppet version
+- range() fix for typeerror and missing functionality
+- Fix pw_hash() on JRuby < 1.7.17
+- fqdn_rand_string: fix argument error message
+- catch and rescue from looking up non-existent facts
+- Use puppet_install_helper, for Puppet 4
+
+####Improvements
+- Enforce support for Puppet 4 testing
+- fqdn_rotate/fqdn_rand_string acceptance tests and implementation
+- Simplify mac address regex
+- validate_integer, validate_numeric: explicitely reject hashes in arrays
+- Readme edits
+- Remove all the pops stuff for rspec-puppet
+- Sync via modulesync
+- Add validate_slength optional 3rd arg
+- Move tests directory to examples directory
+
+##2015-04-14 - Supported Release 4.6.0
+###Summary
+
+Adds functions and function argument abilities, and improves compatibility with the new puppet parser
+
+####Features
+- MODULES-444: `concat()` can now take more than two arrays
+- `basename()` added to have Ruby File.basename functionality
+- `delete()` can now take an array of items to remove
+- `prefix()` can now take a hash
+- `upcase()` can now take a hash or array of upcaseable things
+- `validate_absolute_path()` can now take an array
+- `validate_cmd()` can now use % in the command to embed the validation file argument in the string
+- MODULES-1473: deprecate `type()` function in favor of `type3x()`
+- MODULES-1473: Add `type_of()` to give better type information on future parser
+- Deprecate `private()` for `assert_private()` due to future parser
+- Adds `ceiling()` to take the ceiling of a number
+- Adds `fqdn_rand_string()` to generate random string based on fqdn
+- Adds `pw_hash()` to generate password hashes
+- Adds `validate_integer()`
+- Adds `validate_numeric()` (like `validate_integer()` but also accepts floats)
+
+####Bugfixes
+- Fix seeding of `fqdn_rotate()`
+- `ensure_resource()` is more verbose on debug mode
+- Stricter argument checking for `dirname()`
+- Fix `is_domain_name()` to better match RFC
+- Fix `uriescape()` when called with array
+- Fix `file_line` resource when using the `after` attribute with `match`
 
 ##2015-01-14 - Supported Release 4.5.1
 ###Summary
@@ -75,7 +205,7 @@ backwards-compatible with the stdlib 3 series. It adds two new functions, one bu
 
 #### Features
 - New `bool2str()` function
-- New `camalcase()` function
+- New `camelcase()` function
 
 #### Bugfixes
 - Fix `has_interface_with()` when interfaces fact is nil
@@ -278,7 +408,7 @@ This is a supported release
 
  * Add an ensure\_packages function. (8a8c09e)
 
-##### 2012-11-23 - Erik DalÃƒÂ©n <dalen@spotify.com> - 3.2.0
+##### 2012-11-23 - Erik Dalén <dalen@spotify.com> - 3.2.0
 
  * (#17797) min() and max() functions (9954133)
 
@@ -375,7 +505,7 @@ This is a supported release
 
  * Add support for a 'match' parameter to file\_line (a06c0d8)
 
-##### 2012-08-07 - Erik DalÃƒÂ©n <dalen@spotify.com> - 2.4.0
+##### 2012-08-07 - Erik Dalén <dalen@spotify.com> - 2.4.0
 
  * (#15872) Add to\_bytes function (247b69c)
 

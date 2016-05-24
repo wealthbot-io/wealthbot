@@ -9,7 +9,6 @@
 
 namespace Wealthbot\SignatureBundle\Model\Tab;
 
-
 class TextTab extends AbstractTab
 {
     public function __construct()

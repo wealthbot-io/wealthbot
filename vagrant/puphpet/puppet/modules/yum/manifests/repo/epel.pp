@@ -14,21 +14,21 @@
 #   Default: `undef`
 #
 class yum::repo::epel (
-  $mirror_url = undef,
+  $mirror_url = undef
 ) {
 
   if $mirror_url {
     validate_re(
       $mirror_url,
-      '^(?:https?|ftp):\/\/[\da-zA-Z-][\da-zA-Z\.-]*\.[a-zA-Z]{2,6}\.?(?:\/[\w~-]*)*$',
+      '^(?:https?|ftp):\/\/[\da-zA-Z-][\da-zA-Z\.-]*\.[a-zA-Z]{2,6}\.?(?:\:[0-9]{1,5})?(?:\/[\w~-]*)*$',
       '$mirror must be a Clean URL with no query-string, a fully-qualified hostname and no trailing slash.'
     )
   }
 
-  if $::operatingsystem == 'Amazon' {
-    $osver = [ '6' ]
-  } else {
-    $osver = split($::operatingsystemrelease, '[.]')
+  $osver = $::operatingsystem ? {
+    'Amazon'    => [ '6' ],
+    'XenServer' => [ '5' ],
+    default     => split($::operatingsystemrelease, '[.]')
   }
 
   $baseurl_epel = $mirror_url ? {

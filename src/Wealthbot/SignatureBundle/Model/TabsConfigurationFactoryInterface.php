@@ -9,7 +9,6 @@
 
 namespace Wealthbot\SignatureBundle\Model;
 
-
 interface TabsConfigurationFactoryInterface
 {
     /**

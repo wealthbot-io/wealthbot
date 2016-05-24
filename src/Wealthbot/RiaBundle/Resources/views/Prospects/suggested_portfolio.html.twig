@@ -102,7 +102,7 @@
     {% endif %}
 
     <form id="client_settings_form" class="form-horizontal " action="{{ path(action_route, {'client_id': client.id}) }}" method="post">
-        {% if settings_form.get('errors') is not empty %}
+        {% if settings_form.vars.errors is not empty %}
             {{ form_errors(settings_form) }}
         {% endif %}
 

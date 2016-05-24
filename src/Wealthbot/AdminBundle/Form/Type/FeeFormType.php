@@ -11,12 +11,10 @@ namespace Wealthbot\AdminBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use Symfony\Component\Form\FormError;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class FeeFormType extends AbstractType
 {
@@ -34,29 +32,31 @@ class FeeFormType extends AbstractType
 
         $refreshTierTop = function (FormInterface $form, $value) use ($factory) {
             $form
-                ->add($factory->createNamed('tier_top', 'number', null, array(
+                ->add($factory->createNamed('tier_top', 'number', null, [
                     'grouping' => true,
-                    'attr' => $value == 1000000000000 ? array('value' => '', 'disabled' => 'readonly') : array()
-                )))
-                ->add($factory->createNamed('is_final_tier', 'checkbox', null, array(
+                    'auto_initialize' => false,
+                    'attr' => $value === 1000000000000 ? ['value' => '', 'disabled' => 'readonly'] : [],
+                ]))
+                ->add($factory->createNamed('is_final_tier', 'checkbox', null, [
                     'label' => 'Is this your final tier?',
-                    'attr' => $value == 1000000000000 ? array('checked' => 'checked') : array(),
+                    'attr' => $value === 1000000000000 ? ['checked' => 'checked'] : [],
                     'required' => false,
-                    'property_path' => false,
-                )))
+                    'auto_initialize' => false,
+                   // 'mapped' => false,
+                ]))
             ;
         };
 
         $builder
-            ->add('fee_with_retirement', 'text', array('label' => 'Fee with retirement (%)'))
-            ->add('fee_without_retirement', 'text', array('label' => 'Fee without retirement (%)'))
-            ->add('tier_bottom', 'number', array(
+            ->add('fee_with_retirement', 'text', ['label' => 'Fee with retirement (%)'])
+            ->add('fee_without_retirement', 'text', ['label' => 'Fee without retirement (%)'])
+            ->add('tier_bottom', 'number', [
                 'label' => 'Tier bottom ($)',
                 'required' => true,
-                'property_path' => false,
+               // 'mapped' => false,
                 'grouping' => true,
-                'attr' => array('readonly' => 'readonly')
-            ))
+                'attr' => ['readonly' => 'readonly'],
+            ])
         ;
 
         $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) use ($refreshTierTop) {
@@ -66,17 +66,17 @@ class FeeFormType extends AbstractType
             if ($data === null) {
                 $refreshTierTop($form, null);
             } else {
-                if($data->getTierTop()) {
+                if ($data->getTierTop()) {
                     $refreshTierTop($form, $data->getTierTop());
                 }
             }
         });
 
-        $builder->addEventListener(FormEvents::PRE_BIND, array($this, 'onPreBind'));
-        $builder->addEventListener(FormEvents::BIND, array($this, 'onBind'));
+        $builder->addEventListener(FormEvents::PRE_SUBMIT, [$this, 'onPreSubmit']);
+        $builder->addEventListener(FormEvents::SUBMIT, [$this, 'onSubmit']);
     }
 
-    public function onPreBind(FormEvent $event)
+    public function onPreSubmit(FormEvent $event)
     {
         $data = $event->getData();
 
@@ -86,20 +86,20 @@ class FeeFormType extends AbstractType
         }
     }
 
-    public function onBind(FormEvent $event)
+    public function onSubmit(FormEvent $event)
     {
         $fee = $event->getData();
         $fee->setOwner($this->user);
     }
 
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => 'Wealthbot\AdminBundle\Entity\Fee'
-        ));
+        $resolver->setDefaults([
+            'data_class' => 'Wealthbot\AdminBundle\Entity\Fee',
+        ]);
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'wealthbot_adminbundle_fee_type';
     }

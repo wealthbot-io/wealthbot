@@ -9,7 +9,6 @@
 
 namespace Wealthbot\ClientBundle\Form\Validator;
 
-
 use Symfony\Component\Form\FormError;
 
 class ClientSpouseFormValidator extends AbstractFormValidator
@@ -37,7 +36,7 @@ class ClientSpouseFormValidator extends AbstractFormValidator
             $birthDate = $this->data->getBirthDate();
             $spouseInterval = $nowDate->diff($birthDate);
 
-            if ((int)$spouseInterval->format('%y%') < $minYears) {
+            if ((int) $spouseInterval->format('%y%') < $minYears) {
                 $this->form->get('birth_date')->addError(
                     new FormError("Your spouse must be at least {$minYears} years old.")
                 );
@@ -45,7 +44,6 @@ class ClientSpouseFormValidator extends AbstractFormValidator
         }
 
         if ($this->form->has('birth_date')) {
-
             $birthDateData = $this->form->get('birth_date')->getData();
 
             if ($birthDateData && $birthDateData instanceof \DateTime) {

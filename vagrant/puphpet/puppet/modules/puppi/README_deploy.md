@@ -3,50 +3,63 @@ Documentation and examples related to the puppi actions: deploy, rollback and in
 
 ## SYNOPSIS (COMMAND LINE)
 Shell command to launch a deploy:
+
         puppi deploy <project_name>
         puppi deploy <project_name> [-f] [-i] [-t] [-d yes|full] [-r yes|no|fail] [-p "parameter=value parameter2=value2"]
 
 Shell command to launch a rollback:
+
         puppi rollback <project_name> 
 
 Shell command to launch the first deploy:
+
         puppi init <project_name>
 
 
 ## EXAMPLES (cli)
 
 Deploy myapp with the standard logic/parameters defined in Puppet:
+
         puppi deploy myapp
 
 Deploy myapp and doesn't stop in case of Critical errors:
+
         puppi deploy myapp -f
 
 Deploy myapp in interactive mode. Confirmation is asked for each step
+
         puppi deploy myapp -i
 
 Test mode. Just show the commands that would be executed
+
         puppi deploy myapp -t
 
 Deploy myapp with full debugging output
+
         puppi deploy myapp -d full
 
 Deploy myapp in interactive mode and sets some custom options that override the standard Puppet params.
 Note that these parameters change according to the script you use (and the scripts must honour this override in order to make this option work).
+
         puppi deploy myapp -i -o "version=1.1 source_url=http://dev.example42.com/code/my_app/"
 
 Make the first deploy of "myapp". Can be optional and may require a subsequent puppi deploy myapp
+
         puppi init myapp
 
 Rollback myapp to a previous archived state. User is asked to choose which deploy to override. Note that by default you have 5 backups to rollback from. Older backups are automatically removed.
+
         puppi rollback myapp
 
 Automatically rollback to the latest saved state (unattended).
+
         puppi rollback myapp latest
 
 
 ## EXAMPLES (puppet)
 Here follow some sample defines you can use out of the box in your manifests once you include puppi.
 Get a war from $source and deploy it in $deploy_root:
+
         puppi::project::war { 'myapp':
           source           => 'http://repo.example42.com/deploy/prod/myapp.war',
           deploy_root      => '/store/tomcat/myapp/webapps',
@@ -54,6 +67,7 @@ Get a war from $source and deploy it in $deploy_root:
 
 Get a tarball from $source, unpack it in $deploy_root, restart service called apache and send a mail
 to $report_mail (you can have a comma separated list of destination addresses):
+
         puppi::project::tar { 'mysite':
           source           => 'rsync://repo.example42.com/deploy/prod/release.tgz',
           init_script      => 'apache',
@@ -63,6 +77,7 @@ to $report_mail (you can have a comma separated list of destination addresses):
         }
 
 Get a tarfile with a .sql query file and apply to to you local Mysql with the credentials provided:
+
         puppi::project::mysql { 'myweb_sql':
           source          => 'http://repo.example42.com/deploy/prod/database.sql.gz',
           mysql_user      => 'myweb',
@@ -74,7 +89,8 @@ Get a tarfile with a .sql query file and apply to to you local Mysql with the cr
         }
 
 Get a list of files from $source, retrieve the actual files from $source_baseurl and place them
-in $deploy_root
+in $deploy_root:
+
         puppi::project::files { 'gfxupdates':
           source           => 'http://deploy.example42.com/prod/website2/list.txt',
           source_baseurl   => 'http://design.example42.com/website2/gfx/',
@@ -85,6 +101,7 @@ in $deploy_root
 
 Deploy from a Nexus repository (retrieve maven-metadata.xml from dir specified in $source), get the war 
 (version is achieved from the "release" tag in the xml) and deploy it in $deploy_root and then restart tomcat.
+
         puppi::project::maven { 'supersite':
           source           => 'http://nexus.example42.com/nexus/content/repositories/releases/it/example42/supersite/',
           deploy_root      => '/usr/local/tomcat/supersite/webapps',
@@ -97,6 +114,7 @@ Get the maven-metadata.xml from a Nexus repository and deploy:
 - The release war in $deploy_root
 - A configurations tarball tagged with the Maven qualifier $config_suffix in $config_root
 - A static files tarball tagged with the Maven qualifier $document_suffix in $document_root
+
         puppi::project::maven { 'supersite':
           source           => 'http://nexus.example42.com/nexus/content/repositories/releases/it/example42/supersite/',
           deploy_root      => '/usr/local/tomcat/supersite/webapps',
@@ -114,6 +132,7 @@ The same deploy Nexus repository with some more options:
 - A block from a loadbalancer IP (managing different sites addresess)
 - Some more elaborate rsync exclusion rules
 - A backup retention of 3 archives (instead of the default 5)
+
         puppi::project::maven { 'supersite':
           source           => 'http://nexus.example42.com/nexus/content/repositories/releases/it/example42/supersite/',
           deploy_root      => '/usr/local/tomcat/supersite/webapps',
@@ -140,6 +159,7 @@ An elaborated war deploy:
 - deploy to /data/tomcat/myapp/webapps as user pippo
 - stop and start tomcat-myapp but also monit and puppet
 - backup passing  $backup_rsync_options to rsync:
+
         puppi::project::war { 'myapp':
           source                  => 'http://repo.example42.com/deploy/prod/myapp.war',
           deploy_root             => '/store/tomcat/myapp/webapps',
@@ -155,6 +175,7 @@ An elaborated war deploy:
         }
 An example of usage of the generic builder define to deploy a zip file, with an example custom
 post deploy command executed as root (as all puppi commands, if not specified otherwise)
+
         puppi::project::builder { 'cms':
           source                   => 'http://repo.example42.com/deploy/cms/cms.zip',
           source_type              => 'zip',
@@ -176,20 +197,25 @@ The above puppi::projects defines manage more or less complex deployments proced
 They will have to contain one or more of these basic puppi defines.
 
 Create the main project structure. One or more different deployment projects can exist on a node.
+
         puppi::project
 
 Create a single command to be placed in the init sequence. It's not required for every project.
+
         puppi::initialize
 
 Create a single command to be placed in the deploy sequence. More than one is generally needed for each project.
+
         puppi::deploy
 
 Create a single command to be placed in the rollback sequence. More than one is generally needed for each project.
+
          puppi::rollback
 
 These defines have generally a standard structure and similar arguments.
 Every one is reversable (enable => false) but you can wipe out the whole /etc/puppi directory
 to have it rebuilt from scratch. Here is an example for a single deploy command:
+
         puppi::deploy { 'Retrieve files':       # The $name of the define is used in the file name
           command  => 'get_curl.sh',          # The name of the general-use script to use
           argument => 'file:///storage/file', # The argument(s) passed to the above script
@@ -199,8 +225,11 @@ to have it rebuilt from scratch. Here is an example for a single deploy command:
         }
 
 This define creates a file named:
+
         /etc/puppi/projects/${project}/deploy/${priority}-${name}
+
 Its content is, simply:
+
         su - ${user} -c "export project=${project} && /etc/puppi/scripts/${command} ${arguments}"
 
 

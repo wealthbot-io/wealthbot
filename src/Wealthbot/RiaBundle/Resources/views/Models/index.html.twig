@@ -10,7 +10,7 @@
                 <h3>Models</h3>
             </div>
         </div>
-        {% if app.session.hasFlash('error') %}
+        {% if app.session.flashBag.has('error') %}
             <div class="alert alert-error">
                 <button type="button" class="close" data-dismiss="alert">×</button>
                 <strong>Error:</strong> {{ app.session.flash('notice') }}

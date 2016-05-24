@@ -1,6 +1,6 @@
 <?php
-namespace Wealthbot\FixturesBundle\DataFixtures\ORM;
 
+namespace Wealthbot\FixturesBundle\DataFixtures\ORM;
 
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -10,14 +10,13 @@ use Wealthbot\FixturesBundle\Model\AbstractCsvFixture;
 class LoadOneTimeDistributionData extends AbstractCsvFixture implements OrderedFixtureInterface
 {
     /**
-     * Load data fixtures with the passed EntityManager
+     * Load data fixtures with the passed EntityManager.
      *
      * @param \Doctrine\Common\Persistence\ObjectManager $manager
      */
-    function load(ObjectManager $manager)
+    public function load(ObjectManager $manager)
     {
-
-        for ($i = 1; $i <= 10; $i++) {
+        for ($i = 1; $i <= 10; ++$i) {
             $distribution = new Distribution();
             $distribution->setType(Distribution::TYPE_ONE_TIME);
             $distribution->setSystemClientAccount($this->getReference('system-account'));
@@ -42,13 +41,12 @@ class LoadOneTimeDistributionData extends AbstractCsvFixture implements OrderedF
     }
 
     /**
-     * Get the order of this fixture
+     * Get the order of this fixture.
      *
-     * @return integer
+     * @return int
      */
-    function getOrder()
+    public function getOrder()
     {
         return 10;
     }
-
 }

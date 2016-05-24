@@ -21,9 +21,10 @@ class ClientAllocationValuesManager
 
     private function dollarsToPercents($value)
     {
-        if ($value == 0) {
+        if ($value === 0) {
             return $value;
         }
+
         return $value / $this->totalAmount * 100;
     }
 
@@ -34,27 +35,27 @@ class ClientAllocationValuesManager
 
     private function getRandomColor()
     {
-        return '#' . str_pad(dechex(mt_rand(0, 0xFFFFFF)), 6, '0', STR_PAD_LEFT);
+        return '#'.str_pad(dechex(mt_rand(0, 0xFFFFFF)), 6, '0', STR_PAD_LEFT);
     }
 
     public function getValues($user, $isClientView = false, $accountId = null)
     {
-        $tableData = array();
-        $lastRow = array(
+        $tableData = [];
+        $lastRow = [
             'targetPercent' => 0,
             'targetValue' => 0,
             'currentPercent' => 0,
-            'currentValue' => 0
-        );
+            'currentValue' => 0,
+        ];
         mt_srand(0xFFFF);
         /** @var PositionRepository $positionsRepo */
         $positionsRepo = $this->em->getRepository('WealthbotClientBundle:Position');
 
         $clientPortfolio = $this->em->getRepository('WealthbotClientBundle:ClientPortfolio')
-            ->findOneBy(array(
+            ->findOneBy([
                 'client' => $user,
-                'is_active' => 1
-            ));
+                'is_active' => 1,
+            ]);
 
         $activeClientAccounts = $this->am->getAccountsForClient($user, $isClientView);
 
@@ -62,9 +63,9 @@ class ClientAllocationValuesManager
         $accounts = $activeClientAccounts;
         if ($accountId) {
             /** @var ClientAccount $account */
-            if ($account = $this->em->getRepository('WealthbotClientBundle:ClientAccount')->findBy(array('id' => $accountId, 'client' => $user))) {
+            if ($account = $this->em->getRepository('WealthbotClientBundle:ClientAccount')->findBy(['id' => $accountId, 'client' => $user])) {
                 if ($systemAccount = $account->getSystemAccount()) {
-                    $accounts = array($systemAccount);
+                    $accounts = [$systemAccount];
                 }
             }
         }
@@ -79,7 +80,7 @@ class ClientAllocationValuesManager
             $subclassId = $actualDataRow['subclass_id'];
             $actualDataRow['color'] = $this->getRandomColor();
 
-            $tableData[$subclassId] = array(
+            $tableData[$subclassId] = [
                 'subclassTitle' => $actualDataRow['label'],
                 'targetPercent' => 0,
                 'targetValue' => 0,
@@ -88,8 +89,8 @@ class ClientAllocationValuesManager
                 'currentValue' => $actualDataRow['amount'],
 
                 'dollarVariance' => $actualDataRow['amount'],
-                'percentVariance' => 0
-            );
+                'percentVariance' => 0,
+            ];
 
             $lastRow['currentValue'] += $tableData[$subclassId]['currentValue'];
         }
@@ -112,13 +113,13 @@ class ClientAllocationValuesManager
             if (isset($tableData[$subclassId])) {
                 $targetDataRow['color'] = $tableData[$subclassId]['color'];
             } else {
-                $tableData[$subclassId] = array(
+                $tableData[$subclassId] = [
                     'subclassTitle' => $targetDataRow['label'],
                     'currentPercent' => 0,
                     'currentValue' => 0,
                     'dollarVariance' => 0,
-                    'percentVariance' => 0
-                );
+                    'percentVariance' => 0,
+                ];
             }
 
             $tableData[$subclassId]['targetPercent'] = $targetDataRow['data'];
@@ -131,14 +132,14 @@ class ClientAllocationValuesManager
             $lastRow['targetPercent'] += $targetDataRow['data'];
         }
 
-        return array(
+        return [
             'clientPortfolio' => $clientPortfolio,
             'actualData' => $actualData,
             'targetData' => $targetData,
             'tableData' => $tableData,
             'lastRow' => $lastRow,
-            'totalAmount' => $this->totalAmount
-        );
+            'totalAmount' => $this->totalAmount,
+        ];
     }
 
     public function refundValues($tableData, RebalancerAction $rebalancerAction)
@@ -154,7 +155,7 @@ class ClientAllocationValuesManager
             foreach ($rebalancerQueueCollection as $rebalancerQueueData) {
                 /** @var RebalancerQueue $rebalancerQueue */
                 $rebalancerQueue = $rebalancerQueueData[0];
-                if ($rebalancerQueue->getSubclass()->getId() == $key) {
+                if ($rebalancerQueue->getSubclass()->getId() === $key) {
                     if ($rebalancerQueue->isBuy()) {
                         $item['postRebalancerValue'] += $rebalancerQueueData['total_amount'];
                     } else {

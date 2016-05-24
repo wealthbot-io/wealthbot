@@ -10,6 +10,7 @@
 namespace Wealthbot\ClientBundle\Controller;
 
 use Doctrine\ORM\EntityManager;
+use Symfony\Component\HttpFoundation\Request;
 use Wealthbot\AdminBundle\AdminEvents;
 use Wealthbot\AdminBundle\Event\UserHistoryEvent;
 use Wealthbot\ClientBundle\ClientEvents;
@@ -25,14 +26,13 @@ use Wealthbot\ClientBundle\Repository\ClientAccountRepository;
 use Wealthbot\SignatureBundle\Entity\DocumentSignature;
 use Wealthbot\UserBundle\Entity\Document;
 use Wealthbot\UserBundle\Entity\User;
-use Symfony\Component\HttpFoundation\Request;
 
 class TransferController extends BaseTransferController
 {
     public function indexAction()
     {
         /** @var $em EntityManager */
-        /** @var $repo ClientAccountRepository */
+        /* @var $repo ClientAccountRepository */
         $em = $this->get('doctrine.orm.entity_manager');
         $repo = $em->getRepository('WealthbotClientBundle:ClientAccount');
 
@@ -40,7 +40,7 @@ class TransferController extends BaseTransferController
         $client = $this->getUser();
         $profile = $client->getProfile();
 
-        if ($profile->getRegistrationStep() != 6) {
+        if ($profile->getRegistrationStep() !== 6) {
             $profile->setRegistrationStep(6);
             $em->persist($profile);
             $em->flush();
@@ -48,16 +48,16 @@ class TransferController extends BaseTransferController
 
         $hasNotOpenedAccounts = $repo->findOneNotOpenedAccountByClientId($client->getId()) ? true : false;
 
-        return $this->render('WealthbotClientBundle:Transfer:index.html.twig', array(
+        return $this->render('WealthbotClientBundle:Transfer:index.html.twig', [
             'client' => $client,
-            'has_not_opened_accounts' => $hasNotOpenedAccounts
-        ));
+            'has_not_opened_accounts' => $hasNotOpenedAccounts,
+        ]);
     }
 
     public function accountsListAction()
     {
         /** @var $em EntityManager */
-        /** @var $repo ClientAccountRepository */
+        /* @var $repo ClientAccountRepository */
         $em = $this->get('doctrine.orm.entity_manager');
         $repo = $em->getRepository('WealthbotClientBundle:ClientAccount');
 
@@ -67,13 +67,13 @@ class TransferController extends BaseTransferController
         $clientAccounts = $repo->findConsolidatedAccountsByClientId($client->getId());
         $total = $repo->getTotalScoreByClientId($client->getId());
 
-        return $this->render('WealthbotClientBundle:Transfer:accounts_list.html.twig', array(
+        return $this->render('WealthbotClientBundle:Transfer:accounts_list.html.twig', [
             'client' => $client,
             'client_accounts' => $clientAccounts,
             'total' => $total,
-            'show_sas_cash' => $this->containsSasCash($clientAccounts)
+            'show_sas_cash' => $this->containsSasCash($clientAccounts),
             //'is_transfer' => true
-        ));
+        ]);
     }
 
     public function accountDocumentsAction(Request $request)
@@ -102,7 +102,7 @@ class TransferController extends BaseTransferController
                 } else {
                     $url = $documentManager->getDocumentsPackageLink(
                         $documents,
-                        'application_' . $account->getId() . '_documents.zip'
+                        'application_'.$account->getId().'_documents.zip'
                     );
                 }
 
@@ -122,10 +122,10 @@ class TransferController extends BaseTransferController
 
         $client = $this->getUser();
 
-        $account = $repo->findOneBy(array(
+        $account = $repo->findOneBy([
            'id' => $id,
-           'client_id' => $client->getId()
-        ));
+           'client_id' => $client->getId(),
+        ]);
 
         if (!$account) {
             throw $this->createNotFoundException('Account does not exist.');
@@ -147,12 +147,12 @@ class TransferController extends BaseTransferController
 
         if ($accountId !== 0) {
             /** @var ClientAccount $account */
-            $account = $repo->findOneBy(array('id' => $accountId, 'client_id' => $client->getId()));
+            $account = $repo->findOneBy(['id' => $accountId, 'client_id' => $client->getId()]);
         }
 
         $bankInfo = null;
         $form = $this->createForm(new BankInformationFormType());
-        $formHandler = new BankInformationFormHandler($form, $request, $em, array('client' => $client));
+        $formHandler = new BankInformationFormHandler($form, $request, $em, ['client' => $client]);
 
         if ($request->isMethod('post')) {
             if ($formHandler->process()) {
@@ -166,36 +166,35 @@ class TransferController extends BaseTransferController
                     $this->dispatchHistoryEvent($client, 'Created bank information');
                 }
             } else {
-                return $this->getJsonResponse(array(
+                return $this->getJsonResponse([
                     'status' => 'error',
                     'form' => $this->renderView(
-                        'WealthbotClientBundle:Transfer:_create_bank_account_form.html.twig', array(
+                        'WealthbotClientBundle:Transfer:_create_bank_account_form.html.twig', [
                         'form' => $form->createView(),
-                        'account_id' => $accountId
-                    ))
-                ));
+                        'account_id' => $accountId,
+                    ]),
+                ]);
             }
         }
 
-        $response = array('status' => 'success');
+        $response = ['status' => 'success'];
 
         if ($accountId !== 0) {
             $transferForm = $this->createForm(
                 new TransferFundingDistributingFormType($em, $account),
-                array('funding' => $account->getAccountContribution())
+                ['funding' => $account->getAccountContribution()]
             );
 
             $transferFormChildren = $transferForm->createView()->vars['form']->getChildren();
 
             $response['form_fields'] = $this->renderView(
                 'WealthbotClientBundle:Transfer:_bank_transfer_form_fields.html.twig',
-                array('form' => $transferFormChildren['funding'], 'account' => $account)
+                ['form' => $transferFormChildren['funding'], 'account' => $account]
             );
-
         } else {
             $response['bank_account_item'] = $this->renderView(
                 'WealthbotClientBundle:Dashboard:_bank_account_item.html.twig',
-                array('bank_account' => $bankInfo)
+                ['bank_account' => $bankInfo]
             );
         }
 
@@ -213,46 +212,45 @@ class TransferController extends BaseTransferController
         $accountId = (integer) $request->get('account_id');
         $account = null;
 
-        $bankInfo = $repo->findOneBy(array('id' => $request->get('bank_id'), 'client_id' => $client->getId()));
+        $bankInfo = $repo->findOneBy(['id' => $request->get('bank_id'), 'client_id' => $client->getId()]);
         if (!$bankInfo) {
-            return $this->getJsonResponse(array('status' => 'error', 'message' => 'Bank information does not exist.'));
+            return $this->getJsonResponse(['status' => 'error', 'message' => 'Bank information does not exist.']);
         }
 
         if ($accountId !== 0) {
-            $account = $accountRepo->findOneBy(array('id' => $accountId, 'client_id' => $client->getId()));
+            $account = $accountRepo->findOneBy(['id' => $accountId, 'client_id' => $client->getId()]);
             if (!$account) {
-                return $this->getJsonResponse(array('status' => 'error', 'message' => 'Account does not exist.'));
+                return $this->getJsonResponse(['status' => 'error', 'message' => 'Account does not exist.']);
             }
         }
 
         $responseStatus = 'success';
         $form = $this->createForm(new BankInformationFormType(), $bankInfo);
-        $formHandler = new BankInformationFormHandler($form, $request, $em, array('client' => $client));
+        $formHandler = new BankInformationFormHandler($form, $request, $em, ['client' => $client]);
 
         if ($request->isMethod('post')) {
             if ($formHandler->process()) {
-                $response = array('status' => 'success');
+                $response = ['status' => 'success'];
 
                 $signatures = $documentSignatureManager->createBankInformationSignature($bankInfo);
                 if (count($signatures)) {
                     $response['content'] = $this->renderView(
                         'WealthbotClientBundle:Transfer:_bank_information_sign.html.twig',
-                        array('signatures' => $signatures)
+                        ['signatures' => $signatures]
                     );
                 }
 
                 if ($accountId !== 0) {
                     $transferForm = $this->createForm(
                         new TransferFundingDistributingFormType($em, $account),
-                        array('funding' => $account->getAccountContribution())
+                        ['funding' => $account->getAccountContribution()]
                     );
                     $transferFormChildren = $transferForm->createView()->vars['form']->getChildren();
 
                     $response['form_fields'] = $this->renderView(
                         'WealthbotClientBundle:Transfer:_bank_transfer_form_fields.html.twig',
-                        array('form' => $transferFormChildren['funding'], 'account' => $account)
+                        ['form' => $transferFormChildren['funding'], 'account' => $account]
                     );
-
                 } else {
 
                     // Only if bank information has been updated on the client account management page
@@ -262,27 +260,26 @@ class TransferController extends BaseTransferController
                     $response['bank_account_id'] = $bankInfo->getId();
                     $response['bank_account_item'] = $this->renderView(
                         'WealthbotClientBundle:Dashboard:_bank_account_item.html.twig',
-                        array('bank_account' => $bankInfo)
+                        ['bank_account' => $bankInfo]
                     );
 
                     $this->dispatchHistoryEvent($client, 'Updated bank information');
                 }
 
                 return $this->getJsonResponse($response);
-
             } else {
                 $responseStatus = 'error';
             }
         }
 
-        return $this->getJsonResponse(array(
+        return $this->getJsonResponse([
             'status' => $responseStatus,
-            'content' => $this->renderView('WealthbotClientBundle:Transfer:_edit_bank_account_form.html.twig', array(
+            'content' => $this->renderView('WealthbotClientBundle:Transfer:_edit_bank_account_form.html.twig', [
                 'form' => $form->createView(),
                 'bank' => $bankInfo,
-                'account_id' => $accountId
-            ))
-        ));
+                'account_id' => $accountId,
+            ]),
+        ]);
     }
 
     public function deleteBankInformationAction(Request $request)
@@ -292,12 +289,12 @@ class TransferController extends BaseTransferController
 
         $client = $this->getUser();
 
-        $bankInfo = $repo->findOneBy(array('id' => $request->get('bank_id'), 'client_id' => $client->getId()));
+        $bankInfo = $repo->findOneBy(['id' => $request->get('bank_id'), 'client_id' => $client->getId()]);
         if (!$bankInfo) {
-            return $this->getJsonResponse(array(
+            return $this->getJsonResponse([
                 'status' => 'error',
-                'message' => 'Bank information does not exist.'
-            ));
+                'message' => 'Bank information does not exist.',
+            ]);
         }
 
         $em->remove($bankInfo);
@@ -305,7 +302,7 @@ class TransferController extends BaseTransferController
 
         $this->dispatchHistoryEvent($client, 'Deleted bank information');
 
-        return $this->getJsonResponse(array('status' => 'success'));
+        return $this->getJsonResponse(['status' => 'success']);
     }
 
     public function bankInformationSignAction(Request $request)
@@ -313,20 +310,20 @@ class TransferController extends BaseTransferController
         $signatureManager = $this->get('wealthbot_docusign.document_signature.manager');
         $client = $this->getUser();
 
-        $response = array(
+        $response = [
             'status' => 'error',
-            'message' => 'Error. Please try again later.'
-        );
+            'message' => 'Error. Please try again later.',
+        ];
 
         if ($request->isMethod('post')) {
-            $response = array(
+            $response = [
                 'status' => 'success',
-                'message' => 'The operation was successful.'
-            );
+                'message' => 'The operation was successful.',
+            ];
 
             $signatures = $signatureManager->findDocumentSignaturesByClientAndTypes(
                 $client,
-                array(DocumentSignature::TYPE_AUTO_INVEST_CONTRIBUTION, DocumentSignature::TYPE_AUTO_DISTRIBUTION)
+                [DocumentSignature::TYPE_AUTO_INVEST_CONTRIBUTION, DocumentSignature::TYPE_AUTO_DISTRIBUTION]
             );
 
             $isCompleted = true;
@@ -343,7 +340,7 @@ class TransferController extends BaseTransferController
                 $response['message'] = 'You have not signed applications. Please sign all applications.';
                 $response['content'] = $this->renderView(
                     'WealthbotClientBundle:Transfer:_bank_information_sign.html.twig',
-                    array('signatures' => $signatures)
+                    ['signatures' => $signatures]
                 );
             }
         }
@@ -363,7 +360,7 @@ class TransferController extends BaseTransferController
         $form = $this->createForm(new TransferClientInfoFormType($clientInfo), $clientInfo);
 
         if ($request->isMethod('post')) {
-            $form->bind($request);
+            $form->handleRequest($request);
 
             if ($form->isValid()) {
                 $data = $form->getData();
@@ -371,28 +368,28 @@ class TransferController extends BaseTransferController
                 $em->persist($data->getObjectToSave());
                 $em->flush();
 
-                return $this->getJsonResponse(array(
+                return $this->getJsonResponse([
                     'status' => 'success',
-                    'content' => $this->renderView('WealthbotClientBundle:Transfer:_client_info.html.twig', array(
-                        'client' => $client
-                    ))
-                ));
+                    'content' => $this->renderView('WealthbotClientBundle:Transfer:_client_info.html.twig', [
+                        'client' => $client,
+                    ]),
+                ]);
             } else {
-                return $this->getJsonResponse(array(
+                return $this->getJsonResponse([
                     'status' => 'error',
-                    'content' => $this->renderView('WealthbotClientBundle:Transfer:_client_info_form.html.twig', array(
-                            'form' => $form->createView()
-                        ))
-                ));
+                    'content' => $this->renderView('WealthbotClientBundle:Transfer:_client_info_form.html.twig', [
+                            'form' => $form->createView(),
+                        ]),
+                ]);
             }
         }
 
-        return $this->getJsonResponse(array(
+        return $this->getJsonResponse([
             'status' => 'success',
-            'content' => $this->renderView('WealthbotClientBundle:Transfer:_client_info_form.html.twig', array(
-                'form' => $form->createView()
-            ))
-        ));
+            'content' => $this->renderView('WealthbotClientBundle:Transfer:_client_info_form.html.twig', [
+                'form' => $form->createView(),
+            ]),
+        ]);
     }
 
     public function applicationsAction()
@@ -404,15 +401,15 @@ class TransferController extends BaseTransferController
         $companyInformation = $client->getRiaCompanyInformation();
         $accounts = $repository->findConsolidatedAccountsByClientId($client->getId());
 
-        return $this->render('WealthbotClientBundle:Transfer:applications.html.twig', array(
+        return $this->render('WealthbotClientBundle:Transfer:applications.html.twig', [
             'client' => $client,
             'accounts' => $accounts,
-            'company_information' => $companyInformation
-        ));
+            'company_information' => $companyInformation,
+        ]);
     }
 
     /**
-     * Get prefix for routing
+     * Get prefix for routing.
      *
      * @return string
      */
@@ -422,7 +419,7 @@ class TransferController extends BaseTransferController
     }
 
     /**
-     * Dispatch new UserHistoryEvent event
+     * Dispatch new UserHistoryEvent event.
      *
      * @param User $user
      * @param $description

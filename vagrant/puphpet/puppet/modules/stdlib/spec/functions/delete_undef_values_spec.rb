@@ -1,41 +1,56 @@
-#! /usr/bin/env ruby -S rspec
 require 'spec_helper'
 
-describe "the delete_undef_values function" do
-  let(:scope) { PuppetlabsSpec::PuppetInternals.scope }
+describe 'delete_undef_values' do
+  it { is_expected.not_to eq(nil) }
+  it { is_expected.to run.with_params().and_raise_error(Puppet::ParseError) }
+  it { is_expected.to run.with_params(1).and_raise_error(Puppet::ParseError) }
+  it { is_expected.to run.with_params('one').and_raise_error(Puppet::ParseError) }
+  it { is_expected.to run.with_params('one', 'two').and_raise_error(Puppet::ParseError) }
 
-  it "should exist" do
-    expect(Puppet::Parser::Functions.function("delete_undef_values")).to eq("function_delete_undef_values")
+  describe 'when deleting from an array' do
+    [ :undef, '', nil ].each do |undef_value|
+      describe "when undef is represented by #{undef_value.inspect}" do
+        before do
+          pending("review behaviour when being passed undef as #{undef_value.inspect}") if undef_value == ''
+          pending("review behaviour when being passed undef as #{undef_value.inspect}") if undef_value == nil
+        end
+        it { is_expected.to run.with_params([undef_value]).and_return([]) }
+        it { is_expected.to run.with_params(['one',undef_value,'two','three']).and_return(['one','two','three']) }
+      end
+
+      it "should leave the original argument intact" do
+        argument = ['one',undef_value,'two']
+        original = argument.dup
+        result = subject.call([argument,2])
+        expect(argument).to eq(original)
+      end
+    end
+
+    it { is_expected.to run.with_params(['undef']).and_return(['undef']) }
   end
 
-  it "should raise a ParseError if there is less than 1 argument" do
-    expect { scope.function_delete_undef_values([]) }.to( raise_error(Puppet::ParseError))
-  end
+  describe 'when deleting from a hash' do
+    [ :undef, '', nil ].each do |undef_value|
+      describe "when undef is represented by #{undef_value.inspect}" do
+        before do
+          pending("review behaviour when being passed undef as #{undef_value.inspect}") if undef_value == ''
+          pending("review behaviour when being passed undef as #{undef_value.inspect}") if undef_value == nil
+        end
+        it { is_expected.to run.with_params({'key' => undef_value}).and_return({}) }
+        it { is_expected.to run \
+          .with_params({'key1' => 'value1', 'undef_key' => undef_value, 'key2' => 'value2'}) \
+          .and_return({'key1' => 'value1', 'key2' => 'value2'})
+        }
+      end
 
-  it "should raise a ParseError if the argument is not Array nor Hash" do
-    expect { scope.function_delete_undef_values(['']) }.to( raise_error(Puppet::ParseError))
-    expect { scope.function_delete_undef_values([nil]) }.to( raise_error(Puppet::ParseError))
-  end
+      it "should leave the original argument intact" do
+        argument = { 'key1' => 'value1', 'key2' => undef_value }
+        original = argument.dup
+        result = subject.call([argument,2])
+        expect(argument).to eq(original)
+      end
+    end
 
-  it "should delete all undef items from Array and only these" do
-    result = scope.function_delete_undef_values([['a',:undef,'c','undef']])
-    expect(result).to(eq(['a','c','undef']))
-  end
-
-  it "should delete all undef items from Hash and only these" do
-    result = scope.function_delete_undef_values([{'a'=>'A','b'=>:undef,'c'=>'C','d'=>'undef'}])
-    expect(result).to(eq({'a'=>'A','c'=>'C','d'=>'undef'}))
-  end
-
-  it "should not change origin array passed as argument" do
-    origin_array = ['a',:undef,'c','undef']
-    result = scope.function_delete_undef_values([origin_array])
-    expect(origin_array).to(eq(['a',:undef,'c','undef']))
-  end
-
-  it "should not change origin hash passed as argument" do
-    origin_hash = { 'a' => 1, 'b' => :undef, 'c' => 'undef' }
-    result = scope.function_delete_undef_values([origin_hash])
-    expect(origin_hash).to(eq({ 'a' => 1, 'b' => :undef, 'c' => 'undef' }))
+    it { is_expected.to run.with_params({'key' => 'undef'}).and_return({'key' => 'undef'}) }
   end
 end

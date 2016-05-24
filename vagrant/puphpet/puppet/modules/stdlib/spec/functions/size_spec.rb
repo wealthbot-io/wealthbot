@@ -1,24 +1,35 @@
-#! /usr/bin/env ruby -S rspec
 require 'spec_helper'
 
-describe "the size function" do
-  let(:scope) { PuppetlabsSpec::PuppetInternals.scope }
+describe 'size' do
+  it { is_expected.not_to eq(nil) }
+  it { is_expected.to run.with_params().and_raise_error(Puppet::ParseError, /wrong number of arguments/i) }
+  it {
+    pending("Current implementation ignores parameters after the first.")
+    is_expected.to run.with_params([], 'extra').and_raise_error(Puppet::ParseError, /wrong number of arguments/i)
+  }
+  it { is_expected.to run.with_params(1).and_raise_error(Puppet::ParseError, /Unknown type given/) }
+  it { is_expected.to run.with_params(true).and_raise_error(Puppet::ParseError, /Unknown type given/) }
+  it { is_expected.to run.with_params('1').and_raise_error(Puppet::ParseError, /Requires either string, array or hash to work/) }
+  it { is_expected.to run.with_params('1.0').and_raise_error(Puppet::ParseError, /Requires either string, array or hash to work/) }
+  it { is_expected.to run.with_params([]).and_return(0) }
+  it { is_expected.to run.with_params(['a']).and_return(1) }
+  it { is_expected.to run.with_params(['one', 'two', 'three']).and_return(3) }
+  it { is_expected.to run.with_params(['one', 'two', 'three', 'four']).and_return(4) }
 
-  it "should exist" do
-    expect(Puppet::Parser::Functions.function("size")).to eq("function_size")
-  end
+  it { is_expected.to run.with_params({}).and_return(0) }
+  it { is_expected.to run.with_params({'1' => '2'}).and_return(1) }
+  it { is_expected.to run.with_params({'1' => '2', '4' => '4'}).and_return(2) }
 
-  it "should raise a ParseError if there is less than 1 arguments" do
-    expect { scope.function_size([]) }.to( raise_error(Puppet::ParseError))
-  end
+  it { is_expected.to run.with_params('').and_return(0) }
+  it { is_expected.to run.with_params('a').and_return(1) }
+  it { is_expected.to run.with_params('abc').and_return(3) }
+  it { is_expected.to run.with_params('abcd').and_return(4) }
 
-  it "should return the size of a string" do
-    result = scope.function_size(["asdf"])
-    expect(result).to(eq(4))
-  end
-
-  it "should return the size of an array" do
-    result = scope.function_size([["a","b","c"]])
-    expect(result).to(eq(3))
+  context 'when using a class extending String' do
+    it 'should call its size method' do
+      value = AlsoString.new('asdfghjkl')
+      value.expects(:size).returns('foo')
+      expect(subject).to run.with_params(value).and_return('foo')
+    end
   end
 end

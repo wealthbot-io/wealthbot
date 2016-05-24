@@ -2,17 +2,17 @@
 # usage:
 #
 #  beanstalkd::config { name:
-#    listenaddress => '0.0.0.0',
-#    listenport => '13000',
-#    maxjobsize => '65535',
+#    listenaddress  => '0.0.0.0',
+#    listenport     => '13000',
+#    maxjobsize     => '65535',
 #    maxconnections => '1024',
-#    binlogdir => '/var/lib/beanstalkd/binlog',
-#    binlogfsync => undef,              
-#    binlogsize => '10485760',
-#    ensure => 'running',         # running, stopped, absent
-#    packageversion => 'latest',  # latest, present, or specific version
-#    packagename => undef,        # override package name
-#    servicename => undef         # override service name
+#    binlogdir      => '/var/lib/beanstalkd/binlog',
+#    binlogfsync    => undef,
+#    binlogsize     => '10485760',
+#    ensure         => 'running',   # running, stopped, absent
+#    packageversion => 'latest',    # latest, present, or specific version
+#    packagename    => undef,       # override package name
+#    servicename    => undef        # override service name
 #  }
 
 
@@ -32,14 +32,15 @@ define beanstalkd::config ( # name
 ) {
 
   case $::operatingsystem {
-    ubuntu, debian: {
+    debian, ubuntu: {
       $defaultpackagename = 'beanstalkd'
       $defaultservicename = 'beanstalkd'
       $user               = 'beanstalkd'
-      $configfile         = '/etc/default/beanstalkd'
-      $configtemplate     = "${module_name}/debian/beanstalkd_default.erb"  # please create me!
+      $configfile         = '/etc/init.d/beanstalkd'
+      $configtemplate     = "${module_name}/debian/beanstalkd.erb"
       $hasstatus          = 'true'
       $restart            = '/etc/init.d/beanstalkd restart'
+      $mode               = '0755'
     }
     centos, redhat: {
       $defaultpackagename = 'beanstalkd'
@@ -49,9 +50,10 @@ define beanstalkd::config ( # name
       $configtemplate     = "${module_name}/redhat/beanstalkd_sysconfig.erb"
       $hasstatus          = 'true'
       $restart            = '/etc/init.d/beanstalkd restart'
+      $mode               = '0644'
     }
     # TODO: add more OS support!
-    default: {   
+    default: {
       fail("ERROR [${module_name}]: I don't know how to manage this OS: ${::operatingsystem}")
     }
   }
@@ -78,12 +80,12 @@ define beanstalkd::config ( # name
       fail("ERROR [${module_name}]: enable must be one of: running stopped absent")
     }
   }
-  
+
   # for packageversion, use what's configured unless we're set (which should only be in the absent case..)
-  if ! $ourpackageversion { 
+  if ! $ourpackageversion {
     $ourpackageversion = $packageversion
   }
-  
+
   # for service and package name - if we've specified one, use it. else use the default
   if $packagename == undef {
     $ourpackagename = $defaultpackagename
@@ -101,24 +103,25 @@ define beanstalkd::config ( # name
     ensure => $ourpackageversion
   }
 
+  file { $configfile:
+    content => template($configtemplate),
+    owner   => 'root',
+    group   => 'root',
+    mode    => $mode,
+    ensure  => $fileensure,
+    require => Package[$ourpackagename],
+  }
+
   service { $ourservicename:
     enable    => $serviceenable,
     ensure    => $serviceensure,
     hasstatus => $hasstatus,
     restart   => $restart,
+    require   => File[$configfile],
     subscribe => [
       Package[$ourpackagename],
       File[$configfile]
     ],
   }
-
-  file { $configfile:
-    content => template($configtemplate),
-    owner   => 'root',
-    group   => 'root',
-    mode    => 0644,
-    ensure  => $fileensure,
-    require => Package[$ourpackagename],
-  } 
 
 }

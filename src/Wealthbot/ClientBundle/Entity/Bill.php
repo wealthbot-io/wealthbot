@@ -3,27 +3,26 @@
 namespace Wealthbot\ClientBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\ORM\Mapping as ORM;
 use Wealthbot\ClientBundle\Model\Bill as BaseBill;
 use Wealthbot\UserBundle\Entity\User;
 
 /**
- * Bill
+ * Bill.
  */
 class Bill extends BaseBill
 {
     /**
-     * @var integer
+     * @var int
      */
     protected $id;
 
     /**
-     * @var integer
+     * @var int
      */
     protected $quarter;
 
     /**
-     * @var integer
+     * @var int
      */
     protected $year;
 
@@ -43,7 +42,7 @@ class Bill extends BaseBill
     protected $createdAt;
 
     /**
-     * Constructor
+     * Constructor.
      */
     public function __construct()
     {
@@ -53,9 +52,9 @@ class Bill extends BaseBill
     }
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer
+     * @return int
      */
     public function getId()
     {
@@ -63,9 +62,10 @@ class Bill extends BaseBill
     }
 
     /**
-     * Set quarter
+     * Set quarter.
      *
-     * @param integer $quarter
+     * @param int $quarter
+     *
      * @return $this
      */
     public function setQuarter($quarter)
@@ -76,9 +76,9 @@ class Bill extends BaseBill
     }
 
     /**
-     * Get quarter
+     * Get quarter.
      *
-     * @return integer
+     * @return int
      */
     public function getQuarter()
     {
@@ -86,9 +86,10 @@ class Bill extends BaseBill
     }
 
     /**
-     * Set year
+     * Set year.
      *
-     * @param integer $year
+     * @param int $year
+     *
      * @return $this
      */
     public function setYear($year)
@@ -99,9 +100,9 @@ class Bill extends BaseBill
     }
 
     /**
-     * Get year
+     * Get year.
      *
-     * @return integer
+     * @return int
      */
     public function getYear()
     {
@@ -111,12 +112,14 @@ class Bill extends BaseBill
     public function addBillItem(BillItem $billItem)
     {
         $this->billItems[] = $billItem;
+
         return $this;
     }
 
     public function removeBillItem(BillItem $billItem)
     {
         $this->billItems->removeElement($billItem);
+
         return $this;
     }
 
@@ -131,6 +134,7 @@ class Bill extends BaseBill
     public function setBillItems($billItems)
     {
         $this->billItems = $billItems;
+
         return $this;
     }
 
@@ -170,11 +174,11 @@ class Bill extends BaseBill
      */
     private $approvedAt;
 
-
     /**
-     * Set approvedAt
+     * Set approvedAt.
      *
      * @param \DateTime $approvedAt
+     *
      * @return Bill
      */
     public function setApprovedAt($approvedAt)
@@ -185,9 +189,9 @@ class Bill extends BaseBill
     }
 
     /**
-     * Get approvedAt
+     * Get approvedAt.
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getApprovedAt()
     {

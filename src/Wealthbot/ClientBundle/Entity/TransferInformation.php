@@ -3,29 +3,27 @@
 namespace Wealthbot\ClientBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\ORM\Mapping as ORM;
 use Wealthbot\ClientBundle\Model\TransferInformation as BaseTransferInformation;
 use Wealthbot\SignatureBundle\Entity\DocumentSignature;
 use Wealthbot\SignatureBundle\Model\SignableInterface;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
- * TransferInformation
+ * TransferInformation.
  */
 class TransferInformation extends BaseTransferInformation implements SignableInterface
 {
     /**
-     * @var integer
+     * @var int
      */
     private $id;
 
     /**
-     * @var integer
+     * @var int
      */
     private $system_account_id;
 
     /**
-     * @var integer
+     * @var int
      */
     private $client_account_id;
 
@@ -55,12 +53,12 @@ class TransferInformation extends BaseTransferInformation implements SignableInt
     protected $account_type;
 
     /**
-     * @var boolean
+     * @var bool
      */
     private $transfer_shares_cash;
 
     /**
-     * @var integer
+     * @var int
      */
     protected $insurance_policy_type;
 
@@ -70,12 +68,12 @@ class TransferInformation extends BaseTransferInformation implements SignableInt
     private $penalty_amount;
 
     /**
-     * @var boolean
+     * @var bool
      */
     private $is_penalty_free;
 
     /**
-     * @var boolean
+     * @var bool
      */
     private $redeem_certificates_deposit;
 
@@ -105,12 +103,12 @@ class TransferInformation extends BaseTransferInformation implements SignableInt
     private $systemAccount;
 
     /**
-     * @var integer
+     * @var int
      */
     protected $transfer_from;
 
     /**
-     * @var boolean
+     * @var bool
      */
     private $is_include_policy;
 
@@ -120,7 +118,7 @@ class TransferInformation extends BaseTransferInformation implements SignableInt
     private $questionnaireAnswers;
 
     /**
-     * @var integer
+     * @var int
      */
     private $transfer_custodian_id;
 
@@ -159,7 +157,6 @@ class TransferInformation extends BaseTransferInformation implements SignableInt
      */
     private $transferCustodian;
 
-
     public function __construct()
     {
         $this->redeem_certificates_deposit = false;
@@ -167,9 +164,9 @@ class TransferInformation extends BaseTransferInformation implements SignableInt
     }
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer 
+     * @return int
      */
     public function getId()
     {
@@ -177,22 +174,23 @@ class TransferInformation extends BaseTransferInformation implements SignableInt
     }
 
     /**
-     * Set system_account_id
+     * Set system_account_id.
      *
-     * @param integer $systemAccountId
+     * @param int $systemAccountId
+     *
      * @return TransferInformation
      */
     public function setSystemAccountId($systemAccountId)
     {
         $this->system_account_id = $systemAccountId;
-    
+
         return $this;
     }
 
     /**
-     * Get system_account_id
+     * Get system_account_id.
      *
-     * @return integer 
+     * @return int
      */
     public function getSystemAccountId()
     {
@@ -200,22 +198,23 @@ class TransferInformation extends BaseTransferInformation implements SignableInt
     }
 
     /**
-     * Set client_account_id
+     * Set client_account_id.
      *
-     * @param integer $clientAccountId
+     * @param int $clientAccountId
+     *
      * @return TransferInformation
      */
     public function setClientAccountId($clientAccountId)
     {
         $this->client_account_id = $clientAccountId;
-    
+
         return $this;
     }
 
     /**
-     * Get client_account_id
+     * Get client_account_id.
      *
-     * @return integer 
+     * @return int
      */
     public function getClientAccountId()
     {
@@ -223,22 +222,23 @@ class TransferInformation extends BaseTransferInformation implements SignableInt
     }
 
     /**
-     * Set account_number
+     * Set account_number.
      *
      * @param string $accountNumber
+     *
      * @return TransferInformation
      */
     public function setAccountNumber($accountNumber)
     {
         $this->account_number = $accountNumber;
-    
+
         return $this;
     }
 
     /**
-     * Get account_number
+     * Get account_number.
      *
-     * @return string 
+     * @return string
      */
     public function getAccountNumber()
     {
@@ -246,22 +246,23 @@ class TransferInformation extends BaseTransferInformation implements SignableInt
     }
 
     /**
-     * Set financial_institution
+     * Set financial_institution.
      *
      * @param string $financialInstitution
+     *
      * @return TransferInformation
      */
     public function setFinancialInstitution($financialInstitution)
     {
         $this->financial_institution = $financialInstitution;
-    
+
         return $this;
     }
 
     /**
-     * Get financial_institution
+     * Get financial_institution.
      *
-     * @return string 
+     * @return string
      */
     public function getFinancialInstitution()
     {
@@ -269,22 +270,23 @@ class TransferInformation extends BaseTransferInformation implements SignableInt
     }
 
     /**
-     * Set firm_address
+     * Set firm_address.
      *
      * @param string $firmAddress
+     *
      * @return TransferInformation
      */
     public function setFirmAddress($firmAddress)
     {
         $this->firm_address = $firmAddress;
-    
+
         return $this;
     }
 
     /**
-     * Get firm_address
+     * Get firm_address.
      *
-     * @return string 
+     * @return string
      */
     public function getFirmAddress()
     {
@@ -292,22 +294,23 @@ class TransferInformation extends BaseTransferInformation implements SignableInt
     }
 
     /**
-     * Set phone_number
+     * Set phone_number.
      *
      * @param string $phoneNumber
+     *
      * @return TransferInformation
      */
     public function setPhoneNumber($phoneNumber)
     {
         $this->phone_number = $phoneNumber;
-    
+
         return $this;
     }
 
     /**
-     * Get phone_number
+     * Get phone_number.
      *
-     * @return string 
+     * @return string
      */
     public function getPhoneNumber()
     {
@@ -315,9 +318,10 @@ class TransferInformation extends BaseTransferInformation implements SignableInt
     }
 
     /**
-     * Set account_type
+     * Set account_type.
      *
      * @param string $accountType
+     *
      * @return TransferInformation
      */
     public function setAccountType($accountType)
@@ -326,9 +330,9 @@ class TransferInformation extends BaseTransferInformation implements SignableInt
     }
 
     /**
-     * Get account_type
+     * Get account_type.
      *
-     * @return string 
+     * @return string
      */
     public function getAccountType()
     {
@@ -336,22 +340,23 @@ class TransferInformation extends BaseTransferInformation implements SignableInt
     }
 
     /**
-     * Set transfer_shares_cash
+     * Set transfer_shares_cash.
      *
-     * @param boolean $transferSharesCash
+     * @param bool $transferSharesCash
+     *
      * @return TransferInformation
      */
     public function setTransferSharesCash($transferSharesCash)
     {
         $this->transfer_shares_cash = $transferSharesCash;
-    
+
         return $this;
     }
 
     /**
-     * Get transfer_shares_cash
+     * Get transfer_shares_cash.
      *
-     * @return boolean 
+     * @return bool
      */
     public function getTransferSharesCash()
     {
@@ -359,9 +364,10 @@ class TransferInformation extends BaseTransferInformation implements SignableInt
     }
 
     /**
-     * Set transfer_from
+     * Set transfer_from.
      *
-     * @param integer $transferFrom
+     * @param int $transferFrom
+     *
      * @return TransferInformation
      */
     public function setTransferFrom($transferFrom)
@@ -370,9 +376,9 @@ class TransferInformation extends BaseTransferInformation implements SignableInt
     }
 
     /**
-     * Get transfer_from
+     * Get transfer_from.
      *
-     * @return integer
+     * @return int
      */
     public function getTransferFrom()
     {
@@ -390,9 +396,10 @@ class TransferInformation extends BaseTransferInformation implements SignableInt
     }
 
     /**
-     * Set penalty_amount
+     * Set penalty_amount.
      *
      * @param float $penaltyAmount
+     *
      * @return TransferInformation
      */
     public function setPenaltyAmount($penaltyAmount)
@@ -403,7 +410,7 @@ class TransferInformation extends BaseTransferInformation implements SignableInt
     }
 
     /**
-     * Get penalty_amount
+     * Get penalty_amount.
      *
      * @return float
      */
@@ -413,9 +420,10 @@ class TransferInformation extends BaseTransferInformation implements SignableInt
     }
 
     /**
-     * Set is_penalty_free
+     * Set is_penalty_free.
      *
-     * @param boolean $isPenaltyFree
+     * @param bool $isPenaltyFree
+     *
      * @return TransferInformation
      */
     public function setIsPenaltyFree($isPenaltyFree)
@@ -426,9 +434,9 @@ class TransferInformation extends BaseTransferInformation implements SignableInt
     }
 
     /**
-     * Get is_penalty_free
+     * Get is_penalty_free.
      *
-     * @return boolean
+     * @return bool
      */
     public function getIsPenaltyFree()
     {
@@ -436,22 +444,23 @@ class TransferInformation extends BaseTransferInformation implements SignableInt
     }
 
     /**
-     * Set redeem_certificates_deposit
+     * Set redeem_certificates_deposit.
      *
-     * @param boolean $redeemCertificatesDeposit
+     * @param bool $redeemCertificatesDeposit
+     *
      * @return TransferInformation
      */
     public function setRedeemCertificatesDeposit($redeemCertificatesDeposit)
     {
         $this->redeem_certificates_deposit = $redeemCertificatesDeposit;
-    
+
         return $this;
     }
 
     /**
-     * Get redeem_certificates_deposit
+     * Get redeem_certificates_deposit.
      *
-     * @return boolean 
+     * @return bool
      */
     public function getRedeemCertificatesDeposit()
     {
@@ -459,22 +468,23 @@ class TransferInformation extends BaseTransferInformation implements SignableInt
     }
 
     /**
-     * Set delivering_account_title
+     * Set delivering_account_title.
      *
      * @param string $deliveringAccountTitle
+     *
      * @return TransferInformation
      */
     public function setDeliveringAccountTitle($deliveringAccountTitle)
     {
         $this->delivering_account_title = $deliveringAccountTitle;
-    
+
         return $this;
     }
 
     /**
-     * Get delivering_account_title
+     * Get delivering_account_title.
      *
-     * @return string 
+     * @return string
      */
     public function getDeliveringAccountTitle()
     {
@@ -482,22 +492,23 @@ class TransferInformation extends BaseTransferInformation implements SignableInt
     }
 
     /**
-     * Set ameritrade_account_title
+     * Set ameritrade_account_title.
      *
      * @param string $ameritradeAccountTitle
+     *
      * @return TransferInformation
      */
     public function setAmeritradeAccountTitle($ameritradeAccountTitle)
     {
         $this->ameritrade_account_title = $ameritradeAccountTitle;
-    
+
         return $this;
     }
 
     /**
-     * Get ameritrade_account_title
+     * Get ameritrade_account_title.
      *
-     * @return string 
+     * @return string
      */
     public function getAmeritradeAccountTitle()
     {
@@ -505,22 +516,23 @@ class TransferInformation extends BaseTransferInformation implements SignableInt
     }
 
     /**
-     * Set clientAccount
+     * Set clientAccount.
      *
      * @param \Wealthbot\ClientBundle\Entity\ClientAccount $clientAccount
+     *
      * @return TransferInformation
      */
     public function setClientAccount(\Wealthbot\ClientBundle\Entity\ClientAccount $clientAccount = null)
     {
         $this->clientAccount = $clientAccount;
-    
+
         return $this;
     }
 
     /**
-     * Get clientAccount
+     * Get clientAccount.
      *
-     * @return \Wealthbot\ClientBundle\Entity\ClientAccount 
+     * @return \Wealthbot\ClientBundle\Entity\ClientAccount
      */
     public function getClientAccount()
     {
@@ -528,20 +540,21 @@ class TransferInformation extends BaseTransferInformation implements SignableInt
     }
 
     /**
-     * Set systemAccount
+     * Set systemAccount.
      *
      * @param \Wealthbot\ClientBundle\Entity\SystemAccount $systemAccount
+     *
      * @return TransferInformation
      */
     public function setSystemAccount(\Wealthbot\ClientBundle\Entity\SystemAccount $systemAccount = null)
     {
         $this->systemAccount = $systemAccount;
-    
+
         return $this;
     }
 
     /**
-     * Get systemAccount
+     * Get systemAccount.
      *
      * @return \Wealthbot\ClientBundle\Entity\SystemAccount
      */
@@ -551,22 +564,23 @@ class TransferInformation extends BaseTransferInformation implements SignableInt
     }
 
     /**
-     * Set transfer_custodian_id
+     * Set transfer_custodian_id.
      *
-     * @param integer $transferCustodianId
+     * @param int $transferCustodianId
+     *
      * @return TransferInformation
      */
     public function setTransferCustodianId($transferCustodianId)
     {
         $this->transfer_custodian_id = $transferCustodianId;
-    
+
         return $this;
     }
 
     /**
-     * Get transfer_custodian_id
+     * Get transfer_custodian_id.
      *
-     * @return integer 
+     * @return int
      */
     public function getTransferCustodianId()
     {
@@ -574,22 +588,23 @@ class TransferInformation extends BaseTransferInformation implements SignableInt
     }
 
     /**
-     * Set title_first
+     * Set title_first.
      *
      * @param string $titleFirst
+     *
      * @return TransferInformation
      */
     public function setTitleFirst($titleFirst)
     {
         $this->title_first = $titleFirst;
-    
+
         return $this;
     }
 
     /**
-     * Get title_first
+     * Get title_first.
      *
-     * @return string 
+     * @return string
      */
     public function getTitleFirst()
     {
@@ -597,22 +612,23 @@ class TransferInformation extends BaseTransferInformation implements SignableInt
     }
 
     /**
-     * Set title_middle
+     * Set title_middle.
      *
      * @param string $titleMiddle
+     *
      * @return TransferInformation
      */
     public function setTitleMiddle($titleMiddle)
     {
         $this->title_middle = $titleMiddle;
-    
+
         return $this;
     }
 
     /**
-     * Get title_middle
+     * Get title_middle.
      *
-     * @return string 
+     * @return string
      */
     public function getTitleMiddle()
     {
@@ -620,22 +636,23 @@ class TransferInformation extends BaseTransferInformation implements SignableInt
     }
 
     /**
-     * Set title_last
+     * Set title_last.
      *
      * @param string $titleLast
+     *
      * @return TransferInformation
      */
     public function setTitleLast($titleLast)
     {
         $this->title_last = $titleLast;
-    
+
         return $this;
     }
 
     /**
-     * Get title_last
+     * Get title_last.
      *
-     * @return string 
+     * @return string
      */
     public function getTitleLast()
     {
@@ -643,22 +660,23 @@ class TransferInformation extends BaseTransferInformation implements SignableInt
     }
 
     /**
-     * Set joint_title_first
+     * Set joint_title_first.
      *
      * @param string $jointTitleFirst
+     *
      * @return TransferInformation
      */
     public function setJointTitleFirst($jointTitleFirst)
     {
         $this->joint_title_first = $jointTitleFirst;
-    
+
         return $this;
     }
 
     /**
-     * Get joint_title_first
+     * Get joint_title_first.
      *
-     * @return string 
+     * @return string
      */
     public function getJointTitleFirst()
     {
@@ -666,22 +684,23 @@ class TransferInformation extends BaseTransferInformation implements SignableInt
     }
 
     /**
-     * Set joint_title_middle
+     * Set joint_title_middle.
      *
      * @param string $jointTitleMiddle
+     *
      * @return TransferInformation
      */
     public function setJointTitleMiddle($jointTitleMiddle)
     {
         $this->joint_title_middle = $jointTitleMiddle;
-    
+
         return $this;
     }
 
     /**
-     * Get joint_title_middle
+     * Get joint_title_middle.
      *
-     * @return string 
+     * @return string
      */
     public function getJointTitleMiddle()
     {
@@ -689,22 +708,23 @@ class TransferInformation extends BaseTransferInformation implements SignableInt
     }
 
     /**
-     * Set joint_title_last
+     * Set joint_title_last.
      *
      * @param string $jointTitleLast
+     *
      * @return TransferInformation
      */
     public function setJointTitleLast($jointTitleLast)
     {
         $this->joint_title_last = $jointTitleLast;
-    
+
         return $this;
     }
 
     /**
-     * Get joint_title_last
+     * Get joint_title_last.
      *
-     * @return string 
+     * @return string
      */
     public function getJointTitleLast()
     {
@@ -712,22 +732,23 @@ class TransferInformation extends BaseTransferInformation implements SignableInt
     }
 
     /**
-     * Set transferCustodian
+     * Set transferCustodian.
      *
      * @param \Wealthbot\ClientBundle\Entity\TransferCustodian $transferCustodian
+     *
      * @return TransferInformation
      */
     public function setTransferCustodian(\Wealthbot\ClientBundle\Entity\TransferCustodian $transferCustodian = null)
     {
         $this->transferCustodian = $transferCustodian;
-    
+
         return $this;
     }
 
     /**
-     * Get transferCustodian
+     * Get transferCustodian.
      *
-     * @return \Wealthbot\ClientBundle\Entity\TransferCustodian 
+     * @return \Wealthbot\ClientBundle\Entity\TransferCustodian
      */
     public function getTransferCustodian()
     {
@@ -735,42 +756,43 @@ class TransferInformation extends BaseTransferInformation implements SignableInt
     }
 
     /**
-     * Get account title
+     * Get account title.
      *
      * @return string
      */
     public function getAccountTitle()
     {
-        return $this->getTitleFirst() . ' ' . $this->getTitleMiddle() . ' ' . $this->getTitleLast();
+        return $this->getTitleFirst().' '.$this->getTitleMiddle().' '.$this->getTitleLast();
     }
 
     /**
-     * Get account joint title
+     * Get account joint title.
      *
      * @return string
      */
     public function getAccountJointTitle()
     {
-        return $this->getJointTitleFirst() . ' ' . $this->getJointTitleMiddle() . ' ' . $this->getJointTitleLast();
+        return $this->getJointTitleFirst().' '.$this->getJointTitleMiddle().' '.$this->getJointTitleLast();
     }
 
     /**
-     * Set is_include_policy
+     * Set is_include_policy.
      *
-     * @param boolean $isIncludePolicy
+     * @param bool $isIncludePolicy
+     *
      * @return TransferInformation
      */
     public function setIsIncludePolicy($isIncludePolicy)
     {
         $this->is_include_policy = $isIncludePolicy;
-    
+
         return $this;
     }
 
     /**
-     * Get is_include_policy
+     * Get is_include_policy.
      *
-     * @return boolean 
+     * @return bool
      */
     public function getIsIncludePolicy()
     {
@@ -778,9 +800,10 @@ class TransferInformation extends BaseTransferInformation implements SignableInt
     }
 
     /**
-     * Set questionnaireAnswers
+     * Set questionnaireAnswers.
      *
      * @param array $questionnaireAnswers
+     *
      * @return $this
      */
     public function setQuestionnaireAnswer(array $questionnaireAnswers)
@@ -791,20 +814,21 @@ class TransferInformation extends BaseTransferInformation implements SignableInt
     }
 
     /**
-     * Add questionnaireAnswers
+     * Add questionnaireAnswers.
      *
      * @param \Wealthbot\ClientBundle\Entity\TransferCustodianQuestionAnswer $questionnaireAnswers
+     *
      * @return TransferInformation
      */
     public function addQuestionnaireAnswer(\Wealthbot\ClientBundle\Entity\TransferCustodianQuestionAnswer $questionnaireAnswers)
     {
         $this->questionnaireAnswers[] = $questionnaireAnswers;
-    
+
         return $this;
     }
 
     /**
-     * Remove questionnaireAnswers
+     * Remove questionnaireAnswers.
      *
      * @param \Wealthbot\ClientBundle\Entity\TransferCustodianQuestionAnswer $questionnaireAnswers
      */
@@ -814,9 +838,9 @@ class TransferInformation extends BaseTransferInformation implements SignableInt
     }
 
     /**
-     * Get questionnaireAnswers
+     * Get questionnaireAnswers.
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getQuestionnaireAnswers()
     {
@@ -824,7 +848,7 @@ class TransferInformation extends BaseTransferInformation implements SignableInt
     }
 
     /**
-     * Get id of source object
+     * Get id of source object.
      *
      * @return mixed
      */
@@ -834,7 +858,7 @@ class TransferInformation extends BaseTransferInformation implements SignableInt
     }
 
     /**
-     * Get type of document signature
+     * Get type of document signature.
      *
      * @return string
      */
@@ -844,9 +868,10 @@ class TransferInformation extends BaseTransferInformation implements SignableInt
     }
 
     /**
-     * Set statementDocument
+     * Set statementDocument.
      *
      * @param \Wealthbot\UserBundle\Entity\Document $statementDocument
+     *
      * @return TransferInformation
      */
     public function setStatementDocument(\Wealthbot\UserBundle\Entity\Document $statementDocument = null)
@@ -857,9 +882,9 @@ class TransferInformation extends BaseTransferInformation implements SignableInt
     }
 
     /**
-     * Get statementDocument
+     * Get statementDocument.
      *
-     * @return \Wealthbot\UserBundle\Entity\Document 
+     * @return \Wealthbot\UserBundle\Entity\Document
      */
     public function getStatementDocument()
     {

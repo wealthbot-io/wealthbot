@@ -38,7 +38,7 @@ For detailed info about the logic and usage patterns of Example42 modules check 
           audit_only => true
         }
 
-* Install php in an nginx environment
+* Define nginx service to be notified on changes
 
         class { 'php':
           service => 'nginx'
@@ -68,6 +68,28 @@ For detailed info about the logic and usage patterns of Example42 modules check 
           module_prefix => "php-"
         }
 
+## USAGE - Module Configuration
+
+* Configure php module to all SAPI
+        
+        php::mod { "mcrypt": }
+
+  *__Note:__ `[name]` is filename without `.ini` extension from `/etc/php5/mods-available/<name>.ini`*
+
+* Configure multiple php module to all SAPI
+
+        $mods = ["mcrypt", "mongo"]
+        php::mod { "$mods": }
+
+* Unconfigure php module to all SAPI
+        
+        php::mod { "xdebug"
+            disable => true,
+        }
+
+* Installing and configuring a Module. This will guarantee correct execution order in your classes
+
+        php::module { 'sqlite': } -> php::mod { 'sqlite3': }
 
 ## USAGE - Pear Management
 
@@ -111,6 +133,12 @@ For detailed info about the logic and usage patterns of Example42 modules check 
 
         php::pecl::config { http_proxy: value => "myproxy:8080" }
 
+* Auto-answer prompts for unattended-installation (where configure might used used for instance)
+
+        php::pecl::module { 'stomp':
+          use_package     => 'false',
+          auto_answer     => 'no\\n\\n',
+        }
 
 ## USAGE - Overrides and Customizations
 * Use custom sources for main config file.

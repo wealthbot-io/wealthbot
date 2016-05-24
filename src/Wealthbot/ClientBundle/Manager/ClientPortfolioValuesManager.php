@@ -2,14 +2,12 @@
 
 namespace Wealthbot\ClientBundle\Manager;
 
-
 use Doctrine\DBAL\LockMode;
 use Doctrine\ORM\EntityManager;
 use Wealthbot\AdminBundle\Entity\Job;
 use Wealthbot\ClientBundle\Entity\ClientPortfolio;
 use Wealthbot\ClientBundle\Model\ClientPortfolioValuesInformation;
 use Wealthbot\ClientBundle\Repository\ClientPortfolioValueRepository;
-use Wealthbot\UserBundle\Entity\Group;
 use Wealthbot\UserBundle\Entity\User;
 use Wealthbot\UserBundle\Manager\UserManager;
 
@@ -61,7 +59,7 @@ class ClientPortfolioValuesManager
         return $this->repo->findHistoryForRiaClients($ria);
     }
 
-    public function getHistoryForRiaClientsQuery(User $ria, $filters = array())
+    public function getHistoryForRiaClientsQuery(User $ria, $filters = [])
     {
         return $this->repo->findHistoryForRiaClientsQuery($ria, $filters);
     }
@@ -75,7 +73,7 @@ class ClientPortfolioValuesManager
     {
         $values = $this->getLatestValuesForJob($job);
 
-        $ids = array();
+        $ids = [];
         foreach ($values as $value) {
             $ids[] = $value->getId();
         }
@@ -101,5 +99,4 @@ class ClientPortfolioValuesManager
     {
         return $this->repo->find($id, $lockMode, $lockVersion);
     }
-
 }

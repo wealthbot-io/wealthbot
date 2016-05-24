@@ -24,7 +24,7 @@ class PasInterfacesControllerTest extends ExtendedWebTestCase {
     {
         $this->authenticateUser(
             'webo',
-            array('ROLE_SUPER_ADMIN'),
+            ['ROLE_SUPER_ADMIN'],
             'backend_auth'
         );
     }
@@ -38,7 +38,6 @@ class PasInterfacesControllerTest extends ExtendedWebTestCase {
         $crawler = $this->client->request('GET', $uri);
         $response = $this->client->getResponse();
 
-        $this->assertEquals(200, $response->getStatusCode(), 'Status code of "admin-pas-interfaces" must be 200.');
+        $this->assertSame(200, $response->getStatusCode(), 'Status code of "admin-pas-interfaces" must be 200.');
     }
-
-} 
+}

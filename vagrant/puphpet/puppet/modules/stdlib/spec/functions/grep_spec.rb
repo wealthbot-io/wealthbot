@@ -1,19 +1,19 @@
-#! /usr/bin/env ruby -S rspec
 require 'spec_helper'
 
-describe "the grep function" do
-  let(:scope) { PuppetlabsSpec::PuppetInternals.scope }
-
-  it "should exist" do
-    expect(Puppet::Parser::Functions.function("grep")).to eq("function_grep")
-  end
-
-  it "should raise a ParseError if there is less than 1 arguments" do
-    expect { scope.function_grep([]) }.to( raise_error(Puppet::ParseError))
-  end
-
-  it "should grep contents from an array" do
-    result = scope.function_grep([["aaabbb","bbbccc","dddeee"], "bbb"])
-    expect(result).to(eq(["aaabbb","bbbccc"]))
-  end
+describe 'grep' do
+  it { is_expected.not_to eq(nil) }
+  it { is_expected.to run.with_params().and_raise_error(Puppet::ParseError, /wrong number of arguments/i) }
+  it { is_expected.to run.with_params('one').and_raise_error(Puppet::ParseError, /wrong number of arguments/i) }
+  it {
+    pending("grep does not actually check this, and raises NoMethodError instead")
+    is_expected.to run.with_params('one', 'two').and_raise_error(Puppet::ParseError, /first argument not an array/)
+  }
+  it {
+    pending("grep does not actually check this, and raises NoMethodError instead")
+    is_expected.to run.with_params(1, 'two').and_raise_error(Puppet::ParseError, /first argument not an array/)
+  }
+  it { is_expected.to run.with_params('one', 'two', 'three').and_raise_error(Puppet::ParseError, /wrong number of arguments/i) }
+  it { is_expected.to run.with_params([], 'two').and_return([]) }
+  it { is_expected.to run.with_params(['one', 'two', 'three'], 'two').and_return(['two']) }
+  it { is_expected.to run.with_params(['one', 'two', 'three'], 't(wo|hree)').and_return(['two', 'three']) }
 end

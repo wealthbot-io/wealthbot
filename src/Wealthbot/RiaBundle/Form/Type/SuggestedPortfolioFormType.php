@@ -9,30 +9,29 @@
 
 namespace Wealthbot\RiaBundle\Form\Type;
 
-use Doctrine\ORM\EntityRepository;
-use Wealthbot\ClientBundle\Entity\AccountGroup;
-use Wealthbot\ClientBundle\Entity\ClientPortfolio;
-use Wealthbot\RiaBundle\Entity\RiaCompanyInformation;
-use Wealthbot\UserBundle\Entity\User;
 use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use Wealthbot\UserBundle\Entity\Profile;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Wealthbot\ClientBundle\Entity\AccountGroup;
+use Wealthbot\ClientBundle\Entity\ClientPortfolio;
+use Wealthbot\RiaBundle\Entity\RiaCompanyInformation;
+use Wealthbot\UserBundle\Entity\Profile;
+use Wealthbot\UserBundle\Entity\User;
 
-class SuggestedPortfolioFormType extends AbstractType {
-
+class SuggestedPortfolioFormType extends AbstractType
+{
     /** @var EntityManager $em */
     private $em;
 
     /** @var \Wealthbot\ClientBundle\Entity\ClientPortfolio */
     private $clientPortfolio;
-
 
     public function __construct(EntityManager $em, ClientPortfolio $clientPortfolio)
     {
@@ -42,34 +41,34 @@ class SuggestedPortfolioFormType extends AbstractType {
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $em      = $this->em;
+        $em = $this->em;
         $profile = $builder->getData();
-        $ria     = $profile->getRia();
-        $client  = $profile->getUser();
+        $ria = $profile->getRia();
+        $client = $profile->getUser();
         $riaCompanyInfo = $ria->getRiaCompanyInformation();
 
-        if(!$profile || !$profile->getId()){
-            throw new \Exception("Profile is required.");
+        if (!$profile || !$profile->getId()) {
+            throw new \Exception('Profile is required.');
         }
 
         $builder
-            ->add('action_type', 'hidden', array(
-                'property_path' => false,
-                'attr' => array('value' => '')
-            ))
-            ->add('unconsolidated_ids', 'hidden', array(
+            ->add('action_type', 'hidden', [
                 'mapped' => false,
-                'attr' => array('value' => '')
-            ))
-            ->add('is_qualified', 'hidden', array(
-                'property_path' => false,
-            ))
-            ->add('paymentMethod', 'choice', array(
-                'choices' => array(
+                'attr' => ['value' => ''],
+            ])
+            ->add('unconsolidated_ids', 'hidden', [
+                'mapped' => false,
+                'attr' => ['value' => ''],
+            ])
+            ->add('is_qualified', 'hidden', [
+                'mapped' => false,
+            ])
+            ->add('paymentMethod', 'choice', [
+                'choices' => [
                     Profile::PAYMENT_METHOD_DIRECT_DEBIT => 'Direct Debit',
-                    Profile::PAYMENT_METHOD_OUTSIDE_PAYMENT => 'Outside Payment'
-                )
-            ))
+                    Profile::PAYMENT_METHOD_OUTSIDE_PAYMENT => 'Outside Payment',
+                ],
+            ])
         ;
 
         $this->buildRetirementForm($builder, $riaCompanyInfo, $client);
@@ -78,7 +77,7 @@ class SuggestedPortfolioFormType extends AbstractType {
 
         $this->buildBillingSpecForm($builder, $client);
 
-        $builder->addEventListener(FormEvents::BIND, function(FormEvent $event) use ($em, $client) {
+        $builder->addEventListener(FormEvents::SUBMIT, function (FormEvent $event) use ($em, $client) {
 
             $form = $event->getForm();
 
@@ -94,41 +93,41 @@ class SuggestedPortfolioFormType extends AbstractType {
                 ->andWhere('ca.client_id = :client_id')
                 ->andWhere('s.subclass IS NOT NULL')
                 ->setParameter('client_id', $client->getId())
-                ->setParameters(array(
+                ->setParameters([
                     'client_id' => $client->getId(),
-                    'retirement_group' => AccountGroup::GROUP_EMPLOYER_RETIREMENT
-                ))
+                    'retirement_group' => AccountGroup::GROUP_EMPLOYER_RETIREMENT,
+                ])
                 ->getQuery();
             $preferredAccounts = $q->execute();
 
             // If this accounts exist then Do not let an advisor proceed in portfolio suggestion.
-            if($preferredAccounts){
+            if ($preferredAccounts) {
                 $form->addError(new FormError('You should have assigning at least 1 preferred fund within every current retirement plan.'));
             }
         });
     }
 
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => 'Wealthbot\UserBundle\Entity\Profile'
-        ));
+        $resolver->setDefaults([
+            'data_class' => 'Wealthbot\UserBundle\Entity\Profile',
+        ]);
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'suggested_portfolio_form';
     }
 
     /**
      * @param FormBuilderInterface $builder
-     * @param User $client
+     * @param User                 $client
      */
     protected function buildBillingSpecForm(FormBuilderInterface $builder, $client)
     {
         $builder
-            ->add('billingSpec', 'entity', array(
-                    'class' => 'WealthbotAdminBundle:BillingSpec',
+            ->add('billingSpec', 'entity', [
+                    'class' => 'Wealthbot\\AdminBundle\\Entity\\BillingSpec',
                     'property' => 'name',
                     'property_path' => 'user.appointedBillingSpec',
                     'multiple' => false,
@@ -136,30 +135,30 @@ class SuggestedPortfolioFormType extends AbstractType {
                         return $er->createQueryBuilder('b')
                             ->where('b.owner = :ria')
                             ->setParameter('ria', $client->getRia());
-                    }
-                ));
+                    },
+                ]);
     }
 
     protected function buildCapitalEnginesForm(FormBuilderInterface $builder, $parent, $ria)
     {
         $builder
-            ->add('portfolio', 'entity', array(
-                'class' => 'WealthbotAdminBundle:CeModel',
+            ->add('portfolio', 'entity', [
+                'class' => 'Wealthbot\\AdminBundle\\Entity\\CeModel',
                 'property' => 'name',
-                'property_path' => false,
+                'mapped' => false,
                 'query_builder' => function (EntityRepository $er) use ($parent, $ria) {
                     return $er->createQueryBuilder('p')
                         ->where('p.parent = :parent')
                         ->andWhere('p.ownerId = :owner_id')
-                        ->setParameters(array(
+                        ->setParameters([
                             'parent' => $parent->getParent(),
-                            'owner_id' => $ria->getId()
-                        ));
+                            'owner_id' => $ria->getId(),
+                        ]);
                 },
-                'data' => $parent
-            ))
-            ->add('selected_model', 'entity', array(
-                'class' => 'WealthbotAdminBundle:CeModel',
+                'data' => $parent,
+            ])
+            ->add('selected_model', 'entity', [
+                'class' => 'Wealthbot\\AdminBundle\\Entity\\CeModel',
                 'property' => 'name',
                 'expanded' => true,
                 'multiple' => false,
@@ -168,38 +167,39 @@ class SuggestedPortfolioFormType extends AbstractType {
                     return $er->createQueryBuilder('p')
                         ->where('p.parent = :parent')
                         ->andWhere('p.ownerId = :owner_id')
-                        ->setParameters(array(
+                        ->setParameters([
                             'parent' => $parent,
-                            'owner_id' => $ria->getId()
-                        ));
-                }
-            ))
+                            'owner_id' => $ria->getId(),
+                        ]);
+                },
+            ])
         ;
 
         $factory = $builder->getFormFactory();
 
-        $updateSelectedModel = function(FormInterface $form, $portfolio, $ria) use ($factory) {
-            $form->add($factory->createNamed('selected_model', 'entity', null, array(
-                    'class' => 'WealthbotAdminBundle:CeModel',
+        $updateSelectedModel = function (FormInterface $form, $portfolio, $ria) use ($factory) {
+            $form->add($factory->createNamed('selected_model', 'entity', null, [
+                    'class' => 'Wealthbot\\AdminBundle\\Entity\\CeModel',
                     'property' => 'name',
                     'expanded' => true,
                     'multiple' => false,
+                    'auto_initialize' => false,
                     'property_path' => 'suggested_portfolio',
                     'query_builder' => function (EntityRepository $er) use ($portfolio, $ria) {
                         return $er->createQueryBuilder('p')
                             ->where('p.parent = :parent')
                             ->andWhere('p.ownerId = :owner_id')
-                            ->setParameters(array(
+                            ->setParameters([
                                 'parent' => $portfolio,
-                                'owner_id' => $ria->getId()
-                            ));
-                    }
-                ))
+                                'owner_id' => $ria->getId(),
+                            ]);
+                    },
+                ])
             );
         };
 
         $builder->addEventListener(
-            FormEvents::PRE_BIND,
+            FormEvents::PRE_SUBMIT,
             function (FormEvent $event) use ($updateSelectedModel, $ria) {
                 $form = $event->getForm();
                 $data = $event->getData();
@@ -213,22 +213,22 @@ class SuggestedPortfolioFormType extends AbstractType {
 
     protected function buildModelForm(FormBuilderInterface $builder, User $ria)
     {
-        $builder->add('client', new ChooseClientPortfolioFormType($this->clientPortfolio), array('mapped' => false, 'data' => $this->clientPortfolio->getClient()));
+        $builder->add('client', new ChooseClientPortfolioFormType($this->clientPortfolio), ['mapped' => false, 'data' => $this->clientPortfolio->getClient()]);
 
         if ($ria->getRiaCompanyInformation()->isCollaborativeProcessing()) {
-            $builder->add('groups', 'entity', array(
+            $builder->add('groups', 'entity', [
                 'multiple' => false,   // Multiple selection allowed
                 'property' => 'name', // Assuming that the entity has a "name" property
                 'property_path' => 'user.groups',
-                'label'    => 'Groups:',
-                'class'    => 'Wealthbot\UserBundle\Entity\Group',
-                'query_builder' => function(EntityRepository $er) use ($ria) {
+                'label' => 'Groups:',
+                'class' => 'Wealthbot\UserBundle\Entity\Group',
+                'query_builder' => function (EntityRepository $er) use ($ria) {
                     return $er->createQueryBuilder('g')
                         ->andWhere('g.owner = :owner')
                         ->orWhere('g.owner is null')
                         ->setParameter('owner', $ria);
-                }
-            ));
+                },
+            ]);
         }
     }
 
@@ -236,37 +236,37 @@ class SuggestedPortfolioFormType extends AbstractType {
     {
         $clientPortfolios = $client->getClientPortfolios();
 
-        if ($clientPortfolios->count() == 1) {
+        if ($clientPortfolios->count() === 1) {
             if ($clientPortfolios[0]->isProposed()) {
                 if ($riaCompanyInfo->isClientByClientManagedLevel()) {
-                    $builder->add('client_account_managed', 'choice', array(
+                    $builder->add('client_account_managed', 'choice', [
                         'choices' => Profile::$client_account_managed_choices,
                         'expanded' => false,
-                        'constraints' => array(
-                            new NotBlank(array(
-                                'message' => 'Choose a Asset Location.'
-                            ))
-                        )
-                    ));
+                        'constraints' => [
+                            new NotBlank([
+                                'message' => 'Choose a Asset Location.',
+                            ]),
+                        ],
+                    ]);
                 } else {
-                    $builder->add('client_account_managed', 'hidden', array(
-                        'data' => $riaCompanyInfo->getAccountManaged()
-                    ));
+                    $builder->add('client_account_managed', 'hidden', [
+                        'data' => $riaCompanyInfo->getAccountManaged(),
+                    ]);
                 }
             } else {
-                $builder->add('client_account_managed', 'choice', array(
+                $builder->add('client_account_managed', 'choice', [
                     'choices' => Profile::$client_account_managed_choices,
                     'expanded' => false,
-                    'constraints' => array(
-                        new NotBlank(array(
-                            'message' => 'Choose a Asset Location.'
-                        ))
-                    ),
-                    'attr' => array(
-                        'disabled' => true
-                    )
-                ));
+                    'constraints' => [
+                        new NotBlank([
+                            'message' => 'Choose a Asset Location.',
+                        ]),
+                    ],
+                    'attr' => [
+                        'disabled' => true,
+                    ],
+                ]);
             }
         }
-   }
+    }
 }

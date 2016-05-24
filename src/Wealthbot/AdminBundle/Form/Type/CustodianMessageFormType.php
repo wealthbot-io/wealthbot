@@ -9,28 +9,26 @@
 
 namespace Wealthbot\AdminBundle\Form\Type;
 
-
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class CustodianMessageFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('message', 'hidden', array('required' => false));
+        $builder->add('message', 'hidden', ['required' => false]);
     }
 
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => 'Wealthbot\AdminBundle\Entity\CustodianMessage'
-        ));
+        $resolver->setDefaults([
+            'data_class' => 'Wealthbot\AdminBundle\Entity\CustodianMessage',
+        ]);
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'custodian_message';
     }
-
 }

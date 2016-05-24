@@ -13,10 +13,10 @@ class WealthbotExtension extends \Twig_Extension
 {
     public function getFilters()
     {
-        return array(
-            'ucfirst' => new \Twig_Filter_Method($this, 'ucfirstFilter'),
-            'ucwords' => new \Twig_Filter_Method($this, 'ucwordsFilter'),
-        );
+        return [
+            'ucfirst' => new \Twig_SimpleFilter('ucfirst', [$this, 'ucfirstFilter']),
+            'ucwords' => new \Twig_SimpleFilter('ucwords', [$this, 'ucwordsFilter']),
+        ];
     }
 
     public function ucfirstFilter($str)
@@ -37,7 +37,7 @@ class WealthbotExtension extends \Twig_Extension
         return ucwords($str);
     }
 
-    function getName()
+    public function getName()
     {
         return 'rx_extension';
     }

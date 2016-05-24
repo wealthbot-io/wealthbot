@@ -2,48 +2,46 @@
 
 namespace Wealthbot\AdminBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
 use Wealthbot\AdminBundle\Model\CeModelEntity as BaseCeModelEntity;
 use Wealthbot\AdminBundle\Model\CeModelInterface;
 
 /**
- * CeModelEntity
+ * CeModelEntity.
  */
 class CeModelEntity extends BaseCeModelEntity
 {
-
     /**
-     * @var integer
+     * @var int
      */
     protected $id;
 
     /**
-     * @var integer
+     * @var int
      */
     protected $modelId;
 
     /**
-     * @var integer
+     * @var int
      */
     protected $assetClassId;
 
     /**
-     * @var integer
+     * @var int
      */
     protected $subclassId;
 
     /**
-     * @var integer
+     * @var int
      */
     protected $securityAssignmentId;
 
     /**
-     * @var integer
+     * @var int
      */
     protected $muniSubstitutionId;
 
     /**
-     * @var integer
+     * @var int
      */
     protected $taxLossHarvestingId;
 
@@ -58,12 +56,12 @@ class CeModelEntity extends BaseCeModelEntity
     protected $updated;
 
     /**
-     * @var integer
+     * @var int
      */
     protected $nbEdits;
 
     /**
-     * @var boolean
+     * @var bool
      */
     protected $isQualified;
 
@@ -97,7 +95,6 @@ class CeModelEntity extends BaseCeModelEntity
      */
     protected $taxLossHarvesting;
 
-
     public function __construct()
     {
         parent::__construct();
@@ -105,11 +102,10 @@ class CeModelEntity extends BaseCeModelEntity
         $this->nbEdits = 0;
     }
 
-
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer 
+     * @return int
      */
     public function getId()
     {
@@ -117,22 +113,23 @@ class CeModelEntity extends BaseCeModelEntity
     }
 
     /**
-     * Set modelId
+     * Set modelId.
      *
-     * @param integer $modelId
+     * @param int $modelId
+     *
      * @return CeModelEntity
      */
     public function setModelId($modelId)
     {
         $this->modelId = $modelId;
-    
+
         return $this;
     }
 
     /**
-     * Get modelId
+     * Get modelId.
      *
-     * @return integer 
+     * @return int
      */
     public function getModelId()
     {
@@ -140,22 +137,23 @@ class CeModelEntity extends BaseCeModelEntity
     }
 
     /**
-     * Set assetClassId
+     * Set assetClassId.
      *
-     * @param integer $assetClassId
+     * @param int $assetClassId
+     *
      * @return CeModelEntity
      */
     public function setAssetClassId($assetClassId)
     {
         parent::setAssetClassId($assetClassId);
-    
+
         return $this;
     }
 
     /**
-     * Get assetClassId
+     * Get assetClassId.
      *
-     * @return integer 
+     * @return int
      */
     public function getAssetClassId()
     {
@@ -163,22 +161,23 @@ class CeModelEntity extends BaseCeModelEntity
     }
 
     /**
-     * Set subclassId
+     * Set subclassId.
      *
-     * @param integer $subclassId
+     * @param int $subclassId
+     *
      * @return CeModelEntity
      */
     public function setSubclassId($subclassId)
     {
         parent::setSubclassId($subclassId);
-    
+
         return $this;
     }
 
     /**
-     * Get subclassId
+     * Get subclassId.
      *
-     * @return integer 
+     * @return int
      */
     public function getSubclassId()
     {
@@ -186,22 +185,23 @@ class CeModelEntity extends BaseCeModelEntity
     }
 
     /**
-     * Set securityId
+     * Set securityId.
      *
-     * @param integer $securityId
+     * @param int $securityId
+     *
      * @return CeModelEntity
      */
     public function setSecurityAssignmentId($securityId)
     {
         $this->securityAssignmentId = $securityId;
-    
+
         return $this;
     }
 
     /**
-     * Get securityId
+     * Get securityId.
      *
-     * @return integer 
+     * @return int
      */
     public function getSecurityAssignmentId()
     {
@@ -209,22 +209,23 @@ class CeModelEntity extends BaseCeModelEntity
     }
 
     /**
-     * Set muniSubstitutionId
+     * Set muniSubstitutionId.
      *
-     * @param integer $muniSubstitutionId
+     * @param int $muniSubstitutionId
+     *
      * @return CeModelEntity
      */
     public function setMuniSubstitutionId($muniSubstitutionId)
     {
         parent::setMuniSubstitutionId($muniSubstitutionId);
-    
+
         return $this;
     }
 
     /**
-     * Get muniSubstitutionId
+     * Get muniSubstitutionId.
      *
-     * @return integer 
+     * @return int
      */
     public function getMuniSubstitutionId()
     {
@@ -232,22 +233,23 @@ class CeModelEntity extends BaseCeModelEntity
     }
 
     /**
-     * Set taxLossHarvestingId
+     * Set taxLossHarvestingId.
      *
-     * @param integer $taxLossHarvestingId
+     * @param int $taxLossHarvestingId
+     *
      * @return CeModelEntity
      */
     public function setTaxLossHarvestingId($taxLossHarvestingId)
     {
         parent::setTaxLossHarvestingId($taxLossHarvestingId);
-    
+
         return $this;
     }
 
     /**
-     * Get taxLossHarvestingId
+     * Get taxLossHarvestingId.
      *
-     * @return integer 
+     * @return int
      */
     public function getTaxLossHarvestingId()
     {
@@ -255,22 +257,23 @@ class CeModelEntity extends BaseCeModelEntity
     }
 
     /**
-     * Set percent
+     * Set percent.
      *
      * @param float $percent
+     *
      * @return CeModelEntity
      */
     public function setPercent($percent)
     {
         parent::setPercent($percent);
-    
+
         return $this;
     }
 
     /**
-     * Get percent
+     * Get percent.
      *
-     * @return float 
+     * @return float
      */
     public function getPercent()
     {
@@ -278,22 +281,23 @@ class CeModelEntity extends BaseCeModelEntity
     }
 
     /**
-     * Set updated
+     * Set updated.
      *
      * @param \DateTime $updated
+     *
      * @return CeModelEntity
      */
     public function setUpdated($updated)
     {
         $this->updated = $updated;
-    
+
         return $this;
     }
 
     /**
-     * Get updated
+     * Get updated.
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getUpdated()
     {
@@ -301,22 +305,23 @@ class CeModelEntity extends BaseCeModelEntity
     }
 
     /**
-     * Set nbEdits
+     * Set nbEdits.
      *
-     * @param integer $nbEdits
+     * @param int $nbEdits
+     *
      * @return CeModelEntity
      */
     public function setNbEdits($nbEdits)
     {
         $this->nbEdits = $nbEdits;
-    
+
         return $this;
     }
 
     /**
-     * Get nbEdits
+     * Get nbEdits.
      *
-     * @return integer 
+     * @return int
      */
     public function getNbEdits()
     {
@@ -324,22 +329,23 @@ class CeModelEntity extends BaseCeModelEntity
     }
 
     /**
-     * Set isQualified
+     * Set isQualified.
      *
-     * @param boolean $isQualified
+     * @param bool $isQualified
+     *
      * @return CeModelEntity
      */
     public function setIsQualified($isQualified)
     {
         parent::setIsQualified($isQualified);
-    
+
         return $this;
     }
 
     /**
-     * Get isQualified
+     * Get isQualified.
      *
-     * @return boolean 
+     * @return bool
      */
     public function getIsQualified()
     {
@@ -347,22 +353,23 @@ class CeModelEntity extends BaseCeModelEntity
     }
 
     /**
-     * Set model
+     * Set model.
      *
      * @param CeModelInterface $model
+     *
      * @return CeModelEntity
      */
     public function setModel(CeModelInterface $model = null)
     {
         parent::setModel($model);
-    
+
         return $this;
     }
 
     /**
-     * Get model
+     * Get model.
      *
-     * @return \Wealthbot\AdminBundle\Entity\CeModel 
+     * @return \Wealthbot\AdminBundle\Entity\CeModel
      */
     public function getModel()
     {
@@ -370,22 +377,23 @@ class CeModelEntity extends BaseCeModelEntity
     }
 
     /**
-     * Set assetClass
+     * Set assetClass.
      *
      * @param \Wealthbot\AdminBundle\Entity\AssetClass $assetClass
+     *
      * @return CeModelEntity
      */
     public function setAssetClass(\Wealthbot\AdminBundle\Entity\AssetClass $assetClass = null)
     {
         parent::setAssetClass($assetClass);
-    
+
         return $this;
     }
 
     /**
-     * Get assetClass
+     * Get assetClass.
      *
-     * @return \Wealthbot\AdminBundle\Entity\AssetClass 
+     * @return \Wealthbot\AdminBundle\Entity\AssetClass
      */
     public function getAssetClass()
     {
@@ -393,22 +401,23 @@ class CeModelEntity extends BaseCeModelEntity
     }
 
     /**
-     * Set subclass
+     * Set subclass.
      *
      * @param \Wealthbot\AdminBundle\Entity\Subclass $subclass
+     *
      * @return CeModelEntity
      */
     public function setSubclass(\Wealthbot\AdminBundle\Entity\Subclass $subclass = null)
     {
         parent::setSubclass($subclass);
-    
+
         return $this;
     }
 
     /**
-     * Get subclass
+     * Get subclass.
      *
-     * @return \Wealthbot\AdminBundle\Entity\Subclass 
+     * @return \Wealthbot\AdminBundle\Entity\Subclass
      */
     public function getSubclass()
     {
@@ -416,20 +425,21 @@ class CeModelEntity extends BaseCeModelEntity
     }
 
     /**
-     * Set securityAssignment
+     * Set securityAssignment.
      *
      * @param \Wealthbot\AdminBundle\Entity\SecurityAssignment $securityAssignment
+     *
      * @return CeModelEntity
      */
     public function setSecurityAssignment(\Wealthbot\AdminBundle\Entity\SecurityAssignment $securityAssignment = null)
     {
         parent::setSecurityAssignment($securityAssignment);
-    
+
         return $this;
     }
 
     /**
-     * Get securityAssignment
+     * Get securityAssignment.
      *
      * @return \Wealthbot\AdminBundle\Entity\SecurityAssignment
      */
@@ -439,20 +449,21 @@ class CeModelEntity extends BaseCeModelEntity
     }
 
     /**
-     * Set muniSubstitution
+     * Set muniSubstitution.
      *
      * @param \Wealthbot\AdminBundle\Entity\SecurityAssignment $muniSubstitution
+     *
      * @return CeModelEntity
      */
     public function setMuniSubstitution(\Wealthbot\AdminBundle\Entity\SecurityAssignment $muniSubstitution = null)
     {
         parent::setMuniSubstitution($muniSubstitution);
-    
+
         return $this;
     }
 
     /**
-     * Get muniSubstitution
+     * Get muniSubstitution.
      *
      * @return \Wealthbot\AdminBundle\Entity\SecurityAssignment
      */
@@ -462,20 +473,21 @@ class CeModelEntity extends BaseCeModelEntity
     }
 
     /**
-     * Set taxLossHarvesting
+     * Set taxLossHarvesting.
      *
      * @param \Wealthbot\AdminBundle\Entity\SecurityAssignment $taxLossHarvesting
+     *
      * @return CeModelEntity
      */
     public function setTaxLossHarvesting(\Wealthbot\AdminBundle\Entity\SecurityAssignment $taxLossHarvesting = null)
     {
         parent::setTaxLossHarvesting($taxLossHarvesting);
-    
+
         return $this;
     }
 
     /**
-     * Get taxLossHarvesting
+     * Get taxLossHarvesting.
      *
      * @return \Wealthbot\AdminBundle\Entity\SecurityAssignment
      */

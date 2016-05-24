@@ -3,21 +3,20 @@
  * Created by PhpStorm.
  * User: amalyuhin
  * Date: 18.02.14
- * Time: 15:41
+ * Time: 15:41.
  */
 
 namespace Wealthbot\ClientBundle\Form\Type;
 
-
 use Doctrine\ORM\EntityRepository;
-use Wealthbot\ClientBundle\Entity\SystemAccount;
-use Wealthbot\ClientBundle\Entity\Distribution;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Wealthbot\ClientBundle\Entity\Distribution;
+use Wealthbot\ClientBundle\Entity\SystemAccount;
 
 class ScheduledDistributionFormType extends AbstractType
 {
@@ -41,27 +40,27 @@ class ScheduledDistributionFormType extends AbstractType
         $this->factory = $builder->getFormFactory();
         $client = $this->account->getClient();
 
-        $builder->add('bankInformation', 'entity', array(
-                'class' => 'WealthbotClientBundle:BankInformation',
-                'query_builder' => function(EntityRepository $er) use ($client) {
+        $builder->add('bankInformation', 'entity', [
+                'class' => 'Wealthbot\\ClientBundle\\Entity\\BankInformation',
+                'query_builder' => function (EntityRepository $er) use ($client) {
                     return $er->createQueryBuilder('bi')
                         ->where('bi.client_id = :client_id')
                         ->setParameter('client_id', $client->getId());
                 },
                 'expanded' => true,
-                'multiple' => false
-            ))
-            ->add('amount', 'number', array(
+                'multiple' => false,
+            ])
+            ->add('amount', 'number', [
                 'precision' => 2,
                 'grouping' => true,
-                'required' => false
-            ));
+                'required' => false,
+            ]);
 
         if (null !== $this->subscriber) {
             $builder->addEventSubscriber($this->subscriber);
         }
 
-        $builder->addEventListener(FormEvents::PRE_SET_DATA, array($this, 'onPreSetData'));
+        $builder->addEventListener(FormEvents::PRE_SET_DATA, [$this, 'onPreSetData']);
     }
 
     public function onPreSetData(FormEvent $event)
@@ -69,59 +68,66 @@ class ScheduledDistributionFormType extends AbstractType
         $form = $event->getForm();
 
         if ($this->account->isRothIraType() || $this->account->isTraditionalIraType()) {
-            $form->add($this->factory->createNamed('distribution_method', 'choice', null, array(
+            $form->add($this->factory->createNamed('distribution_method', 'choice', null, [
                     'choices' => Distribution::getDistributionMethodChoices(),
                     'expanded' => true,
                     'multiple' => false,
-                    'required' => false
-                )))
-                ->add($this->factory->createNamed('federal_withholding', 'choice', null, array(
+                    'required' => false,
+                'auto_initialize' => false,
+                ]))
+                ->add($this->factory->createNamed('federal_withholding', 'choice', null, [
                     'choices' => Distribution::getFederalWithholdingChoices(),
                     'expanded' => true,
                     'multiple' => false,
-                    'required' => false
-                )))
-                ->add($this->factory->createNamed('state_withholding', 'choice', null, array(
+                    'required' => false,
+                    'auto_initialize' => false,
+                ]))
+                ->add($this->factory->createNamed('state_withholding', 'choice', null, [
                     'choices' => Distribution::getStateWithholdingChoices(),
                     'expanded' => true,
                     'multiple' => false,
-                    'required' => false
-                )))
-                ->add($this->factory->createNamed('federal_withhold_percent', 'percent', null, array(
-                    'required' => false
-                )))
-                ->add($this->factory->createNamed('federal_withhold_money', 'number', null, array(
+                    'required' => false,
+                    'auto_initialize' => false,
+                ]))
+                ->add($this->factory->createNamed('federal_withhold_percent', 'percent', null, [
+                    'required' => false,
+                    'auto_initialize' => false,
+                ]))
+                ->add($this->factory->createNamed('federal_withhold_money', 'number', null, [
                     'precision' => 2,
                     'grouping' => true,
-                    'required' => false
-                )))
-                ->add($this->factory->createNamed('state_withhold_percent', 'percent', null, array(
-                    'required' => false
-                )))
-                ->add($this->factory->createNamed('state_withhold_money', 'number', null, array(
+                    'required' => false,
+                    'auto_initialize' => false,
+                ]))
+                ->add($this->factory->createNamed('state_withhold_percent', 'percent', null, [
+                    'required' => false,
+                    'auto_initialize' => false,
+                ]))
+                ->add($this->factory->createNamed('state_withhold_money', 'number', null, [
                     'precision' => 2,
                     'grouping' => true,
-                    'required' => false
-                )))
-                ->add($this->factory->createNamed('residenceState', 'entity', null, array(
-                    'class' => 'WealthbotAdminBundle:State',
+                    'required' => false,
+                    'auto_initialize' => false,
+                ]))
+                ->add($this->factory->createNamed('residenceState', 'entity', null, [
+                    'class' => 'Wealthbot\\AdminBundle\\Entity\\State',
                     'label' => 'State',
-                    'empty_value' => 'Select a State',
-                    'required' => false
-                )));
+                    'placeholder' => 'Select a State',
+                    'required' => false,
+                    'auto_initialize' => false,
+                ]));
         }
     }
 
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => 'Wealthbot\ClientBundle\Entity\Distribution'
-        ));
+        $resolver->setDefaults([
+            'data_class' => 'Wealthbot\ClientBundle\Entity\Distribution',
+        ]);
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'distribution';
     }
-
-} 
+}

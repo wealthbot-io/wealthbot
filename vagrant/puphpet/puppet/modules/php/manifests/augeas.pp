@@ -65,12 +65,14 @@ define php::augeas (
   $changes = $ensure ? {
     present => [ "set '${entry}' '${value}'" ],
     absent  => [ "rm '${entry}'" ],
+    require => Package[$php::package],
   }
 
   augeas { "php_ini-${name}":
     incl    => $target,
     lens    => 'Php.lns',
     changes => $changes,
+    require => Package[$php::package],
   }
 
 }

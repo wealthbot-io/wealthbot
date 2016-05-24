@@ -15,8 +15,7 @@ elsif @origin.length > 0
   @pin = "origin #{@origin}"
 end
 -%>
-# <%= @name %>
-Explanation: <%= @explanation %>
-Package: <%= @packages %>
+Explanation: <%= @_explanation %>
+Package: <%= @packages_string %>
 Pin: <%= @pin %>
 Pin-Priority: <%= @priority %>

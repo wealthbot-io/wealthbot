@@ -9,7 +9,6 @@
 
 namespace Wealthbot\ClientBundle\Manager;
 
-
 use Wealthbot\ClientBundle\Model\AccountGroup;
 use Wealthbot\ClientBundle\Model\ClientAccount;
 use Wealthbot\ClientBundle\Model\SystemAccount;
@@ -24,9 +23,10 @@ class ClientToSystemAccountTypeAdapter
     }
 
     /**
-     * Get type of account
+     * Get type of account.
      *
      * @return int
+     *
      * @throws \Exception
      */
     public function getType()
@@ -36,22 +36,19 @@ class ClientToSystemAccountTypeAdapter
 
         if ($group === AccountGroup::GROUP_EMPLOYER_RETIREMENT) {
             $systemType = SystemAccount::TYPE_RETIREMENT;
-
         } elseif ($group === AccountGroup::GROUP_DEPOSIT_MONEY || $group === AccountGroup::GROUP_FINANCIAL_INSTITUTION) {
             $systemType = $this->getTypeOfDepositOrTransferAccount($type);
-
         } elseif ($group === AccountGroup::GROUP_OLD_EMPLOYER_RETIREMENT) {
             $systemType = $this->getTypeOfRolloverAccount($type);
-
         } else {
-            throw new \Exception('Invalid client account group value: ' . $group);
+            throw new \Exception('Invalid client account group value: '.$group);
         }
 
         return $systemType;
     }
 
     /**
-     * Get type of account as string
+     * Get type of account as string.
      *
      * @return string
      */
@@ -65,16 +62,16 @@ class ClientToSystemAccountTypeAdapter
 
     private function getTypeOfDepositOrTransferAccount($type)
     {
-        $typesMap = array(
+        $typesMap = [
             'Personal Account' => SystemAccount::TYPE_PERSONAL_INVESTMENT,
-            'Joint Account'    => SystemAccount::TYPE_JOINT_INVESTMENT,
-            'Roth IRA'         => SystemAccount::TYPE_ROTH_IRA,
-            'Traditional IRA'  => SystemAccount::TYPE_TRADITIONAL_IRA,
-            'Rollover IRA'     => SystemAccount::TYPE_TRADITIONAL_IRA
-        );
+            'Joint Account' => SystemAccount::TYPE_JOINT_INVESTMENT,
+            'Roth IRA' => SystemAccount::TYPE_ROTH_IRA,
+            'Traditional IRA' => SystemAccount::TYPE_TRADITIONAL_IRA,
+            'Rollover IRA' => SystemAccount::TYPE_TRADITIONAL_IRA,
+        ];
 
         if (!array_key_exists($type, $typesMap)) {
-            throw new \InvalidArgumentException('Invalid type: ' . $type);
+            throw new \InvalidArgumentException('Invalid type: '.$type);
         }
 
         return $typesMap[$type];
@@ -82,16 +79,16 @@ class ClientToSystemAccountTypeAdapter
 
     private function getTypeOfRolloverAccount($type)
     {
-        $typesMap = array(
+        $typesMap = [
             '401(k) Roth' => SystemAccount::TYPE_ROTH_IRA,
-            '401(k)'      => SystemAccount::TYPE_TRADITIONAL_IRA,
-            '403(b)'      => SystemAccount::TYPE_TRADITIONAL_IRA,
-            'SEP IRA'     => SystemAccount::TYPE_TRADITIONAL_IRA,
-            'SIMPLE IRA'  => SystemAccount::TYPE_TRADITIONAL_IRA
-        );
+            '401(k)' => SystemAccount::TYPE_TRADITIONAL_IRA,
+            '403(b)' => SystemAccount::TYPE_TRADITIONAL_IRA,
+            'SEP IRA' => SystemAccount::TYPE_TRADITIONAL_IRA,
+            'SIMPLE IRA' => SystemAccount::TYPE_TRADITIONAL_IRA,
+        ];
 
         if (!array_key_exists($type, $typesMap)) {
-            throw new \InvalidArgumentException('Invalid type: ' . $type);
+            throw new \InvalidArgumentException('Invalid type: '.$type);
         }
 
         return $typesMap[$type];

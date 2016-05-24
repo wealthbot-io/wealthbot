@@ -9,12 +9,11 @@
 
 namespace Wealthbot\ClientBundle\Form\Handler;
 
-
 use Doctrine\ORM\EntityManager;
-use Wealthbot\MailerBundle\Mailer\TwigSwiftMailer;
-use Wealthbot\UserBundle\Entity\User;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Wealthbot\MailerBundle\Mailer\TwigSwiftMailer;
+use Wealthbot\UserBundle\Entity\User;
 
 class SlaveClientFormHandler
 {
@@ -34,7 +33,7 @@ class SlaveClientFormHandler
     public function process(User $masterClient)
     {
         if ($this->request->isMethod('post')) {
-            $this->form->bind($this->request);
+            $this->form->handleRequest($this->request);
 
             if ($this->form->isValid()) {
                 $this->onSuccess($masterClient);
@@ -55,9 +54,9 @@ class SlaveClientFormHandler
         $password = $slaveClient->generateTemporaryPassword();
 
         if ($access === 'full') {
-            $roles = array('ROLE_SLAVE_CLIENT', 'ROLE_CLIENT_FULL');
+            $roles = ['ROLE_SLAVE_CLIENT', 'ROLE_CLIENT_FULL'];
         } else {
-            $roles = array('ROLE_SLAVE_CLIENT');
+            $roles = ['ROLE_SLAVE_CLIENT'];
         }
 
         $slaveClient->setPlainPassword($password);

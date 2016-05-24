@@ -1,19 +1,14 @@
-#! /usr/bin/env ruby -S rspec
 require 'spec_helper'
 
-describe "the hash function" do
-  let(:scope) { PuppetlabsSpec::PuppetInternals.scope }
-
-  it "should exist" do
-    expect(Puppet::Parser::Functions.function("hash")).to eq("function_hash")
-  end
-
-  it "should raise a ParseError if there is less than 1 arguments" do
-    expect { scope.function_hash([]) }.to( raise_error(Puppet::ParseError))
-  end
-
-  it "should convert an array to a hash" do
-    result = scope.function_hash([['a',1,'b',2,'c',3]])
-    expect(result).to(eq({'a'=>1,'b'=>2,'c'=>3}))
-  end
+describe 'hash' do
+  it { is_expected.not_to eq(nil) }
+  it { is_expected.to run.with_params().and_raise_error(Puppet::ParseError, /wrong number of arguments/i) }
+  it {
+    pending("Current implementation ignores parameters after the first.")
+    is_expected.to run.with_params([], 'two').and_raise_error(Puppet::ParseError, /wrong number of arguments/i)
+  }
+  it { is_expected.to run.with_params(['one']).and_raise_error(Puppet::ParseError, /Unable to compute/) }
+  it { is_expected.to run.with_params([]).and_return({}) }
+  it { is_expected.to run.with_params(['key1', 'value1']).and_return({ 'key1' => 'value1' }) }
+  it { is_expected.to run.with_params(['key1', 'value1', 'key2', 'value2']).and_return({ 'key1' => 'value1', 'key2' => 'value2' }) }
 end

@@ -1,6 +1,6 @@
 <?php
-namespace Wealthbot\FixturesBundle\DataFixtures\ORM;
 
+namespace Wealthbot\FixturesBundle\DataFixtures\ORM;
 
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
@@ -10,11 +10,11 @@ use Wealthbot\ClientBundle\Entity\BankInformation;
 class LoadBankInformationData extends AbstractFixture implements OrderedFixtureInterface
 {
     /**
-     * Load data fixtures with the passed EntityManager
+     * Load data fixtures with the passed EntityManager.
      *
      * @param \Doctrine\Common\Persistence\ObjectManager $manager
      */
-    function load(ObjectManager $manager)
+    public function load(ObjectManager $manager)
     {
         $client = $this->getReference('user-client');
 
@@ -33,7 +33,7 @@ class LoadBankInformationData extends AbstractFixture implements OrderedFixtureI
         $bankInfo->setAccountNumber('66666666');
         $bankInfo->setAccountType(BankInformation::ACCOUNT_TYPE_CHECK);
         $bankInfo->setPdfCopy('true');
-        $date =  new \DateTime('2013-01-08');
+        $date = new \DateTime('2013-01-08');
         $bankInfo->setUpdated($date);
         $this->addReference('bank-info', $bankInfo);
         $manager->persist($bankInfo);
@@ -41,13 +41,12 @@ class LoadBankInformationData extends AbstractFixture implements OrderedFixtureI
     }
 
     /**
-     * Get the order of this fixture
+     * Get the order of this fixture.
      *
-     * @return integer
+     * @return int
      */
-    function getOrder()
+    public function getOrder()
     {
         return 8;
     }
-
 }

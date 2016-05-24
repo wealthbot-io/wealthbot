@@ -1,6 +1,6 @@
 <?php
-namespace Wealthbot\FixturesBundle\DataFixtures\ORM;
 
+namespace Wealthbot\FixturesBundle\DataFixtures\ORM;
 
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
@@ -9,8 +9,8 @@ use Wealthbot\AdminBundle\Entity\SecurityTransaction;
 
 class LoadSecurityTransactionData extends AbstractFixture implements OrderedFixtureInterface
 {
-    private $securityTxsData = array(
-        1 => array(
+    private $securityTxsData = [
+        1 => [
             'transaction_fee' => 250,
             'transaction_fee_percent' => 10,
             'minimum_buy' => 50,
@@ -18,9 +18,9 @@ class LoadSecurityTransactionData extends AbstractFixture implements OrderedFixt
             'minimum_sell' => 50,
             'redemption_penalty_interval' => 21,
             'redemption_fee' => 15,
-            'redemption_percent' => 5
-        ),
-        2 => array(
+            'redemption_percent' => 5,
+        ],
+        2 => [
             'transaction_fee' => 11,
             'transaction_fee_percent' => 22,
             'minimum_buy' => 33,
@@ -28,16 +28,16 @@ class LoadSecurityTransactionData extends AbstractFixture implements OrderedFixt
             'minimum_sell' => 55,
             'redemption_penalty_interval' => 66,
             'redemption_fee' => 77,
-            'redemption_percent' => 88
-        )
-    );
+            'redemption_percent' => 88,
+        ],
+    ];
 
     /**
-     * Load data fixtures with the passed EntityManager
+     * Load data fixtures with the passed EntityManager.
      *
      * @param \Doctrine\Common\Persistence\ObjectManager $manager
      */
-    function load(ObjectManager $manager)
+    public function load(ObjectManager $manager)
     {
         $this->securityTxsData[1]['security_assignment'] = $this->getReference('model-security-assignment-1');
         $this->securityTxsData[2]['security_assignment'] = $this->getReference('model-security-assignment-asset-index-0-subclass-index-1-security-VTV');
@@ -61,13 +61,12 @@ class LoadSecurityTransactionData extends AbstractFixture implements OrderedFixt
     }
 
     /**
-     * Get the order of this fixture
+     * Get the order of this fixture.
      *
-     * @return integer
+     * @return int
      */
-    function getOrder()
+    public function getOrder()
     {
         return 9;
     }
-
 }

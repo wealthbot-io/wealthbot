@@ -1,15 +1,13 @@
 <?php
 
-
 namespace Wealthbot\AdminBundle\Service;
-
 
 use Doctrine\ORM\EntityManager;
 use Wealthbot\AdminBundle\Entity\Holiday;
 use Wealthbot\AdminBundle\Model\AbstractBusinessCalendar;
 
-class BusinessCalendar extends AbstractBusinessCalendar{
-
+class BusinessCalendar extends AbstractBusinessCalendar
+{
     /** @var \Doctrine\ORM\EntityManager */
     private $em;
 
@@ -28,13 +26,12 @@ class BusinessCalendar extends AbstractBusinessCalendar{
 
         $interval = $from->diff($to);
         $days = 30 + ($interval->y * 50);
-        $from->modify('-' . $days . ' days');
-        $to->modify('+' . $days . ' days');
+        $from->modify('-'.$days.' days');
+        $to->modify('+'.$days.' days');
         /** @var Holiday[] $holidays */
         $holidays = $this->em->getRepository('WealthbotAdminBundle:Holiday')->getFromTo($from, $to);
-        foreach($holidays as $holiday){
+        foreach ($holidays as $holiday) {
             $this->holidays[$holiday->getDate()->format('m/d/Y')] = $holiday;
         }
     }
-
 }

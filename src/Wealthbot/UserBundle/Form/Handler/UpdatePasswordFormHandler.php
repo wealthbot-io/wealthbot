@@ -2,7 +2,6 @@
 
 namespace Wealthbot\UserBundle\Form\Handler;
 
-
 use FOS\UserBundle\Form\Handler\ChangePasswordFormHandler;
 use FOS\UserBundle\Model\UserInterface;
 
@@ -21,7 +20,7 @@ class UpdatePasswordFormHandler extends ChangePasswordFormHandler
         $this->form->setData($user);
 
         if ('POST' === $this->request->getMethod()) {
-            $this->form->bind($this->request);
+            $this->form->handleRequest($this->request);
 
             if ($this->form->isValid()) {
                 $this->onSuccess($user);

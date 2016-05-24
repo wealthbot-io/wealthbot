@@ -9,14 +9,12 @@
 
 namespace Wealthbot\ClientBundle\Manager;
 
-
 use Doctrine\Common\Persistence\ObjectManager;
 use Wealthbot\AdminBundle\Manager\CeModelManager;
 use Wealthbot\ClientBundle\Entity\ClientQuestionnaireAnswer;
 use Wealthbot\ClientBundle\Model\RiskTolerance;
 use Wealthbot\RiaBundle\Entity\RiskAnswer;
 use Wealthbot\RiaBundle\Entity\RiskQuestion;
-use Wealthbot\RiaBundle\Exception\AdvisorHasNoExistingModel;
 use Wealthbot\UserBundle\Entity\User;
 
 class RiskToleranceManager
@@ -42,7 +40,7 @@ class RiskToleranceManager
     }
 
     /**
-     * Get UserAnswers
+     * Get UserAnswers.
      *
      * @return array
      */
@@ -52,7 +50,7 @@ class RiskToleranceManager
     }
 
     /**
-     * Save $userAnswers in db
+     * Save $userAnswers in db.
      */
     public function saveUserAnswers()
     {
@@ -64,7 +62,7 @@ class RiskToleranceManager
     }
 
     /**
-     * * Returns suggested portfolio
+     * * Returns suggested portfolio.
      *
      * @return null|\Wealthbot\AdminBundle\Entity\CeModel
      */
@@ -78,16 +76,16 @@ class RiskToleranceManager
         return $this->riskTolerance->getSuggestedPortfolio($modelManager->getChildModels($parentModel));
     }
 
-
     /**
-     * Create and return array of ClientQuestionnaireAnswer objects by $answers array
+     * Create and return array of ClientQuestionnaireAnswer objects by $answers array.
      *
      * @param array $answers
+     *
      * @return array
      */
     private function createUserAnswers(array $answers)
     {
-        $userAnswers = array();
+        $userAnswers = [];
 
         foreach ($answers as $answer) {
 
@@ -111,21 +109,22 @@ class RiskToleranceManager
     }
 
     /**
-     * Return RiskAnswer object for withdraw age input question
+     * Return RiskAnswer object for withdraw age input question.
      *
      * @param RiskQuestion $question
      * @param $ageDiff
+     *
      * @return null|RiskAnswer
      */
     private function getAnswerForWithdrawAgeQuestion(RiskQuestion $question, $ageDiff)
     {
         $answers = $this->em->getRepository('WealthbotRiaBundle:RiskAnswer')->findBy(
-            array(
-                'risk_question_id' => $question->getId()
-            ),
-            array(
-                'title' => 'DESC'
-            )
+            [
+                'risk_question_id' => $question->getId(),
+            ],
+            [
+                'title' => 'DESC',
+            ]
         );
 
         $result = null;
@@ -136,7 +135,7 @@ class RiskToleranceManager
             $symbol = substr($string, 0, 1);
             $number = (int) substr($string, 1);
 
-            if ($symbol == '>') {
+            if ($symbol === '>') {
                 if ($ageDiff >= $number) {
                     return $answer;
                 }

@@ -1,36 +1,46 @@
 {
     "name": "symfony/framework-standard-edition",
+    "license": "MIT",
+    "type": "project",
     "description": "The \"Symfony Standard Edition\" distribution",
     "autoload": {
-        "psr-0": { "": "src/" }
+        "psr-4": { "": "src/" },
+        "classmap": [ "app/AppKernel.php", "app/AppCache.php" ]
+    },
+    "autoload-dev": {
+        "psr-4": { "Tests\\": "tests/" }
     },
     "require": {
-        "php": ">=5.4.3",
-        "symfony/symfony": "2.1.*",
-        "doctrine/orm": ">=2.2.3,<2.5-dev",
-        "doctrine/doctrine-bundle": "1.1.*",
-        "twig/extensions": "1.0.*",
-        "symfony/assetic-bundle": "2.3.*",
-        "symfony/swiftmailer-bundle": "2.1.*",
-        "symfony/monolog-bundle": "2.1.*",
-        "sensio/distribution-bundle": "2.1.*",
-        "sensio/framework-extra-bundle": "2.1.*",
-        "sensio/generator-bundle": "2.1.*",
-        "jms/security-extra-bundle": "1.2.*",
-        "friendsofsymfony/user-bundle": "1.3.0",
-        "hpatoio/deploy-bundle": "*",
-        "doctrine/data-fixtures": "*",
-        "doctrine/doctrine-fixtures-bundle": "*",
+        "php": ">=5.4.0",
+        "symfony/symfony": "2.8.*",
+        "doctrine/orm": "2.4.*",
+        "doctrine/doctrine-bundle": "1.4.*",
+        "symfony/swiftmailer-bundle": "~2.3",
+        "symfony/monolog-bundle": "~2.4",
+        "sensio/distribution-bundle": "~5.0",
+        "sensio/framework-extra-bundle": "2.3.0",
+        "incenteev/composer-parameter-handler": "~2.0",
+        "symfony/twig-bundle": "2.*",
+        "symfony/assetic-bundle": "2.*",
+        "twig/twig": "^1.24",
+        "twig/extensions": "1.0.0",
+
+        "sensio/generator-bundle": "3.*",
+        "jms/security-extra-bundle": "1.*",
+
+        "friendsofsymfony/user-bundle": "1.3.*",
+        "hpatoio/deploy-bundle": "1.5.*",
+        "doctrine/data-fixtures": "1.1.*",
+        "doctrine/doctrine-fixtures-bundle": "2.3.*",
         "stof/doctrine-extensions-bundle": "1.2.2",
-        "knplabs/knp-paginator-bundle": "2.4",
-        "knplabs/knp-snappy-bundle": "1.3",
+        "knplabs/knp-paginator-bundle": "2.5.3",
+        "knplabs/knp-snappy-bundle": "1.4",
         "doctrine/mongodb": "1.0.*@dev",
         "doctrine/mongodb-odm": "1.0.*@dev",
         "doctrine/mongodb-odm-bundle": "3.0.*@dev",
-        "jms/serializer-bundle": "0.13.*@dev",
-        "friendsofsymfony/jsrouting-bundle": "~1.1",
-        "nelmio/api-doc-bundle": "2.1.0",
-        "incenteev/composer-parameter-handler": "2.1.1",
+        "jms/serializer-bundle": "1.1.0",
+        "friendsofsymfony/jsrouting-bundle": "1.6.*",
+        "nelmio/api-doc-bundle": "2.*",
         "ornicar/apc-bundle": "1.0.*",
         "phpoffice/phpexcel": "1.7.8",
         "instaclick/base-test-bundle": "0.5.2"
@@ -61,22 +71,29 @@
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile"
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::prepareDeploymentTarget"
         ],
         "post-update-cmd": [
             "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile"
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::prepareDeploymentTarget"
         ]
     },
     "config": {
-        "bin-dir": "bin",
-        "process-timeout": 900
+        "platform": {
+            "php": "5.5.9"
+        }
     },
-    "minimum-stability": "dev",
+
     "extra": {
+        "symfony-app-dir": "app",
+        "symfony-web-dir": "web",
+        "symfony-bin-dir": "bin",
+        "symfony-assets-install": "relative",
         "incenteev-parameters": [
             {
                 "file": "app/config/parameters.yml",
@@ -87,8 +104,8 @@
                 "keep-outdated": false
             }
         ],
-        "symfony-app-dir": "app",
-        "symfony-web-dir": "web",
-        "symfony-assets-install": "symlink"
+        "branch-alias": {
+            "dev-master": "2.8-dev"
+        }
     }
 }

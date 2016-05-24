@@ -19,11 +19,6 @@ class puphpet::params {
     'Redhat' => 'hhvm'
   }
 
-  $xdebug_package = $::osfamily ? {
-    'Debian' => 'php5-xdebug',
-    'Redhat' => 'php-pecl-xdebug'
-  }
-
   $xhprof_package = $::osfamily ? {
     'Debian' => $::operatingsystem ? {
       'ubuntu' => false,

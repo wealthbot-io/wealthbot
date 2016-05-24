@@ -2,14 +2,14 @@
 <% if @disable_root -%>
   UserDir disabled root
 <% end -%>
-  UserDir <%= @dir %>
+  UserDir <%= @home %>/*/<%= @dir %>
 
   <Directory "<%= @home %>/*/<%= @dir %>">
     AllowOverride FileInfo AuthConfig Limit Indexes
-    Options MultiViews Indexes SymLinksIfOwnerMatch IncludesNoExec
+    Options <%= @options.join(' ') %>
     <Limit GET POST OPTIONS>
       <%- if scope.function_versioncmp([@apache_version, '2.4']) >= 0 -%>
-      Require all denied
+      Require all granted
       <%- else -%>
       Order allow,deny
       Allow from all
@@ -17,7 +17,7 @@
     </Limit>
     <LimitExcept GET POST OPTIONS>
       <%- if scope.function_versioncmp([@apache_version, '2.4']) >= 0 -%>
-      Require all denied
+      Require all granted
       <%- else -%>
       Order allow,deny
       Allow from all

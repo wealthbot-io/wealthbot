@@ -46,8 +46,8 @@ class puppi (
 
   # Manage Version
   $puppi_ensure = $puppi::version ? {
-    1 => '/usr/sbin/puppi.one',
-    2 => '/usr/local/bin/puppi',
+    '1' => '/usr/sbin/puppi.one',
+    '2' => '/usr/local/bin/puppi',
   }
 
   file { 'puppi.link':

@@ -2,10 +2,9 @@
 
 namespace Wealthbot\AdminBundle\Controller;
 
-
-use Wealthbot\AdminBundle\Model\Acl;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Wealthbot\AdminBundle\Model\Acl;
 
 class AclController extends Controller
 {

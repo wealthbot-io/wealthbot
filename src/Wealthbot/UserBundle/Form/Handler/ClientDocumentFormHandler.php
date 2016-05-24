@@ -9,11 +9,9 @@
 
 namespace Wealthbot\UserBundle\Form\Handler;
 
-
 use Wealthbot\ClientBundle\Entity\ClientActivitySummary;
 use Wealthbot\UserBundle\Entity\Document;
 use Wealthbot\UserBundle\Entity\User;
-use Symfony\Component\HttpFoundation\Request;
 
 class ClientDocumentFormHandler extends DocumentFormHandler
 {
@@ -52,15 +50,12 @@ class ClientDocumentFormHandler extends DocumentFormHandler
             $this->setClientDocument($client, $data, $isClientNotified);
         }
 
-
-
         $this->em->flush();
     }
 
     private function setClientDocument(User $client, Document $document, $isClientNotified)
     {
         if (!$client->getUserDocuments()->contains($document)) {
-
             $client->addUserDocument($document);
 
             if ($isClientNotified) {
@@ -78,4 +73,3 @@ class ClientDocumentFormHandler extends DocumentFormHandler
         }
     }
 }
-

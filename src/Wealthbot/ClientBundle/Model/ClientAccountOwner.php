@@ -9,9 +9,8 @@
 
 namespace Wealthbot\ClientBundle\Model;
 
-
-class ClientAccountOwner {
-
+class ClientAccountOwner
+{
     /**
      * @var string
      */
@@ -21,21 +20,20 @@ class ClientAccountOwner {
     const OWNER_TYPE_SPOUSE = 'spouse';
     const OWNER_TYPE_OTHER = 'other';
 
-    static private $_ownerTypes = null;
-
+    private static $_ownerTypes = null;
 
     /**
-     * Get choices for owner_type column
+     * Get choices for owner_type column.
      *
      * @return array|null
      */
-    static public function getOwnerTypeChoices()
+    public static function getOwnerTypeChoices()
     {
         if (null === self::$_ownerTypes) {
-            self::$_ownerTypes = array();
+            self::$_ownerTypes = [];
             $oClass = new \ReflectionClass('\Wealthbot\ClientBundle\Model\ClientAccountOwner');
             $classConstants = $oClass->getConstants();
-            $constantPrefix = "OWNER_TYPE_";
+            $constantPrefix = 'OWNER_TYPE_';
             foreach ($classConstants as $key => $val) {
                 if (substr($key, 0, strlen($constantPrefix)) === $constantPrefix) {
                     self::$_ownerTypes[$val] = $val;
@@ -47,10 +45,12 @@ class ClientAccountOwner {
     }
 
     /**
-     * Set owner_type
+     * Set owner_type.
      *
      * @param $ownerType
+     *
      * @return $this
+     *
      * @throws \InvalidArgumentException
      */
     public function setOwnerType($ownerType)
@@ -68,7 +68,7 @@ class ClientAccountOwner {
     }
 
     /**
-     * Get owner_type
+     * Get owner_type.
      *
      * @return string
      */

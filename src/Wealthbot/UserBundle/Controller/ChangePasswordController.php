@@ -12,16 +12,16 @@
 namespace Wealthbot\UserBundle\Controller;
 
 use Doctrine\ORM\EntityManager;
-use Wealthbot\RiaBundle\Mailer\MailerInterface;
+use FOS\UserBundle\Controller\RegistrationController as BaseController;
+use FOS\UserBundle\Model\UserInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
-use FOS\UserBundle\Model\UserInterface;
-use FOS\UserBundle\Controller\RegistrationController as BaseController;
+use Wealthbot\RiaBundle\Mailer\MailerInterface;
 
 /**
- * Controller managing the password change
+ * Controller managing the password change.
  *
  * @author Thibault Duplessis <thibault.duplessis@gmail.com>
  * @author Christophe Coevoet <stof@notk.org>
@@ -29,11 +29,11 @@ use FOS\UserBundle\Controller\RegistrationController as BaseController;
 class ChangePasswordController extends BaseController
 {
     /**
-     * Change user password
+     * Change user password.
      */
     public function changePasswordAction()
     {
-        $user = $this->container->get('security.context')->getToken()->getUser();
+        $user = $this->container->get('security.token_storage')->getToken()->getUser();
         if (!is_object($user) || !$user instanceof UserInterface) {
             throw new AccessDeniedException('This user does not have access to this section.');
         }
@@ -43,12 +43,13 @@ class ChangePasswordController extends BaseController
         $process = $formHandler->process($user);
         if ($process) {
             $this->setFlash('fos_user_success', 'change_password.flash.success');
+
             return new RedirectResponse($this->getRedirectionUrl($user));
         }
 
         return $this->container->get('templating')->renderResponse(
             'FOSUserBundle:ChangePassword:changePassword.html.'.$this->container->getParameter('fos_user.template.engine'),
-            array('form' => $form->createView())
+            ['form' => $form->createView()]
         );
     }
 
@@ -67,9 +68,10 @@ class ChangePasswordController extends BaseController
         $user->setPlainPassword($user->generateTemporaryPassword());
         $mailer->sendConfirmationEmailMessage($user);
 
-        $this->container->get('session')->setFlash('success', 'Password for user "'.$user->getProfile()->getLastName().' '.$user->getProfile()->getFirstName().'" has been reseted successfully.');
+        $this->container->get('session')->getFlashBag()->add('success', 'Password for user "'.$user->getProfile()->getLastName().' '.$user->getProfile()->getFirstName().'" has been reseted successfully.');
 
         $referer = $request->headers->get('referer');
+
         return new RedirectResponse($referer);
     }
 
@@ -87,7 +89,7 @@ class ChangePasswordController extends BaseController
 
     protected function setFlash($action, $value)
     {
-        $this->container->get('session')->setFlash($action, $value);
+        $this->container->get('session')->getFlashBag()->add($action, $value);
     }
 
     /**

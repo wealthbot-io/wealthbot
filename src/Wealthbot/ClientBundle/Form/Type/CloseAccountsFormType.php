@@ -9,7 +9,6 @@
 
 namespace Wealthbot\ClientBundle\Form\Type;
 
-
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -19,22 +18,22 @@ use Symfony\Component\Form\FormEvents;
 
 class CloseAccountsFormType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options = array())
+    public function buildForm(FormBuilderInterface $builder, array $options = [])
     {
-        $builder->add('accounts_ids', 'hidden', array(
-                'mapped' => false
-            ))
-            ->add('messages', 'entity', array(
+        $builder->add('accounts_ids', 'hidden', [
                 'mapped' => false,
-                'class' => 'WealthbotClientBundle:ClosingAccountMessage',
+            ])
+            ->add('messages', 'entity', [
+                'mapped' => false,
+                'class' => 'Wealthbot\\ClientBundle\\Entity\\ClosingAccountMessage',
                 'property' => 'message',
                 'label' => 'Why are you closing the account? Please check all that apply:',
                 'expanded' => true,
-                'multiple' => true
-            ))
+                'multiple' => true,
+            ])
         ;
 
-        $builder->addEventListener(FormEvents::BIND, function (FormEvent $event) {
+        $builder->addEventListener(FormEvents::SUBMIT, function (FormEvent $event) {
             $form = $event->getForm();
 
             /** @var ArrayCollection $messages */
@@ -46,7 +45,7 @@ class CloseAccountsFormType extends AbstractType
         });
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'close_accounts';
     }

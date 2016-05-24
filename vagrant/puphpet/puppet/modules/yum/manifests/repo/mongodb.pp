@@ -7,10 +7,10 @@ class yum::repo::mongodb (
 ) {
 
   yum::managed_yumrepo { 'mongodb':
-    descr     => '10gen MongoDB Repo',
-    baseurl   => $baseurl,
-    enabled   => 1,
-    gpgcheck  => 0,
+    descr    => '10gen MongoDB Repo',
+    baseurl  => $baseurl,
+    enabled  => 1,
+    gpgcheck => 0,
   }
 
 }

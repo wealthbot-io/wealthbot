@@ -9,16 +9,13 @@
 
 namespace Wealthbot\ClientBundle\Form\EventListener;
 
-
 use Doctrine\ORM\EntityManager;
-use Wealthbot\ClientBundle\Entity\AccountContribution;
-use Wealthbot\ClientBundle\Entity\SystemAccount;
-use Wealthbot\ClientBundle\Form\Type\AccountContributionFormType;
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
+use Wealthbot\ClientBundle\Entity\AccountContribution;
+use Wealthbot\ClientBundle\Entity\SystemAccount;
 
 class AccountContributionFormEventSubscriber extends TransferFundingFormEventSubscriber
 {
@@ -33,10 +30,10 @@ class AccountContributionFormEventSubscriber extends TransferFundingFormEventSub
 
     public static function getSubscribedEvents()
     {
-        return array(
+        return [
             FormEvents::PRE_SET_DATA => 'preSetData',
-            FormEvents::PRE_BIND     => 'preBind',
-        );
+            FormEvents::PRE_SUBMIT => 'preBind',
+        ];
     }
 
     public function preSetData(FormEvent $event)
@@ -56,13 +53,14 @@ class AccountContributionFormEventSubscriber extends TransferFundingFormEventSub
             $frequency = null;
         }
 
-        $form->add($this->factory->createNamed('transaction_frequency', 'choice', null, array(
+        $form->add($this->factory->createNamed('transaction_frequency', 'choice', null, [
             'choices' => $frequencyChoices,
             'expanded' => true,
             'multiple' => false,
             'data' => $frequency,
-            'required' => false
-        )));
+            'required' => false,
+            'auto_initialize'   => false
+        ]));
 
         $data->setType(AccountContribution::TYPE_FUNDING_BANK);
 
@@ -72,7 +70,8 @@ class AccountContributionFormEventSubscriber extends TransferFundingFormEventSub
     protected function addContributionYearField(FormInterface $form)
     {
         if ($this->systemAccount->isRothIraType() || $this->systemAccount->isTraditionalIraType()) {
-            $form->add($this->factory->createNamed('contribution_year', 'text', null, array('required' => false)));
+            $form->add($this->factory->createNamed('contribution_year', 'text', null,
+                ['required' => false,'auto_initialize'=>false]));
         }
     }
 }

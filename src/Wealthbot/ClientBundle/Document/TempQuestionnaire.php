@@ -37,7 +37,7 @@ class TempQuestionnaire
     protected $answerId;
 
     /**
-     * Get id
+     * Get id.
      *
      * @return int $id
      */
@@ -47,19 +47,21 @@ class TempQuestionnaire
     }
 
     /**
-     * Set clientUserId
+     * Set clientUserId.
      *
      * @param string $clientUserId
+     *
      * @return self
      */
     public function setClientUserId($clientUserId)
     {
         $this->clientUserId = $clientUserId;
+
         return $this;
     }
 
     /**
-     * Get clientUserId
+     * Get clientUserId.
      *
      * @return string $clientUserId
      */
@@ -69,19 +71,21 @@ class TempQuestionnaire
     }
 
     /**
-     * Set questionId
+     * Set questionId.
      *
      * @param int $questionId
+     *
      * @return self
      */
     public function setQuestionId($questionId)
     {
         $this->questionId = $questionId;
+
         return $this;
     }
 
     /**
-     * Get questionId
+     * Get questionId.
      *
      * @return int $questionId
      */
@@ -91,19 +95,21 @@ class TempQuestionnaire
     }
 
     /**
-     * Set answerId
+     * Set answerId.
      *
      * @param int $answerId
+     *
      * @return self
      */
     public function setAnswerId($answerId)
     {
         $this->answerId = $answerId;
+
         return $this;
     }
 
     /**
-     * Get answerId
+     * Get answerId.
      *
      * @return int $answerId
      */

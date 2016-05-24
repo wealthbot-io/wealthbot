@@ -2,6 +2,9 @@ sudo: false
 language: ruby
 bundler_args: --no-deployment
 
+before_script:
+  - puppet --version
+
 script:
   - bundle exec rake validate
   - bundle exec rake lint
@@ -10,12 +13,22 @@ script:
 matrix:
   fast_finish: true
   include:
-  - rvm: 2.1.5
-    env: PUPPET_VERSION="~> 3.7.5" DEPLOY="yes"
+  - rvm: 2.2.3
+    env: PUPPET_VERSION="~> 4.3"
+  - rvm: 2.2.3
+    env: PUPPET_VERSION="~> 4.2.0"
+  - rvm: 2.2.3
+    env: PUPPET_VERSION="~> 4.1.0"
+  - rvm: 2.2.3
+    env: PUPPET_VERSION="~> 4.0.0"
+  - rvm: 2.1.7
+    env: PUPPET_VERSION="~> 3.8" DEPLOY="yes"
+  - rvm: 2.0.0
+    env: PUPPET_VERSION="~> 3.7.0"
   - rvm: 1.9.3
     env: PUPPET_VERSION="~> 3.4.0"
   - rvm: 1.9.3
-    env: PUPPET_VERSION="~> 3.0"
+    env: PUPPET_VERSION="~> 3.0.0"
 
 before_deploy:
   - bundle exec puppet module build

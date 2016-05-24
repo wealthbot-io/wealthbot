@@ -64,6 +64,18 @@ describe 'apache::mod::passenger', :type => :class do
       end
       it { is_expected.to contain_file('passenger.conf').with_content(/^  PassengerMaxRequests 20$/) }
     end
+    describe "with passenger_spawn_method => bogus" do
+      let :params do
+        { :passenger_spawn_method => 'bogus' }
+      end
+      it { is_expected.to raise_error(Puppet::Error, /not permitted for passenger_spawn_method/) }
+    end
+    describe "with passenger_spawn_method => direct" do
+      let :params do
+        { :passenger_spawn_method => 'direct' }
+      end
+      it { is_expected.to contain_file('passenger.conf').with_content(/^  PassengerSpawnMethod direct$/) }
+    end
     describe "with passenger_stat_throttle_rate => 10" do
       let :params do
         { :passenger_stat_throttle_rate => 10 }

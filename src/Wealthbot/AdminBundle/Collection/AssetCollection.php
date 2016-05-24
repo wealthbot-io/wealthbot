@@ -3,7 +3,6 @@
 namespace Wealthbot\AdminBundle\Collection;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Wealthbot\AdminBundle\Entity\AssetClass;
 use Wealthbot\AdminBundle\Model\CeModelInterface;
 
@@ -14,16 +13,17 @@ class AssetCollection
     /** @var \Doctrine\Common\Collections\ArrayCollection  */
     private $assets;
 
-    public function __construct(array $assets = array(), CeModelInterface $model = null)
+    public function __construct(array $assets = [], CeModelInterface $model = null)
     {
         $this->assets = new ArrayCollection($assets);
         $this->model = $model;
     }
 
     /**
-     * Add asset
+     * Add asset.
      *
      * @param AssetClass $asset
+     *
      * @return $this
      */
     public function addAsset(AssetClass $asset)
@@ -39,7 +39,7 @@ class AssetCollection
     }
 
     /**
-     * Remove Asset
+     * Remove Asset.
      *
      * @param AssetClass $asset
      */
@@ -49,13 +49,15 @@ class AssetCollection
     }
 
     /**
-     * Add Assets
+     * Add Assets.
+     *
      * @param $assets
+     *
      * @return $this
      */
     public function setAssets($assets)
     {
-        foreach($assets as $asset){
+        foreach ($assets as $asset) {
             $asset->setModel($this->model);
             if ($this->model->getId()) {
                 $asset->setModelId($this->model->getId());
@@ -68,7 +70,7 @@ class AssetCollection
     }
 
     /**
-     * Get all assets
+     * Get all assets.
      *
      * @return ArrayCollection
      */

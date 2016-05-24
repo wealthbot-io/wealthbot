@@ -10,6 +10,8 @@
 namespace Wealthbot\ClientBundle\Controller;
 
 use Doctrine\ORM\EntityManager;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Wealthbot\AdminBundle\AdminEvents;
 use Wealthbot\AdminBundle\Event\UserHistoryEvent;
 use Wealthbot\ClientBundle\Document\TempPortfolio;
@@ -23,10 +25,7 @@ use Wealthbot\ClientBundle\Manager\BreadcrumbsManager;
 use Wealthbot\ClientBundle\Manager\ClientPortfolioManager;
 use Wealthbot\ClientBundle\Model\UserAccountOwnerAdapter;
 use Wealthbot\RiaBundle\Form\Type\ChooseClientPortfolioFormType;
-use Wealthbot\UserBundle\Entity\Profile;
 use Wealthbot\UserBundle\Entity\User;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 
 class ChangeProfileController extends AclController
 {
@@ -40,7 +39,7 @@ class ChangeProfileController extends AclController
         /** @var User $user */
         $user = $this->getUser();
 
-        $tempPortfolios = $dm->getRepository('WealthbotClientBundle:TempPortfolio')->findBy(array('clientUserId' => $user->getId()));
+        $tempPortfolios = $dm->getRepository('WealthbotClientBundle:TempPortfolio')->findBy(['clientUserId' => $user->getId()]);
 
         $riskToleranceForm = $this->createForm(new ClientQuestionsFormType($em, $user));
         $updatePasswordForm = $this->get('wealthbot_user.update_password.form');
@@ -50,7 +49,7 @@ class ChangeProfileController extends AclController
 
         $chooseClientPortfolioForm = $this->createForm(new ChooseClientPortfolioFormType($suggestedClientPortfolio), $user);
 
-        $parameters = array(
+        $parameters = [
             'risk_tolerance_form' => $riskToleranceForm->createView(),
             'update_password_form' => $updatePasswordForm->createView(),
             'manage_user_form' => $manageUserForm->createView(),
@@ -63,16 +62,16 @@ class ChangeProfileController extends AclController
             'choose_client_portfolio_form' => $chooseClientPortfolioForm->createView(),
             'client_portfolio_history' => $clientPortfolioManager->getNotActivePortfolios($user),
             'clients' => $clients,
-            'suggested_portfolio' => $suggestedClientPortfolio ? $suggestedClientPortfolio->getPortfolio() : null
-        );
+            'suggested_portfolio' => $suggestedClientPortfolio ? $suggestedClientPortfolio->getPortfolio() : null,
+        ];
 
         $partial = $this->renderView('WealthbotClientBundle:ChangeProfile:index.html.twig', $parameters);
 
         if ($request->isXmlHttpRequest()) {
-            return $this->getJsonResponse(array(
+            return $this->getJsonResponse([
                 'status' => 'success',
                 'content' => $partial,
-            ));
+            ]);
         }
 
         //return $this->render('WealthbotClientBundle:ChangeProfile:index.html.twig', $parameters);
@@ -80,7 +79,7 @@ class ChangeProfileController extends AclController
         return $this->redirect(
             $this->generateUrl(
                 'rx_client_dashboard_account_management',
-                array('active_tab' => $parameters['active_tab'])
+                ['active_tab' => $parameters['active_tab']]
             )
         );
     }
@@ -99,31 +98,31 @@ class ChangeProfileController extends AclController
             $formHandler = new ClientChangeProfileTransferPersonalFormHandler($form, $request, $em);
 
             if ($formHandler->process()) {
-                $this->get('session')->setFlash('success', 'Information successfully updated.');
+                $this->get('session')->getFlashBag()->add('success', 'Information successfully updated.');
 
                 $this->dispatchHistoryEvent($user, 'Updated personal information');
 
-                return $this->getJsonResponse(array(
+                return $this->getJsonResponse([
                     'status' => 'success',
                     'form' => $this->renderView(
-                        'WealthbotClientBundle:ChangeProfile:information.html.twig', array(
-                        'form' => $form->createView()
-                    ))
-                ));
+                        'WealthbotClientBundle:ChangeProfile:information.html.twig', [
+                        'form' => $form->createView(),
+                    ]),
+                ]);
             }
 
-            return $this->getJsonResponse(array(
+            return $this->getJsonResponse([
                 'status' => 'error',
                 'form' => $this->renderView(
-                    'WealthbotClientBundle:ChangeProfile:information.html.twig', array(
-                    'form' => $form->createView()
-                ))
-            ));
+                    'WealthbotClientBundle:ChangeProfile:information.html.twig', [
+                    'form' => $form->createView(),
+                ]),
+            ]);
         }
 
         return $this->render(
             'WealthbotClientBundle:ChangeProfile:information.html.twig',
-            array('form' => $form->createView())
+            ['form' => $form->createView()]
         );
     }
 
@@ -146,7 +145,7 @@ class ChangeProfileController extends AclController
 
         $clientPortfolio = $clientPortfolioId ? $clientPortfolioManager->find($clientPortfolioId) : null;
 
-        if (!$clientPortfolio || $clientPortfolio->getClient() != $client ) {
+        if (!$clientPortfolio || $clientPortfolio->getClient() !== $client) {
             $clientPortfolio = $clientPortfolioManager->getCurrentPortfolio($client);
         }
 
@@ -154,23 +153,23 @@ class ChangeProfileController extends AclController
         $portfolioInformation = $portfolio ? $portfolioInformationManager->getPortfolioInformation($client, $portfolio) : null;
 
         $layout = 'WealthbotClientBundle:ChangeProfile:portfolio.html.twig';
-        $params = array(
-            'client'                  => $client,
-            'client_accounts'         => $clientAccounts,
-            'total'                   => $accountsRepo->getTotalScoreByClientId($client->getId()),
+        $params = [
+            'client' => $client,
+            'client_accounts' => $clientAccounts,
+            'total' => $accountsRepo->getTotalScoreByClientId($client->getId()),
             'ria_company_information' => $companyInformation,
-            'has_retirement_account'  => count($retirementAccounts) ? true : false,
-            'portfolio_information'   => $portfolioInformation,
-            'show_sas_cash'           => $accountsRepo->containsSasCash($clientAccounts),
-            'action'                  => 'client_portfolio'
-        );
+            'has_retirement_account' => count($retirementAccounts) ? true : false,
+            'portfolio_information' => $portfolioInformation,
+            'show_sas_cash' => $accountsRepo->containsSasCash($clientAccounts),
+            'action' => 'client_portfolio',
+        ];
 
         $dataType = $request->get('data_type', 'html');
-        if ($dataType == 'json') {
-            return $this->getJsonResponse(array(
+        if ($dataType === 'json') {
+            return $this->getJsonResponse([
                 'status' => 'success',
-                'content' => $this->renderView($layout, $params)
-            ));
+                'content' => $this->renderView($layout, $params),
+            ]);
         }
 
         return $this->render($layout, $params);
@@ -184,16 +183,16 @@ class ChangeProfileController extends AclController
         $formHandler = $this->get('wealthbot_user.update_password.form.handler');
 
         $process = $formHandler->process($user);
-        if($process){
-
+        if ($process) {
             $this->dispatchHistoryEvent($user, 'Updated password');
-            $this->get('session')->setFlash('success', 'Password successfully updated.');
+            $this->get('session')->getFlashBag()->add('success', 'Password successfully updated.');
 
             $this->get('wealthbot.mailer')->sendClientResetPasswordEmail($user);
+
             return $this->redirect($this->generateUrl('rx_client_change_profile_update_password'));
         }
 
-        return $this->render('WealthbotClientBundle:ChangeProfile:_update_password.html.twig', array('form' => $form->createView()));
+        return $this->render('WealthbotClientBundle:ChangeProfile:_update_password.html.twig', ['form' => $form->createView()]);
     }
 
     public function manageUsersAction()
@@ -208,19 +207,19 @@ class ChangeProfileController extends AclController
 
         $process = $formHandler->process($user);
         if ($process) {
-
             $this->dispatchHistoryEvent($user, 'Created new user');
 
-            $this->get('session')->setFlash('success', 'User was created successfully.');
+            $this->get('session')->getFlashBag()->add('success', 'User was created successfully.');
             $form = $this->get('wealthbot_client.slave_client.form');
+
             return $this->redirect($this->generateUrl('rx_client_change_profile_manage_users'));
         }
 
         return $this->render('WealthbotClientBundle:ChangeProfile:_manage_users.html.twig',
-            array(
+            [
                 'form' => $form->createView(),
-                'clients' => $clients
-            )
+                'clients' => $clients,
+            ]
         );
     }
 
@@ -236,7 +235,7 @@ class ChangeProfileController extends AclController
         $form = $this->createForm(new SlaveClientFormType(), $client);
 
         if ($request->isMethod('post')) {
-            $form->bind($request);
+            $form->handleRequest($request);
 
             if ($form->isValid()) {
                 $client = $form->getData();
@@ -244,17 +243,18 @@ class ChangeProfileController extends AclController
                 $em->persist($client);
                 $em->flush();
 
-                $this->get('session')->setFlash('success', 'User was edited successfully.');
+                $this->get('session')->getFlashBag()->add('success', 'User was edited successfully.');
+
                 return $this->redirect($this->generateUrl('rx_client_change_profile_manage_users'));
             }
         }
 
         return $this->render('WealthbotClientBundle:ChangeProfile:edit_user.html.twig',
-            array(
+            [
                 'form' => $form->createView(),
                 'clients' => $clients,
-                'client' => $client
-            )
+                'client' => $client,
+            ]
         );
     }
 
@@ -267,11 +267,11 @@ class ChangeProfileController extends AclController
             ->getClientByIdAndMasterClientId($client_id, $masterClient->getId());
 
         if (!$client) {
-            $this->get('session')->setFlash('error', 'User was not found');
+            $this->get('session')->getFlashBag()->add('error', 'User was not found');
         } else {
             $em->remove($client);
             $em->flush();
-            $this->get('session')->setFlash('success', 'User deleted successfully');
+            $this->get('session')->getFlashBag()->add('success', 'User deleted successfully');
         }
 
         return $this->redirect($this->generateUrl('rx_client_change_profile_manage_users'));
@@ -295,7 +295,7 @@ class ChangeProfileController extends AclController
 
         $chooseClientPortfolioForm = $this->createForm(new ChooseClientPortfolioFormType($clientPortfolioManager->getProposedClientPortfolio($client)), $client);
 
-        $chooseClientPortfolioForm->bind($request);
+        $chooseClientPortfolioForm->handleRequest($request);
         if ($chooseClientPortfolioForm->isValid()) {
             /** @var ClientPortfolio $newPortfolioData */
             $newPortfolio = $chooseClientPortfolioForm->get('portfolio')->getData();
@@ -311,18 +311,18 @@ class ChangeProfileController extends AclController
             }
         }
 
-        $tempPortfolios = $dm->getRepository('WealthbotClientBundle:TempPortfolio')->findBy(array('clientUserId' => $client->getId()));
+        $tempPortfolios = $dm->getRepository('WealthbotClientBundle:TempPortfolio')->findBy(['clientUserId' => $client->getId()]);
 
         $suggestedClientPortfolio = $clientPortfolioManager->getApprovedClientPortfolio($client);
 
-        return $this->render('WealthbotClientBundle:ChangeProfile:_your_portfolio.html.twig', array(
+        return $this->render('WealthbotClientBundle:ChangeProfile:_your_portfolio.html.twig', [
             'is_ria_client_view' => $this->isRiaClientView(),
             'temp_portfolios' => $tempPortfolios,
             'client' => $client,
             'choose_client_portfolio_form' => $chooseClientPortfolioForm->createView(),
             'client_portfolio_history' => $clientPortfolioManager->getNotActivePortfolios($client),
-            'suggested_portfolio' => $suggestedClientPortfolio ? $suggestedClientPortfolio->getPortfolio() : null
-        ));
+            'suggested_portfolio' => $suggestedClientPortfolio ? $suggestedClientPortfolio->getPortfolio() : null,
+        ]);
     }
 
     public function tempPortfolioRebalanceAction(Request $request)
@@ -335,29 +335,29 @@ class ChangeProfileController extends AclController
         $client = $this->getUser();
 
         /** @var TempPortfolio $tempPortfolio */
-        $tempPortfolio = $dm->getRepository('WealthbotClientBundle:TempPortfolio')->findOneBy(array(
+        $tempPortfolio = $dm->getRepository('WealthbotClientBundle:TempPortfolio')->findOneBy([
             'id' => $request->get('id'),
-            'clientUserId' => $client->getId()
-        ));
+            'clientUserId' => $client->getId(),
+        ]);
 
         if (!$tempPortfolio) {
-            return $this->getJsonResponse(array(
+            return $this->getJsonResponse([
                 'status' => 'error',
-                'content' => 'You have not temp portfolio with id: '.$request->get('id')
-            ));
+                'content' => 'You have not temp portfolio with id: '.$request->get('id'),
+            ]);
         }
 
-        $model = $modelManager->findCeModelBy(array(
+        $model = $modelManager->findCeModelBy([
             'id' => $tempPortfolio->getModelId(),
             'isDeleted' => false,
-            'ownerId' => $client->getRia()->getId()
-        ));
+            'ownerId' => $client->getRia()->getId(),
+        ]);
 
         if (!$model) {
-            return $this->getJsonResponse(array(
+            return $this->getJsonResponse([
                 'status' => 'error',
-                'content' => 'You have not model portfolio with id: '.$tempPortfolio->getModelId()
-            ));
+                'content' => 'You have not model portfolio with id: '.$tempPortfolio->getModelId(),
+            ]);
         }
 
         //$modelManager->setClientPortfolio($model, $client, $clientPortfolioManager);
@@ -369,22 +369,22 @@ class ChangeProfileController extends AclController
         $dm->remove($tempPortfolio);
         $dm->flush();
 
-        $tempPortfolios = $dm->getRepository('WealthbotClientBundle:TempPortfolio')->findBy(array('clientUserId' => $client->getId()));
+        $tempPortfolios = $dm->getRepository('WealthbotClientBundle:TempPortfolio')->findBy(['clientUserId' => $client->getId()]);
         $chooseClientPortfolioForm = $this->createForm(new ChooseClientPortfolioFormType($clientPortfolioManager->getProposedClientPortfolio($client)), $client);
 
         $suggestedClientPortfolio = $clientPortfolioManager->getApprovedClientPortfolio($client);
 
-        return $this->getJsonResponse(array(
+        return $this->getJsonResponse([
             'status' => 'success',
-            'content' => $this->renderView('WealthbotClientBundle:ChangeProfile:_your_portfolio.html.twig', array(
+            'content' => $this->renderView('WealthbotClientBundle:ChangeProfile:_your_portfolio.html.twig', [
                 'is_ria_client_view' => $this->isRiaClientView(),
                 'temp_portfolios' => $tempPortfolios,
                 'client' => $client,
                 'choose_client_portfolio_form' => $chooseClientPortfolioForm->createView(),
                 'client_portfolio_history' => $clientPortfolioManager->getNotActivePortfolios($client),
-                'suggested_portfolio' => $suggestedClientPortfolio ? $suggestedClientPortfolio->getPortfolio() : null
-            ))
-        ));
+                'suggested_portfolio' => $suggestedClientPortfolio ? $suggestedClientPortfolio->getPortfolio() : null,
+            ]),
+        ]);
     }
 
     public function showClientPortfolioAction(Request $request)
@@ -395,27 +395,27 @@ class ChangeProfileController extends AclController
         $client = $this->getUser();
         $clientPortfolio = $clientPortfolioManager->find($request->get('id'));
 
-        if (!$clientPortfolio || ($clientPortfolio->getClient()->getId() != $client->getId())) {
+        if (!$clientPortfolio || ($clientPortfolio->getClient()->getId() !== $client->getId())) {
             throw $this->createNotFoundException('Client Portfolio does not exist');
         }
 
-        $tempPortfolios = $dm->getRepository('WealthbotClientBundle:TempPortfolio')->findBy(array('clientUserId' => $client->getId()));
+        $tempPortfolios = $dm->getRepository('WealthbotClientBundle:TempPortfolio')->findBy(['clientUserId' => $client->getId()]);
         $chooseClientPortfolioForm = $this->createForm(new ChooseClientPortfolioFormType($clientPortfolioManager->getProposedClientPortfolio($client)), $client);
 
         $suggestedClientPortfolio = $clientPortfolioManager->getApprovedClientPortfolio($client);
 
-        return $this->getJsonResponse(array(
+        return $this->getJsonResponse([
             'status' => 'success',
-            'content' => $this->renderView('WealthbotClientBundle:ChangeProfile:_your_portfolio.html.twig', array(
+            'content' => $this->renderView('WealthbotClientBundle:ChangeProfile:_your_portfolio.html.twig', [
                 'is_ria_client_view' => $this->isRiaClientView(),
                 'temp_portfolios' => $tempPortfolios,
                 'client' => $client,
                 'choose_client_portfolio_form' => $chooseClientPortfolioForm->createView(),
                 'client_portfolio_history' => $clientPortfolioManager->getNotActivePortfolios($client),
                 'client_portfolio_id' => $clientPortfolio->getId(),
-                'suggested_portfolio' => $suggestedClientPortfolio ? $suggestedClientPortfolio->getPortfolio() : null
-            ))
-        ));
+                'suggested_portfolio' => $suggestedClientPortfolio ? $suggestedClientPortfolio->getPortfolio() : null,
+            ]),
+        ]);
     }
 
     public function approveAnotherPortfolioAction(Request $request)
@@ -436,7 +436,6 @@ class ChangeProfileController extends AclController
         $ria = $client->getRia();
         $companyInformation = $ria->getRiaCompanyInformation();
 
-
         $isUseQualified = $companyInformation->getIsUseQualifiedModels();
         $isQualified = false;
 
@@ -452,20 +451,20 @@ class ChangeProfileController extends AclController
             $clientPortfolioManager->acceptApprovedPortfolio($client);
 
             $dm = $this->get('doctrine.odm.mongodb.document_manager');
-            $tempPortfolios = $dm->getRepository('WealthbotClientBundle:TempPortfolio')->findBy(array('clientUserId' => $client->getId()));
+            $tempPortfolios = $dm->getRepository('WealthbotClientBundle:TempPortfolio')->findBy(['clientUserId' => $client->getId()]);
             $chooseClientPortfolioForm = $this->createForm(new ChooseClientPortfolioFormType($clientPortfolioManager->getProposedClientPortfolio($client)), $client);
 
             $suggestedClientPortfolio = $clientPortfolioManager->getApprovedClientPortfolio($client);
 
-            return $this->render('WealthbotClientBundle:ChangeProfile:_your_portfolio.html.twig', array(
+            return $this->render('WealthbotClientBundle:ChangeProfile:_your_portfolio.html.twig', [
                     'is_ria_client_view' => $this->isRiaClientView(),
                     'temp_portfolios' => $tempPortfolios,
                     'client' => $client,
                     'choose_client_portfolio_form' => $chooseClientPortfolioForm->createView(),
                     'client_portfolio_history' => $clientPortfolioManager->getNotActivePortfolios($client),
                     'client_portfolio_id' => $clientPortfolio->getId(),
-                    'suggested_portfolio' => $suggestedClientPortfolio ? $suggestedClientPortfolio->getProfile() : null
-            ));
+                    'suggested_portfolio' => $suggestedClientPortfolio ? $suggestedClientPortfolio->getProfile() : null,
+            ]);
         }
 
         $accountsRepo = $em->getRepository('WealthbotClientBundle:ClientAccount');
@@ -473,24 +472,24 @@ class ChangeProfileController extends AclController
         $retirementAccounts = $accountsRepo->findByClientIdAndGroup($client->getId(), AccountGroup::GROUP_EMPLOYER_RETIREMENT);
         $form = $this->createFormBuilder()->add('name', 'text')->getForm();
 
-        return $this->getJsonResponse(array(
+        return $this->getJsonResponse([
             'status' => 'success',
-            'content' => $this->renderView('WealthbotClientBundle:Dashboard:approve_portfolio.html.twig', array(
-                'client'                  => $client,
-                'client_accounts'         => $clientAccounts,
-                'total'                   => $accountsRepo->getTotalScoreByClientId($client->getId()),
+            'content' => $this->renderView('WealthbotClientBundle:Dashboard:approve_portfolio.html.twig', [
+                'client' => $client,
+                'client_accounts' => $clientAccounts,
+                'total' => $accountsRepo->getTotalScoreByClientId($client->getId()),
                 'ria_company_information' => $companyInformation,
-                'has_retirement_account'  => count($retirementAccounts) ? true : false,
-                'portfolio_information'   => $portfolioInformation,
-                'show_sas_cash'           => $accountsRepo->containsSasCash($clientAccounts),
-                'is_approved'             => $clientPortfolio->isClientAccepted(),
+                'has_retirement_account' => count($retirementAccounts) ? true : false,
+                'portfolio_information' => $portfolioInformation,
+                'show_sas_cash' => $accountsRepo->containsSasCash($clientAccounts),
+                'is_approved' => $clientPortfolio->isClientAccepted(),
                 'is_use_qualified_models' => $isUseQualified,
-                'form'                    => $form->createView(),
-                'signing_date'            => new \DateTime('now'),
-                'action'                  => 'client_approve_portfolio',
-                'approve_url'             => 'rx_client_change_profile_approve_another_portfolio'
-            ))
-        ));
+                'form' => $form->createView(),
+                'signing_date' => new \DateTime('now'),
+                'action' => 'client_approve_portfolio',
+                'approve_url' => 'rx_client_change_profile_approve_another_portfolio',
+            ]),
+        ]);
     }
 
     private function getLayoutVariables($action, $url)
@@ -499,11 +498,11 @@ class ChangeProfileController extends AclController
         $breadcrumbsManager = $this->get('wealthbot_client.breadcrumbs_manager');
         $breadcrumbsManager->addCrumb($action, $url);
 
-        $variables = array(
+        $variables = [
             'breadcrumbs' => $breadcrumbsManager->getBreadcrumbs(),
             'action' => $action,
-            'ria_logo' => $this->get('router')->generate('rx_file_download', array('ria_id' => $this->getUser()->getRia()->getId()), true)
-        );
+            'ria_logo' => $this->get('router')->generate('rx_file_download', ['ria_id' => $this->getUser()->getRia()->getId()], true),
+        ];
 
         return $variables;
     }
@@ -512,11 +511,11 @@ class ChangeProfileController extends AclController
     {
         $response = json_encode($data);
 
-        return new Response($response, $code, array('Content-Type'=>'application/json'));
+        return new Response($response, $code, ['Content-Type' => 'application/json']);
     }
 
     /**
-     * Dispatch new UserHistoryEvent event
+     * Dispatch new UserHistoryEvent event.
      *
      * @param User $user
      * @param $description

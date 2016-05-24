@@ -2,20 +2,19 @@
 
 namespace Wealthbot\ClientBundle\Model;
 
-
 class SystemAccount implements WorkflowableInterface
 {
     /**
-     * @var integer
+     * @var int
      */
     protected $type;
 
     // Constants for type column
     const TYPE_PERSONAL_INVESTMENT = 1;
-    const TYPE_JOINT_INVESTMENT    = 2;
-    const TYPE_ROTH_IRA            = 3;
-    const TYPE_TRADITIONAL_IRA     = 4;
-    const TYPE_RETIREMENT          = 5;
+    const TYPE_JOINT_INVESTMENT = 2;
+    const TYPE_ROTH_IRA = 3;
+    const TYPE_TRADITIONAL_IRA = 4;
+    const TYPE_RETIREMENT = 5;
 
     const CREATION_TYPE_NEW_ACCOUNT = 1;
     const CREATION_TYPE_TRANSFER_ACCOUNT = 2;
@@ -25,19 +24,18 @@ class SystemAccount implements WorkflowableInterface
     const DAYS_WAIT_TRANSFER_OR_ROLLOVER_ACCOUNT = 10;
     const DAYS_WAIT_NEW_ACCOUNT = 3;
 
-
     /**
-     * String values for type column
+     * String values for type column.
      *
      * @var array
      */
-    static private $_types = array(
+    private static $_types = [
         self::TYPE_PERSONAL_INVESTMENT => 'Personal Investment Account',
-        self::TYPE_JOINT_INVESTMENT    => 'Joint Investment Account',
-        self::TYPE_ROTH_IRA            => 'Roth IRA',
-        self::TYPE_TRADITIONAL_IRA     => 'Traditional IRA',
-        self::TYPE_RETIREMENT          => 'Retirement Account'
-    );
+        self::TYPE_JOINT_INVESTMENT => 'Joint Investment Account',
+        self::TYPE_ROTH_IRA => 'Roth IRA',
+        self::TYPE_TRADITIONAL_IRA => 'Traditional IRA',
+        self::TYPE_RETIREMENT => 'Retirement Account',
+    ];
 
     /**
      * @var string
@@ -49,18 +47,17 @@ class SystemAccount implements WorkflowableInterface
      */
     protected $account_number;
 
-
     // Constants for status column
-    const STATUS_REGISTERED              = 'registered';
-    const STATUS_ACTIVE                  = 'active';
-    const STATUS_INIT_REBALANCE          = 'init rebalance';
+    const STATUS_REGISTERED = 'registered';
+    const STATUS_ACTIVE = 'active';
+    const STATUS_INIT_REBALANCE = 'init rebalance';
     const STATUS_INIT_REBALANCE_COMPLETE = 'init rebalance complete';
-    const STATUS_REBALANCED              = 'rebalanced';
-    const STATUS_ANALYZED                = 'account analyzed';
-    const STATUS_CLOSED                  = 'account closed';
-    const STATUS_WAITING_ACTIVATION      = 'waiting activation';
+    const STATUS_REBALANCED = 'rebalanced';
+    const STATUS_ANALYZED = 'account analyzed';
+    const STATUS_CLOSED = 'account closed';
+    const STATUS_WAITING_ACTIVATION = 'waiting activation';
 
-    static private $_statusValues = null;
+    private static $_statusValues = null;
 
     /**
      * @var \DateTime
@@ -72,9 +69,8 @@ class SystemAccount implements WorkflowableInterface
      */
     protected $closed;
 
-
     /**
-     * Constructor
+     * Constructor.
      */
     public function __construct()
     {
@@ -83,22 +79,23 @@ class SystemAccount implements WorkflowableInterface
     }
 
     /**
-     * Get choices for type column
+     * Get choices for type column.
      *
      * @return array
      */
-    static public function getTypeChoices()
+    public static function getTypeChoices()
     {
         return self::$_types;
     }
 
     /**
-     * Get type string name
+     * Get type string name.
      *
      * @param $type
+     *
      * @return string
      */
-    static public function getTypeName($type)
+    public static function getTypeName($type)
     {
         $types = self::$_types;
 
@@ -106,10 +103,12 @@ class SystemAccount implements WorkflowableInterface
     }
 
     /**
-     * Set type
+     * Set type.
      *
-     * @param integer $type
+     * @param int $type
+     *
      * @return SystemAccount
+     *
      * @throws \InvalidArgumentException
      */
     public function setType($type)
@@ -124,9 +123,9 @@ class SystemAccount implements WorkflowableInterface
     }
 
     /**
-     * Get type
+     * Get type.
      *
-     * @return integer
+     * @return int
      */
     public function getType()
     {
@@ -134,7 +133,7 @@ class SystemAccount implements WorkflowableInterface
     }
 
     /**
-     * Get type as string
+     * Get type as string.
      *
      * @return string
      */
@@ -148,18 +147,18 @@ class SystemAccount implements WorkflowableInterface
     }
 
     /**
-     * Get choices for status column
+     * Get choices for status column.
      *
      * @return array|null
      */
-    static public function getStatusChoices()
+    public static function getStatusChoices()
     {
         // Build $_statusValues if this is the first call
         if (self::$_statusValues === null) {
-            self::$_statusValues = array();
+            self::$_statusValues = [];
             $oClass = new \ReflectionClass('\Wealthbot\ClientBundle\Model\SystemAccount');
             $classConstants = $oClass->getConstants();
-            $constantPrefix = "STATUS_";
+            $constantPrefix = 'STATUS_';
             foreach ($classConstants as $key => $val) {
                 if (substr($key, 0, strlen($constantPrefix)) === $constantPrefix) {
                     self::$_statusValues[$val] = $val;
@@ -171,10 +170,12 @@ class SystemAccount implements WorkflowableInterface
     }
 
     /**
-     * Set status
+     * Set status.
      *
      * @param string $status
+     *
      * @return SystemAccount
+     *
      * @throws \InvalidArgumentException
      */
     public function setStatus($status)
@@ -189,7 +190,7 @@ class SystemAccount implements WorkflowableInterface
     }
 
     /**
-     * Get status
+     * Get status.
      *
      * @return string
      */
@@ -207,7 +208,7 @@ class SystemAccount implements WorkflowableInterface
 
     public function isOpen()
     {
-        return ($this->status == self::STATUS_REGISTERED);
+        return $this->status === self::STATUS_REGISTERED;
     }
 
     public function setStatusActive()
@@ -220,7 +221,7 @@ class SystemAccount implements WorkflowableInterface
 
     public function isActive()
     {
-        return ($this->status == self::STATUS_ACTIVE);
+        return $this->status === self::STATUS_ACTIVE;
     }
 
     public function setStatusInitRebalance()
@@ -232,7 +233,7 @@ class SystemAccount implements WorkflowableInterface
 
     public function isInitRebalance()
     {
-        return ($this->status == self::STATUS_INIT_REBALANCE);
+        return $this->status === self::STATUS_INIT_REBALANCE;
     }
 
     public function setStatusInitRebalanceComplete()
@@ -244,7 +245,7 @@ class SystemAccount implements WorkflowableInterface
 
     public function isInitRebalanceComplete()
     {
-        return ($this->status == self::STATUS_INIT_REBALANCE_COMPLETE);
+        return $this->status === self::STATUS_INIT_REBALANCE_COMPLETE;
     }
 
     public function setStatusRebalanced()
@@ -256,7 +257,7 @@ class SystemAccount implements WorkflowableInterface
 
     public function isRebalanced()
     {
-        return ($this->status == self::STATUS_REBALANCED);
+        return $this->status === self::STATUS_REBALANCED;
     }
 
     public function setStatusAnalyzed()
@@ -268,7 +269,7 @@ class SystemAccount implements WorkflowableInterface
 
     public function isAnalyzed()
     {
-        return ($this->status == self::STATUS_ANALYZED);
+        return $this->status === self::STATUS_ANALYZED;
     }
 
     public function setStatusClosed()
@@ -281,13 +282,14 @@ class SystemAccount implements WorkflowableInterface
 
     public function isClosed()
     {
-        return ($this->status == self::STATUS_CLOSED);
+        return $this->status === self::STATUS_CLOSED;
     }
 
     /**
-     * Set account_number
+     * Set account_number.
      *
      * @param string $accountNumber
+     *
      * @return SystemAccount
      */
     public function setAccountNumber($accountNumber)
@@ -298,7 +300,7 @@ class SystemAccount implements WorkflowableInterface
     }
 
     /**
-     * Get account_number
+     * Get account_number.
      *
      * @return string
      */
@@ -308,53 +310,53 @@ class SystemAccount implements WorkflowableInterface
     }
 
     /**
-     * Returns true if account has Personal Investment type and false otherwise
+     * Returns true if account has Personal Investment type and false otherwise.
      *
      * @return bool
      */
     public function isPersonalType()
     {
-        return ($this->getType() == self::TYPE_PERSONAL_INVESTMENT) ? true : false;
+        return ($this->getType() === self::TYPE_PERSONAL_INVESTMENT) ? true : false;
     }
 
     /**
-     * Returns true if account has Joint Investment type and false otherwise
+     * Returns true if account has Joint Investment type and false otherwise.
      *
      * @return bool
      */
     public function isJointType()
     {
-        return ($this->getType() == self::TYPE_JOINT_INVESTMENT) ? true : false;
+        return ($this->getType() === self::TYPE_JOINT_INVESTMENT) ? true : false;
     }
 
     /**
-     * Returns true if account has Roth IRA type and false otherwise
+     * Returns true if account has Roth IRA type and false otherwise.
      *
      * @return bool
      */
     public function isRothIraType()
     {
-        return ($this->getType() == self::TYPE_ROTH_IRA) ? true : false;
+        return ($this->getType() === self::TYPE_ROTH_IRA) ? true : false;
     }
 
     /**
-     * Returns true if account has Traditional IRA type and false otherwise
+     * Returns true if account has Traditional IRA type and false otherwise.
      *
      * @return bool
      */
     public function isTraditionalIraType()
     {
-        return ($this->getType() == self::TYPE_TRADITIONAL_IRA) ? true : false;
+        return ($this->getType() === self::TYPE_TRADITIONAL_IRA) ? true : false;
     }
 
     /**
-     * Returns true if account has Retirement type and false otherwise
+     * Returns true if account has Retirement type and false otherwise.
      *
      * @return bool
      */
     public function isRetirementType()
     {
-        return ($this->getType() == self::TYPE_RETIREMENT) ? true : false;
+        return ($this->getType() === self::TYPE_RETIREMENT) ? true : false;
     }
 
     public function getLastFourDigitsOfAccountNumber()
@@ -363,9 +365,10 @@ class SystemAccount implements WorkflowableInterface
     }
 
     /**
-     * Set activated_on
+     * Set activated_on.
      *
      * @param \DateTime $activatedOn
+     *
      * @return SystemAccount
      */
     public function setActivatedOn($activatedOn)
@@ -376,7 +379,7 @@ class SystemAccount implements WorkflowableInterface
     }
 
     /**
-     * Get activated_on
+     * Get activated_on.
      *
      * @return \DateTime
      */
@@ -386,9 +389,10 @@ class SystemAccount implements WorkflowableInterface
     }
 
     /**
-     * Set closed
+     * Set closed.
      *
      * @param \DateTime $closed
+     *
      * @return SystemAccount
      */
     public function setClosed($closed)
@@ -399,7 +403,7 @@ class SystemAccount implements WorkflowableInterface
     }
 
     /**
-     * Get closed
+     * Get closed.
      *
      * @return \DateTime
      */
@@ -409,9 +413,10 @@ class SystemAccount implements WorkflowableInterface
     }
 
     /**
-     * Get workflow message code
+     * Get workflow message code.
      *
      * @return string
+     *
      * @throws \RuntimeException
      */
     public function getWorkflowMessageCode()

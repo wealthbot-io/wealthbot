@@ -9,9 +9,7 @@
 
 namespace Wealthbot\FixturesBundle\DataFixtures\ORM;
 
-
 use Doctrine\Common\DataFixtures\AbstractFixture;
-use Doctrine\Common\DataFixtures\Doctrine;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Wealthbot\AdminBundle\Entity\CeModel;
@@ -20,117 +18,117 @@ use Wealthbot\AdminBundle\Entity\SecurityAssignment;
 
 class LoadModelData extends AbstractFixture implements OrderedFixtureInterface
 {
-    private $models = array(
-        array(
+    private $models = [
+        [
             'name' => 'Model 1',
             'parent_index' => 1,
             'risk_rating' => 1,
-            'entities' => array(
-                array(
+            'entities' => [
+                [
                     'security_assignment_index' => 1,
-                    'percent' => 30
-                ),
-                array(
+                    'percent' => 30,
+                ],
+                [
                     'security_assignment_index' => 2,
-                    'percent' => 70
-                )
-            )
-        ),
-        array(
+                    'percent' => 70,
+                ],
+            ],
+        ],
+        [
             'name' => 'Model 2',
             'parent_index' => 1,
             'risk_rating' => 2,
-            'entities' => array(
-                array(
+            'entities' => [
+                [
                     'security_assignment_index' => 1,
-                    'percent' => 47
-                ),
-                array(
+                    'percent' => 47,
+                ],
+                [
                     'security_assignment_index' => 2,
-                    'percent' => 53
-                )
-            )
-        ),
-        array(
+                    'percent' => 53,
+                ],
+            ],
+        ],
+        [
             'name' => 'Model 3',
             'parent_index' => 2,
             'risk_rating' => 1,
-            'entities' => array(
-                array(
+            'entities' => [
+                [
                     'security_assignment_index' => 9,
-                    'percent' => 55
-                ),
-                array(
+                    'percent' => 55,
+                ],
+                [
                     'security_assignment_index' => 10,
-                    'percent' => 45
-                )
-            )
-        ),
-        array(
+                    'percent' => 45,
+                ],
+            ],
+        ],
+        [
             'name' => 'Model 4',
             'parent_index' => 2,
             'risk_rating' => 2,
-            'entities' => array(
-                array(
+            'entities' => [
+                [
                     'security_assignment_index' => 9,
-                    'percent' => 30
-                ),
-                array(
+                    'percent' => 30,
+                ],
+                [
                     'security_assignment_index' => 10,
-                    'percent' => 45
-                ),
-                array(
+                    'percent' => 45,
+                ],
+                [
                     'security_assignment_index' => 11,
-                    'percent' => 45
-                )
-            )
-        ),
-        array(
+                    'percent' => 45,
+                ],
+            ],
+        ],
+        [
             'name' => 'Model 5',
             'parent_index' => 3,
             'risk_rating' => 1,
-            'entities' => array(
-                array(
+            'entities' => [
+                [
                     'security_assignment_index' => 15,
-                    'percent' => 10
-                ),
-                array(
+                    'percent' => 10,
+                ],
+                [
                     'security_assignment_index' => 16,
-                    'percent' => 35
-                ),
-                array(
+                    'percent' => 35,
+                ],
+                [
                     'security_assignment_index' => 17,
-                    'percent' => 55
-                )
-            )
-        ),
-        array(
+                    'percent' => 55,
+                ],
+            ],
+        ],
+        [
             'name' => 'Model 6',
             'parent_index' => 3,
             'risk_rating' => 2,
-            'entities' => array(
-                array(
+            'entities' => [
+                [
                     'security_assignment_index' => 15,
-                    'percent' => 50
-                ),
-                array(
+                    'percent' => 50,
+                ],
+                [
                     'security_assignment_index' => 16,
-                    'percent' => 20
-                ),
-                array(
+                    'percent' => 20,
+                ],
+                [
                     'security_assignment_index' => 17,
-                    'percent' => 30
-                )
-            )
-        )
-    );
+                    'percent' => 30,
+                ],
+            ],
+        ],
+    ];
 
-    function load(ObjectManager $manager)
+    public function load(ObjectManager $manager)
     {
         foreach ($this->models as $index => $item) {
 
             /** @var CeModel $strategy */
-            $strategy = $this->getReference('strategy-' . $item['parent_index']);
+            $strategy = $this->getReference('strategy-'.$item['parent_index']);
 
             $model = new CeModel();
             $model->setName($item['name']);
@@ -139,12 +137,12 @@ class LoadModelData extends AbstractFixture implements OrderedFixtureInterface
             $model->setType($strategy->getType());
 
             $manager->persist($model);
-            $this->addReference('model-' . ($index + 1), $model);
+            $this->addReference('model-'.($index + 1), $model);
 
             foreach ($item['entities'] as $entityItem) {
 
                 /** @var SecurityAssignment $securityAssignment */
-                $securityAssignment = $this->getReference('model-security-assignment-' . $entityItem['security_assignment_index']);
+                $securityAssignment = $this->getReference('model-security-assignment-'.$entityItem['security_assignment_index']);
 
                 $entity = new CeModelEntity();
                 $entity->setModel($model);
@@ -160,9 +158,8 @@ class LoadModelData extends AbstractFixture implements OrderedFixtureInterface
         $manager->flush();
     }
 
-    function getOrder()
+    public function getOrder()
     {
         return 5;
     }
-
 }

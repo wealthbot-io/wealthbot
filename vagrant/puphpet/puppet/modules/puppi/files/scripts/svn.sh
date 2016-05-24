@@ -188,7 +188,7 @@ do_install () {
     cd $svndir
   fi
 
-  if [ "x$svndir" == "x$archivedir/$project-svn" ] ; then
+  if [ "x$svndir" == "x$archivedir/$project-svn/svnrepo" ] ; then
     rsync -a --exclude=".svn" $svndir/$svnsubdir $deploy_root/
   fi
 }

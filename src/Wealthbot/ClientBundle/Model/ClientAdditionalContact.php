@@ -9,7 +9,6 @@
 
 namespace Wealthbot\ClientBundle\Model;
 
-
 class ClientAdditionalContact
 {
     /**
@@ -20,20 +19,20 @@ class ClientAdditionalContact
     const TYPE_SPOUSE = 'spouse';
     const TYPE_OTHER = 'other';
 
-    static private $_types = null;
+    private static $_types = null;
 
     /**
-     * Get choices for type column
+     * Get choices for type column.
      *
      * @return array|null
      */
-    static public function getTypeChoices()
+    public static function getTypeChoices()
     {
         if (null === self::$_types) {
-            self::$_types = array();
+            self::$_types = [];
             $oClass = new \ReflectionClass('Wealthbot\ClientBundle\Model\ClientAdditionalContact');
             $classConstants = $oClass->getConstants();
-            $constantPrefix = "TYPE_";
+            $constantPrefix = 'TYPE_';
             foreach ($classConstants as $key => $val) {
                 if (substr($key, 0, strlen($constantPrefix)) === $constantPrefix) {
                     self::$_types[$val] = $val;
@@ -45,10 +44,12 @@ class ClientAdditionalContact
     }
 
     /**
-     * Set type
+     * Set type.
      *
      * @param string $type
+     *
      * @return string $this
+     *
      * @throws \InvalidArgumentException
      */
     public function setType($type)
@@ -65,7 +66,7 @@ class ClientAdditionalContact
     }
 
     /**
-     * Get type
+     * Get type.
      *
      * @return string
      */

@@ -5,17 +5,18 @@ namespace Wealthbot\AdminBundle\PasInterfaces;
 class UnrealizedGainsData extends BaseData
 {
     /**
-     * Implement loading data for pas-admin
+     * Implement loading data for pas-admin.
      *
      * Use services with tag wealthbot_admin.pas_files_loader
      *
      * @param \DateTime $date
-     * @param int $page
-     * @return Array
+     * @param int       $page
+     *
+     * @return array
      */
     public function load(\DateTime $date, $page = 0)
     {
-        $tableData = array();
+        $tableData = [];
         $shortDate = $date->format('Y-m-d');
 
         $builder = $this
@@ -29,7 +30,7 @@ class UnrealizedGainsData extends BaseData
 
         $unrealized = $this->paginator->paginate($builder, $page, $this->perPage);
 
-        foreach($unrealized as $row) {
+        foreach ($unrealized as $row) {
             $account = $this->getSystemAccountByAccountNumber($row->getAccountNumber());
 
             $lotDate = $row->getLotDate();
@@ -38,27 +39,27 @@ class UnrealizedGainsData extends BaseData
             $custodialDate = $row->getOriginalPurchaseDate();
             $custodialDate = new \DateTime($custodialDate);
 
-            $tableData[] = array(
-                'ria'                   => $account ? $account->getClient()->getRia()->getFullName() : '',
-                'custodian'             => $row->getCustodialId(),
-                'last_name'             => $account ? $account->getClient()->getLastName()  : '',
-                'first_name'            => $account ? $account->getClient()->getFirstName() : '',
-                'acct_number'           => $row->getAccountNumber(),
-                'symbol'                => $row->getSymbol(),
-                'ce_shares'             => $row->getLotQuantity(),
-                'ce_cost_basis'         => $row->getLotAmount(),
-                'ce_date'               => empty($lotDate) ? '' : $lotDate->format('m/d/Y'),
-                'custodial_shares'      => $row->getCurrentQty(),
-                'custodial_cost_basis'  => $row->getCostBasisUn(),
-                'custodial_date'        => $custodialDate->format('m/d/Y'),
-            );
+            $tableData[] = [
+                'ria' => $account ? $account->getClient()->getRia()->getFullName() : '',
+                'custodian' => $row->getCustodialId(),
+                'last_name' => $account ? $account->getClient()->getLastName()  : '',
+                'first_name' => $account ? $account->getClient()->getFirstName() : '',
+                'acct_number' => $row->getAccountNumber(),
+                'symbol' => $row->getSymbol(),
+                'ce_shares' => $row->getLotQuantity(),
+                'ce_cost_basis' => $row->getLotAmount(),
+                'ce_date' => empty($lotDate) ? '' : $lotDate->format('m/d/Y'),
+                'custodial_shares' => $row->getCurrentQty(),
+                'custodial_cost_basis' => $row->getCostBasisUn(),
+                'custodial_date' => $custodialDate->format('m/d/Y'),
+            ];
         }
 
-        return array('data' => $tableData, 'pagination' => $unrealized);
+        return ['data' => $tableData, 'pagination' => $unrealized];
     }
 
     /**
-     * Method must return FileType, for example "POS"
+     * Method must return FileType, for example "POS".
      *
      * @return mixed
      */

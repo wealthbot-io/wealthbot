@@ -63,6 +63,16 @@
 #   Note that if the argument absent (see below) is set to true, the
 #   package is removed, whatever the value of version parameter.
 #
+# [*install_options*]
+#   The package install options to be passed to the package manager. Useful for
+#   setting advanced/custom options during package install/update.
+#   For example, adding a `--enablerepo` option to Yum or specifying a
+#   `--no-install-recommends` option during an Apt install.
+#   NOTE: The `install_options` package class parameter was added for Yum/Apt
+#   in Puppet 3.6. Its format of the option is an array, where each option in
+#   the array is either a string or a hash.
+#   Example: `install_options => ['-y', {'--enablerepo' => 'remi-php55'}]`
+#
 # [*absent*]
 #   Set to 'true' to remove package(s) installed by module
 #   Can be defined also by the (top scope) variable $php_absent
@@ -151,6 +161,7 @@ class php (
   $augeas              = params_lookup( 'augeas' ),
   $options             = params_lookup( 'options' ),
   $version             = params_lookup( 'version' ),
+  $install_options     = params_lookup( 'install_options' ),
   $absent              = params_lookup( 'absent' ),
   $monitor             = params_lookup( 'monitor' , 'global' ),
   $monitor_tool        = params_lookup( 'monitor_tool' , 'global' ),
@@ -211,13 +222,14 @@ class php (
     false => true,
   }
 
-  if ($php::source and $php::template) {
+  if ($php::source != '' and $php::source != false and $php::template != '' and
+  $php::template != false) {
     fail ('PHP: cannot set both source and template')
   }
-  if ($php::source and $php::bool_augeas) {
+  if ($php::source != '' and $php::source != false and $php::bool_augeas) {
     fail ('PHP: cannot set both source and augeas')
   }
-  if ($php::template and $php::bool_augeas) {
+  if ($php::template != '' and $php::template != false and $php::bool_augeas) {
     fail ('PHP: cannot set both template and augeas')
   }
 
@@ -231,10 +243,15 @@ class php (
     default   => template($php::template),
   }
 
+  $realservice_autorestart = $bool_service_autorestart ? {
+    true  => Service[$php::service],
+    false => undef,
+  }
+
   ### Managed resources
-  package { 'php':
-    ensure => $php::manage_package,
-    name   => $php::package,
+  package { $php::package:
+    ensure          => $php::manage_package,
+    install_options => $php::install_options,
   }
 
   file { 'php.conf':
@@ -243,21 +260,23 @@ class php (
     mode    => $php::config_file_mode,
     owner   => $php::config_file_owner,
     group   => $php::config_file_group,
-    require => Package['php'],
+    require => Package[$php::package],
     source  => $php::manage_file_source,
     content => $php::manage_file_content,
     replace => $php::manage_file_replace,
     audit   => $php::manage_audit,
+    notify  => $realservice_autorestart,
   }
 
   # The whole php configuration directory can be recursively overriden
-  if $php::source_dir {
+  if $php::source_dir != '' and $php::source_dir != false {
     file { 'php.dir':
       ensure  => directory,
       path    => $php::config_dir,
-      require => Package['php'],
+      require => Package[$php::package],
       source  => $php::source_dir,
       recurse => true,
+      links   => follow,
       purge   => $php::bool_source_dir_purge,
       force   => $php::bool_source_dir_purge,
       replace => $php::manage_file_replace,
@@ -267,7 +286,7 @@ class php (
 
 
   ### Include custom class if $my_class is set
-  if $php::my_class {
+  if $php::my_class != '' and  $php::my_class != false {
     include $php::my_class
   }
 

@@ -11,7 +11,7 @@ namespace Wealthbot\ClientBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ClientInvestmentAccountFormType extends AbstractType
 {
@@ -19,25 +19,25 @@ class ClientInvestmentAccountFormType extends AbstractType
     {
         $builder
             ->add('financial_institution', 'text')
-            ->add('accountType', 'entity', array(
-                'class' => 'WealthbotClientBundle:ClientInvestmentAccountType',
+            ->add('accountType', 'entity', [
+                'class' => 'Wealthbot\\ClientBundle\\Entity\\ClientInvestmentAccountType',
                 'property' => 'name',
-                'label' => 'Account Type'
-            ))
-            ->add('value', 'text', array('label' => 'Estimated Value'))
-            ->add('monthly_contributions', 'text', array('label' => 'Estimated Monthly Contributions'))
-            ->add('monthly_distributions', 'text', array('label' => 'Estimated Monthly Distributions'))
+                'label' => 'Account Type',
+            ])
+            ->add('value', 'text', ['label' => 'Estimated Value'])
+            ->add('monthly_contributions', 'text', ['label' => 'Estimated Monthly Contributions'])
+            ->add('monthly_distributions', 'text', ['label' => 'Estimated Monthly Distributions'])
         ;
     }
 
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => 'Wealthbot\ClientBundle\Entity\ClientAccount'
-        ));
+        $resolver->setDefaults([
+            'data_class' => 'Wealthbot\ClientBundle\Entity\ClientAccount',
+        ]);
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'wealthbot_userbundle_client_investment_account_type';
     }

@@ -3,12 +3,10 @@
 namespace Wealthbot\AdminBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\ORM\Mapping as ORM;
 use Wealthbot\UserBundle\Entity\User;
-use Symfony\Component\Validator\ExecutionContext;
 
 /**
- * Wealthbot\AdminBundle\Entity\BillingSpec
+ * Wealthbot\AdminBundle\Entity\BillingSpec.
  */
 class BillingSpec
 {
@@ -16,10 +14,9 @@ class BillingSpec
           TYPE_FLAT = 2;
 
     /**
-     * @var integer $id
+     * @var int
      */
     private $id;
-
 
     /**
      * @var User
@@ -27,10 +24,9 @@ class BillingSpec
     private $owner;
 
     /**
-     * @var boolean
+     * @var bool
      */
     private $master;
-
 
     /**
      * @var string
@@ -38,7 +34,7 @@ class BillingSpec
     private $name;
 
     /**
-     * @var integer
+     * @var int
      */
     private $type;
 
@@ -57,7 +53,8 @@ class BillingSpec
      */
     private $appointedUsers;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->master = true;
         $this->fees = new ArrayCollection();
         $this->appointedUsers = new ArrayCollection();
@@ -72,7 +69,7 @@ class BillingSpec
     }
 
     /**
-     * @param boolean $master
+     * @param bool $master
      */
     public function setMaster($master)
     {
@@ -80,7 +77,7 @@ class BillingSpec
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function getMaster()
     {
@@ -189,12 +186,14 @@ class BillingSpec
     public function addAppointedUser(User $user)
     {
         $this->appointedUsers[] = $user;
+
         return $this;
     }
 
     public function removeAppointedUser(User $user)
     {
         $this->appointedUsers->removeElement($user);
+
         return $this;
     }
 
@@ -207,5 +206,4 @@ class BillingSpec
     {
         $this->appointedUsers = $users;
     }
-
 }

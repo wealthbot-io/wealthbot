@@ -93,7 +93,7 @@ describe 'apache::mod::wsgi', :type => :class do
           :mod_path => '/foo/bar/baz',
         }
       end
-      it { expect { subject }.to raise_error Puppet::Error, /apache::mod::wsgi - both package_name and mod_path must be specified!/ }
+      it { expect { catalogue }.to raise_error Puppet::Error, /apache::mod::wsgi - both package_name and mod_path must be specified!/ }
     end
     describe "with mod_path but no package_name" do
       let :params do
@@ -101,7 +101,7 @@ describe 'apache::mod::wsgi', :type => :class do
           :package_name => '/foo/bar/baz',
         }
       end
-      it { expect { subject }.to raise_error Puppet::Error, /apache::mod::wsgi - both package_name and mod_path must be specified!/ }
+      it { expect { catalogue }.to raise_error Puppet::Error, /apache::mod::wsgi - both package_name and mod_path must be specified!/ }
     end
   end
   context "on a FreeBSD OS" do

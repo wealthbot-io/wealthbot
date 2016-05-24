@@ -1,13 +1,13 @@
 <?php
+
 namespace Wealthbot\RiaBundle\Validator\Constraint;
 
-use Wealthbot\ClientBundle\Model\Acl;
-use Symfony\Component\Security\Core\SecurityContextInterface;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\ConstraintDefinitionException;
+use Wealthbot\ClientBundle\Model\Acl;
 
 class CurrentPasswordValidator extends ConstraintValidator
 {

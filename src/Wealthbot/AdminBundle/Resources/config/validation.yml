@@ -46,8 +46,9 @@ Wealthbot\AdminBundle\Entity\Subclass:
             - NotBlank: ~
         expected_performance:
             - NotBlank: ~
-            - Min: 0
-            - Max: 100
+            - Range:
+                min: 0
+                max: 100
 
 Wealthbot\AdminBundle\Entity\State:
     constraints:
@@ -56,8 +57,9 @@ Wealthbot\AdminBundle\Entity\State:
 Wealthbot\AdminBundle\Entity\Security:
     properties:
         expense_ratio:
-            - Min: 0.0001
-            - Max: 1
+            - Range:
+                min: 0.0001
+                max: 1
     constraints:
         - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: { fields: [symbol] }
 

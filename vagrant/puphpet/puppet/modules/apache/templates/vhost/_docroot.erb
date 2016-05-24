@@ -2,6 +2,6 @@
   ## Vhost docroot
 <% if @virtual_docroot -%>
   VirtualDocumentRoot "<%= @virtual_docroot %>"
-<% else -%>
+<% elsif @docroot -%>
   DocumentRoot "<%= @docroot %>"
 <% end -%>

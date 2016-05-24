@@ -9,12 +9,12 @@
 
 namespace Wealthbot\ClientBundle\Form\Handler;
 
+use Doctrine\ORM\EntityManager;
+use Symfony\Component\Form\Form;
+use Symfony\Component\HttpFoundation\Request;
 use Wealthbot\AdminBundle\Entity\CeModel;
 use Wealthbot\ClientBundle\Manager\ClientPortfolioManager;
 use Wealthbot\ClientBundle\Manager\RiskToleranceManager;
-use Symfony\Component\Form\Form;
-use Symfony\Component\HttpFoundation\Request;
-use Doctrine\ORM\EntityManager;
 use Wealthbot\UserBundle\Entity\User;
 
 class ClientQuestionsFormHandler
@@ -24,7 +24,7 @@ class ClientQuestionsFormHandler
     protected $em;
     protected $options;
 
-    public function __construct(Form $form, Request $request, EntityManager $em, array $options = array())
+    public function __construct(Form $form, Request $request, EntityManager $em, array $options = [])
     {
         $this->form = $form;
         $this->request = $request;
@@ -34,7 +34,7 @@ class ClientQuestionsFormHandler
 
     public function process(User $user)
     {
-        $this->form->bind($this->request);
+        $this->form->handleRequest($this->request);
 
         if ($this->form->isValid()) {
             $this->preProcess($user);
@@ -50,9 +50,9 @@ class ClientQuestionsFormHandler
 
     protected function preProcess(User $user)
     {
-        $userAnswers = $this->em->getRepository('WealthbotClientBundle:ClientQuestionnaireAnswer')->findBy(array(
-            'client_id' => $user->getId()
-        ));
+        $userAnswers = $this->em->getRepository('WealthbotClientBundle:ClientQuestionnaireAnswer')->findBy([
+            'client_id' => $user->getId(),
+        ]);
 
         foreach ($userAnswers as $answer) {
             $this->em->remove($answer);
@@ -67,15 +67,15 @@ class ClientQuestionsFormHandler
         $questions = $em->getRepository('WealthbotRiaBundle:RiskQuestion')->getOrderedQuestionsByOwnerId($questionsOwner->getId());
 
         $withdrawAge = 0;
-        $answers = array();
+        $answers = [];
 
         foreach ($questions as $question) {
             $key = 'answer_'.$question->getId();
             $data = $this->form->get($key)->getData();
 
-            $answer = array(
+            $answer = [
                 'question' => $question,
-            );
+            ];
 
             if ($question->getIsWithdrawAgeInput()) {
                 $withdrawAge = (int) $answer;
@@ -102,11 +102,12 @@ class ClientQuestionsFormHandler
 
     /**
      * Process suggested portfolio.
-     * Submit final portfolio if client's ria has Straight-Through portfolio processing
+     * Submit final portfolio if client's ria has Straight-Through portfolio processing.
      *
-     * @param User $user
+     * @param User    $user
      * @param CeModel $suggestedModel
      * @param $withdrawAge
+     *
      * @throws \InvalidArgumentException
      */
     protected function processSuggestedPortfolio(User $user, CeModel $suggestedModel, $withdrawAge)
@@ -132,9 +133,10 @@ class ClientQuestionsFormHandler
     }
 
     /**
-     * Get age of the client
+     * Get age of the client.
      *
      * @param \Wealthbot\UserBundle\Entity\User $user
+     *
      * @return int
      */
     protected function getClientAge(User $user)
@@ -144,7 +146,8 @@ class ClientQuestionsFormHandler
         return $age;
     }
 
-    protected function getOption($name, $defaultValue = null) {
+    protected function getOption($name, $defaultValue = null)
+    {
         if ($this->hasOption($name)) {
             return $this->options[$name];
         }
@@ -152,7 +155,8 @@ class ClientQuestionsFormHandler
         return $defaultValue;
     }
 
-    protected function hasOption($name) {
+    protected function hasOption($name)
+    {
         return isset($this->options[$name]);
     }
 }

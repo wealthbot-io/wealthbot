@@ -2,30 +2,28 @@
 
 namespace Wealthbot\ClientBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-
 /**
- * TransferCustodianQuestionAnswer
+ * TransferCustodianQuestionAnswer.
  */
 class TransferCustodianQuestionAnswer
 {
     /**
-     * @var integer
+     * @var int
      */
     private $id;
 
     /**
-     * @var integer
+     * @var int
      */
     private $transfer_custodian_question_id;
 
     /**
-     * @var integer
+     * @var int
      */
     private $transfer_information_id;
 
     /**
-     * @var boolean
+     * @var bool
      */
     private $value;
 
@@ -39,11 +37,10 @@ class TransferCustodianQuestionAnswer
      */
     private $transferInformation;
 
-
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer 
+     * @return int
      */
     public function getId()
     {
@@ -51,22 +48,23 @@ class TransferCustodianQuestionAnswer
     }
 
     /**
-     * Set transfer_custodian_question_id
+     * Set transfer_custodian_question_id.
      *
-     * @param integer $transferCustodianQuestionId
+     * @param int $transferCustodianQuestionId
+     *
      * @return TransferCustodianQuestionAnswer
      */
     public function setTransferCustodianQuestionId($transferCustodianQuestionId)
     {
         $this->transfer_custodian_question_id = $transferCustodianQuestionId;
-    
+
         return $this;
     }
 
     /**
-     * Get transfer_custodian_question_id
+     * Get transfer_custodian_question_id.
      *
-     * @return integer 
+     * @return int
      */
     public function getTransferCustodianQuestionId()
     {
@@ -74,22 +72,23 @@ class TransferCustodianQuestionAnswer
     }
 
     /**
-     * Set transfer_information_id
+     * Set transfer_information_id.
      *
-     * @param integer $transferInformationId
+     * @param int $transferInformationId
+     *
      * @return TransferCustodianQuestionAnswer
      */
     public function setTransferInformationId($transferInformationId)
     {
         $this->transfer_information_id = $transferInformationId;
-    
+
         return $this;
     }
 
     /**
-     * Get transfer_information_id
+     * Get transfer_information_id.
      *
-     * @return integer 
+     * @return int
      */
     public function getTransferInformationId()
     {
@@ -97,22 +96,23 @@ class TransferCustodianQuestionAnswer
     }
 
     /**
-     * Set value
+     * Set value.
      *
-     * @param boolean $value
+     * @param bool $value
+     *
      * @return TransferCustodianQuestionAnswer
      */
     public function setValue($value)
     {
         $this->value = $value;
-    
+
         return $this;
     }
 
     /**
-     * Get value
+     * Get value.
      *
-     * @return boolean 
+     * @return bool
      */
     public function getValue()
     {
@@ -120,22 +120,23 @@ class TransferCustodianQuestionAnswer
     }
 
     /**
-     * Set question
+     * Set question.
      *
      * @param \Wealthbot\ClientBundle\Entity\TransferCustodianQuestion $question
+     *
      * @return TransferCustodianQuestionAnswer
      */
     public function setQuestion(\Wealthbot\ClientBundle\Entity\TransferCustodianQuestion $question = null)
     {
         $this->question = $question;
-    
+
         return $this;
     }
 
     /**
-     * Get question
+     * Get question.
      *
-     * @return \Wealthbot\ClientBundle\Entity\TransferCustodianQuestion 
+     * @return \Wealthbot\ClientBundle\Entity\TransferCustodianQuestion
      */
     public function getQuestion()
     {
@@ -143,22 +144,23 @@ class TransferCustodianQuestionAnswer
     }
 
     /**
-     * Set transferInformation
+     * Set transferInformation.
      *
      * @param \Wealthbot\ClientBundle\Entity\TransferInformation $transferInformation
+     *
      * @return TransferCustodianQuestionAnswer
      */
     public function setTransferInformation(\Wealthbot\ClientBundle\Entity\TransferInformation $transferInformation = null)
     {
         $this->transferInformation = $transferInformation;
-    
+
         return $this;
     }
 
     /**
-     * Get transferInformation
+     * Get transferInformation.
      *
-     * @return \Wealthbot\ClientBundle\Entity\TransferInformation 
+     * @return \Wealthbot\ClientBundle\Entity\TransferInformation
      */
     public function getTransferInformation()
     {

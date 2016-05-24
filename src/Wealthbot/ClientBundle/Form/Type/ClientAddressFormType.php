@@ -33,7 +33,7 @@ class ClientAddressFormType extends ClientProfileFormType
         ;
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'client_address';
     }

@@ -10,9 +10,7 @@
 namespace Wealthbot\RiaBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\FormBuilder;
 use Symfony\Component\Form\FormBuilderInterface;
-use Wealthbot\RiaBundle\Form\Type\ModelRiskRatingFormType;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
@@ -28,23 +26,22 @@ class RiskAdjustmentFormType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-
-        $builder->add('ratings', 'collection', array(
+        $builder->add('ratings', 'collection', [
                 'type' => new ModelRiskRatingFormType(),
-                'data' => $this->models
-            ));
+                'data' => $this->models,
+            ]);
 
-        $builder->addEventListener(FormEvents::PRE_BIND, function (FormEvent $event) {
+        $builder->addEventListener(FormEvents::PRE_SUBMIT, function (FormEvent $event) {
                 $form = $event->getForm();
                 $data = $event->getData();
 
-                $values = array();
-                foreach($data['ratings'] as $rating){
+                $values = [];
+                foreach ($data['ratings'] as $rating) {
                     $values[] = $rating['risk_rating'];
                 }
 
                 $unique = array_unique($values);
-                if(count($unique) != count($values)){
+                if (count($unique) !== count($values)) {
                     $form->addError(new FormError('Please choose different risk for models'));
                 }
             });
@@ -52,11 +49,11 @@ class RiskAdjustmentFormType extends AbstractType
 
     public function getDefaultOptions(array $options)
     {
-        return array(
-        );
+        return [
+        ];
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'risk_adjustment';
     }

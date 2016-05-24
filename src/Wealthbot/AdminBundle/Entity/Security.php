@@ -3,30 +3,29 @@
 namespace Wealthbot\AdminBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Wealthbot\AdminBundle\Entity\Security
+ * Wealthbot\AdminBundle\Entity\Security.
  */
 class Security
 {
     /**
-     * @var integer $id
+     * @var int
      */
     private $id;
 
     /**
-     * @var integer
+     * @var int
      */
     private $security_type_id;
 
     /**
-     * @var string $name
+     * @var string
      */
     private $name;
 
     /**
-     * @var string $symbol
+     * @var string
      */
     private $symbol;
 
@@ -45,20 +44,19 @@ class Security
      */
     private $securityPrices;
 
-
     /**
-     * Constructor
+     * Constructor.
      */
     public function __construct()
     {
         $this->securityAssignments = new ArrayCollection();
         $this->securityPrices = new ArrayCollection();
     }
-    
+
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer 
+     * @return int
      */
     public function getId()
     {
@@ -66,22 +64,23 @@ class Security
     }
 
     /**
-     * Set name
+     * Set name.
      *
      * @param string $name
+     *
      * @return Security
      */
     public function setName($name)
     {
         $this->name = $name;
-    
+
         return $this;
     }
 
     /**
-     * Get name
+     * Get name.
      *
-     * @return string 
+     * @return string
      */
     public function getName()
     {
@@ -89,22 +88,23 @@ class Security
     }
 
     /**
-     * Set symbol
+     * Set symbol.
      *
      * @param string $symbol
+     *
      * @return Security
      */
     public function setSymbol($symbol)
     {
         $this->symbol = $symbol;
-    
+
         return $this;
     }
 
     /**
-     * Get symbol
+     * Get symbol.
      *
-     * @return string 
+     * @return string
      */
     public function getSymbol()
     {
@@ -112,20 +112,21 @@ class Security
     }
 
     /**
-     * Add security assignment
+     * Add security assignment.
      *
      * @param \Wealthbot\ClientBundle\Entity\AccountOutsideFund $securities
+     *
      * @return Security
      */
     public function addSecurityAssignment(\Wealthbot\ClientBundle\Entity\AccountOutsideFund $securities)
     {
         $this->securityAssignments[] = $securities;
-    
+
         return $this;
     }
 
     /**
-     * Remove security assignment
+     * Remove security assignment.
      *
      * @param \Wealthbot\ClientBundle\Entity\AccountOutsideFund $securities
      */
@@ -135,9 +136,9 @@ class Security
     }
 
     /**
-     * Get securityAssignments
+     * Get securityAssignments.
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getSecurityAssignments()
     {
@@ -145,22 +146,23 @@ class Security
     }
 
     /**
-     * Set security_type_id
+     * Set security_type_id.
      *
-     * @param integer $securityTypeId
+     * @param int $securityTypeId
+     *
      * @return Security
      */
     public function setSecurityTypeId($securityTypeId)
     {
         $this->security_type_id = $securityTypeId;
-    
+
         return $this;
     }
 
     /**
-     * Get security_type_id
+     * Get security_type_id.
      *
-     * @return integer 
+     * @return int
      */
     public function getSecurityTypeId()
     {
@@ -168,22 +170,23 @@ class Security
     }
 
     /**
-     * Set expense_ratio
+     * Set expense_ratio.
      *
      * @param float $expenseRatio
+     *
      * @return Security
      */
     public function setExpenseRatio($expenseRatio)
     {
         $this->expense_ratio = $expenseRatio;
-    
+
         return $this;
     }
 
     /**
-     * Get expense_ratio
+     * Get expense_ratio.
      *
-     * @return float 
+     * @return float
      */
     public function getExpenseRatio()
     {
@@ -194,24 +197,24 @@ class Security
      */
     private $securityType;
 
-
     /**
-     * Set securityType
+     * Set securityType.
      *
      * @param \Wealthbot\AdminBundle\Entity\SecurityType $securityType
+     *
      * @return Security
      */
     public function setSecurityType(\Wealthbot\AdminBundle\Entity\SecurityType $securityType = null)
     {
         $this->securityType = $securityType;
-    
+
         return $this;
     }
 
     /**
-     * Get securityType
+     * Get securityType.
      *
-     * @return \Wealthbot\AdminBundle\Entity\SecurityType 
+     * @return \Wealthbot\AdminBundle\Entity\SecurityType
      */
     public function getSecurityType()
     {
@@ -219,20 +222,21 @@ class Security
     }
 
     /**
-     * Add securityPrices
+     * Add securityPrices.
      *
      * @param SecurityPrice $securityPrices
+     *
      * @return Security
      */
     public function addSecurityPrice(\Wealthbot\AdminBundle\Entity\SecurityPrice $securityPrices)
     {
         $this->securityPrices[] = $securityPrices;
-    
+
         return $this;
     }
 
     /**
-     * Remove securityPrices
+     * Remove securityPrices.
      *
      * @param SecurityPrice $securityPrices
      */
@@ -242,9 +246,9 @@ class Security
     }
 
     /**
-     * Get securityPrices
+     * Get securityPrices.
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getSecurityPrices()
     {
@@ -252,7 +256,7 @@ class Security
     }
 
     /**
-     * Get security type description
+     * Get security type description.
      *
      * @return string|null
      */
@@ -262,7 +266,7 @@ class Security
     }
 
     /**
-     * Get security type code
+     * Get security type code.
      *
      * @return string|null
      */

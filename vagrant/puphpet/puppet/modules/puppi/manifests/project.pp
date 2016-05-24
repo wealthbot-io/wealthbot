@@ -64,7 +64,7 @@ define puppi::project (
       recurse => true,
       purge   => true,
       require => File["${puppi::params::projectsdir}/${name}"];
-      
+
     "${puppi::params::projectsdir}/${name}/configure":
       ensure  => $ensure,
       mode    => '0755',

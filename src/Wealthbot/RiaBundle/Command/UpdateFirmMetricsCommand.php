@@ -3,20 +3,19 @@
  * Created by PhpStorm.
  * User: amalyuhin
  * Date: 24.01.14
- * Time: 16:17
+ * Time: 16:17.
  */
 
 namespace Wealthbot\RiaBundle\Command;
 
-
 use Doctrine\ORM\EntityManager;
+use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
 use Wealthbot\RiaBundle\Document\FirmMetric;
 use Wealthbot\RiaBundle\Entity\RiaCompanyInformation;
 use Wealthbot\UserBundle\Entity\Profile;
 use Wealthbot\UserBundle\Entity\User;
-use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
-use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Output\OutputInterface;
 
 class UpdateFirmMetricsCommand extends ContainerAwareCommand
 {
@@ -58,7 +57,7 @@ EOT
             $clients = $this->calculateClientsByRiaAndStatus($em, $ria, Profile::CLIENT_STATUS_CLIENT);
             $prospects = $this->calculateClientsByRiaAndStatus($em, $ria, Profile::CLIENT_STATUS_PROSPECT);
 
-            $firmMetric = $dm->getRepository('WealthbotRiaBundle:FirmMetric')->findOneBy(array('companyInformationId' => $company->getId()));
+            $firmMetric = $dm->getRepository('WealthbotRiaBundle:FirmMetric')->findOneBy(['companyInformationId' => $company->getId()]);
             if (!$firmMetric) {
                 $firmMetric = new FirmMetric();
             }
@@ -87,18 +86,18 @@ EOT
         $year = $today->format('Y');
         $quarter = $this->getQuarter($today);
 
-        $getClients = function(User $ria, $status, \DateTime $currDate, $year = null, $quarter = null) use ($repository) {
+        $getClients = function (User $ria, $status, \DateTime $currDate, $year = null, $quarter = null) use ($repository) {
             $qb = $repository->createQueryBuilder('p');
             $qb->select('COUNT(u.id) as result')
                 ->leftJoin('p.user', 'u')
                 ->where('p.ria = :ria')
                 ->andWhere('p.client_status = :status')
                 ->andWhere('u.created < :currDate')
-                ->setParameters(array(
+                ->setParameters([
                     'ria' => $ria,
                     'status' => $status,
-                    'currDate' => $currDate->format('Y-m-d')
-                ));
+                    'currDate' => $currDate->format('Y-m-d'),
+                ]);
 
             if (null !== $quarter && null !== $year) {
                 $qb->andWhere('QUARTER(u.created) = :quarter')
@@ -116,7 +115,7 @@ EOT
         $clients = $getClients($ria, $status, $today);
 
         $clientsYearNew = $getClients($ria, $status, $today, $year);
-        $clientsYearOld = $getClients($ria, $status, $today, $year-1);
+        $clientsYearOld = $getClients($ria, $status, $today, $year - 1);
 
         $clientsQtdNew = $getClients($ria, $status, $today, $year, $quarter);
 
@@ -130,13 +129,11 @@ EOT
 
         $clientsQtdOld = $getClients($ria, $status, $today, $prevQuarterYear, $prevQuarter);
 
-
-
-        return array(
+        return [
             'result' => (int) $clients['result'],
-            'qtd_change' => round(($clientsQtdOld['result'] == 0 ? 0 : ($clientsQtdNew['result'] - $clientsQtdOld['result']) * 100 / $clientsQtdOld['result']), 2),
-            'year_change' => round(($clientsYearOld['result'] == 0 ? 0 : ($clientsYearNew['result'] - $clientsYearOld['result']) * 100 / $clientsYearOld['result']), 2)
-        );
+            'qtd_change' => round(($clientsQtdOld['result'] === 0 ? 0 : ($clientsQtdNew['result'] - $clientsQtdOld['result']) * 100 / $clientsQtdOld['result']), 2),
+            'year_change' => round(($clientsYearOld['result'] === 0 ? 0 : ($clientsYearNew['result'] - $clientsYearOld['result']) * 100 / $clientsYearOld['result']), 2),
+        ];
     }
 
     private function getQuarter(\DateTime $date)
@@ -154,4 +151,4 @@ EOT
 
         return $quarter;
     }
-} 
+}

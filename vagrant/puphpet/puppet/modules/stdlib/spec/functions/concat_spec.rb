@@ -1,50 +1,24 @@
-#! /usr/bin/env ruby -S rspec
 require 'spec_helper'
 
-describe "the concat function" do
-  let(:scope) { PuppetlabsSpec::PuppetInternals.scope }
-
-  it "should raise a ParseError if the client does not provide at least two arguments" do
-    expect { scope.function_concat([]) }.to(raise_error(Puppet::ParseError))
-    expect { scope.function_concat([[1]]) }.to(raise_error(Puppet::ParseError))
-  end
-
-  it "should raise a ParseError if the first parameter is not an array" do
-    expect { scope.function_concat([1, []])}.to(raise_error(Puppet::ParseError))
-  end
-
-  it "should not raise a ParseError if the client provides more than two arguments" do
-    expect { scope.function_concat([[1],[2],[3]]) }.not_to raise_error
-  end
-
-  it "should be able to concat an array" do
-    result = scope.function_concat([['1','2','3'],['4','5','6']])
-    expect(result).to(eq(['1','2','3','4','5','6']))
-  end
-
-  it "should be able to concat a primitive to an array" do
-    result = scope.function_concat([['1','2','3'],'4'])
-    expect(result).to(eq(['1','2','3','4']))
-  end
-
-  it "should not accidentally flatten nested arrays" do
-    result = scope.function_concat([['1','2','3'],[['4','5'],'6']])
-    expect(result).to(eq(['1','2','3',['4','5'],'6']))
-  end
+describe 'concat' do
+  it { is_expected.not_to eq(nil) }
+  it { is_expected.to run.with_params().and_raise_error(Puppet::ParseError) }
+  it { is_expected.to run.with_params([1]).and_raise_error(Puppet::ParseError) }
+  it { is_expected.to run.with_params(1, [2]).and_raise_error(Puppet::ParseError) }
+  it { is_expected.to run.with_params([1], [2], [3]).and_return([1, 2, 3]) }
+  it { is_expected.to run.with_params(['1','2','3'],['4','5','6']).and_return(['1','2','3','4','5','6']) }
+  it { is_expected.to run.with_params(['1','2','3'],'4').and_return(['1','2','3','4']) }
+  it { is_expected.to run.with_params(['1','2','3'],[['4','5'],'6']).and_return(['1','2','3',['4','5'],'6']) }
+  it { is_expected.to run.with_params(['1','2'],['3','4'],['5','6']).and_return(['1','2','3','4','5','6']) }
+  it { is_expected.to run.with_params(['1','2'],'3','4',['5','6']).and_return(['1','2','3','4','5','6']) }
 
   it "should leave the original array intact" do
-    array_original = ['1','2','3']
-    result = scope.function_concat([array_original,['4','5','6']])
-    array_original.should(eq(['1','2','3']))
-  end
-
-  it "should be able to concat multiple arrays" do
-    result = scope.function_concat([['1','2','3'],['4','5','6'],['7','8','9']])
-    expect(result).to(eq(['1','2','3','4','5','6','7','8','9']))
-  end
-
-  it "should be able to concat mix of primitives and arrays to a final array" do
-    result = scope.function_concat([['1','2','3'],'4',['5','6','7']])
-    expect(result).to(eq(['1','2','3','4','5','6','7']))
+    argument1 = ['1','2','3']
+    original1 = argument1.dup
+    argument2 = ['4','5','6']
+    original2 = argument2.dup
+    result = subject.call([argument1,argument2])
+    expect(argument1).to eq(original1)
+    expect(argument2).to eq(original2)
   end
 end

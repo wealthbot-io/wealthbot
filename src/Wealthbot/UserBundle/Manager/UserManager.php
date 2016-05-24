@@ -3,7 +3,6 @@
 namespace Wealthbot\UserBundle\Manager;
 
 use FOS\UserBundle\Doctrine\UserManager as BaseManager;
-use Wealthbot\RiaBundle\Entity\RiaCompanyInformation;
 use Wealthbot\UserBundle\Entity\User;
 
 class UserManager extends BaseManager
@@ -11,9 +10,9 @@ class UserManager extends BaseManager
     /**
      * @return User
      */
-    public function getAdmin() {
-
-       return $this->repository->createQueryBuilder('ru')
+    public function getAdmin()
+    {
+        return $this->repository->createQueryBuilder('ru')
             ->where('ru.roles LIKE :role')
             ->setParameter('role', '%"ROLE_SUPER_ADMIN"%')
             ->getQuery()

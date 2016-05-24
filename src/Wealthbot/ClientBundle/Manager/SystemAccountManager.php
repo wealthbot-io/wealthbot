@@ -9,11 +9,9 @@
 
 namespace Wealthbot\ClientBundle\Manager;
 
-
 use Doctrine\ORM\EntityManager;
 use Wealthbot\ClientBundle\Entity\ClientAccount;
 use Wealthbot\ClientBundle\Entity\SystemAccount;
-use Wealthbot\ClientBundle\Repository\ClientAccountRepository;
 use Wealthbot\UserBundle\Entity\User;
 
 class SystemAccountManager implements SystemAccountManagerInterface
@@ -31,9 +29,10 @@ class SystemAccountManager implements SystemAccountManagerInterface
     }
 
     /**
-     * Create new system account for client account
+     * Create new system account for client account.
      *
      * @param ClientAccount $clientAccount
+     *
      * @return SystemAccount|null
      */
     public function createSystemAccountForClientAccount(ClientAccount $clientAccount)
@@ -49,6 +48,7 @@ class SystemAccountManager implements SystemAccountManagerInterface
     /**
      * @param User $client
      * @param bool $isClientView
+     *
      * @return array
      */
     public function getAccountsForClient(User $client, $isClientView = false)
@@ -67,15 +67,16 @@ class SystemAccountManager implements SystemAccountManagerInterface
 
     /**
      * @param User $client
+     *
      * @return SystemAccount[]
      */
     public function getActiveAccountsForClient(User $client)
     {
         $repository = $this->em->getRepository('WealthbotClientBundle:SystemAccount');
-        $criteria = array(
+        $criteria = [
             'client' => $client,
-            'status' => SystemAccount::STATUS_ACTIVE
-        );
+            'status' => SystemAccount::STATUS_ACTIVE,
+        ];
 
         return $repository->findBy($criteria);
     }
@@ -88,20 +89,21 @@ class SystemAccountManager implements SystemAccountManagerInterface
 
     /**
      * @param User $client
+     *
      * @return array
      */
     public function getClientAccountsValues(User $client)
     {
         $accounts = $this->getAccountsForClient($client);
-        $accountValues = array(
-            'total' => array(
+        $accountValues = [
+            'total' => [
                 'value' => 0,
                 'projected_value' => 0,
                 'contributions' => 0,
                 'distributions' => 0,
-                'sas_cash' => 0
-            )
-        );
+                'sas_cash' => 0,
+            ],
+        ];
 
         /** @var SystemAccount $account */
         foreach ($accounts as $account) {
@@ -112,13 +114,13 @@ class SystemAccountManager implements SystemAccountManagerInterface
             $contributions = $clientAccount->getContributionsSum();
             $distributions = $clientAccount->getDistributionsSum();
 
-            $accountValues[$account->getId()] = array(
+            $accountValues[$account->getId()] = [
                 'account' => $account,
                 'value' => $value,
                 'projected_value' => $projectedValue,
                 'contributions' => $contributions,
-                'distributions' => $distributions
-            );
+                'distributions' => $distributions,
+            ];
 
             $accountValues['total']['value'] += $value;
             $accountValues['total']['projected_value'] += $projectedValue;
@@ -129,7 +131,7 @@ class SystemAccountManager implements SystemAccountManagerInterface
 
         $fundedPercent = 0;
         if ($accountValues['total']['projected_value'] > 0) {
-            $fundedPercent = round(($accountValues['total']['value']/$accountValues['total']['projected_value']*100), 2);
+            $fundedPercent = round(($accountValues['total']['value'] / $accountValues['total']['projected_value'] * 100), 2);
         }
 
         $accountValues['total']['funded_percent'] = $fundedPercent;
@@ -139,6 +141,7 @@ class SystemAccountManager implements SystemAccountManagerInterface
 
     /**
      * @param User $client
+     *
      * @return bool
      */
     public function isClientAccountsHaveInitRebalanceStatus(User $client)
@@ -156,9 +159,10 @@ class SystemAccountManager implements SystemAccountManagerInterface
     }
 
     /**
-     * Return new system account with client, client account, account number and account description
+     * Return new system account with client, client account, account number and account description.
      *
      * @param ClientAccount $clientAccount
+     *
      * @return SystemAccount
      */
     private function createAccount(ClientAccount $clientAccount)
@@ -172,8 +176,8 @@ class SystemAccountManager implements SystemAccountManagerInterface
         $systemAccount->setClient($clientAccount->getClient());
         $systemAccount->setClientAccount($clientAccount);
         $systemAccount->setType($clientAccount->getSystemType());
-        $systemAccount->setAccountNumber('CE-000-' . rand(100000000, 999999999));
-        $systemAccount->setAccountDescription($clientAccount->getOwnersAsString() . ' ' . $clientAccount->getTypeName());
+        $systemAccount->setAccountNumber('CE-000-'.rand(100000000, 999999999));
+        $systemAccount->setAccountDescription($clientAccount->getOwnersAsString().' '.$clientAccount->getTypeName());
 
         return $systemAccount;
     }

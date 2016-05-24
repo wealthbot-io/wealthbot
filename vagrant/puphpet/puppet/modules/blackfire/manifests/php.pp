@@ -12,6 +12,7 @@ class blackfire::php inherits blackfire {
     agent_timeout => 0.25,
   }
   $params = merge($default_params, $::blackfire::params)
+  $log_level = 0 + $params['log_level']
 
   validate_bool($params['manage'])
   validate_string($params['version'])
@@ -19,7 +20,7 @@ class blackfire::php inherits blackfire {
   validate_string($params['server_token'])
   validate_string($params['socket'])
   validate_string($params['log_file'])
-  if $params['log_level'] < 1 or $params['log_level'] > 4 {
+  if $log_level < 1 or $log_level > 4 {
     fail 'Ivalid log_level. Valid levels are: 4 - debug, 3 - info, 2 - warning, 1 - error'
   }
 

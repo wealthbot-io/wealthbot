@@ -28,7 +28,7 @@ class ActivitySummaryManager
 
     public function findClientActivitySummaries($clientId)
     {
-        return $this->findBy(array('client_id' => $clientId));
+        return $this->findBy(['client_id' => $clientId]);
     }
 
     public function findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
@@ -43,7 +43,7 @@ class ActivitySummaryManager
 
     public function hasDeleteAccess(User $user, ClientActivitySummary $activitySummary)
     {
-        if ($user->hasRole('ROLE_RIA') && $activitySummary->getClient()->getRia()->getId() == $user->getId()) {
+        if ($user->hasRole('ROLE_RIA') && $activitySummary->getClient()->getRia()->getId() === $user->getId()) {
             return true;
         }
 

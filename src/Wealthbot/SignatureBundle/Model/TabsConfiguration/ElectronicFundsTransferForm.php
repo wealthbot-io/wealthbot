@@ -3,11 +3,10 @@
  * Created by PhpStorm.
  * User: amalyuhin
  * Date: 28.10.13
- * Time: 19:41
+ * Time: 19:41.
  */
 
 namespace Wealthbot\SignatureBundle\Model\TabsConfiguration;
-
 
 use Wealthbot\ClientBundle\Entity\BankInformation;
 use Wealthbot\ClientBundle\Entity\Distribution;
@@ -28,9 +27,10 @@ class ElectronicFundsTransferForm extends AbstractTabsConfiguration
     }
 
     /**
-     * Generate collection of tabs
+     * Generate collection of tabs.
      *
      * @return TabCollection
+     *
      * @throws \InvalidArgumentException
      */
     public function generate()
@@ -49,7 +49,7 @@ class ElectronicFundsTransferForm extends AbstractTabsConfiguration
         $client = $account->getClient();
         $companyInformation = $client->getRiaCompanyInformation();
 
-        $tabs = array();
+        $tabs = [];
 
         $advisorCode = new TextTab();
         $advisorCode->setTabLabel('advisor#')->setValue($this->getAdvisorCode($companyInformation));
@@ -81,7 +81,7 @@ class ElectronicFundsTransferForm extends AbstractTabsConfiguration
             $accountOwnerName->setTabLabel('account_owner_full_name')->setValue($bankInformation->getAccountOwnerFullName());
             $tabs[] = $accountOwnerName;
 
-            if (trim($bankInformation->getJointAccountOwnerFullName()) != '') {
+            if (trim($bankInformation->getJointAccountOwnerFullName()) !== '') {
                 $jointAccountOwner = new TextTab();
                 $jointAccountOwner->setTabLabel('joint_account_owner_full_name')
                     ->setValue($bankInformation->getJointAccountOwnerFullName());
@@ -89,7 +89,7 @@ class ElectronicFundsTransferForm extends AbstractTabsConfiguration
             }
 
             $bankAccountType = new RadioGroupTab();
-            $bankAccountTypeValue = $bankInformation->getAccountType() == BankInformation::ACCOUNT_TYPE_CHECK ? 'checking' : 'savings';
+            $bankAccountTypeValue = $bankInformation->getAccountType() === BankInformation::ACCOUNT_TYPE_CHECK ? 'checking' : 'savings';
             $bankAccountType->setGroupName('bank_account_type')->setValue($bankAccountTypeValue)->setSelected(true);
             $tabs[] = $bankAccountType;
 
@@ -135,7 +135,6 @@ class ElectronicFundsTransferForm extends AbstractTabsConfiguration
                     $frequencyValue = null;
                     break;
             }
-
         } elseif ($transferInformation instanceof Distribution) {
             $startDateValue = $transferInformation->getTransferDate();
 
@@ -163,7 +162,6 @@ class ElectronicFundsTransferForm extends AbstractTabsConfiguration
             $startDateValue = null;
         }
 
-
         if ($frequencyValue) {
             $frequencyTab = new RadioGroupTab();
             $frequencyTab->setGroupName('transaction_frequency')->setValue($frequencyValue)->setSelected(true);
@@ -183,5 +181,4 @@ class ElectronicFundsTransferForm extends AbstractTabsConfiguration
 
         return new TabCollection($tabs);
     }
-
 }

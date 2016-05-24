@@ -10,14 +10,14 @@
 namespace Wealthbot\RiaBundle\Form\Type;
 
 use Doctrine\ORM\EntityRepository;
-use Wealthbot\ClientBundle\Entity\ClientPortfolio;
-use Wealthbot\UserBundle\Entity\User;
 use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Wealthbot\ClientBundle\Entity\ClientPortfolio;
+use Wealthbot\UserBundle\Entity\User;
 
-class ChooseClientPortfolioFormType extends AbstractType {
-
+class ChooseClientPortfolioFormType extends AbstractType
+{
     /** @var \Wealthbot\ClientBundle\Entity\ClientPortfolio */
     private $proposedPortfolio;
 
@@ -37,23 +37,23 @@ class ChooseClientPortfolioFormType extends AbstractType {
         /** @var User $ria */
         $ria = $client->getRia();
 
-        $builder->add('portfolio', 'entity', array(
-            'class' => 'WealthbotAdminBundle:CeModel',
+        $builder->add('portfolio', 'entity', [
+            'class' => 'Wealthbot\\AdminBundle\\Entity\\CeModel',
             'property' => 'name',
             'query_builder' => function (EntityRepository $er) use ($ria) {
                     return $er->createQueryBuilder('p')
                         ->where('p.parent IS NOT NULL')
                         ->andWhere('p.ownerId = :owner_id')
-                        ->setParameters(array(
-                            'owner_id' => $ria->getId()
-                        ));
+                        ->setParameters([
+                            'owner_id' => $ria->getId(),
+                        ]);
                 },
-            'property_path' => false,
-            'data' => $this->proposedPortfolio ? $this->proposedPortfolio->getPortfolio() : null
-        ));
+            'mapped' => false,
+            'data' => $this->proposedPortfolio ? $this->proposedPortfolio->getPortfolio() : null,
+        ]);
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'client_portfolio_form';
     }

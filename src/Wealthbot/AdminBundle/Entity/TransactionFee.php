@@ -2,30 +2,28 @@
 
 namespace Wealthbot\AdminBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-
 /**
- * TransactionFee
+ * TransactionFee.
  */
 class TransactionFee
 {
     /**
-     * @var integer
+     * @var int
      */
     private $id;
 
     /**
-     * @var integer
+     * @var int
      */
     private $fee;
 
     /**
-     * @var integer
+     * @var int
      */
     private $transaction_id;
 
     /**
-     * @var integer
+     * @var int
      */
     private $fee_type_id;
 
@@ -39,11 +37,10 @@ class TransactionFee
      */
     private $feeType;
 
-
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer 
+     * @return int
      */
     public function getId()
     {
@@ -51,22 +48,23 @@ class TransactionFee
     }
 
     /**
-     * Set fee
+     * Set fee.
      *
-     * @param integer $fee
+     * @param int $fee
+     *
      * @return TransactionFee
      */
     public function setFee($fee)
     {
         $this->fee = $fee;
-    
+
         return $this;
     }
 
     /**
-     * Get fee
+     * Get fee.
      *
-     * @return integer 
+     * @return int
      */
     public function getFee()
     {
@@ -74,22 +72,23 @@ class TransactionFee
     }
 
     /**
-     * Set transaction_id
+     * Set transaction_id.
      *
-     * @param integer $transactionId
+     * @param int $transactionId
+     *
      * @return TransactionFee
      */
     public function setTransactionId($transactionId)
     {
         $this->transaction_id = $transactionId;
-    
+
         return $this;
     }
 
     /**
-     * Get transaction_id
+     * Get transaction_id.
      *
-     * @return integer 
+     * @return int
      */
     public function getTransactionId()
     {
@@ -97,22 +96,23 @@ class TransactionFee
     }
 
     /**
-     * Set fee_type_id
+     * Set fee_type_id.
      *
-     * @param integer $feeTypeId
+     * @param int $feeTypeId
+     *
      * @return TransactionFee
      */
     public function setFeeTypeId($feeTypeId)
     {
         $this->fee_type_id = $feeTypeId;
-    
+
         return $this;
     }
 
     /**
-     * Get fee_type_id
+     * Get fee_type_id.
      *
-     * @return integer 
+     * @return int
      */
     public function getFeeTypeId()
     {
@@ -120,22 +120,23 @@ class TransactionFee
     }
 
     /**
-     * Set transaction
+     * Set transaction.
      *
      * @param \Wealthbot\AdminBundle\Entity\Transaction $transaction
+     *
      * @return TransactionFee
      */
     public function setTransaction(\Wealthbot\AdminBundle\Entity\Transaction $transaction = null)
     {
         $this->transaction = $transaction;
-    
+
         return $this;
     }
 
     /**
-     * Get transaction
+     * Get transaction.
      *
-     * @return \Wealthbot\AdminBundle\Entity\Transaction 
+     * @return \Wealthbot\AdminBundle\Entity\Transaction
      */
     public function getTransaction()
     {
@@ -143,22 +144,23 @@ class TransactionFee
     }
 
     /**
-     * Set feeType
+     * Set feeType.
      *
      * @param \Wealthbot\AdminBundle\Entity\TransactionFeeType $feeType
+     *
      * @return TransactionFee
      */
     public function setFeeType(\Wealthbot\AdminBundle\Entity\TransactionFeeType $feeType = null)
     {
         $this->feeType = $feeType;
-    
+
         return $this;
     }
 
     /**
-     * Get feeType
+     * Get feeType.
      *
-     * @return \Wealthbot\AdminBundle\Entity\TransactionFeeType 
+     * @return \Wealthbot\AdminBundle\Entity\TransactionFeeType
      */
     public function getFeeType()
     {

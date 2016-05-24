@@ -5,14 +5,12 @@ namespace Wealthbot\AdminBundle\Service;
 use Wealthbot\AdminBundle\PasInterfaces\DataInterface;
 
 /**
- * Class PasFilesInformation
+ * Class PasFilesInformation.
  *
  * Get information about selected type PAS files.
- *
- * @package Wealthbot\AdminBundle\Service
  */
-class PasInterfacesInformation {
-
+class PasInterfacesInformation
+{
     /**
      * @var DataInterface[]
      */
@@ -26,14 +24,14 @@ class PasInterfacesInformation {
      */
     public function __construct($loaders)
     {
-        $this->loaderByType = array();
+        $this->loaderByType = [];
 
-        foreach($loaders as $loader){
+        foreach ($loaders as $loader) {
             $acceptedType = $loader->getFileType();
             if (array_key_exists($acceptedType, $this->loaderByType)) {
                 throw new \Exception('There is two DataInterface loaders for one type. You have to leave only one (you can turn off this in services.yml).');
             }
-            if (! $loader instanceof DataInterface) {
+            if (!$loader instanceof DataInterface) {
                 throw new \Exception('Data loader must implement DataInterface.');
             }
             $this->loaderByType[$loader->getFileType()] = $loader;
@@ -45,15 +43,17 @@ class PasInterfacesInformation {
      *
      * @param $fileType
      * @param \DateTime $date
+     *
      * @throws \Exception
      */
     public function loadInformation($fileType, \DateTime $date, $page = 0)
     {
         if (!array_key_exists($fileType, $this->loaderByType)) {
-            throw new \Exception('No handler for ' . $fileType . '. Check tagged service.');
+            throw new \Exception('No handler for '.$fileType.'. Check tagged service.');
         }
 
         $loader = $this->loaderByType[$fileType];
+
         return $loader->load($date, $page);
     }
 
@@ -63,17 +63,17 @@ class PasInterfacesInformation {
      *
      * @param $fileTypes
      * @param \DateTime $date
+     *
      * @return array
      */
     public function loadAllInformation($fileTypes, \DateTime $date)
     {
-        $params = array();
+        $params = [];
 
-        foreach($fileTypes as $fileType){
-            $params['type_' . $fileType] = $this->loadInformation($fileType, $date);
+        foreach ($fileTypes as $fileType) {
+            $params['type_'.$fileType] = $this->loadInformation($fileType, $date);
         }
 
         return $params;
     }
-
-} 
+}

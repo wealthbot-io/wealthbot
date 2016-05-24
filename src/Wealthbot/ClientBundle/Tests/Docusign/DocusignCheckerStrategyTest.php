@@ -9,7 +9,6 @@
 
 namespace Wealthbot\ClientBundle\Tests\Docusign;
 
-
 use Wealthbot\ClientBundle\Docusign\TransferInformationConsolidatorCondition;
 use Wealthbot\ClientBundle\Docusign\TransferInformationCustodianCondition;
 use Wealthbot\ClientBundle\Docusign\TransferInformationPolicyCondition;
@@ -38,12 +37,12 @@ class DocusignCheckerStrategyTest extends \PHPUnit_Framework_TestCase
         $accountMock = $this->getMock('Wealthbot\ClientBundle\Entity\ClientAccount');
         $this->transferInformation->setClientAccount($accountMock);
 
-        $conditions = array(
+        $conditions = [
             new TransferInformationCustodianCondition(),
             new TransferInformationPolicyCondition(),
             new TransferInformationQuestionnaireCondition(),
-            new TransferInformationConsolidatorCondition()
-        );
+            new TransferInformationConsolidatorCondition(),
+        ];
 
         $this->checker = new DocusignChecker($conditions);
     }
@@ -57,7 +56,7 @@ class DocusignCheckerStrategyTest extends \PHPUnit_Framework_TestCase
         $this->transferInformation->setTransferCustodian($this->custodian);
         $this->transferInformation->addQuestionnaireAnswer($this->answer);
 
-        $this->assertEquals(true, $this->checker->checkConditions($this->transferInformation));
+        $this->assertTrue($this->checker->checkConditions($this->transferInformation));
     }
 
     public function testCustodianConditionInvalid()
@@ -68,7 +67,7 @@ class DocusignCheckerStrategyTest extends \PHPUnit_Framework_TestCase
         $this->transferInformation->setIsIncludePolicy(false);
         $this->transferInformation->addQuestionnaireAnswer($this->answer);
 
-        $this->assertEquals(false, $this->checker->checkConditions($this->transferInformation));
+        $this->assertFalse($this->checker->checkConditions($this->transferInformation));
     }
 
     public function testPolicyConditionInvalid()
@@ -80,7 +79,7 @@ class DocusignCheckerStrategyTest extends \PHPUnit_Framework_TestCase
         $this->transferInformation->setTransferCustodian($this->custodian);
         $this->transferInformation->addQuestionnaireAnswer($this->answer);
 
-        $this->assertEquals(false, $this->checker->checkConditions($this->transferInformation));
+        $this->assertFalse($this->checker->checkConditions($this->transferInformation));
     }
 
     public function testQuestionnaireConditionInvalid()
@@ -92,8 +91,6 @@ class DocusignCheckerStrategyTest extends \PHPUnit_Framework_TestCase
         $this->transferInformation->setTransferCustodian($this->custodian);
         $this->transferInformation->addQuestionnaireAnswer($this->answer);
 
-        $this->assertEquals(false, $this->checker->checkConditions($this->transferInformation));
+        $this->assertFalse($this->checker->checkConditions($this->transferInformation));
     }
-
-
 }

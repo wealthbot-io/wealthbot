@@ -29,7 +29,6 @@ class RebalanceProgress
      */
     protected $completeCount;
 
-
     public function __construct($totalCount)
     {
         $this->totalCount = $totalCount;
@@ -37,7 +36,7 @@ class RebalanceProgress
     }
 
     /**
-     * Get id
+     * Get id.
      *
      * @return int $id
      */
@@ -47,19 +46,21 @@ class RebalanceProgress
     }
 
     /**
-     * Set userId
+     * Set userId.
      *
      * @param int $userId
+     *
      * @return self
      */
     public function setUserId($userId)
     {
         $this->userId = $userId;
+
         return $this;
     }
 
     /**
-     * Get userId
+     * Get userId.
      *
      * @return int
      */
@@ -69,19 +70,21 @@ class RebalanceProgress
     }
 
     /**
-     * Set totalCount
+     * Set totalCount.
      *
      * @param int $totalCount
+     *
      * @return self
      */
     public function setTotalCount($totalCount)
     {
         $this->totalCount = $totalCount;
+
         return $this;
     }
 
     /**
-     * Get totalCount
+     * Get totalCount.
      *
      * @return int $totalCount
      */
@@ -90,21 +93,22 @@ class RebalanceProgress
         return $this->totalCount;
     }
 
-
     /**
-     * Set completeCount
+     * Set completeCount.
      *
      * @param int $completeCount
+     *
      * @return $this
      */
     public function setCompleteCount($completeCount)
     {
         $this->completeCount = $completeCount;
+
         return $this;
     }
 
     /**
-     * Get completeCount
+     * Get completeCount.
      *
      * @return int $completeCount
      */

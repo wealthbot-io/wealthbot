@@ -1,10 +1,8 @@
 <?php
+
 namespace Wealthbot\MailerBundle\Command;
 
-use Wealthbot\ClientBundle\Entity\AccountGroupType;
-use Wealthbot\ClientBundle\Model\AccountGroup;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
-use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -43,7 +41,6 @@ EOT
         }
         $output->write(' - success', true);
 
-
         $output->write('Start sending emails for Clients which not finished registration');
         $clients = $em->getRepository('WealthbotUserBundle:User')->findNotFinishedRegistrationClientsForSendEmail();
         foreach ($clients as $client) {
@@ -51,14 +48,12 @@ EOT
         }
         $output->write(' - success', true);
 
-
         $output->write('Start sending emails for Clients which not approved portfolio');
         $clients = $em->getRepository('WealthbotUserBundle:User')->findNotApprovedPortfolioClientsForSendEmail();
         foreach ($clients as $client) {
             $mailer->sendClientNotApprovedPortfolioEmail($client);
         }
         $output->write(' - success', true);
-
 
         $output->write('Start sending emails for Clients which not completed all applications');
         $clients = $em->getRepository('WealthbotUserBundle:User')->findNotCompleteAllApplicationsClientForSendEmail();

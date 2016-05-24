@@ -2,28 +2,21 @@
 
 namespace Wealthbot\RiaBundle\Controller;
 
-use Wealthbot\RiaBundle\Form\Handler\RegistrationStepOneFormHandler;
-use Wealthbot\RiaBundle\Form\Handler\RiaCompanyInformationThreeFormHandler;
-use Wealthbot\RiaBundle\Form\Handler\RiaCompanyInformationTwoFormHandler;
-use Wealthbot\RiaBundle\Form\Type\RegistrationStepOneFormType;
-use Wealthbot\RiaBundle\Form\Type\RiaCompanyInformationFourType;
-use Wealthbot\RiaBundle\Form\Type\RiaCompanyInformationThreeType;
-use Wealthbot\RiaBundle\Form\Type\RiaCompanyInformationTwoFormType;
-use Wealthbot\RiaBundle\Form\Type\RiaCompanyProfileFormType;
-use Wealthbot\UserBundle\Entity\Profile;
-use Wealthbot\UserBundle\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Wealthbot\RiaBundle\Form\Type\RiaCompanyInformationType;
-use Wealthbot\RiaBundle\Entity\RiaCompanyInformation;
 use Symfony\Component\HttpFoundation\Session\Session;
+use Wealthbot\RiaBundle\Entity\RiaCompanyInformation;
+use Wealthbot\RiaBundle\Form\Type\RiaCompanyInformationThreeType;
+use Wealthbot\RiaBundle\Form\Type\RiaCompanyProfileFormType;
+use Wealthbot\UserBundle\Entity\Profile;
+use Wealthbot\UserBundle\Entity\User;
 
 class ProfileController extends Controller
 {
     public function indexAction($name)
     {
-        return $this->render('WealthbotRiaBundle:Default:index.html.twig', array('name' => $name));
+        return $this->render('WealthbotRiaBundle:Default:index.html.twig', ['name' => $name]);
     }
 
     public function companyProfileAction(Request $request)
@@ -39,7 +32,7 @@ class ProfileController extends Controller
         $form = $this->createForm(new RiaCompanyProfileFormType($isPreSave), $ria->getRiaCompanyInformation());
 
         if ($request->isMethod('POST')) {
-            $form->bind($request);
+            $form->handleRequest($request);
 
             if ($form->isValid()) {
                 /** @var RiaCompanyInformation $riaCompanyInformation */
@@ -68,9 +61,9 @@ class ProfileController extends Controller
             }
         }
 
-        return $this->render('WealthbotRiaBundle:Profile:company_profile.html.twig', array(
-            'form' => $form->createView()
-        ));
+        return $this->render('WealthbotRiaBundle:Profile:company_profile.html.twig', [
+            'form' => $form->createView(),
+        ]);
     }
 
     public function completeSubclassesAction(Request $request)
@@ -88,17 +81,17 @@ class ProfileController extends Controller
             ->getOneOrNullResult();
 
         $requestData = $request->get('wealthbot_riabundle_riacompanyinformationtype');
-        if(isset($requestData['strategy_model'])){
+        if (isset($requestData['strategy_model'])) {
             $riaCompanyInfo->setPortfolioModelId($requestData['strategy_model']);
         }
 
         $form = $this->createForm(
             new RiaCompanyInformationThreeType($em, $this->getUser(), false),
             $riaCompanyInfo,
-            array('session' => $session)
+            ['session' => $session]
         );
 
-        return $this->render('WealthbotRiaBundle:Profile:subclasses_form_field.html.twig', array('form' => $form->createView()));
+        return $this->render('WealthbotRiaBundle:Profile:subclasses_form_field.html.twig', ['form' => $form->createView()]);
     }
 
     public function checkCompanySlugAction(Request $request)
@@ -112,13 +105,13 @@ class ProfileController extends Controller
             $ria->getId()
         );
 
-        return $this->getJsonResponse(array('is_valid' => (preg_match('/^[a-zA-Z0-9]+$/',$slug) && !$exist)));
+        return $this->getJsonResponse(['is_valid' => (preg_match('/^[a-zA-Z0-9]+$/', $slug) && !$exist)]);
     }
 
     protected function getJsonResponse(array $data, $code = 200)
     {
         $response = json_encode($data);
 
-        return new Response($response, $code, array('Content-Type'=>'application/json'));
+        return new Response($response, $code, ['Content-Type' => 'application/json']);
     }
 }

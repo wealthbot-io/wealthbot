@@ -1,6 +1,6 @@
 <?php
-namespace Wealthbot\FixturesBundle\DataFixtures\ORM;
 
+namespace Wealthbot\FixturesBundle\DataFixtures\ORM;
 
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
@@ -11,21 +11,21 @@ use Wealthbot\ClientBundle\Entity\ClientPortfolioValue;
 class LoadPortfolioValuesData extends AbstractFixture implements OrderedFixtureInterface
 {
     /**
-     * Load data fixtures with the passed EntityManager
+     * Load data fixtures with the passed EntityManager.
      *
      * @param \Doctrine\Common\Persistence\ObjectManager $manager
      */
-    function load(ObjectManager $manager)
+    public function load(ObjectManager $manager)
     {
         $repository = $manager->getRepository('WealthbotClientBundle:ClientPortfolio');
         $clientPortfolios = $repository->findAll();
 
-        $years = array(2012, 2013);
+        $years = [2012, 2013];
         // $mo = 13;
         mt_srand(0);
         foreach ($years as $yr) {
             $mo = ($yr === 2012) ? 13 : (int) date('m');
-            for ($m = 1; $m < $mo; $m++) {
+            for ($m = 1; $m < $mo; ++$m) {
                 /** @var ClientPortfolio $clientPortfolio */
                 foreach ($clientPortfolios as $cp => $clientPortfolio) {
                     $portfolioValue = new ClientPortfolioValue();
@@ -34,7 +34,7 @@ class LoadPortfolioValuesData extends AbstractFixture implements OrderedFixtureI
                     $pdate = new \DateTime();
                     $pdate->setDate($yr, $m, 1);
 
-                    if ('miles@wealthbot.io' == $clientPortfolio->getClient()->getEmail()) {
+                    if ('miles@wealthbot.io' === $clientPortfolio->getClient()->getEmail()) {
                         $securities = 758379;
                         $money_market = 881586;
                         $accounts = 685475;
@@ -72,13 +72,12 @@ class LoadPortfolioValuesData extends AbstractFixture implements OrderedFixtureI
     }
 
     /**
-     * Get the order of this fixture
+     * Get the order of this fixture.
      *
-     * @return integer
+     * @return int
      */
-    function getOrder()
+    public function getOrder()
     {
         return 20;
     }
-
 }

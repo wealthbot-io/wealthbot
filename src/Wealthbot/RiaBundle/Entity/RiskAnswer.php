@@ -2,25 +2,23 @@
 
 namespace Wealthbot\RiaBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-
 /**
- * Wealthbot\RiaBundle\Entity\RiskAnswer
+ * Wealthbot\RiaBundle\Entity\RiskAnswer.
  */
 class RiskAnswer
 {
     /**
-     * @var integer $id
+     * @var int
      */
     private $id;
 
     /**
-     * @var integer $risk_question_id
+     * @var int
      */
     private $risk_question_id;
 
     /**
-     * @var string $title
+     * @var string
      */
     private $title;
 
@@ -30,14 +28,15 @@ class RiskAnswer
     private $question;
 
     /**
-     * @var integer $point
+     * @var int
      */
     private $point = 0;
 
     /**
-     * Set id
+     * Set id.
      *
-     * @param integer $id
+     * @param int $id
+     *
      * @return RiskQuestion
      */
     public function setId($id)
@@ -48,9 +47,9 @@ class RiskAnswer
     }
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer 
+     * @return int
      */
     public function getId()
     {
@@ -58,22 +57,23 @@ class RiskAnswer
     }
 
     /**
-     * Set risk_question_id
+     * Set risk_question_id.
      *
-     * @param integer $riskQuestionId
+     * @param int $riskQuestionId
+     *
      * @return RiskAnswer
      */
     public function setRiskQuestionId($riskQuestionId)
     {
         $this->risk_question_id = $riskQuestionId;
-    
+
         return $this;
     }
 
     /**
-     * Get risk_question_id
+     * Get risk_question_id.
      *
-     * @return integer 
+     * @return int
      */
     public function getRiskQuestionId()
     {
@@ -81,22 +81,23 @@ class RiskAnswer
     }
 
     /**
-     * Set title
+     * Set title.
      *
      * @param string $title
+     *
      * @return RiskAnswer
      */
     public function setTitle($title)
     {
         $this->title = $title;
-    
+
         return $this;
     }
 
     /**
-     * Get title
+     * Get title.
      *
-     * @return string 
+     * @return string
      */
     public function getTitle()
     {
@@ -104,20 +105,21 @@ class RiskAnswer
     }
 
     /**
-     * Set question
+     * Set question.
      *
      * @param \Wealthbot\RiaBundle\Entity\RiskQuestion $question
+     *
      * @return RiskAnswer
      */
     public function setQuestion(\Wealthbot\RiaBundle\Entity\RiskQuestion $question = null)
     {
         $this->question = $question;
-    
+
         return $this;
     }
 
     /**
-     * Get question
+     * Get question.
      *
      * @return \Wealthbot\RiaBundle\Entity\RiskQuestion
      */
@@ -127,22 +129,23 @@ class RiskAnswer
     }
 
     /**
-     * Set point
+     * Set point.
      *
-     * @param integer $point
+     * @param int $point
+     *
      * @return RiskAnswer
      */
     public function setPoint($point)
     {
         $this->point = $point;
-    
+
         return $this;
     }
 
     /**
-     * Get point
+     * Get point.
      *
-     * @return integer 
+     * @return int
      */
     public function getPoint()
     {

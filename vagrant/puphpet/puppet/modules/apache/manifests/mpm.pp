@@ -1,5 +1,5 @@
 define apache::mpm (
-  $lib_path       = $::apache::params::lib_path,
+  $lib_path       = $::apache::lib_path,
   $apache_version = $::apache::apache_version,
 ) {
   if ! defined(Class['apache']) {
@@ -67,6 +67,38 @@ define apache::mpm (
     }
     'redhat': {
       # so we don't fail
+    }
+    'Suse': {
+      file { "${::apache::mod_enable_dir}/${mpm}.conf":
+        ensure  => link,
+        target  => "${::apache::mod_dir}/${mpm}.conf",
+        require => Exec["mkdir ${::apache::mod_enable_dir}"],
+        before  => File[$::apache::mod_enable_dir],
+        notify  => Class['apache::service'],
+      }
+
+      if versioncmp($apache_version, '2.4') >= 0 {
+        file { "${::apache::mod_enable_dir}/${mpm}.load":
+          ensure  => link,
+          target  => "${::apache::mod_dir}/${mpm}.load",
+          require => Exec["mkdir ${::apache::mod_enable_dir}"],
+          before  => File[$::apache::mod_enable_dir],
+          notify  => Class['apache::service'],
+        }
+
+        if $mpm == 'itk' {
+            file { "${lib_path}/mod_mpm_itk.so":
+              ensure => link,
+              target => "${lib_path}/mpm_itk.so"
+            }
+        }
+      }
+
+      if versioncmp($apache_version, '2.4') < 0 {
+        package { "apache2-${mpm}":
+          ensure => present,
+        }
+      }
     }
     default: {
       fail("Unsupported osfamily ${::osfamily}")

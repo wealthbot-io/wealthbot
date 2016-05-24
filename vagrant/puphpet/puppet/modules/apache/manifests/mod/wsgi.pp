@@ -14,7 +14,7 @@ class apache::mod::wsgi (
     if $mod_path =~ /\// {
       $_mod_path = $mod_path
     } else {
-      $_mod_path = "${::apache::params::lib_path}/${mod_path}"
+      $_mod_path = "${::apache::lib_path}/${mod_path}"
     }
     ::apache::mod { 'wsgi':
       package => $package_name,

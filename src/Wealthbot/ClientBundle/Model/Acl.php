@@ -1,32 +1,56 @@
 <?php
+
 namespace Wealthbot\ClientBundle\Model;
 
-
-use Doctrine\ORM\EntityManager;
-use FOS\UserBundle\Entity\User;
+use FOS\UserBundle\Model\User;
+use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Core\Role\Role;
-use Symfony\Component\Security\Core\SecurityContextInterface;
 
+/**
+ * Class Acl.
+ */
 class Acl
 {
-    private $securityContext;
+    /**
+     * @var Container
+     */
+    private $container;
+
+    /**
+     * @var object
+     */
     private $em;
 
-    public function __construct(SecurityContextInterface $securityContext, EntityManager $em)
+    /**
+     * @var \Symfony\Component\Security\Core\Authorization\AuthorizationChecker
+     */
+    private $authorizationChecker;
+
+    /**
+     * @var \Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage
+     */
+    private $tokenStorage;
+
+    /**
+     * @param Container $container
+     */
+    public function __construct(Container $container)
     {
-        $this->securityContext = $securityContext;
-        $this->em = $em;
+        $this->container = $container;
+        $this->em = $container->get('doctrine')->getManager();
+        $this->authorizationChecker = $container->get('security.authorization_checker');
+        $this->tokenStorage = $container->get('security.token_storage');
     }
 
     /**
-     * Is user has ROLE_SLAVE_CLIENT role
+     * Is user has ROLE_SLAVE_CLIENT role.
      *
      * @return bool
      */
     public function isSlaveClient()
     {
-        if ($this->securityContext->isGranted('ROLE_SLAVE_CLIENT')) {
+        if ($this->authorizationChecker->isGranted('ROLE_SLAVE_CLIENT')) {
             return true;
         }
 
@@ -34,14 +58,14 @@ class Acl
     }
 
     /**
-     * Is user has ROLE_RIA and ROLE_CLIENT_VIEW roles
+     * Is user has ROLE_RIA and ROLE_CLIENT_VIEW roles.
      *
      * @return bool
      */
     public function isRiaClientView()
     {
-        if ($this->securityContext->isGranted('ROLE_RIA') && $this->securityContext->isGranted('ROLE_CLIENT_VIEW')) {
-            $clientId = $this->securityContext->getToken()->getAttribute('ria.client_view.client_id');
+        if ($this->authorizationChecker->isGranted('ROLE_RIA') && $this->authorizationChecker->isGranted('ROLE_CLIENT_VIEW')) {
+            $clientId = $this->tokenStorage->getToken()->getAttribute('ria.client_view.client_id');
 
             if ($clientId) {
                 return true;
@@ -52,17 +76,18 @@ class Acl
     }
 
     /**
-     * Set client id for ria client view and add ROLE_CLIENT_VIEW to ria
+     * Set client id for ria client view and add ROLE_CLIENT_VIEW to ria.
      *
      * @param User $ria
-     * @param int $clientId
+     * @param int  $clientId
+     *
      * @throws \InvalidArgumentException
      */
     public function setClientForRiaClientView(User $ria, $clientId)
     {
         $this->checkIsRiaUser($ria);
 
-        $previousRoles = $this->securityContext->getToken()->getRoles();
+        $previousRoles = $this->tokenStorage->getToken()->getRoles();
         $previousRoles[] = 'ROLE_CLIENT_VIEW';
 
         //$ria->addRole('ROLE_CLIENT_VIEW');
@@ -71,23 +96,25 @@ class Acl
         $token = new UsernamePasswordToken($ria, null, 'main', $previousRoles);
         $token->setAttribute('ria.client_view.client_id', $clientId);
 
-        $this->securityContext->setToken($token);
+        $this->tokenStorage->setToken($token);
     }
 
     /**
-     * Get user for ria client view
+     * Get user for ria client view.
      *
      * @param User $ria
+     *
      * @return mixed|null
+     *
      * @throws \InvalidArgumentException
      */
     public function getClientForRiaClientView(User $ria)
     {
         $this->checkIsRiaUser($ria);
 
-        $clientId = $this->securityContext->getToken()->getAttribute('ria.client_view.client_id');
+        $clientId = $this->tokenStorage->getToken()->getAttribute('ria.client_view.client_id');
         if (null === $clientId) {
-            return null;
+            return;
         }
 
         $repository = $this->em->getRepository('WealthbotUserBundle:User');
@@ -96,9 +123,10 @@ class Acl
     }
 
     /**
-     * Reset ria client view
+     * Reset ria client view.
      *
      * @param User $ria
+     *
      * @throws \InvalidArgumentException
      */
     public function resetRiaClientView(User $ria)
@@ -106,23 +134,24 @@ class Acl
         $this->checkIsRiaUser($ria);
 
         $ria->removeRole('ROLE_CLIENT_VIEW');
-        $this->securityContext->getToken()->setAttribute('ria.client_view.client_id', null);
+        $this->tokenStorage->getToken()->setAttribute('ria.client_view.client_id', null);
     }
 
     /**
-     * Get from security context user
+     * Get from security context user.
      *
      * @return mixed
      */
     public function getUser()
     {
-        return $this->securityContext->getToken()->getUser();
+        return $this->tokenStorage->getToken()->getUser();
     }
 
     /**
-     * Throw exception if ria user has not ROLE_RIA role
+     * Throw exception if ria user has not ROLE_RIA role.
      *
      * @param User $ria
+     *
      * @throws \InvalidArgumentException
      */
     private function checkIsRiaUser(User $ria)

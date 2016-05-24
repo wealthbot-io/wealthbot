@@ -11,35 +11,35 @@ namespace Wealthbot\RiaBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class RiaSubclassType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('expected_performance', 'number', array(
+            ->add('expected_performance', 'number', [
                 'grouping' => true,
                 'precision' => 2,
-                'label' => 'Expected Performance (%)'
-            ))
-            ->add('accountType', 'entity', array(
-                'class' => 'WealthbotRiaBundle:SubclassAccountType',
+                'label' => 'Expected Performance (%)',
+            ])
+            ->add('accountType', 'entity', [
+                'class' => 'Wealthbot\\RiaBundle\\Entity\\SubclassAccountType',
                 'property' => 'name',
-                'label' => 'Type'
-            ))
+                'label' => 'Type',
+            ])
         ;
     }
 
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
+        $resolver->setDefaults([
             'data_class' => 'Wealthbot\AdminBundle\Entity\Subclass',
-            'cascade_validation' => true
-        ));
+            'cascade_validation' => true,
+        ]);
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'wealthbot_riabundle_ria_subclass_type';
     }

@@ -3,25 +3,24 @@
  * Created by PhpStorm.
  * User: virtustilus
  * Date: 30.12.13
- * Time: 0:03
+ * Time: 0:03.
  */
 
 namespace Wealthbot\FixturesBundle\DataFixtures\ORM;
 
-
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
+use Symfony\Component\DependencyInjection\ContainerAwareInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Wealthbot\AdminBundle\Manager\FeeManager;
 use Wealthbot\ClientBundle\Entity\Bill;
 use Wealthbot\ClientBundle\Entity\BillItem;
 use Wealthbot\RiaBundle\Service\Manager\PeriodManager;
 use Wealthbot\UserBundle\Entity\User;
-use Symfony\Component\DependencyInjection\ContainerAwareInterface;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 
-class LoadBillData extends AbstractFixture implements OrderedFixtureInterface, ContainerAwareInterface {
-
+class LoadBillData extends AbstractFixture implements OrderedFixtureInterface, ContainerAwareInterface
+{
     /** @var \ProjectServiceContainer */
     private $container;
 
@@ -43,7 +42,6 @@ class LoadBillData extends AbstractFixture implements OrderedFixtureInterface, C
         /** @var User $userEverhart */
         $userEverhart = $this->getReference('clientN3');
         $this->createBill($userEverhart, '2013-07-02 16:15:12', $manager);
-
     }
 
     public function getOrder()
@@ -82,4 +80,4 @@ class LoadBillData extends AbstractFixture implements OrderedFixtureInterface, C
 
         $manager->flush();
     }
-} 
+}

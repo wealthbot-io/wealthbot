@@ -7,9 +7,8 @@
 
 namespace Wealthbot\RiaBundle\Mailer;
 
-use Wealthbot\UserBundle\Entity\User;
-use Wealthbot\RiaBundle\Mailer\MailerInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Wealthbot\UserBundle\Entity\User;
 
 /**
  * @author
@@ -33,10 +32,10 @@ class TwigSwiftMailer implements MailerInterface
     {
         $template = $this->parameters['template']['confirmation'];
         $url = 'some url'; //$this->router->generate('fos_user_registration_confirm', array('token' => $user->getConfirmationToken()), true);
-        $context = array(
+        $context = [
             'user' => $user,
-            'confirmationUrl' => $url
-        );
+            'confirmationUrl' => $url,
+        ];
 
         $this->sendMessage($template, $context, $this->parameters['from_email']['confirmation'], $user->getEmail());
     }
@@ -44,14 +43,15 @@ class TwigSwiftMailer implements MailerInterface
     public function sendInviteEmailMessage($invite)
     {
         $template = $this->parameters['template']['invite'];
-        $context = array(
-            'invite' => $invite
-        );
+        $context = [
+            'invite' => $invite,
+        ];
         $this->sendMessage($template, $context, $this->parameters['from_email']['invite'], $invite['contact_email']);
     }
 
     /**
      * @param array $context
+     *
      * @return bool
      */
     public function sendEmailBillMessage(array $context)
@@ -67,7 +67,7 @@ class TwigSwiftMailer implements MailerInterface
     protected function sendMessage($templateName, $context, $fromEmail, $toEmail)
     {
         $template = $this->twig->loadTemplate($templateName);
-        $subject  = $template->renderBlock('subject', $context);
+        $subject = $template->renderBlock('subject', $context);
         $textBody = $template->renderBlock('body_text', $context);
         $htmlBody = $template->renderBlock('body_html', $context);
 

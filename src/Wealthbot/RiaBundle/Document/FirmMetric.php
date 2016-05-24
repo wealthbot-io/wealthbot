@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: amalyuhin
  * Date: 24.01.14
- * Time: 15:38
+ * Time: 15:38.
  */
 
 namespace Wealthbot\RiaBundle\Document;
@@ -90,14 +90,13 @@ class FirmMetric
      */
     protected $createdAt;
 
-
     public function __construct()
     {
         $this->createdAt = new \DateTime();
     }
 
     /**
-     * Get id
+     * Get id.
      *
      * @return id $id
      */
@@ -107,19 +106,21 @@ class FirmMetric
     }
 
     /**
-     * Set companyInformationId
+     * Set companyInformationId.
      *
      * @param int $companyInformationId
+     *
      * @return self
      */
     public function setCompanyInformationId($companyInformationId)
     {
         $this->companyInformationId = $companyInformationId;
+
         return $this;
     }
 
     /**
-     * Get companyInformationId
+     * Get companyInformationId.
      *
      * @return int $companyInformationId
      */
@@ -129,19 +130,21 @@ class FirmMetric
     }
 
     /**
-     * Set clients
+     * Set clients.
      *
      * @param float $clients
+     *
      * @return self
      */
     public function setClients($clients)
     {
         $this->clients = $clients;
+
         return $this;
     }
 
     /**
-     * Get clients
+     * Get clients.
      *
      * @return float $clients
      */
@@ -151,19 +154,21 @@ class FirmMetric
     }
 
     /**
-     * Set clientsQtdChange
+     * Set clientsQtdChange.
      *
      * @param float $clientsQtdChange
+     *
      * @return self
      */
     public function setClientsQtdChange($clientsQtdChange)
     {
         $this->clientsQtdChange = $clientsQtdChange;
+
         return $this;
     }
 
     /**
-     * Get clientsQtdChange
+     * Get clientsQtdChange.
      *
      * @return float $clientsQtdChange
      */
@@ -173,19 +178,21 @@ class FirmMetric
     }
 
     /**
-     * Set clientsYearChange
+     * Set clientsYearChange.
      *
      * @param float $clientsYearChange
+     *
      * @return self
      */
     public function setClientsYearChange($clientsYearChange)
     {
         $this->clientsYearChange = $clientsYearChange;
+
         return $this;
     }
 
     /**
-     * Get clientsYearChange
+     * Get clientsYearChange.
      *
      * @return float $clientsYearChange
      */
@@ -195,19 +202,21 @@ class FirmMetric
     }
 
     /**
-     * Set accounts
+     * Set accounts.
      *
      * @param float $accounts
+     *
      * @return self
      */
     public function setAccounts($accounts)
     {
         $this->accounts = $accounts;
+
         return $this;
     }
 
     /**
-     * Get accounts
+     * Get accounts.
      *
      * @return float $accounts
      */
@@ -217,19 +226,21 @@ class FirmMetric
     }
 
     /**
-     * Set accountsQtdChange
+     * Set accountsQtdChange.
      *
      * @param float $accountsQtdChange
+     *
      * @return self
      */
     public function setAccountsQtdChange($accountsQtdChange)
     {
         $this->accountsQtdChange = $accountsQtdChange;
+
         return $this;
     }
 
     /**
-     * Get accountsQtdChange
+     * Get accountsQtdChange.
      *
      * @return float $accountsQtdChange
      */
@@ -239,19 +250,21 @@ class FirmMetric
     }
 
     /**
-     * Set accountsYearChange
+     * Set accountsYearChange.
      *
      * @param float $accountsYearChange
+     *
      * @return self
      */
     public function setAccountsYearChange($accountsYearChange)
     {
         $this->accountsYearChange = $accountsYearChange;
+
         return $this;
     }
 
     /**
-     * Get accountsYearChange
+     * Get accountsYearChange.
      *
      * @return float $accountsYearChange
      */
@@ -261,19 +274,21 @@ class FirmMetric
     }
 
     /**
-     * Set prospects
+     * Set prospects.
      *
      * @param float $prospects
+     *
      * @return self
      */
     public function setProspects($prospects)
     {
         $this->prospects = $prospects;
+
         return $this;
     }
 
     /**
-     * Get prospects
+     * Get prospects.
      *
      * @return float $prospects
      */
@@ -283,19 +298,21 @@ class FirmMetric
     }
 
     /**
-     * Set prospectsQtdChange
+     * Set prospectsQtdChange.
      *
      * @param float $prospectsQtdChange
+     *
      * @return self
      */
     public function setProspectsQtdChange($prospectsQtdChange)
     {
         $this->prospectsQtdChange = $prospectsQtdChange;
+
         return $this;
     }
 
     /**
-     * Get prospectsQtdChange
+     * Get prospectsQtdChange.
      *
      * @return float $prospectsQtdChange
      */
@@ -305,19 +322,21 @@ class FirmMetric
     }
 
     /**
-     * Set prospectsYearChange
+     * Set prospectsYearChange.
      *
      * @param float $prospectsYearChange
+     *
      * @return self
      */
     public function setProspectsYearChange($prospectsYearChange)
     {
         $this->prospectsYearChange = $prospectsYearChange;
+
         return $this;
     }
 
     /**
-     * Get prospectsYearChange
+     * Get prospectsYearChange.
      *
      * @return float $prospectsYearChange
      */
@@ -327,19 +346,21 @@ class FirmMetric
     }
 
     /**
-     * Set feesCollected
+     * Set feesCollected.
      *
      * @param float $feesCollected
+     *
      * @return self
      */
     public function setFeesCollected($feesCollected)
     {
         $this->feesCollected = $feesCollected;
+
         return $this;
     }
 
     /**
-     * Get feesCollected
+     * Get feesCollected.
      *
      * @return float $feesCollected
      */
@@ -349,19 +370,21 @@ class FirmMetric
     }
 
     /**
-     * Set feesCollectedQtdChange
+     * Set feesCollectedQtdChange.
      *
      * @param float $feesCollectedQtdChange
+     *
      * @return self
      */
     public function setFeesCollectedQtdChange($feesCollectedQtdChange)
     {
         $this->feesCollectedQtdChange = $feesCollectedQtdChange;
+
         return $this;
     }
 
     /**
-     * Get feesCollectedQtdChange
+     * Get feesCollectedQtdChange.
      *
      * @return float $feesCollectedQtdChange
      */
@@ -371,19 +394,21 @@ class FirmMetric
     }
 
     /**
-     * Set feesCollectedYearChange
+     * Set feesCollectedYearChange.
      *
      * @param float $feesCollectedYearChange
+     *
      * @return self
      */
     public function setFeesCollectedYearChange($feesCollectedYearChange)
     {
         $this->feesCollectedYearChange = $feesCollectedYearChange;
+
         return $this;
     }
 
     /**
-     * Get feesCollectedYearChange
+     * Get feesCollectedYearChange.
      *
      * @return float $feesCollectedYearChange
      */
@@ -393,19 +418,21 @@ class FirmMetric
     }
 
     /**
-     * Set createdAt
+     * Set createdAt.
      *
      * @param \DateTime $createdAt
+     *
      * @return self
      */
     public function setCreatedAt($createdAt)
     {
         $this->createdAt = $createdAt;
+
         return $this;
     }
 
     /**
-     * Get createdAt
+     * Get createdAt.
      *
      * @return \DateTime $createdAt
      */
@@ -413,5 +440,4 @@ class FirmMetric
     {
         return $this->createdAt;
     }
-
 }

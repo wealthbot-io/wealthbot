@@ -9,7 +9,6 @@
 
 namespace Wealthbot\SignatureBundle\Docusign;
 
-
 use Symfony\Component\HttpFoundation\Session\Session;
 
 class DocusignSessionPersistence extends AbstractDocusign
@@ -28,11 +27,10 @@ class DocusignSessionPersistence extends AbstractDocusign
     }
 
     /**
-     * Set $value data for $key in the persistent storage
+     * Set $value data for $key in the persistent storage.
      *
      * @param string $key
      * @param $value
-     * @return void
      */
     protected function setPersistentData($key, $value)
     {
@@ -40,10 +38,11 @@ class DocusignSessionPersistence extends AbstractDocusign
     }
 
     /**
-     * Get data for $key from the persistent storage
+     * Get data for $key from the persistent storage.
      *
      * @param string $key
-     * @param null $default
+     * @param null   $default
+     *
      * @return mixed
      */
     protected function getPersistentData($key, $default = null)
@@ -57,10 +56,9 @@ class DocusignSessionPersistence extends AbstractDocusign
     }
 
     /**
-     * Remove data with $key from the persistent storage
+     * Remove data with $key from the persistent storage.
      *
      * @param string $key
-     * @return void
      */
     protected function removePersistentData($key)
     {
@@ -68,9 +66,7 @@ class DocusignSessionPersistence extends AbstractDocusign
     }
 
     /**
-     * Remove all data from the persistent storage
-     *
-     * @return void
+     * Remove all data from the persistent storage.
      */
     protected function removeAllPersistentData()
     {
@@ -83,9 +79,8 @@ class DocusignSessionPersistence extends AbstractDocusign
         }
     }
 
-
     private function constructSessionVariableName($key)
     {
-        return $this->prefix . $key;
+        return $this->prefix.$key;
     }
 }

@@ -9,7 +9,6 @@
 
 namespace Wealthbot\RiaBundle\Form\Handler;
 
-
 use Wealthbot\AdminBundle\Form\Handler\AbstractFormHandler;
 
 class WorkflowNoteFormHandler extends AbstractFormHandler
@@ -21,5 +20,4 @@ class WorkflowNoteFormHandler extends AbstractFormHandler
         $this->em->persist($workflow);
         $this->em->flush();
     }
-
 }

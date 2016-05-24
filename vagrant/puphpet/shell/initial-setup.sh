@@ -20,18 +20,30 @@ fi
 touch '/.puphpet-stuff/vagrant-core-folder.txt'
 echo "${VAGRANT_CORE_FOLDER}" > '/.puphpet-stuff/vagrant-core-folder.txt'
 
-# Adding this here with a datestamped filename for future issues like #1189
-# apt repos become stale, Ubuntu/Debian move stuff around and break existing
-# boxes that no longer require apt-get update. Force it one more time. Update
-# datestamp as required for future breaks.
-if [[ ! -f '/.puphpet-stuff/initial-setup-apt-get-update' ]]; then
+if [[ ! -f '/.puphpet-stuff/init-apt-get-update' ]] && [[ "${OS}" == 'debian' || "${OS}" == 'ubuntu' ]]; then
+    apt-get update
+
+    touch '/.puphpet-stuff/init-apt-get-update'
+fi
+
+# Use Anacron to run `apt-get update` once a week to keep repos fresh
+if [[ ! -f '/.puphpet-stuff/anacron-installed' ]]; then
     if [ "${OS}" == 'debian' ] || [ "${OS}" == 'ubuntu' ]; then
-        echo 'Running initial-setup apt-get update'
-        apt-get update >/dev/null
-        echo 'Finished running initial-setup apt-get update'
+        echo 'Installing Anacron'
+        apt-get update
+        apt-get -y install anacron
+
+        cat >/etc/cron.weekly/autoupdt << 'EOL'
+#!/bin/bash
+
+apt-get update
+apt-get autoclean
+EOL
+
+        echo 'Finished installing Anacron'
     fi
 
-    touch '/.puphpet-stuff/initial-setup-repo-update'
+    touch '/.puphpet-stuff/anacron-installed'
 fi
 
 # CentOS comes with tty enabled. RHEL has realized this is stupid, so we can
@@ -44,17 +56,16 @@ fi
 
 # Digital Ocean seems to be missing iptables-persistent!
 # See https://github.com/puphpet/puphpet/issues/1575
-if [[ ! -f '/.puphpet-stuff/iptables-persistent-installed' ]] && [ "${OS}" == 'debian' ] || [ "${OS}" == 'ubuntu' ]; then
-    apt-get -y install iptables-persistent > /dev/null 2>&1
+if [[ ! -f '/.puphpet-stuff/iptables-persistent-installed' ]] && [[ "${OS}" == 'debian' || "${OS}" == 'ubuntu' ]]; then
+    apt-get -y install iptables-persistent
 
     touch '/.puphpet-stuff/iptables-persistent-installed'
 fi
 
-if [[ ! -f '/.puphpet-stuff/resolv-conf-changed' ]]; then
-    echo "nameserver 8.8.8.8" > /etc/resolv.conf
-    echo "nameserver 8.8.4.4" >> /etc/resolv.conf
+if [[ ! -f '/.puphpet-stuff/software-properties-common' ]] && [[ "${OS}" == 'debian' || "${OS}" == 'ubuntu' ]]; then
+    apt-get -y install software-properties-common python-software-properties
 
-    touch '/.puphpet-stuff/resolv-conf-changed'
+    touch '/.puphpet-stuff/software-properties-common'
 fi
 
 if [[ -f '/.puphpet-stuff/initial-setup-base-packages' ]]; then
@@ -63,28 +74,25 @@ fi
 
 if [ "${OS}" == 'debian' ] || [ "${OS}" == 'ubuntu' ]; then
     echo 'Installing curl'
-    apt-get -y install curl >/dev/null
+    apt-get -y install curl
     echo 'Finished installing curl'
 
     echo 'Installing git'
-    apt-get -y install git-core >/dev/null
+    apt-get -y install git-core
     echo 'Finished installing git'
 
     if [[ "${CODENAME}" == 'lucid' || "${CODENAME}" == 'precise' ]]; then
         echo 'Installing basic curl packages'
-        apt-get -y install libcurl3 libcurl4-gnutls-dev curl >/dev/null
+        apt-get -y install libcurl3 libcurl4-gnutls-dev
         echo 'Finished installing basic curl packages'
     fi
 
     echo 'Installing build-essential packages'
-    apt-get -y install build-essential >/dev/null
+    apt-get -y install build-essential
     echo 'Finished installing build-essential packages'
 elif [[ "${OS}" == 'centos' ]]; then
     echo 'Adding repos: elrepo, epel, scl'
     perl -p -i -e 's@enabled=1@enabled=0@gi' /etc/yum/pluginconf.d/fastestmirror.conf
-    perl -p -i -e 's@#baseurl=http://mirror.centos.org/centos/\$releasever/os/\$basearch/@baseurl=http://mirror.rackspace.com/CentOS//\$releasever/os/\$basearch/\nenabled=1@gi' /etc/yum.repos.d/CentOS-Base.repo
-    perl -p -i -e 's@#baseurl=http://mirror.centos.org/centos/\$releasever/updates/\$basearch/@baseurl=http://mirror.rackspace.com/CentOS//\$releasever/updates/\$basearch/\nenabled=1@gi' /etc/yum.repos.d/CentOS-Base.repo
-    perl -p -i -e 's@#baseurl=http://mirror.centos.org/centos/\$releasever/extras/\$basearch/@baseurl=http://mirror.rackspace.com/CentOS//\$releasever/extras/\$basearch/\nenabled=1@gi' /etc/yum.repos.d/CentOS-Base.repo
 
     if [ "${RELEASE}" == 6 ]; then
         EL_REPO='http://www.elrepo.org/elrepo-release-6-6.el6.elrepo.noarch.rpm'
@@ -94,23 +102,23 @@ elif [[ "${OS}" == 'centos' ]]; then
         EPEL='https://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-5.noarch.rpm'
     fi
 
-    yum -y --nogpgcheck install "${EL_REPO}" >/dev/null
-    yum -y --nogpgcheck install "${EPEL}" >/dev/null
-    yum -y install centos-release-SCL >/dev/null
-    yum clean all >/dev/null
-    yum -y check-update >/dev/null
+    yum -y --nogpgcheck install "${EL_REPO}"
+    yum -y --nogpgcheck install "${EPEL}"
+    yum -y install centos-release-SCL
+    yum clean all
+    yum -y check-update
     echo 'Finished adding repos: elrep, epel, scl'
 
     echo 'Installing curl'
-    yum -y install curl >/dev/null
+    yum -y install curl
     echo 'Finished installing curl'
 
     echo 'Installing git'
-    yum -y install git >/dev/null
+    yum -y install git
     echo 'Finished installing git'
 
     echo 'Installing Development Tools'
-    yum -y groupinstall 'Development Tools' >/dev/null
+    yum -y groupinstall 'Development Tools'
     echo 'Finished installing Development Tools'
 fi
 

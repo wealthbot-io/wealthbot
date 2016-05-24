@@ -1,33 +1,34 @@
-#! /usr/bin/env ruby -S rspec
 require 'spec_helper'
 
-describe "the rstrip function" do
-  let(:scope) { PuppetlabsSpec::PuppetInternals.scope }
-
-  it "should exist" do
-    expect(Puppet::Parser::Functions.function("rstrip")).to eq("function_rstrip")
-  end
-
-  it "should raise a ParseError if there is less than 1 arguments" do
-    expect { scope.function_rstrip([]) }.to( raise_error(Puppet::ParseError))
-  end
-
-  it "should rstrip a string" do
-    result = scope.function_rstrip(["asdf  "])
-    expect(result).to(eq('asdf'))
-  end
-
-  it "should rstrip each element in an array" do
-    result = scope.function_rstrip([["a ","b ", "c "]])
-    expect(result).to(eq(['a','b','c']))
-  end
-
-  it "should accept objects which extend String" do
-    class AlsoString < String
-    end
-
-    value = AlsoString.new('asdf ')
-    result = scope.function_rstrip([value])
-    result.should(eq('asdf'))
-  end
+describe 'rstrip' do
+  it { is_expected.not_to eq(nil) }
+  it { is_expected.to run.with_params().and_raise_error(Puppet::ParseError, /wrong number of arguments/i) }
+  it {
+    pending("Current implementation ignores parameters after the first.")
+    is_expected.to run.with_params('', '').and_raise_error(Puppet::ParseError, /wrong number of arguments/i)
+  }
+  it { is_expected.to run.with_params({}).and_raise_error(Puppet::ParseError, /Requires either array or string to work with/) }
+  it { is_expected.to run.with_params(1).and_raise_error(Puppet::ParseError, /Requires either array or string to work with/) }
+  it { is_expected.to run.with_params('').and_return('') }
+  it { is_expected.to run.with_params(' ').and_return('') }
+  it { is_expected.to run.with_params('     ').and_return('') }
+  it { is_expected.to run.with_params("\t").and_return('') }
+  it { is_expected.to run.with_params("\t ").and_return('') }
+  it { is_expected.to run.with_params('one').and_return('one') }
+  it { is_expected.to run.with_params(' one').and_return(' one') }
+  it { is_expected.to run.with_params('     one').and_return('     one') }
+  it { is_expected.to run.with_params("\tone").and_return("\tone") }
+  it { is_expected.to run.with_params("\t one").and_return("\t one") }
+  it { is_expected.to run.with_params('one ').and_return('one') }
+  it { is_expected.to run.with_params(' one ').and_return(' one') }
+  it { is_expected.to run.with_params('     one ').and_return('     one') }
+  it { is_expected.to run.with_params("\tone ").and_return("\tone") }
+  it { is_expected.to run.with_params("\t one ").and_return("\t one") }
+  it { is_expected.to run.with_params("one\t").and_return('one') }
+  it { is_expected.to run.with_params(" one\t").and_return(' one') }
+  it { is_expected.to run.with_params("     one\t").and_return('     one') }
+  it { is_expected.to run.with_params("\tone\t").and_return("\tone") }
+  it { is_expected.to run.with_params("\t one\t").and_return("\t one") }
+  it { is_expected.to run.with_params(' o n e ').and_return(' o n e') }
+  it { is_expected.to run.with_params(AlsoString.new(' one ')).and_return(' one') }
 end

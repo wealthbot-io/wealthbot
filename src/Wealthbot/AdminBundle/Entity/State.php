@@ -2,33 +2,30 @@
 
 namespace Wealthbot\AdminBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-
 /**
- * Wealthbot\AdminBundle\Entity\State
+ * Wealthbot\AdminBundle\Entity\State.
  */
 class State
 {
     /**
-     * @var integer $id
+     * @var int
      */
     private $id;
 
     /**
-     * @var string $name
+     * @var string
      */
     private $name;
 
     /**
-     * @var string $abbr
+     * @var string
      */
     private $abbr;
 
-
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer 
+     * @return int
      */
     public function getId()
     {
@@ -36,22 +33,23 @@ class State
     }
 
     /**
-     * Set name
+     * Set name.
      *
      * @param string $name
+     *
      * @return State
      */
     public function setName($name)
     {
         $this->name = $name;
-    
+
         return $this;
     }
 
     /**
-     * Get name
+     * Get name.
      *
-     * @return string 
+     * @return string
      */
     public function getName()
     {
@@ -59,22 +57,23 @@ class State
     }
 
     /**
-     * Set abbr
+     * Set abbr.
      *
      * @param string $abbr
+     *
      * @return State
      */
     public function setAbbr($abbr)
     {
         $this->abbr = $abbr;
-    
+
         return $this;
     }
 
     /**
-     * Get abbr
+     * Get abbr.
      *
-     * @return string 
+     * @return string
      */
     public function getAbbr()
     {
@@ -83,6 +82,6 @@ class State
 
     public function __toString()
     {
-        return $this->getName() . ' (' .$this->getAbbr() . ')';
+        return $this->getName().' ('.$this->getAbbr().')';
     }
 }

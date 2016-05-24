@@ -16,6 +16,17 @@ server {
 <% if (defined? @rewrite) && (@rewrite.split.join.length > 0) -%>
   rewrite <%= @rewrite %>;
 <% end -%>
+<% if (defined? @rewrites) -%>
+  <%- @rewrites.each do |i, rewrite| -%>
+    <%- if (rewrite['when'] && !rewrite['when'].empty?) -%>
+  if (<%= rewrite['when'] %>) {
+    rewrite "<%= rewrite['regex'] %>" <%= rewrite['target'] %>;
+  }
+    <%- else -%>
+  rewrite <%= rewrite['regex'] %> <%= rewrite['target'] %>;
+    <%- end -%>
+  <%- end -%>
+<% end -%>
 <% if defined? @auth_basic -%>
   auth_basic           "<%= @auth_basic %>";
 <% end -%>
@@ -91,4 +102,3 @@ server {
 
   access_log            <%= @access_log_real %>;
   error_log             <%= @error_log_real %>;
-

@@ -9,16 +9,14 @@
 
 namespace Wealthbot\ClientBundle\Form\Factory;
 
-
+use Symfony\Component\Form\FormFactoryInterface;
 use Wealthbot\ClientBundle\Entity\Distribution;
 use Wealthbot\ClientBundle\Entity\SystemAccount;
-use Wealthbot\ClientBundle\Form\EventListener\ScheduledDistributionFormEventSubscriber;
 use Wealthbot\ClientBundle\Form\EventListener\OneTimeDistributionFormEventSubscriber;
-use Wealthbot\ClientBundle\Form\Type\ScheduledDistributionFormType;
+use Wealthbot\ClientBundle\Form\EventListener\ScheduledDistributionFormEventSubscriber;
 use Wealthbot\ClientBundle\Form\Type\OneTimeDistributionFormType;
-use Wealthbot\ClientBundle\Form\Validator\ScheduledDistributionFormValidator;
+use Wealthbot\ClientBundle\Form\Type\ScheduledDistributionFormType;
 use Wealthbot\ClientBundle\Manager\DistributionManager;
-use Symfony\Component\Form\FormFactoryInterface;
 
 class DistributionFormFactory
 {
@@ -28,7 +26,6 @@ class DistributionFormFactory
     /** @var \Wealthbot\ClientBundle\Manager\DistributionManager */
     private $manager;
 
-
     public function __construct(FormFactoryInterface $factory, DistributionManager $manager)
     {
         $this->factory = $factory;
@@ -36,15 +33,17 @@ class DistributionFormFactory
     }
 
     /**
-     * Create distribution form
+     * Create distribution form.
      *
-     * @param string $type
+     * @param string        $type
      * @param SystemAccount $account
-     * @param array $options
+     * @param array         $options
+     *
      * @return \Symfony\Component\Form\FormInterface
+     *
      * @throws \InvalidArgumentException
      */
-    public function create($type, SystemAccount $account, array $options = array())
+    public function create($type, SystemAccount $account, array $options = [])
     {
         if (!array_key_exists($type, Distribution::getTypeChoices())) {
             throw new \InvalidArgumentException(sprintf('Invalid value for type argument: %s', $type));
@@ -57,11 +56,13 @@ class DistributionFormFactory
     }
 
     /**
-     * Build distribution form type
+     * Build distribution form type.
      *
-     * @param string $type
+     * @param string        $type
      * @param SystemAccount $account
+     *
      * @return ScheduledDistributionFormType
+     *
      * @throws \InvalidArgumentException
      */
     private function buildFormType($type, SystemAccount $account)
@@ -107,10 +108,11 @@ class DistributionFormFactory
     }
 
     /**
-     * Build data for one-time distribution form
+     * Build data for one-time distribution form.
      *
      * @param SystemAccount $account
-     * @param Distribution $existDistribution
+     * @param Distribution  $existDistribution
+     *
      * @return Distribution
      */
     private function buildOneTimeDistributionData(SystemAccount $account, Distribution $existDistribution = null)
@@ -127,9 +129,10 @@ class DistributionFormFactory
     }
 
     /**
-     * Build data for scheduled distribution form
+     * Build data for scheduled distribution form.
      *
      * @param SystemAccount $account
+     *
      * @return Distribution
      */
     private function buildScheduledDistributionData(SystemAccount $account)
@@ -142,5 +145,4 @@ class DistributionFormFactory
 
         return $data;
     }
-
 }

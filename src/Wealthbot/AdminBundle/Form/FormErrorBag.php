@@ -6,9 +6,7 @@ use Symfony\Component\Form\Form;
 use Symfony\Component\Form\FormError;
 
 /**
- * Fetch errors for Form
- *
- * @package Wealthbot\AdminBundle\Form
+ * Fetch errors for Form.
  */
 class FormErrorBag
 {
@@ -21,7 +19,8 @@ class FormErrorBag
     }
 
     /**
-     * Convert all form errors to JSON format
+     * Convert all form errors to JSON format.
+     *
      * @return string
      */
     public function toJson()
@@ -30,29 +29,26 @@ class FormErrorBag
     }
 
     /**
-     *
      * @return array
      */
     public function getAssociatedErrors()
     {
-        $errors = array();
-        foreach($this->form->all() as $property => $child)
-        {
+        $errors = [];
+        foreach ($this->form->all() as $property => $child) {
             /* @var $child Form */
-            $e = array();
+            $e = [];
             foreach ($child->getErrors() as $error) {
                 $e [] = $error->getMessage();
             }
 
-            if(count($e) > 0) {
+            if (count($e) > 0) {
                 $errors[$property] = $e;
             }
 
-            if(count($child->all()) > 0) {
-
+            if (count($child->all()) > 0) {
                 $form = new self($child);
                 $subErrors = $form->getAssociatedErrors();
-                if(count($subErrors)) {
+                if (count($subErrors)) {
                     $subformIndex = $property;
                     $errors[$subformIndex] = $form->getAssociatedErrors();
                 }
@@ -60,8 +56,7 @@ class FormErrorBag
         }
 
         if (count($this->form->getErrors())) {
-
-            foreach($this->form->getErrors() as $error) {
+            foreach ($this->form->getErrors() as $error) {
                 /* @var $error FormError */
                 $errors['_form'][] = $error->getMessage();
             }

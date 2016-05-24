@@ -20,15 +20,15 @@ class BaseData implements DataInterface
     /**
      * @var array
      */
-    protected $systemAccountHash = array();
+    protected $systemAccountHash = [];
 
     /**
      * @var array
      */
-    protected $securityHash = array();
+    protected $securityHash = [];
 
     /**
-     * @param EntityManager $em
+     * @param EntityManager   $em
      * @param DocumentManager $mongoManager
      * @param $paginator
      * @param $perPage
@@ -43,24 +43,30 @@ class BaseData implements DataInterface
 
     /**
      * @param \DateTime $date
-     * @param int $page
-     * @return Array|void
+     * @param int       $page
+     *
+     * @return array|void
      */
-    public function load(\DateTime $date, $page = 0) {}
+    public function load(\DateTime $date, $page = 0)
+    {
+    }
 
     /**
-     * Method must return FileType, for example "POS"
+     * Method must return FileType, for example "POS".
      */
-    public function getFileType() {}
+    public function getFileType()
+    {
+    }
 
     /**
      * @param string $accountNumber
+     *
      * @return null|SystemAccount
      */
     protected function getSystemAccountByAccountNumber($accountNumber)
     {
         if (empty($accountNumber)) {
-            return null;
+            return;
         }
 
         if (isset($this->systemAccountHash[$accountNumber])) {
@@ -70,18 +76,19 @@ class BaseData implements DataInterface
         return $this->systemAccountHash[$accountNumber] = $this
             ->em
             ->getRepository('WealthbotClientBundle:SystemAccount')
-            ->findOneBy(array('account_number' => $accountNumber))
+            ->findOneBy(['account_number' => $accountNumber])
         ;
     }
 
     /**
      * @param $symbol
+     *
      * @return null|Security
      */
     protected function getSecurityBySymbol($symbol)
     {
         if (empty($symbol)) {
-            return null;
+            return;
         }
 
         if (isset($this->securityHash[$symbol])) {
@@ -91,7 +98,7 @@ class BaseData implements DataInterface
         return $this->securityHash[$symbol] = $this
             ->em
             ->getRepository('WealthbotAdminBundle:Security')
-            ->findOneBy(array('symbol' => $symbol))
+            ->findOneBy(['symbol' => $symbol])
         ;
     }
 }

@@ -2,6 +2,14 @@
 
 namespace Wealthbot\RiaBundle\Controller;
 
+use Doctrine\ORM\EntityManager;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\Serializer\Tests\Model;
+use Wealthbot\AdminBundle\Entity\CeModel;
 use Wealthbot\AdminBundle\Entity\CeModelEntity;
 use Wealthbot\AdminBundle\Form\Handler\CeModelEntityFormHandler;
 use Wealthbot\AdminBundle\Form\Handler\CeModelFormHandler;
@@ -12,18 +20,10 @@ use Wealthbot\AdminBundle\Form\Type\ModelAssumptionFormType;
 use Wealthbot\AdminBundle\Manager\CeModelManager;
 use Wealthbot\AdminBundle\Model\CeModelEntityInterface;
 use Wealthbot\ClientBundle\Manager\PortfolioInformationManager;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Wealthbot\RiaBundle\Form\Type\ModelRiskRatingFormType;
-use Doctrine\ORM\EntityManager;
-use Symfony\Component\HttpFoundation\RedirectResponse;
-use Wealthbot\UserBundle\Entity\User;
-use Wealthbot\RiaBundle\Form\Type\RiskAdjustmentFormType;
-use Symfony\Component\Serializer\Tests\Model;
 use Wealthbot\RiaBundle\Entity\RiaCompanyInformation;
-use Symfony\Component\HttpFoundation\Session\Session;
-use Wealthbot\AdminBundle\Entity\CeModel;
+use Wealthbot\RiaBundle\Form\Type\ModelRiskRatingFormType;
+use Wealthbot\RiaBundle\Form\Type\RiskAdjustmentFormType;
+use Wealthbot\UserBundle\Entity\User;
 
 class ModelsController extends Controller
 {
@@ -42,27 +42,26 @@ class ModelsController extends Controller
         $models = $modelManager->getChildModels($parentModel);
 
         if ($parentModel->isStrategy()) {
-
             if (isset($ceModels[0])) {
-                return $this->redirect($this->generateUrl('rx_ria_default_models', array('slug' => $ceModels[0]->getSlug())));
+                return $this->redirect($this->generateUrl('rx_ria_default_models', ['slug' => $ceModels[0]->getSlug()]));
             }
 
-            return $this->render('WealthbotRiaBundle:Models:default_index.html.twig', array(
-                'user'         => $user,
+            return $this->render('WealthbotRiaBundle:Models:default_index.html.twig', [
+                'user' => $user,
                 'parent_model' => $parentModel,
-                'models'       => $models
-            ));
+                'models' => $models,
+            ]);
         }
 
         $form = $this->createForm(new CeModelFormType($em, $user, $parentModel, false));
 
-        return $this->render('WealthbotRiaBundle:Models:index.html.twig', array(
+        return $this->render('WealthbotRiaBundle:Models:index.html.twig', [
             'user' => $user,
             'models' => $models,
             'form' => $form->createView(),
             'model' => $parentModel,
-            'with_layout' => $withLayout
-        ));
+            'with_layout' => $withLayout,
+        ]);
     }
 
     public function viewAction(Request $request)
@@ -76,16 +75,16 @@ class ModelsController extends Controller
         /** @var $modelManager CeModelManager */
         $modelManager = $this->get('wealthbot_admin.ce_model_manager');
         /** @var $parentModel CeModel */
-        $parentModel  = $riaCompanyInformation->getPortfolioModel();
+        $parentModel = $riaCompanyInformation->getPortfolioModel();
         /** @var $model CeModel */
-        $model        = $modelManager->findCeModelBySlugAndOwnerId($request->get('slug'), $user->getId());
+        $model = $modelManager->findCeModelBySlugAndOwnerId($request->get('slug'), $user->getId());
 
-        if (!$parentModel || !$model || $model->getParentId() != $parentModel->getId()) {
+        if (!$parentModel || !$model || $model->getParentId() !== $parentModel->getId()) {
             if ($request->isXmlHttpRequest()) {
-                return $this->getJsonResponse(array(
+                return $this->getJsonResponse([
                     'status' => 'error',
-                    'error_message' => 'Model not found'
-                ));
+                    'error_message' => 'Model not found',
+                ]);
             }
 
             throw $this->createNotFoundException();
@@ -103,28 +102,28 @@ class ModelsController extends Controller
         $portfolioInfoManager = $this->get('wealthbot_admin.portfolio_information_manager');
 
         if ($request->isXmlHttpRequest()) {
-            return $this->getJsonResponse(array(
+            return $this->getJsonResponse([
                 'status' => 'success',
-                'content' => $this->renderView('WealthbotRiaBundle:Models:_model_view.html.twig', array(
+                'content' => $this->renderView('WealthbotRiaBundle:Models:_model_view.html.twig', [
                     'form' => $form->createView(),
                     'portfolio_information' => $portfolioInfoManager->getPortfolioInformation($user, $model, $isQualified),
                     'is_use_qualified' => $isUseQualified,
                     'is_show_municipal_bond' => $riaCompanyInformation->getUseMunicipalBond(),
-                    'is_show_tax_loss_harvesting' => $riaCompanyInformation->getIsTaxLossHarvesting()
-                ))
-            ));
+                    'is_show_tax_loss_harvesting' => $riaCompanyInformation->getIsTaxLossHarvesting(),
+                ]),
+            ]);
         }
 
-        return $this->render('WealthbotRiaBundle:Models:view.html.twig', array(
-            'form'              => $form->createView(),
+        return $this->render('WealthbotRiaBundle:Models:view.html.twig', [
+            'form' => $form->createView(),
             'create_model_form' => $createModelForm->createView(),
-            'is_use_qualified'  => $isUseQualified,
-            'parent_model'      => $parentModel,
-            'models'            => $models,
+            'is_use_qualified' => $isUseQualified,
+            'parent_model' => $parentModel,
+            'models' => $models,
             'portfolio_information' => $portfolioInfoManager->getPortfolioInformation($user, $model, $isQualified),
             'is_show_municipal_bond' => $riaCompanyInformation->getUseMunicipalBond(),
-            'is_show_tax_loss_harvesting' => $riaCompanyInformation->getIsTaxLossHarvesting()
-        ));
+            'is_show_tax_loss_harvesting' => $riaCompanyInformation->getIsTaxLossHarvesting(),
+        ]);
     }
 
     public function modelsAction(Request $request)
@@ -144,7 +143,7 @@ class ModelsController extends Controller
         $model = $modelManager->findCeModelBySlugAndOwnerId($request->get('slug'), $user->getId());
         $models = $modelManager->getChildModels($parentModel);
 
-        if (!$parentModel || !$model || $model->getParent()->getId() != $parentModel->getId()) {
+        if (!$parentModel || !$model || $model->getParent()->getId() !== $parentModel->getId()) {
             throw $this->createNotFoundException('Model does not exist.');
         }
 
@@ -158,12 +157,12 @@ class ModelsController extends Controller
             }
         }
 
-        $data = array(
+        $data = [
             'is_use_qualified' => $isUseQualified,
             'parent_model' => $parentModel,
             'models' => $models,
-            'portfolio_information' => $portfolioInfoManager->getPortfolioInformation($user, $model, $isQualified)
-        );
+            'portfolio_information' => $portfolioInfoManager->getPortfolioInformation($user, $model, $isQualified),
+        ];
 
         return $this->render('WealthbotRiaBundle:Models:models.html.twig', $data);
     }
@@ -178,21 +177,21 @@ class ModelsController extends Controller
         $isUseQualified = $user->getRiaCompanyInformation()->isUseQualifiedModels();
         $parentModel = $user->getRiaCompanyInformation()->getPortfolioModel();
 
-        $portfoliosInformation = array();
+        $portfoliosInformation = [];
         foreach ($modelManager->getChildModels($parentModel) as $model) {
             $portfoliosInformation[] = $portfolioInformationManager->getPortfolioInformation($user, $model, $isUseQualified);
         }
 
-        $html = $this->renderView('WealthbotRiaBundle:Models:models.pdf.twig', array(
-            'portfolios_information' => $portfoliosInformation
-        ));
+        $html = $this->renderView('WealthbotRiaBundle:Models:models.pdf.twig', [
+            'portfolios_information' => $portfoliosInformation,
+        ]);
 
         return new Response(
             $this->get('knp_snappy.pdf')->getOutputFromHtml($html),
             200,
-            array(
-                'Content-Type' => 'application/pdf'
-            )
+            [
+                'Content-Type' => 'application/pdf',
+            ]
         );
     }
 
@@ -204,9 +203,9 @@ class ModelsController extends Controller
         $user = $this->getUser();
 
         /** @var CeModel $parentModel */
-        $parentModel  = $user->getRiaCompanyInformation()->getPortfolioModel();
+        $parentModel = $user->getRiaCompanyInformation()->getPortfolioModel();
         $modelManager = $this->get('wealthbot_admin.ce_model_manager');
-        $model        = $modelManager->createChild($parentModel);
+        $model = $modelManager->createChild($parentModel);
 
         $form = $this->createForm(new CeModelFormType($em, $user, $parentModel), $model);
         $formHandler = new CeModelFormHandler($form, $request, $em);
@@ -216,26 +215,27 @@ class ModelsController extends Controller
                 if ($request->isXmlHttpRequest()) {
                     $form = $this->createForm(new CeModelFormType($em, $user, $parentModel), $modelManager->createChild($parentModel));
 
-                    return $this->getJsonResponse(array(
-                        'form' => $this->renderView('WealthbotRiaBundle:Models:_create_model_form.html.twig', array(
+                    return $this->getJsonResponse([
+                        'form' => $this->renderView('WealthbotRiaBundle:Models:_create_model_form.html.twig', [
                             'form' => $form->createView(),
-                            'model_id' => $parentModel->getId()
-                        )),
-                        'models_list' => $this->renderView('WealthbotRiaBundle:Models:_models_list.html.twig', array(
-                            'models' => $modelManager->getChildModels($parentModel)
-                        ))
-                    ));
+                            'model_id' => $parentModel->getId(),
+                        ]),
+                        'models_list' => $this->renderView('WealthbotRiaBundle:Models:_models_list.html.twig', [
+                            'models' => $modelManager->getChildModels($parentModel),
+                        ]),
+                    ]);
                 }
+
                 return $this->redirect($this->generateUrl('rx_ria_models'));
             }
         }
 
-        return $this->render('WealthbotRiaBundle:Models:index.html.twig', array(
+        return $this->render('WealthbotRiaBundle:Models:index.html.twig', [
             'user' => $user,
             'model' => $parentModel,
-            'models' => $parentModel ? $modelManager->getChildModels($parentModel) : array(),
-            'form' => $form->createView()
-        ));
+            'models' => $parentModel ? $modelManager->getChildModels($parentModel) : [],
+            'form' => $form->createView(),
+        ]);
     }
 
     public function updateModelRiskAction(Request $request)
@@ -244,14 +244,14 @@ class ModelsController extends Controller
         $em = $this->get('doctrine.orm.entity_manager');
 
         $model = $em->getRepository('WealthbotAdminBundle:CeModel')->find($request->get('model_id'));
-        if (!$model || $model->getOwner()->getRia() != $this->getUser()) {
+        if (!$model || $model->getOwner()->getRia() !== $this->getUser()) {
             throw $this->createNotFoundException('Model does not exist.');
         }
 
         $form = $this->createForm(new ModelRiskRatingFormType());
 
         if ($request->isMethod('post')) {
-            $form->bind($request);
+            $form->handleRequest($request);
 
             if ($form->isValid()) {
                 $model = $form->getData();
@@ -274,10 +274,10 @@ class ModelsController extends Controller
         $parentModel = $user->getRiaCompanyInformation()->getPortfolioModel();
 
         if (!$parentModel) {
-            return $this->getJsonResponse(array(
+            return $this->getJsonResponse([
                 'status' => 'error',
-                'message' => 'Ria does not have models.'
-            ));
+                'message' => 'Ria does not have models.',
+            ]);
         }
 
         /** @var \Doctrine\ORM\EntityManager $em */
@@ -290,13 +290,13 @@ class ModelsController extends Controller
 
         $form = $this->createForm(new CeModelFormType($em, $user, $parentModel, true), $model);
 
-        return $this->getJsonResponse(array(
+        return $this->getJsonResponse([
             'status' => 'success',
-            'content' => $this->renderView('WealthbotRiaBundle:Models:_edit_form.html.twig', array(
+            'content' => $this->renderView('WealthbotRiaBundle:Models:_edit_form.html.twig', [
                 'form' => $form->createView(),
-                'model' => $model
-            ))
-        ));
+                'model' => $model,
+            ]),
+        ]);
     }
 
     public function saveAssumptionAction(Request $request)
@@ -307,10 +307,10 @@ class ModelsController extends Controller
         $parentModel = $user->getRiaCompanyInformation()->getPortfolioModel();
 
         if (!$parentModel) {
-            return $this->getJsonResponse(array(
+            return $this->getJsonResponse([
                 'status' => 'error',
-                'message' => 'Ria does not have models.'
-            ));
+                'message' => 'Ria does not have models.',
+            ]);
         }
 
         /** @var \Doctrine\ORM\EntityManager $em */
@@ -337,32 +337,32 @@ class ModelsController extends Controller
         }
 
         $form = $this->createForm(new CeModelFormType($em, $user, $parentModel, true), $model);
-        $formHandler = new CeModelFormHandler($form, $request, $em, array('is_show_assumption' => true));
+        $formHandler = new CeModelFormHandler($form, $request, $em, ['is_show_assumption' => true]);
 
         if ($formHandler->process()) {
-            return $this->getJsonResponse(array(
+            return $this->getJsonResponse([
                 'status' => 'success',
-                'models_list' => $this->renderView('WealthbotRiaBundle:Models:_models_list.html.twig', array(
+                'models_list' => $this->renderView('WealthbotRiaBundle:Models:_models_list.html.twig', [
                     'models' => $modelManager->getChildModels($parentModel),
-                    'active_model_id' => $model->getId()
-                )),
-                'model_view' => $this->renderView('WealthbotRiaBundle:Models:_model_view.html.twig', array(
+                    'active_model_id' => $model->getId(),
+                ]),
+                'model_view' => $this->renderView('WealthbotRiaBundle:Models:_model_view.html.twig', [
                     'portfolio_information' => $portfolioInfoManager->getPortfolioInformation($user, $model, $isQualified),
                     'form' => $this->createForm(new CeModelEntityFormType($model, $em, $user))->createView(),
                     'is_use_qualified' => $isUseQualified,
                     'is_show_municipal_bond' => $riaCompanyInformation->getUseMunicipalBond(),
-                    'is_show_tax_loss_harvesting' => $riaCompanyInformation->getIsTaxLossHarvesting()
-                ))
-            ));
+                    'is_show_tax_loss_harvesting' => $riaCompanyInformation->getIsTaxLossHarvesting(),
+                ]),
+            ]);
         }
 
-        return $this->getJsonResponse(array(
+        return $this->getJsonResponse([
             'status' => 'error',
-            'content' => $this->renderView('WealthbotRiaBundle:Models:_edit_form.html.twig', array(
+            'content' => $this->renderView('WealthbotRiaBundle:Models:_edit_form.html.twig', [
                 'form' => $form->createView(),
-                'model' => $model
-            ))
-        ));
+                'model' => $model,
+            ]),
+        ]);
     }
 
     public function deleteAction(Request $request)
@@ -378,37 +378,35 @@ class ModelsController extends Controller
         $model = $modelManager->findCeModelBySlugAndOwnerId($request->get('slug'), $user->getId());
 
         if ($model) {
-            $clientsWithModel =  $em->getRepository('WealthbotUserBundle:User')->getClientsWithModel($model->getId());
+            $clientsWithModel = $em->getRepository('WealthbotUserBundle:User')->getClientsWithModel($model->getId());
 
             if (empty($clientsWithModel)) {
                 $modelManager->deleteModel($model);
 
                 if ($request->isXmlHttpRequest()) {
-                    return $this->getJsonResponse(array(
-                        'status' => 'success'
-                    ));
+                    return $this->getJsonResponse([
+                        'status' => 'success',
+                    ]);
                 }
-
             } else {
-
                 if ($request->isXmlHttpRequest()) {
-                    return $this->getJsonResponse(array(
+                    return $this->getJsonResponse([
                         'status' => 'error',
-                        'error_message' => 'The model cannot be removed because used by clients.'
-                    ));
+                        'error_message' => 'The model cannot be removed because used by clients.',
+                    ]);
                 }
 
-                $this->get('session')->setFlash('error', 'The model cannot be removed because used by clients.');
+                $this->get('session')->getFlashBag()->add('error', 'The model cannot be removed because used by clients.');
 
                 return $this->redirect($this->generateUrl('rx_ria_models'));
             }
         }
 
         if ($request->isXmlHttpRequest()) {
-            return $this->getJsonResponse(array(
+            return $this->getJsonResponse([
                 'status' => 'error',
-                'error_message' => 'Model does not exists'
-            ));
+                'error_message' => 'Model does not exists',
+            ]);
         }
 
         return $this->redirect($this->generateUrl('rx_ria_models'));
@@ -422,7 +420,7 @@ class ModelsController extends Controller
         $ceModelEntity = null;
         if ($request->get('model_entity_id')) {
             $ceModelEntity = $em->getRepository('WealthbotAdminBundle:CeModelEntity')->find($request->get('model_entity_id'));
-            if (!$ceModelEntity || $ceModelEntity->getModel()->getOwner()->getRia() != $this->getUser()) {
+            if (!$ceModelEntity || $ceModelEntity->getModel()->getOwner()->getRia() !== $this->getUser()) {
                 throw $this->createNotFoundException();
             }
         }
@@ -434,10 +432,10 @@ class ModelsController extends Controller
         $model = $modelManager->findCeModelBySlugAndOwnerId($request->get('slug'), $ria->getId());
 
         if (!$model) {
-            $result = array(
+            $result = [
                 'status' => 'error',
-                'message' => 'Portfolio Model object does not exist.'
-            );
+                'message' => 'Portfolio Model object does not exist.',
+            ];
 
             return $this->getJsonResponse($result);
         }
@@ -446,12 +444,12 @@ class ModelsController extends Controller
 
         $form = $this->createForm(new CeModelEntityFormType($model, $em, $ria, $isQualifiedModel), $ceModelEntity);
 
-        $form->bind($request);
+        $form->handleRequest($request);
 
-        $result = array(
+        $result = [
             'status' => 'success',
-            'content' => $this->renderView('WealthbotRiaBundle:Models:_entity_form_fields.html.twig', array('form' => $form->createView()))
-        );
+            'content' => $this->renderView('WealthbotRiaBundle:Models:_entity_form_fields.html.twig', ['form' => $form->createView()]),
+        ];
 
         return $this->getJsonResponse($result);
     }
@@ -469,9 +467,9 @@ class ModelsController extends Controller
         /** @var RiaCompanyInformation $riaCompanyInformation */
         $riaCompanyInformation = $user->getRiaCompanyInformation();
         $parentModel = $riaCompanyInformation->getPortfolioModel();
-        $model = $modelManager->findCeModelBySlugAndOwnerId($request->get('slug'), $user->getId());;
+        $model = $modelManager->findCeModelBySlugAndOwnerId($request->get('slug'), $user->getId());
 
-        if (!$parentModel || !$model || $parentModel->getId() != $model->getParentId() || !$request->isXmlHttpRequest()) {
+        if (!$parentModel || !$model || $parentModel->getId() !== $model->getParentId() || !$request->isXmlHttpRequest()) {
             throw $this->createNotFoundException();
         }
 
@@ -479,38 +477,37 @@ class ModelsController extends Controller
 
         $modelEntity = new CeModelEntity();
         $form = $this->createForm(new CeModelEntityFormType($model, $em, $user, $isQualifiedModel), $modelEntity);
-        $formHandler = new CeModelEntityFormHandler($form, $request, $em, array(
+        $formHandler = new CeModelEntityFormHandler($form, $request, $em, [
             'model' => $model,
-            'is_qualified' => $this->getIsQualifiedModel()
-        ));
+            'is_qualified' => $this->getIsQualifiedModel(),
+        ]);
 
         if ($formHandler->process()) {
             $newForm = $this->createForm(new CeModelEntityFormType($model, $em, $user, $isQualifiedModel));
 
-            $result = array(
+            $result = [
                 'status' => 'success',
-                'form' => $this->renderView('WealthbotRiaBundle:Models:_entity_form.html.twig', array(
+                'form' => $this->renderView('WealthbotRiaBundle:Models:_entity_form.html.twig', [
                     'form' => $newForm->createView(),
-                    'model' => $model
-                )),
-                'content' => $this->renderView('WealthbotRiaBundle:Models:_entity_row.html.twig', array(
+                    'model' => $model,
+                ]),
+                'content' => $this->renderView('WealthbotRiaBundle:Models:_entity_row.html.twig', [
                     'modelEntity' => $modelEntity,
                     'is_show_municipal_bond' => $riaCompanyInformation->getUseMunicipalBond(),
-                    'is_show_tax_loss_harvesting' => $riaCompanyInformation->getIsTaxLossHarvesting()
-                ))
-            );
+                    'is_show_tax_loss_harvesting' => $riaCompanyInformation->getIsTaxLossHarvesting(),
+                ]),
+            ];
 
             return $this->getJsonResponse($result);
-
         }
 
-        $result = array(
+        $result = [
             'status' => 'error',
-            'form' => $this->renderView('WealthbotRiaBundle:Models:_entity_form.html.twig', array(
+            'form' => $this->renderView('WealthbotRiaBundle:Models:_entity_form.html.twig', [
                 'form' => $form->createView(),
-                'model' => $model
-            ))
-        );
+                'model' => $model,
+            ]),
+        ];
 
         return $this->getJsonResponse($result);
     }
@@ -523,7 +520,7 @@ class ModelsController extends Controller
         /** @var $modelManager CeModelManager */
         $modelManager = $this->get('wealthbot_admin.ce_model_manager');
 
-        if($request->get('is_qualified', null) !== null){
+        if ($request->get('is_qualified', null) !== null) {
             $this->setIsQualifiedModel($request->get('is_qualified'));
         }
 
@@ -532,24 +529,23 @@ class ModelsController extends Controller
         $riaCompanyInformation = $user->getRiaCompanyInformation();
         $model = $modelManager->findCeModelBySlugAndOwnerId($request->get('slug'), $user->getId());
 
-        if($riaCompanyInformation->getIsUseQualifiedModels()){
-
+        if ($riaCompanyInformation->getIsUseQualifiedModels()) {
             $isQualified = $this->getIsQualifiedModel();
-            $modelEntities = $em->getRepository('WealthbotAdminBundle:CeModelEntity')->findBy(array(
+            $modelEntities = $em->getRepository('WealthbotAdminBundle:CeModelEntity')->findBy([
                 'modelId' => $model->getId(),
-                'isQualified'       => $isQualified
-            ));
+                'isQualified' => $isQualified,
+            ]);
         } else {
-            $modelEntities = $em->getRepository('WealthbotAdminBundle:CeModelEntity')->findBy(array(
-                'modelId' => $model->getId()
-            ));
+            $modelEntities = $em->getRepository('WealthbotAdminBundle:CeModelEntity')->findBy([
+                'modelId' => $model->getId(),
+            ]);
         }
 
-        return $this->render('WealthbotRiaBundle:Models:entities_view.html.twig', array(
+        return $this->render('WealthbotRiaBundle:Models:entities_view.html.twig', [
             'modelEntities' => $modelEntities,
             'is_show_municipal_bond' => $riaCompanyInformation->getUseMunicipalBond(),
-            'is_show_tax_loss_harvesting' => $riaCompanyInformation->getIsTaxLossHarvesting()
-        ));
+            'is_show_tax_loss_harvesting' => $riaCompanyInformation->getIsTaxLossHarvesting(),
+        ]);
     }
 
     public function editModelsAssumptionAction(Request $request)
@@ -559,10 +555,10 @@ class ModelsController extends Controller
 
         /** @var $parentModel CeModel */
         $parentModel = $em->getRepository('WealthbotAdminBundle:CeModel')->find($request->get('model_id'));
-        if (!$parentModel || $parentModel->getOwner()->getRia() != $this->getUser()) {
-            return $this->getJsonResponse(array(
+        if (!$parentModel || $parentModel->getOwner()->getRia() !== $this->getUser()) {
+            return $this->getJsonResponse([
                 'status' => 'error',
-            ));
+            ]);
         }
 
         $form = $this->createForm(new ModelAssumptionFormType($em), $parentModel);
@@ -570,32 +566,32 @@ class ModelsController extends Controller
         if ($request->isMethod('post')) {
             $formHandler = new ModelAssumptionFormHandler($form, $request, $em);
             if ($formHandler->process()) {
-                return $this->getJsonResponse(array(
+                return $this->getJsonResponse([
                     'status' => 'success',
-                ));
+                ]);
             }
 
-            return $this->getJsonResponse(array(
+            return $this->getJsonResponse([
                 'status' => 'error',
-                'content' => $this->renderView('WealthbotAdminBundle:Model:_third_party_model_edit_model_assumption_form.html.twig', array(
+                'content' => $this->renderView('WealthbotAdminBundle:Model:_third_party_model_edit_model_assumption_form.html.twig', [
                     'form' => $form->createView(),
-                    'action_url' => $this->generateUrl('rx_ria_models_edit_models_assumption', array(
+                    'action_url' => $this->generateUrl('rx_ria_models_edit_models_assumption', [
                         'model_id' => $parentModel->getId(),
-                    ))
-                ))
-            ));
+                    ]),
+                ]),
+            ]);
         }
 
-        return $this->getJsonResponse(array(
+        return $this->getJsonResponse([
             'status' => 'success',
-            'content' => $this->renderView('WealthbotAdminBundle:Model:_third_party_model_edit_model_assumption_form.html.twig', array(
+            'content' => $this->renderView('WealthbotAdminBundle:Model:_third_party_model_edit_model_assumption_form.html.twig', [
                 'form' => $form->createView(),
-                'action_url' => $this->generateUrl('rx_ria_models_edit_models_assumption', array(
-                        'model_id' => $parentModel->getId()
-                    )
-                )
-            ))
-        ));
+                'action_url' => $this->generateUrl('rx_ria_models_edit_models_assumption', [
+                        'model_id' => $parentModel->getId(),
+                    ]
+                ),
+            ]),
+        ]);
     }
 
     public function editModelAssumptionAction(Request $request)
@@ -605,47 +601,46 @@ class ModelsController extends Controller
 
         $model = $em->getRepository('WealthbotAdminBundle:CeModel')->find($request->get('model_id'));
 
-        if (!$model || $model->getOwner()->getRia() != $this->getUser()) {
-            return $this->getJsonResponse(array(
+        if (!$model || $model->getOwner()->getRia() !== $this->getUser()) {
+            return $this->getJsonResponse([
                 'status' => 'error',
-            ));
+            ]);
         }
 
         $form = $this->createForm(new ModelAssumptionFormType($em), $model);
 
         if ($request->isMethod('post')) {
-
             $formHandler = new ModelAssumptionFormHandler($form, $request, $em);
 
             if ($formHandler->process()) {
-                return $this->getJsonResponse(array(
+                return $this->getJsonResponse([
                     'status' => 'success',
-                    'redirect_url' => $this->generateUrl('rx_ria_models', array(), true)
-                ));
+                    'redirect_url' => $this->generateUrl('rx_ria_models', [], true),
+                ]);
             }
 
-            return $this->getJsonResponse(array(
+            return $this->getJsonResponse([
                 'status' => 'error',
-                'content' => $this->renderView('WealthbotAdminBundle:Model:_third_party_model_edit_model_assumption_form.html.twig', array(
+                'content' => $this->renderView('WealthbotAdminBundle:Model:_third_party_model_edit_model_assumption_form.html.twig', [
                     'form' => $form->createView(),
-                    'action_url' => $this->generateUrl('rx_ria_models_edit_model_assumption', array(
-                            'model_id' => $model->getId()
-                        )
-                    )
-                ))
-            ));
+                    'action_url' => $this->generateUrl('rx_ria_models_edit_model_assumption', [
+                            'model_id' => $model->getId(),
+                        ]
+                    ),
+                ]),
+            ]);
         }
 
-        return $this->getJsonResponse(array(
+        return $this->getJsonResponse([
             'status' => 'success',
-            'content' => $this->renderView('WealthbotAdminBundle:Model:_third_party_model_edit_model_assumption_form.html.twig', array(
+            'content' => $this->renderView('WealthbotAdminBundle:Model:_third_party_model_edit_model_assumption_form.html.twig', [
                 'form' => $form->createView(),
-                'action_url' => $this->generateUrl('rx_ria_models_edit_model_assumption', array(
-                        'model_id' => $model->getId()
-                    )
-                )
-            ))
-        ));
+                'action_url' => $this->generateUrl('rx_ria_models_edit_model_assumption', [
+                        'model_id' => $model->getId(),
+                    ]
+                ),
+            ]),
+        ]);
     }
 
     public function deleteEntityAction(Request $request)
@@ -664,26 +659,26 @@ class ModelsController extends Controller
         /** @var $modelEntity CeModelEntity */
         $modelEntity = $em->getRepository('WealthbotAdminBundle:CeModelEntity')->find($request->get('id'));
         if (!$modelEntity) {
-            return $this->getJsonResponse(array(
+            return $this->getJsonResponse([
                 'status' => 'error',
-                'message' => 'Model Entity with id: ' . $request->get('id') . ' does not exist.'
-            ));
+                'message' => 'Model Entity with id: '.$request->get('id').' does not exist.',
+            ]);
         }
 
         /** @var $model CeModel */
         $model = $modelEntity->getModel();
 
-        if ($parentModel->getId() != $model->getParentId()) {
-            return $this->getJsonResponse(array(
+        if ($parentModel->getId() !== $model->getParentId()) {
+            return $this->getJsonResponse([
                 'status' => 'error',
-                'message' => 'You can not delete this model entity.'
-            ));
+                'message' => 'You can not delete this model entity.',
+            ]);
         }
 
         $em->remove($modelEntity);
         $em->flush();
 
-        return $this->getJsonResponse(array('status' => 'success'));
+        return $this->getJsonResponse(['status' => 'success']);
     }
 
     public function editEntityAction(Request $request)
@@ -707,70 +702,67 @@ class ModelsController extends Controller
         /** @var $modelEntity CeModelEntity */
         $modelEntity = $em->getRepository('WealthbotAdminBundle:CeModelEntity')->find($request->get('id'));
         if (!$modelEntity) {
-            return $this->getJsonResponse(array(
+            return $this->getJsonResponse([
                 'status' => 'error',
-                'message' => 'Model Entity with id: ' . $request->get('id') . ' does not exist.'
-            ));
+                'message' => 'Model Entity with id: '.$request->get('id').' does not exist.',
+            ]);
         }
 
         if (!$this->isCanEditEntity($modelEntity)) {
-            return $this->getJsonResponse(array(
+            return $this->getJsonResponse([
                 'status' => 'error',
-                'message' => 'You can not edit this model entity.'
-            ));
+                'message' => 'You can not edit this model entity.',
+            ]);
         }
 
         $model = $modelEntity->getModel();
-        if ($model->getParentId() != $parentModel->getId()) {
-            return $this->getJsonResponse(array(
+        if ($model->getParentId() !== $parentModel->getId()) {
+            return $this->getJsonResponse([
                 'status' => 'error',
-                'message' => 'You can not edit this model entity.'
-            ));
+                'message' => 'You can not edit this model entity.',
+            ]);
         }
 
         $isQualifiedModel = $this->getIsQualifiedModel();
 
         $form = $this->createForm(new CeModelEntityFormType($model, $em, $user, $isQualifiedModel), $modelEntity);
 
-
         if ($request->isMethod('post')) {
-
             $formHandler = new CeModelEntityFormHandler($form, $request, $em);
 
             if ($formHandler->process()) {
-
                 $form = $this->createForm(new CeModelEntityFormType($model, $em, $user, $isQualifiedModel));
 
-                return $this->getJsonResponse(array(
+                return $this->getJsonResponse([
                     'status' => 'success',
-                    'form' => $this->renderView('WealthbotRiaBundle:Models:_entity_form.html.twig', array(
+                    'form' => $this->renderView('WealthbotRiaBundle:Models:_entity_form.html.twig', [
                         'form' => $form->createView(),
-                        'model' => $model
-                    )),
-                    'content' => $this->renderView('WealthbotRiaBundle:Models:_entity_row.html.twig', array(
+                        'model' => $model,
+                    ]),
+                    'content' => $this->renderView('WealthbotRiaBundle:Models:_entity_row.html.twig', [
                         'modelEntity' => $modelEntity,
                         'is_show_municipal_bond' => $riaCompanyInformation->getUseMunicipalBond(),
-                        'is_show_tax_loss_harvesting' => $riaCompanyInformation->getIsTaxLossHarvesting()
-                    ))
-                ));
+                        'is_show_tax_loss_harvesting' => $riaCompanyInformation->getIsTaxLossHarvesting(),
+                    ]),
+                ]);
             }
 
-            return $this->getJsonResponse(array(
+            return $this->getJsonResponse([
                 'status' => 'error',
-                'form' => $this->renderView('WealthbotRiaBundle:Models:_edit_entity_form.html.twig', array(
+                'form' => $this->renderView('WealthbotRiaBundle:Models:_edit_entity_form.html.twig', [
                     'form' => $form->createView(),
-                    'modelEntity' => $modelEntity
-                )),
-            ));
+                    'modelEntity' => $modelEntity,
+                ]),
+            ]);
         }
 
-        return $this->getJsonResponse(array(
+        return $this->getJsonResponse([
             'status' => 'success',
-            'form' => $this->renderView('WealthbotRiaBundle:Models:_edit_entity_form.html.twig', array(
+            'form' => $this->renderView('WealthbotRiaBundle:Models:_edit_entity_form.html.twig', [
                 'form' => $form->createView(),
-                'modelEntity' => $modelEntity
-            )),
-        ));
+                'modelEntity' => $modelEntity,
+            ]),
+        ]);
     }
 
     public function riskAdjustmentAction(Request $request)
@@ -785,13 +777,13 @@ class ModelsController extends Controller
         $model = $companyInformation->getPortfolioModel();
 
         $portfolioModels = $modelManager->findCeModelsBy(
-            array('parentId' => $model->getId(), 'ownerId' => $user->getId(), 'isDeleted' => 0)
+            ['parentId' => $model->getId(), 'ownerId' => $user->getId(), 'isDeleted' => 0]
         );
 
         $form = $this->createForm(new RiskAdjustmentFormType($portfolioModels));
 
         if ($request->isMethod('post')) {
-            $form->bind($request);
+            $form->handleRequest($request);
 
             if ($form->isValid()) {
                 $data = $form->getData();
@@ -804,11 +796,11 @@ class ModelsController extends Controller
             }
         }
 
-        return $this->render('WealthbotRiaBundle:Models:risk_adjustment.html.twig', array(
+        return $this->render('WealthbotRiaBundle:Models:risk_adjustment.html.twig', [
             'form' => $form->createView(),
             'max_rating' => 99,
-            'is_custom' => $model->isCustom()
-        ));
+            'is_custom' => $model->isCustom(),
+        ]);
     }
 
     protected function isCanEditEntity(CeModelEntityInterface $modelEntity)
@@ -822,9 +814,9 @@ class ModelsController extends Controller
         }
 
         $interval = $nowDate->diff($updated);
-        $yearDiff = (int)$interval->format('%y%');
+        $yearDiff = (int) $interval->format('%y%');
 
-        if ($yearDiff == 0 && $nbEdits < 2) {
+        if ($yearDiff === 0 && $nbEdits < 2) {
             return true;
         }
 
@@ -834,7 +826,6 @@ class ModelsController extends Controller
             return true;
         }
 
-
         return false;
     }
 
@@ -842,28 +833,31 @@ class ModelsController extends Controller
     {
         $response = json_encode($data);
 
-        return new Response($response, $code, array('Content-Type' => 'application/json'));
+        return new Response($response, $code, ['Content-Type' => 'application/json']);
     }
 
     /**
-     * Set what type of models RIA will be used (qualified or non-qualified)
+     * Set what type of models RIA will be used (qualified or non-qualified).
+     *
      * @param bool $value
      */
     protected function setIsQualifiedModel($value)
     {
         /** @var Session $session */
         $session = $this->get('session');
-        $session->set('models.is_qualified', (bool)$value);
+        $session->set('models.is_qualified', (bool) $value);
     }
 
     /**
-     * Set what type of models RIA will be used (qualified or non-qualified)
+     * Set what type of models RIA will be used (qualified or non-qualified).
+     *
      * @return bool
      */
     protected function getIsQualifiedModel()
     {
         /** @var Session $session */
         $session = $this->get('session');
-        return (bool)$session->get('models.is_qualified', false);
+
+        return (bool) $session->get('models.is_qualified', false);
     }
 }

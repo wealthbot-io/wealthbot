@@ -1,11 +1,11 @@
 <?php
+
 namespace Wealthbot\ClientBundle\Form\Handler;
 
-use Doctrine\ORM\Tools\Export\ExportException;
 use Wealthbot\AdminBundle\Entity\Security;
+use Wealthbot\AdminBundle\Entity\SecurityAssignment;
 use Wealthbot\AdminBundle\Exception\DataAlreadyExistsException;
 use Wealthbot\ClientBundle\Entity\ClientAccount;
-use Wealthbot\AdminBundle\Entity\SecurityAssignment;
 use Wealthbot\UserBundle\Entity\User;
 
 class OutsideFundFormHandler extends AbstractOutsideFundFormHandler
@@ -14,8 +14,9 @@ class OutsideFundFormHandler extends AbstractOutsideFundFormHandler
      * @Deprecated
      * Create new securityAssignment
      *
-     * @param \Wealthbot\UserBundle\Entity\User $ria
+     * @param \Wealthbot\UserBundle\Entity\User      $ria
      * @param \Wealthbot\AdminBundle\Entity\Security $security
+     *
      * @return SecurityAssignment
      */
     protected function createSecurity(User $ria, Security $security)
@@ -33,10 +34,11 @@ class OutsideFundFormHandler extends AbstractOutsideFundFormHandler
     }
 
     /**
-     * Update securityAssignment object. Return updated object
+     * Update securityAssignment object. Return updated object.
      *
      * @param SecurityAssignment $securityAssignment
-     * @param Security $security
+     * @param Security           $security
+     *
      * @return SecurityAssignment
      */
     protected function updateSecurity(SecurityAssignment $securityAssignment, Security $security = null)
@@ -45,19 +47,21 @@ class OutsideFundFormHandler extends AbstractOutsideFundFormHandler
     }
 
     /**
-     * Check account outside fund and create new if does not exist
+     * Check account outside fund and create new if does not exist.
      *
-     * @param ClientAccount $account
+     * @param ClientAccount      $account
      * @param SecurityAssignment $securityAssignment
-     * @param bool $isPreferred
+     * @param bool               $isPreferred
+     *
      * @return mixed|void
+     *
      * @throws \Wealthbot\AdminBundle\Exception\DataAlreadyExistsException
      */
     protected function checkAccountAssociation(ClientAccount $account, SecurityAssignment $securityAssignment, $isPreferred)
     {
         if ($this->existAccountAssociation($account->getId(), $securityAssignment->getId())) {
             throw new DataAlreadyExistsException(sprintf(
-                "SecurityAssignment with id: %s already exist for client account with id: %s",
+                'SecurityAssignment with id: %s already exist for client account with id: %s',
                 $securityAssignment->getId(),
                 $account->getId()
             ));
@@ -65,6 +69,4 @@ class OutsideFundFormHandler extends AbstractOutsideFundFormHandler
 
         $this->createAccountAssociation($account, $securityAssignment, $isPreferred);
     }
-
-
 }

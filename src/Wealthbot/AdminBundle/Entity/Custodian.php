@@ -2,15 +2,13 @@
 
 namespace Wealthbot\AdminBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-
 /**
- * Custodian
+ * Custodian.
  */
 class Custodian
 {
     /**
-     * @var integer
+     * @var int
      */
     private $id;
 
@@ -24,11 +22,10 @@ class Custodian
      */
     private $email;
 
-
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer 
+     * @return int
      */
     public function getId()
     {
@@ -36,22 +33,23 @@ class Custodian
     }
 
     /**
-     * Set name
+     * Set name.
      *
      * @param string $name
+     *
      * @return Custodian
      */
     public function setName($name)
     {
         $this->name = $name;
-    
+
         return $this;
     }
 
     /**
-     * Get name
+     * Get name.
      *
-     * @return string 
+     * @return string
      */
     public function getName()
     {
@@ -59,22 +57,23 @@ class Custodian
     }
 
     /**
-     * Set email
+     * Set email.
      *
      * @param string $email
+     *
      * @return Custodian
      */
     public function setEmail($email)
     {
         $this->email = $email;
-    
+
         return $this;
     }
 
     /**
-     * Get email
+     * Get email.
      *
-     * @return string 
+     * @return string
      */
     public function getEmail()
     {
@@ -86,28 +85,29 @@ class Custodian
     private $custodianDocuments;
 
     /**
-     * Constructor
+     * Constructor.
      */
     public function __construct()
     {
         $this->custodianDocuments = new \Doctrine\Common\Collections\ArrayCollection();
     }
-    
+
     /**
-     * Add custodianDocuments
+     * Add custodianDocuments.
      *
      * @param \Wealthbot\UserBundle\Entity\Document $custodianDocuments
+     *
      * @return Custodian
      */
     public function addCustodianDocument(\Wealthbot\UserBundle\Entity\Document $custodianDocuments)
     {
         $this->custodianDocuments[] = $custodianDocuments;
-    
+
         return $this;
     }
 
     /**
-     * Remove custodianDocuments
+     * Remove custodianDocuments.
      *
      * @param \Wealthbot\UserBundle\Entity\Document $custodianDocuments
      */
@@ -117,9 +117,9 @@ class Custodian
     }
 
     /**
-     * Get custodianDocuments
+     * Get custodianDocuments.
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getCustodianDocuments()
     {
@@ -130,11 +130,11 @@ class Custodian
      */
     private $advisorCodes;
 
-
     /**
-     * Add advisorCodes
+     * Add advisorCodes.
      *
      * @param \Wealthbot\RiaBundle\Entity\AdvisorCode $advisorCodes
+     *
      * @return Custodian
      */
     public function addAdvisorCode(\Wealthbot\RiaBundle\Entity\AdvisorCode $advisorCodes)
@@ -145,7 +145,7 @@ class Custodian
     }
 
     /**
-     * Remove advisorCodes
+     * Remove advisorCodes.
      *
      * @param \Wealthbot\RiaBundle\Entity\AdvisorCode $advisorCodes
      */
@@ -155,9 +155,9 @@ class Custodian
     }
 
     /**
-     * Get advisorCodes
+     * Get advisorCodes.
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getAdvisorCodes()
     {

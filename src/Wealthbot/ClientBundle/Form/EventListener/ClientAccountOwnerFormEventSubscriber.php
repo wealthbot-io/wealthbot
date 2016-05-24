@@ -9,21 +9,18 @@
 
 namespace Wealthbot\ClientBundle\Form\EventListener;
 
-
 use Doctrine\ORM\EntityManager;
-use Wealthbot\ClientBundle\Entity\ClientAccount;
-use Wealthbot\ClientBundle\Entity\ClientAccountOwner;
-use Wealthbot\ClientBundle\Form\Type\OtherAccountOwnerFormType;
-use Wealthbot\ClientBundle\Model\AccountGroup;
-use Wealthbot\ClientBundle\Model\ClientAdditionalContact;
-use Wealthbot\ClientBundle\Repository\ClientAccountOwnerRepository;
-use Wealthbot\UserBundle\Entity\User;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
+use Wealthbot\ClientBundle\Entity\ClientAccountOwner;
+use Wealthbot\ClientBundle\Form\Type\OtherAccountOwnerFormType;
+use Wealthbot\ClientBundle\Model\ClientAdditionalContact;
+use Wealthbot\ClientBundle\Repository\ClientAccountOwnerRepository;
+use Wealthbot\UserBundle\Entity\User;
 
 class ClientAccountOwnerFormEventSubscriber implements EventSubscriberInterface
 {
@@ -37,16 +34,16 @@ class ClientAccountOwnerFormEventSubscriber implements EventSubscriberInterface
         $this->factory = $factory;
         $this->client = $client;
         $this->em = $em;
-        $this->isJoint = (boolean)$isJoint;
+        $this->isJoint = (boolean) $isJoint;
     }
 
     public static function getSubscribedEvents()
     {
-        return array(
+        return [
             FormEvents::PRE_SET_DATA => 'preSetData',
-            FormEvents::PRE_BIND     => 'preBind',
-            FormEvents::BIND         => 'bind'
-        );
+            FormEvents::PRE_SUBMIT => 'preBind',
+            FormEvents::SUBMIT => 'bind',
+        ];
     }
 
     public function preSetData(FormEvent $event)
@@ -91,22 +88,23 @@ class ClientAccountOwnerFormEventSubscriber implements EventSubscriberInterface
                 unset($choices['spouse']);
             }
 
-            $form->add($this->factory->createNamed('owner_types', 'choice', null, array(
+            $form->add($this->factory->createNamed('owner_types', 'choice', null, [
                 'mapped' => false,
                 'choices' => $choices,
                 'expanded' => true,
-                'multiple' => true
-            )));
-
+                'multiple' => true,
+                'auto_initialize' => false
+            ]));
         } else {
             unset($choices['other']);
 
-            $form->add($this->factory->createNamed('owner_types', 'choice', null, array(
+            $form->add($this->factory->createNamed('owner_types', 'choice', null, [
                 'mapped' => false,
+                'auto_initialize' => false,
                 'choices' => $choices,
                 'expanded' => true,
-                'multiple' => false
-            )));
+                'multiple' => false,
+            ]));
         }
     }
 

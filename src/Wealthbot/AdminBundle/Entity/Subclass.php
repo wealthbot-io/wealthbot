@@ -3,30 +3,29 @@
 namespace Wealthbot\AdminBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Wealthbot\AdminBundle\Entity\Subclass
+ * Wealthbot\AdminBundle\Entity\Subclass.
  */
 class Subclass
 {
     /**
-     * @var integer $id
+     * @var int
      */
     private $id;
 
     /**
-     * @var string $name
+     * @var string
      */
     private $name;
 
     /**
-     * @var float $expected_performance
+     * @var float
      */
     private $expected_performance;
 
     /**
-     * @var integer $asset_class_id
+     * @var int
      */
     private $asset_class_id;
 
@@ -36,7 +35,7 @@ class Subclass
     private $assetClass;
 
     /**
-     * @var integer $account_type_id
+     * @var int
      */
     private $account_type_id;
 
@@ -46,12 +45,12 @@ class Subclass
     private $accountType;
 
     /**
-     * @var integer
+     * @var int
      */
     private $owner_id;
 
     /**
-     * @var integer
+     * @var int
      */
     private $source_id;
 
@@ -76,7 +75,7 @@ class Subclass
     private $securityAssignments;
 
     /**
-     * @var integer
+     * @var int
      */
     private $priority;
 
@@ -86,13 +85,12 @@ class Subclass
     private $ceModelEntities;
 
     /**
-     * @var integer
+     * @var int
      */
     private $tolerance_band;
 
-
     /**
-     * Constructor
+     * Constructor.
      */
     public function __construct()
     {
@@ -105,9 +103,9 @@ class Subclass
     }
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer 
+     * @return int
      */
     public function getId()
     {
@@ -115,22 +113,23 @@ class Subclass
     }
 
     /**
-     * Set name
+     * Set name.
      *
      * @param string $name
+     *
      * @return Subclass
      */
     public function setName($name)
     {
         $this->name = $name;
-    
+
         return $this;
     }
 
     /**
-     * Get name
+     * Get name.
      *
-     * @return string 
+     * @return string
      */
     public function getName()
     {
@@ -138,20 +137,21 @@ class Subclass
     }
 
     /**
-     * Set expected_performance
+     * Set expected_performance.
      *
      * @param float $expectedPerformance
+     *
      * @return Subclass
      */
     public function setExpectedPerformance($expectedPerformance)
     {
         $this->expected_performance = $expectedPerformance;
-    
+
         return $this;
     }
 
     /**
-     * Get expected_performance
+     * Get expected_performance.
      *
      * @return float
      */
@@ -159,24 +159,25 @@ class Subclass
     {
         return $this->expected_performance;
     }
-    
+
     /**
-     * Set asset_class_id
+     * Set asset_class_id.
      *
-     * @param integer $assetClassId
+     * @param int $assetClassId
+     *
      * @return Subclass
      */
     public function setAssetClassId($assetClassId)
     {
         $this->asset_class_id = $assetClassId;
-    
+
         return $this;
     }
 
     /**
-     * Get asset_class_id
+     * Get asset_class_id.
      *
-     * @return integer 
+     * @return int
      */
     public function getAssetClassId()
     {
@@ -184,20 +185,21 @@ class Subclass
     }
 
     /**
-     * Set assetClass
+     * Set assetClass.
      *
      * @param \Wealthbot\AdminBundle\Entity\AssetClass $assetClass
+     *
      * @return Subclass
      */
     public function setAssetClass(\Wealthbot\AdminBundle\Entity\AssetClass $assetClass = null)
     {
         $this->assetClass = $assetClass;
-    
+
         return $this;
     }
 
     /**
-     * Get assetClass
+     * Get assetClass.
      *
      * @return \Wealthbot\AdminBundle\Entity\AssetClass
      */
@@ -207,22 +209,23 @@ class Subclass
     }
 
     /**
-     * Set account_type_id
+     * Set account_type_id.
      *
-     * @param integer $accountTypeId
+     * @param int $accountTypeId
+     *
      * @return Subclass
      */
     public function setAccountTypeId($accountTypeId)
     {
         $this->account_type_id = $accountTypeId;
-    
+
         return $this;
     }
 
     /**
-     * Get account_type_id
+     * Get account_type_id.
      *
-     * @return integer 
+     * @return int
      */
     public function getAccountTypeId()
     {
@@ -230,20 +233,21 @@ class Subclass
     }
 
     /**
-     * Set accountType
+     * Set accountType.
      *
      * @param \Wealthbot\RiaBundle\Entity\SubclassAccountType $accountType
+     *
      * @return Subclass
      */
     public function setAccountType(\Wealthbot\RiaBundle\Entity\SubclassAccountType $accountType = null)
     {
         $this->accountType = $accountType;
-    
+
         return $this;
     }
 
     /**
-     * Get accountType
+     * Get accountType.
      *
      * @return \Wealthbot\RiaBundle\Entity\SubclassAccountType
      */
@@ -253,22 +257,23 @@ class Subclass
     }
 
     /**
-     * Set owner_id
+     * Set owner_id.
      *
-     * @param integer $ownerId
+     * @param int $ownerId
+     *
      * @return Subclass
      */
     public function setOwnerId($ownerId)
     {
         $this->owner_id = $ownerId;
-    
+
         return $this;
     }
 
     /**
-     * Get owner_id
+     * Get owner_id.
      *
-     * @return integer 
+     * @return int
      */
     public function getOwnerId()
     {
@@ -276,22 +281,23 @@ class Subclass
     }
 
     /**
-     * Set source_id
+     * Set source_id.
      *
-     * @param integer $sourceId
+     * @param int $sourceId
+     *
      * @return Subclass
      */
     public function setSourceId($sourceId)
     {
         $this->source_id = $sourceId;
-    
+
         return $this;
     }
 
     /**
-     * Get source_id
+     * Get source_id.
      *
-     * @return integer 
+     * @return int
      */
     public function getSourceId()
     {
@@ -299,22 +305,23 @@ class Subclass
     }
 
     /**
-     * Set owner
+     * Set owner.
      *
      * @param \Wealthbot\UserBundle\Entity\User $owner
+     *
      * @return Subclass
      */
     public function setOwner(\Wealthbot\UserBundle\Entity\User $owner = null)
     {
         $this->owner = $owner;
-    
+
         return $this;
     }
 
     /**
-     * Get owner
+     * Get owner.
      *
-     * @return \Wealthbot\UserBundle\Entity\User 
+     * @return \Wealthbot\UserBundle\Entity\User
      */
     public function getOwner()
     {
@@ -322,22 +329,23 @@ class Subclass
     }
 
     /**
-     * Set source
+     * Set source.
      *
      * @param \Wealthbot\AdminBundle\Entity\Subclass $source
+     *
      * @return Subclass
      */
     public function setSource(\Wealthbot\AdminBundle\Entity\Subclass $source = null)
     {
         $this->source = $source;
-    
+
         return $this;
     }
 
     /**
-     * Get source
+     * Get source.
      *
-     * @return \Wealthbot\AdminBundle\Entity\Subclass 
+     * @return \Wealthbot\AdminBundle\Entity\Subclass
      */
     public function getSource()
     {
@@ -345,20 +353,21 @@ class Subclass
     }
 
     /**
-     * Add targets
+     * Add targets.
      *
      * @param \Wealthbot\AdminBundle\Entity\Subclass $targets
+     *
      * @return Subclass
      */
     public function addTarget(\Wealthbot\AdminBundle\Entity\Subclass $targets)
     {
         $this->targets[] = $targets;
-    
+
         return $this;
     }
 
     /**
-     * Remove targets
+     * Remove targets.
      *
      * @param \Wealthbot\AdminBundle\Entity\Subclass $targets
      */
@@ -368,9 +377,9 @@ class Subclass
     }
 
     /**
-     * Get targets
+     * Get targets.
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getTargets()
     {
@@ -378,20 +387,21 @@ class Subclass
     }
 
     /**
-     * Add security assignment
+     * Add security assignment.
      *
      * @param \Wealthbot\AdminBundle\Entity\SecurityAssignment $securities
+     *
      * @return Subclass
      */
     public function addSecurityAssignment(\Wealthbot\AdminBundle\Entity\SecurityAssignment $securities)
     {
         $this->securityAssignments[] = $securities;
-    
+
         return $this;
     }
 
     /**
-     * Remove security assignment
+     * Remove security assignment.
      *
      * @param \Wealthbot\AdminBundle\Entity\SecurityAssignment $securities
      */
@@ -401,7 +411,7 @@ class Subclass
     }
 
     /**
-     * Get securityAssignments
+     * Get securityAssignments.
      *
      * @return ArrayCollection|SecurityAssignment[]
      */
@@ -411,22 +421,23 @@ class Subclass
     }
 
     /**
-     * Set priority
+     * Set priority.
      *
-     * @param integer $priority
+     * @param int $priority
+     *
      * @return Subclass
      */
     public function setPriority($priority)
     {
         $this->priority = $priority;
-    
+
         return $this;
     }
 
     /**
-     * Get priority
+     * Get priority.
      *
-     * @return integer 
+     * @return int
      */
     public function getPriority()
     {
@@ -434,20 +445,21 @@ class Subclass
     }
 
     /**
-     * Add ceModelEntities
+     * Add ceModelEntities.
      *
      * @param \Wealthbot\AdminBundle\Entity\CeModelEntity $ceModelEntities
+     *
      * @return Subclass
      */
     public function addCeModelEntitie(\Wealthbot\AdminBundle\Entity\CeModelEntity $ceModelEntities)
     {
         $this->ceModelEntities[] = $ceModelEntities;
-    
+
         return $this;
     }
 
     /**
-     * Remove ceModelEntities
+     * Remove ceModelEntities.
      *
      * @param \Wealthbot\AdminBundle\Entity\CeModelEntity $ceModelEntities
      */
@@ -457,9 +469,9 @@ class Subclass
     }
 
     /**
-     * Get ceModelEntities
+     * Get ceModelEntities.
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getCeModelEntities()
     {
@@ -467,7 +479,7 @@ class Subclass
     }
 
     /**
-     * Returns copied instance of Subclass
+     * Returns copied instance of Subclass.
      *
      * @return self
      */
@@ -489,9 +501,10 @@ class Subclass
     }
 
     /**
-     * Add ceModelEntities
+     * Add ceModelEntities.
      *
      * @param \Wealthbot\AdminBundle\Entity\CeModelEntity $ceModelEntities
+     *
      * @return Subclass
      */
     public function addCeModelEntity(\Wealthbot\AdminBundle\Entity\CeModelEntity $ceModelEntities)
@@ -502,7 +515,7 @@ class Subclass
     }
 
     /**
-     * Remove ceModelEntities
+     * Remove ceModelEntities.
      *
      * @param \Wealthbot\AdminBundle\Entity\CeModelEntity $ceModelEntities
      */
@@ -511,11 +524,11 @@ class Subclass
         $this->ceModelEntities->removeElement($ceModelEntities);
     }
 
-
     /**
-     * Set tolerance_band
+     * Set tolerance_band.
      *
-     * @param integer $toleranceBand
+     * @param int $toleranceBand
+     *
      * @return Subclass
      */
     public function setToleranceBand($toleranceBand)
@@ -526,9 +539,9 @@ class Subclass
     }
 
     /**
-     * Get tolerance_band
+     * Get tolerance_band.
      *
-     * @return integer 
+     * @return int
      */
     public function getToleranceBand()
     {

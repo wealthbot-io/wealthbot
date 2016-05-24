@@ -8,6 +8,9 @@ logpath=<%= @logpath %>
 logappend=<%= @logappend %>
 <% end -%>
 <% end -%>
+<% if @ipv6 -%>
+ipv6=<%= @ipv6 %>
+<% end -%>
 <% if @bind_ip -%>
 # Set this option to configure the mongod or mongos process to bind to and
 # listen for connections from applications on this address.
@@ -18,11 +21,13 @@ bind_ip = <%= Array(@bind_ip).join(',') %>
 # fork and run in background
 fork=<%= @fork %>
 <% end -%>
+<% if @port -%>
 port = <%= @port %>
+<% end -%>
 dbpath=<%= @dbpath %>
 <% if @pidfilepath -%>
 # location of pidfile
-pidfilepath = <%= @pidfilepath %>
+pidfilepath=<%= @pidfilepath %>
 <% end -%>
 <% if @nojournal and not @journal -%>
 # Disables write-ahead journaling
@@ -82,7 +87,7 @@ oplogSize = <%= @oplog_size %>
 # Ignore query hints
 nohints = <%= @nohints %>
 <% end -%>
-<% if @nohttpinterface -%>
+<% if ! @nohttpinterface.nil? -%>
 # Disable the HTTP interface (Defaults to localhost:27018).
 nohttpinterface = <%= @nohttpinterface %>
 <% end -%>
@@ -133,6 +138,14 @@ master = <%= @master %>
 # files in a distinct folder.
 directoryperdb = <%= @directoryperdb %>
 <% end -%>
+<% if @configsvr -%>
+# Is the mongod instance a configuration server
+configsvr = <%= @configsvr %>
+<% end -%>
+<% if @shardsvr -%>
+# Is the mongod instance a shard server
+shardsvr = <%= @shardsvr %>
+<% end -%>
 <% if @replset -%>
 # Configure ReplicaSet membership
 replSet = <%= @replset %>
@@ -161,12 +174,17 @@ slowms = <%= @slowms %>
 # Specify the path to a key file to store authentication information.
 keyFile = <%= @keyfile %>
 <% end -%>
-<% if @directoryperdb -%>
-directoryperdb = <%= @directoryperdb %>
-<% end -%>
 <% if @set_parameter -%>
 setParameter = <%= @set_parameter %>
 <% end -%>
 <% if @syslog -%>
 syslog = <%= @syslog %>
+<% end -%>
+<% if @quiet -%>
+quiet = <%= @quiet %>
+<% end -%>
+<% if @ssl -%>
+sslOnNormalPorts = true
+sslPEMKeyFile = <%= @ssl_key %>
+sslCAFile = <%= @ssl_ca %>
 <% end -%>

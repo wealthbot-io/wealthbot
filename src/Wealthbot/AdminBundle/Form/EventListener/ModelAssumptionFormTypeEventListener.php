@@ -3,14 +3,13 @@
 namespace Wealthbot\AdminBundle\Form\EventListener;
 
 use Doctrine\ORM\EntityManager;
-use Wealthbot\AdminBundle\Entity\CeModel;
-use Wealthbot\AdminBundle\Repository\SecurityAssignmentRepository;
-use Wealthbot\AdminBundle\Repository\SecurityTransactionRepository;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormFactoryInterface;
+use Wealthbot\AdminBundle\Entity\CeModel;
+use Wealthbot\AdminBundle\Repository\SecurityAssignmentRepository;
 
 class ModelAssumptionFormTypeEventListener implements EventSubscriberInterface
 {
@@ -26,13 +25,12 @@ class ModelAssumptionFormTypeEventListener implements EventSubscriberInterface
         $this->em = $em;
     }
 
-
     public static function getSubscribedEvents()
     {
-        return array(
+        return [
             FormEvents::POST_SET_DATA => 'preSetData',
-            FormEvents::BIND => 'bind'
-        );
+            FormEvents::SUBMIT => 'bind',
+        ];
     }
 
     public function preSetData(FormEvent $event)
@@ -40,7 +38,7 @@ class ModelAssumptionFormTypeEventListener implements EventSubscriberInterface
         $form = $event->getForm();
         /** @var $data CeModel */
         $data = $event->getData();
-        $owner =$data->getOwner();
+        $owner = $data->getOwner();
 
         /** @var SecurityAssignmentRepository $repo */
         $repo = $this->em->getRepository('WealthbotAdminBundle:SecurityAssignment');
@@ -51,35 +49,36 @@ class ModelAssumptionFormTypeEventListener implements EventSubscriberInterface
             $parentModelId = $data->getId();
         }
 
-
         $riaCompanyInformation = $owner->getRiaCompanyInformation();
 
         if ($data->getParent() && ($riaCompanyInformation && $riaCompanyInformation->getIsShowExpectedCosts())) {
-
             $commissions = $repo->findMinAndMaxTransactionFeeForModel($parentModelId);
 
-            $form->add($this->factory->createNamed('commission_min', 'number', null, array(
+            $form->add($this->factory->createNamed('commission_min', 'number', null, [
                 'label' => 'Commissions:',
                 'precision' => 2,
                 'grouping' => true,
                 'data' => isset($commissions['minimum']) ? $commissions['minimum'] : 0.00,
-                'disabled' => true
-            )));
+                'disabled' => true,
+                'auto_initialize' => false,
+            ]));
 
-            $form->add($this->factory->createNamed('commission_max', 'number', null, array(
+            $form->add($this->factory->createNamed('commission_max', 'number', null, [
                 'label' => '',
                 'precision' => 2,
                 'grouping' => true,
                 'data' => isset($commissions['maximum']) ? $commissions['maximum'] : 0.00,
-                'disabled' => true
-            )));
+                'disabled' => true,
+                'auto_initialize' => false,
+            ]));
         }
 
         if ($owner->hasRole('ROLE_RIA') && $owner->getRiaCompanyInformation()->getIsShowClientExpectedAssetClass()) {
-            $form->add($this->factory->createNamed('forecast', 'number', null, array(
+            $form->add($this->factory->createNamed('forecast', 'number', null, [
                 'label' => 'Forecast:',
-                'data' => ($data && $data->getForecast() ? $data->getForecast() : 0)
-            )));
+                'data' => ($data && $data->getForecast() ? $data->getForecast() : 0),
+                'auto_initialize' => false
+            ]));
         }
     }
 
@@ -88,7 +87,9 @@ class ModelAssumptionFormTypeEventListener implements EventSubscriberInterface
         /** @var $data CeModel */
         $data = $event->getData();
 
-        if($data === null) return;
+        if ($data === null) {
+            return;
+        }
 
         $form = $event->getForm();
 

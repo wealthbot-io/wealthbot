@@ -11,12 +11,12 @@ describe Puppet::Type.type(:mongodb_replset) do
   end
 
   it 'should accept a replica set name' do
-    @replset[:name].should == 'test'
+    expect(@replset[:name]).to eq('test')
   end
 
   it 'should accept a members array' do
     @replset[:members] = ['mongo1:27017', 'mongo2:27017']
-    @replset[:members].should == ['mongo1:27017', 'mongo2:27017']
+    expect(@replset[:members]).to eq(['mongo1:27017', 'mongo2:27017'])
   end
 
   it 'should require a name' do

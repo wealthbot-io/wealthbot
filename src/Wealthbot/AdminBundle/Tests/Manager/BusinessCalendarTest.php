@@ -5,8 +5,8 @@ namespace Wealthbot\AdminBundle\Tests\Manager;
 use Wealthbot\AdminBundle\Service\BusinessCalendar;
 use Wealthbot\UserBundle\TestSuit\ExtendedWebTestCase;
 
-class BusinessCalendarTest extends ExtendedWebTestCase {
-
+class BusinessCalendarTest extends ExtendedWebTestCase
+{
     public function testIndexAction()
     {
         /** @var BusinessCalendar $bc */
@@ -15,21 +15,21 @@ class BusinessCalendarTest extends ExtendedWebTestCase {
         $fromDate = new \DateTime('2014-02-24');
         $date = $bc->addBusinessDays($fromDate, -1);
         $dateStr = $date->format('Y-m-d');
-        $this->assertEquals('2014-02-21', $dateStr);
+        $this->assertSame('2014-02-21', $dateStr);
 
         $fromDate = new \DateTime('2014-02-24');
         $date = $bc->addBusinessDays($fromDate, -10);
         $dateStr = $date->format('Y-m-d');
-        $this->assertEquals('2014-02-07', $dateStr);
+        $this->assertSame('2014-02-07', $dateStr);
 
         $fromDate = new \DateTime('2014-02-21');
         $date = $bc->addBusinessDays($fromDate, 1);
         $dateStr = $date->format('Y-m-d');
-        $this->assertEquals('2014-02-24', $dateStr);
+        $this->assertSame('2014-02-24', $dateStr);
 
         $fromDate = new \DateTime('2014-02-24');
         $date = $bc->addBusinessDays($fromDate, 10);
         $dateStr = $date->format('Y-m-d');
-        $this->assertEquals('2014-03-10', $dateStr);
+        $this->assertSame('2014-03-10', $dateStr);
     }
 }

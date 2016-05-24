@@ -6,22 +6,21 @@
  * Time: 14:35
  * To change this template use File | Settings | File Templates.
  */
+
 namespace Wealthbot\AdminBundle\Form\Type;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManager;
-use Wealthbot\AdminBundle\Collection\AssetCollection;
-use Wealthbot\UserBundle\Entity\User;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Wealthbot\AdminBundle\Entity\AssetClass;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Wealthbot\AdminBundle\Collection\AssetCollection;
+use Wealthbot\UserBundle\Entity\User;
 
 class CategoriesFormType extends AbstractType
 {
@@ -40,22 +39,23 @@ class CategoriesFormType extends AbstractType
         $user = $this->user;
         $factory = $builder->getFormFactory();
 
-        $refreshAssets = function(FormInterface $form, $allSubclasses) use ($factory, $user, $em) {
-            $form->add($factory->createNamed('assets', 'collection', null, array(
-                'type'               => new AssetClassWithSubclassesFormType($user, $em, $allSubclasses),
+        $refreshAssets = function (FormInterface $form, $allSubclasses) use ($factory, $user, $em) {
+            $form->add($factory->createNamed('assets', 'collection', null, [
+                'type' => new AssetClassWithSubclassesFormType($user, $em, $allSubclasses),
                 'cascade_validation' => true,
-                'allow_add'          => true,
-                'allow_delete'       => true,
-                'by_reference'       => false,
-                'prototype'          => true
-            )));
+                'allow_add' => true,
+                'allow_delete' => true,
+                'by_reference' => false,
+                'prototype' => true,
+                'auto_initialize' => false,
+            ]));
         };
 
-        $validateUniqueName = function(FormInterface $form, $originalObject, Collection $collection, array &$indexes) {
+        $validateUniqueName = function (FormInterface $form, $originalObject, Collection $collection, array &$indexes) {
             $errorMessage = 'This value is already used.';
 
             $exists = $collection->filter(function ($item) use ($originalObject) {
-                return ($item->getName() == $originalObject->getName());
+                return $item->getName() === $originalObject->getName();
             });
 
             if (1 < $exists->count()) {
@@ -70,24 +70,28 @@ class CategoriesFormType extends AbstractType
             }
         };
 
-        $builder->addEventListener(FormEvents::PRE_SET_DATA, function(FormEvent $event) use($refreshAssets, $user, $em) {
+        $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) use ($refreshAssets, $user, $em) {
             $form = $event->getForm();
             $data = $event->getData();
 
-            if($data === null) return;
+            if ($data === null) {
+                return;
+            }
 
-            if($data instanceof AssetCollection) {
+            if ($data instanceof AssetCollection) {
                 $refreshAssets($form, $data);
             }
         });
 
-        $builder->addEventListener(FormEvents::PRE_BIND, function(FormEvent $event) use($refreshAssets, $user) {
+        $builder->addEventListener(FormEvents::PRE_SUBMIT, function (FormEvent $event) use ($refreshAssets, $user) {
             $form = $event->getForm();
             $data = $event->getData();
 
-            if($data === null || !isset($data['assets'])) return;
+            if ($data === null || !isset($data['assets'])) {
+                return;
+            }
 
-            $allSubclasses = array();
+            $allSubclasses = [];
             $assets = $data['assets'];
             foreach ($assets as $asset) {
                 if (isset($asset['subclasses'])) {
@@ -100,18 +104,18 @@ class CategoriesFormType extends AbstractType
             $refreshAssets($form, $allSubclasses);
         });
 
-        $builder->addEventListener(FormEvents::BIND, function(FormEvent $event) use ($em, $validateUniqueName) {
+        $builder->addEventListener(FormEvents::SUBMIT, function (FormEvent $event) use ($em, $validateUniqueName) {
 
             /** @var AssetCollection $data */
             $data = $event->getData();
             $form = $event->getForm();
 
-            $assetIndexes = array();
-            $subclassesIndexes = array();
+            $assetIndexes = [];
+            $subclassesIndexes = [];
 
             $assetsForm = $form->get('assets');
             $assets = $data->getAssets();
-            $subclassPriorities = array();
+            $subclassPriorities = [];
 
             foreach ($assets as $assetKey => $asset) {
 
@@ -128,8 +132,7 @@ class CategoriesFormType extends AbstractType
                     if ($subclass->getAccountType() && $subclass->getAccountType()->getId()) {
                         if (isset($subclassPriorities[$subclass->getAccountType()->getId()]) &&
                             in_array($subclass->getPriority(), $subclassPriorities[$subclass->getAccountType()->getId()]) &&
-                            $subclassField->has('priority'))
-                        {
+                            $subclassField->has('priority')) {
                             $subclassField->get('priority')->addError(new FormError('Value must be unique'));
                         }
 
@@ -143,15 +146,15 @@ class CategoriesFormType extends AbstractType
         });
     }
 
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
+        $resolver->setDefaults([
             'data_class' => 'Wealthbot\AdminBundle\Collection\AssetCollection',
-            'cascade_validation' => true
-        ));
+            'cascade_validation' => true,
+        ]);
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'categories';
     }

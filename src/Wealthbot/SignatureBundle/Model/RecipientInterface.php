@@ -9,7 +9,6 @@
 
 namespace Wealthbot\SignatureBundle\Model;
 
-
 use Wealthbot\SignatureBundle\Model\Tab\AbstractTab;
 
 interface RecipientInterface
@@ -22,106 +21,110 @@ interface RecipientInterface
     const TYPE_IN_PERSON_SIGNER = 'InPersonSigner';
 
     /**
-     * Set recipient email
+     * Set recipient email.
      *
      * @param string $email
+     *
      * @return mixed
      */
     public function setEmail($email);
 
     /**
-     * Get recipient email
+     * Get recipient email.
      *
      * @return string
      */
     public function getEmail();
 
     /**
-     * Set recipient name
+     * Set recipient name.
      *
      * @param string $name
+     *
      * @return mixed
      */
     public function setName($name);
 
     /**
-     * Get recipient name
+     * Get recipient name.
      *
      * @return string
      */
     public function getName();
 
     /**
-     * Set recipient role name
+     * Set recipient role name.
      *
      * @param string $roleName
+     *
      * @return mixed
      */
     public function setRoleName($roleName);
 
     /**
-     * Get recipient role name
+     * Get recipient role name.
      *
      * @return string
      */
     public function getRoleName();
 
     /**
-     * Set recipient client user id
+     * Set recipient client user id.
      *
      * @param int $clientUserId
+     *
      * @return mixed
      */
     public function setClientUserId($clientUserId);
 
     /**
-     * Get recipient client user id
+     * Get recipient client user id.
      *
      * @return int
      */
     public function getClientUserId();
 
     /**
-     * Set recipient type
+     * Set recipient type.
      *
      * @param string $type
+     *
      * @return mixed
      */
     public function setType($type);
 
     /**
-     * Get recipient type
+     * Get recipient type.
      *
      * @return string
      */
     public function getType();
 
     /**
-     * Set tab collection
+     * Set tab collection.
      *
      * @param \Wealthbot\SignatureBundle\Model\TabCollection $tabs
      */
     public function setTabs(TabCollection $tabs);
 
     /**
-     * Add tab element
+     * Add tab element.
      *
      * @param AbstractTab $tab
-     * @return void
      */
     public function addTab(AbstractTab $tab);
 
     /**
-     * Remove tab element
+     * Remove tab element.
      *
      * @param AbstractTab $tab
+     *
      * @return bool
      */
     public function removeTab(AbstractTab $tab);
 
-
     /**
-     * Get tab collection
+     * Get tab collection.
      *
      * @return \Wealthbot\SignatureBundle\Model\TabCollection
      */

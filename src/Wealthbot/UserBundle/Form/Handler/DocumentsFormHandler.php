@@ -9,21 +9,20 @@
 
 namespace Wealthbot\UserBundle\Form\Handler;
 
-
 use Doctrine\ORM\EntityManager;
+use Symfony\Component\Form\Form;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\HttpFoundation\Request;
 use Wealthbot\AdminBundle\Form\Handler\AbstractFormHandler;
 use Wealthbot\MailerBundle\Mailer\MailerInterface;
 use Wealthbot\UserBundle\Entity\Document;
 use Wealthbot\UserBundle\Entity\User;
-use Symfony\Component\Form\Form;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
-use Symfony\Component\HttpFoundation\Request;
 
 class DocumentsFormHandler extends AbstractFormHandler
 {
     protected $mailer;
 
-    public function __construct(Form $form, Request $request, EntityManager $em, MailerInterface $mailer, $options = array())
+    public function __construct(Form $form, Request $request, EntityManager $em, MailerInterface $mailer, $options = [])
     {
         parent::__construct($form, $request, $em, $options);
 
@@ -52,7 +51,7 @@ class DocumentsFormHandler extends AbstractFormHandler
 
                 $this->addDocumentForOwner($owner, $document);
 
-                if ($key == Document::TYPE_ADV || $key == Document::TYPE_INVESTMENT_MANAGEMENT_AGREEMENT) {
+                if ($key === Document::TYPE_ADV || $key === Document::TYPE_INVESTMENT_MANAGEMENT_AGREEMENT) {
                     $this->sendEmailMessages($owner, $key);
                 }
             }
@@ -63,9 +62,10 @@ class DocumentsFormHandler extends AbstractFormHandler
     }
 
     /**
-     * Get documents owner
+     * Get documents owner.
      *
      * @return object
+     *
      * @throws \InvalidArgumentException
      */
     protected function getDocumentsOwner()
@@ -79,14 +79,15 @@ class DocumentsFormHandler extends AbstractFormHandler
     }
 
     /**
-     * Get exist documents for $owner
+     * Get exist documents for $owner.
      *
      * @param object $owner
+     *
      * @return array
      */
     protected function getExistDocuments($owner)
     {
-        $documents = array();
+        $documents = [];
         foreach ($owner->getUserDocuments() as $doc) {
             $documents[$doc->getType()] = $doc;
         }
@@ -95,9 +96,9 @@ class DocumentsFormHandler extends AbstractFormHandler
     }
 
     /**
-     * Add document for owner
+     * Add document for owner.
      *
-     * @param object $owner
+     * @param object   $owner
      * @param Document $document
      */
     protected function addDocumentForOwner($owner, Document $document)
@@ -111,7 +112,7 @@ class DocumentsFormHandler extends AbstractFormHandler
     {
         $userRepo = $this->em->getRepository('WealthbotUserBundle:User');
 
-        $clients = array();
+        $clients = [];
         if ($owner->hasRole('ROLE_RIA')) {
             $clients = $userRepo->findClientsByRiaId($owner->getId());
         }

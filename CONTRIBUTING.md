@@ -85,7 +85,3 @@ You can chat with the team and the wealthbot community on https://wealthbot.slac
 
 # Thank You
 A huge shout out to all our contributors and a special thank you to [@nayafia](https://github.com/nayafia) for making our contribution guide 1000X times better with her [contributing template](https://github.com/nayafia/contributing-template). 
-
-
-
-

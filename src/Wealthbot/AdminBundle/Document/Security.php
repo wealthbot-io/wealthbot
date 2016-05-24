@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Wealthbot\AdminBundle\Document;
 
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
@@ -8,8 +7,8 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 /**
  * @MongoDB\Document(collection="securities")
  */
-class Security {
-
+class Security
+{
     /**
      * @MongoDB\Id
      */
@@ -48,12 +47,10 @@ class Security {
     /**
      * @MongoDB\String(name="issue_date")
      */
-
     protected $issueDate;
     /**
      * @MongoDB\String(name="first_coupon")
      */
-
     protected $firstCoupon;
 
     /**
@@ -346,8 +343,4 @@ class Security {
     {
         return $this->symbol;
     }
-
-
-
-
 }

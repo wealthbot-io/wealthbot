@@ -9,21 +9,20 @@
 
 namespace Wealthbot\SignatureBundle\Manager;
 
-
 use Doctrine\Common\Persistence\ObjectManager;
 use Wealthbot\ClientBundle\Entity\AccountGroup;
 use Wealthbot\ClientBundle\Entity\BankInformation;
 use Wealthbot\ClientBundle\Entity\ClientAccountOwner;
+use Wealthbot\ClientBundle\Entity\ClientAdditionalContact;
 use Wealthbot\ClientBundle\Entity\TransferInformation;
 use Wealthbot\ClientBundle\Model\AccountOwnerInterface;
-use Wealthbot\ClientBundle\Entity\ClientAdditionalContact;
 use Wealthbot\ClientBundle\Model\ClientAccount;
 use Wealthbot\SignatureBundle\Entity\DocumentOwnerSignature;
 use Wealthbot\SignatureBundle\Entity\DocumentSignature;
 use Wealthbot\SignatureBundle\Model\Envelope;
 use Wealthbot\SignatureBundle\Model\SignableInterface;
-use Wealthbot\UserBundle\Entity\User;
 use Wealthbot\UserBundle\Entity\Document;
+use Wealthbot\UserBundle\Entity\User;
 
 class DocumentSignatureManager
 {
@@ -42,7 +41,6 @@ class DocumentSignatureManager
     /** @var \Doctrine\Common\Persistence\ObjectRepository */
     private $ownerSignatureRepository;
 
-
     public function __construct(ObjectManager $om, $accountSignatureClass, $accountOwnerSignatureClass)
     {
         $this->om = $om;
@@ -57,9 +55,10 @@ class DocumentSignatureManager
     }
 
     /**
-     * Find document signature
+     * Find document signature.
      *
-     * @param integer $id
+     * @param int $id
+     *
      * @return DocumentSignature
      */
     public function findDocumentSignature($id)
@@ -68,9 +67,10 @@ class DocumentSignatureManager
     }
 
     /**
-     * Find document signature object by criteria
+     * Find document signature object by criteria.
      *
      * @param array $criteria
+     *
      * @return DocumentSignature
      */
     public function findOneDocumentSignatureBy(array $criteria)
@@ -79,23 +79,25 @@ class DocumentSignatureManager
     }
 
     /**
-     * Find active document signature
+     * Find active document signature.
      *
      * @param $id
+     *
      * @return DocumentSignature
      */
     public function findActiveDocumentSignature($id)
     {
-        return $this->findOneDocumentSignatureBy(array('id' => $id, 'active' => true));
+        return $this->findOneDocumentSignatureBy(['id' => $id, 'active' => true]);
     }
 
     /**
-     * Find document signature objects by criteria
+     * Find document signature objects by criteria.
      *
      * @param array $criteria
      * @param array $orderBy
-     * @param null $limit
-     * @param null $offset
+     * @param null  $limit
+     * @param null  $offset
+     *
      * @return mixed
      */
     public function findDocumentSignaturesBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
@@ -104,28 +106,30 @@ class DocumentSignatureManager
     }
 
     /**
-     * Find document signature by source id and type
+     * Find document signature by source id and type.
      *
-     * @param int $sourceId
+     * @param int    $sourceId
      * @param string $type
-     * @param bool $isActive
+     * @param bool   $isActive
+     *
      * @return DocumentSignature
      */
     public function findOneDocumentSignatureBySourceIdAndType($sourceId, $type, $isActive = true)
     {
         return $this->findOneDocumentSignatureBy(
-            array(
+            [
                 'source_id' => $sourceId,
                 'type' => $type,
-                'active' => $isActive
-            )
+                'active' => $isActive,
+            ]
         );
     }
 
     /**
-     * Find document signature by source
+     * Find document signature by source.
      *
      * @param SignableInterface $source
+     *
      * @return DocumentSignature
      */
     public function findDocumentSignatureBySource(SignableInterface $source)
@@ -137,10 +141,11 @@ class DocumentSignatureManager
     }
 
     /**
-     * Find active document signature by source id and type
+     * Find active document signature by source id and type.
      *
-     * @param int $accountId
+     * @param int    $accountId
      * @param string $type
+     *
      * @return DocumentSignature
      */
     public function findActiveDocumentSignatureBySourceIdAndType($accountId, $type)
@@ -150,37 +155,40 @@ class DocumentSignatureManager
 
     /**
      * Find document signatures by docusign envelope id.
-     * Order by id
+     * Order by id.
      *
      * @param string $envelopeId
-     * @param bool $isActive
+     * @param bool   $isActive
+     *
      * @return DocumentSignature[]
      */
     public function findDocumentSignaturesByEnvelopeId($envelopeId, $isActive = true)
     {
         return $this->documentSignatureRepository->findBy(
-            array('docusign_envelope_id' => $envelopeId, 'active' => (bool)$isActive),
-            array('id' => 'ASC')
+            ['docusign_envelope_id' => $envelopeId, 'active' => (bool) $isActive],
+            ['id' => 'ASC']
         );
     }
 
     /**
-     * Get signatures by client and types
+     * Get signatures by client and types.
      *
-     * @param User $client
+     * @param User  $client
      * @param array $types
+     *
      * @return array
      */
-    public function findDocumentSignaturesByClientAndTypes(User $client, array $types = array())
+    public function findDocumentSignaturesByClientAndTypes(User $client, array $types = [])
     {
         return $this->documentSignatureRepository->getSignaturesByClientAndTypes($client, $types);
     }
 
     /**
      * Find signatures by client account consolidator id.
-     * Ordered by id
+     * Ordered by id.
      *
      * @param int $consolidatorId
+     *
      * @return DocumentSignature[]
      */
     public function findSignaturesByAccountConsolidatorId($consolidatorId)
@@ -189,9 +197,10 @@ class DocumentSignatureManager
     }
 
     /**
-     * Find one change_beneficiary signature with status created by client account
+     * Find one change_beneficiary signature with status created by client account.
      *
      * @param ClientAccount $account
+     *
      * @return DocumentSignature|null
      */
     public function findChangeBeneficiaryCreatedByClientAccount(ClientAccount $account)
@@ -200,9 +209,10 @@ class DocumentSignatureManager
     }
 
     /**
-     * Find change_beneficiary signatures by client account
+     * Find change_beneficiary signatures by client account.
      *
      * @param ClientAccount $account
+     *
      * @return DocumentSignature[]
      */
     public function findChangeBeneficiaryByClientAccount(ClientAccount $account)
@@ -211,9 +221,10 @@ class DocumentSignatureManager
     }
 
     /**
-     * Get application signatures
+     * Get application signatures.
      *
      * @param ClientAccount $account
+     *
      * @return \Wealthbot\SignatureBundle\Entity\DocumentSignature[]
      */
     public function getApplicationSignatures(ClientAccount $account)
@@ -222,10 +233,12 @@ class DocumentSignatureManager
     }
 
     /**
-     * Is all client account in application signed
+     * Is all client account in application signed.
      *
      * @param ClientAccount|int $account
+     *
      * @return bool
+     *
      * @throws \InvalidArgumentException
      */
     public function isApplicationSigned($account)
@@ -261,10 +274,11 @@ class DocumentSignatureManager
     }
 
     /**
-     * Is account owner sign all document signatures for application
+     * Is account owner sign all document signatures for application.
      *
      * @param AccountOwnerInterface $accountOwner
-     * @param ClientAccount $account
+     * @param ClientAccount         $account
+     *
      * @return bool
      */
     public function isOwnerSignApplication(AccountOwnerInterface $accountOwner, ClientAccount $account)
@@ -281,9 +295,10 @@ class DocumentSignatureManager
     }
 
     /**
-     * Find document owner signature
+     * Find document owner signature.
      *
-     * @param integer $id
+     * @param int $id
+     *
      * @return DocumentOwnerSignature
      */
     public function findOwnerSignature($id)
@@ -292,9 +307,10 @@ class DocumentSignatureManager
     }
 
     /**
-     * Find document owner signature object by criteria
+     * Find document owner signature object by criteria.
      *
      * @param array $criteria
+     *
      * @return DocumentOwnerSignature
      */
     public function findOneOwnerSignatureBy(array $criteria)
@@ -303,12 +319,13 @@ class DocumentSignatureManager
     }
 
     /**
-     * Find document owner signature objects by criteria
+     * Find document owner signature objects by criteria.
      *
      * @param array $criteria
      * @param array $orderBy
-     * @param null $limit
-     * @param null $offset
+     * @param null  $limit
+     * @param null  $offset
+     *
      * @return mixed
      */
     public function findOwnerSignaturesBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
@@ -317,63 +334,68 @@ class DocumentSignatureManager
     }
 
     /**
-     * Find document owner signature objects by account signature id
+     * Find document owner signature objects by account signature id.
      *
      * @param int $documentSignatureId
+     *
      * @return mixed
      */
     public function findOwnerSignatureByDocumentSignatureId($documentSignatureId)
     {
-        return $this->findOneOwnerSignatureBy(array('document_signature_id' => $documentSignatureId));
+        return $this->findOneOwnerSignatureBy(['document_signature_id' => $documentSignatureId]);
     }
 
     /**
-     * Find document owner signature object by document signature id and client id
+     * Find document owner signature object by document signature id and client id.
      *
      * @param int $documentSignatureId
      * @param int $clientId
+     *
      * @return DocumentOwnerSignature
      */
     public function findOneOwnerSignatureByDocumentSignatureIdAndClientId($documentSignatureId, $clientId)
     {
         return $this->findOneOwnerSignatureBy(
-            array('document_signature_id' => $documentSignatureId, 'owner_client_user_id' => $clientId)
+            ['document_signature_id' => $documentSignatureId, 'owner_client_user_id' => $clientId]
         );
     }
 
     /**
-     * Find document owner signature object by document signature id and contact id
+     * Find document owner signature object by document signature id and contact id.
      *
      * @param int $documentSignatureId
      * @param int $contactId
+     *
      * @return DocumentOwnerSignature
      */
     public function findOneOwnerSignatureByDocumentSignatureIdAndContactId($documentSignatureId, $contactId)
     {
         return $this->findOneOwnerSignatureBy(
-            array('document_signature_id' => $documentSignatureId, 'owner_contact_id' => $contactId)
+            ['document_signature_id' => $documentSignatureId, 'owner_contact_id' => $contactId]
         );
     }
 
     /**
-     * Find document owner signature object by document signature id and contact id
+     * Find document owner signature object by document signature id and contact id.
      *
      * @param int $documentSignatureId
      * @param int $contactId
+     *
      * @return DocumentOwnerSignature
      */
     public function findOneOwnerSignatureByAccountSignatureIdAndContactId($documentSignatureId, $contactId)
     {
         return $this->findOneOwnerSignatureBy(
-            array('document_signature_id' => $documentSignatureId, 'owner_contact_id' => $contactId)
+            ['document_signature_id' => $documentSignatureId, 'owner_contact_id' => $contactId]
         );
     }
 
     /**
-     * Find document owner signature object by document signature id and owner email
+     * Find document owner signature object by document signature id and owner email.
      *
-     * @param int $documentSignatureId
+     * @param int    $documentSignatureId
      * @param string $email
+     *
      * @return DocumentOwnerSignature
      */
     public function findOneOwnerSignatureByDocumentSignatureIdAndOwnerEmail($documentSignatureId, $email)
@@ -382,12 +404,13 @@ class DocumentSignatureManager
     }
 
     /**
-     * Create new document signature
+     * Create new document signature.
      *
-     * @param int $sourceId
-     * @param string $type
+     * @param int         $sourceId
+     * @param string      $type
      * @param string|null $envelopeId
-     * @param string $status
+     * @param string      $status
+     *
      * @return DocumentSignature
      */
     public function createDocumentSignature($sourceId, $type, $envelopeId = null, $status = Envelope::STATUS_CREATED)
@@ -408,10 +431,11 @@ class DocumentSignatureManager
 
     /**
      * Change document signature status.
-     * Returns true if status has been changed and false otherwise
+     * Returns true if status has been changed and false otherwise.
      *
      * @param DocumentSignature $signature
-     * @param int $status
+     * @param int               $status
+     *
      * @return bool
      */
     public function changeDocumentSignatureStatus(DocumentSignature $signature, $status)
@@ -427,10 +451,10 @@ class DocumentSignatureManager
 
     /**
      * Change document signature status
-     * and save if status has been changed
+     * and save if status has been changed.
      *
      * @param DocumentSignature $signature
-     * @param int $status
+     * @param int               $status
      */
     public function updateDocumentSignatureIfStatusChanged(DocumentSignature $signature, $status)
     {
@@ -443,7 +467,7 @@ class DocumentSignatureManager
     /**
      * Save document signature.
      * If signature status is not equal to TYPE_ONE_TIME_CONTRIBUTION or TYPE_ONE_TIME_DISTRIBUTION
-     * Then set active flag to false for all previous signatures with same source_id and type
+     * Then set active flag to false for all previous signatures with same source_id and type.
      *
      * @param DocumentSignature $signature
      */
@@ -464,11 +488,12 @@ class DocumentSignatureManager
     }
 
     /**
-     * Create new account owner signature object
+     * Create new account owner signature object.
      *
-     * @param DocumentSignature $documentSignature
+     * @param DocumentSignature     $documentSignature
      * @param AccountOwnerInterface $owner
-     * @param string $status
+     * @param string                $status
+     *
      * @return DocumentOwnerSignature
      */
     public function createOwnerSignature(DocumentSignature $documentSignature, AccountOwnerInterface $owner, $status = DocumentOwnerSignature::STATUS_CREATED)
@@ -480,7 +505,6 @@ class DocumentSignatureManager
         $ownerObject = $owner->getObjectToSave();
         if ($ownerObject instanceof User && $ownerObject->hasRole('ROLE_CLIENT')) {
             $signature->setClientOwner($ownerObject);
-
         } elseif ($ownerObject instanceof ClientAdditionalContact) {
             $signature->setContactOwner($ownerObject);
         }
@@ -489,10 +513,11 @@ class DocumentSignatureManager
     }
 
     /**
-     * Create and save signature for client account and envelope_id
+     * Create and save signature for client account and envelope_id.
      *
      * @param SignableInterface $object
-     * @param string|null $envelopeId
+     * @param string|null       $envelopeId
+     *
      * @return DocumentSignature
      */
     public function createSignature(SignableInterface $object, $envelopeId = null)
@@ -523,9 +548,10 @@ class DocumentSignatureManager
 
     /**
      * Create signatures for bank information updating action.
-     * Returns array of signatures for client who own bank information
+     * Returns array of signatures for client who own bank information.
      *
      * @param BankInformation $bankInformation
+     *
      * @return DocumentSignature[]
      */
     public function createBankInformationSignature(BankInformation $bankInformation)
@@ -533,21 +559,21 @@ class DocumentSignatureManager
         $contributionRepo = $this->om->getRepository('WealthbotClientBundle:AccountContribution');
         $distributionRepo = $this->om->getRepository('WealthbotClientBundle:Distribution');
 
-        $contributions = $contributionRepo->findBy(array('bankInformation' => $bankInformation));
-        $distributions = $distributionRepo->findBy(array('bankInformation' => $bankInformation));
+        $contributions = $contributionRepo->findBy(['bankInformation' => $bankInformation]);
+        $distributions = $distributionRepo->findBy(['bankInformation' => $bankInformation]);
 
-        $signatures = array();
+        $signatures = [];
 
         foreach ($contributions as $contribution) {
             $signature = $this->createSignature($contribution);
-            if ($bankInformation->getClient() == $contribution->getClientAccount()->getClient()) {
+            if ($bankInformation->getClient() === $contribution->getClientAccount()->getClient()) {
                 $signatures[] = $signature;
             }
         }
 
         foreach ($distributions as $distribution) {
             $signature = $this->createSignature($distribution);
-            if ($bankInformation->getClient() == $distribution->getClientAccount()->getClient()) {
+            if ($bankInformation->getClient() === $distribution->getClientAccount()->getClient()) {
                 $signatures[] = $signature;
             }
         }
@@ -557,15 +583,15 @@ class DocumentSignatureManager
 
     /**
      * Reset document signatures active flag to false
-     * for all previous signatures with same source_id and type
+     * for all previous signatures with same source_id and type.
      *
      * @param DocumentSignature $signature
-     * @param bool $flush
+     * @param bool              $flush
      */
     public function resetDocumentSignaturesActiveFlag(DocumentSignature $signature, $flush = true)
     {
         $signatures = $this->findDocumentSignaturesBy(
-            array('source_id' => $signature->getSourceId(), 'type' => $signature->getType())
+            ['source_id' => $signature->getSourceId(), 'type' => $signature->getType()]
         );
         foreach ($signatures as $item) {
             if ($item !== $signature) {
@@ -580,10 +606,12 @@ class DocumentSignatureManager
     }
 
     /**
-     * Is document signature completed
+     * Is document signature completed.
      *
      * @param DocumentSignature|int $signature
+     *
      * @throws \InvalidArgumentException
+     *
      * @return bool
      */
     public function isSignatureCompleted($signature)
@@ -600,16 +628,18 @@ class DocumentSignatureManager
     }
 
     /**
-     * Is client account owner has complete signature
+     * Is client account owner has complete signature.
      *
      * @param AccountOwnerInterface $accountOwner
-     * @param DocumentSignature $signature
+     * @param DocumentSignature     $signature
+     *
      * @return bool
+     *
      * @throws \RuntimeException
      */
     public function isOwnerSignatureCompleted(AccountOwnerInterface $accountOwner, DocumentSignature $signature)
     {
-        $criteria = array('documentSignature' => $signature);
+        $criteria = ['documentSignature' => $signature];
 
         $owner = $accountOwner->getObjectToSave();
         if ($accountOwner->getType() === ClientAccountOwner::OWNER_TYPE_SELF) {
@@ -637,9 +667,10 @@ class DocumentSignatureManager
     }
 
     /**
-     * Get signable object of signature
+     * Get signable object of signature.
      *
      * @param DocumentSignature $signature
+     *
      * @return SignableInterface
      */
     public function getSourceObject(DocumentSignature $signature)
@@ -650,14 +681,15 @@ class DocumentSignatureManager
     }
 
     /**
-     * Get additional signature documents
+     * Get additional signature documents.
      *
      * @param DocumentSignature $signature
+     *
      * @return Document[]
      */
     public function getAdditionalDocuments(DocumentSignature $signature)
     {
-        $documents = array();
+        $documents = [];
         if (DocumentSignature::TYPE_TRANSFER_INFORMATION === $signature->getType()) {
             /** @var TransferInformation $transferInformation */
             $transferInformation = $this->getSourceObject($signature);
@@ -672,7 +704,7 @@ class DocumentSignatureManager
     }
 
     /**
-     * Persist object to object manager
+     * Persist object to object manager.
      *
      * @param object $object
      */
@@ -682,18 +714,18 @@ class DocumentSignatureManager
     }
 
     /**
-     * Flushes all changes
+     * Flushes all changes.
      */
     public function flush()
     {
         $this->om->flush();
     }
 
-
     /**
-     * Get document signature activity
+     * Get document signature activity.
      *
      * @param DocumentSignature $signature
+     *
      * @return string
      */
     public function getActivity(DocumentSignature $signature)

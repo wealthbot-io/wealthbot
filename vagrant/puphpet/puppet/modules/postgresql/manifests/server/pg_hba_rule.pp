@@ -12,10 +12,19 @@ define postgresql::server::pg_hba_rule(
 
   # Needed for testing primarily, support for multiple files is not really
   # working.
-  $target      = $postgresql::server::pg_hba_conf_path
+  $target             = $postgresql::server::pg_hba_conf_path,
+  $postgresql_version = $postgresql::server::_version
 ) {
 
-  if $postgresql::server::manage_pg_hba_conf == false {
+  #Allow users to manage pg_hba.conf even if they are not managing the whole PostgreSQL instance
+  if !defined( 'postgresql::server' ) {
+    $manage_pg_hba_conf = true
+  }
+  else {
+    $manage_pg_hba_conf = $postgresql::server::manage_pg_hba_conf
+  }
+
+  if $manage_pg_hba_conf == false {
       fail('postgresql::server::manage_pg_hba_conf has been disabled, so this resource is now unused and redundant, either enable that option or remove this resource from your manifests')
   } else {
     validate_re($type, '^(local|host|hostssl|hostnossl)$',
@@ -25,13 +34,14 @@ define postgresql::server::pg_hba_rule(
       fail('You must specify an address property when type is host based')
     }
 
-    $allowed_auth_methods = $postgresql::server::_version ? {
-      '9.3' => ['trust', 'reject', 'md5', 'sha1', 'password', 'gss', 'sspi', 'krb5', 'ident', 'peer', 'ldap', 'radius', 'cert', 'pam'],
-      '9.2' => ['trust', 'reject', 'md5', 'sha1', 'password', 'gss', 'sspi', 'krb5', 'ident', 'peer', 'ldap', 'radius', 'cert', 'pam'],
-      '9.1' => ['trust', 'reject', 'md5', 'sha1', 'password', 'gss', 'sspi', 'krb5', 'ident', 'peer', 'ldap', 'radius', 'cert', 'pam'],
-      '9.0' => ['trust', 'reject', 'md5', 'sha1', 'password', 'gss', 'sspi', 'krb5', 'ident', 'ldap', 'radius', 'cert', 'pam'],
-      '8.4' => ['trust', 'reject', 'md5', 'sha1', 'password', 'gss', 'sspi', 'krb5', 'ident', 'ldap', 'cert', 'pam'],
-      '8.3' => ['trust', 'reject', 'md5', 'sha1', 'crypt', 'password', 'gss', 'sspi', 'krb5', 'ident', 'ldap', 'pam'],
+    $allowed_auth_methods = $postgresql_version ? {
+      '9.4' => ['trust', 'reject', 'md5', 'password', 'gss', 'sspi', 'ident', 'peer', 'ldap', 'radius', 'cert', 'pam'],
+      '9.3' => ['trust', 'reject', 'md5', 'password', 'gss', 'sspi', 'krb5', 'ident', 'peer', 'ldap', 'radius', 'cert', 'pam'],
+      '9.2' => ['trust', 'reject', 'md5', 'password', 'gss', 'sspi', 'krb5', 'ident', 'peer', 'ldap', 'radius', 'cert', 'pam'],
+      '9.1' => ['trust', 'reject', 'md5', 'password', 'gss', 'sspi', 'krb5', 'ident', 'peer', 'ldap', 'radius', 'cert', 'pam'],
+      '9.0' => ['trust', 'reject', 'md5', 'password', 'gss', 'sspi', 'krb5', 'ident', 'ldap', 'radius', 'cert', 'pam'],
+      '8.4' => ['trust', 'reject', 'md5', 'password', 'gss', 'sspi', 'krb5', 'ident', 'ldap', 'cert', 'pam'],
+      '8.3' => ['trust', 'reject', 'md5', 'crypt', 'password', 'gss', 'sspi', 'krb5', 'ident', 'ldap', 'pam'],
       '8.2' => ['trust', 'reject', 'md5', 'crypt', 'password', 'krb5', 'ident', 'ldap', 'pam'],
       '8.1' => ['trust', 'reject', 'md5', 'crypt', 'password', 'krb5', 'ident', 'pam'],
       default => ['trust', 'reject', 'md5', 'password', 'gss', 'sspi', 'krb5', 'ident', 'peer', 'ldap', 'radius', 'cert', 'pam', 'crypt']

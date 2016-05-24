@@ -37,11 +37,11 @@ class yum::cron {
   }
 
   file { 'yum-cron':
-    ensure   => $manage_update_file,
-    path     => $yum::update_configuration_file,
-    content  => template($yum::update_template),
-    require  => Package['yum-cron'],
-    notify   => Service['yum-cron'],
+    ensure  => $manage_update_file,
+    path    => $yum::update_configuration_file,
+    content => template($yum::update_template),
+    require => Package['yum-cron'],
+    notify  => Service['yum-cron'],
   }
 
 }

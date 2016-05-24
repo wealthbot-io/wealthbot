@@ -4,10 +4,21 @@ class postgresql::server::initdb {
   $initdb_path  = $postgresql::server::initdb_path
   $datadir      = $postgresql::server::datadir
   $xlogdir      = $postgresql::server::xlogdir
+  $logdir       = $postgresql::server::logdir
   $encoding     = $postgresql::server::encoding
   $locale       = $postgresql::server::locale
   $group        = $postgresql::server::group
   $user         = $postgresql::server::user
+  $psql_path    = $postgresql::server::psql_path
+  $port         = $postgresql::server::port
+
+  # Set the defaults for the postgresql_psql resource
+  Postgresql_psql {
+    psql_user  => $user,
+    psql_group => $group,
+    psql_path  => $psql_path,
+    port       => $port,
+  }
 
   # Make sure the data directory exists, and has the correct permissions.
   file { $datadir:
@@ -24,6 +35,15 @@ class postgresql::server::initdb {
       owner  => $user,
       group  => $group,
       mode   => '0700',
+    }
+  }
+
+  if($logdir) {
+    # Make sure the log directory exists, and has the correct permissions.
+    file { $logdir:
+      ensure => directory,
+      owner  => $user,
+      group  => $group,
     }
   }
 
@@ -63,19 +83,25 @@ class postgresql::server::initdb {
       require   => File[$require_before_initdb],
     }
     # The package will take care of this for us the first time, but if we
-    # ever need to init a new db we need to make these links explicitly
+    # ever need to init a new db we need to copy these files explicitly
     if $::operatingsystem == 'Debian' or $::operatingsystem == 'Ubuntu' {
       if $::operatingsystemrelease =~ /^6/ or $::operatingsystemrelease =~ /^7/ or $::operatingsystemrelease =~ /^10\.04/ or $::operatingsystemrelease =~ /^12\.04/ {
         file { 'server.crt':
-          ensure  => link,
+          ensure  => file,
           path    => "${datadir}/server.crt",
-          target  => '/etc/ssl/certs/ssl-cert-snakeoil.pem',
+          source  => 'file:///etc/ssl/certs/ssl-cert-snakeoil.pem',
+          owner   => $::postgresql::server::user,
+          group   => $::postgresql::server::group,
+          mode    => '0644',
           require => Exec['postgresql_initdb'],
         }
         file { 'server.key':
-          ensure  => link,
+          ensure  => file,
           path    => "${datadir}/server.key",
-          target  => '/etc/ssl/private/ssl-cert-snakeoil.key',
+          source  => 'file:///etc/ssl/private/ssl-cert-snakeoil.key',
+          owner   => $::postgresql::server::user,
+          group   => $::postgresql::server::group,
+          mode    => '0600',
           require => Exec['postgresql_initdb'],
         }
       }
@@ -94,7 +120,7 @@ class postgresql::server::initdb {
         SET encoding = pg_char_to_encoding('${encoding}'), datistemplate = TRUE
         WHERE datname = 'template1'",
       unless  => "SELECT datname FROM pg_database WHERE
-        datname = 'template1' AND pg_encoding_to_char(encoding) = '${encoding}'",
+        datname = 'template1' AND encoding = pg_char_to_encoding('${encoding}')",
     }
   }
 }

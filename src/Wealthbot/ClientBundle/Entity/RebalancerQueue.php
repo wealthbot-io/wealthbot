@@ -2,15 +2,13 @@
 
 namespace Wealthbot\ClientBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-
 /**
- * RebalancerQueue
+ * RebalancerQueue.
  */
 class RebalancerQueue
 {
     /**
-     * @var integer
+     * @var int
      */
     private $id;
 
@@ -20,7 +18,7 @@ class RebalancerQueue
     private $amount;
 
     /**
-     * @var integer
+     * @var int
      */
     private $quantity;
 
@@ -55,7 +53,7 @@ class RebalancerQueue
     private $subclass;
 
     /**
-     * @var boolean
+     * @var bool
      */
     private $is_deleted;
 
@@ -68,9 +66,9 @@ class RebalancerQueue
     }
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer 
+     * @return int
      */
     public function getId()
     {
@@ -78,9 +76,10 @@ class RebalancerQueue
     }
 
     /**
-     * Set quantity
+     * Set quantity.
      *
-     * @param integer $quantity
+     * @param int $quantity
+     *
      * @return RebalancerQueue
      */
     public function setQuantity($quantity)
@@ -91,9 +90,9 @@ class RebalancerQueue
     }
 
     /**
-     * Get quantity
+     * Get quantity.
      *
-     * @return integer 
+     * @return int
      */
     public function getQuantity()
     {
@@ -101,9 +100,10 @@ class RebalancerQueue
     }
 
     /**
-     * Set status
+     * Set status.
      *
      * @param string $status
+     *
      * @return RebalancerQueue
      */
     public function setStatus($status)
@@ -114,9 +114,9 @@ class RebalancerQueue
     }
 
     /**
-     * Get status
+     * Get status.
      *
-     * @return string 
+     * @return string
      */
     public function getStatus()
     {
@@ -124,9 +124,10 @@ class RebalancerQueue
     }
 
     /**
-     * Set lot
+     * Set lot.
      *
      * @param \Wealthbot\ClientBundle\Entity\Lot $lot
+     *
      * @return RebalancerQueue
      */
     public function setLot(\Wealthbot\ClientBundle\Entity\Lot $lot = null)
@@ -137,9 +138,9 @@ class RebalancerQueue
     }
 
     /**
-     * Get lot
+     * Get lot.
      *
-     * @return \Wealthbot\ClientBundle\Entity\Lot 
+     * @return \Wealthbot\ClientBundle\Entity\Lot
      */
     public function getLot()
     {
@@ -147,9 +148,10 @@ class RebalancerQueue
     }
 
     /**
-     * Set security
+     * Set security.
      *
      * @param \Wealthbot\AdminBundle\Entity\Security $security
+     *
      * @return RebalancerQueue
      */
     public function setSecurity(\Wealthbot\AdminBundle\Entity\Security $security = null)
@@ -160,9 +162,9 @@ class RebalancerQueue
     }
 
     /**
-     * Get security
+     * Get security.
      *
-     * @return \Wealthbot\AdminBundle\Entity\Security 
+     * @return \Wealthbot\AdminBundle\Entity\Security
      */
     public function getSecurity()
     {
@@ -170,9 +172,10 @@ class RebalancerQueue
     }
 
     /**
-     * Set systemClientAccount
+     * Set systemClientAccount.
      *
      * @param \Wealthbot\ClientBundle\Entity\SystemAccount $systemClientAccount
+     *
      * @return RebalancerQueue
      */
     public function setSystemClientAccount(\Wealthbot\ClientBundle\Entity\SystemAccount $systemClientAccount = null)
@@ -183,9 +186,9 @@ class RebalancerQueue
     }
 
     /**
-     * Get systemClientAccount
+     * Get systemClientAccount.
      *
-     * @return \Wealthbot\ClientBundle\Entity\SystemAccount 
+     * @return \Wealthbot\ClientBundle\Entity\SystemAccount
      */
     public function getSystemClientAccount()
     {
@@ -193,9 +196,10 @@ class RebalancerQueue
     }
 
     /**
-     * Set amount
+     * Set amount.
      *
      * @param float $amount
+     *
      * @return RebalancerQueue
      */
     public function setAmount($amount)
@@ -206,9 +210,9 @@ class RebalancerQueue
     }
 
     /**
-     * Get amount
+     * Get amount.
      *
-     * @return float 
+     * @return float
      */
     public function getAmount()
     {
@@ -216,9 +220,10 @@ class RebalancerQueue
     }
 
     /**
-     * Set rebalancerAction
+     * Set rebalancerAction.
      *
      * @param \Wealthbot\AdminBundle\Entity\RebalancerAction $rebalancerAction
+     *
      * @return RebalancerQueue
      */
     public function setRebalancerAction(\Wealthbot\AdminBundle\Entity\RebalancerAction $rebalancerAction = null)
@@ -229,9 +234,9 @@ class RebalancerQueue
     }
 
     /**
-     * Get rebalancerAction
+     * Get rebalancerAction.
      *
-     * @return \Wealthbot\AdminBundle\Entity\RebalancerAction 
+     * @return \Wealthbot\AdminBundle\Entity\RebalancerAction
      */
     public function getRebalancerAction()
     {
@@ -239,9 +244,10 @@ class RebalancerQueue
     }
 
     /**
-     * Set subclass
+     * Set subclass.
      *
      * @param \Wealthbot\AdminBundle\Entity\Subclass $subclass
+     *
      * @return RebalancerQueue
      */
     public function setSubclass(\Wealthbot\AdminBundle\Entity\Subclass $subclass = null)
@@ -252,9 +258,9 @@ class RebalancerQueue
     }
 
     /**
-     * Get subclass
+     * Get subclass.
      *
-     * @return \Wealthbot\AdminBundle\Entity\Subclass 
+     * @return \Wealthbot\AdminBundle\Entity\Subclass
      */
     public function getSubclass()
     {
@@ -272,9 +278,10 @@ class RebalancerQueue
     }
 
     /**
-     * Set is_deleted
+     * Set is_deleted.
      *
-     * @param boolean $isDeleted
+     * @param bool $isDeleted
+     *
      * @return RebalancerQueue
      */
     public function setIsDeleted($isDeleted)
@@ -285,9 +292,9 @@ class RebalancerQueue
     }
 
     /**
-     * Get is_deleted
+     * Get is_deleted.
      *
-     * @return boolean 
+     * @return bool
      */
     public function getIsDeleted()
     {

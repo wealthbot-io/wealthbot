@@ -1,27 +1,27 @@
 #!/bin/sh
 #
-# /etc/init.d/elasticsearch -- startup script for Elasticsearch
+# /etc/init.d/elasticsearch-<%= @name %> -- startup script for Elasticsearch
 #
 # Written by Miquel van Smoorenburg <miquels@cistron.nl>.
 # Modified for Debian GNU/Linux	by Ian Murdock <imurdock@gnu.ai.mit.edu>.
 # Modified for Tomcat by Stefan Gybas <sgybas@debian.org>.
 # Modified for Tomcat6 by Thierry Carrez <thierry.carrez@ubuntu.com>.
 # Additional improvements by Jason Brittain <jason.brittain@mulesoft.com>.
-# Modified by Nicolas Huray for ElasticSearch <nicolas.huray@gmail.com>.
+# Modified by Nicolas Huray for Elasticsearch <nicolas.huray@gmail.com>.
 #
 ### BEGIN INIT INFO
-# Provides:          elasticsearch
+# Provides:          elasticsearch-<%= @name %>
 # Required-Start:    $network $remote_fs $named
 # Required-Stop:     $network $remote_fs $named
 # Default-Start:     2 3 4 5
 # Default-Stop:      0 1 6
-# Short-Description: Starts elasticsearch
-# Description:       Starts elasticsearch using start-stop-daemon
+# Short-Description: Starts elasticsearch-<%= @name %>
+# Description:       Starts elasticsearch-<%= @name %> using start-stop-daemon
 ### END INIT INFO
 
 PATH=/bin:/usr/bin:/sbin:/usr/sbin
-NAME=elasticsearch
-DESC="ElasticSearch Server"
+NAME=elasticsearch-<%= @name %>
+DESC="Elasticsearch Server <%= @name %>"
 DEFAULT=/etc/default/$NAME
 
 if [ `id -u` -ne 0 ]; then
@@ -39,12 +39,13 @@ fi
 
 # The following variables can be overwritten in $DEFAULT
 
-# Run ElasticSearch as this user ID and group ID
+# Run Elasticsearch as this user ID and group ID
 ES_USER=elasticsearch
 ES_GROUP=elasticsearch
 
 # The first existing directory is used for JAVA_HOME (if JAVA_HOME is not defined in $DEFAULT)
-JDK_DIRS="/usr/lib/jvm/java-7-oracle /usr/lib/jvm/java-7-openjdk /usr/lib/jvm/java-7-openjdk-amd64/ /usr/lib/jvm/java-7-openjdk-armhf /usr/lib/jvm/java-7-openjdk-i386/ /usr/lib/jvm/java-6-sun /usr/lib/jvm/java-6-openjdk /usr/lib/jvm/java-6-openjdk-amd64 /usr/lib/jvm/java-6-openjdk-armhf /usr/lib/jvm/java-6-openjdk-i386 /usr/lib/jvm/default-java"
+JDK_DIRS="/usr/lib/jvm/java-8-oracle /usr/lib/jvm/java-8-openjdk /usr/lib/jvm/java-8-openjdk-amd64/ /usr/lib/jvm/java-8-openjdk-armhf /usr/lib/jvm/java-8-openjdk-i386/ /usr/lib/jvm/java-7-oracle /usr/lib/jvm/java-7-openjdk /usr/lib/jvm/java-7-openjdk-amd64/ /usr/lib/jvm/java-7-openjdk-armhf /usr/lib/jvm/java-7-openjdk-i386/ /usr/lib/jvm/java-6-sun /usr/lib/jvm/java-6-openjdk /usr/lib/jvm/java-6-openjdk-amd64 /usr/lib/jvm/java-6-openjdk-armhf /usr/lib/jvm/java-6-openjdk-i386 /usr/lib/jvm/default-java"
+
 
 # Look for the right JVM to use
 for jdir in $JDK_DIRS; do
@@ -54,7 +55,7 @@ for jdir in $JDK_DIRS; do
 done
 export JAVA_HOME
 
-# Directory where the ElasticSearch binary distribution resides
+# Directory where the Elasticsearch binary distribution resides
 ES_HOME=/usr/share/$NAME
 
 # Heap Size (defaults to 256m min, 1g max)
@@ -75,20 +76,23 @@ MAX_OPEN_FILES=65535
 # Maximum amount of locked memory
 #MAX_LOCKED_MEMORY=
 
-# ElasticSearch log directory
+# Elasticsearch log directory
 LOG_DIR=/var/log/$NAME
 
-# ElasticSearch data directory
+# Elasticsearch data directory
 DATA_DIR=/var/lib/$NAME
 
-# ElasticSearch work directory
+# Elasticsearch work directory
 WORK_DIR=/tmp/$NAME
 
-# ElasticSearch configuration directory
+# Elasticsearch configuration directory
 CONF_DIR=/etc/$NAME
 
-# ElasticSearch configuration file (elasticsearch.yml)
+# Elasticsearch configuration file (elasticsearch.yml)
 CONF_FILE=$CONF_DIR/elasticsearch.yml
+
+# Maximum number of VMA (Virtual Memory Areas) a process can own
+MAX_MAP_COUNT=262144
 
 # End of variables that can be overwritten in $DEFAULT
 
@@ -100,12 +104,15 @@ fi
 # Define other required variables
 PID_FILE=/var/run/$NAME.pid
 DAEMON=$ES_HOME/bin/elasticsearch
-DAEMON_OPTS="-p $PID_FILE -Des.default.config=$CONF_FILE -Des.default.path.home=$ES_HOME -Des.default.path.logs=$LOG_DIR -Des.default.path.data=$DATA_DIR -Des.default.path.work=$WORK_DIR -Des.default.path.conf=$CONF_DIR"
+DAEMON_OPTS="-d -p $PID_FILE -Des.default.path.home=$ES_HOME -Des.default.path.logs=$LOG_DIR -Des.default.path.data=$DATA_DIR -Des.default.path.work=$WORK_DIR -Des.default.path.conf=$CONF_DIR"
 
 export ES_HEAP_SIZE
 export ES_HEAP_NEWSIZE
 export ES_DIRECT_SIZE
 export ES_JAVA_OPTS
+export ES_CLASSPATH
+export ES_INCLUDE
+export ES_GC_LOG_FILE
 
 # Check DAEMON exists
 test -x $DAEMON || exit 0
@@ -153,14 +160,18 @@ case "$1" in
 		ulimit -l $MAX_LOCKED_MEMORY
 	fi
 
+	if [ -n "$MAX_MAP_COUNT" ]; then
+		sysctl -q -w vm.max_map_count=$MAX_MAP_COUNT
+	fi
+
 	# Start Daemon
 	start-stop-daemon --start -b --user "$ES_USER" -c "$ES_USER" --pidfile "$PID_FILE" --exec $DAEMON -- $DAEMON_OPTS
 	log_end_msg $?
-	;;		
+	;;
   stop)
 	log_daemon_msg "Stopping $DESC"
 
-	if [ -f "$PID_FILE" ]; then 
+	if [ -f "$PID_FILE" ]; then
 		start-stop-daemon --stop --pidfile "$PID_FILE" \
 			--user "$ES_USER" \
 			--retry=TERM/20/KILL/5 >/dev/null

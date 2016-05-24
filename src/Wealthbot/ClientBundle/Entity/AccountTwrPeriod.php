@@ -2,15 +2,13 @@
 
 namespace Wealthbot\ClientBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-
 /**
- * AccountTwrPeriod
+ * AccountTwrPeriod.
  */
 class AccountTwrPeriod
 {
     /**
-     * @var integer
+     * @var int
      */
     protected $id;
 
@@ -80,9 +78,9 @@ class AccountTwrPeriod
     protected $accountNumber;
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer
+     * @return int
      */
     public function getId()
     {
@@ -90,9 +88,10 @@ class AccountTwrPeriod
     }
 
     /**
-     * Set net mtd
+     * Set net mtd.
      *
      * @param float $netMtd
+     *
      * @return this
      */
     public function setNetMtd($netMtd)
@@ -103,9 +102,9 @@ class AccountTwrPeriod
     }
 
     /**
-     * Get mtd
+     * Get mtd.
      *
-     * @return float 
+     * @return float
      */
     public function getNetMtd()
     {
@@ -113,9 +112,10 @@ class AccountTwrPeriod
     }
 
     /**
-     * Set gross mtd
+     * Set gross mtd.
      *
      * @param float $grossMtd
+     *
      * @return this
      */
     public function setGrossMtd($grossMtd)
@@ -126,7 +126,7 @@ class AccountTwrPeriod
     }
 
     /**
-     * Get gross mtd
+     * Get gross mtd.
      *
      * @return float
      */
@@ -136,9 +136,10 @@ class AccountTwrPeriod
     }
 
     /**
-     * Set net qtd
+     * Set net qtd.
      *
      * @param float $netQtd
+     *
      * @return this
      */
     public function setNetQtd($netQtd)
@@ -149,9 +150,9 @@ class AccountTwrPeriod
     }
 
     /**
-     * Get net qtd
+     * Get net qtd.
      *
-     * @return float 
+     * @return float
      */
     public function getNetQtd()
     {
@@ -159,9 +160,10 @@ class AccountTwrPeriod
     }
 
     /**
-     * Set gross qtd
+     * Set gross qtd.
      *
      * @param float $grossQtd
+     *
      * @return this
      */
     public function setGrossQtd($grossQtd)
@@ -172,7 +174,7 @@ class AccountTwrPeriod
     }
 
     /**
-     * Get gross qtd
+     * Get gross qtd.
      *
      * @return float
      */
@@ -182,9 +184,10 @@ class AccountTwrPeriod
     }
 
     /**
-     * Set net ytd
+     * Set net ytd.
      *
      * @param float $netYtd
+     *
      * @return this
      */
     public function setNetYtd($netYtd)
@@ -195,9 +198,9 @@ class AccountTwrPeriod
     }
 
     /**
-     * Get net ytd
+     * Get net ytd.
      *
-     * @return float 
+     * @return float
      */
     public function getNetYtd()
     {
@@ -205,9 +208,10 @@ class AccountTwrPeriod
     }
 
     /**
-     * Set gross ytd
+     * Set gross ytd.
      *
      * @param float $grossYtd
+     *
      * @return this
      */
     public function setGrossYtd($grossYtd)
@@ -218,7 +222,7 @@ class AccountTwrPeriod
     }
 
     /**
-     * Get gross ytd
+     * Get gross ytd.
      *
      * @return float
      */
@@ -228,9 +232,10 @@ class AccountTwrPeriod
     }
 
     /**
-     * Set net yr1
+     * Set net yr1.
      *
      * @param float $netYr1
+     *
      * @return this
      */
     public function setNetYr1($netYr1)
@@ -241,9 +246,9 @@ class AccountTwrPeriod
     }
 
     /**
-     * Get net yr1
+     * Get net yr1.
      *
-     * @return float 
+     * @return float
      */
     public function getNetYr1()
     {
@@ -251,9 +256,10 @@ class AccountTwrPeriod
     }
 
     /**
-     * Set gross yr1
+     * Set gross yr1.
      *
      * @param float $grossYr1
+     *
      * @return this
      */
     public function setGrossYr1($grossYr1)
@@ -264,7 +270,7 @@ class AccountTwrPeriod
     }
 
     /**
-     * Get gross yr1
+     * Get gross yr1.
      *
      * @return float
      */
@@ -274,9 +280,10 @@ class AccountTwrPeriod
     }
 
     /**
-     * Set net yr3
+     * Set net yr3.
      *
      * @param float $netYr3
+     *
      * @return this
      */
     public function setNetYr3($netYr3)
@@ -287,7 +294,7 @@ class AccountTwrPeriod
     }
 
     /**
-     * Get net yr3
+     * Get net yr3.
      *
      * @return float
      */
@@ -297,9 +304,10 @@ class AccountTwrPeriod
     }
 
     /**
-     * Set gross yr3
+     * Set gross yr3.
      *
      * @param float $grossYr3
+     *
      * @return this
      */
     public function setGrossYr3($grossYr3)
@@ -310,7 +318,7 @@ class AccountTwrPeriod
     }
 
     /**
-     * Get gross yr3
+     * Get gross yr3.
      *
      * @return float
      */
@@ -320,9 +328,10 @@ class AccountTwrPeriod
     }
 
     /**
-     * Set net since inception
+     * Set net since inception.
      *
      * @param float $netSinceInception
+     *
      * @return this
      */
     public function setNetSinceInception($netSinceInception)
@@ -333,9 +342,9 @@ class AccountTwrPeriod
     }
 
     /**
-     * Get net since inception
+     * Get net since inception.
      *
-     * @return float 
+     * @return float
      */
     public function getNetSinceInception()
     {
@@ -343,9 +352,10 @@ class AccountTwrPeriod
     }
 
     /**
-     * Set gross since inception
+     * Set gross since inception.
      *
      * @param float $grossSinceInception
+     *
      * @return this
      */
     public function setGrossSinceInception($grossSinceInception)
@@ -356,7 +366,7 @@ class AccountTwrPeriod
     }
 
     /**
-     * Get gross since inception
+     * Get gross since inception.
      *
      * @return float
      */
@@ -366,9 +376,10 @@ class AccountTwrPeriod
     }
 
     /**
-     * Set account_number
+     * Set account_number.
      *
      * @param string $accountNumber
+     *
      * @return this
      */
     public function setAccountNumber($accountNumber)
@@ -379,9 +390,9 @@ class AccountTwrPeriod
     }
 
     /**
-     * Get account_number
+     * Get account_number.
      *
-     * @return string 
+     * @return string
      */
     public function getAccountNumber()
     {

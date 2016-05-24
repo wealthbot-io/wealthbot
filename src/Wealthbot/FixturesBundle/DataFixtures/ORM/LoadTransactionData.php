@@ -9,22 +9,19 @@
 
 namespace Wealthbot\FixturesBundle\DataFixtures\ORM;
 
-
-use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Wealthbot\AdminBundle\Entity\Transaction;
-use Wealthbot\ClientBundle\Entity\Lot;
 use Wealthbot\FixturesBundle\Model\AbstractCsvFixture;
 
 class LoadTransactionData extends AbstractCsvFixture implements OrderedFixtureInterface
 {
     /**
-     * Load data fixtures with the passed EntityManager
+     * Load data fixtures with the passed EntityManager.
      *
      * @param \Doctrine\Common\Persistence\ObjectManager $manager
      */
-    function load(ObjectManager $manager)
+    public function load(ObjectManager $manager)
     {
         $accountRepo = $manager->getRepository('WealthbotClientBundle:SystemAccount');
         $securityRepo = $manager->getRepository('WealthbotAdminBundle:Security');
@@ -60,14 +57,14 @@ class LoadTransactionData extends AbstractCsvFixture implements OrderedFixtureIn
 
             //create transactions table and leave data for lots.
 
-            $account = $accountRepo->findOneBy(array('account_number' => $accountNumber));
+            $account = $accountRepo->findOneBy(['account_number' => $accountNumber]);
             $security = $securityRepo->findOneBySymbol($symbol);
-            $closingMethod = $closingMethodRepo->findOneBy(array('name' => $closingMethodCode));
-            $transactionType = $transactionTypeRepo->findOneBy(array('name' => $transactionCode));
+            $closingMethod = $closingMethodRepo->findOneBy(['name' => $closingMethodCode]);
+            $transactionType = $transactionTypeRepo->findOneBy(['name' => $transactionCode]);
 
             if ($account && $security) {
                 $transaction = new Transaction();
-                $transaction->setCancelStatus((bool)($cancelStatusFlag == 'Y'));
+                $transaction->setCancelStatus((bool) ($cancelStatusFlag === 'Y'));
                 $transaction->setTxDate(new \DateTime($txDate));
                 $transaction->setQty($qty);
                 $transaction->setNetAmount($netAmount);
@@ -86,7 +83,7 @@ class LoadTransactionData extends AbstractCsvFixture implements OrderedFixtureIn
                 $manager->persist($transaction);
                 $flush = true;
 
-                if ((++$i % 100) == 0) {
+                if ((++$i % 100) === 0) {
                     $flush = false;
                     $manager->flush();
                 }
@@ -98,15 +95,13 @@ class LoadTransactionData extends AbstractCsvFixture implements OrderedFixtureIn
         }
     }
 
-
     /**
-     * Get the order of this fixture
+     * Get the order of this fixture.
      *
-     * @return integer
+     * @return int
      */
-    function getOrder()
+    public function getOrder()
     {
         return 9;
     }
-
 }

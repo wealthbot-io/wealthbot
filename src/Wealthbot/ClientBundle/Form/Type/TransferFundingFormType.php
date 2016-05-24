@@ -9,11 +9,8 @@
 
 namespace Wealthbot\ClientBundle\Form\Type;
 
-
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
-use Wealthbot\ClientBundle\Entity\AccountContribution;
-use Wealthbot\ClientBundle\Entity\ClientAccount;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -21,7 +18,9 @@ use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Wealthbot\ClientBundle\Entity\AccountContribution;
+use Wealthbot\ClientBundle\Entity\ClientAccount;
 
 class TransferFundingFormType extends AbstractType
 {
@@ -43,58 +42,60 @@ class TransferFundingFormType extends AbstractType
         $client = $this->account->getClient();
 
         // Array of types without TYPE_DISTRIBUTING
-        $typeChoices = array(
+        $typeChoices = [
             AccountContribution::TYPE_FUNDING_BANK => 'Bank Transfer',
             AccountContribution::TYPE_FUNDING_MAIL => 'Mail Check',
             AccountContribution::TYPE_FUNDING_WIRE => 'Wire Transfer',
-            AccountContribution::TYPE_NOT_FUNDING => 'I will not be funding my account at this time'
-        );
+            AccountContribution::TYPE_NOT_FUNDING => 'I will not be funding my account at this time',
+        ];
 
         // Array of transaction_frequency values
         $frequencyTransactionChoices = $this->getChoicesForTransactionFrequency();
 
         $builder
             //->add('bankInformation', new BankInformationFormType($this->isPreSaved))
-            ->add('bankInformation', 'entity', array(
-                'class' => 'WealthbotClientBundle:BankInformation',
-                'query_builder' => function(EntityRepository $er) use ($client) {
+            ->add('bankInformation', 'entity', [
+                'class' => 'Wealthbot\\ClientBundle\\Entity\\BankInformation',
+                'query_builder' => function (EntityRepository $er) use ($client) {
                     return $er->createQueryBuilder('bi')
                         ->where('bi.client_id = :client_id')
                         ->setParameter('client_id', $client->getId());
                 },
                 'expanded' => true,
                 'multiple' => false,
-                'required' => false
-            ))
-            ->add('type', 'choice', array(
+                'required' => false,
+            ])
+            ->add('type', 'choice', [
                 'choices' => $typeChoices,
                 'expanded' => true,
                 'multiple' => false,
-                'required' => false
-            ))
-            ->add('amount', 'number', array(
+                'required' => false,
+                'auto_initialize' => false
+            ])
+            ->add('amount', 'number', [
                 'precision' => 2,
                 'grouping' => true,
-                'required' => false
-            ))
-            ->add('transaction_frequency', 'choice', array(
+                'required' => false,
+            ])
+            ->add('transaction_frequency', 'choice', [
                 'choices' => $frequencyTransactionChoices,
                 'expanded' => true,
                 'multiple' => false,
-                'required' => false
-            ))
+                'required' => false,
+                'auto_initialize' => false
+            ])
         ;
 
         if (!is_null($this->subscriber)) {
             $builder->addEventSubscriber($this->subscriber);
         }
 
-        $builder->addEventListener(FormEvents::BIND, array($this, 'onBind'));
+        $builder->addEventListener(FormEvents::SUBMIT, [$this, 'onSubmit']);
     }
 
-    public function onBind(FormEvent $event)
+    public function onSubmit(FormEvent $event)
     {
-        /** @var $data AccountContribution */
+        /* @var $data AccountContribution */
         $form = $event->getForm();
         $data = $event->getData();
 
@@ -104,7 +105,7 @@ class TransferFundingFormType extends AbstractType
             $year = date('Y');
 
             if ($month && $day) {
-                $date = new \DateTime($year . '-' . $month . '-' . $day);
+                $date = new \DateTime($year.'-'.$month.'-'.$day);
                 $data->setStartTransferDate($date);
             }
         }
@@ -117,15 +118,14 @@ class TransferFundingFormType extends AbstractType
     }
 
     /**
-     * If need to update the attributes of the data object, depending on the form fields
+     * If need to update the attributes of the data object, depending on the form fields.
      *
      * @param FormInterface $form
-     * @param mixed $data
+     * @param mixed         $data
      */
     protected function updateData(FormInterface $form, $data)
     {
-        if ($data->getType() != AccountContribution::TYPE_FUNDING_BANK) {
-
+        if ($data->getType() !== AccountContribution::TYPE_FUNDING_BANK) {
             $bankInformation = $data->getBankInformation();
             if ($bankInformation && $bankInformation->getId()) {
                 $this->em->remove($bankInformation);
@@ -150,20 +150,17 @@ class TransferFundingFormType extends AbstractType
 
     /**
      * TODO: need refactor
-     * Validate form fields
+     * Validate form fields.
      *
      * @param \Symfony\Component\Form\FormInterface $form
-     * @param mixed $data
+     * @param mixed                                 $data
      */
     protected function validateFields(FormInterface $form, $data)
     {
         if ($form->has('type') && !in_array($data->getType(), AccountContribution::getTypeChoices())) {
             $form->get('type')->addError(new FormError('Choose an option.'));
-
         } else {
-
-            if ($data->getType() == AccountContribution::TYPE_FUNDING_BANK) {
-
+            if ($data->getType() === AccountContribution::TYPE_FUNDING_BANK) {
                 $bankInfo = $data->getBankInformation();
                 if (null === $bankInfo) {
                     $form->get('bankInformation')->addError(new FormError('Required.'));
@@ -171,14 +168,13 @@ class TransferFundingFormType extends AbstractType
 
                 if (!($data->getStartTransferDate() instanceof \DateTime)) {
                     $form->get('start_transfer_date_month')->addError(new FormError('Enter correct date.'));
-
                 } else {
                     $minDate = new \DateTime('+5 days');
 
                     if ($data->getStartTransferDate() < $minDate) {
                         $form->get('start_transfer_date_month')->addError(
                             new FormError(
-                                "The start of your transfer should be at least 5 days after today’s date."
+                                'The start of your transfer should be at least 5 days after today’s date.'
                             )
                         );
                     }
@@ -225,7 +221,6 @@ class TransferFundingFormType extends AbstractType
                 }
             }
         }
-
     }
 
     protected function getChoicesForTransactionFrequency()
@@ -235,14 +230,14 @@ class TransferFundingFormType extends AbstractType
         return $transactionFrequencyChoices;
     }
 
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => 'Wealthbot\ClientBundle\Entity\AccountContribution'
-        ));
+        $resolver->setDefaults([
+            'data_class' => 'Wealthbot\ClientBundle\Entity\AccountContribution',
+        ]);
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'transfer_funding_type';
     }

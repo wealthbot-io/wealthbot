@@ -19,7 +19,7 @@
 
 
     {% block top_content %}
-        {% render 'WealthbotClientBundle:Transfer:progressMenu' with { 'account': account, 'step': 'rollover' } %}
+        {{ render(controller('WealthbotClientBundle:Transfer:progressMenu', { 'account': account, 'step': 'rollover' })) }}
     {% endblock %}
 
     <form action="{% block form_action %}{{ path('rx_client_transfer_rollover', { 'account_id': account.id }) }}{% endblock %}" method="post" class="def-form">

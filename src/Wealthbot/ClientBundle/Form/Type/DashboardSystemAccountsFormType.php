@@ -9,50 +9,48 @@
 
 namespace Wealthbot\ClientBundle\Form\Type;
 
-
-use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
-use Wealthbot\ClientBundle\Entity\ClientAccount;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Wealthbot\ClientBundle\Entity\ClientAccount;
 
 class DashboardSystemAccountsFormType extends AbstractType
 {
     private $account;
     private $systemAccounts;
 
-    public function __construct(ClientAccount $account, array $systemAccounts = array())
+    public function __construct(ClientAccount $account, array $systemAccounts = [])
     {
         $this->account = $account;
         $this->systemAccounts = $systemAccounts;
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options = array())
+    public function buildForm(FormBuilderInterface $builder, array $options = [])
     {
-        if (count($this->systemAccounts) == 1) {
-            $builder->add('account', 'hidden', array('attr' => array('value' => $this->systemAccounts[0]->getId())));
+        if (count($this->systemAccounts) === 1) {
+            $builder->add('account', 'hidden', ['attr' => ['value' => $this->systemAccounts[0]->getId()]]);
         } else {
             $clientId = $this->account->getClientId();
             $type = $this->account->getSystemType();
 
-            $builder->add('account', 'entity', array(
-                'class' => 'WealthbotClientBundle:SystemAccount',
+            $builder->add('account', 'entity', [
+                'class' => 'Wealthbot\\ClientBundle\\Entity\\SystemAccount',
                 'multiple' => false,
                 'expanded' => true,
-                'query_builder' => function(EntityRepository $er) use ($clientId, $type){
+                'query_builder' => function (EntityRepository $er) use ($clientId, $type) {
                     return $er->createQueryBuilder('sa')
                         ->where('sa.client_id = :client_id')
                         ->andWhere('sa.type = :type')
-                        ->setParameters(array(
+                        ->setParameters([
                             'client_id' => $clientId,
-                            'type' => $type
-                        ));
-                }
-            ));
+                            'type' => $type,
+                        ]);
+                },
+            ]);
         }
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'system_account';
     }

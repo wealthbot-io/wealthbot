@@ -2,19 +2,18 @@
 
 namespace Wealthbot\AdminBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
 use Wealthbot\ClientBundle\Entity\Lot;
+use Wealthbot\ClientBundle\Entity\SystemAccount;
 use Wealthbot\ClientBundle\Model\PaymentActivityInterface;
 use Wealthbot\UserBundle\Entity\User;
-use Wealthbot\ClientBundle\Entity\SystemAccount;
 
 /**
- * Transaction
+ * Transaction.
  */
 class Transaction implements PaymentActivityInterface
 {
     /**
-     * @var integer
+     * @var int
      */
     private $id;
 
@@ -60,8 +59,8 @@ class Transaction implements PaymentActivityInterface
 
     // Constants for status column
     const STATUS_IN_PROGRESS = 'in progress';
-    const STATUS_PLACED      = 'placed';
-    const STATUS_VERIFIED    = 'verified';
+    const STATUS_PLACED = 'placed';
+    const STATUS_VERIFIED = 'verified';
 
     private static $_statuses = null;
 
@@ -81,7 +80,7 @@ class Transaction implements PaymentActivityInterface
     private $closingMethod;
 
     /**
-     * @var boolean
+     * @var bool
      */
     private $cancelStatus;
 
@@ -96,15 +95,16 @@ class Transaction implements PaymentActivityInterface
     private $lot;
 
     /**
-     * TODO: remove this later (in position exists security)
+     * TODO: remove this later (in position exists security).
+     *
      * @var \Wealthbot\AdminBundle\Entity\Security
      */
     private $security;
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer 
+     * @return int
      */
     public function getId()
     {
@@ -112,22 +112,23 @@ class Transaction implements PaymentActivityInterface
     }
 
     /**
-     * Set qty
+     * Set qty.
      *
      * @param float $qty
+     *
      * @return Transaction
      */
     public function setQty($qty)
     {
         $this->qty = $qty;
-    
+
         return $this;
     }
 
     /**
-     * Get qty
+     * Get qty.
      *
-     * @return float 
+     * @return float
      */
     public function getQty()
     {
@@ -135,22 +136,23 @@ class Transaction implements PaymentActivityInterface
     }
 
     /**
-     * Set netAmount
+     * Set netAmount.
      *
      * @param float $netAmount
+     *
      * @return Transaction
      */
     public function setNetAmount($netAmount)
     {
         $this->netAmount = $netAmount;
-    
+
         return $this;
     }
 
     /**
-     * Get netAmount
+     * Get netAmount.
      *
-     * @return float 
+     * @return float
      */
     public function getNetAmount()
     {
@@ -158,22 +160,23 @@ class Transaction implements PaymentActivityInterface
     }
 
     /**
-     * Set grossAmount
+     * Set grossAmount.
      *
      * @param float $grossAmount
+     *
      * @return Transaction
      */
     public function setGrossAmount($grossAmount)
     {
         $this->grossAmount = $grossAmount;
-    
+
         return $this;
     }
 
     /**
-     * Get grossAmount
+     * Get grossAmount.
      *
-     * @return float 
+     * @return float
      */
     public function getGrossAmount()
     {
@@ -181,22 +184,23 @@ class Transaction implements PaymentActivityInterface
     }
 
     /**
-     * Set txDate
+     * Set txDate.
      *
      * @param \DateTime $txDate
+     *
      * @return Transaction
      */
     public function setTxDate($txDate)
     {
         $this->txDate = $txDate;
-    
+
         return $this;
     }
 
     /**
-     * Get txDate
+     * Get txDate.
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getTxDate()
     {
@@ -204,22 +208,23 @@ class Transaction implements PaymentActivityInterface
     }
 
     /**
-     * Set settleDate
+     * Set settleDate.
      *
      * @param \DateTime $settleDate
+     *
      * @return Transaction
      */
     public function setSettleDate($settleDate)
     {
         $this->settleDate = $settleDate;
-    
+
         return $this;
     }
 
     /**
-     * Get settleDate
+     * Get settleDate.
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getSettleDate()
     {
@@ -227,22 +232,23 @@ class Transaction implements PaymentActivityInterface
     }
 
     /**
-     * Set accruedInterest
+     * Set accruedInterest.
      *
      * @param float $accruedInterest
+     *
      * @return Transaction
      */
     public function setAccruedInterest($accruedInterest)
     {
         $this->accruedInterest = $accruedInterest;
-    
+
         return $this;
     }
 
     /**
-     * Get accruedInterest
+     * Get accruedInterest.
      *
-     * @return float 
+     * @return float
      */
     public function getAccruedInterest()
     {
@@ -250,22 +256,23 @@ class Transaction implements PaymentActivityInterface
     }
 
     /**
-     * Set notes
+     * Set notes.
      *
      * @param string $notes
+     *
      * @return Transaction
      */
     public function setNotes($notes)
     {
         $this->notes = $notes;
-    
+
         return $this;
     }
 
     /**
-     * Get notes
+     * Get notes.
      *
-     * @return string 
+     * @return string
      */
     public function getNotes()
     {
@@ -275,7 +282,7 @@ class Transaction implements PaymentActivityInterface
     public static function getStatusChoices()
     {
         if (null === self::$_statuses) {
-            self::$_statuses = array();
+            self::$_statuses = [];
 
             $oClass = new \ReflectionClass('\Wealthbot\AdminBundle\Entity\Transaction');
             $classConstants = $oClass->getConstants();
@@ -292,10 +299,12 @@ class Transaction implements PaymentActivityInterface
     }
 
     /**
-     * Set status
+     * Set status.
      *
      * @param string $status
+     *
      * @return $this
+     *
      * @throws \InvalidArgumentException
      */
     public function setStatus($status)
@@ -305,14 +314,14 @@ class Transaction implements PaymentActivityInterface
         }
 
         $this->status = $status;
-    
+
         return $this;
     }
 
     /**
-     * Get status
+     * Get status.
      *
-     * @return string 
+     * @return string
      */
     public function getStatus()
     {
@@ -320,22 +329,23 @@ class Transaction implements PaymentActivityInterface
     }
 
     /**
-     * Set account
+     * Set account.
      *
      * @param SystemAccount $account
+     *
      * @return Transaction
      */
     public function setAccount(SystemAccount $account = null)
     {
         $this->account = $account;
-    
+
         return $this;
     }
 
     /**
-     * Get account
+     * Get account.
      *
-     * @return \Wealthbot\ClientBundle\Entity\SystemAccount 
+     * @return \Wealthbot\ClientBundle\Entity\SystemAccount
      */
     public function getAccount()
     {
@@ -343,22 +353,23 @@ class Transaction implements PaymentActivityInterface
     }
 
     /**
-     * Set transactionType
+     * Set transactionType.
      *
      * @param \Wealthbot\AdminBundle\Entity\TransactionType $transactionType
+     *
      * @return Transaction
      */
     public function setTransactionType(TransactionType $transactionType = null)
     {
         $this->transactionType = $transactionType;
-    
+
         return $this;
     }
 
     /**
-     * Get transactionType
+     * Get transactionType.
      *
-     * @return \Wealthbot\AdminBundle\Entity\TransactionType 
+     * @return \Wealthbot\AdminBundle\Entity\TransactionType
      */
     public function getTransactionType()
     {
@@ -366,22 +377,23 @@ class Transaction implements PaymentActivityInterface
     }
 
     /**
-     * Set closingMethod
+     * Set closingMethod.
      *
      * @param \Wealthbot\AdminBundle\Entity\ClosingMethod $closingMethod
+     *
      * @return Transaction
      */
     public function setClosingMethod(\Wealthbot\AdminBundle\Entity\ClosingMethod $closingMethod = null)
     {
         $this->closingMethod = $closingMethod;
-    
+
         return $this;
     }
 
     /**
-     * Get closingMethod
+     * Get closingMethod.
      *
-     * @return \Wealthbot\AdminBundle\Entity\ClosingMethod 
+     * @return \Wealthbot\AdminBundle\Entity\ClosingMethod
      */
     public function getClosingMethod()
     {
@@ -389,22 +401,23 @@ class Transaction implements PaymentActivityInterface
     }
 
     /**
-     * Set cancelStatus
+     * Set cancelStatus.
      *
-     * @param boolean $cancelStatus
+     * @param bool $cancelStatus
+     *
      * @return Transaction
      */
     public function setCancelStatus($cancelStatus)
     {
         $this->cancelStatus = $cancelStatus;
-    
+
         return $this;
     }
 
     /**
-     * Get cancelStatus
+     * Get cancelStatus.
      *
-     * @return boolean 
+     * @return bool
      */
     public function getCancelStatus()
     {
@@ -412,22 +425,23 @@ class Transaction implements PaymentActivityInterface
     }
 
     /**
-     * Set transferAccount
+     * Set transferAccount.
      *
      * @param \Wealthbot\ClientBundle\Entity\SystemAccount $transferAccount
+     *
      * @return Transaction
      */
     public function setTransferAccount(SystemAccount $transferAccount = null)
     {
         $this->transferAccount = $transferAccount;
-    
+
         return $this;
     }
 
     /**
-     * Get transferAccount
+     * Get transferAccount.
      *
-     * @return \Wealthbot\ClientBundle\Entity\SystemAccount 
+     * @return \Wealthbot\ClientBundle\Entity\SystemAccount
      */
     public function getTransferAccount()
     {
@@ -435,9 +449,10 @@ class Transaction implements PaymentActivityInterface
     }
 
     /**
-     * Set security
+     * Set security.
      *
      * @param \Wealthbot\AdminBundle\Entity\Security $security
+     *
      * @return Transaction
      */
     public function setSecurity(\Wealthbot\AdminBundle\Entity\Security $security = null)
@@ -448,7 +463,7 @@ class Transaction implements PaymentActivityInterface
     }
 
     /**
-     * Get security
+     * Get security.
      *
      * @return \Wealthbot\AdminBundle\Entity\Security
      */
@@ -458,7 +473,7 @@ class Transaction implements PaymentActivityInterface
     }
 
     /**
-     * Get activity message
+     * Get activity message.
      *
      * @return string
      */
@@ -468,18 +483,18 @@ class Transaction implements PaymentActivityInterface
 
         $type = $this->getTransactionType();
         if ($type) {
-            if ($type->getName() == 'DEP') {
+            if ($type->getName() === 'DEP') {
                 $message = 'Deposit';
-            } elseif ($type->getName() == 'WITH') {
+            } elseif ($type->getName() === 'WITH') {
                 $message = 'Withdrawal';
             }
         }
 
         return $message;
-    }    
-    
+    }
+
     /**
-     * Get activity client
+     * Get activity client.
      *
      * @return User
      */
@@ -491,7 +506,7 @@ class Transaction implements PaymentActivityInterface
     }
 
     /**
-     * Get activity amount
+     * Get activity amount.
      *
      * @return float
      */
@@ -515,5 +530,4 @@ class Transaction implements PaymentActivityInterface
     {
         return $this->lot;
     }
-
 }

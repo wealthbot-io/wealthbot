@@ -7,7 +7,8 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 /**
  * @MongoDB\Document(collection="transactions")
  */
-class Transaction {
+class Transaction
+{
     /**
      * @MongoDB\Id
      */
@@ -134,8 +135,8 @@ class Transaction {
     protected $username;
 
     const STATUS_NOT_POSTED = 1;
-    const STATUS_POSTED     = 2;
-    const STATUS_CANCELLED  = 3;
+    const STATUS_POSTED = 2;
+    const STATUS_CANCELLED = 3;
 
     public function __construct()
     {

@@ -1,4 +1,4 @@
-{% render 'WealthbotRiaBundle:Dashboard:companyInformation' %}
+{{ render(controller('WealthbotRiaBundle:Dashboard:companyInformation'))}}
 
 <div class="row-fluid">
     <div class="span12">
@@ -15,7 +15,7 @@
 
                     <!-- Everything you want hidden at 940px or less, place within here -->
                     {% set route = app.request.attributes.get('_route') %}
-                    {% render 'WealthbotRiaBundle:Dashboard:menu' with { 'route': route } %}
+                    {{ render(controller('WealthbotRiaBundle:Dashboard:menu', { 'route': route } )) }}
                 </div>
             </div>
         </div>

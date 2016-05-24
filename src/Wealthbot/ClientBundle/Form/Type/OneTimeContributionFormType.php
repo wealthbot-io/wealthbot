@@ -9,18 +9,17 @@
 
 namespace Wealthbot\ClientBundle\Form\Type;
 
-use Wealthbot\ClientBundle\Entity\OneTimeContribution;
-use Wealthbot\ClientBundle\Form\Validator\BankInformationFormValidator;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Wealthbot\ClientBundle\Entity\OneTimeContribution;
+use Wealthbot\ClientBundle\Form\Validator\BankInformationFormValidator;
 
 class OneTimeContributionFormType extends AccountContributionFormType
 {
     protected function updateData(FormInterface $form, $data)
     {
-        if ($data->getType() != OneTimeContribution::TYPE_FUNDING_BANK) {
-
+        if ($data->getType() !== OneTimeContribution::TYPE_FUNDING_BANK) {
             $bankInformation = $data->getBankInformation();
             if ($bankInformation && $bankInformation->getId()) {
                 $this->em->remove($bankInformation);
@@ -41,10 +40,8 @@ class OneTimeContributionFormType extends AccountContributionFormType
     {
         if (!in_array($data->getType(), OneTimeContribution::getTypeChoices())) {
             $form->get('type')->addError(new FormError('Choose an option.'));
-
         } else {
-
-            if ($data->getType() == OneTimeContribution::TYPE_FUNDING_BANK) {
+            if ($data->getType() === OneTimeContribution::TYPE_FUNDING_BANK) {
                 $bankInformationValidator = new BankInformationFormValidator(
                     $form->get('bankInformation'),
                     $data->getBankInformation()
@@ -54,14 +51,13 @@ class OneTimeContributionFormType extends AccountContributionFormType
 
                 if (!($data->getStartTransferDate() instanceof \DateTime)) {
                     $form->get('start_transfer_date_month')->addError(new FormError('Enter correct date.'));
-
                 } else {
                     $minDate = new \DateTime('+5 days');
 
                     if ($data->getStartTransferDate() < $minDate) {
                         $form->get('start_transfer_date_month')->addError(
                             new FormError(
-                                "The start of your transfer should be at least 5 days after today’s date."
+                                'The start of your transfer should be at least 5 days after today’s date.'
                             )
                         );
                     }
@@ -112,10 +108,10 @@ class OneTimeContributionFormType extends AccountContributionFormType
         }
     }
 
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => 'Wealthbot\ClientBundle\Entity\OneTimeContribution'
-        ));
+        $resolver->setDefaults([
+            'data_class' => 'Wealthbot\ClientBundle\Entity\OneTimeContribution',
+        ]);
     }
 }

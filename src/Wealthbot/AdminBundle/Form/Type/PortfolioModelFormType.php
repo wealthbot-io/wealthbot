@@ -9,13 +9,13 @@
 
 namespace Wealthbot\AdminBundle\Form\Type;
 
-use Wealthbot\AdminBundle\Entity\CeModel;
-use Wealthbot\UserBundle\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Wealthbot\AdminBundle\Entity\CeModel;
+use Wealthbot\UserBundle\Entity\User;
 
 class PortfolioModelFormType extends AbstractType
 {
@@ -26,7 +26,7 @@ class PortfolioModelFormType extends AbstractType
     public function __construct(CeModel $parent, User $owner)
     {
         $this->parent = $parent;
-        $this->owner  = $owner;
+        $this->owner = $owner;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -37,12 +37,11 @@ class PortfolioModelFormType extends AbstractType
         $builder->add('name', 'text');
 
         // Add Event - when we create a model then we will need to set owner and parent
-        $builder->addEventListener(FormEvents::BIND, function(FormEvent $event) use ($owner, $parent){
+        $builder->addEventListener(FormEvents::SUBMIT, function (FormEvent $event) use ($owner, $parent) {
 
             $data = $event->getData();
 
-            if($data && !$data->getId()) {
-
+            if ($data && !$data->getId()) {
                 $data->setOwner($owner);
                 $data->setParent($parent);
             }
@@ -52,14 +51,14 @@ class PortfolioModelFormType extends AbstractType
     /**
      * @param OptionsResolverInterface $resolver
      */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => 'Wealthbot\AdminBundle\Entity\CeModel'
-        ));
+        $resolver->setDefaults([
+            'data_class' => 'Wealthbot\AdminBundle\Entity\CeModel',
+        ]);
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'strategy';
     }

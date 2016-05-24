@@ -17,3 +17,8 @@ monolog:
             type:  stream
             path:  %kernel.logs_dir%/%kernel.environment%.log
             level: debug
+
+web_profiler:
+    toolbar: false
+    intercept_redirects: false
+

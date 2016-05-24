@@ -4,7 +4,7 @@ namespace Wealthbot\RiaBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Wealthbot\RiaBundle\Entity\RiaCompanyInformation;
 use Wealthbot\UserBundle\Entity\Profile;
 
@@ -32,37 +32,36 @@ class CreateClientProfileType extends AbstractType
 
         $accManagedChoices = array_flip(RiaCompanyInformation::$account_managed_choices);
         // If ria managed as client by client, then add choices...
-        if($ria->getRiaCompanyInformation()->getAccountManaged() == $accManagedChoices['Client by Client Basis']) {
+        if ($ria->getRiaCompanyInformation()->getAccountManaged() === $accManagedChoices['Client by Client Basis']) {
             $builder->add(
-                'client_account_managed', 'choice', array(
+                'client_account_managed', 'choice', [
                     'choices' => Profile::$client_account_managed_choices,
-                    'expanded' => true
-                )
+                    'expanded' => true,
+                ]
             );
         }
 
-
-        $builder->add('suggested_portfolio', 'entity', array(
-            'class' => 'WealthbotAdminBundle:CeModel',
+        $builder->add('suggested_portfolio', 'entity', [
+            'class' => 'Wealthbot\\AdminBundle\\Entity\\CeModel',
             'property' => 'name',
-            'query_builder' => function(\Doctrine\ORM\EntityRepository $er) use ($portfolioModel, $ria) {
+            'query_builder' => function (\Doctrine\ORM\EntityRepository $er) use ($portfolioModel, $ria) {
                 return $er->createQueryBuilder('p')
                     ->leftJoin('p.parent', 'parent')
                     ->andWhere('p.ownerId = :owner_id')
                     ->andWhere('parent.id = :parent_id')
-                    ->setParameters(array('owner_id' => $ria->getId(), 'parent_id' => $portfolioModel->getId()));
-            }
-        ));
+                    ->setParameters(['owner_id' => $ria->getId(), 'parent_id' => $portfolioModel->getId()]);
+            },
+        ]);
     }
 
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => 'Wealthbot\UserBundle\Entity\Profile'
-        ));
+        $resolver->setDefaults([
+            'data_class' => 'Wealthbot\UserBundle\Entity\Profile',
+        ]);
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'wealthbot_riabundle_createclientprofiletype';
     }

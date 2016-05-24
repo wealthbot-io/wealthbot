@@ -13,14 +13,11 @@ use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Wealthbot\AdminBundle\Entity\BillingSpec;
-use Wealthbot\AdminBundle\Entity\Fee;
 use Wealthbot\UserBundle\Entity\User;
 
 class LoadBillingSpecData extends AbstractFixture implements OrderedFixtureInterface
 {
-
-
-    function load(ObjectManager $manager)
+    public function load(ObjectManager $manager)
     {
         /** @var User $riaUser */
         $riaUser = $this->getReference('user-ria');
@@ -88,9 +85,8 @@ class LoadBillingSpecData extends AbstractFixture implements OrderedFixtureInter
         $manager->flush();
     }
 
-    function getOrder()
+    public function getOrder()
     {
         return 9;
     }
-
 }

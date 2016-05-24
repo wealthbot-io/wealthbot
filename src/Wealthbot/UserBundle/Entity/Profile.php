@@ -2,48 +2,48 @@
 
 namespace Wealthbot\UserBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Wealthbot\AdminBundle\Entity\CeModel;
 use Wealthbot\ClientBundle\Model\Workflow;
 use Wealthbot\ClientBundle\Model\WorkflowableInterface;
-use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
- * Wealthbot\UserBundle\Entity\Profile
+ * Wealthbot\UserBundle\Entity\Profile.
  */
 class Profile implements WorkflowableInterface
 {
+
     const PAYMENT_METHOD_DIRECT_DEBIT = 1;
     const PAYMENT_METHOD_OUTSIDE_PAYMENT = 2;
 
     /**
-     * @var integer
+     * @var int
      */
     protected $paymentMethod;
 
     /**
-     * @var integer $id
+     * @var int
      */
     private $id;
 
     /**
-     * @var string $company
+     * @var string
      */
     private $company;
 
     /**
-     * @var string $first_name
+     * @var string
      */
     private $first_name = '';
 
     /**
-     * @var string $last_name
+     * @var string
      */
     private $last_name = '';
 
     public function __toString()
     {
-        return $this->getFirstName()." ".$this->getLastName();
+        return $this->getFirstName().' '.$this->getLastName();
     }
 
     /**
@@ -51,14 +51,15 @@ class Profile implements WorkflowableInterface
      */
     public static function getPaymentMethodChoise()
     {
-        return array(
-            self::PAYMENT_METHOD_DIRECT_DEBIT    => 'Direct debit',
-            self::PAYMENT_METHOD_OUTSIDE_PAYMENT => 'Outside payment'
-        );
+        return [
+            self::PAYMENT_METHOD_DIRECT_DEBIT => 'Direct debit',
+            self::PAYMENT_METHOD_OUTSIDE_PAYMENT => 'Outside payment',
+        ];
     }
 
     /**
-     * @param integer $paymentMethod
+     * @param int $paymentMethod
+     *
      * @return string
      */
     public static function getPaymentMethodName($paymentMethod)
@@ -69,9 +70,9 @@ class Profile implements WorkflowableInterface
     }
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer
+     * @return int
      */
     public function getId()
     {
@@ -79,9 +80,10 @@ class Profile implements WorkflowableInterface
     }
 
     /**
-     * Set company
+     * Set company.
      *
      * @param string $company
+     *
      * @return Profile
      */
     public function setCompany($company)
@@ -92,7 +94,7 @@ class Profile implements WorkflowableInterface
     }
 
     /**
-     * Get company
+     * Get company.
      *
      * @return string
      */
@@ -102,9 +104,10 @@ class Profile implements WorkflowableInterface
     }
 
     /**
-     * Set first_name
+     * Set first_name.
      *
      * @param string $firstName
+     *
      * @return Profile
      */
     public function setFirstName($firstName)
@@ -115,7 +118,7 @@ class Profile implements WorkflowableInterface
     }
 
     /**
-     * Get first_name
+     * Get first_name.
      *
      * @return string
      */
@@ -125,9 +128,10 @@ class Profile implements WorkflowableInterface
     }
 
     /**
-     * Set last_name
+     * Set last_name.
      *
      * @param string $lastName
+     *
      * @return Profile
      */
     public function setLastName($lastName)
@@ -138,7 +142,7 @@ class Profile implements WorkflowableInterface
     }
 
     /**
-     * Get last_name
+     * Get last_name.
      *
      * @return string
      */
@@ -147,7 +151,7 @@ class Profile implements WorkflowableInterface
         return $this->last_name;
     }
     /**
-     * @var integer $user_id
+     * @var int
      */
     private $user_id;
 
@@ -156,11 +160,11 @@ class Profile implements WorkflowableInterface
      */
     private $user;
 
-
     /**
-     * Set user_id
+     * Set user_id.
      *
-     * @param integer $userId
+     * @param int $userId
+     *
      * @return Profile
      */
     public function setUserId($userId)
@@ -171,9 +175,9 @@ class Profile implements WorkflowableInterface
     }
 
     /**
-     * Get user_id
+     * Get user_id.
      *
-     * @return integer
+     * @return int
      */
     public function getUserId()
     {
@@ -181,9 +185,10 @@ class Profile implements WorkflowableInterface
     }
 
     /**
-     * Set user
+     * Set user.
      *
      * @param \Wealthbot\UserBundle\Entity\User $user
+     *
      * @return Profile
      */
     public function setUser(\Wealthbot\UserBundle\Entity\User $user = null)
@@ -194,7 +199,7 @@ class Profile implements WorkflowableInterface
     }
 
     /**
-     * Get user
+     * Get user.
      *
      * @return \Wealthbot\UserBundle\Entity\User
      */
@@ -203,59 +208,57 @@ class Profile implements WorkflowableInterface
         return $this->user;
     }
     /**
-     * @var string $middle_name
+     * @var string
      */
     private $middle_name;
 
     /**
-     * @var string $street
+     * @var string
      */
     private $street;
 
     /**
-     * @var string $city
+     * @var string
      */
     private $city;
 
     /**
-     * @var string $zip
+     * @var string
      */
     private $zip;
 
-
     /**
-     * @var boolean $is_different_address
+     * @var bool
      */
     private $is_different_address;
 
     /**
-     * @var string $mailing_street
+     * @var string
      */
     private $mailing_street;
 
     /**
-     * @var string $mailing_city
+     * @var string
      */
     private $mailing_city;
 
-
     /**
-     * @var string $mailing_zip
+     * @var string
      */
     private $mailing_zip;
 
     /**
-     * @var \DateTime $birth_date
+     * @var \DateTime
      */
     private $birth_date;
 
     /**
-     * @var string $phone_number
+     * @var string
      */
     private $phone_number;
 
     /**
-     * @var string $marital_status
+     * @var string
      */
     private $marital_status;
 
@@ -265,15 +268,15 @@ class Profile implements WorkflowableInterface
     const CLIENT_MARITAL_STATUS_DIVORCED = 'Divorced';
     const CLIENT_MARITAL_STATUS_SEPARATED = 'Separated';
 
-    static private $_clientMaritalStatusValues = null;
+    private static $_clientMaritalStatusValues = null;
 
     /**
-     * @var string $spouse_name
+     * @var string
      */
     private $spouse_name;
 
     /**
-     * @var string $annual_income
+     * @var string
      */
     private $annual_income;
 
@@ -285,15 +288,15 @@ class Profile implements WorkflowableInterface
     const CLIENT_ANNUAL_INCOME_VALUE5 = '$150,001-$250,000';
     const CLIENT_ANNUAL_INCOME_VALUE6 = '$250,001 +';
 
-    static private $_clientAnnualIncomeValues = null;
+    private static $_clientAnnualIncomeValues = null;
 
     /**
-     * @var string $estimated_income_tax
+     * @var string
      */
     private $estimated_income_tax;
 
     /**
-     * @var string $liquid_net_worth
+     * @var string
      */
     private $liquid_net_worth;
 
@@ -307,10 +310,10 @@ class Profile implements WorkflowableInterface
     const CLIENT_LIQUID_NET_WORTH_VALUE7 = '$700,001-$1,000,000';
     const CLIENT_LIQUID_NET_WORTH_VALUE8 = '$1,000,000 +';
 
-    static private $_clientLiquidNetWorthValues = null;
+    private static $_clientLiquidNetWorthValues = null;
 
     /**
-     * @var string $employment_type
+     * @var string
      */
     private $employment_type;
 
@@ -320,25 +323,26 @@ class Profile implements WorkflowableInterface
     const CLIENT_EMPLOYMENT_TYPE_RETIRED = 'Retired';
     const CLIENT_EMPLOYMENT_TYPE_UNEMPLOYED = 'Unemployed';
 
-    static private $_clientEmploymentTypeValues = null;
+    private static $_clientEmploymentTypeValues = null;
 
     /**
-     * @var integer
+     * @var int
      */
     private $client_status;
 
     const CLIENT_STATUS_PROSPECT = 1;
-    const CLIENT_STATUS_CLIENT   = 2;
+    const CLIENT_STATUS_CLIENT = 2;
 
-    static private $_clientStatusValues = array(
+    private static $_clientStatusValues = [
         self::CLIENT_STATUS_PROSPECT => 'prospect',
-        self::CLIENT_STATUS_CLIENT   => 'client'
-    );
+        self::CLIENT_STATUS_CLIENT => 'client',
+    ];
 
     /**
-     * Set middle_name
+     * Set middle_name.
      *
      * @param string $middleName
+     *
      * @return Profile
      */
     public function setMiddleName($middleName)
@@ -349,7 +353,7 @@ class Profile implements WorkflowableInterface
     }
 
     /**
-     * Get middle_name
+     * Get middle_name.
      *
      * @return string
      */
@@ -359,9 +363,10 @@ class Profile implements WorkflowableInterface
     }
 
     /**
-     * Set street
+     * Set street.
      *
      * @param string $street
+     *
      * @return Profile
      */
     public function setStreet($street)
@@ -372,7 +377,7 @@ class Profile implements WorkflowableInterface
     }
 
     /**
-     * Get street
+     * Get street.
      *
      * @return string
      */
@@ -382,9 +387,10 @@ class Profile implements WorkflowableInterface
     }
 
     /**
-     * Set city
+     * Set city.
      *
      * @param string $city
+     *
      * @return Profile
      */
     public function setCity($city)
@@ -395,7 +401,7 @@ class Profile implements WorkflowableInterface
     }
 
     /**
-     * Get city
+     * Get city.
      *
      * @return string
      */
@@ -405,9 +411,10 @@ class Profile implements WorkflowableInterface
     }
 
     /**
-     * Set zip
+     * Set zip.
      *
      * @param string $zip
+     *
      * @return Profile
      */
     public function setZip($zip)
@@ -417,9 +424,8 @@ class Profile implements WorkflowableInterface
         return $this;
     }
 
-
     /**
-     * Get zip
+     * Get zip.
      *
      * @return string
      */
@@ -429,9 +435,10 @@ class Profile implements WorkflowableInterface
     }
 
     /**
-     * Set is_different_address
+     * Set is_different_address.
      *
-     * @param boolean $isDifferentAddress
+     * @param bool $isDifferentAddress
+     *
      * @return Profile
      */
     public function setIsDifferentAddress($isDifferentAddress)
@@ -442,9 +449,9 @@ class Profile implements WorkflowableInterface
     }
 
     /**
-     * Get is_different_address
+     * Get is_different_address.
      *
-     * @return boolean
+     * @return bool
      */
     public function getIsDifferentAddress()
     {
@@ -452,9 +459,10 @@ class Profile implements WorkflowableInterface
     }
 
     /**
-     * Set mailing_street
+     * Set mailing_street.
      *
      * @param string $mailingStreet
+     *
      * @return Profile
      */
     public function setMailingStreet($mailingStreet)
@@ -465,7 +473,7 @@ class Profile implements WorkflowableInterface
     }
 
     /**
-     * Get mailing_street
+     * Get mailing_street.
      *
      * @return string
      */
@@ -475,9 +483,10 @@ class Profile implements WorkflowableInterface
     }
 
     /**
-     * Set mailing_city
+     * Set mailing_city.
      *
      * @param string $mailingCity
+     *
      * @return Profile
      */
     public function setMailingCity($mailingCity)
@@ -487,9 +496,8 @@ class Profile implements WorkflowableInterface
         return $this;
     }
 
-
     /**
-     * Get mailing_city
+     * Get mailing_city.
      *
      * @return string
      */
@@ -499,9 +507,10 @@ class Profile implements WorkflowableInterface
     }
 
     /**
-     * Set mailing_zip
+     * Set mailing_zip.
      *
      * @param string $mailingZip
+     *
      * @return Profile
      */
     public function setMailingZip($mailingZip)
@@ -512,7 +521,7 @@ class Profile implements WorkflowableInterface
     }
 
     /**
-     * Get mailing_zip
+     * Get mailing_zip.
      *
      * @return string
      */
@@ -522,9 +531,10 @@ class Profile implements WorkflowableInterface
     }
 
     /**
-     * Set birth_date
+     * Set birth_date.
      *
      * @param \DateTime $birthDate
+     *
      * @return Profile
      */
     public function setBirthDate($birthDate)
@@ -535,7 +545,7 @@ class Profile implements WorkflowableInterface
     }
 
     /**
-     * Get birth_date
+     * Get birth_date.
      *
      * @return \DateTime
      */
@@ -545,9 +555,10 @@ class Profile implements WorkflowableInterface
     }
 
     /**
-     * Set phone_number
+     * Set phone_number.
      *
      * @param string $phoneNumber
+     *
      * @return Profile
      */
     public function setPhoneNumber($phoneNumber)
@@ -558,7 +569,7 @@ class Profile implements WorkflowableInterface
     }
 
     /**
-     * Get phone_number
+     * Get phone_number.
      *
      * @return string
      */
@@ -568,10 +579,12 @@ class Profile implements WorkflowableInterface
     }
 
     /**
-     * Set marital_status
+     * Set marital_status.
      *
      * @param string $maritalStatus
+     *
      * @return Profile
+     *
      * @throws \InvalidArgumentException
      */
     public function setMaritalStatus($maritalStatus)
@@ -588,7 +601,7 @@ class Profile implements WorkflowableInterface
     }
 
     /**
-     * Get marital_status
+     * Get marital_status.
      *
      * @return string
      */
@@ -598,19 +611,20 @@ class Profile implements WorkflowableInterface
     }
 
     /**
-     * Get array ENUM values marital_status column
+     * Get array ENUM values marital_status column.
      *
      * @static
+     *
      * @return array
      */
-    static public function getMaritalStatusChoices()
+    public static function getMaritalStatusChoices()
     {
         // Build $_clientMaritalStatusValues if this is the first call
         if (self::$_clientMaritalStatusValues === null) {
-            self::$_clientMaritalStatusValues = array();
+            self::$_clientMaritalStatusValues = [];
             $oClass = new \ReflectionClass('\Wealthbot\UserBundle\Entity\Profile');
             $classConstants = $oClass->getConstants();
-            $constantPrefix = "CLIENT_MARITAL_STATUS_";
+            $constantPrefix = 'CLIENT_MARITAL_STATUS_';
             foreach ($classConstants as $key => $val) {
                 if (substr($key, 0, strlen($constantPrefix)) === $constantPrefix) {
                     self::$_clientMaritalStatusValues[$val] = $val;
@@ -621,11 +635,11 @@ class Profile implements WorkflowableInterface
         return self::$_clientMaritalStatusValues;
     }
 
-
     /**
-     * Set spouse_name
+     * Set spouse_name.
      *
      * @param string $spouseName
+     *
      * @return Profile
      */
     public function setSpouseName($spouseName)
@@ -636,7 +650,7 @@ class Profile implements WorkflowableInterface
     }
 
     /**
-     * Get spouse_name
+     * Get spouse_name.
      *
      * @return string
      */
@@ -646,10 +660,12 @@ class Profile implements WorkflowableInterface
     }
 
     /**
-     * Set annual_income
+     * Set annual_income.
      *
      * @param string $annualIncome
+     *
      * @return Profile
+     *
      * @throws \InvalidArgumentException
      */
     public function setAnnualIncome($annualIncome)
@@ -666,7 +682,7 @@ class Profile implements WorkflowableInterface
     }
 
     /**
-     * Get annual_income
+     * Get annual_income.
      *
      * @return string
      */
@@ -676,19 +692,20 @@ class Profile implements WorkflowableInterface
     }
 
     /**
-     * Get array ENUM values marital_status column
+     * Get array ENUM values marital_status column.
      *
      * @static
+     *
      * @return array
      */
-    static public function getAnnualIncomeChoices()
+    public static function getAnnualIncomeChoices()
     {
         // Build $_clientAnnualIncomeValues if this is the first call
         if (self::$_clientAnnualIncomeValues === null) {
-            self::$_clientAnnualIncomeValues = array();
+            self::$_clientAnnualIncomeValues = [];
             $oClass = new \ReflectionClass('\Wealthbot\UserBundle\Entity\Profile');
             $classConstants = $oClass->getConstants();
-            $constantPrefix = "CLIENT_ANNUAL_INCOME_";
+            $constantPrefix = 'CLIENT_ANNUAL_INCOME_';
             foreach ($classConstants as $key => $val) {
                 if (substr($key, 0, strlen($constantPrefix)) === $constantPrefix) {
                     self::$_clientAnnualIncomeValues[$val] = $val;
@@ -700,9 +717,10 @@ class Profile implements WorkflowableInterface
     }
 
     /**
-     * Set estimated_income_tax
+     * Set estimated_income_tax.
      *
      * @param string $estimatedIncomeTax
+     *
      * @return Profile
      */
     public function setEstimatedIncomeTax($estimatedIncomeTax)
@@ -713,7 +731,7 @@ class Profile implements WorkflowableInterface
     }
 
     /**
-     * Get estimated_income_tax
+     * Get estimated_income_tax.
      *
      * @return string
      */
@@ -723,10 +741,12 @@ class Profile implements WorkflowableInterface
     }
 
     /**
-     * Set liquid_net_worth
+     * Set liquid_net_worth.
      *
      * @param string $liquidNetWorth
+     *
      * @return Profile
+     *
      * @throws \InvalidArgumentException
      */
     public function setLiquidNetWorth($liquidNetWorth)
@@ -743,7 +763,7 @@ class Profile implements WorkflowableInterface
     }
 
     /**
-     * Get liquid_net_worth
+     * Get liquid_net_worth.
      *
      * @return string
      */
@@ -753,19 +773,20 @@ class Profile implements WorkflowableInterface
     }
 
     /**
-     * Get array ENUM values liquid_net_worth column
+     * Get array ENUM values liquid_net_worth column.
      *
      * @static
+     *
      * @return array
      */
-    static public function getLiquidNetWorthChoices()
+    public static function getLiquidNetWorthChoices()
     {
         // Build $_clientLiquidNetWorthValues if this is the first call
         if (self::$_clientLiquidNetWorthValues === null) {
-            self::$_clientLiquidNetWorthValues = array();
+            self::$_clientLiquidNetWorthValues = [];
             $oClass = new \ReflectionClass('\Wealthbot\UserBundle\Entity\Profile');
             $classConstants = $oClass->getConstants();
-            $constantPrefix = "CLIENT_LIQUID_NET_WORTH_";
+            $constantPrefix = 'CLIENT_LIQUID_NET_WORTH_';
             foreach ($classConstants as $key => $val) {
                 if (substr($key, 0, strlen($constantPrefix)) === $constantPrefix) {
                     self::$_clientLiquidNetWorthValues[$val] = $val;
@@ -777,18 +798,21 @@ class Profile implements WorkflowableInterface
     }
 
     /**
-     * Set employment_type
+     * Set employment_type.
+     *
      * @param string $employmentType
+     *
      * @return Profile
+     *
      * @throws \InvalidArgumentException
      */
     public function setEmploymentType($employmentType)
     {
         if (!is_null($employmentType) && !in_array($employmentType, self::getEmploymentTypeChoices())) {
-           throw new \InvalidArgumentException(
+            throw new \InvalidArgumentException(
                sprintf('Invalid value for profile.employment_type : %s.', $employmentType)
            );
-       }
+        }
 
         $this->employment_type = $employmentType;
 
@@ -796,7 +820,7 @@ class Profile implements WorkflowableInterface
     }
 
     /**
-     * Get employment_type
+     * Get employment_type.
      *
      * @return string
      */
@@ -806,19 +830,20 @@ class Profile implements WorkflowableInterface
     }
 
     /**
-     * Get array ENUM values employment_type column
+     * Get array ENUM values employment_type column.
      *
      * @static
+     *
      * @return array
      */
-    static public function getEmploymentTypeChoices()
+    public static function getEmploymentTypeChoices()
     {
         // Build $_clientEmploymentTypeValues if this is the first call
         if (self::$_clientEmploymentTypeValues === null) {
-            self::$_clientEmploymentTypeValues = array();
+            self::$_clientEmploymentTypeValues = [];
             $oClass = new \ReflectionClass('\Wealthbot\UserBundle\Entity\Profile');
             $classConstants = $oClass->getConstants();
-            $constantPrefix = "CLIENT_EMPLOYMENT_TYPE_";
+            $constantPrefix = 'CLIENT_EMPLOYMENT_TYPE_';
             foreach ($classConstants as $key => $val) {
                 if (substr($key, 0, strlen($constantPrefix)) === $constantPrefix) {
                     self::$_clientEmploymentTypeValues[$val] = $val;
@@ -829,15 +854,15 @@ class Profile implements WorkflowableInterface
         return self::$_clientEmploymentTypeValues;
     }
     /**
-     * @var integer $registration_step
+     * @var int
      */
     private $registration_step = 0;
 
-
     /**
-     * Set registration_step
+     * Set registration_step.
      *
-     * @param integer $registrationStep
+     * @param int $registrationStep
+     *
      * @return Profile
      */
     public function setRegistrationStep($registrationStep)
@@ -848,16 +873,16 @@ class Profile implements WorkflowableInterface
     }
 
     /**
-     * Get registration_step
+     * Get registration_step.
      *
-     * @return integer
+     * @return int
      */
     public function getRegistrationStep()
     {
         return $this->registration_step;
     }
     /**
-     * @var integer $ria_user_id
+     * @var int
      */
     private $ria_user_id;
 
@@ -866,11 +891,11 @@ class Profile implements WorkflowableInterface
      */
     private $ria;
 
-
     /**
-     * Set ria_user_id
+     * Set ria_user_id.
      *
-     * @param integer $riaUserId
+     * @param int $riaUserId
+     *
      * @return Profile
      */
     public function setRiaUserId($riaUserId)
@@ -881,9 +906,9 @@ class Profile implements WorkflowableInterface
     }
 
     /**
-     * Get ria_user_id
+     * Get ria_user_id.
      *
-     * @return integer
+     * @return int
      */
     public function getRiaUserId()
     {
@@ -891,9 +916,10 @@ class Profile implements WorkflowableInterface
     }
 
     /**
-     * Set ria
+     * Set ria.
      *
      * @param \Wealthbot\UserBundle\Entity\User $ria
+     *
      * @return Profile
      */
     public function setRia(\Wealthbot\UserBundle\Entity\User $ria = null)
@@ -904,7 +930,7 @@ class Profile implements WorkflowableInterface
     }
 
     /**
-     * Get ria
+     * Get ria.
      *
      * @return \Wealthbot\UserBundle\Entity\User
      */
@@ -913,17 +939,16 @@ class Profile implements WorkflowableInterface
         return $this->ria;
     }
 
-
     /**
-     * @var integer $questionnaire_step
+     * @var int
      */
     private $questionnaire_step;
 
-
     /**
-     * Set questionnaire_step
+     * Set questionnaire_step.
      *
-     * @param integer $questionnaireStep
+     * @param int $questionnaireStep
+     *
      * @return Profile
      */
     public function setQuestionnaireStep($questionnaireStep)
@@ -934,32 +959,31 @@ class Profile implements WorkflowableInterface
     }
 
     /**
-     * Get questionnaire_step
+     * Get questionnaire_step.
      *
-     * @return integer
+     * @return int
      */
     public function getQuestionnaireStep()
     {
         return $this->questionnaire_step;
     }
 
-
     /**
-     * @var array $riaRegistrationSteps
+     * @var array
      */
-    private $riaRegistrationSteps = array(
+    private $riaRegistrationSteps = [
         'Created Login',
         'Step 1',
         'Step 2',
         'Step 3',
         'Step 4',
-        'Registered'
-    );
+        'Registered',
+    ];
 
     /**
-     * @var array $clientRegistrationSteps
+     * @var array
      */
-    private $clientRegistrationSteps = array(
+    private $clientRegistrationSteps = [
         'Created Login',
         'Risk questionnaire',
         'Information Intake',
@@ -967,11 +991,11 @@ class Profile implements WorkflowableInterface
         'Advisor Approved Portfolio',
         'Approved Portfolio',
         'Application Screen',
-        'Completed All Applications'
-    );
+        'Completed All Applications',
+    ];
 
     /**
-     * Get Registration step for Ria
+     * Get Registration step for Ria.
      *
      * @return string
      */
@@ -981,7 +1005,7 @@ class Profile implements WorkflowableInterface
     }
 
     /**
-     * Get Registration step for Client
+     * Get Registration step for Client.
      *
      * @return string
      */
@@ -990,12 +1014,12 @@ class Profile implements WorkflowableInterface
         return $this->clientRegistrationSteps[$this->registration_step];
     }
     /**
-     * @var integer $state_id
+     * @var int
      */
     private $state_id;
 
     /**
-     * @var integer $mailing_state_id
+     * @var int
      */
     private $mailing_state_id;
 
@@ -1004,11 +1028,11 @@ class Profile implements WorkflowableInterface
      */
     private $mailingState;
 
-
     /**
-     * Set state_id
+     * Set state_id.
      *
-     * @param integer $stateId
+     * @param int $stateId
+     *
      * @return Profile
      */
     public function setStateId($stateId)
@@ -1019,9 +1043,9 @@ class Profile implements WorkflowableInterface
     }
 
     /**
-     * Get state_id
+     * Get state_id.
      *
-     * @return integer
+     * @return int
      */
     public function getStateId()
     {
@@ -1029,9 +1053,10 @@ class Profile implements WorkflowableInterface
     }
 
     /**
-     * Set mailing_state_id
+     * Set mailing_state_id.
      *
-     * @param integer $mailingStateId
+     * @param int $mailingStateId
+     *
      * @return Profile
      */
     public function setMailingStateId($mailingStateId)
@@ -1042,9 +1067,9 @@ class Profile implements WorkflowableInterface
     }
 
     /**
-     * Get mailing_state_id
+     * Get mailing_state_id.
      *
-     * @return integer
+     * @return int
      */
     public function getMailingStateId()
     {
@@ -1055,11 +1080,11 @@ class Profile implements WorkflowableInterface
      */
     private $state;
 
-
     /**
-     * Set state
+     * Set state.
      *
      * @param \Wealthbot\AdminBundle\Entity\State $state
+     *
      * @return Profile
      */
     public function setState(\Wealthbot\AdminBundle\Entity\State $state = null)
@@ -1070,7 +1095,7 @@ class Profile implements WorkflowableInterface
     }
 
     /**
-     * Get state
+     * Get state.
      *
      * @return \Wealthbot\AdminBundle\Entity\State
      */
@@ -1080,9 +1105,10 @@ class Profile implements WorkflowableInterface
     }
 
     /**
-     * Set mailingState
+     * Set mailingState.
      *
      * @param \Wealthbot\AdminBundle\Entity\State $mailingState
+     *
      * @return Profile
      */
     public function setMailingState(\Wealthbot\AdminBundle\Entity\State $mailingState = null)
@@ -1093,7 +1119,7 @@ class Profile implements WorkflowableInterface
     }
 
     /**
-     * Get mailingState
+     * Get mailingState.
      *
      * @return \Wealthbot\AdminBundle\Entity\State
      */
@@ -1102,25 +1128,25 @@ class Profile implements WorkflowableInterface
         return $this->mailingState;
     }
     /**
-     * @var string $spouse_first_name
+     * @var string
      */
     private $spouse_first_name;
 
     /**
-     * @var string $spouse_middle_name
+     * @var string
      */
     private $spouse_middle_name;
 
     /**
-     * @var string $spouse_last_name
+     * @var string
      */
     private $spouse_last_name;
 
-
     /**
-     * Set spouse_first_name
+     * Set spouse_first_name.
      *
      * @param string $spouseFirstName
+     *
      * @return Profile
      */
     public function setSpouseFirstName($spouseFirstName)
@@ -1131,7 +1157,7 @@ class Profile implements WorkflowableInterface
     }
 
     /**
-     * Get spouse_first_name
+     * Get spouse_first_name.
      *
      * @return string
      */
@@ -1141,9 +1167,10 @@ class Profile implements WorkflowableInterface
     }
 
     /**
-     * Set spouse_middle_name
+     * Set spouse_middle_name.
      *
      * @param string $spouseMiddleName
+     *
      * @return Profile
      */
     public function setSpouseMiddleName($spouseMiddleName)
@@ -1154,7 +1181,7 @@ class Profile implements WorkflowableInterface
     }
 
     /**
-     * Get spouse_middle_name
+     * Get spouse_middle_name.
      *
      * @return string
      */
@@ -1164,9 +1191,10 @@ class Profile implements WorkflowableInterface
     }
 
     /**
-     * Set spouse_last_name
+     * Set spouse_last_name.
      *
      * @param string $spouseLastName
+     *
      * @return Profile
      */
     public function setSpouseLastName($spouseLastName)
@@ -1177,7 +1205,7 @@ class Profile implements WorkflowableInterface
     }
 
     /**
-     * Get spouse_last_name
+     * Get spouse_last_name.
      *
      * @return string
      */
@@ -1186,15 +1214,15 @@ class Profile implements WorkflowableInterface
         return $this->spouse_last_name;
     }
     /**
-     * @var integer $withdraw_age
+     * @var int
      */
     private $withdraw_age;
 
-
     /**
-     * Set withdraw_age
+     * Set withdraw_age.
      *
-     * @param integer $withdrawAge
+     * @param int $withdrawAge
+     *
      * @return Profile
      */
     public function setWithdrawAge($withdrawAge)
@@ -1205,16 +1233,16 @@ class Profile implements WorkflowableInterface
     }
 
     /**
-     * Get withdraw_age
+     * Get withdraw_age.
      *
-     * @return integer
+     * @return int
      */
     public function getWithdrawAge()
     {
         return $this->withdraw_age;
     }
     /**
-     * @var integer $suggested_portfolio_id
+     * @var int
      */
     private $suggested_portfolio_id;
 
@@ -1223,11 +1251,11 @@ class Profile implements WorkflowableInterface
      */
     private $suggestedPortfolio;
 
-
     /**
-     * Set suggested_portfolio_id
+     * Set suggested_portfolio_id.
      *
-     * @param integer $suggestedPortfolioId
+     * @param int $suggestedPortfolioId
+     *
      * @return Profile
      */
     public function setSuggestedPortfolioId($suggestedPortfolioId)
@@ -1238,9 +1266,9 @@ class Profile implements WorkflowableInterface
     }
 
     /**
-     * Get suggested_portfolio_id
+     * Get suggested_portfolio_id.
      *
-     * @return integer
+     * @return int
      */
     public function getSuggestedPortfolioId()
     {
@@ -1248,9 +1276,10 @@ class Profile implements WorkflowableInterface
     }
 
     /**
-     * Set suggestedPortfolio
+     * Set suggestedPortfolio.
      *
      * @param CeModel $suggestedPortfolio
+     *
      * @return Profile
      */
     public function setSuggestedPortfolio(CeModel $suggestedPortfolio = null)
@@ -1261,7 +1290,7 @@ class Profile implements WorkflowableInterface
     }
 
     /**
-     * Get suggestedPortfolio
+     * Get suggestedPortfolio.
      *
      * @return CeModel
      */
@@ -1271,7 +1300,7 @@ class Profile implements WorkflowableInterface
     }
 
     /**
-     * @var string $client_source
+     * @var string
      */
     private $client_source = 'web';
 
@@ -1279,13 +1308,15 @@ class Profile implements WorkflowableInterface
     const CLIENT_SOURCE_WEB = 'web';
     const CLIENT_SOURCE_IN_HOUSE = 'in-house';
 
-    static private $_clientSourceValues = null;
+    private static $_clientSourceValues = null;
 
     /**
-     * Set client_source
+     * Set client_source.
      *
-     * @param integer $clientSource
+     * @param int $clientSource
+     *
      * @return Profile
+     *
      * @throws \InvalidArgumentException
      */
     public function setClientSource($clientSource)
@@ -1302,9 +1333,9 @@ class Profile implements WorkflowableInterface
     }
 
     /**
-     * Get client_source
+     * Get client_source.
      *
-     * @return integer
+     * @return int
      */
     public function getClientSource()
     {
@@ -1312,19 +1343,20 @@ class Profile implements WorkflowableInterface
     }
 
     /**
-     * Get array ENUM values employment_type column
+     * Get array ENUM values employment_type column.
      *
      * @static
+     *
      * @return array
      */
-    static public function getClientSourceChoices()
+    public static function getClientSourceChoices()
     {
         // Build $_clientEmploymentTypeValues if this is the first call
         if (self::$_clientSourceValues === null) {
-            self::$_clientSourceValues = array();
+            self::$_clientSourceValues = [];
             $oClass = new \ReflectionClass('\Wealthbot\UserBundle\Entity\Profile');
             $classConstants = $oClass->getConstants();
-            $constantPrefix = "CLIENT_SOURCE_";
+            $constantPrefix = 'CLIENT_SOURCE_';
             foreach ($classConstants as $key => $val) {
                 if (substr($key, 0, strlen($constantPrefix)) === $constantPrefix) {
                     self::$_clientSourceValues[$val] = $val;
@@ -1336,22 +1368,23 @@ class Profile implements WorkflowableInterface
     }
 
     /**
-     * @var integer $client_account_managed
+     * @var int
      */
     private $client_account_managed;
 
     /**
-     * Choices for client account management
+     * Choices for client account management.
      */
-    public static $client_account_managed_choices = array(
+    public static $client_account_managed_choices = [
         1 => 'Account Level',
-        2 => 'Householder Level'
-    );
+        2 => 'Householder Level',
+    ];
 
     /**
-     * Set client_account_managed
+     * Set client_account_managed.
      *
-     * @param integer $clientAccountManaged
+     * @param int $clientAccountManaged
+     *
      * @return Profile
      */
     public function setClientAccountManaged($clientAccountManaged)
@@ -1362,20 +1395,20 @@ class Profile implements WorkflowableInterface
     }
 
     /**
-     * Get client_account_managed
+     * Get client_account_managed.
      *
-     * @return integer
+     * @return int
      */
     public function getClientAccountManaged()
     {
         return $this->client_account_managed;
-
     }
 
     /**
-     * Get client_account_managed as string
+     * Get client_account_managed as string.
      *
      * @return string|null
+     *
      * @throws \Exception
      */
     public function getClientAccountManagedAsString()
@@ -1393,15 +1426,15 @@ class Profile implements WorkflowableInterface
     }
 
     /**
-     * @var \DateTime $spouse_birth_date
+     * @var \DateTime
      */
     private $spouse_birth_date;
 
-
     /**
-     * Set spouse_birth_date
+     * Set spouse_birth_date.
      *
      * @param \DateTime $spouseBirthDate
+     *
      * @return Profile
      */
     public function setSpouseBirthDate($spouseBirthDate)
@@ -1412,7 +1445,7 @@ class Profile implements WorkflowableInterface
     }
 
     /**
-     * Get spouse_birth_date
+     * Get spouse_birth_date.
      *
      * @return \DateTime
      */
@@ -1421,7 +1454,7 @@ class Profile implements WorkflowableInterface
         return $this->spouse_birth_date;
     }
     /**
-     * @var integer
+     * @var int
      */
     private $dependents;
 
@@ -1430,11 +1463,11 @@ class Profile implements WorkflowableInterface
      */
     private $ssn_tin;
 
-
     /**
-     * Set dependents
+     * Set dependents.
      *
-     * @param integer $dependents
+     * @param int $dependents
+     *
      * @return Profile
      */
     public function setDependents($dependents)
@@ -1445,9 +1478,9 @@ class Profile implements WorkflowableInterface
     }
 
     /**
-     * Get dependents
+     * Get dependents.
      *
-     * @return integer
+     * @return int
      */
     public function getDependents()
     {
@@ -1455,9 +1488,10 @@ class Profile implements WorkflowableInterface
     }
 
     /**
-     * Set ssn_tin
+     * Set ssn_tin.
      *
      * @param string $ssnTin
+     *
      * @return Profile
      */
     public function setSsnTin($ssnTin)
@@ -1468,7 +1502,7 @@ class Profile implements WorkflowableInterface
     }
 
     /**
-     * Get ssn_tin
+     * Get ssn_tin.
      *
      * @return string
      */
@@ -1479,9 +1513,10 @@ class Profile implements WorkflowableInterface
 
     /**
      * Returns true if user is client with marital_status = CLIENT_MARITAL_STATUS_MARRIED
-     * and false otherwise
+     * and false otherwise.
      *
      * @return bool
+     *
      * @throws \Symfony\Component\Security\Core\Exception\AccessDeniedException
      */
     public function isMarried()
@@ -1492,7 +1527,7 @@ class Profile implements WorkflowableInterface
         }
 
         $status = $this->getMaritalStatus();
-        if ($status === Profile::CLIENT_MARITAL_STATUS_MARRIED) {
+        if ($status === self::CLIENT_MARITAL_STATUS_MARRIED) {
             return true;
         }
 
@@ -1500,7 +1535,7 @@ class Profile implements WorkflowableInterface
     }
 
     /**
-     * Get client status choices
+     * Get client status choices.
      *
      * @return array
      */
@@ -1510,10 +1545,12 @@ class Profile implements WorkflowableInterface
     }
 
     /**
-     * Set client_status
+     * Set client_status.
      *
      * @param $clientStatus
+     *
      * @return $this
+     *
      * @throws \InvalidArgumentException
      */
     public function setClientStatus($clientStatus)
@@ -1531,9 +1568,9 @@ class Profile implements WorkflowableInterface
     }
 
     /**
-     * Get client_status
+     * Get client_status.
      *
-     * @return integer
+     * @return int
      */
     public function getClientStatus()
     {
@@ -1541,7 +1578,7 @@ class Profile implements WorkflowableInterface
     }
 
     /**
-     * Get client status as string
+     * Get client status as string.
      *
      * @return string
      */
@@ -1555,7 +1592,7 @@ class Profile implements WorkflowableInterface
     }
 
     /**
-     * Set client status as prospect
+     * Set client status as prospect.
      *
      * @return $this
      */
@@ -1567,7 +1604,7 @@ class Profile implements WorkflowableInterface
     }
 
     /**
-     * Is client has status prospect
+     * Is client has status prospect.
      *
      * @return bool
      */
@@ -1577,7 +1614,7 @@ class Profile implements WorkflowableInterface
     }
 
     /**
-     * Set client status as client
+     * Set client status as client.
      *
      * @return $this
      */
@@ -1589,7 +1626,7 @@ class Profile implements WorkflowableInterface
     }
 
     /**
-     * Is client has status client
+     * Is client has status client.
      *
      * @return bool
      */
@@ -1599,7 +1636,7 @@ class Profile implements WorkflowableInterface
     }
 
     /**
-     * Get workflow message code
+     * Get workflow message code.
      *
      * @return string
      */
@@ -1623,5 +1660,4 @@ class Profile implements WorkflowableInterface
     {
         return $this->paymentMethod;
     }
-
 }

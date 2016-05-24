@@ -23,22 +23,22 @@ parameters:
 services:
     wealthbot_docusign.account_docusign.manager:
         class: Wealthbot\SignatureBundle\Manager\AccountDocusignManager
-        arguments: [@doctrine.orm.entity_manager, %wealthbot_docusign.account_docusign.class%]
+        arguments: ["@doctrine.orm.entity_manager", %wealthbot_docusign.account_docusign.class%]
 
     wealthbot_docusign.document_signature.manager:
         class: Wealthbot\SignatureBundle\Manager\DocumentSignatureManager
-        arguments: [@doctrine.orm.entity_manager, %wealthbot_docusign.account_signature.class%, %wealthbot_docusign.account_owner_signature.class%]
+        arguments: ["@doctrine.orm.entity_manager", %wealthbot_docusign.account_signature.class%, %wealthbot_docusign.account_owner_signature.class%]
 
     wealthbot_docusign.api_client:
         class: %wealthbot_docusign.api_client.class%
-        arguments: [%wealthbot_docusign.connection%, @session]
+        arguments: [%wealthbot_docusign.connection%, "@session"]
 
     wealthbot_docusign.electronic_signature_service:
         class: Wealthbot\SignatureBundle\Service\ElectronicSignatureService
-        arguments: [@wealthbot_docusign.api_client, @wealthbot_docusign.document_signature.manager, @wealthbot_docusign.account_docusign.manager, %wealthbot_docusign.templates%]
+        arguments: ["@wealthbot_docusign.api_client", "@wealthbot_docusign.document_signature.manager", "@wealthbot_docusign.account_docusign.manager", %wealthbot_docusign.templates%]
 
     wealthbot_user.twig.signature_extension:
         class: Wealthbot\SignatureBundle\Twig\SignatureTwigExtension
-        arguments: [@wealthbot_docusign.document_signature.manager]
+        arguments: ["@wealthbot_docusign.document_signature.manager"]
         tags:
             - { name: twig.extension }

@@ -2,25 +2,23 @@
 
 namespace Wealthbot\RiaBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-
 /**
- * AdvisorCode
+ * AdvisorCode.
  */
 class AdvisorCode
 {
     /**
-     * @var integer
+     * @var int
      */
     private $id;
 
     /**
-     * @var integer
+     * @var int
      */
     private $riaCompanyId;
 
     /**
-     * @var integer
+     * @var int
      */
     private $custodianId;
 
@@ -45,9 +43,9 @@ class AdvisorCode
     }
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer 
+     * @return int
      */
     public function getId()
     {
@@ -55,9 +53,10 @@ class AdvisorCode
     }
 
     /**
-     * Set riaCompanyId
+     * Set riaCompanyId.
      *
-     * @param integer $riaCompanyId
+     * @param int $riaCompanyId
+     *
      * @return AdvisorCode
      */
     public function setRiaCompanyId($riaCompanyId)
@@ -68,9 +67,9 @@ class AdvisorCode
     }
 
     /**
-     * Get riaCompanyId
+     * Get riaCompanyId.
      *
-     * @return integer 
+     * @return int
      */
     public function getRiaCompanyId()
     {
@@ -78,9 +77,10 @@ class AdvisorCode
     }
 
     /**
-     * Set custodianId
+     * Set custodianId.
      *
-     * @param integer $custodianId
+     * @param int $custodianId
+     *
      * @return AdvisorCode
      */
     public function setCustodianId($custodianId)
@@ -91,9 +91,9 @@ class AdvisorCode
     }
 
     /**
-     * Get custodianId
+     * Get custodianId.
      *
-     * @return integer 
+     * @return int
      */
     public function getCustodianId()
     {
@@ -101,9 +101,10 @@ class AdvisorCode
     }
 
     /**
-     * Set name
+     * Set name.
      *
      * @param string $name
+     *
      * @return AdvisorCode
      */
     public function setName($name)
@@ -114,9 +115,9 @@ class AdvisorCode
     }
 
     /**
-     * Get name
+     * Get name.
      *
-     * @return string 
+     * @return string
      */
     public function getName()
     {
@@ -124,9 +125,10 @@ class AdvisorCode
     }
 
     /**
-     * Set riaCompany
+     * Set riaCompany.
      *
      * @param \Wealthbot\RiaBundle\Entity\RiaCompanyInformation $riaCompany
+     *
      * @return AdvisorCode
      */
     public function setRiaCompany(\Wealthbot\RiaBundle\Entity\RiaCompanyInformation $riaCompany = null)
@@ -137,9 +139,9 @@ class AdvisorCode
     }
 
     /**
-     * Get riaCompany
+     * Get riaCompany.
      *
-     * @return \Wealthbot\RiaBundle\Entity\RiaCompanyInformation 
+     * @return \Wealthbot\RiaBundle\Entity\RiaCompanyInformation
      */
     public function getRiaCompany()
     {
@@ -147,9 +149,10 @@ class AdvisorCode
     }
 
     /**
-     * Set custodian
+     * Set custodian.
      *
      * @param \Wealthbot\AdminBundle\Entity\Custodian $custodian
+     *
      * @return AdvisorCode
      */
     public function setCustodian(\Wealthbot\AdminBundle\Entity\Custodian $custodian = null)
@@ -160,9 +163,9 @@ class AdvisorCode
     }
 
     /**
-     * Get custodian
+     * Get custodian.
      *
-     * @return \Wealthbot\AdminBundle\Entity\Custodian 
+     * @return \Wealthbot\AdminBundle\Entity\Custodian
      */
     public function getCustodian()
     {

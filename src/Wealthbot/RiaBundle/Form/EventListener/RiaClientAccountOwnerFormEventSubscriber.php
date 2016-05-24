@@ -9,17 +9,16 @@
 
 namespace Wealthbot\RiaBundle\Form\EventListener;
 
-
-use Wealthbot\ClientBundle\Entity\ClientAccount;
-use Wealthbot\ClientBundle\Entity\ClientAdditionalContact;
-use Wealthbot\ClientBundle\Form\Type\OtherAccountOwnerFormType;
-use Wealthbot\ClientBundle\Model\ClientAccountOwner;
-use Wealthbot\UserBundle\Entity\User;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
+use Wealthbot\ClientBundle\Entity\ClientAccount;
+use Wealthbot\ClientBundle\Entity\ClientAdditionalContact;
+use Wealthbot\ClientBundle\Form\Type\OtherAccountOwnerFormType;
+use Wealthbot\ClientBundle\Model\ClientAccountOwner;
+use Wealthbot\UserBundle\Entity\User;
 
 class RiaClientAccountOwnerFormEventSubscriber implements EventSubscriberInterface
 {
@@ -38,15 +37,15 @@ class RiaClientAccountOwnerFormEventSubscriber implements EventSubscriberInterfa
 
     public static function getSubscribedEvents()
     {
-        return array(
+        return [
             FormEvents::PRE_SET_DATA => 'preSetData',
-            FormEvents::PRE_BIND     => 'preBind',
-            //FormEvents::BIND         => 'bind'
-        );
+            FormEvents::PRE_SUBMIT => 'preBind',
+            //FormEvents::SUBMIT         => 'bind'
+        ];
     }
 
     /**
-     * PRE_SET_DATA event handler
+     * PRE_SET_DATA event handler.
      *
      * @param FormEvent $event
      */
@@ -57,7 +56,7 @@ class RiaClientAccountOwnerFormEventSubscriber implements EventSubscriberInterfa
     }
 
     /**
-     * PRE_BIND event handler
+     * PRE_SUBMIT event handler.
      *
      * @param FormEvent $event
      */
@@ -67,10 +66,10 @@ class RiaClientAccountOwnerFormEventSubscriber implements EventSubscriberInterfa
     }
 
     /**
-     * Update form fields
+     * Update form fields.
      *
      * @param FormInterface $form
-     * @param null $data
+     * @param null          $data
      */
     private function update(FormInterface $form, $data)
     {
@@ -80,13 +79,14 @@ class RiaClientAccountOwnerFormEventSubscriber implements EventSubscriberInterfa
 
         if ($this->isJoint) {
             $form->add(
-                $this->factory->createNamed('owner_types', 'choice', $data['owner_types'], array(
+                $this->factory->createNamed('owner_types', 'choice', $data['owner_types'], [
                     'mapped' => false,
                     'choices' => $this->getOwnerTypesChoices(),
                     'expanded' => true,
                     'multiple' => true,
-                    'data' => $data['owner_types']
-                ))
+                    'data' => $data['owner_types'],
+                    'auto_initialize' => false
+                ])
             );
 
             if (is_array($data) && (
@@ -101,28 +101,28 @@ class RiaClientAccountOwnerFormEventSubscriber implements EventSubscriberInterfa
                     )
                 );
             }
-
         } else {
             $form->add(
-                $this->factory->createNamed('owner_types', 'choice', $data, array(
+                $this->factory->createNamed('owner_types', 'choice', $data, [
                     'mapped' => false,
                     'choices' => $this->getOwnerTypesChoices(),
                     'expanded' => true,
                     'multiple' => false,
-                    'data' => $data
-                ))
+                    'data' => $data,
+                    'auto_initialize' => false
+                ])
             );
         }
     }
 
     /**
-     * Get data for owner_type field
+     * Get data for owner_type field.
      *
      * @return array|string
      */
     private function getOwnerTypeData()
     {
-        $data = array();
+        $data = [];
 
         if ($this->account) {
             $accountOwners = $this->account->getAccountOwners();
@@ -131,7 +131,6 @@ class RiaClientAccountOwnerFormEventSubscriber implements EventSubscriberInterfa
                 foreach ($accountOwners as $accountOwner) {
                     $data[] = $accountOwner->getOwnerType();
                 }
-
             } else {
                 foreach ($accountOwners as $accountOwner) {
                     $data = $accountOwner->getOwnerType();
@@ -143,7 +142,7 @@ class RiaClientAccountOwnerFormEventSubscriber implements EventSubscriberInterfa
     }
 
     /**
-     * Get data for other_contact field
+     * Get data for other_contact field.
      *
      * @return ClientAdditionalContact|null
      */
@@ -163,15 +162,15 @@ class RiaClientAccountOwnerFormEventSubscriber implements EventSubscriberInterfa
     }
 
     /**
-     * Get choices for owner_type field
+     * Get choices for owner_type field.
      *
      * @return array
      */
     private function getOwnerTypesChoices()
     {
-        $choices = array(
-            ClientAccountOwner::OWNER_TYPE_SELF => $this->client->getFirstName()
-        );
+        $choices = [
+            ClientAccountOwner::OWNER_TYPE_SELF => $this->client->getFirstName(),
+        ];
 
         if ($this->client->isMarried()) {
             $choices[ClientAccountOwner::OWNER_TYPE_SPOUSE] = $this->client->getSpouseFirstName();

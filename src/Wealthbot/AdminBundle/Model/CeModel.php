@@ -11,20 +11,17 @@ namespace Wealthbot\AdminBundle\Model;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use FOS\UserBundle\Model\UserInterface;
-use Wealthbot\ClientBundle\Model\Workflow;
-use Wealthbot\ClientBundle\Model\WorkflowableInterface;
 use Wealthbot\UserBundle\Entity\User;
 
 class CeModel implements CeModelInterface
 {
-
     /**
-     * @var integer
+     * @var int
      */
     protected $id;
 
     /**
-     * @var integer
+     * @var int
      */
     protected $parentId;
 
@@ -39,7 +36,7 @@ class CeModel implements CeModelInterface
     protected $type;
 
     /**
-     * @var integer
+     * @var int
      */
     protected $ownerId;
 
@@ -59,12 +56,12 @@ class CeModel implements CeModelInterface
     protected $slug;
 
     /**
-     * @var boolean
+     * @var bool
      */
     protected $isDeleted;
 
     /**
-     * @var integer
+     * @var int
      */
     protected $riskRating;
 
@@ -79,7 +76,7 @@ class CeModel implements CeModelInterface
     protected $commissionMax;
 
     /**
-     * @var integer
+     * @var int
      */
     protected $forecast;
 
@@ -109,10 +106,9 @@ class CeModel implements CeModelInterface
     protected $children;
 
     /**
-     * @var Boolean
+     * @var bool
      */
     protected $isAssumptionLocked;
-
 
     public function __construct($name = null)
     {
@@ -126,10 +122,10 @@ class CeModel implements CeModelInterface
 
         $this->modelEntities = new ArrayCollection();
         $this->children = new ArrayCollection();
-        $this->groupedModelEntities = array(
-            'qualified' => array(),
-            'non_qualified' => array()
-        );
+        $this->groupedModelEntities = [
+            'qualified' => [],
+            'non_qualified' => [],
+        ];
     }
 
     public function getId()
@@ -199,8 +195,10 @@ class CeModel implements CeModelInterface
 
     public function setRiskRating($riskRating)
     {
-        $riskRating = (integer)$riskRating;
-        if ($riskRating < 0 ) throw new \InvalidArgumentException("Risk rating should be 0 or higher");
+        $riskRating = (integer) $riskRating;
+        if ($riskRating < 0) {
+            throw new \InvalidArgumentException('Risk rating should be 0 or higher');
+        }
 
         $this->riskRating = $riskRating;
 
@@ -214,8 +212,8 @@ class CeModel implements CeModelInterface
 
     public function setType($type)
     {
-        if ($type != self::TYPE_STRATEGY && $type != self::TYPE_CUSTOM) {
-            throw new \InvalidArgumentException("Type has not valid value");
+        if ($type !== self::TYPE_STRATEGY && $type !== self::TYPE_CUSTOM) {
+            throw new \InvalidArgumentException('Type has not valid value');
         }
 
         $this->type = $type;
@@ -230,12 +228,12 @@ class CeModel implements CeModelInterface
 
     public function hasType($type)
     {
-        return ($this->type === $type);
+        return $this->type === $type;
     }
 
     public function getTypeName()
     {
-        return ($this->isCustom() ? 'Custom' : 'Strategy');
+        return $this->isCustom() ? 'Custom' : 'Strategy';
     }
 
     public function isStrategy()
@@ -274,7 +272,7 @@ class CeModel implements CeModelInterface
 
     public function getCommissions()
     {
-        $commission = array();
+        $commission = [];
 
         $min = $this->getCommissionMin();
         if (null !== $min) {
@@ -382,32 +380,31 @@ class CeModel implements CeModelInterface
         $this->children->removeElement($children);
     }
 
-
     public function getChildren()
     {
         return $this->children;
     }
 
     /**
-     * Get array of assumption values
+     * Get array of assumption values.
      *
      * @return array
      */
     public function getAssumption()
     {
-        $assumption = array(
+        $assumption = [
             'commission_min' => $this->getCommissionMin(),
             'commission_max' => $this->getCommissionMax(),
             'forecast' => $this->getForecast(),
             'generous_market_return' => $this->getGenerousMarketReturn(),
-            'low_market_return' => $this->getLowMarketReturn()
-        );
+            'low_market_return' => $this->getLowMarketReturn(),
+        ];
 
         return $assumption;
     }
 
     /**
-     * Set assumption values
+     * Set assumption values.
      *
      * @param array $assumption
      */
@@ -421,9 +418,10 @@ class CeModel implements CeModelInterface
     }
 
     /**
-     * Set slug
+     * Set slug.
      *
      * @param string $slug
+     *
      * @return self
      */
     public function setSlug($slug)
@@ -434,7 +432,7 @@ class CeModel implements CeModelInterface
     }
 
     /**
-     * Get slug
+     * Get slug.
      *
      * @return string
      */
@@ -444,9 +442,10 @@ class CeModel implements CeModelInterface
     }
 
     /**
-     * Set isDeleted
+     * Set isDeleted.
      *
-     * @param boolean $isDeleted
+     * @param bool $isDeleted
+     *
      * @return self
      */
     public function setIsDeleted($isDeleted)
@@ -457,9 +456,9 @@ class CeModel implements CeModelInterface
     }
 
     /**
-     * Get isDeleted
+     * Get isDeleted.
      *
-     * @return boolean
+     * @return bool
      */
     public function getIsDeleted()
     {
@@ -467,7 +466,7 @@ class CeModel implements CeModelInterface
     }
 
     /**
-     * Copy model
+     * Copy model.
      *
      * @return self
      */
@@ -485,10 +484,10 @@ class CeModel implements CeModelInterface
 
         $clone->modelEntities = new ArrayCollection();
         $clone->children = new ArrayCollection();
-        $clone->groupedModelEntities = array(
-            'qualified' => array(),
-            'non_qualified' => array()
-        );
+        $clone->groupedModelEntities = [
+            'qualified' => [],
+            'non_qualified' => [],
+        ];
 
         $clone->setRiskRating($this->getRiskRating());
         $clone->setAssumption($this->getAssumption());
@@ -504,10 +503,10 @@ class CeModel implements CeModelInterface
 
     public function buildGroupModelEntities()
     {
-        $this->groupedModelEntities = array(
-            'qualified' => array(),
-            'non_qualified' => array()
-        );
+        $this->groupedModelEntities = [
+            'qualified' => [],
+            'non_qualified' => [],
+        ];
 
         foreach ($this->getModelEntities() as $modelEntity) {
             if ($modelEntity->getIsQualified()) {
@@ -521,7 +520,7 @@ class CeModel implements CeModelInterface
     private function addQualifiedModelEntity(CeModelEntityInterface $ceModelEntity)
     {
         if (!isset($this->groupedModelEntities['qualified'])) {
-            $this->groupedModelEntities['qualified'] = array();
+            $this->groupedModelEntities['qualified'] = [];
         }
 
         $this->groupedModelEntities['qualified'][] = $ceModelEntity;
@@ -538,7 +537,7 @@ class CeModel implements CeModelInterface
     private function addNonQualifiedModelEntity(CeModelEntityInterface $ceModelEntity)
     {
         if (!isset($this->groupedModelEntities['non_qualified'])) {
-            $this->groupedModelEntities['non_qualified'] = array();
+            $this->groupedModelEntities['non_qualified'] = [];
         }
 
         $this->groupedModelEntities['non_qualified'][] = $ceModelEntity;

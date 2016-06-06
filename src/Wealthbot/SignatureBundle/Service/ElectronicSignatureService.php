@@ -201,8 +201,9 @@ class ElectronicSignatureService
             }
 
             $this->signatureManager->persist($signature);
-            $this->signatureManager->flush();
         }
+
+        $this->signatureManager->flush();
 
         return $status;
     }

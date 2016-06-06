@@ -495,7 +495,7 @@ class RiaCompanyInformation
     protected function getUploadRootDir()
     {
         // the absolute directory path where uploaded documents should be saved
-        return __DIR__.'/../../../../'.$this->getUploadDir();
+        return getcwd().'/'.$this->getUploadDir();
     }
 
     protected function getUploadDir()
@@ -822,7 +822,7 @@ class RiaCompanyInformation
     public function getUploadAdvCopyRootDir()
     {
         // the absolute directory path where uploaded documents should be saved
-        return __DIR__.'/../../../../'.$this->getUploadAdvCopyDir();
+        return getcwd().'/'.$this->getUploadAdvCopyDir();
     }
 
     protected function getUploadAdvCopyDir()

@@ -24,9 +24,12 @@ use Wealthbot\ClientBundle\Repository\ClientAccountRepository;
 use Wealthbot\RiaBundle\Entity\RiaCompanyInformation;
 use Wealthbot\UserBundle\Entity\Document;
 use Wealthbot\UserBundle\Entity\User;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-class PortfolioController extends AclController
+class PortfolioController extends Controller
 {
+    use AclController;
+    
     public function indexAction(Request $request)
     {
         $em = $this->get('doctrine.orm.entity_manager');

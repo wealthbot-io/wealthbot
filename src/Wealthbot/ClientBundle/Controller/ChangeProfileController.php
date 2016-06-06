@@ -26,9 +26,12 @@ use Wealthbot\ClientBundle\Manager\ClientPortfolioManager;
 use Wealthbot\ClientBundle\Model\UserAccountOwnerAdapter;
 use Wealthbot\RiaBundle\Form\Type\ChooseClientPortfolioFormType;
 use Wealthbot\UserBundle\Entity\User;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-class ChangeProfileController extends AclController
+class ChangeProfileController extends Controller
 {
+    use AclController;
+    
     public function indexAction(Request $request)
     {
         $em = $this->get('doctrine.orm.entity_manager');

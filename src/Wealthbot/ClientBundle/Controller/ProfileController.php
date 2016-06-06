@@ -31,9 +31,12 @@ use Wealthbot\ClientBundle\Repository\AccountOutsideFundRepository;
 use Wealthbot\ClientBundle\Repository\ClientAccountRepository;
 use Wealthbot\UserBundle\Entity\Profile;
 use Wealthbot\UserBundle\Entity\User;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-class ProfileController extends AclController
+class ProfileController extends Controller
 {
+    use AclController;
+    
     const ACCOUNT_STEP_ACCOUNT_GROUP = 1;
     const ACCOUNT_STEP_ACCOUNT_GROUP_TYPE = 2;
     const ACCOUNT_STEP_ACCOUNT_UPDATE_FORM = 3;

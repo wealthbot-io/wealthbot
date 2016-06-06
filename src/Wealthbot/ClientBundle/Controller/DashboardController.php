@@ -51,9 +51,12 @@ use Wealthbot\UserBundle\Entity\Document;
 use Wealthbot\UserBundle\Entity\User;
 use Wealthbot\UserBundle\Form\Handler\ClientDocumentFormHandler;
 use Wealthbot\UserBundle\Form\Type\ClientDocumentFormType;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-class DashboardController extends AclController
+class DashboardController extends Controller
 {
+    use AclController;
+    
     public function indexAction(Request $request)
     {
         $systemAccountManager = $this->get('wealthbot_client.system_account_manager');

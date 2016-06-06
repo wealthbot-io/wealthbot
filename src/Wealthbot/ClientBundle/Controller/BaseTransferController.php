@@ -42,9 +42,12 @@ use Wealthbot\RiaBundle\Entity\RiaCompanyInformation;
 use Wealthbot\UserBundle\Entity\Document;
 use Wealthbot\UserBundle\Entity\Profile;
 use Wealthbot\UserBundle\Entity\User;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-class BaseTransferController extends AclController
+class BaseTransferController extends Controller
 {
+    use AclController;
+    
     public function accountAction(Request $request)
     {
         /** @var $em EntityManager */

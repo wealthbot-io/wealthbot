@@ -9,10 +9,9 @@
 
 namespace Wealthbot\ClientBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Wealthbot\ClientBundle\Model\Acl;
 
-class AclController extends Controller
+trait AclController
 {
     public function getUser()
     {

@@ -883,7 +883,7 @@ class PersonalInformation extends BasePersonalInformation
     protected function getUploadRootDir()
     {
         // the absolute directory path where uploaded documents should be saved
-        return __DIR__.'/../../../../web/'.$this->getUploadDir();
+        return getcwd().'/'.$this->getUploadDir();
     }
 
     protected function getUploadDir()

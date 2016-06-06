@@ -31,6 +31,6 @@ class AdvisorCodeEventListener
 
     public static function getIncomingFilesLocation()
     {
-        return __DIR__.'/../../../../system/incoming_files/';
+        return  getcwd().'/../system/incoming_files/';
     }
 }

@@ -20,7 +20,7 @@ abstract class AbstractCsvFixture extends AbstractFixture
         if ($isAbsolute) {
             $path = $filename;
         } else {
-            $path = __DIR__.$this->csvDir.'/'.$filename;
+            $path = getcwd() . '/src/WealthBot/FixturesBundle/DataFixtures/CSV/'.$filename;
         }
 
         $handle = fopen($path, 'r');

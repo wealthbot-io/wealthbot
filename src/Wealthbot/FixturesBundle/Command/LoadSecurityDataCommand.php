@@ -78,7 +78,7 @@ class LoadSecurityDataCommand extends ContainerAwareCommand
     protected function loadCsvData($filename, $maxLength = 1000, $delimiter = ';')
     {
         $data = [];
-        $path = __DIR__.'/../DataFixtures/CSV/'.$filename;
+        $path =  getcwd() . '/src/WealthBot/FixturesBundle/DataFixtures/CSV/'.$filename;
         $handle = fopen($path, 'r');
 
         if (false !== $handle) {

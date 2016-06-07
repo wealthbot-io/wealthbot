@@ -3,6 +3,7 @@
 namespace Wealthbot\ClientBundle\Controller;
 
 use Doctrine\ORM\EntityManager;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Session;
@@ -31,12 +32,11 @@ use Wealthbot\ClientBundle\Repository\AccountOutsideFundRepository;
 use Wealthbot\ClientBundle\Repository\ClientAccountRepository;
 use Wealthbot\UserBundle\Entity\Profile;
 use Wealthbot\UserBundle\Entity\User;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class ProfileController extends Controller
 {
     use AclController;
-    
+
     const ACCOUNT_STEP_ACCOUNT_GROUP = 1;
     const ACCOUNT_STEP_ACCOUNT_GROUP_TYPE = 2;
     const ACCOUNT_STEP_ACCOUNT_UPDATE_FORM = 3;
@@ -614,7 +614,7 @@ class ProfileController extends Controller
         ]);
     }
 
-    public function processAccountForm()
+    private function processAccountForm()
     {
         return [
             'status' => 'success',
@@ -624,7 +624,7 @@ class ProfileController extends Controller
         ];
     }
 
-    public function processEmployerRetirementAccountForm(ClientAccount $account)
+    private function processEmployerRetirementAccountForm(ClientAccount $account)
     {
         /** @var \Doctrine\ORM\EntityManager $em */
         $em = $this->get('doctrine.orm.entity_manager');

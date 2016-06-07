@@ -2,13 +2,11 @@
 
 namespace Wealthbot\AdminBundle\Tests\Controller;
 
-
-use Wealthbot\UserBundle\TestSuit\ExtendedWebTestCase;
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\Routing\Router;
+use Wealthbot\UserBundle\TestSuit\ExtendedWebTestCase;
 
-class PasInterfacesControllerTest extends ExtendedWebTestCase {
-
+class PasInterfacesControllerTest extends ExtendedWebTestCase
+{
     /**
      * @var Router
      */

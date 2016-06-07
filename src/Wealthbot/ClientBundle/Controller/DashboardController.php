@@ -10,6 +10,7 @@
 namespace Wealthbot\ClientBundle\Controller;
 
 use Doctrine\ORM\EntityManager;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Form;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
@@ -51,12 +52,11 @@ use Wealthbot\UserBundle\Entity\Document;
 use Wealthbot\UserBundle\Entity\User;
 use Wealthbot\UserBundle\Form\Handler\ClientDocumentFormHandler;
 use Wealthbot\UserBundle\Form\Type\ClientDocumentFormType;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class DashboardController extends Controller
 {
     use AclController;
-    
+
     public function indexAction(Request $request)
     {
         $systemAccountManager = $this->get('wealthbot_client.system_account_manager');

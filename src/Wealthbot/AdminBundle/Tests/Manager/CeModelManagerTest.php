@@ -113,14 +113,13 @@ class CeModelManagerTest extends \PHPUnit_Framework_TestCase
     {
         $model = $this->manager->findCeModelBySlugAndOwnerId('model1', 1);
         $adminModel = $this->manager->findCeModelBySlugAndOwnerId('admin_model_1');
-        if($model){
+        if ($model) {
             $this->assertSame('Model1', $model->getName());
         }
 
-        if($adminModel){
+        if ($adminModel) {
             $this->assertSame('Admin model 1', $adminModel->getName());
         }
-
     }
 
     public function testGetChildModelsByParentId()
@@ -141,7 +140,7 @@ class CeModelManagerTest extends \PHPUnit_Framework_TestCase
     public function testDeleteModel()
     {
         $models = $this->manager->getChildModelsByParentId(31);
-        if(count($models) > 0) {
+        if (count($models) > 0) {
             $model = $models[0];
 
             $this->manager->deleteModel($model);

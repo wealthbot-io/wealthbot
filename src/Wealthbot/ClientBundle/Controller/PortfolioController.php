@@ -12,6 +12,7 @@ namespace Wealthbot\ClientBundle\Controller;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManager;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Wealthbot\ClientBundle\ClientEvents;
@@ -24,12 +25,11 @@ use Wealthbot\ClientBundle\Repository\ClientAccountRepository;
 use Wealthbot\RiaBundle\Entity\RiaCompanyInformation;
 use Wealthbot\UserBundle\Entity\Document;
 use Wealthbot\UserBundle\Entity\User;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class PortfolioController extends Controller
 {
     use AclController;
-    
+
     public function indexAction(Request $request)
     {
         $em = $this->get('doctrine.orm.entity_manager');

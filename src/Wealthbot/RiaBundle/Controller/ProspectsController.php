@@ -287,7 +287,7 @@ class ProspectsController extends Controller
                 /** @var $clientAccount ClientAccount */
                 $clientAccount = $form->getData();
 
-                $newForm = $this->createForm(new RiaCientAccountFormType($client, $em));
+                $newForm = $this->createForm(new RiaClientAccountFormType($client, $em));
                 $retirementAccounts = $repo->getRetirementAccountsByClientId($client->getId());
                 $total = $repo->getTotalScoreByClientId($client->getId());
                 $withEdit = $client->hasApprovedPortfolio() ? false : true;

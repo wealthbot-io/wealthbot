@@ -1389,7 +1389,7 @@ class ClientAdditionalContact extends BaseClientAdditionalContact implements Acc
     protected function getUploadRootDir()
     {
         // the absolute directory path where uploaded documents should be saved
-        return getcwd().'/'. $this->getUploadDir();
+        return getcwd().'/'.$this->getUploadDir();
     }
 
     protected function getUploadDir()

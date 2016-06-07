@@ -77,7 +77,7 @@ class ModelAssumptionFormTypeEventListener implements EventSubscriberInterface
             $form->add($this->factory->createNamed('forecast', 'number', null, [
                 'label' => 'Forecast:',
                 'data' => ($data && $data->getForecast() ? $data->getForecast() : 0),
-                'auto_initialize' => false
+                'auto_initialize' => false,
             ]));
         }
     }

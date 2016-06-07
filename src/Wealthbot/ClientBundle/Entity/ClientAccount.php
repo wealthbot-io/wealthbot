@@ -379,7 +379,7 @@ class ClientAccount extends BaseClientAccount
      */
     public function setGroupType($groupType = null)
     {
-        if(is_numeric($groupType)){
+        if (is_numeric($groupType)) {
             return $this;
         };
 

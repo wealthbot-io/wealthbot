@@ -10,7 +10,6 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
  */
 class Document
 {
-
     /**
      * @var int
      */

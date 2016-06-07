@@ -7,7 +7,6 @@ use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Wealthbot\UserBundle\Entity\User;
 use Wealthbot\UserBundle\Form\Type\AdminProfileType;
@@ -15,8 +14,8 @@ use Wealthbot\UserBundle\Form\Type\UserType;
 
 class CreateAdminUserType extends UserType
 {
-    public function __construct(){
-
+    public function __construct()
+    {
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)

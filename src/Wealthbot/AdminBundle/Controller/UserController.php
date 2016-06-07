@@ -67,6 +67,7 @@ class UserController extends AclController
                 return $this->redirect($this->generateUrl('rx_admin_users'));
             }
         }
+
         return $this->render('WealthbotAdminBundle:User:create_user.html.twig', [
             'createAdminUserForm' => $form->createView(),
         ]);

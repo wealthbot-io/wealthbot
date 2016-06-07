@@ -419,7 +419,7 @@ class AccountOwnerPersonalInformationFormType extends AbstractType
             $companyName = $data->getBrokerSecurityExchangeCompanyName();
 
             if (!($complianceLetterFile instanceof UploadedFile)) {
-                if($form->has('compliance_letter_file')){
+                if ($form->has('compliance_letter_file')) {
                     $form->get('compliance_letter_file')->addError(new FormError('Required.'));
                 }
             }

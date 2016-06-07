@@ -3,6 +3,7 @@
 namespace Wealthbot\ClientBundle\Controller;
 
 use Doctrine\ORM\EntityManager;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedException;
@@ -42,12 +43,11 @@ use Wealthbot\RiaBundle\Entity\RiaCompanyInformation;
 use Wealthbot\UserBundle\Entity\Document;
 use Wealthbot\UserBundle\Entity\Profile;
 use Wealthbot\UserBundle\Entity\User;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class BaseTransferController extends Controller
 {
     use AclController;
-    
+
     public function accountAction(Request $request)
     {
         /** @var $em EntityManager */

@@ -3,12 +3,11 @@
 namespace Wealthbot\UserBundle\Model;
 
 use FOS\UserBundle\Entity\User as BaseUser;
-use Wealthbot\UserBundle\Entity\Group;
 use Symfony\Component\Validator\Context\ExecutionContext;
+use Wealthbot\UserBundle\Entity\Group;
 
 class User extends BaseUser
 {
-
     /**
      * @var \DateTime
      */
@@ -117,26 +116,26 @@ class User extends BaseUser
     {
         $password = $this->getPlainPassword();
 
-        if($password == $this->getUsername()){
-            $context->addViolationAt('plainPassword', 'Email and password cant be the same', array(), null);
+        if ($password === $this->getUsername()) {
+            $context->addViolationAt('plainPassword', 'Email and password cant be the same', [], null);
         }
 
         if (strlen($password) > 0) {
             if (
                 !(strlen($password) >= 6 // at least 6 chars
-                    && preg_match('`[A-Z]{1,}`',$password) // at least 1 uppercase
-                    && preg_match('`[0-9]{1,}`',$password) // at least 1 number
+                    && preg_match('`[A-Z]{1,}`', $password) // at least 1 uppercase
+                    && preg_match('`[0-9]{1,}`', $password) // at least 1 number
                 )
             ) {
-                $context->addViolationAt('plainPassword', 'Password is not valid!', array(), null);
+                $context->addViolationAt('plainPassword', 'Password is not valid!', [], null);
             }
 
-            if(strlen(stristr($password, $this->getFirstName())) > 0){
-                $context->addViolationAt('plainPassword', 'Password cannot contain your name', array(), null);
+            if (strlen(stristr($password, $this->getFirstName())) > 0) {
+                $context->addViolationAt('plainPassword', 'Password cannot contain your name', [], null);
             }
 
-            if(strlen(stristr($password, $this->getLastName())) > 0){
-                $context->addViolationAt('plainPassword', 'Password cannot contain your name', array(), null);
+            if (strlen(stristr($password, $this->getLastName())) > 0) {
+                $context->addViolationAt('plainPassword', 'Password cannot contain your name', [], null);
             }
         }
     }

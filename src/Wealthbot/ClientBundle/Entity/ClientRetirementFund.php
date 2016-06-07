@@ -67,11 +67,11 @@ class ClientRetirementFund
     /**
      * Add accounts.
      *
-     * @param Wealthbot\ClientBundle\Entity\ClientRetirementAccount $accounts
+     * @param Wealthbot\ClientBundle\Entity\ClientAccount $accounts
      *
      * @return ClientRetiremenFund
      */
-    public function addAccount(\Wealthbot\ClientBundle\Entity\ClientRetirementAccount $accounts)
+    public function addAccount(\Wealthbot\ClientBundle\Entity\ClientAccount $accounts)
     {
         $this->accounts[] = $accounts;
 
@@ -81,9 +81,9 @@ class ClientRetirementFund
     /**
      * Remove accounts.
      *
-     * @param Wealthbot\ClientBundle\Entity\ClientRetirementAccount $accounts
+     * @param Wealthbot\ClientBundle\Entity\ClientAccount $accounts
      */
-    public function removeAccount(\Wealthbot\ClientBundle\Entity\ClientRetirementAccount $accounts)
+    public function removeAccount(\Wealthbot\ClientBundle\Entity\ClientAccount $accounts)
     {
         $this->accounts->removeElement($accounts);
     }

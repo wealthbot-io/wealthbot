@@ -11,7 +11,6 @@ class SecurityController extends BaseSecurity
 {
     public function loginAction()
     {
-
         $request = $this->container->get('request_stack')->getCurrentRequest();
 
         /* @var $request \Symfony\Component\HttpFoundation\Request */

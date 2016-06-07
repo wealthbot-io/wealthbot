@@ -10,6 +10,7 @@
 namespace Wealthbot\ClientBundle\Controller;
 
 use Doctrine\ORM\EntityManager;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Wealthbot\AdminBundle\AdminEvents;
@@ -26,12 +27,11 @@ use Wealthbot\ClientBundle\Manager\ClientPortfolioManager;
 use Wealthbot\ClientBundle\Model\UserAccountOwnerAdapter;
 use Wealthbot\RiaBundle\Form\Type\ChooseClientPortfolioFormType;
 use Wealthbot\UserBundle\Entity\User;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class ChangeProfileController extends Controller
 {
     use AclController;
-    
+
     public function indexAction(Request $request)
     {
         $em = $this->get('doctrine.orm.entity_manager');

@@ -71,11 +71,11 @@ class WorkflowTwigExtension extends \Twig_Extension
             );
         } elseif ($count === 1) {
             $documents = array_values($documents);
-            if(count($documents)>0) {
+            if (count($documents) > 0) {
                 /** @var Document $document */
                 $document = $documents[0];
 
-                if($document->getFilename() !== null){
+                if ($document->getFilename() !== null) {
                     $link = $this->documentManager->getDownloadLink($document->getFilename());
                 }
             };

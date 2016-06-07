@@ -54,8 +54,8 @@ class ClientPortfolioManagerTest extends \PHPUnit_Framework_TestCase
 
         $proposedPortfolio = $this->manager->proposePortfolio($client, $portfolio);
 
-        $this->assertEquals($this->getMockClient(), $proposedPortfolio->getClient(), 'Invalid client object for proposed portfolio.');
-        $this->assertEquals($this->getMockModel(), $proposedPortfolio->getPortfolio(), 'Invalid portfolio object for proposed portfolio.');
+        $this->assertSame($this->getMockClient(), $proposedPortfolio->getClient(), 'Invalid client object for proposed portfolio.');
+        $this->assertSame($this->getMockModel(), $proposedPortfolio->getPortfolio(), 'Invalid portfolio object for proposed portfolio.');
         $this->assertSame(ClientPortfolio::STATUS_PROPOSED, $proposedPortfolio->getStatus(), 'Invalid status of proposed portfolio.');
     }
 
@@ -79,8 +79,8 @@ class ClientPortfolioManagerTest extends \PHPUnit_Framework_TestCase
 
         $approvedPortfolio = $this->manager->approveProposedPortfolio($client);
 
-        $this->assertEquals($this->getMockClient(), $approvedPortfolio->getClient(), 'Invalid client object for approved portfolio.');
-        $this->assertEquals($this->getMockModel(), $approvedPortfolio->getPortfolio(), 'Invalid portfolio object for approved portfolio.');
+        $this->assertSame($this->getMockClient(), $approvedPortfolio->getClient(), 'Invalid client object for approved portfolio.');
+        $this->assertSame($this->getMockModel(), $approvedPortfolio->getPortfolio(), 'Invalid portfolio object for approved portfolio.');
         $this->assertSame(ClientPortfolio::STATUS_ADVISOR_APPROVED, $approvedPortfolio->getStatus(), 'Invalid status of approved portfolio.');
         $this->assertNotNull($approvedPortfolio->getApprovedAt(), 'Invalid portfolio approved date.');
     }
@@ -126,7 +126,7 @@ class ClientPortfolioManagerTest extends \PHPUnit_Framework_TestCase
 
         $acceptedPortfolio = $this->manager->acceptApprovedPortfolio($client);
 
-        $this->assertEquals($this->getMockClient(), $acceptedPortfolio->getClient(), 'Invalid client object for accepted portfolio.');
+        $this->assertSame($this->getMockClient(), $acceptedPortfolio->getClient(), 'Invalid client object for accepted portfolio.');
         $this->assertNotNull($acceptedPortfolio->getPortfolio()->getId(), 'Invalid portfolio object for accepted portfolio.');
         $this->assertSame(ClientPortfolio::STATUS_CLIENT_ACCEPTED, $acceptedPortfolio->getStatus(), 'Invalid status of accepted portfolio.');
         $this->assertNotNull($acceptedPortfolio->getAcceptedAt(), 'Invalid portfolio accepted date.');

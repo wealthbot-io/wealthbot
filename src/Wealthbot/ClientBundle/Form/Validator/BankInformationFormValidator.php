@@ -39,13 +39,13 @@ class BankInformationFormValidator extends AbstractFormValidator
 
         $phoneNumber = $data->getPhoneNumber();
         if ($this->isNullOrEmptyString($phoneNumber)) {
-            if($form->has('phone_number')) {
-               $form->get('phone_number')->addError(new FormError('Required.'));
+            if ($form->has('phone_number')) {
+                $form->get('phone_number')->addError(new FormError('Required.'));
             }
         } else {
             $phoneDigits = 10;
 
-            if($form->has('phone_number')) {
+            if ($form->has('phone_number')) {
                 if (!is_numeric($phoneNumber)) {
                     $form->get('phone_number')->addError(new FormError('Enter correct phone number.'));
                 } elseif (strlen($phoneNumber) !== $phoneDigits) {

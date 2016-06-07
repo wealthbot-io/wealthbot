@@ -93,7 +93,7 @@ class ClientAccountOwnerFormEventSubscriber implements EventSubscriberInterface
                 'choices' => $choices,
                 'expanded' => true,
                 'multiple' => true,
-                'auto_initialize' => false
+                'auto_initialize' => false,
             ]));
         } else {
             unset($choices['other']);

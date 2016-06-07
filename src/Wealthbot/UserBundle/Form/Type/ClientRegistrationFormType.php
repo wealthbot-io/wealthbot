@@ -18,11 +18,11 @@ class ClientRegistrationFormType extends UserType
             ->add('profile', new ClientProfileType())
             ->add('is_accepted', 'checkbox', [
                 'required' => true,
-                'mapped' => false
+                'mapped' => false,
             ])
         ;
 
-        $builder->addEventListener(\Symfony\Component\Form\FormEvents::SUBMIT, function(FormEvent $event)  {
+        $builder->addEventListener(\Symfony\Component\Form\FormEvents::SUBMIT, function (FormEvent $event) {
             $form = $event->getForm();
             $client = $event->getData();
 

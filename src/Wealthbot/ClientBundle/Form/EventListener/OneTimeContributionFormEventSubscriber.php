@@ -46,7 +46,7 @@ class OneTimeContributionFormEventSubscriber extends TransferFundingFormEventSub
                 'expanded' => true,
                 'multiple' => false,
                 'required' => false,
-                'auto_initialize' => false
+                'auto_initialize' => false,
             ])
         );
 
@@ -58,7 +58,7 @@ class OneTimeContributionFormEventSubscriber extends TransferFundingFormEventSub
                 'data' => 1,
                 'mapped' => false,
                 'required' => false,
-                'auto_initialize' => false
+                'auto_initialize' => false,
             ])
         );
 
@@ -68,7 +68,7 @@ class OneTimeContributionFormEventSubscriber extends TransferFundingFormEventSub
     protected function addContributionYearField(FormInterface $form)
     {
         if ($this->systemAccount->isRothIraType() || $this->systemAccount->isTraditionalIraType()) {
-            $form->add($this->factory->createNamed('contribution_year', 'text', null, ['required' => false,'auto_initialize'=>false]));
+            $form->add($this->factory->createNamed('contribution_year', 'text', null, ['required' => false, 'auto_initialize' => false]));
         }
     }
 }

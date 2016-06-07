@@ -31,9 +31,9 @@ class TradeReconManagerTest extends ExtendedWebTestCase
                 'executed_action' => '',
                 'submitted_amount' => 0.0,
                 'executed_amount' => '',
-                'error' => true
+                'error' => true,
 
-                ]
+                ],
         ],
         $transactionNotExecutedData = [
 
@@ -118,7 +118,7 @@ class TradeReconManagerTest extends ExtendedWebTestCase
     {
         $date = '2013-02-14';
         $this->testResult = $this->tradeReconManager->getValues(new \DateTime($date), new \DateTime($date), $this->ria, 'Kang, Liu');
-        $this->assertEquals($this->transactionNotExecutedData, $this->testResult, 'Test for not executed transaction failed');
+        $this->assertSame($this->transactionNotExecutedData, $this->testResult, 'Test for not executed transaction failed');
     }
 
     /**

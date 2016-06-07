@@ -59,7 +59,7 @@ class AccountContributionFormEventSubscriber extends TransferFundingFormEventSub
             'multiple' => false,
             'data' => $frequency,
             'required' => false,
-            'auto_initialize'   => false
+            'auto_initialize' => false,
         ]));
 
         $data->setType(AccountContribution::TYPE_FUNDING_BANK);
@@ -71,7 +71,7 @@ class AccountContributionFormEventSubscriber extends TransferFundingFormEventSub
     {
         if ($this->systemAccount->isRothIraType() || $this->systemAccount->isTraditionalIraType()) {
             $form->add($this->factory->createNamed('contribution_year', 'text', null,
-                ['required' => false,'auto_initialize'=>false]));
+                ['required' => false, 'auto_initialize' => false]));
         }
     }
 }

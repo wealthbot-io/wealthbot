@@ -104,7 +104,7 @@ class ChangePasswordController extends BaseController
      *
      * @return NotFoundHttpException
      */
-    public function createNotFoundException($message = 'Not Found', \Exception $previous = null)
+    private function createNotFoundException($message = 'Not Found', \Exception $previous = null)
     {
         return new NotFoundHttpException($message, $previous);
     }

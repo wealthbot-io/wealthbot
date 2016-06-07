@@ -33,7 +33,7 @@ rules:
 
 # install APCu
 pre_composer_script: |
-    yes '' | pecl install apcu
+    yes '' | pecl install APC
 
 php_ini: |
     extension=apcu.so

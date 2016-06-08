@@ -5,7 +5,8 @@
     "description": "The \"Symfony Standard Edition\" distribution",
     "autoload": {
         "psr-4": { "": "src/" },
-        "classmap": [ "app/AppKernel.php", "app/AppCache.php" ]
+        "classmap": [ "app/AppKernel.php", "app/AppCache.php" ],
+        "files": ["app/apc.php"]
     },
     "autoload-dev": {
         "psr-4": { "Tests\\": "tests/" }
@@ -43,8 +44,7 @@
         "nelmio/api-doc-bundle": "2.*",
         "ornicar/apc-bundle": "1.0.*",
         "phpoffice/phpexcel": "1.7.8",
-        "instaclick/base-test-bundle": "0.5.2",
-        "doctrine/doctrine-cache-bundle": "^1.3"
+        "instaclick/base-test-bundle": "0.5.2"
     },
     "repositories": [{
         "type": "package",

@@ -6,7 +6,7 @@
     "autoload": {
         "psr-4": { "": "src/" },
         "classmap": [ "app/AppKernel.php", "app/AppCache.php" ],
-        "files": ["app/apc.php"]
+        "files": ["app/polyfill/apc.php"]
     },
     "autoload-dev": {
         "psr-4": { "Tests\\": "tests/" }

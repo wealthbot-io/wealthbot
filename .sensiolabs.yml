@@ -30,14 +30,7 @@ rules:
         threshold: 10
     missing_e_o_l:
         enabled: false
-
-# install APCu
 pre_composer_script: |
-    sudo apt-get update
-    sudo apt-get install php7.0-dev
-    pecl channel-update pecl.php.net
-    pecl install apcu
-    sudo apt-get -y install mongo
-php_ini: |
-    extension=mongo.so
-    extension=apcu.so
+    yes '' | pecl install apcu
+php_ini:
+    extension = apcu.so

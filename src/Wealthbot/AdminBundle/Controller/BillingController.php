@@ -2,17 +2,16 @@
 
 namespace Wealthbot\AdminBundle\Controller;
 
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Security\Core\SecurityContext;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class BillingController extends AclController
 {
     public function indexAction(Request $request)
     {
-        $em  = $this->getDoctrine()->getManager();
+        $em = $this->getDoctrine()->getManager();
         $ria = $em->getRepository('WealthbotUserBundle:User')->getFirstRia();
 
         $date = new \DateTime();
@@ -20,10 +19,10 @@ class BillingController extends AclController
 
         $years = range($fromDate->format('Y'), $date->format('Y'));
 
-        return $this->render('WealthbotAdminBundle:Billing:index.html.twig', array(
+        return $this->render('WealthbotAdminBundle:Billing:index.html.twig', [
             'years' => $years,
-            'fromDate' => $fromDate->format(\DateTime::ISO8601)
-        ));
+            'fromDate' => $fromDate->format(\DateTime::ISO8601),
+        ]);
     }
 
     public function clientListAction($year, $quarter)
@@ -36,25 +35,25 @@ class BillingController extends AclController
         $periods = $periodManager->getPeriod($year, $quarter);
         $clients = $em->getRepository('WealthbotUserBundle:User')->getAllClientsByDate($periods['endDate']);
 
-        $clientAccounts = array();
+        $clientAccounts = [];
         foreach ($clients as $client) {
-            $riaName  = $client->getRia()->getFullName();
+            $riaName = $client->getRia()->getFullName();
             $accounts = $em->getRepository('WealthbotClientBundle:ClientAccount')->findByClient($client);
 
             foreach ($accounts as $account) {
                 $billItem = $em->getRepository('WealthbotClientBundle:BillItem')->getByAccountAndPeriod($account, $year, $quarter);
 
-                $data = array(
-                    'id'            => $account->getId(),
-                    'name'          => $account->getOwnerNames(),
-                    'riaName'       => $riaName,
-                    'number'        => $informationManager->getAccountNumber($account),
-                    'billItemId'    => $billItem ? $billItem->getId() : 0,
-                    'feeBilled'     => $billItem ? $billItem->getFeeBilled() : 0,
-                    'feeCollected'  => $billItem ? $billItem->getFeeCollected() : 0,
-                    'riaFee'        => $billItem ? $billItem->getRiaFee() : 0,
-                    'adminFee'      => $billItem ? $billItem->getAdminFee() : 0,
-                );
+                $data = [
+                    'id' => $account->getId(),
+                    'name' => $account->getOwnerNames(),
+                    'riaName' => $riaName,
+                    'number' => $informationManager->getAccountNumber($account),
+                    'billItemId' => $billItem ? $billItem->getId() : 0,
+                    'feeBilled' => $billItem ? $billItem->getFeeBilled() : 0,
+                    'feeCollected' => $billItem ? $billItem->getFeeCollected() : 0,
+                    'riaFee' => $billItem ? $billItem->getRiaFee() : 0,
+                    'adminFee' => $billItem ? $billItem->getAdminFee() : 0,
+                ];
 
                 $clientAccounts[] = $data;
             }
@@ -66,7 +65,7 @@ class BillingController extends AclController
     public function custodianFeeFileAction($year, $quarter)
     {
         $container = $this->container;
-        $response = new StreamedResponse(function() use ($container, $quarter, $year) {
+        $response = new StreamedResponse(function () use ($container, $quarter, $year) {
             $em = $container->get('doctrine')->getManager();
             $periodManager = $container->get('wealthbot_ria.period.manager');
             $informationManager = $container->get('wealthbot_ria.summary_information.manager');
@@ -82,7 +81,7 @@ class BillingController extends AclController
                 foreach ($accounts as $account) {
                     $billItem = $em->getRepository('WealthbotClientBundle:BillItem')->getByAccountAndPeriod($account, $year, $quarter);
 
-                    $fields = array($informationManager->getAccountNumber($account), 'Q', empty($billItem) ? 0 : $billItem->getFeeBilled());
+                    $fields = [$informationManager->getAccountNumber($account), 'Q', empty($billItem) ? 0 : $billItem->getFeeBilled()];
 
                     fputcsv($handle, $fields, ',');
                 }
@@ -92,7 +91,7 @@ class BillingController extends AclController
         });
 
         $response->headers->set('Content-Type', 'application/force-download');
-        $response->headers->set('Content-Disposition','attachment; filename="fees.csv"');
+        $response->headers->set('Content-Disposition', 'attachment; filename="fees.csv"');
 
         return $response;
     }
@@ -104,19 +103,19 @@ class BillingController extends AclController
 
         // Generate report
         $periods = $periodMananger->getQuarterPeriod($year, $quarter);
-        $excel   = $reportMananger->generateSummary($periods);
+        $excel = $reportMananger->generateSummary($periods);
 
         // Generate filename
-        $periods  = array_keys($periods);
-        $quarter  = empty($quarter) ? min($periods) . '-' . max($periods) : $quarter;
+        $periods = array_keys($periods);
+        $quarter = empty($quarter) ? min($periods).'-'.max($periods) : $quarter;
         $filename = "billing_summary_q{$quarter}_{$year}";
 
         $response = new Response();
-        $response->headers->add(array(
-            'Content-Type'          => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-            'Content-Disposition'   => 'attachment;filename="' . $filename . '.xlsx"',
-            'Cache-Control'         => 'max-age=0',
-        ));
+        $response->headers->add([
+            'Content-Type' => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+            'Content-Disposition' => 'attachment;filename="'.$filename.'.xlsx"',
+            'Cache-Control' => 'max-age=0',
+        ]);
 
         ob_start();
 
@@ -124,6 +123,7 @@ class BillingController extends AclController
         $writer->save('php://output');
 
         $response->setContent(ob_get_clean());
+
         return $response;
     }
 }

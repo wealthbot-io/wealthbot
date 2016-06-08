@@ -10,13 +10,11 @@
 namespace Wealthbot\AdminBundle\Controller;
 
 use Doctrine\ORM\EntityManager;
+use Symfony\Component\HttpFoundation\Request;
 use Wealthbot\AdminBundle\Form\Type\CreateAdminUserType;
+use Wealthbot\AdminBundle\Model\Acl;
 use Wealthbot\UserBundle\Entity\User;
 use Wealthbot\UserBundle\Repository\UserRepository;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Security\Acl\Domain\ObjectIdentity;
-use Wealthbot\AdminBundle\Model\Acl;
 
 class UserController extends AclController
 {
@@ -28,15 +26,15 @@ class UserController extends AclController
         /** @var $repo UserRepository */
         $repo = $em->getRepository('WealthbotUserBundle:User');
 
-        $users = array(
+        $users = [
             'Master' => $repo->getUsersByRole('ROLE_ADMIN_MASTER'),
             'Manager' => $repo->getUsersByRole('ROLE_ADMIN_PM'),
-            'CSR' => $repo->getUsersByRole('ROLE_ADMIN_CSR')
-        );
+            'CSR' => $repo->getUsersByRole('ROLE_ADMIN_CSR'),
+        ];
 
-        return $this->render('WealthbotAdminBundle:User:index.html.twig', array(
-            'allUsers' => $users
-        ));
+        return $this->render('WealthbotAdminBundle:User:index.html.twig', [
+            'allUsers' => $users,
+        ]);
     }
 
     public function createAction(Request $request)
@@ -44,10 +42,10 @@ class UserController extends AclController
         $this->checkAccess(Acl::PERMISSION_CREATE_USER);
 
         $user = new User();
-        $form = $this->createForm(new CreateAdminUserType($user));
+        $form = $this->createForm(CreateAdminUserType::class, $user);
 
         if ($request->isMethod('post')) {
-            $form->bind($request);
+            $form->handleRequest($request);
 
             if ($form->isValid()) {
                 $userAccount = $form->getData();
@@ -64,14 +62,15 @@ class UserController extends AclController
                     $form->get('level')->getData()
                 );
 
-                $this->get('session')->setFlash('success', 'User has been successfully created.');
+                $this->get('session')->getFlashBag()->add('success', 'User has been successfully created.');
+
                 return $this->redirect($this->generateUrl('rx_admin_users'));
             }
         }
 
-        return $this->render('WealthbotAdminBundle:User:create_user.html.twig', array(
-            'createAdminUserForm' => $form->createView()
-        ));
+        return $this->render('WealthbotAdminBundle:User:create_user.html.twig', [
+            'createAdminUserForm' => $form->createView(),
+        ]);
     }
 
     public function editAction(Request $request)
@@ -81,9 +80,9 @@ class UserController extends AclController
         /** @var $em EntityManager */
         $em = $this->get('doctrine.orm.entity_manager');
 
-        $user = $em->getRepository('WealthbotUserBundle:User')->getUserByIdAndRoles($request->get('id'), array(
-            'ROLE_ADMIN_MASTER', 'ROLE_ADMIN_PM', 'ROLE_ADMIN_CSR'
-        ));
+        $user = $em->getRepository('WealthbotUserBundle:User')->getUserByIdAndRoles($request->get('id'), [
+            'ROLE_ADMIN_MASTER', 'ROLE_ADMIN_PM', 'ROLE_ADMIN_CSR',
+        ]);
 
         if (!$user) {
             throw $this->createNotFoundException('User does not exist.');
@@ -91,7 +90,7 @@ class UserController extends AclController
         $form = $this->createForm(new CreateAdminUserType($user), $user);
 
         if ($request->isMethod('post')) {
-            $form->bind($request);
+            $form->handleRequest($request);
 
             if ($form->isValid()) {
                 $userAccount = $form->getData();
@@ -101,15 +100,16 @@ class UserController extends AclController
                 $em->persist($userAccount);
                 $em->flush();
 
-                $this->get('session')->setFlash('success', 'User has been successfully updated.');
+                $this->get('session')->getFlashBag()->add('success', 'User has been successfully updated.');
+
                 return $this->redirect($this->generateUrl('rx_admin_users'));
             }
         }
 
-        return $this->render('WealthbotAdminBundle:User:edit_user.html.twig', array(
+        return $this->render('WealthbotAdminBundle:User:edit_user.html.twig', [
             'createAdminUserForm' => $form->createView(),
-            'user' => $user
-        ));
+            'user' => $user,
+        ]);
     }
 
     public function deleteAction(Request $request)
@@ -119,9 +119,9 @@ class UserController extends AclController
         /** @var $em EntityManager */
         $em = $this->get('doctrine.orm.entity_manager');
 
-        $user = $em->getRepository('WealthbotUserBundle:User')->getUserByIdAndRoles($request->get('id'), array(
-            'ROLE_ADMIN_MASTER', 'ROLE_ADMIN_PM', 'ROLE_ADMIN_CSR'
-        ));
+        $user = $em->getRepository('WealthbotUserBundle:User')->getUserByIdAndRoles($request->get('id'), [
+            'ROLE_ADMIN_MASTER', 'ROLE_ADMIN_PM', 'ROLE_ADMIN_CSR',
+        ]);
 
         if (!$user) {
             throw $this->createNotFoundException('User does not exist.');
@@ -130,8 +130,8 @@ class UserController extends AclController
         $em->remove($user);
         $em->flush();
 
-        $this->get('session')->setFlash('success', 'User has been successfully deleted.');
+        $this->get('session')->getFlashBag()->add('success', 'User has been successfully deleted.');
+
         return $this->redirect($this->generateUrl('rx_admin_users'));
     }
-
 }

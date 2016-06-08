@@ -3,7 +3,6 @@
 # there are many ruby bindings for elasticsearch. This provides all
 # the ones we know about http://www.elasticsearch.org/guide/clients/
 #
-#
 # === Parameters
 #
 # [*ensure*]
@@ -19,13 +18,10 @@
 #     (e.g. removal of created users, services, changed log settings, ...).
 #   * This is thus destructive and should be used with care.
 #   Defaults to <tt>present</tt>.
-
-#
 #
 # === Examples
 #
 # elasticsearch::ruby { 'elasticsearch':; }
-#
 #
 # === Authors
 #
@@ -54,13 +50,17 @@ define elasticsearch::ruby (
     'elasticsearch': {
       $provider = 'gem'
     }
+    'flex': {
+      $provider = 'gem'
+    }
     default: {
       fail("unknown ruby client package '${name}'")
     }
   }
 
-  package { $name:
+  package { "ruby_${name}":
     ensure   => $ensure,
+    name     => $name,
     provider => $provider,
   }
 

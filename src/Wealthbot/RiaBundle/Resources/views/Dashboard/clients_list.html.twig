@@ -82,7 +82,7 @@
             </div>
 
             <div class="tab-pane {{ activeTab == 'prospects' ? 'active' : '' }}" id="tab_prospects">
-                {% render 'WealthbotRiaBundle:Prospects:index' %}
+                {{ render(controller('WealthbotRiaBundle:Prospects:index')) }}
             </div>
 
             <div class="tab-pane {{ activeTab == 'invite-a-prospect' ? 'active' : '' }}" id="tab_invite_prospect">

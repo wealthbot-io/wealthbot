@@ -12,14 +12,14 @@
 namespace Wealthbot\UserBundle\Form\Handler;
 
 use FOS\UserBundle\Form\Handler\RegistrationFormHandler;
+use FOS\UserBundle\Mailer\MailerInterface;
 use FOS\UserBundle\Model\UserInterface;
 use FOS\UserBundle\Model\UserManagerInterface;
-use Wealthbot\AdminBundle\Manager\FeeManager;
-use Wealthbot\RiaBundle\Entity\RiaCompanyInformation;
+use FOS\UserBundle\Util\TokenGeneratorInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
-use FOS\UserBundle\Mailer\MailerInterface;
-use FOS\UserBundle\Util\TokenGeneratorInterface;
+use Wealthbot\AdminBundle\Manager\FeeManager;
+use Wealthbot\RiaBundle\Entity\RiaCompanyInformation;
 
 class RiaRegistrationFormHandler extends RegistrationFormHandler
 {
@@ -50,7 +50,7 @@ class RiaRegistrationFormHandler extends RegistrationFormHandler
             $user->setEnabled(true);
         }
 
-        $user->setRoles(array('ROLE_RIA'));
+        $user->setRoles(['ROLE_RIA']);
 
         $riaCompanyInformation = new RiaCompanyInformation();
         $riaCompanyInformation->setName($user->getProfile()->getCompany());

@@ -116,4 +116,32 @@ describe Puppet::Type.type(:rabbitmq_policy) do
       @policy[:definition] = definition
     }.to raise_error(Puppet::Error, /Invalid expires value.*future/)
   end
+
+  it 'should accept and convert the message-ttl value' do
+    definition = {'message-ttl' => '1800000'}
+    @policy[:definition] = definition
+    @policy[:definition]['message-ttl'].should be_a(Fixnum)
+    @policy[:definition]['message-ttl'].should == 1800000
+  end
+
+  it 'should not accept non-numeric message-ttl value' do
+    definition = {'message-ttl' => 'future'}
+    expect {
+      @policy[:definition] = definition
+    }.to raise_error(Puppet::Error, /Invalid message-ttl value.*future/)
+  end
+
+  it 'should accept and convert the max-length value' do
+    definition = {'max-length' => '1800000'}
+    @policy[:definition] = definition
+    @policy[:definition]['max-length'].should be_a(Fixnum)
+    @policy[:definition]['max-length'].should == 1800000
+  end
+
+  it 'should not accept non-numeric max-length value' do
+    definition = {'max-length' => 'future'}
+    expect {
+      @policy[:definition] = definition
+    }.to raise_error(Puppet::Error, /Invalid max-length value.*future/)
+  end
 end

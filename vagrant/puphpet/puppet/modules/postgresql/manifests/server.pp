@@ -7,6 +7,7 @@ class postgresql::server (
   $package_ensure             = $postgresql::params::package_ensure,
 
   $plperl_package_name        = $postgresql::params::plperl_package_name,
+  $plpython_package_name      = $postgresql::params::plpython_package_name,
 
   $service_ensure             = $postgresql::params::service_ensure,
   $service_enable             = $postgresql::params::service_enable,
@@ -30,9 +31,11 @@ class postgresql::server (
   $pg_hba_conf_path           = $postgresql::params::pg_hba_conf_path,
   $pg_ident_conf_path         = $postgresql::params::pg_ident_conf_path,
   $postgresql_conf_path       = $postgresql::params::postgresql_conf_path,
+  $recovery_conf_path         = $postgresql::params::recovery_conf_path,
 
   $datadir                    = $postgresql::params::datadir,
   $xlogdir                    = $postgresql::params::xlogdir,
+  $logdir                     = $postgresql::params::logdir,
 
   $pg_hba_conf_defaults       = $postgresql::params::pg_hba_conf_defaults,
 
@@ -46,6 +49,7 @@ class postgresql::server (
 
   $manage_pg_hba_conf         = $postgresql::params::manage_pg_hba_conf,
   $manage_pg_ident_conf       = $postgresql::params::manage_pg_ident_conf,
+  $manage_recovery_conf       = $postgresql::params::manage_recovery_conf,
 
   #Deprecated
   $version                    = undef,

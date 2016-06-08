@@ -7,9 +7,8 @@
 
 namespace Wealthbot\UserBundle\Mailer;
 
-use Wealthbot\UserBundle\Entity\User;
-use Wealthbot\UserBundle\Mailer\MailerInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Wealthbot\UserBundle\Entity\User;
 
 /**
  * @author
@@ -35,19 +34,18 @@ class TwigSwiftMailer implements MailerInterface
         $companyInformation = $ria->getRiaCompanyInformation();
 
         $template = $this->parameters['template']['adv_copy'];
-        $context = array(
+        $context = [
             'client' => $client->getUsername(),
-            'company' => $companyInformation->getName()
-        );
+            'company' => $companyInformation->getName(),
+        ];
 
         $extension = pathinfo($companyInformation->getAdvCopy(), PATHINFO_EXTENSION);
-        $attachments = array('ADV Copy.'.$extension => $companyInformation->getWebAdvCopy());
+        $attachments = ['ADV Copy.'.$extension => $companyInformation->getWebAdvCopy()];
 
         $this->sendMessage($template, $context, $this->parameters['from_email']['adv_copy'], $client->getEmail(), $attachments);
     }
 
-
-    protected function sendMessage($templateName, $context, $fromEmail, $toEmail, array $attachments = array())
+    protected function sendMessage($templateName, $context, $fromEmail, $toEmail, array $attachments = [])
     {
         $template = $this->twig->loadTemplate($templateName);
         $subject = $template->renderBlock('subject', $context);
@@ -70,8 +68,7 @@ class TwigSwiftMailer implements MailerInterface
             foreach ($attachments as $filename => $path) {
 
                 //TODO need to assure to use correct absolute path!
-                if(file_exists($path)) {
-
+                if (file_exists($path)) {
                     $attachment = \Swift_Attachment::fromPath($path);
                     if (is_string($filename)) {
                         $attachment->setFilename($filename);

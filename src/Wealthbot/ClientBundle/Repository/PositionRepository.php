@@ -4,19 +4,16 @@ namespace Wealthbot\ClientBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
 use Wealthbot\AdminBundle\Entity\Security;
-use Wealthbot\AdminBundle\Entity\SecurityPrice;
 use Wealthbot\ClientBundle\Entity\Position;
 use Wealthbot\ClientBundle\Entity\SystemAccount;
 
 /**
- * PositionRepository
+ * PositionRepository.
  *
  * Repository for trade positions (by clientSystemAccount, Security, date)
- *
  */
 class PositionRepository extends EntityRepository
 {
-
     public function getFirstPosition(SystemAccount $systemAccount, Security $security)
     {
         return $this->createQueryBuilder('p')
@@ -34,6 +31,7 @@ class PositionRepository extends EntityRepository
      * Get open positions by the systemAccounts array.
      *
      * @param SystemAccount[] $accounts
+     *
      * @return Position[]
      */
     public function getOpenPositions($accounts)
@@ -48,8 +46,8 @@ class PositionRepository extends EntityRepository
             ->getQuery()
             ->getResult();
 
-        $lastPositions = array();
-        foreach($positions as $position) {
+        $lastPositions = [];
+        foreach ($positions as $position) {
             $lastPosition = $this->createQueryBuilder('p')
                 ->where('p.security = :security')
                 ->andWhere('p.clientSystemAccount = :account')
@@ -61,8 +59,8 @@ class PositionRepository extends EntityRepository
                 ->getOneOrNullResult();
 
             if ($lastPosition
-                    && $lastPosition->getStatus() == Position::POSITION_STATUS_INITIAL
-                    || $lastPosition->getStatus() == Position::POSITION_STATUS_IS_OPEN) {
+                    && $lastPosition->getStatus() === Position::POSITION_STATUS_INITIAL
+                    || $lastPosition->getStatus() === Position::POSITION_STATUS_IS_OPEN) {
                 $lastPositions[] = $lastPosition;
             }
         }
@@ -85,74 +83,74 @@ class PositionRepository extends EntityRepository
             ->andWhere('p.clientSystemAccount = :a')
             ->andWhere('p.date >= :dateFrom')
             ->andWhere('p.date < :dateTo')
-            ->setParameters(array(
+            ->setParameters([
                     's' => $security,
                     'a' => $account,
                     'dateFrom' => $dateFrom,
-                    'dateTo' => $dateTo
-                ))
+                    'dateTo' => $dateTo,
+                ])
             ->getQuery()
             ->getOneOrNullResult();
     }
 
     public function getAllocation($user, $positions)
     {
-        $qb = $this->createQueryBuilder("positions");
+        $qb = $this->createQueryBuilder('positions');
         $qb
-            ->select("subclass.name AS label, security_prices.price, SUM(positions.amount) AS amount, securities_assignments.subclass_id")
+            ->select('subclass.name AS label, security_prices.price, SUM(positions.amount) AS amount, securities_assignments.subclass_id')
 
-            ->join("positions.clientSystemAccount", "system_accounts")
-            ->join("positions.security", "securities")
-            ->join("securities.securityPrices", "security_prices")
+            ->join('positions.clientSystemAccount', 'system_accounts')
+            ->join('positions.security', 'securities')
+            ->join('securities.securityPrices', 'security_prices')
 
-            ->join("securities.securityAssignments", "securities_assignments")
-            ->join("securities_assignments.subclass", "subclass")
-            ->join("securities_assignments.ceModelEntity", "ce_model_entities")
-            ->join("ce_model_entities.model", "ce_model")
-            ->join("ce_model.clientPortfolio", "client_portfolio")
+            ->join('securities.securityAssignments', 'securities_assignments')
+            ->join('securities_assignments.subclass', 'subclass')
+            ->join('securities_assignments.ceModelEntity', 'ce_model_entities')
+            ->join('ce_model_entities.model', 'ce_model')
+            ->join('ce_model.clientPortfolio', 'client_portfolio')
 
             ->where($qb->expr()->in('positions.id', ':ids'))
             ->setParameter('ids', $positions)
 
-            ->andWhere("client_portfolio.is_active=1")
-            ->andWhere("security_prices.is_current = 1")
+            ->andWhere('client_portfolio.is_active=1')
+            ->andWhere('security_prices.is_current = 1')
             ->groupBy('securities_assignments.subclass_id')
         ;
 
         return $qb->getQuery()->execute();
     }
-    
+
     public function getSubclasses($user, $account_id = null)
     {
-        $max_date = $this->createQueryBuilder("positions1")->select('MAX(positions1.date) AS max_date');
-        $qb = $this->createQueryBuilder("positions")
-            ->select("subclass.name AS label, security_prices.price, SUM(positions.amount) AS amount, securities_assignments.subclass_id")
+        $max_date = $this->createQueryBuilder('positions1')->select('MAX(positions1.date) AS max_date');
+        $qb = $this->createQueryBuilder('positions')
+            ->select('subclass.name AS label, security_prices.price, SUM(positions.amount) AS amount, securities_assignments.subclass_id')
 
-            ->join("positions.clientSystemAccount", "system_accounts")
-            ->join("positions.security", "securities")
-            ->join("securities.securityPrices", "security_prices")
+            ->join('positions.clientSystemAccount', 'system_accounts')
+            ->join('positions.security', 'securities')
+            ->join('securities.securityPrices', 'security_prices')
 
-            ->join("securities.securityAssignments", "securities_assignments")
-            ->join("securities_assignments.subclass", "subclass")
-            ->join("securities_assignments.ceModelEntity", "ce_model_entities")
-            ->join("ce_model_entities.model", "ce_model")
-            ->join("ce_model.clientPortfolio", "client_portfolio")
+            ->join('securities.securityAssignments', 'securities_assignments')
+            ->join('securities_assignments.subclass', 'subclass')
+            ->join('securities_assignments.ceModelEntity', 'ce_model_entities')
+            ->join('ce_model_entities.model', 'ce_model')
+            ->join('ce_model.clientPortfolio', 'client_portfolio')
 
-            ->where($max_date->expr()->in("positions.date", $max_date->getDQL()))
-            ->andWhere("positions.status = :status_open OR positions.status = :status_initial")
-            ->setParameter("status_open", Position::POSITION_STATUS_IS_OPEN)
-            ->setParameter("status_initial", Position::POSITION_STATUS_INITIAL)
-            ->andWhere("system_accounts.client = :client")
-            ->setParameter("client", $user)
-            ->andWhere("client_portfolio.is_active=1")
-            ->andWhere("security_prices.is_current = 1")
+            ->where($max_date->expr()->in('positions.date', $max_date->getDQL()))
+            ->andWhere('positions.status = :status_open OR positions.status = :status_initial')
+            ->setParameter('status_open', Position::POSITION_STATUS_IS_OPEN)
+            ->setParameter('status_initial', Position::POSITION_STATUS_INITIAL)
+            ->andWhere('system_accounts.client = :client')
+            ->setParameter('client', $user)
+            ->andWhere('client_portfolio.is_active=1')
+            ->andWhere('security_prices.is_current = 1')
             ->groupBy('securities_assignments.subclass_id')
         ;
 
         if ($account_id) {
             $qb
-                ->andWhere("system_accounts.client_account_id = :account_id")
-                ->setParameter("account_id", $account_id);
+                ->andWhere('system_accounts.client_account_id = :account_id')
+                ->setParameter('account_id', $account_id);
         }
 
         $subclasses = $qb->getQuery()->execute();
@@ -194,7 +192,7 @@ class PositionRepository extends EntityRepository
             ->groupBy('ceModels.id')
         ;
         $model = $qb->getQuery()->getOneOrNullResult();
+
         return $model['name'];
     }
-
 }

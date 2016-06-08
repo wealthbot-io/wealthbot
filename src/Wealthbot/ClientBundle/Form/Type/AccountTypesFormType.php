@@ -9,15 +9,14 @@
 
 namespace Wealthbot\ClientBundle\Form\Type;
 
-
-use Wealthbot\ClientBundle\Entity\AccountGroup;
+use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Wealthbot\ClientBundle\Entity\AccountGroup;
 use Wealthbot\UserBundle\Entity\User;
-use Doctrine\ORM\EntityRepository;
 
-class AccountTypesFormType extends AbstractType {
-
+class AccountTypesFormType extends AbstractType
+{
     private $group;
     private $client;
 
@@ -34,24 +33,25 @@ class AccountTypesFormType extends AbstractType {
         $isAllowRetirementPlan = $riaCompanyInformation->getIsAllowRetirementPlan();
         $group = $this->group;
 
-        $builder->add('group_type', 'entity', array(
-                'class' => 'WealthbotClientBundle:AccountGroupType',
-                'query_builder' => function(EntityRepository $er) use ($group, $isAllowRetirementPlan) {
+        $builder->add('group_type', 'entity', [
+                'class' => 'Wealthbot\\ClientBundle\\Entity\\AccountGroupType',
+                'query_builder' => function (EntityRepository $er) use ($group, $isAllowRetirementPlan) {
                     $qb = $er->createQueryBuilder('gt');
                     $qb
                         ->leftJoin('gt.group', 'g')
                         ->where('g.name = :group')
                         ->setParameter('group', $group)
                     ;
+
                     return $qb;
                 },
                 'multiple' => false,
                 'expanded' => true,
-                'property' => 'type.name'
-            ))
-            ->add('groups', 'hidden', array(
-                'data' => $group
-            ));
+                'property' => 'type.name',
+            ])
+            ->add('groups', 'hidden', [
+                'data' => $group,
+            ]);
     }
 
     /**
@@ -59,7 +59,7 @@ class AccountTypesFormType extends AbstractType {
      *
      * @return string The name of this type
      */
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'client_account_types';
     }

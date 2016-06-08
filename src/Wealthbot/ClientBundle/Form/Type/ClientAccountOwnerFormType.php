@@ -3,12 +3,10 @@
 namespace Wealthbot\ClientBundle\Form\Type;
 
 use Doctrine\ORM\EntityManager;
-use Wealthbot\ClientBundle\Entity\ClientAccount;
-use Wealthbot\ClientBundle\Form\EventListener\ClientAccountOwnerFormEventSubscriber;
-use Wealthbot\UserBundle\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Wealthbot\ClientBundle\Form\EventListener\ClientAccountOwnerFormEventSubscriber;
+use Wealthbot\UserBundle\Entity\User;
 
 class ClientAccountOwnerFormType extends AbstractType
 {
@@ -23,14 +21,14 @@ class ClientAccountOwnerFormType extends AbstractType
         $this->isJoint = $isJoint;
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options = array())
+    public function buildForm(FormBuilderInterface $builder, array $options = [])
     {
         $builder->addEventSubscriber(
             new ClientAccountOwnerFormEventSubscriber($builder->getFormFactory(), $this->client, $this->em, $this->isJoint)
         );
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'account_owner';
     }

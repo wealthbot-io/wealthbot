@@ -15,7 +15,7 @@ use Wealthbot\UserBundle\Entity\User;
 interface MailerInterface
 {
     /**
-     * Send an email to a user to confirm the account creation
+     * Send an email to a user to confirm the account creation.
      *
      * @param User $user
      */

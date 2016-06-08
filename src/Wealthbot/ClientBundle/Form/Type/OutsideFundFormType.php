@@ -10,19 +10,17 @@
 namespace Wealthbot\ClientBundle\Form\Type;
 
 use Doctrine\ORM\EntityManager;
-use Wealthbot\AdminBundle\Form\Type\FundFormType;
-use Wealthbot\ClientBundle\Entity\ClientAccount;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Wealthbot\AdminBundle\Form\Type\FundFormType;
+use Wealthbot\ClientBundle\Entity\ClientAccount;
 
 /**
  * @Deprecated
  * Class OutsideFundFormType
- *
- * @package Wealthbot\ClientBundle\Form\Type
  */
 class OutsideFundFormType extends AbstractType
 {
@@ -42,52 +40,52 @@ class OutsideFundFormType extends AbstractType
             ->add('security', new FundFormType())
         ;
 
-        if($this->account) {
-            $builder->add('account_id', 'hidden', array( 'data' => $this->account->getId(), 'property_path' => false ));
+        if ($this->account) {
+            $builder->add('account_id', 'hidden', ['data' => $this->account->getId()]);
         }
 
         $em = $this->em;
         $ria = $this->account->getClient()->getProfile()->getRia();
 
-        $builder->addEventListener(FormEvents::PRE_BIND, function (FormEvent $event) use ($em, $ria){
+        $builder->addEventListener(FormEvents::PRE_SUBMIT, function (FormEvent $event) use ($em, $ria) {
 
             $form = $event->getForm();
             $data = $event->getData();
 
-            $existSecurity = $em->getRepository('WealthbotAdminBundle:Security')->findOneBy(array('name' => $data['security']['name'], 'symbol' => $data['security']['symbol']));
-            if($existSecurity) {
+            $existSecurity = $em->getRepository('WealthbotAdminBundle:Security')->findOneBy(['name' => $data['security']['name'], 'symbol' => $data['security']['symbol']]);
+            if ($existSecurity) {
                 $form->get('security')->setData($existSecurity);
 
-                $existSecurityAssignment = $em->getRepository('WealthbotAdminBundle:SecurityAssignment')->findOneBy(array(
+                $existSecurityAssignment = $em->getRepository('WealthbotAdminBundle:SecurityAssignment')->findOneBy([
                     'ria_user_id' => $ria->getId(),
-                    'security_id'     => $existSecurity->getId()
-                ));
+                    'security_id' => $existSecurity->getId(),
+                ]);
 
-                if($existSecurityAssignment){
+                if ($existSecurityAssignment) {
                     $form->setData($existSecurityAssignment);
                 }
             }
         });
 
-        $builder->addEventListener(FormEvents::BIND, function (FormEvent $event) use ($ria){
+        $builder->addEventListener(FormEvents::SUBMIT, function (FormEvent $event) use ($ria) {
 
             $data = $event->getData();
 
-            if($data){
-//                $data->setRia($ria); Deprecated
+            if ($data) {
+                //                $data->setRia($ria); Deprecated
             }
         });
     }
 
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
-       $resolver->setDefaults(array(
-           'data_class' => 'Wealthbot\AdminBundle\Entity\SecurityAssignment'
-       ));
+        $resolver->setDefaults([
+           'data_class' => 'Wealthbot\AdminBundle\Entity\SecurityAssignment',
+       ]);
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
-       return 'outside_fund';
+        return 'outside_fund';
     }
 }

@@ -31,7 +31,7 @@
 
     <div class="tab-content change-profile">
         <div class="tab-pane {{ active_tab == 'your_information' ? 'active' : '' }}" id="your_information">
-            {% render 'WealthbotClientBundle:ChangeProfile:information' %}
+            {{ render(controller('WealthbotClientBundle:ChangeProfile:information')) }}
         </div>
         <div class="tab-pane" id="risk_tolerance">
             {% include 'WealthbotClientBundle:ChangeProfile:_risk_tolerance.html.twig' with { 'form': risk_tolerance_form } %}

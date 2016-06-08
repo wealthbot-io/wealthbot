@@ -1,39 +1,23 @@
-#! /usr/bin/env ruby -S rspec
 require 'spec_helper'
 
-describe "the is_ip_address function" do
-  let(:scope) { PuppetlabsSpec::PuppetInternals.scope }
-
-  it "should exist" do
-    expect(Puppet::Parser::Functions.function("is_ip_address")).to eq("function_is_ip_address")
-  end
-
-  it "should raise a ParseError if there is less than 1 arguments" do
-    expect { scope.function_is_ip_address([]) }.to( raise_error(Puppet::ParseError))
-  end
-
-  it "should return true if an IPv4 address" do
-    result = scope.function_is_ip_address(["1.2.3.4"])
-    expect(result).to(eq(true))
-  end
-
-  it "should return true if a full IPv6 address" do
-    result = scope.function_is_ip_address(["fe80:0000:cd12:d123:e2f8:47ff:fe09:dd74"])
-    expect(result).to(eq(true))
-  end
-
-  it "should return true if a compressed IPv6 address" do
-    result = scope.function_is_ip_address(["fe00::1"])
-    expect(result).to(eq(true))
-  end
-
-  it "should return false if not valid" do
-    result = scope.function_is_ip_address(["asdf"])
-    expect(result).to(eq(false))
-  end
-
-  it "should return false if IP octets out of range" do
-    result = scope.function_is_ip_address(["1.1.1.300"])
-    expect(result).to(eq(false))
-  end
+describe 'is_ip_address' do
+  it { is_expected.not_to eq(nil) }
+  it { is_expected.to run.with_params().and_raise_error(Puppet::ParseError, /wrong number of arguments/i) }
+  it { is_expected.to run.with_params([], []).and_raise_error(Puppet::ParseError, /wrong number of arguments/i) }
+  it { is_expected.to run.with_params('1.2.3.4').and_return(true) }
+  it { is_expected.to run.with_params('1.2.3.255').and_return(true) }
+  it { is_expected.to run.with_params('1.2.3.256').and_return(false) }
+  it { is_expected.to run.with_params('1.2.3').and_return(false) }
+  it { is_expected.to run.with_params('1.2.3.4.5').and_return(false) }
+  it { is_expected.to run.with_params('fe00::1').and_return(true) }
+  it { is_expected.to run.with_params('fe80:0000:cd12:d123:e2f8:47ff:fe09:dd74').and_return(true) }
+  it { is_expected.to run.with_params('FE80:0000:CD12:D123:E2F8:47FF:FE09:DD74').and_return(true) }
+  it { is_expected.to run.with_params('fe80:0000:cd12:d123:e2f8:47ff:fe09:zzzz').and_return(false) }
+  it { is_expected.to run.with_params('fe80:0000:cd12:d123:e2f8:47ff:fe09').and_return(false) }
+  it { is_expected.to run.with_params('fe80:0000:cd12:d123:e2f8:47ff:fe09:dd74:dd74').and_return(false) }
+  it { is_expected.to run.with_params('').and_return(false) }
+  it { is_expected.to run.with_params('one').and_return(false) }
+  it { is_expected.to run.with_params(1).and_return(false) }
+  it { is_expected.to run.with_params({}).and_return(false) }
+  it { is_expected.to run.with_params([]).and_return(false) }
 end

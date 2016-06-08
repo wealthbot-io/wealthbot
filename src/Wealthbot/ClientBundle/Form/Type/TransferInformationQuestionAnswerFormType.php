@@ -9,31 +9,30 @@
 
 namespace Wealthbot\ClientBundle\Form\Type;
 
-
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
 class TransferInformationQuestionAnswerFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('value', 'choice', array(
-            'choices' => array(true => 'Yes', false => 'No'),
+        $builder->add('value', 'choice', [
+            'choices' => [true => 'Yes', false => 'No'],
             'expanded' => true,
-            'constraints' => array(new NotBlank())
-        ));
+            'constraints' => [new NotBlank()],
+        ]);
     }
 
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => 'Wealthbot\ClientBundle\Entity\TransferCustodianQuestionAnswer'
-        ));
+        $resolver->setDefaults([
+            'data_class' => 'Wealthbot\ClientBundle\Entity\TransferCustodianQuestionAnswer',
+        ]);
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'answer';
     }

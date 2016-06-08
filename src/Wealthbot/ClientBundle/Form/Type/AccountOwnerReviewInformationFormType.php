@@ -3,61 +3,60 @@
  * Created by PhpStorm.
  * User: amalyuhin
  * Date: 11.12.13
- * Time: 13:08
+ * Time: 13:08.
  */
 
 namespace Wealthbot\ClientBundle\Form\Type;
 
-
-use Wealthbot\UserBundle\Entity\Profile;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormInterface;
+use Wealthbot\UserBundle\Entity\Profile;
 
 class AccountOwnerReviewInformationFormType extends AccountOwnerPersonalInformationFormType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('first_name', 'text', array(
-                'required' => false
-            ))
-            ->add('middle_name', 'text', array(
-                'required' => false
-            ))
-            ->add('last_name', 'text', array(
-                'required' => false
-            ))
-            ->add('street', 'text', array('required' => false))
-            ->add('city', 'text', array('required' => false))
-            ->add('state', 'entity', array(
-                'class' => 'WealthbotAdminBundle:State',
+        $builder->add('first_name', 'text', [
+                'required' => false,
+            ])
+            ->add('middle_name', 'text', [
+                'required' => false,
+            ])
+            ->add('last_name', 'text', [
+                'required' => false,
+            ])
+            ->add('street', 'text', ['required' => false])
+            ->add('city', 'text', ['required' => false])
+            ->add('state', 'entity', [
+                'class' => 'Wealthbot\\AdminBundle\\Entity\\State',
                 'label' => 'State',
-                'empty_value' => 'Select a State',
-                'required' => true
-            ))
-            ->add('zip', 'text', array('required' => false))
-            ->add('is_different_address', 'checkbox', array(
+                'placeholder' => 'Select a State',
+                'required' => true,
+            ])
+            ->add('zip', 'text', ['required' => false])
+            ->add('is_different_address', 'checkbox', [
                 'label' => 'Is your mailing address different than the one above?',
-                'required' => false
-            ))
-            ->add('mailing_street', 'text', array('required' => false))
-            ->add('mailing_city', 'text', array('required' => false))
-            ->add('mailingState', 'entity', array(
-                'class' => 'WealthbotAdminBundle:State',
+                'required' => false,
+            ])
+            ->add('mailing_street', 'text', ['required' => false])
+            ->add('mailing_city', 'text', ['required' => false])
+            ->add('mailingState', 'entity', [
+                'class' => 'Wealthbot\\AdminBundle\\Entity\\State',
                 'label' => 'Mailing state',
-                'empty_value' => 'Select a State',
-                'required' => false
-            ))
-            ->add('mailing_zip', 'text', array('required' => false))
-            ->add('birth_date', 'date', array(
+                'placeholder' => 'Select a State',
+                'required' => false,
+            ])
+            ->add('mailing_zip', 'text', ['required' => false])
+            ->add('birth_date', 'date', [
                 'widget' => 'single_text',
                 'format' => 'MM-dd-yyyy',
                 'required' => true,
-                'attr' => array('class' => 'jq-date input-small')
-            ))
-            ->add('phone_number', 'text', array('required' => false))
-            ->add('email', 'text', array('required' => true));
+                'attr' => ['class' => 'jq-date input-small'],
+            ])
+            ->add('phone_number', 'text', ['required' => false])
+            ->add('email', 'text', ['required' => true]);
 
         parent::buildForm($builder, $options);
     }
@@ -100,10 +99,10 @@ class AccountOwnerReviewInformationFormType extends AccountOwnerPersonalInformat
         if ($form->has('annual_income') && !in_array($data->getAnnualIncome(), Profile::getAnnualIncomeChoices())) {
             $form->get('annual_income')->addError(new FormError('Required.'));
         }
-        if ($form->has('liquid_net_worth') && !in_array($data->getLiquidNetWorth(), array_keys(Profile::getLiquidNetWorthChoices())) ) {
+        if ($form->has('liquid_net_worth') && !in_array($data->getLiquidNetWorth(), array_keys(Profile::getLiquidNetWorthChoices()))) {
             $form->get('liquid_net_worth')->addError(new FormError('Required.'));
         }
-        if ($form->has('employment_type') && !in_array($data->getEmploymentType(), array_keys(Profile::getEmploymentTypeChoices())) ) {
+        if ($form->has('employment_type') && !in_array($data->getEmploymentType(), array_keys(Profile::getEmploymentTypeChoices()))) {
             $form->get('employment_type')->addError(new FormError('Required.'));
         }
 
@@ -121,4 +120,4 @@ class AccountOwnerReviewInformationFormType extends AccountOwnerPersonalInformat
             }
         }
     }
-} 
+}

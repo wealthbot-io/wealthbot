@@ -9,14 +9,13 @@
 
 namespace Wealthbot\ClientBundle\Form\Type;
 
-
 use Doctrine\ORM\EntityManager;
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\FormBuilderInterface;
 use Wealthbot\ClientBundle\Entity\AccountGroup;
 use Wealthbot\ClientBundle\Entity\ClientAccount;
 use Wealthbot\ClientBundle\Form\EventListener\TransferFundingFormEventSubscriber;
 use Wealthbot\SignatureBundle\Manager\AccountDocusignManager;
-use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\FormBuilderInterface;
 
 class TransferFundingDistributingFormType extends AbstractType
 {
@@ -34,7 +33,6 @@ class TransferFundingDistributingFormType extends AbstractType
         $this->hasFunding = $account->hasFunding();
         $this->hasDistributing = $account->hasDistributing();
 
-
         $this->isPreSaved = $isPreSaved;
     }
 
@@ -51,14 +49,14 @@ class TransferFundingDistributingFormType extends AbstractType
             $builder->add(
                 'funding',
                 new TransferFundingFormType($this->em, $this->account, $subscriber, $this->isPreSaved),
-                array(
-                    'label' => null
-                )
+                [
+                    'label' => null,
+                ]
             );
         }
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'transfer_funding_distributing';
     }

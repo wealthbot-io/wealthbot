@@ -17,6 +17,15 @@ Puppet::Type.newtype(:mongodb_replset) do
     desc "The name of the replicaSet"
   end
 
+  newparam(:arbiter) do
+    desc "The replicaSet arbiter"
+  end
+
+  newparam(:initialize_host) do
+    desc "Host to use for Replicaset initialization"
+    defaultto '127.0.0.1'
+  end
+
   newproperty(:members, :array_matching => :all) do
     desc "The replicaSet members"
 
@@ -26,7 +35,7 @@ Puppet::Type.newtype(:mongodb_replset) do
   end
 
   autorequire(:package) do
-    'mongodb'
+    'mongodb_client'
   end
 
   autorequire(:service) do

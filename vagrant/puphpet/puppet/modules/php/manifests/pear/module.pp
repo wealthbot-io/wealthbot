@@ -7,6 +7,9 @@
 #   (default=true) - Tries to install pear module with the relevant OS package
 #   If set to "no" it installs the module via pear command
 #
+# [*install_options*]
+#   An array of package manager install options. See $php::install_options
+#
 # [*preferred_state*]
 #   (default="stable") - Define which preferred state to use when installing
 #   Pear modules via pear via command line (when use_package=false)
@@ -23,6 +26,7 @@
 define php::pear::module (
   $service             = '',
   $use_package         = true,
+  $install_options     = [],
   $preferred_state     = 'stable',
   $alldeps             = false,
   $version             = 'present',
@@ -59,13 +63,13 @@ define php::pear::module (
   }
 
   $pear_exec_unless = $ensure ? {
-    present => "pear info ${pear_source}",
+    present => "pear shell-test ${pear_source} > 0",
     absent  => undef
   }
 
   $pear_exec_onlyif = $ensure ? {
     present => undef,
-    absent  => "pear info ${pear_source}",
+    absent  => "pear shell-test ${pear_source} > 0",
   }
 
   $real_service = $service ? {
@@ -88,13 +92,19 @@ define php::pear::module (
   }
   $package_name = "${real_module_prefix}${name}"
 
+  $real_install_options = $install_options ? {
+    ''      => $php::install_options,
+    default => $install_options,
+  }
+
 
   case $bool_use_package {
     true: {
       package { "pear-${name}":
-        ensure  => $ensure,
-        name    => $package_name,
-        notify  => $real_service_autorestart,
+        ensure          => $ensure,
+        name            => $package_name,
+        install_options => $real_install_options,
+        notify          => $real_service_autorestart,
       }
     }
     default: {

@@ -9,13 +9,17 @@ class postgresql::server::config {
   $pg_hba_conf_path           = $postgresql::server::pg_hba_conf_path
   $pg_ident_conf_path         = $postgresql::server::pg_ident_conf_path
   $postgresql_conf_path       = $postgresql::server::postgresql_conf_path
+  $recovery_conf_path         = $postgresql::server::recovery_conf_path
   $pg_hba_conf_defaults       = $postgresql::server::pg_hba_conf_defaults
   $user                       = $postgresql::server::user
   $group                      = $postgresql::server::group
   $version                    = $postgresql::server::_version
+  $manage_package_repo        = $postgresql::server::manage_package_repo
   $manage_pg_hba_conf         = $postgresql::server::manage_pg_hba_conf
   $manage_pg_ident_conf       = $postgresql::server::manage_pg_ident_conf
+  $manage_recovery_conf       = $postgresql::server::manage_recovery_conf
   $datadir                    = $postgresql::server::datadir
+  $logdir                     = $postgresql::server::logdir
 
   if ($manage_pg_hba_conf == true) {
     # Prepare the main pg_hba file
@@ -66,12 +70,6 @@ class postgresql::server::config {
         order       => '004',
       }
 
-      # ipv4acls are passed as an array of rule strings, here we transform
-      # them into a resources hash, and pass the result to create_resources
-      $ipv4acl_resources = postgresql_acls_to_resources_hash($ipv4acls,
-      'ipv4acls', 10)
-      create_resources('postgresql::server::pg_hba_rule', $ipv4acl_resources)
-
       postgresql::server::pg_hba_rule { 'allow access to all users':
         type        => 'host',
         address     => $ip_mask_allow_all_users,
@@ -84,13 +82,20 @@ class postgresql::server::config {
         auth_method => 'md5',
         order       => '101',
       }
-
-      # ipv6acls are passed as an array of rule strings, here we transform
-      # them into a resources hash, and pass the result to create_resources
-      $ipv6acl_resources = postgresql_acls_to_resources_hash($ipv6acls,
-      'ipv6acls', 102)
-      create_resources('postgresql::server::pg_hba_rule', $ipv6acl_resources)
     }
+
+    # ipv4acls are passed as an array of rule strings, here we transform
+    # them into a resources hash, and pass the result to create_resources
+    $ipv4acl_resources = postgresql_acls_to_resources_hash($ipv4acls,
+    'ipv4acls', 10)
+    create_resources('postgresql::server::pg_hba_rule', $ipv4acl_resources)
+
+
+    # ipv6acls are passed as an array of rule strings, here we transform
+    # them into a resources hash, and pass the result to create_resources
+    $ipv6acl_resources = postgresql_acls_to_resources_hash($ipv6acls,
+    'ipv6acls', 102)
+    create_resources('postgresql::server::pg_hba_rule', $ipv6acl_resources)
   }
 
   # We must set a "listen_addresses" line in the postgresql.conf if we
@@ -103,6 +108,12 @@ class postgresql::server::config {
   }
   postgresql::server::config_entry { 'data_directory':
     value => $datadir,
+  }
+  if $logdir {
+    postgresql::server::config_entry { 'log_directory':
+      value => $logdir,
+    }
+
   }
 
   # RedHat-based systems hardcode some PG* variables in the init script, and need to be overriden
@@ -137,11 +148,22 @@ class postgresql::server::config {
     }
   }
 
+  if ($manage_recovery_conf == true) {
+    concat { $recovery_conf_path:
+      owner  => $user,
+      group  => $group,
+      force  => true, # do not crash if there is no recovery conf file
+      mode   => '0640',
+      warn   => true,
+      notify => Class['postgresql::server::reload'],
+    }
+  }
+
   if $::osfamily == 'RedHat' {
     if $::operatingsystemrelease =~ /^7/ or $::operatingsystem == 'Fedora' {
       file { 'systemd-override':
         ensure  => present,
-        path    => '/etc/systemd/system/postgresql.service',
+        path    => "/etc/systemd/system/${postgresql::params::service_name}.service",
         owner   => root,
         group   => root,
         content => template('postgresql/systemd-override.erb'),

@@ -2,16 +2,15 @@
 
 namespace Wealthbot\AdminBundle\Controller;
 
-use Symfony\Component\HttpFoundation\Request;
+use FOS\UserBundle\Model\UserInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Doctrine\ORM\EntityManager;
-use FOS\UserBundle\Model\UserInterface;
-use Wealthbot\AdminBundle\Form\FormErrorBag;
-use Wealthbot\AdminBundle\PasInterfaces\DataInterface;
 use Wealthbot\AdminBundle\Document\Transaction;
+use Wealthbot\AdminBundle\Form\FormErrorBag;
 use Wealthbot\AdminBundle\Form\Type\TransactionFormType;
+use Wealthbot\AdminBundle\PasInterfaces\DataInterface;
 
 class PasInterfacesController extends Controller
 {
@@ -44,9 +43,10 @@ class PasInterfacesController extends Controller
     }
 
     /**
-     * Transaction list
+     * Transaction list.
      *
      * @param Request $request
+     *
      * @return Response
      */
     public function transactionIndexAction(Request $request)
@@ -60,9 +60,10 @@ class PasInterfacesController extends Controller
     }
 
     /**
-     * Create new transaction
+     * Create new transaction.
      *
      * @param Request $request
+     *
      * @return Response
      */
     public function transactionCreateAction(Request $request)
@@ -70,10 +71,10 @@ class PasInterfacesController extends Controller
         $transaction = new Transaction();
 
         $form = $this->createForm(new TransactionFormType(), $transaction);
-        $form->bind($request);
+        $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $now  = new \DateTime();
+            $now = new \DateTime();
             $date = $this->dateFormat($request->get('date'));
 
             $txDate = $this->dateFormat($transaction->getTxDate(), true);
@@ -95,6 +96,7 @@ class PasInterfacesController extends Controller
             return new JsonResponse($this->get('wealthbot_admin.pas_interface.transactions')->toArray($transaction));
         } else {
             $errors = new FormErrorBag($form);
+
             return new Response($errors->toJson(), 400);
         }
     }
@@ -129,15 +131,16 @@ class PasInterfacesController extends Controller
 
     public function feeReconIndexAction(Request $request)
     {
-        $params['date']   = $this->dateFormat($request->get('date'));
+        $params['date'] = $this->dateFormat($request->get('date'));
         $params['action'] = DataInterface::DATA_TYPE_FEE_RECON;
-        $params['data']   = array();
+        $params['data'] = [];
 
         return $this->render('WealthbotAdminBundle:Pas:FeeRecon/index.html.twig', $params);
     }
 
     /**
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function advisorCodeAutocompleteAction(Request $request)
@@ -147,6 +150,7 @@ class PasInterfacesController extends Controller
 
     /**
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function transactionTypeAutocompleteAction(Request $request)
@@ -156,6 +160,7 @@ class PasInterfacesController extends Controller
 
     /**
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function securityAutocompleteAction(Request $request)
@@ -165,6 +170,7 @@ class PasInterfacesController extends Controller
 
     /**
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function securityTypeAutocompleteAction(Request $request)
@@ -174,6 +180,7 @@ class PasInterfacesController extends Controller
 
     /**
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function accountNumberAutocompleteAction(Request $request)
@@ -183,6 +190,7 @@ class PasInterfacesController extends Controller
 
     /**
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function closingMethodAutocompleteAction(Request $request)
@@ -194,14 +202,15 @@ class PasInterfacesController extends Controller
      * @param string $repository
      * @param string $query
      * @param string $getter
+     *
      * @return array
      */
     protected function getAutocompleteData($repository, $query, $getter)
     {
         $em = $this->getDoctrine()->getManager();
         $result = $em->getRepository($repository)->getAll($query);
-        $getter = 'get' . ucfirst($getter);
-        $data   = array();
+        $getter = 'get'.ucfirst($getter);
+        $data = [];
 
         foreach ($result as $row) {
             $data[] = $row->{$getter}();
@@ -215,7 +224,7 @@ class PasInterfacesController extends Controller
         $date = $this->dateFormat($request->get('date'));
 
         $params = $this->get('wealthbot_admin.pas_interface.information')->loadInformation($action, $date, (int) $request->get('page', 1));
-        $params['date']   = $date;
+        $params['date'] = $date;
         $params['action'] = $action;
 
         return $params;
@@ -223,13 +232,14 @@ class PasInterfacesController extends Controller
 
     /**
      * @param string $date
+     *
      * @return \DateTime
      */
     protected function dateFormat($date, $move = false)
     {
         if ($date === null) {
             $date = new \DateTime();
-            $date->setTime(0,0,0);
+            $date->setTime(0, 0, 0);
 
             return $date;
         }

@@ -9,14 +9,12 @@
 
 namespace Wealthbot\ClientBundle\Model;
 
-
 class ClientPortfolio implements WorkflowableInterface
 {
-
     /**
-     * @var string $status
+     * @var string
      */
-    protected  $status;
+    protected $status;
 
     /**
      * @var \DateTime
@@ -34,18 +32,16 @@ class ClientPortfolio implements WorkflowableInterface
     protected $created_at;
 
     /**
-     * @var boolean
+     * @var bool
      */
     protected $is_active;
-
 
     // ENUM values status column
     const STATUS_PROPOSED = 'proposed';
     const STATUS_ADVISOR_APPROVED = 'advisor approved';
     const STATUS_CLIENT_ACCEPTED = 'client accepted';
 
-    static private $_statusValues = null;
-
+    private static $_statusValues = null;
 
     public function __construct()
     {
@@ -55,19 +51,20 @@ class ClientPortfolio implements WorkflowableInterface
     }
 
     /**
-     * Get array ENUM values status column
+     * Get array ENUM values status column.
      *
      * @static
+     *
      * @return array
      */
-    static public function getStatusChoices()
+    public static function getStatusChoices()
     {
         // Build $_statusValues if this is the first call
         if (self::$_statusValues === null) {
-            self::$_statusValues = array();
+            self::$_statusValues = [];
             $oClass = new \ReflectionClass('\Wealthbot\ClientBundle\Model\ClientPortfolio');
             $classConstants = $oClass->getConstants();
-            $constantPrefix = "STATUS_";
+            $constantPrefix = 'STATUS_';
             foreach ($classConstants as $key => $val) {
                 if (substr($key, 0, strlen($constantPrefix)) === $constantPrefix) {
                     self::$_statusValues[$val] = $val;
@@ -79,10 +76,12 @@ class ClientPortfolio implements WorkflowableInterface
     }
 
     /**
-     * Set status
+     * Set status.
      *
      * @param string $status
+     *
      * @return ClientPortfolio
+     *
      * @throws \InvalidArgumentException
      */
     public function setStatus($status)
@@ -99,7 +98,7 @@ class ClientPortfolio implements WorkflowableInterface
     }
 
     /**
-     * Get status
+     * Get status.
      *
      * @return string
      */
@@ -109,7 +108,7 @@ class ClientPortfolio implements WorkflowableInterface
     }
 
     /**
-     * Set status as proposed
+     * Set status as proposed.
      *
      * @return $this
      */
@@ -121,17 +120,17 @@ class ClientPortfolio implements WorkflowableInterface
     }
 
     /**
-     * Is proposed portfolio
+     * Is proposed portfolio.
      *
      * @return bool
      */
     public function isProposed()
     {
-        return (boolean) ($this->getStatus() == self::STATUS_PROPOSED);
+        return (boolean) ($this->getStatus() === self::STATUS_PROPOSED);
     }
 
     /**
-     * Set status as advisor approved
+     * Set status as advisor approved.
      *
      * @return $this
      */
@@ -144,17 +143,17 @@ class ClientPortfolio implements WorkflowableInterface
     }
 
     /**
-     * Is advisor approved portfolio
+     * Is advisor approved portfolio.
      *
      * @return bool
      */
     public function isAdvisorApproved()
     {
-        return (boolean) ($this->getStatus() == self::STATUS_ADVISOR_APPROVED);
+        return (boolean) ($this->getStatus() === self::STATUS_ADVISOR_APPROVED);
     }
 
     /**
-     * Set status as client accepted
+     * Set status as client accepted.
      *
      * @return $this
      */
@@ -167,19 +166,20 @@ class ClientPortfolio implements WorkflowableInterface
     }
 
     /**
-     * Is client accepted portfolio
+     * Is client accepted portfolio.
      *
      * @return bool
      */
     public function isClientAccepted()
     {
-        return (boolean) ($this->getStatus() == self::STATUS_CLIENT_ACCEPTED);
+        return (boolean) ($this->getStatus() === self::STATUS_CLIENT_ACCEPTED);
     }
 
     /**
-     * Set approved_at
+     * Set approved_at.
      *
      * @param \DateTime $approvedAt
+     *
      * @return ClientPortfolio
      */
     public function setApprovedAt($approvedAt)
@@ -190,7 +190,7 @@ class ClientPortfolio implements WorkflowableInterface
     }
 
     /**
-     * Get approved_at
+     * Get approved_at.
      *
      * @return \DateTime
      */
@@ -200,9 +200,10 @@ class ClientPortfolio implements WorkflowableInterface
     }
 
     /**
-     * Set accepted_at
+     * Set accepted_at.
      *
      * @param \DateTime $acceptedAt
+     *
      * @return ClientPortfolio
      */
     public function setAcceptedAt($acceptedAt)
@@ -213,7 +214,7 @@ class ClientPortfolio implements WorkflowableInterface
     }
 
     /**
-     * Get accepted_at
+     * Get accepted_at.
      *
      * @return \DateTime
      */
@@ -223,9 +224,10 @@ class ClientPortfolio implements WorkflowableInterface
     }
 
     /**
-     * Set created_at
+     * Set created_at.
      *
      * @param \DateTime $createdAt
+     *
      * @return ClientPortfolio
      */
     public function setCreatedAt($createdAt)
@@ -236,7 +238,7 @@ class ClientPortfolio implements WorkflowableInterface
     }
 
     /**
-     * Get created_at
+     * Get created_at.
      *
      * @return \DateTime
      */
@@ -246,7 +248,7 @@ class ClientPortfolio implements WorkflowableInterface
     }
 
     /**
-     * Get workflow message code
+     * Get workflow message code.
      *
      * @return string
      */
@@ -254,5 +256,4 @@ class ClientPortfolio implements WorkflowableInterface
     {
         return Workflow::MESSAGE_CODE_PAPERWORK_PORTFOLIO_PROPOSED;
     }
-
 }

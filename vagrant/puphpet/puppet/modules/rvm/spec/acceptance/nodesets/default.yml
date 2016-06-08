@@ -12,12 +12,6 @@ HOSTS:
     docker_image_commands:
       - yum -y install tar
       - useradd vagrant
-      - "sed -ri 's/^#?PermitRootLogin .*/PermitRootLogin yes/' /etc/ssh/sshd_config"
-      - "sed -ri 's/^#?PasswordAuthentication .*/PasswordAuthentication yes/' /etc/ssh/sshd_config"
-    docker_cmd:
-      - 'sh'
-      - '-c'
-      - 'service sshd start; tail -f /dev/null'
 CONFIG:
   log_level: debug
   type: git

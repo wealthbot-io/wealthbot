@@ -1,8 +1,6 @@
-#! /usr/bin/env ruby -S rspec
 require 'spec_helper'
 
-describe "the type3x function" do
-  let(:scope) { PuppetlabsSpec::PuppetInternals.scope }
+describe 'type3x' do
   it "should exist" do
     expect(Puppet::Parser::Functions.function("type3x")).to eq("function_type3x")
   end

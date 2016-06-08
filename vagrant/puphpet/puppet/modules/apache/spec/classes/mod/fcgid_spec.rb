@@ -21,7 +21,9 @@ describe 'apache::mod::fcgid', :type => :class do
       }
     end
     it { is_expected.to contain_class("apache::params") }
-    it { is_expected.to contain_apache__mod('fcgid') }
+    it { is_expected.to contain_apache__mod('fcgid').with({
+      'loadfile_name' => 'unixd_fcgid.load'
+    }) }
     it { is_expected.to contain_package("libapache2-mod-fcgid") }
   end
 
@@ -36,13 +38,15 @@ describe 'apache::mod::fcgid', :type => :class do
         :id                        => 'root',
         :kernel                    => 'Linux',
         :path                      => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin',
-        :is_pe                  => false,
+        :is_pe                     => false,
       }
     end
 
     describe 'without parameters' do
       it { is_expected.to contain_class("apache::params") }
-      it { is_expected.to contain_apache__mod('fcgid') }
+      it { is_expected.to contain_apache__mod('fcgid').with({
+        'loadfile_name' => 'unixd_fcgid.load'
+      }) }
       it { is_expected.to contain_package("mod_fcgid") }
     end
 
@@ -57,7 +61,7 @@ describe 'apache::mod::fcgid', :type => :class do
       } end
 
       it 'should contain the correct config' do
-        content = subject.resource('file', 'fcgid.conf').send(:parameters)[:content]
+        content = catalogue.resource('file', 'unixd_fcgid.conf').send(:parameters)[:content]
         expect(content.split("\n").reject { |c| c =~ /(^#|^$)/ }).to eq([
           '<IfModule mod_fcgid.c>',
           '  AddHandler fcgid-script .fcgi',
@@ -89,8 +93,7 @@ describe 'apache::mod::fcgid', :type => :class do
       it { is_expected.to contain_class("apache::params") }
       it { is_expected.to contain_apache__mod('fcgid').with({
         'loadfile_name' => 'unixd_fcgid.load'
-      })
-      }
+      }) }
       it { is_expected.to contain_package("mod_fcgid") }
     end
   end
@@ -99,8 +102,8 @@ describe 'apache::mod::fcgid', :type => :class do
     let :facts do
       {
         :osfamily                  => 'FreeBSD',
-        :operatingsystemrelease    => '9',
-        :operatingsystemmajrelease => '9',
+        :operatingsystemrelease    => '10',
+        :operatingsystemmajrelease => '10',
         :concat_basedir            => '/dne',
         :operatingsystem           => 'FreeBSD',
         :id                        => 'root',
@@ -111,7 +114,9 @@ describe 'apache::mod::fcgid', :type => :class do
     end
 
     it { is_expected.to contain_class("apache::params") }
-    it { is_expected.to contain_apache__mod('fcgid') }
+    it { is_expected.to contain_apache__mod('fcgid').with({
+      'loadfile_name' => 'unixd_fcgid.load'
+    }) }
     it { is_expected.to contain_package("www/mod_fcgid") }
   end
 
@@ -130,7 +135,9 @@ describe 'apache::mod::fcgid', :type => :class do
     end
 
     it { is_expected.to contain_class("apache::params") }
-    it { is_expected.to contain_apache__mod('fcgid') }
+    it { is_expected.to contain_apache__mod('fcgid').with({
+      'loadfile_name' => 'unixd_fcgid.load'
+    }) }
     it { is_expected.to contain_package("www-apache/mod_fcgid") }
   end
 end

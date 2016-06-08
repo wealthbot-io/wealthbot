@@ -2,15 +2,13 @@
 
 namespace Wealthbot\AdminBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-
 /**
- * TransactionType
+ * TransactionType.
  */
 class TransactionType
 {
     /**
-     * @var integer
+     * @var int
      */
     private $id;
 
@@ -34,11 +32,10 @@ class TransactionType
      */
     private $description;
 
-
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer 
+     * @return int
      */
     public function getId()
     {
@@ -46,22 +43,23 @@ class TransactionType
     }
 
     /**
-     * Set name
+     * Set name.
      *
      * @param string $name
+     *
      * @return TransactionType
      */
     public function setName($name)
     {
         $this->name = $name;
-    
+
         return $this;
     }
 
     /**
-     * Get name
+     * Get name.
      *
-     * @return string 
+     * @return string
      */
     public function getName()
     {
@@ -69,22 +67,23 @@ class TransactionType
     }
 
     /**
-     * Set description
+     * Set description.
      *
      * @param string $description
+     *
      * @return TransactionType
      */
     public function setDescription($description)
     {
         $this->description = $description;
-    
+
         return $this;
     }
 
     /**
-     * Get description
+     * Get description.
      *
-     * @return string 
+     * @return string
      */
     public function getDescription()
     {
@@ -92,22 +91,23 @@ class TransactionType
     }
 
     /**
-     * Set activity
+     * Set activity.
      *
      * @param string $activity
+     *
      * @return TransactionType
      */
     public function setActivity($activity)
     {
         $this->activity = $activity;
-    
+
         return $this;
     }
 
     /**
-     * Get activity
+     * Get activity.
      *
-     * @return string 
+     * @return string
      */
     public function getActivity()
     {
@@ -115,22 +115,23 @@ class TransactionType
     }
 
     /**
-     * Set report_as
+     * Set report_as.
      *
      * @param string $reportAs
+     *
      * @return TransactionType
      */
     public function setReportAs($reportAs)
     {
         $this->report_as = $reportAs;
-    
+
         return $this;
     }
 
     /**
-     * Get report_as
+     * Get report_as.
      *
-     * @return string 
+     * @return string
      */
     public function getReportAs()
     {

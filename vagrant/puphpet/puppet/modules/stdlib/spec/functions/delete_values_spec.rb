@@ -1,36 +1,37 @@
-#! /usr/bin/env ruby -S rspec
 require 'spec_helper'
 
-describe "the delete_values function" do
-  let(:scope) { PuppetlabsSpec::PuppetInternals.scope }
-
-  it "should exist" do
-    expect(Puppet::Parser::Functions.function("delete_values")).to eq("function_delete_values")
+describe 'delete_values' do
+  it { is_expected.not_to eq(nil) }
+  it { is_expected.to run.with_params().and_raise_error(Puppet::ParseError) }
+  it { is_expected.to run.with_params(1).and_raise_error(Puppet::ParseError) }
+  it { is_expected.to run.with_params('one').and_raise_error(Puppet::ParseError) }
+  it { is_expected.to run.with_params('one', 'two', 'three').and_raise_error(Puppet::ParseError) }
+  describe 'when the first argument is not a hash' do
+    it { is_expected.to run.with_params(1, 'two').and_raise_error(TypeError) }
+    it { is_expected.to run.with_params('one', 'two').and_raise_error(TypeError) }
+    it { is_expected.to run.with_params([], 'two').and_raise_error(TypeError) }
   end
 
-  it "should raise a ParseError if there are fewer than 2 arguments" do
-    expect { scope.function_delete_values([]) }.to( raise_error(Puppet::ParseError))
+  describe 'when deleting from a hash' do
+    it { is_expected.to run.with_params({}, 'value').and_return({}) }
+    it { is_expected.to run \
+      .with_params({'key1' => 'value1'}, 'non-existing value') \
+      .and_return({'key1' => 'value1'})
+    }
+    it { is_expected.to run \
+      .with_params({'key1' => 'value1', 'key2' => 'value to delete'}, 'value to delete') \
+      .and_return({'key1' => 'value1'})
+    }
+    it { is_expected.to run \
+      .with_params({'key1' => 'value1', 'key2' => 'value to delete', 'key3' => 'value to delete'}, 'value to delete') \
+      .and_return({'key1' => 'value1'})
+    }
   end
 
-  it "should raise a ParseError if there are greater than 2 arguments" do
-    expect { scope.function_delete_values([[], 'foo', 'bar']) }.to( raise_error(Puppet::ParseError))
+  it "should leave the original argument intact" do
+    argument = { 'key1' => 'value1', 'key2' => 'value2' }
+    original = argument.dup
+    result = subject.call([argument, 'value2'])
+    expect(argument).to eq(original)
   end
-
-  it "should raise a TypeError if the argument is not a hash" do
-    expect { scope.function_delete_values([1,'bar']) }.to( raise_error(TypeError))
-    expect { scope.function_delete_values(['foo','bar']) }.to( raise_error(TypeError))
-    expect { scope.function_delete_values([[],'bar']) }.to( raise_error(TypeError))
-  end
-
-  it "should delete all instances of a value from a hash" do
-    result = scope.function_delete_values([{ 'a'=>'A', 'b'=>'B', 'B'=>'C', 'd'=>'B' },'B'])
-    expect(result).to(eq({ 'a'=>'A', 'B'=>'C' }))
-  end
-
-  it "should not change origin hash passed as argument" do
-    origin_hash = { 'a' => 1, 'b' => 2, 'c' => 3 }
-    result = scope.function_delete_values([origin_hash, 2])
-    expect(origin_hash).to(eq({ 'a' => 1, 'b' => 2, 'c' => 3 }))
-  end
-
 end

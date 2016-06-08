@@ -2,31 +2,30 @@
 
 namespace Wealthbot\SignatureBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
 use Wealthbot\SignatureBundle\Exception\InvalidRecipientStatusException;
 
 /**
- * DocumentOwnerSignature
+ * DocumentOwnerSignature.
  */
 class DocumentOwnerSignature
 {
     /**
-     * @var integer
+     * @var int
      */
     private $id;
 
     /**
-     * @var integer
+     * @var int
      */
     private $document_signature_id;
 
     /**
-     * @var integer
+     * @var int
      */
     private $owner_client_user_id;
 
     /**
-     * @var integer
+     * @var int
      */
     private $owner_contact_id;
 
@@ -72,11 +71,10 @@ class DocumentOwnerSignature
      */
     private $contactOwner;
 
-
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer 
+     * @return int
      */
     public function getId()
     {
@@ -84,22 +82,23 @@ class DocumentOwnerSignature
     }
 
     /**
-     * Set document_signature_id
+     * Set document_signature_id.
      *
-     * @param integer $documentSignatureId
+     * @param int $documentSignatureId
+     *
      * @return DocumentOwnerSignature
      */
     public function setDocumentSignatureId($documentSignatureId)
     {
         $this->document_signature_id = $documentSignatureId;
-    
+
         return $this;
     }
 
     /**
-     * Get document_signature_id
+     * Get document_signature_id.
      *
-     * @return integer 
+     * @return int
      */
     public function getDocumentSignatureId()
     {
@@ -107,22 +106,23 @@ class DocumentOwnerSignature
     }
 
     /**
-     * Set owner_client_user_id
+     * Set owner_client_user_id.
      *
-     * @param integer $ownerClientUserId
+     * @param int $ownerClientUserId
+     *
      * @return DocumentOwnerSignature
      */
     public function setOwnerClientUserId($ownerClientUserId)
     {
         $this->owner_client_user_id = $ownerClientUserId;
-    
+
         return $this;
     }
 
     /**
-     * Get owner_client_user_id
+     * Get owner_client_user_id.
      *
-     * @return integer 
+     * @return int
      */
     public function getOwnerClientUserId()
     {
@@ -130,22 +130,23 @@ class DocumentOwnerSignature
     }
 
     /**
-     * Set owner_contact_id
+     * Set owner_contact_id.
      *
-     * @param integer $ownerContactId
+     * @param int $ownerContactId
+     *
      * @return DocumentOwnerSignature
      */
     public function setOwnerContactId($ownerContactId)
     {
         $this->owner_contact_id = $ownerContactId;
-    
+
         return $this;
     }
 
     /**
-     * Get owner_contact_id
+     * Get owner_contact_id.
      *
-     * @return integer 
+     * @return int
      */
     public function getOwnerContactId()
     {
@@ -153,14 +154,14 @@ class DocumentOwnerSignature
     }
 
     /**
-     * Get status choices
+     * Get status choices.
      *
      * @return array
      */
     public static function getStatusChoices()
     {
         if (null === self::$_statuses) {
-            self::$_statuses = array();
+            self::$_statuses = [];
 
             $rClass = new \ReflectionClass('Wealthbot\SignatureBundle\Entity\DocumentOwnerSignature');
             $prefix = 'STATUS_';
@@ -176,10 +177,12 @@ class DocumentOwnerSignature
     }
 
     /**
-     * Set status
+     * Set status.
      *
      * @param int $status
+     *
      * @return $this
+     *
      * @throws InvalidRecipientStatusException
      */
     public function setStatus($status)
@@ -197,9 +200,9 @@ class DocumentOwnerSignature
     }
 
     /**
-     * Get status
+     * Get status.
      *
-     * @return string 
+     * @return string
      */
     public function getStatus()
     {
@@ -207,22 +210,23 @@ class DocumentOwnerSignature
     }
 
     /**
-     * Set created
+     * Set created.
      *
      * @param \DateTime $created
+     *
      * @return DocumentOwnerSignature
      */
     public function setCreated($created)
     {
         $this->created = $created;
-    
+
         return $this;
     }
 
     /**
-     * Get created
+     * Get created.
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getCreated()
     {
@@ -230,22 +234,23 @@ class DocumentOwnerSignature
     }
 
     /**
-     * Set updated
+     * Set updated.
      *
      * @param \DateTime $updated
+     *
      * @return DocumentOwnerSignature
      */
     public function setUpdated($updated)
     {
         $this->updated = $updated;
-    
+
         return $this;
     }
 
     /**
-     * Get updated
+     * Get updated.
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getUpdated()
     {
@@ -253,22 +258,23 @@ class DocumentOwnerSignature
     }
 
     /**
-     * Set documentSignature
+     * Set documentSignature.
      *
      * @param \Wealthbot\SignatureBundle\Entity\DocumentSignature $documentSignature
+     *
      * @return DocumentOwnerSignature
      */
     public function setDocumentSignature(\Wealthbot\SignatureBundle\Entity\DocumentSignature $documentSignature = null)
     {
         $this->documentSignature = $documentSignature;
-    
+
         return $this;
     }
 
     /**
-     * Get documentSignature
+     * Get documentSignature.
      *
-     * @return \Wealthbot\SignatureBundle\Entity\DocumentSignature 
+     * @return \Wealthbot\SignatureBundle\Entity\DocumentSignature
      */
     public function getDocumentSignature()
     {
@@ -276,22 +282,23 @@ class DocumentOwnerSignature
     }
 
     /**
-     * Set clientOwner
+     * Set clientOwner.
      *
      * @param \Wealthbot\UserBundle\Entity\User $clientOwner
+     *
      * @return DocumentOwnerSignature
      */
     public function setClientOwner(\Wealthbot\UserBundle\Entity\User $clientOwner = null)
     {
         $this->clientOwner = $clientOwner;
-    
+
         return $this;
     }
 
     /**
-     * Get clientOwner
+     * Get clientOwner.
      *
-     * @return \Wealthbot\UserBundle\Entity\User 
+     * @return \Wealthbot\UserBundle\Entity\User
      */
     public function getClientOwner()
     {
@@ -299,22 +306,23 @@ class DocumentOwnerSignature
     }
 
     /**
-     * Set contactOwner
+     * Set contactOwner.
      *
      * @param \Wealthbot\ClientBundle\Entity\ClientAdditionalContact $contactOwner
+     *
      * @return DocumentOwnerSignature
      */
     public function setContactOwner(\Wealthbot\ClientBundle\Entity\ClientAdditionalContact $contactOwner = null)
     {
         $this->contactOwner = $contactOwner;
-    
+
         return $this;
     }
 
     /**
-     * Get contactOwner
+     * Get contactOwner.
      *
-     * @return \Wealthbot\ClientBundle\Entity\ClientAdditionalContact 
+     * @return \Wealthbot\ClientBundle\Entity\ClientAdditionalContact
      */
     public function getContactOwner()
     {
@@ -322,12 +330,12 @@ class DocumentOwnerSignature
     }
 
     /**
-     * Is owner signature completed
+     * Is owner signature completed.
      *
      * @return bool
      */
     public function isCompleted()
     {
-        return (self::STATUS_COMPLETED === $this->getStatus() || self::STATUS_SIGNED === $this->getStatus());
+        return self::STATUS_COMPLETED === $this->getStatus() || self::STATUS_SIGNED === $this->getStatus();
     }
 }

@@ -2,15 +2,13 @@
 
 namespace Wealthbot\ClientBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-
 /**
- * AccountTwrValue
+ * AccountTwrValue.
  */
 class AccountTwrValue
 {
     /**
-     * @var integer
+     * @var int
      */
     protected $id;
 
@@ -35,9 +33,9 @@ class AccountTwrValue
     protected $accountNumber;
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer
+     * @return int
      */
     public function getId()
     {
@@ -45,9 +43,10 @@ class AccountTwrValue
     }
 
     /**
-     * Set net value
+     * Set net value.
      *
      * @param float $netValue
+     *
      * @return this
      */
     public function setNetValue($netValue)
@@ -58,7 +57,7 @@ class AccountTwrValue
     }
 
     /**
-     * Get net value
+     * Get net value.
      *
      * @return float
      */
@@ -68,9 +67,10 @@ class AccountTwrValue
     }
 
     /**
-     * Set gross value
+     * Set gross value.
      *
      * @param float $grossValue
+     *
      * @return this
      */
     public function setGrossValue($grossValue)
@@ -81,7 +81,7 @@ class AccountTwrValue
     }
 
     /**
-     * Get gross value
+     * Get gross value.
      *
      * @return float
      */
@@ -91,9 +91,10 @@ class AccountTwrValue
     }
 
     /**
-     * Set date
+     * Set date.
      *
      * @param \DateTime $date
+     *
      * @return this
      */
     public function setDate($date)
@@ -104,7 +105,7 @@ class AccountTwrValue
     }
 
     /**
-     * Get date
+     * Get date.
      *
      * @return \DateTime
      */
@@ -113,11 +114,11 @@ class AccountTwrValue
         return $this->date;
     }
 
-
     /**
-     * Set account_number
+     * Set account_number.
      *
      * @param string $accountNumber
+     *
      * @return this
      */
     public function setAccountNumber($accountNumber)
@@ -128,9 +129,9 @@ class AccountTwrValue
     }
 
     /**
-     * Get account_number
+     * Get account_number.
      *
-     * @return string 
+     * @return string
      */
     public function getAccountNumber()
     {

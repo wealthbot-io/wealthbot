@@ -11,10 +11,10 @@ namespace Wealthbot\AdminBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use Symfony\Component\Form\FormEvents;
-use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormError;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class RiskAnswerFormType extends AbstractType
 {
@@ -23,13 +23,13 @@ class RiskAnswerFormType extends AbstractType
         $choices = array_combine(range(-100, 100), range(-100, 100));
 
         $builder->add('title')
-            ->add('point', 'choice', array(
-                'empty_value' => 'Select value',
-                'choices' => $choices
-            ))
+            ->add('point', 'choice', [
+                'placeholder' => 'Select value',
+                'choices' => $choices,
+            ])
         ;
 
-        $builder->addEventListener(FormEvents::BIND, function(FormEvent $event) {
+        $builder->addEventListener(FormEvents::SUBMIT, function (FormEvent $event) {
             /** @var \Wealthbot\RiaBundle\Entity\RiskAnswer $data */
             $data = $event->getData();
             $form = $event->getForm();
@@ -44,11 +44,11 @@ class RiskAnswerFormType extends AbstractType
         });
     }
 
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => 'Wealthbot\RiaBundle\Entity\RiskAnswer'
-        ));
+        $resolver->setDefaults([
+            'data_class' => 'Wealthbot\RiaBundle\Entity\RiskAnswer',
+        ]);
     }
 
     /**
@@ -56,9 +56,8 @@ class RiskAnswerFormType extends AbstractType
      *
      * @return string The name of this type
      */
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'rx_risk_answer';
     }
-
 }

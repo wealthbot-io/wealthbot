@@ -9,7 +9,6 @@
 
 namespace Wealthbot\SignatureBundle\Model\Tab;
 
-
 class CheckboxTab extends AbstractCheckableTab
 {
     public function __construct()

@@ -1,67 +1,61 @@
-#! /usr/bin/env ruby -S rspec
-
 require 'spec_helper'
 
-describe "the validate_slength function" do
-  let(:scope) { PuppetlabsSpec::PuppetInternals.scope }
-
-  it "should exist" do
-    expect(Puppet::Parser::Functions.function("validate_slength")).to eq("function_validate_slength")
+describe 'validate_slength' do
+  describe 'signature validation' do
+    it { is_expected.not_to eq(nil) }
+    it { is_expected.to run.with_params().and_raise_error(Puppet::ParseError, /wrong number of arguments/i) }
+    it { is_expected.to run.with_params('').and_raise_error(Puppet::ParseError, /wrong number of arguments/i) }
+    it { is_expected.to run.with_params('', 2, 3, 'extra').and_raise_error(Puppet::ParseError, /wrong number of arguments/i) }
+    it { is_expected.to run.with_params('', '').and_raise_error(Puppet::ParseError, /second argument to be a positive Numeric/) }
+    it { is_expected.to run.with_params('', -1).and_raise_error(Puppet::ParseError, /second argument to be a positive Numeric/) }
+    it { is_expected.to run.with_params('', 1, '').and_raise_error(Puppet::ParseError, /third argument to be unset or a positive Numeric/) }
+    it { is_expected.to run.with_params('', 1, -1).and_raise_error(Puppet::ParseError, /third argument to be unset or a positive Numeric/) }
+    it { is_expected.to run.with_params('', 1, 2).and_raise_error(Puppet::ParseError, /argument to be equal to or larger than third argument/) }
   end
 
-  describe "validating the input argument types" do
-    it "raises an error if there are less than two arguments" do
-      expect { scope.function_validate_slength([]) }.to raise_error Puppet::ParseError, /Wrong number of arguments/
+  context "with a maximum length of 10" do
+    describe 'rejects strings longer than the limit' do
+      it { is_expected.to run.with_params('1234567890a', 10).and_raise_error(Puppet::ParseError, /Expected length/) }
+      it { is_expected.to run.with_params('1234567890abcdef', 10).and_raise_error(Puppet::ParseError, /Expected length/) }
+      it { is_expected.to run.with_params([ 'one', '1234567890abcdef' ], 10).and_raise_error(Puppet::ParseError, /Expected length/) }
     end
 
-    it "raises an error if there are more than three arguments" do
-      expect { scope.function_validate_slength(['input', 1, 2, 3]) }.to raise_error Puppet::ParseError, /Wrong number of arguments/
+    describe 'accepts strings shorter or equal to the limit' do
+      it { is_expected.to run.with_params('1234567890', 10) }
+      it { is_expected.to run.with_params('12345', 10) }
+      it { is_expected.to run.with_params([ 'one', 'two' ], 10) }
     end
 
-    it "raises an error if the first argument is not a string" do
-      expect { scope.function_validate_slength([Object.new, 2, 1]) }.to raise_error Puppet::ParseError, /Expected first argument.*got .*Object/
-    end
+    context "with a minimum length of 5" do
+      describe 'rejects strings longer than the upper limit' do
+        it { is_expected.to run.with_params('1234567890a', 10, 5).and_raise_error(Puppet::ParseError, /Expected length/) }
+        it { is_expected.to run.with_params('1234567890abcdef', 10, 5).and_raise_error(Puppet::ParseError, /Expected length/) }
+      end
 
-    it "raises an error if the second argument cannot be cast to an Integer" do
-      expect { scope.function_validate_slength(['input', Object.new]) }.to raise_error Puppet::ParseError, /Expected second argument.*got .*Object/
-    end
+      describe 'rejects numbers shorter than the lower limit' do
+        it { is_expected.to run.with_params('one', 10, 5).and_raise_error(Puppet::ParseError, /Expected length/) }
+        it { is_expected.to run.with_params(['12345678', 'two'], 10, 5).and_raise_error(Puppet::ParseError, /Expected length/) }
+      end
 
-    it "raises an error if the third argument cannot be cast to an Integer" do
-      expect { scope.function_validate_slength(['input', 1, Object.new]) }.to raise_error Puppet::ParseError, /Expected third argument.*got .*Object/
-    end
-
-    it "raises an error if the second argument is smaller than the third argument" do
-      expect { scope.function_validate_slength(['input', 1, 2]) }.to raise_error Puppet::ParseError, /Expected second argument to be larger than third argument/
+      describe 'accepts strings of length between and including the limits' do
+        it { is_expected.to run.with_params('12345', 10, 5) }
+        it { is_expected.to run.with_params('123456', 10, 5) }
+        it { is_expected.to run.with_params('1234567', 10, 5) }
+        it { is_expected.to run.with_params('12345678', 10, 5) }
+        it { is_expected.to run.with_params('123456789', 10, 5) }
+        it { is_expected.to run.with_params('1234567890', 10, 5) }
+        it { is_expected.to run.with_params(['1233456', '12345678'], 10, 5) }
+      end
     end
   end
 
-  describe "validating the input string length" do
-    describe "when the input is a string" do
-      it "fails validation if the string is larger than the max length" do
-        expect { scope.function_validate_slength(['input', 1]) }.to raise_error Puppet::ParseError, /Expected length .* between 0 and 1, was 5/
-      end
+  describe 'corner cases' do
+    it { pending('this should work'); is_expected.to run.with_params('', 0, 0) }
+    it { is_expected.to run.with_params('1234567890', 10, 10) }
+  end
 
-      it "fails validation if the string is less than the min length" do
-        expect { scope.function_validate_slength(['input', 10, 6]) }.to raise_error Puppet::ParseError, /Expected length .* between 6 and 10, was 5/
-      end
-
-      it "doesn't raise an error if the string is under the max length" do
-        scope.function_validate_slength(['input', 10])
-      end
-
-      it "doesn't raise an error if the string is equal to the max length" do
-        scope.function_validate_slength(['input', 5])
-      end
-
-      it "doesn't raise an error if the string is equal to the min length" do
-        scope.function_validate_slength(['input', 10, 5])
-      end
-    end
-
-    describe "when the input is an array" do
-      it "fails validation if one of the array elements is not a string" do
-        expect { scope.function_validate_slength([["a", "b", Object.new], 2]) }.to raise_error Puppet::ParseError, /Expected element at array position 2 .*String, got .*Object/
-      end
-    end
+  describe 'empty upper limit is interpreted as infinity' do
+    it { pending('not implemented'); is_expected.to run.with_params('1234567890ab', '', 10) }
+    it { pending('not implemented'); is_expected.to run.with_params('12345678', '', 10).and_raise_error(Puppet::ParseError, /Expected length/) }
   end
 end

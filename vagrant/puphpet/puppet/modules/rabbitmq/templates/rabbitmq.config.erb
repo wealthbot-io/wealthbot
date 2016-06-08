@@ -12,9 +12,17 @@
     {cluster_nodes, {[<%= @cluster_nodes.map { |n| "\'rabbit@#{n}\'" }.join(', ') %>], <%= @cluster_node_type %>}},
     {cluster_partition_handling, <%= @cluster_partition_handling %>},
 <% end -%>
-<%- if @tcp_keepalive -%>
-    {tcp_listen_options, [{keepalive, true}]},
-<%- end -%>
+    {tcp_listen_options,
+         [binary,
+         <%- if @tcp_keepalive -%>
+         {keepalive,     true},
+         <%- end -%>
+         {packet,        raw},
+         {reuseaddr,     true},
+         {backlog,       128},
+         {nodelay,       true},
+         {exit_on_close, false}]
+    },
 <%- if @ssl_only -%>
     {tcp_listeners, []},
 <%- elsif @interface != 'UNSET' -%>
@@ -59,10 +67,12 @@
 <%- if @admin_enable -%>,
   {rabbitmq_management, [
     {listener, [
-<%- if @ssl -%>
+<%- if @ssl && @management_ssl -%>
       {port, <%= @ssl_management_port %>},
       {ssl, true},
-      {ssl_opts, [<%- if @ssl_cacert != 'UNSET' -%>{cacertfile, "<%= @ssl_cacert %>"},<%- end -%>
+      {ssl_opts, [<%- if @ssl_cacert != 'UNSET' %>
+                  {cacertfile, "<%= @ssl_cacert %>"},
+                  <%- end -%>
 
                   {certfile, "<%= @ssl_cert %>"},
                   {keyfile, "<%= @ssl_key %>"}
@@ -84,8 +94,13 @@
 <% if @config_stomp -%>,
 % Configure the Stomp Plugin listening port
   {rabbitmq_stomp, [
+  <%- if @stomp_ssl_only -%>
+    {tcp_listeners, []}
+  <%- else -%>
     {tcp_listeners, [<%= @stomp_port %>]}
-  <%- if @ssl && @ssl_stomp_port -%>,
+  <%- end -%>
+  <%- if @ssl && @ssl_stomp_port -%>
+    ,
     {ssl_listeners, [<%= @ssl_stomp_port %>]}
   <%- end -%>
   ]}

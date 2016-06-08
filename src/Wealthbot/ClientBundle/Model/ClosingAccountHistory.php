@@ -9,7 +9,6 @@
 
 namespace Wealthbot\ClientBundle\Model;
 
-
 class ClosingAccountHistory implements WorkflowableInterface
 {
     /**
@@ -18,9 +17,10 @@ class ClosingAccountHistory implements WorkflowableInterface
     protected $messages;
 
     /**
-     * Add new message
+     * Add new message.
      *
      * @param $message
+     *
      * @return ClosingAccountHistory
      */
     public function addMessage($message)
@@ -33,14 +33,15 @@ class ClosingAccountHistory implements WorkflowableInterface
     }
 
     /**
-     * Set messages
+     * Set messages.
      *
      * @param array $messages
+     *
      * @return $this
      */
     public function setMessages(array $messages)
     {
-        $this->messages = array();
+        $this->messages = [];
 
         foreach ($messages as $message) {
             $this->addMessage($message);
@@ -50,7 +51,7 @@ class ClosingAccountHistory implements WorkflowableInterface
     }
 
     /**
-     * Get messages
+     * Get messages.
      *
      * @return array
      */
@@ -60,7 +61,7 @@ class ClosingAccountHistory implements WorkflowableInterface
     }
 
     /**
-     * Get workflow message code
+     * Get workflow message code.
      *
      * @return string
      */
@@ -68,6 +69,4 @@ class ClosingAccountHistory implements WorkflowableInterface
     {
         return Workflow::MESSAGE_CODE_ALERT_CLOSED_ACCOUNT;
     }
-
-
 }

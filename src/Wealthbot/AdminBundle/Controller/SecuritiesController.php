@@ -1,17 +1,18 @@
 <?php
+
 namespace Wealthbot\AdminBundle\Controller;
 
 use Doctrine\ORM\EntityManager;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Wealthbot\AdminBundle\Entity\CeModel;
 use Wealthbot\AdminBundle\Entity\Security;
 use Wealthbot\AdminBundle\Entity\SecurityAssignment;
 use Wealthbot\AdminBundle\Form\Handler\ModelSecurityFormHandler;
 use Wealthbot\AdminBundle\Form\Handler\SecurityFormHandler;
 use Wealthbot\AdminBundle\Form\Type\ModelSecurityFormType;
-use Wealthbot\AdminBundle\Model\Acl;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Wealthbot\AdminBundle\Form\Type\SecurityFormType;
+use Wealthbot\AdminBundle\Model\Acl;
 
 class SecuritiesController extends AclController
 {
@@ -40,23 +41,23 @@ class SecuritiesController extends AclController
             }
         }
 
-        return $this->render('WealthbotAdminBundle:Securities:index.html.twig', array(
+        return $this->render('WealthbotAdminBundle:Securities:index.html.twig', [
             'pagination' => $pagination,
             'form' => $form->createView(),
-            'is_employer_account_owned' => false
-        ));
+            'is_employer_account_owned' => false,
+        ]);
     }
 
     public function newAction()
     {
         $this->checkAccess(Acl::PERMISSION_EDIT);
 
-        return $this->getJsonResponse(array(
+        return $this->getJsonResponse([
             'status' => 'success',
-            'form' => $this->renderView('WealthbotAdminBundle:Securities:_form.html.twig', array(
-                'form' => $this->createForm(new SecurityFormType())->createView()
-            ))
-        ));
+            'form' => $this->renderView('WealthbotAdminBundle:Securities:_form.html.twig', [
+                'form' => $this->createForm(new SecurityFormType())->createView(),
+            ]),
+        ]);
     }
 
     // TODO: check!
@@ -72,16 +73,16 @@ class SecuritiesController extends AclController
 
         $security = $repository->find($id);
         if (!$security) {
-            return $this->getJsonResponse(array(
+            return $this->getJsonResponse([
                 'status' => 'error',
-                'message' => 'Security object with id: '.$id.' does not exist.'
-            ));
+                'message' => 'Security object with id: '.$id.' does not exist.',
+            ]);
         }
 
         $form = $this->createForm(new SecurityFormType(), $security);
-        $formHandler = new SecurityFormHandler($form, $request, $em, array(
-            'security_context' => $this->get('security.context')
-        ));
+        $formHandler = new SecurityFormHandler($form, $request, $em, [
+            'token_storage' => $this->get('security.token_storage'),
+        ]);
 
         if ($request->isMethod('post')) {
             if ($formHandler->process()) {
@@ -96,36 +97,36 @@ class SecuritiesController extends AclController
                     $security->getSymbol()
                 )->getResult(\Doctrine\ORM\AbstractQuery::HYDRATE_SINGLE_SCALAR);
 
-                return $this->getJsonResponse(array(
+                return $this->getJsonResponse([
                     'status' => 'success',
                     'id' => $security->getId(),
-                    'content' => $this->renderView('WealthbotAdminBundle:Securities:_securities_list_item.html.twig', array(
+                    'content' => $this->renderView('WealthbotAdminBundle:Securities:_securities_list_item.html.twig', [
                         'security' => $security,
                         'current_price' => ($currentPrice ? $currentPrice->getPrice() : null),
-                        'is_employer_account_owned' => $isEmployerAccountOwned
-                    )),
-                    'form' => $this->renderView('WealthbotAdminBundle:Securities:_form.html.twig', array(
+                        'is_employer_account_owned' => $isEmployerAccountOwned,
+                    ]),
+                    'form' => $this->renderView('WealthbotAdminBundle:Securities:_form.html.twig', [
                         'form' => $this->createForm(new SecurityFormType())->createView(),
-                    ))
-                ));
+                    ]),
+                ]);
             } else {
-                return $this->getJsonResponse(array(
+                return $this->getJsonResponse([
                     'status' => 'error',
-                    'form' => $this->renderView('WealthbotAdminBundle:Securities:_edit_form.html.twig', array(
+                    'form' => $this->renderView('WealthbotAdminBundle:Securities:_edit_form.html.twig', [
                         'form' => $form->createView(),
-                        'security' => $security
-                    ))
-                ));
+                        'security' => $security,
+                    ]),
+                ]);
             }
         }
 
-        return $this->getJsonResponse(array(
+        return $this->getJsonResponse([
             'status' => 'success',
-            'form' => $this->renderView('WealthbotAdminBundle:Securities:_edit_form.html.twig', array(
+            'form' => $this->renderView('WealthbotAdminBundle:Securities:_edit_form.html.twig', [
                 'form' => $form->createView(),
-                'security' => $security
-            ))
-        ));
+                'security' => $security,
+            ]),
+        ]);
     }
 
     public function deleteAction($id)
@@ -140,23 +141,23 @@ class SecuritiesController extends AclController
             $em->remove($securityAssignment);
             $em->flush();
 
-            return $this->getJsonResponse(array('status' => 'success'));
+            return $this->getJsonResponse(['status' => 'success']);
         }
 
-        return $this->getJsonResponse(array(
+        return $this->getJsonResponse([
                 'status' => 'error',
-                'message' => 'Error.'
-            ));
+                'message' => 'Error.',
+            ]);
     }
 
     public function modelSecuritiesListAction(Request $request)
     {
         /** @var \Doctrine\ORM\EntityManager $em */
-        /** @var $model CeModel */
+        /* @var $model CeModel */
         $em = $this->get('doctrine.orm.entity_manager');
         $model = $em->getRepository('WealthbotAdminBundle:CeModel')->find($request->get('model_id'));
 
-        $securityAssignments = $em->getRepository('WealthbotAdminBundle:SecurityAssignment')->findBy(array('model_id' => $model->getId()));
+        $securityAssignments = $em->getRepository('WealthbotAdminBundle:SecurityAssignment')->findBy(['model_id' => $model->getId()]);
 
         $securityAssignment = new SecurityAssignment();
         $securityAssignment->setModel($model);
@@ -164,17 +165,17 @@ class SecuritiesController extends AclController
         $form = $this->createForm(new ModelSecurityFormType($model, $em), $securityAssignment);
 
         if ($request->isMethod('post')) {
-            $formHandler = new ModelSecurityFormHandler($form, $request, $em, array('security_assignment' => $securityAssignment));
+            $formHandler = new ModelSecurityFormHandler($form, $request, $em, ['security_assignment' => $securityAssignment]);
 
             if ($formHandler->process()) {
-                return $this->redirect($this->generateUrl('rx_admin_model_securities_list', array('model_id' => $model->getId())));
+                return $this->redirect($this->generateUrl('rx_admin_model_securities_list', ['model_id' => $model->getId()]));
             }
         }
 
-        return $this->render('WealthbotAdminBundle:Securities:model_securities_list.html.twig', array(
-            'form'       => $form->createView(),
-            'security_assignments' => $securityAssignments
-        ));
+        return $this->render('WealthbotAdminBundle:Securities:model_securities_list.html.twig', [
+            'form' => $form->createView(),
+            'security_assignments' => $securityAssignments,
+        ]);
     }
 
     public function completeFundsAction(Request $request)
@@ -187,25 +188,25 @@ class SecuritiesController extends AclController
         //TODO need check why NOT IN doesn't work in query
         $securities = $em->getRepository('WealthbotAdminBundle:Security')->createQueryBuilder('s')
             ->leftJoin('s.securityAssignments', 'sa')
-            ->where("s.symbol LIKE :symbol")
+            ->where('s.symbol LIKE :symbol')
             ->andWhere('sa.id IS NULL')
-            ->orWhere("sa.ria_user_id IS NULL AND sa.model_id IS NULL")
-            ->setParameters(array(
-                "symbol"      => "%".$query."%"
-            ))
+            ->orWhere('sa.ria_user_id IS NULL AND sa.model_id IS NULL')
+            ->setParameters([
+                'symbol' => '%'.$query.'%',
+            ])
             ->getQuery()
             ->execute();
 
-        $output = array();
+        $output = [];
 
         /** @var Security $security */
-        foreach($securities as $security) {
-            $card['id']            = $security->getId();
-            $card['display_name']  = $security->getSymbol()." (".$security->getName().")";
-            $card['symbol']        = $security->getSymbol();
-            $card['name']          = $security->getName();
+        foreach ($securities as $security) {
+            $card['id'] = $security->getId();
+            $card['display_name'] = $security->getSymbol().' ('.$security->getName().')';
+            $card['symbol'] = $security->getSymbol();
+            $card['name'] = $security->getName();
             $card['expense_ratio'] = $security->getExpenseRatio();
-            $card['type']          = $security->getSecurityType()->getDescription();
+            $card['type'] = $security->getSecurityType()->getDescription();
 
             $output[] = $card;
         }
@@ -220,15 +221,16 @@ class SecuritiesController extends AclController
         $assetClass = $em->getRepository('WealthbotAdminBundle:AssetClass')->find($request->get('asset_id'));
 
         if (!$assetClass) {
-            throw $this->createNotFoundException(sprintf("AssetClass with id %d does not exist.", $request->get('asset_id')));
+            throw $this->createNotFoundException(sprintf('AssetClass with id %d does not exist.', $request->get('asset_id')));
         }
 
         $subclasses = $em->getRepository('WealthbotAdminBundle:Subclass')->findDefaultsByAssetClass($assetClass->getId());
 
         $output = "<option value=''>Choose an option</option>";
-        foreach($subclasses as $subclass) {
-            $output .= "<option value='".$subclass->getId()."'>".$subclass->getName()."</option>";
+        foreach ($subclasses as $subclass) {
+            $output .= "<option value='".$subclass->getId()."'>".$subclass->getName().'</option>';
         }
+
         return new Response($output);
     }
 
@@ -240,27 +242,27 @@ class SecuritiesController extends AclController
         $securityAssignment = $em->getRepository('WealthbotAdminBundle:SecurityAssignment')->find($request->get('id'));
 
         if (!$securityAssignment) {
-            throw $this->createNotFoundException(sprintf("SecurityAssignment with id %d does not exist.", $request->get('id')));
+            throw $this->createNotFoundException(sprintf('SecurityAssignment with id %d does not exist.', $request->get('id')));
         }
 
         $model = $securityAssignment->getModel();
         $form = $this->createForm(new ModelSecurityFormType($model, $em), $securityAssignment);
 
         if ($request->isMethod('post')) {
-            $formHandler = new ModelSecurityFormHandler($form, $request, $em, array('security_assignment' => $securityAssignment));
+            $formHandler = new ModelSecurityFormHandler($form, $request, $em, ['security_assignment' => $securityAssignment]);
 
             if ($formHandler->process()) {
-                return $this->redirect($this->generateUrl('rx_admin_model_securities_list', array('model_id' => $model->getId())));
+                return $this->redirect($this->generateUrl('rx_admin_model_securities_list', ['model_id' => $model->getId()]));
             }
         }
 
-        $securityAssignments = $em->getRepository('WealthbotAdminBundle:SecurityAssignment')->findBy(array('model_id' => $model->getId()));
+        $securityAssignments = $em->getRepository('WealthbotAdminBundle:SecurityAssignment')->findBy(['model_id' => $model->getId()]);
 
-        return $this->render('WealthbotAdminBundle:Securities:model_securities_list_edit.html.twig', array(
-            'form'       => $form->createView(),
-            'security_assignment'   => $securityAssignment,
-            'security_assignments' => $securityAssignments
-        ));
+        return $this->render('WealthbotAdminBundle:Securities:model_securities_list_edit.html.twig', [
+            'form' => $form->createView(),
+            'security_assignment' => $securityAssignment,
+            'security_assignments' => $securityAssignments,
+        ]);
     }
 
     public function deleteModelSecurityAction(Request $request)
@@ -270,13 +272,15 @@ class SecuritiesController extends AclController
 
         $securityAssignments = $em->getRepository('WealthbotAdminBundle:SecurityAssignment')->find($request->get('id'));
 
-        if(!$securityAssignments) throw $this->createNotFoundException(sprintf("SecurityAssignment with id %d does not exist.", $request->get('id')));
+        if (!$securityAssignments) {
+            throw $this->createNotFoundException(sprintf('SecurityAssignment with id %d does not exist.', $request->get('id')));
+        }
         $model = $securityAssignments->getModel();
 
         $em->remove($securityAssignments);
         $em->flush();
 
-        return $this->redirect($this->generateUrl('rx_admin_model_securities_list', array('model_id' => $model->getId())));
+        return $this->redirect($this->generateUrl('rx_admin_model_securities_list', ['model_id' => $model->getId()]));
     }
 
     public function updateSubclassFormFieldAction(Request $request)
@@ -284,13 +288,13 @@ class SecuritiesController extends AclController
         $this->checkAccess(Acl::PERMISSION_EDIT);
 
         $form = $this->createForm(new SecurityFormType());
-        $form->bind($request);
+        $form->handleRequest($request);
 
-        $result = array(
-            'content' => $this->renderView('WealthbotAdminBundle:Securities:_security_subclass_form_field.html.twig', array(
-                'form' => $form->createView()
-            ))
-        );
+        $result = [
+            'content' => $this->renderView('WealthbotAdminBundle:Securities:_security_subclass_form_field.html.twig', [
+                'form' => $form->createView(),
+            ]),
+        ];
 
         return $this->getJsonResponse($result);
     }
@@ -307,18 +311,18 @@ class SecuritiesController extends AclController
         }
 
         if ($request->isXmlHttpRequest()) {
-            return $this->getJsonResponse(array(
+            return $this->getJsonResponse([
                 'status' => 'success',
                 'content' => $this->renderView(
                     'WealthbotAdminBundle:Securities:_price_history_list.html.twig',
-                    array('security' => $security)
-                )
-            ));
+                    ['security' => $security]
+                ),
+            ]);
         }
 
         return $this->render(
             'WealthbotAdminBundle:Securities:price_history.html.twig',
-            array('security' => $security)
+            ['security' => $security]
         );
     }
 
@@ -356,19 +360,19 @@ class SecuritiesController extends AclController
             $res = $qb->getQuery()->execute();
         }
 
-        return $this->getJsonResponse(array(
+        return $this->getJsonResponse([
             'status' => 'success',
             'content' => $this->renderView(
                 'WealthbotAdminBundle:Securities:_price_history_list.html.twig',
-                array('security' => $security)
-            )
-        ));
+                ['security' => $security]
+            ),
+        ]);
     }
 
     protected function getJsonResponse(array $data, $code = 200)
     {
         $response = json_encode($data);
 
-        return new Response($response, $code, array('Content-Type'=>'application/json'));
+        return new Response($response, $code, ['Content-Type' => 'application/json']);
     }
 }

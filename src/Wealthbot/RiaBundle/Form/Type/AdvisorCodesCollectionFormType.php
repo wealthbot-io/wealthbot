@@ -3,14 +3,14 @@
  * Created by PhpStorm.
  * User: countzero
  * Date: 29.03.14
- * Time: 22:35
+ * Time: 22:35.
  */
 
 namespace Wealthbot\RiaBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class AdvisorCodesCollectionFormType extends AbstractType
 {
@@ -39,23 +39,23 @@ class AdvisorCodesCollectionFormType extends AbstractType
         $advisorCodeFormType->setRiaCompany($this->riaCompany);
 
         $builder
-            ->add('advisorCodes', 'collection', array(
+            ->add('advisorCodes', 'collection', [
                 'allow_add' => true,
                 'allow_delete' => true,
                 'by_reference' => false,
-                'type' => $advisorCodeFormType
-            ))
+                'type' => $advisorCodeFormType,
+            ])
         ;
     }
 
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
-            'cascade_validation' => true
-        ));
+        $resolver->setDefaults([
+            'cascade_validation' => true,
+        ]);
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'ria_advisor_codes';
     }

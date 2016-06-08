@@ -1,6 +1,6 @@
 require 'spec_helper_acceptance'
 
-describe 'apache::mod::security class', :unless => (UNSUPPORTED_PLATFORMS.include?(fact('osfamily')) or (fact('osfamily') == 'Debian' and (fact('lsbdistcodename') == 'squeeze' or fact('lsbdistcodename') == 'lucid' or fact('lsbdistcodename') == 'precise'))) do
+describe 'apache::mod::security class', :unless => (UNSUPPORTED_PLATFORMS.include?(fact('osfamily')) or (fact('osfamily') == 'Debian' and (fact('lsbdistcodename') == 'squeeze' or fact('lsbdistcodename') == 'lucid' or fact('lsbdistcodename') == 'precise' or fact('lsbdistcodename') == 'wheezy'))) do
   case fact('osfamily')
   when 'Debian'
     mod_dir      = '/etc/apache2/mods-available'
@@ -16,6 +16,18 @@ describe 'apache::mod::security class', :unless => (UNSUPPORTED_PLATFORMS.includ
     if fact('osfamily') == 'RedHat' and fact('operatingsystemmajrelease') =~ /(5|6)/
       it 'adds epel' do
         pp = "class { 'epel': }"
+        apply_manifest(pp, :catch_failures => true)
+      end
+    elsif fact('osfamily') == 'RedHat' and fact('operatingsystemmajrelease') == '7'
+      it 'changes obsoletes, per PUP-4497' do
+        pp = <<-EOS
+          ini_setting { 'obsoletes':
+            path    => '/etc/yum.conf',
+            section => 'main',
+            setting => 'obsoletes',
+            value   => '0',
+          }
+        EOS
         apply_manifest(pp, :catch_failures => true)
       end
     end
@@ -35,6 +47,11 @@ describe 'apache::mod::security class', :unless => (UNSUPPORTED_PLATFORMS.includ
         }
       EOS
       apply_manifest(pp, :catch_failures => true)
+
+      #Need to add a short sleep here because on RHEL6 the service takes a bit longer to init
+      if fact('osfamily') == 'RedHat' and fact('operatingsystemmajrelease') =~ /(5|6)/
+        sleep 5
+      end
     end
 
     describe service(service_name) do
@@ -50,15 +67,17 @@ describe 'apache::mod::security class', :unless => (UNSUPPORTED_PLATFORMS.includ
       it { is_expected.to contain "mod_security2.c" }
     end
 
-    it 'should return index page' do
-      shell('/usr/bin/curl -A beaker modsec.example.com:80') do |r|
-        expect(r.stdout).to match(/Index page/)
-        expect(r.exit_code).to eq(0)
+    describe 'should be listening on port 80' do
+      it 'should return index page' do
+        shell('/usr/bin/curl -A beaker modsec.example.com:80') do |r|
+          expect(r.stdout).to match(/Index page/)
+          expect(r.exit_code).to eq(0)
+        end
       end
-    end
 
-    it 'should block query with SQL' do
-      shell '/usr/bin/curl -A beaker -f modsec.example.com:80?SELECT%20*FROM%20mysql.users', :acceptable_exit_codes => [22]
+      it 'should block query with SQL' do
+        shell '/usr/bin/curl -A beaker -f modsec.example.com:80?SELECT%20*FROM%20mysql.users', :acceptable_exit_codes => [22]
+      end
     end
 
   end #default mod_security config

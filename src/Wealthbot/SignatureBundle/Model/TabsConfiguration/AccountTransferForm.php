@@ -3,11 +3,10 @@
  * Created by PhpStorm.
  * User: amalyuhin
  * Date: 30.10.13
- * Time: 15:59
+ * Time: 15:59.
  */
 
 namespace Wealthbot\SignatureBundle\Model\TabsConfiguration;
-
 
 use Wealthbot\ClientBundle\Model\ClientAccount;
 use Wealthbot\ClientBundle\Model\SystemAccount;
@@ -26,7 +25,7 @@ class AccountTransferForm extends AbstractTabsConfiguration
     }
 
     /**
-     * Generate collection of tabs
+     * Generate collection of tabs.
      *
      * @return TabCollection
      */
@@ -35,7 +34,7 @@ class AccountTransferForm extends AbstractTabsConfiguration
         $client = $this->account->getClient();
         $companyInformation = $client->getRiaCompanyInformation();
 
-        $tabs = array();
+        $tabs = [];
 
         $advisorCode = new TextTab();
         $advisorCode->setTabLabel('advisor#')->setValue($this->getAdvisorCode($companyInformation));
@@ -63,7 +62,7 @@ class AccountTransferForm extends AbstractTabsConfiguration
 
         // Information on the account transferring from
 
-        $accountTitle = $transferInformation->getAccountTitle() . ' ' . $this->account->getTypeName();
+        $accountTitle = $transferInformation->getAccountTitle().' '.$this->account->getTypeName();
         $transferFromAccountTitleTab = new TextTab();
         $transferFromAccountTitleTab->setTabLabel('transfer_from_account_title')->setValue($accountTitle);
         $tabs[] = $transferFromAccountTitleTab;
@@ -141,9 +140,9 @@ class AccountTransferForm extends AbstractTabsConfiguration
                 $result = 'roth_ira';
                 break;
             case SystemAccount::TYPE_TRADITIONAL_IRA:
-                if ($type == 'SEP IRA') {
+                if ($type === 'SEP IRA') {
                     $result = 'sep_ira';
-                } elseif ($type == 'SIMPLE IRA') {
+                } elseif ($type === 'SIMPLE IRA') {
                     $result = 'simple_ira';
                 } else {
                     $result = 'traditional_or_rollover_ira';
@@ -156,4 +155,4 @@ class AccountTransferForm extends AbstractTabsConfiguration
 
         return $result;
     }
-} 
+}

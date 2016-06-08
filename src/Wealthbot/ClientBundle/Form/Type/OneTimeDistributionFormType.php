@@ -9,10 +9,8 @@
 
 namespace Wealthbot\ClientBundle\Form\Type;
 
-
-use Wealthbot\ClientBundle\Entity\Distribution;
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Form\FormBuilderInterface;
+use Wealthbot\ClientBundle\Entity\Distribution;
 
 class OneTimeDistributionFormType extends ScheduledDistributionFormType
 {
@@ -20,19 +18,18 @@ class OneTimeDistributionFormType extends ScheduledDistributionFormType
     {
         parent::buildForm($builder, $options);
 
-        $typeChoices = array(
+        $typeChoices = [
             Distribution::TRANSFER_METHOD_BANK_TRANSFER => 'Bank Transfer',
             Distribution::TRANSFER_METHOD_RECEIVE_CHECK => 'Receive a check',
             Distribution::TRANSFER_METHOD_WIRE_TRANSFER => 'Wire Transfer',
-            Distribution::TRANSFER_METHOD_NOT_FUNDING   => 'I will not be funding my account at this time'
-        );
+            Distribution::TRANSFER_METHOD_NOT_FUNDING => 'I will not be funding my account at this time',
+        ];
 
-        $builder->add('transfer_method', 'choice', array(
+        $builder->add('transfer_method', 'choice', [
             'choices' => $typeChoices,
             'expanded' => true,
             'multiple' => false,
-            'required' => false
-        ));
-
+            'required' => false,
+        ]);
     }
 }

@@ -8,3 +8,4 @@ HOSTS:
     hypervisor : vagrant
 CONFIG:
   type: foss
+  vagrant_ssh_port_random: true

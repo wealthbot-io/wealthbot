@@ -20,7 +20,7 @@ class yum::repo::centos5 (
   if $mirror_url {
     validate_re(
       $mirror_url,
-      '^(?:https?|ftp):\/\/[\da-zA-Z-][\da-zA-Z\.-]*\.[a-zA-Z]{2,6}\.?(?:\/[\w~-]*)*$',
+      '^(?:https?|ftp):\/\/[\da-zA-Z-][\da-zA-Z\.-]*\.[a-zA-Z]{2,6}\.?(?:\:[0-9]{1,5})?(?:\/[\w~-]*)*$',
       '$mirror must be a Clean URL with no query-string, a fully-qualified hostname and no trailing slash.'
     )
   }
@@ -64,7 +64,7 @@ class yum::repo::centos5 (
     gpgcheck       => 1,
     gpgkey         => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-5',
     gpgkey_source  => 'puppet:///modules/yum/rpm-gpg/RPM-GPG-KEY-CentOS-5',
-    priority       => 1,
+    priority       => 2,
   }
 
   yum::managed_yumrepo { 'updates':
@@ -75,7 +75,7 @@ class yum::repo::centos5 (
     enabled        => 1,
     gpgcheck       => 1,
     gpgkey         => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-5',
-    priority       => 1,
+    priority       => 2,
   }
 
   yum::managed_yumrepo { 'addons':
@@ -86,7 +86,7 @@ class yum::repo::centos5 (
     enabled        => 1,
     gpgcheck       => 1,
     gpgkey         => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-5',
-    priority       => 1,
+    priority       => 2,
   }
 
   yum::managed_yumrepo { 'extras':
@@ -97,7 +97,7 @@ class yum::repo::centos5 (
     enabled        => 1,
     gpgcheck       => 1,
     gpgkey         => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-5',
-    priority       => 1,
+    priority       => 2,
   }
 
   yum::managed_yumrepo { 'centosplus':

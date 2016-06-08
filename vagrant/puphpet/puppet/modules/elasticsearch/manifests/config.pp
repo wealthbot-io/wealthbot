@@ -20,7 +20,7 @@
 #
 # === Authors
 #
-# * Richard Pijnenburg <mailto:richard@ispavailability.com>
+# * Richard Pijnenburg <mailto:richard.pijnenburg@elasticsearch.com>
 #
 class elasticsearch::config {
 
@@ -28,7 +28,7 @@ class elasticsearch::config {
 
   File {
     owner => $elasticsearch::elasticsearch_user,
-    group => $elasticsearch::elasticsearch_group
+    group => $elasticsearch::elasticsearch_group,
   }
 
   Exec {
@@ -43,46 +43,93 @@ class elasticsearch::config {
       false => undef,
     }
 
-    file { $elasticsearch::confdir:
+    file { $elasticsearch::configdir:
       ensure => directory,
       mode   => '0644',
-      purge  => $elasticsearch::purge_confdir,
-      force  => $elasticsearch::purge_confdir
     }
 
-    file { "${elasticsearch::confdir}/elasticsearch.yml":
-      ensure  => file,
-      content => template("${module_name}/etc/elasticsearch/elasticsearch.yml.erb"),
-      mode    => '0644',
-      notify  => $notify_service
-    }
-
-    exec { 'mkdir_templates_elasticsearch':
-      command => "mkdir -p ${elasticsearch::confdir}/templates_import",
-      creates => "${elasticsearch::confdir}/templates_import"
-    }
-
-    file { "${elasticsearch::confdir}/templates_import":
+    file { $elasticsearch::logdir:
       ensure  => 'directory',
+      group   => undef,
       mode    => '0644',
-      require => Exec['mkdir_templates_elasticsearch']
+      recurse => true,
     }
 
-    if ( $elasticsearch::datadir != undef ) {
-      file { $elasticsearch::datadir:
+    file { $elasticsearch::params::homedir:
+      ensure  => 'directory',
+    }
+
+    file { $elasticsearch::datadir:
+      ensure  => 'directory',
+    }
+
+    file { "${elasticsearch::homedir}/lib":
+      ensure  => 'directory',
+      recurse => true,
+    }
+
+    if $elasticsearch::params::pid_dir {
+      file { $elasticsearch::params::pid_dir:
         ensure  => 'directory',
-        owner   => $elasticsearch::elasticsearch_user,
-        group   => $elasticsearch::elasticsearch_group,
-        mode    => '0770',
+        group   => undef,
+        recurse => true,
       }
+
+      if ($elasticsearch::service_providers == 'systemd') {
+        $user = $elasticsearch::elasticsearch_user
+        $group = $elasticsearch::elasticsearch_group
+        $pid_dir = $elasticsearch::params::pid_dir
+
+        file { '/usr/lib/tmpfiles.d/elasticsearch.conf':
+          ensure  => 'file',
+          content => template("${module_name}/usr/lib/tmpfiles.d/elasticsearch.conf.erb"),
+          owner   => 'root',
+          group   => 'root',
+        }
+      }
+    }
+
+
+    file { "${elasticsearch::params::homedir}/templates_import":
+      ensure => 'directory',
+      mode   => '0644',
+    }
+
+    file { "${elasticsearch::params::homedir}/scripts":
+      ensure => 'directory',
+      mode   => '0644',
+    }
+
+    # Removal of files that are provided with the package which we don't use
+    file { '/etc/init.d/elasticsearch':
+      ensure => 'absent',
+    }
+    file { '/lib/systemd/system/elasticsearch.service':
+      ensure => 'absent',
+    }
+
+    $new_init_defaults = { 'CONF_DIR' => $elasticsearch::configdir }
+    if $elasticsearch::params::defaults_location {
+      augeas { "${elasticsearch::params::defaults_location}/elasticsearch":
+        incl    => "${elasticsearch::params::defaults_location}/elasticsearch",
+        lens    => 'Shellvars.lns',
+        changes => template("${module_name}/etc/sysconfig/defaults.erb"),
+      }
+    }
+
+    file { '/etc/elasticsearch/elasticsearch.yml':
+      ensure => 'absent',
+    }
+    file { '/etc/elasticsearch/logging.yml':
+      ensure => 'absent',
     }
 
   } elsif ( $elasticsearch::ensure == 'absent' ) {
 
-    file { $elasticsearch::confdir:
-      ensure  => 'absent',
-      recurse => true,
-      force   => true
+    file { $elasticsearch::plugindir:
+      ensure => 'absent',
+      force  => true,
+      backup => false,
     }
 
   }

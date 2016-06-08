@@ -2,8 +2,8 @@
 
 namespace Wealthbot\RiaBundle\Form\Handler;
 
-use Wealthbot\AdminBundle\Form\Handler\AbstractFormHandler;
 use Symfony\Component\HttpFoundation\Session\Session;
+use Wealthbot\AdminBundle\Form\Handler\AbstractFormHandler;
 
 class RebalanceHistoryFilterFormHandler extends AbstractFormHandler
 {
@@ -19,5 +19,4 @@ class RebalanceHistoryFilterFormHandler extends AbstractFormHandler
 
         $session->set('rebalance_history_filter', $data);
     }
-
 }

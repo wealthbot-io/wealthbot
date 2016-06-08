@@ -2,16 +2,15 @@
 
 namespace Wealthbot\ClientBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
 use Wealthbot\ClientBundle\Model\AccountGroup as BaseAccountGroup;
 
 /**
- * AccountGroup
+ * AccountGroup.
  */
 class AccountGroup extends BaseAccountGroup
 {
     /**
-     * @var integer
+     * @var int
      */
     private $id;
 
@@ -21,17 +20,17 @@ class AccountGroup extends BaseAccountGroup
     protected $name;
 
     /**
-     * Constructor
+     * Constructor.
      */
     public function __construct()
     {
         $this->types = new \Doctrine\Common\Collections\ArrayCollection();
     }
-    
+
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer 
+     * @return int
      */
     public function getId()
     {
@@ -39,9 +38,10 @@ class AccountGroup extends BaseAccountGroup
     }
 
     /**
-     * Set name
+     * Set name.
      *
      * @param string $name
+     *
      * @return AccountGroup
      */
     public function setName($name)
@@ -50,9 +50,9 @@ class AccountGroup extends BaseAccountGroup
     }
 
     /**
-     * Get name
+     * Get name.
      *
-     * @return string 
+     * @return string
      */
     public function getName()
     {
@@ -64,22 +64,22 @@ class AccountGroup extends BaseAccountGroup
      */
     private $groupTypes;
 
-
     /**
-     * Add groupTypes
+     * Add groupTypes.
      *
      * @param \Wealthbot\ClientBundle\Entity\AccountGroupType $groupTypes
+     *
      * @return AccountGroup
      */
     public function addGroupType(\Wealthbot\ClientBundle\Entity\AccountGroupType $groupTypes)
     {
         $this->groupTypes[] = $groupTypes;
-    
+
         return $this;
     }
 
     /**
-     * Remove groupTypes
+     * Remove groupTypes.
      *
      * @param \Wealthbot\ClientBundle\Entity\AccountGroupType $groupTypes
      */
@@ -89,9 +89,9 @@ class AccountGroup extends BaseAccountGroup
     }
 
     /**
-     * Get groupTypes
+     * Get groupTypes.
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getGroupTypes()
     {

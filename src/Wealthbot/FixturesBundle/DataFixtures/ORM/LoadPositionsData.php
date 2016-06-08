@@ -2,8 +2,6 @@
 
 namespace Wealthbot\FixturesBundle\DataFixtures\ORM;
 
-
-use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Wealthbot\ClientBundle\Entity\Lot;
@@ -13,39 +11,38 @@ use Wealthbot\FixturesBundle\Model\AbstractCsvFixture;
 class LoadPositionsData extends AbstractCsvFixture implements OrderedFixtureInterface
 {
     /**
-     * Load data fixtures with the passed EntityManager
+     * Load data fixtures with the passed EntityManager.
      *
      * @param \Doctrine\Common\Persistence\ObjectManager $manager
      */
-    function load(ObjectManager $manager)
+    public function load(ObjectManager $manager)
     {
         /** @var Lot[] $lots */
         $lots = $manager->getRepository('WealthbotClientBundle:Lot')->findAll();
 
         //list - array[account][security][date] = lots
-        $list = array();
-        foreach($lots as $lot){
+        $list = [];
+        foreach ($lots as $lot) {
             $date = $lot->getDate()->format('Y-m-d');
             $securityId = $lot->getSecurity()->getId();
             $accountId = $lot->getClientSystemAccount()->getId();
 
             if (!array_key_exists($accountId, $list)) {
-                $list[$accountId] = array();
+                $list[$accountId] = [];
             }
             if (!array_key_exists($securityId, $list[$accountId])) {
-                $list[$accountId][$securityId] = array();
+                $list[$accountId][$securityId] = [];
             }
             if (!array_key_exists($date, $list[$accountId][$securityId])) {
-                $list[$accountId][$securityId][$date] = array();
+                $list[$accountId][$securityId][$date] = [];
             }
 
             $list[$accountId][$securityId][$date][] = $lot;
         }
 
-        foreach($list as $accountId => $listSec){
-            foreach($listSec as $securityId=>$listDat){
-                foreach($listDat as $date=>$lots){
-
+        foreach ($list as $accountId => $listSec) {
+            foreach ($listSec as $securityId => $listDat) {
+                foreach ($listDat as $date => $lots) {
                     if (!count($lots)) {
                         continue;
                     }
@@ -53,37 +50,33 @@ class LoadPositionsData extends AbstractCsvFixture implements OrderedFixtureInte
                     $amount = 0;
                     $qty = 0;
                     $lot = $lots[0];
-                    foreach($lots as $lot) {
+                    foreach ($lots as $lot) {
                         if ($lot->getStatus() !== $status) {
                             $status = Lot::LOT_IS_OPEN;
                         }
 
-                        if ($lot->getSecurity()->getSymbol() == 'IDA12'){
-
+                        if ($lot->getSecurity()->getSymbol() === 'IDA12') {
                             $amount = $lot->getAmount();
                             $qty = $lot->getQuantity();
-
-                        }else{
-
-                            if ($lot->getStatus() == Lot::LOT_INITIAL) {
+                        } else {
+                            if ($lot->getStatus() === Lot::LOT_INITIAL) {
                                 $amount += $lot->getAmount();
                                 $qty += $lot->getQuantity();
                             }
-                            if ($lot->getStatus() == Lot::LOT_IS_OPEN) {
+                            if ($lot->getStatus() === Lot::LOT_IS_OPEN) {
                                 $amount += $lot->getAmount();
                                 $qty += $lot->getQuantity();
                             }
-
                         }
                     }
                     $posStatus = 0;
-                    if ($status == Lot::LOT_IS_OPEN) {
+                    if ($status === Lot::LOT_IS_OPEN) {
                         $posStatus = Position::POSITION_STATUS_IS_OPEN;
                     }
-                    if ($status == Lot::LOT_INITIAL) {
+                    if ($status === Lot::LOT_INITIAL) {
                         $posStatus = Position::POSITION_STATUS_INITIAL;
                     }
-                    if ($status == Lot::LOT_CLOSED) {
+                    if ($status === Lot::LOT_CLOSED) {
                         $posStatus = Position::POSITION_STATUS_IS_CLOSE;
                     }
 
@@ -95,7 +88,7 @@ class LoadPositionsData extends AbstractCsvFixture implements OrderedFixtureInte
                     $position->setClientSystemAccount($lot->getClientSystemAccount());
                     $position->setSecurity($lot->getSecurity());
                     $position->setLots($lots);
-                    foreach($lots as $lot){
+                    foreach ($lots as $lot) {
                         $lot->setPosition($position);
                     }
 
@@ -107,11 +100,11 @@ class LoadPositionsData extends AbstractCsvFixture implements OrderedFixtureInte
     }
 
     /**
-     * Get the order of this fixture
+     * Get the order of this fixture.
      *
-     * @return integer
+     * @return int
      */
-    function getOrder()
+    public function getOrder()
     {
         return 11;
     }

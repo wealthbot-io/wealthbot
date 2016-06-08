@@ -11,8 +11,8 @@ namespace Wealthbot\AdminBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\Form\FormFactoryInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class AdminSecuritiesCollectionType extends AbstractType
 {
@@ -26,22 +26,22 @@ class AdminSecuritiesCollectionType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('items', 'collection', array(
+        $builder->add('items', 'collection', [
             'required' => false,
             'allow_add' => true,
             'prototype' => true,
             'type' => new \Wealthbot\AdminBundle\Form\Type\SecurityFormType($this->factory),
-        ));
+        ]);
     }
 
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => 'Wealthbot\AdminBundle\Collection\AdminSecuritiesCollection'
-        ));
+        $resolver->setDefaults([
+            'data_class' => 'Wealthbot\AdminBundle\Collection\AdminSecuritiesCollection',
+        ]);
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'wealthbot_admin_securities_collection_type';
     }

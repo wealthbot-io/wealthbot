@@ -9,17 +9,15 @@
 
 namespace Wealthbot\RiaBundle\EventListener;
 
-use Wealthbot\RiaBundle\RiaEvents;
 use Symfony\Component\EventDispatcher\Event;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
-
+use Wealthbot\RiaBundle\RiaEvents;
 
 class FlashListener implements EventSubscriberInterface
 {
-
-    public $messages = array();
+    public $messages = [];
 
     /**
      * @var Session
@@ -28,9 +26,9 @@ class FlashListener implements EventSubscriberInterface
 
     public static function getSubscribedEvents()
     {
-        return array(
-            RiaEvents::RIA_FLASH_MESSAGE => 'addFlash'
-        );
+        return [
+            RiaEvents::RIA_FLASH_MESSAGE => 'addFlash',
+        ];
     }
 
     public function __construct(SessionInterface $session)

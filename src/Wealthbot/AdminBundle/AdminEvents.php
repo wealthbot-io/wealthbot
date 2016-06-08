@@ -1,6 +1,6 @@
 <?php
-namespace Wealthbot\AdminBundle;
 
+namespace Wealthbot\AdminBundle;
 
 final class AdminEvents
 {

@@ -19,7 +19,7 @@
             </div>
         </div>
 
-        {% render 'WealthbotClientBundle:ChangeProfile:portfolio' %}
+        {{ render(controller('WealthbotClientBundle:ChangeProfile:portfolio')) }}
 
         <input type="submit" class="btn btn-info" value="Submit Final Portfolio" />
 
@@ -52,7 +52,7 @@
         </ol>
     {% endif %}
     <b>Current Portfolio:</b>
-    {% render 'WealthbotClientBundle:ChangeProfile:portfolio' with {'client_portfolio_id': ((client_portfolio_id is defined and client_portfolio_id) ? client_portfolio_id : null) } %}
+    {{ render(controller('WealthbotClientBundle:ChangeProfile:portfolio', {'client_portfolio_id': ((client_portfolio_id is defined and client_portfolio_id) ? client_portfolio_id : null) })) }}
 {% endif %}
 
 

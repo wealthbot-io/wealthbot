@@ -7,7 +7,8 @@ class php::devel {
   if $php::package_devel != ''
   and ! defined(Package[$php::package_devel]) {
     package { $php::package_devel :
-      ensure => $php::manage_package,
+      ensure          => $php::manage_package,
+      install_options => $php::install_options,
     }
   }
 }

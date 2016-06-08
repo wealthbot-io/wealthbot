@@ -9,7 +9,7 @@
 <%- end -%>
 
     # Default recommended configuration
-    SecRuleEngine On
+    SecRuleEngine <%= @modsec_secruleengine %>
     SecRequestBodyAccess On
     SecRule REQUEST_HEADERS:Content-Type "text/xml" \
       "id:'200000',phase:1,t:none,t:lowercase,pass,nolog,ctl:requestBodyProcessor=XML"
@@ -59,10 +59,13 @@
     SecAuditLog /var/log/apache2/modsec_audit.log
     SecTmpDir /var/cache/modsecurity
     SecDataDir /var/cache/modsecurity
+    SecUploadDir /var/cache/modsecurity
 <% else -%>
     SecDebugLog /var/log/httpd/modsec_debug.log
     SecAuditLog /var/log/httpd/modsec_audit.log
     SecTmpDir /var/lib/mod_security
     SecDataDir /var/lib/mod_security
+    SecUploadDir /var/lib/mod_security
 <% end -%>
+    SecUploadKeepFiles Off
 </IfModule>

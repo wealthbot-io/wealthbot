@@ -9,7 +9,6 @@
 
 namespace Wealthbot\AdminBundle\Model;
 
-
 use Wealthbot\AdminBundle\Entity\SecurityAssignment;
 use Wealthbot\AdminBundle\Entity\Subclass;
 
@@ -18,16 +17,16 @@ class CeModelEntity implements CeModelEntityInterface
     /** @var  int */
     protected $id;
 
-    /** @var  boolean */
+    /** @var  bool */
     protected $isQualified;
 
     /** @var  float */
     protected $percent;
 
-    /** @var integer */
+    /** @var int */
     protected $muniSubstitutionId;
 
-    /** @var integer */
+    /** @var int */
     protected $taxLossHarvestingId;
 
     /** @var \Wealthbot\AdminBundle\Entity\SecurityAssignment */
@@ -41,13 +40,13 @@ class CeModelEntity implements CeModelEntityInterface
     /** @var  SecurityAssignment */
     protected $securityAssignment;
 
-    /** @var  integer */
+    /** @var  int */
     protected $subclassId;
 
     /** @var \Wealthbot\AdminBundle\Entity\Subclass */
     protected $subclass;
 
-    /** @var integer */
+    /** @var int */
     protected $assetClassId;
 
     /** @var \Wealthbot\AdminBundle\Entity\AssetClass */
@@ -56,14 +55,13 @@ class CeModelEntity implements CeModelEntityInterface
     /** @var \Wealthbot\AdminBundle\Entity\SecurityAssignment */
     protected $muniSubstitution;
 
-
     public function __construct()
     {
         $this->isQualified = false;
     }
 
     /**
-     * Get id
+     * Get id.
      *
      * @return int
      */
@@ -74,17 +72,17 @@ class CeModelEntity implements CeModelEntityInterface
 
     public function isBonds()
     {
-        return $this->getAssetClass()->getType() == 'Bonds';
+        return $this->getAssetClass()->getType() === 'Bonds';
     }
 
     public function isStocks()
     {
-        return $this->getAssetClass()->getType() == 'Stocks';
+        return $this->getAssetClass()->getType() === 'Stocks';
     }
 
     public function isMunicipal()
     {
-        return $this->getAssetClass()->getType() == 'Bonds' && $this->getAssetClass()->getName() == 'Domestic Bonds';
+        return $this->getAssetClass()->getType() === 'Bonds' && $this->getAssetClass()->getName() === 'Domestic Bonds';
     }
 
     public function setIsQualified($isQualified)
@@ -101,12 +99,10 @@ class CeModelEntity implements CeModelEntityInterface
         return $this;
     }
 
-
     public function getAssetClassId()
     {
         return $this->assetClassId;
     }
-
 
     public function setAssetClass(\Wealthbot\AdminBundle\Entity\AssetClass $assetClass = null)
     {
@@ -138,9 +134,10 @@ class CeModelEntity implements CeModelEntityInterface
     }
 
     /**
-     * Set model
+     * Set model.
      *
      * @param CeModelInterface $model
+     *
      * @return CeModelEntity
      */
     public function setModel(CeModelInterface $model = null)
@@ -151,7 +148,7 @@ class CeModelEntity implements CeModelEntityInterface
     }
 
     /**
-     * Get model
+     * Get model.
      *
      * @return \Wealthbot\AdminBundle\Entity\CeModel
      */
@@ -246,10 +243,10 @@ class CeModelEntity implements CeModelEntityInterface
 
     public function toArray()
     {
-        return array(
+        return [
             'label' => $this->getSecurityAssignment()->getSubclass()->getName(),
-            'data'  => $this->getPercent()
-        );
+            'data' => $this->getPercent(),
+        ];
     }
 
     public function getCopy()

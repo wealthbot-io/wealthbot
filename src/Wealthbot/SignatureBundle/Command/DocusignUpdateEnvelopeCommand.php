@@ -9,11 +9,10 @@
 
 namespace Wealthbot\SignatureBundle\Command;
 
-
-use Wealthbot\SignatureBundle\Entity\DocumentSignature;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Wealthbot\SignatureBundle\Entity\DocumentSignature;
 
 class DocusignUpdateEnvelopeCommand extends ContainerAwareCommand
 {
@@ -48,10 +47,12 @@ EOT
         /** @var DocumentSignature $signature */
         foreach ($signatures as $signature) {
             $signatureEnvelopeId = $signature->getDocusignEnvelopeId();
-            if (!$signatureEnvelopeId) continue;
+            if (!$signatureEnvelopeId) {
+                continue;
+            }
 
             $output->writeln(sprintf('Update status for envelope: %s', $signatureEnvelopeId));
-            $electronicSignature->updateDocumentSignaturesStatusByEnvelopeId($signatureEnvelopeId, array($signature));
+            $electronicSignature->updateDocumentSignaturesStatusByEnvelopeId($signatureEnvelopeId, [$signature]);
             $output->writeln('ok.');
         }
 

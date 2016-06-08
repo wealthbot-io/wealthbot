@@ -2,71 +2,73 @@
 
 namespace Wealthbot\RiaBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
 use Wealthbot\AdminBundle\Entity\CeModel;
 use Wealthbot\AdminBundle\Model\CeModelInterface;
 use Wealthbot\UserBundle\Entity\Document;
 use Wealthbot\UserBundle\Entity\User;
-use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Wealthbot\RiaBundle\Entity\RiaCompanyInformation
+ * Wealthbot\RiaBundle\Entity\RiaCompanyInformation.
  */
 class RiaCompanyInformation
 {
+    // @todo
+    public $fees;
+
     /**
-     * @var integer $id
+     * @var int
      */
     private $id;
 
     /**
-     * @var string $name
+     * @var string
      */
     private $name;
 
     /**
-     * @var string $website
+     * @var string
      */
     private $website;
 
     /**
-     * @var string $address
+     * @var string
      */
     private $address;
 
     /**
-     * @var string $office
+     * @var string
      */
     private $office;
 
     /**
-     * @var string $city
+     * @var string
      */
     private $city;
 
     /**
-     * @var string $zipcode
+     * @var string
      */
     private $zipcode;
 
     /**
-     * @var string $phone_number
+     * @var string
      */
     private $phone_number;
 
     /**
-     * @var string $contact_email
+     * @var string
      */
     private $contact_email;
 
     /**
-     * @var string $logo
+     * @var string
      */
     private $logo;
 
     /**
-     * @var integer $ria_user_id
+     * @var int
      */
     private $ria_user_id;
 
@@ -76,37 +78,37 @@ class RiaCompanyInformation
     private $ria;
 
     /**
-     * @var integer $account_managed
+     * @var int
      */
     private $account_managed;
 
     /**
-     * @var boolean $is_allow_retirement_plan
+     * @var bool
      */
     private $is_allow_retirement_plan = true;
 
     /**
-     * @var boolean
+     * @var bool
      */
     private $activated;
 
     /**
-     * @var boolean
+     * @var bool
      */
     private $is_use_qualified_models;
 
     /**
-     * @var integer
+     * @var int
      */
     private $relationship_type;
 
     const RELATIONSHIP_TYPE_LICENSE_FEE = 0;
     const RELATIONSHIP_TYPE_TAMP = 1;
 
-    public static $relationship_type_choices = array(
+    public static $relationship_type_choices = [
         self::RELATIONSHIP_TYPE_TAMP => 'TAMP',
-        self::RELATIONSHIP_TYPE_LICENSE_FEE => 'License Fee'
-    );
+        self::RELATIONSHIP_TYPE_LICENSE_FEE => 'License Fee',
+    ];
 
     // constants for $account_managed
     const ACCOUNT_MANAGED_ACCOUNT = 1;
@@ -114,22 +116,21 @@ class RiaCompanyInformation
     const ACCOUNT_MANAGED_ACCOUNT_OR_HOUSEHOLD = 3;
 
     /**
-     * Choices for account management
+     * Choices for account management.
      */
-    public static $account_managed_choices = array(
+    public static $account_managed_choices = [
         self::ACCOUNT_MANAGED_ACCOUNT => 'Account Level',
         self::ACCOUNT_MANAGED_HOUSEHOLD => 'Household Level',
-        self::ACCOUNT_MANAGED_ACCOUNT_OR_HOUSEHOLD => 'Account or Household Level'
-    );
+        self::ACCOUNT_MANAGED_ACCOUNT_OR_HOUSEHOLD => 'Account or Household Level',
+    ];
 
     /**
      * @var array Choices for rebalanced method
      */
-    public static $rebalanced_method_choices = array(
+    public static $rebalanced_method_choices = [
         1 => 'Asset Class',
-        2 => 'Subclass'
-    );
-
+        2 => 'Subclass',
+    ];
 
     const REBALANCED_FREQUENCY_QUARTERLY = 1;
     const REBALANCED_FREQUENCY_SEMI_ANNUALLY = 2;
@@ -139,15 +140,15 @@ class RiaCompanyInformation
     /**
      * @var array Choices for rebalanced frequency choices
      */
-    public static $rebalanced_frequency_choices = array(
+    public static $rebalanced_frequency_choices = [
         1 => 'Quarterly',
         2 => 'Semi-Annually',
         3 => 'Annually',
-        4 => 'Tolerance Bands'
-    );
+        4 => 'Tolerance Bands',
+    ];
 
     /**
-     * @var integer
+     * @var int
      */
     private $portfolio_processing;
 
@@ -157,16 +158,15 @@ class RiaCompanyInformation
     /**
      * @var array Choices for portfolio processing
      */
-    private static $portfolioProcessingChoices = array(
+    private static $portfolioProcessingChoices = [
         1 => 'Straight-Through',
-        2 => 'Collaborative'
-    );
+        2 => 'Collaborative',
+    ];
 
     /**
-     * @var boolean
+     * @var bool
      */
     private $tlh_buy_back_original;
-
 
     public function __construct()
     {
@@ -182,9 +182,9 @@ class RiaCompanyInformation
     }
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer
+     * @return int
      */
     public function getId()
     {
@@ -192,9 +192,10 @@ class RiaCompanyInformation
     }
 
     /**
-     * Set name
+     * Set name.
      *
      * @param string $name
+     *
      * @return RiaCompanyInformation
      */
     public function setName($name)
@@ -205,7 +206,7 @@ class RiaCompanyInformation
     }
 
     /**
-     * Get name
+     * Get name.
      *
      * @return string
      */
@@ -215,9 +216,10 @@ class RiaCompanyInformation
     }
 
     /**
-     * Set website
+     * Set website.
      *
      * @param string $website
+     *
      * @return RiaCompanyInformation
      */
     public function setWebsite($website)
@@ -228,7 +230,7 @@ class RiaCompanyInformation
     }
 
     /**
-     * Get website
+     * Get website.
      *
      * @return string
      */
@@ -236,17 +238,18 @@ class RiaCompanyInformation
     {
         $url = $this->website;
 
-        if(!preg_match("~^(?:f|ht)tps?://~i", $url)) {
-            $url = "http://" . $url;
+        if (!preg_match('~^(?:f|ht)tps?://~i', $url)) {
+            $url = 'http://'.$url;
         }
 
         return $url;
     }
 
     /**
-     * Set address
+     * Set address.
      *
      * @param string $address
+     *
      * @return RiaCompanyInformation
      */
     public function setAddress($address)
@@ -257,7 +260,7 @@ class RiaCompanyInformation
     }
 
     /**
-     * Get address
+     * Get address.
      *
      * @return string
      */
@@ -267,9 +270,10 @@ class RiaCompanyInformation
     }
 
     /**
-     * Set office
+     * Set office.
      *
      * @param string $office
+     *
      * @return RiaCompanyInformation
      */
     public function setOffice($office)
@@ -280,7 +284,7 @@ class RiaCompanyInformation
     }
 
     /**
-     * Get office
+     * Get office.
      *
      * @return string
      */
@@ -290,9 +294,10 @@ class RiaCompanyInformation
     }
 
     /**
-     * Set city
+     * Set city.
      *
      * @param string $city
+     *
      * @return RiaCompanyInformation
      */
     public function setCity($city)
@@ -303,7 +308,7 @@ class RiaCompanyInformation
     }
 
     /**
-     * Get city
+     * Get city.
      *
      * @return string
      */
@@ -313,9 +318,10 @@ class RiaCompanyInformation
     }
 
     /**
-     * Set zipcode
+     * Set zipcode.
      *
      * @param string $zipcode
+     *
      * @return RiaCompanyInformation
      */
     public function setZipcode($zipcode)
@@ -326,7 +332,7 @@ class RiaCompanyInformation
     }
 
     /**
-     * Get zipcode
+     * Get zipcode.
      *
      * @return string
      */
@@ -336,9 +342,10 @@ class RiaCompanyInformation
     }
 
     /**
-     * Set phone_number
+     * Set phone_number.
      *
      * @param string $phoneNumber
+     *
      * @return RiaCompanyInformation
      */
     public function setPhoneNumber($phoneNumber)
@@ -349,7 +356,7 @@ class RiaCompanyInformation
     }
 
     /**
-     * Get phone_number
+     * Get phone_number.
      *
      * @return string
      */
@@ -359,9 +366,10 @@ class RiaCompanyInformation
     }
 
     /**
-     * Set contact_email
+     * Set contact_email.
      *
      * @param string $contactEmail
+     *
      * @return RiaCompanyInformation
      */
     public function setContactEmail($contactEmail)
@@ -372,7 +380,7 @@ class RiaCompanyInformation
     }
 
     /**
-     * Get contact_email
+     * Get contact_email.
      *
      * @return string
      */
@@ -382,9 +390,10 @@ class RiaCompanyInformation
     }
 
     /**
-     * Set logo
+     * Set logo.
      *
      * @param string $logo
+     *
      * @return RiaCompanyInformation
      */
     public function setLogo($logo)
@@ -395,7 +404,7 @@ class RiaCompanyInformation
     }
 
     /**
-     * Get logo
+     * Get logo.
      *
      * @return string
      */
@@ -405,9 +414,10 @@ class RiaCompanyInformation
     }
 
     /**
-     * Set ria_user_id
+     * Set ria_user_id.
      *
-     * @param integer $riaUserId
+     * @param int $riaUserId
+     *
      * @return RiaCompanyInformation
      */
     public function setRiaUserId($riaUserId)
@@ -418,9 +428,9 @@ class RiaCompanyInformation
     }
 
     /**
-     * Get ria_user_id
+     * Get ria_user_id.
      *
-     * @return integer
+     * @return int
      */
     public function getRiaUserId()
     {
@@ -428,9 +438,10 @@ class RiaCompanyInformation
     }
 
     /**
-     * Set ria
+     * Set ria.
      *
      * @param \Wealthbot\UserBundle\Entity\User $ria
+     *
      * @return RiaCompanyInformation
      */
     public function setRia(\Wealthbot\UserBundle\Entity\User $ria = null)
@@ -441,7 +452,7 @@ class RiaCompanyInformation
     }
 
     /**
-     * Get ria
+     * Get ria.
      *
      * @return \Wealthbot\UserBundle\Entity\User
      */
@@ -451,7 +462,8 @@ class RiaCompanyInformation
     }
 
     /**
-     * Virtual field for upload file
+     * Virtual field for upload file.
+     *
      * @Assert\File(maxSize="6000000")
      */
     private $logo_file;
@@ -483,7 +495,7 @@ class RiaCompanyInformation
     protected function getUploadRootDir()
     {
         // the absolute directory path where uploaded documents should be saved
-        return __DIR__.'/../../../../'.$this->getUploadDir();
+        return getcwd().'/'.$this->getUploadDir();
     }
 
     protected function getUploadDir()
@@ -491,7 +503,6 @@ class RiaCompanyInformation
         // get rid of the __DIR__ so it doesn't screw when displaying uploaded doc/image in the view.
         return 'uploads/ria_company_logos';
     }
-
 
     public function preUpload()
     {
@@ -526,9 +537,10 @@ class RiaCompanyInformation
     }
 
     /**
-     * Set account_managed
+     * Set account_managed.
      *
-     * @param integer $accountManaged
+     * @param int $accountManaged
+     *
      * @return RiaCompanyInformation
      */
     public function setAccountManaged($accountManaged)
@@ -539,9 +551,9 @@ class RiaCompanyInformation
     }
 
     /**
-     * Get account_managed
+     * Get account_managed.
      *
-     * @return integer
+     * @return int
      */
     public function getAccountManaged()
     {
@@ -572,7 +584,7 @@ class RiaCompanyInformation
     {
         $choices = self::$account_managed_choices;
 
-        if ($this->getPortfolioProcessing() == self::PORTFOLIO_PROCESSING_STRAIGHT_THROUGH) {
+        if ($this->getPortfolioProcessing() === self::PORTFOLIO_PROCESSING_STRAIGHT_THROUGH) {
             unset($choices[self::ACCOUNT_MANAGED_ACCOUNT_OR_HOUSEHOLD]);
         }
 
@@ -581,7 +593,7 @@ class RiaCompanyInformation
 
     public function isShowSubclassPriority()
     {
-        return ($this->isClientByClientManagedLevel() || $this->isHouseholdManagedLevel() || ($this->getIsAllowRetirementPlan() && $this->isAccountManagedLevel()));
+        return $this->isClientByClientManagedLevel() || $this->isHouseholdManagedLevel() || ($this->getIsAllowRetirementPlan() && $this->isAccountManagedLevel());
     }
 
     public function isRelationTypeTamp()
@@ -595,9 +607,10 @@ class RiaCompanyInformation
     }
 
     /**
-     * Set is_allow_retirement_plan
+     * Set is_allow_retirement_plan.
      *
-     * @param boolean $isAllowRetirementPlan
+     * @param bool $isAllowRetirementPlan
+     *
      * @return RiaCompanyInformation
      */
     public function setIsAllowRetirementPlan($isAllowRetirementPlan)
@@ -608,29 +621,29 @@ class RiaCompanyInformation
     }
 
     /**
-     * Get is_allow_retirement_plan
+     * Get is_allow_retirement_plan.
      *
-     * @return boolean
+     * @return bool
      */
     public function getIsAllowRetirementPlan()
     {
         return $this->is_allow_retirement_plan;
     }
     /**
-     * @var integer $minimum_billing_fee
+     * @var int
      */
     private $minimum_billing_fee;
 
     /**
-     * @var boolean $is_show_client_expected_asset_class
+     * @var bool
      */
     private $is_show_client_expected_asset_class;
 
-
     /**
-     * Set minimum_billing_fee
+     * Set minimum_billing_fee.
      *
-     * @param integer $minimumBillingFee
+     * @param int $minimumBillingFee
+     *
      * @return RiaCompanyInformation
      */
     public function setMinimumBillingFee($minimumBillingFee)
@@ -641,9 +654,9 @@ class RiaCompanyInformation
     }
 
     /**
-     * Get minimum_billing_fee
+     * Get minimum_billing_fee.
      *
-     * @return integer
+     * @return int
      */
     public function getMinimumBillingFee()
     {
@@ -651,9 +664,10 @@ class RiaCompanyInformation
     }
 
     /**
-     * Set is_show_client_expected_asset_class
+     * Set is_show_client_expected_asset_class.
      *
-     * @param boolean $isShowClientExpectedAssetClass
+     * @param bool $isShowClientExpectedAssetClass
+     *
      * @return RiaCompanyInformation
      */
     public function setIsShowClientExpectedAssetClass($isShowClientExpectedAssetClass)
@@ -664,24 +678,24 @@ class RiaCompanyInformation
     }
 
     /**
-     * Get is_show_client_expected_asset_class
+     * Get is_show_client_expected_asset_class.
      *
-     * @return boolean
+     * @return bool
      */
     public function getIsShowClientExpectedAssetClass()
     {
         return $this->is_show_client_expected_asset_class;
     }
     /**
-     * @var float $clients_tax_bracket
+     * @var float
      */
     private $clients_tax_bracket;
 
-
     /**
-     * Set clients_tax_bracket
+     * Set clients_tax_bracket.
      *
      * @param float $clientsTaxBracket
+     *
      * @return RiaCompanyInformation
      */
     public function setClientsTaxBracket($clientsTaxBracket)
@@ -692,7 +706,7 @@ class RiaCompanyInformation
     }
 
     /**
-     * Get clients_tax_bracket
+     * Get clients_tax_bracket.
      *
      * @return float
      */
@@ -702,25 +716,25 @@ class RiaCompanyInformation
     }
 
     /**
-     * @var boolean $is_searchable_db
+     * @var bool
      */
     private $is_searchable_db;
 
     /**
-     * @var float $min_asset_size
+     * @var float
      */
     private $min_asset_size;
 
     /**
-     * @var string $adv_copy
+     * @var string
      */
     private $adv_copy;
 
-
     /**
-     * Set is_searchable_db
+     * Set is_searchable_db.
      *
-     * @param boolean $isSearchableDb
+     * @param bool $isSearchableDb
+     *
      * @return RiaCompanyInformation
      */
     public function setIsSearchableDb($isSearchableDb)
@@ -731,9 +745,9 @@ class RiaCompanyInformation
     }
 
     /**
-     * Get is_searchable_db
+     * Get is_searchable_db.
      *
-     * @return boolean
+     * @return bool
      */
     public function getIsSearchableDb()
     {
@@ -741,9 +755,10 @@ class RiaCompanyInformation
     }
 
     /**
-     * Set min_asset_size
+     * Set min_asset_size.
      *
      * @param float $minAssetSize
+     *
      * @return RiaCompanyInformation
      */
     public function setMinAssetSize($minAssetSize)
@@ -754,7 +769,7 @@ class RiaCompanyInformation
     }
 
     /**
-     * Get min_asset_size
+     * Get min_asset_size.
      *
      * @return float
      */
@@ -764,9 +779,10 @@ class RiaCompanyInformation
     }
 
     /**
-     * Set adv_copy
+     * Set adv_copy.
      *
      * @param string $advCopy
+     *
      * @return RiaCompanyInformation
      */
     public function setAdvCopy($advCopy)
@@ -777,7 +793,7 @@ class RiaCompanyInformation
     }
 
     /**
-     * Get adv_copy
+     * Get adv_copy.
      *
      * @return string
      */
@@ -787,7 +803,8 @@ class RiaCompanyInformation
     }
 
     /**
-     * Virtual field for upload file
+     * Virtual field for upload file.
+     *
      * @Assert\File(maxSize="6000000")
      */
     private $adv_copy_file;
@@ -805,7 +822,7 @@ class RiaCompanyInformation
     public function getUploadAdvCopyRootDir()
     {
         // the absolute directory path where uploaded documents should be saved
-        return __DIR__.'/../../../../'.$this->getUploadAdvCopyDir();
+        return getcwd().'/'.$this->getUploadAdvCopyDir();
     }
 
     protected function getUploadAdvCopyDir()
@@ -844,20 +861,20 @@ class RiaCompanyInformation
     }
 
     /**
-     * @var integer $rebalanced_method
+     * @var int
      */
     private $rebalanced_method;
 
     /**
-     * @var integer $rebalanced_frequency
+     * @var int
      */
     private $rebalanced_frequency;
 
-
     /**
-     * Set rebalanced_method
+     * Set rebalanced_method.
      *
-     * @param integer $rebalancedMethod
+     * @param int $rebalancedMethod
+     *
      * @return RiaCompanyInformation
      */
     public function setRebalancedMethod($rebalancedMethod)
@@ -868,9 +885,9 @@ class RiaCompanyInformation
     }
 
     /**
-     * Get rebalanced_method
+     * Get rebalanced_method.
      *
-     * @return integer
+     * @return int
      */
     public function getRebalancedMethod()
     {
@@ -878,9 +895,10 @@ class RiaCompanyInformation
     }
 
     /**
-     * Set rebalanced_frequency
+     * Set rebalanced_frequency.
      *
-     * @param integer $rebalancedFrequency
+     * @param int $rebalancedFrequency
+     *
      * @return RiaCompanyInformation
      */
     public function setRebalancedFrequency($rebalancedFrequency)
@@ -891,9 +909,9 @@ class RiaCompanyInformation
     }
 
     /**
-     * Get rebalanced_frequency
+     * Get rebalanced_frequency.
      *
-     * @return integer
+     * @return int
      */
     public function getRebalancedFrequency()
     {
@@ -906,7 +924,7 @@ class RiaCompanyInformation
             return self::$rebalanced_frequency_choices[$this->rebalanced_frequency];
         }
 
-        return null;
+        return;
     }
 
     public function isRebalancedFrequencyToleranceBand()
@@ -915,7 +933,7 @@ class RiaCompanyInformation
     }
 
     /**
-     * @var integer $state_id
+     * @var int
      */
     private $state_id;
 
@@ -924,11 +942,11 @@ class RiaCompanyInformation
      */
     private $state;
 
-
     /**
-     * Set state_id
+     * Set state_id.
      *
-     * @param integer $stateId
+     * @param int $stateId
+     *
      * @return RiaCompanyInformation
      */
     public function setStateId($stateId)
@@ -939,9 +957,9 @@ class RiaCompanyInformation
     }
 
     /**
-     * Get state_id
+     * Get state_id.
      *
-     * @return integer
+     * @return int
      */
     public function getStateId()
     {
@@ -949,9 +967,10 @@ class RiaCompanyInformation
     }
 
     /**
-     * Set state
+     * Set state.
      *
      * @param \Wealthbot\AdminBundle\Entity\State $state
+     *
      * @return RiaCompanyInformation
      */
     public function setState(\Wealthbot\AdminBundle\Entity\State $state = null)
@@ -962,7 +981,7 @@ class RiaCompanyInformation
     }
 
     /**
-     * Get state
+     * Get state.
      *
      * @return \Wealthbot\AdminBundle\Entity\State
      */
@@ -971,15 +990,15 @@ class RiaCompanyInformation
         return $this->state;
     }
     /**
-     * @var integer $risk_adjustment
+     * @var int
      */
     private $risk_adjustment;
 
-
     /**
-     * Set risk_adjustment
+     * Set risk_adjustment.
      *
-     * @param integer $riskAdjustment
+     * @param int $riskAdjustment
+     *
      * @return RiaCompanyInformation
      */
     public function setRiskAdjustment($riskAdjustment)
@@ -990,9 +1009,9 @@ class RiaCompanyInformation
     }
 
     /**
-     * Get risk_adjustment
+     * Get risk_adjustment.
      *
-     * @return integer
+     * @return int
      */
     public function getRiskAdjustment()
     {
@@ -1000,7 +1019,7 @@ class RiaCompanyInformation
     }
 
     /**
-     * Get risk adjustment factor
+     * Get risk adjustment factor.
      *
      * @return int
      */
@@ -1018,9 +1037,10 @@ class RiaCompanyInformation
     }
 
     /**
-     * Add fee
+     * Add fee.
      *
      * @param \Wealthbot\AdminBundle\Entity\Fee $fee
+     *
      * @return RiaCompanyInformation
      */
     public function addFee(\Wealthbot\AdminBundle\Entity\Fee $fee)
@@ -1029,17 +1049,16 @@ class RiaCompanyInformation
     }
 
     /**
-     * Remove fee
+     * Remove fee.
      *
      * @param \Wealthbot\AdminBundle\Entity\Fee $fee
      */
     public function removeFee(\Wealthbot\AdminBundle\Entity\Fee $fee)
     {
-
     }
 
     /**
-     * Get fees
+     * Get fees.
      *
      * @return \Doctrine\Common\Collections\Collection
      */
@@ -1048,20 +1067,20 @@ class RiaCompanyInformation
         return $this->items;
     }
     /**
-     * @var string $primary_first_name
+     * @var string
      */
     private $primary_first_name;
 
     /**
-     * @var string $primary_last_name
+     * @var string
      */
     private $primary_last_name;
 
-
     /**
-     * Set primary_first_name
+     * Set primary_first_name.
      *
      * @param string $primaryFirstName
+     *
      * @return RiaCompanyInformation
      */
     public function setPrimaryFirstName($primaryFirstName)
@@ -1072,7 +1091,7 @@ class RiaCompanyInformation
     }
 
     /**
-     * Get primary_first_name
+     * Get primary_first_name.
      *
      * @return string
      */
@@ -1082,9 +1101,10 @@ class RiaCompanyInformation
     }
 
     /**
-     * Set primary_last_name
+     * Set primary_last_name.
      *
      * @param string $primaryLastName
+     *
      * @return RiaCompanyInformation
      */
     public function setPrimaryLastName($primaryLastName)
@@ -1095,7 +1115,7 @@ class RiaCompanyInformation
     }
 
     /**
-     * Get primary_last_name
+     * Get primary_last_name.
      *
      * @return string
      */
@@ -1104,15 +1124,15 @@ class RiaCompanyInformation
         return $this->primary_last_name;
     }
     /**
-     * @var boolean $use_municipal_bond
+     * @var bool
      */
     private $use_municipal_bond = true;
 
-
     /**
-     * Set use_municipal_bond
+     * Set use_municipal_bond.
      *
-     * @param boolean $useMunicipalBond
+     * @param bool $useMunicipalBond
+     *
      * @return RiaCompanyInformation
      */
     public function setUseMunicipalBond($useMunicipalBond)
@@ -1123,16 +1143,16 @@ class RiaCompanyInformation
     }
 
     /**
-     * Get use_municipal_bond
+     * Get use_municipal_bond.
      *
-     * @return boolean
+     * @return bool
      */
     public function getUseMunicipalBond()
     {
         return $this->use_municipal_bond;
     }
     /**
-     * @var integer $portfolio_model_id
+     * @var int
      */
     private $portfolio_model_id;
 
@@ -1141,11 +1161,11 @@ class RiaCompanyInformation
      */
     private $portfolioModel;
 
-
     /**
-     * Set portfolio_model_id
+     * Set portfolio_model_id.
      *
-     * @param integer $portfolioModelId
+     * @param int $portfolioModelId
+     *
      * @return RiaCompanyInformation
      */
     public function setPortfolioModelId($portfolioModelId)
@@ -1156,9 +1176,9 @@ class RiaCompanyInformation
     }
 
     /**
-     * Get portfolio_model_id
+     * Get portfolio_model_id.
      *
-     * @return integer
+     * @return int
      */
     public function getPortfolioModelId()
     {
@@ -1166,9 +1186,10 @@ class RiaCompanyInformation
     }
 
     /**
-     * Set portfolioModel
+     * Set portfolioModel.
      *
      * @param CeModelInterface $portfolioModel
+     *
      * @return RiaCompanyInformation
      */
     public function setPortfolioModel(CeModelInterface $portfolioModel = null)
@@ -1179,7 +1200,7 @@ class RiaCompanyInformation
     }
 
     /**
-     * Get portfolioModel
+     * Get portfolioModel.
      *
      * @return CeModelInterface
      */
@@ -1188,11 +1209,11 @@ class RiaCompanyInformation
         return $this->portfolioModel;
     }
 
-
     /**
-     * Set activated
+     * Set activated.
      *
-     * @param boolean $activated
+     * @param bool $activated
+     *
      * @return RiaCompanyInformation
      */
     public function setActivated($activated)
@@ -1203,9 +1224,9 @@ class RiaCompanyInformation
     }
 
     /**
-     * Get activated
+     * Get activated.
      *
-     * @return boolean
+     * @return bool
      */
     public function getActivated()
     {
@@ -1223,19 +1244,20 @@ class RiaCompanyInformation
     private $transaction_amount_percent;
 
     /**
-     * @var boolean
+     * @var bool
      */
     private $is_transaction_fees;
 
     /**
-     * @var boolean
+     * @var bool
      */
     private $is_transaction_minimums;
 
     /**
-     * Set transaction_amount
+     * Set transaction_amount.
      *
      * @param float $transactionAmount
+     *
      * @return RiaCompanyInformation
      */
     public function setTransactionAmount($transactionAmount)
@@ -1246,7 +1268,7 @@ class RiaCompanyInformation
     }
 
     /**
-     * Get transaction_amount
+     * Get transaction_amount.
      *
      * @return float
      */
@@ -1256,9 +1278,10 @@ class RiaCompanyInformation
     }
 
     /**
-     * Set transaction_amount_percent
+     * Set transaction_amount_percent.
      *
      * @param float $transactionAmountPercent
+     *
      * @return RiaCompanyInformation
      */
     public function setTransactionAmountPercent($transactionAmountPercent)
@@ -1269,7 +1292,7 @@ class RiaCompanyInformation
     }
 
     /**
-     * Get transaction_amount_percent
+     * Get transaction_amount_percent.
      *
      * @return float
      */
@@ -1279,9 +1302,10 @@ class RiaCompanyInformation
     }
 
     /**
-     * Set is_transaction_fees
+     * Set is_transaction_fees.
      *
-     * @param boolean $isTransactionFees
+     * @param bool $isTransactionFees
+     *
      * @return RiaCompanyInformation
      */
     public function setIsTransactionFees($isTransactionFees)
@@ -1292,9 +1316,9 @@ class RiaCompanyInformation
     }
 
     /**
-     * Get is_transaction_fees
+     * Get is_transaction_fees.
      *
-     * @return boolean
+     * @return bool
      */
     public function getIsTransactionFees()
     {
@@ -1302,9 +1326,10 @@ class RiaCompanyInformation
     }
 
     /**
-     * Set is_transaction_minimums
+     * Set is_transaction_minimums.
      *
-     * @param boolean $isTransactionMinimums
+     * @param bool $isTransactionMinimums
+     *
      * @return RiaCompanyInformation
      */
     public function setIsTransactionMinimums($isTransactionMinimums)
@@ -1315,9 +1340,9 @@ class RiaCompanyInformation
     }
 
     /**
-     * Get is_transaction_minimums
+     * Get is_transaction_minimums.
      *
-     * @return boolean
+     * @return bool
      */
     public function getIsTransactionMinimums()
     {
@@ -1326,11 +1351,11 @@ class RiaCompanyInformation
 
     private $is_transaction_redemption_fees;
 
-
     /**
-     * Set is_transaction_redemption_fees
+     * Set is_transaction_redemption_fees.
      *
-     * @param boolean $isTransactionRedemptionFees
+     * @param bool $isTransactionRedemptionFees
+     *
      * @return RiaCompanyInformation
      */
     public function setIsTransactionRedemptionFees($isTransactionRedemptionFees)
@@ -1341,9 +1366,9 @@ class RiaCompanyInformation
     }
 
     /**
-     * Get is_transaction_redemption_fees
+     * Get is_transaction_redemption_fees.
      *
-     * @return boolean
+     * @return bool
      */
     public function getIsTransactionRedemptionFees()
     {
@@ -1352,10 +1377,10 @@ class RiaCompanyInformation
 
     public function isShowTransactionEdit()
     {
-        return ($this->getIsTransactionFees() || $this->getIsTransactionMinimums() || $this->getIsTransactionRedemptionFees());
+        return $this->getIsTransactionFees() || $this->getIsTransactionMinimums() || $this->getIsTransactionRedemptionFees();
     }
     /**
-     * @var boolean
+     * @var bool
      */
     private $is_tax_loss_harvesting;
 
@@ -1379,11 +1404,11 @@ class RiaCompanyInformation
      */
     private $tax_loss_harvesting_minimum_percent;
 
-
     /**
-     * Set is_tax_loss_harvesting
+     * Set is_tax_loss_harvesting.
      *
-     * @param boolean $isTaxLossHarvesting
+     * @param bool $isTaxLossHarvesting
+     *
      * @return RiaCompanyInformation
      */
     public function setIsTaxLossHarvesting($isTaxLossHarvesting)
@@ -1394,9 +1419,9 @@ class RiaCompanyInformation
     }
 
     /**
-     * Get is_tax_loss_harvesting
+     * Get is_tax_loss_harvesting.
      *
-     * @return boolean
+     * @return bool
      */
     public function getIsTaxLossHarvesting()
     {
@@ -1404,9 +1429,10 @@ class RiaCompanyInformation
     }
 
     /**
-     * Set tax_loss_harvesting
+     * Set tax_loss_harvesting.
      *
      * @param float $taxLossHarvesting
+     *
      * @return RiaCompanyInformation
      */
     public function setTaxLossHarvesting($taxLossHarvesting)
@@ -1417,7 +1443,7 @@ class RiaCompanyInformation
     }
 
     /**
-     * Get tax_loss_harvesting
+     * Get tax_loss_harvesting.
      *
      * @return float
      */
@@ -1427,9 +1453,10 @@ class RiaCompanyInformation
     }
 
     /**
-     * Set tax_loss_harvesting_percent
+     * Set tax_loss_harvesting_percent.
      *
      * @param float $taxLossHarvestingPercent
+     *
      * @return RiaCompanyInformation
      */
     public function setTaxLossHarvestingPercent($taxLossHarvestingPercent)
@@ -1440,7 +1467,7 @@ class RiaCompanyInformation
     }
 
     /**
-     * Get tax_loss_harvesting_percent
+     * Get tax_loss_harvesting_percent.
      *
      * @return float
      */
@@ -1450,9 +1477,10 @@ class RiaCompanyInformation
     }
 
     /**
-     * Set tax_loss_harvesting_minimum
+     * Set tax_loss_harvesting_minimum.
      *
      * @param float $taxLossHarvestingMinimum
+     *
      * @return RiaCompanyInformation
      */
     public function setTaxLossHarvestingMinimum($taxLossHarvestingMinimum)
@@ -1463,7 +1491,7 @@ class RiaCompanyInformation
     }
 
     /**
-     * Get tax_loss_harvesting_minimum
+     * Get tax_loss_harvesting_minimum.
      *
      * @return float
      */
@@ -1473,9 +1501,10 @@ class RiaCompanyInformation
     }
 
     /**
-     * Set tax_loss_harvesting_minimum_percent
+     * Set tax_loss_harvesting_minimum_percent.
      *
      * @param float $taxLossHarvestingMinimumPercent
+     *
      * @return RiaCompanyInformation
      */
     public function setTaxLossHarvestingMinimumPercent($taxLossHarvestingMinimumPercent)
@@ -1486,7 +1515,7 @@ class RiaCompanyInformation
     }
 
     /**
-     * Get tax_loss_harvesting_minimum_percent
+     * Get tax_loss_harvesting_minimum_percent.
      *
      * @return float
      */
@@ -1496,21 +1525,21 @@ class RiaCompanyInformation
     }
 
     /**
-     * Set is_use_qualified_models
+     * Set is_use_qualified_models.
      *
-     * @param boolean $isUseQualifiedModels
+     * @param bool $isUseQualifiedModels
+     *
      * @return RiaCompanyInformation
      */
     public function setIsUseQualifiedModels($isUseQualifiedModels)
     {
-        if ($this->account_managed == self::ACCOUNT_MANAGED_ACCOUNT) {
-
+        if ($this->account_managed === self::ACCOUNT_MANAGED_ACCOUNT) {
             $this->is_use_qualified_models = $isUseQualifiedModels;
         } else {
             $this->is_use_qualified_models = false;
         }
 
-        if($this->is_use_qualified_models) {
+        if ($this->is_use_qualified_models) {
             $this->setUseMunicipalBond(false);
         }
 
@@ -1518,9 +1547,9 @@ class RiaCompanyInformation
     }
 
     /**
-     * Get is_use_qualified_models
+     * Get is_use_qualified_models.
      *
-     * @return boolean
+     * @return bool
      */
     public function getIsUseQualifiedModels()
     {
@@ -1528,16 +1557,17 @@ class RiaCompanyInformation
     }
 
     /**
-     * Check is use qualified models
+     * Check is use qualified models.
      *
      * @return bool
      */
     public function isUseQualifiedModels()
     {
         // if RIA selected an Account Level and agreed to use qualified models
-        if($this->account_managed == 1 && $this->is_use_qualified_models) {
+        if ($this->account_managed === 1 && $this->is_use_qualified_models) {
             return true;
         }
+
         return false;
     }
 
@@ -1547,10 +1577,12 @@ class RiaCompanyInformation
     }
 
     /**
-     * Set portfolio_processing
+     * Set portfolio_processing.
      *
-     * @param integer $portfolioProcessing
+     * @param int $portfolioProcessing
+     *
      * @return $this
+     *
      * @throws \InvalidArgumentException
      */
     public function setPortfolioProcessing($portfolioProcessing)
@@ -1568,9 +1600,9 @@ class RiaCompanyInformation
     }
 
     /**
-     * Get portfolio_processing
+     * Get portfolio_processing.
      *
-     * @return integer
+     * @return int
      */
     public function getPortfolioProcessing()
     {
@@ -1578,27 +1610,27 @@ class RiaCompanyInformation
     }
 
     /**
-     * Returns true if portfolio_processing is PORTFOLIO_PROCESSING_STRAIGHT_THROUGH
+     * Returns true if portfolio_processing is PORTFOLIO_PROCESSING_STRAIGHT_THROUGH.
      *
      * @return bool
      */
     public function isStraightThroughProcessing()
     {
-        return ($this->portfolio_processing === self::PORTFOLIO_PROCESSING_STRAIGHT_THROUGH);
+        return $this->portfolio_processing === self::PORTFOLIO_PROCESSING_STRAIGHT_THROUGH;
     }
 
     /**
-     * Returns true if portfolio_processing is PORTFOLIO_PROCESSING_COLLABORATIVE
+     * Returns true if portfolio_processing is PORTFOLIO_PROCESSING_COLLABORATIVE.
      *
      * @return bool
      */
     public function isCollaborativeProcessing()
     {
-        return ($this->portfolio_processing === self::PORTFOLIO_PROCESSING_COLLABORATIVE);
+        return $this->portfolio_processing === self::PORTFOLIO_PROCESSING_COLLABORATIVE;
     }
 
     /**
-     * Get portfolio_processing as string
+     * Get portfolio_processing as string.
      *
      * @return string
      */
@@ -1607,20 +1639,20 @@ class RiaCompanyInformation
         return self::$portfolioProcessingChoices[$this->getPortfolioProcessing()];
     }
     /**
-     * @var integer
+     * @var int
      */
     private $custodian_id;
 
     /**
-     * @var boolean
+     * @var bool
      */
     private $allow_non_electronically_signing;
 
-
     /**
-     * Set custodian_id
+     * Set custodian_id.
      *
-     * @param integer $custodianId
+     * @param int $custodianId
+     *
      * @return RiaCompanyInformation
      */
     public function setCustodianId($custodianId)
@@ -1631,9 +1663,9 @@ class RiaCompanyInformation
     }
 
     /**
-     * Get custodian_id
+     * Get custodian_id.
      *
-     * @return integer
+     * @return int
      */
     public function getCustodianId()
     {
@@ -1641,9 +1673,10 @@ class RiaCompanyInformation
     }
 
     /**
-     * Set allow_non_electronically_signing
+     * Set allow_non_electronically_signing.
      *
-     * @param boolean $allowNonElectronicallySigning
+     * @param bool $allowNonElectronicallySigning
+     *
      * @return RiaCompanyInformation
      */
     public function setAllowNonElectronicallySigning($allowNonElectronicallySigning)
@@ -1654,9 +1687,9 @@ class RiaCompanyInformation
     }
 
     /**
-     * Get allow_non_electronically_signing
+     * Get allow_non_electronically_signing.
      *
-     * @return boolean
+     * @return bool
      */
     public function getAllowNonElectronicallySigning()
     {
@@ -1667,11 +1700,11 @@ class RiaCompanyInformation
      */
     private $custodian;
 
-
     /**
-     * Set custodian
+     * Set custodian.
      *
      * @param \Wealthbot\AdminBundle\Entity\Custodian $custodian
+     *
      * @return RiaCompanyInformation
      */
     public function setCustodian(\Wealthbot\AdminBundle\Entity\Custodian $custodian = null)
@@ -1682,7 +1715,7 @@ class RiaCompanyInformation
     }
 
     /**
-     * Get custodian
+     * Get custodian.
      *
      * @return \Wealthbot\AdminBundle\Entity\Custodian
      */
@@ -1696,11 +1729,11 @@ class RiaCompanyInformation
      */
     private $slug;
 
-
     /**
-     * Set slug
+     * Set slug.
      *
      * @param string $slug
+     *
      * @return RiaCompanyInformation
      */
     public function setSlug($slug)
@@ -1711,7 +1744,7 @@ class RiaCompanyInformation
     }
 
     /**
-     * Get slug
+     * Get slug.
      *
      * @return string
      */
@@ -1720,15 +1753,15 @@ class RiaCompanyInformation
         return $this->slug;
     }
     /**
-     * @var boolean
+     * @var bool
      */
     private $is_show_expected_costs;
 
-
     /**
-     * Set is_show_expected_costs
+     * Set is_show_expected_costs.
      *
-     * @param boolean $isShowExpectedCosts
+     * @param bool $isShowExpectedCosts
+     *
      * @return RiaCompanyInformation
      */
     public function setIsShowExpectedCosts($isShowExpectedCosts)
@@ -1739,9 +1772,9 @@ class RiaCompanyInformation
     }
 
     /**
-     * Get is_show_expected_costs
+     * Get is_show_expected_costs.
      *
-     * @return boolean
+     * @return bool
      */
     public function getIsShowExpectedCosts()
     {
@@ -1771,11 +1804,11 @@ class RiaCompanyInformation
      */
     private $fax_number;
 
-
     /**
-     * Set fax_number
+     * Set fax_number.
      *
      * @param string $faxNumber
+     *
      * @return RiaCompanyInformation
      */
     public function setFaxNumber($faxNumber)
@@ -1786,7 +1819,7 @@ class RiaCompanyInformation
     }
 
     /**
-     * Get fax_number
+     * Get fax_number.
      *
      * @return string
      */
@@ -1796,7 +1829,7 @@ class RiaCompanyInformation
     }
 
     /**
-     * Get adv document
+     * Get adv document.
      *
      * @return Document|null
      */
@@ -1822,11 +1855,11 @@ class RiaCompanyInformation
      */
     private $stop_tlh_value;
 
-
     /**
-     * Set stop_tlh_value
+     * Set stop_tlh_value.
      *
      * @param float $stopTlhValue
+     *
      * @return RiaCompanyInformation
      */
     public function setStopTlhValue($stopTlhValue)
@@ -1837,7 +1870,7 @@ class RiaCompanyInformation
     }
 
     /**
-     * Get stop_tlh_value
+     * Get stop_tlh_value.
      *
      * @return float
      */
@@ -1847,9 +1880,10 @@ class RiaCompanyInformation
     }
 
     /**
-     * Set relationship_type
+     * Set relationship_type.
      *
-     * @param integer $relationshipType
+     * @param int $relationshipType
+     *
      * @return RiaCompanyInformation
      */
     public function setRelationshipType($relationshipType)
@@ -1860,9 +1894,9 @@ class RiaCompanyInformation
     }
 
     /**
-     * Get relationship_type
+     * Get relationship_type.
      *
-     * @return integer
+     * @return int
      */
     public function getRelationshipType()
     {
@@ -1875,9 +1909,10 @@ class RiaCompanyInformation
     private $advisorCodes;
 
     /**
-     * Add advisor_codes
+     * Add advisor_codes.
      *
      * @param \Wealthbot\RiaBundle\Entity\AdvisorCode $advisorCode
+     *
      * @return RiaCompanyInformation
      */
     public function addAdvisorCode(\Wealthbot\RiaBundle\Entity\AdvisorCode $advisorCode)
@@ -1888,7 +1923,7 @@ class RiaCompanyInformation
     }
 
     /**
-     * Remove advisor_codes
+     * Remove advisor_codes.
      *
      * @param \Wealthbot\RiaBundle\Entity\AdvisorCode $advisorCode
      */
@@ -1898,7 +1933,7 @@ class RiaCompanyInformation
     }
 
     /**
-     * Get advisor_codes
+     * Get advisor_codes.
      *
      * @return \Doctrine\Common\Collections\Collection
      */
@@ -1908,9 +1943,10 @@ class RiaCompanyInformation
     }
 
     /**
-     * Set tlh_buy_back_original
+     * Set tlh_buy_back_original.
      *
-     * @param boolean $tlhBuyBackOriginal
+     * @param bool $tlhBuyBackOriginal
+     *
      * @return RiaCompanyInformation
      */
     public function setTlhBuyBackOriginal($tlhBuyBackOriginal)
@@ -1921,9 +1957,9 @@ class RiaCompanyInformation
     }
 
     /**
-     * Get tlh_buy_back_original
+     * Get tlh_buy_back_original.
      *
-     * @return boolean
+     * @return bool
      */
     public function getTlhBuyBackOriginal()
     {

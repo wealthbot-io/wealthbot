@@ -2,18 +2,17 @@
 
 namespace Wealthbot\ClientBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
 use Wealthbot\ClientBundle\Model\PaymentWorkflowableInterface;
 use Wealthbot\SignatureBundle\Entity\DocumentSignature;
 use Wealthbot\SignatureBundle\Model\SignableInterface;
 
 /**
- * Distribution
+ * Distribution.
  */
 class Distribution implements SignableInterface, PaymentWorkflowableInterface
 {
     /**
-     * @var integer
+     * @var int
      */
     private $id;
 
@@ -23,12 +22,12 @@ class Distribution implements SignableInterface, PaymentWorkflowableInterface
     private $type;
 
     const TYPE_SCHEDULED = 'scheduled';
-    const TYPE_ONE_TIME  = 'one_time';
+    const TYPE_ONE_TIME = 'one_time';
 
-    static private $_types = array(
+    private static $_types = [
         self::TYPE_SCHEDULED => 'scheduled',
-        self::TYPE_ONE_TIME  => 'one time'
-    );
+        self::TYPE_ONE_TIME => 'one time',
+    ];
 
     /**
      * @var string
@@ -38,9 +37,9 @@ class Distribution implements SignableInterface, PaymentWorkflowableInterface
     const TRANSFER_METHOD_RECEIVE_CHECK = 'receive_check';
     const TRANSFER_METHOD_WIRE_TRANSFER = 'wire_transfer';
     const TRANSFER_METHOD_BANK_TRANSFER = 'bank_transfer';
-    const TRANSFER_METHOD_NOT_FUNDING   = 'not_funding';
+    const TRANSFER_METHOD_NOT_FUNDING = 'not_funding';
 
-    static private $_transferMethods = null;
+    private static $_transferMethods = null;
 
     /**
      * @var float
@@ -53,21 +52,21 @@ class Distribution implements SignableInterface, PaymentWorkflowableInterface
     private $transferDate;
 
     /**
-     * @var integer
+     * @var int
      */
     private $frequency;
 
     //const FREQUENCY_ONE_TIME         = 1;
     const FREQUENCY_EVERY_OTHER_WEEK = 2;
-    const FREQUENCY_MONTHLY          = 3;
-    const FREQUENCY_QUARTERLY        = 4;
+    const FREQUENCY_MONTHLY = 3;
+    const FREQUENCY_QUARTERLY = 4;
 
-    static private $_frequencies = array(
+    private static $_frequencies = [
         //self::FREQUENCY_ONE_TIME         => 'One-time',
         self::FREQUENCY_EVERY_OTHER_WEEK => 'Every other week',
-        self::FREQUENCY_MONTHLY          => 'Monthly',
-        self::FREQUENCY_QUARTERLY        => 'Quarterly'
-    );
+        self::FREQUENCY_MONTHLY => 'Monthly',
+        self::FREQUENCY_QUARTERLY => 'Quarterly',
+    ];
 
     /**
      * @var \DateTime
@@ -90,31 +89,30 @@ class Distribution implements SignableInterface, PaymentWorkflowableInterface
     private $bankInformation;
 
     /**
-     * @var integer
+     * @var int
      */
     private $distributionMethod;
 
-    const DISTRIBUTION_METHOD_NORMAL    = 1;
+    const DISTRIBUTION_METHOD_NORMAL = 1;
     const DISTRIBUTION_METHOD_PREMATURE = 2;
 
-    static private $_distributionMethods = array(
+    private static $_distributionMethods = [
         self::DISTRIBUTION_METHOD_NORMAL => 'normal',
-        self::DISTRIBUTION_METHOD_PREMATURE => 'premature'
-    );
-
+        self::DISTRIBUTION_METHOD_PREMATURE => 'premature',
+    ];
 
     /**
-     * @var integer
+     * @var int
      */
     private $federalWithholding;
 
     const FEDERAL_WITHHOLDING_TAXES = 1;
-    const FEDERAL_WITHHOLDING_NO    = 2;
+    const FEDERAL_WITHHOLDING_NO = 2;
 
-    static private $_federalWithholding = array(
+    private static $_federalWithholding = [
         self::FEDERAL_WITHHOLDING_TAXES => 'Please withhold taxes from my distribution at a rate of',
-        self::FEDERAL_WITHHOLDING_NO => 'I select NOT to have federal income tax withheld'
-    );
+        self::FEDERAL_WITHHOLDING_NO => 'I select NOT to have federal income tax withheld',
+    ];
 
     /**
      * @var float
@@ -127,19 +125,19 @@ class Distribution implements SignableInterface, PaymentWorkflowableInterface
     private $federalWithholdPercent;
 
     /**
-     * @var integer
+     * @var int
      */
     private $stateWithholding;
 
-    const STATE_WITHHOLDING_TAXES           = 1;
+    const STATE_WITHHOLDING_TAXES = 1;
     const STATE_WITHHOLDING_RESIDENCE_STATE = 2;
-    const STATE_WITHHOLDING_NO              = 3;
+    const STATE_WITHHOLDING_NO = 3;
 
-    static private $_stateWithholding = array(
+    private static $_stateWithholding = [
         self::STATE_WITHHOLDING_TAXES => 'Please withhold taxes from my distribution at rate of',
         self::STATE_WITHHOLDING_RESIDENCE_STATE => 'I declare my permanent state of residence is',
-        self::STATE_WITHHOLDING_NO => 'I select NOT to have federal income tax withheld'
-    );
+        self::STATE_WITHHOLDING_NO => 'I select NOT to have federal income tax withheld',
+    ];
 
     /**
      * @var float
@@ -156,27 +154,28 @@ class Distribution implements SignableInterface, PaymentWorkflowableInterface
      */
     private $residenceState;
 
-
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer
+     * @return int
      */
     public function getId()
     {
         return $this->id;
     }
 
-    static public function getTypeChoices()
+    public static function getTypeChoices()
     {
         return self::$_types;
     }
 
     /**
-     * Set type
+     * Set type.
      *
      * @param string $type
+     *
      * @return Distribution
+     *
      * @throws \InvalidArgumentException
      */
     public function setType($type)
@@ -191,7 +190,7 @@ class Distribution implements SignableInterface, PaymentWorkflowableInterface
     }
 
     /**
-     * Get type
+     * Get type.
      *
      * @return string
      */
@@ -201,7 +200,7 @@ class Distribution implements SignableInterface, PaymentWorkflowableInterface
     }
 
     /**
-     * Is scheduled distribution
+     * Is scheduled distribution.
      *
      * @return bool
      */
@@ -211,7 +210,7 @@ class Distribution implements SignableInterface, PaymentWorkflowableInterface
     }
 
     /**
-     * Is one-time distribution
+     * Is one-time distribution.
      *
      * @return bool
      */
@@ -221,17 +220,17 @@ class Distribution implements SignableInterface, PaymentWorkflowableInterface
     }
 
     /**
-     * Get transfer method choices
+     * Get transfer method choices.
      *
      * @return array
      */
-    static public function getTransferMethodChoices()
+    public static function getTransferMethodChoices()
     {
         if (self::$_transferMethods === null) {
-            self::$_transferMethods = array();
+            self::$_transferMethods = [];
             $oClass = new \ReflectionClass('\Wealthbot\ClientBundle\Entity\Distribution');
             $classConstants = $oClass->getConstants();
-            $constantPrefix = "TRANSFER_METHOD_";
+            $constantPrefix = 'TRANSFER_METHOD_';
             foreach ($classConstants as $key => $val) {
                 if (substr($key, 0, strlen($constantPrefix)) === $constantPrefix) {
                     self::$_transferMethods[$val] = $val;
@@ -243,10 +242,12 @@ class Distribution implements SignableInterface, PaymentWorkflowableInterface
     }
 
     /**
-     * Set transferMethod
+     * Set transferMethod.
      *
      * @param string $transferMethod
+     *
      * @return Distribution
+     *
      * @throws \InvalidArgumentException
      */
     public function setTransferMethod($transferMethod)
@@ -261,7 +262,7 @@ class Distribution implements SignableInterface, PaymentWorkflowableInterface
     }
 
     /**
-     * Get transferMethod
+     * Get transferMethod.
      *
      * @return string
      */
@@ -271,9 +272,10 @@ class Distribution implements SignableInterface, PaymentWorkflowableInterface
     }
 
     /**
-     * Set amount
+     * Set amount.
      *
      * @param float $amount
+     *
      * @return Distribution
      */
     public function setAmount($amount)
@@ -284,7 +286,7 @@ class Distribution implements SignableInterface, PaymentWorkflowableInterface
     }
 
     /**
-     * Get amount
+     * Get amount.
      *
      * @return float
      */
@@ -294,9 +296,10 @@ class Distribution implements SignableInterface, PaymentWorkflowableInterface
     }
 
     /**
-     * Set transferDate
+     * Set transferDate.
      *
      * @param \DateTime $transferDate
+     *
      * @return Distribution
      */
     public function setTransferDate($transferDate)
@@ -307,7 +310,7 @@ class Distribution implements SignableInterface, PaymentWorkflowableInterface
     }
 
     /**
-     * Get transferDate
+     * Get transferDate.
      *
      * @return \DateTime
      */
@@ -317,20 +320,22 @@ class Distribution implements SignableInterface, PaymentWorkflowableInterface
     }
 
     /**
-     * Get frequency choices
+     * Get frequency choices.
      *
      * @return array
      */
-    static public function getFrequencyChoices()
+    public static function getFrequencyChoices()
     {
         return self::$_frequencies;
     }
 
     /**
-     * Set frequency
+     * Set frequency.
      *
-     * @param integer $frequency
+     * @param int $frequency
+     *
      * @return Distribution
+     *
      * @throws \InvalidArgumentException
      */
     public function setFrequency($frequency)
@@ -345,9 +350,9 @@ class Distribution implements SignableInterface, PaymentWorkflowableInterface
     }
 
     /**
-     * Get frequency
+     * Get frequency.
      *
-     * @return integer
+     * @return int
      */
     public function getFrequency()
     {
@@ -355,9 +360,10 @@ class Distribution implements SignableInterface, PaymentWorkflowableInterface
     }
 
     /**
-     * Set createdAt
+     * Set createdAt.
      *
      * @param \DateTime $createdAt
+     *
      * @return Distribution
      */
     public function setCreatedAt($createdAt)
@@ -368,7 +374,7 @@ class Distribution implements SignableInterface, PaymentWorkflowableInterface
     }
 
     /**
-     * Get createdAt
+     * Get createdAt.
      *
      * @return \DateTime
      */
@@ -378,9 +384,10 @@ class Distribution implements SignableInterface, PaymentWorkflowableInterface
     }
 
     /**
-     * Set updatedAt
+     * Set updatedAt.
      *
      * @param \DateTime $updatedAt
+     *
      * @return Distribution
      */
     public function setUpdatedAt($updatedAt)
@@ -391,7 +398,7 @@ class Distribution implements SignableInterface, PaymentWorkflowableInterface
     }
 
     /**
-     * Get updatedAt
+     * Get updatedAt.
      *
      * @return \DateTime
      */
@@ -401,9 +408,10 @@ class Distribution implements SignableInterface, PaymentWorkflowableInterface
     }
 
     /**
-     * Set systemClientAccount
+     * Set systemClientAccount.
      *
      * @param \Wealthbot\ClientBundle\Entity\SystemAccount $systemClientAccount
+     *
      * @return Distribution
      */
     public function setSystemClientAccount(\Wealthbot\ClientBundle\Entity\SystemAccount $systemClientAccount = null)
@@ -414,7 +422,7 @@ class Distribution implements SignableInterface, PaymentWorkflowableInterface
     }
 
     /**
-     * Get systemClientAccount
+     * Get systemClientAccount.
      *
      * @return \Wealthbot\ClientBundle\Entity\SystemAccount
      */
@@ -424,9 +432,10 @@ class Distribution implements SignableInterface, PaymentWorkflowableInterface
     }
 
     /**
-     * Set bankInformation
+     * Set bankInformation.
      *
      * @param \Wealthbot\ClientBundle\Entity\BankInformation $bankInformation
+     *
      * @return Distribution
      */
     public function setBankInformation(\Wealthbot\ClientBundle\Entity\BankInformation $bankInformation = null)
@@ -437,7 +446,7 @@ class Distribution implements SignableInterface, PaymentWorkflowableInterface
     }
 
     /**
-     * Get bankInformation
+     * Get bankInformation.
      *
      * @return \Wealthbot\ClientBundle\Entity\BankInformation
      */
@@ -447,20 +456,22 @@ class Distribution implements SignableInterface, PaymentWorkflowableInterface
     }
 
     /**
-     * Get distribution_method choices
+     * Get distribution_method choices.
      *
      * @return array
      */
-    static public function getDistributionMethodChoices()
+    public static function getDistributionMethodChoices()
     {
         return self::$_distributionMethods;
     }
 
     /**
-     * Set distributionMethod
+     * Set distributionMethod.
      *
-     * @param integer $distributionMethod
+     * @param int $distributionMethod
+     *
      * @return Distribution
+     *
      * @throws \InvalidArgumentException
      */
     public function setDistributionMethod($distributionMethod)
@@ -480,9 +491,9 @@ class Distribution implements SignableInterface, PaymentWorkflowableInterface
     }
 
     /**
-     * Get distributionMethod
+     * Get distributionMethod.
      *
-     * @return integer
+     * @return int
      */
     public function getDistributionMethod()
     {
@@ -490,7 +501,7 @@ class Distribution implements SignableInterface, PaymentWorkflowableInterface
     }
 
     /**
-     * Get distribution_method as string
+     * Get distribution_method as string.
      *
      * @return string
      */
@@ -504,20 +515,22 @@ class Distribution implements SignableInterface, PaymentWorkflowableInterface
     }
 
     /**
-     * Get federal_withholding choices
+     * Get federal_withholding choices.
      *
      * @return array
      */
-    static public function getFederalWithholdingChoices()
+    public static function getFederalWithholdingChoices()
     {
         return self::$_federalWithholding;
     }
 
     /**
-     * Set federalWithholding
+     * Set federalWithholding.
      *
-     * @param integer $federalWithholding
+     * @param int $federalWithholding
+     *
      * @return Distribution
+     *
      * @throws \InvalidArgumentException
      */
     public function setFederalWithholding($federalWithholding)
@@ -537,9 +550,9 @@ class Distribution implements SignableInterface, PaymentWorkflowableInterface
     }
 
     /**
-     * Get federalWithholding
+     * Get federalWithholding.
      *
-     * @return integer
+     * @return int
      */
     public function getFederalWithholding()
     {
@@ -547,9 +560,10 @@ class Distribution implements SignableInterface, PaymentWorkflowableInterface
     }
 
     /**
-     * Set federalWithholdMoney
+     * Set federalWithholdMoney.
      *
      * @param float $federalWithholdMoney
+     *
      * @return Distribution
      */
     public function setFederalWithholdMoney($federalWithholdMoney)
@@ -560,7 +574,7 @@ class Distribution implements SignableInterface, PaymentWorkflowableInterface
     }
 
     /**
-     * Get federalWithholdMoney
+     * Get federalWithholdMoney.
      *
      * @return float
      */
@@ -570,9 +584,10 @@ class Distribution implements SignableInterface, PaymentWorkflowableInterface
     }
 
     /**
-     * Set federalWithholdPercent
+     * Set federalWithholdPercent.
      *
      * @param float $federalWithholdPercent
+     *
      * @return Distribution
      */
     public function setFederalWithholdPercent($federalWithholdPercent)
@@ -583,7 +598,7 @@ class Distribution implements SignableInterface, PaymentWorkflowableInterface
     }
 
     /**
-     * Get federalWithholdPercent
+     * Get federalWithholdPercent.
      *
      * @return float
      */
@@ -593,20 +608,22 @@ class Distribution implements SignableInterface, PaymentWorkflowableInterface
     }
 
     /**
-     * Get state_withholding choices
+     * Get state_withholding choices.
      *
      * @return array
      */
-    static public function getStateWithholdingChoices()
+    public static function getStateWithholdingChoices()
     {
         return self::$_stateWithholding;
     }
 
     /**
-     * Set stateWithholding
+     * Set stateWithholding.
      *
-     * @param integer $stateWithholding
+     * @param int $stateWithholding
+     *
      * @return Distribution
+     *
      * @throws \InvalidArgumentException
      */
     public function setStateWithholding($stateWithholding)
@@ -626,9 +643,9 @@ class Distribution implements SignableInterface, PaymentWorkflowableInterface
     }
 
     /**
-     * Get stateWithholding
+     * Get stateWithholding.
      *
-     * @return integer
+     * @return int
      */
     public function getStateWithholding()
     {
@@ -636,9 +653,10 @@ class Distribution implements SignableInterface, PaymentWorkflowableInterface
     }
 
     /**
-     * Set stateWithholdMoney
+     * Set stateWithholdMoney.
      *
      * @param float $stateWithholdMoney
+     *
      * @return Distribution
      */
     public function setStateWithholdMoney($stateWithholdMoney)
@@ -649,7 +667,7 @@ class Distribution implements SignableInterface, PaymentWorkflowableInterface
     }
 
     /**
-     * Get stateWithholdMoney
+     * Get stateWithholdMoney.
      *
      * @return float
      */
@@ -659,9 +677,10 @@ class Distribution implements SignableInterface, PaymentWorkflowableInterface
     }
 
     /**
-     * Set stateWithholdPercent
+     * Set stateWithholdPercent.
      *
      * @param float $stateWithholdPercent
+     *
      * @return Distribution
      */
     public function setStateWithholdPercent($stateWithholdPercent)
@@ -672,7 +691,7 @@ class Distribution implements SignableInterface, PaymentWorkflowableInterface
     }
 
     /**
-     * Get stateWithholdPercent
+     * Get stateWithholdPercent.
      *
      * @return float
      */
@@ -682,9 +701,10 @@ class Distribution implements SignableInterface, PaymentWorkflowableInterface
     }
 
     /**
-     * Set residenceState
+     * Set residenceState.
      *
      * @param \Wealthbot\AdminBundle\Entity\State $residenceState
+     *
      * @return Distribution
      */
     public function setResidenceState(\Wealthbot\AdminBundle\Entity\State $residenceState = null)
@@ -695,7 +715,7 @@ class Distribution implements SignableInterface, PaymentWorkflowableInterface
     }
 
     /**
-     * Get residenceState
+     * Get residenceState.
      *
      * @return \Wealthbot\AdminBundle\Entity\State
      */
@@ -705,7 +725,7 @@ class Distribution implements SignableInterface, PaymentWorkflowableInterface
     }
 
     /**
-     * Get client account object
+     * Get client account object.
      *
      * @return \Wealthbot\ClientBundle\Model\ClientAccount
      */
@@ -715,7 +735,7 @@ class Distribution implements SignableInterface, PaymentWorkflowableInterface
     }
 
     /**
-     * Get id of source object
+     * Get id of source object.
      *
      * @return mixed
      */
@@ -725,7 +745,7 @@ class Distribution implements SignableInterface, PaymentWorkflowableInterface
     }
 
     /**
-     * Get type of document signature
+     * Get type of document signature.
      *
      * @return string
      */
@@ -741,7 +761,7 @@ class Distribution implements SignableInterface, PaymentWorkflowableInterface
     }
 
     /**
-     * Get workflow message code
+     * Get workflow message code.
      *
      * @return string
      */
@@ -751,7 +771,7 @@ class Distribution implements SignableInterface, PaymentWorkflowableInterface
     }
 
     /**
-     * Get workflow amount
+     * Get workflow amount.
      *
      * @return float
      */
@@ -759,6 +779,4 @@ class Distribution implements SignableInterface, PaymentWorkflowableInterface
     {
         return $this->getAmount();
     }
-
-
 }

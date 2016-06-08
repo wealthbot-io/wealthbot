@@ -1,38 +1,27 @@
-#! /usr/bin/env ruby -S rspec
-
 require 'spec_helper'
 
-describe Puppet::Parser::Functions.function(:validate_array) do
-  let(:scope) { PuppetlabsSpec::PuppetInternals.scope }
-  describe 'when calling validate_array from puppet' do
+describe 'validate_array' do
+  describe 'signature validation' do
+    it { is_expected.not_to eq(nil) }
+    it { is_expected.to run.with_params().and_raise_error(Puppet::ParseError, /wrong number of arguments/i) }
 
-    %w{ true false }.each do |the_string|
-      it "should not compile when #{the_string} is a string" do
-        Puppet[:code] = "validate_array('#{the_string}')"
-        expect { scope.compiler.compile }.to raise_error(Puppet::ParseError, /is not an Array/)
-      end
-
-      it "should not compile when #{the_string} is a bare word" do
-        Puppet[:code] = "validate_array(#{the_string})"
-        expect { scope.compiler.compile }.to raise_error(Puppet::ParseError, /is not an Array/)
-      end
+    describe 'valid inputs' do
+      it { is_expected.to run.with_params([]) }
+      it { is_expected.to run.with_params(['one']) }
+      it { is_expected.to run.with_params([], ['two']) }
+      it { is_expected.to run.with_params(['one'], ['two']) }
     end
 
-    it "should compile when multiple array arguments are passed" do
-      Puppet[:code] = <<-'ENDofPUPPETcode'
-        $foo = [ ]
-        $bar = [ 'one', 'two' ]
-        validate_array($foo, $bar)
-      ENDofPUPPETcode
-      scope.compiler.compile
-    end
-
-    it "should not compile when an undef variable is passed" do
-      Puppet[:code] = <<-'ENDofPUPPETcode'
-        $foo = undef
-        validate_array($foo)
-      ENDofPUPPETcode
-      expect { scope.compiler.compile }.to raise_error(Puppet::ParseError, /is not an Array/)
+    describe 'invalid inputs' do
+      it { is_expected.to run.with_params({}).and_raise_error(Puppet::ParseError, /is not an Array/) }
+      it { is_expected.to run.with_params(1).and_raise_error(Puppet::ParseError, /is not an Array/) }
+      it { is_expected.to run.with_params(true).and_raise_error(Puppet::ParseError, /is not an Array/) }
+      it { is_expected.to run.with_params('one').and_raise_error(Puppet::ParseError, /is not an Array/) }
+      it { is_expected.to run.with_params([], {}).and_raise_error(Puppet::ParseError, /is not an Array/) }
+      it { is_expected.to run.with_params([], 1).and_raise_error(Puppet::ParseError, /is not an Array/) }
+      it { is_expected.to run.with_params([], true).and_raise_error(Puppet::ParseError, /is not an Array/) }
+      it { is_expected.to run.with_params([], 'one').and_raise_error(Puppet::ParseError, /is not an Array/) }
     end
   end
 end
+

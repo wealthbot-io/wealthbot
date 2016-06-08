@@ -1,19 +1,18 @@
 <?php
 
-
 namespace Wealthbot\AdminBundle\Manager;
 
 use Doctrine\ORM\EntityManager;
 use Wealthbot\AdminBundle\Entity\BillingSpec;
 use Wealthbot\AdminBundle\Entity\Fee;
+use Wealthbot\ClientBundle\Entity\ClientAccount;
 use Wealthbot\ClientBundle\Manager\CashCalculationManager;
 use Wealthbot\RiaBundle\Service\Manager\PeriodManager;
 use Wealthbot\UserBundle\Entity\User;
-use Wealthbot\ClientBundle\Entity\ClientAccount;
 use Wealthbot\UserBundle\Manager\UserManager;
 
-class FeeManager {
-
+class FeeManager
+{
     /**
      * @var EntityManager
      */
@@ -33,7 +32,8 @@ class FeeManager {
     /** @var BillingSpecManager */
     protected $billingSpecManager;
 
-    public function __construct(EntityManager $em, UserManager $userManager, CashCalculationManager $cashManager, PeriodManager $periodManager, BillingSpecManager $billingSpecManager) {
+    public function __construct(EntityManager $em, UserManager $userManager, CashCalculationManager $cashManager, PeriodManager $periodManager, BillingSpecManager $billingSpecManager)
+    {
         $this->em = $em;
         $this->userManager = $userManager;
         $this->cashManager = $cashManager;
@@ -45,16 +45,18 @@ class FeeManager {
      * Return ria related system fees.
      *
      * @param User $ria
+     *
      * @throws \Exception
+     *
      * @return array|\Wealthbot\AdminBundle\Entity\Fee[]
      */
-    public function getAdminFee(User $ria) {
-
+    public function getAdminFee(User $ria)
+    {
         $billingSpec = $ria->getAppointedBillingSpec();
 
         if (!$billingSpec) {
             //Todo: can it be situation when no billingSpec appointed to ria?
-            return array();
+            return [];
         }
 
         if ($billingSpec->getOwner() !== null) {
@@ -65,16 +67,17 @@ class FeeManager {
     }
 
     /**
-     * @param User $ria
+     * @param User  $ria
      * @param array $riaFees
+     *
      * @return array
      */
-    public function getClientFees(User $ria, $riaFees = array())
+    public function getClientFees(User $ria, $riaFees = [])
     {
         $adminFees = $this->getAdminFee($ria);
 
-        $sortFees = array();
-        foreach($adminFees as $adminFee){
+        $sortFees = [];
+        foreach ($adminFees as $adminFee) {
             $sortFees[] = $adminFee->getTierTop();
         }
 
@@ -97,7 +100,7 @@ class FeeManager {
         $start = 0;
         $currFeeWithoutRetirement = 0;
         $currFeeWithRetirement = 0;
-        $clientFees = array();
+        $clientFees = [];
 
         foreach ($sortFees as $sortFee) {
             // Search admin fee
@@ -140,11 +143,12 @@ class FeeManager {
     }
 
     /**
-     * Get ria fee
+     * Get ria fee.
      *
      * @param ClientAccount $clientAccount
-     * @param integer $year
-     * @param integer $quarter
+     * @param int           $year
+     * @param int           $quarter
+     *
      * @return float
      */
     public function getRiaFee(ClientAccount $clientAccount, $year, $quarter)
@@ -154,27 +158,29 @@ class FeeManager {
         $billingSpec = $client->getAppointedBillingSpec();
         $fees = $billingSpec->getFees();
 
-        if ($billingSpec->getType() == BillingSpec::TYPE_FLAT) {
+        if ($billingSpec->getType() === BillingSpec::TYPE_FLAT) {
             return $fees[0]->getFeeWithoutRetirement();
         }
 
-        if ($billingSpec->getType() == BillingSpec::TYPE_TIER) {
+        if ($billingSpec->getType() === BillingSpec::TYPE_TIER) {
             $value = $this->cashManager->getAccountValueOnDate($clientAccount, $period['endDate']);
 
             $feeValue = $this->calculateFee($value, $fees);
             $feeValue = max($billingSpec->getMinimalFee(), $feeValue);
+
             return $feeValue;
         }
 
-        throw new \Exception("No tier type " . $billingSpec->getType());
+        throw new \Exception('No tier type '.$billingSpec->getType());
     }
 
     /**
-     * Get wealthbot.io fee
+     * Get wealthbot.io fee.
      *
      * @param ClientAccount $clientAccount
-     * @param integer $year
-     * @param integer $quarter
+     * @param int           $year
+     * @param int           $quarter
+     *
      * @return float
      */
     public function getCEFee(ClientAccount $clientAccount, $year, $quarter)
@@ -183,14 +189,13 @@ class FeeManager {
         $fees = $this->getAdminFee($ria);
 
         $period = $this->periodManager->getPeriod($year, $quarter);
-        $value  = $this->cashManager->getAccountValueOnDate($clientAccount, $period['endDate']);
+        $value = $this->cashManager->getAccountValueOnDate($clientAccount, $period['endDate']);
 
         return $this->calculateFee($value, $fees);
     }
 
     /**
-     *
-     * Returns calculation tiers array with keys:
+     * Returns calculation tiers array with keys:.
      *
      *     fee - float,
      *
@@ -202,34 +207,35 @@ class FeeManager {
      *
      * @param $value
      * @param Fee[] $fees
+     *
      * @return array
      */
     public function getCalculationTiers($value, $fees)
     {
-        $result = array();
+        $result = [];
 
-        $feeArray = array();
-        foreach($fees as $fee) {
-            $feeArray[] = array(
+        $feeArray = [];
+        foreach ($fees as $fee) {
+            $feeArray[] = [
                 'tier_top' => $fee->getTierTop(),
-                'fee_without_retirement' => $fee->getFeeWithoutRetirement()
-            );
+                'fee_without_retirement' => $fee->getFeeWithoutRetirement(),
+            ];
         }
 
         sort($feeArray);
 
         $lastTopTier = 0;
-        foreach($feeArray as $feeItem){
+        foreach ($feeArray as $feeItem) {
             $x = min($feeItem['tier_top'], $value);
             $tierValue = ($x - $lastTopTier);
             $feeAmount = $tierValue * $feeItem['fee_without_retirement'];
             $lastTopTier = $x;
-            $result[] = array(
-                'fee'         => $feeItem['fee_without_retirement'],
-                'tier_top'    => $feeItem['tier_top'],
-                'tier_value'  => $tierValue,
-                'fee_amount'  => $feeAmount
-            );
+            $result[] = [
+                'fee' => $feeItem['fee_without_retirement'],
+                'tier_top' => $feeItem['tier_top'],
+                'tier_value' => $tierValue,
+                'fee_amount' => $feeAmount,
+            ];
             if ($lastTopTier >= $value) {
                 break;
             }
@@ -250,14 +256,16 @@ class FeeManager {
             $feeValue += $tier['fee_amount'];
         }
 
-        return round($feeValue * 100)/100;
+        return round($feeValue * 100) / 100;
     }
 
     /**
-     * TODO: deprecated
+     * TODO: deprecated.
+     *
      * @param ClientAccount $clientAccount
      * @param $year
      * @param $quarter
+     *
      * @return float|int
      */
     public function getBillAmount(ClientAccount $clientAccount, $year, $quarter)
@@ -284,14 +292,16 @@ class FeeManager {
 
     /**
      * @param float $fee
-     * @param int $daysWorked
-     * @param int $daysInPeriod
+     * @param int   $daysWorked
+     * @param int   $daysInPeriod
+     *
      * @return float
+     *
      * @throws \RangeException
      */
     public function calculateFeeBilled($fee, $daysWorked, $daysInPeriod)
     {
-        if ($daysInPeriod == 0) {
+        if ($daysInPeriod === 0) {
             throw new \RangeException('Division by zero.');
         }
 
@@ -301,7 +311,7 @@ class FeeManager {
     }
 
     /**
-     * Reset Ria fee for License Fee Relationship
+     * Reset Ria fee for License Fee Relationship.
      *
      * @param User $ria
      */
@@ -310,7 +320,6 @@ class FeeManager {
         $appointedBillingSpec = $ria->getAppointedBillingSpec();
 
         if ($appointedBillingSpec) {
-
             if (1 === $appointedBillingSpec->getAppointedUsers()->count()) {
                 $this->billingSpecManager->remove($appointedBillingSpec);
             } else {
@@ -335,7 +344,7 @@ class FeeManager {
     }
 
     /**
-     * Init Default Admin fee for License Fee Relationship
+     * Init Default Admin fee for License Fee Relationship.
      *
      * @return Fee
      */
@@ -352,6 +361,7 @@ class FeeManager {
     /**
      * @param int $year
      * @param int $quarter
+     *
      * @return array
      */
     public function getPeriod($year, $quarter)

@@ -2,29 +2,26 @@
 
 namespace Wealthbot\AdminBundle\Controller;
 
-use Wealthbot\AdminBundle\Model\Acl;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Security\Core\Authentication\AuthenticationProviderManager;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Core\Role\SwitchUserRole;
-use Symfony\Component\Security\Core\SecurityContext;
+use Symfony\Component\Security\Core\Security;
+use Wealthbot\AdminBundle\Model\Acl;
 
 class SecuredController extends AclController
 {
-    public function loginAction()
+    public function loginAction(Request $request)
     {
-        /* @var $request \Symfony\Component\HttpFoundation\Request */
         /* @var $session \Symfony\Component\HttpFoundation\Session */
-        $request = $this->container->get('request');
         $session = $request->getSession();
 
         // get the error if any (works with forward and redirect -- see below)
-        if ($request->attributes->has(SecurityContext::AUTHENTICATION_ERROR)) {
-            $error = $request->attributes->get(SecurityContext::AUTHENTICATION_ERROR);
-        } elseif (null !== $session && $session->has(SecurityContext::AUTHENTICATION_ERROR)) {
-            $error = $session->get(SecurityContext::AUTHENTICATION_ERROR);
-            $session->remove(SecurityContext::AUTHENTICATION_ERROR);
+        if ($request->attributes->has(Security::AUTHENTICATION_ERROR)) {
+            $error = $request->attributes->get(Security::AUTHENTICATION_ERROR);
+        } elseif (null !== $session && $session->has(Security::AUTHENTICATION_ERROR)) {
+            $error = $session->get(Security::AUTHENTICATION_ERROR);
+            $session->remove(Security::AUTHENTICATION_ERROR);
         } else {
             $error = '';
         }
@@ -34,15 +31,15 @@ class SecuredController extends AclController
             $error = $error->getMessage();
         }
         // last username entered by the user
-        $lastUsername = (null === $session) ? '' : $session->get(SecurityContext::LAST_USERNAME);
+        $lastUsername = (null === $session) ? '' : $session->get(Security::LAST_USERNAME);
 
-        $csrfToken = $this->container->get('form.csrf_provider')->generateCsrfToken('authenticate');
+        $csrfToken = $this->container->get('security.csrf.token_manager')->getToken('authenticate')->getValue();
 
-        return $this->renderLogin(array(
+        return $this->renderLogin([
             'last_username' => $lastUsername,
-            'error'         => $error,
+            'error' => $error,
             'csrf_token' => $csrfToken,
-        ));
+        ]);
     }
 
     public function loginAsAction(Request $request)
@@ -63,13 +60,11 @@ class SecuredController extends AclController
             throw new AccessDeniedException(sprintf('Access Denied. You cannot login as "%s"', $username));
         }
 
-        $securityContext = $this->get('security.context');
+        $tokenStorage = $this->get('security.token_storage');
         $roles = $user->getRoles();
-        $roles[] = new SwitchUserRole('ROLE_PREVIOUS_ADMIN', $securityContext->getToken());
+        $roles[] = new SwitchUserRole('ROLE_PREVIOUS_ADMIN', $tokenStorage->getToken());
 
         $token = new UsernamePasswordToken($user, null, 'main', $roles);
-
-        $request = $this->container->get('request');
         $session = $request->getSession();
         $session->set('rx_admin.login_as_token',  serialize($token));
 

@@ -9,7 +9,6 @@
 
 namespace Wealthbot\AdminBundle\Form\Handler;
 
-
 class CategoriesFormHandler extends AbstractFormHandler
 {
     protected function success()
@@ -27,7 +26,7 @@ class CategoriesFormHandler extends AbstractFormHandler
 
         $data = $this->form->getData();
 
-        $toDeleteAssets = array();
+        $toDeleteAssets = [];
         foreach ($originalAssets as $originalAsset) {
             $toDeleteAssets[$originalAsset->getId()] = $originalAsset;
         }
@@ -39,7 +38,6 @@ class CategoriesFormHandler extends AbstractFormHandler
 
             // filter $originalSubclasses to contain subclasses no longer present
             foreach ($asset->getSubclasses() as $subclass) {
-
                 if (isset($originalSubclasses[$asset->getId()]) && is_array($originalSubclasses[$asset->getId()])) {
                     foreach ($originalSubclasses[$asset->getId()] as $toDelSubclass) {
                         if ($toDelSubclass->getId() === $subclass->getId()) {
@@ -63,11 +61,10 @@ class CategoriesFormHandler extends AbstractFormHandler
         $this->em->flush();
         $this->em->clear();
 
-        foreach($toDeleteAssets as $asset){
+        foreach ($toDeleteAssets as $asset) {
             $this->em->remove($asset);
         }
 
         $this->em->flush();
     }
-
 }

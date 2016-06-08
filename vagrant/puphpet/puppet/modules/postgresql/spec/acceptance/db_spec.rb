@@ -5,7 +5,9 @@ describe 'postgresql::server::db', :unless => UNSUPPORTED_PLATFORMS.include?(fac
     begin
       tmpdir = default.tmpdir('postgresql')
       pp = <<-EOS
-        class { 'postgresql::server': }
+        class { 'postgresql::server':
+          postgres_password => 'space password',
+        }
         postgresql::server::tablespace { 'postgresql_test_db':
           location => '#{tmpdir}',
         } ->
@@ -19,6 +21,11 @@ describe 'postgresql::server::db', :unless => UNSUPPORTED_PLATFORMS.include?(fac
 
       apply_manifest(pp, :catch_failures => true)
       apply_manifest(pp, :catch_changes => true)
+
+      # Verify that the postgres password works
+      shell("echo 'localhost:*:*:postgres:space password' > /root/.pgpass")
+      shell("chmod 600 /root/.pgpass")
+      shell("psql -U postgres -h localhost --command='\\l'")
 
       psql('--command="select datname from pg_database" postgresql_test_db') do |r|
         expect(r.stdout).to match(/postgresql_test_db/)

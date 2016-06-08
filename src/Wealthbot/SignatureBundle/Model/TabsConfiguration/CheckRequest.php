@@ -3,11 +3,10 @@
  * Created by PhpStorm.
  * User: amalyuhin
  * Date: 28.11.13
- * Time: 16:34
+ * Time: 16:34.
  */
 
 namespace Wealthbot\SignatureBundle\Model\TabsConfiguration;
-
 
 use Wealthbot\ClientBundle\Entity\Distribution;
 use Wealthbot\SignatureBundle\Model\SignableInterface;
@@ -26,9 +25,10 @@ class CheckRequest extends AbstractTabsConfiguration
     }
 
     /**
-     * Generate collection of tabs
+     * Generate collection of tabs.
      *
      * @return TabCollection
+     *
      * @throws \RuntimeException
      * @throws \InvalidArgumentException
      */
@@ -46,7 +46,7 @@ class CheckRequest extends AbstractTabsConfiguration
         $client = $clientAccount ? $clientAccount->getClient() : null;
         $companyInformation = $client ? $client->getRiaCompanyInformation() : null;
 
-        $tabs = array();
+        $tabs = [];
 
         $advisorCode = new TextTab();
         $advisorCode->setTabLabel('advisor#')->setValue($this->getAdvisorCode($companyInformation));
@@ -66,14 +66,14 @@ class CheckRequest extends AbstractTabsConfiguration
     }
 
     /**
-     * Generate account information section tabs
+     * Generate account information section tabs.
      *
      * @return array
      */
     public function accountInformationSection()
     {
         $bankInformation = $this->signableObject->getBankInformation();
-        $tabs = array();
+        $tabs = [];
 
         $accountTitleTab = new TextTab();
         $accountTitleTab->setTabLabel('account_title')->setValue($bankInformation->getAccountTitle());
@@ -83,7 +83,7 @@ class CheckRequest extends AbstractTabsConfiguration
     }
 
     /**
-     * Generate payment details section tabs
+     * Generate payment details section tabs.
      *
      * @return array
      */
@@ -92,7 +92,7 @@ class CheckRequest extends AbstractTabsConfiguration
         $clientAccount = $this->signableObject->getClientAccount();
         $client = $clientAccount->getClient();
         $riaCompanyInfo = $client->getRiaCompanyInformation();
-        $tabs = array();
+        $tabs = [];
 
         $paymentTypeTab = new RadioGroupTab();
         $paymentTypeTab->setGroupName('payment_type')->setValue('specific_amount')->setSelected(true);
@@ -110,7 +110,7 @@ class CheckRequest extends AbstractTabsConfiguration
     }
 
     /**
-     * Generate delivery details section tabs
+     * Generate delivery details section tabs.
      *
      * @return array
      */
@@ -118,7 +118,7 @@ class CheckRequest extends AbstractTabsConfiguration
     {
         $clientAccount = $this->signableObject->getClientAccount();
         $owner = $clientAccount->getPrimaryApplicant();
-        $tabs = array();
+        $tabs = [];
 
         $deliveryDetailsTab = new RadioGroupTab();
         $deliveryDetailsTab->setGroupName('delivery_details')->setValue('account_owner')->setSelected(true);
@@ -148,13 +148,13 @@ class CheckRequest extends AbstractTabsConfiguration
     }
 
     /**
-     * Generate frequency section tabs
+     * Generate frequency section tabs.
      *
      * @return array
      */
     public function frequencySection()
     {
-        $tabs = array();
+        $tabs = [];
 
         $frequencyTab = new RadioGroupTab();
         $frequencyTab->setGroupName('frequency')->setValue('one_time_request');
@@ -164,13 +164,13 @@ class CheckRequest extends AbstractTabsConfiguration
     }
 
     /**
-     * Generate periodic details section tabs
+     * Generate periodic details section tabs.
      *
      * @return array
      */
     public function periodicDetailsSection()
     {
-        $tabs = array();
+        $tabs = [];
 
         $periodicDetailsTypeTab = new RadioGroupTab();
         $periodicDetailsTypeTab->setGroupName('periodic_details_type')->setValue('new_request')->setSelected(true);
@@ -178,5 +178,4 @@ class CheckRequest extends AbstractTabsConfiguration
 
         return $tabs;
     }
-
-} 
+}

@@ -1,40 +1,19 @@
-#! /usr/bin/env ruby -S rspec
 require 'spec_helper'
 
-describe "the join_keys_to_values function" do
-  let(:scope) { PuppetlabsSpec::PuppetInternals.scope }
+describe 'join_keys_to_values' do
+  it { is_expected.not_to eq(nil) }
+  it { is_expected.to run.with_params().and_raise_error(Puppet::ParseError, /Takes exactly two arguments/) }
+  it { is_expected.to run.with_params({}, '', '').and_raise_error(Puppet::ParseError, /Takes exactly two arguments/) }
+  it { is_expected.to run.with_params('one', '').and_raise_error(TypeError, /The first argument must be a hash/) }
+  it { is_expected.to run.with_params({}, 2).and_raise_error(TypeError, /The second argument must be a string/) }
 
-  it "should exist" do
-    expect(Puppet::Parser::Functions.function("join_keys_to_values")).to eq("function_join_keys_to_values")
-  end
-
-  it "should raise a ParseError if there are fewer than two arguments" do
-    expect { scope.function_join_keys_to_values([{}]) }.to raise_error Puppet::ParseError
-  end
-
-  it "should raise a ParseError if there are greater than two arguments" do
-    expect { scope.function_join_keys_to_values([{}, 'foo', 'bar']) }.to raise_error Puppet::ParseError
-  end
-
-  it "should raise a TypeError if the first argument is an array" do
-    expect { scope.function_join_keys_to_values([[1,2], ',']) }.to raise_error TypeError
-  end
-
-  it "should raise a TypeError if the second argument is an array" do
-    expect { scope.function_join_keys_to_values([{}, [1,2]]) }.to raise_error TypeError
-  end
-
-  it "should raise a TypeError if the second argument is a number" do
-    expect { scope.function_join_keys_to_values([{}, 1]) }.to raise_error TypeError
-  end
-
-  it "should return an empty array given an empty hash" do
-    result = scope.function_join_keys_to_values([{}, ":"])
-    expect(result).to eq([])
-  end
-
-  it "should join hash's keys to its values" do
-    result = scope.function_join_keys_to_values([{'a'=>1,2=>'foo',:b=>nil}, ":"])
-    expect(result).to match_array(['a:1','2:foo','b:'])
+  it { is_expected.to run.with_params({}, '').and_return([]) }
+  it { is_expected.to run.with_params({}, ':').and_return([]) }
+  it { is_expected.to run.with_params({ 'key' => 'value' }, '').and_return(['keyvalue']) }
+  it { is_expected.to run.with_params({ 'key' => 'value' }, ':').and_return(['key:value']) }
+  it { is_expected.to run.with_params({ 'key' => nil }, ':').and_return(['key:']) }
+  it 'should run join_keys_to_values(<hash with multiple keys>, ":") and return the proper array' do
+    result = subject.call([{ 'key1' => 'value1', 'key2' => 'value2' }, ':'])
+    expect(result.sort).to eq(['key1:value1', 'key2:value2'].sort)
   end
 end

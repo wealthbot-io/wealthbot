@@ -2,30 +2,28 @@
 
 namespace Wealthbot\ClientBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-
 /**
- * GainLoss
+ * GainLoss.
  */
 class GainLoss
 {
     /**
-     * @var integer
+     * @var int
      */
     private $id;
 
     /**
-     * @var integer
+     * @var int
      */
     private $client_system_account_id;
 
     /**
-     * @var integer
+     * @var int
      */
     private $transaction_id;
 
     /**
-     * @var integer
+     * @var int
      */
     private $security_id;
 
@@ -45,12 +43,12 @@ class GainLoss
     private $value;
 
     /**
-     * @var integer
+     * @var int
      */
     private $is_cost_basis_known;
 
     /**
-     * @var integer
+     * @var int
      */
     private $is_wash_sale;
 
@@ -60,9 +58,9 @@ class GainLoss
     private $date;
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer 
+     * @return int
      */
     public function getId()
     {
@@ -70,22 +68,23 @@ class GainLoss
     }
 
     /**
-     * Set client_system_account_id
+     * Set client_system_account_id.
      *
-     * @param integer $clientSystemAccountId
+     * @param int $clientSystemAccountId
+     *
      * @return this
      */
     public function setClientSystemAccountId($clientSystemAccountId)
     {
         $this->client_system_account_id = $clientSystemAccountId;
-    
+
         return $this;
     }
 
     /**
-     * Get client_system_account_id
+     * Get client_system_account_id.
      *
-     * @return integer 
+     * @return int
      */
     public function getClientSystemAccountId()
     {
@@ -93,22 +92,23 @@ class GainLoss
     }
 
     /**
-     * Set transaction_id
+     * Set transaction_id.
      *
-     * @param integer $transactionId
+     * @param int $transactionId
+     *
      * @return this
      */
     public function setTransactionId($transactionId)
     {
         $this->transaction_id = $transactionId;
-    
+
         return $this;
     }
 
     /**
-     * Get transaction_id
+     * Get transaction_id.
      *
-     * @return integer 
+     * @return int
      */
     public function getTransactionId()
     {
@@ -116,22 +116,23 @@ class GainLoss
     }
 
     /**
-     * Set security_id
+     * Set security_id.
      *
-     * @param integer $securityId
+     * @param int $securityId
+     *
      * @return this
      */
     public function setSecurityId($securityId)
     {
         $this->security_id = $securityId;
-    
+
         return $this;
     }
 
     /**
-     * Get security_id
+     * Get security_id.
      *
-     * @return integer 
+     * @return int
      */
     public function getSecurityId()
     {
@@ -139,22 +140,23 @@ class GainLoss
     }
 
     /**
-     * Set qty
+     * Set qty.
      *
      * @param float $qty
+     *
      * @return this
      */
     public function setQty($qty)
     {
         $this->qty = $qty;
-    
+
         return $this;
     }
 
     /**
-     * Get qty
+     * Get qty.
      *
-     * @return float 
+     * @return float
      */
     public function getQty()
     {
@@ -162,22 +164,23 @@ class GainLoss
     }
 
     /**
-     * Set cost_basis
+     * Set cost_basis.
      *
      * @param float $costBasis
+     *
      * @return this
      */
     public function setCostBasis($costBasis)
     {
         $this->cost_basis = $costBasis;
-    
+
         return $this;
     }
 
     /**
-     * Get cost_basis
+     * Get cost_basis.
      *
-     * @return float 
+     * @return float
      */
     public function getCostBasis()
     {
@@ -185,22 +188,23 @@ class GainLoss
     }
 
     /**
-     * Set value
+     * Set value.
      *
      * @param float $value
+     *
      * @return this
      */
     public function setValue($value)
     {
         $this->value = $value;
-    
+
         return $this;
     }
 
     /**
-     * Get value
+     * Get value.
      *
-     * @return float 
+     * @return float
      */
     public function getValue()
     {
@@ -208,9 +212,10 @@ class GainLoss
     }
 
     /**
-     * Set is cost basis known
+     * Set is cost basis known.
      *
-     * @param integer $isCostBasisKnown
+     * @param int $isCostBasisKnown
+     *
      * @return this
      */
     public function setIsCostBasisKnown($isCostBasisKnown)
@@ -221,9 +226,9 @@ class GainLoss
     }
 
     /**
-     * Get is cost basis known
+     * Get is cost basis known.
      *
-     * @return integer
+     * @return int
      */
     public function getIsCostBasisKnown()
     {
@@ -231,9 +236,10 @@ class GainLoss
     }
 
     /**
-     * Set is wash sale
+     * Set is wash sale.
      *
-     * @param integer $isWashSale
+     * @param int $isWashSale
+     *
      * @return this
      */
     public function setIsWashSale($isWashSale)
@@ -244,9 +250,9 @@ class GainLoss
     }
 
     /**
-     * Get is wash sale
+     * Get is wash sale.
      *
-     * @return integer
+     * @return int
      */
     public function getIsWashSale()
     {
@@ -254,22 +260,23 @@ class GainLoss
     }
 
     /**
-     * Set date
+     * Set date.
      *
      * @param \DateTime $date
+     *
      * @return this
      */
     public function setDate($date)
     {
         $this->date = $date;
-    
+
         return $this;
     }
 
     /**
-     * Get date
+     * Get date.
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getDate()
     {
@@ -292,22 +299,23 @@ class GainLoss
     private $security;
 
     /**
-     * Set clientSystemAccount
+     * Set clientSystemAccount.
      *
      * @param \Wealthbot\ClientBundle\Entity\SystemAccount $clientSystemAccount
+     *
      * @return this
      */
     public function setClientSystemAccount(\Wealthbot\ClientBundle\Entity\SystemAccount $clientSystemAccount = null)
     {
         $this->clientSystemAccount = $clientSystemAccount;
-    
+
         return $this;
     }
 
     /**
-     * Get clientSystemAccount
+     * Get clientSystemAccount.
      *
-     * @return \Wealthbot\ClientBundle\Entity\SystemAccount 
+     * @return \Wealthbot\ClientBundle\Entity\SystemAccount
      */
     public function getClientSystemAccount()
     {
@@ -315,22 +323,23 @@ class GainLoss
     }
 
     /**
-     * Set transaction
+     * Set transaction.
      *
      * @param \Wealthbot\AdminBundle\Entity\Transaction $transaction
+     *
      * @return this
      */
     public function setTransaction(\Wealthbot\AdminBundle\Entity\Transaction $transaction = null)
     {
         $this->transaction = $transaction;
-    
+
         return $this;
     }
 
     /**
-     * Get transaction
+     * Get transaction.
      *
-     * @return \Wealthbot\AdminBundle\Entity\Transaction 
+     * @return \Wealthbot\AdminBundle\Entity\Transaction
      */
     public function getTransaction()
     {
@@ -338,22 +347,23 @@ class GainLoss
     }
 
     /**
-     * Set security
+     * Set security.
      *
      * @param \Wealthbot\AdminBundle\Entity\Security $security
+     *
      * @return this
      */
     public function setSecurity(\Wealthbot\AdminBundle\Entity\Security $security = null)
     {
         $this->security = $security;
-    
+
         return $this;
     }
 
     /**
-     * Get security
+     * Get security.
      *
-     * @return \Wealthbot\AdminBundle\Entity\Security 
+     * @return \Wealthbot\AdminBundle\Entity\Security
      */
     public function getSecurity()
     {

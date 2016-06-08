@@ -9,7 +9,6 @@
 
 namespace Wealthbot\FixturesBundle\DataFixtures\ORM;
 
-
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -18,49 +17,49 @@ use Wealthbot\ClientBundle\Entity\TransferCustodianQuestion;
 
 class LoadTransferCustodianQuestionData extends AbstractFixture implements OrderedFixtureInterface
 {
-    private $data = array(
-        array(
+    private $data = [
+        [
             'transfer_custodian_index' => 14,
             'title' => 'Is this a personal bank account holding a CD?',
-            'docusign_eligible_answer' => false
-        ),
-        array(
+            'docusign_eligible_answer' => false,
+        ],
+        [
             'transfer_custodian_index' => 62,
             'title' => 'Are there 9 characters in the account number with all being numbers or the first character as a letter?',
-            'docusign_eligible_answer' => true
-        ),
-        array(
+            'docusign_eligible_answer' => true,
+        ],
+        [
             'transfer_custodian_index' => 63,
             'title' => 'Are there 9 characters in the account number?',
-            'docusign_eligible_answer' => true
-        ),
-        array(
+            'docusign_eligible_answer' => true,
+        ],
+        [
             'transfer_custodian_index' => 66,
             'title' => 'Are there 8 characters in the account number?',
-            'docusign_eligible_answer' => true
-        ),
-        array(
+            'docusign_eligible_answer' => true,
+        ],
+        [
             'transfer_custodian_index' => 75,
             'title' => 'Are there 12 characters in the account number?',
-            'docusign_eligible_answer' => false
-        ),
-        array(
+            'docusign_eligible_answer' => false,
+        ],
+        [
             'transfer_custodian_index' => 237,
             'title' => 'Are there 8 characters in the account number?',
-            'docusign_eligible_answer' => true
-        ),
-    );
+            'docusign_eligible_answer' => true,
+        ],
+    ];
 
     /**
-     * Load data fixtures with the passed EntityManager
+     * Load data fixtures with the passed EntityManager.
      *
      * @param \Doctrine\Common\Persistence\ObjectManager $manager
      */
-    function load(ObjectManager $manager)
+    public function load(ObjectManager $manager)
     {
         foreach ($this->data as $item) {
             /** @var TransferCustodian $custodian */
-            $custodian = $this->getReference('transfer-custodian-' . $item['transfer_custodian_index']);
+            $custodian = $this->getReference('transfer-custodian-'.$item['transfer_custodian_index']);
 
             $question = new TransferCustodianQuestion();
             $question->setTransferCustodian($custodian);
@@ -68,20 +67,19 @@ class LoadTransferCustodianQuestionData extends AbstractFixture implements Order
             $question->setDocusignEligibleAnswer($item['docusign_eligible_answer']);
 
             $manager->persist($question);
-            $this->addReference('transfer-custodian-' . $item['transfer_custodian_index'] . '-question', $question);
+            $this->addReference('transfer-custodian-'.$item['transfer_custodian_index'].'-question', $question);
         }
 
         $manager->flush();
     }
 
     /**
-     * Get the order of this fixture
+     * Get the order of this fixture.
      *
-     * @return integer
+     * @return int
      */
-    function getOrder()
+    public function getOrder()
     {
         return 2;
     }
-
 }

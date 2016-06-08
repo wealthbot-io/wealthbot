@@ -9,17 +9,15 @@
 
 namespace Wealthbot\ClientBundle\Form\Type;
 
-
 use Doctrine\ORM\EntityManager;
-use Wealthbot\ClientBundle\Entity\TransferInformation;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormFactoryInterface;
-use Symfony\Component\Form\FormInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Wealthbot\ClientBundle\Entity\TransferInformation;
 
 class AccountTransferInformationFormType extends AbstractType
 {
@@ -36,18 +34,18 @@ class AccountTransferInformationFormType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('is_firm_not_appear', 'checkbox', array('mapped' => false, 'required' => false))
-            ->add('transfer_custodian_id', 'hidden', array('property_path' => false));
+        $builder->add('is_firm_not_appear', 'checkbox', ['mapped' => false, 'required' => false])
+            ->add('transfer_custodian_id', 'hidden', []);
 
         $this->factory = $builder->getFormFactory();
 
-        $builder->addEventListener(FormEvents::PRE_SET_DATA, array($this, 'onPreSetData'));
-        $builder->addEventListener(FormEvents::PRE_BIND, array($this, 'onPreBind'));
-        $builder->addEventListener(FormEvents::BIND, array($this, 'onBind'));
+        $builder->addEventListener(FormEvents::PRE_SET_DATA, [$this, 'onPreSetData']);
+        $builder->addEventListener(FormEvents::PRE_SUBMIT, [$this, 'onPreSubmit']);
+        $builder->addEventListener(FormEvents::SUBMIT, [$this, 'onSubmit']);
     }
 
     /**
-     * On PreSetDate event handler
+     * On PreSetDate event handler.
      *
      * @param FormEvent $event
      */
@@ -56,36 +54,42 @@ class AccountTransferInformationFormType extends AbstractType
         $form = $event->getForm();
         $data = $event->getData();
 
-        if (null === $data) return;
+        if (null === $data) {
+            return;
+        }
 
         $transferCustodian = $data->getTransferCustodian();
 
         $form->add(
-            $this->factory->createNamed('transfer_custodian_id', 'hidden', null, array(
+            $this->factory->createNamed('transfer_custodian_id', 'hidden', null, [
                 'data' => $transferCustodian ? $transferCustodian->getId() : null,
-                'property_path' => false
-            ))
+                'mapped' => false,
+                'auto_initialize' => false,
+            ])
         )->add(
-            $this->factory->createNamed('is_firm_not_appear', 'checkbox', null, array(
+            $this->factory->createNamed('is_firm_not_appear', 'checkbox', null, [
                 'mapped' => false,
                 'data' => $transferCustodian ? false : true,
-                'required' => false
-            ))
+                'required' => false,
+                'auto_initialize' => false,
+            ])
         );
     }
 
     /**
-     * On PreBind event handler
+     * On PreBind event handler.
      *
      * @param FormEvent $event
      */
-    public function onPreBind(FormEvent $event)
+    public function onPreSubmit(FormEvent $event)
     {
         $form = $event->getForm();
         $data = $event->getData();
         $transferCustodian = null;
 
-        if (null === $data) return;
+        if (null === $data) {
+            return;
+        }
 
         if (isset($data['transfer_custodian_id'])) {
             $transferCustodian = $this->em->getRepository('WealthbotClientBundle:TransferCustodian')->find(
@@ -101,7 +105,7 @@ class AccountTransferInformationFormType extends AbstractType
         }
     }
 
-    public function onBind(FormEvent $event)
+    public function onSubmit(FormEvent $event)
     {
         /** @var TransferInformation $data */
         $data = $event->getData();
@@ -112,18 +116,18 @@ class AccountTransferInformationFormType extends AbstractType
             $data->setTransferCustodian(null);
             //$data->setClientAccountId(null);
             $data->setIsIncludePolicy(null);
-            $data->setQuestionnaireAnswer(array());
+            $data->setQuestionnaireAnswer([]);
         }
     }
 
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => 'Wealthbot\ClientBundle\Entity\TransferInformation'
-        ));
+        $resolver->setDefaults([
+            'data_class' => 'Wealthbot\ClientBundle\Entity\TransferInformation',
+        ]);
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'transfer_information';
     }

@@ -1,40 +1,36 @@
-#! /usr/bin/env ruby -S rspec
 require 'spec_helper'
 
-describe "the uriescape function" do
-  let(:scope) { PuppetlabsSpec::PuppetInternals.scope }
-
-  it "should exist" do
-    expect(Puppet::Parser::Functions.function("uriescape")).to eq("function_uriescape")
+describe 'uriescape' do
+  describe 'signature validation' do
+    it { is_expected.not_to eq(nil) }
+    it { is_expected.to run.with_params().and_raise_error(Puppet::ParseError, /wrong number of arguments/i) }
+    it {
+      pending("Current implementation ignores parameters after the first.")
+      is_expected.to run.with_params('', '').and_raise_error(Puppet::ParseError, /wrong number of arguments/i)
+    }
+    it { is_expected.to run.with_params(1).and_raise_error(Puppet::ParseError, /Requires either array or string to work/) }
+    it { is_expected.to run.with_params({}).and_raise_error(Puppet::ParseError, /Requires either array or string to work/) }
+    it { is_expected.to run.with_params(true).and_raise_error(Puppet::ParseError, /Requires either array or string to work/) }
   end
 
-  it "should raise a ParseError if there is less than 1 arguments" do
-    expect { scope.function_uriescape([]) }.to( raise_error(Puppet::ParseError))
-  end
-
-  it "should uriescape a string" do
-    result = scope.function_uriescape([":/?#[]@!$&'()*+,;= \"{}"])
-    expect(result).to(eq(':/?%23[]@!$&\'()*+,;=%20%22%7B%7D'))
-  end
-
-  it "should uriescape an array of strings, while not touching up nonstrings" do
-    teststring = ":/?#[]@!$&'()*+,;= \"{}"
-    expectstring = ':/?%23[]@!$&\'()*+,;=%20%22%7B%7D'
-    result = scope.function_uriescape([[teststring, teststring, 1]])
-    expect(result).to(eq([expectstring, expectstring, 1]))
-  end
-
-  it "should do nothing if a string is already safe" do
-    result = scope.function_uriescape(["ABCdef"])
-    expect(result).to(eq('ABCdef'))
-  end
-
-  it "should accept objects which extend String" do
-    class AlsoString < String
+  describe 'handling normal strings' do
+    it 'should call ruby\'s URI.escape function' do
+      URI.expects(:escape).with('uri_string').returns('escaped_uri_string').once
+      is_expected.to run.with_params('uri_string').and_return('escaped_uri_string') 
     end
+  end
 
-    value = AlsoString.new('abc')
-    result = scope.function_uriescape([value])
-    result.should(eq('abc'))
+  describe 'handling classes derived from String' do
+    it 'should call ruby\'s URI.escape function' do
+      uri_string = AlsoString.new('uri_string')
+      URI.expects(:escape).with(uri_string).returns('escaped_uri_string').once
+      is_expected.to run.with_params(uri_string).and_return("escaped_uri_string") 
+    end
+  end
+
+  describe 'strings in arrays handling' do
+    it { is_expected.to run.with_params([]).and_return([]) }
+    it { is_expected.to run.with_params(["one}", "two"]).and_return(["one%7D", "two"]) }
+    it { is_expected.to run.with_params(["one}", 1, true, {}, "two"]).and_return(["one%7D", 1, true, {}, "two"]) }
   end
 end

@@ -2,34 +2,33 @@
 
 namespace Wealthbot\UserBundle\Form\Type;
 
-
-use Wealthbot\RiaBundle\Validator\Constraint\CurrentPassword;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Wealthbot\RiaBundle\Validator\Constraint\CurrentPassword;
 
 class UpdatePasswordFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('current_password', 'password', array(
+        $builder->add('current_password', 'password', [
             'mapped' => false,
-            'constraints' => array(new CurrentPassword()),
-        ));
-        $builder->add('plainPassword', 'repeated', array(
+            'constraints' => [new CurrentPassword()],
+        ]);
+        $builder->add('plainPassword', 'repeated', [
             'type' => 'password',
-        ));
+        ]);
     }
 
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
+        $resolver->setDefaults([
             'data_class' => 'Wealthbot\UserBundle\Entity\User',
-            'intention'  => 'change_password',
-        ));
+            'intention' => 'change_password',
+        ]);
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'update_password';
     }

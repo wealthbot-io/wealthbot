@@ -2,12 +2,12 @@
 
 namespace Wealthbot\AdminBundle\Controller;
 
-
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Wealthbot\AdminBundle\Entity\CustodianMessage;
+use Wealthbot\AdminBundle\Form\Type\CustodianMessageFormType;
 use Wealthbot\UserBundle\Form\Handler\CustodianDocumentsFormHandler;
 use Wealthbot\UserBundle\Form\Type\CustodianDocumentsFormType;
-use Wealthbot\AdminBundle\Form\Type\CustodianMessageFormType;
-use Symfony\Component\HttpFoundation\Response;
 
 class CustodianController extends AclController
 {
@@ -17,7 +17,7 @@ class CustodianController extends AclController
         $documentManager = $this->get('wealthbot_user.document_manager');
 
         $custodians = $em->getRepository('WealthbotAdminBundle:Custodian')->findAll();
-        $tabs = array();
+        $tabs = [];
 
         foreach ($custodians as $custodian) {
             $custodianId = $custodian->getId();
@@ -27,16 +27,15 @@ class CustodianController extends AclController
             $tabs[$custodianId]['documents'] = $documentManager->getCustodianDocuments($custodianId);
         }
 
-        return $this->render('WealthbotAdminBundle:Custodian:index.html.twig', array(
-            'tabs' => $tabs
-        ));
+        return $this->render('WealthbotAdminBundle:Custodian:index.html.twig', [
+            'tabs' => $tabs,
+        ]);
     }
 
-    public function uploadDocumentsAction($id)
+    public function uploadDocumentsAction($id, Request $request)
     {
         $em = $this->get('doctrine.orm.entity_manager');
         $documentManager = $this->get('wealthbot_user.document_manager');
-        $request = $this->get('request');
 
         $custodian = $em->getRepository('WealthbotAdminBundle:Custodian')->find($id);
         if (!$custodian) {
@@ -44,23 +43,22 @@ class CustodianController extends AclController
         }
 
         $form = $this->createForm(new CustodianDocumentsFormType($custodian));
-        $formHandler = new CustodianDocumentsFormHandler($form, $request, $em, $this->get('wealthbot.mailer'), array('documents_owner' => $custodian));
+        $formHandler = new CustodianDocumentsFormHandler($form, $request, $em, $this->get('wealthbot.mailer'), ['documents_owner' => $custodian]);
 
         if ($request->isMethod('post')) {
             $formHandler->process();
         }
 
-        return $this->render('WealthbotAdminBundle:Custodian:_documents_form.html.twig', array(
+        return $this->render('WealthbotAdminBundle:Custodian:_documents_form.html.twig', [
             'form' => $form->createView(),
             'custodian' => $custodian,
-            'documents' => $documentManager->getCustodianDocuments($custodian->getId())
-        ));
+            'documents' => $documentManager->getCustodianDocuments($custodian->getId()),
+        ]);
     }
 
-    public function messageAction($id, $type)
+    public function messageAction($id, $type, Request $request)
     {
         $em = $this->get('doctrine.orm.entity_manager');
-        $request = $this->get('request');
 
         if (!$request->isXmlHttpRequest()) {
             throw $this->createNotFoundException();
@@ -69,14 +67,14 @@ class CustodianController extends AclController
         $custodian = $em->getRepository('WealthbotAdminBundle:Custodian')->find($id);
         if (!$custodian) {
             return $this->getJsonResponse(
-                array('status' => 'error', 'message' => sprintf('Custodian with id: %s does not exist.', $id))
+                ['status' => 'error', 'message' => sprintf('Custodian with id: %s does not exist.', $id)]
             );
         }
 
-        $message = $em->getRepository('WealthbotAdminBundle:CustodianMessage')->findOneBy(array(
+        $message = $em->getRepository('WealthbotAdminBundle:CustodianMessage')->findOneBy([
             'custodian_id' => $custodian->getId(),
-            'type' => $type
-        ));
+            'type' => $type,
+        ]);
         if (!$message) {
             $message = new CustodianMessage();
             $message->setType($type);
@@ -87,32 +85,31 @@ class CustodianController extends AclController
         $form = $this->createForm(new CustodianMessageFormType(), $message);
 
         if ($request->isMethod('post')) {
-            $form->bind($request);
+            $form->handleRequest($request);
 
             if ($form->isValid()) {
                 $message = $form->getData();
 
                 $em->persist($message);
                 $em->flush();
-
             } else {
                 $status = 'error';
             }
         }
 
-        return $this->getJsonResponse(array(
+        return $this->getJsonResponse([
             'status' => $status,
             'content' => $this->renderView(
                 'WealthbotAdminBundle:Custodian:_message_form.html.twig',
-                array('form' => $form->createView())
-            )
-        ));
+                ['form' => $form->createView()]
+            ),
+        ]);
     }
 
     private function getJsonResponse(array $data, $code = 200)
     {
         $response = json_encode($data);
 
-        return new Response($response, $code, array('Content-Type' => 'application/json'));
+        return new Response($response, $code, ['Content-Type' => 'application/json']);
     }
 }

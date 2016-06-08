@@ -6,15 +6,11 @@ use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Wealthbot\UserBundle\Entity\Document;
-use Wealthbot\UserBundle\Entity\User;
-use Symfony\Component\DependencyInjection\ContainerAwareInterface;
-use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class LoadDocumentData extends AbstractFixture implements OrderedFixtureInterface
 {
     /**
-     * Load data fixtures with the passed EntityManager
+     * Load data fixtures with the passed EntityManager.
      *
      * @param ObjectManager $manager
      */
@@ -37,21 +33,22 @@ class LoadDocumentData extends AbstractFixture implements OrderedFixtureInterfac
     public function createDocument($fileName, $path, $type, $ref)
     {
         $document = new Document();
-        copy(__DIR__ . '/../../Resources/public/pdf/' . $fileName, $path . '/' . $fileName);
+        copy(__DIR__.'/../../Resources/public/pdf/'.$fileName, $path.'/'.$fileName);
         $document->setMimeType('application/pdf');
         $document->setOriginalName($fileName);
         $document->setFilename($fileName);
         $document->setType($type);
         $this->addReference($ref, $document);
+
         return $document;
     }
 
     /**
-     * Get the order of this fixture
+     * Get the order of this fixture.
      *
-     * @return integer
+     * @return int
      */
-    function getOrder()
+    public function getOrder()
     {
         return 5;
     }

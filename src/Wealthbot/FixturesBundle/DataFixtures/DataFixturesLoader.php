@@ -3,11 +3,10 @@
  * Created by PhpStorm.
  * User: amalyuhin
  * Date: 26.02.14
- * Time: 15:19
+ * Time: 15:19.
  */
 
 namespace Wealthbot\FixturesBundle\DataFixtures;
-
 
 use Symfony\Bridge\Doctrine\DataFixtures\ContainerAwareLoader;
 
@@ -33,18 +32,18 @@ class DataFixturesLoader extends ContainerAwareLoader
             throw new \InvalidArgumentException(sprintf('"%s" file does not exist', $file));
         }
 
-        $iterator = new \ArrayIterator(array(new \SplFileInfo($file)));
+        $iterator = new \ArrayIterator([new \SplFileInfo($file)]);
 
         return $this->load($iterator);
     }
 
     private function load(\Traversable $iterator)
     {
-        $fixtures = array();
-        $includedFiles = array();
+        $fixtures = [];
+        $includedFiles = [];
 
         foreach ($iterator as $file) {
-            if (($fileName = $file->getBasename('.php')) == $file->getBasename()) {
+            if (($fileName = $file->getBasename('.php')) === $file->getBasename()) {
                 continue;
             }
             $sourceFile = realpath($file->getPathName());
@@ -57,8 +56,8 @@ class DataFixturesLoader extends ContainerAwareLoader
             $reflClass = new \ReflectionClass($className);
             $sourceFile = $reflClass->getFileName();
 
-            if (in_array($sourceFile, $includedFiles) && ! $this->isTransient($className)) {
-                $fixture = new $className;
+            if (in_array($sourceFile, $includedFiles) && !$this->isTransient($className)) {
+                $fixture = new $className();
                 $fixtures[] = $fixture;
                 $this->addFixture($fixture);
             }
@@ -66,4 +65,4 @@ class DataFixturesLoader extends ContainerAwareLoader
 
         return $fixtures;
     }
-} 
+}

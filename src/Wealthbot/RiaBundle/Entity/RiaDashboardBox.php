@@ -2,20 +2,18 @@
 
 namespace Wealthbot\RiaBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-
 /**
- * RiaDashboardBox
+ * RiaDashboardBox.
  */
 class RiaDashboardBox
 {
     /**
-     * @var integer
+     * @var int
      */
     private $id;
 
     /**
-     * @var integer
+     * @var int
      */
     private $ria_user_id;
 
@@ -25,7 +23,7 @@ class RiaDashboardBox
     private $template;
 
     /**
-     * @var integer
+     * @var int
      */
     private $sequence;
 
@@ -35,9 +33,9 @@ class RiaDashboardBox
     private $ria;
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer 
+     * @return int
      */
     public function getId()
     {
@@ -45,22 +43,23 @@ class RiaDashboardBox
     }
 
     /**
-     * Set ria_user_id
+     * Set ria_user_id.
      *
-     * @param integer $riaUserId
+     * @param int $riaUserId
+     *
      * @return RiaDashboardBox
      */
     public function setRiaUserId($riaUserId)
     {
         $this->ria_user_id = $riaUserId;
-    
+
         return $this;
     }
 
     /**
-     * Get ria_user_id
+     * Get ria_user_id.
      *
-     * @return integer 
+     * @return int
      */
     public function getRiaUserId()
     {
@@ -68,22 +67,23 @@ class RiaDashboardBox
     }
 
     /**
-     * Set template
+     * Set template.
      *
      * @param string $template
+     *
      * @return RiaDashboardBox
      */
     public function setTemplate($template)
     {
         $this->template = $template;
-    
+
         return $this;
     }
 
     /**
-     * Get template
+     * Get template.
      *
-     * @return string 
+     * @return string
      */
     public function getTemplate()
     {
@@ -91,22 +91,23 @@ class RiaDashboardBox
     }
 
     /**
-     * Set sequence
+     * Set sequence.
      *
-     * @param integer $sequence
+     * @param int $sequence
+     *
      * @return RiaDashboardBox
      */
     public function setSequence($sequence)
     {
         $this->sequence = $sequence;
-    
+
         return $this;
     }
 
     /**
-     * Get sequence
+     * Get sequence.
      *
-     * @return integer 
+     * @return int
      */
     public function getSequence()
     {
@@ -114,22 +115,23 @@ class RiaDashboardBox
     }
 
     /**
-     * Set ria
+     * Set ria.
      *
      * @param \Wealthbot\UserBundle\Entity\User $ria
+     *
      * @return RiaDashboardBox
      */
     public function setRia(\Wealthbot\UserBundle\Entity\User $ria = null)
     {
         $this->ria = $ria;
-    
+
         return $this;
     }
 
     /**
-     * Get ria
+     * Get ria.
      *
-     * @return \Wealthbot\UserBundle\Entity\User 
+     * @return \Wealthbot\UserBundle\Entity\User
      */
     public function getRia()
     {

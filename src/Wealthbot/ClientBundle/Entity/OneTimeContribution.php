@@ -2,23 +2,22 @@
 
 namespace Wealthbot\ClientBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
 use Wealthbot\ClientBundle\Model\OneTimeContribution as BaseOneTimeContribution;
 use Wealthbot\SignatureBundle\Entity\DocumentSignature;
 use Wealthbot\SignatureBundle\Model\SignableInterface;
 
 /**
- * OneTimeContribution
+ * OneTimeContribution.
  */
 class OneTimeContribution extends BaseOneTimeContribution implements SignableInterface
 {
     /**
-     * @var integer
+     * @var int
      */
     private $id;
 
     /**
-     * @var integer
+     * @var int
      */
     private $system_account_id;
 
@@ -28,7 +27,7 @@ class OneTimeContribution extends BaseOneTimeContribution implements SignableInt
     private $systemAccount;
 
     /**
-     * @var integer
+     * @var int
      */
     protected $bank_information_id;
 
@@ -57,11 +56,10 @@ class OneTimeContribution extends BaseOneTimeContribution implements SignableInt
      */
     protected $contribution_year;
 
-
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer 
+     * @return int
      */
     public function getId()
     {
@@ -69,22 +67,23 @@ class OneTimeContribution extends BaseOneTimeContribution implements SignableInt
     }
 
     /**
-     * Set system_account_id
+     * Set system_account_id.
      *
-     * @param integer $systemAccountId
+     * @param int $systemAccountId
+     *
      * @return OneTimeContribution
      */
     public function setSystemAccountId($systemAccountId)
     {
         $this->system_account_id = $systemAccountId;
-    
+
         return $this;
     }
 
     /**
-     * Get system_account_id
+     * Get system_account_id.
      *
-     * @return integer 
+     * @return int
      */
     public function getSystemAccountId()
     {
@@ -92,22 +91,23 @@ class OneTimeContribution extends BaseOneTimeContribution implements SignableInt
     }
 
     /**
-     * Set bank_information_id
+     * Set bank_information_id.
      *
-     * @param integer $bankInformationId
+     * @param int $bankInformationId
+     *
      * @return OneTimeContribution
      */
     public function setBankInformationId($bankInformationId)
     {
         parent::setBankInformationId($bankInformationId);
-    
+
         return $this;
     }
 
     /**
-     * Get bank_information_id
+     * Get bank_information_id.
      *
-     * @return integer 
+     * @return int
      */
     public function getBankInformationId()
     {
@@ -115,22 +115,23 @@ class OneTimeContribution extends BaseOneTimeContribution implements SignableInt
     }
 
     /**
-     * Set type
+     * Set type.
      *
      * @param string $type
+     *
      * @return OneTimeContribution
      */
     public function setType($type)
     {
         parent::setType($type);
-    
+
         return $this;
     }
 
     /**
-     * Get type
+     * Get type.
      *
-     * @return string 
+     * @return string
      */
     public function getType()
     {
@@ -138,22 +139,23 @@ class OneTimeContribution extends BaseOneTimeContribution implements SignableInt
     }
 
     /**
-     * Set start_transfer_date
+     * Set start_transfer_date.
      *
      * @param \DateTime $startTransferDate
+     *
      * @return OneTimeContribution
      */
     public function setStartTransferDate($startTransferDate)
     {
         parent::setStartTransferDate($startTransferDate);
-    
+
         return $this;
     }
 
     /**
-     * Get start_transfer_date
+     * Get start_transfer_date.
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getStartTransferDate()
     {
@@ -161,9 +163,10 @@ class OneTimeContribution extends BaseOneTimeContribution implements SignableInt
     }
 
     /**
-     * Set amount
+     * Set amount.
      *
      * @param float $amount
+     *
      * @return $this
      */
     public function setAmount($amount)
@@ -174,7 +177,7 @@ class OneTimeContribution extends BaseOneTimeContribution implements SignableInt
     }
 
     /**
-     * Get amount
+     * Get amount.
      *
      * @return float
      */
@@ -184,22 +187,23 @@ class OneTimeContribution extends BaseOneTimeContribution implements SignableInt
     }
 
     /**
-     * Set contribution_year
+     * Set contribution_year.
      *
      * @param string $contributionYear
+     *
      * @return OneTimeContribution
      */
     public function setContributionYear($contributionYear)
     {
         parent::setContributionYear($contributionYear);
-    
+
         return $this;
     }
 
     /**
-     * Get contribution_year
+     * Get contribution_year.
      *
-     * @return string 
+     * @return string
      */
     public function getContributionYear()
     {
@@ -207,22 +211,23 @@ class OneTimeContribution extends BaseOneTimeContribution implements SignableInt
     }
 
     /**
-     * Set systemAccount
+     * Set systemAccount.
      *
      * @param \Wealthbot\ClientBundle\Entity\SystemAccount $systemAccount
+     *
      * @return OneTimeContribution
      */
     public function setSystemAccount(\Wealthbot\ClientBundle\Entity\SystemAccount $systemAccount = null)
     {
         $this->systemAccount = $systemAccount;
-    
+
         return $this;
     }
 
     /**
-     * Get systemAccount
+     * Get systemAccount.
      *
-     * @return \Wealthbot\ClientBundle\Entity\SystemAccount 
+     * @return \Wealthbot\ClientBundle\Entity\SystemAccount
      */
     public function getSystemAccount()
     {
@@ -230,22 +235,23 @@ class OneTimeContribution extends BaseOneTimeContribution implements SignableInt
     }
 
     /**
-     * Set bankInformation
+     * Set bankInformation.
      *
      * @param \Wealthbot\ClientBundle\Entity\BankInformation $bankInformation
+     *
      * @return OneTimeContribution
      */
     public function setBankInformation(\Wealthbot\ClientBundle\Entity\BankInformation $bankInformation = null)
     {
         parent::setBankInformation($bankInformation);
-    
+
         return $this;
     }
 
     /**
-     * Get bankInformation
+     * Get bankInformation.
      *
-     * @return \Wealthbot\ClientBundle\Entity\BankInformation 
+     * @return \Wealthbot\ClientBundle\Entity\BankInformation
      */
     public function getBankInformation()
     {
@@ -253,7 +259,7 @@ class OneTimeContribution extends BaseOneTimeContribution implements SignableInt
     }
 
     /**
-     * Get client account object
+     * Get client account object.
      *
      * @return \Wealthbot\ClientBundle\Model\ClientAccount
      */
@@ -263,7 +269,7 @@ class OneTimeContribution extends BaseOneTimeContribution implements SignableInt
     }
 
     /**
-     * Get id of source object
+     * Get id of source object.
      *
      * @return mixed
      */
@@ -273,7 +279,7 @@ class OneTimeContribution extends BaseOneTimeContribution implements SignableInt
     }
 
     /**
-     * Get type of document signature
+     * Get type of document signature.
      *
      * @return string
      */
@@ -281,7 +287,6 @@ class OneTimeContribution extends BaseOneTimeContribution implements SignableInt
     {
         return DocumentSignature::TYPE_ONE_TIME_CONTRIBUTION;
     }
-
 
     /**
      * @var \DateTime
@@ -293,11 +298,11 @@ class OneTimeContribution extends BaseOneTimeContribution implements SignableInt
      */
     private $updatedAt;
 
-
     /**
-     * Set createdAt
+     * Set createdAt.
      *
      * @param \DateTime $createdAt
+     *
      * @return OneTimeContribution
      */
     public function setCreatedAt($createdAt)
@@ -308,9 +313,9 @@ class OneTimeContribution extends BaseOneTimeContribution implements SignableInt
     }
 
     /**
-     * Get createdAt
+     * Get createdAt.
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getCreatedAt()
     {
@@ -318,9 +323,10 @@ class OneTimeContribution extends BaseOneTimeContribution implements SignableInt
     }
 
     /**
-     * Set updatedAt
+     * Set updatedAt.
      *
      * @param \DateTime $updatedAt
+     *
      * @return OneTimeContribution
      */
     public function setUpdatedAt($updatedAt)
@@ -331,9 +337,9 @@ class OneTimeContribution extends BaseOneTimeContribution implements SignableInt
     }
 
     /**
-     * Get updatedAt
+     * Get updatedAt.
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getUpdatedAt()
     {

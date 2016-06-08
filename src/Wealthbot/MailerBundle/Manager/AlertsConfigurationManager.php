@@ -32,8 +32,8 @@ class AlertsConfigurationManager
         $configuration = null;
 
         if ($user->hasRole('ROLE_RIA')) {
-            $configuration =  $this->createRiaDefaultConfiguration($user);
-        } elseif ($user->hasRole('ROLE_CLIENT')){
+            $configuration = $this->createRiaDefaultConfiguration($user);
+        } elseif ($user->hasRole('ROLE_CLIENT')) {
             //TODO: next step
             $configuration = null;
         }
@@ -49,12 +49,11 @@ class AlertsConfigurationManager
     public function createRiaDefaultConfiguration(User $ria)
     {
         /** @var AlertsConfiguration $alertsConfiguration */
-        $alertsConfiguration = new $this->class;
+        $alertsConfiguration = new $this->class();
 
         $alertsConfiguration->setIsClientDrivenAccountClosures(true);
         $alertsConfiguration->setIsClientPortfolioSuggestion(true);
         $alertsConfiguration->setUser($ria);
-
 
         return $alertsConfiguration;
     }

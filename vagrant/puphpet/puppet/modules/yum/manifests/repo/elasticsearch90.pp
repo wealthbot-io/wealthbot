@@ -7,11 +7,12 @@ class yum::repo::elasticsearch90 (
 ) {
 
   yum::managed_yumrepo { 'elasticsearch-0.90':
-    descr          => 'Elasticsearch repository for 0.90.x packages',
-    baseurl        => $baseurl,
-    enabled        => 1,
-    gpgcheck       => 1,
-    gpgkey         => 'http://packages.elasticsearch.org/GPG-KEY-elasticsearch',
+    descr         => 'Elasticsearch repository for 0.90.x packages',
+    baseurl       => $baseurl,
+    enabled       => 1,
+    gpgcheck      => 1,
+    gpgkey        => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-elasticsearch',
+    gpgkey_source => 'puppet:///modules/yum/rpm-gpg/RPM-GPG-KEY-elasticsearch',
   }
 
 }

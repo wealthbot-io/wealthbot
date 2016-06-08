@@ -1,3 +1,95 @@
+## 2015-09-01 - Supported Release 4.6.0
+### Summary
+This release adds a proxy feature for yum, Postgis improvements, and decoupling pg_hba_rule from postgresql::server.
+
+#### Features
+- Support setting a proxy for yum operations
+- Allow for undefined PostGIS version
+- Decouple pg_hba_rule from postgresql::server
+
+#### Bugfixes
+- Fix postgis default package name on RedHat
+
+## 2015-07-27 - Supported Release 4.5.0
+### Summary
+This release adds sequence grants, some postgresql 9.4 fixes, and `onlyif` to
+the psql resource.
+
+### Features
+- Add `onlyif` parameter to `postgresql_psql`
+- Add unsupported compatibility with Ubuntu 15.04
+- Add unsupported compatibility with SLES 11/12 and OpenSuSE 13.2
+- Add `postgresql::server::grant::onlyif_exists` attribute
+- Add `postgresql::server::table_grant::onlyif_exists` attribute
+- Add granting permissions on sequences
+
+### Bugfixes
+- Added docs for `postgresql::server::grant`
+- Fix `pg_hba_conf_defaults => false` to not disable ipv4/ipv6 acls
+- Fix 9.4 for `postgresql::server::pg_hba_rule`
+
+## 2015-07-07 - Supported Release 4.4.2
+### Summary
+This release fixes a bug introduced in 4.4.0.
+
+#### Bugfixes
+- Fixes `withenv` execution under Puppet 2.7. (MODULES-2185)
+
+## 2015-07-01 - Supported Release 4.4.1
+### Summary
+This release fixes RHEL 7 & Fedora with manage_package_repo switched on.
+
+#### Bugfixes
+- Ensure manage_package_repo variable is in scope for systemd-override file for RHEL7
+
+## 2015-06-30 - Supported Release 4.4.0
+### Summary
+This release has several new features, bugfixes, and test improvements.
+
+#### Features
+- Adds a resource to manage recovery.conf.
+- Adds a parameter that allows the specification of a validate connection script in `postgresql::client`.
+- Adds support for plpython package management.
+- Adds support for postgresql-docs management.
+- Adds ability to make `postgresql::server::schema` titles unique. (MODULES-2049)
+- Updates puppetlabs-apt module dependency to support version 2.1.0.
+
+#### Bugfixes
+- Fix `postgresql_psql` parameter ordering to work on OpenBSD with Future Parser
+- Fix setting postgres role password (MODULES-1869)
+- Fix execution command with puppet <3.4 (MODULES-1923)
+- Fix Puppet.newtype deprecation warning (MODULES-2007)
+- Fix systemd override for manage_repo package versions
+- Fix Copy snakeoil certificate and key instead of symlinking
+
+#### Test Improvements
+- Allows setting BEAKER and BEAKER_RSPEC versions via environment variables.
+- Enables Unit testing on Travis CI with Puppet 4.
+- Cleans up spec_helper_acceptance.rb to use new puppet_install_helper gem.
+
+## 2015-03-24 - Supported Release 4.3.0
+### Summary
+This release fixes compatibility with Puppet 4 and removes opportunities for local users to view the postgresql password. It also adds a new custom resource to aid in managing replication.
+
+#### Features
+- Add `postgresql::server::logdir` parameter to manage the logdir
+- Add `environment` parameter to `postgresql_psql`
+- Add `postgresql_replication_slot` custom resource
+
+#### Bugfixes
+- Fix for Puppet 4
+- Don't print postgresql\_psql password in command
+- Allow `postgresql::validate_db_connection` for more than one host+port+database combo
+- Fix service command on Debian 8 and up
+- Fix `postgresql::server::extension` to work with custom user/group/port
+- Fix `postgresql::server::initdb` to work with custom user/group/port
+- Fix changing template1 encoding
+- Fix default `postgresql::server::grant::object_name` value
+- Fix idempotency of granting all tables in schema with `puppet::server::grant`
+- Fix lint warnings
+- Fix apt key to use 40 character key and bump puppetlabs-apt to >= 1.8.0 < 2.0.0
+
+
 ##2015-03-10 - Supported Release 4.2.0
 ###Summary
 

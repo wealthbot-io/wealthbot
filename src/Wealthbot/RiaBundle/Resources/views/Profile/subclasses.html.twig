@@ -17,7 +17,7 @@
                 {% for item in form.items %}
                     <tr>
                         <td>
-                            {{ form.get('value').items[loop.index-1].subclass.name }}
+                            {{ form.vars.value.items[loop.index-1].subclass.name }}
                         </td>
                         <td>
                             {{ form_errors(item.expected_performance) }}

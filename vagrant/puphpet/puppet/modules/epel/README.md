@@ -39,11 +39,11 @@ going. I am also the owner of the epel-release package, so in general this
 module should stay fairly up to date with the official upstream package.
 
 I just got sick of coding Puppet modules and basically having an assumption
-that EPEL was setup or installed.  I can now depend on this module instead.
+that EPEL was setup or installed. I can now depend on this module instead.
 
 I realize it is fairly trivial to get EPEL setup. Every now-and-then however
 the path to epel-release changes because something changes in the package (mass
-rebuild, rpm build macros updates, etc).  This  module will bypass the changing
+rebuild, rpm build macros updates, etc). This module will bypass the changing
 URL and just setup the package mirrors.
 
 This does mean that if you are looking for RPM macros that are normally
@@ -56,6 +56,28 @@ included with EPEL release, this will not have them.
 
 # ChangeLog
 
+=======
+
+
+ 1.2.2
+ * Add dep on stdlib for getvar function call
+
+ 1.2.1
+ * Minor fix that lets facter 1.6 still work
+ * Enforce strict variables
+
+  1.2.0
+  * Rework testing to use TravisCI
+  * If you specify a baseurl, disable mirrorlist
+
+  1.1.1
+  * Ensure that GPG keys are using short IDs (issue #33)
+
+  1.1.0
+  * Default URLs to be https
+  * Add ability to include/exclude packages
+
+  1.0.2
   * Update README with usage section.
   * Fix regression when os_maj_version fact was required
   * Ready for 1.0 - replace Modulefile with metadata.json
@@ -67,6 +89,8 @@ included with EPEL release, this will not have them.
   * This is commonly used on Puppet Enterprise 3.x
   * This was tested using Puppet 3.3.0 on Centos5/6
   * This was tested using Puppet 3.1.1 on Amazon's AWS Linux
+  * This was tested using Puppet 3.8 and Puppet 4 now as well!
+  * Note Ruby 2.2 and Puppet 3.8 are not yet friends.
   * I assume it will work on any RHEL variant (Amazon Linux is debatable as a variant)
   * Amazon Linux compatability not promised, as EPEL doesn't always work with it.
 
@@ -74,16 +98,17 @@ included with EPEL release, this will not have them.
 
   * No functionality has been introduced that should break Puppet 2.6 or 2.7, but I am no longer testing these versions of Puppet as they are end-of-lifed from Puppet Labs.
   * This also assumes a facter of greater than 1.7.0 -- at least from a testing perspective.
+  * I'm not actively fixing bugs for anything in facter < 2 or puppet < 3.8
 
 ## Unit tests
 
 Install the necessary gems
 
-    bundle install
+    bundle install --path vendor --without system_tests
 
 Run the RSpec and puppet-lint tests
 
-    bundle exec rake ci
+    bundle exec rake test
 
 ## System tests
 
@@ -101,13 +126,20 @@ Apache Software License 2.0
   *  Chad Metcalf <metcalfc@gmail.com>
   *  Ewoud Kohl van Wijngaarden <e.kohlvanwijngaarden@oxilion.nl>
   *  Joseph Swick <joseph.swick@meltwater.com>
+  *  Mickaël Canévet <mickael.canevet@camptocamp.com>
   *  Matthaus Owens <mlitteken@gmail.com>
   *  Michael Stahnke <stahnma@puppetlabs.com>
   *  Michael Stahnke <stahnma@websages.com>
+  *  Nick Le Mouton <nick@noodles.net.nz>
   *  Pro Cabales <proletaryo@gmail.com>
   *  Proletaryo Cabales <proletaryo@gmail.com>
+  *  Rob Nelson <rnelson0@gmail.com>
+  *  Robert Story <rstory@localhost>
   *  Stefan Goethals <stefan@zipkid.eu>
   *  Tim Rupp <caphrim007@gmail.com>
   *  Trey Dockendorf <treydock@gmail.com>
   *  Troy Bollinger <troy@us.ibm.com>
   *  Vlastimil Holer <holer@ics.muni.cz>
+
+# Alternatives
+If you're on CentOS 7, you can just `yum install epel-release` as it's in centos-extras.

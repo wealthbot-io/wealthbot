@@ -9,12 +9,12 @@
 
 namespace Wealthbot\RiaBundle\Form\Type;
 
-use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use FOS\UserBundle\Form\Type\ProfileFormType as BaseProfile;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class CreateUserProfileFormType extends BaseProfile {
-
+class CreateUserProfileFormType extends BaseProfile
+{
     private $ria;
 
     public function __construct($ria)
@@ -25,17 +25,17 @@ class CreateUserProfileFormType extends BaseProfile {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('first_name', null, array(
-                'label' => 'First name:'
-            ))
-            ->add('last_name', null, array(
-                'label' => 'Last name:'
-            ))
+            ->add('first_name', null, [
+                'label' => 'First name:',
+            ])
+            ->add('last_name', null, [
+                'label' => 'Last name:',
+            ])
         ;
 
         $ria = $this->ria;
 
-        $builder->addEventListener(\Symfony\Component\Form\FormEvents::BIND, function(\Symfony\Component\Form\FormEvent $event) use ($ria) {
+        $builder->addEventListener(\Symfony\Component\Form\FormEvents::SUBMIT, function (\Symfony\Component\Form\FormEvent $event) use ($ria) {
 
             /** @var $profile \Wealthbot\UserBundle\Entity\Profile */
             $profile = $event->getData();
@@ -44,14 +44,14 @@ class CreateUserProfileFormType extends BaseProfile {
         });
     }
 
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => 'Wealthbot\UserBundle\Entity\Profile'
-        ));
+        $resolver->setDefaults([
+            'data_class' => 'Wealthbot\UserBundle\Entity\Profile',
+        ]);
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'wealthbot_riabundle_createuserprofiletype';
     }

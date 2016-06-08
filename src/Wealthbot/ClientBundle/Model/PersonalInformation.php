@@ -14,7 +14,7 @@ class PersonalInformation
     /**
      * @var string
      */
-    protected  $income_source;
+    protected $income_source;
 
     // ENUM values income_source column
     const INCOME_SOURCE_ALIMONY = 'Alimony';
@@ -35,22 +35,23 @@ class PersonalInformation
     const INCOME_SOURCE_TRADING_AND_INVESTMENTS = 'Trading & Investments';
     const INCOME_SOURCE_UNEMPLOYMENT_BENEFITS = 'Unemployment Benefits';
 
-    static private $_incomeSourceValues = null;
+    private static $_incomeSourceValues = null;
 
     /**
-     * Get array ENUM values income_source column
+     * Get array ENUM values income_source column.
      *
      * @static
+     *
      * @return array
      */
-    static public function getIncomeSourceChoices()
+    public static function getIncomeSourceChoices()
     {
         // Build $_incomeSourceValues if this is the first call
         if (self::$_incomeSourceValues === null) {
-            self::$_incomeSourceValues = array();
+            self::$_incomeSourceValues = [];
             $oClass = new \ReflectionClass('\Wealthbot\ClientBundle\Model\PersonalInformation');
             $classConstants = $oClass->getConstants();
-            $constantPrefix = "INCOME_SOURCE_";
+            $constantPrefix = 'INCOME_SOURCE_';
             foreach ($classConstants as $key => $val) {
                 if (substr($key, 0, strlen($constantPrefix)) === $constantPrefix) {
                     self::$_incomeSourceValues[$val] = $val;
@@ -62,10 +63,12 @@ class PersonalInformation
     }
 
     /**
-     * Set income_source
+     * Set income_source.
      *
      * @param string $incomeSource
+     *
      * @return PersonalInformation
+     *
      * @throws \InvalidArgumentException
      */
     public function setIncomeSource($incomeSource)
@@ -82,7 +85,7 @@ class PersonalInformation
     }
 
     /**
-     * Get income_source
+     * Get income_source.
      *
      * @return string
      */
@@ -92,9 +95,10 @@ class PersonalInformation
     }
 
     /**
-     * Set broker_security_exchange_compliance_letter
+     * Set broker_security_exchange_compliance_letter.
      *
      * @param string $brokerSecurityExchangeComplianceLetter
+     *
      * @return PersonalInformation
      */
     public function setBrokerSecurityExchangeComplianceLetter($brokerSecurityExchangeComplianceLetter)
@@ -105,7 +109,7 @@ class PersonalInformation
     }
 
     /**
-     * Get broker_security_exchange_compliance_letter
+     * Get broker_security_exchange_compliance_letter.
      *
      * @return string
      */
@@ -120,5 +124,4 @@ class PersonalInformation
 
         return $this;
     }
-
 }

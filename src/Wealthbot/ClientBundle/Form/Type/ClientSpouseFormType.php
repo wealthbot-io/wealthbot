@@ -9,13 +9,12 @@
 
 namespace Wealthbot\ClientBundle\Form\Type;
 
-
-use Wealthbot\ClientBundle\Model\ClientAdditionalContact;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Wealthbot\ClientBundle\Model\ClientAdditionalContact;
 
 class ClientSpouseFormType extends AbstractType
 {
@@ -26,33 +25,33 @@ class ClientSpouseFormType extends AbstractType
         $this->isPreSave = $isPreSave;
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options = array())
+    public function buildForm(FormBuilderInterface $builder, array $options = [])
     {
-        $builder->add('first_name', 'text', array('required' => false))
-            ->add('middle_name', 'text', array('required' => false))
-            ->add('last_name', 'text', array('required' => false))
-            ->add('birth_date', 'date', array(
+        $builder->add('first_name', 'text', ['required' => false])
+            ->add('middle_name', 'text', ['required' => false])
+            ->add('last_name', 'text', ['required' => false])
+            ->add('birth_date', 'date', [
                 'widget' => 'single_text',
                 'format' => 'MM-dd-yyyy',
                 'required' => false,
-                'attr' => array('class' => 'jq-date input-small')
-            ))
+                'attr' => ['class' => 'jq-date input-small'],
+            ])
         ;
 
-        $builder->addEventListener(FormEvents::BIND, function (FormEvent $event) {
+        $builder->addEventListener(FormEvents::SUBMIT, function (FormEvent $event) {
             $data = $event->getData();
             $data->setType(ClientAdditionalContact::TYPE_SPOUSE);
         });
     }
 
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => 'Wealthbot\ClientBundle\Entity\ClientAdditionalContact'
-        ));
+        $resolver->setDefaults([
+            'data_class' => 'Wealthbot\ClientBundle\Entity\ClientAdditionalContact',
+        ]);
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'spouse';
     }

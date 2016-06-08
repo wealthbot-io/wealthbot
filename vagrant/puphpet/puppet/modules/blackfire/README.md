@@ -1,6 +1,8 @@
 Puppet module for installing, configuring and managing [Blackfire PHP profiler](https://blackfire.io/).
 
 [![Build Status](https://travis-ci.org/s12v/puppet-blackfire.svg?branch=master)](https://travis-ci.org/s12v/puppet-blackfire)
+[![Puppet Forge](https://img.shields.io/puppetforge/dt/s12v/blackfire.svg)](https://forge.puppetlabs.com/s12v/blackfire)
+
 
 # blackfire
 
@@ -10,7 +12,7 @@ This module is currently tested on:
 
  - Ubuntu (14.04, 12.04, 10.04)
  - Centos (7.0, 6.6)
- - Debian (7.8, 6.0)
+ - Debian (8.0, 7.8, 6.0)
 
 It may work on other distros.
 
@@ -104,10 +106,10 @@ class { 'blackfire':
 
  - `bundle exec rake validate` - Check syntax of Ruby files and call :syntax and :metadata / Validate manifests, templates, and ruby files 
  - `bundle exec rake lint` - Check puppet manifests with puppet-lint / Run puppet-lint
- - `bundle exec rake spec` - Run spec tests in a clean fixtures directory
+ - `bundle exec rake spec` - Run spec tests in a clean fixtures directory (using [spec_helper](https://github.com/puppetlabs/puppetlabs_spec_helper))
 
 ### Acceptance testing with beaker
 
- - `bundle exec rake beaker_nodes` - List available beaker nodesets
+ - `bundle exec rake beaker_nodes` - List available [beaker](https://github.com/puppetlabs/beaker) nodesets
  - `BLACKFIRE_SERVER_ID=... BLACKFIRE_SERVER_TOKEN=... bundle exec rake beaker` - Run beaker acceptance tests (default nodeset)
  - `BEAKER_set=centos-70-x64 BLACKFIRE_SERVER_ID=... BLACKFIRE_SERVER_TOKEN=... bundle exec rake beaker` - Run beaker acceptance tests for the nodeset

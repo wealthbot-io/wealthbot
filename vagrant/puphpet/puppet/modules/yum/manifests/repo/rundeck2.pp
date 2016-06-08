@@ -1,3 +1,4 @@
+#
 class yum::repo::rundeck2 (
   $baseurl = 'http://dl.bintray.com/rundeck/rundeck-rpm'
 ){

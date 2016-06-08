@@ -1,6 +1,6 @@
 <?php
-namespace Wealthbot\UserBundle\Twig;
 
+namespace Wealthbot\UserBundle\Twig;
 
 use Wealthbot\RiaBundle\Entity\RiaCompanyInformation;
 use Wealthbot\UserBundle\Manager\SubdomainManager;
@@ -16,15 +16,15 @@ class SubdomainRoutingExtension extends \Twig_Extension
 
     public function getFunctions()
     {
-        return array(
-            new \Twig_SimpleFunction('subdomain_url', array($this, 'subDomainUrl')),
-            new \Twig_SimpleFunction('has_subdomain', array($this, 'hasSubDomain')),
-            new \Twig_SimpleFunction('get_subdomain', array($this, 'getSubDomain')),
-            new \Twig_SimpleFunction('get_domain', array($this, 'getDomain'))
-        );
+        return [
+            new \Twig_SimpleFunction('subdomain_url', [$this, 'subDomainUrl']),
+            new \Twig_SimpleFunction('has_subdomain', [$this, 'hasSubDomain']),
+            new \Twig_SimpleFunction('get_subdomain', [$this, 'getSubDomain']),
+            new \Twig_SimpleFunction('get_domain', [$this, 'getDomain']),
+        ];
     }
 
-    public function subDomainUrl(RiaCompanyInformation $companyInformation, $name, $parameters = array())
+    public function subDomainUrl(RiaCompanyInformation $companyInformation, $name, $parameters = [])
     {
         return $this->manager->generateSubDomainUrl($companyInformation, $name, $parameters);
     }
@@ -48,5 +48,4 @@ class SubdomainRoutingExtension extends \Twig_Extension
     {
         return 'subdomain_routing_extension';
     }
-
 }

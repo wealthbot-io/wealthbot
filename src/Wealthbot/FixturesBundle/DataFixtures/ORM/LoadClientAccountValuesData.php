@@ -3,11 +3,10 @@
  * Created by PhpStorm.
  * User: amalyuhin
  * Date: 25.10.13
- * Time: 13:58
+ * Time: 13:58.
  */
 
 namespace Wealthbot\FixturesBundle\DataFixtures\ORM;
-
 
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -26,10 +25,10 @@ class LoadClientAccountValuesData extends AbstractCsvFixture implements OrderedF
 
         $accountValueData = $this->getCsvData('client_account_values.csv');
 
-        foreach($accountValueData as $i => $accountRow) {
+        foreach ($accountValueData as $i => $accountRow) {
 
             //skip first line with column titles
-            if($i == 0){
+            if ($i === 0) {
                 continue;
             }
 
@@ -52,7 +51,6 @@ class LoadClientAccountValuesData extends AbstractCsvFixture implements OrderedF
             $accountValue->setBillingCash(3750);
 
             $manager->persist($accountValue);
-
         }
 
         $manager->flush();
@@ -74,13 +72,15 @@ class LoadClientAccountValuesData extends AbstractCsvFixture implements OrderedF
 
             if ($clientPortfolio && $clientSystemAccount) {
                 $exist = $manager->getRepository('WealthbotClientBundle:ClientAccountValue')->findOneBy(
-                    array(
+                    [
                         'client_portfolio_id' => $clientPortfolio->getId(),
-                        'system_client_account_id' => $clientSystemAccount->getId()
-                    )
+                        'system_client_account_id' => $clientSystemAccount->getId(),
+                    ]
                 );
 
-                if ($exist) continue;
+                if ($exist) {
+                    continue;
+                }
 
                 $securitiesTotal = mt_rand(0, 1000000);
                 $moneyMarket = mt_rand(0, 1000000);

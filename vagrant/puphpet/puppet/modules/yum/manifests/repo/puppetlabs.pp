@@ -6,10 +6,13 @@ class yum::repo::puppetlabs (
   $baseurl_products     = '',
   $baseurl_dependencies = '',
 ) {
-  $osver = split($::operatingsystemrelease, '[.]')
+  $osver = $::operatingsystem ? {
+    'XenServer' => [ '5' ],
+    default     => split($::operatingsystemrelease, '[.]')
+  }
   $release = $::operatingsystem ? {
-    /(?i:Centos|RedHat|Scientific|CloudLinux)/ => $osver[0],
-    default                         => '6',
+    /(?i:Centos|RedHat|Scientific|CloudLinux|XenServer)/ => $osver[0],
+    default                                              => '6',
   }
 
   $real_baseurl_products = $baseurl_products ? {

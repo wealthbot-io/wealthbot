@@ -9,12 +9,11 @@
 
 namespace Wealthbot\SignatureBundle\Adapter;
 
-
 use Wealthbot\ClientBundle\Model\AccountOwnerInterface;
 use Wealthbot\SignatureBundle\Exception\InvalidRecipientTypeException;
-use Wealthbot\SignatureBundle\Model\Tab\AbstractTab;
 use Wealthbot\SignatureBundle\Model\Recipient;
 use Wealthbot\SignatureBundle\Model\RecipientInterface;
+use Wealthbot\SignatureBundle\Model\Tab\AbstractTab;
 use Wealthbot\SignatureBundle\Model\TabCollection;
 
 class AccountOwnerRecipientAdapter implements RecipientInterface
@@ -25,7 +24,7 @@ class AccountOwnerRecipientAdapter implements RecipientInterface
     private $owner;
 
     /**
-     * @var boolean
+     * @var bool
      */
     private $isPrimary;
 
@@ -39,7 +38,6 @@ class AccountOwnerRecipientAdapter implements RecipientInterface
      */
     private $tabs;
 
-
     public function __construct(AccountOwnerInterface $owner, $isPrimary = true)
     {
         $this->owner = $owner;
@@ -49,7 +47,7 @@ class AccountOwnerRecipientAdapter implements RecipientInterface
     }
 
     /**
-     * Get recipient email
+     * Get recipient email.
      *
      * @return string
      */
@@ -59,7 +57,7 @@ class AccountOwnerRecipientAdapter implements RecipientInterface
     }
 
     /**
-     * Get recipient name
+     * Get recipient name.
      *
      * @return string
      */
@@ -69,7 +67,7 @@ class AccountOwnerRecipientAdapter implements RecipientInterface
     }
 
     /**
-     * Get recipient role name
+     * Get recipient role name.
      *
      * @return string
      */
@@ -79,7 +77,7 @@ class AccountOwnerRecipientAdapter implements RecipientInterface
     }
 
     /**
-     * Get recipient client user id
+     * Get recipient client user id.
      *
      * @return int
      */
@@ -93,10 +91,12 @@ class AccountOwnerRecipientAdapter implements RecipientInterface
     }
 
     /**
-     * Set recipient type
+     * Set recipient type.
      *
      * @param string $type
+     *
      * @return mixed|void
+     *
      * @throws \Wealthbot\SignatureBundle\Exception\InvalidRecipientTypeException
      */
     public function setType($type)
@@ -109,7 +109,7 @@ class AccountOwnerRecipientAdapter implements RecipientInterface
     }
 
     /**
-     * Get recipient type
+     * Get recipient type.
      *
      * @return string
      */
@@ -119,7 +119,7 @@ class AccountOwnerRecipientAdapter implements RecipientInterface
     }
 
     /**
-     * Set tab collection
+     * Set tab collection.
      *
      * @param \Wealthbot\SignatureBundle\Model\TabCollection $tabs
      */
@@ -129,10 +129,9 @@ class AccountOwnerRecipientAdapter implements RecipientInterface
     }
 
     /**
-     * Add tab element
+     * Add tab element.
      *
      * @param AbstractTab $tab
-     * @return void
      */
     public function addTab(AbstractTab $tab)
     {
@@ -140,9 +139,10 @@ class AccountOwnerRecipientAdapter implements RecipientInterface
     }
 
     /**
-     * Remove tab element
+     * Remove tab element.
      *
      * @param AbstractTab $tab
+     *
      * @return bool
      */
     public function removeTab(AbstractTab $tab)
@@ -151,7 +151,7 @@ class AccountOwnerRecipientAdapter implements RecipientInterface
     }
 
     /**
-     * Get tab collection
+     * Get tab collection.
      *
      * @return \Wealthbot\SignatureBundle\Model\TabCollection
      */
@@ -161,47 +161,46 @@ class AccountOwnerRecipientAdapter implements RecipientInterface
     }
 
     /**
-     * Set recipient email
+     * Set recipient email.
      *
      * @param string $email
+     *
      * @return mixed
      */
     public function setEmail($email)
     {
-
     }
 
     /**
-     * Set recipient name
+     * Set recipient name.
      *
      * @param string $name
+     *
      * @return mixed
      */
     public function setName($name)
     {
-
     }
 
     /**
-     * Set recipient role name
+     * Set recipient role name.
      *
      * @param string $roleName
+     *
      * @return mixed
      */
     public function setRoleName($roleName)
     {
-
     }
 
     /**
-     * Set recipient client user id
+     * Set recipient client user id.
      *
      * @param int $clientUserId
+     *
      * @return mixed
      */
     public function setClientUserId($clientUserId)
     {
-
     }
-
 }

@@ -9,7 +9,6 @@
 
 namespace Wealthbot\SignatureBundle\Model\Tab;
 
-
 class AbstractCheckableTab extends AbstractTab
 {
     /**
@@ -23,9 +22,10 @@ class AbstractCheckableTab extends AbstractTab
     }
 
     /**
-     * Set selected
+     * Set selected.
      *
      * @param bool $selected
+     *
      * @return $this
      */
     public function setSelected($selected)
@@ -36,7 +36,7 @@ class AbstractCheckableTab extends AbstractTab
     }
 
     /**
-     * Get selected
+     * Get selected.
      *
      * @return bool
      */

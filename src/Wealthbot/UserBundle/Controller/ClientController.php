@@ -2,16 +2,16 @@
 
 namespace Wealthbot\UserBundle\Controller;
 
+use FOS\UserBundle\Model\UserInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Security\Core\Exception\AccountStatusException;
 use Wealthbot\ClientBundle\Entity\ClientSettings;
 use Wealthbot\UserBundle\Entity\Document;
 use Wealthbot\UserBundle\Entity\Group;
 use Wealthbot\UserBundle\Entity\Profile;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use FOS\UserBundle\Model\UserInterface;
 use Wealthbot\UserBundle\Entity\User;
-use Symfony\Component\Security\Core\Exception\AccountStatusException;
 
 class ClientController extends Controller
 {
@@ -44,10 +44,10 @@ class ClientController extends Controller
         }
 
         if ($request->get('group')) {
-            $group = $em->getRepository('WealthbotUserBundle:Group')->findOneBy(array(
+            $group = $em->getRepository('WealthbotUserBundle:Group')->findOneBy([
                 'owner' => $ria,
-                'name' => $request->get('group')
-            ));
+                'name' => $request->get('group'),
+            ]);
         }
 
         $form = $this->container->get('wealthbot_user.registration.client.form');
@@ -63,7 +63,7 @@ class ClientController extends Controller
             $profile->setClientStatus(Profile::CLIENT_STATUS_PROSPECT);
 
             if (null === $group) {
-                $group = $em->getRepository('WealthbotUserBundle:Group')->findOneBy(array('name' => Group::GROUP_NAME_ALL));
+                $group = $em->getRepository('WealthbotUserBundle:Group')->findOneBy(['name' => Group::GROUP_NAME_ALL]);
             }
 
             $user->addGroup($group);
@@ -72,7 +72,7 @@ class ClientController extends Controller
             $user->setClientSettings($clientSettings);
             $clientSettings->setClient($user);
 
-            $billingSpec = $em->getRepository('WealthbotAdminBundle:BillingSpec')->findOneBy(array('master' => true, 'owner'=>$ria));
+            $billingSpec = $em->getRepository('WealthbotAdminBundle:BillingSpec')->findOneBy(['master' => true, 'owner' => $ria]);
             $user->setAppointedBillingSpec($billingSpec);
 
             $this->get('wealthbot.manager.user')->updateUser($user);
@@ -93,27 +93,26 @@ class ClientController extends Controller
         $adminId = $this->get('wealthbot.manager.user')->getAdmin()->getId();
         $documentManager = $this->get('wealthbot_user.document_manager');
 
-        $documents = array(
+        $documents = [
             'admin_privacy_policy' => $documentManager->getUserDocumentLinkByType($adminId, Document::TYPE_PRIVACY_POLICY),
             'admin_user_agreements' => $documentManager->getUserDocumentLinkByType($adminId, Document::TYPE_USER_AGREEMENT),
-            'ria_adv' => $documentManager->getUserDocumentLinkByType($ria->getId(), Document::TYPE_ADV)
-        );
+            'ria_adv' => $documentManager->getUserDocumentLinkByType($ria->getId(), Document::TYPE_ADV),
+        ];
 
-        return $this->render('WealthbotUserBundle:Client:registration.html.twig', array(
+        return $this->render('WealthbotUserBundle:Client:registration.html.twig', [
             'form' => $form->createView(),
             'ria' => $ria,
             'documents' => $documents,
-            'group' => $group ? $group->getName() : null
-        ));
+            'group' => $group ? $group->getName() : null,
+        ]);
     }
-
 
     public function finishRegistrationAction(Request $request)
     {
         $user = $this->getUser();
 
         if (!$user || !$user->hasRole('ROLE_CLIENT')) {
-           throw $this->createNotFoundException('Client does not exist.');
+            throw $this->createNotFoundException('Client does not exist.');
         }
 
         if ($request->isMethod('post')) {
@@ -128,7 +127,7 @@ class ClientController extends Controller
 
         $portfolio = \Wealthbot\RiaBundle\RiskManagement\BaselinePortfolio::$models[$user->getProfile()->getSuggestedPortfolio()];
 
-        return $this->render('WealthbotUserBundle:Client:portfolios.html.twig', array('portfolio' => $portfolio));
+        return $this->render('WealthbotUserBundle:Client:portfolios.html.twig', ['portfolio' => $portfolio]);
     }
 
     protected function redirectIfUserExist($user)
@@ -153,7 +152,7 @@ class ClientController extends Controller
     }
 
     /**
-     * Authenticate a user with Symfony Security
+     * Authenticate a user with Symfony Security.
      *
      * @param \FOS\UserBundle\Model\UserInterface        $user
      * @param \Symfony\Component\HttpFoundation\Response $response
@@ -173,6 +172,6 @@ class ClientController extends Controller
 
     protected function setFlash($action, $value)
     {
-        $this->container->get('session')->setFlash($action, $value);
+        $this->container->get('session')->getFlashBag()->add($action, $value);
     }
 }

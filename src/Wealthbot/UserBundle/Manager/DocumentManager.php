@@ -3,9 +3,9 @@
 namespace Wealthbot\UserBundle\Manager;
 
 use Doctrine\Common\Persistence\ObjectManager;
+use Symfony\Bundle\FrameworkBundle\Routing\Router;
 use Wealthbot\AdminBundle\Entity\Custodian;
 use Wealthbot\UserBundle\Entity\Document;
-use Symfony\Bundle\FrameworkBundle\Routing\Router;
 
 class DocumentManager
 {
@@ -26,9 +26,10 @@ class DocumentManager
     }
 
     /**
-     * Find one document by criteria
+     * Find one document by criteria.
      *
      * @param array $criteria
+     *
      * @return object
      */
     public function findDocumentBy(array $criteria)
@@ -36,12 +37,12 @@ class DocumentManager
         return $this->repository->findOneBy($criteria);
     }
 
-
     /**
-     * Find user document
+     * Find user document.
      *
      * @param $documentId
      * @param $userId
+     *
      * @return bool
      */
     public function isUserDocument($documentId, $userId)
@@ -54,40 +55,44 @@ class DocumentManager
     }
 
     /**
-     * Get user documents
+     * Get user documents.
      *
      * @param int $userId
+     *
      * @return array
      */
     public function getUserDocuments($userId)
     {
         $documents = $this->repository->findByUserId($userId);
+
         return $this->getAssocDocumentsArray($documents);
     }
 
     public function getUserDocumentSorted($userId, $sort, $direction)
     {
         return $this->repository->getUserDocumentSorted($userId, $sort, $direction);
-
     }
 
     /**
-     * Get custodian documents
+     * Get custodian documents.
      *
      * @param int $custodianId
+     *
      * @return array
      */
     public function getCustodianDocuments($custodianId)
     {
         $documents = $this->repository->findByCustodianId($custodianId);
+
         return $this->getAssocDocumentsArray($documents);
     }
 
     /**
-     * Get user documents by user_id and type
+     * Get user documents by user_id and type.
      *
-     * @param int $userId
+     * @param int    $userId
      * @param string $type
+     *
      * @return mixed
      */
     public function getUserDocumentByType($userId, $type)
@@ -96,10 +101,11 @@ class DocumentManager
     }
 
     /**
-     * Get custodian documents by custodian_id and type
+     * Get custodian documents by custodian_id and type.
      *
-     * @param int $custodianId
+     * @param int    $custodianId
      * @param string $type
+     *
      * @return mixed
      */
     public function getCustodianDocumentByType($custodianId, $type)
@@ -109,11 +115,12 @@ class DocumentManager
 
     /**
      * TODO: is it need?
-     * Get user document link
+     * Get user document link.
      *
-     * @param int $userId
-     * @param string $type
+     * @param int         $userId
+     * @param string      $type
      * @param null|string $originalName
+     *
      * @return string
      */
     public function getUserDocumentLinkByType($userId, $type, $originalName = null)
@@ -128,11 +135,12 @@ class DocumentManager
 
     /**
      * TODO: is it need?
-     * Get custodian document link
+     * Get custodian document link.
      *
-     * @param int $custodianId
-     * @param string $type
+     * @param int         $custodianId
+     * @param string      $type
      * @param null|string $originalName
+     *
      * @return string
      */
     public function getCustodianDocumentLinkByType($custodianId, $type, $originalName = null)
@@ -147,9 +155,10 @@ class DocumentManager
 
     /**
      * Returns array of custodian disclosure files links.
-     * example: array('document_type' => array('title' => 'Disclosure', 'link' => 'CustodianDisclosure.pdf'))
+     * example: array('document_type' => array('title' => 'Disclosure', 'link' => 'CustodianDisclosure.pdf')).
      *
      * @param Custodian $custodian
+     *
      * @return array
      */
     public function getCustodianDisclosuresLinks(Custodian $custodian)
@@ -159,11 +168,11 @@ class DocumentManager
 
         $documents = $this->getCustodianDocuments($custodianId);
 
-        $result = array();
+        $result = [];
         foreach ($documents as $type => $document) {
             $nameParams = explode('_', $type);
             foreach ($nameParams as &$param) {
-                if ($param == 'ira') {
+                if ($param === 'ira') {
                     $param = strtoupper($param);
                 } else {
                     $param = ucfirst($param);
@@ -171,23 +180,25 @@ class DocumentManager
             }
 
             $linkTitle = implode(' ', $nameParams);
-            $linkFileName = $custodianPrefix . '_' . str_replace(' ', '', $linkTitle) . '.pdf';
+            $linkFileName = $custodianPrefix.'_'.str_replace(' ', '', $linkTitle).'.pdf';
 
-            $result[$type] = array(
+            $result[$type] = [
                 'title' => $linkTitle,
-                'link' => $this->getCustodianDocumentLinkByType($custodianId, $type, $linkFileName)
-            );
+                'link' => $this->getCustodianDocumentLinkByType($custodianId, $type, $linkFileName),
+            ];
         }
 
         return $result;
     }
 
     /**
-     * Get link for archive of the documents
+     * Get link for archive of the documents.
      *
      * @param \ArrayAccess|array $documents
-     * @param null|string $originalName
+     * @param null|string        $originalName
+     *
      * @return string
+     *
      * @throws \InvalidArgumentException
      */
     public function getDocumentsPackageLink($documents, $originalName = null)
@@ -199,52 +210,57 @@ class DocumentManager
         $hash = $this->generatePackageHash($documents);
 
         if (!$this->hasDocumentsPackage($hash)) {
-            $tmpDir = Document::getUploadRootDir() . '/tmp_' . $hash;
+            $tmpDir = Document::getUploadRootDir().'/tmp_'.$hash;
             if (is_dir($tmpDir)) {
                 $this->removeDir($tmpDir);
             }
 
             mkdir($tmpDir);
 
-            $files = array();
+            $files = [];
 
             foreach ($documents as $document) {
-                if (!$document || !file_exists($document->getAbsolutePath())) continue;
+                if (!$document || !file_exists($document->getAbsolutePath())) {
+                    continue;
+                }
 
                 $filename = $document->getOriginalName();
                 $postfix = 1;
                 while (in_array($filename, $files)) {
                     $parts = explode('.', $document->getOriginalName());
 
-                    $parts[0] .= '_' . $postfix;
+                    $parts[0] .= '_'.$postfix;
                     $filename = implode('.', $parts);
 
-                    $postfix++;
+                    ++$postfix;
                 }
 
                 $files[] = $filename;
-                $destination = $tmpDir . '/' . $filename;
+                $destination = $tmpDir.'/'.$filename;
                 copy($document->getAbsolutePath(), $destination);
             }
 
-            $fileString = join(' ', $files);
+            $fileString = implode(' ', $files);
             if (!$fileString) {
                 rmdir($tmpDir);
+
                 return '#';
             }
 
-            exec('cd ' . $tmpDir . ' && zip ' . Document::getUploadRootDir() . '/' . $hash . '.zip ' . $fileString);
+            exec('cd '.$tmpDir.' && zip '.Document::getUploadRootDir().'/'.$hash.'.zip '.$fileString);
             $this->removeDir($tmpDir);
         }
 
-        return $this->getDownloadLink($hash . '.zip', $originalName);
+        return $this->getDownloadLink($hash.'.zip', $originalName);
     }
 
     /**
-     * Generate hash for archive of the documents
+     * Generate hash for archive of the documents.
      *
      * @param \ArrayAccess|array $documents
+     *
      * @return string
+     *
      * @throws \InvalidArgumentException
      */
     private function generatePackageHash($documents)
@@ -257,9 +273,10 @@ class DocumentManager
     }
 
     /**
-     * Get concatenated string of names of the documents
+     * Get concatenated string of names of the documents.
      *
      * @param \ArrayAccess|array $documents
+     *
      * @return string
      */
     private function getArchivedFilesString($documents)
@@ -270,16 +287,17 @@ class DocumentManager
                 continue;
             }
 
-            $fileString .= ' ' . $document->getFilename();
+            $fileString .= ' '.$document->getFilename();
         }
 
         return $fileString;
     }
 
     /**
-     * Check if document exist by hash
+     * Check if document exist by hash.
      *
      * @param string $hash
+     *
      * @return bool
      */
     private function hasDocumentsPackage($hash)
@@ -288,25 +306,27 @@ class DocumentManager
     }
 
     /**
-     * Get archive file by hash
+     * Get archive file by hash.
      *
      * @param string $hash
+     *
      * @return string
      */
     private function getArchiveFileByHash($hash)
     {
-        return Document::getUploadRootDir() . '/' . $hash . '.zip';
+        return Document::getUploadRootDir().'/'.$hash.'.zip';
     }
 
     /**
-     * Build array of documents as array('type' => document)
+     * Build array of documents as array('type' => document).
      *
      * @param \ArrayAccess|array $documents
+     *
      * @return array
      */
     private function getAssocDocumentsArray($documents)
     {
-        $result = array();
+        $result = [];
 
         foreach ($documents as $document) {
             $result[$document->getType()] = $document;
@@ -316,7 +336,7 @@ class DocumentManager
     }
 
     /**
-     * Recursive remove directory with files and subdirectories
+     * Recursive remove directory with files and subdirectories.
      *
      * @param $dir
      */
@@ -325,11 +345,11 @@ class DocumentManager
         $it = new \RecursiveDirectoryIterator($dir);
         $files = new \RecursiveIteratorIterator($it, \RecursiveIteratorIterator::CHILD_FIRST);
 
-        foreach($files as $file) {
+        foreach ($files as $file) {
             if ($file->getFilename() === '.' || $file->getFilename() === '..') {
                 continue;
             }
-            if ($file->isDir()){
+            if ($file->isDir()) {
                 rmdir($file->getRealPath());
             } else {
                 unlink($file->getRealPath());
@@ -340,17 +360,18 @@ class DocumentManager
     }
 
     /**
-     * Generate download link for $filename with $originalName name
+     * Generate download link for $filename with $originalName name.
      *
-     * @param string $filename
+     * @param string      $filename
      * @param null|string $originalName
+     *
      * @return string
      */
     public function getDownloadLink($filename, $originalName = null)
     {
-        return $this->router->generate('rx_download_document', array(
+        return $this->router->generate('rx_download_document', [
             'filename' => $filename,
-            'originalName' => $originalName
-        ));
+            'originalName' => $originalName,
+        ]);
     }
 }

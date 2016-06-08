@@ -9,10 +9,8 @@
 
 namespace Wealthbot\UserBundle\Form\Handler;
 
-
 use Wealthbot\AdminBundle\Entity\Custodian;
 use Wealthbot\UserBundle\Entity\Document;
-use Wealthbot\UserBundle\Form\Handler\DocumentsFormHandler;
 
 class CustodianDocumentsFormHandler extends DocumentsFormHandler
 {
@@ -28,7 +26,7 @@ class CustodianDocumentsFormHandler extends DocumentsFormHandler
 
     protected function getExistDocuments($owner)
     {
-        $documents = array();
+        $documents = [];
         foreach ($owner->getCustodianDocuments() as $doc) {
             $documents[$doc->getType()] = $doc;
         }
@@ -42,5 +40,4 @@ class CustodianDocumentsFormHandler extends DocumentsFormHandler
             $owner->addCustodianDocument($document);
         }
     }
-
 }

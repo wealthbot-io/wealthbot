@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: countzero
  * Date: 14.03.14
- * Time: 16:58
+ * Time: 16:58.
  */
 
 namespace Wealthbot\RiaBundle\Form\Type;
@@ -11,19 +11,18 @@ namespace Wealthbot\RiaBundle\Form\Type;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Wealthbot\UserBundle\Entity\Profile;
 
 class HouseholdBillingSettingsFormType extends AbstractType
 {
-
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $client = $builder->getData();
 
         $builder
-            ->add('billingSpec', 'entity', array(
-                'class' => 'WealthbotAdminBundle:BillingSpec',
+            ->add('billingSpec', 'entity', [
+                'class' => 'Wealthbot\\AdminBundle\\Entity\\BillingSpec',
                 'label' => 'Billing Spec: ',
                 'property' => 'name',
                 'property_path' => 'appointedBillingSpec',
@@ -31,27 +30,27 @@ class HouseholdBillingSettingsFormType extends AbstractType
                     return $er->createQueryBuilder('b')
                         ->where('b.owner = :ria')
                         ->setParameter('ria', $client->getRia());
-                }
-            ))
-            ->add('paymentMethod', 'choice', array(
+                },
+            ])
+            ->add('paymentMethod', 'choice', [
                 'label' => 'Payment Method: ',
                 'property_path' => 'profile.paymentMethod',
-                'choices' => array(
+                'choices' => [
                     Profile::PAYMENT_METHOD_DIRECT_DEBIT => 'Direct Debit',
-                    Profile::PAYMENT_METHOD_OUTSIDE_PAYMENT => 'Outside Payment'
-                )
-            ))
+                    Profile::PAYMENT_METHOD_OUTSIDE_PAYMENT => 'Outside Payment',
+                ],
+            ])
         ;
     }
 
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => 'Wealthbot\UserBundle\Entity\User'
-        ));
+        $resolver->setDefaults([
+            'data_class' => 'Wealthbot\UserBundle\Entity\User',
+        ]);
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'client_billing_settings';
     }

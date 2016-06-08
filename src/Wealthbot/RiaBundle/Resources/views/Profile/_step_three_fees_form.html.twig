@@ -1,10 +1,10 @@
 {% macro widget_prototype(widget, remove_text) %}
-    {% if widget.get('prototype') %}
-        {% set form = widget.get('prototype') %}
-        {% set name = widget.get('prototype').get('name') %}
+    {% if widget.vars.prototype %}
+        {% set form = widget.vars.prototype %}
+        {% set name = widget.vars.prototype.vars.name %}
     {% else %}
         {% set form = widget %}
-        {% set name = widget.get('full_name') %}
+        {% set name = widget.vars.full_name %}
     {% endif %}
 
     <tr data-content="{{ name }}">
@@ -29,7 +29,7 @@
             </div>
 
             <label class="is-final-tier-checkbox checkbox pull-left" style="display: none;">
-                {{ form_widget(form.is_final_tier) }} <span class="classify-tier">{{ form.is_final_tier.get('label') }}</span>
+                {{ form_widget(form.is_final_tier) }} <span class="classify-tier">{{ form.is_final_tier.vars.label }}</span>
             </label>
         </td>
         <td class="action"><a class="btn-remove" data-related="{{ name }}">{{ remove_text }}</a></td>

@@ -32,17 +32,19 @@ class LoadSecurityDataCommand extends ContainerAwareCommand
         $securityTypeRepo = $em->getRepository('WealthbotAdminBundle:SecurityType');
 
         $i = 0;
-        $typeHash = array();
+        $typeHash = [];
 
         $securities = $this->loadCsvData('security_full.csv', $maxLength = 10000, $delimiter = ',');
         foreach ($securities as $index => $item) {
-            if ($index === 0) continue;
+            if ($index === 0) {
+                continue;
+            }
 
-            $type   = trim($item[0]);
-            $type   = $type === 'ETF' ? 'EQ' : 'MU';
+            $type = trim($item[0]);
+            $type = $type === 'ETF' ? 'EQ' : 'MU';
             $symbol = trim($item[1]);
-            $name   = trim($item[2]);
-            $ratio  = round((float) str_replace(',', '.', trim($item[3])), 2);
+            $name = trim($item[2]);
+            $ratio = round((float) str_replace(',', '.', trim($item[3])), 2);
 
             if (isset($typeHash[$type])) {
                 $securityType = $typeHash[$type];
@@ -55,7 +57,7 @@ class LoadSecurityDataCommand extends ContainerAwareCommand
 
             $security = $securityRepo->findOneBySymbol($symbol);
             if (!$security && $securityType) {
-                if ((++$i % 100) == 0) {
+                if ((++$i % 100) === 0) {
                     $security = new Security();
                     $security->setName($name);
                     $security->setSymbol($symbol);
@@ -70,13 +72,13 @@ class LoadSecurityDataCommand extends ContainerAwareCommand
         $em->flush();
         $em->clear();
         $output->writeln("Security items [{$i}] has been loaded.");
-        $output->writeln("Success!");
+        $output->writeln('Success!');
     }
 
     protected function loadCsvData($filename, $maxLength = 1000, $delimiter = ';')
     {
-        $data   = array();
-        $path   = __DIR__ . '/../DataFixtures/CSV/' . $filename;
+        $data = [];
+        $path =  getcwd() . '/src/WealthBot/FixturesBundle/DataFixtures/CSV/'.$filename;
         $handle = fopen($path, 'r');
 
         if (false !== $handle) {

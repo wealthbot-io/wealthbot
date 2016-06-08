@@ -9,39 +9,36 @@
 
 namespace Wealthbot\RiaBundle\Form\Type;
 
-
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\FormEvent;
-use Symfony\Component\Form\FormEvents;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class RiaCustodianFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('custodian', 'entity', array(
+            ->add('custodian', 'entity', [
                 'label' => false,
                 'class' => 'Wealthbot\AdminBundle\Entity\Custodian',
                 'property' => 'name',
                 'expanded' => true,
-            ))
-            ->add('allow_non_electronically_signing', 'choice', array(
-                'choices' => array(true => 'Yes', false => 'No'),
-                'expanded' => true
-            ))
+            ])
+            ->add('allow_non_electronically_signing', 'choice', [
+                'choices' => [true => 'Yes', false => 'No'],
+                'expanded' => true,
+            ])
         ;
     }
 
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => 'Wealthbot\RiaBundle\Entity\RiaCompanyInformation'
-        ));
+        $resolver->setDefaults([
+            'data_class' => 'Wealthbot\RiaBundle\Entity\RiaCompanyInformation',
+        ]);
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'ria_custodian';
     }

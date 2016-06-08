@@ -1,14 +1,13 @@
 <?php
 
-
 namespace Wealthbot\ClientBundle\Form\Type;
 
-use Wealthbot\ClientBundle\Entity\ClientSettings;
-use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Wealthbot\ClientBundle\Entity\ClientSettings;
 
 class ClientStopTLHValueFormType extends AbstractType
 {
@@ -34,18 +33,17 @@ class ClientStopTLHValueFormType extends AbstractType
                 'stop_tlh_value',
                 'number',
                 $value,
-                array('required' => false, 'precision' => 2, 'grouping' => true)
+                ['required' => false, 'precision' => 2, 'grouping' => true, 'auto_initialize' => false]
             ));
         });
     }
 
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array('data_class' => 'Wealthbot\ClientBundle\Entity\ClientSettings'));
+        $resolver->setDefaults(['data_class' => 'Wealthbot\ClientBundle\Entity\ClientSettings']);
     }
 
-
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'stop_tlh_form';
     }

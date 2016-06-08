@@ -9,17 +9,17 @@
 
 namespace Wealthbot\FixturesBundle\DataFixtures\ORM;
 
-use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
+use Doctrine\Common\Persistence\ObjectManager;
 use Wealthbot\AdminBundle\Entity\CeModel;
 
 class LoadStrategyData extends AbstractFixture implements OrderedFixtureInterface
 {
-    private $strategyModels = array('100 Bonds','10/90','20/80','30/70','40/60','50/50','60/40','70/30','80/20','90/10','100 Stocks');
+    private $strategyModels = ['100 Bonds', '10/90', '20/80', '30/70', '40/60', '50/50', '60/40', '70/30', '80/20', '90/10', '100 Stocks'];
 
     /**
-     * Load data fixtures with the passed EntityManager
+     * Load data fixtures with the passed EntityManager.
      *
      * @param \Doctrine\Common\Persistence\ObjectManager $manager
      */
@@ -32,7 +32,7 @@ class LoadStrategyData extends AbstractFixture implements OrderedFixtureInterfac
             $ceModel->setRiskRating(0);
 
             $manager->persist($ceModel);
-            $this->addReference('strategy-' . ($index + 1), $ceModel);
+            $this->addReference('strategy-'.($index + 1), $ceModel);
         }
 
         $manager->flush();

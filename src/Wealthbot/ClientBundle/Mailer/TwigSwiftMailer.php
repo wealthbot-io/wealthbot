@@ -7,9 +7,8 @@
 
 namespace Wealthbot\ClientBundle\Mailer;
 
-use Wealthbot\UserBundle\Entity\User;
-use Wealthbot\ClientBundle\Mailer\MailerInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Wealthbot\UserBundle\Entity\User;
 
 /**
  * @author
@@ -32,10 +31,10 @@ class TwigSwiftMailer implements MailerInterface
     public function sendSuggestedPortfolioEmailMessage(User $client)
     {
         $template = $this->parameters['template']['suggested_portfolio'];
-        $context = array(
+        $context = [
             'client' => $client,
-            'portfolio' => $client->getProfile()->getSuggestedPortfolio()
-        );
+            'portfolio' => $client->getProfile()->getSuggestedPortfolio(),
+        ];
 
         $ria = $client->getProfile()->getRia();
 
@@ -45,11 +44,11 @@ class TwigSwiftMailer implements MailerInterface
     public function sendCloseAccountsMessage(User $client, $systemAccounts, array $closeMessages)
     {
         $template = $this->parameters['template']['close_accounts'];
-        $context = array(
+        $context = [
             'client' => $client,
             'accounts' => $systemAccounts,
-            'close_messages' => $closeMessages
-        );
+            'close_messages' => $closeMessages,
+        ];
 
         $ria = $client->getProfile()->getRia();
 
@@ -59,16 +58,16 @@ class TwigSwiftMailer implements MailerInterface
     public function sendWelcomeMessage(User $client, $password)
     {
         $template = $this->parameters['template']['welcome'];
-        $context = array(
+        $context = [
             'client' => $client,
             'password' => $password,
-            'url' => $this->router->generate('rx_user_homepage', array(), true)
-        );
+            'url' => $this->router->generate('rx_user_homepage', [], true),
+        ];
 
         $this->sendMessage($template, $context, $this->parameters['from_email']['welcome'], $client->getEmail());
     }
 
-    protected function sendMessage($templateName, $context, $fromEmail, $toEmail, array $attachments = array())
+    protected function sendMessage($templateName, $context, $fromEmail, $toEmail, array $attachments = [])
     {
         $template = $this->twig->loadTemplate($templateName);
         $subject = $template->renderBlock('subject', $context);

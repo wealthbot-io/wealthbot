@@ -9,18 +9,16 @@
 
 namespace Wealthbot\ClientBundle\Form\Handler;
 
-
 use Doctrine\ORM\EntityManager;
-use Wealthbot\ClientBundle\Entity\ClientAdditionalContact;
-use Wealthbot\ClientBundle\Entity\ClientAccountOwner;
-use Wealthbot\ClientBundle\Repository\ClientAdditionalContactRepository;
-use Wealthbot\UserBundle\Entity\User;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Wealthbot\ClientBundle\Entity\ClientAccountOwner;
+use Wealthbot\ClientBundle\Entity\ClientAdditionalContact;
+use Wealthbot\ClientBundle\Repository\ClientAdditionalContactRepository;
+use Wealthbot\UserBundle\Entity\User;
 
 class ClientAccountOwnerFormHandler
 {
-
     private $form;
     private $request;
     private $em;
@@ -36,17 +34,16 @@ class ClientAccountOwnerFormHandler
 
     /**
      * Returns array of account owners.
-     * Example: array('self' => array('owner_type' => 'self', 'owner_client_id' => 1), ...)
+     * Example: array('self' => array('owner_type' => 'self', 'owner_client_id' => 1), ...).
      *
      * @return array
      */
     public function process()
     {
-        $this->form->bind($this->request);
-        $result = array();
+        $this->form->handleRequest($this->request);
+        $result = [];
 
         if ($this->form->isValid()) {
-
             $data = $this->form->getData();
             $ownerTypes = $this->form->get('owner_types')->getData();
 
@@ -54,12 +51,10 @@ class ClientAccountOwnerFormHandler
                 foreach ($ownerTypes as $type) {
                     if ($type === ClientAccountOwner::OWNER_TYPE_OTHER) {
                         $result[$type] = $this->createOtherAccountOwner($data['other_contact']);
-
                     } else {
                         $result[$type] = $this->createAccountOwnerByType($type);
                     }
                 }
-
             } else {
                 $result[$ownerTypes] = $this->createAccountOwnerByType($ownerTypes);
             }
@@ -70,9 +65,10 @@ class ClientAccountOwnerFormHandler
 
     /**
      * Create account owner with type = 'other'
-     * and returns array
+     * and returns array.
      *
      * @param ClientAdditionalContact $otherContact
+     *
      * @return array
      */
     private function createOtherAccountOwner(ClientAdditionalContact $otherContact)
@@ -81,14 +77,14 @@ class ClientAccountOwnerFormHandler
         $repo = $this->em->getRepository('WealthbotClientBundle:ClientAdditionalContact');
 
         $exist = $repo->findOneBy(
-            array(
+            [
                 'client_id' => $this->client->getId(),
                 'first_name' => $otherContact->getFirstName(),
                 'middle_name' => $otherContact->getMiddleName(),
                 'last_name' => $otherContact->getLastName(),
                 'relationship' => $otherContact->getRelationship(),
-                'type' => ClientAdditionalContact::TYPE_OTHER
-            )
+                'type' => ClientAdditionalContact::TYPE_OTHER,
+            ]
         );
 
         if ($exist) {
@@ -101,24 +97,26 @@ class ClientAccountOwnerFormHandler
         $this->em->persist($otherContact);
         $this->em->flush();
 
-        $owner = array(
+        $owner = [
             'owner_type' => ClientAccountOwner::OWNER_TYPE_OTHER,
-            'owner_contact_id' => $otherContact->getId()
-        );
+            'owner_contact_id' => $otherContact->getId(),
+        ];
 
         return $owner;
     }
 
     /**
-     * Create account owner by type and returns array
+     * Create account owner by type and returns array.
      *
      * @param string $type
+     *
      * @return array
+     *
      * @throws \InvalidArgumentException
      */
     private function createAccountOwnerByType($type)
     {
-        $owner = array('owner_type' => $type);
+        $owner = ['owner_type' => $type];
 
         switch ($type) {
             case ClientAccountOwner::OWNER_TYPE_SELF:
@@ -128,10 +126,10 @@ class ClientAccountOwnerFormHandler
             case ClientAccountOwner::OWNER_TYPE_SPOUSE:
                 /** @var ClientAdditionalContactRepository $repo */
                 $repo = $this->em->getRepository('WealthbotClientBundle:ClientAdditionalContact');
-                $spouseContact = $repo->findOneBy(array(
+                $spouseContact = $repo->findOneBy([
                     'client_id' => $this->client->getId(),
-                    'type' => ClientAdditionalContact::TYPE_SPOUSE
-                ));
+                    'type' => ClientAdditionalContact::TYPE_SPOUSE,
+                ]);
 
                 $owner['owner_contact_id'] = $spouseContact->getId();
                 break;

@@ -7,8 +7,8 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 /**
  * @MongoDB\Document(collection="realized")
  */
-class Realized {
-
+class Realized
+{
     /**
      * @MongoDB\Id
      */

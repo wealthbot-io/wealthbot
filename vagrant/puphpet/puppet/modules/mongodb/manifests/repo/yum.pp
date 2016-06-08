@@ -5,10 +5,13 @@ class mongodb::repo::yum inherits mongodb::repo {
 
   if($::mongodb::repo::ensure == 'present' or $::mongodb::repo::ensure == true) {
     yumrepo { 'mongodb':
-      descr    => 'MongoDB/10gen Repository',
-      baseurl  => $::mongodb::repo::location,
-      gpgcheck => '0',
-      enabled  => '1',
+      descr          => $::mongodb::repo::description,
+      baseurl        => $::mongodb::repo::location,
+      gpgcheck       => '0',
+      enabled        => '1',
+      proxy          => $::mongodb::repo::proxy,
+      proxy_username => $::mongodb::repo::proxy_username,
+      proxy_password => $::mongodb::repo::proxy_password,
     }
     Yumrepo['mongodb'] -> Package<|tag == 'mongodb'|>
   }

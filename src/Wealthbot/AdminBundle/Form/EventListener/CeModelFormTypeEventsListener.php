@@ -3,14 +3,13 @@
 namespace Wealthbot\AdminBundle\Form\EventListener;
 
 use Doctrine\ORM\EntityManager;
-use Doctrine\ORM\QueryBuilder;
-use Wealthbot\AdminBundle\Entity\CeModel;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormEvent;
-use Symfony\Component\Form\FormFactory;
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Form\FormEvents;
+use Symfony\Component\Form\FormFactory;
 use Symfony\Component\Form\FormFactoryInterface;
+use Wealthbot\AdminBundle\Entity\CeModel;
 
 class CeModelFormTypeEventsListener implements EventSubscriberInterface
 {
@@ -28,10 +27,10 @@ class CeModelFormTypeEventsListener implements EventSubscriberInterface
 
     public static function getSubscribedEvents()
     {
-        return array(
+        return [
             FormEvents::PRE_SET_DATA => 'preSetData',
-            FormEvents::BIND => 'bind'
-        );
+            FormEvents::SUBMIT => 'bind',
+        ];
     }
 
     public function preSetData(FormEvent $event)
@@ -48,10 +47,12 @@ class CeModelFormTypeEventsListener implements EventSubscriberInterface
 
             //$modelsCount = $this->em->getRepository('WealthbotAdminBundle:CeModel')->getModelsCountByParentIdAndOwnerId($data->getParent()->getId(), $data->getOwnerId());
 
-            $form->add($this->factory->createNamed('risk_rating', 'choice', $data->getRiskRating(), array(
-                'empty_value' => 'Select Risk Rating',
-                'choices' => array_combine(range(1, 100), range(1, 100))
-            )));
+            $form->add($this->factory->createNamed('risk_rating', 'choice', $data->getRiskRating(), [
+                'placeholder' => 'Select Risk Rating',
+                'choices' => array_combine(range(1, 100), range(1, 100)),
+                'mapped' => false,
+                'auto_initialize' => false,
+            ]));
         }
     }
 
@@ -62,7 +63,7 @@ class CeModelFormTypeEventsListener implements EventSubscriberInterface
         $data = $event->getData();
 
         if ($data) {
-            if($form->has('risk_rating')){
+            if ($form->has('risk_rating')) {
                 $riskRating = $form->get('risk_rating')->getData();
 
                 $isExistRiskRating = $this->em->getRepository('WealthbotAdminBundle:CeModel')->isExistRiskRating(
@@ -73,7 +74,7 @@ class CeModelFormTypeEventsListener implements EventSubscriberInterface
                 );
 
                 if ($isExistRiskRating) {
-                    $form->get('risk_rating')->addError(new FormError('The risk with parameter :risk is already exists.', array(':risk' => $riskRating)));
+                    $form->get('risk_rating')->addError(new FormError('The risk with parameter :risk is already exists.', [':risk' => $riskRating]));
                 }
             }
         }

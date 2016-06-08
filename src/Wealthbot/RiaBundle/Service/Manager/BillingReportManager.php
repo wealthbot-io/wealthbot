@@ -3,13 +3,13 @@
 namespace Wealthbot\RiaBundle\Service\Manager;
 
 use Doctrine\ORM\EntityManager;
+use Wealthbot\AdminBundle\Manager\FeeManager;
 use Wealthbot\ClientBundle\Entity\Bill;
+use Wealthbot\ClientBundle\Entity\BillItem;
 use Wealthbot\ClientBundle\Entity\ClientAccount;
 use Wealthbot\ClientBundle\Entity\SystemAccount;
-use Wealthbot\ClientBundle\Entity\BillItem;
 use Wealthbot\ClientBundle\Repository\ClientAccountRepository;
 use Wealthbot\UserBundle\Entity\Profile;
-use Wealthbot\AdminBundle\Manager\FeeManager;
 
 class BillingReportManager
 {
@@ -39,11 +39,11 @@ class BillingReportManager
     protected $periodManager;
 
     /**
-     * @param EntityManager $em
-     * @param \Twig_Environment $twig
+     * @param EntityManager             $em
+     * @param \Twig_Environment         $twig
      * @param SummaryInformationManager $summaryInformationManager
-     * @param FeeManager $feeManager
-     * @param PeriodManager $periodManager
+     * @param FeeManager                $feeManager
+     * @param PeriodManager             $periodManager
      */
     public function __construct(EntityManager $em, \Twig_Environment $twig, SummaryInformationManager $summaryInformationManager, FeeManager $feeManager, PeriodManager $periodManager)
     {
@@ -57,6 +57,7 @@ class BillingReportManager
     /**
      * @param $sheet
      * @param array $params
+     *
      * @return mixed
      */
     protected function setHeader($sheet, array $params)
@@ -65,25 +66,25 @@ class BillingReportManager
         $fontName = 'Calibri';
 
         // Table header
-        $table = array(
-            "Client Last Name",
-            "Client First Name",
-            "Account Type",
-            "Account Number",
-            "Billing Schedule",
-            "Custodied/Held Away",
-            "Average Account Value",
-            "Days in Portfolio",
+        $table = [
+            'Client Last Name',
+            'Client First Name',
+            'Account Type',
+            'Account Number',
+            'Billing Schedule',
+            'Custodied/Held Away',
+            'Average Account Value',
+            'Days in Portfolio',
             "wealthbot.io' Fee",
             "{$params['ria_name']} Fee",
-            "Final Fee"
-        );
+            'Final Fee',
+        ];
 
         $column = 'A';
         foreach ($table as $val) {
             $sheet->setCellValue("{$column}7", $val);
             $sheet->getColumnDimension($column)->setAutoSize(true);
-            $column++;
+            ++$column;
         }
 
         // Set font style
@@ -91,13 +92,13 @@ class BillingReportManager
         $font->setName($fontName)->setSize($fontSize);
         $font->setBold(true);
 
-        $header = array(
+        $header = [
             'Company Name',
             'Billing Period Start',
             'Billing Period End',
             'Days in Period',
-            'Primary Custodian'
-        );
+            'Primary Custodian',
+        ];
 
         $index = 1;
         foreach ($header as $val) {
@@ -107,7 +108,7 @@ class BillingReportManager
             $sheet->setCellValue("B{$index}", isset($params[$value]) ? $params[$value] : '');
 
             // Set background
-            $sheet->getStyle("A{$index}:K{$index}")->getFill()->applyFromArray(array('type' => \PHPExcel_Style_Fill::FILL_SOLID, 'startcolor' => array('rgb' => 'CCFFCC')));
+            $sheet->getStyle("A{$index}:K{$index}")->getFill()->applyFromArray(['type' => \PHPExcel_Style_Fill::FILL_SOLID, 'startcolor' => ['rgb' => 'CCFFCC']]);
 
             // Set text align to left
             $sheet->getStyle("B{$index}")->getAlignment()->setHorizontal(\PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
@@ -120,7 +121,7 @@ class BillingReportManager
             $font = $sheet->getStyle("B{$index}")->getFont();
             $font->setName($fontName)->setSize($fontSize);
 
-            $index++;
+            ++$index;
         }
 
         return $sheet;
@@ -132,6 +133,7 @@ class BillingReportManager
      * @param $clients
      * @param $year
      * @param $quarter
+     *
      * @return mixed
      */
     protected function billTable($sheet, $ria, $clients, $year, $quarter)
@@ -139,16 +141,16 @@ class BillingReportManager
         $index = 9;
 
         // Set table head background
-        $sheet->getStyle("A{$index}:K{$index}")->getFill()->applyFromArray(array('type' => \PHPExcel_Style_Fill::FILL_SOLID, 'startcolor' => array('rgb' => '8EB4E3')));
+        $sheet->getStyle("A{$index}:K{$index}")->getFill()->applyFromArray(['type' => \PHPExcel_Style_Fill::FILL_SOLID, 'startcolor' => ['rgb' => '8EB4E3']]);
 
-        $totals = "";
+        $totals = '';
         $totalCell = "K{$index}";
 
         foreach ($clients as $client) {
             // Get client accounts
             $clientAccounts = $this->summaryInformationManager->getAccountsInformationByClient($client, $year, $quarter);
             foreach ($clientAccounts as $account) {
-                $index++;
+                ++$index;
 
                 $clientAccount = $this->em->getRepository('WealthbotClientBundle:ClientAccount')->find($account['id']);
                 $billItem = $this->em->getRepository('WealthbotClientBundle:BillItem')->getByAccountAndPeriod($clientAccount, $year, $quarter);
@@ -166,8 +168,8 @@ class BillingReportManager
                 $sheet->setCellValue("K{$index}", "=SUM(I{$index}:J{$index})");
 
                 // Set currency USD format
-                $sheet->getStyle("G{$index}")->applyFromArray(array('numberformat' => array('code' => \PHPExcel_Style_NumberFormat::FORMAT_CURRENCY_USD)));
-                $sheet->getStyle("I{$index}:K{$index}")->applyFromArray(array('numberformat' => array('code' => \PHPExcel_Style_NumberFormat::FORMAT_CURRENCY_USD)));
+                $sheet->getStyle("G{$index}")->applyFromArray(['numberformat' => ['code' => \PHPExcel_Style_NumberFormat::FORMAT_CURRENCY_USD]]);
+                $sheet->getStyle("I{$index}:K{$index}")->applyFromArray(['numberformat' => ['code' => \PHPExcel_Style_NumberFormat::FORMAT_CURRENCY_USD]]);
 
                 $font = $sheet->getStyle("A{$index}:K{$index}")->getFont();
                 $font->setName('Arial')->setSize(10);
@@ -176,24 +178,25 @@ class BillingReportManager
                 $totals .= "K{$index},";
 
                 // Set table body background
-                $sheet->getStyle("A{$index}:K{$index}")->getFill()->applyFromArray(array('type' => \PHPExcel_Style_Fill::FILL_SOLID, 'startcolor' => array('rgb' => 'DCE6F2')));
+                $sheet->getStyle("A{$index}:K{$index}")->getFill()->applyFromArray(['type' => \PHPExcel_Style_Fill::FILL_SOLID, 'startcolor' => ['rgb' => 'DCE6F2']]);
             }
         }
 
         // Calculate total
-        $sheet->setCellValue($totalCell, "=SUM(" . substr($totals, 0, -1) . ")");
+        $sheet->setCellValue($totalCell, '=SUM('.substr($totals, 0, -1).')');
         $sheet->getStyle($totalCell)->getFont()->setBold(true);
-        $sheet->getStyle($totalCell)->applyFromArray(array('numberformat' => array('code' => \PHPExcel_Style_NumberFormat::FORMAT_CURRENCY_USD)));
+        $sheet->getStyle($totalCell)->applyFromArray(['numberformat' => ['code' => \PHPExcel_Style_NumberFormat::FORMAT_CURRENCY_USD]]);
 
         return $sheet;
     }
 
     /**
-     * Generate billing summary report (format: xlsx)
+     * Generate billing summary report (format: xlsx).
      *
      * @param $ria
      * @param $client
      * @param null $quarters
+     *
      * @return \PHPExcel
      */
     public function generateSummary($ria, $quarters = null)
@@ -206,14 +209,14 @@ class BillingReportManager
         foreach ($quarters as $key => $quarter) {
             $sheet = $excel->createSheet($index);
 
-            $params = array(
-                'company_name'          => $ria->getRiaCompanyInformation()->getName(),
-                'billing_period_start'  => $quarter['startDate']->format('m/d/Y'),
-                'billing_period_end'    => $quarter['endDate']->modify('-1 day')->format('m/d/Y'),
-                'days_in_period'        => $quarter['endDate']->diff($quarter['startDate'])->format('%a'),
-                'primary_custodian'     => $ria->getRiaCompanyInformation()->getCustodian()->getName(),
-                'ria_name'              => $ria->getFullName()
-            );
+            $params = [
+                'company_name' => $ria->getRiaCompanyInformation()->getName(),
+                'billing_period_start' => $quarter['startDate']->format('m/d/Y'),
+                'billing_period_end' => $quarter['endDate']->modify('-1 day')->format('m/d/Y'),
+                'days_in_period' => $quarter['endDate']->diff($quarter['startDate'])->format('%a'),
+                'primary_custodian' => $ria->getRiaCompanyInformation()->getCustodian()->getName(),
+                'ria_name' => $ria->getFullName(),
+            ];
 
             // Set header
             $sheet = $this->setHeader($sheet, $params);
@@ -231,7 +234,7 @@ class BillingReportManager
 
             $sheet->setTitle("Billing Summary-Q{$key} {$year}");
 
-            $index++;
+            ++$index;
         }
 
         return $excel;
@@ -243,24 +246,26 @@ class BillingReportManager
      * @param $accounts
      * @param $year
      * @param $quarter
+     *
      * @return string
      */
     public function generateBillPdf($ria, $client, $accounts, $year, $quarter)
     {
         list($accounts, $total) = $this->getAccountsInfo($accounts, $year, $quarter, BillItem::STATUS_BILL_APPROVED);
 
-        return $this->twig->render('WealthbotRiaBundle:Billing/Report:bill_pdf.pdf.twig', array(
-            'ria'            => $ria,
-            'client'         => $client,
+        return $this->twig->render('WealthbotRiaBundle:Billing/Report:bill_pdf.pdf.twig', [
+            'ria' => $ria,
+            'client' => $client,
             'clientAccounts' => $accounts,
-            'feeTotal'       => $total
-        ));
+            'feeTotal' => $total,
+        ]);
     }
 
     /**
      * @param $client
      * @param $year
      * @param $quarter
+     *
      * @return array
      */
     public function getClientAccounts($client, $year, $quarter, $billItemStatus = null)
@@ -280,26 +285,26 @@ class BillingReportManager
      */
     public function getAccountsInfo(array $accounts, $year, $quarter, $billItemStatus = null)
     {
-        $data   = array();
-        $total  = 0;
+        $data = [];
+        $total = 0;
         $period = $this->periodManager->getPeriod($year, $quarter);
 
         foreach ($accounts as $account) {
-            $billItem  = $this->em->getRepository('WealthbotClientBundle:BillItem')->getByAccountAndPeriod($account, $year, $quarter);
+            $billItem = $this->em->getRepository('WealthbotClientBundle:BillItem')->getByAccountAndPeriod($account, $year, $quarter);
             $feeBilled = $this->summaryInformationManager->getAccountFeeBilled($account, $year, $quarter);
 
-            $item = array(
-                'name'                => $account->getOwnerNames(),
-                'type'                => SystemAccount::getTypeName($account->getSystemType()),
-                'number'              => $this->summaryInformationManager->getAccountNumber($account),
-                'status'              => $this->summaryInformationManager->getAccountStatus($account),
+            $item = [
+                'name' => $account->getOwnerNames(),
+                'type' => SystemAccount::getTypeName($account->getSystemType()),
+                'number' => $this->summaryInformationManager->getAccountNumber($account),
+                'status' => $this->summaryInformationManager->getAccountStatus($account),
                 'averageAccountValue' => $this->summaryInformationManager->getAccountAverageValue($account, $period['startDate'], $period['endDate']),
-                'daysInPortfolio'     => $this->summaryInformationManager->getAccountDaysInPortfolio($account, $period['startDate'], $period['endDate']),
-                'fee'                 => $feeBilled
-            );
+                'daysInPortfolio' => $this->summaryInformationManager->getAccountDaysInPortfolio($account, $period['startDate'], $period['endDate']),
+                'fee' => $feeBilled,
+            ];
 
             if (!empty($billItemStatus)) {
-                if ($billItem && $billItem->getStatus() == $billItemStatus) {
+                if ($billItem && $billItem->getStatus() === $billItemStatus) {
                     $data[] = $item;
                 }
             } else {
@@ -309,7 +314,7 @@ class BillingReportManager
             $total += $feeBilled;
         }
 
-        return array($data, $total);
+        return [$data, $total];
     }
 
     /**
@@ -321,6 +326,7 @@ class BillingReportManager
      * @param $quarter
      *
      * @return array
+     *
      * @throws \Exception
      */
     public function getAccountsForCustodianFeeFile($riaUser, $selectedAccounts, $year, $quarter)
@@ -345,7 +351,7 @@ class BillingReportManager
     }
 
     /**
-     * Makes table data for Custodian Fee File
+     * Makes table data for Custodian Fee File.
      *
      * @param array $clientAccounts
      * @param $year
@@ -355,21 +361,21 @@ class BillingReportManager
      */
     public function getTableDataForCustodianFeeFile(array $clientAccounts, $year, $quarter)
     {
-        $tableData = array();
-        $accounts = array();
+        $tableData = [];
+        $accounts = [];
 
         $accountsInfo = $this->summaryInformationManager->getAccountsInformation($clientAccounts, $year, $quarter);
         foreach ($accountsInfo as $accountInfo) {
             if (!$accountInfo['number']) {
                 continue;
             }
-            if ($accountInfo['feeBilled'] == 0) {
+            if ($accountInfo['feeBilled'] === 0) {
                 continue;
             }
 
             if ($accountInfo['paysFor']) {
                 $accountNumber = $accountInfo['paysFor'];
-            }else{
+            } else {
                 $accountNumber = $accountInfo['number'];
             }
 
@@ -380,11 +386,11 @@ class BillingReportManager
         }
 
         foreach ($accounts as $number => $sum) {
-            $tableData[] = array(
+            $tableData[] = [
                 $number,
                 'Q',
-                $sum
-            );
+                $sum,
+            ];
         }
 
         return $tableData;
@@ -406,7 +412,7 @@ class BillingReportManager
         ob_start();
         $f = fopen('php://output', 'w');
 
-        foreach($tableData as $line){
+        foreach ($tableData as $line) {
             fputcsv($f, $line, ';', '"');
         }
 

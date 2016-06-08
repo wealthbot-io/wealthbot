@@ -15,7 +15,9 @@
                             {% endif %}
                             {{ radio.vars.label }}
                         </label>
-                        <a class="edit-bank-account-btn" href="{{ path('rx_client_transfer_edit_bank_account', { 'account_id': account.id, 'bank_id': radio.vars.value }) }}">Edit</a>
+                        {% if radio.vars.value != '' %}
+                            <a class="edit-bank-account-btn" href="{{ path('rx_client_transfer_edit_bank_account', { 'account_id': account.id, 'bank_id': radio.vars.value }) }}">Edit</a>
+                        {% endif %}
                     </div>
                 {% endfor %}
             </div>

@@ -10,6 +10,8 @@
 namespace Wealthbot\ClientBundle\Form\Factory;
 
 use Doctrine\ORM\EntityManager;
+use Symfony\Component\Form\FormFactoryInterface;
+use Symfony\Component\Form\FormTypeInterface;
 use Wealthbot\ClientBundle\Entity\AccountContribution;
 use Wealthbot\ClientBundle\Entity\ClientAccount;
 use Wealthbot\ClientBundle\Entity\OneTimeContribution;
@@ -18,10 +20,6 @@ use Wealthbot\ClientBundle\Form\EventListener\AccountContributionFormEventSubscr
 use Wealthbot\ClientBundle\Form\EventListener\OneTimeContributionFormEventSubscriber;
 use Wealthbot\ClientBundle\Form\Type\AccountContributionFormType;
 use Wealthbot\ClientBundle\Form\Type\OneTimeContributionFormType;
-use Wealthbot\ClientBundle\Repository\AccountContributionRepository;
-use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\FormFactoryInterface;
-use Symfony\Component\Form\FormTypeInterface;
 
 class AccountContributionFormFactory
 {
@@ -35,17 +33,19 @@ class AccountContributionFormFactory
     }
 
     /**
-     * Create contribution form
+     * Create contribution form.
      *
-     * @param string $action
+     * @param string        $action
      * @param SystemAccount $account
-     * @param array $options
+     * @param array         $options
+     *
      * @return \Symfony\Component\Form\FormInterface
+     *
      * @throws \InvalidArgumentException
      */
-    public function create($action, SystemAccount $account, array $options = array())
+    public function create($action, SystemAccount $account, array $options = [])
     {
-        $actionsList = array('one_time', 'create', 'update');
+        $actionsList = ['one_time', 'create', 'update'];
 
         if (!in_array($action, $actionsList)) {
             throw new \InvalidArgumentException(sprintf('Invalid value for action argument: %s', $action));
@@ -58,15 +58,16 @@ class AccountContributionFormFactory
     }
 
     /**
-     * Build contribution form type
+     * Build contribution form type.
      *
-     * @param string $action
+     * @param string        $action
      * @param SystemAccount $account
+     *
      * @return FormTypeInterface
      */
     private function buildFormType($action, SystemAccount $account)
     {
-        if ($action == 'one_time') {
+        if ($action === 'one_time') {
             $subscriber = new OneTimeContributionFormEventSubscriber($this->factory, $this->em, $account);
             $formType = new OneTimeContributionFormType($this->em, $account, $subscriber);
         } else {
@@ -78,10 +79,11 @@ class AccountContributionFormFactory
     }
 
     /**
-     * Build data for contribution form
+     * Build data for contribution form.
      *
-     * @param string $action
+     * @param string        $action
      * @param SystemAccount $account
+     *
      * @return AccountContribution|OneTimeContribution
      */
     private function buildFormData($action, SystemAccount $account)
@@ -105,10 +107,11 @@ class AccountContributionFormFactory
     }
 
     /**
-     * Build data for contribution form with one_time action
+     * Build data for contribution form with one_time action.
      *
-     * @param ClientAccount $clientAccount
+     * @param ClientAccount       $clientAccount
      * @param AccountContribution $existContribution
+     *
      * @return OneTimeContribution
      */
     private function buildOneTimeContributionData(ClientAccount $clientAccount, AccountContribution $existContribution = null)
@@ -130,11 +133,13 @@ class AccountContributionFormFactory
     }
 
     /**
-     * Build data for contribution form with create action
+     * Build data for contribution form with create action.
      *
-     * @param ClientAccount $clientAccount
+     * @param ClientAccount       $clientAccount
      * @param AccountContribution $existContribution
+     *
      * @return AccountContribution
+     *
      * @throws \Exception
      */
     private function buildCreateContributionData(ClientAccount $clientAccount, AccountContribution $existContribution = null)
@@ -151,7 +156,6 @@ class AccountContributionFormFactory
             $data->setAmount(null);
             $data->setTransactionFrequency(null);
             $data->setContributionYear(null);
-
         } else {
             $data = new AccountContribution();
             $data->setAccount($clientAccount);
@@ -161,10 +165,12 @@ class AccountContributionFormFactory
     }
 
     /**
-     * Build data for contribution form with create action
+     * Build data for contribution form with create action.
      *
      * @param AccountContribution $existContribution
+     *
      * @return AccountContribution
+     *
      * @throws \Exception
      */
     private function buildUpdateContributionData(AccountContribution $existContribution = null)
@@ -175,5 +181,4 @@ class AccountContributionFormFactory
 
         return $existContribution;
     }
-
 }

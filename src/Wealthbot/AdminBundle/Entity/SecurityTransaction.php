@@ -2,20 +2,18 @@
 
 namespace Wealthbot\AdminBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-
 /**
- * SecurityTransaction
+ * SecurityTransaction.
  */
 class SecurityTransaction
 {
     /**
-     * @var integer
+     * @var int
      */
     private $id;
 
     /**
-     * @var integer
+     * @var int
      */
     private $security_assignment_id;
 
@@ -45,7 +43,7 @@ class SecurityTransaction
     private $minimum_sell;
 
     /**
-     * @var integer
+     * @var int
      */
     private $redemption_penalty_interval;
 
@@ -64,11 +62,10 @@ class SecurityTransaction
      */
     private $securityAssignment;
 
-
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer 
+     * @return int
      */
     public function getId()
     {
@@ -76,22 +73,23 @@ class SecurityTransaction
     }
 
     /**
-     * Set security_assignment_id
+     * Set security_assignment_id.
      *
-     * @param integer $securityAssignmentId
+     * @param int $securityAssignmentId
+     *
      * @return SecurityTransaction
      */
     public function setSecurityAssignmentId($securityAssignmentId)
     {
         $this->security_assignment_id = $securityAssignmentId;
-    
+
         return $this;
     }
 
     /**
-     * Get security_assignment_id
+     * Get security_assignment_id.
      *
-     * @return integer 
+     * @return int
      */
     public function getSecurityAssignmentId()
     {
@@ -99,22 +97,23 @@ class SecurityTransaction
     }
 
     /**
-     * Set transaction_fee
+     * Set transaction_fee.
      *
      * @param float $transactionFee
+     *
      * @return SecurityTransaction
      */
     public function setTransactionFee($transactionFee)
     {
         $this->transaction_fee = $transactionFee;
-    
+
         return $this;
     }
 
     /**
-     * Get transaction_fee
+     * Get transaction_fee.
      *
-     * @return float 
+     * @return float
      */
     public function getTransactionFee()
     {
@@ -122,22 +121,23 @@ class SecurityTransaction
     }
 
     /**
-     * Set transaction_fee_percent
+     * Set transaction_fee_percent.
      *
      * @param float $transactionFeePercent
+     *
      * @return SecurityTransaction
      */
     public function setTransactionFeePercent($transactionFeePercent)
     {
         $this->transaction_fee_percent = $transactionFeePercent;
-    
+
         return $this;
     }
 
     /**
-     * Get transaction_fee_percent
+     * Get transaction_fee_percent.
      *
-     * @return float 
+     * @return float
      */
     public function getTransactionFeePercent()
     {
@@ -145,22 +145,23 @@ class SecurityTransaction
     }
 
     /**
-     * Set minimum_buy
+     * Set minimum_buy.
      *
      * @param float $minimumBuy
+     *
      * @return SecurityTransaction
      */
     public function setMinimumBuy($minimumBuy)
     {
         $this->minimum_buy = $minimumBuy;
-    
+
         return $this;
     }
 
     /**
-     * Get minimum_buy
+     * Get minimum_buy.
      *
-     * @return float 
+     * @return float
      */
     public function getMinimumBuy()
     {
@@ -168,22 +169,23 @@ class SecurityTransaction
     }
 
     /**
-     * Set minimum_initial_buy
+     * Set minimum_initial_buy.
      *
      * @param float $minimumInitialBuy
+     *
      * @return SecurityTransaction
      */
     public function setMinimumInitialBuy($minimumInitialBuy)
     {
         $this->minimum_initial_buy = $minimumInitialBuy;
-    
+
         return $this;
     }
 
     /**
-     * Get minimum_initial_buy
+     * Get minimum_initial_buy.
      *
-     * @return float 
+     * @return float
      */
     public function getMinimumInitialBuy()
     {
@@ -191,22 +193,23 @@ class SecurityTransaction
     }
 
     /**
-     * Set minimum_sell
+     * Set minimum_sell.
      *
      * @param float $minimumSell
+     *
      * @return SecurityTransaction
      */
     public function setMinimumSell($minimumSell)
     {
         $this->minimum_sell = $minimumSell;
-    
+
         return $this;
     }
 
     /**
-     * Get minimum_sell
+     * Get minimum_sell.
      *
-     * @return float 
+     * @return float
      */
     public function getMinimumSell()
     {
@@ -214,22 +217,23 @@ class SecurityTransaction
     }
 
     /**
-     * Set redemption_penalty_interval
+     * Set redemption_penalty_interval.
      *
-     * @param integer $redemptionPenaltyInterval
+     * @param int $redemptionPenaltyInterval
+     *
      * @return SecurityTransaction
      */
     public function setRedemptionPenaltyInterval($redemptionPenaltyInterval)
     {
         $this->redemption_penalty_interval = $redemptionPenaltyInterval;
-    
+
         return $this;
     }
 
     /**
-     * Get redemption_penalty_interval
+     * Get redemption_penalty_interval.
      *
-     * @return integer 
+     * @return int
      */
     public function getRedemptionPenaltyInterval()
     {
@@ -237,22 +241,23 @@ class SecurityTransaction
     }
 
     /**
-     * Set redemption_fee
+     * Set redemption_fee.
      *
      * @param float $redemptionFee
+     *
      * @return SecurityTransaction
      */
     public function setRedemptionFee($redemptionFee)
     {
         $this->redemption_fee = $redemptionFee;
-    
+
         return $this;
     }
 
     /**
-     * Get redemption_fee
+     * Get redemption_fee.
      *
-     * @return float 
+     * @return float
      */
     public function getRedemptionFee()
     {
@@ -260,22 +265,23 @@ class SecurityTransaction
     }
 
     /**
-     * Set redemption_percent
+     * Set redemption_percent.
      *
      * @param float $redemptionPercent
+     *
      * @return SecurityTransaction
      */
     public function setRedemptionPercent($redemptionPercent)
     {
         $this->redemption_percent = $redemptionPercent;
-    
+
         return $this;
     }
 
     /**
-     * Get redemption_percent
+     * Get redemption_percent.
      *
-     * @return float 
+     * @return float
      */
     public function getRedemptionPercent()
     {
@@ -283,20 +289,21 @@ class SecurityTransaction
     }
 
     /**
-     * Set securityAssignment
+     * Set securityAssignment.
      *
      * @param \Wealthbot\AdminBundle\Entity\SecurityAssignment $securityAssignment
+     *
      * @return SecurityTransaction
      */
     public function setSecurityAssignment(\Wealthbot\AdminBundle\Entity\SecurityAssignment $securityAssignment = null)
     {
         $this->securityAssignment = $securityAssignment;
-    
+
         return $this;
     }
 
     /**
-     * Get securityAssignment
+     * Get securityAssignment.
      *
      * @return \Wealthbot\AdminBundle\Entity\SecurityAssignment
      */

@@ -9,9 +9,8 @@
 
 namespace Wealthbot\ClientBundle\Form\Type;
 
-
-use Wealthbot\UserBundle\Form\Type\ProfileType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Wealthbot\UserBundle\Form\Type\ProfileType;
 
 class SlaveClientProfileFormType extends ProfileType
 {
@@ -22,7 +21,7 @@ class SlaveClientProfileFormType extends ProfileType
         $builder->remove('company')->remove('user');
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'profile';
     }

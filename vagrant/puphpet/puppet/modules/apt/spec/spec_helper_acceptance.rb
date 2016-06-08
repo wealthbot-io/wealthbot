@@ -1,16 +1,7 @@
 require 'beaker-rspec'
+require 'beaker/puppet_install_helper'
 
-# Install Puppet
-unless ENV['RS_PROVISION'] == 'no'
-  hosts.each do |host|
-    if host.is_pe?
-      install_pe
-    else
-      install_puppet
-      on host, "mkdir -p #{host['distmoduledir']}"
-    end
-  end
-end
+run_puppet_install_helper
 
 UNSUPPORTED_PLATFORMS = ['RedHat','Suse','windows','AIX','Solaris']
 
@@ -24,10 +15,10 @@ RSpec.configure do |c|
   # Configure all nodes in nodeset
   c.before :suite do
     # Install module and dependencies
-    puppet_module_install(:source => proj_root, :module_name => 'apt')
     hosts.each do |host|
-      shell('/bin/touch /etc/puppet/hiera.yaml')
-      shell('puppet module install puppetlabs-stdlib --version 2.2.1', { :acceptable_exit_codes => [0,1] })
+      copy_module_to(host, :source => proj_root, :module_name => 'apt')
+      shell("/bin/touch #{default['puppetpath']}/hiera.yaml")
+      on host, puppet('module install puppetlabs-stdlib --version 4.5.0'), { :acceptable_exit_codes => [0,1] }
     end
   end
 end

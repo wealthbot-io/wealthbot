@@ -2,17 +2,16 @@
 
 namespace Wealthbot\UserBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
- * Document
+ * Document.
  */
 class Document
 {
     /**
-     * @var integer
+     * @var int
      */
     private $id;
 
@@ -59,7 +58,6 @@ class Document
      */
     private $created;
 
-
     /**
      * @var UploadedFile
      */
@@ -73,7 +71,7 @@ class Document
     private $users;
 
     /**
-     * @var integer
+     * @var int
      */
     private $owner_id;
 
@@ -82,9 +80,8 @@ class Document
      */
     private $owner;
 
-
     /**
-     * Constructor
+     * Constructor.
      */
     public function __construct()
     {
@@ -92,9 +89,9 @@ class Document
     }
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer 
+     * @return int
      */
     public function getId()
     {
@@ -102,22 +99,23 @@ class Document
     }
 
     /**
-     * Set filename
+     * Set filename.
      *
      * @param string $filename
+     *
      * @return Document
      */
     public function setFilename($filename)
     {
         $this->filename = $filename;
-    
+
         return $this;
     }
 
     /**
-     * Get filename
+     * Get filename.
      *
-     * @return string 
+     * @return string
      */
     public function getFilename()
     {
@@ -125,22 +123,23 @@ class Document
     }
 
     /**
-     * Set mime_type
+     * Set mime_type.
      *
      * @param string $mimeType
+     *
      * @return Document
      */
     public function setMimeType($mimeType)
     {
         $this->mime_type = $mimeType;
-    
+
         return $this;
     }
 
     /**
-     * Get mime_type
+     * Get mime_type.
      *
-     * @return string 
+     * @return string
      */
     public function getMimeType()
     {
@@ -148,14 +147,14 @@ class Document
     }
 
     /**
-     * Get type choices
+     * Get type choices.
      *
      * @return array
      */
     public static function getTypeChoices()
     {
         if (null === self::$_types) {
-            self::$_types = array();
+            self::$_types = [];
 
             $oClass = new \ReflectionClass('\Wealthbot\UserBundle\Entity\Document');
             $classConstants = $oClass->getConstants();
@@ -172,27 +171,29 @@ class Document
     }
 
     /**
-     * Get type choices for admin
+     * Get type choices for admin.
      *
      * @return array
      */
     public static function getAdminTypeChoices()
     {
-        $adminTypes = array(
+        $adminTypes = [
             //self::TYPE_INVESTMENT_MANAGEMENT_AGREEMENT,
             self::TYPE_USER_AGREEMENT,
             self:: TYPE_PRIVACY_POLICY,
-            self::TYPE_ADV
-        );
+            self::TYPE_ADV,
+        ];
 
         return $adminTypes;
     }
 
     /**
-     * Set type
+     * Set type.
      *
      * @param string $type
+     *
      * @return $this
+     *
      * @throws \InvalidArgumentException
      */
     public function setType($type)
@@ -202,14 +203,14 @@ class Document
         }
 
         $this->type = $type;
-    
+
         return $this;
     }
 
     /**
-     * Get type
+     * Get type.
      *
-     * @return string 
+     * @return string
      */
     public function getType()
     {
@@ -217,22 +218,23 @@ class Document
     }
 
     /**
-     * Set created
+     * Set created.
      *
      * @param \DateTime $created
+     *
      * @return Document
      */
     public function setCreated($created)
     {
         $this->created = $created;
-    
+
         return $this;
     }
 
     /**
-     * Get created
+     * Get created.
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getCreated()
     {
@@ -240,9 +242,10 @@ class Document
     }
 
     /**
-     * Set file
+     * Set file.
      *
      * @param File $file
+     *
      * @return $this
      */
     public function setFile(File $file = null)
@@ -263,12 +266,12 @@ class Document
                     $extension = pathinfo($file->getClientOriginalName(), PATHINFO_EXTENSION);
                 }
 
-                $filename = sha1($file->getClientOriginalName() . rand(0, 99999)) . '.' . $extension;
+                $filename = sha1($file->getClientOriginalName().rand(0, 99999)).'.'.$extension;
                 $mimeType = $file->getMimeType();
             } else {
                 $this->setOriginalName($file->getFilename());
 
-                $filename = sha1($file->getFilename() . rand(0, 99999)) . '.' . $extension;
+                $filename = sha1($file->getFilename().rand(0, 99999)).'.'.$extension;
                 $mimeType = $file->getMimeType();
             }
 
@@ -280,7 +283,7 @@ class Document
     }
 
     /**
-     * Get file
+     * Get file.
      *
      * @return UploadedFile
      */
@@ -290,7 +293,7 @@ class Document
     }
 
     /**
-     * Get name
+     * Get name.
      *
      * @return string
      */
@@ -302,13 +305,13 @@ class Document
     }
 
     /**
-     * Get link
+     * Get link.
      *
      * @return string
      */
     public function getLink()
     {
-        return '/' . $this->getUploadDir() . '/' . $this->getFilename();
+        return '/'.$this->getUploadDir().'/'.$this->getFilename();
     }
 
     public function getRootLink()
@@ -317,7 +320,7 @@ class Document
     }
 
     /**
-     * Upload file
+     * Upload file.
      */
     public function upload()
     {
@@ -335,27 +338,27 @@ class Document
     }
 
     /**
-     * Get absolute path
+     * Get absolute path.
      *
      * @return null|string
      */
     public function getAbsolutePath()
     {
-        return null === $this->filename ? null : $this->getUploadRootDir() . '/' . $this->filename;
+        return null === $this->filename ? null : $this->getUploadRootDir().'/'.$this->filename;
     }
 
     /**
-     * Get upload root dir
+     * Get upload root dir.
      *
      * @return string
      */
     public static function getUploadRootDir()
     {
-        return __DIR__.'/../../../../'.self::getUploadDir();
+        return getcwd().'/'.self::getUploadDir();
     }
 
     /**
-     * Get upload dir
+     * Get upload dir.
      *
      * @return string
      */
@@ -363,22 +366,23 @@ class Document
     {
         return 'uploads/documents';
     }
-    
+
     /**
-     * Add users
+     * Add users.
      *
      * @param \Wealthbot\UserBundle\Entity\User $users
+     *
      * @return Document
      */
     public function addUser(\Wealthbot\UserBundle\Entity\User $users)
     {
         $this->users[] = $users;
-    
+
         return $this;
     }
 
     /**
-     * Remove users
+     * Remove users.
      *
      * @param \Wealthbot\UserBundle\Entity\User $users
      */
@@ -388,9 +392,9 @@ class Document
     }
 
     /**
-     * Get users
+     * Get users.
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getUsers()
     {
@@ -401,22 +405,22 @@ class Document
      */
     private $custodians;
 
-
     /**
-     * Add custodians
+     * Add custodians.
      *
      * @param \Wealthbot\AdminBundle\Entity\Custodian $custodians
+     *
      * @return Document
      */
     public function addCustodian(\Wealthbot\AdminBundle\Entity\Custodian $custodians)
     {
         $this->custodians[] = $custodians;
-    
+
         return $this;
     }
 
     /**
-     * Remove custodians
+     * Remove custodians.
      *
      * @param \Wealthbot\AdminBundle\Entity\Custodian $custodians
      */
@@ -426,9 +430,9 @@ class Document
     }
 
     /**
-     * Get custodians
+     * Get custodians.
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getCustodians()
     {
@@ -436,22 +440,23 @@ class Document
     }
 
     /**
-     * Set original_name
+     * Set original_name.
      *
      * @param string $originalName
+     *
      * @return $this
      */
     public function setOriginalName($originalName)
     {
         $this->original_name = $originalName;
-    
+
         return $this;
     }
 
     /**
-     * Get original_name
+     * Get original_name.
      *
-     * @return string 
+     * @return string
      */
     public function getOriginalName()
     {
@@ -459,32 +464,33 @@ class Document
     }
 
     /**
-     * Is application document
+     * Is application document.
      *
      * @return bool
      */
     public function isApplication()
     {
-        return ($this->type === self::TYPE_APPLICATION);
+        return $this->type === self::TYPE_APPLICATION;
     }
 
     /**
-     * Set owner_id
+     * Set owner_id.
      *
-     * @param integer $ownerId
+     * @param int $ownerId
+     *
      * @return Document
      */
     public function setOwnerId($ownerId)
     {
         $this->owner_id = $ownerId;
-    
+
         return $this;
     }
 
     /**
-     * Get owner_id
+     * Get owner_id.
      *
-     * @return integer 
+     * @return int
      */
     public function getOwnerId()
     {
@@ -492,22 +498,23 @@ class Document
     }
 
     /**
-     * Set owner
+     * Set owner.
      *
      * @param \Wealthbot\UserBundle\Entity\User $owner
+     *
      * @return Document
      */
     public function setOwner(\Wealthbot\UserBundle\Entity\User $owner = null)
     {
         $this->owner = $owner;
-    
+
         return $this;
     }
 
     /**
-     * Get owner
+     * Get owner.
      *
-     * @return \Wealthbot\UserBundle\Entity\User 
+     * @return \Wealthbot\UserBundle\Entity\User
      */
     public function getOwner()
     {

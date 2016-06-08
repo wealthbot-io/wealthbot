@@ -52,7 +52,8 @@ DAYS_OF_WEEK=<%= scope.lookupvar('yum::cron_dotw') %>
 
 # which day should it do cleanup on?  defaults to 0 (Sunday).  If this day isn't in the 
 # DAYS_OF_WEEK above, it'll never happen
-CLEANDAY="0"
+#CLEANDAY="0"
+CLEANDAY="<%= scope.lookupvar('yum::cron_clean_dotw') %>"
 
 # set to yes to make the yum-cron service to wait for transactions to complete
 SERVICE_WAITS=yes

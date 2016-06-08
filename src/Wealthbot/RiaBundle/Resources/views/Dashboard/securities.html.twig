@@ -19,16 +19,16 @@
         <div class="tab-content">
             <div class="tab-pane {{ active_tab == 'categories' ? 'active' : '' }}" id="categories_tab"
                  data-is-show-subclasses-priority="{{ (is_show_subclasses_priority is defined and is_show_subclasses_priority) ? 'true' : 'false' }}" >
-                {% render 'WealthbotRiaBundle:Categories:index' %}
+                {{ render(controller('WealthbotRiaBundle:Categories:index')) }}
             </div>
             <div class="tab-pane {{ active_tab == 'securities' ? 'active' : '' }}" id="securities_tab">
-                {% render 'WealthbotRiaBundle:Securities:modelSecuritiesList' %}
+                {{ render(controller('WealthbotRiaBundle:Securities:modelSecuritiesList')) }}
             </div>
             <div class="tab-pane {{ active_tab == 'models' ? 'active' : '' }}" id="models_tab">
-                {% render 'WealthbotRiaBundle:Models:index' with {'withLayout': false} %}
+                {{ render(controller('WealthbotRiaBundle:Models:index', {'withLayout': false} )) }}
             </div>
             <div class="tab-pane {{ active_tab == 'rebalancer_history' ? 'active' : '' }}" id="history_tab">
-                {% render 'WealthbotRiaBundle:Rebalancer:history' %}
+                {{ render(controller('WealthbotRiaBundle:Rebalancer:history')) }}
             </div>
         </div>
     </div>

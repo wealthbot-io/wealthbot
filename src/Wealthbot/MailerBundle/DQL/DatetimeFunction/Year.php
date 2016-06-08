@@ -3,11 +3,10 @@
  * Created by PhpStorm.
  * User: amalyuhin
  * Date: 24.01.14
- * Time: 18:43
+ * Time: 18:43.
  */
 
 namespace Wealthbot\MailerBundle\DQL\DatetimeFunction;
-
 
 use Doctrine\ORM\Query\AST\Functions\FunctionNode;
 use Doctrine\ORM\Query\Lexer;
@@ -23,13 +22,11 @@ class Year extends FunctionNode
      */
     public function getSql(\Doctrine\ORM\Query\SqlWalker $sqlWalker)
     {
-        return 'YEAR(' . $sqlWalker->walkArithmeticPrimary($this->date) . ')';
+        return 'YEAR('.$sqlWalker->walkArithmeticPrimary($this->date).')';
     }
 
     /**
      * @param \Doctrine\ORM\Query\Parser $parser
-     *
-     * @return void
      */
     public function parse(\Doctrine\ORM\Query\Parser $parser)
     {
@@ -40,5 +37,4 @@ class Year extends FunctionNode
 
         $parser->match(Lexer::T_CLOSE_PARENTHESIS);
     }
-
-} 
+}

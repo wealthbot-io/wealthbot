@@ -1,14 +1,13 @@
 <?php
 
-
 namespace Wealthbot\AdminBundle\Manager;
 
 use Doctrine\ORM\EntityManager;
 use Wealthbot\AdminBundle\Entity\BillingSpec;
 use Wealthbot\UserBundle\Entity\User;
 
-class BillingSpecManager {
-
+class BillingSpecManager
+{
     /**
      * @var EntityManager
      */
@@ -17,8 +16,8 @@ class BillingSpecManager {
     /**
      * @param EntityManager $em
      */
-    public function __construct(EntityManager $em) {
-
+    public function __construct(EntityManager $em)
+    {
         $this->em = $em;
     }
 
@@ -28,25 +27,25 @@ class BillingSpecManager {
      *
      * @param User $ria
      */
-    public function getSpecs(User $ria) {
-
+    public function getSpecs(User $ria)
+    {
         return $ria->getBillingSpecs();
     }
-
 
     /**
      * @param BillingSpec $billingSpec
      */
-    public function remove(BillingSpec $billingSpec) {
-
+    public function remove(BillingSpec $billingSpec)
+    {
         $this->em->remove($billingSpec);
         $this->em->flush();
     }
 
     /**
-     * Create default Admin Spec for RIA
+     * Create default Admin Spec for RIA.
      *
      * @param User $ria
+     *
      * @return BillingSpec
      */
     public function initDefaultAdminSpec(User $ria)

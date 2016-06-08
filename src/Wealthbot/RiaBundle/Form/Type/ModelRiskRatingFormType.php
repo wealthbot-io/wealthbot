@@ -11,34 +11,34 @@ namespace Wealthbot\RiaBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class ModelRiskRatingFormType extends AbstractType {
-
+class ModelRiskRatingFormType extends AbstractType
+{
     private $maxRating;
 
     public function __construct($maxRating = 100)
     {
-        $this->maxRating = (integer)$maxRating;
+        $this->maxRating = (integer) $maxRating;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $choices = array_combine(range(1, $this->maxRating), range(1, $this->maxRating));
-        $builder->add('risk_rating', 'choice', array(
-            'empty_value' => false,
+        $builder->add('risk_rating', 'choice', [
+            'placeholder' => false,
             'choices' => $choices,
-        ));
+        ]);
     }
 
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
+        $resolver->setDefaults([
             'data_class' => 'Wealthbot\AdminBundle\Entity\CeModel',
-        ));
+        ]);
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'model_risk_rating';
     }

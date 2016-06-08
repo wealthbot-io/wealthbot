@@ -2,7 +2,6 @@
 
 namespace Wealthbot\ClientBundle\Model;
 
-
 class TransferInformation
 {
     /**
@@ -16,10 +15,10 @@ class TransferInformation
     const ACCOUNT_TYPE_ROTH_IRA = 'Roth IRA';
     const ACCOUNT_TYPE_TRADITIONAL_ROLLOVER_IRA = 'Traditional/Rollover IRA';
 
-    static private $_accountTypeValues = null;
+    private static $_accountTypeValues = null;
 
     /**
-     * @var integer
+     * @var int
      */
     protected $transfer_from;
 
@@ -28,15 +27,15 @@ class TransferInformation
     const TRANSFER_FROM_BANK = 3;
     const TRANSFER_FROM_DEPOSIT_CERTIFICATES = 4;
 
-    static private $_transferFromValues = array(
+    private static $_transferFromValues = [
         self::TRANSFER_FROM_BROKERAGE_FIRM => 'Transfer from a brokerage firm',
         self::TRANSFER_FROM_MUTUAL_FUND_COMPANY => 'Transfer from a Mutual Fund Company',
         self::TRANSFER_FROM_BANK => 'Transfer from a Bank, Insurance/Annuity Co, Trust Co, or Transfer Agent',
-        self::TRANSFER_FROM_DEPOSIT_CERTIFICATES => 'Certificates of Deposit (CD’s)'
-    );
+        self::TRANSFER_FROM_DEPOSIT_CERTIFICATES => 'Certificates of Deposit (CD’s)',
+    ];
 
     /**
-     * @var integer
+     * @var int
      */
     protected $insurance_policy_type;
 
@@ -44,27 +43,27 @@ class TransferInformation
     const INSURANCE_POLICY_TYPE_TRANSFER_PENALTY_FREE_AMOUNT = 2;
     const INSURANCE_POLICY_TYPE_TRANSFER_PENALTY_FREE = 3;
 
-    static private $_insurancePolicyTypeValues = array(
+    private static $_insurancePolicyTypeValues = [
         self::INSURANCE_POLICY_TYPE_TERMINATE_CONTACT_POLICY => 'I agree to redeem and terminate the entire contract of policy on my behalf. I understand that penalties may apply.',
         self::INSURANCE_POLICY_TYPE_TRANSFER_PENALTY_FREE_AMOUNT => 'Please transfer penalty-free amount only, which is',
-        self::INSURANCE_POLICY_TYPE_TRANSFER_PENALTY_FREE => 'Check here if the entire account is penalty free.'
-    );
-
+        self::INSURANCE_POLICY_TYPE_TRANSFER_PENALTY_FREE => 'Check here if the entire account is penalty free.',
+    ];
 
     /**
-     * Get array ENUM values account_type column
+     * Get array ENUM values account_type column.
      *
      * @static
+     *
      * @return array
      */
-    static public function getAccountTypeChoices()
+    public static function getAccountTypeChoices()
     {
         // Build $_statusValues if this is the first call
         if (self::$_accountTypeValues === null) {
-            self::$_accountTypeValues = array();
+            self::$_accountTypeValues = [];
             $oClass = new \ReflectionClass('\Wealthbot\ClientBundle\Model\TransferInformation');
             $classConstants = $oClass->getConstants();
-            $constantPrefix = "ACCOUNT_TYPE_";
+            $constantPrefix = 'ACCOUNT_TYPE_';
             foreach ($classConstants as $key => $val) {
                 if (substr($key, 0, strlen($constantPrefix)) === $constantPrefix) {
                     self::$_accountTypeValues[$val] = $val;
@@ -76,10 +75,12 @@ class TransferInformation
     }
 
     /**
-     * Set account_type
+     * Set account_type.
      *
      * @param $accountType
+     *
      * @return TransferInformation
+     *
      * @throws \InvalidArgumentException
      */
     public function setAccountType($accountType)
@@ -96,7 +97,7 @@ class TransferInformation
     }
 
     /**
-     * Get account_type
+     * Get account_type.
      *
      * @return string
      */
@@ -106,20 +107,22 @@ class TransferInformation
     }
 
     /**
-     * Get choices for transfer_from column
+     * Get choices for transfer_from column.
      *
      * @return array
      */
-    static public function getTransferFromChoices()
+    public static function getTransferFromChoices()
     {
         return self::$_transferFromValues;
     }
 
     /**
-     * Set transfer_from
+     * Set transfer_from.
      *
-     * @param integer|null $transferFrom
+     * @param int|null $transferFrom
+     *
      * @return TransferInformation
+     *
      * @throws \InvalidArgumentException
      */
     public function setTransferFrom($transferFrom)
@@ -136,9 +139,9 @@ class TransferInformation
     }
 
     /**
-     * Get transfer_from
+     * Get transfer_from.
      *
-     * @return integer
+     * @return int
      */
     public function getTransferFrom()
     {
@@ -146,20 +149,22 @@ class TransferInformation
     }
 
     /**
-     * Get choices for insurance_policy_type column
+     * Get choices for insurance_policy_type column.
      *
      * @return array
      */
-    static public function getInsurancePolicyTypeChoices()
+    public static function getInsurancePolicyTypeChoices()
     {
         return self::$_insurancePolicyTypeValues;
     }
 
     /**
-     * Set insurance_policy_type
+     * Set insurance_policy_type.
      *
-     * @param integer|null $insurancePolicyType
+     * @param int|null $insurancePolicyType
+     *
      * @return TransferInformation
+     *
      * @throws \InvalidArgumentException
      */
     public function setInsurancePolicyType($insurancePolicyType)
@@ -176,13 +181,12 @@ class TransferInformation
     }
 
     /**
-     * Get insurance_policy_type
+     * Get insurance_policy_type.
      *
-     * @return integer
+     * @return int
      */
     public function getInsurancePolicyType()
     {
         return $this->insurance_policy_type;
     }
-
 }

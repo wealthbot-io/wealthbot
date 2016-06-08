@@ -38,7 +38,7 @@ define puphpet::php::pear (
   }
 
   if $package_name and $preferred_state
-    and ! defined(::Php::Pear::Module[$package_name])
+    and ! defined(Php::Pear::Module[$package_name])
     and $puphpet::php::settings::enable_pear
   {
     ::php::pear::module { $name:

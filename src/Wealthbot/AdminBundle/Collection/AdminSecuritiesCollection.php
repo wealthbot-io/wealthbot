@@ -5,11 +5,11 @@ namespace Wealthbot\AdminBundle\Collection;
 class AdminSecuritiesCollection
 {
     /**
-     * @var \Doctrine\Common\Collections\ArrayCollection $items
+     * @var \Doctrine\Common\Collections\ArrayCollection
      */
     private $items;
 
-    public function __construct(array $items = array())
+    public function __construct(array $items = [])
     {
         if (!empty($items)) {
             $this->items = new \Doctrine\Common\Collections\ArrayCollection($items);
@@ -17,9 +17,10 @@ class AdminSecuritiesCollection
     }
 
     /**
-     * Add item
+     * Add item.
      *
      * @param \Wealthbot\AdminBundle\Entity\SecurityAssignment $item
+     *
      * @return \Wealthbot\AdminBundle\Collection\AdminSecuritiesCollection
      */
     public function addItem(\Wealthbot\AdminBundle\Entity\SecurityAssignment $item)
@@ -30,7 +31,7 @@ class AdminSecuritiesCollection
     }
 
     /**
-     * Remove item
+     * Remove item.
      *
      * @param \Wealthbot\AdminBundle\Entity\SecurityAssignment $item
      */
@@ -40,7 +41,7 @@ class AdminSecuritiesCollection
     }
 
     /**
-     * Get fees
+     * Get fees.
      *
      * @return \Doctrine\Common\Collections\Collection
      */

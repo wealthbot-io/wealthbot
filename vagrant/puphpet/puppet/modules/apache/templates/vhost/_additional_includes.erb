@@ -2,9 +2,8 @@
 
   ## Load additional static includes
 <%- if scope.function_versioncmp([@apache_version, '2.4']) >= 0 && @use_optional_includes -%>
-IncludeOptional "<%= include %>"
+  IncludeOptional "<%= include %>"
 <%- else -%>
-Include "<%= include %>"
+  Include "<%= include %>"
 <%- end -%>
-
 <% end -%>

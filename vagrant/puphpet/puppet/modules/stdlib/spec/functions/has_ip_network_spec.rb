@@ -1,36 +1,22 @@
-#!/usr/bin/env ruby -S rspec
 require 'spec_helper'
 
-describe Puppet::Parser::Functions.function(:has_ip_network) do
-
-  let(:scope) do
-    PuppetlabsSpec::PuppetInternals.scope
-  end
-
-  subject do
-    function_name = Puppet::Parser::Functions.function(:has_ip_network)
-    scope.method(function_name)
-  end
+describe 'has_ip_network' do
+  it { is_expected.not_to eq(nil) }
+  it { is_expected.to run.with_params().and_raise_error(Puppet::ParseError, /wrong number of arguments/i) }
+  it { is_expected.to run.with_params("one", "two").and_raise_error(Puppet::ParseError, /wrong number of arguments/i) }
 
   context "On Linux Systems" do
-    before :each do
-      scope.stubs(:lookupvar).with('interfaces').returns('eth0,lo')
-      scope.stubs(:lookupvar).with('network').returns(:undefined)
-      scope.stubs(:lookupvar).with('network_eth0').returns('10.0.2.0')
-      scope.stubs(:lookupvar).with('network_lo').returns('127.0.0.1')
+    let(:facts) do
+      {
+        :interfaces => 'eth0,lo',
+        :network => :undefined,
+        :network_lo => '127.0.0.0',
+        :network_eth0 => '10.0.0.0',
+      }
     end
 
-    it 'should have primary network (10.0.2.0)' do
-      expect(subject.call(['10.0.2.0'])).to be_truthy
-    end
-
-    it 'should have loopback network (127.0.0.0)' do
-      expect(subject.call(['127.0.0.1'])).to be_truthy
-    end
-
-    it 'should not have other network' do
-      expect(subject.call(['192.168.1.0'])).to be_falsey
-    end
+    it { is_expected.to run.with_params('127.0.0.0').and_return(true) }
+    it { is_expected.to run.with_params('10.0.0.0').and_return(true) }
+    it { is_expected.to run.with_params('8.8.8.0').and_return(false) }
   end
 end
-

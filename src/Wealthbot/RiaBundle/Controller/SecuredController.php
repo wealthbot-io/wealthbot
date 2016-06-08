@@ -29,7 +29,7 @@ class SecuredController extends Controller
             throw $this->createNotFoundException(sprintf('User with username: "%s" does not exist.'));
         }
 
-        if (!$client->hasRole('ROLE_CLIENT') || $client->getRia()->getId() != $this->getUser()->getId()) {
+        if (!$client->hasRole('ROLE_CLIENT') || $client->getRia()->getId() !== $this->getUser()->getId()) {
             throw new AccessDeniedException(sprintf('Access Denied. You cannot login as "%s"', $username));
         }
 

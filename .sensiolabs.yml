@@ -12,6 +12,7 @@ global_exclude_dirs:
     - system
     - vagrant
     - api/cache
+    - app/polyfill
 rules:
     symfony.controller.too_many_template_variables:
         enabled: true

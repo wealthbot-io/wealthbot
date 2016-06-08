@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "88cba44b4624fde2986b3eeb23ee3de2",
-    "content-hash": "adc4da85233bd76278a556c40729ece9",
+    "hash": "31905ec487ed09d6acca60cffdeb5c1a",
+    "content-hash": "d2730ec661765db3fdb7ebbf9fb935ab",
     "packages": [
         {
             "name": "PHPOffice/PHPExcel",

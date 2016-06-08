@@ -12,11 +12,14 @@ global_exclude_dirs:
     - system
     - vagrant
     - api/cache
+    - app/polyfill
 rules:
     symfony.controller.too_many_template_variables:
         enabled: true
         max_count: 20
         threshold: 15
+    symfony.application_not_bootable:
+        enabled: false
     twig.template_too_complex:
         enabled: true
         max_depth: 60
@@ -30,10 +33,7 @@ rules:
         threshold: 10
     missing_e_o_l:
         enabled: false
-
-# install APCu
 pre_composer_script: |
-    yes '' | pecl install APC
-
-php_ini: |
-    extension=apcu.so
+    yes '' | pecl install apcu
+php_ini:
+    extension = apcu.so

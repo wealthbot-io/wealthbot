@@ -32,6 +32,6 @@ rules:
     missing_e_o_l:
         enabled: false
 pre_composer_script: |
-    yes '' | pecl install apc
+    yes '' | pecl install apcu
 php_ini:
-    extension = apc.so
+    extension = apcu.so

@@ -18,6 +18,8 @@ rules:
         enabled: true
         max_count: 20
         threshold: 15
+    symfony.application_not_bootable:
+        enabled: false
     twig.template_too_complex:
         enabled: true
         max_depth: 60

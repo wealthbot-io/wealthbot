@@ -23,7 +23,7 @@ We are use MongoDB and APC cache, and you need to install this 2 extensions (`ap
 # Connect to server
 ssh you@yourserver.domain
 # Change directory to wealthbot root
-cd /var/www/welthbot_root/
+cd /var/www/wealthbot_root/
 # Checkout master branch
 git checkout master
 # Stash your changes, then make Git Pull

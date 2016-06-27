@@ -27,7 +27,7 @@ To upgrade a version 1.0.0 install, open the terminal and run the following comm
 # Connect to server
 ssh you@yourserver.domain
 # Change directory to wealthbot root
-cd /var/www/welthbot_root/
+cd /var/www/wealthbot_root/
 # Checkout master branch
 git checkout master
 # Stash your changes (git stash, optional) , then make Git Pull

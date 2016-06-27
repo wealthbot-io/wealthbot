@@ -11,7 +11,7 @@
     </title>
 
     <link rel="stylesheet" href="/css/bootstrap.css">
-    <link rel="stylesheet" href="/css/bootstrap-responsive.css">
+    <link rel="stylesheet" href="/css/bootstrap-theme.css">
     <link rel="stylesheet" href="/css/styles.css">
     <link rel="stylesheet" href="/css/admin-styles.css">
 
@@ -27,14 +27,9 @@
 <div class="navbar navbar-inverse navbar-fixed-top">
     <div class="navbar-inner">
         <div class="container">
-            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </a>
-            <a class="brand" href="{{path('rx_admin_homepage')}}">wealthbot.io</a>
-            <div class="nav-collapse collapse">
-                <ul class="nav">
+            <a class="navbar-brand" href="{{path('rx_admin_homepage')}}">wealthbot.io</a>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
                     <li {{ app.request.attributes.get('_route') == 'rx_admin_homepage' ? 'class="active"' : '' }}>
                         <a href="{{ path('rx_admin_homepage') }}">Home</a>
                     </li>
@@ -75,7 +70,7 @@
                 </ul>
 
                 {% if is_granted('ROLE_ADMIN') %}
-                <ul class="nav pull-right">
+                <ul class="nav navbar-nav pull-right">
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-user icon-white"></i>&nbsp;{{ app.user.username|capitalize}}</a>
                         <ul class="dropdown-menu">
@@ -86,7 +81,7 @@
                     </li>
                 </ul>
                 {% endif %}
-            </div><!--/.nav-collapse -->
+            </div><!--/.navbar-collapse -->
         </div>
     </div>
 </div>
@@ -123,7 +118,7 @@
 {% endblock %}
 
 {% block javascripts %}
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
     <script type="text/javascript" src="/js/jquery.form.js"></script>
     <script type="text/javascript" src="/js/jquery.autoNumeric.js"></script>
     <script type="text/javascript" src="/js/jquery.placeholder.min.js"></script>

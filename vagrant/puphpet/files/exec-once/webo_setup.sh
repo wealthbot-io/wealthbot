@@ -1,3 +1,4 @@
+#forec php 5 version
 sudo add-apt-repository -y ppa:ondrej/php
 sudo apt-get update
 sudo apt-get purge -y php7.0-common

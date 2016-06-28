@@ -13,7 +13,7 @@
         <meta content="width=device-width, initial-scale=1, maximum-scale=1" name="viewport">
         {% block stylesheets %}
             <link rel="stylesheet" href="/css/bootstrap.css">
-            <link rel="stylesheet" href="/css/bootstrap-responsive.css">
+            <link rel="stylesheet" href="/css/bootstrap-theme.css">
             <link rel="stylesheet" href="/css/styles.css">
             <link rel="stylesheet" href="/css/jquery-ui-1.9.2.custom.min.css"/>
             {% stylesheets
@@ -34,13 +34,13 @@
     <body>
     {% block headernav %}
         {% if app.environment != 'prod' %}
-            <div class="navbar">
+            <div class="navbar navbar-default">
                 <div class="navbar-inner">
                     <div class="container-fluid">
-                        <a class="brand" href="/" name="top">wealthbot.io</a>
+                        <a class="navbar-brand" href="/" name="top">wealthbot.io</a>
                          <a href="https://github.com/wealthbot-io"><img style="position: absolute; top: 0; right: 0; border: 0; z-index: 9999;" src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
-                        <div class="nav-collapse collapse">
-                            <ul class="nav">
+                        <div class="navbar-collapse collapse">
+                            <ul class="nav navbar-nav">
                                 {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                                     <li><a href="{{ path('fos_user_security_logout') }}">Logout</a></li>
                                 {% endif %}
@@ -51,7 +51,7 @@
                                     </li>
                                 {% endif %}
                             </ul>
-                        </div><!--/.nav-collapse -->
+                        </div><!--/.navbar-collapse -->
                     </div>
                     <!--/.container-fluid -->
                 </div>
@@ -105,6 +105,7 @@
         <script type="text/javascript" src="/js/jquery.autoNumeric.js"></script>
         <script type="text/javascript" src="/js/jquery.placeholder.min.js"></script>
         <script type="text/javascript" src="/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="/js/typeahead.js"></script>
         <script type="text/javascript" src="/js/custom.js"></script>
         <script src="/js/backbone.marionette/underscore.js"></script>
         {#<script src="/bundles/wealthbotria/js/src/Util.js"></script>#}

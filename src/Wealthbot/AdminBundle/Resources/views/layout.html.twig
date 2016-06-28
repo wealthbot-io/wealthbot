@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="/css/bootstrap-theme.css">
     <link rel="stylesheet" href="/css/styles.css">
     <link rel="stylesheet" href="/css/admin-styles.css">
+    <link rel="stylesheet" href="{{ asset('css/icons.css') }}"/>
 
     {% block stylesheets %}
         <link rel="stylesheet" href="/css/jquery-ui-1.9.2.custom.min.css"/>
@@ -72,7 +73,7 @@
                 {% if is_granted('ROLE_ADMIN') %}
                 <ul class="nav navbar-nav pull-right">
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-user icon-white"></i>&nbsp;{{ app.user.username|capitalize}}</a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-user"></i>&nbsp;{{ app.user.username|capitalize}}</a>
                         <ul class="dropdown-menu">
                             <li><a href="#"><i class="icon-wrench"></i>&nbsp;Settings</a></li>
                             <li class="divider"></li>
@@ -102,7 +103,8 @@
 </div>
 
 {% block modal_dialog %}
-    <div id="modal_dialog" class="modal hide longModal">
+    <div id="modal_dialog" class="modal longModal">
+        <div class="modal-content">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
             <h3></h3>
@@ -111,9 +113,10 @@
 
         </div>
         <div class="modal-footer">
-            <button type="submit" class="btn save-modal-form-btn">Save</button>
-            <a href="#" class="btn" data-dismiss="modal" aria-hidden="true">Cancel</a>
+            <button type="submit" class="btn save-modal-form-btn btn-primary">Save</button>
+            <a href="#" class="btn btn-default"  data-dismiss="modal" aria-hidden="true">Cancel</a>
         </div>
+      </div>
     </div>
 {% endblock %}
 
@@ -127,7 +130,7 @@
     <script type="text/javascript" src="/js/inputmask/jquery.inputmask.extensions.js"></script>
     <script type="text/javascript" src="/js/custom.js"></script>
     <script type="text/javascript" src="/js/bootstrap.min.js"></script>
-
+    <script type="text/javascript" src="/js/typeahead.js"></script>
     <script src="/js/backbone.marionette/underscore.js"></script>
     <script src="/js/backbone.marionette/backbone.js"></script>
     <script src="/js/backbone.marionette/backbone.marionette.js"></script>

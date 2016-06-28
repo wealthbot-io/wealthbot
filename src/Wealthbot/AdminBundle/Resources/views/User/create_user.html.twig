@@ -5,26 +5,27 @@
     <form class="form-horizontal" action="" method="post">
         {{ form_errors(createAdminUserForm) }}
         <div class="row">
-            <div class="control-group span7">
-                <div class="row-fluid">
-                    <div class="span5">
+            <div class="control-group col-md-7">
+
+                    <div class="col-md-5">
                         {{ form_label(createAdminUserForm.profile.first_name, 'First Name:', { 'label_attr': { 'class': 'control-label' } }) }}
                         <div class="controls">
                             {{ form_errors(createAdminUserForm.profile.first_name) }}
                             {{ form_widget(createAdminUserForm.profile.first_name, {'attr': { 'class': 'input-small' } }) }}
                         </div>
                     </div>
-                    <div class="span7 margin-left-0">
+                    <div class="col-md-7 margin-left-0">
                         {{ form_label(createAdminUserForm.profile.last_name, 'Last Name:', { 'label_attr': { 'class': 'control-label width-90' } }) }}
                         <div class="controls margin-left-100">
                             {{ form_errors(createAdminUserForm.profile.last_name) }}
                             {{ form_widget(createAdminUserForm.profile.last_name, {'attr': { 'class': 'input-small' } }) }}
                         </div>
                     </div>
-                </div>
+
             </div>
         </div>
         <div class="row">
+            <div class="control-group col-md-7">
             {% if createAdminUserForm.email is defined %}
                 <div class="control-group">
                     {{ form_label(createAdminUserForm.email, 'Email:', { 'label_attr': { 'class': 'control-label' } }) }}
@@ -60,9 +61,10 @@
             </div>
             <div class="form-actions">
                 {% block form_actions %}
-                    <a class="btn" href="{{ path('rx_admin_users') }}">Back</a>
+                    <a class="btn btn-default"  href="{{ path('rx_admin_users') }}">Back</a>
                     <input class="btn-primary btn" type="submit" value="Create">
                 {% endblock %}
+            </div>
             </div>
         </div>
     </form>

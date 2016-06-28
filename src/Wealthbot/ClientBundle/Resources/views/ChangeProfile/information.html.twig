@@ -21,7 +21,7 @@
         </div>
 
         <div class="row">
-            <div class="span6">
+            <div class="col-md-6">
                 <div class="control-group">
                     {{ form_label(form.annual_income, 'Annual Income') }}
                     {{ form_errors(form.annual_income) }}
@@ -31,7 +31,7 @@
         </div>
 
         <div class="row">
-            <div class="span6">
+            <div class="col-md-6">
                 <div class="control-group">
                     {{ form_label(form.estimated_income_tax) }}
                     {{ form_errors(form.estimated_income_tax) }}
@@ -41,7 +41,7 @@
         </div>
 
         <div class="row">
-            <div class="span6">
+            <div class="col-md-6">
                 <div class="control-group">
                     {{ form_label(form.liquid_net_worth, 'Your Estimated Liquid Net Worth') }}
                     {{ form_errors(form.liquid_net_worth) }}
@@ -56,7 +56,7 @@
             <div >
                 <div class="form-actions">
                     {{ form_rest(form) }}
-                    <input class="btn" type="submit" name="Continue" value="Save"/>
+                    <input class="btn btn-default"  type="submit" name="Continue" value="Save"/>
                 </div>
             </div>
         </div>

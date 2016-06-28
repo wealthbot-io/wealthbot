@@ -19,8 +19,8 @@
     {% endfor %}
 {% endblock %}
 
-<div class="row-fluid">
-    <form class="form-horizontal span6" action="{% block form_action %}{{ path('rx_client_change_profile_manage_users') }}{% endblock %}" method="post">
+<div class="row">
+    <form class="form-horizontal col-md-6" action="{% block form_action %}{{ path('rx_client_change_profile_manage_users') }}{% endblock %}" method="post">
         {{ form_errors(form) }}
 
         <div class="control-group">
@@ -60,7 +60,7 @@
 
     </form>
 
-    <div class="span6 margin-left-0">
+    <div class="col-md-6 margin-left-0">
         <table class="table table-striped clients">
             <thead>
             <tr>

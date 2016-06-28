@@ -9,13 +9,13 @@
 
     <li data-content="{{ name }}">
         <div class="row">
-            <div class="span3">
+            <div class="col-md-3">
                 {{ form_label(form.title) }}
                 {{ form_errors(form.title) }}
                 {{ form_widget(form.title) }}
                 <span class="pull-right">=</span>
             </div>
-            <div class="span4">
+            <div class="col-md-4">
                 {{ form_label(form.point) }}
                 {{ form_errors(form.point) }}
                 {{ form_widget(form.point) }}

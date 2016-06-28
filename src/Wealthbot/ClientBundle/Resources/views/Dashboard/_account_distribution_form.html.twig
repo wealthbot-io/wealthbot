@@ -24,16 +24,16 @@
         </div>
         {% if form.frequency is defined %}
             <div class="clearfix">
-                <div class="span12 clearfix">
+                <div class="col-md-12 clearfix">
                     {{ form_label(form.frequency, 'Frequency of transaction: ') }}
                     {{ form_errors(form.frequency) }}
                 </div>
 
                 {% if form.frequency|length > 4 %}
-                    <div class="span3">
+                    <div class="col-md-3">
                     {% for radio in form.frequency %}
                         {% if (loop.index == 5) or (loop.index == 9) %}
-                            </div><div class="span3">
+                            </div><div class="col-md-3">
                         {% endif %}
                         <label for="{{ radio.vars.id }}">{{ form_widget(radio) }}{{ radio.vars.label }}</label>
                     {% endfor %}
@@ -206,6 +206,6 @@
 
     <div class="form-actions">
         {{ form_widget(form._token) }}
-        <input type="submit" class="btn" name="continue" value="Continue" />
+        <input type="submit" class="btn btn-default"  name="continue" value="Continue" />
     </div>
 </form>

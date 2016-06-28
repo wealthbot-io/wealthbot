@@ -1,7 +1,7 @@
 {% if form.bankInformation|length > 0 %}
     {% set is_one_bank = (form.vars.data and not form.vars.data.bankInformation and form.bankInformation|length == 1) ? true : false %}
 
-    <div class="control-group row">
+    <div class="form-group row">
         <div class="span">
             {{ form_label(form.bankInformation, 'Current bank(s) on file:', { 'label_attr': {'class': 'control-label'}}) }}
             <div class="controls">
@@ -24,14 +24,14 @@
         </div>
     </div>
 
-    <div class="control-group row">
+    <div class="form-group row">
         <div class="span">
             <a class="add-new-bank-btn" href="javascript:void(0);">+ Add New Bank</a>
         </div>
     </div>
     <div class="add-new-bank-form"></div>
 
-    <div class="control-group row">
+    <div class="form-group row">
         <div class="span">
             <h5>Transfer Information</h5>
             <div class="well clearfix">
@@ -61,22 +61,22 @@
                     {% endif %}
                 </div>
                 <div class="row">
-                    <div class="span12 clearfix">
+                    <div class="col-md-12 clearfix">
                         {{ form_label(form.transaction_frequency, 'Frequency of transaction:') }}
                         {{ form_errors(form.transaction_frequency) }}
                     </div>
 
                     {% if form.transaction_frequency|length > 4 %}
-                        <div class="span3">
+                        <div class="col-md-3">
                         {% for radio in form.transaction_frequency %}
                             {% if (loop.index == 5) or (loop.index == 9) %}
-                                </div><div class="span3">
+                                </div><div class="col-md-3">
                             {% endif %}
                             <label for="{{ radio.vars.id }}" class="radio">{{ form_widget(radio) }}{{ radio.vars.label }}</label>
                         {% endfor %}
                         </div>
                     {% else %}
-                        <div class="inline-radio span12">
+                        <div class="inline-radio col-md-12">
                             {% for radio in form.transaction_frequency %}
                                 <div class="span"><label for="{{ radio.vars.id }}">{{ form_widget(radio) }}{{ radio.vars.label }}</label></div>
                             {% endfor %}
@@ -91,7 +91,7 @@
         </div>
     </div>
 {% else %}
-    <div class="control-group row">
+    <div class="form-group row">
         <div class="span">
             {{ form_errors(form.bankInformation) }}
             <a class="add-new-bank-btn" href="javascript:void(0);">Add New Bank Account</a>

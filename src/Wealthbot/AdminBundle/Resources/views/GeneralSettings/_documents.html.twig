@@ -3,15 +3,15 @@
 {% for key, type in types %}
     {% if key != '_token' %}
         <strong>{{ type }}</strong>
-        <div class="row-fluid control-group" data-document-type="{{ key }}" data-document-title="{{ type }}">
-            <div class="span3">
+        <div class="row control-group" data-document-type="{{ key }}" data-document-title="{{ type }}">
+            <div class="col-md-3">
                 {% if documents[key] is defined %}
                     <a href="{{ path('rx_download_document', { 'filename': documents[key].filename }) }}" target="_blank">{{ documents[key].originalName }} <i class="icon-download"></i></a>
                 {% else %}
                     No file.
                 {% endif %}
             </div>
-            <div class="span8">
+            <div class="col-md-8">
                 {% if is_permitted('edit') %}
                     <button class="btn upload-document-btn">Upload</button>
                 {% endif %}

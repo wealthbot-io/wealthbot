@@ -398,7 +398,7 @@ App.module('Wealthbot.Clients', function(Mod, App, Backbone, Marionette, $) {
             return false;
         });
 
-        $('#client_personal_settings_employmentStatus input:radio').live('change', function() {
+        $('#client_personal_settings_employmentStatus input:radio').on('change', function() {
             var employed = ('Employed' == $(this).val() || 'Self-Employed' == $(this).val());
             var employmentDiv = $('#user-employment');
 
@@ -409,7 +409,7 @@ App.module('Wealthbot.Clients', function(Mod, App, Backbone, Marionette, $) {
             }
         });
 
-        $('#household_spouse_form_employmentType input:radio').live('change', function() {
+        $('#household_spouse_form_employmentType input:radio').on('change', function() {
             var employed = ('Employed' == $(this).val() || 'Self-Employed' == $(this).val());
             var spouseEmploymentDiv = $('#spouse-employment');
 
@@ -420,7 +420,7 @@ App.module('Wealthbot.Clients', function(Mod, App, Backbone, Marionette, $) {
             }
         });
 
-        $('#client_personal_settings_maritalStatus').live('change', function() {
+        $('#client_personal_settings_maritalStatus').on('change', function() {
             var married = 'Married' == $('#client_personal_settings_maritalStatus').val();
             var spouseDataDiv = $('#spouse-data');
 
@@ -431,7 +431,7 @@ App.module('Wealthbot.Clients', function(Mod, App, Backbone, Marionette, $) {
             }
         });
 
-        $('.jq-ce-date').live('focusin', function() {
+        $('.jq-ce-date').on('focusin', function() {
             $(this).inputmask("99-99-9999");
 
             $(this).datepicker({

@@ -7,7 +7,7 @@
  */
 
 $(function(){
-    $("#security_form").live('submit', function(event) {
+    $("#security_form").on('submit', function(event) {
         event.preventDefault();
         $(this).ajaxSubmit({
             target: '#securities_tab',
@@ -17,14 +17,14 @@ $(function(){
         });
     });
 
-    $('#model_security_form_asset_class_id').live('change', function() {
+    $('#model_security_form_asset_class_id').on('change', function() {
         var url = $(this).attr('data-complete-url');
         $.get(url, { asset_id: $(this).val() }, function(data){
             $('#model_security_form_subclass_id').html(data);
         });
     });
 
-    $(".delete-model-security-btn").live('click', function(event) {
+    $(".delete-model-security-btn").on('click', function(event) {
         var url = $(this).attr('href');
         $.get(url, {}, function(data){
             $('#securities_tab').html(data);
@@ -33,7 +33,7 @@ $(function(){
         event.preventDefault();
     });
 
-    $(".edit-model-security-btn").live('click', function(event) {
+    $(".edit-model-security-btn").on('click', function(event) {
         var url = $(this).attr('href');
         $.get(url, {}, function(data){
             $('#securities_tab').html(data);
@@ -42,7 +42,7 @@ $(function(){
         event.preventDefault();
     });
 
-    $('.security-transaction-edit-btn').live('click', function(event) {
+    $('.security-transaction-edit-btn').on('click', function(event) {
         $.ajax({
             url: $(this).attr('href'),
             dataType: 'json',
@@ -56,7 +56,7 @@ $(function(){
         event.preventDefault();
     });
 
-    $('#edit_security_transaction_form').live('submit', function(event) {
+    $('#edit_security_transaction_form').on('submit', function(event) {
         var form = $(this);
         var config = {
             dataType: 'json',

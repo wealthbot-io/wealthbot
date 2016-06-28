@@ -19,7 +19,7 @@ $(function() {
         dialogBody.css('height', '');
     });
 
-    $('.update-workflow-status').live('change', function() {
+    $('.update-workflow-status').on('change', function() {
         var elem = $(this);
         var workflowList = elem.closest('.workflow-list').find('tbody');
         var status = elem.val();
@@ -97,7 +97,7 @@ $(function() {
         }
     });
 
-    $('.archive-workflow-btn, .delete-workflow-btn').live('click', function(event) {
+    $('.archive-workflow-btn, .delete-workflow-btn').on('click', function(event) {
         var elem = $(this);
         var btnGroup = elem.closest('.btn-group');
         var dropdown = btnGroup.find('.workflow-actions-btn');
@@ -135,7 +135,7 @@ $(function() {
         event.preventDefault();
     });
 
-    $('.view-workflow-btn').live('click', function(event) {
+    $('.view-workflow-btn').on('click', function(event) {
         var elem = $(this);
         var parent = elem.parent();
 
@@ -170,7 +170,7 @@ $(function() {
         event.preventDefault();
     });
 
-    $('.ajax-pagination li:not(.active) > a, table > thead > tr > th > a').live('click', function(event) {
+    $('.ajax-pagination li:not(.active) > a, table > thead > tr > th > a').on('click', function(event) {
         var btn = $(this);
         var block = btn.closest('.tab-pane');
         var active_tab = block.attr('data-tab');
@@ -191,7 +191,7 @@ $(function() {
         event.preventDefault();
     });
 
-    $('.edit-workflow-note-btn').live('click', function(event) {
+    $('.edit-workflow-note-btn').on('click', function(event) {
         var elem = $(this);
         var btnGroup = elem.closest('.btn-group');
         var dropDown = btnGroup.find('.workflow-actions-btn');
@@ -225,7 +225,7 @@ $(function() {
         event.preventDefault();
     });
 
-    $('#workflow_note_form').live('submit', function(event) {
+    $('#workflow_note_form').on('submit', function(event) {
         var form = $(this);
         var dialog = $('#modal_dialog');
         var btn = dialog.find('.save-modal-form-btn');
@@ -260,7 +260,7 @@ $(function() {
         event.preventDefault();
     });
 
-    $('.delete-activity-summary').live('click', function(event) {
+    $('.delete-activity-summary').on('click', function(event) {
         var btn = $(this);
         var url = btn.attr('href');
         var block = btn.closest('table').parent();
@@ -281,7 +281,7 @@ $(function() {
         event.preventDefault();
     });
 
-    $('.show-workflow-documents-list').live('click', function (event) {
+    $('.show-workflow-documents-list').on('click', function (event) {
         var elem = $(this);
         var dialog = $('#modal_dialog');
         var dialogBody = dialog.find('.modal-body');

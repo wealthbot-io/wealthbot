@@ -1,5 +1,5 @@
 $(function() {
-    $('#client_document_upload_form').live('submit', function(event) {
+    $('#client_document_upload_form').on('submit', function(event) {
         var form = $(this);
         var btn = form.find('input[type="submit"]');
 
@@ -19,7 +19,7 @@ $(function() {
         event.preventDefault();
     });
 
-    $('.client-document-delete-btn, #ria_dashboard_client_content table thead a').live('click', function(event) {
+    $('.client-document-delete-btn, #ria_dashboard_client_content table thead a').on('click', function(event) {
         var btn = $(this);
 
         btn.html('<img class="ajax-loader" src="/img/ajax-loader.gif">');

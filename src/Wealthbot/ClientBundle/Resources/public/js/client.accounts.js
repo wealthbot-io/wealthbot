@@ -7,7 +7,7 @@
  */
 
 $(function(){
-    $('.remove-account-btn').live('click', function(event){
+    $('.remove-account-btn').on('click', function(event){
         var elem = $(this);
 
         if(confirm('Are you sure?')){
@@ -58,7 +58,7 @@ $(function(){
         event.preventDefault();
     });
 
-    $('.edit-account-btn').live('click', function(event){
+    $('.edit-account-btn').on('click', function(event){
         var elem = $(this);
 
         $.ajax({
@@ -79,7 +79,7 @@ $(function(){
         event.preventDefault();
     });
 
-    $('#edit_client_account_form').live('submit', function(event){
+    $('#edit_client_account_form').on('submit', function(event){
         event.preventDefault();
 
         var form = $(this);
@@ -109,7 +109,7 @@ $(function(){
         event.preventDefault();
     });
 
-    $('.select-retirement-account').live('change', function(event){
+    $('.select-retirement-account').on('change', function(event){
         var elem = $(this);
         var url = elem.data('url');
 
@@ -124,7 +124,7 @@ $(function(){
         });
     });
 
-    $('#retirement_account_fund_form').live('submit', function(event){
+    $('#retirement_account_fund_form').on('submit', function(event){
         var form = $(this);
         var accountId = $('.select-retirement-account:checked').val();
 
@@ -160,7 +160,7 @@ $(function(){
         event.preventDefault();
     });
 
-    $('.remove-outside-fund-btn').live('click', function(event){
+    $('.remove-outside-fund-btn').on('click', function(event){
         var elem = $(this);
 
         if(confirm('Are you sure?')){
@@ -183,7 +183,7 @@ $(function(){
 
     selectAccountGroup();
 
-    $('#client_account_form').live('submit', function(event){
+    $('#client_account_form').on('submit', function(event){
         var form = $(this);
 
         var options = {
@@ -216,7 +216,7 @@ $(function(){
         $('.current-account-type').text(selectOption.text());
     });
 
-    $('#retirement_account_form').live('submit', function(event){
+    $('#retirement_account_form').on('submit', function(event){
         var form = $(this);
 
         var options = {
@@ -238,7 +238,7 @@ $(function(){
         event.preventDefault();
     });
 
-    $('#retirement_account_fund_form').live('submit', function(event){
+    $('#retirement_account_fund_form').on('submit', function(event){
         var form = $(this);
 
         var options = {

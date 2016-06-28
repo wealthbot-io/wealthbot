@@ -11,14 +11,14 @@ $(function(){
         $("input:checkbox, input:radio, input:file").not('[data-no-uniform="true"],#uniform-is-ajax').uniform();
     });*/
 
-    $('.client-management-transfer-form .form-actions a').live('click', function(event){
+    $('.client-management-transfer-form .form-actions a').on('click', function(event){
         $(this).button('loading');
 
         showTransferStep($(this).attr('href'));
         event.preventDefault();
     });
 
-    $('.client-management-transfer-form form').live('submit', function(event){
+    $('.client-management-transfer-form form').on('submit', function(event){
         var form = $(this);
 
         form.find('input[type="submit"]').button('loading');

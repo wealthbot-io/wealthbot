@@ -27,7 +27,7 @@ $(function(){
         }
     });
 
-    $('.form-actions input.btn-info').live('click', function(event){
+    $('.form-actions input.btn-info').on('click', function(event){
         var transactionAmountSelector = $('#wealthbot_riabundle_riacompanyinformationtype_transaction_amount');
         var transactionAmountPercentSelector = $('#wealthbot_riabundle_riacompanyinformationtype_transaction_amount_percent');
 
@@ -98,11 +98,11 @@ $(function(){
         $.data(elem[0], 'xhr', xhr);
     });
 
-//    $('input:radio[name="wealthbot_riabundle_riacompanyinformationtype[is_allow_retirement_plan]"]').live('change', function() {
+//    $('input:radio[name="wealthbot_riabundle_riacompanyinformationtype[is_allow_retirement_plan]"]').on('change', function() {
 //        updateOutsideRetirementAlertMessage();
 //    });
 //
-//    $('input:radio[name="wealthbot_riabundle_riacompanyinformationtype[account_managed]"]').live('change', function() {
+//    $('input:radio[name="wealthbot_riabundle_riacompanyinformationtype[account_managed]"]').on('change', function() {
 //
 //    })
 });

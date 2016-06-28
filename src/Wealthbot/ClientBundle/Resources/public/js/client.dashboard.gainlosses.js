@@ -6,7 +6,7 @@
  * To change this template use File | Settings | File Templates.
  */
 $(function(){
-    $("#stop_tlh_form").live("submit", function(event){
+    $("#stop_tlh_form").on("submit", function(event){
         var form = $(this);
         var btn = form.find('input[type="submit"]');
 
@@ -43,7 +43,7 @@ $(function(){
     });
 
 
-    $('#stop_tlh_form_stop_tlh_value, #stop_tlh_form input[type="submit"]').live("focus blur", function(event){
+    $('#stop_tlh_form_stop_tlh_value, #stop_tlh_form input[type="submit"]').on("focus blur", function(event){
         var form = $(this).closest("form");
         var btn = form.find('input[type="submit"]');
         var input = form.find('#stop_tlh_form_stop_tlh_value');

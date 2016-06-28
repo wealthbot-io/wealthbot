@@ -32,7 +32,7 @@ $(function() {
         }
     });
 
-    $('#most_recent_activity_cart table thead a, #most_recent_activity_cart .delete-most-recent-activity').live('click', function(event) {
+    $('#most_recent_activity_cart table thead a, #most_recent_activity_cart .delete-most-recent-activity').on('click', function(event) {
         var btn = $(this);
         var url = btn.attr('href');
         var block = btn.closest('.dashboard-box');

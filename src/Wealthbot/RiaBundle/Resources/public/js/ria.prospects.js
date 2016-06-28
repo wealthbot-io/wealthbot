@@ -7,7 +7,7 @@
  */
 
 $(function(){
-    $('table.prospects > thead a').live('click', function(event) {
+    $('table.prospects > thead a').on('click', function(event) {
         var btn = $(this);
 
         $.ajax({
@@ -23,7 +23,7 @@ $(function(){
         event.preventDefault();
     });
 
-    $('#invite_prospect_form').live('submit', function(event) {
+    $('#invite_prospect_form').on('submit', function(event) {
         var form = $(this);
         var btn = form.find('input[type="submit"]');
         var prospectTab = $('#tab_prospects');

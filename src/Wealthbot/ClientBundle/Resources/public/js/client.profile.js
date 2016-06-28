@@ -20,7 +20,7 @@ $(function(){
         $('#account_continue_btn').button('reset');
     });
 
-    $("#client_account_types_groups input[type='radio']").live('click', function(event){
+    $("#client_account_types_groups input[type='radio']").on('click', function(event){
         if (isAjax) {
             event.preventDefault();
         } else {
@@ -41,7 +41,7 @@ $(function(){
     });
 
     // Account owner choices and deposit account groups handler
-    $("#client_account_types_group_type input[type='radio']").live('click', function(){
+    $("#client_account_types_group_type input[type='radio']").on('click', function(){
         var form = $(this).closest('form');
 
         var options = {
@@ -51,7 +51,7 @@ $(function(){
     });
 
     // Continue button Handler
-    $("#account_continue_btn").live('click', function(){
+    $("#account_continue_btn").on('click', function(){
         var form = $("#account_type_form_container form");
         var hasErrors = false;
 
@@ -96,7 +96,7 @@ $(function(){
     });
 
     //back button handler
-    $('#account_back_btn').live('click', function(event) {
+    $('#account_back_btn').on('click', function(event) {
         var elem = $(this);
 
         $.ajax({
@@ -123,7 +123,7 @@ $(function(){
         event.preventDefault();
     });
 
-    $('.contribution-type-choices input[type="radio"]').live('click', function(event) {
+    $('.contribution-type-choices input[type="radio"]').on('click', function(event) {
         var elem = $(this);
         var form = $(this).closest('form');
 
@@ -140,7 +140,7 @@ $(function(){
         form.ajaxSubmit(options);
     });
 
-    $('input[type="checkbox"].other-contact-owner').live('click', function() {
+    $('input[type="checkbox"].other-contact-owner').on('click', function() {
         var elem = $(this);
         var parent = elem.parent();
         var form = elem.closest('form');

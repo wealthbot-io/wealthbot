@@ -11,7 +11,7 @@ $(function() {
     riskRatingSlider();
     decorateDecimalInput('.low-market-return', 2);
 
-    $('.edit-ria-model-btn').live('click', function (event) {
+    $('.edit-ria-model-btn').on('click', function (event) {
         var e = $(this);
 
         $.ajax({
@@ -31,7 +31,7 @@ $(function() {
         event.preventDefault();
     });
 
-    $('#edit_ria_model_form').live('submit', function (event) {
+    $('#edit_ria_model_form').on('submit', function (event) {
         var form = $(this);
 
         var config = {
@@ -57,7 +57,7 @@ $(function() {
 
     $('#rx_ria_model_entity_form_assetClass, #rx_ria_model_entity_form_subclass,' +
         '#rx_ria_model_entity_form_securityAssignment, #rx_ria_model_entity_form_muniSubstitution,' +
-        '#rx_ria_model_entity_form_tax_loss_harvesting').live('change', function() {
+        '#rx_ria_model_entity_form_tax_loss_harvesting').on('change', function() {
 
             var elem = $(this);
             var id = elem.attr('id');
@@ -88,7 +88,7 @@ $(function() {
             updateEntityForm(form);
         });
 
-    $('#ria_model_form').live('submit', function (event) {
+    $('#ria_model_form').on('submit', function (event) {
         var form = $(this);
 
         var options = {
@@ -109,11 +109,11 @@ $(function() {
         event.preventDefault();
     });
 
-    $('#rx_ria_model_entity_form_percent').live('change', function() {
+    $('#rx_ria_model_entity_form_percent').on('change', function() {
         percentRound($(this));
     });
 
-    $('#model_entities_list .delete-btn').live('click', function (event) {
+    $('#model_entities_list .delete-btn').on('click', function (event) {
         if (confirm('Are you sure?')) {
             var e = $(this);
             var row = e.closest('tr');
@@ -137,7 +137,7 @@ $(function() {
         event.preventDefault();
     });
 
-    $('#model_entities_list .edit-btn').live('click', function (event) {
+    $('#model_entities_list .edit-btn').on('click', function (event) {
         var e = $(this);
         var form = $('.ria-model-entity-form');
 
@@ -159,7 +159,7 @@ $(function() {
         event.preventDefault();
     });
 
-    $('#ria_edit_model_form').live('submit', function (event) {
+    $('#ria_edit_model_form').on('submit', function (event) {
         var form = $(this);
         var rowIndex = form.data('edit-row');
 
@@ -184,7 +184,7 @@ $(function() {
         event.preventDefault();
     });
 
-    $('#create_model_form').live('submit', function(event) {
+    $('#create_model_form').on('submit', function(event) {
         var form = $(this);
         var button = form.find('button[type="submit"]');
 
@@ -199,7 +199,7 @@ $(function() {
         event.preventDefault();
     });
 
-    $('#models_list a:not(:last)').live('click', function(event) {
+    $('#models_list a:not(:last)').on('click', function(event) {
         var btn = $(this);
 
         $.ajax({
@@ -226,7 +226,7 @@ $(function() {
         event.preventDefault();
     });
 
-    $('.delete-ria-model-btn').live('click', function (event) {
+    $('.delete-ria-model-btn').on('click', function (event) {
         var elem = $(this);
 
         if (confirm('Are you sure?')) {
@@ -249,7 +249,7 @@ $(function() {
         event.preventDefault();
     });
 
-    $("#q_container_id :input").live('change', function(){
+    $("#q_container_id :input").on('change', function(){
         var url = $("#q_container_id").attr('data-url');
         var is_qualified = $(this).val();
         $.ajax({

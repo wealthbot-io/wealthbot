@@ -16,7 +16,7 @@ $(function(){
     toleranceBandToggle();
     qualifiedModelsToggle();
 
-    $('select[id*="rebalanced_frequency"]').live('change', function(){
+    $('select[id*="rebalanced_frequency"]').on('change', function(){
         toleranceBandToggle();
     });
 
@@ -32,7 +32,7 @@ $(function(){
         updateRiaAssetSettingsTable();
     });
 
-    $(".control-group input[id*=strategy_model]").live('click', function(){
+    $(".control-group input[id*=strategy_model]").on('click', function(){
         completeSubclasses();
     });
 
@@ -46,21 +46,21 @@ $(function(){
         updateTaxLossHarvesting($(this).val());
     });
 
-    $('input:radio[name="wealthbot_riabundle_riacompanyinformationtype[account_managed]"]').live('click', function(){
+    $('input:radio[name="wealthbot_riabundle_riacompanyinformationtype[account_managed]"]').on('click', function(){
         updateRiaAssetSettingsTable();
         updateOutsideRetirementAlertMessage();
         qualifiedModelsToggle();
     });
 
-    $("input[id*='is_show_client_expected_asset_class']").live('click', function(){
+    $("input[id*='is_show_client_expected_asset_class']").on('click', function(){
         updateRiaAssetSettingsTable();
     });
 
-//    $("#portfolio_managment_level_block input").live('click', function() {
+//    $("#portfolio_managment_level_block input").on('click', function() {
 //        municipalBondsToggle();
 //    });
 
-    $('input:radio[name="wealthbot_riabundle_riacompanyinformationtype[is_allow_retirement_plan]"]').live('change', function() {
+    $('input:radio[name="wealthbot_riabundle_riacompanyinformationtype[is_allow_retirement_plan]"]').on('change', function() {
         updateOutsideRetirementAlertMessage();
         qualifiedModelsToggle();
     });

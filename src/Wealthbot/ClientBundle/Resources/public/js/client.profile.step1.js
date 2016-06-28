@@ -39,7 +39,7 @@ $(function(){
         }
     });
 
-    $('#step_one_logout_btn').live('click', function() {
+    $('#step_one_logout_btn').on('click', function() {
         var elem = $(this);
         var form = $('form[data-save="true"]');
 

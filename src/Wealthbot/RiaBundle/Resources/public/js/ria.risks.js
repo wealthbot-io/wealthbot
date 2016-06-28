@@ -50,7 +50,7 @@ $(function(){
         event.preventDefault();
     });
 
-    $('.edit-question-btn').live('click', function(event){
+    $('.edit-question-btn').on('click', function(event){
         var e = $(this);
         var content_selector = e.closest('.q-row');
 
@@ -68,6 +68,7 @@ $(function(){
 
                     content_selector.find('.q-info').hide();
                     content_selector.append(response.content);
+                    removeBtn();
                 }
             }
         });
@@ -75,7 +76,7 @@ $(function(){
         event.preventDefault();
     });
 
-    $('.delete-question-btn').live('click', function(event){
+    $('.delete-question-btn').on('click', function(event){
         var e = $(this);
         var message = 'Are you sure?';
 
@@ -103,7 +104,7 @@ $(function(){
         event.preventDefault();
     });
 
-    $('.cancel-edit-btn').live('click', function(event){
+    $('.cancel-edit-btn').on('click', function(event){
         var e = $(this);
         var form_selector = e.closest('.q-form');
         var content_selector = form_selector.parent();
@@ -118,7 +119,7 @@ $(function(){
         event.preventDefault();
     });
 
-    $('#question_form').live('submit', function(event){
+    $('#question_form').on('submit', function(event){
         var form = $(this);
         var form_container = form.closest('.q-form');
 
@@ -149,7 +150,7 @@ $(function(){
         event.preventDefault();
     });
 
-    $('.btn-add').live('click', function(event) {
+    $('.btn-add').on('click', function(event) {
         var collectionHolder = $('.answers-list');
         var itemsCount = collectionHolder.find('li').length;
 
@@ -161,16 +162,22 @@ $(function(){
             alert('You can only have up to 5 answers.')
         }
 
+        removeBtn();
+        
         event.preventDefault();
     });
 
-    $('.btn-remove').live('click', function(event) {
-        var name = $(this).attr('data-related');
-        var prev = $('*[data-content="'+name+'"]').prev();
-        if(prev) $(prev).find("a.btn-remove").show();
-        $('*[data-content="'+name+'"]').remove();
-        event.preventDefault();
-    });
+    function removeBtn() {
+        $('.btn-remove').on('click', function (event) {
+            var name = $(this).attr('data-related');
+            var prev = $('*[data-content="' + name + '"]').prev();
+            if (prev) $(prev).find("a.btn-remove").show();
+            $('*[data-content="' + name + '"]').remove();
+            event.preventDefault();
+        });
+    };
+
+    removeBtn();
 
     $("[rel=popover]").popover();
 

@@ -1,5 +1,5 @@
 $(function () {
-    $('#ria_client_account_group').live('change', function (event) {
+    $('#ria_client_account_group').on('change', function (event) {
         var e = $(this);
         var form = e.closest('form');
         var errors = form.find('ul.error-list');
@@ -60,7 +60,7 @@ $(function () {
         form.ajaxSubmit(options);
     });
 
-    $('#ria_client_account_groupType, input[type="checkbox"].other-contact-owner').live('change', function (event) {
+    $('#ria_client_account_groupType, input[type="checkbox"].other-contact-owner').on('change', function (event) {
         var e = $(this);
         var form = e.closest('form');
         var errors = form.find('ul.error-list');
@@ -135,7 +135,7 @@ $(function () {
         event.preventDefault();
     });
 
-    $('.remove-client-account-btn').live('click', function (event) {
+    $('.remove-client-account-btn').on('click', function (event) {
         if (confirm('Are you sure?')) {
             var e = $(this);
 
@@ -188,7 +188,7 @@ $(function () {
         event.preventDefault();
     });
 
-    $('.edit-client-account-btn').live('click', function (event) {
+    $('.edit-client-account-btn').on('click', function (event) {
         var e = $(this);
 
         var selector = $(this).closest('tr').find('.see-investments-btn');
@@ -236,14 +236,14 @@ $(function () {
         event.preventDefault();
     });
 
-    $('.cancel-edit-client-account-btn').live('click', function (event) {
+    $('.cancel-edit-client-account-btn').on('click', function (event) {
         $(this).closest('form').remove();
         $('#create_client_account_form').show();
 
         event.preventDefault();
     });
 
-    $('#edit_client_account_form').live('submit', function (event) {
+    $('#edit_client_account_form').on('submit', function (event) {
         var form = $(this);
 
         if (!form.hasClass('ajax-process')) {
@@ -298,7 +298,7 @@ $(function () {
         event.preventDefault();
     });
 
-    $('#create_client_account_form').live('submit', function (event) {
+    $('#create_client_account_form').on('submit', function (event) {
         var form = $(this);
         var options = {
             dataType: 'json',
@@ -354,7 +354,7 @@ $(function () {
         event.preventDefault();
     });
 
-    $('#add_client_outside_fund_form, #edit_client_outside_fund_form').live('submit', function (event) {
+    $('#add_client_outside_fund_form, #edit_client_outside_fund_form').on('submit', function (event) {
         var form = $(this);
         var options = {
             dataType: 'json',
@@ -368,7 +368,7 @@ $(function () {
         event.preventDefault();
     });
 
-    $('.remove-client-outside-fund-btn').live('click', function (event) {
+    $('.remove-client-outside-fund-btn').on('click', function (event) {
         var e = $(this);
 
         if (confirm('Are you sure?')) {
@@ -419,7 +419,7 @@ $(function () {
         event.preventDefault();
     });
 
-    $('.edit-client-outside-fund-btn').live('click', function (event) {
+    $('.edit-client-outside-fund-btn').on('click', function (event) {
         var e = $(this);
 
         $.ajax({
@@ -445,7 +445,7 @@ $(function () {
         event.preventDefault();
     });
 
-    $('.see-investments-btn').live('click', function (event) {
+    $('.see-investments-btn').on('click', function (event) {
         var e = $(this);
         var selector = e.closest('td');
 
@@ -479,7 +479,7 @@ $(function () {
         event.preventDefault();
     });
 
-    $('.see-consolidated-accounts-btn').live('click', function (event) {
+    $('.see-consolidated-accounts-btn').on('click', function (event) {
         var e = $(this);
         var selector = e.closest('td');
 
@@ -513,19 +513,19 @@ $(function () {
         event.preventDefault();
     });
 
-    $('.cancel-edit-fund-btn').live('click', function (event) {
+    $('.cancel-edit-fund-btn').on('click', function (event) {
         $('#edit_client_outside_fund_form').remove();
         $('#add_client_outside_fund_form').show();
 
         event.preventDefault();
     });
 
-    $('.cancel-add-fund-btn').live('click', function (event) {
+    $('.cancel-add-fund-btn').on('click', function (event) {
         $('.outside-funds-list').html('');
         event.preventDefault();
     });
 
-    $(".qualified-toggle").live('click', function(event){
+    $(".qualified-toggle").on('click', function(event){
         var is_qualified = $(this).attr('data-value');
         $("#suggested_portfolio_form_is_qualified").val(is_qualified);
         event.preventDefault();

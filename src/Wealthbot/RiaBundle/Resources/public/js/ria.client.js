@@ -23,7 +23,7 @@ $(function(){
     });
 
     //TODO check in IE /ria/client/create
-    $("#wealthbot_riabundle_riacreateclienttype_profile_model").live('change', function(event){
+    $("#wealthbot_riabundle_riacreateclienttype_profile_model").on('change', function(event){
         $('#wealthbot_riabundle_riacreateclienttype_profile_suggested_portfolio').attr('disabled', 'disabled');
 
         var form = $(this).closest('form');
@@ -42,7 +42,7 @@ $(function(){
     });
 
     // Event for button Apply
-    $("#save_client_btn_id").live('click', function(event){
+    $("#save_client_btn_id").on('click', function(event){
         var options = {
             dataType: 'json',
             type:     'POST',
@@ -57,7 +57,7 @@ $(function(){
         event.preventDefault();
     });
 
-    $('#ria_client_account_account_type').live('change', function (event) {
+    $('#ria_client_account_account_type').on('change', function (event) {
         checkSelectedAccountType(accountTypes, '#ria_client_account_account_type');
     });
 });

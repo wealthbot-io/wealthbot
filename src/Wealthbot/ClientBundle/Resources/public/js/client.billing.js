@@ -53,7 +53,7 @@ $(function() {
         billing.initQuarters();
     };
 
-    $('#years').live('change', billing.changeYear);
+    $('#years').on('change', billing.changeYear);
 
     billing.clickQuarter = function(e) {
         e.preventDefault();
@@ -86,7 +86,7 @@ $(function() {
         });
     };
 
-    $('a[data-role="quarter"]').live('click', billing.clickQuarter);
+    $('a[data-role="quarter"]').on('click', billing.clickQuarter);
 
     // Start module
     billing.init();

@@ -7,7 +7,7 @@
  */
 
 $(function(){
-    $('.account-type-input').live('change', function() {
+    $('.account-type-input').on('change', function() {
         var is_show_subclasses_priority = $('#categories_tab').attr('data-is-show-subclasses-priority');
         if (is_show_subclasses_priority) {
             rebuildPriority(this);
@@ -18,13 +18,13 @@ $(function(){
         $(this).find('option[value="'+tmp+'"]').attr('selected', 'selected');
     });
 
-    $('.subclass-priority').live('change', function() {
+    $('.subclass-priority').on('change', function() {
         var tmp = $(this).val();
         $(this).closest('.subclass-priority').find('option').removeAttr('selected');
         $(this).find('option[value="'+tmp+'"]').attr('selected', 'selected');
     });
 
-    $('.subclass input').live('change', function() {
+    $('.subclass input').on('change', function() {
         $(this).attr('value', $(this).val());
     });
 });

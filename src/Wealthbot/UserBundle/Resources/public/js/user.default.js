@@ -1,5 +1,5 @@
 $(function(){
-    $('#search_ria_form').live('submit', function(event){
+    $('#search_ria_form').on('submit', function(event){
         var form = $(this);
 
         form.spinner128();

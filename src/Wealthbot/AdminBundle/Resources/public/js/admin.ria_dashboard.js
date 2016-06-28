@@ -16,7 +16,7 @@ $(function(){
         $('#wealthbot_riabundle_riacompanyinformationtype_min_asset_size').closest('.control-group').hide();
     }
 
-    $('#company_profile_form .btn-ajax, #marketing_form .btn-ajax, #billing_n_accounts_form .btn-ajax, #portfolio_management_form .btn-ajax').live('click', function(event){
+    $('#company_profile_form .btn-ajax, #marketing_form .btn-ajax, #billing_n_accounts_form .btn-ajax, #portfolio_management_form .btn-ajax').on('click', function(event){
         var button = this;
         var form = $(button).closest('form');
 
@@ -72,7 +72,7 @@ $(function(){
     //FROM Company information
     $("#wealthbot_riabundle_riacompanyinformationtype_phone_number").inputmask("mask", {"mask": "(999) 999-9999"});
 
-    $('.website-test.btn').live('click', function (event) {
+    $('.website-test.btn').on('click', function (event) {
         var value = $('#wealthbot_riabundle_riacompanyinformationtype_website').val();
 
         if (!value || value === 'http://') {
@@ -84,7 +84,7 @@ $(function(){
     });
 
     // FROM Dashboard pagination
-    $('div.pagination a').live('click', function(event) {
+    $('div.pagination a').on('click', function(event) {
         $.ajax({
             url: $(this).attr('href'),
             dataType: 'json',
@@ -103,7 +103,7 @@ $(function(){
         event.preventDefault();
     });
 
-    $('div#tab2 table thead th a').live('click', function(event) {
+    $('div#tab2 table thead th a').on('click', function(event) {
         $.ajax({
             url: $(this).attr('href'),
             dataType: 'json',
@@ -117,7 +117,7 @@ $(function(){
         event.preventDefault();
     });
 
-    $('.activate-checkbox').live('click', function() {
+    $('.activate-checkbox').on('click', function() {
         var e = $(this);
         var parent = e.parent();
         var isChecked = e.is(':checked');
@@ -143,7 +143,7 @@ $(function(){
         });
     });
 
-    $('input[name="ria_relationship_form[relationship_type]"]').live('click', function(event) {
+    $('input[name="ria_relationship_form[relationship_type]"]').on('click', function(event) {
 
         var form = $(this).closest('#ria_update_relationship_form');
 

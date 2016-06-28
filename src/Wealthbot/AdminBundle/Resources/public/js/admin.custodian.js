@@ -7,7 +7,7 @@
  */
 
 $(function(){
-    $('form.custodian-form').live('submit', function(event) {
+    $('form.custodian-form').on('submit', function(event) {
         var form = $(this);
         var btn = form.find('input[type="submit"]');
         var targetId = form.parent().attr('id');
@@ -18,7 +18,7 @@ $(function(){
         event.preventDefault();
     });
 
-    $('.custodian-messages-list a').live('click', function(event) {
+    $('.custodian-messages-list a').on('click', function(event) {
         var elem = $(this);
         var parent = elem.parent();
 
@@ -52,7 +52,7 @@ $(function(){
         event.preventDefault();
     });
 
-    $('#custodian_message_form').live('submit', function(event) {
+    $('#custodian_message_form').on('submit', function(event) {
         var form = $(this);
         var dialog = $('#modal_dialog');
         var btn =  dialog.find('.save-modal-form-btn');

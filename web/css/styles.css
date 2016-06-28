@@ -708,7 +708,7 @@ font-size: 14px !important;}
 .def-form .inner-ch{
     margin: 0px 0 0 20px;
 }
-.row-fluid .def-form .span, .modal #edit_bank_account_form .span{
+.row .def-form .span, .modal #edit_bank_account_form .span{
     width: auto;
 }
 /*===========================Import Section=================================*/
@@ -2601,8 +2601,8 @@ tr.last-row > td {
 }
 
 .beneficiary-block .well{ margin-right: 20px; }
-.row-fluid.unemployed-block{ margin-left: 30px; }
-#your_information .row-fluid.unemployed-block{ margin-left: 0px; }
+.row.unemployed-block{ margin-left: 30px; }
+#your_information .row.unemployed-block{ margin-left: 0px; }
 .unemployed-block .span12{ margin-left: 2.564102564102564% !important; }
 
 /* Table */
@@ -2806,4 +2806,9 @@ a.disabled:hover {
 
 #trade_recon_tab td.error {
   background-color: #FFAABB;
+}
+
+#modal_dialog {
+    width: 800px;
+    margin: 80px auto;
 }

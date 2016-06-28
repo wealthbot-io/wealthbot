@@ -11,8 +11,8 @@
     {% endfor %}
 {% endblock %}
 
-<div class="row-fluid">
-    <form action="{% block form_action %}{{ path('rx_ria_user_create') }}{% endblock %}" id="user-form" method="post" class="form-horizontal span6">
+<div class="row">
+    <form action="{% block form_action %}{{ path('rx_ria_user_create') }}{% endblock %}" id="user-form" method="post" class="form-horizontal col-md-6">
         {{ form_errors(form) }}
         <fieldset>
             <div class="control-group">
@@ -60,7 +60,7 @@
         </fieldset>
     </form>
 
-    <div class="span6">
+    <div class="col-md-6">
         <table id="users_list" class="table table-striped">
             <thead>
             <tr>

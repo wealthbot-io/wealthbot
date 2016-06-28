@@ -1,8 +1,8 @@
 {% extends 'WealthbotRiaBundle:Dashboard:index.html.twig' %}
 
 {% block main_content %}
-    <div class="row-fluid">
-        <div class="span10"><h3 class="bbh3">Proposals</h3></div>
+    <div class="row">
+        <div class="col-md-10"><h3 class="bbh3">Proposals</h3></div>
     </div>
 
     <ol type="1" class="questions-list" data-url="{{ path("rx_ria_risks_update_order") }}">
@@ -14,7 +14,7 @@
     <div class="new-question">
         <div class="control-group action-buttons">
             <a class="create-question-btn btn" href="{{ path('rx_ria_risks_create_question') }}">New Question</a>
-            <a class="btn" target="_blank" href="{{ path('rx_ria_risks_test') }}">View and Test</a>
+            <a class="btn btn-default"  target="_blank" href="{{ path('rx_ria_risks_test') }}">View and Test</a>
         </div>
     </div>
 {% endblock %}

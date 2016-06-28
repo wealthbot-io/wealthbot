@@ -11,11 +11,11 @@
 
 <div class="container">
     <div class="row">
-        <div class="span8">
+        <div class="col-md-8">
             <div class="logo-ce-login center-text"><img src="{{ ria_logo is defined and ria_logo ? ria_logo : '/img/logo.png' }}" alt=""></div>
         </div>
         {% block login_content %}
-        <div class="span4 form-container">
+        <div class="col-md-4 form-container">
             <form action="{{ path("fos_user_security_check") }}" method="post" class="regRia-form">
                 <fieldset>
                     <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />

@@ -8,19 +8,19 @@
     {% endif %}
 
     <li data-content="{{ name }}" class="risk-list">
-        <div class="row-fluid">
-            <div class="span7 risk-answer">
+        <div class="row">
+            <div class="col-md-7 risk-answer">
                 {{ form_label(form.title, 'Answer:') }}
                 {{ form_errors(form.title) }}
-                {{ form_widget(form.title, {'attr': {'class':'span12'}} ) }}
+                {{ form_widget(form.title, {'attr': {'class':'col-md-12'}} ) }}
             </div>
             <div class="middle-block center-text">
                 <span>=</span>
             </div>
-            <div class="span2 risk-point-selector">
+            <div class="col-md-2 risk-point-selector">
                 {{ form_label(form.point, 'Risk Point:', {'label_attr': {'class':'bold'} } ) }}
                 {{ form_errors(form.point) }}
-                {{ form_widget(form.point, {'attr': {'class':'span12'}} ) }}
+                {{ form_widget(form.point, {'attr': {'class':'col-md-12'}} ) }}
             </div>
             <div class="middle-block">
                 <a class="btn-remove" data-related="{{ name }}" href="javascript:void(0)">{{ remove_text }}</a>

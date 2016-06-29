@@ -1,12 +1,12 @@
 {% if not is_init_rebalance %}
-    <div class="row-fluid">
+    <div class="row">
         <div class="alert alert-error">
-            <div class="row-fluid">
-                <div class="span10">
+            <div class="row">
+                <div class="col-md-10">
                     These accounts have been set up on our system and <strong>{{ account_values.total.funded_percent }}%</strong> of the portfolio's projected value has
                     been funded. Would you like to make the initial rebalance?
                 </div>
-                <div class="span2">
+                <div class="col-md-2">
                     <button class="btn initial-rebalance-btn" data-url="{{ path('rx_ria_rebalancing_start_initial_rebalance', { client_id: client.id }) }}">Rebalance</button>
                 </div>
             </div>
@@ -14,7 +14,7 @@
     </div>
 {% endif %}
 
-<div class="row-fluid">
+<div class="row">
     <form id="sas_cash_collection_form" action="{{ path('rx_ria_client_update_sas_cash', {client_id: client.id}) }}" method="POST">
         <table class="table table-striped">
             <thead>
@@ -103,8 +103,8 @@
 
 <hr />
 
-<div class="row-fluid">
-    <div class="box span12 shadow" onTablet="span12" onDesktop="span12">
+<div class="row">
+    <div class="box col-md-12 shadow" onTablet="col-md-12" onDesktop="col-md-12">
         <div class="box-header">
             <h2><i class="icon-signal"></i><span class="break"></span>Portfolio Growth</h2>
         </div>

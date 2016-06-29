@@ -1,5 +1,5 @@
-<div class="span2 main-menu-span">
-    <div class="nav-collapse sidebar-nav">
+<div class="col-md-2 main-menu-span">
+    <div class="navbar-collapse sidebar-nav">
         <ul class="nav nav-tabs nav-stacked main-menu">
             <li {% if action == 'Overview' %}class="active"{% endif %}>
                 <a href="{{ path('rx_client_dashboard', is_client_view == 0 ? {'is_client_view': is_client_view} : {}) }}"><i class="icon-home icon"></i><span class="hidden-tablet"> Overview</span></a>

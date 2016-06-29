@@ -1,6 +1,6 @@
 <div id="assumption">
     {% if form.commission_min is defined and form.commission_max is defined %}
-        <div class="control-group">
+        <div class="form-group">
             <div class="controls">
                 {{ form_label(form.commission_min, 'Commissions:', {'label_attr': {'class': 'control-label'}}) }}
                 {{ form_errors(form.commission_min) }}
@@ -23,7 +23,7 @@
     {% endif %}
 
     {% if (form.forecast is defined) %}
-        <div class="control-group">
+        <div class="form-group">
             <div class="controls">
                 {{ form_label(form.forecast, 'Forecast:', {'label_attr': {'class': 'control-label'}}) }}
                 {{ form_errors(form.forecast) }}
@@ -38,7 +38,7 @@
     {% if (form.generous_market_return is defined) %}
         <strong>Market Return Multiplier:</strong>
 
-        <div class="control-group">
+        <div class="form-group">
             <div class="controls">
                 {{ form_errors(form.generous_market_return) }}
                 {{ form_widget(form.generous_market_return, {'attr': {'class': 'input-small auto-numeric generous-market-return', 'placeholder': '0.00 '}}) }}
@@ -46,7 +46,7 @@
             </div>
         </div>
 
-        <div class="control-group">
+        <div class="form-group">
             <div class="controls">
                 {{ form_errors(form.low_market_return) }}
                 {{ form_widget(form.low_market_return, {'attr': {'class': 'input-small auto-numeric low-market-return', 'placeholder': '.00 '}}) }}

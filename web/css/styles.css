@@ -33,6 +33,9 @@ ul {list-style-type: none;}
 /* Forms */
 
 input {width:230px;}
+input[type=radio] {width: auto !important; min-width:20px}
+input[type=checkbox] {width: auto !important; min-width:20px}
+
 input::-webkit-input-placeholder { color: #cbcbcb; }
 input:-moz-placeholder { color: #cbcbcb; }
 input:-ms-input-placeholder { color: #cbcbcb; }
@@ -2825,4 +2828,9 @@ a.disabled:hover {
 .w200h100 {
     width: 200px !important;
     height: 100px !important;
+}
+
+.modal-800w {
+    width: 800px;
+    margin: 20px auto;
 }

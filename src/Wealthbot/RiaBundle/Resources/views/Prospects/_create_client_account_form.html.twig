@@ -2,7 +2,7 @@
       data-update-url="{{ path('rx_ria_prospect_update_client_account_form', {'client_id': client.id}) }}"
       data-update-owners-url="{{ path('rx_ria_prospect_update_client_account_owners_form', {'client_id': client.id}) }}" class="form-horizontal">
 
-    <div class="control-group">
+    <div class="form-group">
         {{ form_label(form.group, 'Activity') }}
         <div>
             {{ form_errors(form.group) }}
@@ -14,7 +14,7 @@
         {% include 'WealthbotRiaBundle:Prospects:_account_form_fields.html.twig' with { 'form': form } %}
     </div>
 
-    <div class="control-group">
+    <div class="form-group">
         {{ form_errors(form.consolidate) }}
         <div>
             <label for="{{ form.consolidate.vars.id }}">

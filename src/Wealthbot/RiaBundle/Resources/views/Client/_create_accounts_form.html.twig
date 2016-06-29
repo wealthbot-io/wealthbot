@@ -1,7 +1,7 @@
 <form id='create_account_form_id' action="{{ path('rx_ria_client_create_account', { 'client_id': client.id } ) }}" method="post">
     <div class="client-account-type-form">
         {% if (form.financial_institution is defined) %}
-            <div class="control-group">
+            <div class="form-group">
                 {{ form_label(form.financial_institution, 'Name of company client work for:') }}
                 <div class="controls">
                     {{ form_errors(form.financial_institution) }}
@@ -11,7 +11,7 @@
         {% endif %}
 
         {% if (form.plan_provider is defined) %}
-            <div class="control-group">
+            <div class="form-group">
                 {{ form_label(form.plan_provider) }}
                 <div class="controls">
                     {{ form_errors(form.plan_provider) }}
@@ -20,7 +20,7 @@
             </div>
         {% endif %}
 
-        <div class="control-group">
+        <div class="form-group">
             {{ form_label(form.account_type, 'Account Type') }}
             <div class="controls">
                 {{ form_errors(form.account_type) }}
@@ -28,7 +28,7 @@
             </div>
         </div>
 
-        <div class="control-group">
+        <div class="form-group">
             {{ form_label(form.value) }}
             <div class="controls">
                 {{ form_errors(form.value) }}
@@ -40,7 +40,7 @@
             </div>
         </div>
 
-        <div class="control-group">
+        <div class="form-group">
             {{ form_label(form.monthly_contributions) }}
             <div class="controls">
                 {{ form_errors(form.monthly_contributions) }}
@@ -51,7 +51,7 @@
             </div>
         </div>
 
-        <div class="control-group">
+        <div class="form-group">
             {{ form_label(form.monthly_distributions) }}
             <div class="controls">
                 {{ form_errors(form.monthly_distributions) }}
@@ -63,6 +63,6 @@
         </div>
 
         {{ form_rest(form) }}
-        <input class="btn" type="submit" name="submit" value="Add"/>
+        <input class="btn btn-default"  type="submit" name="submit" value="Add"/>
     </div>
 </form>

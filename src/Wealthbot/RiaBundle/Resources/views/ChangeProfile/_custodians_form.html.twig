@@ -3,12 +3,12 @@
     <legend>Your Custodian</legend>
     <span>Select the custodian you will use with wealthbot.io.</span>
 
-    <div class="control-group">
+    <div class="form-group">
         {{ form_errors(custodianForm.custodian) }}
         {{ form_widget(custodianForm.custodian) }}
     </div>
 
-    <div id="custodian_questions" class="control-group">
+    <div id="custodian_questions" class="form-group">
         {{ form_label(custodianForm.allow_non_electronically_signing, 'Do you want to allow for non-electronically signed transfer forms?') }}
         <div class="controls">
             {{ form_errors(custodianForm.allow_non_electronically_signing) }}
@@ -40,7 +40,7 @@
     {{ form_widget(custodianForm._token) }}
     {{ form_widget(advisorCodesForm._token) }}
 
-    <div class="span12">
+    <div class="col-md-12">
         <div class="form-actions">
             <button type="submit" class="btn btn-ajax" data-loading-text="Saving...">Save</button>
         </div>

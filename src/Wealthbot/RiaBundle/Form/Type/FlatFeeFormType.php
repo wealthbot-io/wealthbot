@@ -26,7 +26,7 @@ class FlatFeeFormType extends AbstractType
         $resolver->setDefaults([
             'data_class' => 'Wealthbot\AdminBundle\Entity\Fee',
             'validation_groups' => ['flat'],
-
+            'csrf_protection' => false
         ]);
     }
 

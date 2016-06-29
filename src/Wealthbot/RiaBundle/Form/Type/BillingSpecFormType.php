@@ -34,13 +34,6 @@ class BillingSpecFormType extends AbstractType
         $builder->addEventListener(FormEvents::PRE_SET_DATA, [$this, 'addFees']);
     }
 
-    public function configureOptions(OptionsResolver $resolver)
-    {
-        $resolver->setDefaults([
-            'data_class' => 'Wealthbot\AdminBundle\Entity\BillingSpec',
-        ]);
-    }
-
     public function addFees(FormEvent $event)
     {
         /* @var $billingSpec BillingSpec */
@@ -68,6 +61,16 @@ class BillingSpecFormType extends AbstractType
                 ])
             );
         }
+    }
+
+
+    public function configureOptions(OptionsResolver $resolver)
+    {
+        $resolver->setDefaults([
+            'data_class' => 'Wealthbot\AdminBundle\Entity\BillingSpec',
+            'validation_groups' => false,
+            'csrf_protection' => false
+        ]);
     }
 
     public function getBlockPrefix()

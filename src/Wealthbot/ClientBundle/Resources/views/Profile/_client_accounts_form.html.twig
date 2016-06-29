@@ -5,20 +5,20 @@
 <form id="client_account_form" action="{{ path("rx_client_profile_create_account", {'group': group}) }}" method="post" class="form-horizontal">
     {{ form_errors(form) }}
     {% if (form.financial_institution is defined) %}
-        <div class="control-group">
-            <div class="row-fluid">
-                <div class="span9 offset3">
+        <div class="form-group">
+            <div class="row">
+                <div class="col-md-9 col-md-offset-3">
                     <div>{{ form_errors(form.financial_institution) }}</div>
                     {% if form.transferInformation is defined %}
                         <div>{{ form_errors(form.transferInformation.transfer_custodian_id) }}</div>
                     {% endif %}
                 </div>
             </div>
-            <div class="row-fluid">
+            <div class="row">
                 {{ form_label(form.financial_institution, null, { 'label_attr': {'class': ' client-intake-step-three-label'}}) }}
                 <div >
-                    <div class="row-fluid">
-                        <div class="span12">
+                    <div class="row">
+                        <div class="col-md-12">
                             {% if form.transferInformation is defined %}
                                 {{ form_widget(form.financial_institution, { 'attr': {
                                 class: 'input-xlarge fin-inst-typeahead ajaxed typeahead',
@@ -32,8 +32,8 @@
                         </div>
                     </div>
                     {% if form.transferInformation is defined %}
-                        <div class="row-fluid">
-                            <div class="span9">
+                        <div class="row">
+                            <div class="col-md-9">
                                 {{ form_errors(form.transferInformation.is_firm_not_appear) }}
                                 <label class="checkbox" for="{{ form.transferInformation.is_firm_not_appear.vars.id }}">
                                     {{ form_widget(form.transferInformation.is_firm_not_appear) }}
@@ -48,7 +48,7 @@
     {% endif %}
 
     {% if (form.plan_provider is defined) %}
-        <div class="control-group">
+        <div class="form-group">
             {{ form_label(form.plan_provider, label|default(null), { 'label_attr': {'class': 'control-label client-intake-step-three-label'}}) }}
             <div class="controls">
                 {{ form_errors(form.plan_provider) }}
@@ -59,7 +59,7 @@
     {% endif %}
 
     {% if "hidden" not in form.groupType.vars.block_prefixes %}
-    <div class="control-group">
+    <div class="form-group">
         {{ form_label(form.groupType, 'Account Type:', { 'label_attr': {'class': 'client-intake-step-three-label'}}) }}
         <div>
             {{ form_errors(form.groupType) }}
@@ -68,9 +68,9 @@
     </div>
     {% endif %}
 
-    <div class="control-group">
+    <div class="form-group">
         {{ form_errors(form.value) }}
-        <div class="row-fluid">
+        <div class="row">
             {{ form_label(form.value, 'Estimated Value:', { 'label_attr': {'class': ' client-intake-step-three-label'}}) }}
             <div >
                 <div class="input-prepend">
@@ -97,7 +97,7 @@
             {{ form_errors(form.contribution_type) }}
             <div class="contribution-type-choices" data-url="{{ path('rx_client_profile_update_account_form', { 'group': group }) }}">
                 {% for child in form.contribution_type %}
-                    <div class="span3">
+                    <div class="col-md-3">
                         <label class="radio" for="{{ child.vars.id }}">{{ form_widget(child) }} {{ child.vars.label }}</label>
                     </div>
                 {% endfor %}
@@ -110,6 +110,6 @@
     {{ form_rest(form) }}
 
     {% if hide_submit_button is not defined %}
-    <input class="btn" type="submit" name="submit" value="Add"/>
+    <input class="btn btn-default"  type="submit" name="submit" value="Add"/>
     {% endif %}
 </form>

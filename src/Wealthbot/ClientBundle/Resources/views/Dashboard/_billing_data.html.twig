@@ -1,6 +1,6 @@
 <div class="box-content shadow">
-    <div class="rx-horizontal-form span7">
-        <div class="control-group">
+    <div class="rx-horizontal-form col-md-7">
+        <div class="form-group">
             <div class="controls">
                 <select id="years">
                     {% for year in years %}
@@ -9,7 +9,7 @@
                 </select>
             </div>
         </div>
-        <div class="control-group">
+        <div class="form-group">
             <div class="btn-group">
                 <a href="#" class="btn {{ curQuarter == 1 ? 'active' : '' }}" data-role="quarter" data-value="1">1st Qrtr</a>
                 <a href="#" class="btn {{ curQuarter == 2 ? 'active' : '' }}" data-role="quarter" data-value="2">2nd Qrtr</a>
@@ -22,10 +22,10 @@
     <p>Average Portfolio Balance over the period:  <span class="label label-success">${{ averageTotal|number_format(2, '.', ',') }}</span></p>
 </div>
 
-<div class="row-fluid sortable ui-sortable">
+<div class="row sortable ui-sortable">
     <!-- start: fees table -->
     {% if isBillingSpecTier %}
-        <div class="box span6">
+        <div class="box col-md-6">
             <div class="box-content shadow">
                 <table class="table table-striped">
                     <thead>
@@ -50,7 +50,7 @@
             </div>
         </div>
     {% endif %}
-    <div class="box span6">
+    <div class="box col-md-6">
         <div class="box-content shadow">
             {% set billings = true %}
             {% if (billings is defined and billings) %}

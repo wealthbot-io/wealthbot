@@ -1,16 +1,16 @@
 {% set profile = client.profile %}
 
-<div class="control-group">
+<div class="form-group">
     <strong>First Name:</strong> {{ profile.firstName }} &nbsp;&nbsp;
     {{ profile.middleName ? '<strong>Middle Name:</strong> ' ~ profile.middleName : ''  }} &nbsp;&nbsp;
     <strong>Last Name:</strong> {{ profile.lastName }}
 </div>
 
-<div class="control-group">
+<div class="form-group">
     <strong>Street:</strong> {{ profile.street }}
 </div>
 
-<div class="control-group">
+<div class="form-group">
     <strong>City:</strong> {{ profile.street }} &nbsp;&nbsp;
     {% if profile.state %}
         <strong>State:</strong> {{ profile.state.name }} &nbsp;&nbsp;
@@ -19,10 +19,10 @@
 
     {% if profile.isDifferentAddress %}
         <div class="row">
-            <div class="col-md-10 offset1">
+            <div class="col-md-10 col-md-offset-1">
                 <strong>Mailing Street:</strong> {{ profile.mailingStreet }}
             </div>
-            <div class="col-md-10 offset1">
+            <div class="col-md-10 col-md-offset-1">
                 <strong>Mailing City:</strong> {{ profile.mailingStreet }} &nbsp;&nbsp;
                 <strong>Mailing State:</strong> {{ profile.mailingState.name }} &nbsp;&nbsp;
                 <strong>Mailing Zip code:</strong> {{ profile.mailingZip }} &nbsp;&nbsp;
@@ -31,46 +31,46 @@
     {% endif %}
 </div>
 
-<div class="control-group">
+<div class="form-group">
     <strong>Birth Date:</strong> {{ profile.birthDate | date('m/d/Y') }}
 </div>
 
-<div class="control-group">
+<div class="form-group">
     <strong>Phone Number:</strong> {{ '(%s)%s-%s' | format(profile.phoneNumber|slice(0, 3), profile.phoneNumber|slice(3, 3), profile.phoneNumber|slice(6)) }}
 </div>
 
-<div class="control-group">
+<div class="form-group">
     <strong>Marital Status:</strong> {{ profile.maritalStatus }}
 
     {% if profile.maritalStatus == 'Married' %}
         <div class="row">
-            <div class="col-md-10 offset1">
+            <div class="col-md-10 col-md-offset-1">
                 <strong>Spouse First Name:</strong> {{ profile.spouseFirstName }} &nbsp;&nbsp;
                 {{ profile.middleName ? '<strong>Spouse Middle Name:</strong> ' ~ profile.spouseMiddleName : ''  }} &nbsp;&nbsp;
                 <strong>Spouse Last Name:</strong> {{ profile.spouseLastName }}
             </div>
-            <div class="col-md-10 offset1">
+            <div class="col-md-10 col-md-offset-1">
                 <strong>Spouse Birth Date:</strong> {{ profile.spouseBirthDate | date('m/d/Y') }}
             </div>
         </div>
     {% endif %}
 </div>
 
-<div class="control-group">
+<div class="form-group">
     <strong>Annual Income:</strong> {{ profile.annualIncome }}
 </div>
 
 {% if profile.estimatedIncomeTax %}
-    <div class="control-group">
+    <div class="form-group">
         <strong>Estimated Income Tax:</strong> {{ profile.estimatedIncomeTax }}%
     </div>
 {% endif %}
 
-<div class="control-group">
+<div class="form-group">
     <strong>Estimated Liquid Net Worth:</strong> {{ profile.liquidNetWorth }}
 </div>
 
-<div class="control-group">
+<div class="form-group">
     <strong>Employment Status:</strong> {{ profile.employmentType }}
 </div>
 

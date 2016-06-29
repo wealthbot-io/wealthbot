@@ -20,7 +20,7 @@
         <div class="span">
             {{ form_label(form.street) }}
             {{ form_errors(form.street) }}
-            {{ form_widget(form.street, { 'attr': { 'class': 'span4' } }) }}
+            {{ form_widget(form.street, { 'attr': { 'class': 'col-md-4' } }) }}
         </div>
     </div>
     <div class="row">
@@ -42,14 +42,14 @@
         </div>
     </div>
     <div class="row">
-        <div class="span2">
+        <div class="col-md-2">
             {{ form_label(form.phone_number, 'Phone Number') }}
             {{ form_errors(form.phone_number) }}
             {{ form_widget(form.phone_number, { 'attr': { 'data-mask-type': 'phone' } }) }}
         </div>
 
 
-        <div class="span2">
+        <div class="col-md-2">
             {{ form_label(form.ssn, 'Social Security Number') }}
             {{ form_errors(form.ssn) }}
             {{ form_widget(form.ssn) }}

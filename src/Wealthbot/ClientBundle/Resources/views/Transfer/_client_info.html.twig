@@ -2,30 +2,30 @@
 {% set personalInformation = client.clientPersonalInformation %}
 
 <div class="row transfer-review-info-final">
-    <div class="span1 offset1"><strong>Name:</strong></div>
-    <div class="span2">
+    <div class="col-md-1 col-md-offset-1"><strong>Name:</strong></div>
+    <div class="col-md-2">
         <address>{{ profile.firstName }} {{ profile.middleName }} {{ profile.lastName }}</address>
     </div>
-    <div class="span1"><a class="edit-client_info-btn" href="{{ path('rx_client_transfer_edit_client_info') }}">Edit</a></div>
+    <div class="col-md-1"><a class="edit-client_info-btn" href="{{ path('rx_client_transfer_edit_client_info') }}">Edit</a></div>
 </div>
 <div class="row">
-    <div class="span1 offset1"><strong>Address:</strong></div>
-    <div class="span2">
+    <div class="col-md-1 col-md-offset-1"><strong>Address:</strong></div>
+    <div class="col-md-2">
         <address>{{ profile.street }} {{ profile.city }}, <abbr title="{{ profile.state ? profile.state.name : '' }}">{{ profile.state ? profile.state.abbr : '' }}</abbr> {{ profile.zip }}</address>
     </div>
-    <div class="span1"><a class="edit-client_info-btn" href="{{ path('rx_client_transfer_edit_client_info') }}">Edit</a></div>
+    <div class="col-md-1"><a class="edit-client_info-btn" href="{{ path('rx_client_transfer_edit_client_info') }}">Edit</a></div>
 </div>
 <div class="row">
-    <div class="span1 offset1"><strong>Phone:</strong></div>
-    <div class="span2">
+    <div class="col-md-1 col-md-offset-1"><strong>Phone:</strong></div>
+    <div class="col-md-2">
         <address>{{ profile.phoneNumber ? ('(%s) %s-%s' | format(profile.phoneNumber|slice(0, 3), profile.phoneNumber|slice(3, 3), profile.phoneNumber|slice(6))) : '' }}</address>
     </div>
-    <div class="span1"><a class="edit-client_info-btn" href="{{ path('rx_client_transfer_edit_client_info') }}">Edit</a></div>
+    <div class="col-md-1"><a class="edit-client_info-btn" href="{{ path('rx_client_transfer_edit_client_info') }}">Edit</a></div>
 </div>
 <div class="row">
-    <div class="span1 offset1"><strong>SSN:</strong></div>
-    <div class="span2">
+    <div class="col-md-1 col-md-offset-1"><strong>SSN:</strong></div>
+    <div class="col-md-2">
         <address>{{ personalInformation ? ('%s-%s-%s' | format(personalInformation.ssnTin|slice(0, 3), personalInformation.ssnTin|slice(3, 2), personalInformation.ssnTin|slice(5))) : '' }}</address>
     </div>
-    <div class="span1"><a class="edit-client_info-btn" href="{{ path('rx_client_transfer_edit_client_info') }}">Edit</a></div>
+    <div class="col-md-1"><a class="edit-client_info-btn" href="{{ path('rx_client_transfer_edit_client_info') }}">Edit</a></div>
 </div>

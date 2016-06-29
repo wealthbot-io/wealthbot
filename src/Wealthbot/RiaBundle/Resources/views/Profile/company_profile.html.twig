@@ -12,13 +12,13 @@
 {% block body %}
 
     <div class="row companyinfo">
-        <div class="span12">
-            <div class="row-fluid">
-                <div class="span10">
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-10">
                     <legend><h3>Company Profile</h3></legend>
                 </div>
                 <div class="save-and-logout">
-                    <a class="btn" id="reg_save_btn" href="{{ path('fos_user_security_logout') }}">Logout</a>
+                    <a class="btn btn-default"  id="reg_save_btn" href="{{ path('fos_user_security_logout') }}">Logout</a>
                     <span class="help-block">We'll save your progress.</span>
                 </div>
             </div>

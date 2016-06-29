@@ -4,9 +4,9 @@
     {% endblock %}
     {% block suggested_portfolio %}
 
-        <div class="span12">
+        <div class="col-md-12">
             <legend>Portfolio Processing</legend>
-            <div class="control-group">
+            <div class="form-group">
                 <div class="portfolio-processing">
                     {{ form_label(form.portfolio_processing, 'How would you like portfolios to be suggested to the client?') }}
                     <div class="controls">
@@ -21,9 +21,9 @@
     {% endblock %}
 
         {% block models %}
-            <div class="span12">
+            <div class="col-md-12">
                 <legend>Models</legend>
-                <div class="portfolio-model control-group">
+                <div class="portfolio-model form-group">
                     {{ form_label(form.model_type, 'Choose which types of models you will use for your clients:') }}
                     <div class="controls">
                         {{ form_errors(form.model_type) }}
@@ -42,7 +42,7 @@
                         {% endfor %}
                     </div>
                 </div>
-                <div class="strategy-list control-group" style="display: none;">
+                <div class="strategy-list form-group" style="display: none;">
                     <div class="controls">
                         {{ form_errors(form.strategy_model) }}
                         {% if form.strategy_model is not empty %}
@@ -58,9 +58,9 @@
         {% endblock %}
 
 
-        <div class="span12" id="outside_retirement_accounts_block" {#code_v2: NOT DELETE THIS CODE #}style="display: none;">
+        <div class="col-md-12" id="outside_retirement_accounts_block" {#code_v2: NOT DELETE THIS CODE #}style="display: none;">
             <legend>Outside Retirement Account <a class="pop" href="#" rel="popover" title="Outside Retirement Accounts" data-content="<p>We allow you to consider client's outside retirement accounts (401k's, 403b's, TSP's, etc.) in their overall portfolio. The client will be asked to give you the various choices they have in their plan, where you can then recommend the best options.</p>"><i class="mini-color mini-ico-info-sign"></i></a></legend>
-            <div class="control-group">
+            <div class="form-group">
                 <div class="outsideretirementaccountinfo">
                     {{ form_label(form.is_allow_retirement_plan, 'Do you want to allow a client’s current retirement plan (401k, 403b, 457, etc.) to be considered in the plan?') }}
                     {% if show_alerts is defined and show_alerts %}
@@ -79,13 +79,13 @@
             </div>
         </div>
 
-        <div class="span12" id="portfolio_managment_level_block">
+        <div class="col-md-12" id="portfolio_managment_level_block">
             <legend>Portfolio Management Level <a class="pop" href="#" rel="popover" title="Portfolio Management Level" data-content="<ul>
             <li><strong>Account Level:</strong> Each account will be managed by its own model. <i>Note-All accounts must use the same model.</i></li>
             <li><strong>Household Level:</strong> The accounts will be managed as a group, rebalanced against an overall model.</li>
             <li><strong>Client by Client Basis:</strong> You will select a level on a client by client basis when discussing the suggested portfolio with the client.</li>
             </ul>"><i class="mini-color mini-ico-info-sign"></i></a></legend>
-            <div class="control-group">
+            <div class="form-group">
                 {{ form_label(form.account_managed, 'Do you want client relationships to be managed on an account by account basis or household level?') }}
                 <div class="alert alert-error" id="p_mngmt_lvl_alert_id" style="display: none;">
                     <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -104,7 +104,7 @@
                 </div>
             </div>
             {% block qualified_container %}
-            <div class="control-group" id="qualified_container">
+            <div class="form-group" id="qualified_container">
                 {{ form_label(form.is_use_qualified_models) }}
                 <div class="controls">
                     {{ form_errors(form.is_use_qualified_models) }}
@@ -116,12 +116,12 @@
             {% endblock %}
         </div>
 
-        <div class="span12">
+        <div class="col-md-12">
             <legend>Rebalancing Level <a class="pop" href="#" rel="popover" title="Rebalancing Level" data-content="<ul>
             <li><b>Asset Class Rebalancing:</b> We will only rebalance a client’s portfolio when it exceeds your thresholds or is out of target on systematic basis you want rebalanced. Asset classes are stocks and bonds. This type of rebalancing will result in less rebalances, allowing markets to move.</li>
             <li><b>Subclass Rebalancing:</b> We will only rebalance when a client’s subclasses are out of balance (Small Value, REITs, Short Term Bonds, etc.) This type of rebalancing will result in more rebalances.</li>
             </ul>"><i class="mini-color mini-ico-info-sign"></i></a></legend>
-            <div class="control-group">
+            <div class="form-group">
                 {{ form_label(form.rebalanced_method, 'Choose the method you would like portfolios rebalanced by:') }}
                 <div class="alert alert-error" id="rebal_lvl_alert_id" style="display: none;">
                     <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -134,14 +134,14 @@
             </div>
         </div>
 
-        <div class="span12">
+        <div class="col-md-12">
             <legend>Rebalancing Frequency <a class="pop" href="#" rel="popover" title="Rebalancing Frequency" data-content="<ul>
             <li><strong>Quarterly:</strong> We will rebalance your client portfolios around 1/1, 4/1, 7/1, and 10/1.</li>
             <li><strong>Semi Annually:</strong> We will rebalance your client portfolios around 1/1 and 7/1.</li>
             <li><strong>Annually:</strong> We will rebalance your client portfolios each year around 1/1.</li>
             <li><strong>+/- 10, 20, or 30%:</strong> We will rebalance when the sum of all Asset Classes or Subclasses are above the target you choose. Then, based upon your chosen Rebalancing Level, we will rebalance any Asset Classes or Subclasses that are above or below your tolerance.</li>
             </ul>"><i class="mini-color mini-ico-info-sign"></i></a></legend>
-            <div class="control-group">
+            <div class="form-group">
                 {{ form_label(form.rebalanced_frequency, 'Choose the default method you would like portfolios rebalanced by:') }}
                 <div class="alert alert-error" id="rebal_frq_alert_id" style="display: none;">
                     <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -152,7 +152,7 @@
                     {{ form_widget(form.rebalanced_frequency, { 'label_attr' : { 'class': 'radio inline'}} ) }}
                 </div>
             </div>
-            {#<div class="control-group" id="tolerance_band_container">#}
+            {#<div class="form-group" id="tolerance_band_container">#}
                 {#{{ form_label(form.tolerance_band, 'Indicate the tolerance band you would like implemented:') }}#}
                 {#<div class="controls">#}
                     {#{{ form_errors(form.tolerance_band) }}#}
@@ -164,9 +164,9 @@
             {#</div>#}
         </div>
 
-        <div class="span12">
+        <div class="col-md-12">
             <legend>Transactions</legend>
-            <div class="control-group transaction-amount">
+            <div class="form-group transaction-amount">
                 {{ form_label(form.transaction_amount, 'What is the minimum amount you would you like us to use for buys and sells? Choose either a dollar figure or a percentage and we will use the lesser of each, on a per trade basis.') }}
                 <div class="input-prepend">
                     <span class="add-on">$</span>
@@ -178,7 +178,7 @@
                 </div>
             </div>
 
-            <div class="control-group is-transaction-fees">
+            <div class="form-group is-transaction-fees">
                 {{ form_label(form.is_transaction_fees, 'Would you like us to consider transaction fees when doing rebalancing calculations?') }}
                 <div class="controls">
                     {{ form_errors(form.is_transaction_fees) }}
@@ -188,7 +188,7 @@
                 </div>
             </div>
 
-            <div class="control-group is-transaction-minimums">
+            <div class="form-group is-transaction-minimums">
                 {{ form_label(form.is_transaction_minimums, 'Are there specific buy and sell minimums for the securities your client\'s will own?') }}
                 <div class="controls">
                     {{ form_errors(form.is_transaction_minimums) }}
@@ -198,7 +198,7 @@
                 </div>
             </div>
 
-            <div class="control-group is-transaction-redemption-fees">
+            <div class="form-group is-transaction-redemption-fees">
                 {{ form_label(form.is_transaction_redemption_fees, 'Are there specific redemption fees for the securities your client\'s will own?') }}
                 <div class="controls">
                     {{ form_errors(form.is_transaction_redemption_fees) }}
@@ -209,10 +209,10 @@
             </div>
         </div>
 
-        <div class="span12" id="municipal_bonds_block">
+        <div class="col-md-12" id="municipal_bonds_block">
             <legend>Municipal Bonds</legend>
             <div class="municipal-bonds">
-                <div class="control-group use-municipal-bond">
+                <div class="form-group use-municipal-bond">
                     {{ form_label(form.use_municipal_bond, 'Do you want to use a municipal bond funds when a client\'s tax rate justifies it?') }}
                     <div class="alert alert-error" id="municipal_bounds_alert_id" style="display: none;">
                         <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -225,7 +225,7 @@
                         {% endfor %}
                     </div>
                 </div>
-                <div class="control-group clients-tax-bracket">
+                <div class="form-group clients-tax-bracket">
                     {{ form_label(form.clients_tax_bracket, 'Use municipal bond funds when a client’s tax bracket is equal to or exceeds:') }}
                     <div class="controls">
                         {{ form_errors(form.clients_tax_bracket) }}
@@ -235,10 +235,10 @@
             </div>
         </div>
 
-        <div class="span12">
+        <div class="col-md-12">
             <legend>Tax Loss Harvesting</legend>
             <div class="tax-loss-harvesting">
-                <div class="control-group">
+                <div class="form-group">
                     {{ form_label(form.is_tax_loss_harvesting, 'Do you want to provide tax loss harvesting for you client?') }}
                     <div class="controls">
                         {{ form_errors(form.is_tax_loss_harvesting) }}
@@ -248,7 +248,7 @@
                     </div>
 
                     <div class="tax-loss-harvesting-controls" style="{{ form.is_tax_loss_harvesting.vars.data ? '' : 'display:none; '}}">
-                        <div class="control-group">
+                        <div class="form-group">
                             {{ form_label(form.tax_loss_harvesting_percent, 'Perform tax loss harvesting on clients whose tax bracket is equal to or exceed the following AND have a minimum relationship value of:') }}
                             <div class="controls">
                                 {{ form_errors(form.tax_loss_harvesting_percent) }}
@@ -266,7 +266,7 @@
 
                         <div class="clearfix"></div>
 
-                        <div class="control-group">
+                        <div class="form-group">
                             {{ form_label(form.tax_loss_harvesting_minimum_percent, 'What is your minimum loss percentage and dollar position?') }}
                             <div class="controls">
                                 {{ form_errors(form.tax_loss_harvesting_minimum_percent) }}
@@ -284,7 +284,7 @@
 
                         <div class="clearfix"></div>
 
-                        <div class="control-group">
+                        <div class="form-group">
                             {{ form_label(form.stop_tlh_value, 'Stop tax loss harvesting when losses for a client reach the following value:') }}
                             <div class="controls">
                                 {{ form_errors(form.stop_tlh_value) }}
@@ -300,11 +300,11 @@
             </div>
         </div>
 
-        <div class="span12">
+        <div class="col-md-12">
             <legend>Portfolio Assumptions <a class="pop" href="#" rel="popover" title="Portfolio Management Level" data-content="<p>
             Asset class return assumptions will used when calculating the expected performance of client portfolios, if you choose to show them this data when picking a portfolio. The client will see the expected performance of their portfolio and the asset classes within it when their portfolio is suggested.
             </p>"><i class="mini-color mini-ico-info-sign"></i></a></legend>
-            <div class="control-group">
+            <div class="form-group">
                 {{ form_label(form.is_show_client_expected_asset_class, 'Do you want us to show a client expected asset class and selected portfolio returns when they are choosing a portfolio?') }}
                 <div class="controls">
                     <input id="is_allow_retirement_plan_id" type="hidden" disabled="disabled" name="is_allow_retirement_plan" value="{{ company_information.isAllowRetirementPlan }}">
@@ -314,7 +314,7 @@
                     {% endfor %}
                 </div>
             </div>
-            <div class="control-group">
+            <div class="form-group">
                 {{ form_label(form.is_show_expected_costs) }}
                 <div class="controls">
                     <input id="is_allow_retirement_plan_id" type="hidden" disabled="disabled" name="is_allow_retirement_plan" value="{{ company_information.isShowExpectedCosts }}">
@@ -328,7 +328,7 @@
 
         {% block expected_assets %}
             <div style="display: none;">
-                <div class="span12 asset-block alertable" id="asset_block">
+                <div class="col-md-12 asset-block alertable" id="asset_block">
                     <legend>Expected Asset Returns & Asset Location Optimization</legend>
                     <div class="alert alert-error" id="asset_block_alert" style="display: none;">
                         <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -342,7 +342,7 @@
                         </p>"><i class="mini-color mini-ico-info-sign"></i></a></li>
                         </ol>
                     </span>
-                    <div class="control-group">
+                    <div class="form-group">
                         <div class="controls">
                             <table class="table asset-settings-table shadow">
                                 <thead>
@@ -381,10 +381,10 @@
         {% endblock %}
 
         {% block form_actions %}
-        <div class="span12">
+        <div class="col-md-12">
             <div class="form-actions">
                 {{ form_widget(form._token) }}
-                <a class="btn" href="{{ path('rx_ria_profile_step_three') }}">Back</a>
+                <a class="btn btn-default"  href="{{ path('rx_ria_profile_step_three') }}">Back</a>
                 <input class="btn btn-info" type="submit" name="Continue" value="Continue"/>
             </div>
         </div>

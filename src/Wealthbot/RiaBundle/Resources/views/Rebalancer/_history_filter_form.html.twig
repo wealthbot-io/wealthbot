@@ -2,13 +2,13 @@
     {{ form_errors(history_filter_form) }}
 
     {% if (history_filter_form.set_id is defined) %}
-        <div class="control-group inline-block">
+        <div class="form-group inline-block">
             {{ form_label(history_filter_form.set_id, 'Set:') }}
             {{ form_widget(history_filter_form.set_id) }}
         </div>
     {% endif %}
 
-    <div class="control-group inline-block">
+    <div class="form-group inline-block">
         {{ form_label(history_filter_form.client, 'Client:') }}
         {{ form_widget(history_filter_form.client, {'attr': {
         'placeholder': 'Client Quick Search',
@@ -20,12 +20,12 @@
 
     </div>
 
-    <div class="control-group inline-block">
+    <div class="form-group inline-block">
         {{ form_label(history_filter_form.date_from, 'Date:') }}
         {{ form_widget(history_filter_form.date_from, {'attr': {'class': 'input-small jq-date', 'placeholder': 'MM-DD-YYYY'}}) }}
     </div>
 
-    <div class="control-group inline-block">
+    <div class="form-group inline-block">
         {{ form_label(history_filter_form.date_to, 'to') }}
         {{ form_widget(history_filter_form.date_to, {'attr': {'class': 'input-small jq-date', 'placeholder': 'MM-DD-YYYY'}}) }}
     </div>

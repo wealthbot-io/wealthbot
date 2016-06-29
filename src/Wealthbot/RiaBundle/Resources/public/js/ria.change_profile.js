@@ -9,7 +9,7 @@
 $(function(){
     updateCustodianQuestionsBlock();
 
-    $('input:radio[name="ria_custodian[custodian]"]').click(function() {
+    $(document).on('click','input:radio[name="ria_custodian[custodian]"]',function() {
         updateCustodianQuestionsBlock();
     });
 
@@ -26,7 +26,7 @@ $(function(){
     }
 
 
-    $('.website-test.btn').on('click', function(event) {
+    $(document).on('click','.website-test.btn', function(event) {
         var value = $('#wealthbot_riabundle_riacompanyinformationtype_website').val();
 
         if (!value || value === 'http://') {
@@ -94,7 +94,7 @@ $(function(){
         event.preventDefault();
     });
 
-    $('').on('click', function (event) {
+    $(document).on('click','', function (event) {
 
         var button = $(this);
 
@@ -113,7 +113,7 @@ $(function(){
 
     });
 
-    $('.edit-ria-user-btn, .delete-ria-user-btn, .cancel-edit-user-btn').on('click', function (event) {
+    $(document).on('click','.edit-ria-user-btn, .delete-ria-user-btn, .cancel-edit-user-btn', function (event) {
         var button = $(this);
 
         button.button('loading');
@@ -137,7 +137,7 @@ $(function(){
 
     });
 
-    $('.edit_group_btn, .delete_group_btn').on('click', function (event) {
+    $(document).on('click','.edit_group_btn, .delete_group_btn', function (event) {
         var button = $(this);
         var isDelete = button.hasClass('delete_group_btn');
 
@@ -167,7 +167,7 @@ $(function(){
 
     });
 
-    $('#ria_documents_form').on('submit', function(event) {
+    $(document).on('submit','#ria_documents_form', function(event) {
         var form = $(this);
         var btn = form.find('input[type="submit"]');
 
@@ -177,7 +177,7 @@ $(function(){
         event.preventDefault();
     });
 
-    $('#alerts_configuration_form').on('submit', function(event) {
+    $(document).on('submit','#alerts_configuration_form', function(event) {
         var form = $(this);
         var btn = form.find('button[type="submit"]');
 
@@ -205,8 +205,8 @@ $(function(){
     $('#custodian_id')
         .on('change', getAdvisorCodesList)
         .trigger('change');
-    $('#new-id').on('click', addAdvisorCode);
-    $('.remove-advisor-code').on('click', removeAdvisorCode);
+    $(document).on('click','#new-id', addAdvisorCode);
+    $(document).on('click','.remove-advisor-code', removeAdvisorCode);
 
     function getAdvisorCodesList() {
         var custodianId = $(this).val();

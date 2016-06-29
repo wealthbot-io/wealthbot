@@ -68,7 +68,7 @@ $(function(){
     });
 
     // Add handler to create Model form
-    $("#create_model_form").on('submit', function(event){
+    $(document).on('submit',"#create_model_form", function(event){
         $("#create_model_form").ajaxSubmit({
             target: "#models_tab"
         });
@@ -76,7 +76,7 @@ $(function(){
     });
 
     // Add handler to EDIT button for selected strategy
-    $('.edit-strategy-btn').on('click', function(event) {
+    $(document).on('click','.edit-strategy-btn', function(event) {
         var e = $(this);
 
         $.ajax({
@@ -95,7 +95,7 @@ $(function(){
     });
 
     // Add Edit strategy form handler
-    $('#edit_strategy_form').on('submit', function(event) {
+    $(document).on('submit','#edit_strategy_form', function(event) {
         var form = $(this);
         var config = {
             dataType: 'json',
@@ -114,7 +114,7 @@ $(function(){
     });
 
     //Model assumptions button handler
-    $('.model-assumption-edit-btn').on('click', function(event) {
+    $(document).on('click','.model-assumption-edit-btn', function(event) {
         $.ajax({
             url: $(this).attr('href'),
             dataType: 'json',
@@ -130,7 +130,7 @@ $(function(){
         event.preventDefault();
     });
 
-    $('#model_form').on('submit', function(event){
+    $(document).on('submit','#model_form', function(event){
         var form = $(this);
 
         var options = {
@@ -151,7 +151,7 @@ $(function(){
         event.preventDefault();
     });
 
-    $('#edit_model_form').on('submit', function(event) {
+    $(document).on('submit','#edit_model_form', function(event) {
         var form = $(this);
         var modelsList = $('#models_list');
         var row = modelsList.find('tr[data-row="' + form.attr('data-edit-row') + '"]');
@@ -195,7 +195,7 @@ $(function(){
         event.preventDefault();
     });
 
-    $('#models_list .delete-btn').on('click', function(event){
+    $(document).on('click','#models_list .delete-btn', function(event){
         if(confirm('Are you sure?')) {
             var e = $(this);
             var row = e.closest('tr');
@@ -215,7 +215,7 @@ $(function(){
         event.preventDefault();
     });
 
-    $('#models_list .edit-btn').on('click', function(event){
+    $(document).on('click','#models_list .edit-btn', function(event){
         var e = $(this);
         var form = $('.model-entity-form');
 
@@ -232,7 +232,7 @@ $(function(){
         event.preventDefault();
     });
 
-    $('.edit-model-btn').on('click', function(event) {
+    $(document).on('click','.edit-model-btn', function(event) {
         var e = $(this);
 
         $.ajax({
@@ -251,13 +251,13 @@ $(function(){
         event.preventDefault();
     });
 
-    $('.delete-model-btn').on('click', function(event) {
+    $(document).on('click','.delete-model-btn', function(event) {
         if (!confirm('Are you sure?')) {
             event.preventDefault();
         }
     });
 
-    $('#rx_admin_model_entity_form_percent').on('change', function() {
+    $(document).on('change','#rx_admin_model_entity_form_percent', function() {
         percentRound($(this));
     });
 });

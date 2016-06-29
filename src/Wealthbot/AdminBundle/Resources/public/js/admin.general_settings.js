@@ -11,7 +11,7 @@ $(function(){
 
 
     function removeBtn() {
-        $('.btn-remove').on('click', function (event) {
+        $(document).on('click','.btn-remove', function (event) {
             var name = $(this).attr('data-related');
             var prev = $('*[data-content="' + name + '"]').prev();
             if (prev) $(prev).find("a.btn-remove").show();
@@ -32,7 +32,7 @@ $(function(){
     lastTierCHeckbox.show();
 
 
-    $('.is-final-tier-checkbox input[type="checkbox"]').on('click', function(event){
+    $(document).on('click','.is-final-tier-checkbox input[type="checkbox"]', function(event){
         var e = $(this);
         var tierTop = e.closest('.tier').find('input[id*="tier_top"]');
 
@@ -48,11 +48,11 @@ $(function(){
     });
 
     //Trigger for change Tier Bottom when Tier Top was changed
-    $("#form_fees tr td input[id*='tier_top']").on('change', function(){
+    $(document).on('change',"#form_fees tr td input[id*='tier_top']", function(){
         updateFees();
     });
 
-    $('.admin-fees-list form .btn-save').on('click', function(event){
+    $(document).on('click','.admin-fees-list form .btn-save', function(event){
         var btn = $(this);
         var form = btn.closest('form');
         var data = {};
@@ -97,7 +97,7 @@ $(function(){
         event.preventDefault();
     });
 
-    $('.btn-add').on('click', function(event) {
+    $(document).on('click','.btn-add', function(event) {
         $('.btn-remove').hide();
         hideAllIsFinalTierCheckbox();
 
@@ -127,7 +127,7 @@ $(function(){
     });
 
     // Validate Fee value
-    $("#form_fees tr td input[id*='fee_without_retirement'], #form_fees tr td input[id*='fee_with_retirement']").on('change', function(){
+    $(document).on('change',"#form_fees tr td input[id*='fee_without_retirement'], #form_fees tr td input[id*='fee_with_retirement']", function(){
         var e = $(this);
         var value = e.val();
 
@@ -143,7 +143,7 @@ $(function(){
         }
     });
 
-    $('.upload-document-btn').on('click', function(event) {
+    $(document).on('click','.upload-document-btn', function(event) {
         var elem = $(this);
         var form = $('#documents_tab').attr('data-form');
         var dialog = $('#modal_dialog');
@@ -164,7 +164,7 @@ $(function(){
         event.preventDefault();
     });
 
-    $('#document_form').on('submit', function(event) {
+    $(document).on('submit','#document_form', function(event) {
         var form = $(this);
         var dialog = $('#modal_dialog');
         var btn = dialog.find('.save-modal-form-btn');

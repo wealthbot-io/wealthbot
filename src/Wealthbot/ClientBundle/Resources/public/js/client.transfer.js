@@ -19,22 +19,22 @@ $(function(){
         }
     });
 
-    $('.employment-status input[type="radio"]').on('change', function() {
+    $(document).on('change','.employment-status input[type="radio"]', function() {
         var val = $(this).parent().find('input[type="radio"]:checked').val();
         updateEmploymentStatus(val);
     });
 
-    $('.broker-security-exchange-person-block input[type="radio"]').on('change', function(){
+    $(document).on('change','.broker-security-exchange-person-block input[type="radio"]', function(){
         checkVisible('broker-security-exchange-person');
     });
-    $('.publicly-traded-company-block input[type="radio"]').on('change', function(){
+    $(document).on('change','.publicly-traded-company-block input[type="radio"]', function(){
         checkVisible('publicly-traded-company');
     });
-    $('.political-figure-block input[type="radio"]').on('change', function(){
+    $(document).on('change','.political-figure-block input[type="radio"]', function(){
         checkVisible('political-figure');
     });
 
-    $('#personal_information_marital_status').on('change', function () {
+    $(document).on('change','#personal_information_marital_status', function () {
         var value = $(this).val();
 
         if (value === 'Married') {
@@ -44,22 +44,22 @@ $(function(){
         }
     });
 
-    $('.close').on('click', function(event){
+    $(document).on('click','.close', function(event){
         $(this).parent('.well').remove();
     });
 
-    $('#transfer_funding_distributing_has_funding').on('click', function(){
+    $(document).on('click','#transfer_funding_distributing_has_funding', function(){
         toggleFundingBlock($(this).is(':checked'));
     });
-    $('#transfer_funding_distributing_has_distributing').on('click', function(){
+    $(document).on('click','#transfer_funding_distributing_has_distributing', function(){
         toggleDistributingBlock($(this).is(':checked'));
     });
-    $('input[id*="transfer_funding_distributing_funding_type"]').on('change', function(){
+    $(document).on('change','input[id*="transfer_funding_distributing_funding_type"]', function(){
         var value = $('input[id*="transfer_funding_distributing_funding_type"]:checked').val();
         checkFundingType(value);
     });
 
-    $('.edit-client_info-btn').on('click', function (event) {
+    $(document).on('click','.edit-client_info-btn', function (event) {
         var e = $(this);
 
         e.after('<img class="ajax-loader" style="margin-left:5px;" src="/img/ajax-loader.gif" />');
@@ -92,12 +92,12 @@ $(function(){
         event.preventDefault();
     });
 
-    $('.update-owner-info-btn').on('click', function(event){
+    $(document).on('click','.update-owner-info-btn', function(event){
         $('#review_owner_information_form').submit();
         event.preventDefault();
     });
 
-    $('#review_owner_information_form').on('submit', function(event){
+    $(document).on('submit','#review_owner_information_form', function(event){
         var form = $(this);
 
         $('#modal_dialog .modal-footer').append('<img class="ajax-loader" style="margin-left:5px;" src="/img/ajax-loader.gif" />');
@@ -130,7 +130,7 @@ $(function(){
         event.preventDefault();
     });
 
-    $('#transfer_information_is_penalty_free').on('click', function(){
+    $(document).on('click','#transfer_information_is_penalty_free', function(){
         $('#transfer_information_penalty_amount').val('');
     });
 
@@ -138,7 +138,7 @@ $(function(){
         $('#transfer_information_is_penalty_free').attr('checked', false);
     });
 
-    $('input[id*=transfer_information_transfer_from]').on('change', function(){
+    $(document).on('change','input[id*=transfer_information_transfer_from]', function(){
         var elem = $(this);
         var form = elem.closest('form');
         var current_id = elem.attr('id');
@@ -158,7 +158,7 @@ $(function(){
         $('#transfer_information_redeem_certificates_deposit').attr('checked', isCertificatesDeposit);
     });
 
-    $('#add_bene').on('click', function(event) {
+    $(document).on('click','#add_bene', function(event) {
         var collectionHolder = $('#' + $(this).attr('data-target'));
         var prototype = collectionHolder.attr('data-prototype');
         var form = prototype.replace(/__name__/g, collectionHolder.children().length);
@@ -167,7 +167,7 @@ $(function(){
         event.preventDefault();
     });
 
-    $('.add-new-bank-btn').on('click', function(event) {
+    $(document).on('click','.add-new-bank-btn', function(event) {
         var elem = $(this);
         var html = $('.def-form').attr('data-bank-info-form');
         var parent = elem.closest('.inner-ch');
@@ -181,7 +181,7 @@ $(function(){
         event.preventDefault();
     });
 
-    $('.cancel-create-bank-info-btn').on('click', function(event) {
+    $(document).on('click','.cancel-create-bank-info-btn', function(event) {
         var elem = $(this);
 
         elem.closest('#bank_information_form_fields').remove();
@@ -191,8 +191,8 @@ $(function(){
     });
 
 
-    $('.add-joint-account-owner-btn').on('click', function(event) {
-        var block = $(this).closest('.control-group');
+    $(document).on('click','.add-joint-account-owner-btn', function(event) {
+        var block = $(this).closest('.form-group');
 
         block.next('.joint-account-owner').show();
         block.hide();
@@ -200,7 +200,7 @@ $(function(){
         event.preventDefault();
     });
 
-    $('#create_bank_information_btn').on('click', function(event) {
+    $(document).on('click','#create_bank_information_btn', function(event) {
         var btn = $(this);
         var formFieldsSelector = btn.closest('#bank_information_form_fields');
         var type = formFieldsSelector.attr('data-type');
@@ -243,7 +243,7 @@ $(function(){
         event.preventDefault();
     });
 
-    $('.edit-bank-account-btn').on('click', function(event) {
+    $(document).on('click','.edit-bank-account-btn', function(event) {
         var elem = $(this);
         var parent = elem.parent();
 
@@ -277,7 +277,7 @@ $(function(){
         event.preventDefault();
     });
 
-    $('#edit_bank_account_form').on('submit', function(event) {
+    $(document).on('submit','#edit_bank_account_form', function(event) {
         var form = $(this);
 
         $('#modal_dialog .modal-footer').append('<img class="ajax-loader" style="margin-left:5px;" src="/img/ajax-loader.gif" />');
@@ -322,7 +322,7 @@ $(function(){
         event.preventDefault();
     });
 
-    $('.delete-bank-account-btn').on('click', function(event) {
+    $(document).on('click','.delete-bank-account-btn', function(event) {
         event.preventDefault();
 
         var elem = $(this);
@@ -349,7 +349,7 @@ $(function(){
         }
     });
 
-    $('#transfer_account_form_sections .policy-information input[type="radio"], #transfer_account_form_sections .transfer-custodian-question input[type="radio"]').on('change', function(event) {
+    $(document).on('change','#transfer_account_form_sections .policy-information input[type="radio"], #transfer_account_form_sections .transfer-custodian-question input[type="radio"]', function(event) {
         var form = $(this).closest('form');
         var btn = form.find('input[type="submit"]');
         var sections = $('#transfer_account_form_sections');
@@ -389,7 +389,7 @@ $(function(){
         form.ajaxSubmit(options);
     });
 
-    $('.electronically-signing-btn').on('click', function(event) {
+    $(document).on('click','.electronically-signing-btn', function(event) {
         var btn = $(this);
 
         var ownersInfoList = $('.account-owners-information-list');
@@ -415,7 +415,7 @@ $(function(){
         }
     });
 
-    $('input[type="checkbox"].check-not-signed-applications').on('click', function(event) {
+    $(document).on('click','input[type="checkbox"].check-not-signed-applications', function(event) {
         var elem = $(this);
         var parent = elem.parent();
         var errorSelector = parent.parent().find('.error, .error-list');

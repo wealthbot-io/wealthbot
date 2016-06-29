@@ -10,7 +10,7 @@ $(function() {
         }
     );
 
-    $('.show-rebalancing-accounts-btn').on('click', function(event) {
+    $(document).on('click','.show-rebalancing-accounts-btn', function(event) {
         var btn = $(this);
 
         var account_table_box = btn.closest('.tab-pane').find('.rebalance-account-table-content');
@@ -34,7 +34,7 @@ $(function() {
         event.preventDefault();
     });
 
-    $('.rebalance-table-content table > thead a, .ajax-pagination a').on('click', function(event) {
+    $(document).on('click','.rebalance-table-content table > thead a, .ajax-pagination a', function(event) {
 
         var btn = $(this);
         var rebalance_table_box = btn.closest('.rebalance-table-content');
@@ -61,7 +61,7 @@ $(function() {
         event.preventDefault();
     });
 
-    $('#admin_rebalancing_page_content #rebalance_form').on('submit', function(event) {
+    $(document).on('submit','#admin_rebalancing_page_content #rebalance_form', function(event) {
         var checkedCheckboxes = $(this).find('.rebalance-table-content input[type="checkbox"]:checked')
         if (checkedCheckboxes.length) {
 
@@ -87,7 +87,7 @@ $(function() {
         event.preventDefault();
     });
 
-    $('#rebalance_post_form').on('submit', function(event) {
+    $(document).on('submit','#rebalance_post_form', function(event) {
         var form = $(this);
 
         var checkedCheckboxes = form.find('.rebalance-table-content input[type="checkbox"]:checked');
@@ -110,7 +110,7 @@ $(function() {
         event.preventDefault();
     });
 
-    $('#ria_rebalancing_page_content #rebalance_form .rebalance-form-submit-btn').on('click', function(event) {
+    $(document).on('click','#ria_rebalancing_page_content #rebalance_form .rebalance-form-submit-btn', function(event) {
         var elem = $(this);
         var form = elem.closest('form');
 
@@ -148,7 +148,7 @@ $(function() {
         event.preventDefault();
     });
 
-    $('.rebalance-action-btn').on('click', function(event) {
+    $(document).on('click','.rebalance-action-btn', function(event) {
         var btn = $(this);
 
         $.ajax({
@@ -169,7 +169,7 @@ $(function() {
         event.preventDefault();
     });
 
-    $('#rebalance_history_filter_form').on('submit', function(event) {
+    $(document).on('submit','#rebalance_history_filter_form', function(event) {
         var form = $(this);
         var history_rebalance_table_box = form.closest('#history_tab').find('.rebalance-table-content');
 
@@ -189,7 +189,7 @@ $(function() {
         event.preventDefault();
     });
 
-    $('#rebalance_form_is_all').on('change', function(event) {
+    $(document).on('change','#rebalance_form_is_all', function(event) {
         var elem = $(this);
 
         var checkboxes = $('.rebalance-table-content input[name="rebalance_form[client_value][]"]');
@@ -207,7 +207,7 @@ $(function() {
         event.preventDefault();
     });
 
-    $('.rebalance-table-content input[name="rebalance_form[client_value][]"]').on('change', function(event) {
+    $(document).on('change','.rebalance-table-content input[name="rebalance_form[client_value][]"]', function(event) {
 
         if ('checked' !== $(this).attr('checked')) {
             $('#rebalance_form_is_all').removeAttr('checked');
@@ -215,7 +215,7 @@ $(function() {
         event.preventDefault();
     });
 
-    $('.rebalancer-queue-change-state-btn').on('click', function(event) {
+    $(document).on('click','.rebalancer-queue-change-state-btn', function(event) {
         var elem = $(this);
 
         var url;
@@ -251,7 +251,7 @@ $(function() {
         event.preventDefault();
     });
 
-    $('#trade_recon_form').on('submit', function(event) {
+    $(document).on('submit','#trade_recon_form', function(event) {
         var submitButton = $(this).find('button:submit');
 
         submitButton.button('loading');

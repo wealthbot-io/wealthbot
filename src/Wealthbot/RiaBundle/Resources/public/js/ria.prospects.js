@@ -7,7 +7,7 @@
  */
 
 $(function(){
-    $('table.prospects > thead a').on('click', function(event) {
+    $(document).on('click','table.prospects > thead a', function(event) {
         var btn = $(this);
 
         $.ajax({
@@ -23,7 +23,7 @@ $(function(){
         event.preventDefault();
     });
 
-    $('#invite_prospect_form').on('submit', function(event) {
+    $(document).on('submit','#invite_prospect_form', function(event) {
         var form = $(this);
         var btn = form.find('input[type="submit"]');
         var prospectTab = $('#tab_prospects');
@@ -49,7 +49,7 @@ $(function(){
         event.preventDefault();
     });
 
-    $('a.create-client-lnk').click(function(event){
+    $(document).on('click','a.create-client-lnk',function(event){
         var elem = $(this);
 
         changeProgressStatus(true);

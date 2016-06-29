@@ -7,7 +7,7 @@
  */
 
 $(function(){
-    $('form.custodian-form').on('submit', function(event) {
+    $(document).on('submit','form.custodian-form', function(event) {
         var form = $(this);
         var btn = form.find('input[type="submit"]');
         var targetId = form.parent().attr('id');
@@ -18,7 +18,7 @@ $(function(){
         event.preventDefault();
     });
 
-    $('.custodian-messages-list a').on('click', function(event) {
+    $(document).on('click','.custodian-messages-list a', function(event) {
         var elem = $(this);
         var parent = elem.parent();
 
@@ -52,7 +52,7 @@ $(function(){
         event.preventDefault();
     });
 
-    $('#custodian_message_form').on('submit', function(event) {
+    $(document).on('submit','#custodian_message_form', function(event) {
         var form = $(this);
         var dialog = $('#modal_dialog');
         var btn =  dialog.find('.save-modal-form-btn');
@@ -91,7 +91,7 @@ function initBootstrapWysiwyg() {
         fontTarget.append($('<li><a data-edit="fontName ' + fontName +'" style="font-family:\''+ fontName +'\'">'+fontName + '</a></li>'));
     });
     $('a[title]').tooltip({container:'body'});
-    $('.dropdown-menu input').click(function() {return false;})
+    $(document).on('click','.dropdown-menu input',function() {return false;})
         .change(function () {$(this).parent('.dropdown-menu').siblings('.dropdown-toggle').dropdown('toggle');})
         .keydown('esc', function () {this.value='';$(this).change();});
 

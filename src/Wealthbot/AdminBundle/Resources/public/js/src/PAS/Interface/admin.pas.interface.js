@@ -25,7 +25,7 @@ $(function(){
         }
     };
 
-    $('#on_date').on('change', dateUpdated);
+    $(document).on('change','#on_date', dateUpdated);
 });
 
 

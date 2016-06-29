@@ -7,7 +7,7 @@
  */
 
 $(function(){
-    $('.see-investments-btn').on('click', function(event){
+    $(document).on('click','.see-investments-btn', function(event){
         var e = $(this);
         var selector = e.closest('td');
 
@@ -43,7 +43,7 @@ $(function(){
         event.preventDefault();
     });
 
-    $('.see-consolidated-accounts-btn').on('click', function (event) {
+    $(document).on('click','.see-consolidated-accounts-btn', function (event) {
         var e = $(this);
         var selector = e.closest('td');
 
@@ -77,7 +77,7 @@ $(function(){
         event.preventDefault();
     });
 
-    $('input[type="radio"].selected-model').on('change', function(){
+    $(document).on('change','input[type="radio"].selected-model', function(){
         var url = $(this).attr('data-url');
 
         $.ajax({
@@ -94,12 +94,12 @@ $(function(){
         });
     });
 
-    $(".remove-account-btn").on('click', function(){
+    $(document).on('click',".remove-account-btn", function(){
         var selector = $(this).closest('tr').find('.see-investments-btn');
         hideInvestments(selector);
     });
 
-    $(".edit-account-btn").on('click', function(){
+    $(document).on('click',".edit-account-btn", function(){
         var selector = $(this).closest('tr').find('.see-investments-btn');
         hideInvestments(selector);
     });

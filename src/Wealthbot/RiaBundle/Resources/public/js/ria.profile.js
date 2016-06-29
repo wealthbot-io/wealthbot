@@ -10,7 +10,7 @@ $(function(){
 
 //    updateCustodianQuestionsBlock();
 //
-//    $('input:radio[name="step_one[custodian]"]').click(function() {
+//    $(document).on('click','input:radio[name="step_one[custodian]"]',function() {
 //        updateCustodianQuestionsBlock();
 //    });
 
@@ -27,7 +27,7 @@ $(function(){
         }
     });
 
-    $('.form-actions input.btn-info').on('click', function(event){
+    $(document).on('click','.form-actions input.btn-info', function(event){
         var transactionAmountSelector = $('#wealthbot_riabundle_riacompanyinformationtype_transaction_amount');
         var transactionAmountPercentSelector = $('#wealthbot_riabundle_riacompanyinformationtype_transaction_amount_percent');
 
@@ -54,7 +54,7 @@ $(function(){
         faxNumber.inputmask("mask", {"mask": "(999) 999-9999"});
     }
 
-    $('.website-test.btn').click(function (event) {
+    $(document).on('click','.website-test.btn',function (event) {
         var value = $('#wealthbot_riabundle_riacompanyinformationtype_website').val();
 
         if (!value || value === 'http://') {
@@ -98,11 +98,11 @@ $(function(){
         $.data(elem[0], 'xhr', xhr);
     });
 
-//    $('input:radio[name="wealthbot_riabundle_riacompanyinformationtype[is_allow_retirement_plan]"]').on('change', function() {
+//    $(document).on('change','input:radio[name="wealthbot_riabundle_riacompanyinformationtype[is_allow_retirement_plan]"]', function() {
 //        updateOutsideRetirementAlertMessage();
 //    });
 //
-//    $('input:radio[name="wealthbot_riabundle_riacompanyinformationtype[account_managed]"]').on('change', function() {
+//    $(document).on('change','input:radio[name="wealthbot_riabundle_riacompanyinformationtype[account_managed]"]', function() {
 //
 //    })
 });

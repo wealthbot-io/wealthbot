@@ -639,7 +639,7 @@ App.module('Wealthbot.Billing.RiaSpecs', function(Mod, App, Backbone, Marionette
         ui: {
             saveButton: '.save-spec',
             form: 'form',
-            controls: '.control-group button'
+            controls: '.form-group button'
         },
 
         events: {

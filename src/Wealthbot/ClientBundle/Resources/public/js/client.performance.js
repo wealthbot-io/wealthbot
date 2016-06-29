@@ -41,7 +41,7 @@ $(function() {
         });
     };
 
-    $('a[data-role="period"]').on('click', performance.clickPeriod);
+    $(document).on('click','a[data-role="period"]', performance.clickPeriod);
 
     // Start module
     performance.init();

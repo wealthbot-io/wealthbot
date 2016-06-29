@@ -7,7 +7,7 @@
  */
 
 $(function(){
-    $('#wealthbot_admin_security_type_assetClass').on('change', function(){
+    $(document).on('change','#wealthbot_admin_security_type_assetClass', function(){
         var form = $(this).closest('form');
         var subclassSelector = form.find('#wealthbot_admin_security_type_subclass');
 
@@ -25,7 +25,7 @@ $(function(){
         form.ajaxSubmit(options);
     });
 
-    $('#edit_security_form').on('submit', function(event){
+    $(document).on('submit','#edit_security_form', function(event){
         var form = $(this);
         var form_container = $('.security-form');
         var btn = form.find('input[type="submit"]');
@@ -59,7 +59,7 @@ $(function(){
         event.preventDefault();
     });
 
-    $('.delete-security-btn').on('click', function(event){
+    $(document).on('click','.delete-security-btn', function(event){
         if(confirm('Are you sure?')) {
             var e = $(this);
             var parent = e.parent();
@@ -86,7 +86,7 @@ $(function(){
         event.preventDefault();
     });
 
-    $('.edit-security-btn').on('click', function(event){
+    $(document).on('click','.edit-security-btn', function(event){
         var e = $(this);
         var parent = e.parent();
         var form_container = $('.security-form');
@@ -113,7 +113,7 @@ $(function(){
         event.preventDefault();
     });
 
-    $('.cancel-edit-security-btn').on('click', function(event){
+    $(document).on('click','.cancel-edit-security-btn', function(event){
         var elem = $(this);
         var form_container = $('.security-form');
 
@@ -138,7 +138,7 @@ $(function(){
         event.preventDefault();
     });
 
-    /*$('.show-price-history-btn').on('click', function(event) {
+    /*$(document).on('click','.show-price-history-btn', function(event) {
         var elem = $(this);
         var parent = elem.parent();
 
@@ -160,7 +160,7 @@ $(function(){
         event.preventDefault();
     });*/
 
-    $('.security-price-history-batch-btn').on('click', function(event) {
+    $(document).on('click','.security-price-history-batch-btn', function(event) {
         var btn = $(this);
         var parent = btn.parent();
         var form = btn.closest('form');

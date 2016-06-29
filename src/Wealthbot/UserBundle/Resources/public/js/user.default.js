@@ -1,5 +1,5 @@
 $(function(){
-    $('#search_ria_form').on('submit', function(event){
+    $(document).on('submit','#search_ria_form', function(event){
         var form = $(this);
 
         form.spinner128();
@@ -33,7 +33,7 @@ $(function(){
         }
     };
 
-    $('#form_is_not_locate').click(function(){
+    $(document).on('click','#form_is_not_locate',function(){
         selectCheck();
         $(this).closest('form').submit();
     });

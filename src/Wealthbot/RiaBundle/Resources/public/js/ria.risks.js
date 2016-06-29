@@ -23,7 +23,7 @@ $(function(){
         }
     });
 
-    $('.create-question-btn').click(function(event){
+    $(document).on('click','.create-question-btn',function(event){
         var e = $(this);
         var questionsCount = $('.questions-list').find('li.q-row').length;
 
@@ -50,7 +50,7 @@ $(function(){
         event.preventDefault();
     });
 
-    $('.edit-question-btn').on('click', function(event){
+    $(document).on('click','.edit-question-btn', function(event){
         var e = $(this);
         var content_selector = e.closest('.q-row');
 
@@ -76,7 +76,7 @@ $(function(){
         event.preventDefault();
     });
 
-    $('.delete-question-btn').on('click', function(event){
+    $(document).on('click','.delete-question-btn', function(event){
         var e = $(this);
         var message = 'Are you sure?';
 
@@ -104,7 +104,7 @@ $(function(){
         event.preventDefault();
     });
 
-    $('.cancel-edit-btn').on('click', function(event){
+    $(document).on('click','.cancel-edit-btn', function(event){
         var e = $(this);
         var form_selector = e.closest('.q-form');
         var content_selector = form_selector.parent();
@@ -119,7 +119,7 @@ $(function(){
         event.preventDefault();
     });
 
-    $('#question_form').on('submit', function(event){
+    $(document).on('submit','#question_form', function(event){
         var form = $(this);
         var form_container = form.closest('.q-form');
 
@@ -150,7 +150,7 @@ $(function(){
         event.preventDefault();
     });
 
-    $('.btn-add').on('click', function(event) {
+    $(document).on('click','.btn-add', function(event) {
         var collectionHolder = $('.answers-list');
         var itemsCount = collectionHolder.find('li').length;
 
@@ -168,7 +168,7 @@ $(function(){
     });
 
     function removeBtn() {
-        $('.btn-remove').on('click', function (event) {
+        $(document).on('click','.btn-remove', function (event) {
             var name = $(this).attr('data-related');
             var prev = $('*[data-content="' + name + '"]').prev();
             if (prev) $(prev).find("a.btn-remove").show();

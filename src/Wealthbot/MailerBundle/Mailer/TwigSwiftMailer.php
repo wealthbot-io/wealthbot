@@ -356,8 +356,12 @@ class TwigSwiftMailer implements MailerInterface
 
         $adv = $companyInformation->getAdvDocument();
 
-        $extension = pathinfo($adv->getFilename(), PATHINFO_EXTENSION);
-        $attachments = ['ADV Copy.'.$extension => $adv->getAbsolutePath()];
+        if($adv){
+            $extension = pathinfo($adv->getFilename(), PATHINFO_EXTENSION);
+            $attachments = ['ADV Copy.'.$extension => $adv->getAbsolutePath()];
+        } else {
+            $attachments = [];
+        };
 
         $this->sendMessage($template, $fromEmail, $client->getEmail(), $context, $attachments);
     }

@@ -10,12 +10,12 @@
 
 {% block body %}
     <div class="row">
-        <div class="span12">
-            <div class="row-fluid">
-                <div class="span6">
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-6">
                     <h2>Step 3 of 3: Your Accounts</h2>
                 </div>
-                <div class="span6">
+                <div class="col-md-6">
                     <ul class="nav nav-pills pull-right">
                         <li class="active">
                             <a href="javascript:location.href=document.location.href;">Save</a>
@@ -53,25 +53,32 @@
     <form id="step_three_form" action="{{ path("rx_client_profile_step_three_accounts", {'group': group}) }}" data-selected-group="{{ group }}" method="post">
         <div class="form-actions">
             {% if prev_group is not empty %}
-                <a class="btn" href="{{ path('rx_client_profile_step_three_accounts', { group: prev_group }) }}">Back</a>
+                <a class="btn btn-default"  href="{{ path('rx_client_profile_step_three_accounts', { group: prev_group }) }}">Back</a>
             {% else %}
-                <a class="btn" href="{{ path('rx_client_profile_step_three') }}">Back</a>
+                <a class="btn btn-default"  href="{{ path('rx_client_profile_step_three') }}">Back</a>
             {% endif %}
             <input type="submit" class="btn-primary btn" value="Continue" />
         </div>
     </form>
 
-    <div id="edit_account_modal" class="modal hide longModal">
-        <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h3>Edit Account</h3>
-        </div>
-        <div class="modal-body">
+    <div id="edit_account_modal" class="modal longModal">
 
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3>Edit Account</h3>
+            </div>
+
+            <div class="modal-body">
+
+            </div>
+
+            <div class="modal-footer">
+                {#<button class="btn btn-default"  data-dismiss="modal" aria-hidden="true">Close</button>#}
+                <button class="update-account-btn btn">Save</button>
+            </div>
         </div>
-        <div class="modal-footer">
-            {#<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>#}
-            <button class="update-account-btn btn">Save</button>
-        </div>
+
     </div>
 {% endblock %}

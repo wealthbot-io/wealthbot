@@ -116,7 +116,7 @@
 
             {% if (settings_form.client_account_managed is defined) %}
                 {% if ria_company_information.isClientByClientManagedLevel %}
-                    <div class="control-group">
+                    <div class="form-group">
                         <strong>Portfolio Management Level:</strong>
                         <div>
                             {{ form_errors(settings_form.client_account_managed) }}
@@ -130,7 +130,7 @@
 
         {% else %}
 
-            <div class="control-group">
+            <div class="form-group">
                 <strong>Choose another portfolio:</strong>
                 <div>
                     {{ form_errors(settings_form.client.portfolio) }}
@@ -140,7 +140,7 @@
 
             {% if (settings_form.client_account_managed is defined) %}
                 {% if ria_company_information.isClientByClientManagedLevel %}
-                    <div class="control-group">
+                    <div class="form-group">
                         <strong>Portfolio Management Level:</strong>
                         <div>
                             {{ form_errors(settings_form.client_account_managed) }}
@@ -152,7 +152,7 @@
                 {% endif %}
             {% endif %}
 
-            <div class="control-group">
+            <div class="form-group">
                 <strong>Group:</strong>
                 <div>
                     {{ form_errors(settings_form.groups) }}
@@ -160,7 +160,7 @@
                 </div>
             </div>
 
-            <div class="control-group">
+            <div class="form-group">
                 <strong>Choose another billing spec:</strong>
                 <div>
                     {{ form_errors(settings_form.billingSpec) }}
@@ -168,7 +168,7 @@
                 </div>
             </div>
 
-            <div class="control-group">
+            <div class="form-group">
                 <strong>Payment method:</strong>
                 <div>
                     {{ form_errors(settings_form.paymentMethod) }}

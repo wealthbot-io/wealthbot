@@ -2812,3 +2812,17 @@ a.disabled:hover {
     width: 800px;
     margin: 80px auto;
 }
+
+.login-box-company-logo img {
+    width: 600px;
+}
+
+#fos_user_registration_form_is_accepted {
+    margin-left: -20px !important;
+    margin-top: 4px !important;
+}
+
+.w200h100 {
+    width: 200px !important;
+    height: 100px !important;
+}

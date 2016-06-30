@@ -101,7 +101,7 @@
         </div>
     {% endif %}
 
-    <form id="client_settings_form" class="form-horizontal " action="{{ path(action_route, {'client_id': client.id}) }}" method="post">
+    <form id="client_settings_form" class="form-horizontal" style="padding: 20px 20px" action="{{ path(action_route, {'client_id': client.id}) }}" method="post">
         {% if settings_form.vars.errors is not empty %}
             {{ form_errors(settings_form) }}
         {% endif %}
@@ -219,7 +219,7 @@
     <br/><br/>
 
     {% if not client.hasApprovedPortfolio %}
-        <div class="client-account-form">
+        <div class="client-account-form" style="padding:20px 20px">
             {% include 'WealthbotRiaBundle:Prospects:_create_client_account_form.html.twig' with { 'form' : form, 'client' : client } %}
         </div>
     {% endif %}

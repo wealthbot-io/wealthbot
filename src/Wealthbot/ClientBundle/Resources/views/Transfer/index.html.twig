@@ -21,13 +21,13 @@
 {% block body %}
     {% block header_row %}
 
-        <div class="row-fluid margin-top-25">
-            <div class="span10">
+        <div class="row margin-top-25">
+            <div class="col-md-10">
                 <img class="img-rounded w200h100" src="{{ path('rx_file_download', {'ria_id': client.ria.id}) }}"/>
             </div>
             <div class="save-and-logout">
                 {% if app.request.attributes.get('_route') != 'rx_client_transfer' %}
-                    <a class="btn" id="main_screen_btn" href="{{ path('rx_client_transfer') }}">Main Screen</a>
+                    <a class="btn btn-default"  id="main_screen_btn" href="{{ path('rx_client_transfer') }}">Main Screen</a>
                 {% endif %}
 
                 <a class="btn margin-left-15" id="reg_save_btn" href="{{ path('fos_user_security_logout') }}">Logout</a>
@@ -47,7 +47,7 @@
 
     {% block top_message_box %}
         {% if route == 'rx_client_transfer' %}
-            <div class="row-fluid">
+            <div class="row">
                 <div class="transfer-mainmsg">
                     {% spaceless %}
                         <h5>

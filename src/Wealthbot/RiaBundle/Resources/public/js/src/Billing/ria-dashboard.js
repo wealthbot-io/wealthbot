@@ -337,7 +337,7 @@ App.module('Wealthbot.Billing.RiaSpecs', function(Mod, App, Backbone, Marionette
 
     Mod.BillingSpecItemView = Marionette.ItemView.extend({
         template: "#tpl-billing-spec",
-        className: "btn edit-spec",
+        className: "btn btn-default edit-spec",
         events: {
             'click': 'onClick'
         },

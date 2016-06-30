@@ -1,23 +1,28 @@
 <script id="tplCreateSpecName" type="text/template">
     <h3>Create Billing Spec</h3>
 
-    <form class="form-horizontal">
-        <div class="form-group">
-            <div class="controls-line">
-                <input type="text" name="name" class="col-md-2 name form-control" placeholder="Name of Billing Spec" value="<%= name %>">
-                <button type="button" class="btn btn-default create-spec">Create</button>
-            </div>
-            <div class="controls-line">
-                {% if not is_relation_type_tamp %}
-                    <div class="col-md-1">
-                        <input type="radio" value="{{ constant("Wealthbot\\AdminBundle\\Entity\\BillingSpec::TYPE_FLAT") }}" name="type" checked>Flat fee
+    <div style="padding: 20px 20px">
+        <form class="form-horizontal">
+            <div class="form-group">
+                <div class="controls-line">
+                    <div class="input-group">
+                        <input type="text" name="name" class="col-md-2 name form-control" placeholder="Name of Billing Spec" value="<%= name %>">
+                        <span class="input-group-addon btn btn-default create-spec">Create</span>
                     </div>
-                {% endif %}
-                <div class="col-md-1">
-                    <input type="radio" value="{{ constant("Wealthbot\\AdminBundle\\Entity\\BillingSpec::TYPE_TIER") }}" name="type" {% if is_relation_type_tamp %} checked {% endif %}>Tier
+                    <br />
                 </div>
-            </div>
+                <div class="controls-line">
+                    {% if not is_relation_type_tamp %}
+                        <div class="col-md-1">
+                            <input type="radio" value="{{ constant("Wealthbot\\AdminBundle\\Entity\\BillingSpec::TYPE_FLAT") }}" name="type" checked>Flat fee
+                        </div>
+                    {% endif %}
+                    <div class="col-md-1">
+                        <input type="radio" value="{{ constant("Wealthbot\\AdminBundle\\Entity\\BillingSpec::TYPE_TIER") }}" name="type" {% if is_relation_type_tamp %} checked {% endif %}>Tier
+                    </div>
+                </div>
 
-        </div>
-    </form>
+            </div>
+        </form>
+    </div>
 </script>

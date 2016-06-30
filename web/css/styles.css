@@ -516,8 +516,10 @@ margin-right: 10px;
 input#rx_ria_model_entity_form_symbol
 {width: 80px;}
 
+/*
 input#rx_ria_model_entity_form_percent
 {width: 50px;}
+*/
 
 input#rx_ria_model_entity_form_muni_substitution_symbol
 {width: 80px;}
@@ -2835,4 +2837,10 @@ a.disabled:hover {
 .modal-800w {
     width: 800px;
     margin: 20px auto;
+}
+
+#trade_recon_form #form .form-group:first-child {
+    width: 200px;
+    position: relative;
+    top: -6px;
 }

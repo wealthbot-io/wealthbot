@@ -1200,8 +1200,10 @@ select#wealthbot_client_bundle_profile_type_marital_status
 select#wealthbot_client_bundle_profile_type_annual_income
 {width: 160px;}
 
+/*
 input#wealthbot_client_bundle_profile_type_estimated_income_tax
 {width: 40px;}
+*/
 
 select#wealthbot_client_bundle_profile_type_liquid_net_worth
 {width: 170px;}

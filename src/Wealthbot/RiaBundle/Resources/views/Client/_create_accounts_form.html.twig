@@ -32,8 +32,8 @@
             {{ form_label(form.value) }}
             <div class="controls">
                 {{ form_errors(form.value) }}
-			<div class="input-prepend">
-			<span class="add-on">$</span>	
+			<div class="input-group">
+			<span class="input-group-addon">$</span>
                 {{ form_widget(form.value) }}
 			</div>	
                 <span class="retirement-value-help" style="display:none;">Minimum value must be $50,000 for retirement plans.</span>
@@ -44,8 +44,8 @@
             {{ form_label(form.monthly_contributions) }}
             <div class="controls">
                 {{ form_errors(form.monthly_contributions) }}
-				<div class="input-prepend">
-			<span class="add-on">$</span>
+				<div class="input-group">
+			<span class="input-group-addon">$</span>
                 {{ form_widget(form.monthly_contributions) }}
 			</div>	
             </div>
@@ -55,8 +55,8 @@
             {{ form_label(form.monthly_distributions) }}
             <div class="controls">
                 {{ form_errors(form.monthly_distributions) }}
-			<div class="input-prepend">
-			<span class="add-on">$</span>	
+			<div class="input-group">
+			<span class="input-group-addon">$</span>
                 {{ form_widget(form.monthly_distributions) }}
 			</div>	
             </div>

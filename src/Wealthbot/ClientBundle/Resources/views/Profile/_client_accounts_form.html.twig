@@ -73,8 +73,8 @@
         <div class="row">
             {{ form_label(form.value, 'Estimated Value:', { 'label_attr': {'class': ' client-intake-step-three-label'}}) }}
             <div >
-                <div class="input-prepend">
-                    <span class="add-on">$</span>
+                <div class="input-group">
+                    <span class="input-group-addon">$</span>
                     {{ form_widget(form.value, {'attr': {'class': 'input-medium auto-numeric'}}) }}
                 </div>
                 <span class="retirement-value-help" style="display:none;">Minimum value must be $50,000 for retirement plans.</span>

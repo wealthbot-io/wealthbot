@@ -14,8 +14,8 @@
                             <strong>Warning!</strong> This will affect new and current clients on the system.
                         </div>
                     {% endif %}
-                    <div class="input-prepend">
-                        <span class="add-on">$</span>
+                    <div class="input-group">
+                        <span class="input-group-addon">$</span>
                         {{ form_widget(form.minimum_billing_fee, {'attr': {'class': 'auto-numeric'}}) }}
                     </div>
                     {{ form_errors(form.minimum_billing_fee) }}

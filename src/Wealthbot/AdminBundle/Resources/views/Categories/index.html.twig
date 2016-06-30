@@ -10,17 +10,17 @@
     <td><input class="form-control" type="text" id="categories_assets___name___subclasses___index___name" name="categories[assets][__name__][subclasses][__index__][name]" required="required" /></td>
     {% if is_show_tolerance_band %}
         <td>
-            <div class="input-append">
+            <div class="input-group">
                 <input class="input-xmini form-control" type="text" id="categories_assets__name__subclasses__index__tolerance_band" name="categories[assets][__name__][subclasses][__index__][tolerance_band]"/>
-                <span class="add-on">%</span>
+                <span class="input-group-addon">%</span>
             </div>
         </td>
     {% endif %}
     {% if is_show_expected_asset %}
         <td>
-            <div class="input-append">
+            <div class="input-group">
                 <input class="input-xmini form-control" type="text" id="categories_assets___name___subclasses___index___expected_performance" name="categories[assets][__name__][subclasses][__index__][expected_performance]" required="required" />
-                <span class="add-on">%</span>
+                <span class="input-group-addon">%</span>
             </div>
         </td>
     {% endif %}
@@ -43,9 +43,9 @@
 
     {% if is_show_tolerance_band %}
         <td>
-            <div class="input-append">
+            <div class="input-group">
                 <input class="input-xmini form-control" type="text" id="categories_assets__name__tolerance_band" name="categories[assets][__name__][tolerance_band]"/>
-                <span class="add-on">%</span>
+                <span class="input-group-addon">%</span>
             </div>
         </td>
     {% endif %}
@@ -104,10 +104,10 @@
                         </td>
                         {% if is_show_tolerance_band %}
                             <td>
-                                <div class="input-append">
+                                <div class="input-group">
                                     {{ form_errors(asset_form.tolerance_band) }}
                                     {{ form_widget(asset_form.tolerance_band, {'attr': {'class': 'input-xmini'}}) }}
-                                    <span class="add-on">%</span>
+                                    <span class="input-group-addon">%</span>
                                 </div>
                             </td>
                         {% endif %}
@@ -132,19 +132,19 @@
 
                             {% if is_show_tolerance_band %}
                                 <td>
-                                    <div class="input-append">
+                                    <div class="input-group">
                                         {{ form_errors(subclass_form.tolerance_band) }}
                                         {{ form_widget(subclass_form.tolerance_band, {'attr': {'class': 'input-xmini'}}) }}
-                                        <span class="add-on">%</span>
+                                        <span class="input-group-addon">%</span>
                                     </div>
                                 </td>
                             {% endif %}
 
                             {% if is_show_expected_asset %}
                                 <td>
-                                    <div class="input-append">
+                                    <div class="input-group">
                                         {{ form_errors(subclass_form.expected_performance) }}
-                                        <div class="input-append">{{ form_widget(subclass_form.expected_performance, {'attr': {'class': 'input-xmini'}}) }}<span class="add-on">%</span></div>
+                                        <div class="input-group">{{ form_widget(subclass_form.expected_performance, {'attr': {'class': 'input-xmini'}}) }}<span class="input-group-addon">%</span></div>
                                     </div>
                                 </td>
                             {% endif %}

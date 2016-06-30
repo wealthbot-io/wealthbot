@@ -123,9 +123,9 @@
             {#{{ form_label(form.tolerance_band, 'Indicate the tolerance band you would like implemented:') }}#}
             {#<div class="controls">#}
             {#{{ form_errors(form.tolerance_band) }}#}
-            {#<div class="input-append">#}
+            {#<div class="input-group">#}
             {#{{ form_widget(form.tolerance_band, { 'attr' : { 'class': 'input-mini auto-numeric', 'placeholder': '00.00'}} ) }}#}
-            {#<span class="add-on">%</span>#}
+            {#<span class="input-group-addon">%</span>#}
             {#</div>#}
             {#</div>#}
             {#</div>#}
@@ -141,12 +141,12 @@
 
             <div class="form-group transaction-amount">
                 {{ form_label(form.transaction_amount, 'Transaction minimum on a per trade basis. Choose dollar amount or percentage of account. System uses lesser of both.') }}
-                <div class="input-prepend">
-                    <span class="add-on">$</span>
+                <div class="input-group">
+                    <span class="input-group-addon">$</span>
                     {{ form_widget(form.transaction_amount, {'attr': {'class': 'input-mini auto-numeric'}}) }}
                 </div>
                 <span class="middle">or</span>
-                <div class="input-append">
+                <div class="input-group">
                     {{ form_widget(form.transaction_amount_percent, { 'attr' : { 'class': 'input-mini auto-numeric', 'placeholder': '00.00'}} ) }}
                 </div>
             </div>
@@ -206,7 +206,7 @@
                             {{ form_label(form.tax_loss_harvesting_percent, 'Tax loss harvest when client tax bracket is equal to or above:') }}
                             <div class="controls">
                                 {{ form_errors(form.tax_loss_harvesting_percent) }}
-                                <div class="input-append">
+                                <div class="input-group">
                                     {{ form_widget(form.tax_loss_harvesting_percent, {'attr': {'class': 'input-mini auto-numeric', 'placeholder': '00.00'}}) }}
                                 </div>
                             </div>
@@ -218,8 +218,8 @@
                             {{ form_label(form.tax_loss_harvesting, 'Minimum client relationship value for tax loss harvesting:') }}
                             <div class="controls">
                                 {{ form_errors(form.tax_loss_harvesting) }}
-                                <div class="input-prepend">
-                                    <span class="add-on">$</span>
+                                <div class="input-group">
+                                    <span class="input-group-addon">$</span>
                                     {{ form_widget(form.tax_loss_harvesting, { 'attr' : { 'class': 'input-mini auto-numeric', 'placeholder': '00.00'}} ) }}
                                 </div>
                             </div>
@@ -232,12 +232,12 @@
                             <div class="controls">
                                 {{ form_errors(form.tax_loss_harvesting_minimum_percent) }}
                                 {{ form_errors(form.tax_loss_harvesting_minimum) }}
-                                <div class="input-append">
+                                <div class="input-group">
                                     {{ form_widget(form.tax_loss_harvesting_minimum_percent, {'attr': {'class': 'input-mini auto-numeric', 'placeholder': '00.00'}}) }}
                                 </div>
                                 <span class="middle">and</span>
-                                <div class="input-prepend">
-                                    <span class="add-on">$</span>
+                                <div class="input-group">
+                                    <span class="input-group-addon">$</span>
                                     {{ form_widget(form.tax_loss_harvesting_minimum, { 'attr' : { 'class': 'input-mini auto-numeric', 'placeholder': '00.00'}} ) }}
                                 </div>
                             </div>
@@ -249,8 +249,8 @@
                             {{ form_label(form.stop_tlh_value, 'Stop tax loss harvesting when losses for a client reach the following value (yearly basis):') }}
                             <div class="controls">
                                 {{ form_errors(form.stop_tlh_value) }}
-                                <div class="input-prepend">
-                                    <span class="add-on">$</span>
+                                <div class="input-group">
+                                    <span class="input-group-addon">$</span>
                                     {{ form_widget(form.stop_tlh_value, {'attr': {'class': 'input-mini auto-numeric', 'placeholder': '00.00'}}) }}
                                 </div>
                             </div>
@@ -308,9 +308,9 @@
                                             </td>
                                             <td class="expected-performance">
                                                 {{ form_errors(item.expected_performance) }}
-                                                <div class="input-append">
+                                                <div class="input-group">
                                                     {{ form_widget(item.expected_performance, {'attr': {'class': 'auto-numeric'}}) }}
-                                                    <span class="add-on">%</span>
+                                                    <span class="input-group-addon">%</span>
                                                 </div>
                                             </td>
                                             <td class="account-type">

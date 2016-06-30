@@ -16,8 +16,8 @@
             <div>
                 {{ form_label(form.amount, 'Amount: ') }}
                 {{ form_errors(form.amount) }}
-                <div class="input-prepend padding-left-10">
-                    <span class="add-on">$</span>
+                <div class="input-group padding-left-10">
+                    <span class="input-group-addon">$</span>
                     {{ form_widget(form.amount, { 'attr': { 'class': 'input-mini auto-numeric' } }) }}
                 </div>
             </div>
@@ -91,8 +91,8 @@
                             <span class="inputs-separator">or</span>
 
                             {{ form_errors(form.federal_withhold_money) }}
-                            <div class="input-prepend">
-                                <span class="add-on">$</span>
+                            <div class="input-group">
+                                <span class="input-group-addon">$</span>
                                 {{ form_widget(form.federal_withhold_money, {'attr': {'class': 'input-mini auto-numeric'} }) }}
                             </div>
                             (not less then 10% of total distribution)
@@ -123,8 +123,8 @@
                                 <span class="inputs-separator">or</span>
 
                                 {{ form_errors(form.state_withhold_money) }}
-                                <div class="input-prepend">
-                                    <span class="add-on">$</span>
+                                <div class="input-group">
+                                    <span class="input-group-addon">$</span>
                                     {{ form_widget(form.state_withhold_money, {'attr': {'class': 'input-mini auto-numeric'} }) }}
                                 </div>
                                 (not less then 10% of total distribution)

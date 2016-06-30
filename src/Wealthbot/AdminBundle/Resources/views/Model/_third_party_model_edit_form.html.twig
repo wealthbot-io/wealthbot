@@ -9,16 +9,16 @@
             {{ form_label(form.commission_min, 'Commissions:', {'label_attr': {'class': 'control-label'}}) }}
             <div class="controls">
                 {{ form_errors(form.commission_min) }}
-                <div class="input-prepend">
-                    <span class="add-on">$</span>
+                <div class="input-group">
+                    <span class="input-group-addon">$</span>
                     {{ form_widget(form.commission_min, {'attr': {'class': 'input-mini auto-numeric assumption-commission', 'placeholder': '0.00 '}}) }}
                 </div>
 
                 -
 
                 {{ form_errors(form.commission_max) }}
-                <div class="input-prepend">
-                    <span class="add-on">$</span>
+                <div class="input-group">
+                    <span class="input-group-addon">$</span>
                     {{ form_widget(form.commission_max, {'attr': {'class': 'input-mini auto-numeric assumption-commission', 'placeholder': '0.00 '}}) }}
                 </div>
 
@@ -30,9 +30,9 @@
             {{ form_label(form.forecast, 'Forecast:', {'label_attr': {'class': 'control-label'}}) }}
             <div class="controls">
                 {{ form_errors(form.forecast) }}
-                <div class="input-append">
+                <div class="input-group">
                     {{ form_widget(form.forecast, {'attr': {'class': 'input-small'}}) }}
-                    <span class="add-on">Years</span>
+                    <span class="input-group-addon">Years</span>
                 </div>
             </div>
         </div>

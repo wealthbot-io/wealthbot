@@ -6,8 +6,8 @@
                 {{ form_errors(form.transaction_fee) }}
 
                 {{ form_label(form.transaction_fee, 'Transaction Fee:') }}
-                <div class="input-prepend">
-                    <span class="add-on">$</span>
+                <div class="input-group">
+                    <span class="input-group-addon">$</span>
                     {{ form_widget(form.transaction_fee, {'attr': {'class': 'input-mini auto-numeric'}}) }}
                 </div>
             </div>
@@ -19,24 +19,24 @@
                 <div>
                     {{ form_errors(form.minimum_buy) }}
                     {{ form_label(form.minimum_buy, 'Minimum Buy:') }}
-                    <div class="input-prepend">
-                        <span class="add-on">$</span>
+                    <div class="input-group">
+                        <span class="input-group-addon">$</span>
                         {{ form_widget(form.minimum_buy, {'attr': {'class': 'input-small auto-numeric'}}) }}
                     </div>
                 </div>
                 <div>
                     {{ form_errors(form.minimum_initial_buy) }}
                     {{ form_label(form.minimum_initial_buy, 'Minimum Initial Buy:') }}
-                    <div class="input-prepend">
-                        <span class="add-on">$</span>
+                    <div class="input-group">
+                        <span class="input-group-addon">$</span>
                         {{ form_widget(form.minimum_initial_buy, {'attr': {'class': 'input-small auto-numeric'}}) }}
                     </div>
                 </div>
                 <div>
                     {{ form_errors(form.minimum_sell) }}
                     {{ form_label(form.minimum_sell, 'Minimum Sell:') }}
-                    <div class="input-prepend">
-                        <span class="add-on">$</span>
+                    <div class="input-group">
+                        <span class="input-group-addon">$</span>
                         {{ form_widget(form.minimum_sell, {'attr': {'class': 'input-small auto-numeric'}}) }}
                     </div>
                 </div>
@@ -59,9 +59,9 @@
                     {{ form_widget(form.redemption_percent, {'attr': {'class': 'input-mini auto-numeric', 'placeholder': '00.00'}}) }}
                     <span class="middle">or</span>
                     {{ form_label(form.redemption_percent, 'Fee:') }}
-                    <div class="input-append">
+                    <div class="input-group">
                         {{ form_widget(form.redemption_fee, { 'attr' : { 'class': 'input-mini auto-numeric'}} ) }}
-                        <span class="add-on">$</span>
+                        <span class="input-group-addon">$</span>
                     </div>
                 </div>
             </div>

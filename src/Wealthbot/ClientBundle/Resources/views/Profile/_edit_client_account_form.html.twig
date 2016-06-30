@@ -34,8 +34,8 @@
         {{ form_label(form.value, null, { 'label_attr': {'class': 'control-label'}}) }}
         <div class="controls">
             {{ form_errors(form.value) }}
-            <div class="input-prepend">
-                <span class="add-on">$</span>
+            <div class="input-group">
+                <span class="input-group-addon">$</span>
                 {{ form_widget(form.value, {'attr': {'class': 'input-medium auto-numeric'}}) }}
             </div>
             <span class="retirement-value-help help-block" style="{{ group == 'employer_retirement' ? '' : 'display:none;' }}">Minimum value must be $50,000 for retirement plans.</span>
@@ -47,8 +47,8 @@
         {{ form_label(form.monthly_contributions, null, { 'label_attr': {'class': 'control-label'}}) }}
         <div class="controls">
             {{ form_errors(form.monthly_contributions) }}
-            <div class="input-prepend">
-                <span class="add-on">$</span>
+            <div class="input-group">
+                <span class="input-group-addon">$</span>
                 {{ form_widget(form.monthly_contributions, {'attr': {'class': 'input-medium auto-numeric'}}) }}
             </div>
         </div>
@@ -60,8 +60,8 @@
         {{ form_label(form.monthly_distributions, null, { 'label_attr': {'class': 'control-label'}}) }}
         <div class="controls">
             {{ form_errors(form.monthly_distributions) }}
-            <div class="input-prepend">
-                <span class="add-on">$</span>
+            <div class="input-group">
+                <span class="input-group-addon">$</span>
                 {{ form_widget(form.monthly_distributions, {'attr': {'class': 'input-medium auto-numeric'}}) }}
             </div>
         </div>

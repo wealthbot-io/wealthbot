@@ -142,8 +142,8 @@
                 {{ form_label(form.min_asset_size, 'Asset Management Minimum:') }}
                 <div class="controls">
                     {{ form_errors(form.min_asset_size) }}
-                    <div class="input-prepend">
-                        <span class="add-on">$</span>
+                    <div class="input-group">
+                        <span class="input-group-addon">$</span>
                         {{ form_widget(form.min_asset_size, {'attr': {'class': 'auto-numeric', 'placeholder': '0.00'}}) }}
                     </div>
                 </div>

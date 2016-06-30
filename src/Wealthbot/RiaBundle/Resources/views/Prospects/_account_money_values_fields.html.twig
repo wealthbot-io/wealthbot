@@ -2,8 +2,8 @@
     {{ form_label(form.value, label|default(null))}}
     <div>
         {{ form_errors(form.value) }}
-        <div class="input-prepend">
-            <span class="add-on">$</span>
+        <div class="input-group">
+            <span class="input-group-addon">$</span>
             {{ form_widget(form.value, {'attr':{'class': 'auto-numeric light-gray'}}) }}
         </div>
         <span class="retirement-value-help" {{ group == 'employer_retirement' ? '' : 'style="display:none;"' }}>Minimum value must be $50,000 for retirement plans.</span>
@@ -14,8 +14,8 @@
     {{ form_label(form.monthly_contributions, label|default(null))}}
     <div>
         {{ form_errors(form.monthly_contributions) }}
-        <div class="input-prepend">
-            <span class="add-on">$</span>
+        <div class="input-group">
+            <span class="input-group-addon">$</span>
             {{ form_widget(form.monthly_contributions, {'attr':{'class': 'auto-numeric light-gray'}}) }}
         </div>
     </div>
@@ -25,8 +25,8 @@
     {{ form_label(form.monthly_distributions, label|default(null))}}
     <div>
         {{ form_errors(form.monthly_distributions) }}
-        <div class="input-prepend">
-            <span class="add-on">$</span>
+        <div class="input-group">
+            <span class="input-group-addon">$</span>
             {{ form_widget(form.monthly_distributions, {'attr':{'class': 'auto-numeric light-gray'}}) }}
         </div>
     </div>
@@ -36,8 +36,8 @@
     {{ form_label(form.sas_cash, 'SAS Cash')}}
     <div>
         {{ form_errors(form.sas_cash) }}
-        <div class="input-prepend">
-            <span class="add-on">$</span>
+        <div class="input-group">
+            <span class="input-group-addon">$</span>
             {{ form_widget(form.sas_cash, {'attr':{'class': 'auto-numeric light-gray'}}) }}
         </div>
     </div>

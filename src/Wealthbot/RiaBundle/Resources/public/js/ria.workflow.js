@@ -234,6 +234,7 @@ $(function() {
     });
 
     $(document).on('submit','#workflow_note_form', function(event) {
+        event.preventDefault();
         var form = $(this);
         var dialog = $('#modal_dialog');
         var btn = dialog.find('.save-modal-form-btn');

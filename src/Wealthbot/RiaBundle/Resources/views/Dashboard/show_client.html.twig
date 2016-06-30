@@ -11,8 +11,8 @@
 {% endblock %}
 
 {% block clients_header %}
-    <div class="ria-client-dashboard-header-content row-fluid span10">
-        <div class="span11">
+    <div class="ria-client-dashboard-header-content row col-md-10">
+        <div class="col-md-11">
             <h1>
                 {% if app.request.query.get('showBreadcrumbs') %}
                     {{ form_widget(searchForm.search, {
@@ -38,7 +38,7 @@
 {% endblock %}
 
 {% block clients_content %}
-    <div class="row-fluid">
+    <div class="row">
         <div id="ria_dashboard_client_menu">
             {% block client_menu %}
                 {% include 'WealthbotClientBundle:Dashboard:_nav.html.twig' with {
@@ -47,7 +47,7 @@
             {% endblock %}
         </div>
 
-        <div class="span10 margin-top-7">
+        <div class="col-md-10 margin-top-7">
             <hr />
             <div id="ria_dashboard_client_content"></div>
         </div>

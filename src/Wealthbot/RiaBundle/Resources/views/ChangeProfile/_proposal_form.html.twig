@@ -1,9 +1,9 @@
 <form id="proposal_form" action="{{ path('rx_ria_change_profile_proposal_save') }}" method="POST" enctype="multipart/form-data">
     {{ form_errors(form) }}
 
-    <div class="span12">
+    <div class="col-md-12">
         <legend>Performance Assumptions</legend>
-        <div class="control-group">
+        <div class="form-group">
             {{ form_label(form.is_show_client_expected_asset_class, 'Show client expected asset class and portfolio returns on proposal screen.') }}
             <div class="controls">
                 {{ form_errors(form.is_show_client_expected_asset_class) }}
@@ -12,7 +12,7 @@
                 {% endfor %}
             </div>
         </div>
-        <div class="control-group">
+        <div class="form-group">
             {{ form_label(form.is_show_expected_costs, 'Show expected costs of portfolio on proposal screen.') }}
             <div class="controls">
                 {{ form_errors(form.is_show_expected_costs) }}
@@ -23,13 +23,13 @@
         </div>
     </div>
 
-    <div class="span12">
+    <div class="col-md-12">
         <legend>Contracts</legend>
         <span>Upload the following contracts to be delivered during portfolio proposals.</span>
 
         {% for key, field in form.documents %}
             {% if key != '_token' %}
-                <div class="control-group margin-top-10">
+                <div class="form-group margin-top-10">
                     <h3>{{ field.vars.label }}</h3>
                     {{ form_errors(field) }}
                     {{ form_widget(field) }}
@@ -42,11 +42,11 @@
         {% endfor %}
     </div>
 
-    {#<div class="span12">#}
+    {#<div class="col-md-12">#}
         {#<legend>Contracts</legend>#}
         {#<span>Upload the following contracts to be delivered during portfolio proposals.</span>#}
         {#{% for document in form.documents %}#}
-            {#<div class="control-group">#}
+            {#<div class="form-group">#}
                 {#<h3>{{ form_label(document) }}</h3>#}
                 {#{{ form_errors(document) }}#}
                 {#{{ form_widget(document) }}#}
@@ -55,7 +55,7 @@
     {#</div>#}
     {#{{ form_widget(form) }}#}
 
-    <div class="span12">
+    <div class="col-md-12">
         <div class="form-actions">
             {{ form_rest(form) }}
             <button type="submit" class="btn btn-ajax" data-loading-text="Saving...">Save</button>

@@ -33,12 +33,12 @@
 <table style="font-size: 10px;">
     <thead>
     <tr>
-        <th colspan="3"  class="span3">
+        <th colspan="3"  class="col-md-3">
             <div id="chart_div_{{ portfolio_information.model.id }}" style="width: 350px; height: 200px;"></div>
         </th>
     </tr>
     <tr>
-        <th colspan="3" class="span3">{{ portfolio_information.model.name }}</th>
+        <th colspan="3" class="col-md-3">{{ portfolio_information.model.name }}</th>
     </tr>
 
     </thead>
@@ -51,9 +51,9 @@
         </tr>
         {% for entity in portfolio_information.modelEntities %}
             <tr>
-                <td class="span1">{{ entity.subclass.name }}</td>
-                <td class="span1">{{ entity.securityAssignment.security.name }} {{ entity.securityAssignment.security.symbol }}</td>
-                <td class="span1">{{ entity.percent|number_format(2, '.', ',') }}%</td>
+                <td class="col-md-1">{{ entity.subclass.name }}</td>
+                <td class="col-md-1">{{ entity.securityAssignment.security.name }} {{ entity.securityAssignment.security.symbol }}</td>
+                <td class="col-md-1">{{ entity.percent|number_format(2, '.', ',') }}%</td>
             </tr>
         {% endfor %}
     {% else %}
@@ -62,34 +62,34 @@
         </tr>
     {% endif %}
     <tr>
-        <th colspan="3" class="span3">
+        <th colspan="3" class="col-md-3">
             <div class="center-text">Costs:</div>
         </th>
     </tr>
     <tr>
-        <td colspan="3" class="span3">
+        <td colspan="3" class="col-md-3">
             Fund Expenses: {{ '%.2f' | format(portfolio_information.fundExpenses) }}%/year <br/>
         </td>
     </tr>
     <tr>
-        <th colspan="3" class="span3">
+        <th colspan="3" class="col-md-3">
             <div class="center-text">Expected Performance:</div>
         </th>
     </tr>
     <tr>
-        <td colspan="3" class="span3">
+        <td colspan="3" class="col-md-3">
             {#{% set generous_investment_market = investment_market * (model.generousMarketReturn ? model.generousMarketReturn : 1.2 ) %}#}
             Generous Investment Market: {{ '%.2f' | format(portfolio_information.generousInvestmentMarket) }}%
         </td>
     </tr>
     <tr>
-        <td colspan="3" class="span3">
+        <td colspan="3" class="col-md-3">
             {#{% set average_investment_market = investment_market*1 %}#}
             Average Investment Market: {{ '%.2f' | format(portfolio_information.averageInvestmentMarket) }}%
         </td>
     </tr>
     <tr>
-        <td colspan="3" class="span3">
+        <td colspan="3" class="col-md-3">
             {#{% set low_investment_market = investment_market * (model.lowMarketReturn ? model.lowMarketReturn : 0.8) %}#}
             Low Investment Market: {{ '%.2f' | format(portfolio_information.lowInvestmentMarket) }}%
         </td>

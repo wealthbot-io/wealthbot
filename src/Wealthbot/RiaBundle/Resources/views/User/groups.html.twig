@@ -22,8 +22,7 @@
 <div class="row">
     <form action="{{ url }}" method="post" class="form-horizontal col-md-6">
         {{ form_errors(form) }}
-        <fieldset>
-            <div class="control-group">
+        <div class="form-group" style="margin: 10px 10px 0px 0px">
                 {{ form_label(form.name, null, { 'label_attr': { 'class': 'control-label' } }) }}
                 <div class="controls">
                     {{ form_errors(form.name) }}
@@ -31,9 +30,10 @@
                 </div>
             </div>
 
-            {{ form_rest(form) }}
-            <button type="submit" class="btn btn-ajax">Submit</button>
-        </fieldset>
+        {{ form_rest(form) }}
+        <br />
+        <button type="submit" class="btn btn-ajax">Submit</button>
+
     </form>
 
     <div class="col-md-6">

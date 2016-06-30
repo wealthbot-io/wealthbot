@@ -2,7 +2,7 @@
     <div>
         {% if (ria_company_information.isTransactionFees) %}
             <legend>Transaction Fees</legend>
-            <div class="control-group transaction-fees">
+            <div class="form-group transaction-fees">
                 {{ form_errors(form.transaction_fee) }}
 
                 {{ form_label(form.transaction_fee, 'Transaction Fee:') }}
@@ -15,7 +15,7 @@
 
         {% if (ria_company_information.isTransactionMinimums) %}
             <legend>Minimums</legend>
-            <div class="control-group minimums">
+            <div class="form-group minimums">
                 <div>
                     {{ form_errors(form.minimum_buy) }}
                     {{ form_label(form.minimum_buy, 'Minimum Buy:') }}
@@ -45,7 +45,7 @@
 
         {% if (ria_company_information.isTransactionRedemptionFees) %}
             <legend>Redemption Fees</legend>
-            <div class="control-group redemption-fees">
+            <div class="form-group redemption-fees">
                 <div class="clearfix">
                     {{ form_errors(form.redemption_penalty_interval) }}
                     {{ form_label(form.redemption_penalty_interval, 'Penalty Interval (days):') }}

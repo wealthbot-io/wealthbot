@@ -5,8 +5,8 @@
 
         {% include 'WealthbotRiaBundle:Models:_create_model_form.html.twig' with {'form': form, 'model_id': model.id} %}
 
-        <div class="row-fluid">
-            <div class="span12">
+        <div class="row">
+            <div class="col-md-12">
                 <h3>Models</h3>
             </div>
         </div>
@@ -17,8 +17,8 @@
             </div>
         {% endif %}
 
-        <div class="row-fluid">
-            <div class="span12 mb20" id="models_list">
+        <div class="row">
+            <div class="col-md-12 mb20" id="models_list">
                 {% include 'WealthbotRiaBundle:Models:_models_list.html.twig' with {'models': models} %}
             </div>
         </div>

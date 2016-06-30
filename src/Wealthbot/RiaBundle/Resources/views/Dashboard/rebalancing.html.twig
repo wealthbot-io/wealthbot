@@ -35,18 +35,25 @@
         {% endblock %}
     </div>
 
-    <div id="modal_dialog" class="modal hide longModal" style="width: 1170px; margin-left: -585px;">
-        <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h3 class="bbh3"></h3>
-        </div>
-        <div class="modal-body" style="height: auto;">
+    <div id="modal_dialog" class="modal longModal" style="width: 1170px; margin-left: -585px;">
 
+        <div class="modal-content" style="height: auto;">
+
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3 class="bbh3"></h3>
+            </div>
+            <div class="modal-body">
+
+            </div>
+
+            <div class="modal-footer">
+                <button type="submit" class="btn save-modal-form-btn btn-primary">Save</button>
+                <a href="#" class="btn btn-default"  data-dismiss="modal" aria-hidden="true">Cancel</a>
+            </div>
         </div>
-        <div class="modal-footer">
-            <button type="submit" class="btn save-modal-form-btn">Save</button>
-            <a href="#" class="btn" data-dismiss="modal" aria-hidden="true">Cancel</a>
-        </div>
+
     </div>
 {% endblock %}
 

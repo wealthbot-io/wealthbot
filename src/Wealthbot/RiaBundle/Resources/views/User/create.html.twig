@@ -12,53 +12,52 @@
 {% endblock %}
 
 <div class="row">
-    <form action="{% block form_action %}{{ path('rx_ria_user_create') }}{% endblock %}" id="user-form" method="post" class="form-horizontal col-md-6">
-        {{ form_errors(form) }}
-        <fieldset>
-            <div class="control-group">
-                {{ form_label(form.profile.first_name, null, { 'label_attr': { 'class': 'control-label' } }) }}
-                <div class="controls">
-                    {{ form_errors(form.profile.first_name) }}
-                    {{ form_widget(form.profile.first_name) }}
-                </div>
-            </div>
-            <div class="control-group">
-                {{ form_label(form.profile.last_name, null, { 'label_attr': { 'class': 'control-label' } }) }}
-                <div class="controls">
-                    {{ form_errors(form.profile.last_name) }}
-                    {{ form_widget(form.profile.last_name) }}
-                </div>
-            </div>
-            <div class="control-group">
-                {{ form_label(form.email, null, { 'label_attr': { 'class': 'control-label' } }) }}
-                <div class="controls">
-                    {{ form_errors(form.email) }}
-                    {{ form_widget(form.email) }}
-                </div>
-            </div>
-            {% if form.offsetExists('type') %}
-                <div class="control-group">
-                    {{ form_label(form.type, null, { 'label_attr': { 'class': 'control-label' } }) }}
+        <form action="{% block form_action %}{{ path('rx_ria_user_create') }}{% endblock %}" id="user-form" method="post" class="form-horizontal col-md-5 col-md-offset-1">
+            {{ form_errors(form) }}
+                <div class="form-group">
+                    {{ form_label(form.profile.first_name, null, { 'label_attr': { 'class': 'control-label' } }) }}
                     <div class="controls">
-                        {{ form_errors(form.type) }}
-                        {{ form_widget(form.type) }}
+                        {{ form_errors(form.profile.first_name) }}
+                        {{ form_widget(form.profile.first_name) }}
                     </div>
                 </div>
-            {% endif %}
-            <div class="control-group">
-                {{ form_label(form.groups, null, { 'label_attr': { 'class': 'control-label' } }) }}
-                <div class="controls">
-                    {{ form_errors(form.groups) }}
-                    {{ form_widget(form.groups) }}
+                <div class="form-group">
+                    {{ form_label(form.profile.last_name, null, { 'label_attr': { 'class': 'control-label' } }) }}
+                    <div class="controls">
+                        {{ form_errors(form.profile.last_name) }}
+                        {{ form_widget(form.profile.last_name) }}
+                    </div>
                 </div>
-            </div>
+                <div class="form-group">
+                    {{ form_label(form.email, null, { 'label_attr': { 'class': 'control-label' } }) }}
+                    <div class="controls">
+                        {{ form_errors(form.email) }}
+                        {{ form_widget(form.email) }}
+                    </div>
+                </div>
+                {% if form.offsetExists('type') %}
+                    <div class="form-group">
+                        {{ form_label(form.type, null, { 'label_attr': { 'class': 'control-label' } }) }}
+                        <div class="controls">
+                            {{ form_errors(form.type) }}
+                            {{ form_widget(form.type) }}
+                        </div>
+                    </div>
+                {% endif %}
+                <div class="form-group">
+                    {{ form_label(form.groups, null, { 'label_attr': { 'class': 'control-label' } }) }}
+                    <div class="controls">
+                        {{ form_errors(form.groups) }}
+                        {{ form_widget(form.groups) }}
+                    </div>
+                </div>
 
-            {{ form_rest(form) }}
-            {% block form_buttons %}
-                <button type="submit" class="btn btn-ajax">Create</button>
-            {% endblock %}
-        </fieldset>
-    </form>
+                {{ form_rest(form) }}
+                {% block form_buttons %}
+                    <button type="submit" class="btn btn-primary btn-ajax">Create</button>
+                {% endblock %}
+                <br />
+        </form>
 
     <div class="col-md-6">
         <table id="users_list" class="table table-striped">

@@ -1,12 +1,12 @@
 {% block header_row %}
     <div class="row margin-top-25">
-        <div class="span12">
-            <div class="row-fluid">
-                <div class="span10">
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-10">
                     <img class="img-rounded w200h100" src="{{ path('rx_file_download', {'ria_id': ria_company_information.ria.id}) }}"/>
                 </div>
                 <div class="save-and-logout">
-                    <a class="btn" id="reg_save_btn" href="{{ path('fos_user_security_logout') }}">Logout</a>
+                    <a class="btn btn-default"  id="reg_save_btn" href="{{ path('fos_user_security_logout') }}">Logout</a>
                     <span class="help-block">We'll save your progress.</span>
                 </div>
             </div>
@@ -14,10 +14,10 @@
     </div>
 {% endblock %}
 
-<div class="row-fluid">
-    <div class="span12">
-        <div class="row-fluid">
-            <div class="span10">
+<div class="row">
+    <div class="col-md-12">
+        <div class="row">
+            <div class="col-md-10">
                 <h3>{% block title %}Step 3 of 3: Your Accounts{% endblock %}</h3>
             </div>
         </div>
@@ -31,10 +31,10 @@
 
 <h3 id="main_title_message">What types of accounts will we be managing for you?</h3>
 
-<div class="row-fluid accounts-intake">
-    <div class="span6">
+<div class="row accounts-intake">
+    <div class="col-md-6">
         <form id="account_types_form" action="{{ path('rx_client_profile_step_three') }}" method="post" data-save="false">
-            <div class="control-group spec-rx">
+            <div class="form-group spec-rx">
                 {{ form_errors(form.groups) }}
 
                 <div id="{{ form.groups.vars.id }}">
@@ -73,7 +73,7 @@
             </div>
         </form>
     </div>
-    <div class="span6" id="account_type_form_container" data-success-url="{{ path('rx_client_profile_show_success_message') }}">
+    <div class="col-md-6" id="account_type_form_container" data-success-url="{{ path('rx_client_profile_show_success_message') }}">
     </div>
 </div>
 
@@ -93,8 +93,8 @@
         {% else %}
 
         {% endif %}
-        <a class="btn" {{ client.clientAccounts.count > 0 ? 'style="display: none;"' : '' }} href="javascript:void(0);" id="account_continue_btn">Continue</a>
-        <a class="btn" {{ client.clientAccounts.count > 0 ? '' : 'style="display: none;"' }} href="javascript:void(0);"
+        <a class="btn btn-default"  {{ client.clientAccounts.count > 0 ? 'style="display: none;"' : '' }} href="javascript:void(0);" id="account_continue_btn">Continue</a>
+        <a class="btn btn-default"  {{ client.clientAccounts.count > 0 ? '' : 'style="display: none;"' }} href="javascript:void(0);"
            data-url="{{ path('rx_client_profile_step_three_complete') }}"
            data-check-url="{{ path('rx_client_profile_check_accounts_sum') }}" id="account_suggested_btn">See My Portfolio</a>
 
@@ -102,16 +102,24 @@
     </div>
 {% endblock %}
 
-<div id="edit_account_modal" class="modal hide longModal">
-    <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h3>Edit Account</h3>
-    </div>
-    <div class="modal-body">
+<div id="edit_account_modal" class="modal longModal">
 
+    <div class="modal-content">
+
+
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h3>Edit Account</h3>
+        </div>
+        <div class="modal-body">
+
+        </div>
+
+
+        <div class="modal-footer">
+            {#<button class="btn btn-default"  data-dismiss="modal" aria-hidden="true">Close</button>#}
+            <button class="update-account-btn btn">Save</button>
+        </div>
     </div>
-    <div class="modal-footer">
-        {#<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>#}
-        <button class="update-account-btn btn">Save</button>
-    </div>
+
 </div>

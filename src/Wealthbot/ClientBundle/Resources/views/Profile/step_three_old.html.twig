@@ -19,7 +19,7 @@
                 checkSelectedAccountType(accountTypes, '#wealthbot_userbundle_client_account_type_account_type');
             });
 
-            $('.remove-account-btn').on('click', function(event){
+            $(document).on('click','.remove-account-btn', function(event){
                 var elem = $(this);
 
                 if(confirm('Are you sure?')){
@@ -120,7 +120,7 @@
                 event.preventDefault();
             });
 
-            $('.remove-outside-fund-btn').on('click', function(event){
+            $(document).on('click','.remove-outside-fund-btn', function(event){
                 var elem = $(this);
 
                 if(confirm('Are you sure?')){

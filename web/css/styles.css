@@ -2844,3 +2844,13 @@ a.disabled:hover {
     position: relative;
     top: -6px;
 }
+
+.accpet_checkbox div.checkbox {
+    float: left;
+    margin-top: 2px;
+}
+
+.activate-checkbox {
+
+    margin-left: 8px !important;
+}

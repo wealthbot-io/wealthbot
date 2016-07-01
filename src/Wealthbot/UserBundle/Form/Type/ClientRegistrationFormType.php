@@ -19,6 +19,10 @@ class ClientRegistrationFormType extends UserType
             ->add('is_accepted', 'checkbox', [
                 'required' => true,
                 'mapped' => false,
+                'label' => false,
+                'attr' => [
+                    'class' => 'pull-left'
+                ]
             ])
         ;
 

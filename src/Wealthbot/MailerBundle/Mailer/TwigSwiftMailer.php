@@ -489,18 +489,12 @@ class TwigSwiftMailer implements MailerInterface
 
         return $this->mailer->send($message);
     }
-
+    
     private function fileExists($path)
     {
-        if (file_exists($path)) {
+        if (file_exists($path) || ($fp = curl_init($path ) !== false)) {
             return true;
         }
-
-        $headerResponse = get_headers($path, 1);
-        if (strpos($headerResponse[0], '404') === false) {
-            return true;
-        }
-
         return false;
     }
 

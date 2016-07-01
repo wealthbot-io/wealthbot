@@ -1,4 +1,4 @@
-set :stages, %w(jenkins prod staging)
+set :stages, %w(jenkins prod staging test_at)
 set :stage_dir,     "./app/config/deploy"
 require 'capistrano/ext/multistage'
 
@@ -105,3 +105,6 @@ desc "Reload nginx configuration"
       run "#{sudo} /etc/init.d/nginx reload"
     end
 end
+
+
+logger.level = Logger::MAX_LEVEL

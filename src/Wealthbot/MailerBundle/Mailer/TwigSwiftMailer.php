@@ -475,15 +475,17 @@ class TwigSwiftMailer implements MailerInterface
 
         if (is_array($attachments) && !empty($attachments)) {
             foreach ($attachments as $filename => $path) {
-
-                //TODO need to assure to use correct absolute path!
-                if ($this->fileExists($path)) {
-                    $attachment = \Swift_Attachment::fromPath($path);
-                    if (is_string($filename)) {
-                        $attachment->setFilename($filename);
+                
+                if(file_exists($filename)){
+                    if ($this->fileExists($path)) {
+                        $attachment = \Swift_Attachment::fromPath($path);
+                        if (is_string($filename)) {
+                            $attachment->setFilename($filename);
+                        }
+                        $message->attach($attachment);
                     }
-                    $message->attach($attachment);
                 }
+                
             }
         }
 

@@ -26,7 +26,14 @@
     </div>
 
 
-    {% include 'WealthbotRiaBundle:Profile:_company_profile_form.html.twig' with { 'form': form } %}
+    <div class="row">
+        <div class="col-md-6">
+            {% include 'WealthbotRiaBundle:Profile:_company_profile_form.html.twig' with { 'form': form } %}
+        </div>
+        <div class="col-md-6">
+
+        </div>
+    </div>
 
 {% endblock %}
 

@@ -21,7 +21,7 @@ $(document).ready(function(){
         });
     });
 
-    $('.jq-ce-date').live('focusin', function() {
+    $('.jq-ce-date').on('focusin', function() {
         $(this).inputmask("99-99-9999");
 
         $(this).datepicker({
@@ -48,7 +48,7 @@ $(document).ready(function(){
         }
     });
 
-    $('.models-assumption-edit-btn').live('click', function(event) {
+    $('.models-assumption-edit-btn').on('click', function(event) {
         $.ajax({
             url: $(this).attr('href'),
             dataType: 'json',
@@ -65,7 +65,7 @@ $(document).ready(function(){
         event.preventDefault();
     });
 
-    $('#edit_third_party_model_model_assumption_form').live('submit', function(event) {
+    $('#edit_third_party_model_model_assumption_form').on('submit', function(event) {
         var form = $(this);
 
         var config = {
@@ -87,18 +87,18 @@ $(document).ready(function(){
         event.preventDefault();
     });
 
-    $('.save-modal-form-btn').live('click', function(event) {
+    $('.save-modal-form-btn').on('click', function(event) {
         $(this).closest('#modal_dialog').find('form').submit();
         event.preventDefault();
     });
 
-//    $('.generous-market-return').live('change', function() {
+//    $('.generous-market-return').on('change', function() {
 //        if (parseFloat($(this).autoNumeric('get')) < 1 || parseFloat($(this).autoNumeric('get')) >= 2) {
 //            $(this).val('1.00');
 //        }
 //    });
 
-    $('.low-market-return').live('change', function() {
+    $('.low-market-return').on('change', function() {
         if (parseFloat($(this).autoNumeric('get')) < 0 || parseFloat($(this).autoNumeric('get')) >= 1) {
             $(this).val('0.00');
         }
@@ -111,7 +111,7 @@ $(document).ready(function(){
     // Placeholder for IE
     $('input[placeholder], textarea[placeholder]').placeholder();
 
-    $("#form_fees tr td input[id*='tier_top']").live('keydown', function(event){
+    $("#form_fees tr td input[id*='tier_top']").on('keydown', function(event){
         var e = $(this);
         var browser = $.browser;
         var key;
@@ -361,18 +361,18 @@ function percentRound(element) {
 function decorateDecimalInput(inputSelector, decimalsCount) {
     var decimal = strPad('', decimalsCount);
 
-    $(inputSelector).live('focus', function () {
+    $(inputSelector).on('focus', function () {
         if ($(this).val() == '.'+decimal || $(this).val() == '0.'+decimal) {
             $(this).val('.');
         }
     });
-    $(inputSelector).live('blur', function () {
+    $(inputSelector).on('blur', function () {
         if ($(this).val() == '.') {
             $(this).val('.'+decimal);
         }
     });
 
-    $(inputSelector).live('change', function () {
+    $(inputSelector).on('change', function () {
         validateIsEmptyFee(this, decimalsCount);
     });
 }
@@ -514,7 +514,7 @@ function addCompleteTransferCustodianEvent(inputSelector, custodianIdSelector, c
 
 function lockCompleteTransferCustodianCheckbox(checkboxSelector)
 {
-    $(checkboxSelector).live('click', function(){
+    $(checkboxSelector).on('click', function(){
         var elem = $(this);
         var isChecked = elem.is(':checked');
         var input = $('input.fin-inst-typeahead');

@@ -1,6 +1,6 @@
-<div class="nav-collapse">
+<div class="navbar-collapse">
     <!-- .nav, .navbar-search, .navbar-form, etc -->
-    <ul class="nav">
+    <ul class="nav navbar-nav">
         <li {{ route == 'rx_ria_dashboard' ? 'class="active"' : '' }}><a href="{{ path('rx_ria_dashboard') }}">Dashboard</a></li>
         <li {{ route == 'rx_ria_workflow' ? 'class="active"' : '' }}>
             <a href="{{ path('rx_ria_workflow') }}">Workflow</a>
@@ -19,7 +19,7 @@
         <li {{ route == 'rx_ria_risk_profiling' ? 'class="active"' : '' }}><a href="{{ path('rx_ria_risk_profiling') }}">Proposals</a></li>
     </ul>
 
-    <ul class="nav pull-right">
+    <ul class="nav navbar-nav pull-right">
         <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ app.user.profile.firstName }} <b class="caret"></b></a>
             <ul class="dropdown-menu">

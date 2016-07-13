@@ -8,11 +8,11 @@
     {% endif %}
 
     <tr class="fee-row" data-content="{{ name }}">
-        <td>
+        <td class="tier">
             {{ form_errors(form.fee_with_retirement) }}
             {{ form_widget(form.fee_with_retirement, {'attr': {'class': 'input-small not-presave'}}) }}
         </td>
-        <td>
+        <td class="tier">
             {{ form_errors(form.fee_without_retirement) }}
             {{ form_widget(form.fee_without_retirement, {'attr': {'class': 'input-small not-presave'}}) }}
         </td>
@@ -26,10 +26,10 @@
                     <td>
                         {{ form_errors(form.tier_top) }}
                         {{ form_widget(form.tier_top, {'attr': {'class': 'input-medium auto-numeric not-presave'}}) }}
-                    </td>
+                   </td>
                     <td>
-                        <label class="is-final-tier-checkbox checkbox pull-left" style="display: none;">
-                            {{ form_widget(form.is_final_tier) }} <span class="classify-tier">{{ form.is_final_tier.vars.label }}</span>
+                        <label class="is-final-tier-checkbox checkbox pull-right" style="display: none;">
+                            {{ form_widget(form.is_final_tier) }}
                         </label>
                     </td>
                 </tr>
@@ -70,7 +70,7 @@
         <a href="javascript:void(0)" class="btn btn-primary btn-save">
             Save
         </a>
-        <a href="javascript:void(0)" class="btn btn-add" data-target="form_fees">
+        <a href="javascript:void(0)" class="btn btn-default btn-add" data-target="form_fees">
             Add a Tier
         </a>
     {% endif %}

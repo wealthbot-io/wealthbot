@@ -5,6 +5,8 @@ namespace Wealthbot\RiaBundle\Form\Type;
 use FOS\UserBundle\Form\Type\GroupFormType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Wealthbot\UserBundle\Entity\Group;
 
 class UserGroupsFormType extends GroupFormType
 {
@@ -29,6 +31,10 @@ class UserGroupsFormType extends GroupFormType
             'data_class' => $this->class,
             'intention' => 'group',
         ]);
+    }
+
+    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    {
     }
 
     public function getBlockPrefix()

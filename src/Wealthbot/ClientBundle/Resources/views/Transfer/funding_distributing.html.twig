@@ -39,8 +39,8 @@
 
             <div id="funding">
                 {% if has_docusign_error %}
-                    <div class="row-fluid">
-                        <div class="span7">
+                    <div class="row">
+                        <div class="col-md-7">
                             <div class="alert alert-error">
                                 <button type="button" class="close" data-dismiss="alert">×</button>
                                 {{ '<p>Sorry, but we cannot process this transfer due to some of your answers
@@ -81,21 +81,28 @@
         <div class="form-actions">
             {{ form_widget(form._token) }}
             <a href="{% block back_url %}{{ path('rx_client_transfer_back', {'account_id': account.id, 'action': 'funding_distributing'}) }}{% endblock %}" class="btn btn-inverse">Back </a>
-            <input type="submit" class="btn" name="continue" value="Continue" />
+            <input type="submit" class="btn btn-default"  name="continue" value="Continue" />
         </div>
     </form>
 
-    <div id="modal_dialog" class="modal hide longModal" style="width:auto;">
-        <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h3></h3>
-        </div>
-        <div class="modal-body">
+    <div id="modal_dialog" class="modal longModal" style="width:auto;">
 
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3></h3>
+            </div>
+
+            <div class="modal-body">
+
+            </div>
+
+            <div class="modal-footer">
+                <button type="submit" class="btn save-modal-form-btn btn-primary">Save</button>
+                <a href="#" class="btn btn-default"  data-dismiss="modal" aria-hidden="true">Cancel</a>
+            </div>
         </div>
-        <div class="modal-footer">
-            <button type="submit" class="btn save-modal-form-btn">Save</button>
-            <a href="#" class="btn" data-dismiss="modal" aria-hidden="true">Cancel</a>
-        </div>
+
     </div>
 {% endblock %}

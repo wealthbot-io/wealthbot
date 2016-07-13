@@ -3,9 +3,9 @@
     {% if not (hide_errors is defined) or not hide_errors %}
         {{ form_errors(form.transferInformation.is_include_policy) }}
     {% endif %}
-    <div class="row-fluid">
+    <div class="row">
         {% for child in form.transferInformation.is_include_policy %}
-            <div class="span1">
+            <div class="col-md-1">
                 <label class="radio" for="{{ child.vars.id }}">{{ form_widget(child) }} {{ child.vars.label }}</label>
             </div>
         {% endfor %}
@@ -19,9 +19,9 @@
             {{ form_errors(field) }}
             {{ form_errors(field.value) }}
         {% endif %}
-        <div class="row-fluid">
+        <div class="row">
             {% for child in field.value %}
-                <div class="span1">
+                <div class="col-md-1">
                     <label class="radio" for="{{ child.vars.id }}">{{ form_widget(child) }} {{ child.vars.label }}</label>
                 </div>
             {% endfor %}

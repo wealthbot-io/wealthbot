@@ -2,7 +2,7 @@
       data-update-url="{{ path('rx_admin_models_update_form') }}" data-model-slug="{{ modelEntity.model.slug }}"
       method="post" data-edit-row="model-{{ modelEntity.id }}" >
 
-    <div class="control-group">
+    <div class="form-group">
         {{ form_label(form.assetClass) }}
         <div class="controls">
             {{ form_errors(form.assetClass) }}
@@ -14,7 +14,7 @@
         {% include 'WealthbotAdminBundle:Model:_form_fields.html.twig' with {'form': form} %}
     </div>
 
-    <div class="control-group">
+    <div class="form-group">
         {{ form_label(form.percent) }}
         <div class="controls">
             {{ form_errors(form.percent) }}
@@ -23,5 +23,5 @@
     </div>
 
     {{ form_row(form._token) }}
-    <input class="btn" type="submit" name="submit" value="Update"/>
+    <input class="btn btn-default"  type="submit" name="submit" value="Update"/>
 </form>

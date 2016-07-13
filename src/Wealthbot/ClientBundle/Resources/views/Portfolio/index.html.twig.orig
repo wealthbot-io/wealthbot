@@ -37,7 +37,7 @@
 
 {% block body %}
 
-<div class="row-fluid">
+<div class="row">
         {% include 'WealthbotClientBundle:Portfolio:_portfolio.html.twig' with {
             'portfolio': portfolio_information.model,
             'model_entities': portfolio_information.modelEntities,

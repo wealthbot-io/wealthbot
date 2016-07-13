@@ -14,16 +14,16 @@
         </td>
         <td class="tier">
             {{ form_errors(form.tier_bottom) }}
-			<div class="input-prepend">
-                <span class="add-on">$</span>
+			<div class="input-group">
+                <span class="input-group-addon">$</span>
                 {{ form_widget(form.tier_bottom, {'attr': {'class': 'auto-numeric not-presave'}}) }}
 			</div>
         </td>
         <td class="tier">
             <div class="pull-left">
                 {{ form_errors(form.tier_top) }}
-                <div class="input-prepend">
-                    <span class="add-on">$</span>
+                <div class="input-group">
+                    <span class="input-group-addon">$</span>
                     {{ form_widget(form.tier_top, {'attr': {'class': 'auto-numeric not-presave'}}) }}
                 </div>
             </div>
@@ -46,7 +46,7 @@
     </div>
 {% endif %}
 
-<div class="control-group">
+<div class="form-group">
     {% if (status is defined) and (message is defined) %}
         <div class="alert alert-{{ status }}">
             <button type="button" class="close" data-dismiss="alert">×</button>

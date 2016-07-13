@@ -3,7 +3,7 @@
 
     {% endblock %}
     <fieldset class="b-label">
-        <div class="control-group">
+        <div class="form-group">
                 {{ form_label(form.name, 'Company Name:', { 'label_attr': {'class': 'control-label'}}) }}
             <div class="controls">
                 {{ form_widget(form.name) }}
@@ -11,7 +11,7 @@
             </div>
         </div>
 
-        <div class="control-group">
+        <div class="form-group">
             {{ form_label(form.slug, 'Your Custom URL:', { 'label_attr': {'class': 'control-label'}}) }}
             <div class="controls">
                 {{ form_widget(form.slug, { 'attr': {
@@ -29,7 +29,7 @@
         </span>
         <div class="row">
             <div class="span">
-                <div class="control-group">
+                <div class="form-group">
                     {{ form_label(form.primary_first_name, 'First Name:', { 'label_attr': {'class': 'control-label'}}) }}
                     <div class="controls form-inline">
                         {{ form_widget(form.primary_first_name) }}
@@ -38,7 +38,7 @@
                 </div>
             </div>
             <div class="span">
-                <div class="control-group">
+                <div class="form-group">
                     {{ form_label(form.primary_last_name, 'Last Name:', { 'label_attr': {'class': 'control-label'}}) }}
                     <div class="controls form-inline">
                         {{ form_widget(form.primary_last_name) }}
@@ -48,7 +48,7 @@
             </div>
         </div>
 
-        <div class="control-group">
+        <div class="form-group">
                 {{ form_label(form.contact_email, 'Primary Contact Email Address:', { 'label_attr': {'class': 'control-label'}}) }}
             <div class="controls">
                 {{ form_widget(form.contact_email) }} <a class="pop" href="#" rel="popover" title="Primary Contact Email" data-content="<p>This should be the primary email address a prospect or user should contact.</p>"><i class="mini-color mini-ico-info-sign"></i></a>
@@ -56,7 +56,7 @@
             </div>
         </div>
 
-        <div class="control-group">
+        <div class="form-group">
                 {{ form_label(form.phone_number, 'Phone Number:', { 'label_attr': {'class': 'control-label'}}) }}
             <div class="controls">
                 {{ form_widget(form.phone_number, {'attr': {'placeholder': '(###) ###-####'}}) }} <a class="pop" href="#" rel="popover" title="Primary Phone Number" data-content="<p>This should be the primary phone number a prospect or user should contact.</p>"><i class="mini-color mini-ico-info-sign"></i></a>
@@ -64,7 +64,7 @@
             </div>
         </div>
 
-        <div class="control-group">
+        <div class="form-group">
             {{ form_label(form.fax_number, 'Fax Number:', { 'label_attr': {'class': 'control-label'}}) }}
             <div class="controls">
                 {{ form_widget(form.fax_number, {'attr': {'placeholder': '(###) ###-####'}}) }} <a class="pop" href="#" rel="popover" title="Primary Fax Number" data-content="<p>This should be the primary fax number a prospect or user should contact.</p>"><i class="mini-color mini-ico-info-sign"></i></a>
@@ -72,7 +72,7 @@
             </div>
         </div>
 
-        <div class="control-group">
+        <div class="form-group">
                {{ form_label(form.website, 'Company Website:', { 'label_attr': {'class': 'control-label'}}) }}
                <div class="controls form-inline">
                   {{ form_widget(form.website) }}
@@ -82,7 +82,7 @@
         </div>
 
 
-        <div class="control-group">
+        <div class="form-group">
                 {{ form_label(form.address, 'Company Address:', { 'label_attr': {'class': 'control-label'}}) }}
             <div class="controls">
                 {{ form_widget(form.address) }}
@@ -91,7 +91,7 @@
         </div>
 
 
-        <div class="control-group">
+        <div class="form-group">
                 {{ form_label(form.office, 'Suite or Office #:', { 'label_attr': {'class': 'control-label'}}) }}
             <div class="controls">
                 {{ form_widget(form.office) }}
@@ -125,20 +125,20 @@
             </div>
         </div>
 
-        <div class="control-group">
+        <div class="form-group">
             <legend>Other Information:</legend>
 
             {{ form_label(form.min_asset_size, 'Asset Management Minimum:') }}
             <div class="controls">
                 {{ form_errors(form.min_asset_size) }}
-                <div class="input-prepend">
-                    <span class="add-on">$</span>
+                <div class="input-group">
+                    <span class="input-group-addon">$</span>
                     {{ form_widget(form.min_asset_size, {'attr': {'class': 'auto-numeric', 'placeholder': '0.00'}}) }}
                 </div>
             </div>
         </div>
 
-        <div class="control-group">
+        <div class="form-group">
             <legend>Logo</legend>
             {{ form_label(form.logo_file, 'Upload your company logo (PNG, JPG or GIF)') }}
             <div class="controls">
@@ -148,7 +148,7 @@
         </div>
 
 
-        <div class="control-group">
+        <div class="form-group">
             <legend>Proposal Processing</legend>
             <div class="portfolio-processing">
                 {#{{ form_label(form.portfolio_processing, 'How would you like portfolios to be suggested to the client?') }}#}
@@ -164,7 +164,7 @@
 
             <div class="form-actions">
                 {{ form_rest(form) }}
-                <a class="btn" href="{{ path('rx_ria_profile_step_one') }}">Back</a>
+                <a class="btn btn-default"  href="{{ path('rx_ria_profile_step_one') }}">Back</a>
                 <input class="btn btn-info" type="submit" name="Continue" value="Continue" />
             </div>
         {% endblock %}

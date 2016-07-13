@@ -20,7 +20,7 @@ $(function(){
         validateIsOnlyOneTier();
     });
 
-    $('.is-final-tier-checkbox input[type="checkbox"]').live('click', function (event) {
+    $(document).on('click','.is-final-tier-checkbox input[type="checkbox"]', function (event) {
         var e = $(this);
         var tierTop = e.closest('.tier').find('input[id*="tier_top"]');
 
@@ -35,11 +35,11 @@ $(function(){
         }
     });
 
-    $(".fees-form-block").live('click', function(event){
+    $(document).on('click',".fees-form-block", function(event){
         $("#fees_alert_id").show();
     });
 
-    $('.btn-add').live('click', function (event) {
+    $(document).on('click','.btn-add', function (event) {
         $('.btn-remove').hide();
         hideAllIsFinalTierCheckbox();
 
@@ -57,12 +57,12 @@ $(function(){
     decorateDecimalInput("#form_fees tr td input[id*='fee_without_retirement']", 4);
 
     //Trigger for change Tier Bottom when Tier Top was changed
-    $("#form_fees tr td input[id*='tier_top']").live('change', function () {
+    $(document).on('change',"#form_fees tr td input[id*='tier_top']", function () {
         updateFees();
     });
 
 
-    $('.btn-remove').live('click', function (event) {
+    $(document).on('click','.btn-remove', function (event) {
         var name = $(this).attr('data-related');
         var prev = $('*[data-content="' + name + '"]').prev();
 
@@ -75,7 +75,7 @@ $(function(){
     });
 
 
-    $('.btn-preview-fee').live('click', function (event) {
+    $(document).on('click','.btn-preview-fee', function (event) {
         var data = {};
         var href = $(this).attr('href');
 

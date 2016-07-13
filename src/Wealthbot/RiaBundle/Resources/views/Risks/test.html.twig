@@ -12,7 +12,7 @@
     <meta content="width=device-width, initial-scale=1, maximum-scale=1" name="viewport">
 
     <link rel="stylesheet" href="/css/bootstrap.css">
-    <link rel="stylesheet" href="/css/bootstrap-responsive.css">
+    <link rel="stylesheet" href="/css/bootstrap-theme.css">
     <link rel="stylesheet" href="/css/styles.css">
 
 
@@ -60,7 +60,7 @@
             {{ form_rest(form) }}
 
             <div class="form-actions">
-                <input class="btn" type="submit" name="Submit" value="Submit"/>
+                <input class="btn btn-default"  type="submit" name="Submit" value="Submit"/>
             </div>
         </form>
     {% endblock %}
@@ -69,12 +69,12 @@
 
 {% block javascripts %}
     {% javascripts '@WealthbotRiaBundle/Resources/public/js/ria.risks.js' %}
-        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <script type="text/javascript" src="/js/jquery.form.js"></script>
         <script type="text/javascript" src="/js/jquery.autoNumeric.js"></script>
         <script type="text/javascript" src="/js/custom.js"></script>
         <script type="text/javascript" src="/js/bootstrap.min.js"></script>
-
+        <script type="text/javascript" src="/js/typeahead.js"></script>
         <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}
 {% endblock %}

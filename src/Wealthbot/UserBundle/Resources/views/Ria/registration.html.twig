@@ -2,10 +2,10 @@
 
 {% block body %}
 <div class="row">
-    <div class="span4">
+    <div class="col-md-4">
         <form action="{{ path("rx_ria_register") }}" method="post" class="regRia-form">
-            <fieldset>
-                <div class="control-group">
+            <div style="padding: 10px 10px 0px 10px">
+                <div class="form-group">
                     {{ form_label(form.profile.company, 'Your Company Name', {'label_attr': {'class': 'control-label'}} ) }}
                     <div class="controls">
                         {{ form_errors(form.profile.company) }}
@@ -13,7 +13,7 @@
                     </div>
                 </div>
 
-                <div class="control-group">
+                <div class="form-group">
                     {{ form_label(form.profile.first_name, 'Your First Name', {'label_attr': {'class': 'control-label'}} ) }}
                     <div class="controls">
                         {{ form_errors(form.profile.first_name) }}
@@ -21,7 +21,7 @@
                     </div>
                 </div>
 
-                <div class="control-group">
+                <div class="form-group">
                     <div>
                         {{ form_label(form.profile.last_name, 'Your Last Name', {'label_attr': {'class': 'control-label'}}) }}
                         {{ form_errors(form.profile.last_name) }}
@@ -30,7 +30,7 @@
                         </div>
                     </div>
 
-                    <div class="control-group">
+                    <div class="form-group">
                         {{ form_label(form.email, 'Your Email', {'label_attr': {'class': 'control-label'}}) }}
                         <div class="controls">
                             {{ form_errors(form.email) }}
@@ -38,7 +38,7 @@
                         </div>
                     </div>
 
-                    <div class="control-group">
+                    <div class="form-group">
                         {{ form_label(form.plainPassword.first, 'Your Password', {'label_attr': {'class': 'control-label'}}) }}
 
                         <div class="controls">
@@ -58,7 +58,7 @@
                         </div>
                     </div>
 
-                    <div class="control-group">
+                    <div class="form-group">
                         {{ form_label(form.plainPassword.second, 'Confirm Your Password', {'label_attr': {'class': 'control-label'}}) }}
                         <div class="controls">
                             {{ form_errors(form.plainPassword.second) }}
@@ -67,16 +67,17 @@
 
                         {{ form_rest(form) }}
                         <div >
+                            <br />
                             <input class="btn btn-info" type="submit" value="Register">
                         </div>
                     </div>
                 </div>
-            </fieldset>
+            </div>
         </form>
     </div>
 
-    <div class="span8">
-        <div class="center-text logo-ce"><img src="/img/logo.png" alt=""/></div>
+    <div class="col-md-8">
+        <div class="center-text logo-ce"><img style="width: 600px;" src="/img/logo.png" alt=""/></div>
     </div>
 </div>
 {% endblock %}

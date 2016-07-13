@@ -49,7 +49,7 @@ $(function() {
         this.val(item.name);
     });
 
-    $('#ria_dashboard_client_menu ul.main-menu a').live('click', function(event) {
+    $(document).on('click','#ria_dashboard_client_menu ul.main-menu a', function(event) {
         var btn = $(this);
         var li = btn.closest('li');
         var ul = li.closest('ul.main-menu');
@@ -73,7 +73,7 @@ $(function() {
         $('#ria_dashboard_client_content').spinner128(false);
     });
 
-    $('#sas_cash_collection_form').live('submit', function(event) {
+    $(document).on('submit','#sas_cash_collection_form', function(event) {
         var form = $(this);
         var btn = form.find('input[type="submit"]');
 
@@ -89,7 +89,7 @@ $(function() {
         event.preventDefault();
     });
 
-    $('#client_view_btn').live('click', function(event) {
+    $(document).on('click','#client_view_btn', function(event) {
         var btn = $(this);
         var href = btn.attr('href') + '?redirect-action=' + btn.attr('data-redirect-action');
 
@@ -97,7 +97,7 @@ $(function() {
         event.preventDefault();
     });
 
-    $('.initial-rebalance-btn').live('click', function(event) {
+    $(document).on('click','.initial-rebalance-btn', function(event) {
         var btn = $(this);
         var accounts = [];
 

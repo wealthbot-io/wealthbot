@@ -1,6 +1,6 @@
 $(function(){
     updateOutsideRetirementAccountsBlock();
-    $('input:radio[name="wealthbot_riabundle_ria_proposals_form[portfolio_processing]"]').click(function(){
+    $(document).on('click','input:radio[name="wealthbot_riabundle_ria_proposals_form[portfolio_processing]"]',function(){
         $('input:radio[name="wealthbot_riabundle_riacompanyinformationtype[account_managed]"]:checked').removeAttr('checked');
         updateOutsideRetirementAccountsBlock();
         qualifiedModelsToggle();
@@ -16,7 +16,7 @@ $(function(){
     toleranceBandToggle();
     qualifiedModelsToggle();
 
-    $('select[id*="rebalanced_frequency"]').live('change', function(){
+    $(document).on('change','select[id*="rebalanced_frequency"]', function(){
         toleranceBandToggle();
     });
 
@@ -32,7 +32,7 @@ $(function(){
         updateRiaAssetSettingsTable();
     });
 
-    $(".control-group input[id*=strategy_model]").live('click', function(){
+    $(document).on('click',".form-group input[id*=strategy_model]", function(){
         completeSubclasses();
     });
 
@@ -46,21 +46,21 @@ $(function(){
         updateTaxLossHarvesting($(this).val());
     });
 
-    $('input:radio[name="wealthbot_riabundle_riacompanyinformationtype[account_managed]"]').live('click', function(){
+    $(document).on('click','input:radio[name="wealthbot_riabundle_riacompanyinformationtype[account_managed]"]', function(){
         updateRiaAssetSettingsTable();
         updateOutsideRetirementAlertMessage();
         qualifiedModelsToggle();
     });
 
-    $("input[id*='is_show_client_expected_asset_class']").live('click', function(){
+    $(document).on('click',"input[id*='is_show_client_expected_asset_class']", function(){
         updateRiaAssetSettingsTable();
     });
 
-//    $("#portfolio_managment_level_block input").live('click', function() {
+//    $(document).on('click',"#portfolio_managment_level_block input", function() {
 //        municipalBondsToggle();
 //    });
 
-    $('input:radio[name="wealthbot_riabundle_riacompanyinformationtype[is_allow_retirement_plan]"]').live('change', function() {
+    $(document).on('change','input:radio[name="wealthbot_riabundle_riacompanyinformationtype[is_allow_retirement_plan]"]', function() {
         updateOutsideRetirementAlertMessage();
         qualifiedModelsToggle();
     });
@@ -112,7 +112,7 @@ function completeSubclasses()
 //    if (account_type_id == 2 || (account_type_id != 2 && qualified_id == 0)) {
 //        $('#municipal_bonds_block').show();
 //    } else {
-//        $('#wealthbot_riabundle_riacompanyinformationtype_use_municipal_bond_1').click();
+//        $(document).on('click','#wealthbot_riabundle_riacompanyinformationtype_use_municipal_bond_1',);
 //        $('#municipal_bonds_block').hide();
 //    }
 //}

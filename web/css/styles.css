@@ -33,6 +33,9 @@ ul {list-style-type: none;}
 /* Forms */
 
 input {width:230px;}
+input[type=radio] {width: auto !important; min-width:20px}
+input[type=checkbox] {width: auto !important; min-width:20px}
+
 input::-webkit-input-placeholder { color: #cbcbcb; }
 input:-moz-placeholder { color: #cbcbcb; }
 input:-ms-input-placeholder { color: #cbcbcb; }
@@ -513,8 +516,10 @@ margin-right: 10px;
 input#rx_ria_model_entity_form_symbol
 {width: 80px;}
 
+/*
 input#rx_ria_model_entity_form_percent
 {width: 50px;}
+*/
 
 input#rx_ria_model_entity_form_muni_substitution_symbol
 {width: 80px;}
@@ -708,7 +713,7 @@ font-size: 14px !important;}
 .def-form .inner-ch{
     margin: 0px 0 0 20px;
 }
-.row-fluid .def-form .span, .modal #edit_bank_account_form .span{
+.row .def-form .span, .modal #edit_bank_account_form .span{
     width: auto;
 }
 /*===========================Import Section=================================*/
@@ -1197,8 +1202,10 @@ select#wealthbot_client_bundle_profile_type_marital_status
 select#wealthbot_client_bundle_profile_type_annual_income
 {width: 160px;}
 
+/*
 input#wealthbot_client_bundle_profile_type_estimated_income_tax
 {width: 40px;}
+*/
 
 select#wealthbot_client_bundle_profile_type_liquid_net_worth
 {width: 170px;}
@@ -2601,8 +2608,8 @@ tr.last-row > td {
 }
 
 .beneficiary-block .well{ margin-right: 20px; }
-.row-fluid.unemployed-block{ margin-left: 30px; }
-#your_information .row-fluid.unemployed-block{ margin-left: 0px; }
+.row.unemployed-block{ margin-left: 30px; }
+#your_information .row.unemployed-block{ margin-left: 0px; }
 .unemployed-block .span12{ margin-left: 2.564102564102564% !important; }
 
 /* Table */
@@ -2806,4 +2813,44 @@ a.disabled:hover {
 
 #trade_recon_tab td.error {
   background-color: #FFAABB;
+}
+
+#modal_dialog {
+    width: 800px;
+    margin: 80px auto;
+}
+
+.login-box-company-logo img {
+    width: 600px;
+}
+
+#fos_user_registration_form_is_accepted {
+    margin-left: -20px !important;
+    margin-top: 4px !important;
+}
+
+.w200h100 {
+    width: 200px !important;
+    height: 100px !important;
+}
+
+.modal-800w {
+    width: 800px;
+    margin: 20px auto;
+}
+
+#trade_recon_form #form .form-group:first-child {
+    width: 200px;
+    position: relative;
+    top: -6px;
+}
+
+.accpet_checkbox div.checkbox {
+    float: left;
+    margin-top: 2px;
+}
+
+.activate-checkbox {
+
+    margin-left: 8px !important;
 }

@@ -101,7 +101,7 @@
         </div>
     {% endif %}
 
-    <form id="client_settings_form" class="form-horizontal " action="{{ path(action_route, {'client_id': client.id}) }}" method="post">
+    <form id="client_settings_form" class="form-horizontal" style="padding: 20px 20px" action="{{ path(action_route, {'client_id': client.id}) }}" method="post">
         {% if settings_form.vars.errors is not empty %}
             {{ form_errors(settings_form) }}
         {% endif %}
@@ -116,7 +116,7 @@
 
             {% if (settings_form.client_account_managed is defined) %}
                 {% if ria_company_information.isClientByClientManagedLevel %}
-                    <div class="control-group">
+                    <div class="form-group">
                         <strong>Portfolio Management Level:</strong>
                         <div>
                             {{ form_errors(settings_form.client_account_managed) }}
@@ -130,7 +130,7 @@
 
         {% else %}
 
-            <div class="control-group">
+            <div class="form-group">
                 <strong>Choose another portfolio:</strong>
                 <div>
                     {{ form_errors(settings_form.client.portfolio) }}
@@ -140,7 +140,7 @@
 
             {% if (settings_form.client_account_managed is defined) %}
                 {% if ria_company_information.isClientByClientManagedLevel %}
-                    <div class="control-group">
+                    <div class="form-group">
                         <strong>Portfolio Management Level:</strong>
                         <div>
                             {{ form_errors(settings_form.client_account_managed) }}
@@ -152,7 +152,7 @@
                 {% endif %}
             {% endif %}
 
-            <div class="control-group">
+            <div class="form-group">
                 <strong>Group:</strong>
                 <div>
                     {{ form_errors(settings_form.groups) }}
@@ -160,7 +160,7 @@
                 </div>
             </div>
 
-            <div class="control-group">
+            <div class="form-group">
                 <strong>Choose another billing spec:</strong>
                 <div>
                     {{ form_errors(settings_form.billingSpec) }}
@@ -168,7 +168,7 @@
                 </div>
             </div>
 
-            <div class="control-group">
+            <div class="form-group">
                 <strong>Payment method:</strong>
                 <div>
                     {{ form_errors(settings_form.paymentMethod) }}
@@ -219,7 +219,7 @@
     <br/><br/>
 
     {% if not client.hasApprovedPortfolio %}
-        <div class="client-account-form">
+        <div class="client-account-form" style="padding:20px 20px">
             {% include 'WealthbotRiaBundle:Prospects:_create_client_account_form.html.twig' with { 'form' : form, 'client' : client } %}
         </div>
     {% endif %}

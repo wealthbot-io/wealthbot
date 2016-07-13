@@ -3,7 +3,7 @@
       data-update-url="{{ path('rx_ria_models_update_entity_form') }}"
       data-slug="{{ app.request.attributes.get('slug') }}" method="post">
 
-    <div class="control-group">
+    <div class="form-group">
         {{ form_label(form.assetClass, 'Asset Class') }}
         <div class="controls">
             {{ form_errors(form.assetClass) }}
@@ -15,18 +15,18 @@
         {% include 'WealthbotRiaBundle:Models:_entity_form_fields.html.twig' with {'form': form} %}
     </div>
 
-    <div class="control-group">
+    <div class="form-group">
         {{ form_label(form.percent) }}
         <div class="controls">
             {{ form_errors(form.percent) }}
-			<div class="input-append">
+			<div class="input-group">
                 {{ form_widget(form.percent) }}
-                <span class="add-on">%</span>
+                <span class="input-group-addon">%</span>
 			</div>
         </div>
     </div>
 
     {{ form_row(form._token) }}
 	<br />
-    <input class="btn" type="submit" name="submit" value="Add"/>
+    <input class="btn btn-default"  type="submit" name="submit" value="Add"/>
 </form>

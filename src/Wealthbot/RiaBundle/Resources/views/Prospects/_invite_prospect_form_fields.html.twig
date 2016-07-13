@@ -1,6 +1,6 @@
 {{ form_errors(form) }}
 
-<div class="control-group">
+<div class="form-group">
     {{ form_label(form.first_name) }}
     <div>
         {{ form_errors(form.first_name) }}
@@ -8,7 +8,7 @@
     </div>
 </div>
 
-<div class="control-group">
+<div class="form-group">
     {{ form_label(form.last_name) }}
     <div>
         {{ form_errors(form.last_name) }}
@@ -16,7 +16,7 @@
     </div>
 </div>
 
-<div class="control-group">
+<div class="form-group">
     {{ form_label(form.email) }}
     <div>
         {{ form_errors(form.email) }}
@@ -24,7 +24,7 @@
     </div>
 </div>
 
-<div class="control-group">
+<div class="form-group">
     {{ form_label(form.groups) }}
     <div>
         {{ form_errors(form.groups) }}
@@ -32,7 +32,7 @@
     </div>
 </div>
 
-<div class="control-group">
+<div class="form-group">
     {{ form_label(form.type) }}
     <div>
         {{ form_errors(form.type) }}
@@ -43,4 +43,4 @@
 
 {{ form_rest(form) }}
 
-<input class="btn" type="submit" value="Send Invite">
+<input class="btn btn-default"  type="submit" value="Send Invite">

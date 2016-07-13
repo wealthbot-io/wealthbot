@@ -7,7 +7,7 @@
  */
 
 $(function(){
-    $('.remove-account-btn').live('click', function(event){
+    $(document).on('click','.remove-account-btn', function(event){
         var elem = $(this);
 
         if(confirm('Are you sure?')){
@@ -58,7 +58,7 @@ $(function(){
         event.preventDefault();
     });
 
-    $('.edit-account-btn').live('click', function(event){
+    $(document).on('click','.edit-account-btn', function(event){
         var elem = $(this);
 
         $.ajax({
@@ -79,7 +79,7 @@ $(function(){
         event.preventDefault();
     });
 
-    $('#edit_client_account_form').live('submit', function(event){
+    $(document).on('submit','#edit_client_account_form', function(event){
         event.preventDefault();
 
         var form = $(this);
@@ -104,12 +104,12 @@ $(function(){
         form.ajaxSubmit(options);
     });
 
-    $('.update-account-btn').click(function(event){
+    $(document).on('click','.update-account-btn',function(event){
         $('#edit_client_account_form').submit();
         event.preventDefault();
     });
 
-    $('.select-retirement-account').live('change', function(event){
+    $(document).on('change','.select-retirement-account', function(event){
         var elem = $(this);
         var url = elem.data('url');
 
@@ -124,7 +124,7 @@ $(function(){
         });
     });
 
-    $('#retirement_account_fund_form').live('submit', function(event){
+    $(document).on('submit','#retirement_account_fund_form', function(event){
         var form = $(this);
         var accountId = $('.select-retirement-account:checked').val();
 
@@ -160,7 +160,7 @@ $(function(){
         event.preventDefault();
     });
 
-    $('.remove-outside-fund-btn').live('click', function(event){
+    $(document).on('click','.remove-outside-fund-btn', function(event){
         var elem = $(this);
 
         if(confirm('Are you sure?')){
@@ -183,7 +183,7 @@ $(function(){
 
     selectAccountGroup();
 
-    $('#client_account_form').live('submit', function(event){
+    $(document).on('submit','#client_account_form', function(event){
         var form = $(this);
 
         var options = {
@@ -216,7 +216,7 @@ $(function(){
         $('.current-account-type').text(selectOption.text());
     });
 
-    $('#retirement_account_form').live('submit', function(event){
+    $(document).on('submit','#retirement_account_form', function(event){
         var form = $(this);
 
         var options = {
@@ -238,7 +238,7 @@ $(function(){
         event.preventDefault();
     });
 
-    $('#retirement_account_fund_form').live('submit', function(event){
+    $(document).on('submit','#retirement_account_fund_form', function(event){
         var form = $(this);
 
         var options = {
@@ -270,7 +270,7 @@ function selectAccountGroup() {
 }
 
 function checkSelectedAccountGroup(group){
-    var selector = $('#wealthbot_userbundle_client_account_type_monthly_distributions').closest('.control-group');
+    var selector = $('#wealthbot_userbundle_client_account_type_monthly_distributions').closest('.form-group');
 
     if (group == 'employer_retirement') {
         selector.hide();

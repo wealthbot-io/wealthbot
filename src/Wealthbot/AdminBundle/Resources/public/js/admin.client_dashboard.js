@@ -31,7 +31,7 @@ $(function(){
         });
     });
 
-    $('div.pagination a').live('click', function(event) {
+    $(document).on('click','div.pagination a', function(event) {
         $.ajax({
             url: $(this).attr('href'),
             dataType: 'json',

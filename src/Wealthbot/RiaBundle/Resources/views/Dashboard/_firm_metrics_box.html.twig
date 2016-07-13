@@ -2,23 +2,23 @@
     <div class="box-content most-recent-activity">
         <h2>Firm Metrics</h2>
 
-        <div class="row-fluid margin-bottom-20">
+        <div class="row margin-bottom-20">
             <div class="center-text">
                 <a href="#">Clients</a> |
                 <a href="#">Assets</a>
             </div>
         </div>
-        <div class="row-fluid">
+        <div class="row">
             {% if firm_metrics|length > 0 %}
-            <div class="span10 offset1">
-                <div class="row-fluid no-space">
-                    <div class="span4 box-content box-statistic">
+            <div class="col-md-10 col-md-offset-1">
+                <div class="row no-space">
+                    <div class="col-md-4 box-content box-statistic">
                         <div class="center-text box-title blank">Clients</div>
                         <div class="center-text">
                             <span class="box-number">{{ firm_metrics.clients }}</span>
                         </div>
                     </div>
-                    <div class="span4 box-content box-statistic">
+                    <div class="col-md-4 box-content box-statistic">
                         <div class="center-text box-title {{ firm_metrics.clientsQtdChange == 0 ? 'blank': '' }}">QTD Change</div>
                         <div class="center-text">
                             {% if firm_metrics.clientsQtdChange != 0 %}
@@ -29,7 +29,7 @@
                             <span class="box-number">{{ firm_metrics.clientsQtdChange }}%</span>
                         </div>
                     </div>
-                    <div class="span4 box-content box-statistic">
+                    <div class="col-md-4 box-content box-statistic">
                         <div class="center-text box-title {{ firm_metrics.clientsYearChange == 0 ? 'blank': '' }}">Year Change</div>
                         <div class="center-text">
                             {% if firm_metrics.clientsYearChange != 0 %}
@@ -41,21 +41,21 @@
                         </div>
                     </div>
                 </div>
-                <div class="row-fluid no-space">
-                    <div class="span4 box-content box-statistic">
+                <div class="row no-space">
+                    <div class="col-md-4 box-content box-statistic">
                         <div class="center-text box-title blank">Accounts</div>
                         <div class="center-text">
                             <span class="box-number">1100</span>
                         </div>
                     </div>
-                    <div class="span4 box-content box-statistic">
+                    <div class="col-md-4 box-content box-statistic">
                         <div class="center-text box-title">QTD Change</div>
                         <div class="center-text">
                             <div class="arrow-up"><i class="glyphicon glyphicon-play text-success"></i></div>
                             <span class="box-number">10%</span>
                         </div>
                     </div>
-                    <div class="span4 box-content box-statistic">
+                    <div class="col-md-4 box-content box-statistic">
                         <div class="center-text box-title">Year Change</div>
                         <div class="center-text">
                             <div class="arrow-up"><i class="glyphicon glyphicon-play text-success"></i></div>
@@ -63,14 +63,14 @@
                         </div>
                     </div>
                 </div>
-                <div class="row-fluid no-space">
-                    <div class="span4 box-content box-statistic">
+                <div class="row no-space">
+                    <div class="col-md-4 box-content box-statistic">
                         <div class="center-text box-title blank">Prospects</div>
                         <div class="center-text">
                             <span class="box-number">{{ firm_metrics.prospects }}</span>
                         </div>
                     </div>
-                    <div class="span4 box-content box-statistic">
+                    <div class="col-md-4 box-content box-statistic">
                         <div class="center-text box-title {{ firm_metrics.prospectsQtdChange == 0 ? 'blank': '' }}">QTD Change</div>
                         <div class="center-text">
                             {% if firm_metrics.prospectsQtdChange != 0 %}
@@ -81,7 +81,7 @@
                             <span class="box-number">{{ firm_metrics.prospectsQtdChange }}%</span>
                         </div>
                     </div>
-                    <div class="span4 box-content box-statistic">
+                    <div class="col-md-4 box-content box-statistic">
                         <div class="center-text box-title {{ firm_metrics.prospectsYearChange == 0 ? 'blank': '' }}">Year Change</div>
                         <div class="center-text">
                             {% if firm_metrics.prospectsYearChange != 0 %}
@@ -93,21 +93,21 @@
                         </div>
                     </div>
                 </div>
-                <div class="row-fluid no-space">
-                    <div class="span4 box-content box-statistic">
+                <div class="row no-space">
+                    <div class="col-md-4 box-content box-statistic">
                         <div class="center-text box-title blank">Fees Collected</div>
                         <div class="center-text">
                             <span class="box-number">$10,000,000</span>
                         </div>
                     </div>
-                    <div class="span4 box-content box-statistic">
+                    <div class="col-md-4 box-content box-statistic">
                         <div class="center-text box-title">QTD Change</div>
                         <div class="center-text">
                             <div class="arrow-up"><i class="glyphicon glyphicon-play text-success"></i></div>
                             <span class="box-number">10%</span>
                         </div>
                     </div>
-                    <div class="span4 box-content box-statistic">
+                    <div class="col-md-4 box-content box-statistic">
                         <div class="center-text box-title">Year Change</div>
                         <div class="center-text">
                             <div class="arrow-up"><i class="glyphicon glyphicon-play text-success"></i></div>

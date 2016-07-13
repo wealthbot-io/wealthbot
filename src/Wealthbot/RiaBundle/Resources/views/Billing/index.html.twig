@@ -27,7 +27,7 @@
         <div id="old" class="tab-pane">
 
 
-            <div class="row-fluid">
+            <div class="row">
 
                 {% include 'WealthbotRiaBundle:Profile:_step_three_form.html.twig' with { 'form': form } %}
 
@@ -38,17 +38,25 @@
     </div>
 </div>
 
-<div id="fee_preview" class="modal hide longModal">
-    <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h3>Preview Final Billing Schedule</h3>
-    </div>
-    <div class="modal-body">
+<div id="fee_preview" class="modal longModal">
+
+    <div class="modal-content">
+
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h3>Preview Final Billing Schedule</h3>
+        </div>
+
+        <div class="modal-body">
+
+        </div>
+
+        <div class="modal-footer">
+            <a href="#" class="btn btn-default"  data-dismiss="modal" aria-hidden="true">Close</a>
+        </div>
 
     </div>
-    <div class="modal-footer">
-        <a href="#" class="btn" data-dismiss="modal" aria-hidden="true">Close</a>
-    </div>
+
 </div>
 
 {# BackBone templates #}
@@ -69,11 +77,11 @@
     <script id="tplTypeSelector" type="text/template">
         <h2>Create new Billing Spec. Choose type:</h2>
 
-        <div class="span2">
+        <div class="col-md-2">
             <a href="#" class="flat-fee btn">Flat fee</a>
         </div>
 
-        <div class="span2">
+        <div class="col-md-2">
             <a href="#" class="tier-fee btn">Tier fee</a>
         </div>
     </script>
@@ -94,7 +102,7 @@
     {{ parent() }}
 
     <script>
-        $('#myTab a').click(function (e) {
+        $(document).on('click','#myTab a',function (e) {
             e.preventDefault();
             $(this).tab('show');
         })
@@ -137,10 +145,10 @@
 {#
         $(function(){
             setTimeout(function() {
-                $('a[href="#specs"]').click();
+                $(document).on('click','a[href="#specs"]',);
 
-                $("#specListRegion .add-new").click();
-                $(".tier-fee").click();
+                $(document).on('click',"#specListRegion .add-new",);
+                $(document).on('click',".tier-fee",);
             }, 5000);
         });
 #}

@@ -3,7 +3,7 @@
     {% set group = account.groupName %}
 
     {% if (form.financial_institution is defined) %}
-        <div class="control-group">
+        <div class="form-group">
             {{ form_label(form.financial_institution, null, { 'label_attr': {'class': 'control-label'}}) }}
             <div class="controls">
                 {{ form_errors(form.financial_institution) }}
@@ -13,7 +13,7 @@
     {% endif %}
 
     {% if (form.plan_provider is defined) %}
-        <div class="control-group">
+        <div class="form-group">
             {{ form_label(form.plan_provider, null, { 'label_attr': {'class': 'control-label'}}) }}
             <div class="controls">
                 {{ form_errors(form.plan_provider) }}
@@ -22,7 +22,7 @@
         </div>
     {% endif %}
 
-    <div class="control-group">
+    <div class="form-group">
         {{ form_label(form.groupType, null, { 'label_attr': {'class': 'control-label'}}) }}
         <div class="controls">
             {{ form_errors(form.groupType) }}
@@ -30,12 +30,12 @@
         </div>
     </div>
 
-    <div class="control-group">
+    <div class="form-group">
         {{ form_label(form.value, null, { 'label_attr': {'class': 'control-label'}}) }}
         <div class="controls">
             {{ form_errors(form.value) }}
-            <div class="input-prepend">
-                <span class="add-on">$</span>
+            <div class="input-group">
+                <span class="input-group-addon">$</span>
                 {{ form_widget(form.value, {'attr': {'class': 'input-medium auto-numeric'}}) }}
             </div>
             <span class="retirement-value-help help-block" style="{{ group == 'employer_retirement' ? '' : 'display:none;' }}">Minimum value must be $50,000 for retirement plans.</span>
@@ -43,12 +43,12 @@
     </div>
 
     {% if (form.monthly_contributions is defined) %}
-    <div class="control-group">
+    <div class="form-group">
         {{ form_label(form.monthly_contributions, null, { 'label_attr': {'class': 'control-label'}}) }}
         <div class="controls">
             {{ form_errors(form.monthly_contributions) }}
-            <div class="input-prepend">
-                <span class="add-on">$</span>
+            <div class="input-group">
+                <span class="input-group-addon">$</span>
                 {{ form_widget(form.monthly_contributions, {'attr': {'class': 'input-medium auto-numeric'}}) }}
             </div>
         </div>
@@ -56,12 +56,12 @@
     {% endif %}
 
     {% if (form.monthly_distributions is defined) %}
-    <div class="control-group" style="{{ group == 'employer_retirement' ? 'display:none;' : '' }}}">
+    <div class="form-group" style="{{ group == 'employer_retirement' ? 'display:none;' : '' }}}">
         {{ form_label(form.monthly_distributions, null, { 'label_attr': {'class': 'control-label'}}) }}
         <div class="controls">
             {{ form_errors(form.monthly_distributions) }}
-            <div class="input-prepend">
-                <span class="add-on">$</span>
+            <div class="input-group">
+                <span class="input-group-addon">$</span>
                 {{ form_widget(form.monthly_distributions, {'attr': {'class': 'input-medium auto-numeric'}}) }}
             </div>
         </div>

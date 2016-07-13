@@ -9,7 +9,7 @@
 $(function(){
     updateCustodianQuestionsBlock();
 
-    $('input:radio[name="ria_custodian[custodian]"]').click(function() {
+    $(document).on('click','input:radio[name="ria_custodian[custodian]"]',function() {
         updateCustodianQuestionsBlock();
     });
 
@@ -26,7 +26,7 @@ $(function(){
     }
 
 
-    $('.website-test.btn').live('click', function(event) {
+    $(document).on('click','.website-test.btn', function(event) {
         var value = $('#wealthbot_riabundle_riacompanyinformationtype_website').val();
 
         if (!value || value === 'http://') {
@@ -52,7 +52,7 @@ $(function(){
     }
 
     $('#company_profile_form .btn-ajax, #proposal_form .btn-ajax, #billing_n_accounts_form .btn-ajax, #portfolio_management_form .btn-ajax,' +
-        '#update_password .btn-ajax, #user_management .btn-ajax, #user_password_management .btn-ajax').live('click', function (event) {
+        '#update_password .btn-ajax, #user_management .btn-ajax, #user_password_management .btn-ajax').on('click', function (event) {
         var button = this;
         var form = $(button).closest('form');
 
@@ -94,7 +94,7 @@ $(function(){
         event.preventDefault();
     });
 
-    $('').live('click', function (event) {
+    $(document).on('click','', function (event) {
 
         var button = $(this);
 
@@ -113,7 +113,7 @@ $(function(){
 
     });
 
-    $('.edit-ria-user-btn, .delete-ria-user-btn, .cancel-edit-user-btn').live('click', function (event) {
+    $(document).on('click','.edit-ria-user-btn, .delete-ria-user-btn, .cancel-edit-user-btn', function (event) {
         var button = $(this);
 
         button.button('loading');
@@ -137,7 +137,7 @@ $(function(){
 
     });
 
-    $('.edit_group_btn, .delete_group_btn').live('click', function (event) {
+    $(document).on('click','.edit_group_btn, .delete_group_btn', function (event) {
         var button = $(this);
         var isDelete = button.hasClass('delete_group_btn');
 
@@ -167,7 +167,7 @@ $(function(){
 
     });
 
-    $('#ria_documents_form').live('submit', function(event) {
+    $(document).on('submit','#ria_documents_form', function(event) {
         var form = $(this);
         var btn = form.find('input[type="submit"]');
 
@@ -177,7 +177,7 @@ $(function(){
         event.preventDefault();
     });
 
-    $('#alerts_configuration_form').live('submit', function(event) {
+    $(document).on('submit','#alerts_configuration_form', function(event) {
         var form = $(this);
         var btn = form.find('button[type="submit"]');
 
@@ -203,10 +203,10 @@ $(function(){
     });
 
     $('#custodian_id')
-        .live('change', getAdvisorCodesList)
+        .on('change', getAdvisorCodesList)
         .trigger('change');
-    $('#new-id').live('click', addAdvisorCode);
-    $('.remove-advisor-code').live('click', removeAdvisorCode);
+    $(document).on('click','#new-id', addAdvisorCode);
+    $(document).on('click','.remove-advisor-code', removeAdvisorCode);
 
     function getAdvisorCodesList() {
         var custodianId = $(this).val();
@@ -230,7 +230,7 @@ $(function(){
         var prototype =
             '<div>' +
             '<span class="advisor-number"></span> ' +
-            '<input type="text" id="ria_advisor_codes_advisorCodes___name___name" name="ria_advisor_codes[advisorCodes][__name__][name]" required="required" class="input-small" /> ' +
+            '<input type="text" id="ria_advisor_codes_advisorCodes___name___name" name="ria_advisor_codes[advisorCodes][__name__][name]" required="required" class="input-small  form-control" /> ' +
             '<span class="icon-remove remove-advisor-code"></span>' +
             '</div>';
         var $newAdvisorCode = $(prototype.replace(/__name__/g, index));

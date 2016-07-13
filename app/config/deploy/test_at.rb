@@ -9,4 +9,8 @@ set :clear_controllers,     false
 
 ##############
 
-set :branch, "feature/upgrade-2.8"
+set :branch, "master"
+
+set :repository,  "git@github.com:azatyan/wealthbot.git"
+
+set :deploy_via, :copy

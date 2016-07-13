@@ -15,7 +15,7 @@
     {% block bank_info %}
 
         {% if bank_field|length > 0 %}
-            <div class="control-group row">
+            <div class="form-group row">
                 <div class="span">
                     {{ form_label(bank_field, 'Current bank(s) on file:', { 'label_attr': {'class': 'control-label'}}) }}
                     <div class="controls">
@@ -36,7 +36,7 @@
             </div>
         {% else %}
             <p class="empty">No banks currently on file.</p>
-            <div class="control-group row">
+            <div class="form-group row">
                 <div class="span">
                     <a class="add-new-bank-btn" data-type="account-management" href="javascript:void(0);">Add New Bank Account</a>
                 </div>
@@ -47,7 +47,7 @@
 {% endmacro %}
 
 {% macro transfer_info_fields(form) %}
-    <div class="control-group row">
+    <div class="form-group row">
         <div class="span">
             <h5>Transfer Information</h5>
             <div class="well clearfix">
@@ -62,8 +62,8 @@
                     <div class="span">
                         {{ form_label(form.amount, 'Amount:') }}
                         {{ form_errors(form.amount) }}
-                        <div class="input-prepend">
-                            <span class="add-on">$</span>
+                        <div class="input-group">
+                            <span class="input-group-addon">$</span>
                             {{ form_widget(form.amount, { 'attr': { 'class': 'input-medium auto-numeric' } }) }}
                         </div>
                     </div>
@@ -77,16 +77,16 @@
                     {% endif %}
                 </div>
                 <div class="clearfix">
-                    <div class="span12 clearfix">
+                    <div class="col-md-12 clearfix">
                         {{ form_label(form.transaction_frequency, 'Frequency of transaction:') }}
                         {{ form_errors(form.transaction_frequency) }}
                     </div>
 
                     {% if form.transaction_frequency|length > 4 %}
-                        <div class="span3">
+                        <div class="col-md-3">
                         {% for radio in form.transaction_frequency %}
                             {% if (loop.index == 5) or (loop.index == 9) %}
-                                </div><div class="span3">
+                                </div><div class="col-md-3">
                             {% endif %}
                             <label for="{{ radio.vars.id }}" class="radio">{{ form_widget(radio) }}{{ radio.vars.label }}</label>
                         {% endfor %}

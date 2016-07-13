@@ -20,12 +20,12 @@
                     </tr>
             </table>
 
-            <div class="row-fluid">
-                <div class="span6">
+            <div class="row">
+                <div class="col-md-6">
                     <span class="label label-important">Minimum Fee: ${{ ria_company_information.minimumBillingFee|number_format(2, '.', ',') }}</span>
                 </div>
                 {% if action == 'view_and_test' or ria_company_information.isShowExpectedCosts %}
-                    <div class="span6">
+                    <div class="col-md-6">
                         <strong>Fund Expenses:</strong> {{ '%.2f' | format(fund_expenses) }}%/year <br/>
                         {% if commissions is defined and commissions %}
                             <strong>Estimated Commissions:</strong> {{ commissions }} Per Trade (Estimate)
@@ -76,12 +76,12 @@
             </tbody>
         </table>
 
-        <div class="row-fluid">
-            <div class="span6">
+        <div class="row">
+            <div class="col-md-6">
                 <span class="label label-important">Minimum Fee: ${{ ria_company_information.minimumBillingFee|number_format(2, '.', ',') }}</span>
             </div>
             {% if action == 'view_and_test' or ria_company_information.isShowExpectedCosts %}
-                <div class="span6">
+                <div class="col-md-6">
                     <strong>Fund Expenses:</strong> {{ '%.2f' | format(fund_expenses) }}%/year <br/>
                     {% if commissions is defined and commissions %}
                         <strong>Estimated Commissions:</strong> {{ commissions }} Per Trade (Estimate)

@@ -1,77 +1,77 @@
 <div class="row">
-<div class="span8 well">
-<div class="control-group row-fluid">
-    <div class="span4">
+<div class="col-md-8 well">
+<div class="form-group row">
+    <div class="col-md-4">
         {{ form_label(form.account_owner_first_name, 'First Name') }}
         {{ form_errors(form.account_owner_first_name) }}
         {{ form_widget(form.account_owner_first_name, { 'attr': { 'class': 'input-large not-presave' } }) }}
     </div>
-    <div class="span2">
+    <div class="col-md-2">
         {{ form_label(form.account_owner_middle_name, 'Middle Initial') }}
         {{ form_errors(form.account_owner_middle_name) }}
         {{ form_widget(form.account_owner_middle_name, { 'attr': { 'class': 'input-small not-presave' } }) }}
     </div>
-    <div class="span6">
+    <div class="col-md-6">
         {{ form_label(form.account_owner_last_name, 'Last Name') }}
         {{ form_errors(form.account_owner_last_name) }}
         {{ form_widget(form.account_owner_last_name, { 'attr': { 'class': 'input-large  not-presave' } }) }}
     </div>
 </div>
 
-<div class="control-group row-fluid">
-    <div class="span12">
+<div class="form-group row">
+    <div class="col-md-12">
         <a class="add-joint-account-owner-btn" href="javascript:void(0);">+ Add another name</a>
     </div>
 </div>
 
-<div class="control-group row-fluid joint-account-owner" style="display:none;">
-    <div class="span4">
+<div class="form-group row joint-account-owner" style="display:none;">
+    <div class="col-md-4">
         {{ form_label(form.joint_account_owner_first_name, 'First Name') }}
         {{ form_errors(form.joint_account_owner_first_name) }}
         {{ form_widget(form.joint_account_owner_first_name, { 'attr': { 'class': 'input-large  not-presave' } }) }}
     </div>
-    <div class="span2">
+    <div class="col-md-2">
         {{ form_label(form.joint_account_owner_middle_name, 'Middle Initial') }}
         {{ form_errors(form.joint_account_owner_middle_name) }}
         {{ form_widget(form.joint_account_owner_middle_name, { 'attr': { 'class': 'input-small not-presave' } }) }}
     </div>
-    <div class="span6">
+    <div class="col-md-6">
         {{ form_label(form.joint_account_owner_last_name, 'Last Name') }}
         {{ form_errors(form.joint_account_owner_last_name) }}
         {{ form_widget(form.joint_account_owner_last_name, { 'attr': { 'class': 'input-large not-presave' } }) }}
     </div>
 </div>
 
-<div class="control-group row-fluid">
-    <div class="span4">
+<div class="form-group row">
+    <div class="col-md-4">
         {{ form_label(form.name, 'Bank Name') }}
         {{ form_errors(form.name) }}
         {{ form_widget(form.name, { 'attr': { 'class': 'input-large not-presave' } }) }}
     </div>
-    <div class="span4">
+    <div class="col-md-4">
         {{ form_label(form.account_title, 'Account Title') }}
         {{ form_errors(form.account_title) }}
         {{ form_widget(form.account_title, { 'attr': { 'class': 'input-large  not-presave' } }) }}
     </div>
-    <div class="span4">
+    <div class="col-md-4">
         {{ form_label(form.phone_number, 'Phone Number') }}
         {{ form_errors(form.phone_number) }}
         {{ form_widget(form.phone_number, { 'attr': { 'class': 'input-medium not-presave', 'data-mask-type': 'phone' } }) }}
     </div>
 </div>
 
-<div class="control-group row-fluid">
-    <div class="span4">
+<div class="form-group row">
+    <div class="col-md-4">
         {{ form_label(form.routing_number, 'Routing Number') }}
         {{ form_errors(form.routing_number) }}
         {{ form_widget(form.routing_number, { 'attr': { 'class': 'input-medium not-presave' } }) }}
     </div>
-    <div class="span4">
+    <div class="col-md-4">
         {{ form_label(form.account_number, 'Account Number') }}
         {{ form_errors(form.account_number) }}
         {{ form_widget(form.account_number, { 'attr': { 'class': 'input-medium not-presave' } }) }}
     </div>
-    <div class="span4">
+    <div class="col-md-4">
         {{ form_label(form.account_type, 'Account Type') }}
         <div>
             {{ form_errors(form.account_type) }}
@@ -84,8 +84,8 @@
     </div>
 </div>
 
-<div class="control-group row-fluid">
-    <div class="span12">
+<div class="form-group row">
+    <div class="col-md-12">
         {% if form.vars.data and form.vars.data.pdfDocument %}
             {% set label = 'You have already uploaded PDF copy file. Upload new PDF copy if you want to replace it.' %}
         {% else %}

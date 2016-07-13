@@ -9,7 +9,7 @@
     {{ form_rest(form) }}
 
     {% if is_permitted('edit') %}
-        <div class="span12">
+        <div class="col-md-12">
             <div class="form-actions">
                 <button type="submit" class="btn btn-primary btn-ajax" data-loading-text="Saving...">Save changes</button>
             </div>
@@ -25,16 +25,16 @@
                 var isSearchable = $('input:radio[name="wealthbot_riabundle_riacompanyinformationtype[is_searchable_db]"]:checked').val();
 
                 if(isSearchable == 0){
-                    $('#wealthbot_riabundle_riacompanyinformationtype_min_asset_size').closest('.control-group').hide();
+                    $('#wealthbot_riabundle_riacompanyinformationtype_min_asset_size').closest('.form-group').hide();
                 }
 
                 $('input:radio[name="wealthbot_riabundle_riacompanyinformationtype[is_searchable_db]"]').change(function(){
                     var isSearchable = $('input:radio[name="wealthbot_riabundle_riacompanyinformationtype[is_searchable_db]"]:checked').val();
 
                     if(isSearchable == 0){
-                        $('#wealthbot_riabundle_riacompanyinformationtype_min_asset_size').closest('.control-group').hide();
+                        $('#wealthbot_riabundle_riacompanyinformationtype_min_asset_size').closest('.form-group').hide();
                     } else {
-                        $('#wealthbot_riabundle_riacompanyinformationtype_min_asset_size').closest('.control-group').show();
+                        $('#wealthbot_riabundle_riacompanyinformationtype_min_asset_size').closest('.form-group').show();
                     }
                 });
             });

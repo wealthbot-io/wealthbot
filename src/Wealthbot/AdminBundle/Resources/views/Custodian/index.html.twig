@@ -30,18 +30,18 @@
                 {% for key, tab in tabs %}
                     <div class="tab-pane {{ loop.index == 1 ? 'active' : '' }}" id="custodian{{ key }}">
                         <h4>{{ tab.custodian.name }}</h4>
-                        <div class="row-fluid">
-                            <div id="custodian{{ key }}_form_container" class="span5 rx-v-divider">
+
+                            <div id="custodian{{ key }}_form_container" class="col-md-5 rx-v-divider">
                                 {% include 'WealthbotAdminBundle:Custodian:_documents_form.html.twig' with {
                                     'form': tab.form,
                                     'custodian': tab.custodian,
                                     'documents': tab.documents
                                 } %}
                             </div>
-                            <div class="span7">
+                            <div class="col-md-7">
                                 {% include 'WealthbotAdminBundle:Custodian:_messages.html.twig' with { 'custodian': tab.custodian } %}
                             </div>
-                        </div>
+
                     </div>
                 {% endfor %}
             </div>

@@ -1,11 +1,11 @@
 {% extends 'WealthbotAdminBundle::layout.html.twig' %}
 
 {% block body %}
-    <div class="row-fluid">
-        <div class="span12 admin-pas-interfaces" id="pasInterfaceApp">
+    <div class="row">
+        <div class="col-md-12 admin-pas-interfaces" id="pasInterfaceApp">
             <h3>PAS Interfaces</h3>
             <div>
-                <input type="text" class="jq-us-date input-small" id="on_date" placeholder="mm/dd/yyyy" value="{{ date|date('m/d/Y') }}"/>
+                <input type="text" class="jq-us-date input-small form-control" id="on_date" placeholder="mm/dd/yyyy" value="{{ date|date('m/d/Y') }}"/>
             </div>
             <div class="tabbable">
                 <ul class="nav nav-tabs">

@@ -1,10 +1,11 @@
-<div class="row-fluid">
-    <div class="span9">
-        <div class="row-fluid">
-            <div class="span2"><img class="img-rounded" width="150" alt="" src="{{ path('rx_file_download', {'ria_id': company_information.ria.id}) }}"></div>
-            <div class="span10">
+{% form_theme form  '::form_div_layout.html.twig' %}
+<div class="row">
+    <div class="col-md-9">
+        <div class="row">
+            <div class="col-md-2"><img class="img-rounded" width="150" alt="" src="{{ path('rx_file_download', {'ria_id': company_information.ria.id}) }}"></div>
+            <div class="col-md-10">
                 {% if not company_information.activated %}
-                    <div class="span9">
+                    <div class="col-md-9">
                         {% if (progress < 100) %}
                             <div class="alert alert-error">
                                 You must complete the following steps before wealthbot.io will be ready to use:
@@ -96,7 +97,7 @@
                         <div class="model-completion-progress">
                             <p>Completion: <b><span class="progress-text">{{ progress }}</span>%</b></p>
                             <div class="progress">
-                                <div class="bar" style="width: {{ progress }}%"></div>
+                                <div class="progress-bar" style="width: {{ progress }}%"></div>
                             </div>
                         </div>
                     </div>
@@ -104,7 +105,7 @@
             </div>
         </div>
     </div>
-    <div class="span3 ria-search-clients-box">
+    <div class="col-md-3 ria-search-clients-box">
         {{ form_widget(searchForm.search,
         {'attr': {
             'class': 'typeahead input-medium ajaxed ria-find-clients-with-prospects-form-type-search',

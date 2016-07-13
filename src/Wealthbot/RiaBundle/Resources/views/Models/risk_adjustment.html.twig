@@ -13,7 +13,7 @@
         {{ form_errors(form) }}
 
         {% for field in form.ratings %}
-            <div class="risk-adjustment control-group">
+            <div class="risk-adjustment form-group">
                 {{ form_label(field.risk_rating, field.vars.data.name, { 'label_attr': {'class': 'control-label-risk-adjustment'} }) }}
                 <div class="controls">
                     {{ form_errors(field.risk_rating) }}
@@ -24,6 +24,6 @@
 
         {{ form_rest(form) }}
 
-        <input class="btn" type="submit" name="Update" value="Update" />
+        <input class="btn btn-default"  type="submit" name="Update" value="Update" />
     </form>
 {% endblock %}

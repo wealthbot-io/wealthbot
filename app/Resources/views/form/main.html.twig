@@ -6,3 +6,8 @@
         {{ block('form_message') }}
     {% endspaceless %}
 {% endblock checkbox_widget %}
+
+{% block radio_widget -%}
+    {%- set parent_label_class = parent_label_class|default(label_attr.class|default('')) -%}
+    {{- form_row(form) -}}
+{%- endblock radio_widget %}

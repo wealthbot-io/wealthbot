@@ -63,13 +63,12 @@ class BillingSpecFormType extends AbstractType
         }
     }
 
-
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
             'data_class' => 'Wealthbot\AdminBundle\Entity\BillingSpec',
             'validation_groups' => false,
-            'csrf_protection' => false
+            'csrf_protection' => false,
         ]);
     }
 

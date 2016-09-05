@@ -21,8 +21,8 @@ class ClientRegistrationFormType extends UserType
                 'mapped' => false,
                 'label' => false,
                 'attr' => [
-                    'class' => 'pull-left'
-                ]
+                    'class' => 'pull-left',
+                ],
             ])
         ;
 

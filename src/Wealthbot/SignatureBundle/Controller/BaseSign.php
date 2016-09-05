@@ -1,7 +1,7 @@
 <?php
 
 /**
- * inject into container
+ * inject into container.
  */
 
 namespace Wealthbot\SignatureBundle\Controller;
@@ -11,7 +11,6 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class BaseSign extends Controller
 {
-
     public function setContainer(ContainerInterface $container = null)
     {
         parent::setContainer($container);
@@ -20,6 +19,5 @@ class BaseSign extends Controller
         $this->signatureManager = $this->get('wealthbot_docusign.document_signature.manager');
         $this->electronicSignature = $this->get('wealthbot_docusign.electronic_signature_service');
         $this->em = $this->get('doctrine.orm.entity_manager');
-
     }
 }

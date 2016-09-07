@@ -1,4 +1,4 @@
-set :stages, %w(jenkins prod staging test_at)
+set :stages, %w(jenkins prod staging demo client_1)
 set :stage_dir,     "./app/config/deploy"
 require 'capistrano/ext/multistage'
 

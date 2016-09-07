@@ -60,7 +60,7 @@
 	{% endblock %}
 
 	{% block main_container %}
-		<div class="container-fluid">
+		<div class="container">
 		    {% block flash_messages %}
 		        {% for type, flashMessages in app.session.flashbag.all() %}
 		            {% for flashMessage in flashMessages %}

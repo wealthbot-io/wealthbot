@@ -2831,7 +2831,7 @@ a.disabled:hover {
 
 .w200h100 {
     width: 200px !important;
-    height: 100px !important;
+   /* height: 100px !important; */
 }
 
 .modal-800w {

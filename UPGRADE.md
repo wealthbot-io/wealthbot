@@ -1,8 +1,8 @@
 # How to upgrade
 
-*Attention! you can use also our most stable version (for example `1.0.0` tag). But to use Symfony 2.8, you need to upgrade to 1.1.1*
+*Attention! you can use also our most stable version (for example `1.0.0` tag). But to use Symfony 2.8, you need to upgrade to 1.2.0*
 
-## System requirements for version 1.1.1.
+## System requirements for version 1.2.0.
 
 ##### PHP Version
 Please be careful to use **PHP version `5.4` and higher, but not PHP7**.

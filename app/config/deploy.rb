@@ -14,7 +14,7 @@ set :scm,         :git
 set :scm_verbose, false
 
 #ssh settings
-set :use_sudo,      true
+set :use_sudo,      false
 ssh_options[:paranoid] = false
 ssh_options[:forward_agent] = true
 default_run_options[:pty] = true

@@ -59,6 +59,10 @@ after "deploy:finalize_update", "deploy:write_version_file"
 
 after "deploy", "apc:clear"
 
+set :keep_releases, 2
+after "deploy:update", "deploy:cleanup"
+
+
 #################################################################
 
 namespace :apc do

@@ -2854,3 +2854,7 @@ a.disabled:hover {
 
     margin-left: 8px !important;
 }
+
+#mainApp  input[type="checkbox"]{
+    float: left !important;
+}

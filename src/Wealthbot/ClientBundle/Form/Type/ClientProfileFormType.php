@@ -115,7 +115,7 @@ class ClientProfileFormType extends AbstractType
                 'choices' => Profile::getEmploymentTypeChoices(),
                 'expanded' => true,
                 'multiple' => false,
-                'required' => true,
+                'required' => false,
             ])
         ;
 

@@ -2831,7 +2831,7 @@ a.disabled:hover {
 
 .w200h100 {
     width: 200px !important;
-    height: 100px !important;
+   /* height: 100px !important; */
 }
 
 .modal-800w {
@@ -2853,4 +2853,8 @@ a.disabled:hover {
 .activate-checkbox {
 
     margin-left: 8px !important;
+}
+
+#mainApp  input[type="checkbox"]{
+    float: left !important;
 }

@@ -356,7 +356,7 @@ class TwigSwiftMailer implements MailerInterface
 
         $adv = $companyInformation->getAdvDocument();
 
-        if($adv){
+        if ($adv) {
             $extension = pathinfo($adv->getFilename(), PATHINFO_EXTENSION);
             $attachments = ['ADV Copy.'.$extension => $adv->getAbsolutePath()];
         } else {
@@ -475,8 +475,7 @@ class TwigSwiftMailer implements MailerInterface
 
         if (is_array($attachments) && !empty($attachments)) {
             foreach ($attachments as $filename => $path) {
-                
-                if(file_exists($filename)){
+                if (file_exists($filename)) {
                     if ($this->fileExists($path)) {
                         $attachment = \Swift_Attachment::fromPath($path);
                         if (is_string($filename)) {
@@ -485,18 +484,18 @@ class TwigSwiftMailer implements MailerInterface
                         $message->attach($attachment);
                     }
                 }
-                
             }
         }
 
         return $this->mailer->send($message);
     }
-    
+
     private function fileExists($path)
     {
-        if (file_exists($path) || ($fp = curl_init($path ) !== false)) {
+        if (file_exists($path) || ($fp = curl_init($path) !== false)) {
             return true;
         }
+
         return false;
     }
 

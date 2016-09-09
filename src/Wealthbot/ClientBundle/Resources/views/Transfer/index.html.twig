@@ -67,7 +67,11 @@
     {% endblock %}
 
     {% block top_content %}
-        {{ render(controller('WealthbotClientBundle:Transfer:accountsList')) }}
+        <div class="container">
+            <div class="row">
+                {{ render(controller('WealthbotClientBundle:Transfer:accountsList')) }}
+            </div>
+        </div>
     {% endblock %}
 
     {% block main_content %}{% endblock %}

@@ -40,7 +40,7 @@ class TierFeeFormType extends AbstractType
         $resolver->setDefaults([
             'data_class' => 'Wealthbot\AdminBundle\Entity\Fee',
             'validation_groups' => ['tier'],
-            'csrf_protection' => false
+            'csrf_protection' => false,
         ]);
     }
 

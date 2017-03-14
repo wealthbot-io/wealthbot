@@ -38,12 +38,12 @@ Go to http://demo.wealthbot.io to play with *all the features* before installing
 
 ## Community
 
-Join our Slack server to discuss the project in realtime.
+Join our Gitter to discuss the project in realtime.
 * Talk to the core devs and the wealthbot.io community.
 * Learn from others and ask questions.
 * Share your work and demos.
 
-https://webo-slack.herokuapp.com/
+https://gitter.im/wealthbot-io
 
 Contribute to our roadmap on Trello.
 * Follow our general vision

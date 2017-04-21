@@ -3,101 +3,98 @@ FORGE
   specs:
     example42-monitor (2.0.3)
       example42-puppi (>= 2.0.0)
-    maestrodev-rvm (1.11.0)
+    maestrodev-rvm (1.12.1)
+      golja-gnupg (>= 1.2.0)
       puppetlabs-stdlib (>= 4.2.0)
     nanliu-staging (1.0.3)
-    puppetlabs-git (0.3.0)
-      puppetlabs-vcsrepo (>= 0.1.0)
-    stahnma-epel (1.0.2)
-    thias-sysctl (0.3.0)
+    puppetlabs-git (0.4.0)
+      puppetlabs-stdlib (>= 3.2.0)
+    richardc-datacat (0.6.2)
+    stahnma-epel (1.2.2)
+      puppetlabs-stdlib (>= 3.0.0)
 
 GIT
-  remote: https://github.com/attachmentgenie/attachmentgenie-locales.git
-  ref: 1.1.1
-  sha: a6d0ef7a58d0c3b58875b796c5f0b7301fece143
+  remote: https://github.com/arioch/puppet-redis.git
+  ref: 1.2.1
+  sha: 7aff3d9df5133adce16f2f512725f4c1f6154e7a
   specs:
-    attachmentgenie-locales (1.1.1)
-      puppetlabs-stdlib (< 5.0.0, >= 2.2.1)
+    arioch-redis (1.2.1)
+      puppetlabs-apt (< 3.0.0, >= 2.0.1)
+      puppetlabs-stdlib (< 5.0.0, >= 1.0.2)
+      stahnma-epel (< 2.0.0, >= 1.0.2)
+
+GIT
+  remote: https://github.com/elastic/puppet-elasticsearch.git
+  ref: 0.10.3
+  sha: 36409eae08800fb2107d9ea4fef031f5348cb1ca
+  specs:
+    elasticsearch-elasticsearch (0.10.3)
+      puppetlabs-apt (< 3.0.0, >= 1.4.0)
+      puppetlabs-stdlib (< 5.0.0, >= 3.2.0)
+      richardc-datacat (< 1.0.0, >= 0.6.2)
 
 GIT
   remote: https://github.com/example42/puppet-solr.git
-  ref: v2.0.7
-  sha: dd1a31391d6565c39c360124201e4ff8beeee62a
+  ref: 74b7c4d3bf8e6566aaf1cc4d28d97546f02179f8
+  sha: 74b7c4d3bf8e6566aaf1cc4d28d97546f02179f8
   specs:
-    example42-solr (2.0.6)
+    example42-solr (2.0.7)
       example42-monitor (>= 2.0.0)
       example42-puppi (>= 2.0.0)
       puppetlabs-stdlib (>= 2.0.0)
 
 GIT
-  remote: https://github.com/example42/puppet-yum.git
-  ref: v2.1.17
-  sha: bc5af38cf09105733e5e57794cc82244c02e3114
-  specs:
-    example42-yum (2.1.16)
-      example42-puppi (> 2.0.0)
-
-GIT
   remote: https://github.com/example42/puppi.git
-  ref: v2.1.9
-  sha: 620883d691931a54c1f2bf75b0679ea56fd7820c
+  ref: fe711883625bf4848d5f62b4fd64af7dddf6c424
+  sha: fe711883625bf4848d5f62b4fd64af7dddf6c424
   specs:
-    example42-puppi (2.1.8)
+    example42-puppi (2.1.12)
 
 GIT
   remote: https://github.com/garethr/garethr-erlang.git
-  ref: 91d8ec73c3
-  sha: 91d8ec73c321f818da1fcfda8364a39aed444ac5
+  ref: a8f29a48e8127e75d3ab747bca1c4ed4746369f7
+  sha: a8f29a48e8127e75d3ab747bca1c4ed4746369f7
   specs:
     garethr-erlang (0.3.0)
-      puppetlabs-apt (>= 0)
-      puppetlabs-stdlib (>= 0)
-      stahnma-epel (>= 0)
+      puppetlabs-apt (>= 2.1.0)
+      puppetlabs-stdlib (< 5.0.0, >= 2.0.0)
+      stahnma-epel (< 2.0.0, >= 1.0.0)
+
+GIT
+  remote: https://github.com/keen99/puppet-beanstalkd.git
+  ref: 1.0.1
+  sha: 3299b600c0ff2292a784ab6403f6d1b182a09fde
+  specs:
+    keen99-beanstalkd (0.0.1)
+
+GIT
+  remote: https://github.com/n1tr0g/golja-gnupg.git
+  ref: 1.2.1
+  sha: 6b9b760082b465e170ef18d3fbf2582183b2e67d
+  specs:
+    golja-gnupg (1.2.1)
 
 GIT
   remote: https://github.com/petems/puppet-swap_file.git
-  ref: 39582afda5
+  ref: 39582afda5fc98982977cf595883d90d63886d80
   sha: 39582afda5fc98982977cf595883d90d63886d80
   specs:
     petems-swap_file (0.1.3)
       puppetlabs-stdlib (>= 3.2.0)
 
 GIT
-  remote: https://github.com/puphpet/puppet-beanstalkd.git
-  ref: 5a530ff
-  sha: 5a530ffec1f3fd79a1c0bdc8ba2201c33d86f4ab
-  specs:
-    puphpet-beanstalkd (0.0.1)
-
-GIT
   remote: https://github.com/puphpet/puppet-composer.git
-  ref: c4f9478
-  sha: c4f9478869296df9344c8d3940ee16666dab6b18
+  ref: 2cad1a23ca4fd3e03171a60a09c711e6e5097894
+  sha: 2cad1a23ca4fd3e03171a60a09c711e6e5097894
   specs:
     tPl0ch-composer (1.3.6)
       puppetlabs-git (>= 0.0.2)
       puppetlabs-stdlib (>= 3.0.0)
 
 GIT
-  remote: https://github.com/puphpet/puppet-elasticsearch.git
-  ref: 0.2.2
-  sha: b8a47db04e2edb4916448f09032042e8b53ec6e4
-  specs:
-    elasticsearch-elasticsearch (0.2.2)
-      puppetlabs-stdlib (>= 3.0.0)
-
-GIT
-  remote: https://github.com/puphpet/puppet-mailcatcher.git
-  ref: dcc8c3d357
-  sha: dcc8c3d357353e07b4a4ef5fb984ff9019992d38
-  specs:
-    actionjack-mailcatcher (0.1.5)
-      puppetlabs-stdlib (>= 2.2.1)
-
-GIT
   remote: https://github.com/puphpet/puppet-nginx.git
-  ref: d3ea0ee
-  sha: d3ea0ee3189d440347741b41e1c135a99b0847f8
+  ref: 6245b64bdaab0c5044fab77f6ebf3ed785d050e6
+  sha: 6245b64bdaab0c5044fab77f6ebf3ed785d050e6
   specs:
     jfryman-nginx (0.0.10)
       puppetlabs-apt (>= 1.0.0)
@@ -106,38 +103,30 @@ GIT
 
 GIT
   remote: https://github.com/puphpet/puppet-php.git
-  ref: eb14528
-  sha: eb14528a5c8178b919c7b6a13dd6043bd5c8e217
+  ref: c5aa4bf4ca3d2e8f2227959dd1d12981aeec840d
+  sha: c5aa4bf4ca3d2e8f2227959dd1d12981aeec840d
   specs:
-    puphpet-php (2.0.17)
+    puphpet-php (2.0.25)
       example42-puppi (>= 2.0.0)
 
 GIT
   remote: https://github.com/puphpet/puppet-puphpet.git
-  ref: 50c390b
-  sha: 50c390b2327b09ebf8bd11c73538e19c1dcf1a96
+  ref: c80a6f2b9d4ae3f6a3656d1ee92afb25edbf8971
+  sha: c80a6f2b9d4ae3f6a3656d1ee92afb25edbf8971
   specs:
     puphpet-puphpet (1.0)
 
 GIT
   remote: https://github.com/puphpet/puppet-pyenv.git
-  ref: 062ae72
+  ref: 062ae728ae0ddcb76d6d60c3c268fc13b022106e
   sha: 062ae728ae0ddcb76d6d60c3c268fc13b022106e
   specs:
     daenney-pyenv (3.0.3)
       puppetlabs-stdlib (>= 0.1.6)
 
 GIT
-  remote: https://github.com/puphpet/puppet-redis.git
-  ref: d9b3b23b0c
-  sha: d9b3b23b0c74d51fb8a4e06067c8766d4868bad8
-  specs:
-    puphpet-redis (0.0.11)
-      thias-sysctl (= 0.3.0)
-
-GIT
   remote: https://github.com/puphpet/puppet-supervisord.git
-  ref: 17643f1
+  ref: 17643f10c2322bfab349108e02b7f5a9992dbdde
   sha: 17643f10c2322bfab349108e02b7f5a9992dbdde
   specs:
     ajcrowe-supervisord (0.4.1)
@@ -145,20 +134,29 @@ GIT
       puppetlabs-stdlib (>= 4.1.0)
 
 GIT
-  remote: https://github.com/puppetlabs/puppetlabs-apache.git
-  ref: 7dde9fc31e
-  sha: 7dde9fc31e68a8acb2bd313fbcbc92ae33e0c440
+  remote: https://github.com/puphpet/puppet-yum.git
+  ref: 8233e01382f9989e9a7b15fc529e34069f99fb37
+  sha: 8233e01382f9989e9a7b15fc529e34069f99fb37
   specs:
-    puppetlabs-apache (1.4.0)
+    example42-yum (2.1.25)
+      example42-puppi (>= 2.0.0)
+
+GIT
+  remote: https://github.com/puppetlabs/puppetlabs-apache.git
+  ref: 1.7.1
+  sha: f7946501ddb68e0057b5dc3272657bea891639e5
+  specs:
+    puppetlabs-apache (1.7.1)
       puppetlabs-concat (< 2.0.0, >= 1.1.1)
       puppetlabs-stdlib (< 5.0.0, >= 2.4.0)
 
 GIT
   remote: https://github.com/puppetlabs/puppetlabs-apt.git
-  ref: 1.4.2
-  sha: 7cc875aadc6460b8ca635c38078dcd824c0bc877
+  ref: 2.2.1
+  sha: 61804c0324d2bb30054dd60d93d9f13109c6f21d
   specs:
-    puppetlabs-apt (1.4.1)
+    puppetlabs-apt (2.2.1)
+      puppetlabs-stdlib (< 5.0.0, >= 4.5.0)
 
 GIT
   remote: https://github.com/puppetlabs/puppetlabs-concat.git
@@ -192,16 +190,16 @@ GIT
 
 GIT
   remote: https://github.com/puppetlabs/puppetlabs-mongodb.git
-  ref: 0.8.0
-  sha: de93beb8c2cee6b981e7f181ce10b51c60577e98
+  ref: 38ceb81e36bbbb844039e12fb8aebb43cb2cef0d
+  sha: 38ceb81e36bbbb844039e12fb8aebb43cb2cef0d
   specs:
-    puppetlabs-mongodb (0.8.0)
-      puppetlabs-apt (>= 1.0.0)
-      puppetlabs-stdlib (>= 2.2.0)
+    puppetlabs-mongodb (0.11.0)
+      puppetlabs-apt (< 3.0.0, >= 1.0.0)
+      puppetlabs-stdlib (< 5.0.0, >= 2.2.0)
 
 GIT
   remote: https://github.com/puppetlabs/puppetlabs-mysql.git
-  ref: 3.3.0
+  ref: a3d0de3e053daa14aeaaa05badaa3867dc2533f7
   sha: c01682597524ae9395daa1133e11f576a80569a0
   specs:
     puppetlabs-mysql (3.3.0)
@@ -210,38 +208,38 @@ GIT
 
 GIT
   remote: https://github.com/puppetlabs/puppetlabs-ntp.git
-  ref: 3.0.4
-  sha: 7cfa3fda5028b693553a27f0e55ce2b9a2a919ae
+  ref: 4.1.1
+  sha: f6f74eb281f067e13ac66607aba361de44f8a11c
   specs:
-    puppetlabs-ntp (3.0.4)
-      puppetlabs-stdlib (>= 0.1.6)
+    puppetlabs-ntp (4.1.1)
+      puppetlabs-stdlib (< 5.0.0, >= 4.6.0)
 
 GIT
   remote: https://github.com/puppetlabs/puppetlabs-postgresql.git
-  ref: 4.2.0
-  sha: 6c61f6cfac4f26b60e253b57899264002e68f43f
+  ref: 4.6.0
+  sha: 43fd0e89254264329d53f7cc4da2f8f68888da48
   specs:
-    puppetlabs-postgresql (4.2.0)
-      puppetlabs-apt (< 2.0.0, >= 1.1.0)
+    puppetlabs-postgresql (4.6.0)
+      puppetlabs-apt (< 3.0.0, >= 1.8.0)
       puppetlabs-concat (< 2.0.0, >= 1.1.0)
       puppetlabs-stdlib (~> 4.0)
 
 GIT
   remote: https://github.com/puppetlabs/puppetlabs-rabbitmq.git
-  ref: 5ce33f4968
-  sha: 5ce33f4968c05a9b447024eca0fa0d9648d4046e
+  ref: 5.3.1
+  sha: b7e381715c599c527183257aa58df9d77bbe81ba
   specs:
-    puppetlabs-rabbitmq (4.0.0)
-      nanliu-staging (>= 0.3.1)
-      puppetlabs-apt (>= 1.0.0)
-      puppetlabs-stdlib (>= 2.0.0)
+    puppetlabs-rabbitmq (5.3.1)
+      nanliu-staging (< 2.0.0, >= 0.3.1)
+      puppetlabs-apt (< 3.0.0, >= 1.8.0)
+      puppetlabs-stdlib (< 5.0.0, >= 3.0.0)
 
 GIT
   remote: https://github.com/puppetlabs/puppetlabs-stdlib.git
-  ref: 4dab70b305
-  sha: 4dab70b305c4ab1c8c36356efa4bd205678c7c49
+  ref: 4.11.0
+  sha: fdf3f22e24a8d62712047bf66848c25461834abd
   specs:
-    puppetlabs-stdlib (4.5.1)
+    puppetlabs-stdlib (4.11.0)
 
 GIT
   remote: https://github.com/puppetlabs/puppetlabs-vcsrepo.git
@@ -251,15 +249,33 @@ GIT
     puppetlabs-vcsrepo (0.2.0)
 
 GIT
-  remote: https://github.com/thias/puppet-resolvconf.git
-  ref: 5bf752b84b
-  sha: 5bf752b84b08aa3e59ec681c26f9920b728b8d26
+  remote: https://github.com/s12v/puppet-blackfire.git
+  ref: 1.4.0
+  sha: 6c90d5d865c0f001ec3971a1c31bfb125d98bc90
   specs:
-    puppet-resolvconf (0.0.3)
+    s12v-blackfire (1.4.0)
+      puppetlabs-apt (>= 1.0.0)
+      puppetlabs-inifile (< 2.0.0, >= 1.0.0)
+      puppetlabs-stdlib (< 5.0.0, >= 4.0.0)
+
+GIT
+  remote: https://github.com/saz/puppet-locales.git
+  ref: v2.2.2
+  sha: 3c077ea1300fc46a8b209d44bcd09a27e3b1b4c4
+  specs:
+    attachmentgenie-locales (2.2.2)
+
+GIT
+  remote: https://github.com/saz/puppet-timezone.git
+  ref: v3.3.0
+  sha: 734918982a512f51a3f1855396d2d7da3f37f53c
+  specs:
+    saz-timezone (3.3.0)
+      puppetlabs-stdlib (>= 2.3.0)
 
 DEPENDENCIES
-  actionjack-mailcatcher (>= 0)
   ajcrowe-supervisord (>= 0)
+  arioch-redis (>= 0)
   attachmentgenie-locales (>= 0)
   daenney-pyenv (>= 0)
   elasticsearch-elasticsearch (>= 0)
@@ -267,14 +283,13 @@ DEPENDENCIES
   example42-solr (>= 0)
   example42-yum (>= 0)
   garethr-erlang (>= 0)
+  golja-gnupg (>= 0)
   jfryman-nginx (>= 0)
+  keen99-beanstalkd (>= 0)
   maestrodev-rvm (>= 0)
   petems-swap_file (>= 0)
-  puphpet-beanstalkd (>= 0)
   puphpet-php (>= 0)
   puphpet-puphpet (>= 0)
-  puphpet-redis (>= 0)
-  puppet-resolvconf (>= 0)
   puppetlabs-apache (>= 0)
   puppetlabs-apt (>= 0)
   puppetlabs-concat (>= 0)
@@ -288,5 +303,6 @@ DEPENDENCIES
   puppetlabs-rabbitmq (>= 0)
   puppetlabs-stdlib (>= 0)
   puppetlabs-vcsrepo (>= 0)
+  s12v-blackfire (>= 0)
+  saz-timezone (>= 0)
   tPl0ch-composer (>= 0)
-

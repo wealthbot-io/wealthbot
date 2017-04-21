@@ -1,10 +1,11 @@
 <?php
+
 namespace Wealthbot\RiaBundle\Form\Handler;
 
+use Wealthbot\AdminBundle\Entity\CeModel;
 use Wealthbot\AdminBundle\Entity\Subclass;
 use Wealthbot\AdminBundle\Form\Handler\AbstractFormHandler;
 use Wealthbot\AdminBundle\Manager\CeModelManager;
-use Wealthbot\AdminBundle\Entity\CeModel;
 use Wealthbot\AdminBundle\Model\CeModelInterface;
 use Wealthbot\RiaBundle\Entity\RiaCompanyInformation;
 use Wealthbot\UserBundle\Entity\User;
@@ -52,12 +53,11 @@ class RiaCompanyInformationThreeFormHandler extends AbstractFormHandler
         $this->em->persist($data);
 
         $this->em->flush();
-
     }
 
     private function buildSubclassesForModel($formSubclasses, CeModelInterface $model)
     {
-        $subclasses = array();
+        $subclasses = [];
 
         foreach ($model->getChildren() as $childModel) {
             foreach ($childModel->getModelEntities() as $modelEntity) {
@@ -67,7 +67,7 @@ class RiaCompanyInformationThreeFormHandler extends AbstractFormHandler
 
                 if (!isset($subclasses[$subclass->getSource()->getId()])) {
                     foreach ($formSubclasses as $formSubclass) {
-                        if ($formSubclass->getSource()->getId() == $subclass->getSource()->getId()) {
+                        if ($formSubclass->getSource()->getId() === $subclass->getSource()->getId()) {
                             $subclass->setExpectedPerformance($formSubclass->getExpectedPerformance());
                             $subclass->setAccountType($formSubclass->getAccountType());
 
@@ -102,7 +102,6 @@ class RiaCompanyInformationThreeFormHandler extends AbstractFormHandler
                     $formSubclass->setAssetClass($asset);
 
                     $this->em->persist($formSubclass);
-
                 } else {
                     $oldAsset = $formSubclass->getAssetClass();
                     $newAsset = $oldAsset->getCopy();

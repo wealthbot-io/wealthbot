@@ -1,37 +1,37 @@
 <?php
 
-
 namespace Wealthbot\AdminBundle\PasInterfaces;
 
-use Doctrine\ORM\EntityManager;
 use Wealthbot\AdminBundle\Manager\TradeReconManager;
 
-class TradeReconData implements DataInterface {
-
-    public function __construct(TradeReconManager $tradeReconManager) {
+class TradeReconData implements DataInterface
+{
+    public function __construct(TradeReconManager $tradeReconManager)
+    {
         $this->tradeReconManager = $tradeReconManager;
     }
 
     /**
-     * Implement loading data for pas-admin
+     * Implement loading data for pas-admin.
      *
      * Use services with tag wealthbot_admin.pas_files_loader
      *
      * @param \DateTime $date
-     * @param int $page
-     * @return Array
+     * @param int       $page
+     *
+     * @return array
      */
     public function load(\DateTime $date, $page = 0)
     {
         $clientName = '';
-        $dateFrom = clone($date);
-        $dateTo = clone($date);
+        $dateFrom = clone $date;
+        $dateTo = clone $date;
 
-        return array('data' => $this->tradeReconManager->getValues($dateFrom, $dateTo, null, $clientName));
+        return ['data' => $this->tradeReconManager->getValues($dateFrom, $dateTo, null, $clientName)];
     }
 
     /**
-     * Method must return FileType, for example "POS"
+     * Method must return FileType, for example "POS".
      *
      * @return mixed
      */
@@ -39,6 +39,4 @@ class TradeReconData implements DataInterface {
     {
         return self::DATA_TYPE_TRADE_RECON;
     }
-
-
-} 
+}

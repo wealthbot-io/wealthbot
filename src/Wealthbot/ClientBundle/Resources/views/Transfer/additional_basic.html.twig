@@ -1,7 +1,7 @@
 {% extends 'WealthbotClientBundle:Transfer:index.html.twig' %}
 
 {% block top_content %}
-    {% render 'WealthbotClientBundle:Transfer:progressMenu' with { 'account': account, 'step': 'additional_basic' } %}
+    {{ render(controller('WealthbotClientBundle:Transfer:progressMenu', { 'account': account, 'step': 'additional_basic' })) }}
 {% endblock %}
 
 {% block main_content %}
@@ -28,7 +28,7 @@
             <div class="span">
                 {{ form_label(form.street, 'Street Address') }}
                 {{ form_errors(form.street) }}
-                {{ form_widget(form.street, { 'attr': { 'class': 'span5' } }) }}
+                {{ form_widget(form.street, { 'attr': { 'class': 'col-md-5' } }) }}
             </div>
         </div>
         <div class="row">
@@ -50,20 +50,20 @@
             </div>
         </div>
         <div class="row">
-            <div class="span5">
+            <div class="col-md-5">
                 {{ form_errors(form.is_different_address) }}
                 <label class="checkbox">
-                    {{ form_widget(form.is_different_address) }} {{ form.is_different_address.get('label') }}
+                    {{ form_widget(form.is_different_address) }} {{ form.is_different_address.vars.label }}
                 </label>
             </div>
         </div>
         <div class="row">
-            <div class="span7 mailing-address">
-                <div class="control-group mailing-address-block" style="display:none;">
-                    <div class="span6">
+            <div class="col-md-7 mailing-address">
+                <div class="form-group mailing-address-block" style="display:none;">
+                    <div class="col-md-6">
                         {{ form_label(form.mailing_street, 'Mailing Street') }}
                         {{ form_errors(form.mailing_street) }}
-                        {{ form_widget(form.mailing_street, { 'attr': { 'class': 'span5' } }) }}
+                        {{ form_widget(form.mailing_street, { 'attr': { 'class': 'col-md-5' } }) }}
                     </div>
 
                     <div class="span">
@@ -110,7 +110,7 @@
         </div>
         <div class="form-actions">
             <a href="{% block back_url %}{{ path('rx_client_transfer_back', {'account_id': account.id, 'action': 'additional_basic'}) }}{% endblock %}" class="btn btn-inverse">Back</a>
-            <input type="submit" class="btn" name="continue" value="Continue" />
+            <input type="submit" class="btn btn-default"  name="continue" value="Continue" />
         </div>
     </form>
 {% endblock %}

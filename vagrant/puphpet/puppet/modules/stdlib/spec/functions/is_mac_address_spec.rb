@@ -1,29 +1,24 @@
-#! /usr/bin/env ruby -S rspec
 require 'spec_helper'
 
-describe "the is_mac_address function" do
-  let(:scope) { PuppetlabsSpec::PuppetInternals.scope }
-
-  it "should exist" do
-    expect(Puppet::Parser::Functions.function("is_mac_address")).to eq("function_is_mac_address")
-  end
-
-  it "should raise a ParseError if there is less than 1 arguments" do
-    expect { scope.function_is_mac_address([]) }.to( raise_error(Puppet::ParseError))
-  end
-
-  it "should return true if a valid mac address" do
-    result = scope.function_is_mac_address(["00:a0:1f:12:7f:a0"])
-    expect(result).to(eq(true))
-  end
-
-  it "should return false if octets are out of range" do
-    result = scope.function_is_mac_address(["00:a0:1f:12:7f:g0"])
-    expect(result).to(eq(false))
-  end
-
-  it "should return false if not valid" do
-    result = scope.function_is_mac_address(["not valid"])
-    expect(result).to(eq(false))
-  end
+describe 'is_mac_address' do
+  it { is_expected.not_to eq(nil) }
+  it { is_expected.to run.with_params().and_raise_error(Puppet::ParseError, /wrong number of arguments/i) }
+  it { is_expected.to run.with_params([], []).and_raise_error(Puppet::ParseError, /wrong number of arguments/i) }
+  it { is_expected.to run.with_params('00:a0:1f:12:7f:a0').and_return(true) }
+  it { is_expected.to run.with_params('00:A0:1F:12:7F:A0').and_return(true) }
+  it { is_expected.to run.with_params('00:00:00:00:00:0g').and_return(false) }
+  it { is_expected.to run.with_params('').and_return(false) }
+  it { is_expected.to run.with_params('one').and_return(false) }
+  it {
+    pending "should properly typecheck its arguments"
+    is_expected.to run.with_params(1).and_return(false)
+  }
+  it {
+    pending "should properly typecheck its arguments"
+    is_expected.to run.with_params({}).and_return(false)
+  }
+  it {
+    pending "should properly typecheck its arguments"
+    is_expected.to run.with_params([]).and_return(false)
+  }
 end

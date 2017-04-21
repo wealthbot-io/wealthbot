@@ -3,19 +3,17 @@
  * Created by PhpStorm.
  * User: countzero
  * Date: 14.03.14
- * Time: 16:57
+ * Time: 16:57.
  */
 
 namespace Wealthbot\RiaBundle\Form\Type;
 
-use Doctrine\ORM\EntityRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Wealthbot\ClientBundle\Entity\ClientPortfolio;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Wealthbot\ClientBundle\Entity\ClientPortfolio;
 use Wealthbot\UserBundle\Entity\Profile;
 
 class HouseholdPortfolioSettingsFormType extends AbstractType
@@ -34,7 +32,7 @@ class HouseholdPortfolioSettingsFormType extends AbstractType
         /** @var \Wealthbot\UserBundle\Entity\User $ria */
         $ria = $client->getRia();
 
-        $groups = array();
+        $groups = [];
         foreach ($ria->getOwnGroups() as $group) {
             $groups[$group->getId()] = $group->getName();
         }
@@ -45,48 +43,48 @@ class HouseholdPortfolioSettingsFormType extends AbstractType
         }
 
         $builder
-            ->add('rebalancingLevel', 'choice', array(
-                'attr' => array('class' => 'input-medium'),
+            ->add('rebalancingLevel', 'choice', [
+                'attr' => ['class' => 'input-medium'],
                 'choices' => Profile::$client_account_managed_choices,
                 'label' => 'Rebalancing Level: ',
                 'property_path' => 'profile.clientAccountManaged',
-            ))
+            ])
         ;
 
         $builder
-            ->add('annualIncome', 'choice', array(
-                'attr' => array('class' => 'input-large'),
+            ->add('annualIncome', 'choice', [
+                'attr' => ['class' => 'input-large'],
                 'choices' => Profile::getAnnualIncomeChoices(),
-                'empty_value' => 'Choose an Option',
+                'placeholder' => 'Choose an Option',
                 'label' => 'Annual Income',
                 'property_path' => 'profile.annualIncome',
-            ))
-            ->add('estimatedIncomeTax', 'percent', array(
-                'attr' => array('class' => 'input-mini'),
+            ])
+            ->add('estimatedIncomeTax', 'percent', [
+                'attr' => ['class' => 'input-mini'],
                 'precision' => 0,
                 'required' => false,
                 'label' => 'Income tax bracket',
-                'property_path' => 'profile.estimatedIncomeTax'
-            ))
-            ->add('liquidNetWorth', 'choice', array(
-                'attr' => array('class' => 'input-large'),
+                'property_path' => 'profile.estimatedIncomeTax',
+            ])
+            ->add('liquidNetWorth', 'choice', [
+                'attr' => ['class' => 'input-large'],
                 'choices' => Profile::getLiquidNetWorthChoices(),
-                'empty_value' => 'Choose an Option',
+                'placeholder' => 'Choose an Option',
                 'label' => 'Liquid Net Worth',
-                'property_path' => 'profile.liquidNetWorth'
-            ))
-            ->add('group', 'choice', array(
-                'attr' => array('class' => 'input-medium'),
+                'property_path' => 'profile.liquidNetWorth',
+            ])
+            ->add('group', 'choice', [
+                'attr' => ['class' => 'input-medium'],
                 'choices' => $groups,
                 'data' => $selectedGroupId,
-                'empty_value' => '',
+                'placeholder' => '',
                 'label' => 'Advisor Set: ',
-                'property_path' => false
-            ))
+                'mapped' => false,
+            ])
         ;
 
-        $builder->addEventListener(FormEvents::PRE_SET_DATA, array($this, 'onPresetData'));
-        $builder->addEventListener(FormEvents::BIND, array($this, 'onBindData'));
+        $builder->addEventListener(FormEvents::PRE_SET_DATA, [$this, 'onPresetData']);
+        $builder->addEventListener(FormEvents::SUBMIT, [$this, 'onSubmitData']);
     }
 
     public function onPresetData(FormEvent $event)
@@ -114,15 +112,15 @@ class HouseholdPortfolioSettingsFormType extends AbstractType
                 $rebalancerAction = $systemAccount->getRebalancerActions()->first();
                 if ($rebalancerAction &&
                     $performanceInception > $date = $rebalancerAction->getStartedAt()) {
-                        $performanceInception = $date;
+                    $performanceInception = $date;
                 }
             }
         }
 
-        $portfolios = array();
+        $portfolios = [];
         $activePortfolio = null;
         foreach ($client->getClientPortfolios() as $portfolio) {
-            if (ClientPortfolio::STATUS_CLIENT_ACCEPTED == $portfolio->getStatus()) {
+            if (ClientPortfolio::STATUS_CLIENT_ACCEPTED === $portfolio->getStatus()) {
                 if ($portfolio->getIsActive()) {
                     $activePortfolio = $portfolio;
                 }
@@ -131,40 +129,43 @@ class HouseholdPortfolioSettingsFormType extends AbstractType
         }
 
         $form
-            ->add($this->factory->createNamed('stopTlhValue', 'number', $stopTlhValue, array(
-                'attr' => array('class' => 'input-mini'),
+            ->add($this->factory->createNamed('stopTlhValue', 'number', $stopTlhValue, [
+                'attr' => ['class' => 'input-mini'],
                 'label' => 'Tax Loss Harvesting Stop: ',
                 'property_path' => 'clientSettings.stopTlhValue',
                 'required' => false,
                 'precision' => 2,
-                'grouping' => true
-            )))
-            ->add($this->factory->createNamed('performanceInception', 'date', $performanceInception, array(
-                'attr' => array('class' => 'input-small'),
+                'grouping' => true,
+                'auto_initialize' => false,
+            ]))
+            ->add($this->factory->createNamed('performanceInception', 'date', $performanceInception, [
+                'attr' => ['class' => 'input-small'],
                 'format' => 'MM-dd-yy',
                 'label' => 'Performance Inception: ',
-                'property_path' => false,
+                'mapped' => false,
                 'read_only' => true,
                 'required' => false,
-                'widget' => 'single_text'
-            )))
-            ->add($this->factory->createNamed('portfolio', 'choice', $activePortfolio->getId(), array(
-                'attr' => array('class' => 'input-medium'),
+                'widget' => 'single_text',
+                'auto_initialize' => false,
+            ]))
+            ->add($this->factory->createNamed('portfolio', 'choice', $activePortfolio->getId(), [
+                'attr' => ['class' => 'input-medium'],
                 'choices' => $portfolios,
                 'label' => 'Portfolio: ',
-                'property_path' => false
-            )))
+                'mapped' => false,
+                'auto_initialize' => false,
+            ]))
         ;
     }
 
-    public function onBindData(FormEvent $event)
+    public function onSubmitData(FormEvent $event)
     {
         $form = $event->getForm();
         $groupId = $form->get('group')->getData();
         $client = $event->getData();
 
         foreach ($client->getClientPortfolios() as $portfolio) {
-            if ($portfolio->getId() == $form->get('portfolio')->getData() && ClientPortfolio::STATUS_CLIENT_ACCEPTED == $portfolio->getStatus()) {
+            if ($portfolio->getId() === $form->get('portfolio')->getData() && ClientPortfolio::STATUS_CLIENT_ACCEPTED === $portfolio->getStatus()) {
                 $portfolio->setIsActive(true);
             } else {
                 $portfolio->setIsActive(false);
@@ -172,22 +173,22 @@ class HouseholdPortfolioSettingsFormType extends AbstractType
         }
 
         $group = $this->em->getRepository('WealthbotUserBundle:Group')
-            ->findOneBy(array('id' => $groupId, 'owner' => $client->getRia()));
+            ->findOneBy(['id' => $groupId, 'owner' => $client->getRia()]);
         if (null === $group) {
-            $group = array();
+            $group = [];
         }
 
         $client->setGroups($group);
     }
 
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
+        $resolver->setDefaults([
             'data_class' => 'Wealthbot\UserBundle\Entity\User',
-        ));
+        ]);
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'household_portfolio_settings';
     }

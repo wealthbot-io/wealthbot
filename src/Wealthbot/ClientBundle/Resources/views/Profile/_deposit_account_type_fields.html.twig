@@ -18,7 +18,7 @@
     {% endif %}
 
     <div>
-        <label class="checkbox" for="{{ type.get('id') }}">
+        <label class="checkbox" for="{{ type.vars.id }}">
             {{ form_widget(type) }}
             {% if (new_label is defined) and (new_sub_label is defined) %}
                 {{ new_label }}<br/>

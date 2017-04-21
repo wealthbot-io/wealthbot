@@ -8,11 +8,11 @@ class puppi::skel {
   require puppi::params
 
   file { 'puppi_basedir':
-    ensure  => directory,
-    path    => $puppi::params::basedir,
-    mode    => '0755',
-    owner   => $puppi::params::configfile_owner,
-    group   => $puppi::params::configfile_group,
+    ensure => directory,
+    path   => $puppi::params::basedir,
+    mode   => '0755',
+    owner  => $puppi::params::configfile_owner,
+    group  => $puppi::params::configfile_group,
   }
 
   file { 'puppi_checksdir':
@@ -143,11 +143,11 @@ class puppi::skel {
 
   # MailPuppiCheck script
   file { '/usr/bin/mailpuppicheck':
-    ensure  => 'present',
-    mode    => '0750',
-    owner   => $puppi::params::configfile_owner,
-    group   => $puppi::params::configfile_group,
-    source  => 'puppet:///modules/puppi/mailpuppicheck',
+    ensure => 'present',
+    mode   => '0750',
+    owner  => $puppi::params::configfile_owner,
+    group  => $puppi::params::configfile_group,
+    source => 'puppet:///modules/puppi/mailpuppicheck',
   }
 
   # Puppi common scripts
@@ -180,5 +180,5 @@ class puppi::skel {
       group   => 'root',
       content => template('puppi/puppi_clean.erb'),
     }
-  } 
+  }
 }

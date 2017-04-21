@@ -9,18 +9,17 @@
 
 namespace Wealthbot\ClientBundle\Model;
 
-
 class AccountGroup
 {
     /**
-     * @var string $name
+     * @var string
      */
     protected $name;
 
     /**
-     * @var array $_groups
+     * @var array
      */
-    static protected $_groups;
+    protected static $_groups;
 
     // ENUM values name column
     const GROUP_FINANCIAL_INSTITUTION = 'financial_institution';
@@ -29,10 +28,12 @@ class AccountGroup
     const GROUP_EMPLOYER_RETIREMENT = 'employer_retirement';
 
     /**
-     * Set name
+     * Set name.
      *
      * @param $name
+     *
      * @return AccountGroup
+     *
      * @throws \InvalidArgumentException
      */
     public function setName($name)
@@ -49,7 +50,7 @@ class AccountGroup
     }
 
     /**
-     * Get name
+     * Get name.
      *
      * @return string
      */
@@ -59,19 +60,20 @@ class AccountGroup
     }
 
     /**
-     * Get array ENUM values name column
+     * Get array ENUM values name column.
      *
      * @static
+     *
      * @return array
      */
-    static public function getGroupChoices()
+    public static function getGroupChoices()
     {
         // Build $_typeValues if this is the first call
         if (self::$_groups === null) {
-            self::$_groups = array();
+            self::$_groups = [];
             $oClass = new \ReflectionClass('\Wealthbot\ClientBundle\Model\AccountGroup');
             $classConstants = $oClass->getConstants();
-            $constantPrefix = "GROUP_";
+            $constantPrefix = 'GROUP_';
             foreach ($classConstants as $key => $val) {
                 if (substr($key, 0, strlen($constantPrefix)) === $constantPrefix) {
                     self::$_groups[$val] = $val;

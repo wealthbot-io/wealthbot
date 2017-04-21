@@ -9,7 +9,6 @@
 
 namespace Wealthbot\ClientBundle\Docusign;
 
-
 use Wealthbot\ClientBundle\Entity\TransferInformation;
 
 class TransferInformationConsolidatorCondition extends AbstractTransferInformationCondition
@@ -21,8 +20,8 @@ class TransferInformationConsolidatorCondition extends AbstractTransferInformati
 
         if ($consolidator) {
             $primaryApplicant = $consolidator->getPrimaryApplicant();
-            $accountTitle = $primaryApplicant->getFirstName() . ' ' .
-                $primaryApplicant->getMiddleName() . ' ' . $primaryApplicant->getLastName();
+            $accountTitle = $primaryApplicant->getFirstName().' '.
+                $primaryApplicant->getMiddleName().' '.$primaryApplicant->getLastName();
 
             if ($accountTitle !== $object->getAccountTitle()) {
                 return false;
@@ -30,8 +29,8 @@ class TransferInformationConsolidatorCondition extends AbstractTransferInformati
 
             if ($consolidator->isJointType()) {
                 $secondaryApplicant = $consolidator->getSecondaryApplicant();
-                $jointAccountTitle = $secondaryApplicant->getFirstName() . ' ' .
-                    $secondaryApplicant->getMiddleName() . ' ' . $secondaryApplicant->getLastName();
+                $jointAccountTitle = $secondaryApplicant->getFirstName().' '.
+                    $secondaryApplicant->getMiddleName().' '.$secondaryApplicant->getLastName();
 
                 if ($jointAccountTitle !== $object->getAccountJointTitle()) {
                     return false;
@@ -41,5 +40,4 @@ class TransferInformationConsolidatorCondition extends AbstractTransferInformati
 
         return true;
     }
-
 }

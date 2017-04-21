@@ -1,5 +1,5 @@
 {% if (form.financial_institution is defined) %}
-    <div class="control-group">
+    <div class="form-group">
         {{ form_label(form.financial_institution, label|default(null)) }}
         <div>
             {{ form_errors(form.financial_institution) }}
@@ -29,7 +29,7 @@
 {% endif %}
 
 {% if (form.plan_provider is defined) %}
-    <div class="control-group">
+    <div class="form-group">
         {{ form_label(form.plan_provider, label|default(null)) }}
         <div>
             {{ form_errors(form.plan_provider) }}
@@ -38,7 +38,7 @@
     </div>
 {% endif %}
 
-<div class="control-group">
+<div class="form-group">
     {{ form_label(form.groupType, label|default(null)) }}
     <div>
         {{ form_errors(form.groupType) }}

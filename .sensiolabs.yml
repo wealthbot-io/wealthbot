@@ -1,0 +1,39 @@
+global_exclude_dirs:
+    - vendor
+    - vendors
+    - test
+    - tests
+    - Tests
+    - spec
+    - features
+    - Fixtures
+    - DataFixtures
+    - var
+    - system
+    - vagrant
+    - api/cache
+    - app/polyfill
+rules:
+    symfony.controller.too_many_template_variables:
+        enabled: true
+        max_count: 20
+        threshold: 15
+    symfony.application_not_bootable:
+        enabled: false
+    twig.template_too_complex:
+        enabled: true
+        max_depth: 60
+    symfony.controller.action_method_too_long:
+        enabled: true
+        max_length: 60
+        threshold: 10
+    symfony.controller.too_many_actions_per_controller:
+        enabled: true
+        max_count: 50
+        threshold: 10
+    missing_e_o_l:
+        enabled: false
+pre_composer_script: |
+    yes '' | pecl install apcu
+php_ini:
+    extension = apcu.so

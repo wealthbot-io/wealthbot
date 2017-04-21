@@ -9,25 +9,24 @@
 
 namespace Wealthbot\RiaBundle\Form\Handler;
 
-use Wealthbot\AdminBundle\Entity\CeModel;
-use Symfony\Component\HttpFoundation\Request;
-use Wealthbot\UserBundle\Entity\User;
 use Symfony\Component\HttpFoundation\Session\Session;
+use Wealthbot\AdminBundle\Entity\CeModel;
 use Wealthbot\ClientBundle\Form\Handler\ClientQuestionsFormHandler as BaseHandler;
+use Wealthbot\UserBundle\Entity\User;
 
 class RiskQuestionsFormHandler extends BaseHandler
 {
     protected function preProcess(User $user)
     {
-
     }
 
     /**
-     * Process suggested portfolio
+     * Process suggested portfolio.
      *
-     * @param User $user
+     * @param User    $user
      * @param CeModel $suggestedModel
      * @param $withdrawAge
+     *
      * @throws \InvalidArgumentException
      */
     protected function processSuggestedPortfolio(User $user, CeModel $suggestedModel, $withdrawAge)
@@ -41,9 +40,10 @@ class RiskQuestionsFormHandler extends BaseHandler
     }
 
     /**
-     * Get age of the client
+     * Get age of the client.
      *
      * @param \Wealthbot\UserBundle\Entity\User $user
+     *
      * @return int
      */
     protected function getClientAge(User $user)

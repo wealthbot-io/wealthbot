@@ -1,4 +1,4 @@
-<form id="edit_client_outside_fund_form" action="{{ path('rx_ria_prospect_edit_client_outside_fund', {'client_id': client.id, 'account_id': account.id, 'security_id': form.get('value').id}) }}" method="post" >
+<form id="edit_client_outside_fund_form" action="{{ path('rx_ria_prospect_edit_client_outside_fund', {'client_id': client.id, 'account_id': account.id, 'security_id': form.vars.value.id}) }}" method="post" >
     {{ form_errors(form) }}
     <table>
         <tr>
@@ -31,7 +31,7 @@
         <tr>
             <td colspan="2">
                 <a class="cancel-edit-fund-btn btn" href="#">Cancel</a>
-                <input class="btn" type="submit" name="submit" value="Update"/>
+                <input class="btn btn-default"  type="submit" name="submit" value="Update"/>
             </td>
         </tr>
     </table>

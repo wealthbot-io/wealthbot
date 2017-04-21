@@ -9,7 +9,6 @@
 
 namespace Wealthbot\AdminBundle\Tests\Model;
 
-
 use Wealthbot\AdminBundle\Entity\Security;
 use Wealthbot\AdminBundle\Entity\SecurityAssignment;
 use Wealthbot\AdminBundle\Model\CeModel;
@@ -23,14 +22,14 @@ class PortfolioInformationTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $subclassMock1 = $this->getMock('Wealthbot\AdminBundle\Entity\Subclass', array('getId'));
+        $subclassMock1 = $this->getMock('Wealthbot\AdminBundle\Entity\Subclass', ['getId']);
         $subclassMock1->expects($this->any())
             ->method('getId')
             ->will($this->returnValue(1));
         $subclassMock1->setName('Subclass1');
         $subclassMock1->setExpectedPerformance(0.5);
 
-        $subclassMock2 = $this->getMock('Wealthbot\AdminBundle\Entity\Subclass', array('getId'));
+        $subclassMock2 = $this->getMock('Wealthbot\AdminBundle\Entity\Subclass', ['getId']);
         $subclassMock2->expects($this->any())
             ->method('getId')
             ->will($this->returnValue(2));
@@ -83,31 +82,31 @@ class PortfolioInformationTest extends \PHPUnit_Framework_TestCase
     public function testSetIsQualified()
     {
         $portfolioInformation = new PortfolioInformation();
-        $this->assertEquals(false, $portfolioInformation->getIsQualifiedModel());
+        $this->assertFalse($portfolioInformation->getIsQualifiedModel());
 
         $portfolioInformation->setIsQualifiedModel(true);
-        $this->assertEquals(true, $portfolioInformation->getIsQualifiedModel());
+        $this->assertTrue($portfolioInformation->getIsQualifiedModel());
     }
 
     public function testGetNonQualifiedModelEntities()
     {
         $entities = $this->portfolioInformation->getNonQualifiedModelEntities();
 
-        $this->assertEquals(2, count($entities));
+        $this->assertSame(2, count($entities));
     }
 
     public function testGetQualifiedModelEntities()
     {
         $entities = $this->portfolioInformation->getQualifiedModelEntities();
-        $this->assertEquals(1, count($entities));
+        $this->assertSame(1, count($entities));
     }
 
     public function testGetModelEntities()
     {
-        $this->assertEquals(2, count($this->portfolioInformation->getModelEntities()));
+        $this->assertSame(2, count($this->portfolioInformation->getModelEntities()));
 
         $this->portfolioInformation->setIsQualifiedModel(true);
-        $this->assertEquals(1, count($this->portfolioInformation->getModelEntities()));
+        $this->assertSame(1, count($this->portfolioInformation->getModelEntities()));
     }
 
     public function testGetModelEntitiesAsJson()
@@ -119,7 +118,7 @@ class PortfolioInformationTest extends \PHPUnit_Framework_TestCase
             $percent += $entity->data;
         }
 
-        $this->assertEquals(100, $percent, 'Sum of non qualified entities subclasses percent must be 100%.');
+        $this->assertSame(100, $percent, 'Sum of non qualified entities subclasses percent must be 100%.');
 
         $this->portfolioInformation->setIsQualifiedModel(true);
         $entities = json_decode($this->portfolioInformation->getModelEntitiesAsJson());
@@ -129,22 +128,22 @@ class PortfolioInformationTest extends \PHPUnit_Framework_TestCase
             $percent += $entity->data;
         }
 
-        $this->assertEquals(100, $percent, 'Sun of qualified entities subclasses percent must be 100%.');
+        $this->assertSame(100, $percent, 'Sun of qualified entities subclasses percent must be 100%.');
     }
 
     public function testGetFundExpenses()
     {
         $this->portfolioInformation->setIsQualifiedModel(false);
-        $this->assertEquals(0.42, $this->portfolioInformation->getFundExpenses());
+        $this->assertSame(0.42, $this->portfolioInformation->getFundExpenses());
 
         $this->portfolioInformation->setIsQualifiedModel(true);
-        $this->assertEquals(0.7, $this->portfolioInformation->getFundExpenses());
+        $this->assertSame(0.7, $this->portfolioInformation->getFundExpenses());
     }
 
     public function testGetInvestmentMarket()
     {
         $investmentMarket = ((40 * 0.5) + (60 * 0.7)) / 100; // 0.62
-        $this->assertEquals(
+        $this->assertSame(
             $investmentMarket,
             $this->portfolioInformation->getInvestmentMarket(),
             'Invalid investment market for non qualified entities.'
@@ -152,7 +151,7 @@ class PortfolioInformationTest extends \PHPUnit_Framework_TestCase
 
         $this->portfolioInformation->setIsQualifiedModel(true);
         $investmentMarket = (100 * 0.5) / 100; // 0.5
-        $this->assertEquals(
+        $this->assertSame(
             $investmentMarket,
             $this->portfolioInformation->getInvestmentMarket(),
             'Invalid investment market for qualified entities.'
@@ -164,7 +163,7 @@ class PortfolioInformationTest extends \PHPUnit_Framework_TestCase
         $modelGenerousMarketReturn = $this->portfolioInformation->getModel()->getGenerousMarketReturn();
 
         $generousInvestmentMarket = round(0.62 * ($modelGenerousMarketReturn ? $modelGenerousMarketReturn : 1.2), 2);
-        $this->assertEquals(
+        $this->assertSame(
             $generousInvestmentMarket,
             $this->portfolioInformation->getGenerousInvestmentMarket(),
             'Invalid generous investment market for non qualified entities.'
@@ -172,7 +171,7 @@ class PortfolioInformationTest extends \PHPUnit_Framework_TestCase
 
         $this->portfolioInformation->setIsQualifiedModel(true);
         $generousInvestmentMarket = round(0.5 * ($modelGenerousMarketReturn ? $modelGenerousMarketReturn : 1.2), 2);
-        $this->assertEquals(
+        $this->assertSame(
             $generousInvestmentMarket,
             $this->portfolioInformation->getGenerousInvestmentMarket(),
             'Invalid generous investment market for qualified entities.'
@@ -182,11 +181,11 @@ class PortfolioInformationTest extends \PHPUnit_Framework_TestCase
     public function testGetAverageInvestmentMarket()
     {
         $averageInvestmentMarket = round($this->portfolioInformation->getInvestmentMarket() * 1, 2);
-        $this->assertEquals($averageInvestmentMarket, $this->portfolioInformation->getAverageInvestmentMarket());
+        $this->assertSame($averageInvestmentMarket, $this->portfolioInformation->getAverageInvestmentMarket());
 
         $this->portfolioInformation->setIsQualifiedModel(true);
         $averageInvestmentMarket = round($this->portfolioInformation->getInvestmentMarket() * 1, 2);
-        $this->assertEquals($averageInvestmentMarket, $this->portfolioInformation->getAverageInvestmentMarket());
+        $this->assertSame($averageInvestmentMarket, $this->portfolioInformation->getAverageInvestmentMarket());
     }
 
     public function testGetLowInvestmentMarket()
@@ -194,7 +193,7 @@ class PortfolioInformationTest extends \PHPUnit_Framework_TestCase
         $modelLowMarketReturn = $this->portfolioInformation->getModel()->getLowMarketReturn();
 
         $lowInvestmentMarket = round($this->portfolioInformation->getInvestmentMarket() * ($modelLowMarketReturn ? $modelLowMarketReturn : 0.8), 2);
-        $this->assertEquals(
+        $this->assertSame(
             $lowInvestmentMarket,
             $this->portfolioInformation->getLowInvestmentMarket(),
             'Invalid low investment market for non qualified entities.'
@@ -202,7 +201,7 @@ class PortfolioInformationTest extends \PHPUnit_Framework_TestCase
 
         $this->portfolioInformation->setIsQualifiedModel(true);
         $lowInvestmentMarket = round($this->portfolioInformation->getInvestmentMarket() * ($modelLowMarketReturn ? $modelLowMarketReturn : 0.8), 2);
-        $this->assertEquals(
+        $this->assertSame(
             $lowInvestmentMarket,
             $this->portfolioInformation->getLowInvestmentMarket(),
             'Invalid low investment market qualified entities.'
@@ -212,6 +211,6 @@ class PortfolioInformationTest extends \PHPUnit_Framework_TestCase
     public function testGetForecast()
     {
         $forecast = $this->portfolioInformation->getModel()->getForecast();
-        $this->assertEquals($forecast, $this->portfolioInformation->getForecast());
+        $this->assertSame($forecast, $this->portfolioInformation->getForecast());
     }
 }

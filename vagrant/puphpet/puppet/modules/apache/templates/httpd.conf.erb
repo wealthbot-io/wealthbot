@@ -11,6 +11,10 @@ KeepAlive <%= @keepalive %>
 MaxKeepAliveRequests <%= @max_keepalive_requests %>
 KeepAliveTimeout <%= @keepalive_timeout %>
 
+<%- if @rewrite_lock and scope.function_versioncmp([@apache_version, '2.2']) <= 0 -%>
+RewriteLock <%= @rewrite_lock %>
+<%- end -%>
+
 User <%= @user %>
 Group <%= @group %>
 
@@ -60,10 +64,18 @@ Include "<%= @mod_load_dir %>/*.conf"
 <% end -%>
 Include "<%= @ports_file %>"
 
+<% unless @log_formats.has_key?('combined') -%>
 LogFormat "%h %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\"" combined
+<% end -%>
+<% unless @log_formats.has_key?('common') -%>
 LogFormat "%h %l %u %t \"%r\" %>s %b" common
+<% end -%>
+<% unless @log_formats.has_key?('referer') -%>
 LogFormat "%{Referer}i -> %U" referer
+<% end -%>
+<% unless @log_formats.has_key?('agent') -%>
 LogFormat "%{User-agent}i" agent
+<% end -%>
 <% if @log_formats and !@log_formats.empty? -%>
   <%- @log_formats.sort.each do |nickname,format| -%>
 LogFormat "<%= format -%>" <%= nickname %>
@@ -77,9 +89,9 @@ Include "<%= @confd_dir %>/*.conf"
 <%- end -%>
 <% if @vhost_load_dir != @confd_dir -%>
 <%- if scope.function_versioncmp([@apache_version, '2.4']) >= 0 -%>
-IncludeOptional "<%= @vhost_load_dir %>/*"
+IncludeOptional "<%= @vhost_load_dir %>/<%= @vhost_include_pattern %>"
 <%- else -%>
-Include "<%= @vhost_load_dir %>/*"
+Include "<%= @vhost_load_dir %>/<%= @vhost_include_pattern %>"
 <%- end -%>
 <% end -%>
 

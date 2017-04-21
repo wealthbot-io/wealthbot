@@ -42,19 +42,19 @@ class puppi::mcollective::client {
 #  }
 
   file { '/usr/bin/puppicheck':
-    ensure  => 'present',
-    mode    => '0750',
-    owner   => $puppi::params::mcollective_user,
-    group   => $puppi::params::mcollective_group,
-    source  => 'puppet:///modules/puppi/mcollective/puppicheck',
+    ensure => 'present',
+    mode   => '0750',
+    owner  => $puppi::params::mcollective_user,
+    group  => $puppi::params::mcollective_group,
+    source => 'puppet:///modules/puppi/mcollective/puppicheck',
   }
 
   file { '/usr/bin/puppideploy':
-    ensure  => 'present',
-    mode    => '0750',
-    owner   => $puppi::params::mcollective_user,
-    group   => $puppi::params::mcollective_group,
-    source  => 'puppet:///modules/puppi/mcollective/puppideploy',
+    ensure => 'present',
+    mode   => '0750',
+    owner  => $puppi::params::mcollective_user,
+    group  => $puppi::params::mcollective_group,
+    source => 'puppet:///modules/puppi/mcollective/puppideploy',
   }
 
 }

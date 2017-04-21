@@ -38,12 +38,12 @@ Go to http://demo.wealthbot.io to play with *all the features* before installing
 
 ## Community
 
-Join our Slack server to discuss the project in realtime.
+Join our Gitter to discuss the project in realtime.
 * Talk to the core devs and the wealthbot.io community.
 * Learn from others and ask questions.
 * Share your work and demos.
 
-https://webo-slack.herokuapp.com/
+https://gitter.im/wealthbot-io
 
 Contribute to our roadmap on Trello.
 * Follow our general vision
@@ -62,7 +62,7 @@ And now, our super-simple, 3-step install
 
 1. `git clone https://github.com/wealthbot-io/wealthbot`
 2. Add `192.168.56.105  local.wealthbot.io` to your etc/hosts file
-3. `cd wealthbot/vagrant` and run `vagrant up`
+3. `cd wealthbot/vagrant` and run `vagrant up` (run `vagrant provision` at first-run)
 
 *[If you prefer your instructions via Youtube](https://www.youtube.com/watch?v=cZQONErBFXo)*
 

@@ -2,33 +2,30 @@
 
 namespace Wealthbot\RiaBundle\Form\Type;
 
-use Wealthbot\UserBundle\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\DataTransformer\IntegerToLocalizedStringTransformer;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
-use Symfony\Component\Form\FormInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class TierFeeFormType extends AbstractType
 {
-
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('fee_without_retirement', 'number', array(
+            ->add('fee_without_retirement', 'number', [
                 'label' => 'Fee',
                 'precision' => 4,
                 'rounding_mode' => IntegerToLocalizedStringTransformer::ROUND_HALFEVEN,
-            ))
+            ])
             ->add('tier_top', 'number')
         ;
 
-        $builder->addEventListener(FormEvents::PRE_BIND, array($this, 'onPreBind'));
+        $builder->addEventListener(FormEvents::PRE_SUBMIT, [$this, 'onPreSubmit']);
     }
 
-    public function onPreBind(FormEvent $event)
+    public function onPreSubmit(FormEvent $event)
     {
         $data = $event->getData();
 
@@ -38,15 +35,16 @@ class TierFeeFormType extends AbstractType
         }
     }
 
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
+        $resolver->setDefaults([
             'data_class' => 'Wealthbot\AdminBundle\Entity\Fee',
-            'validation_groups' => array('tier')
-        ));
+            'validation_groups' => ['tier'],
+            'csrf_protection' => false,
+        ]);
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'fees';
     }

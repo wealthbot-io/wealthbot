@@ -9,21 +9,22 @@
 
 namespace Wealthbot\ClientBundle\Model;
 
-
 interface TransferStepsConfigurationInterface
 {
     /**
-     * Get next transfer screen step by current step
+     * Get next transfer screen step by current step.
      *
      * @param string $currentStep
+     *
      * @return string
      */
     public function getNextStep($currentStep);
 
     /**
-     * Get previous  transfer screen step by current step
+     * Get previous  transfer screen step by current step.
      *
      * @param string $currentStep
+     *
      * @return string
      */
     public function getPreviousStep($currentStep);

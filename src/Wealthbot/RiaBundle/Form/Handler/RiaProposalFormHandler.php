@@ -9,12 +9,12 @@
 
 namespace Wealthbot\RiaBundle\Form\Handler;
 
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Wealthbot\AdminBundle\Form\Handler\AbstractFormHandler;
 use Wealthbot\MailerBundle\Mailer\MailerInterface;
 use Wealthbot\RiaBundle\Entity\RiaCompanyInformation;
 use Wealthbot\UserBundle\Entity\Document;
 use Wealthbot\UserBundle\Entity\User;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class RiaProposalFormHandler extends AbstractFormHandler
 {
@@ -52,7 +52,7 @@ class RiaProposalFormHandler extends AbstractFormHandler
 
                     $this->addDocumentForOwner($ria, $document);
 
-                    if ($key == Document::TYPE_ADV || $key == Document::TYPE_INVESTMENT_MANAGEMENT_AGREEMENT) {
+                    if ($key === Document::TYPE_ADV || $key === Document::TYPE_INVESTMENT_MANAGEMENT_AGREEMENT) {
                         $this->sendEmailMessages($ria, $key, $emailService);
                     }
                 }
@@ -65,16 +65,16 @@ class RiaProposalFormHandler extends AbstractFormHandler
         $this->em->flush();
     }
 
-
     /**
-     * Get exist documents for $owner
+     * Get exist documents for $owner.
      *
      * @param object $owner
+     *
      * @return array
      */
     protected function getExistDocuments($owner)
     {
-        $documents = array();
+        $documents = [];
         foreach ($owner->getUserDocuments() as $doc) {
             $documents[$doc->getType()] = $doc;
         }
@@ -83,9 +83,9 @@ class RiaProposalFormHandler extends AbstractFormHandler
     }
 
     /**
-     * Add document for owner
+     * Add document for owner.
      *
-     * @param object $owner
+     * @param object   $owner
      * @param Document $document
      */
     protected function addDocumentForOwner($owner, Document $document)
@@ -99,7 +99,7 @@ class RiaProposalFormHandler extends AbstractFormHandler
     {
         $userRepo = $this->em->getRepository('WealthbotUserBundle:User');
 
-        $clients = array();
+        $clients = [];
         if ($owner->hasRole('ROLE_RIA')) {
             $clients = $userRepo->findClientsByRiaId($owner->getId());
         }

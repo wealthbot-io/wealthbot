@@ -20,7 +20,7 @@ class yum::repo::sl6 (
   if $mirror_url {
     validate_re(
       $mirror_url,
-      '^(?:https?|ftp):\/\/[\da-zA-Z-][\da-zA-Z\.-]*\.[a-zA-Z]{2,6}\.?(?:\/[\w~-]*)*$',
+      '^(?:https?|ftp):\/\/[\da-zA-Z-][\da-zA-Z\.-]*\.[a-zA-Z]{2,6}\.?(?:\:[0-9]{1,5})?(?:\/[\w~-]*)*$',
       '$mirror must be a Clean URL with no query-string, a fully-qualified hostname and no trailing slash.'
     )
   }
@@ -49,6 +49,7 @@ class yum::repo::sl6 (
     gpgcheck       => 1,
     gpgkey         => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-sl file:///etc/pki/rpm-gpg/RPM-GPG-KEY-dawson',
     gpgkey_source  => 'puppet:///modules/yum/rpm-gpg/RPM-GPG-KEY-sl',
+    priority       => 2,
   }
 
   yum::managed_yumrepo { 'sl6x-security':
@@ -59,6 +60,7 @@ class yum::repo::sl6 (
     enabled        => 1,
     gpgcheck       => 1,
     gpgkey         => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-sl file:///etc/pki/rpm-gpg/RPM-GPG-KEY-dawson',
+    priority       => 2,
   }
 
   yum::managed_yumrepo { 'sl6x-fastbugs':
@@ -69,6 +71,7 @@ class yum::repo::sl6 (
     enabled        => 0,
     gpgcheck       => 1,
     gpgkey         => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-sl file:///etc/pki/rpm-gpg/RPM-GPG-KEY-dawson',
+    priority       => 2,
   }
 
 }

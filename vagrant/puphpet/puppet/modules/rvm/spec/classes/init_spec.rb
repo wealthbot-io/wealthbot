@@ -44,4 +44,11 @@ describe 'rvm' do
     it { should contain_rvm__system_user('john') }
     it { should contain_rvm__system_user('doe') }
   end
+
+  context "with no gnupg key id", :compile do
+    let(:params) {{ :gnupg_key_id => false }}
+    it { should_not contain_gnupg_key('rvm_D39DC0E3') }
+    it { should_not contain_gnupg_key('rvm_') }
+  end
+
 end

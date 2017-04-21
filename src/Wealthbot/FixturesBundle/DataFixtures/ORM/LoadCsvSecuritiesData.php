@@ -9,28 +9,28 @@
 
 namespace Wealthbot\FixturesBundle\DataFixtures\ORM;
 
-
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Wealthbot\AdminBundle\Entity\Security;
-use Wealthbot\AdminBundle\Entity\SecurityAssignment;
 use Wealthbot\AdminBundle\Entity\SecurityType;
 use Wealthbot\FixturesBundle\Model\AbstractCsvFixture;
 
 class LoadCsvSecuritiesData extends AbstractCsvFixture implements OrderedFixtureInterface
 {
-    function load(ObjectManager $manager)
+    public function load(ObjectManager $manager)
     {
-        $usedSymbols = array();
+        $usedSymbols = [];
         $repository = $manager->getRepository('WealthbotAdminBundle:Security');
         $securities = $this->getCsvData('securities.csv');
 
         foreach ($securities as $index => $item) {
-            if ($index === 0) continue;
+            if ($index === 0) {
+                continue;
+            }
 
             $name = trim($item[0]);
             $symbol = trim($item[1]);
-            $typeString = 'security-type-' . ((trim($item[2]) === 'ETF') ? 'EQ' : 'MU');
+            $typeString = 'security-type-'.((trim($item[2]) === 'ETF') ? 'EQ' : 'MU');
             $expenseRatio = round((float) str_replace(',', '.', trim($item[3])), 2);
 
             /** @var SecurityType $securityType */
@@ -53,7 +53,7 @@ class LoadCsvSecuritiesData extends AbstractCsvFixture implements OrderedFixture
         $manager->flush();
     }
 
-    function getOrder()
+    public function getOrder()
     {
         return 5;
     }

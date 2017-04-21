@@ -3,28 +3,26 @@
 namespace Wealthbot\ClientBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\ORM\Mapping as ORM;
 use Wealthbot\ClientBundle\Model\Workflow as BaseWorkflow;
 use Wealthbot\SignatureBundle\Entity\DocumentSignature;
 
 /**
- * Workflow
+ * Workflow.
  */
 class Workflow extends BaseWorkflow
 {
     /**
-     * @var integer
+     * @var int
      */
     protected $id;
 
-
     /**
-     * @var integer
+     * @var int
      */
     protected $type;
 
     /**
-     * @var integer
+     * @var int
      */
     protected $object_id;
 
@@ -49,17 +47,17 @@ class Workflow extends BaseWorkflow
     protected $message_code;
 
     /**
-     * @var integer
+     * @var int
      */
     protected $status;
 
     /**
-     * @var integer
+     * @var int
      */
     protected $client_status;
 
     /**
-     * @var boolean
+     * @var bool
      */
     protected $is_archived;
 
@@ -88,7 +86,6 @@ class Workflow extends BaseWorkflow
      */
     protected $amount;
 
-
     public function __construct()
     {
         parent::__construct();
@@ -97,9 +94,9 @@ class Workflow extends BaseWorkflow
     }
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer 
+     * @return int
      */
     public function getId()
     {
@@ -107,22 +104,23 @@ class Workflow extends BaseWorkflow
     }
 
     /**
-     * Set type
+     * Set type.
      *
-     * @param integer $type
+     * @param int $type
+     *
      * @return Workflow
      */
     public function setType($type)
     {
         parent::setType($type);
-    
+
         return $this;
     }
 
     /**
-     * Get type
+     * Get type.
      *
-     * @return integer 
+     * @return int
      */
     public function getType()
     {
@@ -130,9 +128,10 @@ class Workflow extends BaseWorkflow
     }
 
     /**
-     * Set object_id
+     * Set object_id.
      *
-     * @param integer $objectId
+     * @param int $objectId
+     *
      * @return Workflow
      */
     public function setObjectId($objectId)
@@ -143,9 +142,9 @@ class Workflow extends BaseWorkflow
     }
 
     /**
-     * Get object_id
+     * Get object_id.
      *
-     * @return integer
+     * @return int
      */
     public function getObjectId()
     {
@@ -153,20 +152,21 @@ class Workflow extends BaseWorkflow
     }
 
     /**
-     * Set object_ids
+     * Set object_ids.
      *
      * @param array $objectIds
+     *
      * @return Workflow
      */
     public function setObjectIds(array $objectIds)
     {
         parent::setObjectIds($objectIds);
-    
+
         return $this;
     }
 
     /**
-     * Get object_ids
+     * Get object_ids.
      *
      * @return array
      */
@@ -176,22 +176,23 @@ class Workflow extends BaseWorkflow
     }
 
     /**
-     * Set object_type
+     * Set object_type.
      *
      * @param string $objectType
+     *
      * @return Workflow
      */
     public function setObjectType($objectType)
     {
         parent::setObjectType($objectType);
-    
+
         return $this;
     }
 
     /**
-     * Get object_type
+     * Get object_type.
      *
-     * @return string 
+     * @return string
      */
     public function getObjectType()
     {
@@ -199,22 +200,23 @@ class Workflow extends BaseWorkflow
     }
 
     /**
-     * Set message
+     * Set message.
      *
      * @param string $message
+     *
      * @return Workflow
      */
     public function setMessage($message)
     {
         parent::setMessage($message);
-    
+
         return $this;
     }
 
     /**
-     * Get message
+     * Get message.
      *
-     * @return string 
+     * @return string
      */
     public function getMessage()
     {
@@ -222,22 +224,23 @@ class Workflow extends BaseWorkflow
     }
 
     /**
-     * Set status
+     * Set status.
      *
-     * @param integer $status
+     * @param int $status
+     *
      * @return Workflow
      */
     public function setStatus($status)
     {
         parent::setStatus($status);
-    
+
         return $this;
     }
 
     /**
-     * Get status
+     * Get status.
      *
-     * @return integer 
+     * @return int
      */
     public function getStatus()
     {
@@ -245,9 +248,10 @@ class Workflow extends BaseWorkflow
     }
 
     /**
-     * Set client status
+     * Set client status.
      *
-     * @param integer $clientStatus
+     * @param int $clientStatus
+     *
      * @return Workflow
      */
     public function setClientStatus($clientStatus)
@@ -258,33 +262,33 @@ class Workflow extends BaseWorkflow
     }
 
     /**
-     * Get client status
+     * Get client status.
      *
-     * @return integer
+     * @return int
      */
     public function getClientStatus()
     {
         return parent::getClientStatus();
     }
 
-
     /**
-     * Set is_archived
+     * Set is_archived.
      *
-     * @param boolean $isArchived
+     * @param bool $isArchived
+     *
      * @return Workflow
      */
     public function setIsArchived($isArchived)
     {
         parent::setIsArchived($isArchived);
-    
+
         return $this;
     }
 
     /**
-     * Get is_archived
+     * Get is_archived.
      *
-     * @return boolean 
+     * @return bool
      */
     public function getIsArchived()
     {
@@ -292,22 +296,23 @@ class Workflow extends BaseWorkflow
     }
 
     /**
-     * Set submitted
+     * Set submitted.
      *
      * @param \DateTime $submitted
+     *
      * @return Workflow
      */
     public function setSubmitted($submitted)
     {
         parent::setSubmitted($submitted);
-    
+
         return $this;
     }
 
     /**
-     * Get submitted
+     * Get submitted.
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getSubmitted()
     {
@@ -315,22 +320,23 @@ class Workflow extends BaseWorkflow
     }
 
     /**
-     * Set client
+     * Set client.
      *
      * @param \Wealthbot\UserBundle\Entity\User $client
+     *
      * @return Workflow
      */
     public function setClient(\Wealthbot\UserBundle\Entity\User $client = null)
     {
         parent::setClient($client);
-    
+
         return $this;
     }
 
     /**
-     * Get client
+     * Get client.
      *
-     * @return \Wealthbot\UserBundle\Entity\User 
+     * @return \Wealthbot\UserBundle\Entity\User
      */
     public function getClient()
     {
@@ -338,22 +344,23 @@ class Workflow extends BaseWorkflow
     }
 
     /**
-     * Set note
+     * Set note.
      *
      * @param string $note
+     *
      * @return Workflow
      */
     public function setNote($note)
     {
         parent::setNote($note);
-    
+
         return $this;
     }
 
     /**
-     * Get note
+     * Get note.
      *
-     * @return string 
+     * @return string
      */
     public function getNote()
     {
@@ -361,22 +368,23 @@ class Workflow extends BaseWorkflow
     }
 
     /**
-     * Set message_code
+     * Set message_code.
      *
      * @param string $messageCode
+     *
      * @return Workflow
      */
     public function setMessageCode($messageCode)
     {
         parent::setMessageCode($messageCode);
-    
+
         return $this;
     }
 
     /**
-     * Get message_code
+     * Get message_code.
      *
-     * @return string 
+     * @return string
      */
     public function getMessageCode()
     {
@@ -384,9 +392,10 @@ class Workflow extends BaseWorkflow
     }
 
     /**
-     * Add documentSignatures
+     * Add documentSignatures.
      *
      * @param \Wealthbot\SignatureBundle\Entity\DocumentSignature $documentSignatures
+     *
      * @return Workflow
      */
     public function addDocumentSignature(\Wealthbot\SignatureBundle\Entity\DocumentSignature $documentSignatures)
@@ -397,7 +406,7 @@ class Workflow extends BaseWorkflow
     }
 
     /**
-     * Remove documentSignatures
+     * Remove documentSignatures.
      *
      * @param \Wealthbot\SignatureBundle\Entity\DocumentSignature $documentSignatures
      */
@@ -407,7 +416,7 @@ class Workflow extends BaseWorkflow
     }
 
     /**
-     * Get documentSignatures
+     * Get documentSignatures.
      *
      * @return \Doctrine\Common\Collections\Collection
      */
@@ -417,7 +426,7 @@ class Workflow extends BaseWorkflow
     }
 
     /**
-     * Get count of documentSignatures
+     * Get count of documentSignatures.
      *
      * @return int
      */
@@ -427,7 +436,7 @@ class Workflow extends BaseWorkflow
     }
 
     /**
-     * Get filename of the first document signature
+     * Get filename of the first document signature.
      *
      * @return null|string
      */
@@ -440,11 +449,11 @@ class Workflow extends BaseWorkflow
             return $signature->getDocument()->getFilename();
         }
 
-        return null;
+        return;
     }
 
     /**
-     * Is all document signatures are created
+     * Is all document signatures are created.
      *
      * @return bool
      */
@@ -464,7 +473,7 @@ class Workflow extends BaseWorkflow
     }
 
     /**
-     * Is all document signatures are completed
+     * Is all document signatures are completed.
      *
      * @return bool
      */
@@ -513,13 +522,13 @@ class Workflow extends BaseWorkflow
 //    }
 
     /**
-     * Get all documents of document signatures
+     * Get all documents of document signatures.
      *
      * @return array
      */
     public function getSignaturesDocuments()
     {
-        $documents = array();
+        $documents = [];
 
         /** @var DocumentSignature $signature */
         foreach ($this->getDocumentSignatures() as $signature) {
@@ -530,9 +539,10 @@ class Workflow extends BaseWorkflow
     }
 
     /**
-     * Set amount
+     * Set amount.
      *
      * @param string $amount
+     *
      * @return Workflow
      */
     public function setAmount($amount)
@@ -543,9 +553,9 @@ class Workflow extends BaseWorkflow
     }
 
     /**
-     * Get amount
+     * Get amount.
      *
-     * @return string 
+     * @return string
      */
     public function getAmount()
     {

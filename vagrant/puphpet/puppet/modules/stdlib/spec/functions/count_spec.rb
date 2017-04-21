@@ -1,31 +1,18 @@
-#! /usr/bin/env ruby -S rspec
-
 require 'spec_helper'
 
-describe "the count function" do
-  let(:scope) { PuppetlabsSpec::PuppetInternals.scope }
-
-  it "should exist" do
-    expect(Puppet::Parser::Functions.function("count")).to eq("function_count")
-  end
-
-  it "should raise a ArgumentError if there is more than 2 arguments" do
-    expect { scope.function_count(['foo', 'bar', 'baz']) }.to( raise_error(ArgumentError))
-  end
-
-  it "should be able to count arrays" do
-    expect(scope.function_count([["1","2","3"]])).to(eq(3))
-  end
-
-  it "should be able to count matching elements in arrays" do
-    expect(scope.function_count([["1", "2", "2"], "2"])).to(eq(2))
-  end
-
-  it "should not count nil or empty strings" do
-    expect(scope.function_count([["foo","bar",nil,""]])).to(eq(2))
-  end
-
-  it 'does not count an undefined hash key or an out of bound array index (which are both :undef)' do
-    expect(scope.function_count([["foo",:undef,:undef]])).to eq(1)
-  end
+describe 'count' do
+  it { is_expected.not_to eq(nil) }
+  it { is_expected.to run.with_params().and_raise_error(ArgumentError) }
+  it { is_expected.to run.with_params("one").and_raise_error(ArgumentError) }
+  it { is_expected.to run.with_params("one", "two").and_return(1) }
+  it {
+    pending("should actually be like this, and not like above")
+    is_expected.to run.with_params("one", "two").and_raise_error(ArgumentError)
+  }
+  it { is_expected.to run.with_params("one", "two", "three").and_raise_error(ArgumentError) }
+  it { is_expected.to run.with_params(["one", "two", "three"]).and_return(3) }
+  it { is_expected.to run.with_params(["one", "two", "two"], "two").and_return(2) }
+  it { is_expected.to run.with_params(["one", nil, "two"]).and_return(2) }
+  it { is_expected.to run.with_params(["one", "", "two"]).and_return(2) }
+  it { is_expected.to run.with_params(["one", :undef, "two"]).and_return(2) }
 end

@@ -2,17 +2,16 @@
 
 namespace Wealthbot\ClientBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-use Wealthbot\ClientBundle\Model\PersonalInformation as BasePersonalInformation;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Wealthbot\ClientBundle\Model\PersonalInformation as BasePersonalInformation;
 
 /**
- * PersonalInformation
+ * PersonalInformation.
  */
 class PersonalInformation extends BasePersonalInformation
 {
     /**
-     * @var integer
+     * @var int
      */
     private $id;
 
@@ -21,11 +20,10 @@ class PersonalInformation extends BasePersonalInformation
      */
     private $client;
 
-
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer 
+     * @return int
      */
     public function getId()
     {
@@ -33,34 +31,35 @@ class PersonalInformation extends BasePersonalInformation
     }
 
     /**
-     * Set client
+     * Set client.
      *
      * @param \Wealthbot\UserBundle\Entity\User $client
+     *
      * @return PersonalInformation
      */
     public function setClient(\Wealthbot\UserBundle\Entity\User $client = null)
     {
         $this->client = $client;
-    
+
         return $this;
     }
 
     /**
-     * Get client
+     * Get client.
      *
-     * @return \Wealthbot\UserBundle\Entity\User 
+     * @return \Wealthbot\UserBundle\Entity\User
      */
     public function getClient()
     {
         return $this->client;
     }
     /**
-     * @var integer
+     * @var int
      */
     private $client_id;
 
     /**
-     * @var integer
+     * @var int
      */
     private $dependents;
 
@@ -72,7 +71,7 @@ class PersonalInformation extends BasePersonalInformation
     /**
      * @var string
      */
-    protected  $income_source;
+    protected $income_source;
 
     /**
      * @var string
@@ -105,7 +104,7 @@ class PersonalInformation extends BasePersonalInformation
     private $city;
 
     /**
-     * @var integer
+     * @var int
      */
     private $state_id;
 
@@ -115,7 +114,7 @@ class PersonalInformation extends BasePersonalInformation
     private $zipcode;
 
     /**
-     * @var boolean
+     * @var bool
      */
     private $is_senior_political_figure;
 
@@ -140,7 +139,7 @@ class PersonalInformation extends BasePersonalInformation
     private $senior_country_office;
 
     /**
-     * @var boolean
+     * @var bool
      */
     private $is_publicly_traded_company;
 
@@ -160,12 +159,12 @@ class PersonalInformation extends BasePersonalInformation
     private $publicle_city;
 
     /**
-     * @var integer
+     * @var int
      */
     private $publicle_state_id;
 
     /**
-     * @var boolean
+     * @var bool
      */
     private $is_broker_security_exchange_person;
 
@@ -177,14 +176,12 @@ class PersonalInformation extends BasePersonalInformation
     /**
      * @var string
      */
-    protected  $broker_security_exchange_compliance_letter;
+    protected $broker_security_exchange_compliance_letter;
 
     /**
      * @var UploadedFile
      */
     private $compliance_letter_file;
-
-
 
     public function __construct()
     {
@@ -193,24 +190,24 @@ class PersonalInformation extends BasePersonalInformation
         $this->is_broker_security_exchange_person = false;
     }
 
-
     /**
-     * Set client_id
+     * Set client_id.
      *
-     * @param integer $clientId
+     * @param int $clientId
+     *
      * @return PersonalInformation
      */
     public function setClientId($clientId)
     {
         $this->client_id = $clientId;
-    
+
         return $this;
     }
 
     /**
-     * Get client_id
+     * Get client_id.
      *
-     * @return integer 
+     * @return int
      */
     public function getClientId()
     {
@@ -218,22 +215,23 @@ class PersonalInformation extends BasePersonalInformation
     }
 
     /**
-     * Set dependents
+     * Set dependents.
      *
-     * @param integer $dependents
+     * @param int $dependents
+     *
      * @return PersonalInformation
      */
     public function setDependents($dependents)
     {
         $this->dependents = $dependents;
-    
+
         return $this;
     }
 
     /**
-     * Get dependents
+     * Get dependents.
      *
-     * @return integer 
+     * @return int
      */
     public function getDependents()
     {
@@ -241,22 +239,23 @@ class PersonalInformation extends BasePersonalInformation
     }
 
     /**
-     * Set ssn_tin
+     * Set ssn_tin.
      *
      * @param string $ssnTin
+     *
      * @return PersonalInformation
      */
     public function setSsnTin($ssnTin)
     {
         $this->ssn_tin = $ssnTin;
-    
+
         return $this;
     }
 
     /**
-     * Get ssn_tin
+     * Get ssn_tin.
      *
-     * @return string 
+     * @return string
      */
     public function getSsnTin()
     {
@@ -264,9 +263,10 @@ class PersonalInformation extends BasePersonalInformation
     }
 
     /**
-     * Set income_source
+     * Set income_source.
      *
      * @param string $incomeSource
+     *
      * @return PersonalInformation
      */
     public function setIncomeSource($incomeSource)
@@ -275,9 +275,9 @@ class PersonalInformation extends BasePersonalInformation
     }
 
     /**
-     * Get income_source
+     * Get income_source.
      *
-     * @return string 
+     * @return string
      */
     public function getIncomeSource()
     {
@@ -285,22 +285,23 @@ class PersonalInformation extends BasePersonalInformation
     }
 
     /**
-     * Set employer_name
+     * Set employer_name.
      *
      * @param string $employerName
+     *
      * @return PersonalInformation
      */
     public function setEmployerName($employerName)
     {
         $this->employer_name = $employerName;
-    
+
         return $this;
     }
 
     /**
-     * Get employer_name
+     * Get employer_name.
      *
-     * @return string 
+     * @return string
      */
     public function getEmployerName()
     {
@@ -308,22 +309,23 @@ class PersonalInformation extends BasePersonalInformation
     }
 
     /**
-     * Set industry
+     * Set industry.
      *
      * @param string $industry
+     *
      * @return PersonalInformation
      */
     public function setIndustry($industry)
     {
         $this->industry = $industry;
-    
+
         return $this;
     }
 
     /**
-     * Get industry
+     * Get industry.
      *
-     * @return string 
+     * @return string
      */
     public function getIndustry()
     {
@@ -331,22 +333,23 @@ class PersonalInformation extends BasePersonalInformation
     }
 
     /**
-     * Set occupation
+     * Set occupation.
      *
      * @param string $occupation
+     *
      * @return PersonalInformation
      */
     public function setOccupation($occupation)
     {
         $this->occupation = $occupation;
-    
+
         return $this;
     }
 
     /**
-     * Get occupation
+     * Get occupation.
      *
-     * @return string 
+     * @return string
      */
     public function getOccupation()
     {
@@ -354,22 +357,23 @@ class PersonalInformation extends BasePersonalInformation
     }
 
     /**
-     * Set business_type
+     * Set business_type.
      *
      * @param string $businessType
+     *
      * @return PersonalInformation
      */
     public function setBusinessType($businessType)
     {
         $this->business_type = $businessType;
-    
+
         return $this;
     }
 
     /**
-     * Get business_type
+     * Get business_type.
      *
-     * @return string 
+     * @return string
      */
     public function getBusinessType()
     {
@@ -377,22 +381,23 @@ class PersonalInformation extends BasePersonalInformation
     }
 
     /**
-     * Set employer_address
+     * Set employer_address.
      *
      * @param string $employerAddress
+     *
      * @return PersonalInformation
      */
     public function setEmployerAddress($employerAddress)
     {
         $this->employer_address = $employerAddress;
-    
+
         return $this;
     }
 
     /**
-     * Get employer_address
+     * Get employer_address.
      *
-     * @return string 
+     * @return string
      */
     public function getEmployerAddress()
     {
@@ -400,22 +405,23 @@ class PersonalInformation extends BasePersonalInformation
     }
 
     /**
-     * Set city
+     * Set city.
      *
      * @param string $city
+     *
      * @return PersonalInformation
      */
     public function setCity($city)
     {
         $this->city = $city;
-    
+
         return $this;
     }
 
     /**
-     * Get city
+     * Get city.
      *
-     * @return string 
+     * @return string
      */
     public function getCity()
     {
@@ -423,22 +429,23 @@ class PersonalInformation extends BasePersonalInformation
     }
 
     /**
-     * Set state_id
+     * Set state_id.
      *
-     * @param integer $stateId
+     * @param int $stateId
+     *
      * @return PersonalInformation
      */
     public function setStateId($stateId)
     {
         $this->state_id = $stateId;
-    
+
         return $this;
     }
 
     /**
-     * Get state_id
+     * Get state_id.
      *
-     * @return integer 
+     * @return int
      */
     public function getStateId()
     {
@@ -446,22 +453,23 @@ class PersonalInformation extends BasePersonalInformation
     }
 
     /**
-     * Set zipcode
+     * Set zipcode.
      *
      * @param string $zipcode
+     *
      * @return PersonalInformation
      */
     public function setZipcode($zipcode)
     {
         $this->zipcode = $zipcode;
-    
+
         return $this;
     }
 
     /**
-     * Get zipcode
+     * Get zipcode.
      *
-     * @return string 
+     * @return string
      */
     public function getZipcode()
     {
@@ -469,22 +477,23 @@ class PersonalInformation extends BasePersonalInformation
     }
 
     /**
-     * Set is_senior_political_figure
+     * Set is_senior_political_figure.
      *
-     * @param boolean $isSeniorPoliticalFigure
+     * @param bool $isSeniorPoliticalFigure
+     *
      * @return PersonalInformation
      */
     public function setIsSeniorPoliticalFigure($isSeniorPoliticalFigure)
     {
         $this->is_senior_political_figure = $isSeniorPoliticalFigure;
-    
+
         return $this;
     }
 
     /**
-     * Get is_senior_political_figure
+     * Get is_senior_political_figure.
      *
-     * @return boolean 
+     * @return bool
      */
     public function getIsSeniorPoliticalFigure()
     {
@@ -492,22 +501,23 @@ class PersonalInformation extends BasePersonalInformation
     }
 
     /**
-     * Set senior_spf_name
+     * Set senior_spf_name.
      *
      * @param string $seniorSpfName
+     *
      * @return PersonalInformation
      */
     public function setSeniorSpfName($seniorSpfName)
     {
         $this->senior_spf_name = $seniorSpfName;
-    
+
         return $this;
     }
 
     /**
-     * Get senior_spf_name
+     * Get senior_spf_name.
      *
-     * @return string 
+     * @return string
      */
     public function getSeniorSpfName()
     {
@@ -515,22 +525,23 @@ class PersonalInformation extends BasePersonalInformation
     }
 
     /**
-     * Set senior_political_title
+     * Set senior_political_title.
      *
      * @param string $seniorPoliticalTitle
+     *
      * @return PersonalInformation
      */
     public function setSeniorPoliticalTitle($seniorPoliticalTitle)
     {
         $this->senior_political_title = $seniorPoliticalTitle;
-    
+
         return $this;
     }
 
     /**
-     * Get senior_political_title
+     * Get senior_political_title.
      *
-     * @return string 
+     * @return string
      */
     public function getSeniorPoliticalTitle()
     {
@@ -538,22 +549,23 @@ class PersonalInformation extends BasePersonalInformation
     }
 
     /**
-     * Set senior_account_owner_relationship
+     * Set senior_account_owner_relationship.
      *
      * @param string $seniorAccountOwnerRelationship
+     *
      * @return PersonalInformation
      */
     public function setSeniorAccountOwnerRelationship($seniorAccountOwnerRelationship)
     {
         $this->senior_account_owner_relationship = $seniorAccountOwnerRelationship;
-    
+
         return $this;
     }
 
     /**
-     * Get senior_account_owner_relationship
+     * Get senior_account_owner_relationship.
      *
-     * @return string 
+     * @return string
      */
     public function getSeniorAccountOwnerRelationship()
     {
@@ -561,22 +573,23 @@ class PersonalInformation extends BasePersonalInformation
     }
 
     /**
-     * Set senior_country_office
+     * Set senior_country_office.
      *
      * @param string $seniorCountryOffice
+     *
      * @return PersonalInformation
      */
     public function setSeniorCountryOffice($seniorCountryOffice)
     {
         $this->senior_country_office = $seniorCountryOffice;
-    
+
         return $this;
     }
 
     /**
-     * Get senior_country_office
+     * Get senior_country_office.
      *
-     * @return string 
+     * @return string
      */
     public function getSeniorCountryOffice()
     {
@@ -584,22 +597,23 @@ class PersonalInformation extends BasePersonalInformation
     }
 
     /**
-     * Set is_publicly_traded_company
+     * Set is_publicly_traded_company.
      *
-     * @param boolean $isPubliclyTradedCompany
+     * @param bool $isPubliclyTradedCompany
+     *
      * @return PersonalInformation
      */
     public function setIsPubliclyTradedCompany($isPubliclyTradedCompany)
     {
         $this->is_publicly_traded_company = $isPubliclyTradedCompany;
-    
+
         return $this;
     }
 
     /**
-     * Get is_publicly_traded_company
+     * Get is_publicly_traded_company.
      *
-     * @return boolean 
+     * @return bool
      */
     public function getIsPubliclyTradedCompany()
     {
@@ -607,22 +621,23 @@ class PersonalInformation extends BasePersonalInformation
     }
 
     /**
-     * Set publicle_company_name
+     * Set publicle_company_name.
      *
      * @param string $publicleCompanyName
+     *
      * @return PersonalInformation
      */
     public function setPublicleCompanyName($publicleCompanyName)
     {
         $this->publicle_company_name = $publicleCompanyName;
-    
+
         return $this;
     }
 
     /**
-     * Get publicle_company_name
+     * Get publicle_company_name.
      *
-     * @return string 
+     * @return string
      */
     public function getPublicleCompanyName()
     {
@@ -630,22 +645,23 @@ class PersonalInformation extends BasePersonalInformation
     }
 
     /**
-     * Set publicle_address
+     * Set publicle_address.
      *
      * @param string $publicleAddress
+     *
      * @return PersonalInformation
      */
     public function setPublicleAddress($publicleAddress)
     {
         $this->publicle_address = $publicleAddress;
-    
+
         return $this;
     }
 
     /**
-     * Get publicle_address
+     * Get publicle_address.
      *
-     * @return string 
+     * @return string
      */
     public function getPublicleAddress()
     {
@@ -653,22 +669,23 @@ class PersonalInformation extends BasePersonalInformation
     }
 
     /**
-     * Set publicle_city
+     * Set publicle_city.
      *
      * @param string $publicleCity
+     *
      * @return PersonalInformation
      */
     public function setPublicleCity($publicleCity)
     {
         $this->publicle_city = $publicleCity;
-    
+
         return $this;
     }
 
     /**
-     * Get publicle_city
+     * Get publicle_city.
      *
-     * @return string 
+     * @return string
      */
     public function getPublicleCity()
     {
@@ -676,22 +693,23 @@ class PersonalInformation extends BasePersonalInformation
     }
 
     /**
-     * Set publicle_state_id
+     * Set publicle_state_id.
      *
-     * @param integer $publicleStateId
+     * @param int $publicleStateId
+     *
      * @return PersonalInformation
      */
     public function setPublicleStateId($publicleStateId)
     {
         $this->publicle_state_id = $publicleStateId;
-    
+
         return $this;
     }
 
     /**
-     * Get publicle_state_id
+     * Get publicle_state_id.
      *
-     * @return integer 
+     * @return int
      */
     public function getPublicleStateId()
     {
@@ -699,22 +717,23 @@ class PersonalInformation extends BasePersonalInformation
     }
 
     /**
-     * Set is_broker_security_exchange_person
+     * Set is_broker_security_exchange_person.
      *
-     * @param boolean $isBrokerSecurityExchangePerson
+     * @param bool $isBrokerSecurityExchangePerson
+     *
      * @return PersonalInformation
      */
     public function setIsBrokerSecurityExchangePerson($isBrokerSecurityExchangePerson)
     {
         $this->is_broker_security_exchange_person = $isBrokerSecurityExchangePerson;
-    
+
         return $this;
     }
 
     /**
-     * Get is_broker_security_exchange_person
+     * Get is_broker_security_exchange_person.
      *
-     * @return boolean 
+     * @return bool
      */
     public function getIsBrokerSecurityExchangePerson()
     {
@@ -722,22 +741,23 @@ class PersonalInformation extends BasePersonalInformation
     }
 
     /**
-     * Set broker_security_exchange_company_name
+     * Set broker_security_exchange_company_name.
      *
      * @param string $brokerSecurityExchangeCompanyName
+     *
      * @return PersonalInformation
      */
     public function setBrokerSecurityExchangeCompanyName($brokerSecurityExchangeCompanyName)
     {
         $this->broker_security_exchange_company_name = $brokerSecurityExchangeCompanyName;
-    
+
         return $this;
     }
 
     /**
-     * Get broker_security_exchange_company_name
+     * Get broker_security_exchange_company_name.
      *
-     * @return string 
+     * @return string
      */
     public function getBrokerSecurityExchangeCompanyName()
     {
@@ -745,9 +765,10 @@ class PersonalInformation extends BasePersonalInformation
     }
 
     /**
-     * Set broker_security_exchange_compliance_letter
+     * Set broker_security_exchange_compliance_letter.
      *
      * @param string $brokerSecurityExchangeComplianceLetter
+     *
      * @return PersonalInformation
      */
     public function setBrokerSecurityExchangeComplianceLetter($brokerSecurityExchangeComplianceLetter)
@@ -758,7 +779,7 @@ class PersonalInformation extends BasePersonalInformation
     }
 
     /**
-     * Get broker_security_exchange_compliance_letter
+     * Get broker_security_exchange_compliance_letter.
      *
      * @return string
      */
@@ -768,9 +789,10 @@ class PersonalInformation extends BasePersonalInformation
     }
 
     /**
-     * Set compliance_letter_file
+     * Set compliance_letter_file.
      *
      * @param $complianceLetterFile
+     *
      * @return PersonalInformation
      */
     public function setComplianceLetterFile($complianceLetterFile)
@@ -781,7 +803,7 @@ class PersonalInformation extends BasePersonalInformation
     }
 
     /**
-     * Get compliance_letter_file
+     * Get compliance_letter_file.
      *
      * @return \Symfony\Component\HttpFoundation\File\UploadedFile
      */
@@ -795,24 +817,24 @@ class PersonalInformation extends BasePersonalInformation
      */
     private $state;
 
-
     /**
-     * Set state
+     * Set state.
      *
      * @param \Wealthbot\AdminBundle\Entity\State $state
+     *
      * @return PersonalInformation
      */
     public function setState(\Wealthbot\AdminBundle\Entity\State $state = null)
     {
         $this->state = $state;
-    
+
         return $this;
     }
 
     /**
-     * Get state
+     * Get state.
      *
-     * @return \Wealthbot\AdminBundle\Entity\State 
+     * @return \Wealthbot\AdminBundle\Entity\State
      */
     public function getState()
     {
@@ -824,24 +846,24 @@ class PersonalInformation extends BasePersonalInformation
      */
     private $publicleState;
 
-
     /**
-     * Set publicleState
+     * Set publicleState.
      *
      * @param \Wealthbot\AdminBundle\Entity\State $publicleState
+     *
      * @return PersonalInformation
      */
     public function setPublicleState(\Wealthbot\AdminBundle\Entity\State $publicleState = null)
     {
         $this->publicleState = $publicleState;
-    
+
         return $this;
     }
 
     /**
-     * Get publicleState
+     * Get publicleState.
      *
-     * @return \Wealthbot\AdminBundle\Entity\State 
+     * @return \Wealthbot\AdminBundle\Entity\State
      */
     public function getPublicleState()
     {
@@ -861,7 +883,7 @@ class PersonalInformation extends BasePersonalInformation
     protected function getUploadRootDir()
     {
         // the absolute directory path where uploaded documents should be saved
-        return __DIR__.'/../../../../web/'.$this->getUploadDir();
+        return getcwd().'/'.$this->getUploadDir();
     }
 
     protected function getUploadDir()
@@ -870,11 +892,9 @@ class PersonalInformation extends BasePersonalInformation
         return 'uploads/client_compliance_letter_files';
     }
 
-
     public function preUpload()
     {
         if (null !== $this->compliance_letter_file) {
-
             $oldFile = $this->getAbsoluteComplianceLetter();
             if (file_exists($oldFile)) {
                 unlink($oldFile);

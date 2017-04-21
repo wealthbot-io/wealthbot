@@ -6,7 +6,7 @@
 
     {% for key, field in form %}
         {% if key != '_token' %}
-            <div class="control-group">
+            <div class="form-group">
                 {% if documents[key] is defined %}
                     <label class="control-label">
                         <a href="{{ documents[key].link }}" target="_blank">{{ field.vars.label }} <i class="icon-download"></i></a>
@@ -26,8 +26,8 @@
     {{ form_rest(form) }}
 
     {% if is_permitted('edit') %}
-        <div class="control-group">
-            <input class="btn" type="submit" value="Save"/>
+        <div class="form-group">
+            <input class="btn btn-default"  type="submit" value="Save"/>
         </div>
     {% endif %}
 </form>

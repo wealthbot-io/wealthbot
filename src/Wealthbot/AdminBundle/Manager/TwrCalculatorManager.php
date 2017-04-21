@@ -3,17 +3,16 @@
 namespace Wealthbot\AdminBundle\Manager;
 
 use Doctrine\ORM\EntityManager;
-use Wealthbot\UserBundle\Entity\User;
 use Wealthbot\AdminBundle\Entity\Transaction;
 use Wealthbot\AdminBundle\Repository\TransactionRepository;
 use Wealthbot\ClientBundle\Entity\SystemAccount;
 use Wealthbot\ClientBundle\Repository\ClientAccountValueRepository;
+use Wealthbot\UserBundle\Entity\User;
 
 class TwrCalculatorManager
 {
-    protected
-        /* @var EntityManager $em */
-        $em,
+    /* @var EntityManager $em */
+        protected $em,
         /* @var User $client */
         $client,
         /* @var SystemAccount|null $account */
@@ -51,7 +50,7 @@ class TwrCalculatorManager
     {
         $this->account = $account;
     }
-    
+
     public function setPeriod($period)
     {
         $this->period = $period;
@@ -66,7 +65,7 @@ class TwrCalculatorManager
 
         /* @var SystemAccount $account */
         foreach ($this->client->getSystemAccounts() as $account) {
-            $checkAccount = !$this->account || $this->account == $account->getClientAccount();
+            $checkAccount = !$this->account || $this->account === $account->getClientAccount();
             $isSetBillingInception = null !== $account->getBillingInception();
 
             if ($checkAccount) {
@@ -83,6 +82,7 @@ class TwrCalculatorManager
                 }
             }
         }
+
         return $inceptionDate;
     }
 
@@ -136,6 +136,7 @@ class TwrCalculatorManager
         foreach ($contributions as $contribution) {
             $contributionSumm += $contribution->getNetAmount();
         }
+
         return $contributionSumm;
     }
 
@@ -151,6 +152,7 @@ class TwrCalculatorManager
         foreach ($withdrawals as $withdrawal) {
             $withdrawalSumm += $withdrawal->getNetAmount();
         }
+
         return $withdrawalSumm;
     }
 
@@ -164,15 +166,15 @@ class TwrCalculatorManager
         if ($this->account) {
             $this->twrData = $this->em
                 ->getRepository('WealthbotClientBundle:ClientTwrPeriod')
-                ->findOneBy(array(
-                    'accountNumber' => $this->account->getAccountNumber()
-            ));
+                ->findOneBy([
+                    'accountNumber' => $this->account->getAccountNumber(),
+            ]);
         } else {
             $this->twrData = $this->em
                 ->getRepository('WealthbotClientBundle:PortfolioTwrPeriod')
-                ->findOneBy(array(
-                    'client' => $this->client
-            ));
+                ->findOneBy([
+                    'client' => $this->client,
+            ]);
         }
     }
 
@@ -194,12 +196,14 @@ class TwrCalculatorManager
                     return $this->twrData->getNetMtd();
             }
         }
+
         return 0;
     }
 
     public function getNetAnnualized()
     {
         $twr = $this->getNetActual();
+
         return $this->calculateAnnualizedTwr($twr);
     }
 
@@ -221,19 +225,22 @@ class TwrCalculatorManager
                     return $this->twrData->getGrossMtd();
             }
         }
+
         return 0;
     }
 
     public function getGrossAnnualized()
     {
         $twr = $this->getGrossActual();
+
         return $this->calculateAnnualizedTwr($twr);
     }
 
     /**
-     * Calculate annualized TWR
+     * Calculate annualized TWR.
      *
      * @param $actualTwr
+     *
      * @return int
      */
     public function calculateAnnualizedTwr($actualTwr)

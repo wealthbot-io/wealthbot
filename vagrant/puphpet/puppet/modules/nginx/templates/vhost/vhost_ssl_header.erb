@@ -13,6 +13,18 @@ server {
   <%- end %>
   server_name  <%= @rewrite_www_to_non_www ? @server_name[0].gsub(/^www\./, '') : @server_name.join(" ") %>;
 
+  <% if (defined? @rewrites) %>
+    <%- @rewrites.each do |i, rewrite| -%>
+      <%- if (rewrite['when'] && !rewrite['when'].empty?) -%>
+  if (<%= rewrite['when'] %>) {
+    rewrite "<%= rewrite['regex'] %>" <%= rewrite['target'] %>;
+  }
+      <%- else -%>
+  rewrite <%= rewrite['regex'] %> <%= rewrite['target'] %>;
+      <%- end -%>
+    <%- end -%>
+  <% end %>
+
   ssl on;
 
   ssl_certificate           <%= scope.lookupvar('nginx::config::conf_dir') %>/<%= @name.gsub(' ', '_') %>.crt;

@@ -1,6 +1,6 @@
 require 'spec_helper_acceptance'
 
-describe 'apt class', :unless => UNSUPPORTED_PLATFORMS.include?(fact('osfamily')) do
+describe 'apt class' do
 
   context 'default parameters' do
     # Using puppet_apply as a helper

@@ -331,7 +331,7 @@ App.module('Wealthbot.Clients', function(Mod, App, Backbone, Marionette, $) {
             Mod.filterByClientName();
         });
 
-        $('.modal-account-settings .save-modal-form-btn').click(function (event)
+        $(document).on('click','.modal-account-settings .save-modal-form-btn',function (event)
         {
             event.preventDefault();
             var activeModalForm = $(this)
@@ -360,7 +360,7 @@ App.module('Wealthbot.Clients', function(Mod, App, Backbone, Marionette, $) {
             return false;
         });
 
-        $('.modal-client-settings .save-modal-form-btn').click(function (event)
+        $(document).on('click','.modal-client-settings .save-modal-form-btn',function (event)
         {
             event.preventDefault();
             var $closeHouseholdForm = $('#household-close form');
@@ -398,7 +398,7 @@ App.module('Wealthbot.Clients', function(Mod, App, Backbone, Marionette, $) {
             return false;
         });
 
-        $('#client_personal_settings_employmentStatus input:radio').live('change', function() {
+        $(document).on('change','#client_personal_settings_employmentStatus input:radio', function() {
             var employed = ('Employed' == $(this).val() || 'Self-Employed' == $(this).val());
             var employmentDiv = $('#user-employment');
 
@@ -409,7 +409,7 @@ App.module('Wealthbot.Clients', function(Mod, App, Backbone, Marionette, $) {
             }
         });
 
-        $('#household_spouse_form_employmentType input:radio').live('change', function() {
+        $(document).on('change','#household_spouse_form_employmentType input:radio', function() {
             var employed = ('Employed' == $(this).val() || 'Self-Employed' == $(this).val());
             var spouseEmploymentDiv = $('#spouse-employment');
 
@@ -420,7 +420,7 @@ App.module('Wealthbot.Clients', function(Mod, App, Backbone, Marionette, $) {
             }
         });
 
-        $('#client_personal_settings_maritalStatus').live('change', function() {
+        $(document).on('change','#client_personal_settings_maritalStatus', function() {
             var married = 'Married' == $('#client_personal_settings_maritalStatus').val();
             var spouseDataDiv = $('#spouse-data');
 
@@ -431,7 +431,7 @@ App.module('Wealthbot.Clients', function(Mod, App, Backbone, Marionette, $) {
             }
         });
 
-        $('.jq-ce-date').live('focusin', function() {
+        $('.jq-ce-date').on('focusin', function() {
             $(this).inputmask("99-99-9999");
 
             $(this).datepicker({

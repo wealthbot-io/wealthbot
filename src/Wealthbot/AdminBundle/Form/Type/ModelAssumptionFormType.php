@@ -10,11 +10,11 @@
 namespace Wealthbot\AdminBundle\Form\Type;
 
 use Doctrine\ORM\EntityManager;
-use Wealthbot\AdminBundle\Entity\CeModel;
-use Wealthbot\AdminBundle\Form\EventListener\ModelAssumptionFormTypeEventListener;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Wealthbot\AdminBundle\Entity\CeModel;
+use Wealthbot\AdminBundle\Form\EventListener\ModelAssumptionFormTypeEventListener;
 
 class ModelAssumptionFormType extends AbstractType
 {
@@ -32,21 +32,21 @@ class ModelAssumptionFormType extends AbstractType
         $data = $builder->getData();
         $owner = $data->getOwner();
 
-        if ($owner->hasRole('ROLE_RIA') && $owner->getRiaCompanyInformation()->getIsShowClientExpectedAssetClass() ) {
+        if ($owner->hasRole('ROLE_RIA') && $owner->getRiaCompanyInformation()->getIsShowClientExpectedAssetClass()) {
             $builder
-                ->add('generous_market_return', 'number', array(
+                ->add('generous_market_return', 'number', [
                         'label' => 'Generous Market Returns',
                         'precision' => 2,
                         'grouping' => true,
-                        'required' => true
-                    )
+                        'required' => true,
+                    ]
                 )
-                ->add('low_market_return', 'number', array(
+                ->add('low_market_return', 'number', [
                         'label' => 'Low Market Returns',
                         'precision' => 2,
                         'grouping' => true,
-                        'required' => true
-                    )
+                        'required' => true,
+                    ]
                 );
         }
 
@@ -54,14 +54,14 @@ class ModelAssumptionFormType extends AbstractType
         $builder->addEventSubscriber($subscriber);
     }
 
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => 'Wealthbot\AdminBundle\Entity\CeModel'
-        ));
+        $resolver->setDefaults([
+            'data_class' => 'Wealthbot\AdminBundle\Entity\CeModel',
+        ]);
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'wealthbot_adminbundle_model_assumption_type';
     }

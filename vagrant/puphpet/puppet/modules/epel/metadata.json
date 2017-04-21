@@ -1,9 +1,9 @@
 {
   "name": "stahnma-epel",
-  "version": "1.0.2",
+  "version": "1.2.2",
   "author": "stahnma",
   "summary": "Setup the EPEL package repo",
-  "license": "Apache License, Version 2.0",
+  "license": "Apache-2.0",
   "source": "http://github.com/stahnma/puppet-module-epel",
   "project_page": "http://github.com/stahnma/puppet-module-epel",
   "issues_url": "https://github.com/stahnma/puppet-module-epel/issues",
@@ -61,6 +61,6 @@
   ],
   "description": "Setup the EPEL package repo on Centos/RHEL et al",
   "dependencies": [
-  
+    {"name":"puppetlabs/stdlib","version_requirement":">= 3.0.0"}
   ]
 }

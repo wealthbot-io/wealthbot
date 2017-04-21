@@ -3,21 +3,20 @@
 namespace Wealthbot\AdminBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\ORM\Mapping as ORM;
 use Wealthbot\AdminBundle\Model\CeModelInterface;
 
 /**
- * Wealthbot\AdminBundle\Entity\AssetClass
+ * Wealthbot\AdminBundle\Entity\AssetClass.
  */
 class AssetClass
 {
     /**
-     * @var integer $id
+     * @var int
      */
     private $id;
 
     /**
-     * @var string $type
+     * @var string
      */
     private $type;
 
@@ -25,10 +24,10 @@ class AssetClass
     const TYPE_STOCKS = 'Stocks';
     const TYPE_BONDS = 'Bonds';
 
-    static private $_typeValues = null;
+    private static $_typeValues = null;
 
     /**
-     * @var string $name
+     * @var string
      */
     private $name;
 
@@ -38,7 +37,7 @@ class AssetClass
     private $subclasses;
 
     /**
-     * @var integer
+     * @var int
      */
     private $model_id;
 
@@ -48,13 +47,12 @@ class AssetClass
     private $model;
 
     /**
-     * @var integer
+     * @var int
      */
     private $tolerance_band;
 
-
     /**
-     * Constructor
+     * Constructor.
      */
     public function __construct()
     {
@@ -62,9 +60,9 @@ class AssetClass
     }
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer
+     * @return int
      */
     public function getId()
     {
@@ -72,10 +70,12 @@ class AssetClass
     }
 
     /**
-     * Set type
+     * Set type.
      *
      * @param string $type
+     *
      * @return AssetClass
+     *
      * @throws \InvalidArgumentException
      */
     public function setType($type)
@@ -92,7 +92,7 @@ class AssetClass
     }
 
     /**
-     * Get type
+     * Get type.
      *
      * @return string
      */
@@ -102,19 +102,20 @@ class AssetClass
     }
 
     /**
-     * Get array ENUM values type column
+     * Get array ENUM values type column.
      *
      * @static
+     *
      * @return array
      */
-    static public function getTypeChoices()
+    public static function getTypeChoices()
     {
         // Build $_typeValues if this is the first call
         if (self::$_typeValues === null) {
-            self::$_typeValues = array();
+            self::$_typeValues = [];
             $oClass = new \ReflectionClass('\Wealthbot\AdminBundle\Entity\AssetClass');
             $classConstants = $oClass->getConstants();
-            $constantPrefix = "TYPE_";
+            $constantPrefix = 'TYPE_';
             foreach ($classConstants as $key => $val) {
                 if (substr($key, 0, strlen($constantPrefix)) === $constantPrefix) {
                     self::$_typeValues[$val] = $val;
@@ -126,9 +127,10 @@ class AssetClass
     }
 
     /**
-     * Set name
+     * Set name.
      *
      * @param string $name
+     *
      * @return AssetClass
      */
     public function setName($name)
@@ -139,7 +141,7 @@ class AssetClass
     }
 
     /**
-     * Get name
+     * Get name.
      *
      * @return string
      */
@@ -154,7 +156,7 @@ class AssetClass
     }
 
     /**
-     * Get subclasses
+     * Get subclasses.
      *
      * @return \Doctrine\Common\Collections\Collection
      */
@@ -164,9 +166,10 @@ class AssetClass
     }
 
     /**
-     * Add subclasses
+     * Add subclasses.
      *
      * @param \Wealthbot\AdminBundle\Entity\Subclass $subclasses
+     *
      * @return AssetClass
      */
     public function addSubclasse(\Wealthbot\AdminBundle\Entity\Subclass $subclasses)
@@ -177,7 +180,7 @@ class AssetClass
     }
 
     /**
-     * Remove subclasses
+     * Remove subclasses.
      *
      * @param \Wealthbot\AdminBundle\Entity\Subclass $subclasses
      */
@@ -188,7 +191,7 @@ class AssetClass
 
     public function setSubclasses($subclasses)
     {
-        foreach($subclasses as $subclass){
+        foreach ($subclasses as $subclass) {
             $subclass->setAssetClass($this);
         }
 
@@ -196,9 +199,10 @@ class AssetClass
     }
 
     /**
-     * Set model_id
+     * Set model_id.
      *
-     * @param integer $modelId
+     * @param int $modelId
+     *
      * @return AssetClass
      */
     public function setModelId($modelId)
@@ -209,9 +213,9 @@ class AssetClass
     }
 
     /**
-     * Get model_id
+     * Get model_id.
      *
-     * @return integer
+     * @return int
      */
     public function getModelId()
     {
@@ -219,9 +223,10 @@ class AssetClass
     }
 
     /**
-     * Set model
+     * Set model.
      *
      * @param CeModelInterface $model
+     *
      * @return AssetClass
      */
     public function setModel(CeModelInterface $model = null)
@@ -232,7 +237,7 @@ class AssetClass
     }
 
     /**
-     * Get model
+     * Get model.
      *
      * @return \Wealthbot\AdminBundle\Entity\CeModel
      */
@@ -242,7 +247,7 @@ class AssetClass
     }
 
     /**
-     * Returns copied instance of AssetClass
+     * Returns copied instance of AssetClass.
      *
      * @return self
      */
@@ -257,9 +262,10 @@ class AssetClass
     }
 
     /**
-     * Add subclasses
+     * Add subclasses.
      *
      * @param \Wealthbot\AdminBundle\Entity\Subclass $subclasses
+     *
      * @return AssetClass
      */
     public function addSubclass(\Wealthbot\AdminBundle\Entity\Subclass $subclasses)
@@ -270,7 +276,7 @@ class AssetClass
     }
 
     /**
-     * Remove subclasses
+     * Remove subclasses.
      *
      * @param \Wealthbot\AdminBundle\Entity\Subclass $subclasses
      */
@@ -279,11 +285,11 @@ class AssetClass
         $this->subclasses->removeElement($subclasses);
     }
 
-
     /**
-     * Set tolerance_band
+     * Set tolerance_band.
      *
-     * @param integer $toleranceBand
+     * @param int $toleranceBand
+     *
      * @return AssetClass
      */
     public function setToleranceBand($toleranceBand)
@@ -294,9 +300,9 @@ class AssetClass
     }
 
     /**
-     * Get tolerance_band
+     * Get tolerance_band.
      *
-     * @return integer
+     * @return int
      */
     public function getToleranceBand()
     {

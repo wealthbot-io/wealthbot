@@ -4,18 +4,16 @@ namespace Wealthbot\ClientBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
 use Wealthbot\AdminBundle\Entity\Security;
-use Wealthbot\AdminBundle\Entity\SecurityPrice;
 use Wealthbot\ClientBundle\Entity\Lot;
 use Wealthbot\ClientBundle\Entity\Position;
 use Wealthbot\ClientBundle\Entity\SystemAccount;
 use Wealthbot\UserBundle\Entity\User;
 
 /**
- * LotRepository
+ * LotRepository.
  *
  * Repository for trade Lots (by clientSystemAccount, Security, date).
  * Aggregated Lots by security and account on date is making Position on date.
- *
  */
 class LotRepository extends EntityRepository
 {
@@ -34,9 +32,9 @@ class LotRepository extends EntityRepository
     }
     //======= END For fixtures =======
 
-    public function getRealizedLots($year, $accounts = array(), $sort = 'securities.name', $direction = 'DESC')
+    public function getRealizedLots($year, $accounts = [], $sort = 'securities.name', $direction = 'DESC')
     {
-        $qb = $this->createQueryBuilder("lots");
+        $qb = $this->createQueryBuilder('lots');
         $qb
             ->join('lots.position', 'positions')
             ->join('lots.initial', 'initial_lots')
@@ -48,7 +46,7 @@ class LotRepository extends EntityRepository
             ->andWhere('lots.status = :status')
             ->setParameter('status', Lot::LOT_CLOSED)
 
-            ->andWhere("positions.date BETWEEN :date1 AND :date2")
+            ->andWhere('positions.date BETWEEN :date1 AND :date2')
             ->setParameter('date1', "$year-01-01")
             ->setParameter('date2', "$year-12-31")
 
@@ -60,24 +58,21 @@ class LotRepository extends EntityRepository
 
     public function getInitialLot($position)
     {
-        $lot = $this->createQueryBuilder("lots")
+        $lot = $this->createQueryBuilder('lots')
             ->where('lots.position = :position')
             ->setParameter('position', $position)
             ->setMaxResults(1)
             ->getQuery()->getOneOrNullResult()
         ;
 
-        if ($lot)
-        {
-            if ($lot->getStatus() == Lot::LOT_INITIAL)
-            {
+        if ($lot) {
+            if ($lot->getStatus() === Lot::LOT_INITIAL) {
                 return $lot;
-            }
-            else {
-                return $this->createQueryBuilder("lots")
+            } else {
+                return $this->createQueryBuilder('lots')
 
-                    ->where("lots.id = :lot")
-                    ->setParameter("lot", $lot->getInitial())
+                    ->where('lots.id = :lot')
+                    ->setParameter('lot', $lot->getInitial())
 
                     ->setMaxResults(1)
                     ->getQuery()->getOneOrNullResult()
@@ -85,10 +80,10 @@ class LotRepository extends EntityRepository
             }
         }
 
-        return null;
+        return;
     }
 
-    public function getTradeRecon(\DateTime $dateFrom, \DateTime $dateTo, User $ria = null, $filteredLots = array(), $clientName = '')
+    public function getTradeRecon(\DateTime $dateFrom, \DateTime $dateTo, User $ria = null, $filteredLots = [], $clientName = '')
     {
         $qb = $this->createQueryBuilder('lots');
 
@@ -130,26 +125,26 @@ class LotRepository extends EntityRepository
             foreach ($nameArray as $key => $value) {
                 $orX = $qb->expr()->orX();
 
-                $orX->add($qb->expr()->like('profile.first_name', '?' . ($key * 2 + 1)));
-                $orX->add($qb->expr()->like('profile.last_name', '?' . ($key * 2 + 2)));
+                $orX->add($qb->expr()->like('profile.first_name', '?'.($key * 2 + 1)));
+                $orX->add($qb->expr()->like('profile.last_name', '?'.($key * 2 + 2)));
 
-                $qb->setParameter($key * 2 + 1, '%' . $value . '%');
-                $qb->setParameter($key * 2 + 2, '%' . $value . '%');
+                $qb->setParameter($key * 2 + 1, '%'.$value.'%');
+                $qb->setParameter($key * 2 + 2, '%'.$value.'%');
 
                 $qb->andWhere($orX);
             }
-
         }
 
         return $qb->getQuery()->execute();
     }
 
-    public function isReconciled(\DateTime $date, SystemAccount $account = null) {
+    public function isReconciled(\DateTime $date, SystemAccount $account = null)
+    {
         $isReconciled = true;
 
-        $fromDate = clone($date);
+        $fromDate = clone $date;
         $fromDate->setTime(0, 0, 0);
-        $toDate = clone($date);
+        $toDate = clone $date;
         $toDate->setTime(23, 59, 59);
 
         $qb = $this->createQueryBuilder('lots');

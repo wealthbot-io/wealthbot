@@ -9,104 +9,109 @@
 
 namespace Wealthbot\AdminBundle\Model;
 
-
 use Wealthbot\AdminBundle\Entity\SecurityAssignment;
 use Wealthbot\AdminBundle\Entity\Subclass;
 
 interface CeModelEntityInterface
 {
     /**
-     * Set is qualified
+     * Set is qualified.
      *
      * @param $isQualified
+     *
      * @return self
      */
     public function setIsQualified($isQualified);
 
     /**
-     * Get is qualified
+     * Get is qualified.
      *
-     * @return boolean
+     * @return bool
      */
     public function getIsQualified();
 
     /**
-     * Set percent
+     * Set percent.
      *
      * @param float $percent
+     *
      * @return self
      */
     public function setPercent($percent);
 
     /**
-     * Get percent
+     * Get percent.
      *
      * @return float
      */
     public function getPercent();
 
     /**
-     * Set model
+     * Set model.
      *
      * @param CeModelInterface $model
+     *
      * @return self
      */
     public function setModel(CeModelInterface $model = null);
 
     /**
-     * Get model
+     * Get model.
      *
      * @return CeModelInterface
      */
     public function getModel();
 
     /**
-     * Set securityAssignment
+     * Set securityAssignment.
      *
      * @param SecurityAssignment $securityAssignment
+     *
      * @return self
      */
     public function setSecurityAssignment(SecurityAssignment $securityAssignment);
 
     /**
-     * Get securityAssignment
+     * Get securityAssignment.
      *
      * @return SecurityAssignment
      */
     public function getSecurityAssignment();
 
     /**
-     * Set id of subclass
+     * Set id of subclass.
      *
      * @param int $subclassId
+     *
      * @return self
      */
     public function setSubclassId($subclassId);
 
     /**
-     * Get id of subclass
+     * Get id of subclass.
      *
      * @return int
      */
     public function getSubclassId();
 
     /**
-     * Set subclass
+     * Set subclass.
      *
      * @param Subclass $subclass
+     *
      * @return self
      */
     public function setSubclass(Subclass $subclass = null);
 
     /**
-     * Get subclass
+     * Get subclass.
      *
      * @return Subclass
      */
     public function getSubclass();
 
     /**
-     * Return array of securityAssignment name and percent values
+     * Return array of securityAssignment name and percent values.
      *
      * @return array
      */
@@ -114,7 +119,7 @@ interface CeModelEntityInterface
 
     /**
      * Copy model entity
-     * returns new model entity with exist model entity data
+     * returns new model entity with exist model entity data.
      *
      * @return self
      */

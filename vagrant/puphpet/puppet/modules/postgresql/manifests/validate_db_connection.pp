@@ -18,6 +18,7 @@ define postgresql::validate_db_connection(
   include postgresql::params
 
   $psql_path = $postgresql::params::psql_path
+  $validcon_script_path = $postgresql::client::validcon_script_path
 
   $cmd_init = "${psql_path} --tuples-only --quiet "
   $cmd_host = $database_host ? {
@@ -40,14 +41,14 @@ define postgresql::validate_db_connection(
     undef   => undef,
     default => "PGPASSWORD=${database_password}",
   }
-  $cmd = join([$cmd_init, $cmd_host, $cmd_user, $cmd_port, $cmd_dbname])
-  $validate_cmd = "/usr/local/bin/validate_postgresql_connection.sh ${sleep} ${tries} '${cmd}'"
+  $cmd = join([$cmd_init, $cmd_host, $cmd_user, $cmd_port, $cmd_dbname], ' ')
+  $validate_cmd = "${validcon_script_path} ${sleep} ${tries} '${cmd}'"
 
   # This is more of a safety valve, we add a little extra to compensate for the
   # time it takes to run each psql command.
   $timeout = (($sleep + 2) * $tries)
 
-  $exec_name = "validate postgres connection for ${database_host}/${database_name}"
+  $exec_name = "validate postgres connection for ${database_username}@${database_host}:${database_port}/${database_name}"
   exec { $exec_name:
     command     => "echo 'Unable to connect to defined database using: ${cmd}' && false",
     unless      => $validate_cmd,

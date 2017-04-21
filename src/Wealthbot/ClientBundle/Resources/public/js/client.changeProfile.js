@@ -1,5 +1,5 @@
 $(function(){
-    $('#your_information input[type="submit"]').live('click', function(event) {
+    $(document).on('click','#your_information input[type="submit"]', function(event) {
         var btn = $(this);
         var form = btn.closest('form');
 
@@ -23,7 +23,7 @@ $(function(){
         event.preventDefault();
     });
 
-    $('#update_password .btn-ajax, #manage_users .btn-ajax').live('click',function(event){
+    $(document).on('click','#update_password .btn-ajax, #manage_users .btn-ajax',function(event){
         var button = this;
         var form = $(button).closest('form');
 
@@ -42,7 +42,7 @@ $(function(){
         event.preventDefault();
     });
 
-    $('.manage-users-edit-btn, .manage-users-delete-btn, .manage-users-cancel-edit-btn').live('click', function(event){
+    $(document).on('click','.manage-users-edit-btn, .manage-users-delete-btn, .manage-users-cancel-edit-btn', function(event){
         var button = $(this);
 
         button.button('loading');
@@ -58,7 +58,7 @@ $(function(){
 
     });
 
-    $('.change-profile-temp-rebalance-btn, .show-previous-client-portfolio-btn').live('click', function(event) {
+    $(document).on('click','.change-profile-temp-rebalance-btn, .show-previous-client-portfolio-btn', function(event) {
         var btn = $(this);
         btn.parent().append('<img class="ajax-loader" src="/img/ajax-loader.gif" />');
 
@@ -82,7 +82,7 @@ $(function(){
         event.preventDefault();
     });
 
-    $('#choose_another_portfolio_form').live('submit', function(event) {
+    $(document).on('submit','#choose_another_portfolio_form', function(event) {
         var form = $(this);
         var btn = form.find('input[type="submit"]');
 

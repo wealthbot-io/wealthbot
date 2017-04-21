@@ -19,17 +19,17 @@ class LoadFeeData extends AbstractFixture implements OrderedFixtureInterface
 {
     protected $maxTier = 1000000000000;
 
-    protected $data = array(
-        array('fee_without_retirement' => 0.0212, 'tier_top'=> 1000 ),
-        array('fee_without_retirement' => 0.0105, 'tier_top'=> 10000 ),
-        array('fee_without_retirement' => 0.0025, 'tier_top'=> 1000000000000 )
-    );
-    function load(ObjectManager $manager)
+    protected $data = [
+        ['fee_without_retirement' => 0.0212, 'tier_top' => 1000],
+        ['fee_without_retirement' => 0.0105, 'tier_top' => 10000],
+        ['fee_without_retirement' => 0.0025, 'tier_top' => 1000000000000],
+    ];
+    public function load(ObjectManager $manager)
     {
         /** @var BillingSpec $tierSpec */
         $tierSpec = $this->getReference('ria-tier-spec');
 
-        foreach($this->data as $feeData) {
+        foreach ($this->data as $feeData) {
             $fee = new Fee();
             $fee->setFeeWithoutRetirement($feeData['fee_without_retirement'])
                 ->setBillingSpec($tierSpec)
@@ -42,7 +42,7 @@ class LoadFeeData extends AbstractFixture implements OrderedFixtureInterface
         /** @var BillingSpec $tierSpec */
         $tierSpec = $this->getReference('wealthbot-ria-tier-spec');
 
-        foreach($this->data as $feeData) {
+        foreach ($this->data as $feeData) {
             $fee = new Fee();
             $fee->setFeeWithoutRetirement($feeData['fee_without_retirement'])
                 ->setTierTop($feeData['tier_top']);
@@ -62,7 +62,7 @@ class LoadFeeData extends AbstractFixture implements OrderedFixtureInterface
         $manager->flush();
     }
 
-    function getOrder()
+    public function getOrder()
     {
         return 10;
     }

@@ -2,21 +2,20 @@
 
 namespace Wealthbot\ClientBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
 use Wealthbot\AdminBundle\Entity\RebalancerAction;
 
 /**
- * ClientPortfolioValue
+ * ClientPortfolioValue.
  */
 class ClientPortfolioValue
 {
     /**
-     * @var integer
+     * @var int
      */
     private $id;
 
     /**
-     * @var integer
+     * @var int
      */
     private $client_portfolio_id;
 
@@ -91,18 +90,17 @@ class ClientPortfolioValue
     private $reconciled;
 
     /**
-     * Constructor
+     * Constructor.
      */
     public function __construct()
     {
         $this->rebalancerActions = new \Doctrine\Common\Collections\ArrayCollection();
     }
-    
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer 
+     * @return int
      */
     public function getId()
     {
@@ -110,22 +108,23 @@ class ClientPortfolioValue
     }
 
     /**
-     * Set client_portfolio_id
+     * Set client_portfolio_id.
      *
-     * @param integer $clientPortfolioId
+     * @param int $clientPortfolioId
+     *
      * @return ClientPortfolioValue
      */
     public function setClientPortfolioId($clientPortfolioId)
     {
         $this->client_portfolio_id = $clientPortfolioId;
-    
+
         return $this;
     }
 
     /**
-     * Get client_portfolio_id
+     * Get client_portfolio_id.
      *
-     * @return integer 
+     * @return int
      */
     public function getClientPortfolioId()
     {
@@ -133,22 +132,23 @@ class ClientPortfolioValue
     }
 
     /**
-     * Set total_value
+     * Set total_value.
      *
      * @param float $totalValue
+     *
      * @return ClientPortfolioValue
      */
     public function setTotalValue($totalValue)
     {
         $this->total_value = $totalValue;
-    
+
         return $this;
     }
 
     /**
-     * Get total_value
+     * Get total_value.
      *
-     * @return float 
+     * @return float
      */
     public function getTotalValue()
     {
@@ -156,22 +156,23 @@ class ClientPortfolioValue
     }
 
     /**
-     * Set total_in_securities
+     * Set total_in_securities.
      *
      * @param float $totalInSecurities
+     *
      * @return ClientPortfolioValue
      */
     public function setTotalInSecurities($totalInSecurities)
     {
         $this->total_in_securities = $totalInSecurities;
-    
+
         return $this;
     }
 
     /**
-     * Get total_in_securities
+     * Get total_in_securities.
      *
-     * @return float 
+     * @return float
      */
     public function getTotalInSecurities()
     {
@@ -179,22 +180,23 @@ class ClientPortfolioValue
     }
 
     /**
-     * Set total_cash_in_accounts
+     * Set total_cash_in_accounts.
      *
      * @param float $totalCashInAccounts
+     *
      * @return ClientPortfolioValue
      */
     public function setTotalCashInAccounts($totalCashInAccounts)
     {
         $this->total_cash_in_accounts = $totalCashInAccounts;
-    
+
         return $this;
     }
 
     /**
-     * Get total_cash_in_accounts
+     * Get total_cash_in_accounts.
      *
-     * @return float 
+     * @return float
      */
     public function getTotalCashInAccounts()
     {
@@ -202,22 +204,23 @@ class ClientPortfolioValue
     }
 
     /**
-     * Set total_cash_in_money_market
+     * Set total_cash_in_money_market.
      *
      * @param float $totalCashInMoneyMarket
+     *
      * @return ClientPortfolioValue
      */
     public function setTotalCashInMoneyMarket($totalCashInMoneyMarket)
     {
         $this->total_cash_in_money_market = $totalCashInMoneyMarket;
-    
+
         return $this;
     }
 
     /**
-     * Get total_cash_in_money_market
+     * Get total_cash_in_money_market.
      *
-     * @return float 
+     * @return float
      */
     public function getTotalCashInMoneyMarket()
     {
@@ -225,22 +228,23 @@ class ClientPortfolioValue
     }
 
     /**
-     * Set date
+     * Set date.
      *
      * @param \DateTime $date
+     *
      * @return ClientPortfolioValue
      */
     public function setDate($date)
     {
         $this->date = $date;
-    
+
         return $this;
     }
 
     /**
-     * Get date
+     * Get date.
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getDate()
     {
@@ -248,22 +252,23 @@ class ClientPortfolioValue
     }
 
     /**
-     * Set clientPortfolio
+     * Set clientPortfolio.
      *
      * @param \Wealthbot\ClientBundle\Entity\ClientPortfolio $clientPortfolio
+     *
      * @return ClientPortfolioValue
      */
     public function setClientPortfolio(\Wealthbot\ClientBundle\Entity\ClientPortfolio $clientPortfolio = null)
     {
         $this->clientPortfolio = $clientPortfolio;
-    
+
         return $this;
     }
 
     /**
-     * Get clientPortfolio
+     * Get clientPortfolio.
      *
-     * @return \Wealthbot\ClientBundle\Entity\ClientPortfolio 
+     * @return \Wealthbot\ClientBundle\Entity\ClientPortfolio
      */
     public function getClientPortfolio()
     {
@@ -271,9 +276,10 @@ class ClientPortfolioValue
     }
 
     /**
-     * Set sas_cash
+     * Set sas_cash.
      *
      * @param float $sasCash
+     *
      * @return ClientPortfolioValue
      */
     public function setSasCash($sasCash)
@@ -284,9 +290,9 @@ class ClientPortfolioValue
     }
 
     /**
-     * Get sas_cash
+     * Get sas_cash.
      *
-     * @return float 
+     * @return float
      */
     public function getSasCash()
     {
@@ -294,9 +300,10 @@ class ClientPortfolioValue
     }
 
     /**
-     * Set cash_buffer
+     * Set cash_buffer.
      *
      * @param float $cashBuffer
+     *
      * @return ClientPortfolioValue
      */
     public function setCashBuffer($cashBuffer)
@@ -307,9 +314,9 @@ class ClientPortfolioValue
     }
 
     /**
-     * Get cash_buffer
+     * Get cash_buffer.
      *
-     * @return float 
+     * @return float
      */
     public function getCashBuffer()
     {
@@ -317,9 +324,10 @@ class ClientPortfolioValue
     }
 
     /**
-     * Set billing_cash
+     * Set billing_cash.
      *
      * @param float $billingCash
+     *
      * @return ClientPortfolioValue
      */
     public function setBillingCash($billingCash)
@@ -330,9 +338,9 @@ class ClientPortfolioValue
     }
 
     /**
-     * Get billing_cash
+     * Get billing_cash.
      *
-     * @return float 
+     * @return float
      */
     public function getBillingCash()
     {
@@ -340,9 +348,10 @@ class ClientPortfolioValue
     }
 
     /**
-     * Set model_deviation
+     * Set model_deviation.
      *
      * @param float $modelDeviation
+     *
      * @return ClientPortfolioValue
      */
     public function setModelDeviation($modelDeviation)
@@ -353,9 +362,9 @@ class ClientPortfolioValue
     }
 
     /**
-     * Get model_deviation
+     * Get model_deviation.
      *
-     * @return float 
+     * @return float
      */
     public function getModelDeviation()
     {
@@ -363,9 +372,10 @@ class ClientPortfolioValue
     }
 
     /**
-     * Set required_cash
+     * Set required_cash.
      *
      * @param float $requiredCash
+     *
      * @return ClientPortfolioValue
      */
     public function setRequiredCash($requiredCash)
@@ -376,9 +386,9 @@ class ClientPortfolioValue
     }
 
     /**
-     * Get required_cash
+     * Get required_cash.
      *
-     * @return float 
+     * @return float
      */
     public function getRequiredCash()
     {
@@ -386,9 +396,10 @@ class ClientPortfolioValue
     }
 
     /**
-     * Set investable_cash
+     * Set investable_cash.
      *
      * @param float $investableCash
+     *
      * @return ClientPortfolioValue
      */
     public function setInvestableCash($investableCash)
@@ -399,9 +410,9 @@ class ClientPortfolioValue
     }
 
     /**
-     * Get investable_cash
+     * Get investable_cash.
      *
-     * @return float 
+     * @return float
      */
     public function getInvestableCash()
     {
@@ -409,9 +420,10 @@ class ClientPortfolioValue
     }
 
     /**
-     * Add rebalancerActions
+     * Add rebalancerActions.
      *
      * @param \Wealthbot\AdminBundle\Entity\RebalancerAction $rebalancerActions
+     *
      * @return ClientPortfolioValue
      */
     public function addRebalancerAction(\Wealthbot\AdminBundle\Entity\RebalancerAction $rebalancerActions)
@@ -422,7 +434,7 @@ class ClientPortfolioValue
     }
 
     /**
-     * Remove rebalancerActions
+     * Remove rebalancerActions.
      *
      * @param \Wealthbot\AdminBundle\Entity\RebalancerAction $rebalancerActions
      */
@@ -432,9 +444,9 @@ class ClientPortfolioValue
     }
 
     /**
-     * Get rebalancerActions
+     * Get rebalancerActions.
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getRebalancerActions()
     {
@@ -450,9 +462,10 @@ class ClientPortfolioValue
     }
 
     /**
-     * Set reconciled
+     * Set reconciled.
      *
      * @param bool $reconciled
+     *
      * @return ClientPortfolioValue
      */
     public function setReconciled($reconciled)
@@ -463,7 +476,7 @@ class ClientPortfolioValue
     }
 
     /**
-     * Get reconciled
+     * Get reconciled.
      *
      * @return bool
      */
@@ -471,5 +484,4 @@ class ClientPortfolioValue
     {
         return $this->reconciled;
     }
-
 }

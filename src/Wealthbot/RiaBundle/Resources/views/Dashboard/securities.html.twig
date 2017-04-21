@@ -19,32 +19,37 @@
         <div class="tab-content">
             <div class="tab-pane {{ active_tab == 'categories' ? 'active' : '' }}" id="categories_tab"
                  data-is-show-subclasses-priority="{{ (is_show_subclasses_priority is defined and is_show_subclasses_priority) ? 'true' : 'false' }}" >
-                {% render 'WealthbotRiaBundle:Categories:index' %}
+                {{ render(controller('WealthbotRiaBundle:Categories:index')) }}
             </div>
             <div class="tab-pane {{ active_tab == 'securities' ? 'active' : '' }}" id="securities_tab">
-                {% render 'WealthbotRiaBundle:Securities:modelSecuritiesList' %}
+                {{ render(controller('WealthbotRiaBundle:Securities:modelSecuritiesList')) }}
             </div>
             <div class="tab-pane {{ active_tab == 'models' ? 'active' : '' }}" id="models_tab">
-                {% render 'WealthbotRiaBundle:Models:index' with {'withLayout': false} %}
+                {{ render(controller('WealthbotRiaBundle:Models:index', {'withLayout': false} )) }}
             </div>
             <div class="tab-pane {{ active_tab == 'rebalancer_history' ? 'active' : '' }}" id="history_tab">
-                {% render 'WealthbotRiaBundle:Rebalancer:history' %}
+                {{ render(controller('WealthbotRiaBundle:Rebalancer:history')) }}
             </div>
         </div>
     </div>
 
-    <div id="modal_dialog" class="modal hide longModal">
-        <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h3 class="bbh3"></h3>
-        </div>
-        <div class="modal-body">
+    <div id="modal_dialog" class="modal longModal">
 
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3 class="bbh3"></h3>
+            </div>
+            <div class="modal-body">
+
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn save-modal-form-btn btn-primary">Save</button>
+                <a href="#" class="btn btn-default"  data-dismiss="modal" aria-hidden="true">Cancel</a>
+            </div>
         </div>
-        <div class="modal-footer">
-            <button type="submit" class="btn save-modal-form-btn">Save</button>
-            <a href="#" class="btn" data-dismiss="modal" aria-hidden="true">Cancel</a>
-        </div>
+
     </div>
 {% endblock %}
 

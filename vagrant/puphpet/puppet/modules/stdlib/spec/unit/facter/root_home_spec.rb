@@ -49,4 +49,17 @@ describe 'root_home', :type => :fact do
     end
   end
 
+  context "aix" do
+    before do
+      Facter.fact(:kernel).stubs(:value).returns("AIX")
+      Facter.fact(:osfamily).stubs(:value).returns("AIX")
+    end
+    let(:expected_root_home) { "/root" }
+    sample_lsuser = File.read(fixtures('lsuser','root'))
+
+    it "should return /root" do
+      Facter::Util::Resolution.stubs(:exec).with("lsuser -c -a home root").returns(sample_lsuser)
+      expect(Facter.fact(:root_home).value).to eq(expected_root_home)
+    end
+  end
 end

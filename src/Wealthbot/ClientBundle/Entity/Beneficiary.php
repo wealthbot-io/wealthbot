@@ -2,23 +2,22 @@
 
 namespace Wealthbot\ClientBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
 use Wealthbot\ClientBundle\Model\Beneficiary as BaseBeneficiary;
 use Wealthbot\SignatureBundle\Entity\DocumentSignature;
 use Wealthbot\SignatureBundle\Model\SignableInterface;
 
 /**
- * Beneficiary
+ * Beneficiary.
  */
 class Beneficiary extends BaseBeneficiary implements SignableInterface
 {
     /**
-     * @var integer
+     * @var int
      */
     private $id;
 
     /**
-     * @var integer
+     * @var int
      */
     private $account_id;
 
@@ -63,7 +62,7 @@ class Beneficiary extends BaseBeneficiary implements SignableInterface
     private $city;
 
     /**
-     * @var integer
+     * @var int
      */
     private $state_id;
 
@@ -92,11 +91,10 @@ class Beneficiary extends BaseBeneficiary implements SignableInterface
      */
     private $account;
 
-
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer
+     * @return int
      */
     public function getId()
     {
@@ -104,9 +102,10 @@ class Beneficiary extends BaseBeneficiary implements SignableInterface
     }
 
     /**
-     * Set account_id
+     * Set account_id.
      *
-     * @param integer $accountId
+     * @param int $accountId
+     *
      * @return Beneficiary
      */
     public function setAccountId($accountId)
@@ -117,9 +116,9 @@ class Beneficiary extends BaseBeneficiary implements SignableInterface
     }
 
     /**
-     * Get account_id
+     * Get account_id.
      *
-     * @return integer
+     * @return int
      */
     public function getAccountId()
     {
@@ -127,9 +126,10 @@ class Beneficiary extends BaseBeneficiary implements SignableInterface
     }
 
     /**
-     * Set type
+     * Set type.
      *
      * @param string $type
+     *
      * @return Beneficiary
      */
     public function setType($type)
@@ -138,7 +138,7 @@ class Beneficiary extends BaseBeneficiary implements SignableInterface
     }
 
     /**
-     * Get type
+     * Get type.
      *
      * @return string
      */
@@ -148,9 +148,10 @@ class Beneficiary extends BaseBeneficiary implements SignableInterface
     }
 
     /**
-     * Set first_name
+     * Set first_name.
      *
      * @param string $firstName
+     *
      * @return Beneficiary
      */
     public function setFirstName($firstName)
@@ -161,7 +162,7 @@ class Beneficiary extends BaseBeneficiary implements SignableInterface
     }
 
     /**
-     * Get first_name
+     * Get first_name.
      *
      * @return string
      */
@@ -171,9 +172,10 @@ class Beneficiary extends BaseBeneficiary implements SignableInterface
     }
 
     /**
-     * Set last_name
+     * Set last_name.
      *
      * @param string $lastName
+     *
      * @return Beneficiary
      */
     public function setLastName($lastName)
@@ -184,7 +186,7 @@ class Beneficiary extends BaseBeneficiary implements SignableInterface
     }
 
     /**
-     * Get last_name
+     * Get last_name.
      *
      * @return string
      */
@@ -194,9 +196,10 @@ class Beneficiary extends BaseBeneficiary implements SignableInterface
     }
 
     /**
-     * Set middle_name
+     * Set middle_name.
      *
      * @param string $middleName
+     *
      * @return Beneficiary
      */
     public function setMiddleName($middleName)
@@ -207,17 +210,17 @@ class Beneficiary extends BaseBeneficiary implements SignableInterface
     }
 
     /**
-     * Get full name
+     * Get full name.
      *
      * @return string
      */
     public function getFullName()
     {
-        return $this->getFirstName() . ' ' . $this->getMiddleName() . ' ' . $this->getLastName();
+        return $this->getFirstName().' '.$this->getMiddleName().' '.$this->getLastName();
     }
 
     /**
-     * Get middle_name
+     * Get middle_name.
      *
      * @return string
      */
@@ -227,9 +230,10 @@ class Beneficiary extends BaseBeneficiary implements SignableInterface
     }
 
     /**
-     * Set ssn
+     * Set ssn.
      *
      * @param string $ssn
+     *
      * @return Beneficiary
      */
     public function setSsn($ssn)
@@ -240,7 +244,7 @@ class Beneficiary extends BaseBeneficiary implements SignableInterface
     }
 
     /**
-     * Get ssn
+     * Get ssn.
      *
      * @return string
      */
@@ -250,9 +254,10 @@ class Beneficiary extends BaseBeneficiary implements SignableInterface
     }
 
     /**
-     * Set birth_date
+     * Set birth_date.
      *
      * @param \DateTime $birthDate
+     *
      * @return Beneficiary
      */
     public function setBirthDate($birthDate)
@@ -263,7 +268,7 @@ class Beneficiary extends BaseBeneficiary implements SignableInterface
     }
 
     /**
-     * Get birth_date
+     * Get birth_date.
      *
      * @return \DateTime
      */
@@ -273,9 +278,10 @@ class Beneficiary extends BaseBeneficiary implements SignableInterface
     }
 
     /**
-     * Set street
+     * Set street.
      *
      * @param string $street
+     *
      * @return Beneficiary
      */
     public function setStreet($street)
@@ -286,7 +292,7 @@ class Beneficiary extends BaseBeneficiary implements SignableInterface
     }
 
     /**
-     * Get street
+     * Get street.
      *
      * @return string
      */
@@ -296,9 +302,10 @@ class Beneficiary extends BaseBeneficiary implements SignableInterface
     }
 
     /**
-     * Set city
+     * Set city.
      *
      * @param string $city
+     *
      * @return Beneficiary
      */
     public function setCity($city)
@@ -309,7 +316,7 @@ class Beneficiary extends BaseBeneficiary implements SignableInterface
     }
 
     /**
-     * Get city
+     * Get city.
      *
      * @return string
      */
@@ -319,9 +326,10 @@ class Beneficiary extends BaseBeneficiary implements SignableInterface
     }
 
     /**
-     * Set state_id
+     * Set state_id.
      *
-     * @param integer $stateId
+     * @param int $stateId
+     *
      * @return Beneficiary
      */
     public function setStateId($stateId)
@@ -332,9 +340,9 @@ class Beneficiary extends BaseBeneficiary implements SignableInterface
     }
 
     /**
-     * Get state_id
+     * Get state_id.
      *
-     * @return integer
+     * @return int
      */
     public function getStateId()
     {
@@ -342,9 +350,10 @@ class Beneficiary extends BaseBeneficiary implements SignableInterface
     }
 
     /**
-     * Set zip
+     * Set zip.
      *
      * @param string $zip
+     *
      * @return Beneficiary
      */
     public function setZip($zip)
@@ -355,7 +364,7 @@ class Beneficiary extends BaseBeneficiary implements SignableInterface
     }
 
     /**
-     * Get zip
+     * Get zip.
      *
      * @return string
      */
@@ -365,9 +374,10 @@ class Beneficiary extends BaseBeneficiary implements SignableInterface
     }
 
     /**
-     * Set relationship
+     * Set relationship.
      *
      * @param string $relationship
+     *
      * @return Beneficiary
      */
     public function setRelationship($relationship)
@@ -378,7 +388,7 @@ class Beneficiary extends BaseBeneficiary implements SignableInterface
     }
 
     /**
-     * Get relationship
+     * Get relationship.
      *
      * @return string
      */
@@ -388,9 +398,10 @@ class Beneficiary extends BaseBeneficiary implements SignableInterface
     }
 
     /**
-     * Set share
+     * Set share.
      *
      * @param float $share
+     *
      * @return Beneficiary
      */
     public function setShare($share)
@@ -401,7 +412,7 @@ class Beneficiary extends BaseBeneficiary implements SignableInterface
     }
 
     /**
-     * Get share
+     * Get share.
      *
      * @return float
      */
@@ -411,9 +422,10 @@ class Beneficiary extends BaseBeneficiary implements SignableInterface
     }
 
     /**
-     * Set state
+     * Set state.
      *
      * @param \Wealthbot\AdminBundle\Entity\State $state
+     *
      * @return Beneficiary
      */
     public function setState(\Wealthbot\AdminBundle\Entity\State $state = null)
@@ -424,7 +436,7 @@ class Beneficiary extends BaseBeneficiary implements SignableInterface
     }
 
     /**
-     * Get state
+     * Get state.
      *
      * @return \Wealthbot\AdminBundle\Entity\State
      */
@@ -434,9 +446,10 @@ class Beneficiary extends BaseBeneficiary implements SignableInterface
     }
 
     /**
-     * Set account
+     * Set account.
      *
      * @param \Wealthbot\ClientBundle\Entity\ClientAccount $account
+     *
      * @return Beneficiary
      */
     public function setAccount(\Wealthbot\ClientBundle\Entity\ClientAccount $account = null)
@@ -447,7 +460,7 @@ class Beneficiary extends BaseBeneficiary implements SignableInterface
     }
 
     /**
-     * Get account
+     * Get account.
      *
      * @return \Wealthbot\ClientBundle\Entity\ClientAccount
      */
@@ -457,7 +470,7 @@ class Beneficiary extends BaseBeneficiary implements SignableInterface
     }
 
     /**
-     * Get client account object
+     * Get client account object.
      *
      * @return \Wealthbot\ClientBundle\Model\ClientAccount;
      */
@@ -467,7 +480,7 @@ class Beneficiary extends BaseBeneficiary implements SignableInterface
     }
 
     /**
-     * Get id of source object
+     * Get id of source object.
      *
      * @return mixed
      */
@@ -477,7 +490,7 @@ class Beneficiary extends BaseBeneficiary implements SignableInterface
     }
 
     /**
-     * Get type of document signature
+     * Get type of document signature.
      *
      * @return string
      */
@@ -485,6 +498,4 @@ class Beneficiary extends BaseBeneficiary implements SignableInterface
     {
         return DocumentSignature::TYPE_CHANGE_BENEFICIARY;
     }
-
-
 }

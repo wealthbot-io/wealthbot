@@ -2,38 +2,32 @@
 
 namespace Wealthbot\RiaBundle\Controller;
 
-use JMS\Serializer\SerializationContext;
 use JMS\SecurityExtraBundle\Annotation\SecureParam;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Wealthbot\ClientBundle\Entity\Bill;
-use Wealthbot\ClientBundle\Entity\ClientAccount;
-use Wealthbot\ClientBundle\Model\SystemAccount;
 use Wealthbot\ClientBundle\Entity\BillItem;
+use Wealthbot\ClientBundle\Entity\ClientAccount;
 use Wealthbot\RiaBundle\Entity\RiaCompanyInformation;
 use Wealthbot\RiaBundle\Form\Handler\RiaCompanyInformationTwoFormHandler;
 use Wealthbot\RiaBundle\Form\Type\RiaCompanyInformationTwoFormType;
-use Wealthbot\RiaBundle\Service\Manager\SummaryInformationManager;
 use Wealthbot\UserBundle\Entity\Profile;
 use Wealthbot\UserBundle\Entity\User;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\Filesystem\Filesystem;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
-use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class BillingController extends Controller
 {
     public function quarterIndexAction($year, $quarter)
     {
-        return $this->forward('WealthbotRiaBundle:Billing:index', array(), array('year' => $year, 'quarter' => $quarter));
+        return $this->forward('WealthbotRiaBundle:Billing:index', [], ['year' => $year, 'quarter' => $quarter]);
     }
 
     public function indexAction(Request $request)
     {
         $feeManager = $this->get('wealthbot.manager.fee');
-
-        $request = $this->get('request');
         $ria = $this->getUser();
 
         /** @var \Doctrine\ORM\EntityManager $em */
@@ -42,15 +36,15 @@ class BillingController extends Controller
         /** @var \Wealthbot\RiaBundle\Repository\RiaCompanyInformationRepository $riaCompanyInfoRepo */
         $riaCompanyInfoRepo = $em->getRepository('WealthbotRiaBundle:RiaCompanyInformation');
         /** @var RiaCompanyInformation $riaCompanyInfo */
-        $riaCompanyInfo = $riaCompanyInfoRepo->findOneBy(array('ria_user_id' => $ria->getId()));
+        $riaCompanyInfo = $riaCompanyInfoRepo->findOneBy(['ria_user_id' => $ria->getId()]);
 
         $isPreSave = $request->isXmlHttpRequest();
         $form = $this->createForm(new RiaCompanyInformationTwoFormType($this->getUser(), $isPreSave), $riaCompanyInfo);
-        $formHandler = new RiaCompanyInformationTwoFormHandler($form, $request, $em, array('ria' => $ria));
+        $formHandler = new RiaCompanyInformationTwoFormHandler($form, $request, $em, ['ria' => $ria]);
 
         $adminFees = $feeManager->getAdminFee($ria);
 
-        if ($request->getMethod() == 'POST') {
+        if ($request->getMethod() === 'POST') {
             $process = $formHandler->process();
 
             if ($process) {
@@ -62,13 +56,11 @@ class BillingController extends Controller
                     $em->flush();
 
                     return $this->redirect($this->generateUrl('rx_ria_profile_step_four'));
-
                 } else {
-                    return $this->getJsonResponse(array('status' => 'success'));
+                    return $this->getJsonResponse(['status' => 'success']);
                 }
-
             } elseif ($isPreSave) {
-                return $this->getJsonResponse(array('status' => 'error'));
+                return $this->getJsonResponse(['status' => 'error']);
             }
         }
 
@@ -88,16 +80,16 @@ class BillingController extends Controller
         $yearNow = intval($date->format('Y'));
         $years = range($yearFrom, $yearNow);
 
-        $data = array(
+        $data = [
             'form' => $form->createView(),
             'admin_fees' => $adminFees,
-            'csrf' => $this->get('form.csrf_provider')->generateCsrfToken('unknown'),
-            'straight_portfolio_processing' => ($riaCompanyInfo->getPortfolioProcessing() == RiaCompanyInformation::PORTFOLIO_PROCESSING_STRAIGHT_THROUGH),
+            'csrf' => $this->get('security.csrf.token_manager')->getToken('unknown')->getValue(),
+            'straight_portfolio_processing' => ($riaCompanyInfo->getPortfolioProcessing() === RiaCompanyInformation::PORTFOLIO_PROCESSING_STRAIGHT_THROUGH),
             'years' => $years,
             'riaCreatedAt' => $ria->getCreated()->format(\DateTime::ISO8601),
             'is_relation_type_tamp' => $riaCompanyInfo->isRelationTypeTamp(),
-            'active_tab' => $request->get('tab', 'summary')
-        );
+            'active_tab' => $request->get('tab', 'summary'),
+        ];
         $currentYear = $request->get('year');
         $currentQuarter = $request->get('quarter');
         if ($currentYear) {
@@ -113,6 +105,7 @@ class BillingController extends Controller
      *
      * @param $from
      * @param $to
+     *
      * @return Response
      */
     public function loadSummaryTabAction($year, $quarter)
@@ -126,29 +119,28 @@ class BillingController extends Controller
         $periods = $periodManager->getPeriod($year, $quarter);
         $clients = $em->getRepository('WealthbotUserBundle:User')->findRiaClientsByDate($riaUser, $periods['endDate']);
 
-        $clientInfo = array();
+        $clientInfo = [];
         foreach ($clients as $client) {
             $data = $infoManager->getClientInformation($client, $year, $quarter);
             $data['accounts'] = $infoManager->getAccountsInformationByClient($client, $year, $quarter);
             $clientInfo[] = $data;
         }
 
-        return new JsonResponse(array(
-            'graphs'  => $infoManager->getGraphData($clients, $year, $quarter),
-            'clients' => $clientInfo
-        ));
+        return new JsonResponse([
+            'graphs' => $infoManager->getGraphData($clients, $year, $quarter),
+            'clients' => $clientInfo,
+        ]);
     }
 
-    public function clientFeePreviewAction() {
-
-
+    public function clientFeePreviewAction(Request $request)
+    {
         $feeManager = $this->get('wealthbot.manager.fee');
         $riaUser = $this->getUser();
 
         /** @var $companyInformation RiaCompanyInformation */
         $companyInformation = $riaUser->getRiaCompanyInformation();
 
-        $riaFees = $this->getRequest()->get('fees');
+        $riaFees = $request->get('fees');
 
         foreach ($riaFees as $key => $fee) {
             $last = $key;
@@ -157,19 +149,20 @@ class BillingController extends Controller
 
         $clientFees = $feeManager->getClientFees($riaUser, $riaFees);
 
-        return $this->render('WealthbotRiaBundle:Profile:client_fee_preview.html.twig', array(
+        return $this->render('WealthbotRiaBundle:Profile:client_fee_preview.html.twig', [
             'is_allow_retirement_plan' => $companyInformation->getIsAllowRetirementPlan(),
             'admin_fees' => $feeManager->getAdminFee($riaUser),
             'ria_fees' => $riaFees,
-            'client_fees' => $clientFees
-        ));
+            'client_fees' => $clientFees,
+        ]);
     }
 
     /**
-     * Generate bill action
+     * Generate bill action.
      *
      * @SecureParam(name="riaClient", permissions="EDIT")
      * @ParamConverter("riaClient", class="WealthbotUserBundle:User", options={"id" = "client_id"})
+     *
      * @return JsonResponse
      */
     public function generateBillAction(User $riaClient, $year, $quarter, Request $request)
@@ -177,7 +170,7 @@ class BillingController extends Controller
         $em = $this->container->get('doctrine.orm.entity_manager');
         $billManager = $this->container->get('wealthbot.manager.bill');
 
-        $content  = $request->getContent();
+        $content = $request->getContent();
         /** @var ClientAccount[] $accounts */
         $accounts = $em->getRepository('WealthbotClientBundle:ClientAccount')->getAccountsByIds($riaClient, json_decode($content));
 
@@ -193,7 +186,7 @@ class BillingController extends Controller
 
         $flush && $em->flush();
 
-        return new JsonResponse(array(), 200);
+        return new JsonResponse([], 200);
     }
 
     public function generateCustodianFeeFileAction($year, $quarter, Request $request)
@@ -205,31 +198,31 @@ class BillingController extends Controller
             $accounts = $reportManager->getAccountsForCustodianFeeFile($this->getUser(), $selectedAccounts, $year, $quarter);
         } catch (\Exception $e) {
             //Todo: make new listener for Json exceptions.
-            return new JsonResponse(array('status' => $e->getMessage()), 400);
+            return new JsonResponse(['status' => $e->getMessage()], 400);
         }
 
         if ($request->isMethod('post')) {
-            return new JsonResponse(array('status'=>'success'), 200);
+            return new JsonResponse(['status' => 'success'], 200);
         }
 
         $csvFile = $reportManager->getCustodianFeeFile($accounts, $year, $quarter);
 
-        $fileName = 'billing_custodian_fee_file_q' . $quarter . '_' . $year . '.csv';
+        $fileName = 'billing_custodian_fee_file_q'.$quarter.'_'.$year.'.csv';
         $response = new Response($csvFile, 200);
         $response->headers->set('Content-type', 'text/csv');
-        $response->headers->set('Content-disposition', 'attachment;filename=' . $fileName);
+        $response->headers->set('Content-disposition', 'attachment;filename='.$fileName);
 
         return $response;
     }
 
     /**
-     *
      * @SecureParam(name="account", permissions="APPROVE_BILL")
      * @ParamConverter("account", class="WealthbotClientBundle:ClientAccount", options={"id" = "account_id"})
      *
      * @param ClientAccount $account
      * @param $year
      * @param $quarter
+     *
      * @return JsonResponse
      */
     public function approveBillAction(ClientAccount $account, $year, $quarter)
@@ -238,14 +231,15 @@ class BillingController extends Controller
 
         $billManager->approveAccount($account, $year, $quarter, true);
 
-        return new JsonResponse(array(), 200);
+        return new JsonResponse([], 200);
     }
 
     /**
-     * No bill action
+     * No bill action.
      *
      * @SecureParam(name="riaClient", permissions="EDIT")
      * @ParamConverter("riaClient", class="WealthbotUserBundle:User", options={"id" = "client_id"})
+     *
      * @return JsonResponse
      */
     public function noBillAction(User $riaClient, $year, $quarter, Request $request)
@@ -253,7 +247,7 @@ class BillingController extends Controller
         $em = $this->container->get('doctrine.orm.entity_manager');
         $billManager = $this->container->get('wealthbot.manager.bill');
 
-        $content  = $request->getContent();
+        $content = $request->getContent();
         $accounts = $em->getRepository('WealthbotClientBundle:ClientAccount')->getAccountsByIds($riaClient, json_decode($content));
 
         $flush = false;
@@ -264,13 +258,15 @@ class BillingController extends Controller
             }
         }
 
-        if ($flush) $em->flush();
+        if ($flush) {
+            $em->flush();
+        }
 
-        return new JsonResponse(array('status' => 'success'));
+        return new JsonResponse(['status' => 'success']);
     }
 
     /**
-     * Generate billing summary report action
+     * Generate billing summary report action.
      *
      * @return Response
      */
@@ -280,21 +276,21 @@ class BillingController extends Controller
         $reportMananger = $this->get('wealthbot_ria.billing_report.manager');
 
         // Generate report
-        $ria     = $this->getUser();
+        $ria = $this->getUser();
         $periods = $periodMananger->getQuarterPeriod($year, $quarter);
-        $excel   = $reportMananger->generateSummary($ria, $periods);
+        $excel = $reportMananger->generateSummary($ria, $periods);
 
         // Generate filename
-        $periods  = array_keys($periods);
-        $quarter  = empty($quarter) ? min($periods) . '-' . max($periods) : $quarter;
+        $periods = array_keys($periods);
+        $quarter = empty($quarter) ? min($periods).'-'.max($periods) : $quarter;
         $filename = "billing_summary_q{$quarter}_{$year}";
 
         $response = new Response();
-        $response->headers->add(array(
-            'Content-Type'          => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-            'Content-Disposition'   => 'attachment;filename="' . $filename . '.xlsx"',
-            'Cache-Control'         => 'max-age=0',
-        ));
+        $response->headers->add([
+            'Content-Type' => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+            'Content-Disposition' => 'attachment;filename="'.$filename.'.xlsx"',
+            'Cache-Control' => 'max-age=0',
+        ]);
 
         ob_start();
 
@@ -302,14 +298,16 @@ class BillingController extends Controller
         $writer->save('php://output');
 
         $response->setContent(ob_get_clean());
+
         return $response;
     }
 
     /**
-     * PDF Bill report action
+     * PDF Bill report action.
      *
      * @SecureParam(name="riaClient", permissions="VIEW")
      * @ParamConverter("riaClient", class="WealthbotUserBundle:User", options={"id" = "client_id"})
+     *
      * @return Response
      */
     public function pdfReportAction(User $riaClient, $year, $quarter, Request $request)
@@ -318,7 +316,7 @@ class BillingController extends Controller
         $em = $this->container->get('doctrine.orm.entity_manager');
         $reportMananger = $this->get('wealthbot_ria.billing_report.manager');
 
-        $content  = $request->get('content', json_encode(array()));
+        $content = $request->get('content', json_encode([]));
         $accounts = $em->getRepository('WealthbotClientBundle:ClientAccount')->getAccountsByIds($riaClient, json_decode($content));
 
         // Generate PDF bill report
@@ -327,15 +325,16 @@ class BillingController extends Controller
         return new Response(
             $this->get('knp_snappy.pdf')->getOutputFromHtml($html),
             200,
-            array('Content-Type' => 'application/pdf')
+            ['Content-Type' => 'application/pdf']
         );
     }
 
     /**
-     * Email Bill report action
+     * Email Bill report action.
      *
      * @SecureParam(name="riaClient", permissions="VIEW")
      * @ParamConverter("riaClient", class="WealthbotUserBundle:User", options={"id" = "client_id"})
+     *
      * @return JsonResponse
      */
     public function emailReportAction(User $riaClient, $year, $quarter, Request $request)
@@ -346,19 +345,19 @@ class BillingController extends Controller
         $mailer = $this->get('wealthbot_ria.mailer');
         $reportMananger = $this->get('wealthbot_ria.billing_report.manager');
 
-        $content  = $request->getContent();
+        $content = $request->getContent();
         $accounts = $em->getRepository('WealthbotClientBundle:ClientAccount')->getAccountsByIds($riaClient, json_decode($content));
 
         list($accounts, $total) = $reportMananger->getAccountsInfo($accounts, $year, $quarter);
 
-        $result = $mailer->sendEmailBillMessage(array(
-            'ria'            => $this->getUser(),
-            'client'         => $riaClient,
-            'feeTotal'       => $total,
+        $result = $mailer->sendEmailBillMessage([
+            'ria' => $this->getUser(),
+            'client' => $riaClient,
+            'feeTotal' => $total,
             'clientAccounts' => $accounts,
-            'year'           => $year,
-            'quarter'        => $quarter
-        ));
+            'year' => $year,
+            'quarter' => $quarter,
+        ]);
 
         /*
         $content = $request->getContent();
@@ -379,16 +378,17 @@ class BillingController extends Controller
         */
 
         $clientEmail = $riaClient->getEmail();
-        return new JsonResponse(array('message' => $result ? "Email for client [{$clientEmail}] has been send." : "An error occurred when sending email"), $result ? 200 : 500);
+
+        return new JsonResponse(['message' => $result ? "Email for client [{$clientEmail}] has been send." : 'An error occurred when sending email'], $result ? 200 : 500);
     }
 
     /**
-     *
      * @SecureParam(name="account", permissions="CHANGE_CONSOLIDATOR")
      * @ParamConverter("account", class="WealthbotClientBundle:ClientAccount")
      *
      * @param ClientAccount $account
-     * @param Request $request
+     * @param Request       $request
+     *
      * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
     public function updateAccountsPaysForAction(ClientAccount $account, Request $request)
@@ -396,7 +396,7 @@ class BillingController extends Controller
         $number = $request->get('paysFor');
         $em = $this->getDoctrine()->getManager();
 
-        if ($number == '') {
+        if ($number === '') {
             $account->setConsolidator(null);
         } else {
             $consolidateAccount = $em->getRepository('WealthbotClientBundle:ClientAccount')->getByAccountNumber($number);
@@ -413,6 +413,6 @@ class BillingController extends Controller
 
         $em->flush();
 
-        return new JsonResponse(array());
+        return new JsonResponse([]);
     }
 }

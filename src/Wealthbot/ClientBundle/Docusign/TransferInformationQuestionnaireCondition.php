@@ -9,7 +9,6 @@
 
 namespace Wealthbot\ClientBundle\Docusign;
 
-
 use Wealthbot\ClientBundle\Entity\TransferCustodianQuestionAnswer;
 use Wealthbot\ClientBundle\Entity\TransferInformation;
 
@@ -29,5 +28,4 @@ class TransferInformationQuestionnaireCondition extends AbstractTransferInformat
 
         return true;
     }
-
 }

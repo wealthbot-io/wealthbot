@@ -3,27 +3,23 @@
 namespace Wealthbot\UserBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use FOS\UserBundle\Model\GroupInterface;
 use Wealthbot\AdminBundle\Entity\BillingSpec;
 use Wealthbot\AdminBundle\Entity\CeModel;
 use Wealthbot\AdminBundle\Entity\Custodian;
-use Wealthbot\AdminBundle\Entity\Fee;
 use Wealthbot\ClientBundle\Entity\Bill;
 use Wealthbot\ClientBundle\Entity\ClientAccount;
 use Wealthbot\ClientBundle\Entity\ClientAdditionalContact;
 use Wealthbot\ClientBundle\Entity\ClientPortfolio;
 use Wealthbot\ClientBundle\Model\ActivityInterface;
 use Wealthbot\UserBundle\Model\User as BaseUser;
-use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Wealthbot\UserBundle\Entity\User
+ * Wealthbot\UserBundle\Entity\User.
  */
 class User extends BaseUser implements ActivityInterface
 {
-
     /**
-     * @var integer $id
+     * @var int
      */
     protected $id;
 
@@ -48,17 +44,17 @@ class User extends BaseUser implements ActivityInterface
     private $fees;
 
     /**
-     * @var \DateTime $created
+     * @var \DateTime
      */
     private $created;
 
     /**
-     * @var \DateTime $updated
+     * @var \DateTime
      */
     private $updated;
 
     /**
-     * @var \DateTime $password_expired_at
+     * @var \DateTime
      */
     protected $password_expired_at;
 
@@ -73,7 +69,7 @@ class User extends BaseUser implements ActivityInterface
     private $systemAccounts;
 
     /**
-     * @var integer
+     * @var int
      */
     private $master_client_id;
 
@@ -128,7 +124,7 @@ class User extends BaseUser implements ActivityInterface
     private $ownGroups;
 
     /**
-     * @var Array
+     * @var array
      */
     public $additionalSerializerFields;
 
@@ -148,7 +144,7 @@ class User extends BaseUser implements ActivityInterface
     private $closed;
 
     /**
-     * Constructor
+     * Constructor.
      */
     public function __construct()
     {
@@ -166,13 +162,13 @@ class User extends BaseUser implements ActivityInterface
         $this->bills = new ArrayCollection();
         $this->ceModels = new ArrayCollection();
 
-        $this->additionalSerializerFields = array();
+        $this->additionalSerializerFields = [];
     }
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer
+     * @return int
      */
     public function getId()
     {
@@ -180,16 +176,17 @@ class User extends BaseUser implements ActivityInterface
     }
 
     /**
-     * Set profile
+     * Set profile.
      *
      * @param \Wealthbot\UserBundle\Entity\Profile $profile
+     *
      * @return User
      */
     public function setProfile(\Wealthbot\UserBundle\Entity\Profile $profile = null)
     {
         $this->profile = $profile;
 
-        if(!is_null($profile)) {
+        if (!is_null($profile)) {
             $profile->setUser($this);
         }
 
@@ -197,7 +194,7 @@ class User extends BaseUser implements ActivityInterface
     }
 
     /**
-     * Get profile
+     * Get profile.
      *
      * @return \Wealthbot\UserBundle\Entity\Profile
      */
@@ -207,9 +204,10 @@ class User extends BaseUser implements ActivityInterface
     }
 
     /**
-     * Add clientAccounts
+     * Add clientAccounts.
      *
      * @param \Wealthbot\ClientBundle\Entity\ClientAccount $clientAccounts
+     *
      * @return User
      */
     public function addClientAccount(\Wealthbot\ClientBundle\Entity\ClientAccount $clientAccounts)
@@ -220,7 +218,7 @@ class User extends BaseUser implements ActivityInterface
     }
 
     /**
-     * Remove clientAccounts
+     * Remove clientAccounts.
      *
      * @param \Wealthbot\ClientBundle\Entity\ClientAccount $clientAccounts
      */
@@ -230,9 +228,10 @@ class User extends BaseUser implements ActivityInterface
     }
 
     /**
-     * Set riaCompanyInformation
+     * Set riaCompanyInformation.
      *
      * @param \Wealthbot\RiaBundle\Entity\RiaCompanyInformation $riaCompanyInformation
+     *
      * @return User
      */
     public function setRiaCompanyInformation(\Wealthbot\RiaBundle\Entity\RiaCompanyInformation $riaCompanyInformation = null)
@@ -243,9 +242,10 @@ class User extends BaseUser implements ActivityInterface
     }
 
     /**
-     * Get riaCompanyInformation
+     * Get riaCompanyInformation.
      *
      * @return null|\Wealthbot\RiaBundle\Entity\RiaCompanyInformation
+     *
      * @throws \Exception
      */
     public function getRiaCompanyInformation()
@@ -264,7 +264,7 @@ class User extends BaseUser implements ActivityInterface
     }
 
     /**
-     * Get custodian
+     * Get custodian.
      *
      * @return \Wealthbot\AdminBundle\Entity\Custodian
      */
@@ -274,9 +274,10 @@ class User extends BaseUser implements ActivityInterface
     }
 
     /**
-     * Add fees
+     * Add fees.
      *
      * @param \Wealthbot\AdminBundle\Entity\Fee $fees
+     *
      * @return User
      */
     public function addFee(\Wealthbot\AdminBundle\Entity\Fee $fees)
@@ -287,7 +288,7 @@ class User extends BaseUser implements ActivityInterface
     }
 
     /**
-     * Remove fees
+     * Remove fees.
      *
      * @param \Wealthbot\AdminBundle\Entity\Fee $fees
      */
@@ -297,7 +298,7 @@ class User extends BaseUser implements ActivityInterface
     }
 
     /**
-     * Get fees
+     * Get fees.
      *
      * @return \Doctrine\Common\Collections\Collection
      */
@@ -307,9 +308,10 @@ class User extends BaseUser implements ActivityInterface
     }
 
     /**
-     * Set created
+     * Set created.
      *
      * @param \DateTime $created
+     *
      * @return User
      */
     public function setCreated($created)
@@ -320,7 +322,7 @@ class User extends BaseUser implements ActivityInterface
     }
 
     /**
-     * Get created
+     * Get created.
      *
      * @return \DateTime
      */
@@ -330,9 +332,10 @@ class User extends BaseUser implements ActivityInterface
     }
 
     /**
-     * Set updated
+     * Set updated.
      *
      * @param \DateTime $updated
+     *
      * @return User
      */
     public function setUpdated($updated)
@@ -343,7 +346,7 @@ class User extends BaseUser implements ActivityInterface
     }
 
     /**
-     * Get updated
+     * Get updated.
      *
      * @return \DateTime
      */
@@ -353,7 +356,7 @@ class User extends BaseUser implements ActivityInterface
     }
 
     /**
-     * Get clientAccounts
+     * Get clientAccounts.
      *
      * @return ArrayCollection|ClientAccount[]
      */
@@ -363,9 +366,10 @@ class User extends BaseUser implements ActivityInterface
     }
 
     /**
-     * Set password_expired_at
+     * Set password_expired_at.
      *
      * @param \DateTime $passwordExpiredAt
+     *
      * @return User
      */
     public function setPasswordExpiredAt($passwordExpiredAt)
@@ -376,7 +380,7 @@ class User extends BaseUser implements ActivityInterface
     }
 
     /**
-     * Get password_expired_at
+     * Get password_expired_at.
      *
      * @return \DateTime
      */
@@ -386,9 +390,10 @@ class User extends BaseUser implements ActivityInterface
     }
 
     /**
-     * Set riaModelCompletion
+     * Set riaModelCompletion.
      *
      * @param \Wealthbot\RiaBundle\Entity\RiaModelCompletion $riaModelCompletion
+     *
      * @return User
      */
     public function setRiaModelCompletion(\Wealthbot\RiaBundle\Entity\RiaModelCompletion $riaModelCompletion = null)
@@ -399,7 +404,7 @@ class User extends BaseUser implements ActivityInterface
     }
 
     /**
-     * Get riaModelCompletion
+     * Get riaModelCompletion.
      *
      * @return \Wealthbot\RiaBundle\Entity\RiaModelCompletion
      */
@@ -413,11 +418,11 @@ class User extends BaseUser implements ActivityInterface
      */
     private $clientPersonalInformation;
 
-
     /**
-     * Set clientPersonalInformation
+     * Set clientPersonalInformation.
      *
      * @param \Wealthbot\ClientBundle\Entity\PersonalInformation $clientPersonalInformation
+     *
      * @return User
      */
     public function setClientPersonalInformation(\Wealthbot\ClientBundle\Entity\PersonalInformation $clientPersonalInformation = null)
@@ -428,7 +433,7 @@ class User extends BaseUser implements ActivityInterface
     }
 
     /**
-     * Get clientPersonalInformation
+     * Get clientPersonalInformation.
      *
      * @return \Wealthbot\ClientBundle\Entity\PersonalInformation
      */
@@ -438,9 +443,10 @@ class User extends BaseUser implements ActivityInterface
     }
 
     /**
-     * Add systemAccount
+     * Add systemAccount.
      *
      * @param \Wealthbot\ClientBundle\Entity\SystemAccount $systemAccounts
+     *
      * @return User
      */
     public function addSystemAccount(\Wealthbot\ClientBundle\Entity\SystemAccount $systemAccounts)
@@ -451,7 +457,7 @@ class User extends BaseUser implements ActivityInterface
     }
 
     /**
-     * Remove systemAccount
+     * Remove systemAccount.
      *
      * @param \Wealthbot\ClientBundle\Entity\SystemAccount $systemAccounts
      */
@@ -461,7 +467,7 @@ class User extends BaseUser implements ActivityInterface
     }
 
     /**
-     * Get systemAccounts
+     * Get systemAccounts.
      *
      * @return \Doctrine\Common\Collections\Collection
      */
@@ -471,19 +477,20 @@ class User extends BaseUser implements ActivityInterface
     }
 
     /**
-     * Has systemAccounts
+     * Has systemAccounts.
      *
      * @return bool
      */
     public function hasSystemAccounts()
     {
-        return ($this->systemAccounts->count() > 0);
+        return $this->systemAccounts->count() > 0;
     }
 
     /**
-     * Return ria if the user is client
+     * Return ria if the user is client.
      *
      * @return null|User
+     *
      * @throws \Exception
      */
     public function getRia()
@@ -496,9 +503,10 @@ class User extends BaseUser implements ActivityInterface
     }
 
     /**
-     * Add additionalContacts
+     * Add additionalContacts.
      *
      * @param \Wealthbot\ClientBundle\Entity\ClientAdditionalContact $additionalContacts
+     *
      * @return User
      */
     public function addAdditionalContact(\Wealthbot\ClientBundle\Entity\ClientAdditionalContact $additionalContacts)
@@ -509,7 +517,7 @@ class User extends BaseUser implements ActivityInterface
     }
 
     /**
-     * Remove additionalContacts
+     * Remove additionalContacts.
      *
      * @param \Wealthbot\ClientBundle\Entity\ClientAdditionalContact $additionalContacts
      */
@@ -519,7 +527,7 @@ class User extends BaseUser implements ActivityInterface
     }
 
     /**
-     * Get additionalContacts
+     * Get additionalContacts.
      *
      * @return \Doctrine\Common\Collections\Collection
      */
@@ -529,7 +537,7 @@ class User extends BaseUser implements ActivityInterface
     }
 
     /**
-     * Get user first name
+     * Get user first name.
      *
      * @return null|string
      */
@@ -539,7 +547,7 @@ class User extends BaseUser implements ActivityInterface
     }
 
     /**
-     * Get user middle name
+     * Get user middle name.
      *
      * @return null|string
      */
@@ -549,7 +557,7 @@ class User extends BaseUser implements ActivityInterface
     }
 
     /**
-     * Get user last name
+     * Get user last name.
      *
      * @return null|string
      */
@@ -559,17 +567,17 @@ class User extends BaseUser implements ActivityInterface
     }
 
     /**
-     * Get user full name
+     * Get user full name.
      *
      * @return string
      */
     public function getFullName()
     {
-        return $this->getFirstName() . ' ' . $this->getLastName();
+        return $this->getFirstName().' '.$this->getLastName();
     }
 
     /**
-     * Get user birth date
+     * Get user birth date.
      *
      * @return \DateTime|null
      */
@@ -579,7 +587,7 @@ class User extends BaseUser implements ActivityInterface
     }
 
     /**
-     * Get user state
+     * Get user state.
      *
      * @return null|\Wealthbot\AdminBundle\Entity\State
      */
@@ -589,7 +597,7 @@ class User extends BaseUser implements ActivityInterface
     }
 
     /**
-     * Get user city
+     * Get user city.
      *
      * @return null|string
      */
@@ -599,7 +607,7 @@ class User extends BaseUser implements ActivityInterface
     }
 
     /**
-     * Get user street
+     * Get user street.
      *
      * @return null|string
      */
@@ -609,7 +617,7 @@ class User extends BaseUser implements ActivityInterface
     }
 
     /**
-     * Get user zip
+     * Get user zip.
      *
      * @return null|string
      */
@@ -619,7 +627,7 @@ class User extends BaseUser implements ActivityInterface
     }
 
     /**
-     * Get user phone number
+     * Get user phone number.
      *
      * @return null|string
      */
@@ -644,7 +652,6 @@ class User extends BaseUser implements ActivityInterface
             $currSpouse->setMiddleName($spouse->getMiddleName());
             $currSpouse->setLastName($spouse->getLastName());
             $currSpouse->setBirthDate($spouse->getBirthDate());
-
         } else {
             $this->addAdditionalContact($spouse);
         }
@@ -653,7 +660,7 @@ class User extends BaseUser implements ActivityInterface
     }
 
     /**
-     * Get spouse
+     * Get spouse.
      *
      * @return ClientAdditionalContact
      */
@@ -665,11 +672,11 @@ class User extends BaseUser implements ActivityInterface
             }
         }
 
-        return null;
+        return;
     }
 
     /**
-     * Get spouse first name
+     * Get spouse first name.
      *
      * @return null|string
      */
@@ -681,7 +688,7 @@ class User extends BaseUser implements ActivityInterface
     }
 
     /**
-     * Get spouse last name
+     * Get spouse last name.
      *
      * @return null|string
      */
@@ -693,36 +700,36 @@ class User extends BaseUser implements ActivityInterface
     }
 
     /**
-     * Get spouse full name
+     * Get spouse full name.
      *
      * @return string
      */
     public function getSpouseFullName()
     {
-        return $this->getSpouseFirstName() . ' ' . $this->getSpouseLastName();
+        return $this->getSpouseFirstName().' '.$this->getSpouseLastName();
     }
 
     /**
-     * Returns true if client is married and false otherwise
+     * Returns true if client is married and false otherwise.
      *
      * @return bool
      */
     public function isMarried()
     {
         return $this->getProfile() ? $this->getProfile()->isMarried() : false;
-
     }
 
     /**
-     * Returns true if the client has approved final portfolio and false otherwise
+     * Returns true if the client has approved final portfolio and false otherwise.
      *
      * @return bool
+     *
      * @throws \Exception
      */
     public function hasApprovedPortfolio()
     {
         if (!$this->hasRole('ROLE_CLIENT')) {
-            throw new \Exception("User has not role: ROLE_CLIENT");
+            throw new \Exception('User has not role: ROLE_CLIENT');
         }
 
         foreach ($this->getClientPortfolios() as $clientPortfolio) {
@@ -735,7 +742,7 @@ class User extends BaseUser implements ActivityInterface
     }
 
     /**
-     * Get registration step
+     * Get registration step.
      *
      * @return int|null
      */
@@ -745,9 +752,10 @@ class User extends BaseUser implements ActivityInterface
     }
 
     /**
-     * Set master_client_id
+     * Set master_client_id.
      *
-     * @param integer $masterClientId
+     * @param int $masterClientId
+     *
      * @return User
      */
     public function setMasterClientId($masterClientId)
@@ -758,9 +766,9 @@ class User extends BaseUser implements ActivityInterface
     }
 
     /**
-     * Get master_client_id
+     * Get master_client_id.
      *
-     * @return integer
+     * @return int
      */
     public function getMasterClientId()
     {
@@ -768,9 +776,10 @@ class User extends BaseUser implements ActivityInterface
     }
 
     /**
-     * Add slaveClients
+     * Add slaveClients.
      *
      * @param \Wealthbot\UserBundle\Entity\User $slaveClients
+     *
      * @return User
      */
     public function addSlaveClient(\Wealthbot\UserBundle\Entity\User $slaveClients)
@@ -781,7 +790,7 @@ class User extends BaseUser implements ActivityInterface
     }
 
     /**
-     * Remove slaveClients
+     * Remove slaveClients.
      *
      * @param \Wealthbot\UserBundle\Entity\User $slaveClients
      */
@@ -791,7 +800,7 @@ class User extends BaseUser implements ActivityInterface
     }
 
     /**
-     * Get slaveClients
+     * Get slaveClients.
      *
      * @return \Doctrine\Common\Collections\Collection
      */
@@ -801,9 +810,10 @@ class User extends BaseUser implements ActivityInterface
     }
 
     /**
-     * Set masterClient
+     * Set masterClient.
      *
      * @param \Wealthbot\UserBundle\Entity\User $masterClient
+     *
      * @return User
      */
     public function setMasterClient(\Wealthbot\UserBundle\Entity\User $masterClient = null)
@@ -814,7 +824,7 @@ class User extends BaseUser implements ActivityInterface
     }
 
     /**
-     * Get masterClient
+     * Get masterClient.
      *
      * @return \Wealthbot\UserBundle\Entity\User
      */
@@ -824,7 +834,7 @@ class User extends BaseUser implements ActivityInterface
     }
 
     /**
-     * Create new spouse object for user
+     * Create new spouse object for user.
      *
      * @return ClientAdditionalContact
      */
@@ -848,9 +858,10 @@ class User extends BaseUser implements ActivityInterface
     }
 
     /**
-     * Add userDocuments
+     * Add userDocuments.
      *
      * @param \Wealthbot\UserBundle\Entity\Document $userDocuments
+     *
      * @return User
      */
     public function addUserDocument(\Wealthbot\UserBundle\Entity\Document $userDocuments)
@@ -861,7 +872,7 @@ class User extends BaseUser implements ActivityInterface
     }
 
     /**
-     * Remove userDocuments
+     * Remove userDocuments.
      *
      * @param \Wealthbot\UserBundle\Entity\Document $userDocuments
      */
@@ -871,7 +882,7 @@ class User extends BaseUser implements ActivityInterface
     }
 
     /**
-     * Get userDocuments
+     * Get userDocuments.
      *
      * @return \Doctrine\Common\Collections\Collection
      */
@@ -880,15 +891,15 @@ class User extends BaseUser implements ActivityInterface
         return $this->userDocuments;
     }
     /**
-     * @var boolean
+     * @var bool
      */
     private $is_password_reset;
 
-
     /**
-     * Set is_password_reset
+     * Set is_password_reset.
      *
-     * @param boolean $isPasswordReset
+     * @param bool $isPasswordReset
+     *
      * @return User
      */
     public function setIsPasswordReset($isPasswordReset)
@@ -899,9 +910,9 @@ class User extends BaseUser implements ActivityInterface
     }
 
     /**
-     * Get is_password_reset
+     * Get is_password_reset.
      *
-     * @return boolean
+     * @return bool
      */
     public function getIsPasswordReset()
     {
@@ -912,11 +923,11 @@ class User extends BaseUser implements ActivityInterface
      */
     private $alertsConfiguration;
 
-
     /**
-     * Set alertsConfiguration
+     * Set alertsConfiguration.
      *
      * @param \Wealthbot\MailerBundle\Entity\AlertsConfiguration $alertsConfiguration
+     *
      * @return User
      */
     public function setAlertsConfiguration(\Wealthbot\MailerBundle\Entity\AlertsConfiguration $alertsConfiguration = null)
@@ -927,7 +938,7 @@ class User extends BaseUser implements ActivityInterface
     }
 
     /**
-     * Get alertsConfiguration
+     * Get alertsConfiguration.
      *
      * @return \Wealthbot\MailerBundle\Entity\AlertsConfiguration
      */
@@ -937,9 +948,10 @@ class User extends BaseUser implements ActivityInterface
     }
 
     /**
-     * Add riaDashboardBoxes
+     * Add riaDashboardBoxes.
      *
      * @param \Wealthbot\RiaBundle\Entity\RiaDashboardBox $riaDashboardBoxes
+     *
      * @return User
      */
     protected function addRiaDashboardBoxe(\Wealthbot\RiaBundle\Entity\RiaDashboardBox $riaDashboardBoxes)
@@ -948,7 +960,7 @@ class User extends BaseUser implements ActivityInterface
     }
 
     /**
-     * Remove riaDashboardBoxes
+     * Remove riaDashboardBoxes.
      *
      * @param \Wealthbot\RiaBundle\Entity\RiaDashboardBox $riaDashboardBoxes
      */
@@ -958,7 +970,7 @@ class User extends BaseUser implements ActivityInterface
     }
 
     /**
-     * Get riaDashboardBoxes
+     * Get riaDashboardBoxes.
      *
      * @return \Doctrine\Common\Collections\Collection
      */
@@ -972,9 +984,10 @@ class User extends BaseUser implements ActivityInterface
     private $clientSettings;
 
     /**
-     * Set clientSettings
+     * Set clientSettings.
      *
      * @param \Wealthbot\ClientBundle\Entity\ClientSettings $clientSettings
+     *
      * @return User
      */
     public function setClientSettings(\Wealthbot\ClientBundle\Entity\ClientSettings $clientSettings = null)
@@ -985,7 +998,7 @@ class User extends BaseUser implements ActivityInterface
     }
 
     /**
-     * Get clientSettings
+     * Get clientSettings.
      *
      * @return \Wealthbot\ClientBundle\Entity\ClientSettings
      */
@@ -994,11 +1007,11 @@ class User extends BaseUser implements ActivityInterface
         return $this->clientSettings;
     }
 
-
     /**
-     * Add groups
+     * Add groups.
      *
      * @param \FOS\UserBundle\Model\GroupInterface $groups
+     *
      * @return User
      */
     public function addGroup(\FOS\UserBundle\Model\GroupInterface $groups)
@@ -1009,9 +1022,10 @@ class User extends BaseUser implements ActivityInterface
     }
 
     /**
-     * Add groups
+     * Add groups.
      *
      * @param \FOS\UserBundle\Model\GroupInterface|array $groups
+     *
      * @return User
      */
     public function setGroups($groups)
@@ -1019,15 +1033,14 @@ class User extends BaseUser implements ActivityInterface
         if (is_array($groups)) {
             $this->groups = $groups;
         } elseif ($groups instanceof \FOS\UserBundle\Model\GroupInterface) {
-            $this->groups = array($groups);
+            $this->groups = [$groups];
         }
-
 
         return $this;
     }
 
     /**
-     * Remove groups
+     * Remove groups.
      *
      * @param \FOS\UserBundle\Model\GroupInterface $groups
      */
@@ -1037,7 +1050,7 @@ class User extends BaseUser implements ActivityInterface
     }
 
     /**
-     * Get groups
+     * Get groups.
      *
      * @return \Doctrine\Common\Collections\Collection
      */
@@ -1048,22 +1061,24 @@ class User extends BaseUser implements ActivityInterface
 
     public function getGroupsAsString()
     {
-        /**
-         * @var Group $group
+        /*
+         * @var Group
          */
-        foreach ($this->groups as  $group){
+        foreach ($this->groups as  $group) {
             $groupNames[] = $group->getName();
         }
-        if (isset($groupNames) && $groupNames){
-            return join(', ', $groupNames);
+        if (isset($groupNames) && $groupNames) {
+            return implode(', ', $groupNames);
         }
+
         return 'No Groups';
     }
 
     /**
-     * Add clientActivitySummaries
+     * Add clientActivitySummaries.
      *
      * @param \Wealthbot\ClientBundle\Entity\ClientActivitySummary $clientActivitySummaries
+     *
      * @return User
      */
     protected function addClientActivitySummarie(\Wealthbot\ClientBundle\Entity\ClientActivitySummary $clientActivitySummary)
@@ -1072,7 +1087,7 @@ class User extends BaseUser implements ActivityInterface
     }
 
     /**
-     * Remove clientActivitySummaries
+     * Remove clientActivitySummaries.
      *
      * @param \Wealthbot\ClientBundle\Entity\ClientActivitySummary $clientActivitySummary
      */
@@ -1082,7 +1097,7 @@ class User extends BaseUser implements ActivityInterface
     }
 
     /**
-     * Get clientActivitySummaries
+     * Get clientActivitySummaries.
      *
      * @return \Doctrine\Common\Collections\Collection
      */
@@ -1095,11 +1110,11 @@ class User extends BaseUser implements ActivityInterface
      */
     private $clientPortfolios;
 
-
     /**
-     * Add clientPortfolio
+     * Add clientPortfolio.
      *
      * @param \Wealthbot\ClientBundle\Entity\ClientPortfolio $clientPortfolio
+     *
      * @return User
      */
     public function addClientPortfolio(\Wealthbot\ClientBundle\Entity\ClientPortfolio $clientPortfolio)
@@ -1110,7 +1125,7 @@ class User extends BaseUser implements ActivityInterface
     }
 
     /**
-     * Remove clientPortfolios
+     * Remove clientPortfolios.
      *
      * @param \Wealthbot\ClientBundle\Entity\ClientPortfolio $clientPortfolio
      */
@@ -1120,7 +1135,7 @@ class User extends BaseUser implements ActivityInterface
     }
 
     /**
-     * Get clientPortfolios
+     * Get clientPortfolios.
      *
      * @return \Wealthbot\ClientBundle\Entity\ClientPortfolio[]
      */
@@ -1146,9 +1161,10 @@ class User extends BaseUser implements ActivityInterface
     }
 
     /**
-     * Add billingSpecs
+     * Add billingSpecs.
      *
      * @param \Wealthbot\AdminBundle\Entity\BillingSpec $billingSpecs
+     *
      * @return User
      */
     public function addBillingSpec(\Wealthbot\AdminBundle\Entity\BillingSpec $billingSpecs)
@@ -1159,7 +1175,7 @@ class User extends BaseUser implements ActivityInterface
     }
 
     /**
-     * Remove billingSpecs
+     * Remove billingSpecs.
      *
      * @param \Wealthbot\AdminBundle\Entity\BillingSpec $billingSpecs
      */
@@ -1169,9 +1185,10 @@ class User extends BaseUser implements ActivityInterface
     }
 
     /**
-     * Add riaDashboardBoxes
+     * Add riaDashboardBoxes.
      *
      * @param \Wealthbot\RiaBundle\Entity\RiaDashboardBox $riaDashboardBoxes
+     *
      * @return User
      */
     public function addRiaDashboardBox(\Wealthbot\RiaBundle\Entity\RiaDashboardBox $riaDashboardBoxes)
@@ -1182,7 +1199,7 @@ class User extends BaseUser implements ActivityInterface
     }
 
     /**
-     * Remove riaDashboardBoxes
+     * Remove riaDashboardBoxes.
      *
      * @param \Wealthbot\RiaBundle\Entity\RiaDashboardBox $riaDashboardBoxes
      */
@@ -1192,9 +1209,10 @@ class User extends BaseUser implements ActivityInterface
     }
 
     /**
-     * Add clientActivitySummaries
+     * Add clientActivitySummaries.
      *
      * @param \Wealthbot\ClientBundle\Entity\ClientActivitySummary $clientActivitySummaries
+     *
      * @return User
      */
     public function addClientActivitySummary(\Wealthbot\ClientBundle\Entity\ClientActivitySummary $clientActivitySummaries)
@@ -1205,7 +1223,7 @@ class User extends BaseUser implements ActivityInterface
     }
 
     /**
-     * Remove clientActivitySummaries
+     * Remove clientActivitySummaries.
      *
      * @param \Wealthbot\ClientBundle\Entity\ClientActivitySummary $clientActivitySummaries
      */
@@ -1215,9 +1233,10 @@ class User extends BaseUser implements ActivityInterface
     }
 
     /**
-     * Add ownGroups
+     * Add ownGroups.
      *
      * @param \Wealthbot\UserBundle\Entity\Group $ownGroups
+     *
      * @return User
      */
     public function addOwnGroup(\Wealthbot\UserBundle\Entity\Group $ownGroups)
@@ -1228,7 +1247,7 @@ class User extends BaseUser implements ActivityInterface
     }
 
     /**
-     * Remove ownGroups
+     * Remove ownGroups.
      *
      * @param \Wealthbot\UserBundle\Entity\Group $ownGroups
      */
@@ -1238,7 +1257,7 @@ class User extends BaseUser implements ActivityInterface
     }
 
     /**
-     * Get ownGroups
+     * Get ownGroups.
      *
      * @return \Doctrine\Common\Collections\Collection
      */
@@ -1264,22 +1283,23 @@ class User extends BaseUser implements ActivityInterface
     }
 
     /**
-     * Get client type
+     * Get client type.
      *
      * @return string
+     *
      * @throws \Exception
      */
     public function getClientType()
     {
-        if (!$this->hasRole("ROLE_CLIENT")) {
+        if (!$this->hasRole('ROLE_CLIENT')) {
             throw new \Exception('User has not role: ROLE_CLIENT.');
         }
 
-        return ($this->clientSettings ? $this->clientSettings->getClientType() : '');
+        return $this->clientSettings ? $this->clientSettings->getClientType() : '';
     }
 
     /**
-     * Get activity message
+     * Get activity message.
      *
      * @return string
      */
@@ -1294,7 +1314,7 @@ class User extends BaseUser implements ActivityInterface
     }
 
     /**
-     * Get activity client
+     * Get activity client.
      *
      * @return User
      */
@@ -1303,7 +1323,6 @@ class User extends BaseUser implements ActivityInterface
         return $this;
     }
 
-
     public function getClientStatus()
     {
         return $this->profile->getClientStatus();
@@ -1311,12 +1330,12 @@ class User extends BaseUser implements ActivityInterface
 
     public function getFeeShedule()
     {
-        return ($this->getAppointedBillingSpec() ? $this->getAppointedBillingSpec()->getName() : '');
+        return $this->getAppointedBillingSpec() ? $this->getAppointedBillingSpec()->getName() : '';
     }
 
     public function getName()
     {
-        return $this->getLastName() . ', ' . $this->getFirstName();
+        return $this->getLastName().', '.$this->getFirstName();
     }
 
     public function getPaymentMethod()
@@ -1326,19 +1345,22 @@ class User extends BaseUser implements ActivityInterface
 
     public function addBill(Bill $bill)
     {
-        $this->bills[]=$bill;
+        $this->bills[] = $bill;
+
         return $this;
     }
 
     public function removeBill(Bill $bill)
     {
         $this->bills->removeElement($bill);
+
         return $this;
     }
 
     public function setBills($bills)
     {
         $this->bills = $bills;
+
         return $this;
     }
 
@@ -1349,7 +1371,7 @@ class User extends BaseUser implements ActivityInterface
 
     public function isRiaAdmin()
     {
-        return ($this->hasRole('ROLE_RIA') || $this->hasRole('ROLE_RIA_ADMIN'));
+        return $this->hasRole('ROLE_RIA') || $this->hasRole('ROLE_RIA_ADMIN');
     }
 
     /**
@@ -1371,19 +1393,22 @@ class User extends BaseUser implements ActivityInterface
     public function addCeModel(CeModel $ceModel)
     {
         $this->ceModels->add($ceModel);
+
         return $this;
     }
 
     public function removeCeModel(CeModel $ceModel)
     {
         $this->ceModels->removeElement($ceModel);
+
         return $this;
     }
 
     /**
-     * Set closed
+     * Set closed.
      *
      * @param \DateTime $closed
+     *
      * @return User
      */
     public function setClosed($closed)
@@ -1394,7 +1419,7 @@ class User extends BaseUser implements ActivityInterface
     }
 
     /**
-     * Get closed
+     * Get closed.
      *
      * @return \DateTime
      */

@@ -3,7 +3,7 @@
 # Try to automatically detect the version by OS
 #
 class apache::version {
-  # This will be 5 or 6 on RedHat, 6 or wheezy on Debian, 12 or quantal on Ubuntu, 3 on Amazon, etc.
+  # This will be 5 or 6 on RedHat, 6 or wheezy on Debian, 12 or quantal on Ubuntu, etc.
   $osr_array = split($::operatingsystemrelease,'[\/\.]')
   $distrelease = $osr_array[0]
   if ! $distrelease {
@@ -12,7 +12,9 @@ class apache::version {
 
   case $::osfamily {
     'RedHat': {
-      if ($::operatingsystem == 'Fedora' and versioncmp($distrelease, '18') >= 0) or ($::operatingsystem != 'Fedora' and versioncmp($distrelease, '7') >= 0) {
+      if ($::operatingsystem == 'Amazon') {
+        $default = '2.2'
+      } elsif ($::operatingsystem == 'Fedora' and versioncmp($distrelease, '18') >= 0) or ($::operatingsystem != 'Fedora' and versioncmp($distrelease, '7') >= 0) {
         $default = '2.4'
       } else {
         $default = '2.2'
@@ -32,6 +34,9 @@ class apache::version {
     }
     'Gentoo': {
       $default = '2.4'
+    }
+    'Suse': {
+      $default = '2.2'
     }
     default: {
       fail("Class['apache::version']: Unsupported osfamily: ${::osfamily}")

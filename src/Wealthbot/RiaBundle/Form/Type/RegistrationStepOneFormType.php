@@ -9,15 +9,12 @@
 
 namespace Wealthbot\RiaBundle\Form\Type;
 
-
-use Wealthbot\UserBundle\Form\Type\RiaDocumentsFormType;
-use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Wealthbot\UserBundle\Form\Type\RiaDocumentsFormType;
 
 class RegistrationStepOneFormType extends RiaCustodianFormType
 {
@@ -25,15 +22,14 @@ class RegistrationStepOneFormType extends RiaCustodianFormType
     {
         parent::buildForm($builder, $options);
 
+        $builder->add('allow_non_electronically_signing', 'choice', [
+                'choices' => [true => 'Yes', false => 'No'],
+                'expanded' => true,
+            ])
+            ->add('documents', new RiaDocumentsFormType(), ['mapped' => false])
+            ->add('signature', 'text', ['mapped' => false]);
 
-        $builder->add('allow_non_electronically_signing', 'choice', array(
-                'choices' => array(true => 'Yes', false => 'No'),
-                'expanded' => true
-            ))
-            ->add('documents', new RiaDocumentsFormType(), array('mapped' => false))
-            ->add('signature', 'text', array('mapped' => false));
-
-        $builder->addEventListener(FormEvents::BIND, function (FormEvent $event) {
+        $builder->addEventListener(FormEvents::SUBMIT, function (FormEvent $event) {
             $form = $event->getForm();
             $documents = $form->get('documents')->getData();
 
@@ -45,7 +41,7 @@ class RegistrationStepOneFormType extends RiaCustodianFormType
         });
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'step_one';
     }

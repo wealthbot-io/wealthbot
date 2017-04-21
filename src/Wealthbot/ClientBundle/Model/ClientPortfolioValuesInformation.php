@@ -2,11 +2,11 @@
 
 namespace Wealthbot\ClientBundle\Model;
 
-use Wealthbot\ClientBundle\Entity\ClientPortfolioValue;
 use Symfony\Component\Config\Definition\Exception\InvalidTypeException;
+use Wealthbot\ClientBundle\Entity\ClientPortfolioValue;
 
-class ClientPortfolioValuesInformation {
-
+class ClientPortfolioValuesInformation
+{
     /** @var float */
     private $minTotalValue;
 
@@ -19,7 +19,7 @@ class ClientPortfolioValuesInformation {
 
     public function __construct($collection)
     {
-        $jsonData = array();
+        $jsonData = [];
 
         foreach ($collection as $item) {
             if (!($item instanceof ClientPortfolioValue)) {
@@ -36,16 +36,14 @@ class ClientPortfolioValuesInformation {
 
             if (null === $this->maxTotalValue) {
                 $this->maxTotalValue = $totalValue;
-            } elseif($this->maxTotalValue < $totalValue) {
+            } elseif ($this->maxTotalValue < $totalValue) {
                 $this->maxTotalValue = $totalValue;
             }
 
-            $jsonData[] = array(
-                $item->getDate()->getTimestamp()*1000,
-                $item->getTotalValue()
-            );
-
-
+            $jsonData[] = [
+                $item->getDate()->getTimestamp() * 1000,
+                $item->getTotalValue(),
+            ];
         }
 
         $this->jsonData = json_encode($jsonData);
@@ -97,7 +95,7 @@ class ClientPortfolioValuesInformation {
 
     public function getLastPortfolioValues()
     {
-        $lastIndex = count($this->collection)-1;
+        $lastIndex = count($this->collection) - 1;
 
         return isset($this->collection[$lastIndex]) ? $this->collection[$lastIndex] : null;
     }

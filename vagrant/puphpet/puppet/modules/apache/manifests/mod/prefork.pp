@@ -60,7 +60,7 @@ class apache::mod::prefork (
         }
       }
     }
-    'debian', 'freebsd' : {
+    'debian', 'freebsd', 'Suse' : {
       ::apache::mpm{ 'prefork':
         apache_version => $apache_version,
       }

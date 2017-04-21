@@ -2,38 +2,35 @@
 
 namespace Wealthbot\RiaBundle\Controller;
 
+use Doctrine\ORM\EntityManager;
 use JMS\SecurityExtraBundle\Annotation\SecureParam;
-use Wealthbot\AdminBundle\Entity\CeModelEntity;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Wealthbot\AdminBundle\Repository\AssetClassRepository;
-use Wealthbot\AdminBundle\Repository\CeModelEntityRepository;
 use Wealthbot\AdminBundle\Repository\CeModelRepository;
 use Wealthbot\ClientBundle\Entity\ClientAccount;
 use Wealthbot\ClientBundle\Entity\Distribution;
 use Wealthbot\ClientBundle\Entity\SystemAccount;
 use Wealthbot\ClientBundle\Model\Acl;
 use Wealthbot\RiaBundle\Entity\RiaDashboardBox;
-use Wealthbot\RiaBundle\Form\Type\HouseholdPersonalSettingsFormType;
-use Wealthbot\RiaBundle\Form\Type\HouseholdCloseFormType;
-use Wealthbot\RiaBundle\Form\Type\HouseholdSpouseFormType;
-use Wealthbot\RiaBundle\Form\Type\HouseholdContactSettingsFormType;
-use Wealthbot\RiaBundle\Form\Type\HouseholdBillingSettingsFormType;
-use Wealthbot\RiaBundle\Form\Type\HouseholdPortfolioSettingsFormType;
+use Wealthbot\RiaBundle\Entity\RiaModelCompletion;
 use Wealthbot\RiaBundle\Form\Type\AccountSettingsFormType;
-use Wealthbot\RiaBundle\Form\Type\OneTimeDistributionFormType;
+use Wealthbot\RiaBundle\Form\Type\HouseholdBillingSettingsFormType;
+use Wealthbot\RiaBundle\Form\Type\HouseholdCloseFormType;
+use Wealthbot\RiaBundle\Form\Type\HouseholdContactSettingsFormType;
+use Wealthbot\RiaBundle\Form\Type\HouseholdPersonalSettingsFormType;
+use Wealthbot\RiaBundle\Form\Type\HouseholdPortfolioSettingsFormType;
+use Wealthbot\RiaBundle\Form\Type\HouseholdSpouseFormType;
 use Wealthbot\RiaBundle\Form\Type\InviteProspectFormType;
+use Wealthbot\RiaBundle\Form\Type\OneTimeDistributionFormType;
+use Wealthbot\RiaBundle\Form\Type\RiaModelCompletionFormType;
 use Wealthbot\RiaBundle\Form\Type\RiaSearchClientsFormType;
 use Wealthbot\RiaBundle\Form\Type\ScheduledDistributionFormType;
 use Wealthbot\UserBundle\Entity\Document;
-use Wealthbot\UserBundle\Manager\DocumentManager;
-use Wealthbot\UserBundle\Entity\User;
 use Wealthbot\UserBundle\Entity\Profile;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Wealthbot\RiaBundle\Form\Type\RiaModelCompletionFormType;
-use Wealthbot\RiaBundle\Entity\RiaModelCompletion;
-use Doctrine\ORM\EntityManager;
+use Wealthbot\UserBundle\Entity\User;
 
 class DashboardController extends Controller
 {
@@ -52,51 +49,51 @@ class DashboardController extends Controller
         $paginator = $this->get('knp_paginator');
         $recentActivityPagination = $paginator->paginate($activityManager->findByRiaQuery($user), 1, 10);
 
-        if ($request->isXmlHttpRequest() && $request->get('block') == 'most_recent_activity') {
-            return $this->getJsonResponse(array(
+        if ($request->isXmlHttpRequest() && $request->get('block') === 'most_recent_activity') {
+            return $this->getJsonResponse([
                 'status' => 'success',
-                'content' => $this->renderView('WealthbotRiaBundle:Workflow:_workflow_activity_list.html.twig', array(
+                'content' => $this->renderView('WealthbotRiaBundle:Workflow:_workflow_activity_list.html.twig', [
                     'pagination' => $recentActivityPagination,
-                    'show_pagination' => false
-                ))
-            ));
+                    'show_pagination' => false,
+                ]),
+            ]);
         }
 
-        $riaDashboardBoxes = $em->getRepository('WealthbotRiaBundle:RiaDashboardBox')->findBy(array(
-            'ria_user_id' => $this->getUser()->getId()
-        ));
+        $riaDashboardBoxes = $em->getRepository('WealthbotRiaBundle:RiaDashboardBox')->findBy([
+            'ria_user_id' => $this->getUser()->getId(),
+        ]);
 
-        $blocksSequence = array();
+        $blocksSequence = [];
         foreach ($riaDashboardBoxes as $riaDashboardBox) {
             /* @var RiaDashboardBox $riaDashboardBox */
-            $blocksSequence[] = array(
+            $blocksSequence[] = [
                 'template' => $riaDashboardBox->getTemplate(),
-                'sequence' => $riaDashboardBox->getSequence()
-            );
+                'sequence' => $riaDashboardBox->getSequence(),
+            ];
         }
 
         $prospects = $userRepository->findOrderedProspectsByRia($user);
         $notApprovedPortfolios = $userRepository->findClientsWithNotApprovedPortfolioByRiaId($user->getId());
 
-        $portfoliosCount = array(
+        $portfoliosCount = [
             'prospects' => count($prospects),
             'suggested_portfolios' => count($notApprovedPortfolios),
-            'initial_rebalance' => $workflowRepository->getInitialRebalanceCountByRia($user)
-        );
+            'initial_rebalance' => $workflowRepository->getInitialRebalanceCountByRia($user),
+        ];
 
-        $securitiesStatistic = array(
-            array('label' => 'Vanguard Total Stock Market', 'data' => 50000000),
-            array('label' => 'iShares Total Bond', 'data' => 40000000),
-            array('label' => 'DFA Large Cap Value', 'data' => 20000000),
-            array('label' => 'American Funds Growth Fund', 'data' => 10000000),
-            array('label' => 'Vanguard Intermediate Bond', 'data' => 10000000)
-        );
+        $securitiesStatistic = [
+            ['label' => 'Vanguard Total Stock Market', 'data' => 50000000],
+            ['label' => 'iShares Total Bond', 'data' => 40000000],
+            ['label' => 'DFA Large Cap Value', 'data' => 20000000],
+            ['label' => 'American Funds Growth Fund', 'data' => 10000000],
+            ['label' => 'Vanguard Intermediate Bond', 'data' => 10000000],
+        ];
 
         /*$firmMetrics = $firmMetric = $dm->getRepository('WealthbotRiaBundle:FirmMetric')->findOneBy(array(
             'companyInformationId' => $user->getRiaCompanyInformation()->getId()
         ));*/
 
-        return $this->render('WealthbotRiaBundle:Dashboard:index.html.twig', array(
+        return $this->render('WealthbotRiaBundle:Dashboard:index.html.twig', [
             'user' => $user,
             'clients' => $clients,
             'company_information' => $user->getRiaCompanyInformation(),
@@ -106,7 +103,7 @@ class DashboardController extends Controller
             'securities_statistic' => json_encode($securitiesStatistic),
             'recent_activity_pagination' => $recentActivityPagination,
             //'firm_metrics' => $firmMetrics
-        ));
+        ]);
     }
 
     public function ajaxClientsListAction()
@@ -128,13 +125,13 @@ class DashboardController extends Controller
 
         $clientPortfolioManager = $this->get('wealthbot_client.client_portfolio.manager');
 
-        $results = array();
+        $results = [];
         foreach ($clients as $client) {
             $clientGroup = $client->getGroups()->first();
             $lastPortfolioValue = $clientPortfolioValuesRepo->getLastValueByClient($client);
             $clientPortfolio = $clientPortfolioManager->getCurrentPortfolio($client);
 
-            $clientItem = array(
+            $clientItem = [
                 'id' => $client->getId(),
                 'status' => $client->isEnabled() ? 'Active' : 'Closed',
                 'lastName' => $client->getLastName(),
@@ -142,26 +139,26 @@ class DashboardController extends Controller
                 'advisorSet' => $clientGroup ? $clientGroup->getName() : '',
                 'custodian' => $client->getCustodian()->getName(),
                 'billingSpec' => $client->getAppointedBillingSpec()->getName(),
-                'totalValue' => $lastPortfolioValue ? $lastPortfolioValue ->getTotalValue() : 0,
-                'ceModels' => $client->getProfile()->getClientAccountManaged() == HOUSEHOLD_LEVEL ? $clientPortfolio->getPortfolio()->getName() : '',
-                'hasClosedAccounts' => false
-            );
+                'totalValue' => $lastPortfolioValue ? $lastPortfolioValue->getTotalValue() : 0,
+                'ceModels' => $client->getProfile()->getClientAccountManaged() === HOUSEHOLD_LEVEL ? $clientPortfolio->getPortfolio()->getName() : '',
+                'hasClosedAccounts' => false,
+            ];
             /** @var \Wealthbot\ClientBundle\Entity\SystemAccount $account */
             foreach ($client->getSystemAccounts() as $account) {
                 $lastSystemClientAccountValue = $clientAccountValuesRepo->getLatestValueForSystemClientAccountId($account->getId());
-                $accountItem = array(
+                $accountItem = [
                     'id' => $account->getClientAccountId(),
                     'status' => ucfirst($account->getStatus()),
                     'lastName' => $account->getClientAccount()->getPrimaryApplicant()->getLastName(),
                     'firstName' => $account->getClientAccount()->getPrimaryApplicant()->getFirstName(),
                     'accountType' => $account->getTypeAsString(),
                     'number' => $account->getAccountNumber(),
-                    'ceModels' => $client->getProfile()->getClientAccountManaged() == ACCOUNT_LEVEL ? $clientPortfolio->getPortfolio()->getName() : '',
-                    'totalValue' => $lastSystemClientAccountValue ? $lastSystemClientAccountValue->getTotalValue() : 0
-                );
+                    'ceModels' => $client->getProfile()->getClientAccountManaged() === ACCOUNT_LEVEL ? $clientPortfolio->getPortfolio()->getName() : '',
+                    'totalValue' => $lastSystemClientAccountValue ? $lastSystemClientAccountValue->getTotalValue() : 0,
+                ];
                 $clientItem['accounts'][] = $accountItem;
 
-                if ($account->getStatus() == SystemAccount::STATUS_CLOSED) {
+                if ($account->getStatus() === SystemAccount::STATUS_CLOSED) {
                     $clientItem['hasClosedAccounts'] = true;
                 }
             }
@@ -178,11 +175,11 @@ class DashboardController extends Controller
         $activeTab = $request->get('tab') ? $request->get('tab') : 'clients';
         $inviteForm = $this->createForm(new InviteProspectFormType($ria));
 
-        return $this->render('WealthbotRiaBundle:Dashboard:clients_list.html.twig', array(
+        return $this->render('WealthbotRiaBundle:Dashboard:clients_list.html.twig', [
             'inviteForm' => $inviteForm->createView(),
             'activeTab' => $activeTab,
-            'searchForm' => $this->createForm(new RiaSearchClientsFormType())->createView()
-        ));
+            'searchForm' => $this->createForm(new RiaSearchClientsFormType())->createView(),
+        ]);
     }
 
     /**
@@ -195,7 +192,7 @@ class DashboardController extends Controller
             ->createForm(new HouseholdCloseFormType(), $riaClient);
 
         if ($request->isMethod('POST')) {
-            $form->bind($request);
+            $form->handleRequest($request);
 
             if ($form->isValid()) {
                 $formData = $form->getData();
@@ -207,9 +204,9 @@ class DashboardController extends Controller
             }
         }
 
-        return $this->render('WealthbotRiaBundle:Dashboard:household_close.html.twig', array(
-            'form' => $form->createView()
-        ));
+        return $this->render('WealthbotRiaBundle:Dashboard:household_close.html.twig', [
+            'form' => $form->createView(),
+        ]);
     }
 
     /**
@@ -227,11 +224,11 @@ class DashboardController extends Controller
             ->createForm(new HouseholdSpouseFormType($riaClient), $riaClient->getSpouse());
 
         if ($request->isMethod('POST')) {
-            $householdForm->bind($request);
+            $householdForm->handleRequest($request);
 
             $spouseFormValid = true;
-            if (Profile::CLIENT_MARITAL_STATUS_MARRIED == $householdForm->get('maritalStatus')->getData()) {
-                $spouseForm->bind($request);
+            if (Profile::CLIENT_MARITAL_STATUS_MARRIED === $householdForm->get('maritalStatus')->getData()) {
+                $spouseForm->handleRequest($request);
 
                 $spouseFormValid = $spouseForm->isValid();
                 if ($spouseFormValid) {
@@ -252,10 +249,10 @@ class DashboardController extends Controller
             }
         }
 
-        return $this->render('WealthbotRiaBundle:Dashboard:household_settings_personal.html.twig', array(
+        return $this->render('WealthbotRiaBundle:Dashboard:household_settings_personal.html.twig', [
             'householdForm' => $householdForm->createView(),
-            'spouseForm' => $spouseForm->createView()
-        ));
+            'spouseForm' => $spouseForm->createView(),
+        ]);
     }
 
     /**
@@ -268,7 +265,7 @@ class DashboardController extends Controller
             ->createForm(new HouseholdContactSettingsFormType(), $riaClient->getProfile());
 
         if ($request->isMethod('POST')) {
-            $form->bind($request);
+            $form->handleRequest($request);
 
             if ($form->isValid()) {
                 $formData = $form->getData();
@@ -280,9 +277,9 @@ class DashboardController extends Controller
             }
         }
 
-        return $this->render('WealthbotRiaBundle:Dashboard:household_settings_contact.html.twig', array(
-            'form' => $form->createView()
-        ));
+        return $this->render('WealthbotRiaBundle:Dashboard:household_settings_contact.html.twig', [
+            'form' => $form->createView(),
+        ]);
     }
 
     /**
@@ -295,7 +292,7 @@ class DashboardController extends Controller
             ->createForm(new HouseholdBillingSettingsFormType(), $riaClient);
 
         if ($request->isMethod('POST')) {
-            $form->bind($request);
+            $form->handleRequest($request);
 
             if ($form->isValid()) {
                 $formData = $form->getData();
@@ -307,9 +304,9 @@ class DashboardController extends Controller
             }
         }
 
-        return $this->render('WealthbotRiaBundle:Dashboard:household_settings_billing.html.twig', array(
-            'form' => $form->createView()
-        ));
+        return $this->render('WealthbotRiaBundle:Dashboard:household_settings_billing.html.twig', [
+            'form' => $form->createView(),
+        ]);
     }
 
     /**
@@ -324,7 +321,7 @@ class DashboardController extends Controller
             ->createForm(new HouseholdPortfolioSettingsFormType($em), $riaClient);
 
         if ($request->isMethod('POST')) {
-            $form->bind($request);
+            $form->handleRequest($request);
 
             if ($form->isValid()) {
                 $formData = $form->getData();
@@ -336,9 +333,9 @@ class DashboardController extends Controller
             }
         }
 
-        return $this->render('WealthbotRiaBundle:Dashboard:household_settings_portfolio.html.twig', array(
-            'form' => $form->createView()
-        ));
+        return $this->render('WealthbotRiaBundle:Dashboard:household_settings_portfolio.html.twig', [
+            'form' => $form->createView(),
+        ]);
     }
 
     /**
@@ -359,7 +356,7 @@ class DashboardController extends Controller
 
         $scheduledDistribution = $em
             ->getRepository('WealthbotClientBundle:Distribution')
-            ->findOneBy(array('systemClientAccount' => $systemAccount, 'type' => Distribution::TYPE_SCHEDULED));
+            ->findOneBy(['systemClientAccount' => $systemAccount, 'type' => Distribution::TYPE_SCHEDULED]);
         if (null === $scheduledDistribution) {
             $scheduledDistribution = new Distribution();
             $scheduledDistribution->setType(Distribution::TYPE_SCHEDULED);
@@ -368,7 +365,7 @@ class DashboardController extends Controller
         $scheduledDistributionForm = $this->createForm(new ScheduledDistributionFormType(), $scheduledDistribution);
 
         if ($request->isMethod('POST')) {
-            $scheduledDistributionForm->bind($request);
+            $scheduledDistributionForm->handleRequest($request);
             if ($scheduledDistributionForm->isValid()) {
                 $scheduledDistributionFormData = $scheduledDistributionForm->getData();
                 if ($scheduledDistributionFormData->getAmount() > 0) {
@@ -377,7 +374,7 @@ class DashboardController extends Controller
                 }
             }
 
-            $oneTimeDistributionForm->bind($request);
+            $oneTimeDistributionForm->handleRequest($request);
             if ($oneTimeDistributionForm->isValid()) {
                 $oneTimeDistributionFormData = $oneTimeDistributionForm->getData();
                 if ($oneTimeDistributionFormData->getAmount() > 0) {
@@ -386,7 +383,7 @@ class DashboardController extends Controller
                 }
             }
 
-            $form->bind($request);
+            $form->handleRequest($request);
             if ($form->isValid()) {
                 $formData = $form->getData();
                 $em->persist($formData);
@@ -394,17 +391,17 @@ class DashboardController extends Controller
             }
         }
 
-        return $this->render('WealthbotRiaBundle:Dashboard:account_settings.html.twig', array(
+        return $this->render('WealthbotRiaBundle:Dashboard:account_settings.html.twig', [
             'scheduledDistributionForm' => $scheduledDistributionForm->createView(),
             'oneTimeDistributionForm' => $oneTimeDistributionForm->createView(),
-            'form' => $form->createView()
-        ));
+            'form' => $form->createView(),
+        ]);
     }
 
     public function showClientAction(Request $request)
     {
         $action = $request->query->get('action', 'Overview');
-        $doAction = $action == 'Transactions' ? 'WealthbotClientBundle:Dashboard:transactions' : 'WealthbotClientBundle:Dashboard:index';
+        $doAction = $action === 'Transactions' ? 'WealthbotClientBundle:Dashboard:transactions' : 'WealthbotClientBundle:Dashboard:index';
 
         /** @var EntityManager $em */
         $em = $this->get('doctrine.orm.entity_manager');
@@ -423,14 +420,14 @@ class DashboardController extends Controller
         $activeTab = $request->get('tab') ? $request->get('tab') : 'clients';
         $inviteForm = $this->createForm(new InviteProspectFormType($ria));
 
-        return $this->render('WealthbotRiaBundle:Dashboard:show_client.html.twig', array(
+        return $this->render('WealthbotRiaBundle:Dashboard:show_client.html.twig', [
             'inviteForm' => $inviteForm->createView(),
             'activeTab' => $activeTab,
             'client' => $client,
             'action' => $action,
             'doAction' => $doAction,
             'searchForm' => $this->createForm(new RiaSearchClientsFormType())->createView(),
-        ));
+        ]);
     }
 
     public function clientPortfolioAction(Request $request)
@@ -452,12 +449,12 @@ class DashboardController extends Controller
         $activeTab = $request->get('tab') ? $request->get('tab') : 'clients';
         $inviteForm = $this->createForm(new InviteProspectFormType($ria));
 
-        return $this->render('WealthbotRiaBundle:Dashboard:client_portfolio.html.twig', array(
+        return $this->render('WealthbotRiaBundle:Dashboard:client_portfolio.html.twig', [
             'inviteForm' => $inviteForm->createView(),
             'activeTab' => $activeTab,
             'client' => $client,
             'searchForm' => $this->createForm(new RiaSearchClientsFormType())->createView(),
-        ));
+        ]);
     }
 
     public function clientViewAction(Request $request)
@@ -477,7 +474,7 @@ class DashboardController extends Controller
 
         $acl->setClientForRiaClientView($ria, $client->getId());
 
-        switch($request->get('redirect-action')) {
+        switch ($request->get('redirect-action')) {
             case 'overview':
                 $redirectUrl = $this->generateUrl('rx_client_dashboard');
                 break;
@@ -524,21 +521,21 @@ class DashboardController extends Controller
         $riaCompanyInformation = $user->getRiaCompanyInformation();
 
         $progress = 0;
-        $modelCompletion = $em->getRepository('WealthbotRiaBundle:RiaModelCompletion')->findOneBy(array('ria_user_id' => $user->getId()));
+        $modelCompletion = $em->getRepository('WealthbotRiaBundle:RiaModelCompletion')->findOneBy(['ria_user_id' => $user->getId()]);
 
-        if ($modelCompletion){
+        if ($modelCompletion) {
             $progress = $modelCompletion->getProgress();
         }
 
         $form = $this->createForm(new RiaModelCompletionFormType($user, $em), $modelCompletion);
         $searchForm = $this->createForm(new RiaSearchClientsFormType());
 
-        return $this->render('WealthbotRiaBundle:Dashboard:_company_information.html.twig', array(
+        return $this->render('WealthbotRiaBundle:Dashboard:_company_information.html.twig', [
             'company_information' => $riaCompanyInformation,
             'form' => $form->createView(),
             'progress' => $progress,
-            'searchForm' => $searchForm->createView()
-        ));
+            'searchForm' => $searchForm->createView(),
+        ]);
     }
 
     public function updateModelsCompletionAction(Request $request)
@@ -551,9 +548,9 @@ class DashboardController extends Controller
         /** @var User $user */
         $user = $this->getUser();
 
-        $modelCompletion = $em->getRepository('WealthbotRiaBundle:RiaModelCompletion')->findOneBy(array(
-            'ria_user_id' => $user->getId()
-        ));
+        $modelCompletion = $em->getRepository('WealthbotRiaBundle:RiaModelCompletion')->findOneBy([
+            'ria_user_id' => $user->getId(),
+        ]);
         if (!$modelCompletion) {
             $modelCompletion = new RiaModelCompletion();
             $modelCompletion->setRia($user);
@@ -562,7 +559,7 @@ class DashboardController extends Controller
         $form = $this->createForm(new RiaModelCompletionFormType($user, $em), $modelCompletion);
 
         if ($request->isMethod('post')) {
-            $form->bind($request);
+            $form->handleRequest($request);
 
             if ($form->isValid()) {
                 /** @var $modelCompletion RiaModelCompletion */
@@ -573,19 +570,19 @@ class DashboardController extends Controller
 
                 if ($modelCompletion->getSelectCustodians()) {
                     if (!$user->getCustodian()) {
-                        return $this->getJsonResponse(array(
+                        return $this->getJsonResponse([
                             'status' => 'error',
-                            'message' => 'You have not selected custodian.'
-                        ));
+                            'message' => 'You have not selected custodian.',
+                        ]);
                     }
                 }
 
                 if ($modelCompletion->getRebalancingSettings()) {
                     if (!$riaCompanyInformation->getRebalancedMethod()) {
-                        return $this->getJsonResponse(array(
+                        return $this->getJsonResponse([
                             'status' => 'error',
-                            'message' => 'You have not customized rebalancing setting.'
-                        ));
+                            'message' => 'You have not customized rebalancing setting.',
+                        ]);
                     }
                 }
 
@@ -595,21 +592,21 @@ class DashboardController extends Controller
 
                     $assetClasses = $assetClassRepository->findWithSubclassesByModelIdAndOwnerId($portfolioModel->getId(), $user->getId());
                     if (empty($assetClasses)) {
-                        return $this->getJsonResponse(array(
+                        return $this->getJsonResponse([
                             'status' => 'error',
-                            'message' => 'You have not created asset classes and subclasses. Please create them before continuing.'
-                        ));
+                            'message' => 'You have not created asset classes and subclasses. Please create them before continuing.',
+                        ]);
                     }
                 }
 
                 if ($modelCompletion->getAssignSecurities()) {
-                    $securityAssignments = $em->getRepository('WealthbotAdminBundle:SecurityAssignment')->findBy(array('model_id' => $portfolioModel->getId()));
+                    $securityAssignments = $em->getRepository('WealthbotAdminBundle:SecurityAssignment')->findBy(['model_id' => $portfolioModel->getId()]);
 
                     if (empty($securityAssignments)) {
-                        return $this->getJsonResponse(array(
+                        return $this->getJsonResponse([
                             'status' => 'error',
-                            'message' => 'You have not assigned classes and subclasses. Please assign them before continuing.'
-                        ));
+                            'message' => 'You have not assigned classes and subclasses. Please assign them before continuing.',
+                        ]);
                     }
                 }
 
@@ -618,54 +615,53 @@ class DashboardController extends Controller
                     $finishedModel = $repo->findCompletedModelByParentIdAndOwnerId($portfolioId, $user->getId());
 
                     if (!$finishedModel) {
-                        return $this->getJsonResponse(array(
+                        return $this->getJsonResponse([
                             'status' => 'error',
-                            'message' => 'You have not completed models. Please complete them before continuing.'
-                        ));
+                            'message' => 'You have not completed models. Please complete them before continuing.',
+                        ]);
                     }
 
                     $modelWithoutRiskRating = $repo->findModelWithoutRiskRatingByRiaId($user->getId());
                     if ($modelWithoutRiskRating) {
-                        return $this->getJsonResponse(array(
+                        return $this->getJsonResponse([
                             'status' => 'error',
-                            'message' => 'You have models without risk rating. Please modify the risk rating of the models before continuing.'
-                        ));
+                            'message' => 'You have models without risk rating. Please modify the risk rating of the models before continuing.',
+                        ]);
                     }
                 }
 
                 if ($modelCompletion->getCustomizeProposals()) {
-                    $existQuestions = $em->getRepository('WealthbotRiaBundle:RiskQuestion')->findOneBy(array(
-                        'owner_id' => $user->getId()
-                    ));
+                    $existQuestions = $em->getRepository('WealthbotRiaBundle:RiskQuestion')->findOneBy([
+                        'owner_id' => $user->getId(),
+                    ]);
                     if (!$existQuestions) {
-                        return $this->getJsonResponse(array(
+                        return $this->getJsonResponse([
                             'status' => 'error',
-                            'message' => 'You do not completed the Risk Profiling. Please complete the Risk Profiling section before continuing.'
-                        ));
+                            'message' => 'You do not completed the Risk Profiling. Please complete the Risk Profiling section before continuing.',
+                        ]);
                     }
                 }
 
-                if ($modelCompletion->isBillingComplete() && $user->getBillingSpecs()->count() == 0) {
-
-                    return $this->getJsonResponse(array(
+                if ($modelCompletion->isBillingComplete() && $user->getBillingSpecs()->count() === 0) {
+                    return $this->getJsonResponse([
                             'status' => 'error',
-                            'message' => 'You do not completed the Billing Specs. Please create as least one Billing Spec on Billing section before continuing.'
-                        ));
+                            'message' => 'You do not completed the Billing Specs. Please create as least one Billing Spec on Billing section before continuing.',
+                        ]);
                 }
 
                 if ($modelCompletion->getProposalDocuments()) {
                     $documentManager = $this->get('wealthbot_user.document_manager');
-                    $documentTypes = array(
+                    $documentTypes = [
                         Document::TYPE_ADV,
-                        Document::TYPE_INVESTMENT_MANAGEMENT_AGREEMENT
-                    );
+                        Document::TYPE_INVESTMENT_MANAGEMENT_AGREEMENT,
+                    ];
 
                     foreach ($documentTypes as $documentType) {
                         if (!$documentManager->getUserDocumentByType($user->getId(), $documentType)) {
-                            return $this->getJsonResponse(array(
+                            return $this->getJsonResponse([
                                 'status' => 'error',
-                                'message' => 'You did not uploaded proposal documents.'
-                            ));
+                                'message' => 'You did not uploaded proposal documents.',
+                            ]);
                         }
                     }
                 }
@@ -677,11 +673,11 @@ class DashboardController extends Controller
                     $this->get('wealthbot.mailer')->sendAdminsRiaActivatedEmail($user);
                 }
 
-                return $this->getJsonResponse(array('status' => 'success'));
+                return $this->getJsonResponse(['status' => 'success']);
             }
         }
 
-        return $this->getJsonResponse(array('status' => 'error'));
+        return $this->getJsonResponse(['status' => 'error']);
     }
 
     public function isCanCreateClientAction(Request $request)
@@ -691,13 +687,13 @@ class DashboardController extends Controller
         $riaCompanyInformation = $user->getRiaCompanyInformation();
 
         if (!$riaCompanyInformation->getActivated()) {
-            return $this->getJsonResponse(array(
+            return $this->getJsonResponse([
                 'status' => 'error',
-                'message' => 'You must be activated by an admin before you can create a client.'
-            ));
+                'message' => 'You must be activated by an admin before you can create a client.',
+            ]);
         }
 
-        return $this->getJsonResponse(array('status' => 'success'));
+        return $this->getJsonResponse(['status' => 'success']);
     }
 
     public function securitiesAction(Request $request)
@@ -713,18 +709,18 @@ class DashboardController extends Controller
             $isShowRebalancerHistory = $riaCompanyInfo->isRelationTypeTamp();
         }
 
-        return $this->render('WealthbotRiaBundle:Dashboard:securities.html.twig', array(
+        return $this->render('WealthbotRiaBundle:Dashboard:securities.html.twig', [
             'is_show_subclasses_priority' => $isShowPriority,
             'active_tab' => $request->get('tab'),
-            'is_show_rebalancer_history' => $isShowRebalancerHistory
-        ));
+            'is_show_rebalancer_history' => $isShowRebalancerHistory,
+        ]);
     }
 
     public function rebalancingAction(Request $request)
     {
-        return $this->render('WealthbotRiaBundle:Dashboard:rebalancing.html.twig', array(
-            'active_tab' => $request->get('tab', 'rebalancer')
-        ));
+        return $this->render('WealthbotRiaBundle:Dashboard:rebalancing.html.twig', [
+            'active_tab' => $request->get('tab', 'rebalancer'),
+        ]);
     }
 
     public function menuAction($route)
@@ -732,10 +728,10 @@ class DashboardController extends Controller
         /** @var User $ria */
         $ria = $this->getUser();
 
-        return $this->render('WealthbotRiaBundle:Dashboard:menu.html.twig', array(
+        return $this->render('WealthbotRiaBundle:Dashboard:menu.html.twig', [
             'route' => $route,
-            'riaCompanyInformation' => $ria->getRiaCompanyInformation()
-        ));
+            'riaCompanyInformation' => $ria->getRiaCompanyInformation(),
+        ]);
     }
 
     public function clientsSearchAction(Request $request)
@@ -753,30 +749,29 @@ class DashboardController extends Controller
             $clients = $userRepo->findClientsWithoutProspectsByRiaId($ria->getId(), $query);
         }
 
-        $response = array();
+        $response = [];
         /** @var User $client */
         foreach ($clients as $client) {
             $clientStr = $client->getLastName().', '.$client->getFirstName();
 
             if ($withProspects) {
-                $clientStr .= ' - ' . ucfirst($client->getClientStatusAsString());
+                $clientStr .= ' - '.ucfirst($client->getClientStatusAsString());
             }
 
             if ($client->hasStatusProspect()) {
-                $redirectUrl = $this->generateUrl('rx_ria_prospect_portfolio', array('client_id' => $client->getId()));
+                $redirectUrl = $this->generateUrl('rx_ria_prospect_portfolio', ['client_id' => $client->getId()]);
             } else {
-                $redirectUrl = $this->generateUrl('rx_ria_dashboard_show_client', array('client_id' => $client->getId()));
+                $redirectUrl = $this->generateUrl('rx_ria_dashboard_show_client', ['client_id' => $client->getId()]);
             }
 
-            $response[] = array(
+            $response[] = [
                 'id' => $client->getId(),
                 'name' => $clientStr,
-                'redirect_url' => $redirectUrl
-            );
+                'redirect_url' => $redirectUrl,
+            ];
         }
 
         return $this->getJsonResponse($response);
-
     }
 
     public function swapBoxesAction(Request $request)
@@ -792,7 +787,7 @@ class DashboardController extends Controller
         $ria = $this->getUser();
 
         foreach ($boxes as $box) {
-            $dbBox = $repo->findOneBy(array('ria_user_id' => $ria->getId(), 'template' => $box['template']));
+            $dbBox = $repo->findOneBy(['ria_user_id' => $ria->getId(), 'template' => $box['template']]);
 
             if (!$dbBox) {
                 $dbBox = new RiaDashboardBox();
@@ -806,9 +801,9 @@ class DashboardController extends Controller
 
         $em->flush();
 
-        return $this->getJsonResponse(array(
-            'status' => 'success'
-        ));
+        return $this->getJsonResponse([
+            'status' => 'success',
+        ]);
     }
 
     public function deleteMostRecentActivityAction(Request $request)
@@ -822,7 +817,7 @@ class DashboardController extends Controller
         $mostRecentActivity = $activitySummaryManager->find($request->get('id'));
 
         if (!$mostRecentActivity || ($mostRecentActivity && !$activitySummaryManager->hasDeleteAccess($ria, $mostRecentActivity))) {
-            throw $this->createNotFoundException("Most Recent Activity with id %s not found");
+            throw $this->createNotFoundException('Most Recent Activity with id %s not found');
         }
 
         $mostRecentActivity->setIsShowRia(false);
@@ -832,18 +827,18 @@ class DashboardController extends Controller
         $recentActivityPagination = $paginator->paginate($activitySummaryManager->findRiaActivitySummariesQuery($ria->getId(), 9), 1, 9);
         $recentActivityPagination->setUsedRoute('rx_ria_dashboard');
 
-        return $this->getJsonResponse(array(
+        return $this->getJsonResponse([
             'status' => 'success',
-            'content' => $this->renderView('WealthbotRiaBundle:Dashboard:_most_recent_activity_box.html.twig', array(
-                'recent_activity_pagination' => $recentActivityPagination
-            ))
-        ));
+            'content' => $this->renderView('WealthbotRiaBundle:Dashboard:_most_recent_activity_box.html.twig', [
+                'recent_activity_pagination' => $recentActivityPagination,
+            ]),
+        ]);
     }
 
     protected function getJsonResponse(array $data, $code = 200)
     {
         $response = json_encode($data);
 
-        return new Response($response, $code, array('Content-Type'=>'application/json'));
+        return new Response($response, $code, ['Content-Type' => 'application/json']);
     }
 }

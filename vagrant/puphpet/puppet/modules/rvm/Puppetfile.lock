@@ -1,6 +1,7 @@
 FORGE
   remote: https://forgeapi.puppetlabs.com
   specs:
+    golja-gnupg (1.2.0)
     puppetlabs-apache (1.1.0)
       puppetlabs-concat (>= 1.0.0)
       puppetlabs-stdlib (>= 2.4.0)
@@ -9,6 +10,7 @@ FORGE
     puppetlabs-stdlib (4.5.1)
 
 DEPENDENCIES
+  golja-gnupg (>= 1.2.0)
   puppetlabs-apache (>= 1.1.0)
   puppetlabs-stdlib (>= 4.2.0)
 

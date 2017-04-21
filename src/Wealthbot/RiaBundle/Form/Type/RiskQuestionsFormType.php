@@ -9,25 +9,24 @@
 
 namespace Wealthbot\RiaBundle\Form\Type;
 
-use Doctrine\ORM\EntityRepository;
-use Wealthbot\UserBundle\Entity\User;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityRepository;
+use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use Doctrine\Common\Collections\ArrayCollection;
-use Symfony\Component\Form\AbstractType;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Wealthbot\UserBundle\Entity\User;
 
 class RiskQuestionsFormType extends AbstractType
 {
-
     /** @var EntityManager $em */
-    protected  $em;
+    protected $em;
 
     /** @var User $user */
-    protected  $user;
+    protected $user;
 
     /** @var bool $isPreSave */
     private $isPreSave;
@@ -47,24 +46,24 @@ class RiskQuestionsFormType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        foreach($this->questions as $question){
+        foreach ($this->questions as $question) {
             if ($question->getIsWithdrawAgeInput()) {
-                $builder->add('client_birth_date', 'date', array(
+                $builder->add('client_birth_date', 'date', [
                         'widget' => 'text',
                         'pattern' => '{{ month }}-{{ day }}-{{ year }}',
-                        'required' => true
-                    ))
-                    ->add('answer_'.$question->getId(), 'text', array(
-                        'label' => $question->getTitle(),
-                        'property_path' => false,
                         'required' => true,
-                        'data' => $this->user->getProfile()->getWithdrawAge()
-                    ))
+                    ])
+                    ->add('answer_'.$question->getId(), 'text', [
+                        'label' => $question->getTitle(),
+                        'mapped' => false,
+                        'required' => true,
+                        'data' => $this->user->getProfile()->getWithdrawAge(),
+                    ])
                 ;
             } else {
                 $userAnswer = $this->em->getRepository('WealthbotClientBundle:ClientQuestionnaireAnswer')->createQueryBuilder('ua')
                     ->where('ua.client_id = :client_id AND ua.question_id = :question_id')
-                    ->setParameters(array('client_id' => $this->user->getId(), 'question_id' => $question->getId()))
+                    ->setParameters(['client_id' => $this->user->getId(), 'question_id' => $question->getId()])
                     ->setMaxResults(1)
                     ->getQuery()
                     ->getOneOrNullResult();
@@ -72,33 +71,33 @@ class RiskQuestionsFormType extends AbstractType
                 $userAnswer = $userAnswer ? $userAnswer->getAnswer() : $userAnswer;
 
                 $builder
-                    ->add('answer_'.$question->getId(), 'entity', array(
-                            'class' => 'WealthbotRiaBundle:RiskAnswer',
-                            'query_builder' => function(EntityRepository $er) use ($question) {
+                    ->add('answer_'.$question->getId(), 'entity', [
+                            'class' => 'Wealthbot\\RiaBundle\\Entity\\RiskAnswer',
+                            'query_builder' => function (EntityRepository $er) use ($question) {
                                 return $er->createQueryBuilder('a')
                                     ->where('a.risk_question_id = :question_id')
                                     ->setParameter('question_id', $question->getId());
                             },
-                            'empty_value' => $userAnswer ? false : 'Choose an Option',
+                            'placeholder' => $userAnswer ? false : 'Choose an Option',
                             'property' => 'title',
-                            'property_path' => false,
+                            'mapped' => false,
                             'required' => true,
                             'label' => $question->getTitle(),
-                            'preferred_choices' => $userAnswer ? array($userAnswer) : array()
-                        ));
+                            'preferred_choices' => $userAnswer ? [$userAnswer] : [],
+                        ]);
             }
         }
 
         if (!$this->isPreSave) {
-            $this->addOnBindValidator($builder);
+            $this->addOnSubmitValidator($builder);
         }
     }
 
-    protected function addOnBindValidator(FormBuilderInterface $builder)
+    protected function addOnSubmitValidator(FormBuilderInterface $builder)
     {
         $questions = $this->questions;
 
-        $builder->addEventListener(FormEvents::BIND, function(FormEvent $event) use ($questions){
+        $builder->addEventListener(FormEvents::SUBMIT, function (FormEvent $event) use ($questions) {
                 $form = $event->getForm();
 
                 foreach ($questions as $question) {
@@ -118,16 +117,15 @@ class RiskQuestionsFormType extends AbstractType
             });
     }
 
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
+        $resolver->setDefaults([
                 //'data_class' => ''
-            ));
+            ]);
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'risk_questions';
     }
-
 }

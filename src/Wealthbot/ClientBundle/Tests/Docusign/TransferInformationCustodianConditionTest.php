@@ -27,16 +27,16 @@ class TransferInformationCustodianConditionTest extends \PHPUnit_Framework_TestC
     {
         $transferInformation = new TransferInformation();
 
-        $this->assertEquals(false, $this->condition->check($transferInformation));
+        $this->assertFalse($this->condition->check($transferInformation));
     }
 
     public function testDocusignAllowed()
     {
         $transferInformation = new TransferInformation();
-        $transferCustodian= new TransferCustodian();
+        $transferCustodian = new TransferCustodian();
 
         $transferInformation->setTransferCustodian($transferCustodian);
 
-        $this->assertEquals(true, $this->condition->check($transferInformation));
+        $this->assertTrue($this->condition->check($transferInformation));
     }
 }

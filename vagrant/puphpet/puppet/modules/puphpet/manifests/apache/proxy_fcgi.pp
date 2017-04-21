@@ -22,10 +22,10 @@ class puphpet::apache::proxy_fcgi {
   if ! defined(Class['::apache::mod::proxy_http']) {
     class { '::apache::mod::proxy_http': }
   }
-  if ! defined(::Apache::Mod['proxy_fcgi']) {
+  if ! defined(Apache::Mod['proxy_fcgi']) {
     ::apache::mod{ 'proxy_fcgi': }
   }
-  if ! defined(::Apache::Mod['actions']) {
+  if ! defined(Apache::Mod['actions']) {
     ::apache::mod{ 'actions': }
   }
 

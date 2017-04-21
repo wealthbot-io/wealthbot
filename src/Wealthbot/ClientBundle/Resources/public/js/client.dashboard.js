@@ -7,7 +7,7 @@
  */
 
 $(function(){
-    $('.actions-list > li > a, .open-or-transfer-account-btn').live('click', function(event){
+    $(document).on('click','.actions-list > li > a, .open-or-transfer-account-btn', function(event){
         var elem = $(this);
         var info = elem.next('.action-info');
 
@@ -37,7 +37,7 @@ $(function(){
         event.preventDefault();
     });
 
-    $('input[type=radio].select-account').live('change', function() {
+    $(document).on('change','input[type=radio].select-account', function() {
         var elem = $(this);
         var parent = elem.parent();
 
@@ -57,7 +57,7 @@ $(function(){
         });
     });
 
-    $('input[type=radio].change-account-contribution').live('change', function(){
+    $(document).on('change','input[type=radio].change-account-contribution', function(){
         var revealElem = $(this).closest('label').next();
         $('.contribute-account-action input[type=radio].select-contribute-account').attr('checked', false);
 
@@ -67,7 +67,7 @@ $(function(){
         $('#result_container').html('');
     });
 
-    $('input[type=radio].change-account-distribution').live('change', function(){
+    $(document).on('change','input[type=radio].change-account-distribution', function(){
         var revealElem = $(this).closest('label').next();
 
         $('.distribute-account-action input[type=radio].select-distribute-account').attr('checked', false);
@@ -78,7 +78,7 @@ $(function(){
         $('#result_container').html('');
     });
 
-    $('.open-or-transfer-account-btn, .change-portfolio-btn, .change-profile-btn, .is-qualified-switcher a').live('click', function(event){
+    $(document).on('click','.open-or-transfer-account-btn, .change-portfolio-btn, .change-profile-btn, .is-qualified-switcher a', function(event){
         var elem = $(this);
         var parent = elem.parent();
 
@@ -103,12 +103,12 @@ $(function(){
     });
 
 
-    $('.close-account-reason-checkbox:not(:first)').live('click', function() {
+    $(document).on('click','.close-account-reason-checkbox:not(:first)', function() {
         updateCloseAccountMessageBlock();
         updateCloseAllAccountMessageBlock();
     });
 
-    $('#change_portfolio_form .btn-ajax, #approve_portfolio_form .btn-ajax').live('click',function(event){
+    $(document).on('click','#change_portfolio_form .btn-ajax, #approve_portfolio_form .btn-ajax',function(event){
         var button = this;
         var form = $(button).closest('form');
         var approve_url = form.attr('data-approve-url');
@@ -128,7 +128,7 @@ $(function(){
         event.preventDefault();
     });
 
-    $('.change-address-btn').live('click', function(event){
+    $(document).on('click','.change-address-btn', function(event){
         var elem = $(this);
         var parent = elem.parent();
 
@@ -156,7 +156,7 @@ $(function(){
         event.preventDefault();
     });
 
-    $('#edit_retirement_account_info_form').live('submit', function(event){
+    $(document).on('submit','#edit_retirement_account_info_form', function(event){
         var form = $(this);
 
         ajaxSubmitForm(form, function(response) {
@@ -169,7 +169,7 @@ $(function(){
         event.preventDefault();
     });
 
-    $('#edit_account_beneficiaries_form').live('submit', function(event){
+    $(document).on('submit','#edit_account_beneficiaries_form', function(event){
         var form = $(this);
 
         ajaxSubmitForm(form, function(response) {
@@ -180,7 +180,7 @@ $(function(){
         event.preventDefault();
     });
 
-    $('#change_address_form').live('submit', function(event){
+    $(document).on('submit','#change_address_form', function(event){
         var form = $(this);
 
         ajaxSubmitForm(form, function(response) {});
@@ -188,14 +188,14 @@ $(function(){
         event.preventDefault();
     });
 
-    $('.cancel-btn').live('click', function(event){
+    $(document).on('click','.cancel-btn', function(event){
         $('#result_container').html('');
         $('.actions-list .action-info input[type=radio]:checked').attr('checked', false);
 
         event.preventDefault();
     });
 
-    $('#add_bene').click(function(event) {
+    $(document).on('click','#add_bene',function(event) {
         var collectionHolder = $('#' + $(this).attr('data-target'));
         var prototype = collectionHolder.attr('data-prototype');
         var form = prototype.replace(/__name__/g, collectionHolder.children().length);
@@ -204,7 +204,7 @@ $(function(){
         event.preventDefault();
     });
 
-    $('.add-beneficiary-btn').live('click', function(event){
+    $(document).on('click','.add-beneficiary-btn', function(event){
         var elem = $(this);
 
         elem.after('<img class="ajax-loader" src="/img/ajax-loader.gif" />');
@@ -234,7 +234,7 @@ $(function(){
         event.preventDefault();
     });
 
-    $('.edit-beneficiary-btn').live('click', function(event){
+    $(document).on('click','.edit-beneficiary-btn', function(event){
         var elem = $(this);
         var parent = elem.closest('.beneficiary-item');
 
@@ -270,7 +270,7 @@ $(function(){
         event.preventDefault();
     });
 
-    $('.delete-beneficiary-btn').live('click', function(event){
+    $(document).on('click','.delete-beneficiary-btn', function(event){
         var elem = $(this);
         var parent = elem.closest('.beneficiary-item');
 
@@ -292,7 +292,7 @@ $(function(){
         event.preventDefault();
     });
 
-    $('#create_beneficiary_form').live('submit', function(event){
+    $(document).on('submit','#create_beneficiary_form', function(event){
         var form = $(this);
 
         ajaxSubmitForm(form, function(response){
@@ -315,7 +315,7 @@ $(function(){
         event.preventDefault();
     });
 
-    $('#edit_beneficiary_form').live('submit', function(event){
+    $(document).on('submit','#edit_beneficiary_form', function(event){
         var form = $(this);
 
         ajaxSubmitForm(form, function(response){
@@ -338,7 +338,7 @@ $(function(){
         event.preventDefault();
     });
 
-    $('#beneficiaries_signature_form').live('submit', function(event) {
+    $(document).on('submit','#beneficiaries_signature_form', function(event) {
         var form = $(this);
 
         ajaxSubmitForm(form, function() {
@@ -347,12 +347,12 @@ $(function(){
         event.preventDefault();
     });
 
-    $('.close-bene').live('click', function(event){
+    $(document).on('click','.close-bene', function(event){
         $('.add-beneficiary-btn').show();
         event.preventDefault();
     });
 
-    $('.cancel-edit-beneficiary-btn').live('click', function(event){
+    $(document).on('click','.cancel-edit-beneficiary-btn', function(event){
         $(this).closest('form').remove();
         $('.add-beneficiary-btn').show();
         $('#beneficiaries_signature_form').show();
@@ -360,11 +360,11 @@ $(function(){
         event.preventDefault();
     });
 
-    $('.close-bene').live('click', function(event) {
+    $(document).on('click','.close-bene', function(event) {
         $('#beneficiaries_signature_form').show();
     });
 
-    $('input[type=radio].select-contribute-account').live('change', function() {
+    $(document).on('change','input[type=radio].select-contribute-account', function() {
         var elem = $(this);
         var parent = elem.parent();
 
@@ -410,7 +410,7 @@ $(function(){
         });
     });
 
-    $('input[type=radio].select-distribute-account').live('change', function() {
+    $(document).on('change','input[type=radio].select-distribute-account', function() {
         var elem = $(this);
         var parent = elem.parent();
 
@@ -465,20 +465,20 @@ $(function(){
         });
     });
 
-    $('input[id*="transfer_funding_type_type"]').live('change', function(){
+    $(document).on('change','input[id*="transfer_funding_type_type"]', function(){
         var value = $('input[id*="transfer_funding_type_type"]:checked').val();
 
         checkFundingType(value);
     });
 
-    $('input.distribution-type-radio').live('change', function(){
+    $(document).on('change','input.distribution-type-radio', function(){
         var elem = $(this);
         var value = $('input.distribution-type-radio:checked').val();
 
         updateDistributionForm(elem, elem.parent().next(), value);
     });
 
-    $('.edit-bank-info-btn').live('click', function(event){
+    $(document).on('click','.edit-bank-info-btn', function(event){
         var elem = $(this);
         var parent = elem.parent('.bank-short-info');
 
@@ -488,7 +488,7 @@ $(function(){
         event.preventDefault();
     });
 
-    $('#contribute_account_form').live('submit', function(event){
+    $(document).on('submit','#contribute_account_form', function(event){
         var form = $(this);
 
         var onSuccess = function(response){
@@ -522,7 +522,7 @@ $(function(){
         event.preventDefault();
     });
 
-    $('#distribute_account_form').live('submit', function(event){
+    $(document).on('submit','#distribute_account_form', function(event){
         var form = $(this);
 
         var onSuccess = function(response) {
@@ -555,7 +555,7 @@ $(function(){
         event.preventDefault();
     });
 
-    $('#contribution_signature_form, #distribution_signature_form, #bank_information_signature_form').live('submit', function(event) {
+    $(document).on('submit','#contribution_signature_form, #distribution_signature_form, #bank_information_signature_form', function(event) {
         var form = $(this);
         var callback = function(response) {
             var container = $('#result_container');
@@ -574,7 +574,7 @@ $(function(){
         event.preventDefault();
     });
 
-    $('.close-selected-account').live('click', function(){
+    $(document).on('click','.close-selected-account', function(){
         var elem = $(this);
         var parent = elem.parent();
         var checked = $('.close-selected-account:checked');
@@ -614,7 +614,7 @@ $(function(){
         }
     });
 
-    $('#close_accounts_form').live('submit', function(event){
+    $(document).on('submit','#close_accounts_form', function(event){
         var form = $(this);
 
         var accountsIds = $(".close-selected-account:checked").map(function () {
@@ -636,14 +636,14 @@ $(function(){
         event.preventDefault();
     });
 
-    $('.close-account-reason-checkbox:first').live('click', function() {
+    $(document).on('click','.close-account-reason-checkbox:first', function() {
         var elem = $(this);
         var href = $('.open-or-transfer-account-btn').attr('href');
         elem.find('span').remove();
         elem.closest('li').append('<span>You must use <a href="' + href + '" class="open-or-transfer-account-btn">Option #2 - Open or transfer an account</a> to perform this action</span>');
     });
 
-    $('.pagination a').live('click', function(event) {
+    $(document).on('click','.pagination a', function(event) {
         var btn = $(this);
         $.ajax({
             url: btn.attr('href'),
@@ -656,7 +656,7 @@ $(function(){
         event.preventDefault()
     });
 
-    $('#close_account_message a.close').live('click', function() {
+    $(document).on('click','#close_account_message a.close', function() {
         is_show_close_account_rebalancer_message = false;
     });
 

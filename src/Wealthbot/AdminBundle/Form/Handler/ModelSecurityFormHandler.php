@@ -4,7 +4,6 @@ namespace Wealthbot\AdminBundle\Form\Handler;
 
 use Wealthbot\AdminBundle\Entity\Security;
 use Wealthbot\AdminBundle\Entity\SecurityAssignment;
-use Symfony\Component\HttpFoundation\Request;
 
 class ModelSecurityFormHandler extends AbstractFormHandler
 {
@@ -19,5 +18,5 @@ class ModelSecurityFormHandler extends AbstractFormHandler
 
         $this->em->persist($securityAssignment);
         $this->em->flush();
-   }
+    }
 }

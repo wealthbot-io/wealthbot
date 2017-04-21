@@ -1,5 +1,6 @@
-<div class="modal hide top modal-800 ce-form-modal" id="transactionModal">
+<div class="modal top modal-800w ce-form-modal" id="transactionModal">
     <div id="inside">
+    <div calss="modal-content">
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
         <h3>Add transaction</h3>
@@ -8,30 +9,30 @@
     <div class="modal-body">
         <form method="post" {{ form_enctype(form) }}>
             {{ form_row(form._token) }}
-            <div class="row-fluid">
-                <div class="span4">
-                    <div class="control-group">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
                         {{ form_label(form.advisorCode, 'Advisor code', {'label_attr': {'class': 'control-label'}}) }}
                         <div class="controls">
                             {{ form_widget(form.advisorCode, {'attr': {'class': '', 'data-role': 'autocomplete', 'data-route': 'rx_admin_pas_interfaces_advisor_code_autocomplete' }}) }}
                             {{ form_errors(form.advisorCode) }}
                         </div>
                     </div>
-                    <div class="control-group">
+                    <div class="form-group">
                         {{ form_label(form.securityCode, 'Security code', {'label_attr': {'class': 'control-label'}}) }}
                         <div class="controls">
                             {{ form_widget(form.securityCode, {'attr': {'class': '', 'data-role': 'autocomplete', 'data-route': 'rx_admin_pas_interfaces_security_type_autocomplete' }}) }}
                             {{ form_errors(form.securityCode) }}
                         </div>
                     </div>
-                    <div class="control-group">
+                    <div class="form-group">
                         {{ form_label(form.grossAmount, 'Gross amount', {'label_attr': {'class': 'control-label'}}) }}
                         <div class="controls">
                             {{ form_widget(form.grossAmount, {'attr': {'class': ''}}) }}
                             {{ form_errors(form.grossAmount) }}
                         </div>
                     </div>
-                    <div class="control-group">
+                    <div class="form-group">
                         {{ form_label(form.txDate, 'Tx date', {'label_attr': {'class': 'control-label'}}) }}
                         <div class="controls">
                             {{ form_widget(form.txDate, {'attr': {'class': 'jq-us-date', 'placeholder': 'm/d/Y'}}) }}
@@ -39,29 +40,29 @@
                         </div>
                     </div>
                 </div>
-                <div class="span4">
-                    <div class="control-group">
+                <div class="col-md-4">
+                    <div class="form-group">
                         {{ form_label(form.accountNumber, 'Account number', {'label_attr': {'class': 'control-label'}}) }}
                         <div class="controls">
                             {{ form_widget(form.accountNumber, {'attr': {'class': '', 'data-role': 'autocomplete', 'data-route': 'rx_admin_pas_interfaces_account_number_autocomplete' }}) }}
                             {{ form_errors(form.accountNumber) }}
                         </div>
                     </div>
-                    <div class="control-group">
+                    <div class="form-group">
                         {{ form_label(form.closingMethod, 'Closing method', {'label_attr': {'class': 'control-label'}}) }}
                         <div class="controls">
                             {{ form_widget(form.closingMethod, {'attr': {'class': '', 'data-role': 'autocomplete', 'data-route': 'rx_admin_pas_interfaces_closing_method_autocomplete'}}) }}
                             {{ form_errors(form.closingMethod) }}
                         </div>
                     </div>
-                    <div class="control-group">
+                    <div class="form-group">
                         {{ form_label(form.netAmount, 'Net amount', {'label_attr': {'class': 'control-label'}}) }}
                         <div class="controls">
                             {{ form_widget(form.netAmount, {'attr': {'class': ''}}) }}
                             {{ form_errors(form.netAmount) }}
                         </div>
                     </div>
-                    <div class="control-group">
+                    <div class="form-group">
                         {{ form_label(form.settleDate, 'Settle date', {'label_attr': {'class': 'control-label'}}) }}
                         <div class="controls">
                             {{ form_widget(form.settleDate, {'attr': {'class': 'jq-us-date', 'placeholder': 'm/d/Y'}}) }}
@@ -69,22 +70,22 @@
                         </div>
                     </div>
                 </div>
-                <div class="span4">
-                    <div class="control-group">
+                <div class="col-md-4">
+                    <div class="form-group">
                         {{ form_label(form.transactionCode, 'Transaction code', {'label_attr': {'class': 'control-label'}}) }}
                         <div class="controls">
                             {{ form_widget(form.transactionCode, {'attr': {'class': '', 'data-role': 'autocomplete', 'data-route': 'rx_admin_pas_interfaces_transaction_type_autocomplete' }}) }}
                             {{ form_errors(form.transactionCode) }}
                         </div>
                     </div>
-                    <div class="control-group">
+                    <div class="form-group">
                         {{ form_label(form.symbol, 'Symbol', {'label_attr': {'class': 'control-label'}}) }}
                         <div class="controls">
                             {{ form_widget(form.symbol, {'attr': {'class': '', 'data-role': 'autocomplete', 'data-route': 'rx_admin_pas_interfaces_security_autocomplete' }}) }}
                             {{ form_errors(form.symbol) }}
                         </div>
                     </div>
-                    <div class="control-group">
+                    <div class="form-group">
                         {{ form_label(form.qty, 'Quantity', {'label_attr': {'class': 'control-label'}}) }}
                         <div class="controls">
                             {{ form_widget(form.qty, {'attr': {'class': ''}}) }}
@@ -93,12 +94,12 @@
                     </div>
                 </div>
             </div>
-            <div class="row-fluid">
-                <div class="span12">
-                    <div class="control-group">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
                         {{ form_label(form.notes, 'Notes', {'label_attr': {'class': 'control-label'}}) }}
                         <div class="controls">
-                            {{ form_widget(form.notes, {'attr': {'class': 'span12'}}) }}
+                            {{ form_widget(form.notes, {'attr': {'class': 'col-md-12'}}) }}
                             {{ form_errors(form.notes) }}
                         </div>
                     </div>
@@ -107,10 +108,11 @@
             <div class="modal-actions">
                 <div class="controls">
                     <button type="submit" class="btn btn-primary">Submit</button>
-                    <button type="button" class="btn" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-default"  data-dismiss="modal">Close</button>
                 </div>
             </div>
         </form>
-    </div>
+        </div>
+      </div>
     </div>
 </div>

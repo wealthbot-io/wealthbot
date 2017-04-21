@@ -17,6 +17,7 @@ class rabbitmq::config {
   $erlang_cookie              = $rabbitmq::erlang_cookie
   $interface                  = $rabbitmq::interface
   $management_port            = $rabbitmq::management_port
+  $management_ssl             = $rabbitmq::management_ssl
   $node_ip_address            = $rabbitmq::node_ip_address
   $plugin_dir                 = $rabbitmq::plugin_dir
   $rabbitmq_user              = $rabbitmq::rabbitmq_user
@@ -39,6 +40,7 @@ class rabbitmq::config {
   $ssl_versions               = $rabbitmq::ssl_versions
   $ssl_ciphers                = $rabbitmq::ssl_ciphers
   $stomp_port                 = $rabbitmq::stomp_port
+  $stomp_ssl_only             = $rabbitmq::stomp_ssl_only
   $ldap_auth                  = $rabbitmq::ldap_auth
   $ldap_server                = $rabbitmq::ldap_server
   $ldap_user_dn_pattern       = $rabbitmq::ldap_user_dn_pattern
@@ -120,10 +122,11 @@ class rabbitmq::config {
     'RedHat': {
       if versioncmp($::operatingsystemmajrelease, '7') >= 0 {
         file { '/etc/systemd/system/rabbitmq-server.service.d':
-          ensure => directory,
-          owner  => '0',
-          group  => '0',
-          mode   => '0755',
+          ensure                  => directory,
+          owner                   => '0',
+          group                   => '0',
+          mode                    => '0755',
+          selinux_ignore_defaults => true,
         } ->
         file { '/etc/systemd/system/rabbitmq-server.service.d/limits.conf':
           content => template('rabbitmq/rabbitmq-server.service.d/limits.conf'),
@@ -137,35 +140,31 @@ class rabbitmq::config {
           notify      => Class['Rabbitmq::Service'],
           refreshonly => true,
         }
-      } else {
-        file { '/etc/security/limits.d/rabbitmq-server.conf':
-          content => template('rabbitmq/limits.conf'),
-          owner   => '0',
-          group   => '0',
-          mode    => '0644',
-          notify  => Class['Rabbitmq::Service'],
-        }
+      }
+      file { '/etc/security/limits.d/rabbitmq-server.conf':
+        content => template('rabbitmq/limits.conf'),
+        owner   => '0',
+        group   => '0',
+        mode    => '0644',
+        notify  => Class['Rabbitmq::Service'],
       }
     }
     default: {
     }
   }
 
-  if $config_cluster {
-
-    if $erlang_cookie == undef {
-      fail('You must set the $erlang_cookie value in order to configure clustering.')
-    } else {
-      rabbitmq_erlang_cookie { "${rabbitmq_home}/.erlang.cookie":
-        content        => $erlang_cookie,
-        force          => $wipe_db_on_cookie_change,
-        rabbitmq_user  => $rabbitmq_user,
-        rabbitmq_group => $rabbitmq_group,
-        rabbitmq_home  => $rabbitmq_home,
-        service_name   => $service_name,
-        before         => File['rabbitmq.config'],
-        notify         => Class['rabbitmq::service'],
-      }
+  if $erlang_cookie == undef and $config_cluster {
+    fail('You must set the $erlang_cookie value in order to configure clustering.')
+  } elsif $erlang_cookie != undef {
+    rabbitmq_erlang_cookie { "${rabbitmq_home}/.erlang.cookie":
+      content        => $erlang_cookie,
+      force          => $wipe_db_on_cookie_change,
+      rabbitmq_user  => $rabbitmq_user,
+      rabbitmq_group => $rabbitmq_group,
+      rabbitmq_home  => $rabbitmq_home,
+      service_name   => $service_name,
+      before         => File['rabbitmq.config'],
+      notify         => Class['rabbitmq::service'],
     }
   }
 }

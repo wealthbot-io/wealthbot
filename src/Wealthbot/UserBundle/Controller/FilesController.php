@@ -2,12 +2,12 @@
 
 namespace Wealthbot\UserBundle\Controller;
 
-use Wealthbot\UserBundle\Entity\Document;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\File\Exception\FileNotFoundException;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Wealthbot\UserBundle\Entity\Document;
 
 class FilesController extends Controller
 {
@@ -20,10 +20,10 @@ class FilesController extends Controller
             throw $this->createNotFoundException();
         }
 
-        $defaultLogoPath = $this->get('kernel')->getRootDir() . '/../web/img/logo.png';
+        $defaultLogoPath = $this->get('kernel')->getRootDir().'/../web/img/logo.png';
         $companyInformation = $ria->getRiaCompanyInformation();
         if ($companyInformation && $companyInformation->getLogo()) {
-            $logoPath = $this->container->getParameter('uploads_ria_company_logos_dir') . '/' . $companyInformation->getLogo();
+            $logoPath = $this->container->getParameter('uploads_ria_company_logos_dir').'/'.$companyInformation->getLogo();
         } else {
             $logoPath = $defaultLogoPath;
         }
@@ -42,7 +42,7 @@ class FilesController extends Controller
         $documentManager = $this->get('wealthbot_user.document_manager');
 
         try {
-            $file = new File($this->container->getParameter('uploads_documents_dir') . '/' . $filename);
+            $file = new File($this->container->getParameter('uploads_documents_dir').'/'.$filename);
         } catch (FileNotFoundException $e) {
             throw $this->createNotFoundException('File does not exist.');
         }
@@ -52,7 +52,7 @@ class FilesController extends Controller
                 $originalName = $filename;
             }
         } else {
-            $document = $documentManager->findDocumentBy(array('filename' => $filename));
+            $document = $documentManager->findDocumentBy(['filename' => $filename]);
             if (!$document) {
                 throw $this->createNotFoundException('Document does not exist.');
             }
@@ -68,7 +68,7 @@ class FilesController extends Controller
     public function tradeFileAction($filename, $originalName = null)
     {
         try {
-            $file = new File($this->container->getParameter('uploads_trade_files_dir') . '/' . $filename);
+            $file = new File($this->container->getParameter('uploads_trade_files_dir').'/'.$filename);
         } catch (FileNotFoundException $e) {
             throw $this->createNotFoundException('File does not exist.');
         }
@@ -80,7 +80,7 @@ class FilesController extends Controller
     {
         $mimeType = $file->getMimeType();
 
-        if ($mimeType == 'application/pdf') {
+        if ($mimeType === 'application/pdf') {
             $disposition = 'inline';
         } else {
             $disposition = 'attachment';
@@ -91,7 +91,7 @@ class FilesController extends Controller
         $response->headers->set('Cache-Control', 'private');
         $response->headers->set('Content-Type', $mimeType);
 
-        $response->headers->set('Content-Disposition', $disposition.'; filename="' . ($filename ? $filename : $file->getFilename()) . '"');
+        $response->headers->set('Content-Disposition', $disposition.'; filename="'.($filename ? $filename : $file->getFilename()).'"');
         $response->headers->set('Content-Length', $file->getSize());
 
         $response->sendHeaders();

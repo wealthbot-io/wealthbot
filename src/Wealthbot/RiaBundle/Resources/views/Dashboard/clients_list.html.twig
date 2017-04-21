@@ -71,7 +71,7 @@
         </ul>
         <div class="tab-content">
             <div class="tab-pane {{ activeTab == 'clients' ? 'active' : '' }}" id="tab_clients">
-                <div class="ria-client-dashboard-header row-fluid padding-bottom-20">
+                <div class="ria-client-dashboard-header row padding-bottom-20">
                 {% block clients_header %}
                     <div id="header"></div>
                     {% include "WealthbotRiaBundle:Dashboard:_tpl_clients_header.html.twig" %}
@@ -82,7 +82,7 @@
             </div>
 
             <div class="tab-pane {{ activeTab == 'prospects' ? 'active' : '' }}" id="tab_prospects">
-                {% render 'WealthbotRiaBundle:Prospects:index' %}
+                {{ render(controller('WealthbotRiaBundle:Prospects:index')) }}
             </div>
 
             <div class="tab-pane {{ activeTab == 'invite-a-prospect' ? 'active' : '' }}" id="tab_invite_prospect">

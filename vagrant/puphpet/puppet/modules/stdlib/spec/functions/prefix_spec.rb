@@ -1,33 +1,28 @@
-#! /usr/bin/env ruby -S rspec
 require 'spec_helper'
 
-describe "the prefix function" do
-  let(:scope) { PuppetlabsSpec::PuppetInternals.scope }
-
-  it "raises a ParseError if there is less than 1 arguments" do
-    expect { scope.function_prefix([]) }.to raise_error(Puppet::ParseError, /number of arguments/)
-  end
-
-  it "raises an error if the first argument is not an array" do
-    expect {
-      scope.function_prefix([Object.new])
-    }.to raise_error(Puppet::ParseError, /expected first argument to be an Array/)
-  end
-
-
-  it "raises an error if the second argument is not a string" do
-    expect {
-      scope.function_prefix([['first', 'second'], 42])
-    }.to raise_error(Puppet::ParseError, /expected second argument to be a String/)
-  end
-
-  it "returns a prefixed array" do
-    result = scope.function_prefix([['a','b','c'], 'p'])
-    expect(result).to(eq(['pa','pb','pc']))
-  end
-
-  it "returns a prefixed hash" do
-    result = scope.function_prefix([{'a' => 'b','b' => 'c','c' => 'd'}, 'p'])
-    expect(result).to(eq({'pa'=>'b','pb'=>'c','pc'=>'d'}))
-  end
+describe 'prefix' do
+  it { is_expected.not_to eq(nil) }
+  it { is_expected.to run.with_params().and_raise_error(Puppet::ParseError, /wrong number of arguments/i) }
+  it {
+    pending("Current implementation ignores parameters after the second.")
+    is_expected.to run.with_params([], 'a', '').and_raise_error(Puppet::ParseError, /wrong number of arguments/i)
+  }
+  it { is_expected.to run.with_params('', '').and_raise_error(Puppet::ParseError, /expected first argument to be an Array or a Hash/) }
+  it { is_expected.to run.with_params([], 2).and_raise_error(Puppet::ParseError, /expected second argument to be a String/) }
+  it { is_expected.to run.with_params([]).and_return([]) }
+  it { is_expected.to run.with_params(['one', 2]).and_return(['one', '2']) }
+  it { is_expected.to run.with_params([], '').and_return([]) }
+  it { is_expected.to run.with_params([''], '').and_return(['']) }
+  it { is_expected.to run.with_params(['one'], 'pre').and_return(['preone']) }
+  it { is_expected.to run.with_params(['one', 'two', 'three'], 'pre').and_return(['preone', 'pretwo', 'prethree']) }
+  it { is_expected.to run.with_params({}).and_return({}) }
+  it { is_expected.to run.with_params({ 'key1' => 'value1', 2 => 3}).and_return({ 'key1' => 'value1', '2' => 3 }) }
+  it { is_expected.to run.with_params({}, '').and_return({}) }
+  it { is_expected.to run.with_params({ 'key' => 'value' }, '').and_return({ 'key' => 'value' }) }
+  it { is_expected.to run.with_params({ 'key' => 'value' }, 'pre').and_return({ 'prekey' => 'value' }) }
+  it {
+    is_expected.to run \
+      .with_params({ 'key1' => 'value1', 'key2' => 'value2', 'key3' => 'value3' }, 'pre') \
+      .and_return({ 'prekey1' => 'value1', 'prekey2' => 'value2', 'prekey3' => 'value3' })
+  }
 end

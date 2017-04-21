@@ -1,113 +1,55 @@
-#! /usr/bin/env ruby -S rspec
 require 'spec_helper'
-require 'rspec-puppet'
-require 'puppet_spec/compiler'
 
 describe 'ensure_resource' do
-  include PuppetSpec::Compiler
+  it { is_expected.not_to eq(nil) }
+  it { is_expected.to run.with_params().and_raise_error(ArgumentError, /Must specify a type/) }
+  it { is_expected.to run.with_params('type').and_raise_error(ArgumentError, /Must specify a title/) }
+  it { is_expected.to run.with_params('type', 'title', {}, 'extras').and_raise_error(Puppet::ParseError) }
+  it {
+    pending("should not accept numbers as arguments")
+    is_expected.to run.with_params(1,2,3).and_raise_error(Puppet::ParseError)
+  }
 
-  before :all do
-    Puppet::Parser::Functions.autoloader.loadall
-    Puppet::Parser::Functions.function(:ensure_packages)
-  end
+  context 'given a catalog with "user { username1: ensure => present }"' do
+    let(:pre_condition) { 'user { username1: ensure => present }' }
 
-  let :node     do Puppet::Node.new('localhost') end
-  let :compiler do Puppet::Parser::Compiler.new(node) end
-  let :scope    do Puppet::Parser::Scope.new(compiler) end
+    describe 'after running ensure_resource("user", "username1", {})' do
+      before { subject.call(['User', 'username1', {}]) }
 
-  describe 'when a type or title is not specified' do
-    it { expect { scope.function_ensure_resource([]) }.to raise_error }
-    it { expect { scope.function_ensure_resource(['type']) }.to raise_error }
-  end
-
-  describe 'when compared against a resource with no attributes' do
-    let :catalog do
-      compile_to_catalog(<<-EOS
-        user { "dan": }
-        ensure_resource('user', 'dan', {})
-      EOS
-      )
+      # this lambda is required due to strangeness within rspec-puppet's expectation handling
+      it { expect(lambda { catalogue }).to contain_user('username1').with_ensure('present') }
     end
 
-    it 'should contain the the ensured resources' do
-      expect(catalog.resource(:user, 'dan').to_s).to eq('User[dan]')
-    end
-  end
+    describe 'after running ensure_resource("user", "username2", {})' do
+      before { subject.call(['User', 'username2', {}]) }
 
-  describe 'works when compared against a resource with non-conflicting attributes' do
-    [
-      "ensure_resource('User', 'dan', {})",
-      "ensure_resource('User', 'dan', '')",
-      "ensure_resource('User', 'dan', {'ensure' => 'present'})",
-      "ensure_resource('User', 'dan', {'ensure' => 'present', 'managehome' => false})"
-    ].each do |ensure_resource|
-      pp = <<-EOS
-        user { "dan": ensure => present, shell => "/bin/csh", managehome => false}
-        #{ensure_resource}
-      EOS
-
-      it { expect { compile_to_catalog(pp) }.to_not raise_error }
-    end
-  end
-
-  describe 'fails when compared against a resource with conflicting attributes' do
-    pp = <<-EOS
-      user { "dan": ensure => present, shell => "/bin/csh", managehome => false}
-      ensure_resource('User', 'dan', {'ensure' => 'absent', 'managehome' => false})
-    EOS
-
-    it { expect { compile_to_catalog(pp) }.to raise_error }
-  end
-
-  describe 'when an array of new resources are passed in' do
-    let :catalog do
-      compile_to_catalog("ensure_resource('User', ['dan', 'alex'], {})")
+      # this lambda is required due to strangeness within rspec-puppet's expectation handling
+      it { expect(lambda { catalogue }).to contain_user('username1').with_ensure('present') }
+      it { expect(lambda { catalogue }).to contain_user('username2').without_ensure }
     end
 
-    it 'should contain the ensured resources' do
-      expect(catalog.resource('User[dan]').to_s).to eq('User[dan]')
-      expect(catalog.resource('User[alex]').to_s).to eq('User[alex]')
-    end
-  end
+    describe 'after running ensure_resource("user", ["username1", "username2"], {})' do
+      before { subject.call(['User', ['username1', 'username2'], {}]) }
 
-  describe 'when an array of existing resources is compared against existing resources' do
-    pp = <<-EOS
-      user { 'dan': ensure => present; 'alex': ensure => present }
-      ensure_resource('User', ['dan', 'alex'], {})
-    EOS
-
-    let :catalog do
-      compile_to_catalog(pp)
+      # this lambda is required due to strangeness within rspec-puppet's expectation handling
+      it { expect(lambda { catalogue }).to contain_user('username1').with_ensure('present') }
+      it { expect(lambda { catalogue }).to contain_user('username2').without_ensure }
     end
 
-    it 'should return the existing resources' do
-      expect(catalog.resource('User[dan]').to_s).to eq('User[dan]')
-      expect(catalog.resource('User[alex]').to_s).to eq('User[alex]')
+    describe 'when providing already set params' do
+      let(:params) { { 'ensure' => 'present' } }
+      before { subject.call(['User', ['username2', 'username3'], params]) }
+
+      # this lambda is required due to strangeness within rspec-puppet's expectation handling
+      it { expect(lambda { catalogue }).to contain_user('username1').with(params) }
+      it { expect(lambda { catalogue }).to contain_user('username2').with(params) }
+    end
+
+    context 'when trying to add params' do
+      it { is_expected.to run \
+        .with_params('User', 'username1', { 'ensure' => 'present', 'shell' => true }) \
+        .and_raise_error(Puppet::Resource::Catalog::DuplicateResourceError, /User\[username1\] is already declared/)
+      }
     end
   end
-
-  describe 'works when compared against existing resources with attributes' do
-    [
-      "ensure_resource('User', ['dan', 'alex'], {})",
-      "ensure_resource('User', ['dan', 'alex'], '')",
-      "ensure_resource('User', ['dan', 'alex'], {'ensure' => 'present'})",
-    ].each do |ensure_resource|
-      pp = <<-EOS
-        user { 'dan': ensure => present; 'alex': ensure => present }
-        #{ensure_resource}
-      EOS
-
-      it { expect { compile_to_catalog(pp) }.to_not raise_error }
-    end
-  end
-
-  describe 'fails when compared against existing resources with conflicting attributes' do
-    pp = <<-EOS
-      user { 'dan': ensure => present; 'alex': ensure => present }
-      ensure_resource('User', ['dan', 'alex'], {'ensure' => 'absent'})
-    EOS
-
-    it { expect { compile_to_catalog(pp) }.to raise_error }
-  end
-
 end

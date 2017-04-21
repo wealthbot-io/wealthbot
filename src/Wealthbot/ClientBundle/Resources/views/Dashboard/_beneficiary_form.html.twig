@@ -13,40 +13,40 @@
 <form id="{{ is_new ? 'create_beneficiary_form' : 'edit_beneficiary_form' }}" action="{{ action }}">
     <div class="well pull-left">
         <button type="button" class="close-bene close" data-dismiss="alert">&times;</button>
-        <div class="row-fluid">
-            <div class="span12">
+        <div class="row">
+            <div class="col-md-12">
                 {{ form_label(form.type, 'Beneficiary type') }}
                 {{ form_errors(form.type) }}
                 {{ form_widget(form.type, { 'attr': { 'class': 'input-medium' } }) }}
             </div>
         </div>
-        <div class="row-fluid">
-            <div class="span12">
-                <div class="span4">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="col-md-4">
                     {{ form_label(form.first_name, 'First Name') }}
                     {{ form_errors(form.first_name) }}
                     {{ form_widget(form.first_name, { 'attr': { 'class': 'input-middle' } }) }}
                 </div>
-                <div class="span4">
+                <div class="col-md-4">
                     {{ form_label(form.middle_name, 'Middle Name') }}
                     {{ form_errors(form.middle_name) }}
                     {{ form_widget(form.middle_name, { 'attr': { 'class': 'input-middle' } }) }}
                 </div>
-                <div class="span4">
+                <div class="col-md-4">
                     {{ form_label(form.last_name, 'Last Name') }}
                     {{ form_errors(form.last_name) }}
                     {{ form_widget(form.last_name, { 'attr': { 'class': 'input-middle' } }) }}
                 </div>
             </div>
         </div>
-        <div class="row-fluid">
-            <div class="span12">
-                <div class="span4">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="col-md-4">
                     {{ form_label(form.relationship) }}
                     {{ form_errors(form.relationship) }}
                     {{ form_widget(form.relationship, { 'attr': { 'class': 'input-middle' } }) }}
                 </div>
-                <div class="span4">
+                <div class="col-md-4">
                     <label>Social Security Number</label>
                     <div>
                         {{ form_errors(form.ssn_1) }}
@@ -57,7 +57,7 @@
                     {{ form_widget(form.ssn_2, { 'attr': { 'class': 'input-xmini', 'placeholder': '##' } }) }}
                     {{ form_widget(form.ssn_3, { 'attr': { 'class': 'input-xmini', 'placeholder': '####' } }) }}
                 </div>
-                <div class="span4">
+                <div class="col-md-4">
                     {{ form_label(form.birth_date, 'Birth Date') }}
                     <div>
                         {{ form_errors(form.birth_date) }}
@@ -66,47 +66,47 @@
                 </div>
             </div>
         </div>
-        <div class="row-fluid">
-            <div class="span12">
+        <div class="row">
+            <div class="col-md-12">
                 {{ form_label(form.street) }}
                 {{ form_errors(form.street) }}
                 {{ form_widget(form.street, { 'attr': { 'class': 'input-xlarge' } }) }}
             </div>
         </div>
-        <div class="row-fluid">
-            <div class="span12">
-                <div class="span4">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="col-md-4">
                     {{ form_label(form.city) }}
                     {{ form_errors(form.city) }}
                     {{ form_widget(form.city, { 'attr': { 'class': 'input-middle' } }) }}
                 </div>
-                <div class="span4">
+                <div class="col-md-4">
                     {{ form_label(form.state) }}
                     {{ form_errors(form.state) }}
                     {{ form_widget(form.state, { 'attr': { 'class': 'input-medium' } }) }}
                 </div>
-                <div class="span4">
+                <div class="col-md-4">
                     {{ form_label(form.zip, 'Zip Code') }}
                     {{ form_errors(form.zip) }}
                     {{ form_widget(form.zip, { 'attr': { 'class': 'input-small' } }) }}
                 </div>
             </div>
         </div>
-        <div class="row-fluid">
-            <div class="span12">
+        <div class="row">
+            <div class="col-md-12">
                 <div>
                     {{ form_errors(form.share) }}
                 </div>
                 {{ form_widget(form.share, { 'attr': { 'class': 'input-mini' } }) }}<span class="help-inline"> % share of assets</span>
             </div>
         </div>
-        <div class="row-fluid">
-            <div class="span12">
+        <div class="row">
+            <div class="col-md-12">
                 {{ form_widget(form._token) }}
             </div>
         </div>
-        <div class="row-fluid">
-            <div class="span12">
+        <div class="row">
+            <div class="col-md-12">
                 {% if is_new %}
                     <input type="submit" class="btn btn-primary" value="Save"/>
                 {% else %}

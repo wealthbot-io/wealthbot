@@ -1,34 +1,16 @@
-#! /usr/bin/env ruby -S rspec
-
 require 'spec_helper'
 
-describe "the base64 function" do
-  let(:scope) { PuppetlabsSpec::PuppetInternals.scope }
+describe 'base64' do
+  it { is_expected.not_to eq(nil) }
+  it { is_expected.to run.with_params().and_raise_error(Puppet::ParseError) }
+  it { is_expected.to run.with_params("one").and_raise_error(Puppet::ParseError) }
+  it { is_expected.to run.with_params("one", "two", "three").and_raise_error(Puppet::ParseError) }
+  it { is_expected.to run.with_params("one", "two").and_raise_error(Puppet::ParseError, /first argument must be one of/) }
+  it { is_expected.to run.with_params("encode", ["two"]).and_raise_error(Puppet::ParseError, /second argument must be a string/) }
+  it { is_expected.to run.with_params("encode", 2).and_raise_error(Puppet::ParseError, /second argument must be a string/) }
 
-  it "should exist" do
-    expect(Puppet::Parser::Functions.function("base64")).to eq("function_base64")
-  end
-
-  it "should raise a ParseError if there are other than 2 arguments" do
-    expect { scope.function_base64([]) }.to(raise_error(Puppet::ParseError))
-    expect { scope.function_base64(["asdf"]) }.to(raise_error(Puppet::ParseError))
-    expect { scope.function_base64(["asdf","moo","cow"]) }.to(raise_error(Puppet::ParseError))
-  end
-
-  it "should raise a ParseError if argument 1 isn't 'encode' or 'decode'" do
-    expect { scope.function_base64(["bees","astring"]) }.to(raise_error(Puppet::ParseError, /first argument must be one of/))
-  end
-
-  it "should raise a ParseError if argument 2 isn't a string" do
-    expect { scope.function_base64(["encode",["2"]]) }.to(raise_error(Puppet::ParseError, /second argument must be a string/))
-  end
-
-  it "should encode a encoded string" do
-    result = scope.function_base64(["encode",'thestring'])
-    expect(result).to match(/\AdGhlc3RyaW5n\n\Z/)
-  end
-  it "should decode a base64 encoded string" do
-    result = scope.function_base64(["decode",'dGhlc3RyaW5n'])
-    expect(result).to eq('thestring')
-  end
+  it { is_expected.to run.with_params("encode", "thestring").and_return("dGhlc3RyaW5n\n") }
+  it { is_expected.to run.with_params("encode", "a very long string that will cause the base64 encoder to produce output with multiple lines").and_return("YSB2ZXJ5IGxvbmcgc3RyaW5nIHRoYXQgd2lsbCBjYXVzZSB0aGUgYmFzZTY0\nIGVuY29kZXIgdG8gcHJvZHVjZSBvdXRwdXQgd2l0aCBtdWx0aXBsZSBsaW5l\ncw==\n") }
+  it { is_expected.to run.with_params("decode", "dGhlc3RyaW5n").and_return("thestring") }
+  it { is_expected.to run.with_params("decode", "dGhlc3RyaW5n\n").and_return("thestring") }
 end

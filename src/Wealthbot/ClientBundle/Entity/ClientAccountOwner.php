@@ -2,23 +2,22 @@
 
 namespace Wealthbot\ClientBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
 use Wealthbot\ClientBundle\Model\AccountOwnerInterface;
 use Wealthbot\ClientBundle\Model\ClientAccountOwner as BaseClientAccountOwner;
 use Wealthbot\ClientBundle\Model\UserAccountOwnerAdapter;
 
 /**
- * ClientAccountOwner
+ * ClientAccountOwner.
  */
 class ClientAccountOwner extends BaseClientAccountOwner
 {
     /**
-     * @var integer
+     * @var int
      */
     private $id;
 
     /**
-     * @var integer
+     * @var int
      */
     private $account_id;
 
@@ -33,7 +32,7 @@ class ClientAccountOwner extends BaseClientAccountOwner
     private $account;
 
     /**
-     * @var integer
+     * @var int
      */
     private $owner_contact_id;
 
@@ -43,7 +42,7 @@ class ClientAccountOwner extends BaseClientAccountOwner
     private $contact;
 
     /**
-     * @var integer
+     * @var int
      */
     private $owner_client_id;
 
@@ -52,19 +51,17 @@ class ClientAccountOwner extends BaseClientAccountOwner
      */
     private $client;
 
-
     /**
-     * Constructor
+     * Constructor.
      */
     public function __construct()
     {
-
     }
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer 
+     * @return int
      */
     public function getId()
     {
@@ -72,22 +69,23 @@ class ClientAccountOwner extends BaseClientAccountOwner
     }
 
     /**
-     * Set account_id
+     * Set account_id.
      *
-     * @param integer $accountId
+     * @param int $accountId
+     *
      * @return ClientAccountOwner
      */
     public function setAccountId($accountId)
     {
         $this->account_id = $accountId;
-    
+
         return $this;
     }
 
     /**
-     * Get account_id
+     * Get account_id.
      *
-     * @return integer 
+     * @return int
      */
     public function getAccountId()
     {
@@ -95,22 +93,23 @@ class ClientAccountOwner extends BaseClientAccountOwner
     }
 
     /**
-     * Set account
+     * Set account.
      *
      * @param \Wealthbot\ClientBundle\Entity\ClientAccount $account
+     *
      * @return ClientAccountOwner
      */
     public function setAccount(\Wealthbot\ClientBundle\Entity\ClientAccount $account = null)
     {
         $this->account = $account;
-    
+
         return $this;
     }
 
     /**
-     * Get account
+     * Get account.
      *
-     * @return \Wealthbot\ClientBundle\Entity\ClientAccount 
+     * @return \Wealthbot\ClientBundle\Entity\ClientAccount
      */
     public function getAccount()
     {
@@ -118,9 +117,10 @@ class ClientAccountOwner extends BaseClientAccountOwner
     }
 
     /**
-     * Set contact
+     * Set contact.
      *
      * @param \Wealthbot\ClientBundle\Entity\ClientAdditionalContact $contact
+     *
      * @return ClientAccountOwner
      */
     public function setContact(\Wealthbot\ClientBundle\Entity\ClientAdditionalContact $contact = null)
@@ -131,7 +131,7 @@ class ClientAccountOwner extends BaseClientAccountOwner
     }
 
     /**
-     * Get contact
+     * Get contact.
      *
      * @return \Wealthbot\ClientBundle\Entity\ClientAdditionalContact
      */
@@ -140,11 +140,11 @@ class ClientAccountOwner extends BaseClientAccountOwner
         return $this->contact;
     }
 
-
     /**
-     * Set owner_type
+     * Set owner_type.
      *
      * @param string $ownerType
+     *
      * @return ClientAccountOwner
      */
     public function setOwnerType($ownerType)
@@ -155,7 +155,7 @@ class ClientAccountOwner extends BaseClientAccountOwner
     }
 
     /**
-     * Get owner_type
+     * Get owner_type.
      *
      * @return string
      */
@@ -165,9 +165,10 @@ class ClientAccountOwner extends BaseClientAccountOwner
     }
 
     /**
-     * Set owner_contact_id
+     * Set owner_contact_id.
      *
-     * @param integer $ownerContactId
+     * @param int $ownerContactId
+     *
      * @return ClientAccountOwner
      */
     public function setOwnerContactId($ownerContactId)
@@ -178,9 +179,9 @@ class ClientAccountOwner extends BaseClientAccountOwner
     }
 
     /**
-     * Get owner_contact_id
+     * Get owner_contact_id.
      *
-     * @return integer
+     * @return int
      */
     public function getOwnerContactId()
     {
@@ -188,22 +189,23 @@ class ClientAccountOwner extends BaseClientAccountOwner
     }
 
     /**
-     * Set owner_client_id
+     * Set owner_client_id.
      *
-     * @param integer $ownerClientId
+     * @param int $ownerClientId
+     *
      * @return ClientAccountOwner
      */
     public function setOwnerClientId($ownerClientId)
     {
         $this->owner_client_id = $ownerClientId;
-    
+
         return $this;
     }
 
     /**
-     * Get owner_client_id
+     * Get owner_client_id.
      *
-     * @return integer 
+     * @return int
      */
     public function getOwnerClientId()
     {
@@ -211,22 +213,23 @@ class ClientAccountOwner extends BaseClientAccountOwner
     }
 
     /**
-     * Set client
+     * Set client.
      *
      * @param \Wealthbot\UserBundle\Entity\User $client
+     *
      * @return ClientAccountOwner
      */
     public function setClient(\Wealthbot\UserBundle\Entity\User $client = null)
     {
         $this->client = $client;
-    
+
         return $this;
     }
 
     /**
-     * Get client
+     * Get client.
      *
-     * @return \Wealthbot\UserBundle\Entity\User 
+     * @return \Wealthbot\UserBundle\Entity\User
      */
     public function getClient()
     {
@@ -234,7 +237,7 @@ class ClientAccountOwner extends BaseClientAccountOwner
     }
 
     /**
-     * Get owner
+     * Get owner.
      *
      * @return AccountOwnerInterface
      */

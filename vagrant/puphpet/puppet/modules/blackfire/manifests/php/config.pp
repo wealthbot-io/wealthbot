@@ -5,7 +5,7 @@ class blackfire::php::config inherits blackfire::php {
     'debian': {
       if (
         ($::operatingsystem == 'Ubuntu' and $::operatingsystemrelease < '14.04')
-        or ($::operatingsystem == 'Debian' and $::operatingsystemmajrelease < 7)
+        or ($::operatingsystem == 'Debian' and $::operatingsystemmajrelease < '7')
       ) {
         $ini_path = '/etc/php5/conf.d/blackfire.ini'
       } else {

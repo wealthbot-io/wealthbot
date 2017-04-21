@@ -9,7 +9,6 @@
 
 namespace Wealthbot\ClientBundle\Model\TransferStepsConfiguration;
 
-
 use Wealthbot\ClientBundle\Model\ClientAccount;
 use Wealthbot\ClientBundle\Model\TransferStepsConfigurationInterface;
 use Wealthbot\SignatureBundle\Manager\AccountDocusignManager;
@@ -33,15 +32,17 @@ class RetirementAccountConfiguration implements TransferStepsConfigurationInterf
     }
 
     /**
-     * Get next transfer screen step by current step
+     * Get next transfer screen step by current step.
      *
      * @param string $currentStep
+     *
      * @return string
+     *
      * @throws \InvalidArgumentException
      */
     public function getNextStep($currentStep)
     {
-        if ($currentStep == ClientAccount::STEP_ACTION_CREDENTIALS) {
+        if ($currentStep === ClientAccount::STEP_ACTION_CREDENTIALS) {
             $nextStep = ClientAccount::STEP_ACTION_FINISHED;
         } else {
             throw new \InvalidArgumentException(sprintf(
@@ -55,10 +56,12 @@ class RetirementAccountConfiguration implements TransferStepsConfigurationInterf
     }
 
     /**
-     * Get previous  transfer screen step by current step
+     * Get previous  transfer screen step by current step.
      *
      * @param string $currentStep
+     *
      * @return string
+     *
      * @throws \InvalidArgumentException
      */
     public function getPreviousStep($currentStep)
@@ -84,5 +87,4 @@ class RetirementAccountConfiguration implements TransferStepsConfigurationInterf
 
         return $prevStep;
     }
-
 }

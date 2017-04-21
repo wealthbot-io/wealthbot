@@ -2,12 +2,11 @@
 
 namespace Wealthbot\ClientBundle\Event;
 
-
+use Symfony\Component\EventDispatcher\Event;
 use Wealthbot\ClientBundle\Entity\Workflow;
 use Wealthbot\ClientBundle\Model\WorkflowableInterface;
 use Wealthbot\SignatureBundle\Entity\DocumentSignature;
 use Wealthbot\UserBundle\Entity\User;
-use Symfony\Component\EventDispatcher\Event;
 
 class WorkflowEvent extends Event
 {
@@ -39,7 +38,7 @@ class WorkflowEvent extends Event
     }
 
     /**
-     * Get client
+     * Get client.
      *
      * @return User
      */
@@ -49,7 +48,7 @@ class WorkflowEvent extends Event
     }
 
     /**
-     * Get workflowable object
+     * Get workflowable object.
      *
      * @return WorkflowableInterface
      */
@@ -64,7 +63,7 @@ class WorkflowEvent extends Event
     }
 
     /**
-     *  Get signatures
+     *  Get signatures.
      *
      * @return signature
      */
@@ -79,7 +78,7 @@ class WorkflowEvent extends Event
     }
 
     /**
-     * Set data
+     * Set data.
      *
      * @param Workflow $data
      */
@@ -89,7 +88,7 @@ class WorkflowEvent extends Event
     }
 
     /**
-     * Get data
+     * Get data.
      *
      * @return Workflow
      */

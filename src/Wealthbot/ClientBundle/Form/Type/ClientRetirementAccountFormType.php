@@ -11,32 +11,31 @@ namespace Wealthbot\ClientBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\FormConfigBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ClientRetirementAccountFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('accountType', 'entity', array(
-                'class' => 'WealthbotClientBundle:ClientAccountType',
+            ->add('accountType', 'entity', [
+                'class' => 'Wealthbot\\ClientBundle\\Entity\\ClientAccountType',
                 'property' => 'name',
-                'label' => 'Type'
-            ))
-            ->add('value', 'text', array('label' => 'Estimated Value'))
-            ->add('monthly_contributions', 'text', array('label' => 'Estimated Monthly Contributions'))
+                'label' => 'Type',
+            ])
+            ->add('value', 'text', ['label' => 'Estimated Value'])
+            ->add('monthly_contributions', 'text', ['label' => 'Estimated Monthly Contributions'])
         ;
     }
 
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => 'Wealthbot\ClientBundle\Entity\ClientAccount'
-        ));
+        $resolver->setDefaults([
+            'data_class' => 'Wealthbot\ClientBundle\Entity\ClientAccount',
+        ]);
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'wealthbot_userbundle_client_retirement_account_type';
     }

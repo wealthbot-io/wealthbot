@@ -3,6 +3,7 @@ class apache::mod::userdir (
   $dir = 'public_html',
   $disable_root = true,
   $apache_version = $::apache::apache_version,
+  $options = [ 'MultiViews', 'Indexes', 'SymLinksIfOwnerMatch', 'IncludesNoExec' ],
 ) {
   ::apache::mod { 'userdir': }
 

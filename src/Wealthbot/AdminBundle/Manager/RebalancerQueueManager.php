@@ -34,6 +34,7 @@ class RebalancerQueueManager
 
     /**
      * @param RebalancerAction $rebalancerAction
+     *
      * @return array
      */
     public function prepareSummary(RebalancerAction $rebalancerAction)
@@ -45,15 +46,15 @@ class RebalancerQueueManager
 
         $client = $rebalancerAction->getClientPortfolioValue()->getClientPortfolio()->getClient();
 
-        $result = array(
+        $result = [
             'rebalance_total' => 0,
             'short_term_gains' => 0,
             'long_term_gains' => 0,
             'short_term_losses' => 0,
             'long_term_losses' => 0,
             'transactions_costs' => 0,
-            'tlh_savings' => 0
-        );
+            'tlh_savings' => 0,
+        ];
 
         /** @var RebalancerQueue $item */
         foreach ($rebalancerQueue as $item) {
@@ -72,7 +73,7 @@ class RebalancerQueueManager
                     $suffix = 'losses';
                 }
 
-                $result[$prefix.'_term_'.$suffix] +=abs($item->getLot()->getRealizedGain());
+                $result[$prefix.'_term_'.$suffix] += abs($item->getLot()->getRealizedGain());
             }
 
             /** @var SecurityTransaction $securityTransaction */
@@ -88,10 +89,11 @@ class RebalancerQueueManager
     }
 
     /**
-     * Get Trade Data for generate file
+     * Get Trade Data for generate file.
      *
      * @param RiaCompanyInformation $riaCompanyInformation
-     * @param array $clientValuesIds
+     * @param array                 $clientValuesIds
+     *
      * @return TradeData[]
      */
     public function getTradeDataCollection(RiaCompanyInformation $riaCompanyInformation, array $clientValuesIds)
@@ -102,9 +104,8 @@ class RebalancerQueueManager
             $tradeDataArray = $this->repository->findTradeDataArrayForClientAccountValuesIds($clientValuesIds);
         }
 
-        $tradeDataCollection = array();
+        $tradeDataCollection = [];
         foreach ($tradeDataArray as $data) {
-
             $tradeData = new TradeData();
             $tradeData->loadFromArray($data);
 

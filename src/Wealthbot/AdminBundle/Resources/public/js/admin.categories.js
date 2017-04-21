@@ -25,12 +25,12 @@ $(function(){
         }
     };
 
-    $('a.add-asset').live('click', function(event){
+    $(document).on('click','a.add-asset', function(event){
         event.preventDefault();
         addAsset();
     });
 
-    $("#categories_form").live('submit', function(event){
+    $(document).on('submit',"#categories_form", function(event){
         event.preventDefault();
         var button = $(this).find("input[type=submit]");
         button.button('loading');

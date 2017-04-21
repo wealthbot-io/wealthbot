@@ -9,15 +9,14 @@
 
 namespace Wealthbot\ClientBundle\Form\Type;
 
-
-use Wealthbot\ClientBundle\Entity\ClientAccount;
-use Wealthbot\SignatureBundle\Manager\DocumentSignatureManager;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Wealthbot\ClientBundle\Entity\ClientAccount;
+use Wealthbot\SignatureBundle\Manager\DocumentSignatureManager;
 
 class TransferReviewFormType extends AbstractType
 {
@@ -32,16 +31,16 @@ class TransferReviewFormType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('is_agree', 'checkbox', array(
+        $builder->add('is_agree', 'checkbox', [
             'label' => 'I agree.',
-            'constraints' => array(
-                new NotBlank(array('message' => 'You have to agree to the terms.'))
-            )
-        ));
+            'constraints' => [
+                new NotBlank(['message' => 'You have to agree to the terms.']),
+            ],
+        ]);
 
         $manager = $this->manager;
         $account = $this->account;
-        $builder->addEventListener(FormEvents::BIND, function (FormEvent $event) use ($manager, $account) {
+        $builder->addEventListener(FormEvents::SUBMIT, function (FormEvent $event) use ($manager, $account) {
             $form = $event->getForm();
 
             if (!$manager->isApplicationSigned($account->getId())) {
@@ -52,7 +51,7 @@ class TransferReviewFormType extends AbstractType
         });
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'transfer_review';
     }

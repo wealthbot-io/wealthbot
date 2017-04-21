@@ -16,13 +16,13 @@
         {{ parent() }}
         {% if is_final %}
             <div class="save-and-logout">
-                <a class="btn" id="reg_save_btn" href="{{ path('fos_user_security_logout') }}">Logout</a>
+                <a class="btn btn-default"  id="reg_save_btn" href="{{ path('fos_user_security_logout') }}">Logout</a>
                 <span class="help-block">We'll save your progress.</span>
             </div>
         {% endif %}
     {% else %}
-        <div class="row-fluid">
-            <div class="span12 centered-flashes">
+        <div class="row">
+            <div class="col-md-12 centered-flashes">
                 {{ parent() }}
                 <div class="alert alert-success">
                     Congratulations! We have been notified you have reached this stage of the process and will contact you shortly to discuss your portfolio with you.
@@ -30,7 +30,7 @@
                 </div>
             </div>
             <div class="save-and-logout">
-                <a class="btn" id="reg_save_btn" href="{{ path('fos_user_security_logout') }}">Logout</a>
+                <a class="btn btn-default"  id="reg_save_btn" href="{{ path('fos_user_security_logout') }}">Logout</a>
                 <span class="help-block">We'll save your progress.</span>
             </div>
         </div>
@@ -82,7 +82,7 @@
 
     {% if is_risks_test is defined and is_risks_test %}
         <div class="form-actions">
-            <a class="btn" href="{{ path('rx_ria_risks_test') }}">Back</a>
+            <a class="btn btn-default"  href="{{ path('rx_ria_risks_test') }}">Back</a>
         </div>
     {% endif %}
 
@@ -100,7 +100,7 @@
 
             <div class="form-actions row">
                 <div class="center-text">
-                    <input class="btn" type="submit" name="Accept" value="Accept" />
+                    <input class="btn btn-default"  type="submit" name="Accept" value="Accept" />
                 </div>
             </div>
         </form>

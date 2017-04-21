@@ -17,7 +17,7 @@ describe 'apache::mod::ssl', :type => :class do
         :is_pe                  => false,
       }
     end
-    it { expect { subject }.to raise_error(Puppet::Error, /Unsupported osfamily:/) }
+    it { expect { catalogue }.to raise_error(Puppet::Error, /Unsupported osfamily:/) }
   end
 
   context 'on a RedHat OS' do
@@ -100,6 +100,22 @@ describe 'apache::mod::ssl', :type => :class do
     it { is_expected.to contain_apache__mod('ssl') }
   end
 
+  context 'on a Suse OS' do
+    let :facts do
+      {
+        :osfamily               => 'Suse',
+        :operatingsystem        => 'SLES',
+        :operatingsystemrelease => '11.2',
+        :concat_basedir         => '/dne',
+        :id                     => 'root',
+        :kernel                 => 'Linux',
+        :path                   => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/opt/bin',
+        :is_pe                  => false,
+      }
+    end
+    it { is_expected.to contain_class('apache::params') }
+    it { is_expected.to contain_apache__mod('ssl') }
+  end
   # Template config doesn't vary by distro
   context "on all distros" do
     let :facts do
@@ -135,6 +151,15 @@ describe 'apache::mod::ssl', :type => :class do
         }
       end
       it { is_expected.to contain_file('ssl.conf').with_content(%r{^  SSLRandomSeed startup file:/dev/urandom 1024$})}
+    end
+
+    context 'setting ssl_openssl_conf_cmd' do
+      let :params do
+        {
+          :ssl_openssl_conf_cmd => 'DHParameters "foo.pem"',
+        }
+      end
+      it { is_expected.to contain_file('ssl.conf').with_content(/^\s+SSLOpenSSLConfCmd DHParameters "foo.pem"$/)}
     end
   end
 end

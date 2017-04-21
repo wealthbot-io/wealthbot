@@ -15,11 +15,11 @@
 
             checkSelectedAccountType(accountTypes, '#wealthbot_userbundle_client_account_type_account_type');
 
-            $('#wealthbot_userbundle_client_account_type_account_type').live('change', function(event){
+            $('#wealthbot_userbundle_client_account_type_account_type').on('change', function(event){
                 checkSelectedAccountType(accountTypes, '#wealthbot_userbundle_client_account_type_account_type');
             });
 
-            $('.remove-account-btn').live('click', function(event){
+            $(document).on('click','.remove-account-btn', function(event){
                 var elem = $(this);
 
                 if(confirm('Are you sure?')){
@@ -51,7 +51,7 @@
                 event.preventDefault();
             });
 
-            $('#client_account_form').live('submit', function(event){
+            $('#client_account_form').on('submit', function(event){
                 var form = $(this);
 
                 var options = {
@@ -79,7 +79,7 @@
                 event.preventDefault();
             });
 
-            $('.select-retirement-account').live('change', function(event){
+            $('.select-retirement-account').on('change', function(event){
                 var elem = $(this);
                 var url = elem.data('url');
 
@@ -94,7 +94,7 @@
                 });
             });
 
-            $('#retirement_account_fund_form').live('submit', function(event){
+            $('#retirement_account_fund_form').on('submit', function(event){
                 var form = $(this);
                 var accountId = $('.select-retirement-account:checked').val();
 
@@ -120,7 +120,7 @@
                 event.preventDefault();
             });
 
-            $('.remove-outside-fund-btn').live('click', function(event){
+            $(document).on('click','.remove-outside-fund-btn', function(event){
                 var elem = $(this);
 
                 if(confirm('Are you sure?')){
@@ -146,7 +146,7 @@
             var value = $(selector).val();
 
             if(types[value]){
-                var selector = $('#wealthbot_userbundle_client_account_type_monthly_distributions').closest('.control-group');
+                var selector = $('#wealthbot_userbundle_client_account_type_monthly_distributions').closest('.form-group');
 
                 if(types[value] == 'investment'){
                     selector.show();
@@ -187,7 +187,7 @@
     <form action="{{ path("rx_client_profile_step_three") }}" method="post">
         <div class="form-actions">
             <a class="btn btn-inverse" href="{{ path('rx_client_profile_step_two') }}">Back</a>
-            <input type="submit" class="btn" value="Finish" />
+            <input type="submit" class="btn btn-default"  value="Finish" />
         </div>
     </form>
 {% endblock %}

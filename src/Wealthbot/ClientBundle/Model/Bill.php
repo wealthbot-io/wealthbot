@@ -5,12 +5,12 @@ namespace Wealthbot\ClientBundle\Model;
 class Bill
 {
     /**
-     * @var integer
+     * @var int
      */
     protected $status;
 
     /**
-     * Constructor
+     * Constructor.
      */
     public function __construct()
     {

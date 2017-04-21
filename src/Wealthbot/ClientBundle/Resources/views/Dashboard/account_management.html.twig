@@ -36,7 +36,7 @@
 {% block page_title %}<h1>Dashboard - Account Management</h1>{% endblock %}
 
 {% block content %}
-    <div class="row-fluid">
+    <div class="row">
         <div class="client-account-management">
             <ol type="1" class="actions-list span">
                 {#code_v2: NOT DELETE THIS CODE #}
@@ -189,17 +189,24 @@
     <hr/>
     <div id="result_container"></div>
 
-    <div id="modal_dialog" class="modal hide longModal" style="width:auto;">
-        <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h3></h3>
-        </div>
-        <div class="modal-body">
+    <div id="modal_dialog" class="modal longModal" style="width:auto;">
 
+        <div class="modal-content">
+
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3></h3>
+            </div>
+            <div class="modal-body">
+
+            </div>
+
+            <div class="modal-footer">
+                <button type="submit" class="btn save-modal-form-btn btn-primary">Save</button>
+                <a href="#" class="btn btn-default"  data-dismiss="modal" aria-hidden="true">Cancel</a>
+            </div>
         </div>
-        <div class="modal-footer">
-            <button type="submit" class="btn save-modal-form-btn">Save</button>
-            <a href="#" class="btn" data-dismiss="modal" aria-hidden="true">Cancel</a>
-        </div>
+
     </div>
 {% endblock %}

@@ -2,18 +2,22 @@
 
 namespace Wealthbot\AdminBundle\Form\Type;
 
-use Wealthbot\UserBundle\Entity\User;
-use Wealthbot\UserBundle\Form\Type\AdminProfileType;
-use Wealthbot\UserBundle\Form\Type\UserType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Wealthbot\UserBundle\Entity\User;
+use Wealthbot\UserBundle\Form\Type\AdminProfileType;
+use Wealthbot\UserBundle\Form\Type\UserType;
 
 class CreateAdminUserType extends UserType
 {
+    public function __construct()
+    {
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         parent::buildForm($builder, $options);
@@ -21,10 +25,10 @@ class CreateAdminUserType extends UserType
         /** @var $data \Wealthbot\UserBundle\Entity\User */
         $data = $builder->getData();
 
-        $choices = array('master' => 'Master', 'pm' => 'Manager', 'csr' => 'CSR' );
+        $choices = ['master' => 'Master', 'pm' => 'Manager', 'csr' => 'CSR'];
         $level = null;
 
-        $options['validation_groups'] = array('password');
+        $options['validation_groups'] = ['password'];
 
         if (!is_null($data) && $data->getId()) {
             foreach ($choices as $key => $choice) {
@@ -39,28 +43,27 @@ class CreateAdminUserType extends UserType
         $builder
             ->remove('username')
             ->add('profile', new AdminProfileType())
-            ->add('level', 'choice', array(
+            ->add('level', 'choice', [
                 'choices' => $choices,
-                'property_path' => false,
-                'preferred_choices' => $level ? array($level) : array()
-            ))
+                'mapped' => false,
+                'preferred_choices' => $level ? [$level] : [],
+            ])
         ;
 
         if (!is_null($data) && $data->getId()) {
             $builder
                 ->remove('email')
                 ->remove('plainPassword')
-                ->add('plainPassword', 'repeated', array(
+                ->add('plainPassword', 'repeated', [
                     'type' => 'password',
-                    'options' => array('translation_domain' => 'FOSUserBundle'),
-                    'first_options' => array('label' => 'form.password'),
-                    'second_options' => array('label' => 'form.password_confirmation'),
-                    'required' => false
-                ));
+                    'options' => ['translation_domain' => 'FOSUserBundle'],
+                    'first_options' => ['label' => 'form.password'],
+                    'second_options' => ['label' => 'form.password_confirmation'],
+                    'required' => false,
+                ]);
         }
 
-
-        $builder->addEventListener(FormEvents::BIND, function(FormEvent $event) {
+        $builder->addEventListener(FormEvents::SUBMIT, function (FormEvent $event) {
             /** @var $user User */
             $user = $event->getData();
             $form = $event->getForm();
@@ -81,13 +84,13 @@ class CreateAdminUserType extends UserType
 
             switch ($level) {
                 case 'master':
-                    $user->setRoles(array('ROLE_ADMIN_MASTER'));
+                    $user->setRoles(['ROLE_ADMIN_MASTER']);
                     break;
                 case 'pm':
-                    $user->setRoles(array('ROLE_ADMIN_PM'));
+                    $user->setRoles(['ROLE_ADMIN_PM']);
                     break;
                 case 'csr':
-                    $user->setRoles(array('ROLE_ADMIN_CSR'));
+                    $user->setRoles(['ROLE_ADMIN_CSR']);
                     break;
             }
 
@@ -97,24 +100,23 @@ class CreateAdminUserType extends UserType
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults(array(
+        $resolver->setDefaults([
             'data_class' => 'Wealthbot\UserBundle\Entity\User',
             'csrf_protection' => true,
             'csrf_field_name' => '_token',
             'cascade_validation' => true,
-            'validation_groups' => function(FormInterface $form) {
+            'validation_groups' => function (FormInterface $form) {
                 $data = $form->getData();
-                if($data->getId()) {
-                    return array('password');
+                if ($data->getId()) {
+                    return ['password'];
                 } else {
-                    return array('Registration', 'password');
+                    return ['Registration', 'password'];
                 }
             },
-        ));
+        ]);
     }
 
-
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'create_admin_user';
     }

@@ -19,25 +19,25 @@
     {% endfor %}
 {% endblock %}
 
-<div class="row-fluid">
-    <form class="form-horizontal span6" action="{% block form_action %}{{ path('rx_client_change_profile_manage_users') }}{% endblock %}" method="post">
+<div class="row">
+    <form class="form-horizontal col-md-6" action="{% block form_action %}{{ path('rx_client_change_profile_manage_users') }}{% endblock %}" method="post">
         {{ form_errors(form) }}
 
-        <div class="control-group">
+        <div class="form-group">
             {{ form_label(form.profile.first_name, 'First Name:', { 'label_attr': { 'class': 'control-label' } }) }}
             <div class="controls">
                 {{ form_errors(form.profile.first_name) }}
                 {{ form_widget(form.profile.first_name) }}
             </div>
         </div>
-        <div class="control-group">
+        <div class="form-group">
             {{ form_label(form.profile.last_name, 'Last Name:', { 'label_attr': { 'class': 'control-label' } }) }}
             <div class="controls">
                 {{ form_errors(form.profile.last_name) }}
                 {{ form_widget(form.profile.last_name) }}
             </div>
         </div>
-        <div class="control-group">
+        <div class="form-group">
             {{ form_label(form.email, 'Email:', { 'label_attr': { 'class': 'control-label' } }) }}
             <div class="controls">
                 {{ form_errors(form.email) }}
@@ -45,7 +45,7 @@
             </div>
         </div>
 
-        <div class="control-group">
+        <div class="form-group">
             {{ form_label(form.access, 'Access:', { 'label_attr': { 'class': 'control-label' } }) }}
             <div class="controls">
                 {{ form_errors(form.access) }}
@@ -55,12 +55,12 @@
 
         {{ form_rest(form) }}
         {% block form_buttons %}
-            <button type="submit" class="btn btn-ajax">Create</button>
+            <button type="submit" class="btn btn-ajax btn-default">Create</button>
         {% endblock %}
 
     </form>
 
-    <div class="span6 margin-left-0">
+    <div class="col-md-6 margin-left-0">
         <table class="table table-striped clients">
             <thead>
             <tr>

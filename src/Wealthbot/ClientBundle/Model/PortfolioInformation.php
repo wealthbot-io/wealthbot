@@ -9,9 +9,7 @@
 
 namespace Wealthbot\ClientBundle\Model;
 
-
 use Wealthbot\AdminBundle\Entity\ModelAssumption;
-use Wealthbot\AdminBundle\Entity\SecurityAssignment;
 use Wealthbot\AdminBundle\Model\CeModelEntityInterface;
 use Wealthbot\AdminBundle\Model\CeModelInterface;
 use Wealthbot\UserBundle\Entity\User;
@@ -47,26 +45,27 @@ class PortfolioInformation
     /** @var  array() */
     private $transactionCommissionFee;
 
-    /** @var  boolean */
+    /** @var  bool */
     private $isShowPerformanceSection;
 
     public function __construct()
     {
         $this->assumption = null;
-        $this->fees = array();
+        $this->fees = [];
         $this->fundExpenses = null;
         $this->investmentMarket = null;
-        $this->modelEntities = array('qualified' => array(), 'non_qualified' => array());
+        $this->modelEntities = ['qualified' => [], 'non_qualified' => []];
         $this->isQualified = false;
-        $this->modelEntitiesJson = array();
-        $this->transactionCommissionFee = array();
+        $this->modelEntitiesJson = [];
+        $this->transactionCommissionFee = [];
         $this->isShowPerformanceSection = false;
     }
 
     /**
-     * Set user
+     * Set user.
      *
      * @param User $user
+     *
      * @return $this
      */
     public function setUser(User $user)
@@ -77,7 +76,7 @@ class PortfolioInformation
     }
 
     /**
-     * Get client
+     * Get client.
      *
      * @return User
      */
@@ -87,9 +86,10 @@ class PortfolioInformation
     }
 
     /**
-     * Set model
+     * Set model.
      *
      * @param CeModelInterface $model
+     *
      * @return $this
      */
     public function setModel(CeModelInterface $model)
@@ -101,7 +101,7 @@ class PortfolioInformation
     }
 
     /**
-     * Get model
+     * Get model.
      *
      * @return CeModelInterface
      */
@@ -110,11 +110,11 @@ class PortfolioInformation
         return $this->model;
     }
 
-
     /**
-     * Set qualified flag
+     * Set qualified flag.
      *
      * @param bool $isQualified
+     *
      * @return $this
      */
     public function setIsQualifiedModel($isQualified)
@@ -127,7 +127,7 @@ class PortfolioInformation
     }
 
     /**
-     * Get qualified flag
+     * Get qualified flag.
      *
      * @return bool
      */
@@ -137,13 +137,13 @@ class PortfolioInformation
     }
 
     /**
-     * Get model entities
+     * Get model entities.
      *
      * @return array
      */
     public function getModelEntities()
     {
-        if ($this->isQualified){
+        if ($this->isQualified) {
             return $this->getQualifiedModelEntities();
         }
 
@@ -151,7 +151,7 @@ class PortfolioInformation
     }
 
     /**
-     * Get Qualified model entities
+     * Get Qualified model entities.
      *
      * @return array
      */
@@ -161,7 +161,7 @@ class PortfolioInformation
     }
 
     /**
-     * Get Non Qualified model entities
+     * Get Non Qualified model entities.
      *
      * @return array
      */
@@ -171,17 +171,17 @@ class PortfolioInformation
     }
 
     /**
-     * Get model entities information as json
+     * Get model entities information as json.
      *
      * @return string
      */
     public function getModelEntitiesAsJson()
     {
-        if (!empty($this->modelEntitiesJson)){
+        if (!empty($this->modelEntitiesJson)) {
             return $this->modelEntitiesJson;
         }
 
-        $data = array();
+        $data = [];
 
         //var_dump($this->getModelEntities());die;
 
@@ -196,12 +196,13 @@ class PortfolioInformation
     }
 
     /**
-     * Set fees
+     * Set fees.
      *
      * @param array $fees
+     *
      * @return $this
      */
-    public function setFees(array $fees = array())
+    public function setFees(array $fees = [])
     {
         $this->fees = $fees;
 
@@ -214,7 +215,7 @@ class PortfolioInformation
     }
 
     /**
-     * Get assumption
+     * Get assumption.
      *
      * @return array
      */
@@ -224,7 +225,7 @@ class PortfolioInformation
     }
 
     /**
-     * Get fund expenses
+     * Get fund expenses.
      *
      * @return float
      */
@@ -246,7 +247,7 @@ class PortfolioInformation
     }
 
     /**
-     * Get generous investment market
+     * Get generous investment market.
      *
      * @return float
      */
@@ -259,7 +260,7 @@ class PortfolioInformation
     }
 
     /**
-     * Get average investment market
+     * Get average investment market.
      *
      * @return float
      */
@@ -277,7 +278,7 @@ class PortfolioInformation
     }
 
     /**
-     * Get investment market
+     * Get investment market.
      *
      * @return float
      */
@@ -309,15 +310,13 @@ class PortfolioInformation
     }
 
     /**
-     * Get commissions as string
+     * Get commissions as string.
      *
      * @return null|string
      */
     public function getCommissionsAsString()
     {
-        $commissions = array();
-
-
+        $commissions = [];
 
         if ($this->model->getOwner()->hasRole('ROLE_RIA')) {
             $commissions = $this->getTransactionCommissionFees();
@@ -327,8 +326,7 @@ class PortfolioInformation
 
         $resultStr = null;
         if (!empty($commissions)) {
-
-            if ($commissions[0] == $commissions[1]) {
+            if ($commissions[0] === $commissions[1]) {
                 if (!$commissions[0]) {
                     return $resultStr;
                 }
@@ -336,18 +334,18 @@ class PortfolioInformation
                 unset($commissions[1]);
             }
 
-            $strCommissions = array_map(function($item){
-                return '$' . number_format($item, 2);
+            $strCommissions = array_map(function ($item) {
+                return '$'.number_format($item, 2);
             }, $commissions);
 
-            $resultStr = join(' - ', $strCommissions);
+            $resultStr = implode(' - ', $strCommissions);
         }
 
         return $resultStr;
     }
 
     /**
-     * Get forecast
+     * Get forecast.
      *
      * @return int|null
      */

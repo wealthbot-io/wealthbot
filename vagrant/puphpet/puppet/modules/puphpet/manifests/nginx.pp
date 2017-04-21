@@ -23,7 +23,7 @@ class puphpet::nginx(
       '/var/log/nginx/log/host.error.log'
     ]:
     ensure  => present,
-    mode    => 0777,
+    mode    => '0777',
     replace => 'no',
     require => File['/var/log/nginx/log']
   }

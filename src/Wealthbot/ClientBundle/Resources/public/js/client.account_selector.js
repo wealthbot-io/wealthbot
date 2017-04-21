@@ -32,13 +32,13 @@ $(function() {
         }
     }
 
-    $('#select_account_type').live('change', function() {
+    $(document).on('change','#select_account_type', function() {
         setURL({
             'account_id': $(this).val()
         });
     });
 
-    $('#year').live('change', function() {
+    $(document).on('change','#year', function() {
         setURL({
             'year': $(this).val()
         });

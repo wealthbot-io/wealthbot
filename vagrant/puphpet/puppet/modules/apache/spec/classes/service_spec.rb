@@ -57,7 +57,7 @@ describe 'apache::service', :type => :class do
       let (:params) {{ :service_enable => 'not-a-boolean' }}
 
       it 'should fail' do
-        expect { subject }.to raise_error(Puppet::Error, /is not a boolean/)
+        expect { catalogue }.to raise_error(Puppet::Error, /is not a boolean/)
       end
     end
 
@@ -65,7 +65,7 @@ describe 'apache::service', :type => :class do
       let (:params) {{ :service_manage => 'not-a-boolean' }}
 
       it 'should fail' do
-        expect { subject }.to raise_error(Puppet::Error, /is not a boolean/)
+        expect { catalogue }.to raise_error(Puppet::Error, /is not a boolean/)
       end
     end
 
@@ -90,6 +90,18 @@ describe 'apache::service', :type => :class do
     context "with $service_ensure => 'UNDEF'" do
       let (:params) {{ :service_ensure => 'UNDEF' }}
       it { is_expected.to contain_service("httpd").without_ensure }
+    end
+
+    context "with $service_restart unset" do
+      it { is_expected.to contain_service("httpd").without_restart }
+    end
+
+    context "with $service_restart => '/usr/sbin/apachectl graceful'" do
+     let (:params) {{ :service_restart => '/usr/sbin/apachectl graceful' }}
+     it { is_expected.to contain_service("httpd").with(
+        'restart' => '/usr/sbin/apachectl graceful'
+      )
+     }
     end
   end
 

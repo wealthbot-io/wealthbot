@@ -15,9 +15,10 @@ use Wealthbot\UserBundle\Entity\User;
 interface MailerInterface
 {
     /**
-     * Send an email to a client with ria adv copy attachment
+     * Send an email to a client with ria adv copy attachment.
      *
      * @param \Wealthbot\UserBundle\Entity\User $client
+     *
      * @return mixed
      */
     public function sendAdvCopyEmailMessage(User $client);

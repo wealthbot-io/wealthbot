@@ -59,7 +59,7 @@ describe 'postgresql::server::pg_ident_rule', :type => :define do
       }
     end
     it 'should fail because $manage_pg_ident_conf is false' do
-      expect {subject}.to raise_error(Puppet::Error,
+      expect { catalogue }.to raise_error(Puppet::Error,
                                       /postgresql::server::manage_pg_ident_conf has been disabled/)
     end
   end

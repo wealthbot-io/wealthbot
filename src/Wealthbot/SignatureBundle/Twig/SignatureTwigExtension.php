@@ -9,7 +9,6 @@
 
 namespace Wealthbot\SignatureBundle\Twig;
 
-
 use Wealthbot\ClientBundle\Model\AccountOwnerInterface;
 use Wealthbot\ClientBundle\Model\ClientAccount;
 use Wealthbot\SignatureBundle\Entity\DocumentSignature;
@@ -27,20 +26,21 @@ class SignatureTwigExtension extends \Twig_Extension
 
     public function getFunctions()
     {
-        return array(
-            new \Twig_SimpleFunction('is_signature_completed', array($this, 'isSignatureCompleted')),
-            new \Twig_SimpleFunction('is_owner_signature_completed', array($this, 'isOwnerSignatureCompleted')),
-            new \Twig_SimpleFunction('is_application_signed', array($this, 'isApplicationSigned')),
-            new \Twig_SimpleFunction('is_owner_sign_application', array($this, 'isOwnerSignApplication')),
-            new \Twig_SimpleFunction('document_signature_source', array($this, 'getDocumentSignatureSource')),
-            new \Twig_SimpleFunction('document_signature_activity', array($this, 'getDocumentSignatureActivity'))
-        );
+        return [
+            new \Twig_SimpleFunction('is_signature_completed', [$this, 'isSignatureCompleted']),
+            new \Twig_SimpleFunction('is_owner_signature_completed', [$this, 'isOwnerSignatureCompleted']),
+            new \Twig_SimpleFunction('is_application_signed', [$this, 'isApplicationSigned']),
+            new \Twig_SimpleFunction('is_owner_sign_application', [$this, 'isOwnerSignApplication']),
+            new \Twig_SimpleFunction('document_signature_source', [$this, 'getDocumentSignatureSource']),
+            new \Twig_SimpleFunction('document_signature_activity', [$this, 'getDocumentSignatureActivity']),
+        ];
     }
 
     /**
-     * Is document signature completed
+     * Is document signature completed.
      *
      * @param DocumentSignature|int $signature
+     *
      * @return bool
      */
     public function isSignatureCompleted($signature)
@@ -49,10 +49,11 @@ class SignatureTwigExtension extends \Twig_Extension
     }
 
     /**
-     * Is client account owner has complete signature
+     * Is client account owner has complete signature.
      *
      * @param AccountOwnerInterface $accountOwner
-     * @param DocumentSignature $signature
+     * @param DocumentSignature     $signature
+     *
      * @return bool
      */
     public function isOwnerSignatureCompleted(AccountOwnerInterface $accountOwner, DocumentSignature $signature)
@@ -61,9 +62,10 @@ class SignatureTwigExtension extends \Twig_Extension
     }
 
     /**
-     * Is all client account in application signed
+     * Is all client account in application signed.
      *
      * @param ClientAccount|int $account
+     *
      * @return bool
      */
     public function isApplicationSigned($account)
@@ -72,10 +74,11 @@ class SignatureTwigExtension extends \Twig_Extension
     }
 
     /**
-     * Is account owner sign all document signatures for application
+     * Is account owner sign all document signatures for application.
      *
      * @param AccountOwnerInterface $accountOwner
-     * @param ClientAccount $account
+     * @param ClientAccount         $account
+     *
      * @return bool
      */
     public function isOwnerSignApplication(AccountOwnerInterface $accountOwner, ClientAccount $account)
@@ -84,9 +87,10 @@ class SignatureTwigExtension extends \Twig_Extension
     }
 
     /**
-     * Get source object of document signature
+     * Get source object of document signature.
      *
      * @param DocumentSignature $signature
+     *
      * @return \Wealthbot\SignatureBundle\Model\SignableInterface
      */
     public function getDocumentSignatureSource(DocumentSignature $signature)
@@ -95,9 +99,10 @@ class SignatureTwigExtension extends \Twig_Extension
     }
 
     /**
-     * Get document signature activity
+     * Get document signature activity.
      *
      * @param DocumentSignature $signature
+     *
      * @return string
      */
     public function getDocumentSignatureActivity(DocumentSignature $signature)
@@ -114,5 +119,4 @@ class SignatureTwigExtension extends \Twig_Extension
     {
         return 'rx_signature_twig_extension';
     }
-
 }

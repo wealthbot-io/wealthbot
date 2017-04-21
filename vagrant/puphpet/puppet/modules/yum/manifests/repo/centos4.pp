@@ -10,7 +10,7 @@ class yum::repo::centos4 {
     enabled    => 1,
     gpgcheck   => 1,
     gpgkey     => 'http://mirror.centos.org/centos/RPM-GPG-KEY-centos4',
-    priority   => 1,
+    priority   => 2,
   }
 
   yum::managed_yumrepo { 'updates':
@@ -19,7 +19,7 @@ class yum::repo::centos4 {
     enabled    => 1,
     gpgcheck   => 1,
     gpgkey     => 'http://mirror.centos.org/centos/RPM-GPG-KEY-centos4',
-    priority   => 1,
+    priority   => 2,
   }
 
   yum::managed_yumrepo { 'addons':
@@ -28,7 +28,7 @@ class yum::repo::centos4 {
     enabled    => 1,
     gpgcheck   => 1,
     gpgkey     => 'http://mirror.centos.org/centos/RPM-GPG-KEY-centos4',
-    priority   => 1,
+    priority   => 2,
   }
 
   yum::managed_yumrepo { 'extras':
@@ -37,7 +37,7 @@ class yum::repo::centos4 {
     enabled    => 1,
     gpgcheck   => 1,
     gpgkey     => 'http://mirror.centos.org/centos/RPM-GPG-KEY-centos4',
-    priority   => 1,
+    priority   => 2,
   }
 
   yum::managed_yumrepo { 'centosplus':
@@ -46,7 +46,7 @@ class yum::repo::centos4 {
     enabled    => 0,
     gpgcheck   => 1,
     gpgkey     => 'http://mirror.centos.org/centos/RPM-GPG-KEY-centos4',
-    priority   => 2,
+    priority   => 3,
   }
 
   yum::managed_yumrepo { 'contrib':
@@ -55,7 +55,7 @@ class yum::repo::centos4 {
     enabled    => 0,
     gpgcheck   => 1,
     gpgkey     => 'http://mirror.centos.org/centos/RPM-GPG-KEY-centos4',
-    priority   => 2,
+    priority   => 3,
   }
 
 }

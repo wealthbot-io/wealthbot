@@ -5,7 +5,7 @@ class puphpet::nodejs {
   file { '/.puphpet-stuff/node_install.sh':
     ensure  => present,
     owner   => root,
-    mode    => 0755,
+    mode    => '0755',
     content => template("${module_name}/nodejs/install.erb"),
   }
   -> exec { 'install-node':

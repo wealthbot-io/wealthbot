@@ -9,10 +9,10 @@ class RiaSearchClientsFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('search', 'search', array('required' => false));
+        $builder->add('search', 'search', ['required' => false]);
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'wealthbot_riabundle_ria_find_clients_form_type';
     }

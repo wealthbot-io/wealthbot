@@ -3,14 +3,11 @@
 namespace Wealthbot\UserBundle\TestSuit;
 
 use Doctrine\ORM\EntityManager;
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
-use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
-use Symfony\Component\HttpFoundation\Session\Session;
-use Symfony\Component\HttpFoundation\Session\Storage\MockFileSessionStorage;
 use Symfony\Bundle\FrameworkBundle\Client;
+use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\BrowserKit\Cookie;
-use Symfony\Component\HttpKernel\Event\GetResponseEvent;
-use Symfony\Component\HttpKernel\KernelEvents;
+use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 
 class ExtendedWebTestCase extends WebTestCase
 {
@@ -28,7 +25,6 @@ class ExtendedWebTestCase extends WebTestCase
      * @var \ProjectServiceContainer
      */
     protected $container;
-
 
     public function setUp()
     {
@@ -58,9 +54,10 @@ class ExtendedWebTestCase extends WebTestCase
      * @param $userName
      * @param $roles
      * @param null $firewallName
+     *
      * @return \FOS\UserBundle\Model\UserInterface
      */
-    protected function authenticateUser($userName, $roles, $firewallName=null)
+    protected function authenticateUser($userName, $roles, $firewallName = null)
     {
         $session = $this->client->getContainer()->get('session');
 
@@ -69,11 +66,12 @@ class ExtendedWebTestCase extends WebTestCase
         }
         $user = $this->container->get('fos_user.user_manager')->findUserByUsername($userName);
         $token = new UsernamePasswordToken($user, null, $firewallName, $roles);
-        $session->set('_security_' . $firewallName, serialize($token));
+        $session->set('_security_'.$firewallName, serialize($token));
         $session->save();
 
         $cookie = new Cookie($session->getName(), $session->getId());
         $this->client->getCookieJar()->set($cookie);
+
         return $user;
     }
 

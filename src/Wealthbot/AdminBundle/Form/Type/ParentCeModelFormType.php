@@ -11,7 +11,7 @@ namespace Wealthbot\AdminBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ParentCeModelFormType extends AbstractType
 {
@@ -24,14 +24,14 @@ class ParentCeModelFormType extends AbstractType
     /**
      * @param OptionsResolverInterface $resolver
      */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => 'Wealthbot\AdminBundle\Entity\CeModel'
-        ));
+        $resolver->setDefaults([
+            'data_class' => 'Wealthbot\AdminBundle\Entity\CeModel',
+        ]);
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'strategy';
     }
@@ -39,7 +39,7 @@ class ParentCeModelFormType extends AbstractType
     //TODO Should be removed in feature (not using)
     protected function subscribe(FormBuilderInterface $builder)
     {
-//        $subscriber = new ParentCeModelFormTypeEventsListener();
+        //        $subscriber = new ParentCeModelFormTypeEventsListener();
 //        $builder->addEventSubscriber($subscriber);
     }
 }

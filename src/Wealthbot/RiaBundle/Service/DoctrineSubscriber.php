@@ -2,21 +2,16 @@
 
 namespace Wealthbot\RiaBundle\Service;
 
-
 use Doctrine\Common\EventSubscriber;
-use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Event\OnFlushEventArgs;
-use Doctrine\ORM\Event\PostFlushEventArgs;
-use Wealthbot\AdminBundle\Entity\BillingSpec;
-use Symfony\Component\Security\Core\SecurityContext;
 use Doctrine\ORM\Events;
+use Wealthbot\AdminBundle\Entity\BillingSpec;
 
-
-class DoctrineSubscriber implements EventSubscriber{
-
+class DoctrineSubscriber implements EventSubscriber
+{
     public function getSubscribedEvents()
     {
-        return array(Events::onFlush);
+        return [Events::onFlush];
     }
 
     /**
@@ -34,36 +29,36 @@ class DoctrineSubscriber implements EventSubscriber{
         $uow = $em->getUnitOfWork();
         $repo = $em->getRepository('WealthbotAdminBundle:BillingSpec');
 
-        $allActions = array();
-        $deletedSpecs = array();
-        foreach ($uow->getScheduledEntityDeletions() as $deleted){
+        $allActions = [];
+        $deletedSpecs = [];
+        foreach ($uow->getScheduledEntityDeletions() as $deleted) {
             if ($deleted instanceof BillingSpec) {
                 $deletedSpecs[$deleted->getId()] = $deleted;
                 $allActions[$deleted->getId()] = $deleted;
             }
         }
 
-        $insertSpecs = array();
-        foreach ($uow->getScheduledEntityInsertions() as $internalId => $insertion){
+        $insertSpecs = [];
+        foreach ($uow->getScheduledEntityInsertions() as $internalId => $insertion) {
             if ($insertion instanceof BillingSpec) {
                 $insertSpecs[$internalId] = $insertion;
                 $allActions[$internalId] = $insertion;
             }
         }
 
-        $changedSpecs = array();
-        foreach($uow->getScheduledEntityUpdates() as $changed){
+        $changedSpecs = [];
+        foreach ($uow->getScheduledEntityUpdates() as $changed) {
             if ($changed instanceof BillingSpec) {
                 $changedSpecs[$changed->getId()] = $changed;
                 $allActions[$changed->getId()] = $changed;
             }
         }
 
-        $usersById = array();
-        $userMasterSpecs = array();
-        $userSpecs = array();
-        foreach($allActions as $id => $spec) {
-            /** @var BillingSpec $spec */
+        $usersById = [];
+        $userMasterSpecs = [];
+        $userSpecs = [];
+        foreach ($allActions as $id => $spec) {
+            /* @var BillingSpec $spec */
             $owner = $spec->getOwner();
             if ($owner === null) {
                 $userId = 0;
@@ -72,8 +67,8 @@ class DoctrineSubscriber implements EventSubscriber{
             }
             $usersById[$userId] = $owner;
             if (!isset($userMasterSpecs[$userId])) {
-                $userMasterSpecs[$userId] = array();
-                $userSpecs[$userId] = array();
+                $userMasterSpecs[$userId] = [];
+                $userSpecs[$userId] = [];
             }
             if (!isset($deletedSpecs[$id])) {
                 if ($spec->getMaster()) {
@@ -87,7 +82,7 @@ class DoctrineSubscriber implements EventSubscriber{
         if (count($userMasterSpecs)) {
             $meta = $em->getClassMetadata($repo->getClassName());
 
-            foreach($userMasterSpecs as $userId => $masterSpecs) {
+            foreach ($userMasterSpecs as $userId => $masterSpecs) {
                 /** @var BillingSpec[] $specs */
                 $specs = $userSpecs[$userId];
 
@@ -98,10 +93,10 @@ class DoctrineSubscriber implements EventSubscriber{
                     $foundMasterId = $ids[0];
                 }
                 //2 old
-                $anotherSpecs = $repo->findBy(array('owner'=>$usersById[$userId]));
-                foreach($anotherSpecs as $spec) {
+                $anotherSpecs = $repo->findBy(['owner' => $usersById[$userId]]);
+                foreach ($anotherSpecs as $spec) {
                     $id = $spec->getId();
-                    if (isset($changedSpecs[$id]) || isset($deletedSpecs[$id]) || $foundMasterId == $id) {
+                    if (isset($changedSpecs[$id]) || isset($deletedSpecs[$id]) || $foundMasterId === $id) {
                         continue;
                     }
                     if (!$foundMasterId && $spec->getMaster()) {
@@ -115,11 +110,11 @@ class DoctrineSubscriber implements EventSubscriber{
                     $foundMasterId = $ids[0];
                 }
                 //4 set another and save
-                foreach($specs as $id => $spec) {
-                    $spec->setMaster(($id == $foundMasterId));
+                foreach ($specs as $id => $spec) {
+                    $spec->setMaster(($id === $foundMasterId));
                     if (isset($changedSpecs[$id]) || isset($insertSpecs[$id])) {
                         $uow->recomputeSingleEntityChangeSet($meta, $spec);
-                    }else{
+                    } else {
                         $uow->computeChangeSet($meta, $spec);
                     }
                 }

@@ -9,7 +9,6 @@
 
 namespace Wealthbot\ClientBundle\Form\Type;
 
-
 use Symfony\Component\Form\FormBuilderInterface;
 
 class DashboardRetirementPlanInfoFormType extends RetirementPlanInfoFormType

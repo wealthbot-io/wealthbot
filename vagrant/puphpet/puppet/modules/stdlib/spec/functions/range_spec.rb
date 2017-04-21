@@ -1,86 +1,118 @@
-#! /usr/bin/env ruby -S rspec
 require 'spec_helper'
 
-describe "the range function" do
-  let(:scope) { PuppetlabsSpec::PuppetInternals.scope }
+describe 'range' do
+  it { is_expected.not_to eq(nil) }
 
-  it "exists" do
-    expect(Puppet::Parser::Functions.function("range")).to eq("function_range")
+  describe 'signature validation in puppet3', :unless => RSpec.configuration.puppet_future do
+    it { is_expected.to run.with_params().and_raise_error(Puppet::ParseError, /wrong number of arguments/i) }
+    it {
+      pending("Current implementation ignores parameters after the third.")
+      is_expected.to run.with_params(1, 2, 3, 4).and_raise_error(Puppet::ParseError, /wrong number of arguments/i)
+    }
+    it { is_expected.to run.with_params('1..2..3').and_raise_error(Puppet::ParseError, /Unable to compute range/i) }
+    it { is_expected.to run.with_params('').and_raise_error(Puppet::ParseError, /Unknown range format/i) }
   end
 
-  it "raises a ParseError if there is less than 1 arguments" do
-    expect { scope.function_range([]) }.to raise_error Puppet::ParseError, /Wrong number of arguments.*0 for 1/
+  describe 'signature validation in puppet4', :if => RSpec.configuration.puppet_future do
+    it { pending "the puppet 4 implementation"; is_expected.to run.with_params().and_raise_error(ArgumentError) }
+    it { pending "the puppet 4 implementation"; is_expected.to run.with_params('').and_raise_error(ArgumentError) }
+    it { pending "the puppet 4 implementation"; is_expected.to run.with_params({}).and_raise_error(ArgumentError) }
+    it { pending "the puppet 4 implementation"; is_expected.to run.with_params([]).and_raise_error(ArgumentError) }
+    it { pending "the puppet 4 implementation"; is_expected.to run.with_params(true).and_raise_error(ArgumentError) }
+    it { pending "the puppet 4 implementation"; is_expected.to run.with_params(true).and_raise_error(ArgumentError) }
+    it {                                        is_expected.to run.with_params(1, 2, 'foo').and_raise_error(ArgumentError) }
+    it { pending "the puppet 4 implementation"; is_expected.to run.with_params(1, 2, []).and_raise_error(ArgumentError) }
+    it { pending "the puppet 4 implementation"; is_expected.to run.with_params(1, 2, {}).and_raise_error(ArgumentError) }
+    it { pending "the puppet 4 implementation"; is_expected.to run.with_params(1, 2, true).and_raise_error(ArgumentError) }
+    it { pending "the puppet 4 implementation"; is_expected.to run.with_params(1, 2, 3, 4).and_raise_error(ArgumentError) }
+    it { pending "the puppet 4 implementation"; is_expected.to run.with_params('1..2..3').and_raise_error(ArgumentError) }
   end
 
-  describe 'with a letter range' do
-    it "returns a letter range" do
-      result = scope.function_range(["a","d"])
-      expect(result).to eq ['a','b','c','d']
-    end
-
-    it "returns a letter range given a step of 1" do
-      result = scope.function_range(["a","d","1"])
-      expect(result).to eq ['a','b','c','d']
-    end
-
-    it "returns a stepped letter range" do
-      result = scope.function_range(["a","d","2"])
-      expect(result).to eq ['a','c']
-    end
-
-    it "returns a stepped letter range given a negative step" do
-      result = scope.function_range(["a","d","-2"])
-      expect(result).to eq ['a','c']
-    end
+  context 'with characters as bounds' do
+    it { is_expected.to run.with_params('d', 'a').and_return([]) }
+    it { is_expected.to run.with_params('a', 'a').and_return(['a']) }
+    it { is_expected.to run.with_params('a', 'b').and_return(['a', 'b']) }
+    it { is_expected.to run.with_params('a', 'd').and_return(['a', 'b', 'c', 'd']) }
+    it { is_expected.to run.with_params('a', 'd', 1).and_return(['a', 'b', 'c', 'd']) }
+    it { is_expected.to run.with_params('a', 'd', '1').and_return(['a', 'b', 'c', 'd']) }
+    it { is_expected.to run.with_params('a', 'd', 2).and_return(['a', 'c']) }
+    it { is_expected.to run.with_params('a', 'd', -2).and_return(['a', 'c']) }
+    it { is_expected.to run.with_params('a', 'd', 3).and_return(['a', 'd']) }
+    it { is_expected.to run.with_params('a', 'd', 4).and_return(['a']) }
   end
 
-  describe 'with a number range' do
-    it "returns a number range" do
-      result = scope.function_range(["1","4"])
-      expect(result).to eq [1,2,3,4]
-    end
-
-    it "returns a number range given a step of 1" do
-      result = scope.function_range(["1","4","1"])
-      expect(result).to eq [1,2,3,4]
-    end
-
-    it "returns a stepped number range" do
-      result = scope.function_range(["1","4","2"])
-      expect(result).to eq [1,3]
-    end
-
-    it "returns a stepped number range given a negative step" do
-      result = scope.function_range(["1","4","-2"])
-      expect(result).to eq [1,3]
-    end
+  context 'with strings as bounds' do
+    it { is_expected.to run.with_params('onea', 'oned').and_return(['onea', 'oneb', 'onec', 'oned']) }
+    it { is_expected.to run.with_params('two', 'one').and_return([]) }
+    it { is_expected.to run.with_params('true', 'false').and_return([]) }
+    it { is_expected.to run.with_params('false', 'true').and_return(['false']) }
   end
 
-  describe 'with a numeric-like string range' do
-    it "works with padded hostname like strings" do
-      expected = ("host01".."host10").to_a
-      expect(scope.function_range(["host01","host10"])).to eq expected
-    end
-
-    it "coerces zero padded digits to integers" do
-      expected = (0..10).to_a
-      expect(scope.function_range(["00", "10"])).to eq expected
-    end
+  context 'with integers as bounds' do
+    it { is_expected.to run.with_params(4, 1).and_return([]) }
+    it { is_expected.to run.with_params(1, 1).and_return([1]) }
+    it { is_expected.to run.with_params(1, 2).and_return([1, 2]) }
+    it { is_expected.to run.with_params(1, 4).and_return([1, 2, 3, 4]) }
+    it { is_expected.to run.with_params(1, 4, 1).and_return([1, 2, 3, 4]) }
+    it { is_expected.to run.with_params(1, 4, '1').and_return([1, 2, 3, 4]) }
+    it { is_expected.to run.with_params(1, 4, 2).and_return([1, 3]) }
+    it { is_expected.to run.with_params(1, 4, -2).and_return([1, 3]) }
+    it { is_expected.to run.with_params(1, 4, 3).and_return([1, 4]) }
+    it { is_expected.to run.with_params(1, 4, 4).and_return([1]) }
   end
 
-  describe 'with a numeric range' do
-    it "returns a range of numbers" do
-      expected = (1..10).to_a
-      expect(scope.function_range([1,10])).to eq expected
-    end
-    it "returns a range of numbers with step parameter" do
-      expected = (1..10).step(2).to_a
-      expect(scope.function_range([1,10,2])).to eq expected
-    end
-    it "works with mixed numeric like strings and numeric arguments" do
-      expected = (1..10).to_a
-      expect(scope.function_range(['1',10])).to eq expected
-      expect(scope.function_range([1,'10'])).to eq expected
-    end
+  context 'with integers as strings as bounds' do
+    it { is_expected.to run.with_params('4', '1').and_return([]) }
+    it { is_expected.to run.with_params('1', '1').and_return([1]) }
+    it { is_expected.to run.with_params('1', '2').and_return([1, 2]) }
+    it { is_expected.to run.with_params('1', '4').and_return([1, 2, 3, 4]) }
+    it { is_expected.to run.with_params('1', '4', 1).and_return([1, 2, 3, 4]) }
+    it { is_expected.to run.with_params('1', '4', '1').and_return([1, 2, 3, 4]) }
+    it { is_expected.to run.with_params('1', '4', 2).and_return([1, 3]) }
+    it { is_expected.to run.with_params('1', '4', -2).and_return([1, 3]) }
+    it { is_expected.to run.with_params('1', '4', 3).and_return([1, 4]) }
+    it { is_expected.to run.with_params('1', '4', 4).and_return([1]) }
+  end
+
+  context 'with prefixed numbers as strings as bounds' do
+    it { is_expected.to run.with_params('host01', 'host04').and_return(['host01', 'host02', 'host03', 'host04']) }
+    it { is_expected.to run.with_params('01', '04').and_return([1, 2, 3, 4]) }
+  end
+
+  context 'with dash-range syntax' do
+    it { is_expected.to run.with_params('4-1').and_return([]) }
+    it { is_expected.to run.with_params('1-1').and_return([1]) }
+    it { is_expected.to run.with_params('1-2').and_return([1, 2]) }
+    it { is_expected.to run.with_params('1-4').and_return([1, 2, 3, 4]) }
+  end
+
+  context 'with two-dot-range syntax' do
+    it { is_expected.to run.with_params('4..1').and_return([]) }
+    it { is_expected.to run.with_params('1..1').and_return([1]) }
+    it { is_expected.to run.with_params('1..2').and_return([1, 2]) }
+    it { is_expected.to run.with_params('1..4').and_return([1, 2, 3, 4]) }
+  end
+
+  context 'with three-dot-range syntax' do
+    it { is_expected.to run.with_params('4...1').and_return([]) }
+    it { is_expected.to run.with_params('1...1').and_return([]) }
+    it { is_expected.to run.with_params('1...2').and_return([1]) }
+    it { is_expected.to run.with_params('1...3').and_return([1, 2]) }
+    it { is_expected.to run.with_params('1...5').and_return([1, 2, 3, 4]) }
+  end
+
+  describe 'when passing mixed arguments as bounds' do
+    it {
+      pending('these bounds should not be allowed as ruby will OOM hard. e.g. `(\'host0\'..\'hosta\').to_a` has 3239930 elements on ruby 1.9, adding more \'0\'s and \'a\'s increases that exponentially')
+      is_expected.to run.with_params('0', 'a').and_raise_error(Puppet::ParseError, /cannot interpolate between numeric and non-numeric bounds/)
+    }
+    it {
+      pending('these bounds should not be allowed as ruby will OOM hard. e.g. `(\'host0\'..\'hosta\').to_a` has 3239930 elements on ruby 1.9, adding more \'0\'s and \'a\'s increases that exponentially')
+      is_expected.to run.with_params(0, 'a').and_raise_error(Puppet::ParseError, /cannot interpolate between numeric and non-numeric bounds/)
+    }
+    it {
+      pending('these bounds should not be allowed as ruby will OOM hard. e.g. `(\'host0\'..\'hosta\').to_a` has 3239930 elements on ruby 1.9, adding more \'0\'s and \'a\'s increases that exponentially')
+      is_expected.to run.with_params('h0', 'ha').and_raise_error(Puppet::ParseError, /cannot interpolate between numeric and non-numeric bounds/)
+    }
   end
 end

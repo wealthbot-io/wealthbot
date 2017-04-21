@@ -4,6 +4,7 @@ class apache::mod::passenger (
   $passenger_high_performance     = undef,
   $passenger_pool_idle_time       = undef,
   $passenger_max_requests         = undef,
+  $passenger_spawn_method         = undef,
   $passenger_stat_throttle_rate   = undef,
   $rack_autodetect                = undef,
   $rails_autodetect               = undef,
@@ -21,6 +22,11 @@ class apache::mod::passenger (
   $mod_id                         = undef,
   $mod_path                       = undef,
 ) {
+
+  if $passenger_spawn_method {
+    validate_re($passenger_spawn_method, '(^smart$|^direct$|^smart-lv2$|^conservative$)', "${passenger_spawn_method} is not permitted for passenger_spawn_method. Allowed values are 'smart', 'direct', 'smart-lv2', or 'conservative'.")
+  }
+
   # Managed by the package, but declare it to avoid purging
   if $passenger_conf_package_file {
     file { 'passenger_package.conf':
@@ -61,6 +67,7 @@ class apache::mod::passenger (
   # - $passenger_min_instances
   # - $passenger_high_performance
   # - $passenger_max_requests
+  # - $passenger_spawn_method
   # - $passenger_stat_throttle_rate
   # - $passenger_use_global_queue
   # - $passenger_app_env

@@ -1,10 +1,10 @@
 {% macro widget_prototype(widget, remove_text) %}
-    {% if widget.get('prototype') %}
-        {% set form = widget.get('prototype') %}
-        {% set name = widget.get('prototype').get('name') %}
+    {% if widget.vars.prototype %}
+        {% set form = widget.vars.prototype %}
+        {% set name = widget.vars.prototype.vars.name %}
     {% else %}
         {% set form = widget %}
-        {% set name = widget.get('full_name') %}
+        {% set name = widget.vars.full_name %}
     {% endif %}
 
     <tr data-content="{{ name }}">
@@ -14,22 +14,22 @@
         </td>
         <td class="tier">
             {{ form_errors(form.tier_bottom) }}
-			<div class="input-prepend">
-                <span class="add-on">$</span>
+			<div class="input-group">
+                <span class="input-group-addon">$</span>
                 {{ form_widget(form.tier_bottom, {'attr': {'class': 'auto-numeric not-presave'}}) }}
 			</div>
         </td>
         <td class="tier">
             <div class="pull-left">
                 {{ form_errors(form.tier_top) }}
-                <div class="input-prepend">
-                    <span class="add-on">$</span>
+                <div class="input-group">
+                    <span class="input-group-addon">$</span>
                     {{ form_widget(form.tier_top, {'attr': {'class': 'auto-numeric not-presave'}}) }}
                 </div>
             </div>
 
             <label class="is-final-tier-checkbox checkbox pull-left" style="display: none;">
-                {{ form_widget(form.is_final_tier) }} <span class="classify-tier">{{ form.is_final_tier.get('label') }}</span>
+                {{ form_widget(form.is_final_tier) }} <span class="classify-tier">{{ form.is_final_tier.vars.label }}</span>
             </label>
         </td>
         <td class="action"><a class="btn-remove" data-related="{{ name }}">{{ remove_text }}</a></td>
@@ -46,7 +46,7 @@
     </div>
 {% endif %}
 
-<div class="control-group">
+<div class="form-group">
     {% if (status is defined) and (message is defined) %}
         <div class="alert alert-{{ status }}">
             <button type="button" class="close" data-dismiss="alert">×</button>

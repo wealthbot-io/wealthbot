@@ -3,11 +3,10 @@
  * Created by PhpStorm.
  * User: amalyuhin
  * Date: 08.05.14
- * Time: 16:14
+ * Time: 16:14.
  */
 
 namespace Wealthbot\ClientBundle\Form\Handler;
-
 
 use Wealthbot\AdminBundle\Form\Handler\AbstractFormHandler;
 use Wealthbot\ClientBundle\Entity\BankInformation;
@@ -47,4 +46,4 @@ class BankInformationFormHandler extends AbstractFormHandler
         $this->em->persist($data);
         $this->em->flush();
     }
-} 
+}

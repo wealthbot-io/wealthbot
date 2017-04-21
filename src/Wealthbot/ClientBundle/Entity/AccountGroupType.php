@@ -2,25 +2,23 @@
 
 namespace Wealthbot\ClientBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-
 /**
- * AccountGroupType
+ * AccountGroupType.
  */
 class AccountGroupType
 {
     /**
-     * @var integer
+     * @var int
      */
     private $id;
 
     /**
-     * @var integer
+     * @var int
      */
     private $group_id;
 
     /**
-     * @var integer
+     * @var int
      */
     private $type_id;
 
@@ -40,17 +38,17 @@ class AccountGroupType
     private $type;
 
     /**
-     * Constructor
+     * Constructor.
      */
     public function __construct()
     {
         $this->clientAccounts = new \Doctrine\Common\Collections\ArrayCollection();
     }
-    
+
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer 
+     * @return int
      */
     public function getId()
     {
@@ -63,22 +61,23 @@ class AccountGroupType
     }
 
     /**
-     * Set group_id
+     * Set group_id.
      *
-     * @param integer $groupId
+     * @param int $groupId
+     *
      * @return AccountGroupType
      */
     public function setGroupId($groupId)
     {
         $this->group_id = $groupId;
-    
+
         return $this;
     }
 
     /**
-     * Get group_id
+     * Get group_id.
      *
-     * @return integer 
+     * @return int
      */
     public function getGroupId()
     {
@@ -86,22 +85,23 @@ class AccountGroupType
     }
 
     /**
-     * Set type_id
+     * Set type_id.
      *
-     * @param integer $typeId
+     * @param int $typeId
+     *
      * @return AccountGroupType
      */
     public function setTypeId($typeId)
     {
         $this->type_id = $typeId;
-    
+
         return $this;
     }
 
     /**
-     * Get type_id
+     * Get type_id.
      *
-     * @return integer 
+     * @return int
      */
     public function getTypeId()
     {
@@ -109,20 +109,21 @@ class AccountGroupType
     }
 
     /**
-     * Add clientAccounts
+     * Add clientAccounts.
      *
      * @param \Wealthbot\ClientBundle\Entity\ClientAccount $clientAccounts
+     *
      * @return AccountGroupType
      */
     public function addClientAccount(\Wealthbot\ClientBundle\Entity\ClientAccount $clientAccounts)
     {
         $this->clientAccounts[] = $clientAccounts;
-    
+
         return $this;
     }
 
     /**
-     * Remove clientAccounts
+     * Remove clientAccounts.
      *
      * @param \Wealthbot\ClientBundle\Entity\ClientAccount $clientAccounts
      */
@@ -132,9 +133,9 @@ class AccountGroupType
     }
 
     /**
-     * Get clientAccounts
+     * Get clientAccounts.
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getClientAccounts()
     {
@@ -142,22 +143,23 @@ class AccountGroupType
     }
 
     /**
-     * Set group
+     * Set group.
      *
      * @param \Wealthbot\ClientBundle\Entity\AccountGroup $group
+     *
      * @return AccountGroupType
      */
     public function setGroup(\Wealthbot\ClientBundle\Entity\AccountGroup $group = null)
     {
         $this->group = $group;
-    
+
         return $this;
     }
 
     /**
-     * Get group
+     * Get group.
      *
-     * @return \Wealthbot\ClientBundle\Entity\AccountGroup 
+     * @return \Wealthbot\ClientBundle\Entity\AccountGroup
      */
     public function getGroup()
     {
@@ -165,22 +167,23 @@ class AccountGroupType
     }
 
     /**
-     * Set type
+     * Set type.
      *
      * @param \Wealthbot\ClientBundle\Entity\AccountType $type
+     *
      * @return AccountGroupType
      */
     public function setType(\Wealthbot\ClientBundle\Entity\AccountType $type = null)
     {
         $this->type = $type;
-    
+
         return $this;
     }
 
     /**
-     * Get type
+     * Get type.
      *
-     * @return \Wealthbot\ClientBundle\Entity\AccountType 
+     * @return \Wealthbot\ClientBundle\Entity\AccountType
      */
     public function getType()
     {

@@ -158,7 +158,7 @@ do_install () {
     git checkout $verbosity $commit
   fi
 
-  if [ "x$gitdir" == "x$archivedir/$project-git" ] ; then
+  if [ "x$gitdir" == "x$archivedir/$project-git/gitrepo" ] ; then
     rsync -a --exclude=".git" $gitdir/$gitsubdir $deploy_root/
   fi
 

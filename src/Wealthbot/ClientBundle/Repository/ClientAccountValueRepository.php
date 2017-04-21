@@ -5,17 +5,16 @@ namespace Wealthbot\ClientBundle\Repository;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Query\ResultSetMappingBuilder;
 use Doctrine\ORM\QueryBuilder;
-use Wealthbot\AdminBundle\Entity\Job;
-use Wealthbot\ClientBundle\Entity\ClientPortfolio;
-use Wealthbot\ClientBundle\Entity\ClientPortfolioValue;
-use Wealthbot\RiaBundle\Entity\RiaCompanyInformation;
-use Wealthbot\UserBundle\Entity\User;
 use Wealthbot\ClientBundle\Entity\ClientAccount;
 use Wealthbot\ClientBundle\Entity\ClientAccountValue;
+use Wealthbot\ClientBundle\Entity\ClientPortfolio;
+use Wealthbot\ClientBundle\Entity\ClientPortfolioValue;
 use Wealthbot\ClientBundle\Entity\SystemAccount;
+use Wealthbot\RiaBundle\Entity\RiaCompanyInformation;
+use Wealthbot\UserBundle\Entity\User;
 
 /**
- * ClientAccountValueRepository
+ * ClientAccountValueRepository.
  *
  * ClientAccountValue - daily history of client accounts values (how much cash, in securities, billing cash...)
  */
@@ -23,15 +22,15 @@ class ClientAccountValueRepository extends EntityRepository
 {
     public function findLatestValuesForClientPortfolio($clientPortfolioId)
     {
-        $sql = "SELECT cav.* FROM client_account_values cav
+        $sql = 'SELECT cav.* FROM client_account_values cav
           LEFT JOIN client_portfolio cp ON cav.client_portfolio_id = cp.id
           WHERE cav.id = (SELECT id FROM client_account_values cav1
                             WHERE cav1.system_client_account_id = cav.system_client_account_id
                             ORDER BY cav1.date DESC
                             LIMIT 1)
-          AND cav.client_portfolio_id = :clientPortfolioId";
+          AND cav.client_portfolio_id = :clientPortfolioId';
 
-        $rsm  = new ResultSetMappingBuilder($this->_em);
+        $rsm = new ResultSetMappingBuilder($this->_em);
         $rsm->addEntityResult('WealthbotClientBundle:ClientAccountValue', 'cav');
         $rsm->addFieldResult('cav', 'id', 'id');
         $rsm->addFieldResult('cav', 'client_portfolio_id', 'client_portfolio_id');
@@ -57,7 +56,7 @@ class ClientAccountValueRepository extends EntityRepository
 
     public function findLatestValuesForClientsQuery(array $clientPortfolios)
     {
-        $ids = array();
+        $ids = [];
         /** @var ClientPortfolio $clientPortfolio */
         foreach ($clientPortfolios as $clientPortfolio) {
             $clientAccounts = $this->findLatestValuesForClientPortfolio($clientPortfolio->getId());
@@ -89,12 +88,12 @@ class ClientAccountValueRepository extends EntityRepository
 
     public function findLatestClientAccountValuesByPortfolioValue(ClientPortfolioValue $clientPortfolioValue)
     {
-        $qb = $this->findLatestValuesForClientsQuery(array($clientPortfolioValue->getClientPortfolio()));
+        $qb = $this->findLatestValuesForClientsQuery([$clientPortfolioValue->getClientPortfolio()]);
 
         return $qb->getQuery()->getResult();
     }
 
-    public function findHistoryForAdminQuery($filters = array())
+    public function findHistoryForAdminQuery($filters = [])
     {
         $qb = $this->createQueryBuilder('cav')
             ->leftJoin('cav.clientPortfolio', 'cp')
@@ -117,7 +116,7 @@ class ClientAccountValueRepository extends EntityRepository
         return $qb;
     }
 
-    public function findHistoryForRiaClientsQuery(User $ria, $filters = array())
+    public function findHistoryForRiaClientsQuery(User $ria, $filters = [])
     {
         $qb = $this->createQueryBuilder('cav')
             ->leftJoin('cav.clientPortfolio', 'cp')
@@ -140,7 +139,7 @@ class ClientAccountValueRepository extends EntityRepository
         return $qb;
     }
 
-    private function addHistoryFilterQueryPart(QueryBuilder $qb, $filters = array())
+    private function addHistoryFilterQueryPart(QueryBuilder $qb, $filters = [])
     {
         if (!empty($filters)) {
             if (isset($filters['client_id']) && $filters['client_id']) {
@@ -148,7 +147,7 @@ class ClientAccountValueRepository extends EntityRepository
                     ->andWhere('c.id = :clientId')
                     ->setParameter('clientId', $filters['client_id']);
             } elseif (isset($filters['client']) && $filters['client']) {
-                $name = explode(',',$filters['client']);
+                $name = explode(',', $filters['client']);
                 $lname = trim($name[0]);
                 $fname = isset($name[1]) && $name[1] ? trim($name[1]) : null;
 
@@ -167,7 +166,6 @@ class ClientAccountValueRepository extends EntityRepository
             }
 
             if (isset($filters['date_from']) && $filters['date_from']) {
-
                 $date = \DateTime::createFromFormat('m-d-Y', $filters['date_from']);
 
                 $qb
@@ -176,7 +174,6 @@ class ClientAccountValueRepository extends EntityRepository
             }
 
             if (isset($filters['date_to']) && $filters['date_to']) {
-
                 $date = \DateTime::createFromFormat('m-d-Y', $filters['date_to']);
 
                 $qb
@@ -199,7 +196,7 @@ class ClientAccountValueRepository extends EntityRepository
 
     public function findLatestValuesForSystemClientAccountIdsQuery($systemClientAccountIds)
     {
-        $clientAccountValueIds = array();
+        $clientAccountValueIds = [];
 
         foreach ($systemClientAccountIds as $systemClientAccountId) {
             /** @var ClientAccountValue $clientAccountValue */
@@ -253,7 +250,8 @@ class ClientAccountValueRepository extends EntityRepository
             ->setParameter('sysAccount', $sysAccount)
             ->getQuery()
             ->getArrayResult();
-        return ($x ? $x[0]['value'] : 0);
+
+        return $x ? $x[0]['value'] : 0;
     }
 
     public function getSumBeforeDate(SystemAccount $sysAccount, \DateTime $date)
@@ -268,20 +266,22 @@ class ClientAccountValueRepository extends EntityRepository
             ->setParameter('sysAccount', $sysAccount)
             ->getQuery()
             ->getArrayResult();
-        return ($x ? $x[0]['value_total'] : 0);
+
+        return $x ? $x[0]['value_total'] : 0;
     }
 
     /**
      * Returning first (by date) history element of this account.
      *
      * @param ClientAccount $account
+     *
      * @return ClientAccountValue|null
      */
     public function getFirstActivityDate(ClientAccount $account)
     {
         $systemAccount = $account->getSystemAccount();
         if (!$systemAccount) {
-            return null;
+            return;
         }
         $result = $this->createQueryBuilder('v')
             ->where('v.systemClientAccount = :sysAccount')
@@ -291,16 +291,16 @@ class ClientAccountValueRepository extends EntityRepository
             ->getQuery()
             ->getResult();
 
-        return (count($result) ? $result[0] : null);
-
+        return count($result) ? $result[0] : null;
     }
 
     public function getAllActivityByAccount(ClientAccount $account, \DateTime $dateFrom, \DateTime $dateTo)
     {
         $systemAccount = $account->getSystemAccount();
         if (!$systemAccount) {
-            return array();
+            return [];
         }
+
         return $this->createQueryBuilder('v')
             ->where('v.systemClientAccount = :sysAccount')
             ->andWhere('v.date >= :dateFrom')
@@ -315,11 +315,12 @@ class ClientAccountValueRepository extends EntityRepository
 
     /**
      * Returns array with:
-     *  avg_value, count_values
+     *  avg_value, count_values.
      *
      * @param ClientAccount $account
-     * @param \DateTime $dateFrom
-     * @param \DateTime $dateTo
+     * @param \DateTime     $dateFrom
+     * @param \DateTime     $dateTo
+     *
      * @return array
      */
     public function getAverageAccountValues(ClientAccount $account, \DateTime $dateFrom, \DateTime $dateTo)
@@ -327,10 +328,10 @@ class ClientAccountValueRepository extends EntityRepository
         $systemAccount = $account->getSystemAccount();
 
         if (!$systemAccount) {
-            return array(
-                'avg_value'    => 0,
-                'count_values' => 0
-            );
+            return [
+                'avg_value' => 0,
+                'count_values' => 0,
+            ];
         }
 
         $r = $this->createQueryBuilder('v')
@@ -347,23 +348,24 @@ class ClientAccountValueRepository extends EntityRepository
         ;
 
         if (count($r)) {
-            return array(
-                'avg_value'    => $r[0]['AV'],
-                'count_values' => $r[0]['CV']
-            );
+            return [
+                'avg_value' => $r[0]['AV'],
+                'count_values' => $r[0]['CV'],
+            ];
         } else {
-            return array(
-                'avg_value'    => 0,
-                'count_values' => 0
-            );
+            return [
+                'avg_value' => 0,
+                'count_values' => 0,
+            ];
         }
     }
 
     /**
      * @param ClientAccount $account
-     * @param \DateTime $dateFrom
-     * @param \DateTime $dateTo
-     * @param string $order
+     * @param \DateTime     $dateFrom
+     * @param \DateTime     $dateTo
+     * @param string        $order
+     *
      * @return ClientPortfolioValue|null
      */
     public function getExtreme(ClientAccount $account, \DateTime $dateFrom, \DateTime $dateTo, $order = 'ASC')
@@ -376,7 +378,7 @@ class ClientAccountValueRepository extends EntityRepository
 
             ->where('systemAccounts.clientAccount = :account')
             ->andWhere('portfolio.is_active = true')
-            ->andWhere($qb->expr()->between("accountValues.date", ":dateFrom", ":dateTo"))
+            ->andWhere($qb->expr()->between('accountValues.date', ':dateFrom', ':dateTo'))
 
             ->setParameter('account', $account)
             ->setParameter('dateFrom', $dateFrom)
@@ -392,8 +394,9 @@ class ClientAccountValueRepository extends EntityRepository
 
     /**
      * @param ClientAccount $account
-     * @param \DateTime $dateFrom
-     * @param \DateTime $dateTo
+     * @param \DateTime     $dateFrom
+     * @param \DateTime     $dateTo
+     *
      * @return ClientPortfolioValue|null
      */
     public function getFirstByDate(ClientAccount $account, \DateTime $dateFrom, \DateTime $dateTo)
@@ -403,8 +406,9 @@ class ClientAccountValueRepository extends EntityRepository
 
     /**
      * @param ClientAccount $account
-     * @param \DateTime $dateFrom
-     * @param \DateTime $dateTo
+     * @param \DateTime     $dateFrom
+     * @param \DateTime     $dateTo
+     *
      * @return ClientPortfolioValue|null
      */
     public function getLastByDate(ClientAccount $account, \DateTime $dateFrom, \DateTime $dateTo)

@@ -9,7 +9,6 @@
 
 namespace Wealthbot\ClientBundle\Model;
 
-
 class Beneficiary implements WorkflowableInterface
 {
     /**
@@ -21,22 +20,23 @@ class Beneficiary implements WorkflowableInterface
     const TYPE_PRIMARY = 'Primary';
     const TYPE_CONTINGENT = 'Contingent';
 
-    static private $_typeValues = null;
+    private static $_typeValues = null;
 
     /**
-     * Get array ENUM values type column
+     * Get array ENUM values type column.
      *
      * @static
+     *
      * @return array
      */
-    static public function getTypeChoices()
+    public static function getTypeChoices()
     {
         // Build $_typeValues if this is the first call
         if (self::$_typeValues === null) {
-            self::$_typeValues = array();
+            self::$_typeValues = [];
             $oClass = new \ReflectionClass('\Wealthbot\ClientBundle\Model\Beneficiary');
             $classConstants = $oClass->getConstants();
-            $constantPrefix = "TYPE_";
+            $constantPrefix = 'TYPE_';
             foreach ($classConstants as $key => $val) {
                 if (substr($key, 0, strlen($constantPrefix)) === $constantPrefix) {
                     self::$_typeValues[$val] = $val;
@@ -48,10 +48,12 @@ class Beneficiary implements WorkflowableInterface
     }
 
     /**
-     * Set type
+     * Set type.
      *
      * @param $type
+     *
      * @return $this
+     *
      * @throws \InvalidArgumentException
      */
     public function setType($type)
@@ -68,7 +70,7 @@ class Beneficiary implements WorkflowableInterface
     }
 
     /**
-     * Get type
+     * Get type.
      *
      * @return string
      */
@@ -78,27 +80,27 @@ class Beneficiary implements WorkflowableInterface
     }
 
     /**
-     * Is primary type
+     * Is primary type.
      *
      * @return bool
      */
     public function isPrimary()
     {
-        return (self::TYPE_PRIMARY === $this->getType());
+        return self::TYPE_PRIMARY === $this->getType();
     }
 
     /**
-     * Is contingent type
+     * Is contingent type.
      *
      * @return bool
      */
     public function isContingent()
     {
-        return (self::TYPE_CONTINGENT === $this->getType());
+        return self::TYPE_CONTINGENT === $this->getType();
     }
 
     /**
-     * Get workflow message code
+     * Get workflow message code.
      *
      * @return string
      */
@@ -106,6 +108,4 @@ class Beneficiary implements WorkflowableInterface
     {
         return Workflow::MESSAGE_CODE_PAPERWORK_UPDATE_BENEFICIARY;
     }
-
-
 }

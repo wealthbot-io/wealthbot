@@ -37,7 +37,7 @@
 
             {% if is_permitted('edit') %}
                 <div class="tab-pane" id="tab3">
-                    {% render url('rx_admin_ria_sd_settings', { ria_id: app.request.get('id') }) %}
+                    {{ render(url('rx_admin_ria_sd_settings', { ria_id: app.request.get('id') })) }}
                 </div>
             {% endif %}
 

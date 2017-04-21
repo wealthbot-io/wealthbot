@@ -1,3 +1,4 @@
+#
 class yum::repo::rundeck1 {
 
   require yum

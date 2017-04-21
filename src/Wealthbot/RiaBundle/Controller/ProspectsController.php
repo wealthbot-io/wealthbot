@@ -12,33 +12,28 @@ namespace Wealthbot\RiaBundle\Controller;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManager;
-use Doctrine\ORM\EntityRepository;
-use Wealthbot\AdminBundle\Entity\CeModel;
-use Wealthbot\AdminBundle\Repository\CeModelRepository;
-use Wealthbot\AdminBundle\Repository\SecurityAssignmentRepository;
-use Wealthbot\ClientBundle\Entity\Workflow;
-use Wealthbot\ClientBundle\Manager\ClientPortfolioManager;
-use Wealthbot\ClientBundle\Model\ClientPortfolio;
-use Wealthbot\ClientBundle\Repository\AccountOutsideFundRepository;
-use Wealthbot\RiaBundle\Form\Handler\InviteProspectFormHandler;
-use Wealthbot\RiaBundle\Form\Handler\RiaClientAccountFormHandler;
-use Wealthbot\RiaBundle\Form\Handler\SuggestedPortfolioFormHandler;
-use Wealthbot\RiaBundle\Form\Type\ChooseClientPortfolioFormType;
-use Wealthbot\RiaBundle\Form\Type\RiaClientAccountFormType;
-use Wealthbot\UserBundle\Entity\Profile;
-use Wealthbot\UserBundle\Repository\UserRepository;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Wealthbot\ClientBundle\Entity\ClientAccount;
-use Wealthbot\RiaBundle\Form\Type\InviteProspectFormType;
-use Wealthbot\UserBundle\Entity\User;
-use Wealthbot\RiaBundle\Form\Type\OutsideFundAssociationFormType;
-use Wealthbot\ClientBundle\Repository\ClientAccountRepository;
-use Wealthbot\RiaBundle\Form\Handler\OutsideFundAssociationFormHandler;
 use Symfony\Component\HttpFoundation\Session\Session;
-use Wealthbot\RiaBundle\Form\Type\SuggestedPortfolioFormType;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedException;
+use Wealthbot\AdminBundle\Repository\SecurityAssignmentRepository;
+use Wealthbot\ClientBundle\Entity\ClientAccount;
+use Wealthbot\ClientBundle\Entity\Workflow;
+use Wealthbot\ClientBundle\Manager\ClientPortfolioManager;
+use Wealthbot\ClientBundle\Repository\AccountOutsideFundRepository;
+use Wealthbot\ClientBundle\Repository\ClientAccountRepository;
+use Wealthbot\RiaBundle\Form\Handler\InviteProspectFormHandler;
+use Wealthbot\RiaBundle\Form\Handler\OutsideFundAssociationFormHandler;
+use Wealthbot\RiaBundle\Form\Handler\RiaClientAccountFormHandler;
+use Wealthbot\RiaBundle\Form\Handler\SuggestedPortfolioFormHandler;
+use Wealthbot\RiaBundle\Form\Type\InviteProspectFormType;
+use Wealthbot\RiaBundle\Form\Type\OutsideFundAssociationFormType;
+use Wealthbot\RiaBundle\Form\Type\RiaClientAccountFormType;
+use Wealthbot\RiaBundle\Form\Type\SuggestedPortfolioFormType;
+use Wealthbot\UserBundle\Entity\Profile;
+use Wealthbot\UserBundle\Entity\User;
+use Wealthbot\UserBundle\Repository\UserRepository;
 
 class ProspectsController extends Controller
 {
@@ -55,17 +50,17 @@ class ProspectsController extends Controller
         );
 
         if ($request->isXmlHttpRequest()) {
-            return $this->getJsonResponse(array(
+            return $this->getJsonResponse([
                 'status' => 'success',
-                'content' => $this->renderView('WealthbotRiaBundle:Prospects:index.html.twig', array(
-                    'clients_data' => $clientsData
-                ))
-            ));
+                'content' => $this->renderView('WealthbotRiaBundle:Prospects:index.html.twig', [
+                    'clients_data' => $clientsData,
+                ]),
+            ]);
         }
 
-        return $this->render('WealthbotRiaBundle:Prospects:index.html.twig', array(
+        return $this->render('WealthbotRiaBundle:Prospects:index.html.twig', [
             'clients_data' => $clientsData,
-        ));
+        ]);
     }
 
     public function inviteAction(Request $request)
@@ -80,43 +75,43 @@ class ProspectsController extends Controller
         $form = $this->createForm(new InviteProspectFormType($ria), $user);
 
         $em = $this->get('doctrine.orm.entity_manager');
-        $inviteFormHandler = new InviteProspectFormHandler($form, $request, $em, array(
+        $inviteFormHandler = new InviteProspectFormHandler($form, $request, $em, [
             'email_service' => $this->get('wealthbot.mailer'),
-            'ria' => $this->getUser())
+            'ria' => $this->getUser(), ]
         );
 
         $process = $inviteFormHandler->process();
         if ($process) {
-            $data = array(
+            $data = [
                 'status' => 'success',
                 'status_message' => 'User was inviting successfully',
-                'content' => $this->renderView('WealthbotRiaBundle:Prospects:_invite_prospect_form_fields.html.twig', array(
-                    'form' => $this->createForm(new InviteProspectFormType($ria))->createView()
-                ))
-            );
+                'content' => $this->renderView('WealthbotRiaBundle:Prospects:_invite_prospect_form_fields.html.twig', [
+                    'form' => $this->createForm(new InviteProspectFormType($ria))->createView(),
+                ]),
+            ];
 
-            if ($form->get('type')->getData() === 'internal'){
+            if ($form->get('type')->getData() === 'internal') {
                 $prospectsList = $em->getRepository('WealthbotUserBundle:User')->findOrderedProspectsByRia(
                     $ria,
                     $request->get('sort'),
                     $request->get('order')
                 );
 
-                $data['prospectsList'] = $this->renderView('WealthbotRiaBundle:Prospects:index.html.twig', array(
-                    'clients_data' => $prospectsList
-                ));
+                $data['prospectsList'] = $this->renderView('WealthbotRiaBundle:Prospects:index.html.twig', [
+                    'clients_data' => $prospectsList,
+                ]);
             }
 
             return $this->getJsonResponse($data);
         }
 
-        return $this->getJsonResponse(array(
+        return $this->getJsonResponse([
             'status' => 'error',
             'status_message' => 'User was not inviting, check the input data',
-            'content' => $this->renderView('WealthbotRiaBundle:Prospects:_invite_prospect_form_fields.html.twig', array(
-                'form' => $form->createView()
-            ))
-        ));
+            'content' => $this->renderView('WealthbotRiaBundle:Prospects:_invite_prospect_form_fields.html.twig', [
+                'form' => $form->createView(),
+            ]),
+        ]);
     }
 
     public function deleteAction(Request $request)
@@ -145,14 +140,14 @@ class ProspectsController extends Controller
                 $em->flush();
             }
 
-            return $this->getJsonResponse(array(
+            return $this->getJsonResponse([
                 'status' => 'success',
-            ));
+            ]);
         }
 
-        return $this->getJsonResponse(array(
-            'status' => 'error'
-        ));
+        return $this->getJsonResponse([
+            'status' => 'error',
+        ]);
     }
 
     public function suggestedPortfolioAction(Request $request)
@@ -162,11 +157,11 @@ class ProspectsController extends Controller
         $clientPortfolioManager = $this->get('wealthbot_client.client_portfolio.manager');
 
         /** @var $ria User */
-        /** @var $client User */
+        /* @var $client User */
         $ria = $this->getUser();
         $client = $em->getRepository('WealthbotUserBundle:User')->find($request->get('client_id'));
 
-        if (!$client || !$client->getRia() || $client->getRia()->getId() != $ria->getId() || !$client->hasStatusProspect()) {
+        if (!$client || !$client->getRia() || $client->getRia()->getId() !== $ria->getId() || !$client->hasStatusProspect()) {
             throw $this->createNotFoundException();
         }
 
@@ -182,10 +177,10 @@ class ProspectsController extends Controller
         $portfolio = $clientPortfolio->getPortfolio();
 
         $settingsForm = $this->createForm(new SuggestedPortfolioFormType($em, $clientPortfolio), $client->getProfile());
-        $settingsFormHandler = new SuggestedPortfolioFormHandler($settingsForm, $request, $em, array(
+        $settingsFormHandler = new SuggestedPortfolioFormHandler($settingsForm, $request, $em, [
             'mailer' => $mailer,
-            'client_portfolio_manager' => $clientPortfolioManager
-        ));
+            'client_portfolio_manager' => $clientPortfolioManager,
+        ]);
 
         if ($request->isMethod('post')) {
             $process = $settingsFormHandler->process();
@@ -219,7 +214,7 @@ class ProspectsController extends Controller
         $portfolioInformationManager = $this->get('wealthbot_client.portfolio_information_manager');
 
         $em->refresh($clientPortfolio);
-        $data = array(
+        $data = [
             'is_client_view' => (boolean) $request->get('client_view'),
             'user' => $ria,
             'form' => $form->createView(),
@@ -227,15 +222,15 @@ class ProspectsController extends Controller
             'client' => $client,
             'client_accounts' => $clientAccounts,
             'settings_form' => $settingsForm->createView(),
-            'client_answers' => $questionnaireAnswerRepo->findBy(array('client_id' => $client->getId())),
+            'client_answers' => $questionnaireAnswerRepo->findBy(['client_id' => $client->getId()]),
             'has_retirement_account' => $accountsRepo->hasRetirementAccount($client),
             'ria_company_information' => $ria->getRiaCompanyInformation(),
             'client_has_final_portfolio' => $clientPortfolio->isAdvisorApproved(),
             'portfolio_information' => $portfolioInformationManager->getPortfolioInformation($client, $portfolio, $isQualified),
             'is_use_qualified_models' => $isUseQualified,
             'action' => 'ria_suggested_portfolio',
-            'billing_spec' => $client->getAppointedBillingSpec()
-        );
+            'billing_spec' => $client->getAppointedBillingSpec(),
+        ];
 
         return $this->render('WealthbotRiaBundle:Prospects:suggested_portfolio.html.twig', $data);
     }
@@ -248,23 +243,24 @@ class ProspectsController extends Controller
 
         /** @var $client User */
         $client = $em->getRepository('WealthbotUserBundle:User')->find($request->get('client_id'));
-        if (!$client || $client->getRia() != $ria) {
+        if (!$client || $client->getRia() !== $ria) {
             throw $this->createNotFoundException();
         }
 
         $proposedPortfolio = $clientPortfolioManager->getProposedClientPortfolio($client);
         $settingsForm = $this->createForm(new SuggestedPortfolioFormType($em, $proposedPortfolio), $client->getProfile());
 
-        if($request->isXmlHttpRequest()){
-            return $this->renderView('WealthbotRiaBundle:Prospects:_asset_location_field.html.twig', array('settings_form' => $settingsForm->createView(), 'client_has_final_portfolio' => false));
+        if ($request->isXmlHttpRequest()) {
+            return $this->renderView('WealthbotRiaBundle:Prospects:_asset_location_field.html.twig', ['settings_form' => $settingsForm->createView(), 'client_has_final_portfolio' => false]);
         }
-        return $this->render('WealthbotRiaBundle:Prospects:_asset_location_field.html.twig', array('settings_form' => $settingsForm->createView(), 'client_has_final_portfolio' => false));
+
+        return $this->render('WealthbotRiaBundle:Prospects:_asset_location_field.html.twig', ['settings_form' => $settingsForm->createView(), 'client_has_final_portfolio' => false]);
     }
 
     public function createClientAccountAction(Request $request)
     {
         /** @var \Doctrine\ORM\EntityManager $em */
-        /** @var $repo ClientAccountRepository */
+        /* @var $repo ClientAccountRepository */
         $em = $this->get('doctrine.orm.entity_manager');
         $adm = $this->get('wealthbot_docusign.account_docusign.manager');
 
@@ -274,11 +270,11 @@ class ProspectsController extends Controller
 
         /** @var User $client */
         $client = $em->getRepository('WealthbotUserBundle:User')->find($request->get('client_id'));
-        if (!$client || $client->getProfile()->getRia()->getId() != $ria->getId()) {
-            return $this->getJsonResponse(array(
+        if (!$client || $client->getProfile()->getRia()->getId() !== $ria->getId()) {
+            return $this->getJsonResponse([
                 'status' => 'error',
-                'message' => 'Client with id: ' . $request->get('client_id') . ' does not exist.'
-            ));
+                'message' => 'Client with id: '.$request->get('client_id').' does not exist.',
+            ]);
         }
 
         $form = $this->createForm(new RiaClientAccountFormType($client, $em));
@@ -298,51 +294,51 @@ class ProspectsController extends Controller
                 $consolidated = $repo->findConsolidatedAccountsByClientId($client->getId());
 
                 if (!$clientAccount->getConsolidator()) {
-                    $account = $this->renderView('WealthbotRiaBundle:Prospects:_client_account_row.html.twig', array(
+                    $account = $this->renderView('WealthbotRiaBundle:Prospects:_client_account_row.html.twig', [
                         'client' => $client,
                         'account' => $clientAccount,
                         'index' => count($consolidated),
-                        'with_edit' => $withEdit
-                    ));
+                        'with_edit' => $withEdit,
+                    ]);
                 } else {
-                    $account = $this->renderView('WealthbotRiaBundle:Prospects:_client_account_row.html.twig', array(
+                    $account = $this->renderView('WealthbotRiaBundle:Prospects:_client_account_row.html.twig', [
                         'client' => $client,
                         'account' => $clientAccount->getConsolidator(),
                         'index' => count($consolidated),
-                        'with_edit' => $withEdit
-                    ));
+                        'with_edit' => $withEdit,
+                    ]);
                 }
 
-                return $this->getJsonResponse(array(
+                return $this->getJsonResponse([
                     'status' => 'success',
                     'account' => $account,
                     'consolidator_id' => $clientAccount->getConsolidator() ? $clientAccount->getConsolidator()->getId() : null,
-                    'form' => $this->renderView('WealthbotRiaBundle:Prospects:_create_client_account_form.html.twig', array(
+                    'form' => $this->renderView('WealthbotRiaBundle:Prospects:_create_client_account_form.html.twig', [
                         'form' => $newForm->createView(),
-                        'client' => $client
-                    )),
-                    'outside_accounts' => $this->renderView('WealthbotRiaBundle:Prospects:_client_outside_accounts_list.html.twig', array(
-                        'retirement_accounts' => $retirementAccounts
-                    )),
+                        'client' => $client,
+                    ]),
+                    'outside_accounts' => $this->renderView('WealthbotRiaBundle:Prospects:_client_outside_accounts_list.html.twig', [
+                        'retirement_accounts' => $retirementAccounts,
+                    ]),
                     'asset_location' => $this->updateAssetLocationFieldAction($request),
-                    'total' => $total
-                ));
+                    'total' => $total,
+                ]);
             }
         }
 
-        return $this->getJsonResponse(array(
+        return $this->getJsonResponse([
             'status' => 'error',
-            'form' => $this->renderView('WealthbotRiaBundle:Prospects:_create_client_account_form.html.twig', array(
+            'form' => $this->renderView('WealthbotRiaBundle:Prospects:_create_client_account_form.html.twig', [
                 'form' => $form->createView(),
-                'client' => $client
-            ))
-        ));
+                'client' => $client,
+            ]),
+        ]);
     }
 
     public function editClientAccountAction(Request $request)
     {
         /** @var \Doctrine\ORM\EntityManager $em */
-        /** @var $repo ClientAccountRepository */
+        /* @var $repo ClientAccountRepository */
         $em = $this->get('doctrine.orm.entity_manager');
         $adm = $this->get('wealthbot_docusign.account_docusign.manager');
 
@@ -351,23 +347,23 @@ class ProspectsController extends Controller
         $ria = $this->getUser();
 
         $client = $em->getRepository('WealthbotUserBundle:User')->find($request->get('client_id'));
-        if (!$client || $client->getProfile()->getRia()->getId() != $ria->getId()) {
-            return $this->getJsonResponse(array(
+        if (!$client || $client->getProfile()->getRia()->getId() !== $ria->getId()) {
+            return $this->getJsonResponse([
                 'status' => 'error',
-                'message' => 'Client with id: ' . $request->get('client_id') . ' does not exist.'
-            ));
+                'message' => 'Client with id: '.$request->get('client_id').' does not exist.',
+            ]);
         }
 
         /** @var $clientAccount ClientAccount */
-        $clientAccount = $em->getRepository('WealthbotClientBundle:ClientAccount')->findOneBy(array(
+        $clientAccount = $em->getRepository('WealthbotClientBundle:ClientAccount')->findOneBy([
             'id' => $request->get('account_id'),
-            'client_id' => $client->getId()
-        ));
+            'client_id' => $client->getId(),
+        ]);
         if (!$clientAccount) {
-            return $this->getJsonResponse(array(
+            return $this->getJsonResponse([
                 'status' => 'error',
-                'message' => 'Client account with id: ' . $request->get('account_id') . ' does not exist.'
-            ));
+                'message' => 'Client account with id: '.$request->get('account_id').' does not exist.',
+            ]);
         }
 
         $form = $this->createForm(new RiaClientAccountFormType($client, $em), $clientAccount);
@@ -384,44 +380,44 @@ class ProspectsController extends Controller
 
                 $total = $repo->getTotalScoreByClientId($client->getId());
 
-                return $this->getJsonResponse(array(
+                return $this->getJsonResponse([
                     'status' => 'success',
                     'account_id' => $clientAccount->getId(),
-                    'form' => $this->renderView('WealthbotRiaBundle:Prospects:_create_client_account_form.html.twig', array(
+                    'form' => $this->renderView('WealthbotRiaBundle:Prospects:_create_client_account_form.html.twig', [
                         'form' => $newForm->createView(),
-                        'client' => $client
-                    )),
-                    'content' => $this->renderView('WealthbotRiaBundle:Prospects:_client_account_row.html.twig', array(
+                        'client' => $client,
+                    ]),
+                    'content' => $this->renderView('WealthbotRiaBundle:Prospects:_client_account_row.html.twig', [
                         'client' => $client,
                         'account' => $clientAccount,
                         'index' => $client->getClientAccounts()->count(),
-                        'with_edit' => $clientAccount->getConsolidatedAccounts()->count() ? false : true
-                    )),
-                    'outside_accounts' => $this->renderView('WealthbotRiaBundle:Prospects:_client_outside_accounts_list.html.twig', array(
-                        'retirement_accounts' => $retirementAccounts
-                    )),
-                    'total' => $total
-                ));
+                        'with_edit' => $clientAccount->getConsolidatedAccounts()->count() ? false : true,
+                    ]),
+                    'outside_accounts' => $this->renderView('WealthbotRiaBundle:Prospects:_client_outside_accounts_list.html.twig', [
+                        'retirement_accounts' => $retirementAccounts,
+                    ]),
+                    'total' => $total,
+                ]);
             } else {
-                return $this->getJsonResponse(array(
+                return $this->getJsonResponse([
                     'status' => 'error',
-                    'form' => $this->renderView('WealthbotRiaBundle:Prospects:_edit_client_account_form.html.twig', array(
+                    'form' => $this->renderView('WealthbotRiaBundle:Prospects:_edit_client_account_form.html.twig', [
                         'form' => $form->createView(),
-                        'client' => $client
-                    )),
-                    'group' => $clientAccount->getGroupName()
-                ));
+                        'client' => $client,
+                    ]),
+                    'group' => $clientAccount->getGroupName(),
+                ]);
             }
         }
 
-        return $this->getJsonResponse(array(
+        return $this->getJsonResponse([
             'status' => 'success',
-            'form' => $this->renderView('WealthbotRiaBundle:Prospects:_edit_client_account_form.html.twig', array(
+            'form' => $this->renderView('WealthbotRiaBundle:Prospects:_edit_client_account_form.html.twig', [
                 'form' => $form->createView(),
-                'client' => $client
-            )),
-            'group' => $clientAccount->getGroupName()
-        ));
+                'client' => $client,
+            ]),
+            'group' => $clientAccount->getGroupName(),
+        ]);
     }
 
     public function updateClientAccountFormAction(Request $request)
@@ -430,11 +426,11 @@ class ProspectsController extends Controller
         $em = $this->get('doctrine.orm.entity_manager');
 
         $client = $em->getRepository('WealthbotUserBundle:User')->find($request->get('client_id'));
-        if (!$client || $client->getProfile()->getRia()->getId() != $this->getUser()->getId()) {
-            return $this->getJsonResponse(array(
+        if (!$client || $client->getProfile()->getRia()->getId() !== $this->getUser()->getId()) {
+            return $this->getJsonResponse([
                 'status' => 'error',
-                'message' => 'Client does not exist.'
-            ));
+                'message' => 'Client does not exist.',
+            ]);
         }
 
         $formType = new RiaClientAccountFormType($client, $em);
@@ -443,15 +439,15 @@ class ProspectsController extends Controller
         $data['groupType'] = '';
 
         $form = $this->createForm($formType);
-        $form->bind($data);
+        $form->submit($data);
 
-        $result = array(
+        $result = [
             'status' => 'success',
-            'content' => $this->renderView('WealthbotRiaBundle:Prospects:_account_form_fields.html.twig', array(
-                'form' => $form->createView()
-            )),
-            'group' => $form->get('group')->getData()
-        );
+            'content' => $this->renderView('WealthbotRiaBundle:Prospects:_account_form_fields.html.twig', [
+                'form' => $form->createView(),
+            ]),
+            'group' => $form->get('group')->getData(),
+        ];
 
         return $this->getJsonResponse($result);
     }
@@ -462,25 +458,25 @@ class ProspectsController extends Controller
         $em = $this->get('doctrine.orm.entity_manager');
 
         $client = $em->getRepository('WealthbotUserBundle:User')->find($request->get('client_id'));
-        if (!$client || $client->getProfile()->getRia()->getId() != $this->getUser()->getId()) {
-            return $this->getJsonResponse(array(
+        if (!$client || $client->getProfile()->getRia()->getId() !== $this->getUser()->getId()) {
+            return $this->getJsonResponse([
                 'status' => 'error',
-                'message' => 'Client does not exist.'
-            ));
+                'message' => 'Client does not exist.',
+            ]);
         }
 
         $formType = new RiaClientAccountFormType($client, $em, false);
         $data = $request->get($formType->getName());
 
         $form = $this->createForm($formType);
-        $form->bind($data);
+        $form->submit($data);
 
-        $result = array(
+        $result = [
             'status' => 'success',
-            'content' => $this->renderView('WealthbotRiaBundle:Prospects:_account_owners_fields.html.twig', array(
-                'form' => $form->createView()
-            ))
-        );
+            'content' => $this->renderView('WealthbotRiaBundle:Prospects:_account_owners_fields.html.twig', [
+                'form' => $form->createView(),
+            ]),
+        ];
 
         return $this->getJsonResponse($result);
     }
@@ -488,33 +484,33 @@ class ProspectsController extends Controller
     public function deleteClientAccountAction(Request $request)
     {
         /** @var \Doctrine\ORM\EntityManager $em */
-        /** @var $repo ClientAccountRepository */
+        /* @var $repo ClientAccountRepository */
         $em = $this->get('doctrine.orm.entity_manager');
         $repo = $em->getRepository('WealthbotClientBundle:ClientAccount');
 
         $ria = $this->getUser();
 
         $client = $em->getRepository('WealthbotUserBundle:User')->find($request->get('client_id'));
-        if (!$client || $client->getProfile()->getRia()->getId() != $ria->getId()) {
-            return $this->getJsonResponse(array(
+        if (!$client || $client->getProfile()->getRia()->getId() !== $ria->getId()) {
+            return $this->getJsonResponse([
                 'status' => 'error',
-                'message' => 'Client with id: ' . $request->get('client_id') . ' does not exist.'
-            ));
+                'message' => 'Client with id: '.$request->get('client_id').' does not exist.',
+            ]);
         }
 
         /** @var $clientAccount ClientAccount */
-        $clientAccount = $repo->findOneBy(array(
+        $clientAccount = $repo->findOneBy([
             'id' => $request->get('account_id'),
-            'client_id' => $client->getId()
-        ));
+            'client_id' => $client->getId(),
+        ]);
         if (!$clientAccount) {
-            return $this->getJsonResponse(array(
+            return $this->getJsonResponse([
                 'status' => 'error',
-                'message' => 'Client account with id: ' . $request->get('account_id') . ' does not exist.'
-            ));
+                'message' => 'Client account with id: '.$request->get('account_id').' does not exist.',
+            ]);
         }
 
-        foreach($clientAccount->getAccountOutsideFunds() as $fund){
+        foreach ($clientAccount->getAccountOutsideFunds() as $fund) {
             $em->remove($fund);
         }
 
@@ -523,81 +519,81 @@ class ProspectsController extends Controller
 
         $total = $repo->getTotalScoreByClientId($client->getId());
 
-        return $this->getJsonResponse(array(
+        return $this->getJsonResponse([
             'status' => 'success',
             'asset_location' => $this->updateAssetLocationFieldAction($request),
-            'total' => $total
-        ));
+            'total' => $total,
+        ]);
     }
 
     public function clientOutsideFundsAction(Request $request)
     {
         /** @var \Doctrine\ORM\EntityManager $em */
-        /** @var $repo ClientAccountRepository */
-        /** @var $securityAssignmentRepo SecurityAssignmentRepository */
+        /* @var $repo ClientAccountRepository */
+        /* @var $securityAssignmentRepo SecurityAssignmentRepository */
         $em = $this->get('doctrine.orm.entity_manager');
         $repo = $em->getRepository('WealthbotClientBundle:ClientAccount');
-        $securityAssignmentRepo = $em->getRepository("WealthbotAdminBundle:SecurityAssignment");
+        $securityAssignmentRepo = $em->getRepository('WealthbotAdminBundle:SecurityAssignment');
 
         $ria = $this->getUser();
 
         $client = $em->getRepository('WealthbotUserBundle:User')->find($request->get('client_id'));
-        if (!$client || $client->getProfile()->getRia()->getId() != $ria->getId()) {
-            return $this->getJsonResponse(array(
+        if (!$client || $client->getProfile()->getRia()->getId() !== $ria->getId()) {
+            return $this->getJsonResponse([
                 'status' => 'error',
-                'message' => sprintf('You does not have client with id: %s.', $request->get('client_id'))
-            ));
+                'message' => sprintf('You does not have client with id: %s.', $request->get('client_id')),
+            ]);
         }
 
         $account = $repo->findOneRetirementAccountByIdAndClientId($request->get('account_id'), $client->getId());
         if (!$account) {
-            return $this->getJsonResponse(array(
+            return $this->getJsonResponse([
                 'status' => 'error',
-                'message' => 'Account does not exist or does not have a retirement type.'
-            ));
+                'message' => 'Account does not exist or does not have a retirement type.',
+            ]);
         }
 
         $securities = $securityAssignmentRepo->findByAccountIdAndRiaId($account->getId(), $ria->getId());
-        $accountSecurities = $em->getRepository('WealthbotClientBundle:AccountOutsideFund')->findBy(array('account_id' => $account->getId()));
+        $accountSecurities = $em->getRepository('WealthbotClientBundle:AccountOutsideFund')->findBy(['account_id' => $account->getId()]);
         $form = $this->createForm(new OutsideFundAssociationFormType($em, $ria, $account));
 
-        return $this->getJsonResponse(array(
+        return $this->getJsonResponse([
             'status' => 'success',
-            'content' => $this->renderView('WealthbotRiaBundle:Prospects:_client_outside_funds_list.html.twig', array(
-                'securityAssignments'  => $securities,
+            'content' => $this->renderView('WealthbotRiaBundle:Prospects:_client_outside_funds_list.html.twig', [
+                'securityAssignments' => $securities,
                 'accountSecurities' => $accountSecurities,
                 'form' => $form->createView(),
                 'account' => $account,
                 'client' => $client,
-            ))
-        ));
+            ]),
+        ]);
     }
 
     public function createClientOutsideFundAction(Request $request)
     {
         /** @var \Doctrine\ORM\EntityManager $em */
-        /** @var $repo ClientAccountRepository */
-        /** @var $securityAssignmentRepo SecurityAssignmentRepository */
+        /* @var $repo ClientAccountRepository */
+        /* @var $securityAssignmentRepo SecurityAssignmentRepository */
         $em = $this->get('doctrine.orm.entity_manager');
         $repo = $em->getRepository('WealthbotClientBundle:ClientAccount');
-        $securityAssignmentRepo = $em->getRepository("WealthbotAdminBundle:SecurityAssignment");
+        $securityAssignmentRepo = $em->getRepository('WealthbotAdminBundle:SecurityAssignment');
 
         $ria = $this->getUser();
 
         $client = $em->getRepository('WealthbotUserBundle:User')->find($request->get('client_id'));
-        if (!$client || $client->getProfile()->getRia()->getId() != $ria->getId()) {
-            return $this->getJsonResponse(array(
+        if (!$client || $client->getProfile()->getRia()->getId() !== $ria->getId()) {
+            return $this->getJsonResponse([
                 'status' => 'error',
-                'message' => sprintf('You does not have client with id: %s.', $request->get('client_id'))
-            ));
+                'message' => sprintf('You does not have client with id: %s.', $request->get('client_id')),
+            ]);
         }
 
         $account = $repo->findOneRetirementAccountByIdAndClientId($request->get('account_id'), $client->getId());
         if (!$account) {
-            return $this->getJsonResponse(array(
+            return $this->getJsonResponse([
                 'status' => 'error',
-                'message' => 'Account does not exist or does not have a retirement type.'
-            ));
+                'message' => 'Account does not exist or does not have a retirement type.',
+            ]);
         }
 
         $form = $this->createForm(new OutsideFundAssociationFormType($em, $ria, $account));
@@ -612,53 +608,53 @@ class ProspectsController extends Controller
         }
 
         $securities = $securityAssignmentRepo->findByAccountIdAndRiaId($account->getId(), $ria->getId());
-        $accountSecurities = $em->getRepository('WealthbotClientBundle:AccountOutsideFund')->findBy(array('account_id' => $account->getId()));
+        $accountSecurities = $em->getRepository('WealthbotClientBundle:AccountOutsideFund')->findBy(['account_id' => $account->getId()]);
 
-        return $this->getJsonResponse(array(
+        return $this->getJsonResponse([
             'status' => $status,
-            'content' => $this->renderView('WealthbotRiaBundle:Prospects:_client_outside_funds_list.html.twig', array(
-                'securityAssignments'  => $securities,
+            'content' => $this->renderView('WealthbotRiaBundle:Prospects:_client_outside_funds_list.html.twig', [
+                'securityAssignments' => $securities,
                 'accountSecurities' => $accountSecurities,
                 'form' => $form->createView(),
                 'account' => $account,
-                'client' => $client
-            ))
-        ));
+                'client' => $client,
+            ]),
+        ]);
     }
 
     public function editClientOutsideFundAction(Request $request)
     {
         /** @var \Doctrine\ORM\EntityManager $em */
-        /** @var $repo ClientAccountRepository */
-        /** @var $securityAssignmentRepo SecurityAssignmentRepository */
+        /* @var $repo ClientAccountRepository */
+        /* @var $securityAssignmentRepo SecurityAssignmentRepository */
         $em = $this->get('doctrine.orm.entity_manager');
         $repo = $em->getRepository('WealthbotClientBundle:ClientAccount');
-        $securityAssignmentRepo = $em->getRepository("WealthbotAdminBundle:SecurityAssignment");
+        $securityAssignmentRepo = $em->getRepository('WealthbotAdminBundle:SecurityAssignment');
 
         $ria = $this->getUser();
 
         $client = $em->getRepository('WealthbotUserBundle:User')->find($request->get('client_id'));
-        if (!$client || $client->getProfile()->getRia()->getId() != $ria->getId()) {
-            return $this->getJsonResponse(array(
+        if (!$client || $client->getProfile()->getRia()->getId() !== $ria->getId()) {
+            return $this->getJsonResponse([
                 'status' => 'error',
-                'message' => sprintf('You does not have client with id: %s.', $request->get('client_id'))
-            ));
+                'message' => sprintf('You does not have client with id: %s.', $request->get('client_id')),
+            ]);
         }
 
         $account = $repo->findOneRetirementAccountByIdAndClientId($request->get('account_id'), $client->getId());
         if (!$account) {
-            return $this->getJsonResponse(array(
+            return $this->getJsonResponse([
                 'status' => 'error',
-                'message' => 'Account does not exist or does not have a retirement type.'
-            ));
+                'message' => 'Account does not exist or does not have a retirement type.',
+            ]);
         }
 
         $securityAssignment = $securityAssignmentRepo->find($request->get('security_id'));
         if (!$securityAssignment) {
-            return $this->getJsonResponse(array(
+            return $this->getJsonResponse([
                 'status' => 'error',
-                'message' => sprintf('SecurityAssignment with id %d does not exist.', $request->get('security_id'))
-            ));
+                'message' => sprintf('SecurityAssignment with id %d does not exist.', $request->get('security_id')),
+            ]);
         }
 
         $form = $this->createForm(new OutsideFundAssociationFormType($em, $ria, $account), $securityAssignment);
@@ -674,26 +670,26 @@ class ProspectsController extends Controller
             }
 
             $securityAssignments = $securityAssignmentRepo->findByAccountIdAndRiaId($account->getId(), $ria->getId());
-            $accountSecurities = $em->getRepository('WealthbotClientBundle:AccountOutsideFund')->findBy(array('account_id' => $account->getId()));
+            $accountSecurities = $em->getRepository('WealthbotClientBundle:AccountOutsideFund')->findBy(['account_id' => $account->getId()]);
 
-            $result = array(
+            $result = [
                 'status' => $status,
-                'content' => $this->renderView('WealthbotRiaBundle:Prospects:_client_outside_funds_list.html.twig', array(
+                'content' => $this->renderView('WealthbotRiaBundle:Prospects:_client_outside_funds_list.html.twig', [
                     'accountSecurities' => $accountSecurities,
                     'form' => $form->createView(),
                     'account' => $account,
-                    'client' => $client
-                ))
-            );
+                    'client' => $client,
+                ]),
+            ];
         } else {
-            $result = array(
+            $result = [
                 'status' => 'success',
-                'content' => $this->renderView('WealthbotRiaBundle:Prospects:_edit_client_outside_fund_form.html.twig', array(
+                'content' => $this->renderView('WealthbotRiaBundle:Prospects:_edit_client_outside_fund_form.html.twig', [
                     'form' => $form->createView(),
                     'account' => $account,
-                    'client' => $client
-                ))
-            );
+                    'client' => $client,
+                ]),
+            ];
         }
 
         return $this->getJsonResponse($result);
@@ -702,8 +698,8 @@ class ProspectsController extends Controller
     public function deleteClientOutsideFundAction(Request $request)
     {
         /** @var \Doctrine\ORM\EntityManager $em */
-        /** @var $repo ClientAccountRepository */
-        /** @var $accountOutsideFundRepo AccountOutsideFundRepository */
+        /* @var $repo ClientAccountRepository */
+        /* @var $accountOutsideFundRepo AccountOutsideFundRepository */
         $em = $this->get('doctrine.orm.entity_manager');
         $repo = $em->getRepository('WealthbotClientBundle:ClientAccount');
         $accountOutsideFundRepo = $em->getRepository('WealthbotClientBundle:AccountOutsideFund');
@@ -711,41 +707,41 @@ class ProspectsController extends Controller
         $ria = $this->getUser();
 
         $client = $em->getRepository('WealthbotUserBundle:User')->find($request->get('client_id'));
-        if (!$client || $client->getProfile()->getRia()->getId() != $ria->getId()) {
-            return $this->getJsonResponse(array(
+        if (!$client || $client->getProfile()->getRia()->getId() !== $ria->getId()) {
+            return $this->getJsonResponse([
                 'status' => 'error',
-                'message' => sprintf('You does not have client with id: %s.', $request->get('client_id'))
-            ));
+                'message' => sprintf('You does not have client with id: %s.', $request->get('client_id')),
+            ]);
         }
 
         $account = $repo->findOneRetirementAccountByIdAndClientId($request->get('account_id'), $client->getId());
         if (!$account) {
-            return $this->getJsonResponse(array(
+            return $this->getJsonResponse([
                 'status' => 'error',
-                'message' => 'Account does not exist or does not have a retirement type.'
-            ));
+                'message' => 'Account does not exist or does not have a retirement type.',
+            ]);
         }
 
         $security = $em->getRepository('WealthbotAdminBundle:Security')->find($request->get('fund_id'));
         if (!$security) {
-            return $this->getJsonResponse(array(
+            return $this->getJsonResponse([
                 'status' => 'error',
-                'message' => sprintf('Security with id: %s does not exist.', $request->get('fund_id'))
-            ));
+                'message' => sprintf('Security with id: %s does not exist.', $request->get('fund_id')),
+            ]);
         }
 
         $accountOutsideFund = $accountOutsideFundRepo->findOneBySecurityIdAndAccountId($security->getId(), $account->getId());
         if (!$accountOutsideFund) {
-            return $this->getJsonResponse(array(
+            return $this->getJsonResponse([
                 'status' => 'error',
-                'message' => sprintf('Account outside fund for account: %s does not exist.', $account->getId())
-            ));
+                'message' => sprintf('Account outside fund for account: %s does not exist.', $account->getId()),
+            ]);
         }
 
         $em->remove($accountOutsideFund);
         $em->flush();
 
-        return $this->getJsonResponse(array('status' => 'success'));
+        return $this->getJsonResponse(['status' => 'success']);
     }
 
     // has asset classes have preferred subclass
@@ -753,7 +749,7 @@ class ProspectsController extends Controller
     {
         $ria = $client->getProfile()->getRia();
 
-        $q = "
+        $q = '
         SELECT aof.account_id, aof.is_preferred, s.*
             FROM client_accounts ca
                 LEFT JOIN account_outside_funds aof ON (ca.id = aof.account_id)
@@ -763,7 +759,7 @@ class ProspectsController extends Controller
                 LEFT JOIN subclasses s ON (rs.subclass_id = s.id)
             WHERE ca.client_id = :client_id AND ofa.ria_user_id = :ria_id AND aof.is_preferred = :is_preferred
             GROUP BY s.asset_class_id
-        ";
+        ';
 
         $stmt = $em->getConnection()->prepare($q);
         $stmt->bindValue('ria_id', $ria->getId());
@@ -772,8 +768,8 @@ class ProspectsController extends Controller
         $stmt->execute();
         $results = $stmt->fetchAll();
 
-        $unPreferred = array();
-        foreach($results as $result) {
+        $unPreferred = [];
+        foreach ($results as $result) {
             $unPreferred[$result['account_id']][] = $result['asset_class_id'];
         }
 
@@ -784,22 +780,22 @@ class ProspectsController extends Controller
         $stmt->execute();
         $results = $stmt->fetchAll();
 
-        $preferred = array();
-        foreach($results as $result) {
+        $preferred = [];
+        foreach ($results as $result) {
             $preferred[$result['account_id']][] = $result['asset_class_id'];
         }
 
-        $badAsset = array();
+        $badAsset = [];
         //echo "<pre>";
-        foreach($unPreferred as $account => $assetClasses) {
+        foreach ($unPreferred as $account => $assetClasses) {
             //var_dump($account, $assetClasses);
-            if(isset($preferred[$account])){
+            if (isset($preferred[$account])) {
                 //var_dump($assetClasses, $preferred[$account]);
                 //echo "----";
                 // Search asset classes that's doesn't have preferred subclass
                 $diff = array_diff($assetClasses, $preferred[$account]);
                 // If exists than add to array with not valid asset classes
-                if($diff){
+                if ($diff) {
                     $badAsset[$account] = $diff;
                 }
                 //var_dump($badAsset);
@@ -813,7 +809,7 @@ class ProspectsController extends Controller
         }
 
         $data['error'] = false;
-        if(count($badAsset) > 0){
+        if (count($badAsset) > 0) {
             $data['error'] = true;
             $data['bad_asset_classes'] = $badAsset;
         }
@@ -828,8 +824,8 @@ class ProspectsController extends Controller
         }
 
         /** @var EntityManager $em */
-        /** @var ClientAccountRepository $repo */
-        /** @var UserRepository $userRepo */
+        /* @var ClientAccountRepository $repo */
+        /* @var UserRepository $userRepo */
         $em = $this->get('doctrine.orm.entity_manager');
         $repo = $em->getRepository('WealthbotClientBundle:ClientAccount');
         $userRepo = $em->getRepository('WealthbotUserBundle:User');
@@ -838,48 +834,49 @@ class ProspectsController extends Controller
 
         /** @var User $client */
         $client = $userRepo->find($request->get('client_id'));
-        if (!$client || $client->getRia()->getId() !== $ria ->getId()) {
-            $this->getJsonResponse(array(
+        if (!$client || $client->getRia()->getId() !== $ria->getId()) {
+            $this->getJsonResponse([
                 'status' => 'error',
-                'message' => 'The client does not exist or belong to another ria.'
-            ));
+                'message' => 'The client does not exist or belong to another ria.',
+            ]);
         }
 
         /** @var ClientAccount $account */
-        $account = $repo->findOneBy(array('id' => $request->get('account_id'), 'client_id' => $client->getId()));
+        $account = $repo->findOneBy(['id' => $request->get('account_id'), 'client_id' => $client->getId()]);
         $consolidatedAccounts = $account->getConsolidatedAccounts();
 
         if (!$account || !$consolidatedAccounts->count()) {
-            $this->getJsonResponse(array(
+            $this->getJsonResponse([
                'status' => 'error',
-                'message' => 'Account does not exist or does not have consolidated accounts.'
-            ));
+                'message' => 'Account does not exist or does not have consolidated accounts.',
+            ]);
         }
 
         $allConsolidatedAccounts = $this->arrayCollectionPrepend($consolidatedAccounts, $account);
 
-        return $this->getJsonResponse(array(
+        return $this->getJsonResponse([
             'status' => 'success',
-            'content' => $this->renderView('WealthbotRiaBundle:Prospects:_consolidated_accounts_list.html.twig', array(
+            'content' => $this->renderView('WealthbotRiaBundle:Prospects:_consolidated_accounts_list.html.twig', [
                 'client' => $client,
                 'consolidated_accounts' => $allConsolidatedAccounts,
-                'total' => $repo->getTotalScoreByClientId($client->getId(), $account->getid())
-            ))
-        ));
+                'total' => $repo->getTotalScoreByClientId($client->getId(), $account->getid()),
+            ]),
+        ]);
     }
 
     private function getJsonResponse(array $data, $code = 200)
     {
         $response = json_encode($data);
 
-        return new Response($response, $code, array('Content-Type' => 'application/json'));
+        return new Response($response, $code, ['Content-Type' => 'application/json']);
     }
 
     /**
-     * Add element to the beginning of the array collection
+     * Add element to the beginning of the array collection.
      *
      * @param Collection $collection
      * @param $element
+     *
      * @return ArrayCollection
      */
     private function arrayCollectionPrepend(Collection $collection, $element)
@@ -895,24 +892,27 @@ class ProspectsController extends Controller
     }
 
     /**
-     * Set what type of models RIA will be used (qualified or non-qualified)
+     * Set what type of models RIA will be used (qualified or non-qualified).
+     *
      * @param bool $value
      */
     protected function setIsQualifiedModel($value)
     {
         /** @var Session $session */
         $session = $this->get('session');
-        $session->set('prospect.is_qualified', (bool)$value);
+        $session->set('prospect.is_qualified', (bool) $value);
     }
 
     /**
-     * Set what type of models RIA will be used (qualified or non-qualified)
+     * Set what type of models RIA will be used (qualified or non-qualified).
+     *
      * @return bool
      */
     protected function getIsQualifiedModel()
     {
         /** @var Session $session */
         $session = $this->get('session');
-        return (bool)$session->get('prospect.is_qualified', false);
+
+        return (bool) $session->get('prospect.is_qualified', false);
     }
 }

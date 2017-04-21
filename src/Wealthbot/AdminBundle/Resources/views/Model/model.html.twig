@@ -13,18 +13,11 @@
         <div class="navbar-inner">
             <div class="container">
 
-                <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
-                <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </a>
-
                 <!-- Everything you want hidden at 940px or less, place within here -->
-                <div class="nav-collapse">
+                <div class="navbar-collapse">
                     <!-- .nav, .navbar-search, .navbar-form, etc -->
-                    <ul class="nav">
-                        {% render 'WealthbotAdminBundle:Model:portfolioMenu' with {'selected_strategy_id': selected_strategy.id }%}
+                    <ul class="nav navbar-nav">
+                        {{ render(controller('WealthbotAdminBundle:Model:portfolioMenu', {'selected_strategy_id': selected_strategy.id })) }}
                     </ul>
                 </div>
 
@@ -33,7 +26,7 @@
     </div>
 
     <div class="btn-group" data-toggle="buttons-radio">
-        {% render 'WealthbotAdminBundle:Model:modelMenu' with {'strategySlug' : selected_strategy.slug, 'modelSlug': model.slug } %}
+        {{ render(controller('WealthbotAdminBundle:Model:modelMenu', {'strategySlug' : selected_strategy.slug, 'modelSlug': model.slug })) }}
     </div>
 
     <div>
@@ -104,7 +97,8 @@
         {% include 'WealthbotAdminBundle:Model:_form.html.twig' with {'form': form, 'model': model} %}
     {% endif %}
 
-    <div id="modal_dialog" class="modal hide longModal">
+    <div id="modal_dialog" class="modal longModal">
+        <div class="modal-content">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
             <h3></h3>
@@ -113,8 +107,9 @@
 
         </div>
         <div class="modal-footer">
-            <button type="submit" class="btn save-modal-form-btn">Save</button>
-            <a href="#" class="btn" data-dismiss="modal" aria-hidden="true">Cancel</a>
+            <button type="submit" class="btn save-modal-form-btn btn-primary">Save</button>
+            <a href="#" class="btn btn-default"  data-dismiss="modal" aria-hidden="true">Cancel</a>
+        </div>
         </div>
     </div>
 {% endblock %}

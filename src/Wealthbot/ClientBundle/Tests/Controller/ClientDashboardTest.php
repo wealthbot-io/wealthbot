@@ -2,16 +2,15 @@
 
 namespace Wealthbot\ClientBundle\Tests\Controller;
 
-
-use Wealthbot\UserBundle\TestSuit\ExtendedWebTestCase;
 use Symfony\Component\Routing\Router;
+use Wealthbot\UserBundle\TestSuit\ExtendedWebTestCase;
 
 class ClientDashboardTest extends ExtendedWebTestCase
 {
     /** @var Router */
     protected $router;
 
-    public function setUp() 
+    public function setUp()
     {
         parent::setUp();
 
@@ -23,14 +22,14 @@ class ClientDashboardTest extends ExtendedWebTestCase
      */
     public function testHoldingsAction()
     {
-        $this->authenticateUser('liu@wealthbot.io', array('ROLE_CLIENT'));
+        $this->authenticateUser('liu@wealthbot.io', ['ROLE_CLIENT']);
         $crawler = $this->client->request('GET', $this->router->generate('wealthbot_client_holdings'));
         $content = $this->client->getResponse()->getContent();
 
-        $this->assertEquals(
+        $this->assertSame(
             $this->client->getResponse()->getStatusCode(),
             200,
-            'Something wrong. Page returned not 200 status. H1: ' . ($crawler->filter('h1')->first()->count() ?
+            'Something wrong. Page returned not 200 status. H1: '.($crawler->filter('h1')->first()->count() ?
                 $crawler->filter('h1')->first()->text() : '')
         );
 

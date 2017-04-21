@@ -9,7 +9,6 @@
 
 namespace Wealthbot\FixturesBundle\Model;
 
-
 use Doctrine\Common\DataFixtures\AbstractFixture;
 
 abstract class AbstractCsvFixture extends AbstractFixture
@@ -21,11 +20,11 @@ abstract class AbstractCsvFixture extends AbstractFixture
         if ($isAbsolute) {
             $path = $filename;
         } else {
-            $path = __DIR__ . $this->csvDir . '/' . $filename;
+            $path = getcwd().'/src/WealthBot/FixturesBundle/DataFixtures/CSV/'.$filename;
         }
 
         $handle = fopen($path, 'r');
-        $data = array();
+        $data = [];
 
         if (false !== $handle) {
             while ($item = fgetcsv($handle, $maxLength, $delimiter)) {
@@ -37,5 +36,4 @@ abstract class AbstractCsvFixture extends AbstractFixture
 
         return $data;
     }
-
 }

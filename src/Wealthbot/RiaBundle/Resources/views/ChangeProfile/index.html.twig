@@ -59,7 +59,7 @@
             {% include 'WealthbotRiaBundle:ChangeProfile:_proposal_form.html.twig' with {'form': proposal_form} %}
         </div>
         <div class="tab-pane {{ active_tab == 'custodians' ? 'active' : '' }}" id="custodians">
-            {% render "WealthbotRiaBundle:ChangeProfile:custodianTab" %}
+            {{ render(controller("WealthbotRiaBundle:ChangeProfile:custodianTab")) }}
         </div>
         {#<div class="tab-pane {{ active_tab == 'documents' ? 'active' : '' }}" id="documents">
             {% include 'WealthbotRiaBundle:ChangeProfile:_documents.html.twig' with {

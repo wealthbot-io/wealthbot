@@ -13,7 +13,7 @@
 		<meta content="width=device-width, initial-scale=1, maximum-scale=1" name="viewport">
 	    {% block stylesheets %}
 	        <link rel="stylesheet" href="/css/bootstrap.css">
-	        <link rel="stylesheet" href="/css/bootstrap-responsive.css">
+	        <link rel="stylesheet" href="/css/bootstrap-theme.css">
 	        <link rel="stylesheet" href="/css/styles.css">
             <link rel="stylesheet" href="/css/jquery-ui-1.9.2.custom.min.css"/>
 		    {% stylesheets
@@ -34,17 +34,12 @@
 	<body id="mainApp">
 	{% block headernav %}
         {% if app.environment != 'prod' %}
-            <div class="navbar">
+            <div class="navbar  navbar-default">
                 <div class="navbar-inner">
                     <div class="container-fluid">
-                        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </a>
-                        <a class="brand" href="/" name="top">wealthbot.io</a>
-                         <div class="nav-collapse collapse">
-                            <ul class="nav">
+                        <a class="navbar-brand" href="/" name="top">wealthbot.io</a>
+                         <div class="navbar-collapse collapse">
+                            <ul class="nav navbar-nav">
                                 {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                                     <li><a href="{{ path('fos_user_security_logout') }}">Logout</a></li>
                                 {% endif %}
@@ -55,7 +50,7 @@
                                     </li>
                                 {% endif %}
                             </ul>
-                        </div><!--/.nav-collapse -->
+                        </div><!--/.navbar-collapse -->
                     </div>
                     <!--/.container-fluid -->
                 </div>
@@ -65,7 +60,7 @@
 	{% endblock %}
 
 	{% block main_container %}
-		<div class="container-fluid">
+		<div class="container">
 		    {% block flash_messages %}
 		        {% for type, flashMessages in app.session.flashbag.all() %}
 		            {% for flashMessage in flashMessages %}
@@ -82,12 +77,13 @@
 	{% endblock %}
 
 	{% block javascripts %}
-	    <script type="text/javascript" src="/js/jquery.min.js"></script>
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 	    <script type="text/javascript" src="/js/jquery-ui-1.9.2.custom.min.js"></script>
 	    <script type="text/javascript" src="/js/jquery.form.js"></script>
 	    <script type="text/javascript" src="/js/jquery.autoNumeric.js"></script>
 	    <script type="text/javascript" src="/js/jquery.placeholder.min.js"></script>
 	    <script type="text/javascript" src="/js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="/js/typeahead.js"></script>
         <script type="text/javascript" src="/js/custom.js"></script>
 		<script type="text/javascript">
 		  $(document).ready(function () {

@@ -9,21 +9,19 @@
 
 namespace Wealthbot\ClientBundle\Form\Handler;
 
-
 use Doctrine\ORM\EntityManager;
-use Wealthbot\ClientBundle\Entity\ClientAccount;
-use Wealthbot\ClientBundle\Entity\ClientAdditionalContact;
-use Wealthbot\ClientBundle\Model\AccountGroup;
-use Wealthbot\ClientBundle\Model\AccountOwnerInterface;
-use Wealthbot\ClientBundle\Model\UserAccountOwnerAdapter;
-use Wealthbot\UserBundle\Entity\Profile;
-use Wealthbot\UserBundle\Entity\User;
 use Symfony\Component\Form\Form;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\ConstraintViolation;
 use Symfony\Component\Validator\Validator;
 use Symfony\Component\Validator\ValidatorInterface;
+use Wealthbot\ClientBundle\Entity\ClientAccount;
+use Wealthbot\ClientBundle\Entity\ClientAdditionalContact;
+use Wealthbot\ClientBundle\Model\AccountOwnerInterface;
+use Wealthbot\ClientBundle\Model\UserAccountOwnerAdapter;
+use Wealthbot\UserBundle\Entity\Profile;
+use Wealthbot\UserBundle\Entity\User;
 
 class TransferPersonalFormHandler
 {
@@ -32,7 +30,7 @@ class TransferPersonalFormHandler
     protected $em;
     protected $options;
 
-    public function __construct(Form $form, Request $request, EntityManager $em, array $options = array())
+    public function __construct(Form $form, Request $request, EntityManager $em, array $options = [])
     {
         $this->form = $form;
         $this->request = $request;
@@ -43,7 +41,7 @@ class TransferPersonalFormHandler
     public function process(ClientAccount $account, $withMaritalStatus = false)
     {
         if ($this->request->isMethod('post')) {
-            $this->form->bind($this->request);
+            $this->form->handleRequest($this->request);
 
             /** @var AccountOwnerInterface $data */
             $data = $this->form->getData();
@@ -95,7 +93,7 @@ class TransferPersonalFormHandler
 
             $maritalStatus = $this->form->get('marital_status')->getData();
 
-            if ($maritalStatus == Profile::CLIENT_MARITAL_STATUS_MARRIED) {
+            if ($maritalStatus === Profile::CLIENT_MARITAL_STATUS_MARRIED) {
                 if (!$spouse) {
                     $spouse = new ClientAdditionalContact();
                     $spouse->setClient($account->getClient());
@@ -130,15 +128,17 @@ class TransferPersonalFormHandler
         $this->em->flush();
     }
 
-    protected function getOption($name) {
+    protected function getOption($name)
+    {
         if ($this->hasOption($name)) {
             return $this->options[$name];
         }
 
-        return null;
+        return;
     }
 
-    protected function hasOption($name) {
+    protected function hasOption($name)
+    {
         return isset($this->options[$name]);
     }
 }

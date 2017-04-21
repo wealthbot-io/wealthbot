@@ -9,7 +9,6 @@
 
 namespace Wealthbot\ClientBundle\Docusign;
 
-
 use Wealthbot\ClientBundle\Entity\TransferInformation;
 
 class TransferInformationPolicyCondition extends AbstractTransferInformationCondition
@@ -22,5 +21,4 @@ class TransferInformationPolicyCondition extends AbstractTransferInformationCond
 
         return false;
     }
-
 }

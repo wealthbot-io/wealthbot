@@ -2,13 +2,13 @@
 
 namespace Wealthbot\RiaBundle\Form\Type;
 
-use Wealthbot\RiaBundle\Entity\RiaCompanyInformation;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Wealthbot\RiaBundle\Entity\RiaCompanyInformation;
 use Wealthbot\UserBundle\Entity\User;
 
 class RiaCompanyProfileFormType extends AbstractType
@@ -30,79 +30,79 @@ class RiaCompanyProfileFormType extends AbstractType
         $ria = $riaCompanyInformation->getRia();
 
         if ($riaCompanyInformation) {
-            $name             = $riaCompanyInformation->getName() ? $riaCompanyInformation->getName() : $ria->getProfile()->getCompany();
+            $name = $riaCompanyInformation->getName() ? $riaCompanyInformation->getName() : $ria->getProfile()->getCompany();
             $primaryFirstName = $riaCompanyInformation->getPrimaryFirstName() ? $riaCompanyInformation->getPrimaryFirstName() : $ria->getProfile()->getFirstName();
-            $primaryLastName  = $riaCompanyInformation->getPrimaryLastName() ? $riaCompanyInformation->getPrimaryLastName() : $ria->getProfile()->getLastName();
-            $contactEmail     = $riaCompanyInformation->getContactEmail() ? $riaCompanyInformation->getContactEmail() : $ria->getEmail();
+            $primaryLastName = $riaCompanyInformation->getPrimaryLastName() ? $riaCompanyInformation->getPrimaryLastName() : $ria->getProfile()->getLastName();
+            $contactEmail = $riaCompanyInformation->getContactEmail() ? $riaCompanyInformation->getContactEmail() : $ria->getEmail();
         } else {
-            $name             = $ria->getProfile()->getCompany();
+            $name = $ria->getProfile()->getCompany();
             $primaryFirstName = $ria->getProfile()->getFirstName();
-            $primaryLastName  = $ria->getProfile()->getLastName();
-            $contactEmail     = $ria->getEmail();
+            $primaryLastName = $ria->getProfile()->getLastName();
+            $contactEmail = $ria->getEmail();
         }
 
         //Company information
         $builder
-            ->add('name', 'text', array('data' => $name, 'required' => false))
-            ->add('slug', 'text', array('required' => true))
-            ->add('primary_first_name', 'text', array('data' => $primaryFirstName, 'required' => false))
-            ->add('primary_last_name', 'text', array('data' => $primaryLastName, 'required' => false))
-            ->add('website', 'url', array('required' => false))
-            ->add('address', 'text', array('required' => false))
-            ->add('office', 'text', array('required' => false))
-            ->add('city', 'text', array('required' => false))
-            ->add('state', 'entity', array(
-                'class' => 'WealthbotAdminBundle:State',
+            ->add('name', 'text', ['data' => $name, 'required' => false])
+            ->add('slug', 'text', ['required' => true])
+            ->add('primary_first_name', 'text', ['data' => $primaryFirstName, 'required' => false])
+            ->add('primary_last_name', 'text', ['data' => $primaryLastName, 'required' => false])
+            ->add('website', 'url', ['required' => false])
+            ->add('address', 'text', ['required' => false])
+            ->add('office', 'text', ['required' => false])
+            ->add('city', 'text', ['required' => false])
+            ->add('state', 'entity', [
+                'class' => 'Wealthbot\\AdminBundle\\Entity\\State',
                 'label' => 'State',
-                'empty_value' => 'Select a State',
-                'required' => false
-            ))
-            ->add('zipcode', 'text', array('required' => false))
-            ->add('phone_number', 'text', array('required' => false))
-            ->add('fax_number', 'text', array('required' => false))
-            ->add('contact_email', 'email', array('data' => $contactEmail, 'required' => false))
+                'placeholder' => 'Select a State',
+                'required' => false,
+            ])
+            ->add('zipcode', 'text', ['required' => false])
+            ->add('phone_number', 'text', ['required' => false])
+            ->add('fax_number', 'text', ['required' => false])
+            ->add('contact_email', 'email', ['data' => $contactEmail, 'required' => false])
         ;
 
         //Other information
         $builder
-            ->add('min_asset_size', 'number', array(
+            ->add('min_asset_size', 'number', [
                 'precision' => 2,
-                'grouping' => true
-            ))
+                'grouping' => true,
+            ])
             ->add('logo_file', 'file')
         ;
         //Proposal processing
-        $builder->add('portfolio_processing', 'choice', array(
-            'choices'  => RiaCompanyInformation::getPortfolioProcessingChoices(),
-            'expanded' => true
-        ));
+        $builder->add('portfolio_processing', 'choice', [
+            'choices' => RiaCompanyInformation::getPortfolioProcessingChoices(),
+            'expanded' => true,
+        ]);
 
         $this->addValidator($builder);
 
         if (!$this->isPreSave) {
-            $this->addOnBindValidator($builder);
+            $this->addOnSubmitValidator($builder);
         }
     }
 
     protected function addValidator(FormBuilderInterface $builder)
     {
-        $builder->addEventListener(FormEvents::BIND, function(FormEvent $event)  {
+        $builder->addEventListener(FormEvents::SUBMIT, function (FormEvent $event) {
             $data = $event->getData();
 
-            $phoneNum = str_replace(array(' ', '_', '-', '(', ')'), '', $data->getPhoneNumber());
+            $phoneNum = str_replace([' ', '_', '-', '(', ')'], '', $data->getPhoneNumber());
             $data->setPhoneNumber($phoneNum);
 
-            $faxNum = str_replace(array(' ', '_', '-', '(', ')'), '', $data->getFaxNumber());
+            $faxNum = str_replace([' ', '_', '-', '(', ')'], '', $data->getFaxNumber());
             $data->setFaxNumber($faxNum);
 
-            $zip = str_replace(array(' ', '-'), '', $data->getZipcode());
+            $zip = str_replace([' ', '-'], '', $data->getZipcode());
             $data->setZipcode($zip);
         });
     }
 
-    protected function addOnBindValidator(FormBuilderInterface $builder)
+    protected function addOnSubmitValidator(FormBuilderInterface $builder)
     {
-        $builder->addEventListener(FormEvents::BIND, function(FormEvent $event){
+        $builder->addEventListener(FormEvents::SUBMIT, function (FormEvent $event) {
             $form = $event->getForm();
 
             /** @var \Wealthbot\RiaBundle\Entity\RiaCompanyInformation $data */
@@ -133,18 +133,18 @@ class RiaCompanyProfileFormType extends AbstractType
             }
 
             if (!$data->getPhoneNumber()) {
-                $form->get('phone_number')->addError(new FormError("Enter correct phone number."));
-            } elseif (strlen($data->getPhoneNumber()) != $phoneDigits) {
+                $form->get('phone_number')->addError(new FormError('Enter correct phone number.'));
+            } elseif (strlen($data->getPhoneNumber()) !== $phoneDigits) {
                 $form->get('phone_number')->addError(new FormError("Phone number must be {$phoneDigits} digits."));
             }
 
-            if ($data->getFaxNumber() && strlen($data->getFaxNumber()) != $phoneDigits) {
+            if ($data->getFaxNumber() && strlen($data->getFaxNumber()) !== $phoneDigits) {
                 $form->get('fax_number')->addError(new FormError("Fax number must be {$phoneDigits} digits."));
             }
 
             if (!$data->getZipcode()) {
-                $form->get('zipcode')->addError(new FormError("Enter correct zip code."));
-            } elseif (strlen($data->getZipcode()) != $zipDigits) {
+                $form->get('zipcode')->addError(new FormError('Enter correct zip code.'));
+            } elseif (strlen($data->getZipcode()) !== $zipDigits) {
                 $form->get('zipcode')->addError(new FormError("Zip code must be {$zipDigits} digits."));
             }
 
@@ -176,14 +176,14 @@ class RiaCompanyProfileFormType extends AbstractType
 
         });
     }
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => 'Wealthbot\RiaBundle\Entity\RiaCompanyInformation'
-        ));
+        $resolver->setDefaults([
+            'data_class' => 'Wealthbot\RiaBundle\Entity\RiaCompanyInformation',
+        ]);
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'wealthbot_riabundle_riacompanyinformationtype';
     }

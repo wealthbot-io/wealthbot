@@ -9,14 +9,13 @@
 
 namespace Wealthbot\ClientBundle\Form\Validator;
 
-
-use Wealthbot\ClientBundle\Entity\Distribution;
 use Symfony\Component\Form\FormError;
+use Wealthbot\ClientBundle\Entity\Distribution;
 
 class ScheduledDistributionFormValidator extends AbstractFormValidator
 {
     /**
-     * Validate form fields
+     * Validate form fields.
      */
     public function validate()
     {
@@ -26,21 +25,20 @@ class ScheduledDistributionFormValidator extends AbstractFormValidator
     }
 
     /**
-     * Validate start_transfer fields
+     * Validate start_transfer fields.
      */
     private function validateStartTransfer()
     {
         if ($this->form->has('transfer_date_month') && $this->form->has('transfer_date_day')) {
             if (!($this->data->getTransferDate() instanceof \DateTime)) {
                 $this->form->get('transfer_date_month')->addError(new FormError('Enter correct date.'));
-
             } else {
                 $minDate = new \DateTime('+5 days');
 
                 if ($this->data->getTransferDate() < $minDate) {
                     $this->form->get('transfer_date_month')->addError(
                         new FormError(
-                            "The start of your transfer should be at least 5 days after today’s date."
+                            'The start of your transfer should be at least 5 days after today’s date.'
                         )
                     );
                 }
@@ -49,7 +47,7 @@ class ScheduledDistributionFormValidator extends AbstractFormValidator
     }
 
     /**
-     * Validate amount field
+     * Validate amount field.
      */
     private function validateAmount()
     {
@@ -59,7 +57,7 @@ class ScheduledDistributionFormValidator extends AbstractFormValidator
     }
 
     /**
-     * Validate frequency field
+     * Validate frequency field.
      */
     private function validateFrequency()
     {

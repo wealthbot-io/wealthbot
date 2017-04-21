@@ -7,10 +7,8 @@
 
 namespace Wealthbot\AdminBundle\Mailer;
 
-use Wealthbot\UserBundle\Entity\User;
-use Wealthbot\AdminBundle\Mailer\MailerInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-
+use Wealthbot\UserBundle\Entity\User;
 
 /**
  * @author
@@ -33,9 +31,9 @@ class TwigSwiftMailer implements MailerInterface
     public function sendRiaActivatedEmailMessage($toEmail, User $ria)
     {
         $template = $this->parameters['template']['ria_activated'];
-        $context = array(
+        $context = [
             'company_information' => $ria->getRiaCompanyInformation(),
-        );
+        ];
 
         $this->sendMessage($template, $context, $this->parameters['from_email']['ria_activated'], $toEmail);
     }
@@ -43,9 +41,9 @@ class TwigSwiftMailer implements MailerInterface
     public function sendInviteEmailMessage($invite)
     {
         $template = $this->parameters['template']['invite'];
-        $context = array(
-            'invite' => $invite
-        );
+        $context = [
+            'invite' => $invite,
+        ];
 
         $this->sendMessage($template, $context, $this->parameters['from_email']['invite'], $invite['contact_email']);
     }
@@ -53,11 +51,11 @@ class TwigSwiftMailer implements MailerInterface
     public function sendCreatedAdminUserMessage(User $user, $pass, $level)
     {
         $template = $this->parameters['template']['created_user'];
-        $context = array(
+        $context = [
             'user' => $user,
             'pass' => $pass,
-            'level' => $level
-        );
+            'level' => $level,
+        ];
 
         $this->sendMessage($template, $context, $this->parameters['from_email']['created_user'], $user->getEmail());
     }

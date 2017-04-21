@@ -2,20 +2,16 @@
 
 namespace Wealthbot\RiaBundle\Form\Type;
 
-use Wealthbot\AdminBundle\Entity\BillingSpec;
-use Wealthbot\UserBundle\Entity\User;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\DataTransformer\IntegerToLocalizedStringTransformer;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormFactory;
-use Symfony\Component\Form\FormInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Wealthbot\AdminBundle\Entity\BillingSpec;
 
 class BillingSpecFormType extends AbstractType
 {
-
     /**
      * @var FormFactory
      */
@@ -35,14 +31,7 @@ class BillingSpecFormType extends AbstractType
             ->add('minimalFee', 'integer')
         ;
 
-        $builder->addEventListener(FormEvents::PRE_SET_DATA, array($this, 'addFees'));
-    }
-
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
-    {
-        $resolver->setDefaults(array(
-            'data_class' => 'Wealthbot\AdminBundle\Entity\BillingSpec',
-        ));
+        $builder->addEventListener(FormEvents::PRE_SET_DATA, [$this, 'addFees']);
     }
 
     public function addFees(FormEvent $event)
@@ -51,31 +40,39 @@ class BillingSpecFormType extends AbstractType
         $billingSpec = $event->getData();
 
         //Attach a tier form
-        if( $billingSpec->getType() == BillingSpec::TYPE_TIER )
-        {
+        if ($billingSpec->getType() === BillingSpec::TYPE_TIER) {
             $event->getForm()->add(
-                $this->factory->createNamed('fees', 'collection', $billingSpec->getFees(), array(
+                $this->factory->createNamed('fees', 'collection', $billingSpec->getFees(), [
                     'type' => new TierFeeFormType(),
                     'allow_add' => true,
                     'by_reference' => false,
-                ))
+                    'auto_initialize' => false,
+                ])
             );
-
         }
         //Attach float form
-        elseif( $billingSpec->getType() == BillingSpec::TYPE_FLAT ) {
+        elseif ($billingSpec->getType() === BillingSpec::TYPE_FLAT) {
             $event->getForm()->add(
-                $this->factory->createNamed('fees', 'collection', $billingSpec->getFees(), array(
+                $this->factory->createNamed('fees', 'collection', $billingSpec->getFees(), [
                     'type' => new FlatFeeFormType(),
                     'allow_add' => true,
                     'by_reference' => false,
-                ))
+                    'auto_initialize' => false,
+                ])
             );
         }
-
     }
 
-    public function getName()
+    public function configureOptions(OptionsResolver $resolver)
+    {
+        $resolver->setDefaults([
+            'data_class' => 'Wealthbot\AdminBundle\Entity\BillingSpec',
+            'validation_groups' => false,
+            'csrf_protection' => false,
+        ]);
+    }
+
+    public function getBlockPrefix()
     {
         return 'billing_spec';
     }

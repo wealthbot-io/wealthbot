@@ -9,18 +9,15 @@
 
 namespace Wealthbot\ClientBundle\Controller;
 
-
 use Wealthbot\ClientBundle\Model\Acl;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\Security\Core\SecurityContextInterface;
 
-class AclController extends Controller
+trait AclController
 {
     public function getUser()
     {
         $user = $this->getOriginalUser();
         if (null === $user) {
-            return null;
+            return;
         }
 
         /** @var Acl $acl */
@@ -28,7 +25,6 @@ class AclController extends Controller
 
         if ($acl->isSlaveClient()) {
             return $user->getMasterClient();
-
         } elseif ($acl->isRiaClientView()) {
             return $acl->getClientForRiaClientView($user);
         }

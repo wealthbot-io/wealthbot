@@ -2,18 +2,18 @@
     <td class="fee">
 
         <input type="text" value="<%= fee_without_retirement.formatFee() %>"
-               class="not-presave fee_input"
+               class="not-presave fee_input form-control"
                required="required"
                placeholder=".0000"
                name="fee_without_retirement">
     </td>
     <td class="tier">
 
-        <div class="input-prepend">
-            <span class="add-on">$</span>
+        <div class="input-group">
+            <span class="input-group-addon">$</span>
             <input type="text"
                    value="<%= tier_bottom.formatMoney() %>"
-                   class="auto-numeric not-presave input bottom_tier_input"
+                   class="auto-numeric not-presave input bottom_tier_input form-control"
                    readonly="readonly"
                    required="required"
                    name="tier_bottom">
@@ -22,10 +22,10 @@
     <td class="tier">
         <div class="pull-left">
 
-            <div class="input-prepend">
-                <span class="add-on">$</span>
+            <div class="input-group">
+                <span class="input-group-addon">$</span>
                 <input type="text"
-                       class="for-auto-numeric not-presave top_tier_input input"
+                       class="for-auto-numeric not-presave top_tier_input input form-control"
                        value="<%= tier_top.formatMoney() %>"
                        required="required"
                        name="tier_top"

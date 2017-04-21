@@ -25,14 +25,14 @@ class RiskToleranceTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $questions = array();
-        for ($i = 0; $i < 4; $i++) {
+        $questions = [];
+        for ($i = 0; $i < 4; ++$i) {
             $question = new RiskQuestion();
-            $question->setTitle('Question ' . ($i + 1));
+            $question->setTitle('Question '.($i + 1));
 
-            for ($j = 0; $j < 4; $j++) {
+            for ($j = 0; $j < 4; ++$j) {
                 $answer = new RiskAnswer();
-                $answer->setTitle('Answer ' . ($i + 1) . ' - ' . ($j + 1));
+                $answer->setTitle('Answer '.($i + 1).' - '.($j + 1));
                 $answer->setQuestion($question);
                 $answer->setPoint($j);
 
@@ -42,7 +42,7 @@ class RiskToleranceTest extends \PHPUnit_Framework_TestCase
             $questions[] = $question;
         }
 
-        $userAnswers = array();
+        $userAnswers = [];
         foreach ($questions as $key => $question) {
             $userAnswer = new ClientQuestionnaireAnswer();
             $userAnswer->setQuestion($question);
@@ -55,12 +55,12 @@ class RiskToleranceTest extends \PHPUnit_Framework_TestCase
 
         $portfolio = new CeModel();
 
-        for ($i = 0; $i < 4; $i++) {
-            $modelMock = $this->getMock('Wealthbot\AdminBundle\Entity\CeModel', array('getId'));
+        for ($i = 0; $i < 4; ++$i) {
+            $modelMock = $this->getMock('Wealthbot\AdminBundle\Entity\CeModel', ['getId']);
             $modelMock->expects($this->any())
                 ->method('getId')
                 ->will($this->returnValue($i + 1));
-            $modelMock->setName('Model ' . ($i + 1));
+            $modelMock->setName('Model '.($i + 1));
             $modelMock->setRiskRating(($i + 1));
 
             $portfolio->addChildren($modelMock);
@@ -70,23 +70,22 @@ class RiskToleranceTest extends \PHPUnit_Framework_TestCase
         $riaCompanyInformation->setPortfolioModel($portfolio);
 
         $ria = new User();
-        $ria->setRoles(array('ROLE_RIA'));
+        $ria->setRoles(['ROLE_RIA']);
         $ria->setRiaCompanyInformation($riaCompanyInformation);
 
         $userProfile = new Profile();
         $userProfile->setRia($ria);
 
         $user = new User();
-        $user->setRoles(array('ROLE_CLIENT'));
+        $user->setRoles(['ROLE_CLIENT']);
         $user->setProfile($userProfile);
-
 
         $this->riskTolerance = new RiskTolerance($user, $userAnswers);
     }
 
     public function testGetPoints()
     {
-        $this->assertEquals(56, $this->riskTolerance->getPoints());
+        $this->assertSame(56, $this->riskTolerance->getPoints());
     }
 
     public function testGetSuggestedPortfolio()
@@ -94,12 +93,12 @@ class RiskToleranceTest extends \PHPUnit_Framework_TestCase
         $portfolio = $this->riskTolerance->getRia()->getRiaCompanyInformation()->getPortfolioModel();
 
         $model = $this->riskTolerance->getSuggestedPortfolio($portfolio->getChildren());
-        $this->assertEquals(4, $model->getId());
+        $this->assertSame(4, $model->getId());
     }
 
     public function testGetSuggestedPortfolioException()
     {
         $this->setExpectedException('Wealthbot\RiaBundle\Exception\AdvisorHasNoExistingModel');
-        $this->riskTolerance->getSuggestedPortfolio(array());
+        $this->riskTolerance->getSuggestedPortfolio([]);
     }
 }

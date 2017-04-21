@@ -9,7 +9,7 @@
 
 namespace Wealthbot\SignatureBundle\Service;
 
-
+use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
 use Wealthbot\ClientBundle\Entity\Distribution;
 use Wealthbot\ClientBundle\Entity\SystemAccount;
 use Wealthbot\ClientBundle\Model\ClientAccount;
@@ -22,7 +22,6 @@ use Wealthbot\SignatureBundle\Model\AccountTabsConfigurationFactory;
 use Wealthbot\SignatureBundle\Model\Envelope;
 use Wealthbot\SignatureBundle\Model\RecipientInterface;
 use Wealthbot\SignatureBundle\Model\SignableInterface;
-use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
 
 class ElectronicSignatureService
 {
@@ -51,10 +50,12 @@ class ElectronicSignatureService
     }
 
     /**
-     * Send envelope from template for signable object
+     * Send envelope from template for signable object.
      *
      * @param SignableInterface $object
+     *
      * @return DocumentSignature
+     *
      * @throws \RuntimeException
      */
     public function sendEnvelopeForSignableObject(SignableInterface $object)
@@ -66,9 +67,10 @@ class ElectronicSignatureService
     }
 
     /**
-     * Send envelope for draft signature and update signature
+     * Send envelope for draft signature and update signature.
      *
      * @param DocumentSignature $signature
+     *
      * @return DocumentSignature
      */
     public function sendEnvelopeForDraftSignature(DocumentSignature $signature)
@@ -85,57 +87,61 @@ class ElectronicSignatureService
     }
 
     /**
-     * Send envelope for all signatures for application
+     * Send envelope for all signatures for application.
      *
      * @param ClientAccount $account
+     *
      * @return bool
+     *
      * @throws \RuntimeException
      */
     public function sendEnvelopeForApplication(ClientAccount $account)
     {
         $signatures = $this->signatureManager->findSignaturesByAccountConsolidatorId($account->getId());
 
-        $usedTemplates = array();
-        $compositeTemplates = array();
+        $usedTemplates = [];
+        $compositeTemplates = [];
 
         foreach ($signatures as $signature) {
             $source = $this->signatureManager->getSourceObject($signature);
             $templateId = $this->getTemplateForSignableObject($source);
 
-            if (in_array($templateId, $usedTemplates)) continue;
+            if (in_array($templateId, $usedTemplates)) {
+                continue;
+            }
 
             $usedTemplates[] = $templateId;
             $recipients = $this->getRecipients($source);
-            $recipientParams = array();
+            $recipientParams = [];
 
             foreach ($recipients as $key => $recipient) {
-                $recipientParams[] = array(
+                $recipientParams[] = [
                     'email' => $recipient->getEmail(),
                     'name' => $recipient->getName(),
                     'clientUserId' => $recipient->getClientUserId(),
                     'recipientId' => $key + 1,
                     'roleName' => $recipient->getRoleName(),
                     'type' => $recipient->getType(),
-                    'tabs' => $recipient->getTabs()->toArray()
-                );
+                    'tabs' => $recipient->getTabs()->toArray(),
+                ];
             }
 
-            $serverTemplates = array(array('sequence' => 1, 'templateId' => $templateId));
-            $inlineTemplates = array(
-                array(
+            $serverTemplates = [['sequence' => 1, 'templateId' => $templateId]];
+            $inlineTemplates = [
+                [
                     'sequence' => 2,
-                    'recipients' => array('signers' => $recipientParams)
-                )
-            );
+                    'recipients' => ['signers' => $recipientParams],
+                ],
+            ];
 
-            $compositeTemplates[] = array('serverTemplates' => $serverTemplates, 'inlineTemplates' => $inlineTemplates);
+            $compositeTemplates[] = ['serverTemplates' => $serverTemplates, 'inlineTemplates' => $inlineTemplates];
         }
 
         if (count($compositeTemplates)) {
-            $options = array(
+            $options = [
                 'compositeTemplates' => $compositeTemplates,
-                'enableWetSign' => false // Disable Sign on Paper button
-            );
+                'enableWetSign' => false, // Disable Sign on Paper button
+            ];
 
             $envelope = new Envelope();
             $envelope->setEmailBlurb('Sign all documents');
@@ -145,7 +151,6 @@ class ElectronicSignatureService
 
             try {
                 $response = $this->docusignApi->sendEnvelope($envelope, $options);
-
             } catch (\Exception $e) {
                 throw new \RuntimeException($e->getMessage(), $e->getCode(), $e);
             }
@@ -164,10 +169,11 @@ class ElectronicSignatureService
     }
 
     /**
-     * Update document and document owner signatures
+     * Update document and document owner signatures.
      *
-     * @param string $envelopeId
+     * @param string              $envelopeId
      * @param DocumentSignature[] $signatures
+     *
      * @return DocumentSignature
      */
     public function updateDocumentSignaturesStatusByEnvelopeId($envelopeId, array $signatures)
@@ -177,7 +183,9 @@ class ElectronicSignatureService
 
         foreach ($signatures as $signature) {
             $signatureEnvelopeId = $signature->getDocusignEnvelopeId();
-            if (!$signatureEnvelopeId || $signatureEnvelopeId != $envelopeId) continue;
+            if (!$signatureEnvelopeId || $signatureEnvelopeId !== $envelopeId) {
+                continue;
+            }
 
             $signature->setStatus($status);
             foreach ($recipientsStatuses as $recipientEmail => $recipientStatus) {
@@ -193,17 +201,19 @@ class ElectronicSignatureService
             }
 
             $this->signatureManager->persist($signature);
-            $this->signatureManager->flush();
         }
+
+        $this->signatureManager->flush();
 
         return $status;
     }
 
     /**
-     * Update account and account owners signatures
+     * Update account and account owners signatures.
      *
      * @param ClientAccount $account
-     * @param string $type
+     * @param string        $type
+     *
      * @return \Wealthbot\SignatureBundle\Entity\DocumentSignature
      */
     public function updateAccountSignatureStatusByAccountAndType(ClientAccount $account, $type)
@@ -213,17 +223,19 @@ class ElectronicSignatureService
             $type
         );
         if ($signature) {
-            $this->updateDocumentSignaturesStatusByEnvelopeId($signature->getDocusignEnvelopeId(), array($signature));
+            $this->updateDocumentSignaturesStatusByEnvelopeId($signature->getDocusignEnvelopeId(), [$signature]);
         }
 
         return $signature;
     }
 
     /**
-     * Send envelope
+     * Send envelope.
      *
      * @param SignableInterface $object
+     *
      * @return mixed
+     *
      * @throws \RuntimeException
      */
     private function sendEnvelope(SignableInterface $object)
@@ -238,12 +250,11 @@ class ElectronicSignatureService
 
         try {
             $templateId = $this->getTemplateForSignableObject($object);
-            $options = array(
-                'enableWetSign' => false // Disable Sign on Paper button
-            );
+            $options = [
+                'enableWetSign' => false, // Disable Sign on Paper button
+            ];
 
             $response = $this->docusignApi->sendEnvelopeFromTemplate($envelope, $templateId, $options);
-
         } catch (\Exception $e) {
             throw new \RuntimeException($e->getMessage(), $e->getCode(), $e);
         }
@@ -252,9 +263,10 @@ class ElectronicSignatureService
     }
 
     /**
-     * Get recipients
+     * Get recipients.
      *
      * @param SignableInterface $object
+     *
      * @return RecipientInterface[]
      */
     private function getRecipients(SignableInterface $object)
@@ -264,7 +276,7 @@ class ElectronicSignatureService
         $tabs = $tabsConfiguration->generate();
 
         $account = $object->getClientAccount();
-        $recipients = array();
+        $recipients = [];
 
         $primaryOwner = $account->getPrimaryApplicant();
         if ($primaryOwner) {
@@ -288,10 +300,12 @@ class ElectronicSignatureService
     }
 
     /**
-     * Get docusign template for signable object
+     * Get docusign template for signable object.
      *
      * @param SignableInterface $object
+     *
      * @return string
+     *
      * @throws \InvalidArgumentException
      * @throws \Symfony\Component\Config\Definition\Exception\InvalidConfigurationException
      */
@@ -354,12 +368,11 @@ class ElectronicSignatureService
 
                     if (Distribution::TRANSFER_METHOD_RECEIVE_CHECK === $object->getTransferMethod()) {
                         $key = 'check_request';
-                    } elseif (Distribution::TRANSFER_METHOD_WIRE_TRANSFER == $object->getTransferMethod()) {
+                    } elseif (Distribution::TRANSFER_METHOD_WIRE_TRANSFER === $object->getTransferMethod()) {
                         $key = 'wire_instructions';
                     } else {
                         $key = 'electronic_funds_transfer_form';
                     }
-
                 } elseif ($accountType === SystemAccount::TYPE_ROTH_IRA ||
                     $accountType === SystemAccount::TYPE_TRADITIONAL_IRA
                 ) {
@@ -383,9 +396,10 @@ class ElectronicSignatureService
     }
 
     /**
-     * Get template wit key $key
+     * Get template wit key $key.
      *
      * @param string $key
+     *
      * @return string
      */
     private function getTemplate($key)
@@ -395,9 +409,10 @@ class ElectronicSignatureService
 
     /**
      * Return true if template with key $key is exist
-     * and false otherwise
+     * and false otherwise.
      *
      * @param string $key
+     *
      * @return bool
      */
     private function hasTemplate($key)

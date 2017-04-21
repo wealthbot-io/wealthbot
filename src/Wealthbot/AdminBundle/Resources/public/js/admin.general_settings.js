@@ -9,6 +9,21 @@
 $(function(){
     updateFees();
 
+
+    function removeBtn() {
+        $(document).on('click','.btn-remove', function (event) {
+            var name = $(this).attr('data-related');
+            var prev = $('*[data-content="' + name + '"]').prev();
+            if (prev) $(prev).find("a.btn-remove").show();
+            $('*[data-content="' + name + '"]').remove();
+
+            showLastIsFinalTierCheckbox();
+            event.preventDefault();
+        });
+    };
+
+    removeBtn();
+    
     var lastTierCHeckbox = $('#form_fees tr.fee-row:last-child').find('.is-final-tier-checkbox');
     if ($('.is-final-tier-checkbox').length == 1) {
         lastTierCHeckbox.find('span').text('Is this your only tier?');
@@ -17,7 +32,7 @@ $(function(){
     lastTierCHeckbox.show();
 
 
-    $('.is-final-tier-checkbox input[type="checkbox"]').live('click', function(event){
+    $(document).on('click','.is-final-tier-checkbox input[type="checkbox"]', function(event){
         var e = $(this);
         var tierTop = e.closest('.tier').find('input[id*="tier_top"]');
 
@@ -33,11 +48,11 @@ $(function(){
     });
 
     //Trigger for change Tier Bottom when Tier Top was changed
-    $("#form_fees tr td input[id*='tier_top']").live('change', function(){
+    $(document).on('change',"#form_fees tr td input[id*='tier_top']", function(){
         updateFees();
     });
 
-    $('.admin-fees-list form .btn-save').live('click', function(event){
+    $(document).on('click','.admin-fees-list form .btn-save', function(event){
         var btn = $(this);
         var form = btn.closest('form');
         var data = {};
@@ -82,7 +97,7 @@ $(function(){
         event.preventDefault();
     });
 
-    $('.btn-add').live('click', function(event) {
+    $(document).on('click','.btn-add', function(event) {
         $('.btn-remove').hide();
         hideAllIsFinalTierCheckbox();
 
@@ -96,32 +111,23 @@ $(function(){
 
         $('tr.fee-row:last-child').find('.a.btn-remove').show();
 
+        removeBtn();
         event.preventDefault();
     });
 
-    $('.btn-remove').live('click', function(event) {
-        var name = $(this).attr('data-related');
-        var prev = $('*[data-content="'+name+'"]').prev();
-        if(prev) $(prev).find("a.btn-remove").show();
-        $('*[data-content="'+name+'"]').remove();
-
-        showLastIsFinalTierCheckbox();
-        event.preventDefault();
-    });
-
-    $("#form_fees tr td input[id*='fee_without_retirement'], #form_fees tr td input[id*='fee_with_retirement']").live('focus', function(){
+    $("#form_fees tr td input[id*='fee_without_retirement'], #form_fees tr td input[id*='fee_with_retirement']").on('focus', function(){
         if($(this).val() == '.0000'){
             $(this).val('.');
         }
     });
-    $("#form_fees tr td input[id*='fee_without_retirement'], #form_fees tr td input[id*='fee_with_retirement']").live('blur', function(){
+    $("#form_fees tr td input[id*='fee_without_retirement'], #form_fees tr td input[id*='fee_with_retirement']").on('blur', function(){
         if($(this).val() == '.'){
             $(this).val('.0000');
         }
     });
 
     // Validate Fee value
-    $("#form_fees tr td input[id*='fee_without_retirement'], #form_fees tr td input[id*='fee_with_retirement']").live('change', function(){
+    $(document).on('change',"#form_fees tr td input[id*='fee_without_retirement'], #form_fees tr td input[id*='fee_with_retirement']", function(){
         var e = $(this);
         var value = e.val();
 
@@ -137,7 +143,7 @@ $(function(){
         }
     });
 
-    $('.upload-document-btn').live('click', function(event) {
+    $(document).on('click','.upload-document-btn', function(event) {
         var elem = $(this);
         var form = $('#documents_tab').attr('data-form');
         var dialog = $('#modal_dialog');
@@ -158,7 +164,7 @@ $(function(){
         event.preventDefault();
     });
 
-    $('#document_form').live('submit', function(event) {
+    $(document).on('submit','#document_form', function(event) {
         var form = $(this);
         var dialog = $('#modal_dialog');
         var btn = dialog.find('.save-modal-form-btn');

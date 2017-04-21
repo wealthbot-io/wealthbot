@@ -9,13 +9,12 @@
 
 namespace Wealthbot\ClientBundle\Form\Type;
 
-
-use Wealthbot\ClientBundle\Entity\AccountContribution;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Wealthbot\ClientBundle\Entity\AccountContribution;
 
 class TransferDistributingFormType extends AbstractType
 {
@@ -29,32 +28,32 @@ class TransferDistributingFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('distribution_method', 'choice', array(
+            ->add('distribution_method', 'choice', [
                 'choices' => AccountContribution::getDistributionMethodChoices(),
                 'expanded' => true,
                 'multiple' => false,
-                'required' => false
-            ))
-            ->add('has_federal_withholding', 'choice', array(
-                'choices' => array(1 => 'Yes', 0 => 'No'),
+                'required' => false,
+            ])
+            ->add('has_federal_withholding', 'choice', [
+                'choices' => [1 => 'Yes', 0 => 'No'],
                 'expanded' => true,
                 'multiple' => false,
-                'required' => false
-            ))
-            ->add('percent_tax_rate', 'text', array(
-                'required' => false
-            ))
-            ->add('money_tax_rate', 'text', array(
-                'required' => false
-            ))
+                'required' => false,
+            ])
+            ->add('percent_tax_rate', 'text', [
+                'required' => false,
+            ])
+            ->add('money_tax_rate', 'text', [
+                'required' => false,
+            ])
         ;
 
         if (!$this->isPreSaved) {
-            $builder->addEventListener(FormEvents::BIND, array($this, 'onBind'));
+            $builder->addEventListener(FormEvents::SUBMIT, [$this, 'onSubmit']);
         }
     }
 
-    public function onBind(FormEvent $event)
+    public function onSubmit(FormEvent $event)
     {
         $form = $event->getForm();
         /** @var $data AccountContribution */
@@ -88,14 +87,14 @@ class TransferDistributingFormType extends AbstractType
         $data->setPdfCopy(null);
     }
 
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => 'Wealthbot\ClientBundle\Entity\AccountContribution'
-        ));
+        $resolver->setDefaults([
+            'data_class' => 'Wealthbot\ClientBundle\Entity\AccountContribution',
+        ]);
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'transfer_distributing_type';
     }

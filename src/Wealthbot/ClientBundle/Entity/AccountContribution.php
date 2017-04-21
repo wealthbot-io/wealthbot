@@ -2,23 +2,22 @@
 
 namespace Wealthbot\ClientBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
 use Wealthbot\ClientBundle\Model\AccountContribution as BaseAccountContribution;
 use Wealthbot\SignatureBundle\Entity\DocumentSignature;
 use Wealthbot\SignatureBundle\Model\SignableInterface;
 
 /**
- * AccountContribution
+ * AccountContribution.
  */
 class AccountContribution extends BaseAccountContribution implements SignableInterface
 {
     /**
-     * @var integer
+     * @var int
      */
     private $id;
 
     /**
-     * @var integer
+     * @var int
      */
     private $account_id;
 
@@ -42,11 +41,10 @@ class AccountContribution extends BaseAccountContribution implements SignableInt
      */
     protected $contribution_year;
 
-
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer
+     * @return int
      */
     public function getId()
     {
@@ -54,9 +52,10 @@ class AccountContribution extends BaseAccountContribution implements SignableInt
     }
 
     /**
-     * Set account_id
+     * Set account_id.
      *
-     * @param integer $accountId
+     * @param int $accountId
+     *
      * @return AccountContribution
      */
     public function setAccountId($accountId)
@@ -67,9 +66,9 @@ class AccountContribution extends BaseAccountContribution implements SignableInt
     }
 
     /**
-     * Get account_id
+     * Get account_id.
      *
-     * @return integer
+     * @return int
      */
     public function getAccountId()
     {
@@ -77,9 +76,10 @@ class AccountContribution extends BaseAccountContribution implements SignableInt
     }
 
     /**
-     * Set type
+     * Set type.
      *
      * @param string $type
+     *
      * @return AccountContribution
      */
     public function setType($type)
@@ -88,7 +88,7 @@ class AccountContribution extends BaseAccountContribution implements SignableInt
     }
 
     /**
-     * Get type
+     * Get type.
      *
      * @return string
      */
@@ -98,9 +98,10 @@ class AccountContribution extends BaseAccountContribution implements SignableInt
     }
 
     /**
-     * Set start_transfer_date
+     * Set start_transfer_date.
      *
      * @param \DateTime $startTransferDate
+     *
      * @return AccountContribution
      */
     public function setStartTransferDate($startTransferDate)
@@ -111,7 +112,7 @@ class AccountContribution extends BaseAccountContribution implements SignableInt
     }
 
     /**
-     * Get start_transfer_date
+     * Get start_transfer_date.
      *
      * @return \DateTime
      */
@@ -121,9 +122,10 @@ class AccountContribution extends BaseAccountContribution implements SignableInt
     }
 
     /**
-     * Set amount
+     * Set amount.
      *
      * @param float $amount
+     *
      * @return $this
      */
     public function setAmount($amount)
@@ -134,7 +136,7 @@ class AccountContribution extends BaseAccountContribution implements SignableInt
     }
 
     /**
-     * Get amount
+     * Get amount.
      *
      * @return float
      */
@@ -144,9 +146,10 @@ class AccountContribution extends BaseAccountContribution implements SignableInt
     }
 
     /**
-     * Set transaction_frequency
+     * Set transaction_frequency.
      *
-     * @param integer $transactionFrequency
+     * @param int $transactionFrequency
+     *
      * @return AccountContribution
      */
     public function setTransactionFrequency($transactionFrequency)
@@ -155,9 +158,9 @@ class AccountContribution extends BaseAccountContribution implements SignableInt
     }
 
     /**
-     * Get transaction_frequency
+     * Get transaction_frequency.
      *
-     * @return integer
+     * @return int
      */
     public function getTransactionFrequency()
     {
@@ -165,9 +168,10 @@ class AccountContribution extends BaseAccountContribution implements SignableInt
     }
 
     /**
-     * Set account
+     * Set account.
      *
      * @param \Wealthbot\ClientBundle\Entity\ClientAccount $account
+     *
      * @return AccountContribution
      */
     public function setAccount(\Wealthbot\ClientBundle\Entity\ClientAccount $account = null)
@@ -178,7 +182,7 @@ class AccountContribution extends BaseAccountContribution implements SignableInt
     }
 
     /**
-     * Get account
+     * Get account.
      *
      * @return \Wealthbot\ClientBundle\Entity\ClientAccount
      */
@@ -188,9 +192,10 @@ class AccountContribution extends BaseAccountContribution implements SignableInt
     }
 
     /**
-     * Set contribution_year
+     * Set contribution_year.
      *
      * @param string $contributionYear
+     *
      * @return AccountContribution
      */
     public function setContributionYear($contributionYear)
@@ -201,7 +206,7 @@ class AccountContribution extends BaseAccountContribution implements SignableInt
     }
 
     /**
-     * Get contribution_year
+     * Get contribution_year.
      *
      * @return string
      */
@@ -211,9 +216,10 @@ class AccountContribution extends BaseAccountContribution implements SignableInt
     }
 
     /**
-     * Set bank_information_id
+     * Set bank_information_id.
      *
-     * @param integer $bankInformationId
+     * @param int $bankInformationId
+     *
      * @return AccountContribution
      */
     public function setBankInformationId($bankInformationId)
@@ -224,9 +230,9 @@ class AccountContribution extends BaseAccountContribution implements SignableInt
     }
 
     /**
-     * Get bank_information_id
+     * Get bank_information_id.
      *
-     * @return integer
+     * @return int
      */
     public function getBankInformationId()
     {
@@ -234,9 +240,10 @@ class AccountContribution extends BaseAccountContribution implements SignableInt
     }
 
     /**
-     * Set bankInformation
+     * Set bankInformation.
      *
      * @param \Wealthbot\ClientBundle\Entity\BankInformation $bankInformation
+     *
      * @return AccountContribution
      */
     public function setBankInformation(\Wealthbot\ClientBundle\Entity\BankInformation $bankInformation = null)
@@ -247,7 +254,7 @@ class AccountContribution extends BaseAccountContribution implements SignableInt
     }
 
     /**
-     * Get bankInformation
+     * Get bankInformation.
      *
      * @return \Wealthbot\ClientBundle\Entity\BankInformation
      */
@@ -257,7 +264,7 @@ class AccountContribution extends BaseAccountContribution implements SignableInt
     }
 
     /**
-     * Get client account object
+     * Get client account object.
      *
      * @return \Wealthbot\ClientBundle\Model\ClientAccount
      */
@@ -267,7 +274,7 @@ class AccountContribution extends BaseAccountContribution implements SignableInt
     }
 
     /**
-     * Get id of source object
+     * Get id of source object.
      *
      * @return mixed
      */
@@ -277,7 +284,7 @@ class AccountContribution extends BaseAccountContribution implements SignableInt
     }
 
     /**
-     * Get type of document signature
+     * Get type of document signature.
      *
      * @return string
      */
@@ -285,7 +292,6 @@ class AccountContribution extends BaseAccountContribution implements SignableInt
     {
         return DocumentSignature::TYPE_AUTO_INVEST_CONTRIBUTION;
     }
-
 
     /**
      * @var \DateTime
@@ -297,11 +303,11 @@ class AccountContribution extends BaseAccountContribution implements SignableInt
      */
     private $updatedAt;
 
-
     /**
-     * Set createdAt
+     * Set createdAt.
      *
      * @param \DateTime $createdAt
+     *
      * @return AccountContribution
      */
     public function setCreatedAt($createdAt)
@@ -312,9 +318,9 @@ class AccountContribution extends BaseAccountContribution implements SignableInt
     }
 
     /**
-     * Get createdAt
+     * Get createdAt.
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getCreatedAt()
     {
@@ -322,9 +328,10 @@ class AccountContribution extends BaseAccountContribution implements SignableInt
     }
 
     /**
-     * Set updatedAt
+     * Set updatedAt.
      *
      * @param \DateTime $updatedAt
+     *
      * @return AccountContribution
      */
     public function setUpdatedAt($updatedAt)
@@ -335,9 +342,9 @@ class AccountContribution extends BaseAccountContribution implements SignableInt
     }
 
     /**
-     * Get updatedAt
+     * Get updatedAt.
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getUpdatedAt()
     {

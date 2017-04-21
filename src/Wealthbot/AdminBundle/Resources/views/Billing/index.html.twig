@@ -3,10 +3,10 @@
 {% block body %}
     <h3>Billing</h3>
 
-    <div class="row-fluid" id="billingApp">
-        <div class="span4">
+    <div class="row" id="billingApp">
+        <div class="col-md-4">
             <div class="well">
-                <div class="control-group">
+                <div class="form-group">
                     <div class="controls">
                         <select id="year">
                             {% for year in years %}
@@ -16,16 +16,16 @@
                     </div>
                 </div>
                 <div class="btn-group">
-                    <button type="button" class="btn btn-small interval quarter" data-value="1">Quarter 1</button>
-                    <button type="button" class="btn btn-small interval quarter hide" data-value="2">Quarter 2</button>
-                    <button type="button" class="btn btn-small interval quarter hide" data-value="3">Quarter 3</button>
-                    <button type="button" class="btn btn-small interval quarter hide" data-value="4">Quarter 4</button>
-                    <button type="button" class="btn btn-small interval" data-value="0">Year</button>
+                    <button type="button" class="btn btn-default btn-sm interval quarter" data-value="1">Quarter 1</button>
+                    <button type="button" class="btn btn-default btn-sm interval quarter hide" data-value="2">Quarter 2</button>
+                    <button type="button" class="btn btn-default btn-sm interval quarter hide" data-value="3">Quarter 3</button>
+                    <button type="button" class="btn btn-default btn-sm interval quarter hide" data-value="4">Quarter 4</button>
+                    <button type="button" class="btn btn-default btn-sm interval" data-value="0">Year</button>
                 </div>
             </div>
             <div id="billingData"></div>
         </div>
-        <div class="span8" id="clientList"></div>
+        <div class="col-md-8" id="clientList"></div>
     </div>
 
     <script type="text/template" id="tplClients">

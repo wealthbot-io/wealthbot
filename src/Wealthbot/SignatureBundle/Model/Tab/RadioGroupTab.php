@@ -9,14 +9,12 @@
 
 namespace Wealthbot\SignatureBundle\Model\Tab;
 
-
 class RadioGroupTab extends AbstractCheckableTab
 {
     /**
      * @var string
      */
     private $groupName;
-
 
     public function __construct()
     {
@@ -26,9 +24,10 @@ class RadioGroupTab extends AbstractCheckableTab
     }
 
     /**
-     * Set group name
+     * Set group name.
      *
      * @param string $groupName
+     *
      * @return $this
      */
     public function setGroupName($groupName)
@@ -39,7 +38,7 @@ class RadioGroupTab extends AbstractCheckableTab
     }
 
     /**
-     * Get group name
+     * Get group name.
      *
      * @return string
      */

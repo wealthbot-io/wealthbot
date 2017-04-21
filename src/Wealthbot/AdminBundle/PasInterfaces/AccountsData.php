@@ -1,19 +1,15 @@
 <?php
 
-
 namespace Wealthbot\AdminBundle\PasInterfaces;
-
 
 use Doctrine\ODM\MongoDB\DocumentManager;
 use Doctrine\ORM\EntityManager;
 use Wealthbot\AdminBundle\Document\Portfolio;
 use Wealthbot\AdminBundle\Service\BusinessCalendar;
 use Wealthbot\ClientBundle\Entity\SystemAccount;
-use Wealthbot\RiaBundle\Entity\RiaCompanyInformation;
-use Wealthbot\UserBundle\Entity\User;
 
-class AccountsData implements DataInterface {
-
+class AccountsData implements DataInterface
+{
     /** @var \Doctrine\ORM\EntityManager */
     private $em;
 
@@ -31,48 +27,49 @@ class AccountsData implements DataInterface {
     }
 
     /**
-     * Implement loading data for pas-admin
+     * Implement loading data for pas-admin.
      *
      * Use services with tag wealthbot_admin.pas_files_loader
      *
      * @param \DateTime $date
-     * @param int $page
-     * @return Array
+     * @param int       $page
+     *
+     * @return array
      */
     public function load(\DateTime $date, $page = 0)
     {
-        $tableData = array();
+        $tableData = [];
 
         $shortDate = $date->format('Y-m-d');
 
         $accounts = $this
             ->mongoManager
             ->getRepository('WealthbotAdminBundle:Portfolio')
-            ->findBy(array('importDate' => $shortDate))
+            ->findBy(['importDate' => $shortDate])
         ;
 
-        $advisorCodes  = $this->em->getRepository('WealthbotRiaBundle:AdvisorCode')->findAll();
-        $advisorByCode = array();
+        $advisorCodes = $this->em->getRepository('WealthbotRiaBundle:AdvisorCode')->findAll();
+        $advisorByCode = [];
 
-        foreach($advisorCodes as $advisorCode) {
+        foreach ($advisorCodes as $advisorCode) {
             $advisorByCode[$advisorCode->getName()] = $advisorCode->getRiaCompany()->getRia();
         }
 
-        foreach($accounts as $account){
+        foreach ($accounts as $account) {
             $advisorCode = $account->getAdvisorId();
             $advisorName = '';
             if (array_key_exists($advisorCode, $advisorByCode)) {
                 $advisorName = $advisorByCode[$advisorCode]->getRiaCompanyInformation()->getName();
             }
 
-            $tableData[] = array(
-                'ria'           => $advisorName,
-                'last_name'     => $account->getLastName(),
-                'first_name'    => $account->getFirstName(),
-                'acct_number'   => $account->getAccountNumber(),
-                'type'          => $account->getAccountType(),
-                'warning'       => false
-            );
+            $tableData[] = [
+                'ria' => $advisorName,
+                'last_name' => $account->getLastName(),
+                'first_name' => $account->getFirstName(),
+                'acct_number' => $account->getAccountNumber(),
+                'type' => $account->getAccountType(),
+                'warning' => false,
+            ];
         }
 
         //Find ALL accounts needs to be in this day, add it to list and mark by red color.
@@ -87,23 +84,23 @@ class AccountsData implements DataInterface {
 
         /** @var SystemAccount[] $notAcceptedAccounts */
         $notAcceptedAccounts = $this->em->getRepository('WealthbotClientBundle:SystemAccount')->getMustBeAcceptedAlready($transferAccountDate, $newAccountDate);
-        foreach ($notAcceptedAccounts as $account){
+        foreach ($notAcceptedAccounts as $account) {
             $advisorName = $account->getClient()->getRia()->getRiaCompanyInformation()->getName();
-            $tableData[] = array(
-                'ria'           => $advisorName,
-                'last_name'     => $account->getClient()->getLastName(),
-                'first_name'    => $account->getClient()->getFirstName(),
-                'acct_number'   => $account->getAccountNumber(),
-                'type'          => $account->getType(),
-                'warning'       => true
-            );
+            $tableData[] = [
+                'ria' => $advisorName,
+                'last_name' => $account->getClient()->getLastName(),
+                'first_name' => $account->getClient()->getFirstName(),
+                'acct_number' => $account->getAccountNumber(),
+                'type' => $account->getType(),
+                'warning' => true,
+            ];
         }
 
-        return array('data' => $tableData);
+        return ['data' => $tableData];
     }
 
     /**
-     * Method must return FileType, for example "POS"
+     * Method must return FileType, for example "POS".
      *
      * @return mixed
      */

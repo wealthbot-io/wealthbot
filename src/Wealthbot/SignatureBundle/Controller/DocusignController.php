@@ -3,13 +3,15 @@
  * Created by PhpStorm.
  * User: amalyuhin
  * Date: 29.10.13
- * Time: 16:19
+ * Time: 16:19.
  */
 
 namespace Wealthbot\SignatureBundle\Controller;
 
-
 use Doctrine\ORM\EntityManager;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Wealthbot\ClientBundle\ClientEvents;
 use Wealthbot\ClientBundle\Entity\ClientAdditionalContact;
 use Wealthbot\ClientBundle\Entity\Workflow;
@@ -22,13 +24,8 @@ use Wealthbot\SignatureBundle\Entity\DocumentSignature;
 use Wealthbot\SignatureBundle\Model\Envelope;
 use Wealthbot\SignatureBundle\Service\ElectronicSignatureService;
 use Wealthbot\UserBundle\Entity\Document;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\HttpFoundation\File\File;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 
-class DocusignController extends Controller
+class DocusignController extends BaseSign
 {
     /** @var \Wealthbot\SignatureBundle\Docusign\DocusignSessionPersistence */
     private $api;
@@ -41,17 +38,6 @@ class DocusignController extends Controller
 
     /** @var EntityManager */
     private $em;
-
-
-    public function setContainer(ContainerInterface $container = null)
-    {
-        parent::setContainer($container);
-
-        $this->api = $this->get('wealthbot_docusign.api_client');
-        $this->signatureManager = $this->get('wealthbot_docusign.document_signature.manager');
-        $this->electronicSignature = $this->get('wealthbot_docusign.electronic_signature_service');
-        $this->em = $this->get('doctrine.orm.entity_manager');
-    }
 
     public function signAction($signature_id)
     {
@@ -83,9 +69,9 @@ class DocusignController extends Controller
 
             $error = $this->getAccountSigningErrorMessage($signature, $existOwnerSignature);
             if (null !== $error) {
-                return $this->render('WealthbotSignatureBundle:Default:application_sign_error.html.twig', array(
-                    'message' => '<strong>Error:</strong> ' . $error
-                ));
+                return $this->render('WealthbotSignatureBundle:Default:application_sign_error.html.twig', [
+                    'message' => '<strong>Error:</strong> '.$error,
+                ]);
             }
 
             $envelopeId = $signature->getDocusignEnvelopeId();
@@ -94,7 +80,7 @@ class DocusignController extends Controller
                 $recipient = new AccountOwnerRecipientAdapter($primaryApplicant);
                 $returnUrl = $this->generateUrl(
                     'wealthbot_docusign_application_sign_callback',
-                    array('envelope_id' => $envelopeId),
+                    ['envelope_id' => $envelopeId],
                     true
                 );
 
@@ -102,20 +88,19 @@ class DocusignController extends Controller
                 if ($embeddedUrl) {
                     return $this->render(
                         'WealthbotSignatureBundle:Default:application_sign_iframe.html.twig',
-                        array('url' => $embeddedUrl)
+                        ['url' => $embeddedUrl]
                     );
                 }
             }
-
         } catch (\Exception $e) {
-            return $this->render('WealthbotSignatureBundle:Default:application_sign_error.html.twig', array(
-                'message' => $e->getMessage()
-            ));
+            return $this->render('WealthbotSignatureBundle:Default:application_sign_error.html.twig', [
+                'message' => $e->getMessage(),
+            ]);
         }
 
-        return $this->render('WealthbotSignatureBundle:Default:application_sign_error.html.twig', array(
-            'message' => 'An error has occurred. Please try again later.'
-        ));
+        return $this->render('WealthbotSignatureBundle:Default:application_sign_error.html.twig', [
+            'message' => 'An error has occurred. Please try again later.',
+        ]);
     }
 
     public function applicationSignAction(Request $request)
@@ -143,7 +128,7 @@ class DocusignController extends Controller
             $recipient = new AccountOwnerRecipientAdapter($primaryApplicant);
             $returnUrl = $this->generateUrl(
                 'wealthbot_docusign_application_sign_callback',
-                array('envelope_id' => $envelopeId, 'application_id' => $account->getId()),
+                ['envelope_id' => $envelopeId, 'application_id' => $account->getId()],
                 true
             );
 
@@ -151,21 +136,21 @@ class DocusignController extends Controller
             if ($embeddedUrl) {
                 return $this->render(
                     'WealthbotSignatureBundle:Default:application_sign_iframe.html.twig',
-                    array('url' => $embeddedUrl)
+                    ['url' => $embeddedUrl]
                 );
             }
         }
 
-        return $this->render('WealthbotSignatureBundle:Default:application_sign_error.html.twig', array(
-            'message' => 'An error has occurred. Please try again later.'
-        ));
+        return $this->render('WealthbotSignatureBundle:Default:application_sign_error.html.twig', [
+            'message' => 'An error has occurred. Please try again later.',
+        ]);
     }
 
     public function applicationSignCallbackAction(Request $request)
     {
         $applicationId = $request->get('application_id');
         $envelopeId = $request->get('envelope_id');
-        $signatures =  $this->signatureManager->findDocumentSignaturesByEnvelopeId($envelopeId);
+        $signatures = $this->signatureManager->findDocumentSignaturesByEnvelopeId($envelopeId);
         if (!count($signatures)) {
             throw $this->createNotFoundException('Signature does not exist.');
         }
@@ -245,26 +230,27 @@ class DocusignController extends Controller
         if (null !== $error) {
             return $this->render(
                 'WealthbotSignatureBundle:Default:application_sign_error.html.twig',
-                array('message' => $error)
+                ['message' => $error]
             );
         }
 
-        $params = array(
+        $params = [
             'envelope_id' => $envelopeId,
             'application_id' => $applicationId ? $applicationId : '',
-            'signature_id' => (count($signatures) == 1) ? $signatures[0]->getId() : '',
+            'signature_id' => (count($signatures) === 1) ? $signatures[0]->getId() : '',
             'is_completed' => $isCompleted,
-            'message' => $message
-        );
+            'message' => $message,
+        ];
 
         return $this->render('WealthbotSignatureBundle:Default:application_sign.html.twig', $params);
     }
 
     /**
-     * Get envelope documents and save them for signatures
+     * Get envelope documents and save them for signatures.
      *
-     * @param string $envelopeId
-     * @param DocumentSignature[] $signatures  must be sorted in the order of creation
+     * @param string              $envelopeId
+     * @param DocumentSignature[] $signatures must be sorted in the order of creation
+     *
      * @throws \RuntimeException
      */
     private function getDocusignDocumentByEnvelopeIdAndSignatures($envelopeId, array $signatures)
@@ -273,7 +259,9 @@ class DocusignController extends Controller
 
         if ($documents && count($documents->envelopeDocuments)) {
             foreach ($signatures as $index => $signature) {
-                if ($signature->getDocument() && $signature->getDocument()->getFilename()) continue;
+                if ($signature->getDocument() && $signature->getDocument()->getFilename()) {
+                    continue;
+                }
 
                 if (!isset($documents->envelopeDocuments[$index])) {
                     throw new \RuntimeException(sprintf(
@@ -289,15 +277,15 @@ class DocusignController extends Controller
                 $clientAccount = $source->getClientAccount();
                 $client = $clientAccount->getClient();
 
-                $filename = $client->getFirstName() . '_' . $client->getMiddleName() . '_' . $client->getLastName()
-                    . '_Account' . $clientAccount->getId() . '_' . $documentInfo->name;
-                $path = $this->container->getParameter('uploads_dir') . '/tmp';
+                $filename = $client->getFirstName().'_'.$client->getMiddleName().'_'.$client->getLastName()
+                    .'_Account'.$clientAccount->getId().'_'.$documentInfo->name;
+                $path = $this->container->getParameter('uploads_dir').'/tmp';
 
                 if (!is_dir($path)) {
                     mkdir($path);
                 }
 
-                $path .= '/' . $filename;
+                $path .= '/'.$filename;
 
                 $fp = fopen($path, 'w+');
                 fwrite($fp, $documentBytes);
@@ -377,10 +365,10 @@ class DocusignController extends Controller
     }
 
     /**
-     * Create workflow for document signature
+     * Create workflow for document signature.
      *
      * @param DocumentSignature $signature
-     * @param Document $document
+     * @param Document          $document
      */
     private function createWorkflow(DocumentSignature $signature, Document $document)
     {
@@ -399,6 +387,6 @@ class DocusignController extends Controller
     {
         $response = json_encode($data);
 
-        return new Response($response, $code, array('Content-Type'=>'application/json'));
+        return new Response($response, $code, ['Content-Type' => 'application/json']);
     }
-} 
+}

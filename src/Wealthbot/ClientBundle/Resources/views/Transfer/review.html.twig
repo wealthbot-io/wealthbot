@@ -9,7 +9,7 @@
 {% endblock %}
 
 {% block top_content %}
-    {% render 'WealthbotClientBundle:Transfer:progressMenu' with { 'account': account, 'step': 'review' } %}
+    {{ render(controller('WealthbotClientBundle:Transfer:progressMenu', { 'account': account, 'step': 'review' })) }}
 {% endblock %}
 
 {% block main_content %}
@@ -25,7 +25,7 @@
         </div>#}
 
         <div class="row">
-            <div class="span8">
+            <div class="col-md-8">
                 <h4>1. Please carefully review this information for accuracy:</h4>
                 <ul class="account-owners-information-list margin-left-70">
                     {% for accountOwner in account.accountOwners %}
@@ -38,13 +38,13 @@
         </div>
 
         <div class="row transfer-review-final-signatures">
-            <div class="span8">
+            <div class="col-md-8">
                 <h4>2. Please sign the following document packet:</h4>
                 {% include 'WealthbotClientBundle:Transfer:_applications_list.html.twig' with { 'accounts': [account], 'company_information': company_information } %}
              </div>
             </div>
         <div class="row review-final-disclosures">
-            <div class="span10">
+            <div class="col-md-10">
                 <h4>3. I hereby acknowledge that:</h4>
                 <ol type="1">
 
@@ -75,7 +75,7 @@
                     </div>
                 {% endif %}
 
-                <div class="span5">
+                <div class="col-md-5">
                     {{ form_errors(form.is_agree) }}
                     <label class="checkbox">
                         {{ form_widget(form.is_agree, { 'attr': {'class': 'check-not-signed-applications not-presave', 'data-url': path('wealthbot_docusign_check_application_signed', { 'account_id': account.id }) } }) }} {{ form.is_agree.vars.label }}
@@ -88,21 +88,31 @@
 
         <div class="form-actions">
             <a href="{% block back_url %}{{ path('rx_client_transfer_back', {'account_id': account.id, 'action': 'review'}) }}{% endblock %}" class="btn btn-inverse">Back </a>
-            <input type="submit" class="btn" name="submit" value="Submit Application" />
+            <input type="submit" class="btn btn-default"  name="submit" value="Submit Application" />
         </div>
     </form>
 
-    <div id="modal_dialog" class="modal hide long-modal">
-        <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h3></h3>
-        </div>
-        <div class="modal-body">
+    <div id="modal_dialog" class="modal long-modal">
+
+        <div class="modal-content">
+
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3></h3>
+            </div>
+
+            <div class="modal-body">
+
+            </div>
+
+            <div class="modal-footer">
+                <a href="javascript:void(0)" class="btn btn-default"  data-dismiss="modal" aria-hidden="true">Close</a>
+                <a href="javascript:void(0)" class="update-owner-info-btn btn ">Update</a>
+            </div>
+
 
         </div>
-        <div class="modal-footer">
-            <a href="javascript:void(0)" class="btn" data-dismiss="modal" aria-hidden="true">Close</a>
-            <a href="javascript:void(0)" class="update-owner-info-btn btn ">Update</a>
-        </div>
+
     </div>
 {% endblock %}

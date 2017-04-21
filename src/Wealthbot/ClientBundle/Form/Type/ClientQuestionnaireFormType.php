@@ -11,7 +11,6 @@ namespace Wealthbot\ClientBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class ClientQuestionnaireFormType extends AbstractType
 {
@@ -25,10 +24,9 @@ class ClientQuestionnaireFormType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'wealthbot_client_questionnaire_answer_type';
     }

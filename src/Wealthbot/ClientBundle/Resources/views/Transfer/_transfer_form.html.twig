@@ -45,19 +45,19 @@
 
                 {{ form_label(form.account_number, 'Account Number:') }}
                 {{ form_errors(form.account_number) }}
-                {{ form_widget(form.account_number, { 'attr': { 'class': 'span4' } }) }}
+                {{ form_widget(form.account_number, { 'attr': { 'class': 'col-md-4' } }) }}
 
                 {{ form_label(form.financial_institution, 'Name of Financial Institution You Are Transferring From:') }}
                 {{ form_errors(form.financial_institution) }}
-                {{ form_widget(form.financial_institution, { 'attr': { 'class': 'span4' } }) }}
+                {{ form_widget(form.financial_institution, { 'attr': { 'class': 'col-md-4' } }) }}
 
                 {{ form_label(form.firm_address, 'Address of Firm:') }}
                 {{ form_errors(form.firm_address) }}
-                {{ form_widget(form.firm_address, { 'attr': { 'class': 'span4' } }) }}
+                {{ form_widget(form.firm_address, { 'attr': { 'class': 'col-md-4' } }) }}
 
                 {{ form_label(form.phone_number, 'Telephone Number:') }}
                 {{ form_errors(form.phone_number) }}
-                {{ form_widget(form.phone_number, { 'attr': { 'class': 'span4', 'data-mask-type': 'phone' } }) }}
+                {{ form_widget(form.phone_number, { 'attr': { 'class': 'col-md-4', 'data-mask-type': 'phone' } }) }}
             </div>
         </li>
 
@@ -65,11 +65,11 @@
             <h5>Does this account include an annuity or life insurance policy?</h5>
             <div>
                 {{ form_errors(form.is_include_policy) }}
-                <div class="row-fluid">
-                    <div class="span8">
-                        <div class="row-fluid">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="row">
                             {% for child in form.is_include_policy %}
-                                <div class="span1">
+                                <div class="col-md-1">
                                     <label for="{{ child.vars.id }}">{{ form_widget(child, { 'attr': { 'class': 'not-presave' } }) }} {{ child.vars.label }}</label>
                                 </div>
                             {% endfor %}
@@ -111,9 +111,9 @@
                                     <div class="form-inline">
                                         <label for="{{ policy_type_child.vars.id }}">{{ form_widget(policy_type_child) }} {{ policy_type_child.vars.label }}
                                             {{ form_errors(form.penalty_amount) }}
-                                            <div class="input-prepend">
+                                            <div class="input-group">
                                                 {{ form_widget(form.penalty_amount) }}
-                                                <span class="add-on">$</span>
+                                                <span class="input-group-addon">$</span>
                                             </div>
                                         </label>
                                     </div>
@@ -155,6 +155,6 @@
 
     <div class="form-actions">
         <a href="{% block back_url %}{{ path('rx_client_transfer_back', {'account_id': account.id, 'action': 'transfer', 'id': current_account.id}) }}{% endblock %}" class="btn btn-inverse">Back </a>
-        <input type="submit" class="btn" name="continue" value="Continue" />
+        <input type="submit" class="btn btn-default"  name="continue" value="Continue" />
     </div>
 </form>

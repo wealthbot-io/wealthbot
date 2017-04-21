@@ -3,11 +3,10 @@
  * Created by PhpStorm.
  * User: amalyuhin
  * Date: 28.11.13
- * Time: 16:36
+ * Time: 16:36.
  */
 
 namespace Wealthbot\SignatureBundle\Model\TabsConfiguration;
-
 
 use Wealthbot\ClientBundle\Entity\BankInformation;
 use Wealthbot\ClientBundle\Entity\Distribution;
@@ -29,9 +28,10 @@ class IraDistributionForm extends AbstractTabsConfiguration
     }
 
     /**
-     * Generate collection of tabs
+     * Generate collection of tabs.
      *
      * @return TabCollection
+     *
      * @throws \InvalidArgumentException
      */
     public function generate()
@@ -44,7 +44,7 @@ class IraDistributionForm extends AbstractTabsConfiguration
         $client = $clientAccount ? $clientAccount->getClient() : null;
         $companyInformation = $client ? $client->getRiaCompanyInformation() : null;
 
-        $tabs = array();
+        $tabs = [];
 
         $advisorCode = new TextTab();
         $advisorCode->setTabLabel('advisor#')->setValue($this->getAdvisorCode($companyInformation));
@@ -64,7 +64,7 @@ class IraDistributionForm extends AbstractTabsConfiguration
     }
 
     /**
-     * Generate account information section tabs
+     * Generate account information section tabs.
      *
      * @return array
      */
@@ -73,7 +73,7 @@ class IraDistributionForm extends AbstractTabsConfiguration
         $clientAccount = $this->signableObject->getClientAccount();
         $owner = $clientAccount->getPrimaryApplicant();
 
-        $tabs = array();
+        $tabs = [];
 
         $fullNameTab = new TextTab();
         $fullNameTab->setTabLabel('full_name')->setValue($owner->getFullName());
@@ -101,16 +101,16 @@ class IraDistributionForm extends AbstractTabsConfiguration
     }
 
     /**
-     * Generate distribution type section tabs
+     * Generate distribution type section tabs.
      *
      * @return array
      */
     protected function distributionTypeSection()
     {
-        $tabs = array();
+        $tabs = [];
 
         $distributionMethod = $this->signableObject->getDistributionMethod();
-        if ($distributionMethod == Distribution::DISTRIBUTION_METHOD_NORMAL) {
+        if ($distributionMethod === Distribution::DISTRIBUTION_METHOD_NORMAL) {
             $distributionReason = 'normal_distribution';
         } else {
             $distributionReason = 'normal_distribution_roth_ira';
@@ -124,13 +124,13 @@ class IraDistributionForm extends AbstractTabsConfiguration
     }
 
     /**
-     * Generate payment details section tabs
+     * Generate payment details section tabs.
      *
      * @return array
      */
     protected function paymentDetailsSection()
     {
-        $tabs = array();
+        $tabs = [];
 
         $distributionTypeTab = new RadioGroupTab();
         $distributionTypeTab->setGroupName('distribution_type')->setValue('partial_cash_distribution')->setSelected(
@@ -175,12 +175,13 @@ class IraDistributionForm extends AbstractTabsConfiguration
     }
 
     /**
-     * Generate tax withholding section tabs
+     * Generate tax withholding section tabs.
+     *
      * @return array
      */
     protected function taxWithholdingSection()
     {
-        $tabs = array();
+        $tabs = [];
 
         $useFederalWithhold = ($this->signableObject->getFederalWithholding() === Distribution::FEDERAL_WITHHOLDING_TAXES);
         $federalWithholdTab = new RadioGroupTab();
@@ -245,7 +246,7 @@ class IraDistributionForm extends AbstractTabsConfiguration
     }
 
     /**
-     * Generate payment method section tabs
+     * Generate payment method section tabs.
      *
      * @return array
      */
@@ -286,7 +287,6 @@ class IraDistributionForm extends AbstractTabsConfiguration
             $zipTab = new TextTab();
             $zipTab->setTabLabel('send_check_zip')->setValue($owner->getZip());
             $tabs[] = $zipTab;
-
         } elseif ($transferMethod !== Distribution::TRANSFER_METHOD_NOT_FUNDING) {
             $paymentMethod = 'electronic';
 
@@ -298,7 +298,7 @@ class IraDistributionForm extends AbstractTabsConfiguration
             /** @var BankInformation $bankInformation */
             $bankInformation = $this->signableObject->getBankInformation();
             if ($bankInformation) {
-                $isCheckingAccountType = ($bankInformation->getAccountType() == BankInformation::ACCOUNT_TYPE_CHECK);
+                $isCheckingAccountType = ($bankInformation->getAccountType() === BankInformation::ACCOUNT_TYPE_CHECK);
 
                 $bankAccountTypeTab = new RadioGroupTab();
                 $bankAccountTypeTab->setGroupName('electronic_account_type')
@@ -338,9 +338,10 @@ class IraDistributionForm extends AbstractTabsConfiguration
     }
 
     /**
-     * Get type of account tab value
+     * Get type of account tab value.
      *
      * @param ClientAccount $account
+     *
      * @return string
      */
     private function getAccountTypeTabValue(ClientAccount $account)
@@ -353,9 +354,9 @@ class IraDistributionForm extends AbstractTabsConfiguration
                 $result = 'roth_ira';
                 break;
             case SystemAccount::TYPE_TRADITIONAL_IRA:
-                if ($type == 'SEP IRA') {
+                if ($type === 'SEP IRA') {
                     $result = 'sep_ira';
-                } elseif ($type == 'SIMPLE IRA') {
+                } elseif ($type === 'SIMPLE IRA') {
                     $result = 'simple_ira';
                 } else {
                     $result = 'traditional_ira';
@@ -368,4 +369,4 @@ class IraDistributionForm extends AbstractTabsConfiguration
 
         return $result;
     }
-} 
+}

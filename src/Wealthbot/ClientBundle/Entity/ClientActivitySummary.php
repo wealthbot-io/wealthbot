@@ -2,22 +2,21 @@
 
 namespace Wealthbot\ClientBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
 use Wealthbot\ClientBundle\Model\ActivityInterface;
 use Wealthbot\UserBundle\Entity\User;
 
 /**
- * ClientActivitySummary
+ * ClientActivitySummary.
  */
 class ClientActivitySummary implements ActivityInterface
 {
     /**
-     * @var integer
+     * @var int
      */
     private $id;
 
     /**
-     * @var integer
+     * @var int
      */
     private $client_id;
 
@@ -37,7 +36,7 @@ class ClientActivitySummary implements ActivityInterface
     private $client;
 
     /**
-     * @var boolean
+     * @var bool
      */
     private $is_show_ria;
 
@@ -47,9 +46,9 @@ class ClientActivitySummary implements ActivityInterface
     }
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer 
+     * @return int
      */
     public function getId()
     {
@@ -57,22 +56,23 @@ class ClientActivitySummary implements ActivityInterface
     }
 
     /**
-     * Set client_id
+     * Set client_id.
      *
-     * @param integer $clientId
+     * @param int $clientId
+     *
      * @return ClientActivitySummary
      */
     public function setClientId($clientId)
     {
         $this->client_id = $clientId;
-    
+
         return $this;
     }
 
     /**
-     * Get client_id
+     * Get client_id.
      *
-     * @return integer 
+     * @return int
      */
     public function getClientId()
     {
@@ -80,22 +80,23 @@ class ClientActivitySummary implements ActivityInterface
     }
 
     /**
-     * Set description
+     * Set description.
      *
      * @param string $description
+     *
      * @return ClientActivitySummary
      */
     public function setDescription($description)
     {
         $this->description = $description;
-    
+
         return $this;
     }
 
     /**
-     * Get description
+     * Get description.
      *
-     * @return string 
+     * @return string
      */
     public function getDescription()
     {
@@ -103,22 +104,23 @@ class ClientActivitySummary implements ActivityInterface
     }
 
     /**
-     * Set created
+     * Set created.
      *
      * @param \DateTime $created
+     *
      * @return ClientActivitySummary
      */
     public function setCreated($created)
     {
         $this->created = $created;
-    
+
         return $this;
     }
 
     /**
-     * Get created
+     * Get created.
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getCreated()
     {
@@ -126,22 +128,23 @@ class ClientActivitySummary implements ActivityInterface
     }
 
     /**
-     * Set client
+     * Set client.
      *
      * @param \Wealthbot\UserBundle\Entity\User $client
+     *
      * @return ClientActivitySummary
      */
     public function setClient(\Wealthbot\UserBundle\Entity\User $client = null)
     {
         $this->client = $client;
-    
+
         return $this;
     }
 
     /**
-     * Get client
+     * Get client.
      *
-     * @return \Wealthbot\UserBundle\Entity\User 
+     * @return \Wealthbot\UserBundle\Entity\User
      */
     public function getClient()
     {
@@ -149,29 +152,30 @@ class ClientActivitySummary implements ActivityInterface
     }
 
     /**
-     * Set is_show_ria
+     * Set is_show_ria.
      *
-     * @param boolean $isShowRia
+     * @param bool $isShowRia
+     *
      * @return ClientActivitySummary
      */
     public function setIsShowRia($isShowRia)
     {
         $this->is_show_ria = $isShowRia;
-    
+
         return $this;
     }
 
     /**
-     * Get is_show_ria
+     * Get is_show_ria.
      *
-     * @return boolean 
+     * @return bool
      */
     public function getIsShowRia()
     {
         return $this->is_show_ria;
     }
     /**
-     * @var integer
+     * @var int
      */
     private $document_id;
 
@@ -180,24 +184,24 @@ class ClientActivitySummary implements ActivityInterface
      */
     private $Document;
 
-
     /**
-     * Set document_id
+     * Set document_id.
      *
-     * @param integer $documentId
+     * @param int $documentId
+     *
      * @return ClientActivitySummary
      */
     public function setDocumentId($documentId)
     {
         $this->document_id = $documentId;
-    
+
         return $this;
     }
 
     /**
-     * Get document_id
+     * Get document_id.
      *
-     * @return integer 
+     * @return int
      */
     public function getDocumentId()
     {
@@ -205,22 +209,23 @@ class ClientActivitySummary implements ActivityInterface
     }
 
     /**
-     * Set Document
+     * Set Document.
      *
      * @param \Wealthbot\UserBundle\Entity\Document $document
+     *
      * @return ClientActivitySummary
      */
     public function setDocument(\Wealthbot\UserBundle\Entity\Document $document = null)
     {
         $this->Document = $document;
-    
+
         return $this;
     }
 
     /**
-     * Get Document
+     * Get Document.
      *
-     * @return \Wealthbot\UserBundle\Entity\Document 
+     * @return \Wealthbot\UserBundle\Entity\Document
      */
     public function getDocument()
     {
@@ -228,7 +233,7 @@ class ClientActivitySummary implements ActivityInterface
     }
 
     /**
-     * Get activity message
+     * Get activity message.
      *
      * @return string
      */
@@ -238,7 +243,7 @@ class ClientActivitySummary implements ActivityInterface
     }
 
     /**
-     * Get activity client
+     * Get activity client.
      *
      * @return User
      */
@@ -246,6 +251,4 @@ class ClientActivitySummary implements ActivityInterface
     {
         return $this->client;
     }
-
-
 }

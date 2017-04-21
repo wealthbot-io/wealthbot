@@ -9,10 +9,6 @@
 
 namespace Wealthbot\ClientBundle\Form\Type;
 
-
-use Wealthbot\ClientBundle\Entity\PersonalInformation;
-use Wealthbot\ClientBundle\Model\AccountOwnerInterface;
-use Wealthbot\UserBundle\Entity\Profile;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormError;
@@ -20,10 +16,13 @@ use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\Regex;
+use Wealthbot\ClientBundle\Entity\PersonalInformation;
+use Wealthbot\ClientBundle\Model\AccountOwnerInterface;
+use Wealthbot\UserBundle\Entity\Profile;
 
 class AccountOwnerPersonalInformationFormType extends AbstractType
 {
@@ -42,137 +41,137 @@ class AccountOwnerPersonalInformationFormType extends AbstractType
     {
         // SST_TIN fields always must be blank in initial form
         $builder
-            ->add('citezen', 'choice', array(
+            ->add('citezen', 'choice', [
                 'label' => 'Citizenship',
-                'choices' => array('us' => 'United States', 'other' => 'Other'),
-                'property_path' => false,
-                'data' => 'us'
-            ))
-            ->add('ssn_tin_1', 'text', array(
-                'property_path' => false,
+                'choices' => ['us' => 'United States', 'other' => 'Other'],
+                'mapped' => false,
+                'data' => 'us',
+            ])
+            ->add('ssn_tin_1', 'text', [
+                'mapped' => false,
                 'data' => '',
-                'constraints' => array(
-                    new NotBlank(array('message' => 'Can not be blank.')),
-                    new Regex(array('pattern'=>'/^\d+$/','message' => 'Must be number.')),
-                    new Length(array(
+                'constraints' => [
+                    new NotBlank(['message' => 'Can not be blank.']),
+                    new Regex(['pattern' => '/^\d+$/', 'message' => 'Must be number.']),
+                    new Length([
                         'min' => 3,
                         'max' => 3,
                         'minMessage' => 'SSN should be in the format: ### - ## - ####.',
                         'maxMessage' => 'SSN should be in the format: ### - ## - ####.',
-                        'exactMessage' => 'SSN should be in the format: ### - ## - ####.'
-                    )),
-                )
-            ))
-            ->add('ssn_tin_2', 'text', array(
-                'property_path' => false,
+                        'exactMessage' => 'SSN should be in the format: ### - ## - ####.',
+                    ]),
+                ],
+            ])
+            ->add('ssn_tin_2', 'text', [
+                'mapped' => false,
                 'data' => '',
-                'constraints' => array(
-                    new NotBlank(array('message' => 'Can not be blank.')),
-                    new Regex(array('pattern'=>'/^\d+$/','message' => 'Must be number.')),
-                    new Length(array(
+                'constraints' => [
+                    new NotBlank(['message' => 'Can not be blank.']),
+                    new Regex(['pattern' => '/^\d+$/', 'message' => 'Must be number.']),
+                    new Length([
                         'min' => 2,
                         'max' => 2,
                         'minMessage' => 'SSN should be in the format: ### - ## - ####.',
                         'maxMessage' => 'SSN should be in the format: ### - ## - ####.',
-                        'exactMessage' => 'SSN should be in the format: ### - ## - ####.'
-                    )),
-                )
-            ))
-            ->add('ssn_tin_3', 'text', array(
-                'property_path' => false,
+                        'exactMessage' => 'SSN should be in the format: ### - ## - ####.',
+                    ]),
+                ],
+            ])
+            ->add('ssn_tin_3', 'text', [
+                'mapped' => false,
                 'data' => '',
-                'constraints' => array(
-                    new NotBlank(array('message' => 'Can not be blank.')),
-                    new Regex(array('pattern'=>'/^\d+$/','message' => 'Must be number.')),
-                    new Length(array(
+                'constraints' => [
+                    new NotBlank(['message' => 'Can not be blank.']),
+                    new Regex(['pattern' => '/^\d+$/', 'message' => 'Must be number.']),
+                    new Length([
                         'min' => 4,
                         'max' => 4,
                         'minMessage' => 'SSN should be in the format: ### - ## - ####.',
                         'maxMessage' => 'SSN should be in the format: ### - ## - ####.',
-                        'exactMessage' => 'SSN should be in the format: ### - ## - ####.'
-                    )),
-                )
-            ))
+                        'exactMessage' => 'SSN should be in the format: ### - ## - ####.',
+                    ]),
+                ],
+            ])
         ;
 
         if (true === $this->withMaritalStatus) {
-            $builder->add('marital_status', 'choice', array(
+            $builder->add('marital_status', 'choice', [
                     'choices' => Profile::getMaritalStatusChoices(),
-                    'empty_value' => 'Choose an Option',
-                    'required' => false
-                ))
+                    'placeholder' => 'Choose an Option',
+                    'required' => false,
+                ])
                 //->add('spouse', new ClientSpouseFormType());
-                ->add('spouse_first_name', 'text', array('required' => false))
-                ->add('spouse_middle_name', 'text', array('required' => false))
-                ->add('spouse_last_name', 'text', array('required' => false))
-                ->add('spouse_birth_date', 'date', array(
+                ->add('spouse_first_name', 'text', ['required' => false])
+                ->add('spouse_middle_name', 'text', ['required' => false])
+                ->add('spouse_last_name', 'text', ['required' => false])
+                ->add('spouse_birth_date', 'date', [
                     'widget' => 'single_text',
                     'format' => 'dd-MM-yyyy',
                     'required' => false,
-                    'attr' => array('class' => 'jq-date input-small')
-                ));
+                    'attr' => ['class' => 'jq-date input-small'],
+                ]);
         }
 
-        $builder->add('employment_type', 'choice', array(
+        $builder->add('employment_type', 'choice', [
                 'choices' => Profile::getEmploymentTypeChoices(),
                 'expanded' => true,
                 'multiple' => false,
-                'required' => true
-            ))
-            ->add('income_source', 'choice', array(
+                'required' => true,
+            ])
+            ->add('income_source', 'choice', [
                 'choices' => PersonalInformation::getIncomeSourceChoices(),
-                'empty_value' => 'Choose an Option',
-                'required' => false
-            ))
-            ->add('employer_name', 'text', array('required' => false))
-            ->add('industry', 'text', array('required' => false))
-            ->add('occupation', 'text', array('required' => false))
-            ->add('business_type', 'text', array('required' => false))
-            ->add('employer_address', 'text', array('required' => false))
-            ->add('employment_city', 'text', array('required' => false))
-            ->add('employmentState', 'entity', array(
-                'class' => 'WealthbotAdminBundle:State',
+                'placeholder' => 'Choose an Option',
+                'required' => false,
+            ])
+            ->add('employer_name', 'text', ['required' => false])
+            ->add('industry', 'text', ['required' => false])
+            ->add('occupation', 'text', ['required' => false])
+            ->add('business_type', 'text', ['required' => false])
+            ->add('employer_address', 'text', ['required' => false])
+            ->add('employment_city', 'text', ['required' => false])
+            ->add('employmentState', 'entity', [
+                'class' => 'Wealthbot\\AdminBundle\\Entity\\State',
                 'label' => 'State',
-                'empty_value' => 'Select a State',
-                'required' => false
-            ))
-            ->add('employment_zip', 'text', array('required' => false))
-            ->add('is_senior_political_figure', 'choice', array(
-                'choices' => array(1 => 'Yes', 0 => 'No'),
+                'placeholder' => 'Select a State',
+                'required' => false,
+            ])
+            ->add('employment_zip', 'text', ['required' => false])
+            ->add('is_senior_political_figure', 'choice', [
+                'choices' => [1 => 'Yes', 0 => 'No'],
                 'expanded' => true,
-                'multiple' => false
-            ))
-            ->add('senior_spf_name', 'text', array('required' => false))
-            ->add('senior_political_title', 'text', array('required' => false))
-            ->add('senior_account_owner_relationship', 'text', array('required' => false))
-            ->add('senior_country_office', 'text', array('required' => false))
-            ->add('is_publicly_traded_company', 'choice', array(
-                'choices' => array(1 => 'Yes', 0 => 'No'),
+                'multiple' => false,
+            ])
+            ->add('senior_spf_name', 'text', ['required' => false])
+            ->add('senior_political_title', 'text', ['required' => false])
+            ->add('senior_account_owner_relationship', 'text', ['required' => false])
+            ->add('senior_country_office', 'text', ['required' => false])
+            ->add('is_publicly_traded_company', 'choice', [
+                'choices' => [1 => 'Yes', 0 => 'No'],
                 'expanded' => true,
-                'multiple' => false
-            ))
-            ->add('publicle_company_name', 'text', array('required' => false))
-            ->add('publicle_address', 'text', array('required' => false))
-            ->add('publicle_city', 'text', array('required' => false))
-            ->add('publicleState', 'entity', array(
-                'class' => 'WealthbotAdminBundle:State',
+                'multiple' => false,
+            ])
+            ->add('publicle_company_name', 'text', ['required' => false])
+            ->add('publicle_address', 'text', ['required' => false])
+            ->add('publicle_city', 'text', ['required' => false])
+            ->add('publicleState', 'entity', [
+                'class' => 'Wealthbot\\AdminBundle\\Entity\\State',
                 'label' => 'State',
-                'empty_value' => 'Select a State',
-                'required' => false
-            ))
-            ->add('is_broker_security_exchange_person', 'choice', array(
-                'choices' => array(1 => 'Yes', 0 => 'No'),
+                'placeholder' => 'Select a State',
+                'required' => false,
+            ])
+            ->add('is_broker_security_exchange_person', 'choice', [
+                'choices' => [1 => 'Yes', 0 => 'No'],
                 'expanded' => true,
-                'multiple' => false
-            ))
-            ->add('broker_security_exchange_company_name', 'text', array('required' => false))
-            ->add('compliance_letter_file', 'file', array('required' => false))
+                'multiple' => false,
+            ])
+            ->add('broker_security_exchange_company_name', 'text', ['required' => false])
+            ->add('compliance_letter_file', 'file', ['required' => false])
         ;
 
-        $builder->addEventListener(FormEvents::BIND, array($this, 'validatePreSave'));
+        $builder->addEventListener(FormEvents::SUBMIT, [$this, 'validatePreSave']);
 
         if (!$this->isPreSaved) {
-            $builder->addEventListener(FormEvents::BIND, array($this, 'validate'));
+            $builder->addEventListener(FormEvents::SUBMIT, [$this, 'validate']);
         }
     }
 
@@ -218,7 +217,7 @@ class AccountOwnerPersonalInformationFormType extends AbstractType
             $ssnTin2 = $form->get('ssn_tin_2')->getData();
             $ssnTin3 = $form->get('ssn_tin_3')->getData();
 
-            $data->setSsnTin($ssnTin1 . $ssnTin2 . $ssnTin3);
+            $data->setSsnTin($ssnTin1.$ssnTin2.$ssnTin3);
         }
     }
 
@@ -230,9 +229,8 @@ class AccountOwnerPersonalInformationFormType extends AbstractType
             if (!in_array($employmentType, array_keys(Profile::getEmploymentTypeChoices()))) {
                 $form->get('employment_type')->addError(new FormError('Required.'));
             } else {
-
-                if ($employmentType == Profile::CLIENT_EMPLOYMENT_TYPE_RETIRED ||
-                    $employmentType == Profile::CLIENT_EMPLOYMENT_TYPE_UNEMPLOYED
+                if ($employmentType === Profile::CLIENT_EMPLOYMENT_TYPE_RETIRED ||
+                    $employmentType === Profile::CLIENT_EMPLOYMENT_TYPE_UNEMPLOYED
                 ) {
                     $data->setEmployerName(null);
                     $data->setIndustry(null);
@@ -286,11 +284,11 @@ class AccountOwnerPersonalInformationFormType extends AbstractType
 
                     if ($form->has('employment_zip')) {
                         $zipDigits = 5;
-                        $zip = str_replace(array(' ', '-'), '', $data->getEmploymentZip());
+                        $zip = str_replace([' ', '-'], '', $data->getEmploymentZip());
 
                         if (!is_numeric($zip)) {
-                            $form->get('employment_zip')->addError(new FormError("Enter correct zip code."));
-                        } elseif (strlen($zip) != $zipDigits) {
+                            $form->get('employment_zip')->addError(new FormError('Enter correct zip code.'));
+                        } elseif (strlen($zip) !== $zipDigits) {
                             $form->get('employment_zip')->addError(new FormError("Zip code must be {$zipDigits} digits."));
                         } else {
                             $data->setEmploymentZip($zip);
@@ -310,8 +308,7 @@ class AccountOwnerPersonalInformationFormType extends AbstractType
                 $form->get('marital_status')->addError(new FormError('Required.'));
             }
 
-            if ($maritalStatus == Profile::CLIENT_MARITAL_STATUS_MARRIED) {
-
+            if ($maritalStatus === Profile::CLIENT_MARITAL_STATUS_MARRIED) {
                 if ($form->has('spouse_first_name')) {
                     $firstName = $form->get('spouse_first_name')->getData();
 
@@ -353,7 +350,6 @@ class AccountOwnerPersonalInformationFormType extends AbstractType
 
         if (is_null($isSeniorPolitical)) {
             $form->get('is_senior_political_figure')->addError(new FormError('Required.'));
-
         } elseif ($isSeniorPolitical) {
             $relationship = $data->getSeniorAccountOwnerRelationship();
             $countryOffice = $data->getSeniorCountryOffice();
@@ -372,7 +368,6 @@ class AccountOwnerPersonalInformationFormType extends AbstractType
             if (is_null($spfName) || !is_string($spfName)) {
                 $form->get('senior_spf_name')->addError(new FormError('Required.'));
             }
-
         } else {
             $data->setSeniorAccountOwnerRelationship(null);
             $data->setSeniorCountryOffice(null);
@@ -387,7 +382,6 @@ class AccountOwnerPersonalInformationFormType extends AbstractType
 
         if (is_null($isPubliclyTraded)) {
             $form->get('is_publicly_traded_company')->addError(new FormError('Required.'));
-
         } elseif ($isPubliclyTraded) {
             $name = $data->getPublicleCompanyName();
             $address = $data->getPublicleAddress();
@@ -406,7 +400,6 @@ class AccountOwnerPersonalInformationFormType extends AbstractType
             if (null === $state) {
                 $form->get('publicleState')->addError(new FormError('Required.'));
             }
-
         } else {
             $data->setPublicleAddress(null);
             $data->setPublicleCity(null);
@@ -421,32 +414,32 @@ class AccountOwnerPersonalInformationFormType extends AbstractType
 
         if (is_null($isBrokerSecurityExchange)) {
             $form->get('is_broker_security_exchange_person')->addError(new FormError('Required.'));
-
         } elseif ($isBrokerSecurityExchange) {
             $complianceLetterFile = $data->getComplianceLetterFile();
             $companyName = $data->getBrokerSecurityExchangeCompanyName();
 
             if (!($complianceLetterFile instanceof UploadedFile)) {
-                $form->get('compliance_letter_file')->addError(new FormError('Required.'));
+                if ($form->has('compliance_letter_file')) {
+                    $form->get('compliance_letter_file')->addError(new FormError('Required.'));
+                }
             }
             if (is_null($companyName) || !is_string($companyName)) {
                 $form->get('broker_security_exchange_company_name')->addError(new FormError('Required.'));
             }
-
         } else {
             $data->setBrokerSecurityExchangeComplianceLetter(null);
             $data->setBrokerSecurityExchangeCompanyName(null);
         }
     }
 
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => $this->class
-        ));
+        $resolver->setDefaults([
+            'data_class' => $this->class,
+        ]);
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'personal_information';
     }

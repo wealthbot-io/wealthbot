@@ -9,17 +9,15 @@
 
 namespace Wealthbot\RiaBundle\Controller;
 
-
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Wealthbot\ClientBundle\ClientEvents;
 use Wealthbot\ClientBundle\Entity\ClientAccount;
 use Wealthbot\ClientBundle\Entity\Workflow;
 use Wealthbot\ClientBundle\Event\WorkflowEvent;
 use Wealthbot\RiaBundle\Form\Handler\WorkflowNoteFormHandler;
 use Wealthbot\RiaBundle\Form\Type\WorkflowNoteFormType;
-use Wealthbot\SignatureBundle\Entity\DocumentSignature;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 
 class WorkflowController extends Controller
 {
@@ -35,10 +33,10 @@ class WorkflowController extends Controller
 
         $isAjax = $request->isXmlHttpRequest();
 
-        $responseParameters = array(
+        $responseParameters = [
             'tab' => $tab,
-            'with_layout' => $withLayout
-        );
+            'with_layout' => $withLayout,
+        ];
 
         if ($isAjax) {
             switch ($tab) {
@@ -76,26 +74,26 @@ class WorkflowController extends Controller
                     break;
             }
 
-            return $this->getJsonResponse(array(
+            return $this->getJsonResponse([
                 'status' => 'success',
-                'content' => $this->renderView($template, $responseParameters)
-            ));
+                'content' => $this->renderView($template, $responseParameters),
+            ]);
         } else {
-            $paginations = array();
+            $paginations = [];
 
             $paginations['active'] = $this->buildPaginator(
                 $workflowManager->findByRiaIdQuery($ria->getId(), false),
-                $tab == 'active' ? $page : 1
+                $tab === 'active' ? $page : 1
             );
 
             $paginations['archived'] = $this->buildPaginator(
                 $workflowManager->findByRiaIdQuery($ria->getId(), true),
-                $tab == 'archived' ? $page : 1
+                $tab === 'archived' ? $page : 1
             );
 
             $paginations['activity'] = $this->buildPaginator(
                 $activityManager->findByRiaQuery($ria),
-                $tab == 'activity' ? $page : 1
+                $tab === 'activity' ? $page : 1
             );
 
             $responseParameters['paginations'] = $paginations;
@@ -114,27 +112,25 @@ class WorkflowController extends Controller
 
         $workflow = $workflowManager->findOneByIdAndRiaId($id, $ria->getId());
         if (!$workflow) {
-            return $this->getJsonResponse(array(
+            return $this->getJsonResponse([
                 'status' => 'error',
-                'message' => 'The workflow does not exist or you cannot archive it.'
-            ));
+                'message' => 'The workflow does not exist or you cannot archive it.',
+            ]);
         }
 
-        $data = array('status' => 'success');
+        $data = ['status' => 'success'];
 
-        if ($workflow->getMessageCode() == Workflow::MESSAGE_CODE_ALERT_CLOSED_ACCOUNT &&
-            $workflow->getObjectType() == 'Wealthbot\ClientBundle\Entity\ClosingAccountHistory')
-        {
+        if ($workflow->getMessageCode() === Workflow::MESSAGE_CODE_ALERT_CLOSED_ACCOUNT &&
+            $workflow->getObjectType() === 'Wealthbot\ClientBundle\Entity\ClosingAccountHistory') {
             $closedAccountsHistory = $workflowManager->getObjects($workflow);
 
-            $data = array(
+            $data = [
                 'status' => 'success',
                 'content' => $this->renderView(
                     'WealthbotRiaBundle:Workflow:_closed_accounts_list.html.twig',
-                    array('history' => $closedAccountsHistory)
-                )
-            );
-
+                    ['history' => $closedAccountsHistory]
+                ),
+            ];
         }
 
         return $this->getJsonResponse($data);
@@ -147,23 +143,23 @@ class WorkflowController extends Controller
 
         $workflow = $workflowManager->findOneByIdAndRiaId($id, $ria->getId(), false);
         if (!$workflow) {
-            return $this->getJsonResponse(array(
+            return $this->getJsonResponse([
                 'status' => 'error',
-                'message' => 'The workflow does not exist or you cannot archive it.'
-            ));
+                'message' => 'The workflow does not exist or you cannot archive it.',
+            ]);
         }
 
         $workflowManager->archiveAndSave($workflow);
 
         return $this->getJsonResponse(
-            array(
+            [
                 'status' => 'success',
                 'message' => 'Workflow has been archived.',
                 'content' => $this->renderView(
                     'WealthbotRiaBundle:Workflow:_archived_workflow_item.html.twig',
-                    array('workflow' => $workflow)
-                )
-            )
+                    ['workflow' => $workflow]
+                ),
+            ]
         );
     }
 
@@ -174,15 +170,15 @@ class WorkflowController extends Controller
 
         $workflow = $workflowManager->findOneByIdAndRiaId($id, $ria->getId(), false);
         if (!$workflow) {
-            return $this->getJsonResponse(array(
+            return $this->getJsonResponse([
                 'status' => 'error',
-                'message' => 'The workflow does not exist or you cannot delete it.'
-            ));
+                'message' => 'The workflow does not exist or you cannot delete it.',
+            ]);
         }
 
         $workflowManager->delete($workflow);
 
-        return $this->getJsonResponse(array('status' => 'success', 'message' => 'Workflow has been deleted successfully.'));
+        return $this->getJsonResponse(['status' => 'success', 'message' => 'Workflow has been deleted successfully.']);
     }
 
     public function updateStatusAction(Request $request)
@@ -205,11 +201,11 @@ class WorkflowController extends Controller
         }
 
         if (null !== $error) {
-            return $this->getJsonResponse(array('status' => 'error', 'message' => $error));
+            return $this->getJsonResponse(['status' => 'error', 'message' => $error]);
         }
 
         $client = $workflow->getClient();
-        $result = array('status' => 'success');
+        $result = ['status' => 'success'];
 
         try {
             $workflowManager->updateStatus($workflow, $status);
@@ -222,7 +218,7 @@ class WorkflowController extends Controller
                     $result['message'] = 'Workflow has been archived.';
                     $result['content'] = $this->renderView(
                         'WealthbotRiaBundle:Workflow:_archived_workflow_item.html.twig',
-                        array('workflow' => $workflow)
+                        ['workflow' => $workflow]
                     );
                 }
             }
@@ -243,7 +239,7 @@ class WorkflowController extends Controller
                 if ($newWorkflow) {
                     $result['new_item'] = $this->renderView(
                         'WealthbotRiaBundle:Workflow:_active_workflow_item.html.twig',
-                        array('workflow' => $newWorkflow)
+                        ['workflow' => $newWorkflow]
                     );
                 }
             } elseif ($workflow->isInProgress() && $workflow->isPaperwork()) {
@@ -251,12 +247,11 @@ class WorkflowController extends Controller
                     $this->get('wealthbot.mailer')->sendCustodianWorkflowDocuments($ria, $workflow);
                 }
             }
-
         } catch (\InvalidArgumentException $e) {
-            return $this->getJsonResponse(array(
+            return $this->getJsonResponse([
                 'status' => 'error',
-                'message' => sprintf('Invalid value for workflow status: %s.', $status)
-            ));
+                'message' => sprintf('Invalid value for workflow status: %s.', $status),
+            ]);
         }
 
         return $this->getJsonResponse($result);
@@ -269,10 +264,10 @@ class WorkflowController extends Controller
 
         $workflow = $workflowManager->findOneByIdAndRiaId($request->get('id'), $ria->getId());
         if (!$workflow) {
-            return $this->getJsonResponse(array(
+            return $this->getJsonResponse([
                 'status' => 'error',
-                'message' => 'The workflow does not exist.'
-            ));
+                'message' => 'The workflow does not exist.',
+            ]);
         }
 
         $form = $this->createForm(new WorkflowNoteFormType(), $workflow);
@@ -290,16 +285,16 @@ class WorkflowController extends Controller
         }
 
         return $this->getJsonResponse(
-            array(
+            [
                 'status' => $status,
                 'content' => $this->renderView(
                     'WealthbotRiaBundle:Workflow:_note_form.html.twig',
-                    array(
+                    [
                         'workflow' => $workflow,
-                        'form' => $form->createView()
-                    )
-                )
-            )
+                        'form' => $form->createView(),
+                    ]
+                ),
+            ]
         );
     }
 
@@ -310,8 +305,8 @@ class WorkflowController extends Controller
         $activity = $activityManager->find($request->get('id'));
         $ria = $this->getUser();
 
-        if (!$activity || ($activity->getRiaUserId() != $ria->getId())) {
-            throw $this->createNotFoundException("Activity Summary with id %s not found");
+        if (!$activity || ($activity->getRiaUserId() !== $ria->getId())) {
+            throw $this->createNotFoundException('Activity Summary with id %s not found');
         }
 
         $activity->setIsShowRia(false);
@@ -324,15 +319,15 @@ class WorkflowController extends Controller
 
         $showPagination = $request->get('show_pagination', true);
 
-        return $this->getJsonResponse(array(
+        return $this->getJsonResponse([
             'status' => 'success',
-            'content' => $this->renderView('WealthbotRiaBundle:Workflow:_workflow_activity_list.html.twig', array(
+            'content' => $this->renderView('WealthbotRiaBundle:Workflow:_workflow_activity_list.html.twig', [
                 'tab' => 'activity',
                 'with_layout' => false,
                 'pagination' => $pagination,
-                'show_pagination' => $showPagination
-            )),
-        ));
+                'show_pagination' => $showPagination,
+            ]),
+        ]);
     }
 
     public function documentsListAction(Request $request)
@@ -349,17 +344,17 @@ class WorkflowController extends Controller
         }
 
         if ($error) {
-            return $this->getJsonResponse(array('status' => 'error', 'message' => $error));
+            return $this->getJsonResponse(['status' => 'error', 'message' => $error]);
         }
 
         $documents = $workflowManager->getDocumentsToDownload($workflow, false);
 
-        return $this->getJsonResponse(array(
+        return $this->getJsonResponse([
             'status' => 'success',
-            'content' => $this->renderView('WealthbotRiaBundle:Workflow:_documents_list.html.twig', array(
-                'documents' => $documents
-            ))
-        ));
+            'content' => $this->renderView('WealthbotRiaBundle:Workflow:_documents_list.html.twig', [
+                'documents' => $documents,
+            ]),
+        ]);
     }
 
     private function buildPaginator($data, $page = 1)
@@ -373,6 +368,6 @@ class WorkflowController extends Controller
 
     private function getJsonResponse(array $data, $code = 200)
     {
-        return new Response(json_encode($data), $code, array('Content-Type' => 'application/json'));
+        return new Response(json_encode($data), $code, ['Content-Type' => 'application/json']);
     }
 }

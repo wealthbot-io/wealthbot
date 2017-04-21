@@ -1,4 +1,4 @@
-<% if @proxy_dest or @proxy_pass -%>
+<% if @proxy_dest or @proxy_pass or @proxy_pass_match or @proxy_dest_match -%>
 
   ## Proxy rules
   ProxyRequests Off
@@ -18,6 +18,11 @@
   <%- if proxy['keywords'] %> <%= proxy['keywords'].join(' ') -%>
   <%- end %>
   <Location <%= proxy['path']%>>
+  <%- if not proxy['reverse_cookies'].nil? -%>
+    <%- Array(proxy['reverse_cookies']).each do |reverse_cookies| -%>
+    ProxyPassReverseCookiePath <%= reverse_cookies['path'] %> <%= reverse_cookies['url'] %>
+    <%- end -%>
+  <%- end -%>
   <%- if proxy['reverse_urls'].nil? -%>
     ProxyPassReverse <%= proxy['url'] %>
   <%- else -%>
@@ -27,13 +32,13 @@
   <%- end -%>
   <%- if proxy['setenv'] -%>
     <%- Array(proxy['setenv']).each do |setenv_var| -%>
-    SetEnv <%= setenv_var -%>
+    SetEnv <%= setenv_var %>
     <%- end -%>
   <%- end -%>
   </Location>
 <% end -%>
 <% [@proxy_pass_match].flatten.compact.each do |proxy| %>
-  ProxyPassMatch <%= proxy['path'] %> <%= proxy['url'] %>
+  ProxyPassMatch <%= proxy['path'] %> <%= proxy['url'] -%>
   <%- if proxy['params'] -%>
     <%- proxy['params'].each_pair do |key, value| -%> <%= key %>=<%= value -%>
     <%- end -%>
@@ -50,7 +55,7 @@
   <%- end -%>
   <%- if proxy['setenv'] -%>
     <%- Array(proxy['setenv']).each do |setenv_var| -%>
-    SetEnv <%= setenv_var -%>
+    SetEnv <%= setenv_var %>
     <%- end -%>
   <%- end -%>
   </Location>

@@ -1,6 +1,6 @@
 {% for flashMessage in app.session.flashbag.get('notice') %}
-    <div class="row-fluid">
-        <div class="span8 offset2">
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
             <div class="alert alert-success">
                 {{ flashMessage }}
             </div>
@@ -14,23 +14,23 @@
       data-complete-models-url="{{ path('rx_ria_client_complete_models') }}" >
 
     {{ form_errors(form) }}
-    <div class="row-fluid">
-        <div class="span6">
-            <div class="control-group">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
                 {{ form_label(form.email, 'Email:') }}
                 <div class="controls">
                     {{ form_errors(form.email) }}
                     {{ form_widget(form.email) }}
                 </div>
             </div>
-            <div class="control-group">
+            <div class="form-group">
                 {{ form_label(form.profile.first_name, 'First Name:') }}
                 <div class="controls">
                     {{ form_errors(form.profile.first_name) }}
                     {{ form_widget(form.profile.first_name) }}
                 </div>
             </div>
-            <div class="control-group">
+            <div class="form-group">
                 {{ form_label(form.profile.last_name, 'Last Name:') }}
                 <div class="controls">
                     {{ form_errors(form.profile.last_name) }}
@@ -38,9 +38,9 @@
                 </div>
             </div>
         </div>
-        <div class="span6">
+        <div class="col-md-6">
             {% if form.profile.model is defined %}
-            <div class="control-group">
+            <div class="form-group">
                 {{ form_label(form.profile.model, 'Model:') }}
                 <div class="controls">
                     {{ form_errors(form.profile.model) }}
@@ -48,7 +48,7 @@
                 </div>
             </div>
             {% endif %}
-            <div class="control-group">
+            <div class="form-group">
                 {{ form_label(form.profile.suggested_portfolio, 'Suggested Portfolio:') }}
                 <div class="controls">
                     {{ form_errors(form.profile.suggested_portfolio) }}
@@ -56,7 +56,7 @@
                 </div>
             </div>
             {% if form.profile.client_account_managed is defined %}
-            <div class="control-group">
+            <div class="form-group">
                 {{ form_label(form.profile.client_account_managed, 'Manage portfolio by:') }}
                 <div class="controls">
                     {{ form_errors(form.profile.client_account_managed) }}

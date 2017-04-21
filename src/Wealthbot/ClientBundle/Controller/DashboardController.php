@@ -10,10 +10,15 @@
 namespace Wealthbot\ClientBundle\Controller;
 
 use Doctrine\ORM\EntityManager;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\Form;
+use Symfony\Component\Form\FormError;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Wealthbot\AdminBundle\AdminEvents;
+use Wealthbot\AdminBundle\Entity\BillingSpec;
 use Wealthbot\AdminBundle\Entity\SecurityAssignment;
 use Wealthbot\AdminBundle\Event\UserHistoryEvent;
-use Wealthbot\AdminBundle\Entity\BillingSpec;
 use Wealthbot\ClientBundle\ClientEvents;
 use Wealthbot\ClientBundle\Document\TempPortfolio;
 use Wealthbot\ClientBundle\Entity\AccountGroup;
@@ -47,13 +52,11 @@ use Wealthbot\UserBundle\Entity\Document;
 use Wealthbot\UserBundle\Entity\User;
 use Wealthbot\UserBundle\Form\Handler\ClientDocumentFormHandler;
 use Wealthbot\UserBundle\Form\Type\ClientDocumentFormType;
-use Symfony\Component\Form\Form;
-use Symfony\Component\Form\FormError;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 
-class DashboardController extends AclController
+class DashboardController extends Controller
 {
+    use AclController;
+
     public function indexAction(Request $request)
     {
         $systemAccountManager = $this->get('wealthbot_client.system_account_manager');
@@ -78,7 +81,7 @@ class DashboardController extends AclController
 
         $sasCashForm = $this->createForm(new ClientSasCashCollectionFormType($client));
 
-        $parameters = array(
+        $parameters = [
             'client' => $client,
             'is_client_view' => $isClientView,
             'layout_variables' => $this->getLayoutVariables('Overview', 'rx_client_dashboard', false),
@@ -86,14 +89,14 @@ class DashboardController extends AclController
             'account_values' => $accountValues,
             'is_init_rebalance' => $isInitRebalance,
             'client_portfolio_values_information' => $clientPortfolioValuesManager->prepareClientPortfolioValuesInformation($client),
-        );
+        ];
 
         if ($isAjax) {
-            return $this->getJsonResponse(array(
+            return $this->getJsonResponse([
                 'status' => 'success',
                 'active_tab' => 'overview',
-                'content' => $this->renderView('WealthbotClientBundle:Dashboard:_index_content.html.twig', $parameters)
-            ));
+                'content' => $this->renderView('WealthbotClientBundle:Dashboard:_index_content.html.twig', $parameters),
+            ]);
         }
 
         return $this->render('WealthbotClientBundle:Dashboard:index.html.twig', $parameters);
@@ -127,15 +130,15 @@ class DashboardController extends AclController
         $isClientView = !$this->isRiaClientView();
         $activeClientAccounts = $systemAccountManager->getAccountsForClient($client, $isClientView);
 
-        $parameters = array();
+        $parameters = [];
 
         //get accounts...
         $accounts = $activeClientAccounts;
         if ($accountId = $request->get('account_id')) {
             /** @var ClientAccount $account */
-            if ($account = $clientAccountRepo->findOneBy(array('id' => $accountId, 'client' => $client))) {
+            if ($account = $clientAccountRepo->findOneBy(['id' => $accountId, 'client' => $client])) {
                 if ($systemAccount = $account->getSystemAccount()) {
-                    $accounts = array($systemAccount);
+                    $accounts = [$systemAccount];
                 }
             }
         }
@@ -147,7 +150,7 @@ class DashboardController extends AclController
         $portfolioValue = $clientPortfolioManager->getPortfolioValue($client);
 
         //get asset types by security
-        $assetTypes = array();
+        $assetTypes = [];
         foreach ($positions as $position) {
             $security = $position->getSecurity();
             //get security assignment for that security and my ria.
@@ -159,7 +162,7 @@ class DashboardController extends AclController
                 continue;
             }
 
-            $assetType = $securityAssignment->getSubclass()->getAssetClass()->getName() . ' - ' . $securityAssignment->getSubclass()->getName();
+            $assetType = $securityAssignment->getSubclass()->getAssetClass()->getName().' - '.$securityAssignment->getSubclass()->getName();
             if (!$assetType) {
                 continue;
             }
@@ -170,13 +173,12 @@ class DashboardController extends AclController
             $sharesOwned = $position->getQuantity();
 
             $securityId = $security->getId();
-            if (isset($assetTypes[$assetType][$securityId]))
-            {
+            if (isset($assetTypes[$assetType][$securityId])) {
                 $currentValue += $assetTypes[$assetType][$securityId]['currentValue'];
                 $costBasis += $assetTypes[$assetType][$securityId]['costBasis'];
                 $sharesOwned += $assetTypes[$assetType][$securityId]['sharesOwned'];
             }
-            $assetTypes[$assetType][$securityId] = array(
+            $assetTypes[$assetType][$securityId] = [
                 'asset' => $assetType,
                 'description' => $security->getName(),
                 'symbol' => $security->getSymbol(),
@@ -186,8 +188,8 @@ class DashboardController extends AclController
                 'costBasis' => $costBasis,
                 'weight' => $currentValue / $portfolioValue,
                 'unrealizedGain' => $currentValue - $costBasis,
-                'unrealizedGainPercent' => ($currentValue - $costBasis) / $currentValue
-            );
+                'unrealizedGainPercent' => ($currentValue - $costBasis) / $currentValue,
+            ];
         }
 
         $sumAllWeight = 0;
@@ -196,16 +198,16 @@ class DashboardController extends AclController
         $sumAllGainLoss = 0;
         $sumAllGainLossPercent = 0;
 
-        $parameters['assetTypesSumm'] = array();
+        $parameters['assetTypesSumm'] = [];
 
-        foreach($assetTypes as $assetType => $assetData) {
+        foreach ($assetTypes as $assetType => $assetData) {
             $sumWeight = 0;
             $sumCurrentValue = 0;
             $sumCostBasis = 0;
             $sumGainLoss = 0;
             $sumGainLossPercent = 0;
 
-            foreach($assetData as $asset){
+            foreach ($assetData as $asset) {
                 $sumWeight += $asset['weight'];
                 $sumCurrentValue += $asset['currentValue'];
                 $sumCostBasis += $asset['costBasis'];
@@ -213,13 +215,13 @@ class DashboardController extends AclController
                 $sumGainLossPercent += $asset['unrealizedGainPercent'];
             }
 
-            $parameters['assetTypesSumm'][$assetType] = array(
+            $parameters['assetTypesSumm'][$assetType] = [
                 'sumWeight' => $sumWeight,
                 'sumCurrentValue' => $sumCurrentValue,
                 'sumCostBasis' => $sumCostBasis,
                 'sumGainLoss' => $sumGainLoss,
-                'sumGainLossPercent' => $sumGainLossPercent
-            );
+                'sumGainLossPercent' => $sumGainLossPercent,
+            ];
 
             $sumAllWeight += $sumWeight;
             $sumAllCurrentValue += $sumCurrentValue;
@@ -228,13 +230,13 @@ class DashboardController extends AclController
             $sumAllGainLossPercent += $sumGainLossPercent;
         }
 
-        $parameters['total'] = array(
+        $parameters['total'] = [
             'sumAllWeight' => $sumAllWeight,
             'sumAllCurrentValue' => $sumAllCurrentValue,
             'sumAllCostBasis' => $sumAllCostBasis,
             'sumAllGainLoss' => $sumAllGainLoss,
-            'sumAllGainLossPercent' => $sumAllGainLossPercent
-        );
+            'sumAllGainLossPercent' => $sumAllGainLossPercent,
+        ];
 
         $parameters['assetTypes'] = $assetTypes;
 
@@ -243,7 +245,7 @@ class DashboardController extends AclController
 
     public function gainslossesAction(Request $request)
     {
-        $params = array();
+        $params = [];
         $totalNetProceeds = 0;
         $totalCost = 0;
         $longTermGainLoss = 0;
@@ -269,51 +271,50 @@ class DashboardController extends AclController
         $isClientView = $this->isRiaClientView();
         if ($isClientView) {
             $client = $this->getUser();
-            $clientSettings = $repository->findOneBy(array('client' => $client));
+            $clientSettings = $repository->findOneBy(['client' => $client]);
             if (!$clientSettings) {
                 $clientSettings = new ClientSettings();
                 $clientSettings->setClient($client);
             }
 
             $stopTLHValueForm = $this->createForm(new ClientStopTLHValueFormType(), $clientSettings);
-            $params = array('stop_tlh_form' => $stopTLHValueForm->createView());
+            $params = ['stop_tlh_form' => $stopTLHValueForm->createView()];
 
-            if ($request->isMethod("post")) {
-                $stopTLHValueForm->bind($request);
+            if ($request->isMethod('post')) {
+                $stopTLHValueForm->handleRequest($request);
                 if ($stopTLHValueForm->isValid()) {
                     $em->persist($clientSettings);
                     $em->flush();
 
-                    return $this->getJsonResponse(array("status" => "success"));
+                    return $this->getJsonResponse(['status' => 'success']);
                 } else {
                     $content = $this->renderView(
-                        "WealthbotClientBundle:Dashboard:gainlosses_stop_tlh_form.html.twig",
-                        array("form" => $stopTLHValueForm->createView())
+                        'WealthbotClientBundle:Dashboard:gainlosses_stop_tlh_form.html.twig',
+                        ['form' => $stopTLHValueForm->createView()]
                     );
-                    return $this->getJsonResponse(array("status" => "error", "content" => $content));
+
+                    return $this->getJsonResponse(['status' => 'error', 'content' => $content]);
                 }
             }
         }
 
-        if ($request->isMethod("get")) {
+        if ($request->isMethod('get')) {
             $isClientView = !$this->isRiaClientView();
             $activeClientAccounts = $systemAccountManager->getAccountsForClient($client, $isClientView);
             $accounts = $activeClientAccounts;
             if ($accountId = $request->get('account_id')) {
-                if ($account = $em->getRepository('WealthbotClientBundle:ClientAccount')->findBy(array('id' => $accountId, 'client' => $client))) {
+                if ($account = $em->getRepository('WealthbotClientBundle:ClientAccount')->findBy(['id' => $accountId, 'client' => $client])) {
                     /** @var ClientAccount $account */
                     if ($systemAccount = $account->getSystemAccount()) {
-                        $accounts = array($systemAccount);
+                        $accounts = [$systemAccount];
                     }
                 }
             }
 
             $gainLossYears = $positionsRepo->getGainLossYears($accounts);
             $year = $request->get('year');
-            if (empty($year))
-            {
-                if (isset($gainLossYears[0]))
-                {
+            if (empty($year)) {
+                if (isset($gainLossYears[0])) {
                     $year = $gainLossYears[0]['year'];
                 }
             }
@@ -327,8 +328,7 @@ class DashboardController extends AclController
                 10
             );
 
-            foreach ($pagination as $gainLoss)
-            {
+            foreach ($pagination as $gainLoss) {
                 $totalNetProceeds += $gainLoss->getAmount();
                 $totalCost += $gainLoss->getInitial()->getAmount();
                 $longTermGainLoss += $gainLoss->getLongTermGain();
@@ -336,7 +336,7 @@ class DashboardController extends AclController
                 $totalGainLoss += $gainLoss->getRealizedGain();
             }
 
-            $params = array_merge($params, array(
+            $params = array_merge($params, [
                 'pagination' => $pagination,
                 'gainLossYears' => $gainLossYears,
                 'lots' => $lots,
@@ -344,9 +344,10 @@ class DashboardController extends AclController
                 'totalCost' => $totalCost,
                 'longTermGainLoss' => $longTermGainLoss,
                 'shortTermGainLoss' => $shortTermGainLoss,
-                'totalGainLoss' => $totalGainLoss
-            ));
+                'totalGainLoss' => $totalGainLoss,
+            ]);
         }
+
         return $this->prepareResponse($request, 'gainslosses', 'Gains/Losses', $params);
     }
 
@@ -366,7 +367,7 @@ class DashboardController extends AclController
             $request->get('page', 1),
             10
         );
-        $params = array('pagination' => $pagination);
+        $params = ['pagination' => $pagination];
 
         return $this->prepareResponse($request, 'transactions', 'Transactions', $params);
     }
@@ -383,14 +384,14 @@ class DashboardController extends AclController
         $em = $this->get('doctrine.orm.entity_manager');
         $feeManager = $this->get('wealthbot.manager.fee');
         $cashManager = $this->get('wealthbot_client.cash.manager');
-        $infoManager  = $this->get('wealthbot_ria.summary_information.manager');
+        $infoManager = $this->get('wealthbot_ria.summary_information.manager');
         $periodManager = $this->get('wealthbot_ria.period.manager');
 
         $client = $this->getUser();
         $period = $periodManager->getPeriod($year, $quarter);
 
         $billingSpec = $client->getAppointedBillingSpec();
-        $isBillingSpecTier = ($billingSpec->getType() == BillingSpec::TYPE_TIER);
+        $isBillingSpecTier = ($billingSpec->getType() === BillingSpec::TYPE_TIER);
 
         if ($isBillingSpecTier) {
             $fees = $client->getAppointedBillingSpec()->getFees();
@@ -399,17 +400,17 @@ class DashboardController extends AclController
         $accounts = $em->getRepository('WealthbotClientBundle:ClientAccount')->findByClient($client);
 
         $billTotal = $averageTotal = $value = 0;
-        $clientAccounts = $tiers = array();
+        $clientAccounts = $tiers = [];
 
         foreach ($accounts as $account) {
             $systemAccount = $account->getSystemAccount();
-            $data = array(
-                'id'            => $account->getId(),
-                'name'          => $account->getOwnerNames(),
-                'number'        => !empty($systemAccount) ? $systemAccount->getAccountNumber() : '',
-                'averageValue'  => $infoManager->getAccountAverageValue($account, $period['startDate'], $period['endDate']),
-                'billAmount'    => $infoManager->getAccountFeeBilled($account, $year, $quarter)
-            );
+            $data = [
+                'id' => $account->getId(),
+                'name' => $account->getOwnerNames(),
+                'number' => !empty($systemAccount) ? $systemAccount->getAccountNumber() : '',
+                'averageValue' => $infoManager->getAccountAverageValue($account, $period['startDate'], $period['endDate']),
+                'billAmount' => $infoManager->getAccountFeeBilled($account, $year, $quarter),
+            ];
 
             $billTotal += $data['billAmount'];
             $averageTotal += $data['averageValue'];
@@ -422,12 +423,12 @@ class DashboardController extends AclController
             $clientAccounts[] = $data;
         }
 
-        $tierMap = array();
+        $tierMap = [];
         if ($isBillingSpecTier) {
             foreach ($tiers as $tier) {
                 $start = 0;
                 foreach ($tier as $sort) {
-                    $data = array();
+                    $data = [];
                     $data['tier_top'] = $sort['tier_top'];
                     $data['tier_bottom'] = $start;
                     $data['fee'] = $sort['fee'];
@@ -445,30 +446,30 @@ class DashboardController extends AclController
             }
         }
 
-        $date  = new \DateTime();
+        $date = new \DateTime();
         $years = range($client->getCreated()->format('Y'), $date->format('Y'));
 
-        return array(
-            'curYear'         => $year,
-            'curQuarter'      => $quarter,
-            'years'           => $years,
-            'endDate'         => $period['endDate']->modify('-1 day')->format('m/d/Y'),
-            'accounts'        => $clientAccounts,
-            'billTotal'       => $billTotal,
-            'averageTotal'    => $averageTotal,
-            'tiers'           => $tierMap,
-            'isBillingSpecTier' => $isBillingSpecTier
-        );
+        return [
+            'curYear' => $year,
+            'curQuarter' => $quarter,
+            'years' => $years,
+            'endDate' => $period['endDate']->modify('-1 day')->format('m/d/Y'),
+            'accounts' => $clientAccounts,
+            'billTotal' => $billTotal,
+            'averageTotal' => $averageTotal,
+            'tiers' => $tierMap,
+            'isBillingSpecTier' => $isBillingSpecTier,
+        ];
     }
 
     public function billingPeriodAction(Request $request)
     {
         $params = $this->getBillingData($request);
 
-        return $this->getJsonResponse(array(
-            'status'  => 'success',
-            'content' => $this->renderView('WealthbotClientBundle:Dashboard:_billing_data.html.twig', $params)
-        ));
+        return $this->getJsonResponse([
+            'status' => 'success',
+            'content' => $this->renderView('WealthbotClientBundle:Dashboard:_billing_data.html.twig', $params),
+        ]);
     }
 
     public function billingAction(Request $request)
@@ -492,10 +493,10 @@ class DashboardController extends AclController
             $account = $this
                 ->get('doctrine.orm.entity_manager')
                 ->getRepository('WealthbotClientBundle:SystemAccount')
-                ->findOneBy(array(
+                ->findOneBy([
                     'client' => $client,
-                    'client_account_id' => $accountId
-                ))
+                    'client_account_id' => $accountId,
+                ])
             ;
             $twrCalculatorManager->setAccount($account);
         }
@@ -531,27 +532,27 @@ class DashboardController extends AclController
         $twrCalculatorManager->setEndDate($curDate);
 
         $performance = new \stdClass();
-        $performance->beginningValue  = $twrCalculatorManager->getBeginningValue();
-        $performance->contributions   = $twrCalculatorManager->getContributions();
-        $performance->withdrawals     = $twrCalculatorManager->getWithdrawals();
-        $performance->endingValue     = $twrCalculatorManager->getEndingValue();
-        $performance->investmentGain  = $twrCalculatorManager->getInvestmentGain();
-        $performance->netActual       = $twrCalculatorManager->getNetActual();
-        $performance->netAnnualized   = $twrCalculatorManager->getNetAnnualized();
-        $performance->grossActual     = $twrCalculatorManager->getGrossActual();
+        $performance->beginningValue = $twrCalculatorManager->getBeginningValue();
+        $performance->contributions = $twrCalculatorManager->getContributions();
+        $performance->withdrawals = $twrCalculatorManager->getWithdrawals();
+        $performance->endingValue = $twrCalculatorManager->getEndingValue();
+        $performance->investmentGain = $twrCalculatorManager->getInvestmentGain();
+        $performance->netActual = $twrCalculatorManager->getNetActual();
+        $performance->netAnnualized = $twrCalculatorManager->getNetAnnualized();
+        $performance->grossActual = $twrCalculatorManager->getGrossActual();
         $performance->grossAnnualized = $twrCalculatorManager->getGrossAnnualized();
 
-        return array('performance' => $performance);
+        return ['performance' => $performance];
     }
 
     public function performancePeriodAction(Request $request)
     {
         $params = $this->getPerformanceData($request);
 
-        return $this->getJsonResponse(array(
-            'status'  => 'success',
-            'content' => $this->renderView('WealthbotClientBundle:Dashboard:_performance_data.html.twig', $params)
-        ));
+        return $this->getJsonResponse([
+            'status' => 'success',
+            'content' => $this->renderView('WealthbotClientBundle:Dashboard:_performance_data.html.twig', $params),
+        ]);
     }
 
     public function performanceAction(Request $request)
@@ -572,7 +573,7 @@ class DashboardController extends AclController
         $qb->field('clientUserId')->equals($client->getId());
 
         $pagination = $paginator->paginate($qb->getQuery(), $request->get('page', 1), 10);
-        $params = array('pagination' => $pagination);
+        $params = ['pagination' => $pagination];
 
         return $this->prepareResponse($request, 'activity', 'Activity', $params);
     }
@@ -589,10 +590,10 @@ class DashboardController extends AclController
         $client = $this->getUser();
         $ria = $client->getRia();
 
-        $riaDocuments = array(
+        $riaDocuments = [
             'investment_management_agreement' => $documentManager->getUserDocumentByType($ria->getId(), Document::TYPE_INVESTMENT_MANAGEMENT_AGREEMENT),
-            'adv' => $documentManager->getUserDocumentByType($ria->getId(), Document::TYPE_ADV)
-        );
+            'adv' => $documentManager->getUserDocumentByType($ria->getId(), Document::TYPE_ADV),
+        ];
 
         $clientDocumentUploadForm = $this->createForm(new ClientDocumentFormType($this->isRiaClientView()));
 
@@ -602,16 +603,16 @@ class DashboardController extends AclController
                 $request,
                 $em,
                 $mailer,
-                array(
+                [
                     'user' => $client,
                     'is_ria_client_view' => $this->isRiaClientView(),
-                )
+                ]
             );
 
             $isValid = $clientDocumentFormHandler->process();
 
             if ($isValid) {
-                $session->setFlash('success', 'Document Upload');
+                $session->getFlashBag()->add('success', 'Document Upload');
             }
         }
 
@@ -621,11 +622,11 @@ class DashboardController extends AclController
             3
         );
 
-        $params = array(
+        $params = [
             'ria_documents' => $riaDocuments,
             'document_upload_form' => $clientDocumentUploadForm->createView(),
-            'pagination' => $pagination
-        );
+            'pagination' => $pagination,
+        ];
 
         return $this->prepareResponse($request, 'documents', 'Documents', $params);
     }
@@ -656,7 +657,7 @@ class DashboardController extends AclController
     public function accountManagementAction(Request $request)
     {
         /** @var $em EntityManager */
-        /** @var $repo SystemAccountRepository */
+        /* @var $repo SystemAccountRepository */
         $em = $this->get('doctrine.orm.entity_manager');
         $repo = $em->getRepository('WealthbotClientBundle:SystemAccount');
 
@@ -666,30 +667,29 @@ class DashboardController extends AclController
         $beneficiariesAccounts = $repo->findWithBeneficiariesByClientId($client->getId());
         $contributionDistributionAccounts = $repo->findContributionDistributionAccounts($client);
         $allAccounts = $repo->findByClientId($client->getId());
-        $bankAccounts = $em->getRepository('WealthbotClientBundle:BankInformation')->findBy(array('client_id' => $client->getId()));
+        $bankAccounts = $em->getRepository('WealthbotClientBundle:BankInformation')->findBy(['client_id' => $client->getId()]);
 
         $bankForm = $this->createForm(new BankInformationFormType());
 
-        $parameters = array(
+        $parameters = [
             'retirement_accounts' => $retirementAccounts,
             'beneficiaries_accounts' => $beneficiariesAccounts,
             'contribution_distribution_accounts' => $contributionDistributionAccounts,
             'all_accounts' => $allAccounts,
             'bank_accounts' => $bankAccounts,
-            'bank_info_form' => $this->renderView('WealthbotClientBundle:Dashboard:_bank_account_form.html.twig', array(
-                'form' => $bankForm->createView()
-            )),
+            'bank_info_form' => $this->renderView('WealthbotClientBundle:Dashboard:_bank_account_form.html.twig', [
+                'form' => $bankForm->createView(),
+            ]),
             'client' => $client,
-            'is_ria_client_view' => $this->isRiaClientView()
-        );
-
+            'is_ria_client_view' => $this->isRiaClientView(),
+        ];
 
         $changeProfileTab = $request->get('active_tab', null);
         if ($changeProfileTab) {
-            if ($changeProfileTab == 'update_password') {
+            if ($changeProfileTab === 'update_password') {
                 $parameters['ajax_url'] = $this->generateUrl('rx_client_change_profile_change_password');
-            } elseif ($changeProfileTab == 'your_portfolio') {
-                $parameters['ajax_url'] = $this->generateUrl('rx_client_change_profile_your_portfolio', array('data_type' => 'json'));
+            } elseif ($changeProfileTab === 'your_portfolio') {
+                $parameters['ajax_url'] = $this->generateUrl('rx_client_change_profile_your_portfolio', ['data_type' => 'json']);
             }
         }
 
@@ -699,7 +699,7 @@ class DashboardController extends AclController
     public function editRetirementAccountInfoAction(Request $request)
     {
         /** @var $em EntityManager */
-        /** @var $repo SystemAccountRepository */
+        /* @var $repo SystemAccountRepository */
         $em = $this->get('doctrine.orm.entity_manager');
         $repo = $em->getRepository('WealthbotClientBundle:SystemAccount');
 
@@ -707,7 +707,7 @@ class DashboardController extends AclController
 
         /** @var $account SystemAccount */
         $account = $repo->findOneRetirementAccountById($request->get('account_id'));
-        if (!$account || $account->getClientId() != $user->getId()) {
+        if (!$account || $account->getClientId() !== $user->getId()) {
             throw $this->createNotFoundException(
                 sprintf('You have not retirement account with id: %s.', $account->getId())
             );
@@ -718,7 +718,7 @@ class DashboardController extends AclController
         $form = $this->createForm(new DashboardRetirementPlanInfoFormType(), $accountInfo);
 
         if ($request->isMethod('post')) {
-            $form->bind($request);
+            $form->handleRequest($request);
 
             if ($form->isValid()) {
                 $accountInfo = $form->getData();
@@ -728,36 +728,35 @@ class DashboardController extends AclController
 
                 $this->dispatchHistoryEvent($user, 'Updated retirement account information');
 
-                return $this->getJsonResponse(array(
+                return $this->getJsonResponse([
                     'status' => 'success',
                     'message' => 'Account information has been successfully changed.',
-                    'account_title' => $accountInfo->getAccountNumber().' ['.$accountInfo->getAccountDescription().']'
-                ));
-
+                    'account_title' => $accountInfo->getAccountNumber().' ['.$accountInfo->getAccountDescription().']',
+                ]);
             } else {
-                return $this->getJsonResponse(array(
+                return $this->getJsonResponse([
                     'status' => 'error',
-                    'content' => $this->renderView('WealthbotClientBundle:Dashboard:_retirement_account_info_form.html.twig', array(
+                    'content' => $this->renderView('WealthbotClientBundle:Dashboard:_retirement_account_info_form.html.twig', [
                         'form' => $form->createView(),
-                        'account' => $account
-                    ))
-                ));
+                        'account' => $account,
+                    ]),
+                ]);
             }
         }
 
-        return $this->getJsonResponse(array(
+        return $this->getJsonResponse([
             'status' => 'success',
-            'content' => $this->renderView('WealthbotClientBundle:Dashboard:_retirement_account_info.html.twig', array(
+            'content' => $this->renderView('WealthbotClientBundle:Dashboard:_retirement_account_info.html.twig', [
                 'form' => $form->createView(),
-                'account' => $account
-            ))
-        ));
+                'account' => $account,
+            ]),
+        ]);
     }
 
     public function accountBeneficiariesAction(Request $request)
     {
         /** @var $em EntityManager */
-        /** @var $repo SystemAccountRepository */
+        /* @var $repo SystemAccountRepository */
         $em = $this->get('doctrine.orm.entity_manager');
         $repo = $em->getRepository('WealthbotClientBundle:SystemAccount');
 
@@ -765,27 +764,27 @@ class DashboardController extends AclController
 
         /** @var $account SystemAccount */
         $account = $repo->find($request->get('account_id'));
-        if (!$account || $account->getClientId() != $client->getId()) {
+        if (!$account || $account->getClientId() !== $client->getId()) {
             throw $this->createNotFoundException(sprintf('You have not account with id: %s.', $account->getId()));
         }
 
         $clientAccount = $account->getClientAccount();
         $beneficiaries = $clientAccount->getBeneficiaries();
 
-        return $this->getJsonResponse(array(
+        return $this->getJsonResponse([
             'status' => 'success',
-            'content' => $this->renderView('WealthbotClientBundle:Dashboard:_account_beneficiaries.html.twig', array(
+            'content' => $this->renderView('WealthbotClientBundle:Dashboard:_account_beneficiaries.html.twig', [
                 'account' => $account,
-                'beneficiaries' => $beneficiaries
-            ))
-        ));
+                'beneficiaries' => $beneficiaries,
+            ]),
+        ]);
     }
 
     public function addBeneficiaryAction(Request $request)
     {
         /** @var $em EntityManager */
-        /** @var $repo SystemAccountRepository */
-        /** @var $beneficiaryRepo BeneficiaryRepository */
+        /* @var $repo SystemAccountRepository */
+        /* @var $beneficiaryRepo BeneficiaryRepository */
         $em = $this->get('doctrine.orm.entity_manager');
         $repo = $em->getRepository('WealthbotClientBundle:SystemAccount');
         $beneficiaryRepo = $em->getRepository('WealthbotClientBundle:Beneficiary');
@@ -796,11 +795,11 @@ class DashboardController extends AclController
 
         /** @var $account SystemAccount */
         $account = $repo->find($request->get('account_id'));
-        if (!$account || $account->getClientId() != $client->getId()) {
-            return $this->getJsonResponse(array(
+        if (!$account || $account->getClientId() !== $client->getId()) {
+            return $this->getJsonResponse([
                 'status' => 'error',
-                'message' => sprintf('You have not account id: %s.', $account->getId())
-            ));
+                'message' => sprintf('You have not account id: %s.', $account->getId()),
+            ]);
         }
 
         $clientAccount = $account->getClientAccount();
@@ -811,7 +810,7 @@ class DashboardController extends AclController
         $form = $this->createForm(new BeneficiaryFormType(false, true), $beneficiary);
 
         if ($request->isMethod('post')) {
-            $form->bind($request);
+            $form->handleRequest($request);
 
             if ($form->isValid()) {
                 /** @var Beneficiary $beneficiary */
@@ -831,43 +830,43 @@ class DashboardController extends AclController
 
                     $this->dispatchHistoryEvent($client, 'Created beneficiary');
 
-                    return $this->getJsonResponse(array(
+                    return $this->getJsonResponse([
                         'status' => 'success',
-                        'form' => $this->renderView('WealthbotClientBundle:Dashboard:_beneficiaries_sign.html.twig', array(
+                        'form' => $this->renderView('WealthbotClientBundle:Dashboard:_beneficiaries_sign.html.twig', [
                             'signatures' => $signatureManager->findChangeBeneficiaryByClientAccount($clientAccount),
-                            'account' => $account
-                        )),
-                        'content' => $this->renderView('WealthbotClientBundle:Dashboard:_beneficiary_row.html.twig', array(
                             'account' => $account,
-                            'beneficiary' => $beneficiary
-                        ))
-                    ));
+                        ]),
+                        'content' => $this->renderView('WealthbotClientBundle:Dashboard:_beneficiary_row.html.twig', [
+                            'account' => $account,
+                            'beneficiary' => $beneficiary,
+                        ]),
+                    ]);
                 }
             }
 
-            return $this->getJsonResponse(array(
+            return $this->getJsonResponse([
                 'status' => 'error',
-                'content' => $this->renderView('WealthbotClientBundle:Dashboard:_beneficiary_form.html.twig', array(
+                'content' => $this->renderView('WealthbotClientBundle:Dashboard:_beneficiary_form.html.twig', [
                     'form' => $form->createView(),
-                    'account' => $account
-                ))
-            ));
+                    'account' => $account,
+                ]),
+            ]);
         }
 
-        return $this->getJsonResponse(array(
+        return $this->getJsonResponse([
             'status' => 'success',
-            'content' => $this->renderView('WealthbotClientBundle:Dashboard:_beneficiary_form.html.twig', array(
+            'content' => $this->renderView('WealthbotClientBundle:Dashboard:_beneficiary_form.html.twig', [
                 'form' => $form->createView(),
-                'account' => $account
-            ))
-        ));
+                'account' => $account,
+            ]),
+        ]);
     }
 
     public function editBeneficiaryAction(Request $request)
     {
         /** @var $em EntityManager */
-        /** @var $repo SystemAccountRepository */
-        /** @var $beneficiaryRepo BeneficiaryRepository */
+        /* @var $repo SystemAccountRepository */
+        /* @var $beneficiaryRepo BeneficiaryRepository */
         $em = $this->get('doctrine.orm.entity_manager');
         $repo = $em->getRepository('WealthbotClientBundle:SystemAccount');
         $beneficiaryRepo = $em->getRepository('WealthbotClientBundle:Beneficiary');
@@ -878,28 +877,28 @@ class DashboardController extends AclController
 
         /** @var $account SystemAccount */
         $account = $repo->find($request->get('account_id'));
-        if (!$account || $account->getClientId() != $client->getId()) {
-            return $this->getJsonResponse(array(
+        if (!$account || $account->getClientId() !== $client->getId()) {
+            return $this->getJsonResponse([
                 'status' => 'error',
-                'message' => sprintf('You have not account with id: %s.', $account->getId())
-            ));
+                'message' => sprintf('You have not account with id: %s.', $account->getId()),
+            ]);
         }
 
         $clientAccount = $account->getClientAccount();
 
-        $beneficiary = $beneficiaryRepo->findOneBy(array(
+        $beneficiary = $beneficiaryRepo->findOneBy([
             'id' => $request->get('beneficiary_id'),
-            'account_id' => $clientAccount->getId()
-        ));
+            'account_id' => $clientAccount->getId(),
+        ]);
         if (!$beneficiary) {
-            return $this->getJsonResponse(array(
+            return $this->getJsonResponse([
                 'status' => 'error',
                 'message' => sprintf(
                     'Beneficiary with id: %s and account_id: %s does not exist.',
                     $request->get('beneficiary_id'),
                     $account->getId()
-                )
-            ));
+                ),
+            ]);
         }
 
         $shareSum = $beneficiaryRepo->getBeneficiariesShareForAccount($clientAccount, $beneficiary->getType());
@@ -908,7 +907,7 @@ class DashboardController extends AclController
         $form = $this->createForm(new BeneficiaryFormType(false, true), $beneficiary);
 
         if ($request->isMethod('post')) {
-            $form->bind($request);
+            $form->handleRequest($request);
 
             if ($form->isValid()) {
                 $beneficiary = $form->getData();
@@ -929,37 +928,37 @@ class DashboardController extends AclController
 
                     $this->dispatchHistoryEvent($client, 'Updated beneficiary');
 
-                    return $this->getJsonResponse(array(
+                    return $this->getJsonResponse([
                         'status' => 'success',
                         'beneficiary_id' => $beneficiary->getId(),
-                        'form' => $this->renderView('WealthbotClientBundle:Dashboard:_beneficiaries_sign.html.twig', array(
+                        'form' => $this->renderView('WealthbotClientBundle:Dashboard:_beneficiaries_sign.html.twig', [
                             'signatures' => $signatureManager->findChangeBeneficiaryByClientAccount($clientAccount),
-                            'account' => $account
-                        )),
-                        'content' => $this->renderView('WealthbotClientBundle:Dashboard:_beneficiary_row.html.twig', array(
                             'account' => $account,
-                            'beneficiary' => $beneficiary
-                        ))
-                    ));
+                        ]),
+                        'content' => $this->renderView('WealthbotClientBundle:Dashboard:_beneficiary_row.html.twig', [
+                            'account' => $account,
+                            'beneficiary' => $beneficiary,
+                        ]),
+                    ]);
                 }
             }
 
-            return $this->getJsonResponse(array(
+            return $this->getJsonResponse([
                 'status' => 'error',
-                'content' => $this->renderView('WealthbotClientBundle:Dashboard:_beneficiary_form.html.twig', array(
+                'content' => $this->renderView('WealthbotClientBundle:Dashboard:_beneficiary_form.html.twig', [
                     'form' => $form->createView(),
-                    'account' => $account
-                ))
-            ));
+                    'account' => $account,
+                ]),
+            ]);
         }
 
-        return $this->getJsonResponse(array(
+        return $this->getJsonResponse([
             'status' => 'success',
-            'content' => $this->renderView('WealthbotClientBundle:Dashboard:_beneficiary_form.html.twig', array(
+            'content' => $this->renderView('WealthbotClientBundle:Dashboard:_beneficiary_form.html.twig', [
                 'form' => $form->createView(),
-                'account' => $account
-            ))
-        ));
+                'account' => $account,
+            ]),
+        ]);
     }
 
     public function beneficiariesSignAction(Request $request)
@@ -993,12 +992,12 @@ class DashboardController extends AclController
             $message = 'You have not signed applications. Please sign all applications.';
         }
 
-        $data = array('status' => $status, 'message' => $message);
+        $data = ['status' => $status, 'message' => $message];
         if ($status === 'error') {
-            $data['content'] = $this->renderView('WealthbotClientBundle:Dashboard:_beneficiaries_sign.html.twig', array(
+            $data['content'] = $this->renderView('WealthbotClientBundle:Dashboard:_beneficiaries_sign.html.twig', [
                 'signatures' => $signatures,
-                'account' => $account
-            ));
+                'account' => $account,
+            ]);
         }
 
         return $this->getJsonResponse($data);
@@ -1007,8 +1006,8 @@ class DashboardController extends AclController
     public function deleteBeneficiaryAction(Request $request)
     {
         /** @var $em EntityManager */
-        /** @var $repo SystemAccountRepository */
-        /** @var $beneficiaryRepo BeneficiaryRepository */
+        /* @var $repo SystemAccountRepository */
+        /* @var $beneficiaryRepo BeneficiaryRepository */
         $em = $this->get('doctrine.orm.entity_manager');
         $repo = $em->getRepository('WealthbotClientBundle:SystemAccount');
         $beneficiaryRepo = $em->getRepository('WealthbotClientBundle:Beneficiary');
@@ -1017,28 +1016,28 @@ class DashboardController extends AclController
 
         /** @var $account SystemAccount */
         $account = $repo->find($request->get('account_id'));
-        if (!$account || $account->getClientId() != $client->getId()) {
-            return $this->getJsonResponse(array(
+        if (!$account || $account->getClientId() !== $client->getId()) {
+            return $this->getJsonResponse([
                 'status' => 'error',
-                'message' => sprintf('You have not account with id: %s.', $account->getId())
-            ));
+                'message' => sprintf('You have not account with id: %s.', $account->getId()),
+            ]);
         }
 
         $clientAccount = $account->getClientAccount();
 
-        $beneficiary = $beneficiaryRepo->findOneBy(array(
+        $beneficiary = $beneficiaryRepo->findOneBy([
             'id' => $request->get('beneficiary_id'),
-            'account_id' => $clientAccount->getId()
-        ));
+            'account_id' => $clientAccount->getId(),
+        ]);
         if (!$beneficiary) {
-            return $this->getJsonResponse(array(
+            return $this->getJsonResponse([
                 'status' => 'error',
                 'message' => sprintf(
                     'Beneficiary with id: %s and account_id: %s does not exist.',
                     $request->get('beneficiary_id'),
                     $account->getId()
-                )
-            ));
+                ),
+            ]);
         }
 
         $em->remove($beneficiary);
@@ -1046,7 +1045,7 @@ class DashboardController extends AclController
 
         $this->dispatchHistoryEvent($client, 'Deleted beneficiary');
 
-        return $this->getJsonResponse(array('status' => 'success'));
+        return $this->getJsonResponse(['status' => 'success']);
     }
 
     public function newAccountAction()
@@ -1054,19 +1053,19 @@ class DashboardController extends AclController
         $client = $this->getUser();
         $riaCompanyInformation = $client->getRia()->getRiaCompanyInformation();
 
-        $data = array('groups' => $this->get('session')->get('client.accounts.groups'));
+        $data = ['groups' => $this->get('session')->get('client.accounts.groups')];
         $this->get('session')->set('client.accounts.is_consolidate_account', false);
 
         $form = $this->createForm(new AccountGroupsFormType($client), $data);
 
-        return $this->getJsonResponse(array(
+        return $this->getJsonResponse([
             'status' => 'success',
-            'content' => $this->renderView('WealthbotClientBundle:Dashboard:_new_account.html.twig', array(
+            'content' => $this->renderView('WealthbotClientBundle:Dashboard:_new_account.html.twig', [
                 'form' => $form->createView(),
                 'client' => $client,
-                'ria_company_information' => $riaCompanyInformation
-            ))
-        ));
+                'ria_company_information' => $riaCompanyInformation,
+            ]),
+        ]);
     }
 
     public function editAddressAction(Request $request)
@@ -1080,7 +1079,7 @@ class DashboardController extends AclController
         $form = $this->createForm(new ClientAddressFormType(), $profile);
 
         if ($request->isMethod('post')) {
-            $form->bind($request);
+            $form->handleRequest($request);
 
             if ($form->isValid()) {
                 $profile = $form->getData();
@@ -1093,26 +1092,26 @@ class DashboardController extends AclController
 
                 $this->dispatchHistoryEvent($client, 'Updated address');
 
-                return $this->getJsonResponse(array(
+                return $this->getJsonResponse([
                     'status' => 'success',
-                    'message' => 'Address has been changed successfully.'
-                ));
+                    'message' => 'Address has been changed successfully.',
+                ]);
             }
 
-            return $this->getJsonResponse(array(
+            return $this->getJsonResponse([
                 'status' => 'error',
-                'content' => $this->renderView('WealthbotClientBundle:Dashboard:_client_address_form.html.twig', array(
-                    'form' => $form->createView()
-                ))
-            ));
+                'content' => $this->renderView('WealthbotClientBundle:Dashboard:_client_address_form.html.twig', [
+                    'form' => $form->createView(),
+                ]),
+            ]);
         }
 
-        return $this->getJsonResponse(array(
+        return $this->getJsonResponse([
             'status' => 'success',
-            'content' => $this->renderView('WealthbotClientBundle:Dashboard:_client_address_form.html.twig', array(
-                'form' => $form->createView()
-            ))
-        ));
+            'content' => $this->renderView('WealthbotClientBundle:Dashboard:_client_address_form.html.twig', [
+                'form' => $form->createView(),
+            ]),
+        ]);
     }
 
     public function accountContributionAction(Request $request)
@@ -1127,12 +1126,12 @@ class DashboardController extends AclController
         $riaCompanyInfo = $client->getRia()->getRiaCompanyInformation();
 
         /** @var $account SystemAccount */
-        $account = $repo->findOneBy(array('id' => $request->get('account_id'), 'client_id' => $client->getId()));
+        $account = $repo->findOneBy(['id' => $request->get('account_id'), 'client_id' => $client->getId()]);
         if (!$account) {
-            return $this->getJsonResponse(array(
+            return $this->getJsonResponse([
                 'status' => 'error',
-                'message' => sprintf('You have not account with id: %s.', $account->getId())
-            ));
+                'message' => sprintf('You have not account with id: %s.', $account->getId()),
+            ]);
         }
 
         $status = 'success';
@@ -1142,16 +1141,15 @@ class DashboardController extends AclController
             /** @var $contributionFormFactory AccountContributionFormFactory */
             $contributionFormFactory = $this->get('wealthbot_client.contribution_form_factory');
             $form = $contributionFormFactory->create($action, $account);
-
         } catch (\Exception $e) {
-            return $this->getJsonResponse(array(
+            return $this->getJsonResponse([
                 'status' => 'error',
-                'message' => $e->getMessage()
-            ));
+                'message' => $e->getMessage(),
+            ]);
         }
 
         if ($request->isMethod('post')) {
-            $form->bind($request);
+            $form->handleRequest($request);
 
             if ($form->isValid()) {
                 $contribution = $form->getData();
@@ -1166,28 +1164,28 @@ class DashboardController extends AclController
 
                 $this->dispatchHistoryEvent($client, 'Updated contribution');
 
-                return $this->getJsonResponse(array(
+                return $this->getJsonResponse([
                     'status' => 'success',
                     'message' => 'The operation was successful.',
-                    'content' => $this->renderView('WealthbotClientBundle:DashboardTransfer:contribution_sign.html.twig', array(
+                    'content' => $this->renderView('WealthbotClientBundle:DashboardTransfer:contribution_sign.html.twig', [
                         'signature' => $signature,
-                        'action' => $action
-                    ))
-                ));
+                        'action' => $action,
+                    ]),
+                ]);
             }
 
             $status = 'error';
         }
 
-        return $this->getJsonResponse(array(
+        return $this->getJsonResponse([
             'status' => $status,
-            'content' => $this->renderView('WealthbotClientBundle:Dashboard:_account_contribution_form.html.twig', array(
+            'content' => $this->renderView('WealthbotClientBundle:Dashboard:_account_contribution_form.html.twig', [
                 'form' => $form->createView(),
                 'account' => $account,
                 'type' => $action,
-                'messages' => $custodianMessageRepo->getAssocByCustodianId($riaCompanyInfo->getCustodianId())
-            ))
-        ));
+                'messages' => $custodianMessageRepo->getAssocByCustodianId($riaCompanyInfo->getCustodianId()),
+            ]),
+        ]);
     }
 
     public function accountContributionActionSignAction(Request $request)
@@ -1217,14 +1215,14 @@ class DashboardController extends AclController
                     $action = $exist ? 'update' : 'create';
                 }
 
-                $content = $this->renderView('WealthbotClientBundle:DashboardTransfer:contribution_sign.html.twig', array(
+                $content = $this->renderView('WealthbotClientBundle:DashboardTransfer:contribution_sign.html.twig', [
                     'signature' => $signature,
-                    'action' => $action
-                ));
+                    'action' => $action,
+                ]);
             }
         }
 
-        $data = array('status' => $status, 'message' => $message);
+        $data = ['status' => $status, 'message' => $message];
         if (null !== $content) {
             $data['content'] = $content;
         }
@@ -1235,7 +1233,7 @@ class DashboardController extends AclController
     public function accountDistributionAction(Request $request)
     {
         /** @var $em EntityManager */
-        /** @var $repo SystemAccountRepository */
+        /* @var $repo SystemAccountRepository */
         $em = $this->get('doctrine.orm.entity_manager');
         $repo = $em->getRepository('WealthbotClientBundle:SystemAccount');
 
@@ -1244,12 +1242,12 @@ class DashboardController extends AclController
         $client = $this->getUser();
 
         /** @var $account SystemAccount */
-        $account = $repo->findOneBy(array('id' => $request->get('account_id'), 'client_id' => $client->getId()));
+        $account = $repo->findOneBy(['id' => $request->get('account_id'), 'client_id' => $client->getId()]);
         if (!$account) {
-            return $this->getJsonResponse(array(
+            return $this->getJsonResponse([
                 'status' => 'error',
-                'message' => sprintf('You have not account with id: %s.', $account->getId())
-            ));
+                'message' => sprintf('You have not account with id: %s.', $account->getId()),
+            ]);
         }
 
         $type = $request->get('type');
@@ -1259,16 +1257,15 @@ class DashboardController extends AclController
             $formFactory = $this->get('wealthbot_client.distribution_form_factory');
             /** @var Form $form */
             $form = $formFactory->create($type, $account);
-
         } catch (\Exception $e) {
-            return $this->getJsonResponse(array(
+            return $this->getJsonResponse([
                 'status' => 'error',
-                'message' => $e->getMessage()
-            ));
+                'message' => $e->getMessage(),
+            ]);
         }
 
         if ($request->isMethod('post')) {
-            $form->bind($request);
+            $form->handleRequest($request);
 
             if ($form->isValid()) {
                 $distribution = $form->getData();
@@ -1283,36 +1280,36 @@ class DashboardController extends AclController
 
                 $this->dispatchHistoryEvent($client, 'Updated distribution');
 
-                return $this->getJsonResponse(array(
+                return $this->getJsonResponse([
                     'status' => 'success',
                     'message' => 'Please allow 3-5 business days for your request to be processed.',
-                    'content' => $this->renderView('WealthbotClientBundle:DashboardTransfer:distribution_sign.html.twig', array(
+                    'content' => $this->renderView('WealthbotClientBundle:DashboardTransfer:distribution_sign.html.twig', [
                         'signature' => $signature,
-                        'action' => $type
-                    ))
-                ));
+                        'action' => $type,
+                    ]),
+                ]);
             }
 
-            return $this->getJsonResponse(array(
+            return $this->getJsonResponse([
                 'status' => 'error',
                 'message' => 'The operation failed due to some errors.',
-                'content' => $this->renderView('WealthbotClientBundle:Dashboard:_account_distribution_form.html.twig', array(
+                'content' => $this->renderView('WealthbotClientBundle:Dashboard:_account_distribution_form.html.twig', [
                     'form' => $form->createView(),
                     'account' => $account,
-                    'type' => $type
-                ))
-            ));
+                    'type' => $type,
+                ]),
+            ]);
         }
 
-        return $this->getJsonResponse(array(
+        return $this->getJsonResponse([
             'status' => 'success',
             'type' => $type,
-            'content' => $this->renderView('WealthbotClientBundle:Dashboard:_account_distribution_form.html.twig', array(
+            'content' => $this->renderView('WealthbotClientBundle:Dashboard:_account_distribution_form.html.twig', [
                 'form' => $form->createView(),
                 'account' => $account,
-                'type' => $type
-            ))
-        ));
+                'type' => $type,
+            ]),
+        ]);
     }
 
     public function accountDistributionActionSignAction(Request $request)
@@ -1342,21 +1339,20 @@ class DashboardController extends AclController
                     $action = $exist ? 'update' : 'create';
                 }
 
-                $content = $this->renderView('WealthbotClientBundle:DashboardTransfer:distribution_sign.html.twig', array(
+                $content = $this->renderView('WealthbotClientBundle:DashboardTransfer:distribution_sign.html.twig', [
                     'signature' => $signature,
-                    'action' => $action
-                ));
+                    'action' => $action,
+                ]);
             }
         }
 
-        $data = array('status' => $status, 'message' => $message);
+        $data = ['status' => $status, 'message' => $message];
         if (null !== $content) {
             $data['content'] = $content;
         }
 
         return $this->getJsonResponse($data);
     }
-
 
     public function changePortfolioAction(Request $request)
     {
@@ -1377,12 +1373,12 @@ class DashboardController extends AclController
             }
         }
 
-        return $this->getJsonResponse(array(
+        return $this->getJsonResponse([
             'status' => $status,
-            'content' => $this->renderView('WealthbotClientBundle:Dashboard:_change_portfolio.html.twig', array(
-                'form' => $form->createView()
-            ))
-        ));
+            'content' => $this->renderView('WealthbotClientBundle:Dashboard:_change_portfolio.html.twig', [
+                'form' => $form->createView(),
+            ]),
+        ]);
     }
 
     public function approvePortfolioAction(Request $request)
@@ -1422,36 +1418,36 @@ class DashboardController extends AclController
             $dm->persist($tmpPortfolio);
             $dm->flush();
 
-            return $this->render('WealthbotClientBundle:Dashboard:approve_portfolio.html.twig', array(
-                'is_approved' => true
-            ));
+            return $this->render('WealthbotClientBundle:Dashboard:approve_portfolio.html.twig', [
+                'is_approved' => true,
+            ]);
         }
 
         $clientAccounts = $accountsRepo->findConsolidatedAccountsByClientId($client->getId());
         $retirementAccounts = $accountsRepo->findByClientIdAndGroup($client->getId(), AccountGroup::GROUP_EMPLOYER_RETIREMENT);
         $form = $this->createFormBuilder()->add('name', 'text')->getForm();
 
-        return $this->render('WealthbotClientBundle:Dashboard:approve_portfolio.html.twig', array(
-            'client'                  => $client,
-            'client_accounts'         => $clientAccounts,
-            'total'                   => $accountsRepo->getTotalScoreByClientId($client->getId()),
+        return $this->render('WealthbotClientBundle:Dashboard:approve_portfolio.html.twig', [
+            'client' => $client,
+            'client_accounts' => $clientAccounts,
+            'total' => $accountsRepo->getTotalScoreByClientId($client->getId()),
             'ria_company_information' => $companyInformation,
-            'has_retirement_account'  => count($retirementAccounts) ? true : false,
-            'portfolio_information'   => $portfolioInformation,
-            'show_sas_cash'           => $accountsRepo->containsSasCash($clientAccounts),
-            'is_approved'             => $tmpPortfolio->isApproved(),
+            'has_retirement_account' => count($retirementAccounts) ? true : false,
+            'portfolio_information' => $portfolioInformation,
+            'show_sas_cash' => $accountsRepo->containsSasCash($clientAccounts),
+            'is_approved' => $tmpPortfolio->isApproved(),
             'is_use_qualified_models' => $isUseQualified,
-            'form'                    => $form->createView(),
-            'signing_date'            => new \DateTime('now'),
-            'action'                  => 'client_approve_portfolio',
-            'approve_url'             => 'rx_client_dashboard_approve_portfolio'
-        ));
+            'form' => $form->createView(),
+            'signing_date' => new \DateTime('now'),
+            'action' => 'client_approve_portfolio',
+            'approve_url' => 'rx_client_dashboard_approve_portfolio',
+        ]);
     }
 
     public function closeAccountsAction(Request $request)
     {
         /** @var EntityManager $em */
-        /** @var TwigSwiftMailer $mailer */
+        /* @var TwigSwiftMailer $mailer */
         $em = $this->get('doctrine.orm.entity_manager');
         $mailer = $this->get('wealthbot.mailer');
 
@@ -1465,7 +1461,7 @@ class DashboardController extends AclController
                 $process = $formHandler->process($client);
                 if ($process) {
                     $closedAccountsHistory = $formHandler->getSavedObjects();
-                    $ids = array();
+                    $ids = [];
                     foreach ($closedAccountsHistory as $item) {
                         $ids[] = $item->getId();
                     }
@@ -1475,47 +1471,45 @@ class DashboardController extends AclController
 
                     $this->dispatchHistoryEvent($client, 'Closed account');
 
-                    return $this->getJsonResponse(array(
+                    return $this->getJsonResponse([
                         'status' => 'success',
-                        'message' => 'The operation was successful.'
-                    ));
-
+                        'message' => 'The operation was successful.',
+                    ]);
                 } else {
-                    return $this->getJsonResponse(array(
+                    return $this->getJsonResponse([
                         'status' => 'error',
                         'message' => 'The operation failed due to some errors.',
-                        'content' => $this->renderView('WealthbotClientBundle:Dashboard:_close_accounts_form.html.twig', array(
+                        'content' => $this->renderView('WealthbotClientBundle:Dashboard:_close_accounts_form.html.twig', [
                             'form' => $form->createView(),
                             'client' => $client,
-                        ))
-                    ));
+                        ]),
+                    ]);
                 }
-
             } catch (\Exception $e) {
-                return $this->getJsonResponse(array(
+                return $this->getJsonResponse([
                     'status' => 'error',
-                    'message' => $e->getMessage()
-                ));
+                    'message' => $e->getMessage(),
+                ]);
             }
         }
 
-        return $this->getJsonResponse(array(
+        return $this->getJsonResponse([
             'status' => 'success',
-            'content' => $this->renderView('WealthbotClientBundle:Dashboard:_close_accounts_form.html.twig', array(
+            'content' => $this->renderView('WealthbotClientBundle:Dashboard:_close_accounts_form.html.twig', [
                 'form' => $form->createView(),
                 'client' => $client,
-            ))
-        ));
+            ]),
+        ]);
     }
 
     protected function getJsonResponse(array $data, $code = 200)
     {
         $response = json_encode($data);
 
-        return new Response($response, $code, array('Content-Type'=>'application/json'));
+        return new Response($response, $code, ['Content-Type' => 'application/json']);
     }
 
-    private function prepareResponse(Request $request, $tab, $action = null, array $params = array())
+    private function prepareResponse(Request $request, $tab, $action = null, array $params = [])
     {
         /** @var EntityManager $em */
         $em = $this->getDoctrine()->getManager();
@@ -1538,44 +1532,44 @@ class DashboardController extends AclController
 
         $activeClientAccounts = $systemAccountManager->getAccountsForClient($client, $isClientView);
 
-        $parameters = array(
-            'layout_variables' => $this->getLayoutVariables($action, 'wealthbot_client_' . $tab),
+        $parameters = [
+            'layout_variables' => $this->getLayoutVariables($action, 'wealthbot_client_'.$tab),
             'is_ajax' => $isAjax,
             'is_clear_layout' => $isClearLayout,
             'accounts' => $activeClientAccounts,
             'client' => $client,
             'is_client_view' => $isClientView,
             'client_portfolio' => $clientPortfolioManager->getCurrentPortfolio($client),
-            'client_created_at' => $client->getCreated()->format('Y-m-d h:i:s A')
-        );
+            'client_created_at' => $client->getCreated()->format('Y-m-d h:i:s A'),
+        ];
 
         if (!empty($params)) {
             $parameters = array_merge($parameters, $params);
         }
 
         if ($isAjax) {
-            return $this->getJsonResponse(array(
+            return $this->getJsonResponse([
                 'status' => 'success',
                 'active_tab' => $tab,
-                'content' => $this->renderView('WealthbotClientBundle:Dashboard:' . $tab . '.html.twig', $parameters)
-            ));
+                'content' => $this->renderView('WealthbotClientBundle:Dashboard:'.$tab.'.html.twig', $parameters),
+            ]);
         }
 
-        return $this->render('WealthbotClientBundle:Dashboard:' . $tab . '.html.twig', $parameters);
+        return $this->render('WealthbotClientBundle:Dashboard:'.$tab.'.html.twig', $parameters);
     }
 
     private function getLayoutVariables($action)
     {
-        $variables = array(
+        $variables = [
             'action' => $action,
-            'ria_logo' => $this->get('router')->generate('rx_file_download', array('ria_id' => $this->getUser()->getRia()->getId()), true),
-        );
+            'ria_logo' => $this->get('router')->generate('rx_file_download', ['ria_id' => $this->getUser()->getRia()->getId()], true),
+        ];
 
         return $variables;
     }
 
     /**
-     * Dispatch new UserHistoryEvent event
+     * Dispatch new UserHistoryEvent event.
      *
      * @param User $user
      * @param $description

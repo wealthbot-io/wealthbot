@@ -2,20 +2,12 @@
 
 namespace Wealthbot\RiaBundle\Controller;
 
-use JMS\Serializer\SerializationContext;
-use Wealthbot\AdminBundle\Entity\CeModel;
-use Wealthbot\ClientBundle\Repository\ClientAccountRepository;
-use Wealthbot\RiaBundle\Form\Handler\ClientSasCashCollectionFormHandler;
-use Wealthbot\RiaBundle\Form\Handler\CreateClientFormHandler;
-use Wealthbot\RiaBundle\Form\Handler\RiaClientAccountFormHandler;
-use Wealthbot\RiaBundle\Form\Type\ClientSasCashCollectionFormType;
-use Wealthbot\RiaBundle\Form\Type\CreateClientType;
-use Wealthbot\RiaBundle\Form\Type\RiaClientAccountFormType;
-use Wealthbot\UserBundle\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Wealthbot\UserBundle\Entity\Profile;
+use Wealthbot\RiaBundle\Form\Handler\ClientSasCashCollectionFormHandler;
+use Wealthbot\RiaBundle\Form\Type\ClientSasCashCollectionFormType;
+use Wealthbot\UserBundle\Entity\User;
 
 class ClientController extends Controller
 {
@@ -29,7 +21,7 @@ class ClientController extends Controller
         $clientId = $request->get('client_id');
         $client = $em->getRepository('WealthbotUserBundle:User')->find($clientId);
 
-        if (!$client || $client->getRia() != $this->getUser()) {
+        if (!$client || $client->getRia() !== $this->getUser()) {
             return $this->createNotFoundException('client with id '.$clientId.' not found');
         }
 
@@ -44,23 +36,23 @@ class ClientController extends Controller
         $sasCashForm = $this->createForm(new ClientSasCashCollectionFormType($client));
         $sasCashFormHandler = new ClientSasCashCollectionFormHandler($sasCashForm, $request, $em);
 
-        return $this->getJsonResponse(array(
+        return $this->getJsonResponse([
             'status' => $sasCashFormHandler->process() ? 'success' : 'error',
-            'content' => $this->renderView('WealthbotClientBundle:Dashboard:_index_content.html.twig', array(
+            'content' => $this->renderView('WealthbotClientBundle:Dashboard:_index_content.html.twig', [
                 'sas_cash_form' => $sasCashForm->createView(),
                 'client' => $client,
                 'is_client_view' => false,
                 'account_values' => $accountValues,
                 'is_init_rebalance' => $isInitRebalance,
-                'client_portfolio_values_information' => $clientPortfolioValuesManager->prepareClientPortfolioValuesInformation($client)
-            ))
-        ));
+                'client_portfolio_values_information' => $clientPortfolioValuesManager->prepareClientPortfolioValuesInformation($client),
+            ]),
+        ]);
     }
 
     protected function getJsonResponse(array $data, $code = 200)
     {
         $response = json_encode($data);
 
-        return new Response($response, $code, array('Content-Type'=> 'application/json'));
+        return new Response($response, $code, ['Content-Type' => 'application/json']);
     }
 }

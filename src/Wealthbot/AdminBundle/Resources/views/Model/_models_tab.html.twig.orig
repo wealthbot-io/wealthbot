@@ -16,17 +16,9 @@
                 {{ form_errors(strategy_model_form.risk_rating) }}
                 {{ form_widget(strategy_model_form.risk_rating) }}
             {% endif %}
-<<<<<<< HEAD
-
             {% if strategy_model_form.assumption is defined %}
                 {% include 'WealthbotAdminBundle:Model:_third_party_model_edit_model_assumption_form.html.twig' with { 'form': strategy_model_form.assumption } %}
             {% endif %}
-
-=======
-            {% if strategy_model_form.assumption is defined %}
-                {% include 'WealthbotAdminBundle:Model:_third_party_model_edit_model_assumption_form.html.twig' with { 'form': strategy_model_form.assumption } %}
-            {% endif %}
->>>>>>> 7f60a87330d55f4542ac5a87a9ff16a101aa7244
             {{ form_rest(strategy_model_form) }}
             <button type="submit" class="btn">Create</button>
         </form>
@@ -34,5 +26,5 @@
 {% endif %}
 
 <div class="btn-group" data-toggle="buttons-radio">
-    {% render 'WealthbotAdminBundle:Model:modelMenu' with {'strategySlug' : selected_strategy.slug } %}
+    {{ render(controller('WealthbotAdminBundle:Model:modelMenu' with {'strategySlug' : selected_strategy.slug } )) }}
 </div>

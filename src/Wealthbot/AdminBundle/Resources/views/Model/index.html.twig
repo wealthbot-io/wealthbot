@@ -35,21 +35,13 @@
     <div class="navbar navbar-inverse">
         <div class="navbar-inner">
             <div class="container">
-
-                <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
-                <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </a>
-
-                {#<span class="brand">{{ modelsType == 'wealthbot' ? 'Models' : '' }}</span>#}
+                {#<span class="navbar-brand">{{ modelsType == 'wealthbot' ? 'Models' : '' }}</span>#}
 
                 <!-- Everything you want hidden at 940px or less, place within here -->
-                <div class="nav-collapse">
+                <div class="navbar-collapse">
                     <!-- .nav, .navbar-search, .navbar-form, etc -->
-                    <ul class="nav">
-                        {% render 'WealthbotAdminBundle:Model:portfolioMenu' %}
+                    <ul class="nav navbar-nav">
+                        {{ render(controller('WealthbotAdminBundle:Model:portfolioMenu')) }}
                     </ul>
                 </div>
 
@@ -71,14 +63,14 @@
 
                 {{ form_widget(strategy_form.name, {'attr': {'placeholder': 'Name of Strategy', 'class': 'input-medium'}}) }}
                 {{ form_rest(strategy_form) }}
-                <button type="submit" class="btn">Create</button>
+                <button type="submit" class="btn btn-default" >Create</button>
             </form>
         {% endif %}
 
     {% endif %}
 
     <div class="btn-group" data-toggle="buttons-radio">
-        {#{% render 'WealthbotAdminBundle:Model:modelMenu' with {'type': modelsType, 'portfolioSlug' : portfolioSlug, 'modelSlug' : modelSlug } %}#}
+        {#{{ render(controller('WealthbotAdminBundle:Model:modelMenu', {'type': modelsType, 'portfolioSlug' : portfolioSlug, 'modelSlug' : modelSlug })) }}#}
     </div>
 
     {% if is_permitted('edit') %}
@@ -101,24 +93,26 @@
                 {% include 'WealthbotAdminBundle:Model:_third_party_model_edit_model_assumption_form.html.twig' with { 'form': strategy_model_form.assumption } %}
 
                 {{ form_rest(strategy_model_form) }}
-                <button type="submit" class="btn">Create</button>
+                <button type="submit" class="btn btn-default" >Create</button>
             </form>
         {% endif %}
     {% endif %}
 
     {% block main_content %}{% endblock %}
 
-    <div id="modal_dialog" class="modal hide longModal">
+    <div id="modal_dialog" class="modal longModal">
+        <div class="modal-content">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
             <h3></h3>
         </div>
-        <div class="modal-body">
 
+        <div class="modal-content">
         </div>
         <div class="modal-footer">
-            <button type="submit" class="btn save-modal-form-btn">Save</button>
-            <a href="#" class="btn" data-dismiss="modal" aria-hidden="true">Cancel</a>
+            <button type="submit" class="btn save-modal-form-btn btn-primary">Save</button>
+            <a href="#" class="btn btn-default"  data-dismiss="modal" aria-hidden="true">Cancel</a>
         </div>
+      </div>
     </div>
 {% endblock %}

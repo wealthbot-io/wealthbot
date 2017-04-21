@@ -9,13 +9,10 @@
 
 namespace Wealthbot\ClientBundle\Form\Type;
 
-
 use Doctrine\ORM\EntityManager;
-use Wealthbot\ClientBundle\Entity\AccountContribution;
-use Wealthbot\ClientBundle\Entity\ClientAccount;
-use Wealthbot\ClientBundle\Entity\SystemAccount;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Form\FormBuilderInterface;
+use Wealthbot\ClientBundle\Entity\SystemAccount;
 
 class AccountContributionFormType extends  TransferFundingFormType
 {

@@ -2,15 +2,13 @@
 
 namespace Wealthbot\AdminBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-
 /**
- * RebalancerActionLog
+ * RebalancerActionLog.
  */
 class RebalancerActionLog
 {
     /**
-     * @var integer
+     * @var int
      */
     private $id;
 
@@ -30,9 +28,9 @@ class RebalancerActionLog
     private $rebalancerAction;
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer 
+     * @return int
      */
     public function getId()
     {
@@ -40,9 +38,10 @@ class RebalancerActionLog
     }
 
     /**
-     * Set action_name
+     * Set action_name.
      *
      * @param string $actionName
+     *
      * @return RebalancerActionLog
      */
     public function setActionName($actionName)
@@ -53,9 +52,9 @@ class RebalancerActionLog
     }
 
     /**
-     * Get action_name
+     * Get action_name.
      *
-     * @return string 
+     * @return string
      */
     public function getActionName()
     {
@@ -63,9 +62,10 @@ class RebalancerActionLog
     }
 
     /**
-     * Set result
+     * Set result.
      *
      * @param string $result
+     *
      * @return RebalancerActionLog
      */
     public function setResult($result)
@@ -76,9 +76,9 @@ class RebalancerActionLog
     }
 
     /**
-     * Get result
+     * Get result.
      *
-     * @return string 
+     * @return string
      */
     public function getResult()
     {
@@ -86,9 +86,10 @@ class RebalancerActionLog
     }
 
     /**
-     * Set rebalancerAction
+     * Set rebalancerAction.
      *
      * @param \Wealthbot\AdminBundle\Entity\RebalancerAction $rebalancerAction
+     *
      * @return RebalancerActionLog
      */
     public function setRebalancerAction(\Wealthbot\AdminBundle\Entity\RebalancerAction $rebalancerAction = null)
@@ -99,9 +100,9 @@ class RebalancerActionLog
     }
 
     /**
-     * Get rebalancerAction
+     * Get rebalancerAction.
      *
-     * @return \Wealthbot\AdminBundle\Entity\RebalancerAction 
+     * @return \Wealthbot\AdminBundle\Entity\RebalancerAction
      */
     public function getRebalancerAction()
     {

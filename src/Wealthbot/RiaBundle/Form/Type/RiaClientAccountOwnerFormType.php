@@ -9,13 +9,11 @@
 
 namespace Wealthbot\RiaBundle\Form\Type;
 
-
-use Wealthbot\ClientBundle\Entity\ClientAccount;
-use Wealthbot\ClientBundle\Model\ClientAccountOwner;
-use Wealthbot\RiaBundle\Form\EventListener\RiaClientAccountOwnerFormEventSubscriber;
-use Wealthbot\UserBundle\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Wealthbot\ClientBundle\Entity\ClientAccount;
+use Wealthbot\RiaBundle\Form\EventListener\RiaClientAccountOwnerFormEventSubscriber;
+use Wealthbot\UserBundle\Entity\User;
 
 class RiaClientAccountOwnerFormType extends AbstractType
 {
@@ -30,7 +28,7 @@ class RiaClientAccountOwnerFormType extends AbstractType
         $this->isJoint = $isJoint;
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options = array())
+    public function buildForm(FormBuilderInterface $builder, array $options = [])
     {
         $subscriber = new RiaClientAccountOwnerFormEventSubscriber(
             $builder->getFormFactory(),
@@ -42,7 +40,7 @@ class RiaClientAccountOwnerFormType extends AbstractType
         $builder->addEventSubscriber($subscriber);
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'account_owners';
     }

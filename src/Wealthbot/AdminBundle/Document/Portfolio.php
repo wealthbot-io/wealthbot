@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Wealthbot\AdminBundle\Document;
 
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
@@ -8,8 +7,8 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 /**
  * @MongoDB\Document(collection="demographics")
  */
-class Portfolio {
-
+class Portfolio
+{
     /**
      * @MongoDB\Id
      */
@@ -849,5 +848,4 @@ class Portfolio {
     {
         return $this->firstName;
     }
-
 }

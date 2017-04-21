@@ -3,19 +3,19 @@
  * Created by PhpStorm.
  * User: amalyuhin
  * Date: 20.11.13
- * Time: 17:11
+ * Time: 17:11.
  */
 
 namespace Wealthbot\SignatureBundle\Repository;
 
-
 interface SignableObjectRepositoryInterface
 {
     /**
-     * Is object has completed document signature for application
+     * Is object has completed document signature for application.
      *
      * @param int $applicationId
+     *
      * @return bool
      */
     public function isApplicationSigned($applicationId);
-} 
+}

@@ -1,25 +1,29 @@
 {% if (form.monthly_contributions is defined) %}
-    <div class="control-group">
-        {{ form_label(form.monthly_contributions, 'Estimated Monthly Contributions:', { 'label_attr': {'class': 'client-intake-step-three-label'}}) }}
-        <div >
-            {{ form_errors(form.monthly_contributions) }}
-            <div class="input-prepend">
-                <span class="add-on">$</span>
-                {{ form_widget(form.monthly_contributions, {'attr': {'class': 'input-medium auto-numeric'}}) }}
+    <div class="row">
+        <div class="form-group">
+            {{ form_label(form.monthly_contributions, 'Estimated Monthly Contributions:', { 'label_attr': {'class': 'client-intake-step-three-label'}}) }}
+            <div >
+                {{ form_errors(form.monthly_contributions) }}
+                <div class="input-group">
+                    <span class="input-group-addon">$</span>
+                    {{ form_widget(form.monthly_contributions, {'attr': {'class': 'input-medium auto-numeric'}}) }}
+                </div>
             </div>
         </div>
     </div>
 {% endif %}
 
 {% if (form.monthly_distributions is defined) %}
-    <div class="control-group">
+  <div class="row">
+    <div class="form-group">
         {{ form_label(form.monthly_distributions, 'Estimated Monthly Distributions:', { 'label_attr': {'class': 'client-intake-step-three-label'}}) }}
         <div >
             {{ form_errors(form.monthly_distributions) }}
-            <div class="input-prepend">
-                <span class="add-on">$</span>
+            <div class="input-group">
+                <span class="input-group-addon">$</span>
                 {{ form_widget(form.monthly_distributions, {'attr': {'class': 'input-medium auto-numeric'}}) }}
             </div>
         </div>
     </div>
+  </div>
 {% endif %}

@@ -3,14 +3,14 @@
 namespace Wealthbot\RiaBundle\Form\Type;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Wealthbot\ClientBundle\Entity\SystemAccount;
-use Wealthbot\UserBundle\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Wealthbot\ClientBundle\Entity\SystemAccount;
+use Wealthbot\UserBundle\Entity\User;
 
 class ClientSasCashCollectionFormType extends AbstractType
 {
-    private $clientAccounts = array();
+    private $clientAccounts = [];
 
     public function __construct(User $client, array $systemAccounts = null)
     {
@@ -28,17 +28,17 @@ class ClientSasCashCollectionFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('sas_cash_collection', 'collection', array(
+            ->add('sas_cash_collection', 'collection', [
                 'type' => 'number',
                 'data' => new ArrayCollection($this->clientAccounts),
-                'options'  => array(
+                'options' => [
                     'required' => false,
-                    'grouping' => true
-                )
-            ));
+                    'grouping' => true,
+                ],
+            ]);
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'wealthbot_riabundle_client_sas_cash_collection';
     }

@@ -1,27 +1,21 @@
-#! /usr/bin/env ruby -S rspec
-
 require 'spec_helper'
 
-describe "the min function" do
-  let(:scope) { PuppetlabsSpec::PuppetInternals.scope }
+describe 'min' do
+  it { is_expected.not_to eq(nil) }
+  it { is_expected.to run.with_params().and_raise_error(Puppet::ParseError, /wrong number of arguments/i) }
+  it { is_expected.to run.with_params(1).and_return(1) }
+  it { is_expected.to run.with_params(1, 2).and_return(1) }
+  it { is_expected.to run.with_params(1, 2, 3).and_return(1) }
+  it { is_expected.to run.with_params(3, 2, 1).and_return(1) }
+  it { is_expected.to run.with_params('one').and_return('one') }
+  it { is_expected.to run.with_params('one', 'two').and_return('one') }
+  it { is_expected.to run.with_params('one', 'two', 'three').and_return('one') }
+  it { is_expected.to run.with_params('three', 'two', 'one').and_return('one') }
 
-  it "should exist" do
-    expect(Puppet::Parser::Functions.function("min")).to eq("function_min")
-  end
-
-  it "should raise a ParseError if there is less than 1 arguments" do
-    expect { scope.function_min([]) }.to( raise_error(Puppet::ParseError))
-  end
-
-  it "should be able to compare strings" do
-    expect(scope.function_min(["albatross","dog","horse"])).to(eq("albatross"))
-  end
-
-  it "should be able to compare numbers" do
-    expect(scope.function_min([6,8,4])).to(eq(4))
-  end
-
-  it "should be able to compare a number with a stringified number" do
-    expect(scope.function_min([1,"2"])).to(eq(1))
+  describe 'implementation artifacts' do
+    it { is_expected.to run.with_params(1, 'one').and_return(1) }
+    it { is_expected.to run.with_params('1', 'one').and_return('1') }
+    it { is_expected.to run.with_params('1.3e1', '1.4e0').and_return('1.3e1') }
+    it { is_expected.to run.with_params(1.3e1, 1.4e0).and_return(1.4e0) }
   end
 end

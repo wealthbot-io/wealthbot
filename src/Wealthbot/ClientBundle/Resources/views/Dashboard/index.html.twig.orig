@@ -16,11 +16,11 @@
 
     <div class="container-fluid">
 
-        <div class="row-fluid">
+        <div class="row">
             <img class="img-rounded" width="150px" src="{{ layout_variables.ria_logo }}"/>
         </div>
 
-        <div class="row-fluid">
+        <div class="row">
 
             {% include 'WealthbotClientBundle:Dashboard:_nav.html.twig' with {'action' : layout_variables.action, 'is_client_view': is_client_view_value} %}
 

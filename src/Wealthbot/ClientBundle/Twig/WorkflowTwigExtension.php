@@ -3,11 +3,10 @@
  * Created by PhpStorm.
  * User: amalyuhin
  * Date: 14.01.14
- * Time: 19:29
+ * Time: 19:29.
  */
 
 namespace Wealthbot\ClientBundle\Twig;
-
 
 use Wealthbot\ClientBundle\Entity\Workflow;
 use Wealthbot\ClientBundle\Manager\WorkflowManager;
@@ -30,13 +29,13 @@ class WorkflowTwigExtension extends \Twig_Extension
 
     public function getFunctions()
     {
-        return array(
-            new \Twig_SimpleFunction('workflow_activity', array($this, 'getActivity')),
-            new \Twig_SimpleFunction('workflowable_object', array($this, 'getWorkflowableObject')),
-            new \Twig_SimpleFunction('workflowable_objects', array($this, 'getWorkflowableObjects')),
-            new \Twig_SimpleFunction('workflow_documents', array($this, 'getWorkflowDocuments')),
-            new \Twig_SimpleFunction('workflow_documents_link', array($this, 'getWorkflowDocumentsLink')),
-        );
+        return [
+            new \Twig_SimpleFunction('workflow_activity', [$this, 'getActivity']),
+            new \Twig_SimpleFunction('workflowable_object', [$this, 'getWorkflowableObject']),
+            new \Twig_SimpleFunction('workflowable_objects', [$this, 'getWorkflowableObjects']),
+            new \Twig_SimpleFunction('workflow_documents', [$this, 'getWorkflowDocuments']),
+            new \Twig_SimpleFunction('workflow_documents_link', [$this, 'getWorkflowDocumentsLink']),
+        ];
     }
 
     public function getActivity(Workflow $workflow)
@@ -68,14 +67,18 @@ class WorkflowTwigExtension extends \Twig_Extension
         if ($count > 1) {
             $link = $this->documentManager->getDocumentsPackageLink(
                 $documents,
-                'workflow_' . $workflow->getId() . '_documents.zip'
+                'workflow_'.$workflow->getId().'_documents.zip'
             );
         } elseif ($count === 1) {
             $documents = array_values($documents);
-            /** @var Document $document */
-            $document = $documents[0];
+            if (count($documents) > 0) {
+                /** @var Document $document */
+                $document = $documents[0];
 
-            $link = $this->documentManager->getDownloadLink($document->getFilename());
+                if ($document->getFilename() !== null) {
+                    $link = $this->documentManager->getDownloadLink($document->getFilename());
+                }
+            };
         }
 
         return $link;
@@ -90,4 +93,4 @@ class WorkflowTwigExtension extends \Twig_Extension
     {
         return 'rx_workflow_twig_extension';
     }
-} 
+}

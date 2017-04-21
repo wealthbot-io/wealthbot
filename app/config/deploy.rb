@@ -1,4 +1,4 @@
-set :stages, %w(jenkins prod staging)
+set :stages, %w(jenkins prod staging demo client_1)
 set :stage_dir,     "./app/config/deploy"
 require 'capistrano/ext/multistage'
 
@@ -59,6 +59,10 @@ after "deploy:finalize_update", "deploy:write_version_file"
 
 after "deploy", "apc:clear"
 
+set :keep_releases, 2
+after "deploy:update", "deploy:cleanup"
+
+
 #################################################################
 
 namespace :apc do
@@ -105,3 +109,6 @@ desc "Reload nginx configuration"
       run "#{sudo} /etc/init.d/nginx reload"
     end
 end
+
+
+logger.level = Logger::MAX_LEVEL

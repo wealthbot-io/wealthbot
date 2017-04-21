@@ -1,10 +1,11 @@
 <?php
+
 namespace Wealthbot\ClientBundle\Model;
 
 use Wealthbot\ClientBundle\Entity\RebalancerQueue;
 
-class TradeData {
-
+class TradeData
+{
     /** @var int */
     private $id;
 
@@ -107,7 +108,6 @@ class TradeData {
     const TAX_LOT_ID_METHOD_TAX_EFFICIENT_LOSS_HARVESTER = 'T';
     const TAX_LOT_ID_METHOD_SPECIFIC_LOT = 'S';
 
-
     public function __construct()
     {
         $this->accountType = self::ACCOUNT_TYPE_CASH_ACCOUNT;
@@ -123,11 +123,12 @@ class TradeData {
         $this->isReinvestCapGains = false;
         $this->taxLotIdMethod = self::TAX_LOT_ID_METHOD_SPECIFIC_LOT;
 
-        $this->vsps = array();
+        $this->vsps = [];
     }
 
     /**
      * @param int $id
+     *
      * @return $this
      */
     public function setId($id)
@@ -147,6 +148,7 @@ class TradeData {
 
     /**
      * @param int $jobId
+     *
      * @return $this
      */
     public function setJobId($jobId)
@@ -166,6 +168,7 @@ class TradeData {
 
     /**
      * @param int $accountId
+     *
      * @return $this
      */
     public function setAccountId($accountId)
@@ -185,6 +188,7 @@ class TradeData {
 
     /**
      * @param int $securityId
+     *
      * @return $this
      */
     public function setSecurityId($securityId)
@@ -204,6 +208,7 @@ class TradeData {
 
     /**
      * @param $accountNumber
+     *
      * @return $this
      */
     public function setAccountNumber($accountNumber)
@@ -223,6 +228,7 @@ class TradeData {
 
     /**
      * @param int $accountType
+     *
      * @return $this
      */
     public function setAccountType($accountType)
@@ -242,7 +248,9 @@ class TradeData {
 
     /**
      * @param string $action
+     *
      * @return $this
+     *
      * @throws \Exception
      */
     public function setAction($action)
@@ -256,7 +264,7 @@ class TradeData {
         if (0 === strcasecmp($action, self::ACTION_BUY) || 0 === strcasecmp($action, self::ACTION_SELL)) {
             $this->action = ucwords($action);
         } else {
-            throw new \Exception('Action must be '.self::ACTION_BUY. ' or ' .self::ACTION_SELL);
+            throw new \Exception('Action must be '.self::ACTION_BUY.' or '.self::ACTION_SELL);
         }
 
         return $this;
@@ -272,6 +280,7 @@ class TradeData {
 
     /**
      * @param string $exchangeSwapSymbol
+     *
      * @return $this
      */
     public function setExchangeSwapSymbol($exchangeSwapSymbol)
@@ -290,17 +299,19 @@ class TradeData {
     }
 
     /**
-     * @param boolean $isAllOrNone
+     * @param bool $isAllOrNone
+     *
      * @return $this
      */
     public function setIsAllOrNone($isAllOrNone)
     {
         $this->isAllOrNone = $isAllOrNone;
+
         return $this;
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function getIsAllOrNone()
     {
@@ -308,7 +319,8 @@ class TradeData {
     }
 
     /**
-     * @param boolean $isDoNotReduce
+     * @param bool $isDoNotReduce
+     *
      * @return $this
      */
     public function setIsDoNotReduce($isDoNotReduce)
@@ -319,7 +331,7 @@ class TradeData {
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function getIsDoNotReduce()
     {
@@ -327,7 +339,8 @@ class TradeData {
     }
 
     /**
-     * @param boolean $isIncludeTransactionFee
+     * @param bool $isIncludeTransactionFee
+     *
      * @return $this
      */
     public function setIsIncludeTransactionFee($isIncludeTransactionFee)
@@ -338,7 +351,7 @@ class TradeData {
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function getIsIncludeTransactionFee()
     {
@@ -346,7 +359,8 @@ class TradeData {
     }
 
     /**
-     * @param boolean $isReinvestDividends
+     * @param bool $isReinvestDividends
+     *
      * @return $this
      */
     public function setIsReinvestDividends($isReinvestDividends)
@@ -357,7 +371,7 @@ class TradeData {
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function getIsReinvestDividends()
     {
@@ -365,7 +379,8 @@ class TradeData {
     }
 
     /**
-     * @param boolean $isReinvestCapGains
+     * @param bool $isReinvestCapGains
+     *
      * @return $this
      */
     public function setIsReinvestCapGains($isReinvestCapGains)
@@ -376,7 +391,7 @@ class TradeData {
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function getIsReinvestCapGains()
     {
@@ -385,6 +400,7 @@ class TradeData {
 
     /**
      * @param string $limitPrice
+     *
      * @return $this
      */
     public function setLimitPrice($limitPrice)
@@ -404,6 +420,7 @@ class TradeData {
 
     /**
      * @param string $orderType
+     *
      * @return $this
      */
     public function setOrderType($orderType)
@@ -423,6 +440,7 @@ class TradeData {
 
     /**
      * @param int $quantity
+     *
      * @return $this
      */
     public function setQuantity($quantity)
@@ -442,7 +460,9 @@ class TradeData {
 
     /**
      * @param string $quantityType
+     *
      * @return $this
+     *
      * @throws \Exception
      */
     public function setQuantityType($quantityType)
@@ -452,9 +472,8 @@ class TradeData {
         if (self::QUANTITY_TYPE_ALL_SHARES === $quantityType || self::QUANTITY_TYPE_SHARES === $quantityType) {
             $this->quantityType = $quantityType;
         } else {
-            throw new \Exception('Quantity Type must be '.self::QUANTITY_TYPE_SHARES. ' or ' .self::QUANTITY_TYPE_ALL_SHARES);
+            throw new \Exception('Quantity Type must be '.self::QUANTITY_TYPE_SHARES.' or '.self::QUANTITY_TYPE_ALL_SHARES);
         }
-
 
         return $this;
     }
@@ -469,7 +488,9 @@ class TradeData {
 
     /**
      * @param string $securityType
+     *
      * @return $this
+     *
      * @throws \Exception
      */
     public function setSecurityType($securityType)
@@ -479,7 +500,7 @@ class TradeData {
         if (self::SECURITY_TYPE_EQUITY === $securityType || self::SECURITY_TYPE_MUTUAL_FUND === $securityType) {
             $this->securityType = $securityType;
         } else {
-            throw new \Exception('Security Type must be '.self::SECURITY_TYPE_EQUITY. ' or ' .self::SECURITY_TYPE_MUTUAL_FUND);
+            throw new \Exception('Security Type must be '.self::SECURITY_TYPE_EQUITY.' or '.self::SECURITY_TYPE_MUTUAL_FUND);
         }
 
         return $this;
@@ -495,6 +516,7 @@ class TradeData {
 
     /**
      * @param string $stopPrice
+     *
      * @return $this
      */
     public function setStopPrice($stopPrice)
@@ -514,6 +536,7 @@ class TradeData {
 
     /**
      * @param string $symbol
+     *
      * @return $this
      */
     public function setSymbol($symbol)
@@ -533,6 +556,7 @@ class TradeData {
 
     /**
      * @param string $taxLotIdMethod
+     *
      * @return $this
      */
     public function setTaxLotIdMethod($taxLotIdMethod)
@@ -552,6 +576,7 @@ class TradeData {
 
     /**
      * @param string $timeInForce
+     *
      * @return $this
      */
     public function setTimeInForce($timeInForce)
@@ -571,6 +596,7 @@ class TradeData {
 
     /**
      * @param array $vsps
+     *
      * @return $this
      */
     public function setVsps($vsps)
@@ -590,7 +616,7 @@ class TradeData {
 
     public function toArrayForTradeFile()
     {
-        return array(
+        return [
             'A' => $this->getAccountNumber(),
             'B' => $this->getAccountType(),
             'C' => $this->getSecurityType(),
@@ -608,17 +634,18 @@ class TradeData {
             'O' => $this->getIsReinvestDividends() ? 'Y' : 'N',
             'P' => $this->getIsIncludeTransactionFee() ? 'Y' : 'N',
             'Q' => $this->getIsReinvestCapGains() ? 'Y' : 'N',
-            'R' => $this->getTaxLotIdMethod()
-        );
+            'R' => $this->getTaxLotIdMethod(),
+        ];
     }
 
     /**
-     * Load object data from array
+     * Load object data from array.
      *
      * @param array $data
+     *
      * @throws \Exception
      */
-    public function loadFromArray(array $data = array())
+    public function loadFromArray(array $data = [])
     {
         foreach ($data as $key => $value) {
             $this->$key = $value;
@@ -631,7 +658,7 @@ class TradeData {
      */
     public function __set($key, $value)
     {
-        $setter = 'set' . ucfirst($key);
+        $setter = 'set'.ucfirst($key);
         if (method_exists($this, $setter)) {
             $this->$setter($value);
         }
@@ -642,7 +669,7 @@ class TradeData {
             return ucfirst($item);
         }, $tmp);
 
-        $setter = 'set' . implode('', $tmp);
+        $setter = 'set'.implode('', $tmp);
         if (method_exists($this, $setter)) {
             $this->$setter($value);
         }

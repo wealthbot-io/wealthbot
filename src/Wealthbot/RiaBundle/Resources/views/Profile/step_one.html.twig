@@ -9,7 +9,7 @@
 
 {% block body %}
     <div class="row">
-        <div class="span12">
+        <div class="col-md-12">
             <div class="alert alert-success">
                 <p><strong>You've successfully created your login credentials.</strong></p>
                 <p>Register on our system in 5 easy steps. Logout at any point and the system will automatically save your
@@ -18,15 +18,15 @@
         </div>
     </div>
     <div class="row">
-        <div class="span12">
+        <div class="col-md-12">
             <div class="agreements">
 
-                <div class="row-fluid">
-                    <div class="span10">
+                <div class="row">
+                    <div class="col-md-10">
                         <h3>Step 1 of 5: Custodian and Contracts</h3>
                     </div>
                     <div class="save-and-logout">
-                        <a class="btn" id="reg_save_btn" href="{{ path('fos_user_security_logout') }}">Logout</a>
+                        <a class="btn btn-default"  id="reg_save_btn" href="{{ path('fos_user_security_logout') }}">Logout</a>
                         <span class="help-block">We'll save your progress.</span>
                     </div>
                 </div>
@@ -42,11 +42,11 @@
 
                     <legend>Your Custodian</legend>
                     <span>Select the custodian you will use with wealthbot.io.</span>
-                    <div class="control-group">
+                    <div class="form-group">
                         {{ form_errors(form.custodian) }}
                         {{ form_widget(form.custodian) }}
                     </div>
-                    <div id="custodian_questions" class="control-group">
+                    <div id="custodian_questions" class="form-group">
                         {{ form_label(form.allow_non_electronically_signing, 'Do you want to allow for non-electronically signed transfer forms?') }}
                         {{ form_errors(form.allow_non_electronically_signing) }}
                         {{ form_widget(form.allow_non_electronically_signing) }}
@@ -56,7 +56,7 @@
                         <legend>Your Contracts</legend>
                         <span>Uploading the following PDF contracts which will be delivered to the client when they register on our platform.</span>
                         {% for document in form.documents %}
-                            <div class="control-group">
+                            <div class="form-group">
                                 {{ form_label(document) }}
                                 {{ form_errors(document) }}
                                 {{ form_widget(document) }}
@@ -67,7 +67,7 @@
                     <legend>wealthbot.io' Contracts</legend>
                     <span>You must read and agree to the following documents:</span>
 
-                    <div class="control-group">
+                    <div class="form-group">
                         <ol type="1">
                             {% for contract in contracts %}
                                 <li>I have read and agree to wealthbot.io' <a href="{{ path('rx_download_document', {'filename': contract.filename}) }}" target="_blank">{{ contract.type == 'adv' ? 'ADV Part 2' : contract.name }}</a></li>
@@ -76,7 +76,7 @@
                     </div>
 
                     <div><strong>I agree to the above documents:</strong></div>
-                    <div class="control-group">
+                    <div class="form-group">
                         {{ form_label(form.signature, 'Signature:') }}
                         {{ form_errors(form.signature) }}
                         {{ form_widget(form.signature, {'attr': {'placeholder': 'Your Full Name' }}) }}

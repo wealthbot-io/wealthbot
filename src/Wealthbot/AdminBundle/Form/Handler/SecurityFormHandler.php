@@ -9,13 +9,9 @@
 
 namespace Wealthbot\AdminBundle\Form\Handler;
 
-
-use Wealthbot\AdminBundle\Entity\SecurityAssignment;
 use Wealthbot\AdminBundle\Entity\Security;
 use Wealthbot\AdminBundle\Entity\SecurityPrice;
 use Wealthbot\UserBundle\Entity\User;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Security\Core\SecurityContextInterface;
 
 class SecurityFormHandler extends AbstractFormHandler
 {
@@ -40,15 +36,15 @@ class SecurityFormHandler extends AbstractFormHandler
     }
 
     /**
-     * Create new SecurityPrice for security
+     * Create new SecurityPrice for security.
      *
      * @param Security $security
-     * @param float $price
+     * @param float    $price
      */
     private function createPriceHistory(Security $security, $price)
     {
         $author = $this->getAuthor();
-        $source = $author->getFirstName() ? $author->getFirstName() . ' ' . $author->getLastName() : $author->getUsername();
+        $source = $author->getFirstName() ? $author->getFirstName().' '.$author->getLastName() : $author->getUsername();
 
         $securityPrice = new SecurityPrice();
 
@@ -61,15 +57,16 @@ class SecurityFormHandler extends AbstractFormHandler
     }
 
     /**
-     * Get user from security context
+     * Get user from security context.
      *
      * @return User
+     *
      * @throws \InvalidArgumentException
      */
     private function getAuthor()
     {
-        $securityContext = $this->getOption('security_context');
+        $tokenStorage = $this->getOption('token_storage');
 
-        return $securityContext->getToken()->getUser();
+        return $tokenStorage->getToken()->getUser();
     }
 }

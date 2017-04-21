@@ -2,8 +2,9 @@
 
 namespace Wealthbot\ClientBundle\Controller;
 
-
 use Doctrine\ORM\EntityManager;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedException;
 use Wealthbot\AdminBundle\AdminEvents;
 use Wealthbot\AdminBundle\Event\UserHistoryEvent;
 use Wealthbot\ClientBundle\ClientEvents;
@@ -12,7 +13,6 @@ use Wealthbot\ClientBundle\Docusign\TransferInformationCustodianCondition;
 use Wealthbot\ClientBundle\Docusign\TransferInformationPolicyCondition;
 use Wealthbot\ClientBundle\Docusign\TransferInformationQuestionnaireCondition;
 use Wealthbot\ClientBundle\Entity\AccountGroup;
-use Wealthbot\ClientBundle\Entity\BankInformation;
 use Wealthbot\ClientBundle\Entity\ClientAccount;
 use Wealthbot\ClientBundle\Entity\SystemAccount;
 use Wealthbot\ClientBundle\Entity\TransferInformation;
@@ -30,9 +30,6 @@ use Wealthbot\ClientBundle\Repository\ClientAccountRepository;
 use Wealthbot\UserBundle\Entity\Document;
 use Wealthbot\UserBundle\Entity\Profile;
 use Wealthbot\UserBundle\Entity\User;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\AccessDeniedException;
 
 class DashboardTransferController extends BaseTransferController
 {
@@ -46,7 +43,7 @@ class DashboardTransferController extends BaseTransferController
 
         /** @var ClientAccount $account */
         $account = $repo->find($request->get('account_id'));
-        if (!$account || $account->getClient() != $this->getUser()) {
+        if (!$account || $account->getClient() !== $this->getUser()) {
             throw $this->createNotFoundException(sprintf('Account with id : %s does not exist.'));
         }
 
@@ -54,16 +51,16 @@ class DashboardTransferController extends BaseTransferController
         if ($group === AccountGroup::GROUP_EMPLOYER_RETIREMENT) {
             $clientAccounts = $repo->findConsolidatedAccountsByClientId($client->getId());
 
-            return $this->getJsonResponse(array(
+            return $this->getJsonResponse([
                 'status' => 'success',
-                'account_table' => $this->renderView('WealthbotClientBundle:Transfer:_accounts_list.html.twig', array(
-                    'client_accounts' => array($account),
+                'account_table' => $this->renderView('WealthbotClientBundle:Transfer:_accounts_list.html.twig', [
+                    'client_accounts' => [$account],
                     'client' => $client,
                     'total' => $repo->getTotalScoreById($account->getId()),
-                    'show_sas_cash' => $this->containsSasCash($clientAccounts)
-                )),
-                'message' => 'Your advisor has been notified of your new retirement plan. They will contact you once they have reviewed your plan and fund options.'
-            ));
+                    'show_sas_cash' => $this->containsSasCash($clientAccounts),
+                ]),
+                'message' => 'Your advisor has been notified of your new retirement plan. They will contact you once they have reviewed your plan and fund options.',
+            ]);
         }
 
         $systemAccounts = $systemAccountRepo->findByClientIdAndType($client->getId(), $account->getSystemType());
@@ -73,7 +70,7 @@ class DashboardTransferController extends BaseTransferController
             $form = $this->createForm(new DashboardSystemAccountsFormType($account, $systemAccounts));
 
             if ($request->isMethod('post')) {
-                $form->bind($request);
+                $form->handleRequest($request);
 
                 if ($form->isValid()) {
                     $systemAccount = $form->get('account')->getData();
@@ -92,24 +89,22 @@ class DashboardTransferController extends BaseTransferController
                     );
 
                     return $this->redirect(
-                        $this->generateUrl('rx_client_dashboard_transfer_basic', array('account_id' => $account->getId()))
+                        $this->generateUrl('rx_client_dashboard_transfer_basic', ['account_id' => $account->getId()])
                     );
                 }
-
             } else {
-                $selectedAccount = count($systemAccounts) == 1 ? $systemAccounts[0] : null;
+                $selectedAccount = count($systemAccounts) === 1 ? $systemAccounts[0] : null;
 
-                return $this->render('WealthbotClientBundle:DashboardTransfer:select_system_account.html.twig', array(
+                return $this->render('WealthbotClientBundle:DashboardTransfer:select_system_account.html.twig', [
                     'account' => $account,
                     'system_account' => $selectedAccount,
-                    'form' => $form->createView()
-                ));
+                    'form' => $form->createView(),
+                ]);
             }
-
         }
 
         return $this->redirect(
-            $this->generateUrl('rx_client_dashboard_transfer_basic', array('account_id' => $account->getId()))
+            $this->generateUrl('rx_client_dashboard_transfer_basic', ['account_id' => $account->getId()])
         );
     }
 
@@ -123,12 +118,12 @@ class DashboardTransferController extends BaseTransferController
 
         if ($accountId !== 0) {
             /** @var ClientAccount $account */
-            $account = $repo->findOneBy(array('id' => $accountId, 'client_id' => $client->getId()));
+            $account = $repo->findOneBy(['id' => $accountId, 'client_id' => $client->getId()]);
         }
 
         $bankInfo = null;
         $form = $this->createForm(new BankInformationFormType());
-        $formHandler = new BankInformationFormHandler($form, $request, $em, array('client' => $client));
+        $formHandler = new BankInformationFormHandler($form, $request, $em, ['client' => $client]);
 
         if ($request->isMethod('post')) {
             if ($formHandler->process()) {
@@ -138,36 +133,35 @@ class DashboardTransferController extends BaseTransferController
                     $this->get('event_dispatcher')->dispatch(ClientEvents::CLIENT_WORKFLOW, $event);
                 }
             } else {
-                return $this->getJsonResponse(array(
+                return $this->getJsonResponse([
                     'status' => 'error',
                     'form' => $this->renderView(
-                        'WealthbotClientBundle:DashboardTransfer:_create_bank_account_form.html.twig', array(
+                        'WealthbotClientBundle:DashboardTransfer:_create_bank_account_form.html.twig', [
                             'form' => $form->createView(),
-                            'account_id' => $accountId
-                        ))
-                ));
+                            'account_id' => $accountId,
+                        ]),
+                ]);
             }
         }
 
-        $response = array('status' => 'success');
+        $response = ['status' => 'success'];
 
         if ($accountId !== 0) {
             $transferForm = $this->createForm(
                 new TransferFundingDistributingFormType($em, $account),
-                array('funding' => $account->getAccountContribution())
+                ['funding' => $account->getAccountContribution()]
             );
 
             $transferFormChildren = $transferForm->createView()->vars['form']->getChildren();
 
             $response['form_fields'] = $this->renderView(
                 'WealthbotClientBundle:Transfer:_bank_transfer_form_fields.html.twig',
-                array('form' => $transferFormChildren['funding'], 'account' => $account)
+                ['form' => $transferFormChildren['funding'], 'account' => $account]
             );
-
         } else {
             $response['bank_account_item'] = $this->renderView(
                 'WealthbotClientBundle:Dashboard:_bank_account_item.html.twig',
-                array('bank_account' => $bankInfo)
+                ['bank_account' => $bankInfo]
             );
         }
 
@@ -186,7 +180,7 @@ class DashboardTransferController extends BaseTransferController
         $custodian = $client->getCustodian();
 
         /** @var $account ClientAccount */
-        $account = $repo->findOneBy(array('id' => $request->get('account_id'), 'client_id' => $client->getId()));
+        $account = $repo->findOneBy(['id' => $request->get('account_id'), 'client_id' => $client->getId()]);
         if (!$account) {
             $this->createNotFoundException('You have not account with id: '.$request->get('account_id').'.');
         }
@@ -217,10 +211,9 @@ class DashboardTransferController extends BaseTransferController
 
         $isPreSaved = $request->isXmlHttpRequest();
         if ($request->isMethod('post')) {
-            $form->bind($request);
+            $form->handleRequest($request);
 
             if ($form->isValid()) {
-
                 $account->setProcessStep(ClientAccount::PROCESS_STEP_FINISHED_APPLICATION);
                 foreach ($account->getConsolidatedAccounts() as $consolidated) {
                     $consolidated->setProcessStep(ClientAccount::PROCESS_STEP_FINISHED_APPLICATION);
@@ -255,7 +248,7 @@ class DashboardTransferController extends BaseTransferController
                 // If client complete all accounts
                 $hasNotOpenedAccounts = $repo->findOneNotOpenedAccountByClientId($client->getId()) ? true : false;
                 $profile = $client->getProfile();
-                if (!$hasNotOpenedAccounts && ($profile->getRegistrationStep() != 7)) {
+                if (!$hasNotOpenedAccounts && ($profile->getRegistrationStep() !== 7)) {
                     $profile->setRegistrationStep(7);
                     $profile->setClientStatus(Profile::CLIENT_STATUS_CLIENT);
                     $em->persist($profile);
@@ -265,30 +258,30 @@ class DashboardTransferController extends BaseTransferController
                 $redirectUrl = $this->getRedirectUrl($account, ClientAccount::STEP_ACTION_REVIEW);
 
                 if ($isPreSaved) {
-                    return $this->getJsonResponse(array('status' => 'success', 'redirect_url' => $redirectUrl));
+                    return $this->getJsonResponse(['status' => 'success', 'redirect_url' => $redirectUrl]);
                 }
 
                 return $this->redirect($redirectUrl);
-            } else if ($isPreSaved) {
-                return $this->getJsonResponse(array('status' => 'error'));
+            } elseif ($isPreSaved) {
+                return $this->getJsonResponse(['status' => 'error']);
             }
         }
 
-        return $this->render($this->getTemplate('review.html.twig'), array(
+        return $this->render($this->getTemplate('review.html.twig'), [
             'client' => $client,
             'account' => $account,
             'application_signatures' => $documentSignatureManager->findSignaturesByAccountConsolidatorId($account->getId()),
             'form' => $form->createView(),
             'is_current_retirement' => $isCurrentRetirement,
             'custodian' => $custodian,
-            'custodian_disclosures' => $custodianDisclosures
-        ));
+            'custodian_disclosures' => $custodianDisclosures,
+        ]);
     }
 
     public function transferAction(Request $request)
     {
         /** @var $em EntityManager */
-        /** @var $repo ClientAccountRepository  */
+        /* @var $repo ClientAccountRepository  */
         $em = $this->get('doctrine.orm.entity_manager');
         $repo = $em->getRepository('WealthbotClientBundle:ClientAccount');
         $adm = $this->get('wealthbot_docusign.account_docusign.manager');
@@ -296,7 +289,7 @@ class DashboardTransferController extends BaseTransferController
         $client = $this->getUser();
 
         /** @var $account ClientAccount */
-        $account = $repo->findOneBy(array('id' => $request->get('account_id'), 'client_id' => $client->getId()));
+        $account = $repo->findOneBy(['id' => $request->get('account_id'), 'client_id' => $client->getId()]);
         if (!$account) {
             $this->createNotFoundException('You have not account with id: '.$request->get('account_id').'.');
         }
@@ -331,7 +324,7 @@ class DashboardTransferController extends BaseTransferController
 
         $isPreSaved = $request->isXmlHttpRequest();
         $form = $this->createForm(new TransferInformationFormType($adm, $isPreSaved), $information);
-        $formHandler = new TransferInformationFormHandler($form, $request, $em, array('client' => $client));
+        $formHandler = new TransferInformationFormHandler($form, $request, $em, ['client' => $client]);
 
         if ($request->isMethod('post')) {
             if ($formHandler->process()) {
@@ -341,12 +334,12 @@ class DashboardTransferController extends BaseTransferController
                 $account->setStepAction(ClientAccount::STEP_ACTION_TRANSFER);
                 $account->setIsPreSaved($isPreSaved);
 
-                $isDocusignAllowed = $adm->isDocusignAllowed($information, array(
+                $isDocusignAllowed = $adm->isDocusignAllowed($information, [
                     new TransferInformationCustodianCondition(),
                     new TransferInformationPolicyCondition(),
                     new TransferInformationQuestionnaireCondition(),
-                    new TransferInformationConsolidatorCondition()
-                ));
+                    new TransferInformationConsolidatorCondition(),
+                ]);
 
                 $adm->setIsUsedDocusign($account, $isDocusignAllowed);
 
@@ -356,48 +349,47 @@ class DashboardTransferController extends BaseTransferController
 
                 $redirectUrl = $this->getRedirectUrl($account, ClientAccount::STEP_ACTION_TRANSFER);
                 if ($isPreSaved) {
-                    return $this->getJsonResponse(array('status' => 'success', 'redirect_url' => $redirectUrl));
+                    return $this->getJsonResponse(['status' => 'success', 'redirect_url' => $redirectUrl]);
                 }
 
                 // If account has next consolidated transfer account than redirect to it
                 // else redirect to another step
                 if ($transferAccounts->containsNextKey($accountIndex)) {
                     return $this->redirect(
-                        $this->generateUrl($this->getRoutePrefix() . 'transfer_transfer_account', array(
+                        $this->generateUrl($this->getRoutePrefix().'transfer_transfer_account', [
                             'account_id' => $account->getId(),
-                            'account_index' => ($accountIndex + 1)
-                        ))
+                            'account_index' => ($accountIndex + 1),
+                        ])
                     );
-
                 } else {
                     return $this->redirect($redirectUrl);
                 }
-            } else if ($isPreSaved) {
-                return $this->getJsonResponse(array(
+            } elseif ($isPreSaved) {
+                return $this->getJsonResponse([
                     'status' => 'error',
-                    'form' => $this->renderView($this->getTemplate('_transfer_form.html.twig'), array(
+                    'form' => $this->renderView($this->getTemplate('_transfer_form.html.twig'), [
                         'account' => $account,
                         'current_account' => $currentAccount,
                         'account_index' => $accountIndex,
-                        'form' => $form->createView()
-                    ))
-                ));
+                        'form' => $form->createView(),
+                    ]),
+                ]);
             }
         }
 
-        return $this->render($this->getTemplate('transfer.html.twig'), array(
+        return $this->render($this->getTemplate('transfer.html.twig'), [
             'client' => $client,
             'account' => $account,
             'transfer_accounts' => $transferAccounts,
             'current_account' => $currentAccount,
             'account_index' => $accountIndex,
             'information' => $information,
-            'form' => $form->createView()
-        ));
+            'form' => $form->createView(),
+        ]);
     }
 
     /**
-     * Get prefix for routing
+     * Get prefix for routing.
      *
      * @return string
      */
@@ -422,7 +414,7 @@ class DashboardTransferController extends BaseTransferController
     }
 
     /**
-     * Dispatch new UserHistoryEvent event
+     * Dispatch new UserHistoryEvent event.
      *
      * @param User $user
      * @param $description

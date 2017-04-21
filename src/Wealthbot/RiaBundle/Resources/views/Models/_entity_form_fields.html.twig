@@ -1,19 +1,19 @@
-<div class="control-group">
+<div class="form-group">
     {{ form_label(form.subclass) }}
     <div class="controls">
         {{ form_errors(form.subclass) }}
         {{ form_widget(form.subclass) }}
     </div>
 </div>
-<div class="row-fluid">
-    <div class="control-group span3">
+<div class="row">
+    <div class="form-group col-md-3">
         {{ form_label(form.securityAssignment, 'Security') }}
         <div class="controls">
             {{ form_errors(form.securityAssignment) }}
             {{ form_widget(form.securityAssignment) }}
         </div>
     </div>
-    <div class="control-group span3">
+    <div class="form-group col-md-3">
         {{ form_label(form.symbol) }}
         <div class="controls">
             {{ form_errors(form.symbol) }}
@@ -22,8 +22,8 @@
     </div>
 </div>
 {% if form.muniSubstitution is defined %}
-    <div class="row-fluid">
-        <div class="control-group span3">
+    <div class="row">
+        <div class="form-group col-md-3">
             {{ form_label(form.muniSubstitution, 'Muni Substitution') }}
             <div class="controls">
                 {{ form_errors(form.muniSubstitution) }}
@@ -32,7 +32,7 @@
         </div>
 
         {% if form.muni_substitution_symbol is defined %}
-            <div class="control-group span3">
+            <div class="form-group col-md-3">
                 {{ form_label(form.muni_substitution_symbol, 'Symbol') }}
                 <div class="controls">
                     {{ form_errors(form.muni_substitution_symbol) }}
@@ -44,8 +44,8 @@
 {% endif %}
 
 {% if form.tax_loss_harvesting is defined %}
-    <div class="row-fluid">
-        <div class="control-group span3">
+    <div class="row">
+        <div class="form-group col-md-3">
             {{ form_label(form.tax_loss_harvesting, 'Tax Loss Harvesting') }}
             <div class="controls">
                 {{ form_errors(form.tax_loss_harvesting) }}
@@ -53,7 +53,7 @@
             </div>
         </div>
         {% if form.tax_loss_harvesting_symbol is defined %}
-            <div class="control-group span3">
+            <div class="form-group col-md-3">
                 {{ form_label(form.tax_loss_harvesting_symbol, 'Symbol') }}
                 <div class="controls">
                     {{ form_errors(form.tax_loss_harvesting_symbol) }}

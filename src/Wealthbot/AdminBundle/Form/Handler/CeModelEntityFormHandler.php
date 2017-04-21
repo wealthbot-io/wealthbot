@@ -10,7 +10,6 @@
 namespace Wealthbot\AdminBundle\Form\Handler;
 
 use Wealthbot\AdminBundle\Entity\CeModelEntity;
-use Symfony\Component\HttpFoundation\Request;
 
 class CeModelEntityFormHandler extends AbstractFormHandler
 {

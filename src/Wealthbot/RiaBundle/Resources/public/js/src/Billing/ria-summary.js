@@ -576,7 +576,7 @@ App.module('Wealthbot.Billing.RiaSummary', function(Mod, App, Backbone, Marionet
                     accounts[i] = '<option ' + (accounts[i] == paysFor ? 'selected' : '') + ' value="' + accounts[i] + '">' + caption + '</option>';
                 }
                 this.ui.paysFor.html('<select class="paysfor">' + accounts.join('') + '</select>');
-                this.ui.paysFor.find('select').on('change', function(e){
+                this.ui.paysFor.find(document).on('change','select', function(e){
                     self.paysForChange(e, view);
                 });
             }

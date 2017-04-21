@@ -2,28 +2,26 @@
 
 namespace Wealthbot\RiaBundle\Controller;
 
-use JMS\Serializer\SerializationContext;
 use JMS\SecurityExtraBundle\Annotation\SecureParam;
-use Wealthbot\ClientBundle\Model\SystemAccount;
-use Wealthbot\ClientBundle\Entity\BillItem;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
-
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
+use Wealthbot\ClientBundle\Entity\BillItem;
 
 class BillItemController extends Controller
 {
     /**
-     * API
+     * API.
      *
      * Update bill item fee
      *
      * @SecureParam(name="billItem", permissions="CHANGE_FEE")
      * @ParamConverter("billItem", class="WealthbotClientBundle:BillItem")
-     * @param \Wealthbot\ClientBundle\Entity\BillItem $billItem
+     *
+     * @param \Wealthbot\ClientBundle\Entity\BillItem   $billItem
      * @param \Symfony\Component\HttpFoundation\Request $request
+     *
      * @return JsonResponse
      */
     public function updateFeeAction(BillItem $billItem, Request $request)
@@ -42,6 +40,6 @@ class BillItemController extends Controller
         $em->persist($billItem);
         $em->flush();
 
-        return new JsonResponse(array(), 200);
+        return new JsonResponse([], 200);
     }
 }

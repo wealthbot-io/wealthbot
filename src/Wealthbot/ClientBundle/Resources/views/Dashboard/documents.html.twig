@@ -18,22 +18,22 @@
             <form action="{{ path('wealthbot_client_documents') }}" id="client_document_upload_form" class="form-inline padding-left-10" enctype="multipart/form-data" method="post">
                 {{ form_errors(document_upload_form) }}
 
-                <div class="row-fluid">
+                <div class="row">
 
-                    <div class="span6">
+                    <div class="col-md-6">
 
-                        <div class="row-fluid well">
+                        <div class="row well">
                         {% if (is_client_view) %}
-                            <div class="span3">
+                            <div class="col-md-3">
                                 {{ form_label(document_upload_form.file, 'Upload a Document:') }}
                             </div>
-                            <div class="span6">
+                            <div class="col-md-6">
                                 {{ form_errors(document_upload_form.file) }}
                                 {{ form_widget(document_upload_form.file, {'attr': {'class': ''}}) }}
                             </div>
                         {% else %}
-                            <div class="span5">
-                                <div class="control-group">
+                            <div class="col-md-5">
+                                <div class="form-group">
                                     <div class="controls inline-block">
                                         {{ form_errors(document_upload_form.file) }}
                                         {{ form_label(document_upload_form.file, 'Upload a Document') }}
@@ -41,15 +41,15 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="span5">
-                                <div class="control-group">
+                            <div class="col-md-5">
+                                <div class="form-group">
                                     <div class="controls">
                                         {{ form_errors(document_upload_form.is_client_notified) }}
                                         {{ form_widget(document_upload_form.is_client_notified) }}
                                         {{ form_label(document_upload_form.is_client_notified) }}
                                     </div>
                                 </div>
-                                <div class="control-group">
+                                <div class="form-group">
                                     <div class="controls">
                                         {{ form_errors(document_upload_form.is_for_all_clients) }}
                                         {{ form_widget(document_upload_form.is_for_all_clients) }}
@@ -59,8 +59,8 @@
                             </div>
                         {% endif %}
 
-                        <div class="span3">
-                            <input class="btn" type="submit" value="Upload"/>
+                        <div class="col-md-3">
+                            <input class="btn btn-default"  type="submit" value="Upload"/>
                         </div>
 
                      </div>

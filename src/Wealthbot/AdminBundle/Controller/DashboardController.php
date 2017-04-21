@@ -2,7 +2,6 @@
 
 namespace Wealthbot\AdminBundle\Controller;
 
-use Doctrine\ORM\EntityManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class DashboardController extends Controller
@@ -18,6 +17,6 @@ class DashboardController extends Controller
         $rias = $repository->getRiasOrderedById(5);
         $clients = $repository->getClientsOrderedById(10);
 
-        return $this->render('WealthbotAdminBundle:Dashboard:index.html.twig', array('rias' => $rias, 'clients' => $clients));
+        return $this->render('WealthbotAdminBundle:Dashboard:index.html.twig', ['rias' => $rias, 'clients' => $clients]);
     }
 }

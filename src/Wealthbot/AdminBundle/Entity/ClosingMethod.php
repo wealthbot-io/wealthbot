@@ -2,15 +2,13 @@
 
 namespace Wealthbot\AdminBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-
 /**
- * ClosingMethod
+ * ClosingMethod.
  */
 class ClosingMethod
 {
     /**
-     * @var integer
+     * @var int
      */
     private $id;
 
@@ -24,11 +22,10 @@ class ClosingMethod
      */
     private $description;
 
-
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer 
+     * @return int
      */
     public function getId()
     {
@@ -36,22 +33,23 @@ class ClosingMethod
     }
 
     /**
-     * Set name
+     * Set name.
      *
      * @param string $name
+     *
      * @return ClosingMethod
      */
     public function setName($name)
     {
         $this->name = $name;
-    
+
         return $this;
     }
 
     /**
-     * Get name
+     * Get name.
      *
-     * @return string 
+     * @return string
      */
     public function getName()
     {
@@ -59,22 +57,23 @@ class ClosingMethod
     }
 
     /**
-     * Set description
+     * Set description.
      *
      * @param string $description
+     *
      * @return ClosingMethod
      */
     public function setDescription($description)
     {
         $this->description = $description;
-    
+
         return $this;
     }
 
     /**
-     * Get description
+     * Get description.
      *
-     * @return string 
+     * @return string
      */
     public function getDescription()
     {

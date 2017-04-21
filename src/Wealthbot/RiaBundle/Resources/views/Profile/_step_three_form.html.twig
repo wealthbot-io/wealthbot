@@ -3,10 +3,10 @@
     <form id="step_three_form" action="{{path('rx_ria_profile_step_three')}}" method="post" data-presave="true" data-save="true">
     {%  endblock %}
 
-        <div class="span12 alertable" id="billing_fee">
+        <div class="col-md-12 alertable" id="billing_fee">
             <legend>Minimum Billing Fee</legend>
             <span class="help-block">You have the ability to charge a minimum billing fee, per quarter, you would like to charge each client. We will charge this amount if your AUM fee is less than minimum billing fee.</span>
-            <div class="control-group">
+            <div class="form-group">
                 <div class="controls">
                     {% if show_alerts is defined and show_alerts %}
                         <div class="alert alert-error" id="billing_fee_alert" style="display: none;">
@@ -14,8 +14,8 @@
                             <strong>Warning!</strong> This will affect new and current clients on the system.
                         </div>
                     {% endif %}
-                    <div class="input-prepend">
-                        <span class="add-on">$</span>
+                    <div class="input-group">
+                        <span class="input-group-addon">$</span>
                         {{ form_widget(form.minimum_billing_fee, {'attr': {'class': 'auto-numeric'}}) }}
                     </div>
                     {{ form_errors(form.minimum_billing_fee) }}
@@ -23,17 +23,17 @@
             </div>
         </div>
 
-        <div class="span12">
+        <div class="col-md-12">
             <div class="fees-form-block">
                 {% include 'WealthbotRiaBundle:Profile:_step_three_fees_form.html.twig' with {'form': form} %}
             </div>
         </div>
 
         {% block form_actions %}
-        <div class="span12">
+        <div class="col-md-12">
             <div class="form-actions">
                 {{ form_widget(form._token) }}
-                <a class="btn" href="{{ path('rx_ria_profile_step_two') }}">Back</a>
+                <a class="btn btn-default"  href="{{ path('rx_ria_profile_step_two') }}">Back</a>
                 <input class="btn btn-info" type="submit" name="Continue" value="Continue"/>
             </div>
         </div>
@@ -42,15 +42,20 @@
 </div>
 
 {#
-<div id="fee_preview" class="modal hide longModal">
-    <div class="modal-header">
+<div id="fee_preview" class="modal longModal">
+
+    <div class="modal-content">
+<div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
         <h3>Preview Final Billing Schedule</h3>
     </div>
+
     <div class="modal-body">
 
     </div>
+
     <div class="modal-footer">
-        <a href="#" class="btn" data-dismiss="modal" aria-hidden="true">Close</a>
+        <a href="#" class="btn btn-default"  data-dismiss="modal" aria-hidden="true">Close</a>
+    </div>
     </div>
 </div>#}

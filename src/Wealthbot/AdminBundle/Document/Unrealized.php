@@ -7,8 +7,8 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 /**
  * @MongoDB\Document(collection="unrealized")
  */
-class Unrealized {
-
+class Unrealized
+{
     /**
      * @MongoDB\Id
      */
@@ -472,5 +472,4 @@ class Unrealized {
     {
         return $this->lotQuantity;
     }
-
 }

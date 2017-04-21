@@ -133,6 +133,7 @@
 #   [*owner*]                   - Defines owner of the .conf file
 #   [*group*]                   - Defines group of the .conf file
 #   [*mode*]                    - Defines mode of the .conf file
+#   [*rewrites*]                - Rewrite rules for the server
 # Actions:
 #
 # Requires:
@@ -229,6 +230,7 @@ define nginx::resource::vhost (
   $owner                  = $nginx::config::global_owner,
   $group                  = $nginx::config::global_group,
   $mode                   = $nginx::config::global_mode,
+  $rewrites               = {},
 ) {
 
   validate_re($ensure, '^(present|absent)$',
@@ -423,6 +425,7 @@ define nginx::resource::vhost (
 
   $name_sanitized = regsubst($name, ' ', '_', 'G')
   $config_file = "${vhost_dir}/${name_sanitized}.conf"
+  validate_hash($rewrites)
 
   File {
     ensure => $ensure ? {
@@ -601,32 +604,42 @@ define nginx::resource::vhost (
     ensure_resource('file', "${nginx::config::conf_dir}/${cert}.crt", {
       owner  => $nginx::config::daemon_user,
       mode   => '0444',
-      source => $ssl_cert,
+      ensure => link,
+      target => $ssl_cert,
+      links  => 'follow',
     })
     ensure_resource('file', "${nginx::config::conf_dir}/${cert}.key", {
       owner  => $nginx::config::daemon_user,
       mode   => '0440',
-      source => $ssl_key,
+      ensure => link,
+      target => $ssl_key,
+      links  => 'follow',
     })
     if ($ssl_dhparam != undef) {
       ensure_resource('file', "${nginx::config::conf_dir}/${cert}.dh.pem", {
         owner  => $nginx::config::daemon_user,
         mode   => '0440',
-        source => $ssl_dhparam,
+        ensure => link,
+        target => $ssl_dhparam,
+        links  => 'follow',
       })
     }
     if ($ssl_stapling_file != undef) {
       ensure_resource('file', "${nginx::config::conf_dir}/${cert}.ocsp.resp", {
         owner  => $nginx::config::daemon_user,
         mode   => '0440',
-        source => $ssl_stapling_file,
+        ensure => link,
+        target => $ssl_stapling_file,
+        links  => 'follow',
       })
     }
     if ($ssl_trusted_cert != undef) {
       ensure_resource('file', "${nginx::config::conf_dir}/${cert}.trusted.crt", {
         owner  => $nginx::config::daemon_user,
         mode   => '0440',
-        source => $ssl_trusted_cert,
+        ensure => link,
+        target => $ssl_trusted_cert,
+        links  => 'follow',
       })
     }
   }

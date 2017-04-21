@@ -1,9 +1,9 @@
 <div class="box dashboard-cart" id="workflow_cart" data-include="WealthbotRiaBundle:Dashboard:_workflow_box.html.twig">
     <div id="workflow_box" class="box-content">
-        <div class="row-fluid">
+
             <h2><a href="{{ path('rx_ria_workflow') }}">Workflow</a></h2>
 
-            <div class="span5">
+            <div class="col-md-5">
                 <h3>Paperwork</h3>
                 <div class="box-content box-statistic">
                     <h3 class="title text-primary">{{ paperwork_counts.new }}</h3>
@@ -22,7 +22,7 @@
                 </div>
             </div>
 
-            <div class="span5 offset1">
+            <div class="col-md-5 col-md-offset-1">
                 <h3>Portfolios</h3>
                 <div class="box-content box-statistic">
                     <h3 class="title text-info">{{ portfolios_counts.initial_rebalance }}</h3>
@@ -42,7 +42,7 @@
                     <div class="text-error glyphicon glyphicon-user align-right"></div>
                 </div>
             </div>
-        </div>
-        {#{% render 'WealthbotRiaBundle:Workflow:index' with {'with_layout': false} %}#}
+
+        {#{{ render(controller('WealthbotRiaBundle:Workflow:index' with {'with_layout': false})) }}#}
     </div>
 </div>

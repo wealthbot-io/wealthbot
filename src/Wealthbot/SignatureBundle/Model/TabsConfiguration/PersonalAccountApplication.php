@@ -9,14 +9,13 @@
 
 namespace Wealthbot\SignatureBundle\Model\TabsConfiguration;
 
-
 use Wealthbot\ClientBundle\Model\AccountOwnerInterface;
-use Wealthbot\SignatureBundle\Model\Tab\CheckboxTab;
-use Wealthbot\SignatureBundle\Model\TabCollection;
-use Wealthbot\UserBundle\Entity\Profile;
 use Wealthbot\ClientBundle\Model\ClientAccount;
+use Wealthbot\SignatureBundle\Model\Tab\CheckboxTab;
 use Wealthbot\SignatureBundle\Model\Tab\RadioGroupTab;
 use Wealthbot\SignatureBundle\Model\Tab\TextTab;
+use Wealthbot\SignatureBundle\Model\TabCollection;
+use Wealthbot\UserBundle\Entity\Profile;
 
 class PersonalAccountApplication extends AbstractTabsConfiguration
 {
@@ -31,7 +30,7 @@ class PersonalAccountApplication extends AbstractTabsConfiguration
     }
 
     /**
-     * Generate collection of tabs
+     * Generate collection of tabs.
      *
      * @return TabCollection
      */
@@ -43,7 +42,7 @@ class PersonalAccountApplication extends AbstractTabsConfiguration
 
         $primaryApplicant = $this->account->getPrimaryApplicant();
 
-        $tabs = array();
+        $tabs = [];
 
         $advisorCode = new TextTab();
         $advisorCode->setTabLabel('advisor#')->setValue($this->getAdvisorCode($companyInfo));
@@ -59,7 +58,7 @@ class PersonalAccountApplication extends AbstractTabsConfiguration
 
         $primaryContact = new TextTab();
         $primaryContact->setTabLabel('primary_contact')
-            ->setValue($companyInfo->getPrimaryFirstName() . ' ' . $companyInfo->getPrimaryLastName());
+            ->setValue($companyInfo->getPrimaryFirstName().' '.$companyInfo->getPrimaryLastName());
         $tabs[] = $primaryContact;
 
         $accountTypeTab = new RadioGroupTab();
@@ -98,7 +97,7 @@ class PersonalAccountApplication extends AbstractTabsConfiguration
             $prefix = 'joint_';
         }
 
-        $tabs = array();
+        $tabs = [];
 
         $fullName = new TextTab();
         $fullName->setTabLabel($prefix.'full_name')->setValue($owner->getFullName());
@@ -120,7 +119,7 @@ class PersonalAccountApplication extends AbstractTabsConfiguration
         $homeCity->setTabLabel($prefix.'home_address_city')->setValue($owner->getCity());
         $tabs[] = $homeCity;
 
-        $homeState= new TextTab();
+        $homeState = new TextTab();
         $homeState->setTabLabel($prefix.'home_address_state')
             ->setValue($owner->getState() ? $owner->getState()->getName() : '');
         $tabs[] = $homeState;
@@ -160,8 +159,7 @@ class PersonalAccountApplication extends AbstractTabsConfiguration
         // Check employment type
         $employmentType = $owner->getEmploymentType();
         if ($employmentType === Profile::CLIENT_EMPLOYMENT_TYPE_RETIRED ||
-            $employmentType === Profile::CLIENT_EMPLOYMENT_TYPE_UNEMPLOYED)
-        {
+            $employmentType === Profile::CLIENT_EMPLOYMENT_TYPE_UNEMPLOYED) {
             $employmentStatus = new RadioGroupTab();
             $employmentStatus->setGroupName($prefix.'employment_status')->setValue(strtolower($employmentType))->setSelected(true);
             $tabs[] = $employmentStatus;
@@ -169,10 +167,8 @@ class PersonalAccountApplication extends AbstractTabsConfiguration
             $incomeSource = new TextTab();
             $incomeSource->setTabLabel($prefix.'source_of_income')->setValue($owner->getIncomeSource());
             $tabs[] = $incomeSource;
-
         } elseif ($employmentType === Profile::CLIENT_EMPLOYMENT_TYPE_EMPLOYED ||
-            $employmentType === Profile::CLIENT_EMPLOYMENT_TYPE_SELF_EMPLOYED)
-        {
+            $employmentType === Profile::CLIENT_EMPLOYMENT_TYPE_SELF_EMPLOYED) {
             $employerName = new TextTab();
             $employerName->setTabLabel($prefix.'employer_name')->setValue($owner->getEmployerName());
             $tabs[] = $employerName;
@@ -211,9 +207,9 @@ class PersonalAccountApplication extends AbstractTabsConfiguration
             $isSeniorPoliticalFigure = new CheckboxTab();
             $isSeniorPoliticalFigure->setTabLabel($prefix.'is_senior_political_figure')->setSelected(true);
 
-            $fields = $owner->getSeniorSpfName() . ', ' . $owner->getSeniorPoliticalTitle() .
-                ', ' . $owner->getSeniorAccountOwnerRelationship() .
-                ', ' . $owner->getSeniorCountryOffice();
+            $fields = $owner->getSeniorSpfName().', '.$owner->getSeniorPoliticalTitle().
+                ', '.$owner->getSeniorAccountOwnerRelationship().
+                ', '.$owner->getSeniorCountryOffice();
 
             $spfFields = new TextTab();
             $spfFields->setTabLabel($prefix.'spf_fields')->setValue($fields);
@@ -224,5 +220,4 @@ class PersonalAccountApplication extends AbstractTabsConfiguration
 
         return $tabs;
     }
-
 }

@@ -1,90 +1,111 @@
+# == Define: apt::key
 define apt::key (
-  $key = $title,
-  $ensure = present,
-  $key_content = false,
-  $key_source = false,
-  $key_server = 'keyserver.ubuntu.com',
-  $key_options = false
+  $id          = $title,
+  $ensure      = present,
+  $content     = undef,
+  $source      = undef,
+  $server      = $::apt::keyserver,
+  $options     = undef,
+  $key         = undef,
+  $key_content = undef,
+  $key_source  = undef,
+  $key_server  = undef,
+  $key_options = undef,
 ) {
 
-  include apt::params
-
-  $upkey = upcase($key)
-  # trim the key to the last 8 chars so we can match longer keys with apt-key list too
-  $trimmedkey = regsubst($upkey, '^.*(.{8})$', '\1')
-
-  if $key_content {
-    $method = 'content'
-  } elsif $key_source {
-    $method = 'source'
-  } elsif $key_server {
-    $method = 'server'
+  if $key != undef {
+    warning('$key is deprecated and will be removed in the next major release. Please use $id instead.')
+    $_id = $key
+  } else {
+    $_id = $id
   }
 
-  # This is a hash of the parts of the key definition that we care about.
-  # It is used as a unique identifier for this instance of apt::key. It gets
-  # hashed to ensure that the resource name doesn't end up being pages and
-  # pages (e.g. in the situation where key_content is specified).
-  $digest = sha1("${upkey}/${key_content}/${key_source}/${key_server}/")
+  if $key_content != undef {
+    warning('$key_content is deprecated and will be removed in the next major release. Please use $content instead.')
+    $_content = $key_content
+  } else {
+    $_content = $content
+  }
 
-  # Allow multiple ensure => present for the same key to account for many
-  # apt::source resources that all reference the same key.
+  if $key_source != undef {
+    warning('$key_source is deprecated and will be removed in the next major release. Please use $source instead.')
+    $_source = $key_source
+  } else {
+    $_source = $source
+  }
+
+  if $key_server != undef {
+    warning('$key_server is deprecated and will be removed in the next major release. Please use $server instead.')
+    $_server = $key_server
+  } else {
+    $_server = $server
+  }
+
+  if $key_options != undef {
+    warning('$key_options is deprecated and will be removed in the next major release. Please use $options instead.')
+    $_options = $key_options
+  } else {
+    $_options = $options
+  }
+
+  validate_re($_id, ['\A(0x)?[0-9a-fA-F]{8}\Z', '\A(0x)?[0-9a-fA-F]{16}\Z', '\A(0x)?[0-9a-fA-F]{40}\Z'])
+  validate_re($ensure, ['\Aabsent|present\Z',])
+
+  if $_content {
+    validate_string($_content)
+  }
+
+  if $_source {
+    validate_re($_source, ['\Ahttps?:\/\/', '\Aftp:\/\/', '\A\/\w+'])
+  }
+
+  if $_server {
+    validate_re($_server,['\A((hkp|http|https):\/\/)?([a-z\d])([a-z\d-]{0,61}\.)+[a-z\d]+(:\d{2,5})?$'])
+  }
+
+  if $_options {
+    validate_string($_options)
+  }
+
   case $ensure {
     present: {
-
-      anchor { "apt::key/${title}": }
-
-      if defined(Exec["apt::key ${upkey} absent"]) {
-        fail("Cannot ensure Apt::Key[${upkey}] present; ${upkey} already ensured absent")
+      if defined(Anchor["apt_key ${_id} absent"]){
+        fail("key with id ${_id} already ensured as absent")
       }
 
-      if !defined(Anchor["apt::key ${upkey} present"]) {
-        anchor { "apt::key ${upkey} present": }
+      if !defined(Anchor["apt_key ${_id} present"]) {
+        apt_key { $title:
+          ensure  => $ensure,
+          id      => $_id,
+          source  => $_source,
+          content => $_content,
+          server  => $_server,
+          options => $_options,
+        } ->
+        anchor { "apt_key ${_id} present": }
       }
-
-      if $key_options{
-        $options_string = "--keyserver-options ${key_options}"
-      }
-      else{
-        $options_string = ''
-      }
-
-      if !defined(Exec[$digest]) {
-        $digest_command = $method ? {
-          'content' => "echo '${key_content}' | /usr/bin/apt-key add -",
-          'source'  => "wget -q '${key_source}' -O- | apt-key add -",
-          'server'  => "apt-key adv --keyserver '${key_server}' ${options_string} --recv-keys '${upkey}'",
-        }
-        exec { $digest:
-          command   => $digest_command,
-          path      => '/bin:/usr/bin',
-          unless    => "/usr/bin/apt-key list | /bin/grep '${trimmedkey}'",
-          logoutput => 'on_failure',
-          before    => Anchor["apt::key ${upkey} present"],
-        }
-      }
-
-      Anchor["apt::key ${upkey} present"] -> Anchor["apt::key/${title}"]
-
     }
-    absent: {
 
-      if defined(Anchor["apt::key ${upkey} present"]) {
-        fail("Cannot ensure Apt::Key[${upkey}] absent; ${upkey} already ensured present")
+    absent: {
+      if defined(Anchor["apt_key ${_id} present"]){
+        fail("key with id ${_id} already ensured as present")
       }
 
-      exec { "apt::key ${upkey} absent":
-        command   => "apt-key del '${upkey}'",
-        path      => '/bin:/usr/bin',
-        onlyif    => "apt-key list | grep '${trimmedkey}'",
-        user      => 'root',
-        group     => 'root',
-        logoutput => 'on_failure',
+      if !defined(Anchor["apt_key ${_id} absent"]){
+        apt_key { $title:
+          ensure  => $ensure,
+          id      => $_id,
+          source  => $_source,
+          content => $_content,
+          server  => $_server,
+          options => $_options,
+        } ->
+        anchor { "apt_key ${_id} absent": }
       }
     }
 
     default: {
-      fail "Invalid 'ensure' value '${ensure}' for aptkey"
+      fail "Invalid 'ensure' value '${ensure}' for apt::key"
     }
   }
 }

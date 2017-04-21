@@ -25,50 +25,26 @@ describe 'php' do
 
   describe 'Test customizations - template' do
     let(:params) { {:template => "php/spec.erb" , :options => { 'opt_a' => 'value_a' } } }
-
-    it 'should generate a valid template' do
-      content = catalogue.resource('file', 'php.conf').send(:parameters)[:content]
-      content.should match "fqdn: rspec.example42.com"
-    end
-    it 'should generate a template that uses custom options' do
-      content = catalogue.resource('file', 'php.conf').send(:parameters)[:content]
-      content.should match "value_a"
-    end
-
+    it { should contain_file('php.conf').with_content(/fqdn: rspec.example42.com/) }
+    it { should contain_file('php.conf').with_content(/value_a/) }
   end
 
   describe 'Test customizations - source' do
     let(:params) { {:source => "puppet://modules/php/spec" , :source_dir => "puppet://modules/php/dir/spec" , :source_dir_purge => true } }
-
-    it 'should request a valid source ' do
-      content = catalogue.resource('file', 'php.conf').send(:parameters)[:source]
-      content.should == "puppet://modules/php/spec"
-    end
-    it 'should request a valid source dir' do
-      content = catalogue.resource('file', 'php.dir').send(:parameters)[:source]
-      content.should == "puppet://modules/php/dir/spec"
-    end
-    it 'should purge source dir if source_dir_purge is true' do
-      content = catalogue.resource('file', 'php.dir').send(:parameters)[:purge]
-      content.should == true
-    end
+    it { should contain_file('php.conf').with_source('puppet://modules/php/spec') }
+    it { should contain_file('php.dir').with_source('puppet://modules/php/dir/spec') }
+    it { should contain_file('php.dir').with_purge('true') }
   end
 
   describe 'Test customizations - custom class' do
     let(:params) { {:my_class => "php::spec" } }
-    it 'should automatically include a custom class' do
-      content = catalogue.resource('file', 'php.conf').send(:parameters)[:content]
-      content.should match "fqdn: rspec.example42.com"
-    end
+    it { should contain_file('php.conf').with_content(/fqdn: rspec.example42.com/) }
   end
 
   describe 'Test Puppi Integration' do
     let(:params) { {:puppi => true, :puppi_helper => "myhelper"} }
 
-    it 'should generate a puppi::ze define' do
-      content = catalogue.resource('puppi::ze', 'php').send(:parameters)[:helper]
-      content.should == "myhelper"
-    end
+    it { should contain_puppi__ze('php').with_helper('myhelper') }
   end
 
 

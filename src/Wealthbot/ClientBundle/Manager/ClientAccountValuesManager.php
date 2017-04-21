@@ -9,7 +9,6 @@ use Wealthbot\AdminBundle\Entity\RebalancerAction;
 use Wealthbot\ClientBundle\Entity\ClientAccountValue;
 use Wealthbot\ClientBundle\Entity\ClientPortfolioValue;
 use Wealthbot\ClientBundle\Entity\SystemAccount;
-use Wealthbot\ClientBundle\Model\ClientPortfolioValuesInformation;
 use Wealthbot\ClientBundle\Repository\ClientAccountValueRepository;
 use Wealthbot\RiaBundle\Entity\RiaCompanyInformation;
 use Wealthbot\UserBundle\Entity\User;
@@ -42,7 +41,7 @@ class ClientAccountValuesManager
     {
         $clients = $this->userManager->findClientsByRelationsType(RiaCompanyInformation::RELATIONSHIP_TYPE_TAMP);
 
-        $clientPortfolios = array();
+        $clientPortfolios = [];
         foreach ($clients as $client) {
             $activePortfolio = $clientPortfolioManager->getCurrentPortfolio($client);
             if ($activePortfolio) {
@@ -53,21 +52,22 @@ class ClientAccountValuesManager
         return $this->repo->findLatestValuesForClientsQuery($clientPortfolios);
     }
 
-    public function getHistoryForAdminQuery($filters = array())
+    public function getHistoryForAdminQuery($filters = [])
     {
         return $this->repo->findHistoryForAdminQuery($filters);
     }
 
     /**
-     * @param User $ria
+     * @param User                   $ria
      * @param ClientPortfolioManager $clientPortfolioManager
+     *
      * @return \Doctrine\ORM\QueryBuilder
      */
     public function getLatestClientAccountValuesForClientsQuery(User $ria, ClientPortfolioManager $clientPortfolioManager)
     {
         $clients = $this->userManager->findClientsByRia($ria);
 
-        $clientPortfolios = array();
+        $clientPortfolios = [];
         foreach ($clients as $client) {
             $activePortfolio = $clientPortfolioManager->getCurrentPortfolio($client);
             if ($activePortfolio) {
@@ -80,6 +80,7 @@ class ClientAccountValuesManager
 
     /**
      * @param ClientPortfolioManager $clientPortfolioManager
+     *
      * @return ClientAccountValue[]
      */
     public function getLatestClientAccountValuesForAdmin(ClientPortfolioManager $clientPortfolioManager)
@@ -90,8 +91,9 @@ class ClientAccountValuesManager
     }
 
     /**
-     * @param User $ria
+     * @param User                   $ria
      * @param ClientPortfolioManager $clientPortfolioManager
+     *
      * @return ClientAccountValue[]
      */
     public function getLatestClientAccountValuesForClients(User $ria, ClientPortfolioManager $clientPortfolioManager)
@@ -101,14 +103,14 @@ class ClientAccountValuesManager
         return $qb->getQuery()->getResult();
     }
 
-    public function getHistoryForRiaClientsQuery(User $ria, $filters = array())
+    public function getHistoryForRiaClientsQuery(User $ria, $filters = [])
     {
         return $this->repo->findHistoryForRiaClientsQuery($ria, $filters);
     }
 
     public function getLatestValuesForJobQuery(Job $job)
     {
-        $systemClientAccountIds = array();
+        $systemClientAccountIds = [];
 
         /** @var RebalancerAction $rebalancerAction */
         foreach ($job->getRebalancerActions() as $rebalancerAction) {
@@ -120,6 +122,7 @@ class ClientAccountValuesManager
 
     /**
      * @param SystemAccount $account
+     *
      * @return ClientAccountValue|null
      */
     public function getLatestValueBySystemAccount(SystemAccount $account)
@@ -128,9 +131,10 @@ class ClientAccountValuesManager
     }
 
     /**
-     * Get total value for system client account
+     * Get total value for system client account.
      *
      * @param SystemAccount $account
+     *
      * @return float
      */
     public function getTotalValue(SystemAccount $account)
@@ -158,5 +162,4 @@ class ClientAccountValuesManager
     {
         return $this->repo->find($id, $lockMode, $lockVersion);
     }
-
 }

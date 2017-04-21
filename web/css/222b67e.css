@@ -1,0 +1,19 @@
+.admin-pas-interfaces .pas-data table.table {
+    width: 99%;
+}
+
+.admin-pas-interfaces .pas-data table td {
+    border: solid 1px #b8c1d1;
+}
+
+.admin-pas-interfaces .pas-data table tr.warning {
+    background: rgb(255, 170, 187);
+}
+
+.admin-pas-interfaces .pas-data table td.success {
+    background-color: #AAFFBB;
+}
+
+.admin-pas-interfaces .pas-data table td.error {
+    background-color: #FFAABB;
+}

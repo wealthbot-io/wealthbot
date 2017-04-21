@@ -27,7 +27,7 @@
         "doctrine/mongodb": "1.0.*@dev",
         "doctrine/mongodb-odm": "1.0.*@dev",
         "doctrine/mongodb-odm-bundle": "3.0.*@dev",
-        "jms/serializer-bundle": "0.13.*@dev",
+        "jms/serializer-bundle": "0.13.0",
         "friendsofsymfony/jsrouting-bundle": "~1.1",
         "nelmio/api-doc-bundle": "2.1.0",
         "incenteev/composer-parameter-handler": "2.1.1",

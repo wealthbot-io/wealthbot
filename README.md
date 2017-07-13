@@ -3,7 +3,9 @@ wealthbot.io
 
 [![GitHub license](https://img.shields.io/github/license/mashape/apistatus.svg)]()
 
-## Wealth Management, Set Free
+## Please Note: This project is not actively supported. We are keeping this code up because it's free and open. Enjoy at your own risk.
+
+### Wealth Management, Set Free
 
 Hi, I'm [wealthbot.io](http://wealthbot.io). Webo for short. I'm an open source wealth management platform. I help Investment Advisors profitably serve the mass affluent.
 

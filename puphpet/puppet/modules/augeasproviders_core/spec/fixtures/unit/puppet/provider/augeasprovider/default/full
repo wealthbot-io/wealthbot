@@ -1,0 +1,4 @@
+127.0.0.1	localhost.localdomain	localhost
+::1	localhost6.localdomain6	localhost6
+192.168.0.5 iridium iridium.example.com
+192.168.0.10 argon  # NAS

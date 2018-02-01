@@ -1,0 +1,41 @@
+.vagrant/
+log/
+
+# Default .gitignore for Ruby
+Gemfile.lock
+.bundle/
+*.gem
+*.rbc
+.bundle
+.config
+coverage
+InstalledFiles
+lib/bundler/man
+pkg
+rdoc
+spec/reports
+test/tmp
+test/version_tmp
+tmp
+
+# YARD artifacts
+.yardoc
+_yardoc
+doc/
+
+# Vim
+*.swp
+
+# Eclipse
+.project
+
+# Visual Studio Code
+.vscode/
+
+# OS X
+.DS_Store
+
+# Puppet
+coverage/
+spec/fixtures/manifests/*
+spec/fixtures/modules/*

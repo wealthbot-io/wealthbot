@@ -1,0 +1,13 @@
+HOSTS:
+  centos-7-x64:
+    roles:
+      - master
+    platform: el-7-x86_64
+    hypervisor : docker
+    image: petems/docker-centos-7-ssh-locale:centos-7
+    docker_preserve_image: true
+    docker_cmd: '["/sbin/init"]'
+    docker_preserve_image: true
+CONFIG:
+  type: foss
+  log_level: debug

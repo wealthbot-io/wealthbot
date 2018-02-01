@@ -1,0 +1,8 @@
+---
+timezone::package: tzdata
+timezone::zoneinfo_dir: /usr/share/zoneinfo
+timezone::localtime_file: /etc/localtime
+timezone::timezone_file: null
+timezone::timezone_file_template: null
+timezone::timezone_file_supports_comment: null
+timezone::timezone_update: 'timedatectl set-timezone '

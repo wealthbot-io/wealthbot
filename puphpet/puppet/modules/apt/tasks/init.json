@@ -1,0 +1,10 @@
+{
+  "description": "Allows you to perform apt functions",
+  "input_method": "stdin",
+  "parameters": {
+    "action": {
+      "description": "Action to perform ",
+      "type": "Enum[update, upgrade]"
+    }
+  }
+}

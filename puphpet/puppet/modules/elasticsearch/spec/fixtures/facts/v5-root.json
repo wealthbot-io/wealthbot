@@ -1,0 +1,13 @@
+{
+  "name" : "v5",
+  "cluster_name" : "elasticsearch",
+  "cluster_uuid" : "1ENUnFlUQcmF6qko-PjpHw",
+  "version" : {
+    "number" : "5.5.0",
+    "build_hash" : "260387d",
+    "build_date" : "2017-06-30T23:16:05.735Z",
+    "build_snapshot" : false,
+    "lucene_version" : "6.6.0"
+  },
+  "tagline" : "You Know, for Search"
+}

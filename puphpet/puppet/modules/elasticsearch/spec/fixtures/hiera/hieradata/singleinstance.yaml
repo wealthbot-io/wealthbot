@@ -1,0 +1,6 @@
+---
+elasticsearch::instances:
+  es-hiera-single:
+    config:
+      node.name: 'es-hiera-single'
+      network.host: '0.0.0.0'

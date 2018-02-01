@@ -1,0 +1,15 @@
+[Unit]
+Description=Advanced key-value store for <%= @title %>
+After=network.target
+
+[Service]
+Type=forking
+ExecStart=/usr/bin/redis-server <%= @redis_file_name %>
+ExecStop=/usr/bin/redis-server -p <%= @port %> shutdown
+TimeoutStopSec=0
+Restart=always
+User=<%= @service_user %>
+Group=<%= @service_user %>
+
+[Install]
+WantedBy=multi-user.target

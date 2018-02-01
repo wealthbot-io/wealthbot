@@ -1,0 +1,11 @@
+HOSTS:
+  centos-7-x64:
+    roles:
+      - default
+    platform: el-7-x86_64
+    box : centos/7
+    hypervisor : vagrant_libvirt
+CONFIG:
+  type: foss
+  log_level: verbose
+  network_mac: '5a:65:a9:97:e4:e4'

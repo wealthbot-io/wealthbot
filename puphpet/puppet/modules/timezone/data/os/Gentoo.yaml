@@ -1,0 +1,8 @@
+---
+timezone::package: sys-libs/timezone-data
+timezone::zoneinfo_dir: /usr/share/zoneinfo
+timezone::localtime_file: /etc/localtime
+timezone::timezone_file: /etc/timezone
+timezone::timezone_file_template: timezone/timezone.erb
+timezone::timezone_file_supports_comment: true
+timezone::timezone_update: emerge --config timezone-data

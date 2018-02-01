@@ -1,0 +1,13 @@
+{
+  "CHANGELOG.md": "5933cd0d3952f7a20cf1f8e4506d1970",
+  "Gemfile": "b047aa61076e65abb401f6550baaa0f5",
+  "LICENSE": "e6629a6fd211ff4053c7342536b8b38f",
+  "README.md": "455c7352b98f4a99f73e3d703a322507",
+  "Rakefile": "f37e6131fe7de9a49b09d31596f5fbf1",
+  "lib/puppet/provider/debconf/debian.rb": "8479fc18258eebe9312e7f8349ccd6bc",
+  "lib/puppet/type/debconf.rb": "8a238792fefb43f37d7e04de44a12670",
+  "metadata.json": "a2224bae168418599dc4695af29e60ba",
+  "spec/spec_helper.rb": "55668678168bc67f4f38c0ffbf8d9f70",
+  "spec/unit/provider/debian_spec.rb": "245f7f290f849338b065ca90a70e8fe8",
+  "spec/unit/type/debconf_spec.rb": "a3962a27a6f91674d47ed7065b6ccbcf"
+}

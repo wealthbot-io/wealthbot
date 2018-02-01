@@ -1,0 +1,40 @@
+# This file is generated automatically by Puppet - DO NOT EDIT
+# Any manual changes will be overwritten
+<%# -%>
+<%# mount_file_content should be a hash which keys are workers names -%>
+<%# and values are new hashes with two items: -%>
+<%# uri_list - Array with URIs to be mapped to worker -%>
+<%# comment - Optional comment line -%>
+<%# -%>
+<%# Example: -%>
+<%# # Worker 1 -%>
+<%# /context_1/ = worker_1 -%>
+<%# /context_1/* = worker_1 -%>
+<%# -%>
+<%# # Worker 2 -%>
+<%# / = worker_2 -%>
+<%# /context_2/ = worker_2 -%>
+<%# /context_2/* = worker_2 -%>
+<%# -%>
+<%# should be parameterized as: -%>
+<%# $mount_file_content = { -%>
+<%#   worker_1 => { -%>
+<%#     uri_list => ['/context_1/', '/context_1/*'], -%>
+<%#     comment  => 'Worker 1', -%>
+<%#   }, -%>
+<%#   worker_2 => { -%>
+<%#     uri_list => ['/context_2/', '/context_2/*'], -%>
+<%#     comment  => 'Worker 2', -%>
+<%#   }, -%>
+<%# }, -%>
+<%# -%>
+<% @mount_file_content.sort.each do |worker,directives| -%>
+
+<%# Places comment before worker mappings -%>
+<% if directives.has_key?('comment') -%>
+# <%= directives['comment'] %>
+<% end -%>
+<% directives['uri_list'].sort.each do |uri| -%>
+<%= uri %> = <%= worker %>
+<% end -%>
+<% end -%>

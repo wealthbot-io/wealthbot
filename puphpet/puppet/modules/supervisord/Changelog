@@ -1,0 +1,222 @@
+2016-04-10 - v0.6.1
+
+Enhancements:
+
+- Can now set file mode for configuration files
+- Added support for concat versions >2
+- 'autostart' param can now be a 'string' or 'bool'
+- 'ensure_process' can now be set to unmanaged to disable any 'supervisorctl' command being executed
+
+Fixes:
+
+- Fixed dependency loop issue
+
+Many thanks to @Vincent-- , @rsood-trulia, @walterheck, @davidgubler for all the contributions!
+
+2015-11-22 - v0.6.0
+
+Enhancements:
+
+- Puppet 4 support
+- SuSE and Amazon OSs are now supported.
+- Added support for systemd in Debian 8 & RedHat/Centos 7.
+- Added suppor for enabling or disabling configuration management with '$supervisord::manage_config'.
+- Added 'running' to '$ensure_process' for define types to make sure they are started by supervisorctl.
+- Added '$package_install_options' for package installation.
+- Added '$ctl_socket' param for selecting between 'inet' and 'unix' sockets.
+- Added '$init_script', '$init_script_template', '$init_defaults' and 'init_defaults_template' to allow completely custom init scripts.
+- 'supervisord::supervisorctl' define now accepts an '$unless' param to add a condition to the exec resource for 'supervisorctl'.
+
+Fixes:
+
+- Fixed '$buffer_size' and '$retries' variable validation.
+- Fixed 'inet' and 'unix' server inconsistencies.
+- Fixed issue where curl might not have been installed.
+
+Changes:
+
+- Removed unneeded '$executable_path' variable
+- Use of '$environment' variable changed to define/class appropriate name such as '$program_environment'.
+
+Thanks to @buzzdeee, @mikeraynham, @md14454, @willaerk, @renepavlik, @maxenced, @nvtkaszpir, @MatthiasWiesner, Kendrick Martin
+
+2015-02-11 - v0.5.2
+
+Enhancements:
+
+- Added RHEL to enable SCL Py27 support, thanks to @dmglab
+- Enchanged logfile options to allow 'syslog', 'NONE', 'AUTO' and custom full qualified
+locations, thanks to @honzik666 and @SteveMaddison for these enhancements
+- Added 'FUTURE_PARSER' testing for forward compatibility testing
+
+Fixes:
+
+- Missing slash on 'pid_file' in redhat init script, thanks to @coreone
+- Fixed ordering where define type configuration was being written before configuration
+directories were created, thanks to @mcrumm for the bug report
+- Minor lint fixes
+
+2014-12-08 - v0.5.1
+
+Enhancements:
+
+- Added correct process naming when 'numprocs' is greater than '1' thanks to @dol  for this
+
+2014-12-03 - v0.5.0
+
+Fixes:
+
+- Fixed template boolean checks, now checks against 'nil' to allow for 'false' to
+be used.
+- Logs files now correctly use 'NONE' and 'AUTO' values.
+- Fixed 'supervisord::supervisorctl' define type to have correct spacing.
+- Corrected permissions for created conf files.
+- Fixed 'unix_username' and 'unix_password' use in 'unix_http_server' config
+- Corrected README example class.
+
+Enchancements:
+
+- The 'config_include' location can now be purged with the 'config_include_purge'
+boolean.
+- 'supervisord::rpcinterface' and 'supervisord::ctlplugin' are now available define types.
+- boolean define type params can now be both strings and booleans
+- supervisord changes will now use 'supervisord::supervisorctl' to reread and update all
+resources
+
+Notes:
+
+- Bumped 'stdlib' to version '4.4'
+
+Many thanks for the PRs from @kitchen, @jsok, @kamholz, @rayl, @fridim,
+@pavelsmolka and @dol
+
+2014-08-04 - v0.4.2
+
+Fixes:
+
+- Added Anchors to provide consistence resource ordering, thanks to @jbarbuto
+
+Enhancements:
+
+- Added package_name param, thanks to @jsok
+- Added executable_path param and removed hard coding in RedHat init scipt, thanks to @jtreminio
+
+2014-07-02 - v0.4.1
+
+Fixes:
+
+- Fixed status code error on supervisord::supervisorctl commands, thanks to @jtreminio for the PR.
+
+2014-06-20 - v0.4.0
+
+Fixes:
+
+- Removed root as group and replaced with uid 0 to enhance system
+compatibility
+
+Enhancements:
+
+- Made package provider a user definable param see supervisord::package_provider and README for details of how to change this.
+- All define types can now be automatically pulled in from hiera see example https://github.com/ajcrowe/puppet-supervisord#configure-a-program
+- You can now override the default include path of $config_include/*.conf with your own array using $config_dirs. Bear in mind this would need to include whatever you set $config_include to be, with *.conf on the end.
+
+Many thanks for the PRs from @jasperla, @mvantellingen for the bug report on the service name and @hasc for the enhancement ideas.
+
+2014-06-06 - v0.3.3
+
+Fixes:
+
+- Fixed typo in stopwaitsec param, should have been stopwaitsecs, thanks to @rchrd2
+
+2014-05-03 - v0.3.2
+
+Changes:
+
+- Added supervisord::executable_ctl variable for supervisorctl binary path, thanks to @bpgoldsb
+
+2014-04-22 - v0.3.1
+
+Fixes:
+
+- Fixed typo in unix_socket_group param, thanks to @dig412
+
+2014-03-11 - v0.3.0
+
+Fixes:
+
+- Fixed typo in fcgi config
+- Fixed typo in supervisord config with minfds and minprocs, thanks to @peefourtee
+- Typo in README fixed thanks to @hopkinsth
+- Removed refreshonly from pip_install exec resource
+- Number of syntax fixes thanks to 'puppet lint'
+
+Important Changes:
+
+- Lots of input validation has been added **PLEASE** check your config works before upgrading!
+- Changed init_extras naming to defaults and cleaned things up.
+- Starting and stopping apps is now done with supervisorctl commands to avoid service restarts
+
+Other Changes:
+
+- CSV functions now order things consistently
+- Included description for classes and functions
+- Expanded spec testing built with Travis CI
+- Added beaker acceptance tests
+- Added greater validation of various parameters
+- Added coverage reporting for resources
+
+To-Do:
+
+- Add support for additional OS families such as Solaris.
+
+
+2013-10-31 - v0.2.3
+
+Fixes:
+
+- Fixed large bug on debian wheezy where /var/run is changed from a symlink to a 
+  directory causing all pids to be inaccessible breaking lots of services
+
+
+2013-10-30 - v0.2.2
+
+Fixes:
+
+- Fixed syntax error in README examples and tests
+
+2013-10-16 - v0.2.1
+
+Fixes:
+
+- Fixed user params in templates
+- Added missing environment support in main supervisord.conf
+
+
+2013-10-15 - v0.2.0
+
+Feature complete release
+
+- Added Eventlistener template and function
+- Added FGCI-Program template and function
+- More consistent log naming and fixed missing new lines
+
+
+2013-10-15 - v0.1.1
+
+Fixes:
+
+- Missing '=' in template tags when using certain parameters
+- Added log file default to program define to avoid /tmp being used when not specified
+- Fixed logic when not using environment variables in program
+
+
+2013-10-15 - v0.1.0
+
+Summary:
+
+Completed basic module functionality for
+
+- Install with pip
+- Configure programs
+- Configure groups
+- Install init scripts for RedHat and Debian families 

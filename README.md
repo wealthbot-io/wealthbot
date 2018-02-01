@@ -64,7 +64,7 @@ And now, our super-simple, 3-step install
 
 1. `git clone https://github.com/wealthbot-io/wealthbot`
 2. Add `192.168.56.105  local.wealthbot.io` to your etc/hosts file
-3. `cd wealthbot/vagrant` and run `vagrant up` (run `vagrant provision` at first-run)
+3. `cd wealthbot` and run `vagrant up`
 
 *[If you prefer your instructions via Youtube](https://www.youtube.com/watch?v=cZQONErBFXo)*
 

@@ -1,0 +1,10 @@
+{
+  "description": "Allows you to perform apache service functions",
+  "input_method": "stdin",
+  "parameters": {
+    "action": {
+      "description": "Action to perform ",
+      "type": "Enum[reload]"
+    }
+  }
+}

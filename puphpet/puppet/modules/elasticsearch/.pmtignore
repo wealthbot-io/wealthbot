@@ -1,0 +1,10 @@
+*.org
+Gemfile
+Gemfile.lock
+Makefile
+Rakefile
+doc/
+junit/
+log/
+logs/
+spec/

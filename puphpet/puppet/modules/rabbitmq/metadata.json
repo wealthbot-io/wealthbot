@@ -1,0 +1,71 @@
+{
+  "name": "puppet-rabbitmq",
+  "version": "8.1.0",
+  "author": "voxpupuli",
+  "summary": "Installs, configures, and manages RabbitMQ.",
+  "license": "Apache-2.0",
+  "source": "https://github.com/voxpupuli/puppet-rabbitmq",
+  "project_page": "https://github.com/voxpupuli/puppet-rabbitmq",
+  "issues_url": "https://github.com/voxpupuli/puppet-rabbitmq/issues",
+  "operatingsystem_support": [
+    {
+      "operatingsystem": "RedHat",
+      "operatingsystemrelease": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "operatingsystem": "CentOS",
+      "operatingsystemrelease": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "operatingsystem": "Debian",
+      "operatingsystemrelease": [
+        "8"
+      ]
+    },
+    {
+      "operatingsystem": "Ubuntu",
+      "operatingsystemrelease": [
+        "14.04",
+        "16.04"
+      ]
+    },
+    {
+      "operatingsystem": "FreeBSD"
+    },
+    {
+      "operatingsystem": "OpenBSD"
+    },
+    {
+      "operatingsystem": "Archlinux"
+    }
+  ],
+  "requirements": [
+    {
+      "name": "puppet",
+      "version_requirement": ">= 4.7.1 < 6.0.0"
+    }
+  ],
+  "dependencies": [
+    {
+      "name": "puppetlabs/stdlib",
+      "version_requirement": ">= 4.13.1 < 5.0.0"
+    },
+    {
+      "name": "puppet/archive",
+      "version_requirement": ">= 1.0.0 < 3.0.0"
+    }
+  ],
+  "tags": [
+    "rabbitmq",
+    "ampq",
+    "messaging",
+    "stomp",
+    "queue"
+  ]
+}

@@ -1,0 +1,16 @@
+HOSTS:
+  ubuntu-14-04:
+    roles:
+      - master
+    platform: ubuntu-14.04-amd64
+    image: electrical/ubuntu:14.04
+    hypervisor: docker
+    docker_cmd: '["/sbin/init"]'
+    docker_image_commands:
+      - 'apt-get update'
+      - 'apt-get install -yq lsb-release wget net-tools curl'
+    docker_preserve_image: true
+CONFIG:
+  type: foss
+  log_level: debug
+  :trace_limit: 100  # Get more than 10 lines of trace when something fails.

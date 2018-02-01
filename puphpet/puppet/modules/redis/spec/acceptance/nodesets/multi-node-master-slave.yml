@@ -1,0 +1,26 @@
+HOSTS:
+  master:
+    roles:
+      - default
+      - master
+    platform: el-7-x86_64
+    box: puppetlabs/centos-7.2-64-nocm
+    ip: '10.255.33.129'
+    hypervisor: vagrant
+  slave1:
+    roles:
+      - slave
+    platform: el-7-x86_64
+    box: puppetlabs/centos-7.2-64-nocm
+    ip: '10.255.33.130'
+    hypervisor: vagrant
+  slave2:
+    roles:
+      - slave
+    platform: el-7-x86_64
+    box: puppetlabs/centos-7.2-64-nocm
+    ip: '10.255.33.131'
+    hypervisor: vagrant
+CONFIG:
+  type: foss
+  log_level: debug

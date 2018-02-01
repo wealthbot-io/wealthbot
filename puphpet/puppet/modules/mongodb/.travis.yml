@@ -1,0 +1,46 @@
+---
+sudo: false
+dist: trusty
+language: ruby
+cache: bundler
+before_install:
+  - rm -f Gemfile.lock
+script:
+  - 'bundle exec rake $CHECK'
+matrix:
+  fast_finish: true
+  include:
+  - rvm: 2.1.9
+    bundler_args: --without system_tests development release
+    env: PUPPET_VERSION="~> 4.0" CHECK=test PARALLEL_TEST_PROCESSORS=16
+  - rvm: 2.4.2
+    bundler_args: --without system_tests development release
+    env: PUPPET_VERSION="~> 5.0" CHECK=test_with_coveralls
+  - rvm: 2.4.2
+    bundler_args: --without system_tests development release
+    env: PUPPET_VERSION="~> 5.0" CHECK=rubocop
+  - rvm: 2.4.2
+    bundler_args: --without system_tests development release
+    env: PUPPET_VERSION="~> 5.0" CHECK=build DEPLOY_TO_FORGE=yes
+branches:
+  only:
+  - master
+  - /^v\d/
+notifications:
+  email: false
+  irc:
+    on_success: always
+    on_failure: always
+    channels:
+      - "chat.freenode.org#voxpupuli-notifications"
+deploy:
+  provider: puppetforge
+  user: puppet
+  password:
+    secure: "TcZjuTP5ooDXZNRnG1M+wqmT/Lqcg8CwZfLljGlDSjDEN2siUhflHf9A81q5XL17oN4BkQtPmLvu7d/7xijUOiqDWXG9PC/Xr3QsTTmjtEo5l2Ne7jO+HrXO0Ron6LjEy47PeUWVQs7JcLRQL1SpxlNkt/Xe7oSoL10PmP2GYJc="
+  on:
+    tags: true
+    # all_branches is required to use tags
+    all_branches: true
+    # Only publish the build marked with "DEPLOY_TO_FORGE"
+    condition: "$DEPLOY_TO_FORGE = yes"

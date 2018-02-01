@@ -1,0 +1,61 @@
+{
+  "name": "willdurand-nodejs",
+  "version": "2.0.0",
+  "author": "William Durand",
+  "license": "MIT",
+  "summary": "A module to install Node.js and NPM.",
+  "source": "https://github.com/willdurand/puppet-nodejs",
+  "project_page": "https://github.com/willdurand/puppet-nodejs",
+  "issues_url": "https://github.com/willdurand/puppet-nodejs/issues",
+  "tags": [
+    "node",
+    "nodejs",
+    "npm"
+  ],
+  "operatingsystem_support": [
+    {
+      "operatingsystem": "RedHat",
+      "operatingsystemrelease": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "operatingsystem": "CentOS",
+      "operatingsystemrelease": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "operatingsystem": "Ubuntu",
+      "operatingsystemrelease": [
+        "14.04",
+        "16.04"
+      ]
+    },
+    {
+      "operatingsystem": "Debian",
+      "operatingsystemrelease": [
+        "7",
+        "8"
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "name": "puppetlabs/stdlib",
+      "version_requirement": ">=3.2.1"
+    },
+    {
+      "name": "puppetlabs/gcc",
+      "version_requirement": ">=0.3.0"
+    }
+  ],
+  "requirements": [
+    {
+      "name": "puppet",
+      "version_requirement": ">=3.4.0 <5.0.0"
+    }
+  ]
+}

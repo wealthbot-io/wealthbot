@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+  File: README
+  
+    &mdash; Documentation by YARD 0.9.10
+  
+</title>
+
+  <link rel="stylesheet" href="css/style.css" type="text/css" charset="utf-8" />
+
+  <link rel="stylesheet" href="css/common.css" type="text/css" charset="utf-8" />
+
+<script type="text/javascript" charset="utf-8">
+  pathId = "";
+  relpath = '';
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div class="nav_wrap">
+      <iframe id="nav" src="file_list.html?1"></iframe>
+      <div id="resizer"></div>
+    </div>
+
+    <div id="main" tabindex="-1">
+      <div id="header">
+        <div id="menu">
+  
+    <a href="_index.html">Index</a> &raquo; 
+    <span class="title">File: README</span>
+  
+</div>
+
+        <div id="search">
+  
+    <a class="full_list_link" id="puppet_class_list_link"
+        href="puppet_class_list.html">
+
+        <svg width="24" height="24">
+          <rect x="0" y="4" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="12" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="20" width="24" height="4" rx="1" ry="1"></rect>
+        </svg>
+    </a>
+  
+</div>
+        <div class="clear"></div>
+      </div>
+
+      <div id="content"><div id='filecontents'><h1>rabbitmq</h1>
+
+<p><a href="https://github.com/voxpupuli/puppet-rabbitmq/blob/master/LICENSE"><img src="https://img.shields.io/github/license/voxpupuli/puppet-rabbitmq.svg" alt="License"></a>
+<a href="https://travis-ci.org/voxpupuli/puppet-rabbitmq"><img src="https://travis-ci.org/voxpupuli/puppet-rabbitmq.svg?branch=master" alt="Build Status"></a>
+<a href="https://coveralls.io/github/voxpupuli/puppet-rabbitmq"><img src="https://coveralls.io/repos/github/voxpupuli/puppet-rabbitmq/badge.svg?branch=master" alt="Code Coverage"></a>
+<a href="https://forge.puppetlabs.com/puppet/rabbitmq"><img src="https://img.shields.io/puppetforge/v/puppet/rabbitmq.svg" alt="Puppet Forge"></a>
+<a href="https://forge.puppetlabs.com/puppet/rabbitmq"><img src="https://img.shields.io/puppetforge/dt/puppet/rabbitmq.svg" alt="Puppet Forge - downloads"></a>
+<a href="https://forge.puppetlabs.com/puppet/rabbitmq"><img src="https://img.shields.io/puppetforge/e/puppet/rabbitmq.svg" alt="Puppet Forge - endorsement"></a>
+<a href="https://forge.puppetlabs.com/puppet/rabbitmq"><img src="https://img.shields.io/puppetforge/f/puppet/rabbitmq.svg" alt="Puppet Forge - scores"></a></p>
+
+<h4>Table of Contents</h4>
+
+<ol>
+<li><a href="#overview">Overview</a></li>
+<li><a href="#module-description">Module Description - What the module does and why it is useful</a></li>
+<li><a href="#setup">Setup - The basics of getting started with rabbitmq</a>
+
+<ul>
+<li><a href="#what-rabbitmq-affects">What rabbitmq affects</a></li>
+<li><a href="#setup-requirements">Setup requirements</a></li>
+</ul></li>
+<li><a href="#usage">Usage - Configuration options and additional functionality</a></li>
+<li><a href="#reference">Reference - An under-the-hood peek at what the module is doing and how</a></li>
+<li><a href="#limitations">Limitations - OS compatibility, etc.</a>
+
+<ul>
+<li><a href="#redhat-module-dependecies">RedHat module dependencies</a></li>
+</ul></li>
+<li><a href="#development">Development - Guide for contributing to the module</a></li>
+</ol>
+
+<h2>Overview</h2>
+
+<p>This module manages RabbitMQ (<a href="http://www.rabbitmq.com">www.rabbitmq.com</a>)</p>
+
+<h2>Module Description</h2>
+
+<p>The rabbitmq module sets up rabbitmq and has a number of providers to manage
+everything from vhosts to exchanges after setup.</p>
+
+<p>This module has been tested against 3.5.x and 3.6.x (as well as earlier
+versions) and is known to not support all features against versions
+prior to 2.7.1.</p>
+
+<h2>Setup</h2>
+
+<h3>What rabbitmq affects</h3>
+
+<ul>
+<li>rabbitmq repository files.</li>
+<li>rabbitmq package.</li>
+<li>rabbitmq configuration file.</li>
+<li>rabbitmq service.</li>
+</ul>
+
+<h2>Usage</h2>
+
+<p>All options and configuration can be done through interacting with the parameters
+on the main rabbitmq class.
+These are now documented via <a href="https://github.com/puppetlabs/puppet-strings">Puppet Strings</a></p>
+
+<p>For convenience, some examples are duplicated here:</p>
+
+<h2>rabbitmq class</h2>
+
+<p>To begin with the rabbitmq class controls the installation of rabbitmq.  In here
+you can control many parameters relating to the package and service, such as
+disabling puppet support of the service:</p>
+
+<pre class="code puppet"><code class="puppet">class { &#39;rabbitmq&#39;:
+  service_manage    =&gt; false,
+  port              =&gt; &#39;5672&#39;,
+  delete_guest_user =&gt; true,
+}
+</code></pre>
+
+<h3>Environment Variables</h3>
+
+<p>To use RabbitMQ Environment Variables, use the parameters <code>environment_variables</code> e.g.:</p>
+
+<pre class="code puppet"><code class="puppet">class { &#39;rabbitmq&#39;:
+  port                  =&gt; 5672,
+  environment_variables =&gt; {
+    &#39;NODENAME&#39;    =&gt; &#39;node01&#39;,
+    &#39;SERVICENAME&#39; =&gt; &#39;RabbitMQ&#39;
+  }
+}
+</code></pre>
+
+<h3>Variables Configurable in rabbitmq.config</h3>
+
+<p>To change RabbitMQ Config Variables in rabbitmq.config, use the parameters <code>config_variables</code> e.g.:</p>
+
+<pre class="code puppet"><code class="puppet">class { &#39;rabbitmq&#39;:
+  port             =&gt; 5672,
+  config_variables =&gt; {
+    &#39;hipe_compile&#39; =&gt; true,
+    &#39;frame_max&#39;    =&gt; 131072,
+    &#39;log_levels&#39;   =&gt; &quot;[{connection, info}]&quot;
+  }
+}
+</code></pre>
+
+<p>To change Erlang Kernel Config Variables in rabbitmq.config, use the parameters
+<code>config_kernel_variables</code> e.g.:</p>
+
+<pre class="code puppet"><code class="puppet">class { &#39;rabbitmq&#39;:
+  port                    =&gt; 5672,
+  config_kernel_variables =&gt; {
+    &#39;inet_dist_listen_min&#39; =&gt; 9100,
+    &#39;inet_dist_listen_max&#39; =&gt; 9105,
+  }
+}
+</code></pre>
+
+<p>To change Management Plugin Config Variables in rabbitmq.config, use the parameters
+<code>config_management_variables</code> e.g.:</p>
+
+<pre class="code puppet"><code class="puppet">class { &#39;rabbitmq&#39;:
+  config_management_variables =&gt; {
+    &#39;rates_mode&#39; =&gt; &#39;basic&#39;,
+  }
+}
+</code></pre>
+
+<h3>Additional Variables Configurable in rabbitmq.config</h3>
+
+<p>To change Additional Config Variables in rabbitmq.config, use the parameter
+<code>config_additional_variables</code> e.g.:</p>
+
+<pre class="code puppet"><code class="puppet">class { &#39;rabbitmq&#39;:
+  config_additional_variables =&gt; {
+    &#39;autocluster&#39; =&gt; &#39;[{consul_service, &quot;rabbit&quot;},{cluster_name, &quot;rabbit&quot;}]&#39;,
+    &#39;foo&#39;         =&gt; &#39;[{bar, &quot;baz&quot;}]&#39;
+  }
+}
+</code></pre>
+
+<p>This will result in the following config appended to the config file:</p>
+
+<pre class="code ruby"><code class="ruby">% Additional config
+  {autocluster, [{consul_service, &quot;rabbit&quot;},{cluster_name, &quot;rabbit&quot;}]},
+  {foo, [{bar, &quot;baz&quot;}]}
+</code></pre>
+
+<p>(This is required for the <a href="https://github.com/aweber/rabbitmq-autocluster">autocluster plugin</a></p>
+
+<h3>Clustering</h3>
+
+<p>To use RabbitMQ clustering facilities, use the rabbitmq parameters
+<code>config_cluster</code>, <code>cluster_nodes</code>, and <code>cluster_node_type</code>, e.g.:</p>
+
+<pre class="code puppet"><code class="puppet">class { &#39;rabbitmq&#39;:
+  config_cluster           =&gt; true,
+  cluster_nodes            =&gt; [&#39;rabbit1&#39;, &#39;rabbit2&#39;],
+  cluster_node_type        =&gt; &#39;ram&#39;,
+  erlang_cookie            =&gt; &#39;A_SECRET_COOKIE_STRING&#39;,
+  wipe_db_on_cookie_change =&gt; true,
+}
+</code></pre>
+
+<h3>rabbitmq_user</h3>
+
+<p>query all current users: <code>$ puppet resource rabbitmq_user</code></p>
+
+<pre class="code puppet"><code class="puppet">rabbitmq_user { &#39;dan&#39;:
+  admin    =&gt; true,
+  password =&gt; &#39;bar&#39;,
+}
+</code></pre>
+
+<p>Optional parameter tags will set further rabbitmq tags like monitoring, policymaker, etc.
+To set the administrator tag use admin-flag.</p>
+
+<pre class="code puppet"><code class="puppet">rabbitmq_user { &#39;dan&#39;:
+  admin    =&gt; true,
+  password =&gt; &#39;bar&#39;,
+  tags     =&gt; [&#39;monitoring&#39;, &#39;tag1&#39;],
+}
+</code></pre>
+
+<h3>rabbitmq_vhost</h3>
+
+<p>query all current vhosts: <code>$ puppet resource rabbitmq_vhost</code></p>
+
+<pre class="code puppet"><code class="puppet">rabbitmq_vhost { &#39;myvhost&#39;:
+  ensure =&gt; present,
+}
+</code></pre>
+
+<h3>rabbitmq_exchange</h3>
+
+<pre class="code puppet"><code class="puppet">rabbitmq_exchange { &#39;myexchange@myvhost&#39;:
+  ensure      =&gt; present,
+  user        =&gt; &#39;dan&#39;,
+  password    =&gt; &#39;bar&#39;,
+  type        =&gt; &#39;topic&#39;,
+  internal    =&gt; false,
+  auto_delete =&gt; false,
+  durable     =&gt; true,
+  arguments   =&gt; {
+    hash-header =&gt; &#39;message-distribution-hash&#39;
+  }
+}
+</code></pre>
+
+<h3>rabbitmq_queue</h3>
+
+<pre class="code puppet"><code class="puppet">rabbitmq_queue { &#39;myqueue@myvhost&#39;:
+  ensure      =&gt; present,
+  user        =&gt; &#39;dan&#39;,
+  password    =&gt; &#39;bar&#39;,
+  durable     =&gt; true,
+  auto_delete =&gt; false,
+  arguments   =&gt; {
+    x-message-ttl          =&gt; 123,
+    x-dead-letter-exchange =&gt; &#39;other&#39;
+  },
+}
+</code></pre>
+
+<h3>rabbitmq_binding</h3>
+
+<pre class="code puppet"><code class="puppet">rabbitmq_binding { &#39;myexchange@myqueue@myvhost&#39;:
+  ensure           =&gt; present,
+  user             =&gt; &#39;dan&#39;,
+  password         =&gt; &#39;bar&#39;,
+  destination_type =&gt; &#39;queue&#39;,
+  routing_key      =&gt; &#39;#&#39;,
+  arguments        =&gt; {},
+}
+</code></pre>
+
+<pre class="code puppet"><code class="puppet">rabbitmq_binding { &#39;binding 1&#39;:
+  ensure           =&gt; present,
+  source           =&gt; &#39;myexchange&#39;,
+  destination      =&gt; &#39;myqueue&#39;,
+  vhost            =&gt; &#39;myvhost&#39;,
+  user             =&gt; &#39;dan&#39;,
+  password         =&gt; &#39;bar&#39;,
+  destination_type =&gt; &#39;queue&#39;,
+  routing_key      =&gt; &#39;key1&#39;,
+  arguments        =&gt; {},
+}
+
+rabbitmq_binding { &#39;binding 2&#39;:
+  ensure           =&gt; present,
+  source           =&gt; &#39;myexchange&#39;,
+  destination      =&gt; &#39;myqueue&#39;,
+  vhost            =&gt; &#39;myvhost&#39;,
+  user             =&gt; &#39;dan&#39;,
+  password         =&gt; &#39;bar&#39;,
+  destination_type =&gt; &#39;queue&#39;,
+  routing_key      =&gt; &#39;key2&#39;,
+  arguments        =&gt; {},
+}
+
+</code></pre>
+
+<h3>rabbitmq_user_permissions</h3>
+
+<pre class="code puppet"><code class="puppet">rabbitmq_user_permissions { &#39;dan@myvhost&#39;:
+  configure_permission =&gt; &#39;.*&#39;,
+  read_permission      =&gt; &#39;.*&#39;,
+  write_permission     =&gt; &#39;.*&#39;,
+}
+</code></pre>
+
+<h3>rabbitmq_policy</h3>
+
+<pre class="code puppet"><code class="puppet">rabbitmq_policy { &#39;ha-all@myvhost&#39;:
+  pattern    =&gt; &#39;.*&#39;,
+  priority   =&gt; 0,
+  applyto    =&gt; &#39;all&#39;,
+  definition =&gt; {
+    &#39;ha-mode&#39;      =&gt; &#39;all&#39;,
+    &#39;ha-sync-mode&#39; =&gt; &#39;automatic&#39;,
+  },
+}
+</code></pre>
+
+<h3>rabbitmq_plugin</h3>
+
+<p>query all currently enabled plugins <code>$ puppet resource rabbitmq_plugin</code></p>
+
+<pre class="code puppet"><code class="puppet">rabbitmq_plugin {&#39;rabbitmq_stomp&#39;:
+  ensure =&gt; present,
+}
+</code></pre>
+
+<h3>rabbitmq_parameter</h3>
+
+<pre class="code puppet"><code class="puppet">  rabbitmq_parameter { &#39;documentumShovel@/&#39;:
+    component_name =&gt; &#39;&#39;,
+    value          =&gt; {
+        &#39;src-uri&#39;    =&gt; &#39;amqp://&#39;,
+        &#39;src-queue&#39;  =&gt; &#39;my-queue&#39;,
+        &#39;dest-uri&#39;   =&gt; &#39;amqp://remote-server&#39;,
+        &#39;dest-queue&#39; =&gt; &#39;another-queue&#39;,
+    },
+  }
+
+  rabbitmq_parameter { &#39;documentumFed@/&#39;:
+    component_name =&gt; &#39;federation-upstream&#39;,
+    value          =&gt; {
+        &#39;uri&#39;     =&gt; &#39;amqp://myserver&#39;,
+        &#39;expires&#39; =&gt; &#39;360000&#39;,
+    },
+  }
+</code></pre>
+
+<h2>Reference</h2>
+
+<h2>Classes</h2>
+
+<ul>
+<li>rabbitmq: Main class for installation and service management.</li>
+<li>rabbitmq::config: Main class for rabbitmq configuration/management.</li>
+<li>rabbitmq::install: Handles package installation.</li>
+<li>rabbitmq::params: Different configuration data for different systems.</li>
+<li>rabbitmq::service: Handles the rabbitmq service.</li>
+<li>rabbitmq::repo::apt: Handles apt repo for Debian systems.</li>
+<li>rabbitmq::repo::rhel: Handles rpm repo for Redhat systems.</li>
+</ul>
+
+<h3>Module dependencies</h3>
+
+<p>If running CentOS/RHEL, ensure the epel repo, or another repo containing a
+suitable Erlang version, is present. On Debian systems, puppetlabs/apt
+(&gt;=2.0.0 &lt; 5.0.0) is a soft dependency.</p>
+
+<p>To have a suitable erlang version installed on RedHat and Debian systems,
+you have to install another puppet module from <a href="http://forge.puppetlabs.com/garethr/erlang">http://forge.puppetlabs.com/garethr/erlang</a> with:</p>
+
+<pre class="code ruby"><code class="ruby">puppet module install garethr-erlang
+</code></pre>
+
+<p>This module handles the packages for erlang.
+To use the module, add the following snippet to your site.pp or an appropriate profile class:</p>
+
+<p>For RedHat systems:</p>
+
+<pre class="code ruby"><code class="ruby">include &#39;erlang&#39;
+class { &#39;erlang&#39;: epel_enable =&gt; true}
+</code></pre>
+
+<p>For Debian systems:</p>
+
+<pre class="code ruby"><code class="ruby">include &#39;erlang&#39;
+package { &#39;erlang-base&#39;:
+  ensure =&gt; &#39;latest&#39;,
+}
+</code></pre>
+
+<p>This module also depends on voxpupuli/archive to install rabbitmqadmin.</p>
+
+<h2>Development</h2>
+
+<p>This module is maintained by <a href="https://voxpupuli.org/">Vox Pupuli</a>. Voxpupuli
+welcomes new contributions to this module, especially those that include
+documentation and rspec tests. We are happy to provide guidance if necessary.</p>
+
+<p>Please see <a href=".github/CONTRIBUTING.md">CONTRIBUTING</a> for more details.</p>
+
+<h3>Authors</h3>
+
+<ul>
+<li>Jeff McCune <a href="mailto:jeff@puppetlabs.com">jeff@puppetlabs.com</a></li>
+<li>Dan Bode <a href="mailto:dan@puppetlabs.com">dan@puppetlabs.com</a></li>
+<li>RPM/RHEL packages by Vincent Janelle <a href="mailto:randomfrequency@gmail.com">randomfrequency@gmail.com</a></li>
+<li>Puppetlabs Module Team</li>
+<li>Voxpupuli Team</li>
+</ul>
+</div></div>
+
+      <div id="footer">
+     Generated by <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>.
+</div>
+
+    </div>
+  </body>
+</html>

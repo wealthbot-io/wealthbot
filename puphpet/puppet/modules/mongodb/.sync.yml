@@ -1,0 +1,10 @@
+# the mongodb tests currently do not work on centos 7 or ubuntu 14.04
+---
+.travis.yml:
+  secure: "TcZjuTP5ooDXZNRnG1M+wqmT/Lqcg8CwZfLljGlDSjDEN2siUhflHf9A81q5XL17oN4BkQtPmLvu7d/7xijUOiqDWXG9PC/Xr3QsTTmjtEo5l2Ne7jO+HrXO0Ron6LjEy47PeUWVQs7JcLRQL1SpxlNkt/Xe7oSoL10PmP2GYJc="
+  docker_sets: []
+appveyor.yml:
+  delete: true
+spec/spec_helper.rb:
+  allow_deprecations: true
+  spec_overrides: "require 'spec_helper_local'"

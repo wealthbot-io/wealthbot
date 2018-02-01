@@ -1,0 +1,20 @@
+language: ruby
+
+rvm:
+  - 2.1.0
+
+env:
+  - PUPPET_VERSION="~> 3.6.0"
+  - PUPPET_VERSION="~> 3.7.0"
+  - PUPPET_VERSION="~> 4.3.0"
+  - PUPPET_VERSION="~> 4.3.0" STRICT_VARIABLES=yes
+
+before_install:
+  - gem update bundler
+  - bundle --version
+  - gem update --system 2.1.11
+  - gem --version
+
+script: "rake test"
+
+sudo: false

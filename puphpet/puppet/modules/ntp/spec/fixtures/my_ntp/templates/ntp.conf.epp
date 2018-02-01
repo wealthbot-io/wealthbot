@@ -1,0 +1,2 @@
+# EPP template
+<% [1].each |$i| { -%>eppserver<%= $i %><% } -%>

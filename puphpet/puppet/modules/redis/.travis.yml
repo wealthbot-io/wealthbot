@@ -1,0 +1,71 @@
+---
+language: ruby
+bundler_args: --without system_tests
+script: 'SPEC_OPTS="--format documentation" bundle exec rake validate lint spec'
+before_install:
+  - gem install bundler # -v x.x.x if a specific version is needed
+matrix:
+  fast_finish: true
+  include:
+  - sudo: required
+    dist: trusty
+    rvm: 2.1.9
+    env: PUPPET_GEM_VERSION="~> 3.0" FUTURE_PARSER="yes" ORDERING="random"
+  - sudo: required
+    dist: trusty
+    rvm: 2.2.2
+    env: PUPPET_GEM_VERSION="~> 3.0" STRICT_VARIABLES="yes" ORDERING="random"
+  - sudo: required
+    dist: trusty
+    rvm: 2.1.9
+    env: PUPPET_GEM_VERSION="~> 4.0" STRICT_VARIABLES="yes" ORDERING="random"
+  - sudo: required
+    services: docker
+    rvm: '2.3.3'
+    env: PUPPET_INSTALL_VERSION="1.10.8" PUPPET_INSTALL_TYPE=agent BEAKER_set="centos-6-docker"
+    script: bundle exec rake beaker:suites['default',$BEAKER_set]
+    bundler_args: --without development
+  - sudo: required
+    services: docker
+    rvm: '2.3.3'
+    env: PUPPET_INSTALL_VERSION="1.10.8" PUPPET_INSTALL_TYPE=agent BEAKER_set="centos-7-docker"
+    script: bundle exec rake beaker:suites['default',$BEAKER_set]
+    bundler_args: --without development
+  - sudo: required
+    services: docker
+    rvm: '2.3.3'
+    env: PUPPET_INSTALL_VERSION="1.10.8" PUPPET_INSTALL_TYPE=agent BEAKER_set="debian-8-docker"
+    script: bundle exec rake beaker:suites['default',$BEAKER_set]
+    bundler_args: --without development
+  - sudo: required
+    services: docker
+    rvm: '2.3.3'
+    env: PUPPET_INSTALL_VERSION="1.10.8" PUPPET_INSTALL_TYPE=agent BEAKER_set="ubuntu-1604-docker"
+    script: bundle exec rake beaker:suites['default',$BEAKER_set]
+    bundler_args: --without development
+  - sudo: required
+    services: docker
+    rvm: '2.3.3'
+    env: PUPPET_INSTALL_VERSION="1.5.2" PUPPET_INSTALL_TYPE=agent BEAKER_set="ubuntu-1404-docker"
+    script: bundle exec rake beaker:suites['default',$BEAKER_set]
+    bundler_args: --without development
+  - sudo: required
+    rvm: '2.4.0'
+    env: PUPPET_VERSION="~> 4.0" CHECK=build DEPLOY_TO_FORGE=yes
+    script: bundle exec rake build
+    bundler_args: --without development
+branches:
+  only:
+  - master
+  - /^v\d/
+deploy:
+  provider: puppetforge
+  user: arioch
+  password:
+    secure: N5N2gNr0MTHY2bjBnW6FKk3qwWpYEJ+h5jM5E6058hX4f3zFYQVWwO0xXtlgJ61bG89KN4hMNhvZgYjlh+aAFMS2iNoNiBcNDI4dksu2lR4iIVeP5FIp8JnEh7jNDuldaIqHo2GKjRSkl70lcNC6NzYcAAsiyFvkn5XEDLkbKR8=
+  on:
+    tags: true
+    # all_branches is required to use tags
+    all_branches: true
+    # Only publish the build marked with "DEPLOY_TO_FORGE"
+    condition: "$DEPLOY_TO_FORGE = yes"

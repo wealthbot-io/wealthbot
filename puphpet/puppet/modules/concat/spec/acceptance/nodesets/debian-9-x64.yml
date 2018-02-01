@@ -1,0 +1,20 @@
+HOSTS:
+  debian-9-x64:
+    pe_dir:
+    pe_ver:
+    pe_upgrade_dir:
+    pe_upgrade_ver:
+    hypervisor: vmpooler
+    platform: debian-9-x64
+    ruby_arch: x64
+    template: debian-9-x86_64
+    roles:
+    - agent
+    - master
+    - database
+    - dashboard
+    - default
+CONFIG:
+  nfs_server: none
+  consoleport: 443
+  pooling_api: http://vmpooler.delivery.puppetlabs.net/

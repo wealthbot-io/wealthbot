@@ -1,0 +1,20 @@
+fixtures:
+  repositories:
+    apt:
+      repo: "git://github.com/puppetlabs/puppetlabs-apt.git"
+      ref: 2.3.0
+    stdlib:
+      repo: "git://github.com/puppetlabs/puppetlabs-stdlib.git"
+      ref: 4.11.0
+    epel:
+      repo: 'https://github.com/stahnma/puppet-module-epel.git'
+      ref: 1.2.2
+    augeasproviders_sysctl:
+      repo: "git://github.com/hercules-team/augeasproviders_sysctl.git"
+      tag: v2.1.0
+    augeasproviders_core:
+      repo: "git://github.com/hercules-team/augeasproviders_core.git"
+      tag: v2.1.0
+  symlinks:
+    redis: "#{source_dir}"
+

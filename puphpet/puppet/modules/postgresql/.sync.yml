@@ -1,0 +1,7 @@
+---
+NOTICE:
+  unmanaged: true
+appveyor.yml:
+  delete: true
+spec/spec_helper.rb:
+  allow_deprecations: true

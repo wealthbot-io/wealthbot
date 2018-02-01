@@ -1,0 +1,16 @@
+HOSTS:
+  ubuntu-16-04:
+    roles:
+      - master
+      - database
+      - dashboard
+    platform: ubuntu-16.04-amd64
+    image: ubuntu:16.04
+    hypervisor: docker
+    docker_cmd: ["/sbin/init"]
+    docker_preserve_image: true
+    docker_image_commands:
+      - apt-get update
+      - apt-get install -yq libssl-dev puppet apt-transport-https
+CONFIG:
+  log_level: warn

@@ -1,0 +1,4 @@
+---
+elasticsearch::download_tool: 'curl --insecure -o'
+elasticsearch::elasticsearch_user: elasticsearch
+elasticsearch::elasticsearch_group: elasticsearch

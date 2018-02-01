@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+  Resource Type: rabbitmq_user
+  
+    &mdash; Documentation by YARD 0.9.10
+  
+</title>
+
+  <link rel="stylesheet" href="../css/style.css" type="text/css" charset="utf-8" />
+
+  <link rel="stylesheet" href="../css/common.css" type="text/css" charset="utf-8" />
+
+<script type="text/javascript" charset="utf-8">
+  pathId = "puppet_types::rabbitmq_user";
+  relpath = '../';
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="../js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="../js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div class="nav_wrap">
+      <iframe id="nav" src="../puppet_type_list.html?1"></iframe>
+      <div id="resizer"></div>
+    </div>
+
+    <div id="main" tabindex="-1">
+      <div id="header">
+        <div id="menu">
+  
+    <a href="../_index.html">Index (r)</a> &raquo;
+    <span class='title'><span class='object_link'>Resource Types</span></span>
+     &raquo; 
+    <span class="title">rabbitmq_user</span>
+  
+</div>
+
+        <div id="search">
+  
+    <a class="full_list_link" id="puppet_class_list_link"
+        href="../puppet_class_list.html">
+
+        <svg width="24" height="24">
+          <rect x="0" y="4" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="12" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="20" width="24" height="4" rx="1" ry="1"></rect>
+        </svg>
+    </a>
+  
+</div>
+        <div class="clear"></div>
+      </div>
+
+      <div id="content"><h1>Resource Type: rabbitmq_user</h1>
+<div class="box_info">
+  <dl>
+    <dt>Defined in:</dt>
+    <dd>
+      lib/puppet/type/rabbitmq_user.rb
+    </dd>
+  </dl>
+  
+  <dl>
+    <dt>Providers:</dt>
+    <dd>
+      
+        <span class='object_link'><a href="../puppet_providers_rabbitmq_user/rabbitmqctl.html" title="puppet_providers_rabbitmq_user::rabbitmqctl (puppet_provider)">rabbitmqctl</a></span><br/>
+      
+    </dd>
+  </dl>
+  
+</div>
+
+<h2>Overview</h2>
+<div class="docstring">
+  <div class="discussion">
+    <p>Native type for managing rabbitmq users</p>
+
+  </div>
+</div>
+<div class="tags">
+  
+  <div class="examples">
+    <p class="tag_title">Examples:</p>
+    
+      
+        <p class="example_title"><div class='inline'><p>query all current users</p>
+</div></p>
+      
+      <pre class="example code"><code>$ puppet resource rabbitmq_user</code></pre>
+    
+      
+        <p class="example_title"><div class='inline'><p>Configure a user, dan</p>
+</div></p>
+      
+      <pre class="example code"><code>rabbitmq_user { &#39;dan&#39;:
+  admin    =&gt; true,
+  password =&gt; &#39;bar&#39;,
+}</code></pre>
+    
+      
+        <p class="example_title"><div class='inline'><p>Optional parameter tags will set further rabbitmq tags like monitoring, policymaker, etc.</p>
+</div></p>
+      
+      <pre class="example code"><code>To set the administrator tag use admin-flag.
+rabbitmq_user { &#39;dan&#39;:
+  admin    =&gt; true,
+  password =&gt; &#39;bar&#39;,
+  tags     =&gt; [&#39;monitoring&#39;, &#39;tag1&#39;],
+}</code></pre>
+    
+  </div>
+
+
+</div>
+<div class="tags">
+  <p class="tag_title">Properties</p>
+  <ul>
+    
+    <li>
+      <span class="name">admin</span>
+      
+      <span class="default"> (defaults to: <em>false</em>)</span>
+      
+      
+      <div class="docstring">
+        <div class="discussion">
+          <p>whether or not user should be an admin</p>
+
+        </div>
+      </div>
+      
+      
+      <div>
+        Supported values:
+        <ul>
+          
+          <li>
+            
+            %r{true|false}
+          </li>
+          
+        </ul>
+      </div>
+      
+    </li>
+    
+    <li>
+      <span class="name">ensure</span>
+      
+      <span class="default"> (defaults to: <em>present</em>)</span>
+      
+      
+      <div class="docstring">
+        <div class="discussion">
+          <p>The basic property that the resource should be in.</p>
+
+        </div>
+      </div>
+      
+      
+      <div>
+        Supported values:
+        <ul>
+          
+          <li>
+            
+            present
+          </li>
+          
+          <li>
+            
+            absent
+          </li>
+          
+        </ul>
+      </div>
+      
+    </li>
+    
+    <li>
+      <span class="name">password</span>
+      
+      
+      <div class="docstring">
+        <div class="discussion">
+          <p>User password to be set <em>on creation</em> and validated each run</p>
+
+        </div>
+      </div>
+      
+      
+    </li>
+    
+    <li>
+      <span class="name">tags</span>
+      
+      <span class="default"> (defaults to: <em>[]</em>)</span>
+      
+      
+      <div class="docstring">
+        <div class="discussion">
+          <p>additional tags for the user</p>
+
+        </div>
+      </div>
+      
+      
+    </li>
+    
+  </ul>
+</div>
+
+
+<div class="tags">
+  <p class="tag_title">Parameters</p>
+  <ul>
+    
+    <li>
+      <span class="name">name (namevar)</span>
+      
+      
+      <div class="docstring">
+        <div class="discussion">
+          <p>Name of user</p>
+
+        </div>
+      </div>
+      
+      
+      <div>
+        Supported values:
+        <ul>
+          
+          <li>
+            
+            %r{^\S+$}
+          </li>
+          
+        </ul>
+      </div>
+      
+    </li>
+    
+  </ul>
+</div>
+
+
+</div>
+
+      <div id="footer">
+     Generated by <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>.
+</div>
+
+    </div>
+  </body>
+</html>

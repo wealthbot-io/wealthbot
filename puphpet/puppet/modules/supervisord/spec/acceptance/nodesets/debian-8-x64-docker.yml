@@ -1,0 +1,13 @@
+HOSTS:
+  debian-8-x64:
+    roles:
+      - master
+    platform: debian-8-amd64
+    hypervisor : docker
+    image: debian:8
+    docker_preserve_image: true
+    docker_image_commands:
+    - 'apt-get install wget -qq'
+CONFIG:
+  type: foss
+  log_level: debug

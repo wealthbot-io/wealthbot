@@ -1,0 +1,15 @@
+HOSTS:
+  debian-7:
+    roles:
+      - master
+    platform: debian-7-amd64
+    image: debian:7
+    hypervisor: docker
+    docker_cmd: ["/sbin/init"]
+    docker_preserve_image: true
+    docker_image_commands:
+      - apt-get install -yq wget libssl-dev net-tools locales apt-transport-https software-properties-common
+      - echo "en_US.UTF-8 UTF-8" > /etc/locale.gen && DEBIAN_FRONTEND=noninteractive locale-gen en_US.UTF-8 && DEBIAN_FRONTEND=noninteractive dpkg-reconfigure locales && DEBIAN_FRONTEND=noninteractive /usr/sbin/update-locale LANG=en_US.UTF-8
+CONFIG:
+  type: foss
+  log_level: debug

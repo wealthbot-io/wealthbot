@@ -1,0 +1,16 @@
+{
+  "name": "example42-puppi",
+  "version": "2.2.2",
+  "summary": "Installs and configures Puppi",
+  "author": "Alessandro Franceschi",
+  "description": "This module provides the Puppi libraries required by Example42 modules and, if explicitely included, the puppi command, its working environment, the defines and procedures to deploy applications",
+  "source": "https://github.com/example42/puppi",
+  "project_page": "https://github.com/example42/puppi",
+  "license": "Apache2",
+  "dependencies": [
+    {
+      "name": "puppetlabs/stdlib",
+      "version_requirement": ">= 3.2.0 < 5.0.0"
+    }
+  ]
+}

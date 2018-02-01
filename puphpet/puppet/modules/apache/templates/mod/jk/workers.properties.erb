@@ -1,0 +1,62 @@
+# This file is generated automatically by Puppet - DO NOT EDIT
+# Any manual changes will be overwritten
+<%# -%>
+<%# workers_file_content should be a hash which keys are workers names -%>
+<%# and values are new hashes with properties and values -%>
+<%# Two keys are special (and reserved!): -%>
+<%# worker_lists - Array of comma-separated worker names lists -%>
+<%# Each list is an item of the array and will be placed in one line -%>
+<%# worker_mantain - Numeric string -%>
+<%# -%>
+<%# Example: -%>
+<%# worker.list = status -%>
+<%# worker.list = some_name,other_name -%>
+<%# worker.mantain = 60 -%>
+<%# # Optional comment -%>
+<%# worker.some_name.type=ajp13 -%>
+<%# worker.some_name.socket_keepalive=true -%>
+<%# # I just like comments -%>
+<%# worker.other_name.type=ajp12 (why would you?) -%>
+<%# worker.other_name.socket_keepalive=false -%>
+<%# -%>
+<%# should be parameterized as: -%>
+<%# $workers_file_content = { -%>
+<%#   worker_lists => ['status', 'some_name,other_name'], -%>
+<%#   worker_mantain => '60', -%>
+<%#   some_name => { -%>
+<%#     type             => 'ajp13', -%>
+<%#     socket_keepalive => 'true', -%>
+<%#     comment          => 'Optional comment', -%>
+<%#   }, -%>
+<%#   other_name => { -%>
+<%#     type             => 'ajp12', -%>
+<%#     socket_keepalive => 'false', -%>
+<%#     comment          => 'I just like comments', -%>
+<%#   }, -%>
+<%# }, -%>
+<%# -%>
+<% if @workers_file_content.has_key?('worker_lists') -%>
+
+<% @workers_file_content['worker_lists'].sort.each do |list| -%>
+worker.list = <%= list %>
+<% end -%>
+<% end -%>
+<% if @workers_file_content.has_key?('worker_mantain') -%>
+
+worker.maintain = <%= @workers_file_content['worker_mantain'] %>
+<% end -%>
+<% @workers_file_content.sort.each do |name,directives| -%>
+<%# Skip hash items with the reserved keys -%>
+<% if not ['worker_lists', 'worker_mantain'].include?(name) -%>
+
+<%# Places comment before worker directives -%>
+<% if directives.has_key?('comment') -%>
+# <%= directives['comment'] %>
+<% end -%>
+<% directives.sort.each do |property,value| -%>
+<% if property != 'comment' -%>
+worker.<%= name %>.<%= property %>=<%= value %>
+<% end -%>
+<% end -%>
+<% end -%>
+<% end -%>

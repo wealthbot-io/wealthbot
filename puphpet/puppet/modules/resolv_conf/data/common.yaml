@@ -1,0 +1,6 @@
+---
+resolv_conf::use_resolvconf: false
+resolv_conf::package: ~
+resolv_conf::package_ensure: 'absent'
+resolv_conf::manage_package: false
+resolv_conf::update_cmd: ~

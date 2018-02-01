@@ -1,0 +1,7 @@
+---
+elasticsearch::indices:
+  baz:
+    ensure: 'present'
+    settings:
+      index:
+        number_of_shards: 1

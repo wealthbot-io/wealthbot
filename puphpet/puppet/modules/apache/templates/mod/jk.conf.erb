@@ -1,0 +1,167 @@
+# This file is generated automatically by Puppet - DO NOT EDIT
+# Any manual changes will be overwritten
+
+<IfModule jk_module>
+  <%- if @workers_file -%>
+  JkWorkersFile <%= @workers_file %>
+  <%- end -%>
+  <%- if @worker_property -%>
+  <%- @worker_property.sort.each do |property,value| -%>
+  JkWorkerProperty <%= property %>=<%= value %>
+  <%- end -%>
+  <%- end -%>
+  <%- if @shm_path -%>
+  JkShmFile <%= @shm_path %>
+  <%- end -%>
+  <%- if @shm_size -%>
+  JkShmSize <%= @shm_size %>
+  <%- end -%>
+  <%- if @mount_file -%>
+  JkMountFile <%= @mount_file %>
+  <%- end -%>
+  <%- if @mount_file_reload -%>
+  JkMountFileReload <%= @mount_file_reload %>
+  <%- end -%>
+  <%- if @mount -%>
+  <%- @mount.sort.each do |url_prefix,worker_name| -%>
+  JkMount <%= url_prefix %> <%= worker_name %>
+  <%- end -%>
+  <%- end -%>
+  <%- if @un_mount -%>
+  <%- @un_mount.sort.each do |url_prefix,worker_name| -%>
+  JkUnMount <%= url_prefix %> <%= worker_name %>
+  <%- end -%>
+  <%- end -%>
+  <%- if @auto_alias -%>
+  JkAutoAlias <%= @auto_alias %>
+  <%- end -%>
+  <%- if @mount_copy -%>
+  JkMountCopy <%= @mount_copy %>
+  <%- end -%>
+  <%- if @worker_indicator -%>
+  JkWorkerIndicator <%= @worker_indicator %>
+  <%- end -%>
+  <%- if @watchdog_interval -%>
+  JkWatchdogInterval <%= @watchdog_interval %>
+  <%- end -%>
+  <%- if @log_path -%>
+  JkLogFile <%= @log_path %>
+  <%- end -%>
+  <%- if @log_level -%>
+  JkLogLevel <%= @log_level %>
+  <%- end -%>
+  <%- if @log_stamp_format -%>
+  JkLogStampFormat <%= @log_stamp_format %>
+  <%- end -%>
+  <%- if @request_log_format -%>
+  JkRequestLogFormat <%= @request_log_format %>
+  <%- end -%>
+  <%- if @extract_ssl -%>
+  JkExtractSSL <%= @extract_ssl %>
+  <%- end -%>
+  <%- if @https_indicator -%>
+  JkHTTPSIndicator <%= @https_indicator %>
+  <%- end -%>
+  <%- if @sslprotocol_indicator -%>
+  JkSSLPROTOCOLIndicator <%= @sslprotocol_indicator %>
+  <%- end -%>
+  <%- if @certs_indicator -%>
+  JkCERTSIndicator <%= @certs_indicator %>
+  <%- end -%>
+  <%- if @cipher_indicator -%>
+  JkCIPHERIndicator <%= @cipher_indicator %>
+  <%- end -%>
+  <%- if @certchain_prefix -%>
+  JkCERTCHAINPrefix <%= @certchain_prefix %>
+  <%- end -%>
+  <%- if @session_indicator -%>
+  JkSESSIONIndicator <%= @session_indicator %>
+  <%- end -%>
+  <%- if @keysize_indicator -%>
+  JkKEYSIZEIndicator <%= @keysize_indicator %>
+  <%- end -%>
+  <%- if @local_name_indicator -%>
+  JkLocalNameIndicator <%= @local_name_indicator %>
+  <%- end -%>
+  <%- if @ignore_cl_indicator -%>
+  JkIgnoreCLIndicator <%= @ignore_cl_indicator %>
+  <%- end -%>
+  <%- if @local_addr_indicator -%>
+  JkLocalAddrIndicator <%= @local_addr_indicator %>
+  <%- end -%>
+  <%- if @local_port_indicator -%>
+  JkLocalPortIndicator <%= @local_port_indicator %>
+  <%- end -%>
+  <%- if @remote_host_indicator -%>
+  JkRemoteHostIndicator <%= @remote_host_indicator %>
+  <%- end -%>
+  <%- if @remote_addr_indicator -%>
+  JkRemoteAddrIndicator <%= @remote_addr_indicator %>
+  <%- end -%>
+  <%- if @remote_port_indicator -%>
+  JkRemotePortIndicator <%= @remote_port_indicator %>
+  <%- end -%>
+  <%- if @remote_user_indicator -%>
+  JkRemoteUserIndicator <%= @remote_user_indicator %>
+  <%- end -%>
+  <%- if @auth_type_indicator -%>
+  JkAuthTypeIndicator <%= @auth_type_indicator %>
+  <%- end -%>
+  <%- if @options -%>
+  <%- @options.sort.each do |fwd_option| -%>
+  JkOptions <%= fwd_option %>
+  <%- end -%>
+  <%- end -%>
+  <%- if @env_var -%>
+  <%- @env_var.sort.each do |variable,value| -%>
+  JkEnvVar <%= variable %><% if not value.empty? -%> value<% end -%>
+  <%- end -%>
+  <%- end -%>
+  <%- if @strip_session -%>
+  JkStripSession <%= @strip_session %>
+  <%- end -%>
+  <%-# -%>
+  <%-# Global locations for mod_jk are defined in array location_list -%>
+  <%-# Each array item is a hash with quoted* property name as key -%>
+  <%-# and value as value itself -%>
+  <%-# You can define a comment in a special 'comment' key -%>
+  <%-# -%>
+  <%-# Example: -%>
+  <%-# <Location /jkstatus/> -%>
+  <%-#   # Configures jkstatus -%>
+  <%-#   JkMount status -%>
+  <%-#   Order deny,allow -%>
+  <%-#   Deny from all -%>
+  <%-#   Allow from 127.0.0.1 -%>
+  <%-# </Location> -%>
+  <%-# -%>
+  <%-# Is defined as: -%>
+  <%-# location_list = [ -%>
+  <%-#   { -%>
+  <%-#     'Location'   => '/jkstatus/', -%>
+  <%-#     'Comment'    => 'Configures jkstatus', -%>
+  <%-#     'JkMount'    => 'status', -%>
+  <%-#     'Order'      => 'deny,allow', -%>
+  <%-#     'Deny from'  => 'all', -%>
+  <%-#     'Allow from' => '127.0.0.1', -%>
+  <%-#   }, -%>
+  <%-# ] -%>
+  <%-# * Keys must be quoted to allow arbitrary case and/or multi-word keys -%>
+  <%-# (BTW, note the case of 'Location' and 'Comment' keys) -%>
+  <%-# -%>
+  <%- if @location_list -%>
+  <%- @location_list.each do |location_tag| -%>
+
+  <Location <%= location_tag['Location'] %>>
+    <%- if location_tag.has_key?('Comment') -%>
+    # <%= location_tag['Comment'] %>
+    <%- end -%>
+    <%- location_tag.each do |property,value| -%>
+    <%- if property != 'Comment' and property != 'Location' -%>
+    <%= property %> <%= value %>
+    <%- end -%>
+    <%- end -%>
+  </Location>
+  <%- end -%>
+  <%- end -%>
+</IfModule>

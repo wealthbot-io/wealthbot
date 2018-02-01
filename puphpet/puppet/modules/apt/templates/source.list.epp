@@ -1,0 +1,10 @@
+<%- | String $comment, Hash $includes, $opt_architecture, Boolean $allow_unsigned, $location, $release, String $repos | -%>
+# <%= $comment %>
+<%- if $includes['deb'] { -%>
+deb <%- if ($opt_architecture or $allow_unsigned) {-%>
+ [<%- if ($opt_architecture) {%>arch=<%= $opt_architecture %><% } %><%if ($opt_architecture and $allow_unsigned) {%> <% }%><% if ($allow_unsigned) {%>trusted=yes<% } %>] <%- } %> <%= $location %> <%= $release %> <%= $repos %>
+<%- } -%>
+<%- if $includes['src'] { -%>
+deb-src <%- if $opt_architecture or $allow_unsigned { -%>
+ [<%- if ($opt_architecture) {%>arch=<%= $opt_architecture %><% } %><%if ($opt_architecture and $allow_unsigned) {%> <% }%><% if ($allow_unsigned) {%>trusted=yes<% } %>] <%- } %> <%= $location %> <%= $release %> <%= $repos %>
+<%- } -%>

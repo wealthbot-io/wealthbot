@@ -1,0 +1,8 @@
+fixtures:
+  repositories:
+    "stdlib": "git://github.com/puppetlabs/puppetlabs-stdlib.git"
+    "apt": "git://github.com/puppetlabs/puppetlabs-apt.git"
+    "archive": "https://github.com/voxpupuli/puppet-archive.git"
+    "erlang": "git://github.com/garethr/garethr-erlang.git"
+  symlinks:
+    "rabbitmq": "#{source_dir}"

@@ -1,0 +1,36 @@
+HOSTS:
+  centos7:
+    roles:
+      - server
+      - default
+      - master
+    platform:   el-7-x86_64
+    box:        centos/7
+    hypervisor: vagrant
+  centos6:
+    roles:
+      - agent
+      - client
+    platform:   el-6-x86_64
+    box:        centos/6
+    hypervisor: vagrant
+  ubuntu14-04:
+    roles:
+      - agent
+      - client
+    platform:   ubuntu-14.04-x86_64
+    box:        ubuntu/trusty64
+    hypervisor: vagrant
+  opensuse-42-2:
+    roles:
+      - agent
+      - client
+    platform: sles-12-x86_64
+    box: opensuse/openSUSE-42.2-x86_64
+    hypervisor: vagrant
+CONFIG:
+  log_level: verbose
+  type:      aio
+  vagrant_memsize: 256
+  synced_folder: disabled
+  ## vb_gui: true

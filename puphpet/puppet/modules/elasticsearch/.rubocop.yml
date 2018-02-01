@@ -1,0 +1,38 @@
+AllCops:
+  TargetRubyVersion: 2.3
+
+Metrics/BlockLength:
+  Enabled: false
+
+Style/AndOr:
+  Enabled: false
+
+Style/BlockDelimiters:
+  Enabled: false
+
+Style/BlockEndNewline:
+  Enabled: false
+
+Style/FirstParameterIndentation:
+  Enabled: false
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Style/HashSyntax:
+  Enabled: false
+
+Style/IndentArray:
+  Enabled: false
+
+Style/MultilineBlockChain:
+  Enabled: false
+
+Style/MultilineBlockLayout:
+  Enabled: false
+
+Style/MultilineIfModifier:
+  Enabled: false
+
+Style/Not:
+  Enabled: false

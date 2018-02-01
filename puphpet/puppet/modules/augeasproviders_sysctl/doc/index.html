@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+  File: README
+  
+    &mdash; Documentation by YARD 0.9.9
+  
+</title>
+
+  <link rel="stylesheet" href="css/style.css" type="text/css" charset="utf-8" />
+
+  <link rel="stylesheet" href="css/common.css" type="text/css" charset="utf-8" />
+
+<script type="text/javascript" charset="utf-8">
+  pathId = "README";
+  relpath = '';
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div class="nav_wrap">
+      <iframe id="nav" src="class_list.html?1"></iframe>
+      <div id="resizer"></div>
+    </div>
+
+    <div id="main" tabindex="-1">
+      <div id="header">
+        <div id="menu">
+  
+    <a href="_index.html">Index</a> &raquo; 
+    <span class="title">File: README</span>
+  
+</div>
+
+        <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="class_list.html">
+
+        <svg width="24" height="24">
+          <rect x="0" y="4" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="12" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="20" width="24" height="4" rx="1" ry="1"></rect>
+        </svg>
+    </a>
+  
+</div>
+        <div class="clear"></div>
+      </div>
+
+      <div id="content"><div id='filecontents'><p><a href="https://forge.puppetlabs.com/herculesteam/augeasproviders_sysctl"><img src="http://img.shields.io/puppetforge/v/herculesteam/augeasproviders_sysctl.svg" alt="Puppet Forge Version"></a>
+<a href="https://forge.puppetlabs.com/herculesteam/augeasproviders_sysctl"><img src="http://img.shields.io/puppetforge/dt/herculesteam/augeasproviders_sysctl.svg" alt="Puppet Forge Downloads"></a>
+<a href="https://forge.puppetlabs.com/herculesteam/augeasproviders_sysctl"><img src="https://img.shields.io/puppetforge/e/herculesteam/augeasproviders_sysctl.svg" alt="Puppet Forge Endorsement"></a>
+<a href="https://travis-ci.org/hercules-team/augeasproviders_sysctl"><img src="https://img.shields.io/travis/hercules-team/augeasproviders_sysctl/master.svg" alt="Build Status"></a>
+<a href="https://coveralls.io/r/hercules-team/augeasproviders_sysctl"><img src="https://img.shields.io/coveralls/hercules-team/augeasproviders_sysctl.svg" alt="Coverage Status"></a>
+<a href="https://gemnasium.com/hercules-team/augeasproviders_sysctl"><img src="https://img.shields.io/gemnasium/hercules-team/augeasproviders_sysctl.svg" alt="Gemnasium"></a></p>
+
+<h1>sysctl: type/provider for sysctl for Puppet</h1>
+
+<p>This module provides a new type/provider for Puppet to read and modify sysctl
+config files using the Augeas configuration library.</p>
+
+<p>The advantage of using Augeas over the default Puppet <code>parsedfile</code>
+implementations is that Augeas will go to great lengths to preserve file
+formatting and comments, while also failing safely when needed.</p>
+
+<p>This provider will hide <em>all</em> of the Augeas commands etc., you don&#39;t need to
+know anything about Augeas to make use of it.</p>
+
+<h2>Requirements</h2>
+
+<p>Ensure both Augeas and ruby-augeas 0.3.0+ bindings are installed and working as
+normal.</p>
+
+<p>See <a href="http://docs.puppetlabs.com/guides/augeas.html#pre-requisites">Puppet/Augeas pre-requisites</a>.</p>
+
+<h2>Installing</h2>
+
+<p>On Puppet 2.7.14+, the module can be installed easily (<a href="http://docs.puppetlabs.com/puppet/latest/reference/modules_installing.html">documentation</a>):</p>
+
+<pre class="code ruby"><code class="ruby">puppet module install herculesteam/augeasproviders_sysctl
+</code></pre>
+
+<p>You may see an error similar to this on Puppet 2.x (<a href="http://projects.puppetlabs.com/issues/13858">#13858</a>):</p>
+
+<pre class="code ruby"><code class="ruby">Error 400 on SERVER: Puppet::Parser::AST::Resource failed with error ArgumentError: Invalid resource type `sysctl` at ...
+</code></pre>
+
+<p>Ensure the module is present in your puppetmaster&#39;s own environment (it doesn&#39;t
+have to use it) and that the master has pluginsync enabled.  Run the agent on
+the puppetmaster to cause the custom types to be synced to its local libdir
+(<code>puppet master --configprint libdir</code>) and then restart the puppetmaster so it
+loads them.</p>
+
+<h2>Compatibility</h2>
+
+<h3>Puppet versions</h3>
+
+<p>Minimum of Puppet 2.7.</p>
+
+<h3>Augeas versions</h3>
+
+<table><thead>
+<tr>
+<th align="left">Augeas Versions</th>
+<th align="center">0.10.0</th>
+<th align="center">1.0.0</th>
+<th align="center">1.1.0</th>
+<th align="center">1.2.0</th>
+</tr>
+</thead><tbody>
+<tr>
+<td align="left"><strong>PROVIDERS</strong></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="left">sysctl</td>
+<td align="center"><strong>yes</strong></td>
+<td align="center"><strong>yes</strong></td>
+<td align="center"><strong>yes</strong></td>
+<td align="center"><strong>yes</strong></td>
+</tr>
+</tbody></table>
+
+<h2>Documentation and examples</h2>
+
+<p>Type documentation can be generated with <code>puppet doc -r type</code> or viewed on the
+<a href="http://forge.puppetlabs.com/herculesteam/augeasproviders_sysctl">Puppet Forge page</a>.</p>
+
+<h3>manage simple entry</h3>
+
+<pre class="code ruby"><code class="ruby">sysctl { &quot;net.ipv4.ip_forward&quot;:
+  ensure =&gt; present,
+  value  =&gt; &quot;1&quot;,
+}
+</code></pre>
+
+<h3>manage entry with comment</h3>
+
+<pre class="code ruby"><code class="ruby">sysctl { &quot;net.ipv4.ip_forward&quot;:
+  ensure  =&gt; present,
+  value   =&gt; &quot;1&quot;,
+  comment =&gt; &quot;test&quot;,
+}
+</code></pre>
+
+<h3>delete entry</h3>
+
+<pre class="code ruby"><code class="ruby">sysctl { &quot;kernel.sysrq&quot;:
+  ensure =&gt; absent,
+}
+</code></pre>
+
+<h3>remove comment from entry</h3>
+
+<pre class="code ruby"><code class="ruby">sysctl { &quot;kernel.sysrq&quot;:
+  ensure  =&gt; present,
+  comment =&gt; &quot;&quot;,
+}
+</code></pre>
+
+<h3>manage entry in another sysctl.conf location</h3>
+
+<pre class="code ruby"><code class="ruby">sysctl { &quot;net.ipv4.ip_forward&quot;:
+  ensure =&gt; present,
+  value  =&gt; &quot;1&quot;,
+  target =&gt; &quot;/etc/sysctl.d/forwarding.conf&quot;,
+}
+</code></pre>
+
+<h3>do not update value with the <code>sysctl</code> command</h3>
+
+<pre class="code ruby"><code class="ruby">sysctl { &quot;net.ipv4.ip_forward&quot;:
+  ensure =&gt; present,
+  value  =&gt; &quot;1&quot;,
+  apply  =&gt; false,
+}
+</code></pre>
+
+<h3>only update the value with the <code>sysctl</code> command, do not persist to disk</h3>
+
+<pre class="code ruby"><code class="ruby">sysctl { &quot;net.ipv4.ip_forward&quot;:
+  ensure  =&gt; present,
+  value   =&gt; &quot;1&quot;,
+  persist =&gt; false,
+}
+</code></pre>
+
+<h3>ignore the application of a yet to be activated sysctl value</h3>
+
+<pre class="code ruby"><code class="ruby">sysctl { &quot;net.ipv6.conf.all.autoconf&quot;:
+  ensure =&gt; present,
+  value  =&gt; &quot;1&quot;,
+  silent =&gt; true
+}
+</code></pre>
+
+<h2>Issues</h2>
+
+<p>Please file any issues or suggestions <a href="https://github.com/hercules-team/augeasproviders_sysctl/issues">on GitHub</a>.</p>
+</div></div>
+
+      <div id="footer">
+  Generated on Wed May 31 15:43:03 2017 by
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.9 (ruby-2.1.9).
+</div>
+
+    </div>
+  </body>
+</html>

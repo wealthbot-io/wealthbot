@@ -74,3 +74,16 @@ if [[ ! -f ${PUPHPET_STATE_DIR}/disable-tty ]]; then
 fi
 
 touch ${PUPHPET_STATE_DIR}/initial-setup
+
+
+cd /var/www/wealthbot
+chmod -R 0777 app/cache app/logs
+composer clear-cache
+composer install --prefer-source
+mongo < mongo_user.js
+mongo < mongo_user_test.js
+app/console doctrine:database:drop --force
+app/console doctrine:database:create
+app/console doctrine:schema:create
+app/console doctrine:fixtures:load --append
+app/console assetic:dump

@@ -3,8 +3,8 @@ vagrantfile:
     vm:
         provider:
             local:
-                box: puphpet/ubuntu1404-x64
-                box_url: puphpet/ubuntu1404-x64
+                box: bento/ubuntu-16.04
+                box_url: 'false'
                 box_version: '0'
                 chosen_virtualizer: virtualbox
                 virtualizers:
@@ -15,32 +15,36 @@ vagrantfile:
                     vmware:
                         numvcpus: 1
                     parallels:
-                        use_linked_clone: 0
+                        linked_clone: 0
                         check_guest_tools: 0
                         update_guest_tools: 0
                 machines:
-                    vflm_7yomyv1xjdd5:
-                        id: local-webo
-                        hostname: localhost
+                    machine1:
+                        id: wealthbot
+                        hostname: wealthbot
                         network:
                             private_network: 192.168.56.105
                             forwarded_port:
-                                vflmnfp_ni8lebu8hbt4:
-                                    host: '6398'
+                                port1:
+                                    host: '6957'
                                     guest: '22'
                         memory: '1024'
                         cpus: '2'
         provision:
             puppet:
                 manifests_path: puphpet/puppet/manifests
-                module_path: puphpet/puppet/modules
+                module_path:
+                    - puphpet/puppet/modules
+                    - puphpet/puppet/manifests
                 options:
                     - '--verbose'
-                    - '--hiera_config /vagrant/puphpet/puppet/hiera.yaml'
+                    - '--hiera_config /opt/puphpet/puppet/hiera.yaml'
         synced_folder:
-            vflsf_4mbhpvm1lfzr:
-                source: .
-                target: /srv/wealthbot
+            folder1:
+                owner: www-data
+                group: www-data
+                source: ./
+                target: /var/www/wealthbot
                 sync_type: default
                 smb:
                     smb_host: ''
@@ -58,8 +62,6 @@ vagrantfile:
                         - .vagrant/
                         - .git/
                     auto: 'true'
-                owner: vagrant
-                group: vagrant
         usable_port_range:
             start: 10200
             stop: 10500
@@ -85,8 +87,12 @@ vagrantfile:
 server:
     install: '1'
     packages:
-        - libsasl2-dev
-
+        - bash-completion
+        - htop
+        - vim
+        - git
+        - acl
+        - nano
 users_groups:
     install: '1'
     groups: {  }
@@ -102,71 +108,73 @@ locale:
 firewall:
     install: '1'
     rules: {  }
+resolv:
+    install: '1'
+    nameservers:
+        - 8.8.8.8
+        - 8.8.4.4
+    domainname: ''
+    searchpath: {  }
 cron:
     install: '1'
     jobs: {  }
 nginx:
-    install: '0'
+    install: '1'
     settings:
+        version: present
         default_vhost: 1
-        proxy_buffer_size: 128k
         proxy_buffers: '4 256k'
+        proxy_buffer_size: 128k
         proxy_connect_timeout: 600s
         proxy_send_timeout: 600s
         proxy_read_timeout: 600s
         names_hash_bucket_size: 128
     upstreams: {  }
     vhosts:
-        nxv_yr0go8z1mtve:
-            server_name: awesome.dev
+        vhost1:
+            server_name: local.wealthbot.io
             server_aliases:
-                - www.awesome.dev
-            www_root: /var/www/awesome
+                - app.wealthbot.io
+            www_root: /var/www/wealthbot/web
             listen_port: '80'
-            index_files:
-                - index.html
-                - index.htm
-                - index.php
             client_max_body_size: 1m
             ssl: '0'
-            ssl_cert: ''
-            ssl_key: ''
-            ssl_port: '443'
-            ssl_protocols: ''
-            ssl_ciphers: ''
-            rewrite_to_https: '1'
-            spdy: '1'
             locations:
-                nxvl_k3uzc9xo0yo9:
+                php_html:
+                    www_root: /var/www/wealthbot/web
                     location: /
+                    autoindex: 'off'
+                    internal: 'false'
+                    index_files:
+                        - index.html
+                        - index.php
                     try_files:
                         - $uri
                         - $uri/
                         - /index.php$is_args$args
                     fastcgi: ''
-                    fastcgi_index: ''
+                    fastcgi_index: app.php
                     fastcgi_split_path: ''
-                    proxy: ''
-                    proxy_redirect: ''
-                nxvl_hraamgw84c8l:
+                php_php:
+                    www_root: /var/www/awesome
                     location: '~ \.php$'
+                    autoindex: 'off'
+                    internal: 'false'
+                    index_files:
+                        - index.php
                     try_files:
                         - $uri
                         - $uri/
-                        - /index.php$is_args$args
-                    fastcgi: '127.0.0.1:9000'
-                    fastcgi_index: index.php
-                    fastcgi_split_path: '^(.+\.php)(/.*)$'
-                    fast_cgi_params_extra:
-                        - 'SCRIPT_FILENAME $request_filename'
-                        - 'APP_ENV dev'
                     set:
                         - '$path_info $fastcgi_path_info'
-                    proxy: ''
-                    proxy_redirect: ''
+                    fastcgi: '127.0.0.1:9000'
+                    fastcgi_index: index.php
+                    fastcgi_split_path: '^(.+?\.php)(/.*)$'
+                    fast_cgi_params_extra:
+                        - 'SCRIPT_FILENAME $document_root$fastcgi_script_name'
     proxies: {  }
 apache:
-    install: '1'
+    install: '0'
     settings:
         version: 2.4
         user: www-data
@@ -179,27 +187,27 @@ apache:
         - proxy_fcgi
         - rewrite
     vhosts:
-        av_0of7v63kwayx:
-            servername: local.wealthbot.io
+        vhost1:
+            servername: awesome.test
             serveraliases:
-                - app.wealthbot.io
-            docroot: /srv/wealthbot/web
+                - www.awesome.test
+            docroot: /var/www/awesome
             port: '80'
-            setenv:
-                - 'APP_ENV dev'
             setenvif:
                 - 'Authorization "(.*)" HTTP_AUTHORIZATION=$1'
             custom_fragment: ''
             ssl: '0'
-            ssl_cert: ''
-            ssl_key: ''
-            ssl_chain: ''
-            ssl_certs_dir: ''
+            ssl_cert: LETSENCRYPT
+            ssl_key: LETSENCRYPT
+            ssl_chain: LETSENCRYPT
+            ssl_certs_dir: LETSENCRYPT
             ssl_protocol: ''
             ssl_cipher: ''
             directories:
-                avd_8ob18d95f4kc:
-                    path: /srv/wealthbot/web
+                php_html:
+                    provider: directory
+                    path: /var/www/awesome
+                    directoryindex: 'index.php index.html'
                     options:
                         - Indexes
                         - FollowSymlinks
@@ -208,35 +216,30 @@ apache:
                         - All
                     require:
                         - 'all granted'
-                    custom_fragment: ''
-                    files_match:
-                        avdfm_kawahn69g1qs:
-                            path: \.php$
-                            sethandler: 'proxy:fcgi://127.0.0.1:9000'
-                            custom_fragment: ''
-                            provider: filesmatch
-                    provider: directory
+                php_php:
+                    provider: filesmatch
+                    path: \.php$
+                    sethandler: 'proxy:fcgi://127.0.0.1:9000'
 letsencrypt:
     install: '1'
     settings:
         email: ''
+        webserver_service: ''
     domains: {  }
 php:
     install: '1'
     settings:
-        version: '56'
+        version: '5.6'
     modules:
         php:
             - cli
             - intl
-            - imagick
-            - mcrypt
-            - fpm
             - xml
+            - mongo
+            - imagick
             - curl
             - apcu
-            - mongo
-
+            - mcrypt
         pear: {  }
         pecl: {  }
     ini:
@@ -247,7 +250,7 @@ php:
     fpm_ini:
         error_log: /var/log/php-fpm.log
     fpm_pools:
-        phpfp_bcu2oirpw6my:
+        pool1:
             ini:
                 prefix: www
                 listen: '127.0.0.1:9000'
@@ -257,7 +260,7 @@ php:
     composer: '1'
     composer_home: ''
 xdebug:
-    install: '1'
+    install: '0'
     settings:
         xdebug.default_enable: '1'
         xdebug.remote_autostart: '0'
@@ -283,119 +286,119 @@ xhprof:
     install: '0'
 wpcli:
     install: '0'
-    version: v0.21.1
+    version: v1.1.0
 drush:
     install: '0'
     version: 8.0.5
 ruby:
     install: '1'
     versions:
-        rv_vo1k5t644t5o:
+        ruby1:
             default: '1'
             bundler: '1'
-            version: 1.9.3
+            version: '2.4'
             gems:
-                - deep_merge
-                - activesupport@4.2.7.1
-                - vine
+                - deep_merge@1.2.1
+                - activesupport@5.1.4
+                - vine@0.4
 python:
     install: '1'
     packages: {  }
     versions: {  }
 nodejs:
-    install: '0'
-    settings:
-        version: '5'
-    npm_packages: {  }
-hhvm:
-    install: '0'
-    nightly: 0
-    composer: '1'
-    composer_home: ''
-    settings: {  }
-    server_ini:
-        hhvm.server.host: 127.0.0.1
-        hhvm.server.port: '9000'
-        hhvm.log.use_log_file: '1'
-        hhvm.log.file: /var/log/hhvm/error.log
-    php_ini:
-        display_errors: 'On'
-        error_reporting: '-1'
-        date.timezone: UTC
-mariadb:
-    install: '0'
-    settings:
-        version: '10.1'
-        root_password: '123'
-        override_options: {  }
-    adminer: 0
-    users:
-        mariadbnu_w11uqhtrew9c:
-            name: dbuser
-            password: '123'
-    databases:
-        mariadbnd_slhvrvlgyy31:
-            name: dbname
-            sql: ''
-    grants:
-        mariadbng_qmlbqkfl54di:
-            user: dbuser
-            table: '*.*'
-            privileges:
-                - ALL
-mysql:
     install: '1'
     settings:
-        version: '5.6'
+        version: '8'
+    npm_packages: {  }
+mariadb:
+    install: '1'
+    settings:
+        version: '10.1'
         root_password: password
         override_options: {  }
-    adminer: 0
     users:
-        mysqlnu_l8ptsb7lwoo5:
+        user1:
             name: webo
             password: password
     databases:
-        mysqlnd_e5scxr89myss:
+        database1:
             name: wealthbot
+            collate: utf8_general_ci
             sql: ''
     grants:
-        mysqlng_f4v5lxqmii62:
+        grant1:
             user: webo
             table: '*.*'
             privileges:
                 - ALL
-postgresql:
+mysql:
     install: '0'
+    settings:
+        version: '5.7'
+        root_password: '123'
+        override_options: {  }
+    users:
+        user1:
+            name: dbuser
+            password: '123'
+    databases:
+        database1:
+            name: dbname
+            collate: utf8_general_ci
+            sql: ''
+    grants:
+        grant1:
+            user: dbuser
+            table: '*.*'
+            privileges:
+                - ALL
+postgresql:
+    install: '1'
     settings:
         global:
             encoding: UTF8
-            version: '9.4'
+            version: '9.6'
         server:
-            postgres_password: '123'
-    databases: {  }
-    users: {  }
-    grants: {  }
-    adminer: 0
+            postgres_password: password
+    databases:
+        database1:
+            dbname: wealthbot
+            owner: webo
+    users:
+        user1:
+            username: webo
+            password: password
+            superuser: '1'
+    grants:
+        grant1:
+            role: webo
+            db: wealthbot
+            privilege:
+                - ALL
 mongodb:
     install: '1'
     settings:
         bind_ip: 127.0.0.1
         port: '27017'
     globals:
-        version: 2.6.0
+        version: 3.6.2
     databases:
-        mongodbnuad_louvsfvja7ij:
+        database1:
             name: wealthbot
             user: webo
             password: password
 redis:
-    install: '1'
+    install: '0'
     settings:
         port: '6379'
 sqlite:
     install: '1'
-    adminer: 0
-    databases: {  }
+    databases:
+        database1:
+            name: dbname
+            owner: www-data
+            group: www-data
+            sql_file: ''
 mailhog:
     install: '0'
     settings:
@@ -419,19 +422,24 @@ rabbitmq:
     install: '0'
     settings:
         port: '5672'
-    users: {  }
+    users:
+        user1:
+            admin: '1'
+            name: admin
+            password: '123'
+            tags:
+                - admin
     vhosts: {  }
     plugins: {  }
 elastic_search:
     install: '0'
     settings:
-        version: 2.3.1
+        version: 6.1.2
         java_install: true
     instances:
-        esi_2bmiklxvorxy:
+        instance1:
             name: es-01
-solr:
-    install: '0'
-    settings:
-        version: 4.10.2
-        port: '8984'
+            jvm_options:
+                - '-Xms2G'
+                - '-Xmx2G'
+

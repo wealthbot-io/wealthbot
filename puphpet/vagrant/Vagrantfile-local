@@ -273,7 +273,6 @@ machines.each do |i, machine|
 
         virtualbox.customize ['modifyvm', :id, '--memory', "#{machine['memory']}"]
         virtualbox.customize ['modifyvm', :id, '--cpus', "#{machine['cpus']}"]
-        virtualbox.customize ["modifyvm", :id, "--cableconnected1", "on"]
 
         if !provider['virtualizers']['virtualbox']['showgui'].nil? &&
           provider['virtualizers']['virtualbox']['showgui'].to_i == 1

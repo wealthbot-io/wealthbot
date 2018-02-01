@@ -1,0 +1,8 @@
+---
+timezone::package: tzdata
+timezone::zoneinfo_dir: /usr/share/zoneinfo
+timezone::localtime_file: /etc/localtime
+timezone::timezone_file: /etc/timezone
+timezone::timezone_file_template: timezone/timezone.erb
+timezone::timezone_file_supports_comment: false
+timezone::timezone_update: dpkg-reconfigure -f noninteractive tzdata

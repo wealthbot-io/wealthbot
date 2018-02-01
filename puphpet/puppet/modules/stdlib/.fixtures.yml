@@ -1,0 +1,4 @@
+fixtures:
+  symlinks:
+    stdlib: "#{source_dir}"
+    test:   "#{source_dir}/spec/fixtures/test"

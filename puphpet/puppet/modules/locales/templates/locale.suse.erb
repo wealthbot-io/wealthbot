@@ -1,0 +1,40 @@
+# This file is managed by Puppet.
+<% if @default_locale -%>
+RC_LANG="<%= @default_locale %>"
+<% end -%>
+<% if @lc_ctype -%>
+RC_LC_CTYPE="<%= @lc_ctype %>"
+<% end -%>
+<% if @lc_collate -%>
+RC_LC_COLLATE="<%= @lc_collate %>"
+<% end -%>
+<% if @lc_time -%>
+RC_LC_TIME="<%= @lc_time %>"
+<% end -%>
+<% if @lc_numeric -%>
+RC_LC_NUMERIC="<%= @lc_numeric %>"
+<% end -%>
+<% if @lc_monetary -%>
+RC_LC_MONETARY="<%= @lc_monetary %>"
+<% end -%>
+<% if @lc_messages -%>
+RC_LC_MESSAGES="<%= @lc_messages %>"
+<% end -%>
+<% if @lc_paper -%>
+RC_LC_PAPER="<%= @lc_paper %>"
+<% end -%>
+<% if @lc_all -%>
+RC_LC_ALL="<%= @lc_all %>"
+<% end -%>
+<% if @installed_languages -%>
+INSTALLED_LANGUAGES="<%= @installed_languages %>"
+<% end -%>
+<% if @root_uses_lang -%>
+ROOT_USES_LANG="<%= @root_uses_lang %>"
+<% end -%>
+<% if @auto_detect_utf8 -%>
+AUTO_DETECT_UTF8="<%= @auto_detect_utf8 %>"
+<% end -%>
+<% if @input_method -%>
+INPUT_METHOD="<%= @input_method %>"
+<% end -%>

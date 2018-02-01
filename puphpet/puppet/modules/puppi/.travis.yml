@@ -1,0 +1,19 @@
+---
+language: ruby
+script:
+  - "bundle exec rake lint spec SPEC_OPTS='--format documentation'"
+matrix:
+  include:
+  # Debian 8
+  - rvm: 2.1.2
+    env: PUPPET_GEM_VERSION="~> 3.7.2" FACTER_GEM_VERSION="~> 2.2.0"
+  # Puppet 3.1 with Ruby 1.9.3
+  - rvm: 1.9.3
+    env: PUPPET_GEM_VERSION="~> 3.1.0"
+  # puppet 4 AIO
+  - rvm: 2.1.4
+  #  env: STRICT_VARIABLES="yes"
+
+notifications:
+  email:
+    - al@example42.com

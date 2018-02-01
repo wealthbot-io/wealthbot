@@ -1,0 +1,16 @@
+[default]
+<% if @ssl && @management_ssl -%>
+ssl = True
+ssl_ca_cert_file = <%= @ssl_cacert %>
+ssl_cert_file = <%= @ssl_cert %>
+ssl_key_file = <%= @ssl_key %>
+port = <%= @ssl_management_port %>
+<% unless @management_hostname -%>
+hostname = <%= @fqdn %>
+<% end -%>
+<% else -%>
+port = <%= @management_port %>
+<% end -%>
+<% if @management_hostname %>
+hostname = <%= @management_hostname %>
+<% end -%>

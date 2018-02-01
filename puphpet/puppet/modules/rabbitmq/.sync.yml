@@ -1,0 +1,11 @@
+---
+.travis.yml:
+  secure: "Ojc0h2mbt9Y+eCyiKD+x1iYNONOP27Me63hjo9jo2v1bSs3aiM7djlcpz/sG+jRJ7JQoUyaGzHSn+gvxwWqdagFfFgDmipMKD0OXQinq7upRaG2hR+akKo0jllq9zLjJGBDoxurioKfOzPGlt2bX3UYY5KyeJ3AIM4dwCGVtSh4="
+  docker_sets:
+    - set: docker/ubuntu-16.04
+    - set: docker/centos-7
+appveyor.yml:
+  delete: true
+spec/spec_helper.rb:
+  allow_deprecations: true
+  spec_overrides: "require 'spec_helper_local'"

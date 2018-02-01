@@ -1,0 +1,7 @@
+---
+elasticsearch::users:
+  elastic:
+    ensure: present
+    password: password
+    roles:
+      - admin

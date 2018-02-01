@@ -1,0 +1,6 @@
+[rpcinterface:<%= @name %>]
+supervisor.rpcinterface_factory = <%= @rpcinterface_factory %>
+<% if @retries %>
+retries = <%= @retries %>
+<% end -%>
+

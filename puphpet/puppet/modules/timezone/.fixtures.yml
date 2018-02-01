@@ -1,0 +1,10 @@
+fixtures:
+  repositories:
+    stdlib:
+      repo: https://github.com/puppetlabs/puppetlabs-stdlib.git
+      ref: 4.1.0
+    debconf:
+      repo: https://github.com/smoeding/puppet-debconf.git
+      ref: v1.0.0
+  symlinks:
+    timezone: "#{source_dir}"

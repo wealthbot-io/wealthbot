@@ -52,4 +52,4 @@ wealthbot_test.db
 .rules
 
 #vagrant
-vagrant/\.vagrant/*
+.vagrant

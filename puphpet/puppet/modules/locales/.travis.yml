@@ -1,0 +1,35 @@
+sudo: false
+language: ruby
+cache: bundler
+bundler_args: --without system_tests development
+before_install:
+- bundle -v
+- rm Gemfile.lock || true
+- gem update --system
+- gem update bundler
+- gem --version
+- bundle -v
+script:
+- bundle exec rake $CHECK
+matrix:
+  fast_finish: true
+  include:
+  - rvm: 2.1
+    env: PUPPET_VERSION="~> 4.0" STRICT_VARIABLES="yes" CHECK=test
+  - rvm: 2.2
+    env: PUPPET_VERSION="~> 4.0" STRICT_VARIABLES="yes" CHECK=test
+  - rvm: 2.3.1
+    env: PUPPET_VERSION="~> 4.0" STRICT_VARIABLES="yes" CHECK=rubocop
+  - rvm: 2.3.1
+    env: PUPPET_VERSION="~> 4.0" STRICT_VARIABLES="yes" CHECK=build FORGEDEPLOY=true
+notifications:
+  email: false
+deploy:
+  provider: puppetforge
+  user: saz
+  password:
+    secure: C4J8p+WrF7CP7zlHoeHihcgW4Pqr0ZtXJdhgv/Jfap5uFEA46UMSROTT4FLrtbJJmwpOCXKSbV+965W752srd2KRBoIJ/rJv0dwZvbgcpcPc6zG13jPkor5eVtoU3lUCv+tscmnU/w4r9n98xogU3F2iKLZin7PcRdKPGjq1oF0=
+  on:
+    tags: true
+    all_branches: true
+    condition: "$FORGEDEPLOY = true"

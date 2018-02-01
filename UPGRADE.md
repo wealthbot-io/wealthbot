@@ -5,7 +5,7 @@
 ## System requirements for version 1.2.0.
 
 ##### PHP Version
-Please be careful to use **PHP version `5.4` and higher, but not PHP7**.
+Please be careful to use **PHP version `5.6` and higher, but not PHP7**.
 
 
 If you deployed wealthbot.io to a VPS server (amazon aws, digitalocean, etc), check your PHP version: 

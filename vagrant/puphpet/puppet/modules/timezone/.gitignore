@@ -1,6 +1,0 @@
-pkg/
-*.swp
-Gemfile.lock
-spec/fixtures
-/coverage/
-.vagrant

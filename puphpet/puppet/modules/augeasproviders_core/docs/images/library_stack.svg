@@ -1,0 +1,444 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="744.09448819"
+   height="1052.3622047"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.48.4 r9939"
+   sodipodi:docname="library_stack.svg">
+  <defs
+     id="defs4" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1.979899"
+     inkscape:cx="390.85867"
+     inkscape:cy="189.08075"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1920"
+     inkscape:window-height="1052"
+     inkscape:window-x="1600"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <g
+       id="g2993"
+       transform="translate(101.53809,38.385797)">
+      <rect
+         y="449.50504"
+         x="100"
+         height="75.714287"
+         width="147.14285"
+         id="rect2985"
+         style="fill:#e6bc23;fill-opacity:0.43981485;stroke:#000000;stroke-opacity:1" />
+      <text
+         sodipodi:linespacing="125%"
+         id="text2987"
+         y="476.97018"
+         x="173.48218"
+         style="font-size:28px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Courier 10 Pitch;-inkscape-font-specification:Courier 10 Pitch"
+         xml:space="preserve"><tspan
+           style="font-size:18px"
+           y="476.97018"
+           x="173.48218"
+           id="tspan2989"
+           sodipodi:role="line">Augeas</tspan><tspan
+           style="font-size:18px"
+           id="tspan2991"
+           y="499.47018"
+           x="173.48218"
+           sodipodi:role="line">C Library</tspan></text>
+    </g>
+    <g
+       id="g2999"
+       transform="translate(101.53809,-38.32849)">
+      <rect
+         style="fill:#e6bc23;fill-opacity:0.43981485;stroke:#000000;stroke-opacity:1"
+         id="rect3001"
+         width="147.14285"
+         height="75.714287"
+         x="100"
+         y="449.50504" />
+      <text
+         xml:space="preserve"
+         style="font-size:28px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Courier 10 Pitch;-inkscape-font-specification:Courier 10 Pitch"
+         x="173.48218"
+         y="476.97018"
+         id="text3003"
+         sodipodi:linespacing="125%"><tspan
+           sodipodi:role="line"
+           id="tspan3005"
+           x="173.48218"
+           y="476.97018"
+           style="font-size:18px">Augeas</tspan><tspan
+           sodipodi:role="line"
+           x="173.48218"
+           y="499.47018"
+           id="tspan3007"
+           style="font-size:18px">Ruby Bindings</tspan></text>
+    </g>
+    <rect
+       style="fill:#e6bc23;fill-opacity:0.43981485;stroke:#000000;stroke-width:0.99833977;stroke-opacity:1"
+       id="rect3009"
+       width="147.00166"
+       height="152.00166"
+       x="53.537258"
+       y="411.17572" />
+    <text
+       xml:space="preserve"
+       style="font-size:40px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Courier 10 Pitch;-inkscape-font-specification:Courier 10 Pitch"
+       x="127.83515"
+       y="481.02954"
+       id="text3011"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan3013"
+         x="127.83515"
+         y="481.02954"
+         style="font-size:18px">Augeas</tspan><tspan
+         sodipodi:role="line"
+         x="127.83515"
+         y="503.52954"
+         id="tspan3015"
+         style="font-size:18px">Lens</tspan></text>
+    <rect
+       y="325.58591"
+       x="357.8046"
+       height="237.46698"
+       width="146.87761"
+       id="rect3124"
+       style="fill:#ff0000;fill-opacity:0.43981484999999998;stroke:#000000;stroke-width:1;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none" />
+    <text
+       sodipodi:linespacing="125%"
+       id="text3126"
+       y="425.38339"
+       x="431.978"
+       style="font-size:40px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Courier 10 Pitch;-inkscape-font-specification:Courier 10 Pitch"
+       xml:space="preserve"><tspan
+         style="font-size:18px"
+         id="tspan3130"
+         y="425.38339"
+         x="431.978"
+         sodipodi:role="line">Puppet</tspan><tspan
+         style="font-size:18px"
+         y="447.88339"
+         x="431.978"
+         sodipodi:role="line"
+         id="tspan3138">Provider</tspan><tspan
+         style="font-size:18px"
+         y="470.38339"
+         x="431.978"
+         sodipodi:role="line"
+         id="tspan3140">Library</tspan></text>
+    <rect
+       style="fill:#ff0000;fill-opacity:0.43981485;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="rect3151"
+       width="146.87761"
+       height="237.46698"
+       x="506.86942"
+       y="325.58591" />
+    <text
+       xml:space="preserve"
+       style="font-size:40px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Courier 10 Pitch;-inkscape-font-specification:Courier 10 Pitch"
+       x="579.97803"
+       y="425.38339"
+       id="text3153"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         x="579.97803"
+         y="425.38339"
+         id="tspan3155"
+         style="font-size:18px">Puppet</tspan><tspan
+         id="tspan3157"
+         sodipodi:role="line"
+         x="579.97803"
+         y="447.88339"
+         style="font-size:18px">Type</tspan><tspan
+         id="tspan3159"
+         sodipodi:role="line"
+         x="579.97803"
+         y="470.38339"
+         style="font-size:18px">Library</tspan></text>
+    <text
+       transform="matrix(0,-1,1,0,0,0)"
+       sodipodi:linespacing="125%"
+       id="text4025"
+       y="579.43097"
+       x="-662.31647"
+       style="font-size:40px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Courier 10 Pitch;-inkscape-font-specification:Courier 10 Pitch"
+       xml:space="preserve"><tspan
+         style="font-size:300px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Linux Libertine Display O;-inkscape-font-specification:Linux Libertine Display O"
+         y="579.43097"
+         x="-662.31647"
+         id="tspan4027"
+         sodipodi:role="line">{</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:40px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Courier 10 Pitch;-inkscape-font-specification:Courier 10 Pitch"
+       x="-662.31647"
+       y="275.35953"
+       id="text4029"
+       sodipodi:linespacing="125%"
+       transform="matrix(0,-1,1,0,0,0)"><tspan
+         sodipodi:role="line"
+         id="tspan4031"
+         x="-662.31647"
+         y="275.35953"
+         style="font-size:300px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Linux Libertine Display O;-inkscape-font-specification:Linux Libertine Display O">{</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:40px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Courier 10 Pitch;-inkscape-font-specification:Courier 10 Pitch"
+       x="202.88077"
+       y="693.79077"
+       id="text4065"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan4067"
+         x="202.88077"
+         y="693.79077"
+         style="text-align:center;text-anchor:middle;font-size:32px">Augeas</tspan><tspan
+         sodipodi:role="line"
+         x="202.88077"
+         y="743.79077"
+         id="tspan4069"
+         style="text-align:center;text-anchor:middle;font-size:32px">Stack</tspan></text>
+    <text
+       sodipodi:linespacing="125%"
+       id="text4071"
+       y="693.79077"
+       x="505.33218"
+       style="font-size:40px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Courier 10 Pitch;-inkscape-font-specification:Courier 10 Pitch"
+       xml:space="preserve"><tspan
+         style="text-align:center;text-anchor:middle;font-size:32px"
+         y="693.79077"
+         x="505.33218"
+         id="tspan4073"
+         sodipodi:role="line">Puppet</tspan><tspan
+         style="text-align:center;text-anchor:middle;font-size:32px"
+         id="tspan4075"
+         y="743.79077"
+         x="505.33218"
+         sodipodi:role="line">Stack</tspan></text>
+    <rect
+       style="fill:#00ff00;fill-opacity:0.43981484999999998;stroke:#000000;stroke-width:1;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
+       id="rect4105"
+       width="295.44858"
+       height="75.714287"
+       x="54.0042"
+       y="325.67075" />
+    <text
+       xml:space="preserve"
+       style="font-size:39.67613983px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Courier 10 Pitch;-inkscape-font-specification:Courier 10 Pitch"
+       x="142.23611"
+       y="500.39532"
+       id="text4107"
+       sodipodi:linespacing="125%"
+       transform="scale(1.4170049,0.70571384)"><tspan
+         sodipodi:role="line"
+         x="142.23611"
+         y="500.39532"
+         id="tspan4111"
+         style="font-size:25.50608826px" /></text>
+    <text
+       sodipodi:linespacing="125%"
+       id="text4115"
+       y="356.57092"
+       x="202.52556"
+       style="font-size:40px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Courier 10 Pitch;-inkscape-font-specification:Courier 10 Pitch"
+       xml:space="preserve"><tspan
+         style="font-size:18px;text-align:center;text-anchor:middle"
+         y="356.57092"
+         x="202.52556"
+         id="tspan4117"
+         sodipodi:role="line">Augeasproviders</tspan><tspan
+         style="font-size:18px;text-align:center;text-anchor:middle"
+         id="tspan4119"
+         y="379.07092"
+         x="202.52556"
+         sodipodi:role="line">Library</tspan></text>
+    <rect
+       y="240.31287"
+       x="54.0042"
+       height="75.714287"
+       width="450.64081"
+       id="rect4145"
+       style="fill:#ff0000;fill-opacity:0.43981484999999998;stroke:#000000;stroke-width:1;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none" />
+    <text
+       sodipodi:linespacing="125%"
+       id="text4147"
+       y="468.61975"
+       x="159.45506"
+       style="font-size:49.00085831px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Courier 10 Pitch;-inkscape-font-specification:Courier 10 Pitch"
+       xml:space="preserve"
+       transform="scale(1.7500307,0.57141854)"><tspan
+         style="font-size:31.50055313px"
+         id="tspan4149"
+         y="468.61975"
+         x="159.45506"
+         sodipodi:role="line" /></text>
+    <rect
+       style="fill:#ff0000;fill-opacity:0.43981485;stroke:#000000;stroke-opacity:1"
+       id="rect4175"
+       width="147.14285"
+       height="75.714287"
+       x="506.60416"
+       y="240.31287" />
+    <text
+       xml:space="preserve"
+       style="font-size:28px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Courier 10 Pitch;-inkscape-font-specification:Courier 10 Pitch"
+       x="580.08636"
+       y="267.77802"
+       id="text4177"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         x="580.08636"
+         y="267.77802"
+         id="tspan4181"
+         style="font-size:18px;fill:#000000">Puppet</tspan><tspan
+         id="tspan4185"
+         sodipodi:role="line"
+         x="580.08636"
+         y="290.27802"
+         style="font-size:18px;fill:#000000">Type</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:40px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Courier 10 Pitch;-inkscape-font-specification:Courier 10 Pitch"
+       x="279.34766"
+       y="272.086"
+       id="text4191"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan4193"
+         x="279.34766"
+         y="272.086"
+         style="font-size:18px">Puppet</tspan><tspan
+         sodipodi:role="line"
+         x="279.34766"
+         y="294.586"
+         id="tspan4195"
+         style="font-size:18px">Provider</tspan></text>
+    <rect
+       style="fill:#ffffff;fill-opacity:0.43981485;stroke:#000000;stroke-width:0.94041926;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="rect4197"
+       width="106.1256"
+       height="141.48093"
+       x="148.6657"
+       y="773.53033" />
+    <rect
+       y="773.53033"
+       x="452.14838"
+       height="141.48093"
+       width="106.1256"
+       id="rect4199"
+       style="fill:#ffffff;fill-opacity:0.43981485;stroke:#000000;stroke-width:0.94041926;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+    <text
+       xml:space="preserve"
+       style="font-size:40px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Courier 10 Pitch;-inkscape-font-specification:Courier 10 Pitch"
+       x="142.25087"
+       y="953.36725"
+       id="text4201"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan4203"
+         x="142.25087"
+         y="953.36725"
+         style="font-size:18px">config file</tspan></text>
+    <text
+       sodipodi:linespacing="125%"
+       id="text4205"
+       y="953.36725"
+       x="429.33838"
+       style="font-size:40px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Courier 10 Pitch;-inkscape-font-specification:Courier 10 Pitch"
+       xml:space="preserve"><tspan
+         style="font-size:18px"
+         y="953.36725"
+         x="429.33838"
+         id="tspan4207"
+         sodipodi:role="line">Puppet catalog</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:40px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Courier 10 Pitch;-inkscape-font-specification:Courier 10 Pitch"
+       x="156.57364"
+       y="784.67175"
+       id="text4209"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan4211"
+         x="156.57364"
+         y="784.67175" /></text>
+    <text
+       xml:space="preserve"
+       style="font-size:40px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Courier 10 Pitch;-inkscape-font-specification:Courier 10 Pitch"
+       x="152.02795"
+       y="784.16663"
+       id="text4213"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         x="152.02795"
+         y="784.16663"
+         id="tspan4231"
+         style="font-size:8px">127..0.1 localhost</tspan><tspan
+         sodipodi:role="line"
+         x="152.02795"
+         y="794.16663"
+         style="font-size:8px"
+         id="tspan4277">::1 localhost</tspan><tspan
+         sodipodi:role="line"
+         x="152.02795"
+         y="804.16663"
+         style="font-size:8px"
+         id="tspan4279">10.0.0.1 myhost.net</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:40px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Courier 10 Pitch;-inkscape-font-specification:Courier 10 Pitch"
+       x="455.5788"
+       y="783.66162"
+       id="text4281"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan4283"
+         x="455.5788"
+         y="783.66162"
+         style="font-size:8px">host { 'myhost.net':</tspan><tspan
+         sodipodi:role="line"
+         x="455.5788"
+         y="793.66162"
+         id="tspan4285"
+         style="font-size:8px">  ip =&gt; '10.0.0.1',</tspan><tspan
+         sodipodi:role="line"
+         x="455.5788"
+         y="803.66162"
+         id="tspan4287"
+         style="font-size:8px">}</tspan></text>
+  </g>
+</svg>

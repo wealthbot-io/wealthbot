@@ -1,0 +1,64 @@
+{
+  "name": "arioch-redis",
+  "version": "3.2.0",
+  "author": "Tom De Vylder",
+  "summary": "Redis module",
+  "license": "Apache-2.0",
+  "source": "https://github.com/arioch/puppet-redis",
+  "project_page": "http://arioch.github.io/puppet-redis/",
+  "issues_url": "https://github.com/arioch/puppet-redis/issues",
+  "dependencies": [
+    {"name":"puppetlabs/apt","version_requirement":">= 2.3.0 <5.0.0"},
+    {"name":"puppetlabs/stdlib","version_requirement":">= 1.0.2 <5.0.0"},
+    {"name":"stahnma/epel","version_requirement":">= 1.2.2 <2.0.0"},
+    {
+      "name": "herculesteam/augeasproviders_sysctl",
+      "version_requirement": ">=2.1.0 < 3.0.0"
+    },
+    {
+      "name": "herculesteam/augeasproviders_core",
+      "version_requirement": ">=2.1.0 < 3.0.0"
+    }
+  ],
+  "data_provider": null,
+  "description": "Redis module with cluster support",
+  "tags": [
+    "cluster",
+    "failover",
+    "loadbalancing",
+    "redis",
+    "sentinel"
+  ],
+  "operatingsystem_support": [
+    {
+      "operatingsystem": "Debian",
+      "operatingsystemrelease": [
+        "8"
+      ]
+    },
+    {
+      "operatingsystem": "Ubuntu",
+      "operatingsystemrelease": [
+        "14.04",
+        "16.04"
+      ]
+    },
+    {
+      "operatingsystem": "RedHat",
+      "operatingsystemrelease": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "operatingsystem": "CentOS",
+      "operatingsystemrelease": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "operatingsystem": "Archlinux"
+    }
+  ]
+}

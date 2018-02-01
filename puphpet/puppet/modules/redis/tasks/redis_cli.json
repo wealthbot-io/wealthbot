@@ -1,0 +1,10 @@
+{
+  "description": "Executes a redis-cli command on the target system",
+  "input_method": "stdin",
+  "parameters": {
+    "command": {
+      "description": "The command to run, including all arguments",
+      "type": "String[1]"
+    }
+  }
+}

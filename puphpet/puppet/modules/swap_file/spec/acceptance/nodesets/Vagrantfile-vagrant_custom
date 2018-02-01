@@ -1,0 +1,11 @@
+Vagrant.configure("2") do |c|
+  c.ssh.insert_key = false
+  c.vm.define 'centos-7-x64' do |v|
+    v.vm.hostname = 'centos-7-x64'
+    v.vm.box = 'centos/7'
+    v.vm.box_check_update = 'true'
+    v.vm.provider :libvirt do |node|
+      node.memory = 512
+    end
+  end
+end

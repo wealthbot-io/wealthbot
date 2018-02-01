@@ -1,0 +1,3 @@
+fixtures:
+  symlinks:
+    "locales": "#{source_dir}"

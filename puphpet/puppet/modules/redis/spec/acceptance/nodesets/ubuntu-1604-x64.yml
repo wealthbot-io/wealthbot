@@ -1,0 +1,10 @@
+HOSTS:
+  ubuntu-1604-x64:
+    roles:
+      - default
+    platform: ubuntu-1604-amd64
+    box: puppetlabs/ubuntu-16.04-64-nocm
+    hypervisor: vagrant
+CONFIG:
+  log_level: debug
+  type: foss

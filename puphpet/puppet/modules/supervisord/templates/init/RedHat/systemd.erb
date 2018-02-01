@@ -1,0 +1,17 @@
+#
+# /etc/systemd/system/supervisord.service
+#
+
+[Unit]
+Description=supervisord - Supervisor process control system for UNIX
+Documentation=http://supervisord.org
+After=network.target
+
+[Service]
+Type=forking
+ExecStart=<%= @executable %> -c <%= @config_file %>
+ExecReload=<%= @executable_ctl %> reload
+ExecStop=<%= @executable_ctl %> shutdown
+
+[Install]
+WantedBy=multi-user.target

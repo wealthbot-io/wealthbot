@@ -1,0 +1,73 @@
+{
+  "name": "herculesteam-augeasproviders_sysctl",
+  "version": "2.2.0",
+  "author": "Dominic Cleal, Raphael Pinson, Trevor Vaughan",
+  "summary": "Augeas-based sysctl type and provider for Puppet",
+  "license": "Apache-2.0",
+  "source": "https://github.com/hercules-team/augeasproviders_sysctl",
+  "project_page": "http://augeasproviders.com",
+  "issues_url": "https://github.com/hercules-team/augeasproviders_sysctl/issues",
+  "dependencies": [
+    {"name":"herculesteam/augeasproviders_core","version_requirement":">=2.1.0 <3.0.0"}
+  ],
+  "data_provider": null,
+  "description": "This module provides type/provider for sysctl using the Augeas configuration API library.",
+  "operatingsystem_support": [
+    {
+      "operatingsystem": "Debian",
+      "operatingsystemrelease": [
+        "5",
+        "6",
+        "7",
+        "8"
+      ]
+    },
+    {
+      "operatingsystem": "FreeBSD",
+      "operatingsystemrelease": [
+        "10",
+        "11",
+        "12"
+      ]
+    },
+    {
+      "operatingsystem": "OpenBSD",
+      "operatingsystemrelease": [
+        "5",
+        "6"
+      ]
+    },
+    {
+      "operatingsystem": "Ubuntu",
+      "operatingsystemrelease": [
+        "12.04",
+        "12.10",
+        "14.04",
+        "14.10",
+        "15.10",
+        "16.04"
+      ]
+    },
+    {
+      "operatingsystem": "RedHat",
+      "operatingsystemrelease": [
+        "4",
+        "5",
+        "6",
+        "7"
+      ]
+    },
+    {
+      "operatingsystem": "OpenSUSE",
+      "operatingsystemrelease": [
+        "42.2"
+      ]
+    }
+  ],
+  "requirements": [
+    {
+      "name": "puppet",
+      "version_requirement": ">= 2.7.0 < 5.0.0"
+    }
+  ]
+}

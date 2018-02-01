@@ -1,0 +1,7 @@
+---
+appveyor.yml:
+  delete: true
+.travis.yml:
+  extras:
+  - rvm: 2.1.9
+    script: bundle exec rake rubocop

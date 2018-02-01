@@ -1,0 +1,2154 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+  Puppet Class: rabbitmq
+  
+    &mdash; Documentation by YARD 0.9.10
+  
+</title>
+
+  <link rel="stylesheet" href="../css/style.css" type="text/css" charset="utf-8" />
+
+  <link rel="stylesheet" href="../css/common.css" type="text/css" charset="utf-8" />
+
+<script type="text/javascript" charset="utf-8">
+  pathId = "puppet_classes::rabbitmq";
+  relpath = '../';
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="../js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="../js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div class="nav_wrap">
+      <iframe id="nav" src="../puppet_class_list.html?1"></iframe>
+      <div id="resizer"></div>
+    </div>
+
+    <div id="main" tabindex="-1">
+      <div id="header">
+        <div id="menu">
+  
+    <a href="../_index.html">Index (r)</a> &raquo;
+    <span class='title'><span class='object_link'>Puppet Classes</span></span>
+     &raquo; 
+    <span class="title">rabbitmq</span>
+  
+</div>
+
+        <div id="search">
+  
+    <a class="full_list_link" id="puppet_class_list_link"
+        href="../puppet_class_list.html">
+
+        <svg width="24" height="24">
+          <rect x="0" y="4" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="12" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="20" width="24" height="4" rx="1" ry="1"></rect>
+        </svg>
+    </a>
+  
+</div>
+        <div class="clear"></div>
+      </div>
+
+      <div id="content"><h1>Puppet Class: rabbitmq</h1>
+<div class="box_info">
+  
+  <dl>
+    <dt>Inherits:</dt>
+    <dd><span class='object_link'><a href="rabbitmq_3A_3Aparams.html" title="puppet_classes::rabbitmq::params (puppet_class)">rabbitmq::params</a></span></dd>
+  </dl>
+  
+  
+  <dl>
+    <dt>Inherited by:</dt>
+    <dd>
+      
+      <span class='object_link'><a href="rabbitmq_3A_3Aservice.html" title="puppet_classes::rabbitmq::service (puppet_class)">rabbitmq::service</a></span><br/>
+      
+    </dd>
+  </dl>
+  
+  <dl>
+    <dt>Defined in:</dt>
+    <dd>
+      manifests/init.pp
+    </dd>
+  </dl>
+</div>
+
+  <h2>Summary</h2>
+  A module to manage RabbitMQ
+
+<h2>Overview</h2>
+<div class="docstring">
+  <div class="discussion">
+    <p>rabbitmq</p>
+
+  </div>
+</div>
+<div class="tags">
+  
+  <div class="examples">
+    <p class="tag_title">Examples:</p>
+    
+      
+        <p class="example_title"><div class='inline'><p>Basic usage</p>
+</div></p>
+      
+      <pre class="example code"><code><span class='id identifier rubyid_include'>include</span> <span class='id identifier rubyid_rabbitmq'>rabbitmq</span></code></pre>
+    
+      
+        <p class="example_title"><div class='inline'><p>rabbitmq class</p>
+</div></p>
+      
+      <pre class="example code"><code>class { &#39;rabbitmq&#39;:
+  service_manage    =&gt; false,
+  port              =&gt; &#39;5672&#39;,
+  delete_guest_user =&gt; true,
+}</code></pre>
+    
+      
+        <p class="example_title"><div class='inline'><p>Offline installation from local mirror:</p>
+</div></p>
+      
+      <pre class="example code"><code>
+class { &#39;rabbitmq&#39;:
+  key_content     =&gt; template(&#39;openstack/rabbit.pub.key&#39;),
+  package_gpg_key =&gt; &#39;/tmp/rabbit.pub.key&#39;,
+}</code></pre>
+    
+      
+        <p class="example_title"><div class='inline'><p>Use external package key source for any (apt/rpm) package provider:</p>
+</div></p>
+      
+      <pre class="example code"><code>class { &#39;rabbitmq&#39;:
+  package_gpg_key =&gt; &#39;http://www.some_site.some_domain/some_key.pub.key&#39;,
+}</code></pre>
+    
+      
+        <p class="example_title"><div class='inline'><p>To use RabbitMQ Environment Variables, use the parameters <code>environment_variables</code> e.g.:</p>
+</div></p>
+      
+      <pre class="example code"><code>
+class { &#39;rabbitmq&#39;:
+  port                  =&gt; &#39;5672&#39;,
+  environment_variables =&gt; {
+    &#39;NODENAME&#39;    =&gt; &#39;node01&#39;,
+    &#39;SERVICENAME&#39; =&gt; &#39;RabbitMQ&#39;
+  }
+}</code></pre>
+    
+      
+        <p class="example_title"><div class='inline'><p>Change RabbitMQ Config Variables in rabbitmq.config:</p>
+</div></p>
+      
+      <pre class="example code"><code>
+class { &#39;rabbitmq&#39;:
+  port             =&gt; &#39;5672&#39;,
+  config_variables =&gt; {
+    &#39;hipe_compile&#39; =&gt; true,
+    &#39;frame_max&#39;    =&gt; 131072,
+    &#39;log_levels&#39;   =&gt; &quot;[{connection, info}]&quot;
+  }
+}</code></pre>
+    
+      
+        <p class="example_title"><div class='inline'><p>Change Erlang Kernel Config Variables in rabbitmq.config</p>
+</div></p>
+      
+      <pre class="example code"><code>class { &#39;rabbitmq&#39;:
+  port                    =&gt; &#39;5672&#39;,
+  config_kernel_variables =&gt; {
+    &#39;inet_dist_listen_min&#39; =&gt; 9100,
+    &#39;inet_dist_listen_max&#39; =&gt; 9105,
+  }
+}</code></pre>
+    
+      
+        <p class="example_title"><div class='inline'><p>Change Management Plugin Config Variables in rabbitmq.config</p>
+</div></p>
+      
+      <pre class="example code"><code>class { &#39;rabbitmq&#39;:
+  config_management_variables =&gt; {
+    &#39;rates_mode&#39; =&gt; &#39;basic&#39;,
+  }
+}</code></pre>
+    
+      
+        <p class="example_title"><div class='inline'><p>Change Additional Config Variables in rabbitmq.config</p>
+</div></p>
+      
+      <pre class="example code"><code>class { &#39;rabbitmq&#39;:
+  config_additional_variables =&gt; {
+    &#39;autocluster&#39; =&gt; &#39;[{consul_service, &quot;rabbit&quot;},{cluster_name, &quot;rabbit&quot;}]&#39;,
+    &#39;foo&#39;         =&gt; &#39;[{bar, &quot;baz&quot;}]&#39;
+  }
+}
+This will result in the following config appended to the config file:
+{autocluster, [{consul_service, &quot;rabbit&quot;},{cluster_name, &quot;rabbit&quot;}]},
+ {foo, [{bar, &quot;baz&quot;}]}
+(This is required for the [autocluster plugin](https://github.com/aweber/rabbitmq-autocluster)</code></pre>
+    
+      
+        <p class="example_title"><div class='inline'><p>Use RabbitMQ clustering facilities</p>
+</div></p>
+      
+      <pre class="example code"><code>class { &#39;rabbitmq&#39;:
+  config_cluster           =&gt; true,
+  cluster_nodes            =&gt; [&#39;rabbit1&#39;, &#39;rabbit2&#39;],
+  cluster_node_type        =&gt; &#39;ram&#39;,
+  erlang_cookie            =&gt; &#39;A_SECRET_COOKIE_STRING&#39;,
+  wipe_db_on_cookie_change =&gt; true,
+}</code></pre>
+    
+  </div>
+<p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>admin_enable</span>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>$rabbitmq::params::admin_enable</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>If enabled sets up the management interface/plugin for RabbitMQ.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>auth_backends</span>
+      
+      
+        <span class='type'>(<tt>Optional[Array]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>undef</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>An array specifying authorization/authentication backend to use. Single quotes should be placed around array entries, ex. [&#39;baz&#39;, &#39;baz&#39;] Defaults to [rabbit_auth_backend_internal], and if using LDAP defaults to [rabbit_auth_backend_internal, rabbit_auth_backend_ldap].</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>cluster_node_type</span>
+      
+      
+        <span class='type'>(<tt>Enum['ram', 'disk', 'disc']</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>$rabbitmq::params::cluster_node_type</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>Choose between disc and ram nodes.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>cluster_nodes</span>
+      
+      
+        <span class='type'>(<tt>Array</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>$rabbitmq::params::cluster_nodes</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>An array of nodes for clustering.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>cluster_partition_handling</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>$rabbitmq::params::cluster_partition_handling</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>Value to set for <code>cluster_partition_handling</code> RabbitMQ configuration variable.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>collect_statistics_interval</span>
+      
+      
+        <span class='type'>(<tt>Optional[Integer]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>undef</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>Set the collect_statistics_interval in rabbitmq.config</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>config</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>$rabbitmq::params::config</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>The file to use as the rabbitmq.config template.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>config_additional_variables</span>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>$rabbitmq::params::config_additional_variables</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>Additional config variables in rabbitmq.config</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>config_cluster</span>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>$rabbitmq::params::config_cluster</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>Enable or disable clustering support.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>config_kernel_variables</span>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>$rabbitmq::params::config_kernel_variables</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>Hash of Erlang kernel configuration variables to set (see <a href="#variables-configurable-in-rabbitmq.config">Variables Configurable in rabbitmq.config</a>).</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>config_path</span>
+      
+      
+        <span class='type'>(<tt>Stdlib::Absolutepath</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>$rabbitmq::params::config_path</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>The path to write the RabbitMQ configuration file to.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>config_management_variables</span>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>$rabbitmq::params::config_management_variables</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>Hash of configuration variables for the <a href="https://www.rabbitmq.com/management.html">Management Plugin</a>.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>config_stomp</span>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>$rabbitmq::params::config_stomp</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>Enable or disable stomp.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>config_shovel</span>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>$rabbitmq::params::config_shovel</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>Enable or disable shovel.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>config_shovel_statics</span>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>$rabbitmq::params::config_shovel_statics</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>Hash of static shovel configurations</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>config_variables</span>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>$rabbitmq::params::config_variables</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>To set config variables in rabbitmq.config</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>default_user</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>$rabbitmq::params::default_user</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>Username to set for the <code>default_user</code> in rabbitmq.config.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>default_pass</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>$rabbitmq::params::default_pass</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>Password to set for the <code>default_user</code> in rabbitmq.config.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>delete_guest_user</span>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>$rabbitmq::params::delete_guest_user</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>Controls whether default guest user is deleted.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>env_config</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>$rabbitmq::params::env_config</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>The template file to use for rabbitmq_env.config.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>env_config_path</span>
+      
+      
+        <span class='type'>(<tt>Stdlib::Absolutepath</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>$rabbitmq::params::env_config_path</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>The path to write the rabbitmq_env.config file to.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>environment_variables</span>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>$rabbitmq::params::environment_variables</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>RabbitMQ Environment Variables in rabbitmq_env.config</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>erlang_cookie</span>
+      
+      
+        <span class='type'>(<tt>Optional[String]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>undef</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>The erlang cookie to use for clustering - must be the same between all nodes. This value has no default and must be
+set explicitly if using clustering. If you run Pacemaker and you don&#39;t want to use RabbitMQ buildin cluster, you can set config_cluster
+to &#39;False&#39; and set &#39;erlang_cookie&#39;.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>file_limit</span>
+      
+      
+        <span class='type'>(<tt>Variant[Integer[-1,], Enum['unlimited', 'infinity']]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>$rabbitmq::params::file_limit</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>Set rabbitmq file ulimit. Defaults to 16384. Only available on systems with <code>$::osfamily == &#39;Debian&#39;</code> or
+<code>$::osfamily == &#39;RedHat&#39;</code>.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>heartbeat</span>
+      
+      
+        <span class='type'>(<tt>Optional[Integer]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>undef</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>Set the heartbeat timeout interval, default is unset which uses the builtin server defaults of 60 seconds. Setting this</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>inetrc_config</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>$rabbitmq::params::inetrc_config</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>Template to use for the inetrc config</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>inetrc_config_path</span>
+      
+      
+        <span class='type'>(<tt>Stdlib::Absolutepath</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>$rabbitmq::params::inetrc_config_path</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>Path of the file to push the inetrc config to.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>ipv6</span>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>$rabbitmq::params::ipv6</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>Whether to listen on ipv6</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>interface</span>
+      
+      
+        <span class='type'>(<tt>Optional[String]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>undef</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>Interface to bind to (sets tcp_listeners parameter). By default, bind to all interfaces
+to <code>0</code> will disable heartbeats.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>key_content</span>
+      
+      
+        <span class='type'>(<tt>Optional[String]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>undef</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>Uses content method for Debian OS family. Should be a template for apt::source class. Overrides <code>package_gpg_key</code>
+behavior, if enabled. Undefined by default.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>ldap_auth</span>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>$rabbitmq::params::ldap_auth</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>Set to true to enable LDAP auth.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>ldap_server</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>$rabbitmq::params::ldap_server</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>LDAP server to use for auth.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>ldap_user_dn_pattern</span>
+      
+      
+        <span class='type'>(<tt>Optional[String]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>$rabbitmq::params::ldap_user_dn_pattern</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>User DN pattern for LDAP auth.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>ldap_other_bind</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>$rabbitmq::params::ldap_other_bind</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>How to bind to the LDAP server. Defaults to &#39;anon&#39;.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>ldap_config_variables</span>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>$rabbitmq::params::ldap_config_variables</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>Hash of other LDAP config variables.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>ldap_use_ssl</span>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>$rabbitmq::params::ldap_use_ssl</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>Set to true to use SSL for the LDAP server.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>ldap_port</span>
+      
+      
+        <span class='type'>(<tt>Integer[1, 65535]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>$rabbitmq::params::ldap_port</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>Numeric port for LDAP server.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>ldap_log</span>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>$rabbitmq::params::ldap_log</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>Set to true to log LDAP auth.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>manage_python</span>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>$rabbitmq::params::manage_python</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>If enabled, on platforms that don&#39;t provide a Python 2 package by default, ensure that the python package is
+installed (for rabbitmqadmin). This will only apply if <code>admin_enable</code> and <code>service_manage</code> are set.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>management_hostname</span>
+      
+      
+        <span class='type'>(<tt>Optional[String]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>undef</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>The hostname for the RabbitMQ management interface.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>management_port</span>
+      
+      
+        <span class='type'>(<tt>Integer[1, 65535]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>$rabbitmq::params::management_port</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>The port for the RabbitMQ management interface.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>management_ip_address</span>
+      
+      
+        <span class='type'>(<tt>Optional[String]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>undef</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>Allows you to set the IP for management interface to bind to separately. Set to 127.0.0.1 to bind to
+localhost only, or 0.0.0.0 to bind to all interfaces.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>management_ssl</span>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>$rabbitmq::params::management_ssl</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>Enable/Disable SSL for the management port. Has an effect only if ssl =&gt; true.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>node_ip_address</span>
+      
+      
+        <span class='type'>(<tt>Optional[String]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>undef</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>Allows you to set the IP for RabbitMQ service to bind to. Set to 127.0.0.1 to bind to localhost only, or 0.0.0.0
+to bind to all interfaces.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>package_apt_pin</span>
+      
+      
+        <span class='type'>(<tt>Optional[Variant[Numeric, String]]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>undef</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>Whether to pin the package to a particular source</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>package_ensure</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>$rabbitmq::params::package_ensure</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>Determines the ensure state of the package.  Set to installed by default, but could be changed to latest.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>package_gpg_key</span>
+      
+      
+        <span class='type'>(<tt>Optional[String]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>$rabbitmq::params::package_gpg_key</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>RPM package GPG key to import. Uses source method. Should be a URL for Debian/RedHat OS family, or a file name for
+RedHat OS family. Set to <a href="https://packagecloud.io/gpg.key">https://packagecloud.io/gpg.key</a> by default. Note, that <code>key_content</code>, if specified, would override this
+parameter for Debian OS family.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>package_name</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>$rabbitmq::params::package_name</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>The name of the package to install.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>port</span>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>$rabbitmq::params::port</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>The RabbitMQ port.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>repos_ensure</span>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>$rabbitmq::params::repos_ensure</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>Ensure that a repo with the official (and newer) RabbitMQ package is configured, along with its signing key.
+Defaults to false (use system packages). This does not ensure that soft dependencies (like EPEL on RHEL systems) are present.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>service_ensure</span>
+      
+      
+        <span class='type'>(<tt>Enum['running', 'stopped']</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>$rabbitmq::params::service_ensure</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>The state of the service.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>service_manage</span>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>$rabbitmq::params::service_manage</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>Determines if the service is managed.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>service_name</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>$rabbitmq::params::service_name</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>The name of the service to manage.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>ssl</span>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>$rabbitmq::params::ssl</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>Configures the service for using SSL.
+port =&gt; UNSET</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>ssl_cacert</span>
+      
+      
+        <span class='type'>(<tt>Optional[Stdlib::Absolutepath]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>undef</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>CA cert path to use for SSL.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>ssl_cert</span>
+      
+      
+        <span class='type'>(<tt>Optional[Stdlib::Absolutepath]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>undef</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>Cert to use for SSL.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>ssl_cert_password</span>
+      
+      
+        <span class='type'>(<tt>Optional[String]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>undef</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>Password used when generating CSR.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>ssl_depth</span>
+      
+      
+        <span class='type'>(<tt>Optional[Integer]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>undef</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>SSL verification depth.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>ssl_dhfile</span>
+      
+      
+        <span class='type'>(<tt>Optional[Stdlib::Absolutepath]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>undef</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>Use this dhparam file [example: generate with <code>openssl dhparam -out /etc/rabbitmq/ssl/dhparam.pem 2048</code></p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>ssl_erl_dist</span>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>$rabbitmq::params::ssl_erl_dist</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>Whether to use the erlang package&#39;s SSL (relies on the ssl_erl_path fact)</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>ssl_honor_cipher_order</span>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>$rabbitmq::params::ssl_honor_cipher_order</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>Force use of server cipher order</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>ssl_interface</span>
+      
+      
+        <span class='type'>(<tt>Optional[String]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>undef</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>Interface for SSL listener to bind to</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>ssl_key</span>
+      
+      
+        <span class='type'>(<tt>Optional[Stdlib::Absolutepath]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>undef</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>Key to use for SSL.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>ssl_only</span>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>$rabbitmq::params::ssl_only</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>Configures the service to only use SSL.  No cleartext TCP listeners will be created. Requires that ssl =&gt; true and</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>ssl_management_port</span>
+      
+      
+        <span class='type'>(<tt>Integer[1, 65535]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>$rabbitmq::params::ssl_management_port</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>SSL management port.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>ssl_port</span>
+      
+      
+        <span class='type'>(<tt>Integer[1, 65535]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>$rabbitmq::params::ssl_port</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>SSL port for RabbitMQ</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>ssl_reuse_sessions</span>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>$rabbitmq::params::ssl_reuse_sessions</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>Reuse ssl sessions</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>ssl_secure_renegotiate</span>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>$rabbitmq::params::ssl_secure_renegotiate</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>Use ssl secure renegotiate</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>ssl_stomp_port</span>
+      
+      
+        <span class='type'>(<tt>Integer[1, 65535]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>$rabbitmq::params::ssl_stomp_port</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>SSL stomp port.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>ssl_verify</span>
+      
+      
+        <span class='type'>(<tt>Enum['verify_none','verify_peer']</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>$rabbitmq::params::ssl_verify</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>rabbitmq.config SSL verify setting.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>ssl_fail_if_no_peer_cert</span>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>$rabbitmq::params::ssl_fail_if_no_peer_cert</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>rabbitmq.config <code>fail_if_no_peer_cert</code> setting.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>ssl_management_verify</span>
+      
+      
+        <span class='type'>(<tt>Enum['verify_none','verify_peer']</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>$rabbitmq::params::ssl_management_verify</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>rabbitmq.config SSL verify setting for rabbitmq_management.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>ssl_manaagement_fail_if_no_peer_cert</span>
+      
+      
+        <span class='type'></span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>rabbitmq.config <code>fail_if_no_peer_cert</code> setting for rabbitmq_management.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>ssl_versions</span>
+      
+      
+        <span class='type'>(<tt>Optional[Array]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>undef</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>Choose which SSL versions to enable. Example: <code>[&#39;tlsv1.2&#39;, &#39;tlsv1.1&#39;]</code> Note that it is recommended to disable <code>sslv3
+and</code>tlsv1` to prevent against POODLE and BEAST attacks. Please see the <a href="https://www.rabbitmq.com/ssl.html">RabbitMQ SSL</a> documentation
+for more information.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>ssl_ciphers</span>
+      
+      
+        <span class='type'>(<tt>Array</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>$rabbitmq::params::ssl_ciphers</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>Support only a given list of SSL ciphers. Example: <code>[&#39;dhe_rsa,aes_256_cbc,sha&#39;,&#39;dhe_dss,aes_256_cbc,sha&#39;,
+&#39;ecdhe_rsa,aes_256_cbc,sha&#39;]</code>. Supported ciphers in your install can be listed with: rabbitmqctl eval &#39;ssl:cipher_suites().&#39;
+Functionality can be tested with cipherscan or similar tool: <a href="https://github.com/jvehent/cipherscan.git">https://github.com/jvehent/cipherscan.git</a></p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>stomp_port</span>
+      
+      
+        <span class='type'>(<tt>Integer[1, 65535]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>$rabbitmq::params::stomp_port</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>The port to use for Stomp.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>stomp_ssl_only</span>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>$rabbitmq::params::stomp_ssl_only</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>Configures STOMP to only use SSL.  No cleartext STOMP TCP listeners will be created. Requires setting
+ssl_stomp_port also.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>stomp_ensure</span>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>$rabbitmq::params::stomp_ensure</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>Enable to install the stomp plugin.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>tcp_backlog</span>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>$rabbitmq::params::tcp_backlog</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>The size of the backlog on TCP connections.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>tcp_keepalive</span>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>$rabbitmq::params::tcp_keepalive</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>Enable TCP connection keepalive for RabbitMQ service.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>tcp_recbuf</span>
+      
+      
+        <span class='type'>(<tt>Optional[Integer]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>undef</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>Corresponds to recbuf in RabbitMQ <code>tcp_listen_options</code></p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>tcp_sndbuf</span>
+      
+      
+        <span class='type'>(<tt>Optional[Integer]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>undef</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>Integer, corresponds to sndbuf in RabbitMQ <code>tcp_listen_options</code></p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>wipe_db_on_cookie_change</span>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>$rabbitmq::params::wipe_db_on_cookie_change</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>Boolean to determine if we should DESTROY AND DELETE the RabbitMQ database.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>rabbitmq_user</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>$rabbitmq::params::rabbitmq_user</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>OS dependent, default defined in param.pp. The system user the rabbitmq daemon runs as.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>rabbitmq_group</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>$rabbitmq::params::rabbitmq_group</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>OS dependent, default defined in param.pp. The system group the rabbitmq daemon runs as.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>rabbitmq_home</span>
+      
+      
+        <span class='type'>(<tt>Stdlib::Absolutepath</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>$rabbitmq::params::rabbitmq_home</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>OS dependent. default defined in param.pp. The home directory of the rabbitmq deamon.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>$rabbitmqadmin_package</span>
+      
+      
+        <span class='type'></span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>OS dependent. default defined in param.pp. If undef: install rabbitmqadmin via archive, otherwise via package</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>config_ranch</span>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>$rabbitmq::params::config_ranch</tt>)</em>
+      
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>package_source</span>
+      
+      
+        <span class='type'>(<tt>Optional[String]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>undef</tt>)</em>
+      
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>package_provider</span>
+      
+      
+        <span class='type'>(<tt>Optional[String]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>undef</tt>)</em>
+      
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>ssl_management_fail_if_no_peer_cert</span>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>$rabbitmq::params::ssl_management_fail_if_no_peer_cert</tt>)</em>
+      
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>rabbitmqadmin_package</span>
+      
+      
+        <span class='type'>(<tt>Optional[String]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>$rabbitmq::params::rabbitmqadmin_package</tt>)</em>
+      
+      
+    </li>
+  
+</ul>
+
+
+</div><div class="method_details_list">
+  <table class="source_code">
+    <tr>
+      <td>
+        <pre class="lines">
+
+
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274
+275
+276
+277
+278
+279
+280
+281
+282
+283
+284
+285
+286
+287
+288
+289
+290
+291
+292
+293
+294
+295
+296
+297
+298
+299
+300
+301
+302
+303
+304
+305
+306
+307
+308
+309
+310
+311
+312
+313
+314
+315
+316
+317
+318
+319
+320
+321
+322
+323
+324
+325
+326
+327
+328
+329
+330
+331
+332
+333
+334
+335
+336
+337
+338
+339
+340
+341
+342
+343
+344
+345
+346
+347
+348
+349
+350
+351
+352
+353
+354
+355
+356
+357
+358
+359
+360
+361
+362
+363
+364</pre>
+      </td>
+      <td>
+        <pre class="code"><span class="info file"># File 'manifests/init.pp', line 188</span>
+
+class rabbitmq(
+  Boolean $admin_enable                                            = $rabbitmq::params::admin_enable,
+  Enum[&#39;ram&#39;, &#39;disk&#39;, &#39;disc&#39;] $cluster_node_type                   = $rabbitmq::params::cluster_node_type,
+  Array $cluster_nodes                                             = $rabbitmq::params::cluster_nodes,
+  String $config                                                   = $rabbitmq::params::config,
+  Boolean $config_cluster                                          = $rabbitmq::params::config_cluster,
+  Stdlib::Absolutepath $config_path                                = $rabbitmq::params::config_path,
+  Boolean $config_ranch                                            = $rabbitmq::params::config_ranch,
+  Boolean $config_stomp                                            = $rabbitmq::params::config_stomp,
+  Boolean $config_shovel                                           = $rabbitmq::params::config_shovel,
+  Hash $config_shovel_statics                                      = $rabbitmq::params::config_shovel_statics,
+  String $default_user                                             = $rabbitmq::params::default_user,
+  String $default_pass                                             = $rabbitmq::params::default_pass,
+  Boolean $delete_guest_user                                       = $rabbitmq::params::delete_guest_user,
+  String $env_config                                               = $rabbitmq::params::env_config,
+  Stdlib::Absolutepath $env_config_path                            = $rabbitmq::params::env_config_path,
+  Optional[String] $erlang_cookie                                  = undef,
+  Optional[String] $interface                                      = undef,
+  Optional[String] $management_ip_address                          = undef,
+  Integer[1, 65535] $management_port                               = $rabbitmq::params::management_port,
+  Boolean $management_ssl                                          = $rabbitmq::params::management_ssl,
+  Optional[String] $management_hostname                            = undef,
+  Optional[String] $node_ip_address                                = undef,
+  Optional[Variant[Numeric, String]] $package_apt_pin              = undef,
+  String $package_ensure                                           = $rabbitmq::params::package_ensure,
+  Optional[String] $package_gpg_key                                = $rabbitmq::params::package_gpg_key,
+  String $package_name                                             = $rabbitmq::params::package_name,
+  Optional[String] $package_source                                 = undef,
+  Optional[String] $package_provider                               = undef,
+  Boolean $repos_ensure                                            = $rabbitmq::params::repos_ensure,
+  Boolean $manage_python                                           = $rabbitmq::params::manage_python,
+  String $rabbitmq_user                                            = $rabbitmq::params::rabbitmq_user,
+  String $rabbitmq_group                                           = $rabbitmq::params::rabbitmq_group,
+  Stdlib::Absolutepath $rabbitmq_home                              = $rabbitmq::params::rabbitmq_home,
+  Integer $port                                                    = $rabbitmq::params::port,
+  Boolean $tcp_keepalive                                           = $rabbitmq::params::tcp_keepalive,
+  Integer $tcp_backlog                                             = $rabbitmq::params::tcp_backlog,
+  Optional[Integer] $tcp_sndbuf                                    = undef,
+  Optional[Integer] $tcp_recbuf                                    = undef,
+  Optional[Integer] $heartbeat                                     = undef,
+  Enum[&#39;running&#39;, &#39;stopped&#39;] $service_ensure                       = $rabbitmq::params::service_ensure,
+  Boolean $service_manage                                          = $rabbitmq::params::service_manage,
+  String $service_name                                             = $rabbitmq::params::service_name,
+  Boolean $ssl                                                     = $rabbitmq::params::ssl,
+  Boolean $ssl_only                                                = $rabbitmq::params::ssl_only,
+  Optional[Stdlib::Absolutepath] $ssl_cacert                       = undef,
+  Optional[Stdlib::Absolutepath] $ssl_cert                         = undef,
+  Optional[Stdlib::Absolutepath] $ssl_key                          = undef,
+  Optional[Integer] $ssl_depth                                     = undef,
+  Optional[String] $ssl_cert_password                              = undef,
+  Integer[1, 65535] $ssl_port                                      = $rabbitmq::params::ssl_port,
+  Optional[String] $ssl_interface                                  = undef,
+  Integer[1, 65535] $ssl_management_port                           = $rabbitmq::params::ssl_management_port,
+  Integer[1, 65535] $ssl_stomp_port                                = $rabbitmq::params::ssl_stomp_port,
+  Enum[&#39;verify_none&#39;,&#39;verify_peer&#39;] $ssl_verify                    = $rabbitmq::params::ssl_verify,
+  Boolean $ssl_fail_if_no_peer_cert                                = $rabbitmq::params::ssl_fail_if_no_peer_cert,
+  Enum[&#39;verify_none&#39;,&#39;verify_peer&#39;] $ssl_management_verify         = $rabbitmq::params::ssl_management_verify,
+  Boolean $ssl_management_fail_if_no_peer_cert                     = $rabbitmq::params::ssl_management_fail_if_no_peer_cert,
+  Optional[Array] $ssl_versions                                    = undef,
+  Boolean $ssl_secure_renegotiate                                  = $rabbitmq::params::ssl_secure_renegotiate,
+  Boolean $ssl_reuse_sessions                                      = $rabbitmq::params::ssl_reuse_sessions,
+  Boolean $ssl_honor_cipher_order                                  = $rabbitmq::params::ssl_honor_cipher_order,
+  Optional[Stdlib::Absolutepath] $ssl_dhfile                       = undef,
+  Array $ssl_ciphers                                               = $rabbitmq::params::ssl_ciphers,
+  Boolean $stomp_ensure                                            = $rabbitmq::params::stomp_ensure,
+  Boolean $ldap_auth                                               = $rabbitmq::params::ldap_auth,
+  String $ldap_server                                              = $rabbitmq::params::ldap_server,
+  Optional[String] $ldap_user_dn_pattern                           = $rabbitmq::params::ldap_user_dn_pattern,
+  String $ldap_other_bind                                          = $rabbitmq::params::ldap_other_bind,
+  Boolean $ldap_use_ssl                                            = $rabbitmq::params::ldap_use_ssl,
+  Integer[1, 65535] $ldap_port                                     = $rabbitmq::params::ldap_port,
+  Boolean $ldap_log                                                = $rabbitmq::params::ldap_log,
+  Hash $ldap_config_variables                                      = $rabbitmq::params::ldap_config_variables,
+  Integer[1, 65535] $stomp_port                                    = $rabbitmq::params::stomp_port,
+  Boolean $stomp_ssl_only                                          = $rabbitmq::params::stomp_ssl_only,
+  Boolean $wipe_db_on_cookie_change                                = $rabbitmq::params::wipe_db_on_cookie_change,
+  String $cluster_partition_handling                               = $rabbitmq::params::cluster_partition_handling,
+  Variant[Integer[-1,], Enum[&#39;unlimited&#39;, &#39;infinity&#39;]] $file_limit = $rabbitmq::params::file_limit,
+  Hash $environment_variables                                      = $rabbitmq::params::environment_variables,
+  Hash $config_variables                                           = $rabbitmq::params::config_variables,
+  Hash $config_kernel_variables                                    = $rabbitmq::params::config_kernel_variables,
+  Hash $config_management_variables                                = $rabbitmq::params::config_management_variables,
+  Hash $config_additional_variables                                = $rabbitmq::params::config_additional_variables,
+  Optional[Array] $auth_backends                                   = undef,
+  Optional[String] $key_content                                    = undef,
+  Optional[Integer] $collect_statistics_interval                   = undef,
+  Boolean $ipv6                                                    = $rabbitmq::params::ipv6,
+  String $inetrc_config                                            = $rabbitmq::params::inetrc_config,
+  Stdlib::Absolutepath $inetrc_config_path                         = $rabbitmq::params::inetrc_config_path,
+  Boolean $ssl_erl_dist                                            = $rabbitmq::params::ssl_erl_dist,
+  Optional[String] $rabbitmqadmin_package                          = $rabbitmq::params::rabbitmqadmin_package,
+) inherits rabbitmq::params {
+
+  if $ssl_only and ! $ssl {
+    fail(&#39;$ssl_only =&gt; true requires that $ssl =&gt; true&#39;)
+  }
+
+  if $config_stomp and $stomp_ssl_only and ! $ssl_stomp_port  {
+    fail(&#39;$stomp_ssl_only requires that $ssl_stomp_port be set&#39;)
+  }
+
+  if $ssl_versions {
+    unless $ssl {
+      fail(&#39;$ssl_versions requires that $ssl =&gt; true&#39;)
+    }
+  }
+
+  if $repos_ensure {
+    case $facts[&#39;os&#39;][&#39;family&#39;] {
+      &#39;RedHat&#39;: {
+        contain rabbitmq::repo::rhel
+      }
+      &#39;Debian&#39;: {
+        contain rabbitmq::repo::apt
+      }
+      default: {
+      }
+    }
+  }
+
+  contain rabbitmq::install
+  contain rabbitmq::config
+  contain rabbitmq::service
+  contain rabbitmq::management
+
+  if $admin_enable and $service_manage {
+    include &#39;rabbitmq::install::rabbitmqadmin&#39;
+
+    rabbitmq_plugin { &#39;rabbitmq_management&#39;:
+      ensure   =&gt; present,
+      notify   =&gt; Class[&#39;rabbitmq::service&#39;],
+      provider =&gt; &#39;rabbitmqplugins&#39;,
+    }
+
+    Class[&#39;rabbitmq::service&#39;] -&gt; Class[&#39;rabbitmq::install::rabbitmqadmin&#39;]
+    Class[&#39;rabbitmq::install::rabbitmqadmin&#39;] -&gt; Rabbitmq_exchange&lt;| |&gt;
+  }
+
+  if $stomp_ensure {
+    rabbitmq_plugin { &#39;rabbitmq_stomp&#39;:
+      ensure =&gt; present,
+      notify =&gt; Class[&#39;rabbitmq::service&#39;],
+    }
+  }
+
+  if ($ldap_auth) {
+    rabbitmq_plugin { &#39;rabbitmq_auth_backend_ldap&#39;:
+      ensure =&gt; present,
+      notify =&gt; Class[&#39;rabbitmq::service&#39;],
+    }
+  }
+
+  if ($config_shovel) {
+    rabbitmq_plugin { &#39;rabbitmq_shovel&#39;:
+      ensure   =&gt; present,
+      notify   =&gt; Class[&#39;rabbitmq::service&#39;],
+      provider =&gt; &#39;rabbitmqplugins&#39;,
+    }
+
+    if ($admin_enable) {
+      rabbitmq_plugin { &#39;rabbitmq_shovel_management&#39;:
+        ensure   =&gt; present,
+        notify   =&gt; Class[&#39;rabbitmq::service&#39;],
+        provider =&gt; &#39;rabbitmqplugins&#39;,
+      }
+    }
+  }
+
+  Class[&#39;rabbitmq::install&#39;]
+  -&gt; Class[&#39;rabbitmq::config&#39;]
+  ~&gt; Class[&#39;rabbitmq::service&#39;]
+  -&gt; Class[&#39;rabbitmq::management&#39;]
+
+  # Make sure the various providers have their requirements in place.
+  Class[&#39;rabbitmq::install&#39;] -&gt; Rabbitmq_plugin&lt;| |&gt;
+
+}</pre>
+      </td>
+    </tr>
+  </table>
+</div>
+</div>
+
+      <div id="footer">
+     Generated by <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>.
+</div>
+
+    </div>
+  </body>
+</html>

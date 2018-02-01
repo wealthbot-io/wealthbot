@@ -1,0 +1,11 @@
+fixtures:
+  repositories:
+    stdlib:
+      repo: "git://github.com/puppetlabs/puppetlabs-stdlib.git"
+      ref: 4.7.0
+    augeasproviders_sysctl:
+      repo: "git://github.com/hercules-team/augeasproviders_sysctl.git"
+    augeasproviders_core:
+      repo: "git://github.com/hercules-team/augeasproviders_core.git"
+  symlinks:
+    swap_file: "#{source_dir}"

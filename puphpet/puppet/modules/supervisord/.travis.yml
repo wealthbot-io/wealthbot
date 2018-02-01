@@ -1,0 +1,27 @@
+---
+language: ruby
+cache: bundler
+bundler_args: --without development
+script: "bundle exec rake test"
+rvm:
+  - 1.9.3
+  - 2.1.7
+  - 2.2.4
+env:
+  - PUPPET_VERSION="~> 3.8.0"
+  - PUPPET_VERSION="~> 3.8.0" FUTURE_PARSER=yes
+  - PUPPET_VERSION="~> 4.4.0"
+matrix:
+  exclude:
+    - rvm: 2.2.4
+      env: PUPPET_VERSION="~> 3.8.0"
+    - rvm: 2.2.4
+      env: PUPPET_VERSION="~> 3.8.0" FUTURE_PARSER=yes
+    - rvm: 1.9.3
+      env: PUPPET_VERSION="~> 4.4.0"
+    - rvm: 2.1.9
+      env: PUPPET_VERSION="~> 4.4.0"
+
+notifications:
+  email: false
+sudo: false

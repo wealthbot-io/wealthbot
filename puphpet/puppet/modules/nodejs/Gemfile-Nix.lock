@@ -1,0 +1,85 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    addressable (2.5.0)
+      public_suffix (~> 2.0, >= 2.0.2)
+    crack (0.4.3)
+      safe_yaml (~> 1.0.0)
+    diff-lcs (1.3)
+    domain_name (0.5.20170223)
+      unf (>= 0.0.5, < 1.0.0)
+    facter (1.7.6)
+    hashdiff (0.3.2)
+    hiera (1.3.4)
+      json_pure
+    http-cookie (1.0.3)
+      domain_name (~> 0.5)
+    iconv (1.0.4)
+    json_pure (2.0.3)
+    metaclass (0.0.4)
+    mime-types (2.99.3)
+    mocha (1.2.1)
+      metaclass (~> 0.0.1)
+    netrc (0.11.0)
+    public_suffix (2.0.5)
+    puppet (3.4.3)
+      facter (~> 1.6)
+      hiera (~> 1.0)
+      rgen (~> 0.6.5)
+    puppet-blacksmith (3.4.0)
+      puppet (>= 2.7.16)
+      rest-client (~> 1.8.0)
+    puppet-lint (2.1.1)
+    puppet-syntax (2.3.0)
+      rake
+    puppetlabs_spec_helper (2.1.0)
+      mocha (~> 1.0)
+      puppet-lint (~> 2.0)
+      puppet-syntax (~> 2.0)
+      rspec-puppet (~> 2.0)
+    rake (12.0.0)
+    rest-client (1.8.0)
+      http-cookie (>= 1.0.2, < 2.0)
+      mime-types (>= 1.16, < 3.0)
+      netrc (~> 0.7)
+    rgen (0.6.6)
+    rspec (3.5.0)
+      rspec-core (~> 3.5.0)
+      rspec-expectations (~> 3.5.0)
+      rspec-mocks (~> 3.5.0)
+    rspec-core (3.5.4)
+      rspec-support (~> 3.5.0)
+    rspec-expectations (3.5.0)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.5.0)
+    rspec-mocks (3.5.0)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.5.0)
+    rspec-puppet (2.5.0)
+      rspec
+    rspec-support (3.5.0)
+    safe_yaml (1.0.4)
+    unf (0.1.4)
+      unf_ext
+    unf_ext (0.0.7.2)
+    webmock (2.3.2)
+      addressable (>= 2.3.6)
+      crack (>= 0.3.2)
+      hashdiff
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  iconv
+  puppet (~> 3.4.0)
+  puppet-blacksmith
+  puppet-lint
+  puppet-syntax
+  puppetlabs_spec_helper
+  rake
+  rspec-puppet
+  webmock
+
+BUNDLED WITH
+   1.14.4

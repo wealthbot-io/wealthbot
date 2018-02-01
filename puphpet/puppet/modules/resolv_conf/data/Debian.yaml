@@ -1,0 +1,5 @@
+---
+resolv_conf::config_file: '/etc/resolv.conf'
+resolv_conf::use_resolvconf: false
+resolv_conf::manage_package: true
+resolv_conf::package: 'resolvconf'

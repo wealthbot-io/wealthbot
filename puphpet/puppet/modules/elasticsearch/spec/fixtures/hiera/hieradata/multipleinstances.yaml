@@ -1,0 +1,10 @@
+---
+elasticsearch::instances:
+  es-hiera-multiple-1:
+    config:
+      node.name: 'es-hiera-multiple-1'
+      network.host: '0.0.0.0'
+  es-hiera-multiple-2:
+    config:
+      node.name: 'es-hiera-multiple-2'
+      network.host: '0.0.0.0'

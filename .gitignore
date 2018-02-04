@@ -4,15 +4,7 @@
 app/config/parameters.yml
 app/config/parameters_test.yml
 
-# Cache and logs (Symfony3)
-var/cache/*
-var/logs/*
-!var/cache/.gitkeep
-!var/logs/.gitkeep
 app/build/logs/junit.xml
-
-# Parameters
-app/config/parameters.yml
 app/config/parameters.ini
 
 # Managed by Composer

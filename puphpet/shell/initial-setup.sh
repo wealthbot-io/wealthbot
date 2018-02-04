@@ -76,6 +76,13 @@ fi
 touch ${PUPHPET_STATE_DIR}/initial-setup
 
 
+dd if=/dev/zero of=/swapfile bs=4M count=1000
+mkswap /swapfile
+chmod 0600 /swapfile
+swapon /swapfile
+
+
+
 cd /var/www/wealthbot
 chmod -R 0777 app/cache app/logs
 composer clear-cache

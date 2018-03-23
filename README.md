@@ -3,6 +3,8 @@ wealthbot.io
 
 [![GitHub license](https://img.shields.io/github/license/mashape/apistatus.svg)]()
 
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/881769ff-b0e8-43f0-b67f-e0915d7aee5f/big.png)](https://insight.sensiolabs.com/projects/881769ff-b0e8-43f0-b67f-e0915d7aee5f)
+
 ## Please Note: This project is not actively supported. We are keeping this code up because it's free and open. Enjoy at your own risk.
 
 ### Wealth Management, Set Free

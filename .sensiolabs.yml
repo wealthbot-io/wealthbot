@@ -16,7 +16,7 @@ global_exclude_dirs:
     - api/cache
     - app/polyfill
 rules:
-    twig.disabled_escaper:
+    twig.xss_vulnerability:
         enabled: false
     symfony.controller.too_many_template_variables:
         enabled: true

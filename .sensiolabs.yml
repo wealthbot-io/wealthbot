@@ -17,7 +17,7 @@ global_exclude_dirs:
     - app/polyfill
 rules:
     twig.disabled_escaper:
-        enabled: true
+        enabled: false
     symfony.controller.too_many_template_variables:
         enabled: true
         max_count: 20

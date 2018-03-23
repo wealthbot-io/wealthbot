@@ -1,3 +1,4 @@
+php_version: 5
 global_exclude_dirs:
     - vendor
     - vendors
@@ -33,7 +34,7 @@ rules:
         threshold: 10
     missing_e_o_l:
         enabled: false
-pre_composer_script: |
-    yes '' | pecl install apcu
-php_ini:
-    extension = apcu.so
+#pre_composer_script: |
+#    yes '' | pecl install apcu
+#php_ini:
+#    extension = apcu.so

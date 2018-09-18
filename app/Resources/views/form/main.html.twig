@@ -7,7 +7,9 @@
     {% endspaceless %}
 {% endblock checkbox_widget %}
 
-{% block radio_widget -%}
-    {%- set parent_label_class = parent_label_class|default(label_attr.class|default('')) -%}
-    {{- form_row(form) -}}
-{%- endblock radio_widget %}
+{% block radio_widget %}
+    {% spaceless %}
+        <input type="radio" {{ block('widget_attributes') }}{% if value is defined %} value="{{ value }}"{% endif %}{% if checked %} checked="checked"{% endif %}>
+        {{ block('form_message') }}
+    {% endspaceless %}
+{% endblock radio_widget %}

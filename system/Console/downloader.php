@@ -19,8 +19,8 @@ require_once(__DIR__ . '/../AutoLoader.php');
 
 class Downloader extends Console
 {
-	public $username = 'capitalengines1';
-	public $password = 'Wi11iam$34';
+	public $username = 'youruser';
+	public $password = 'yourpass';
 	public $loginUrl = 'https://www.advisorservices.com/servlet/advisor/LogIn?';
 	public $queryString = 'REMEMBERUSERID=checked&STALE=N&USERID=capitalengines1&PASSWORD=Wi11iam%2434&StartPage=&
 	DV_DATA=1404790627462&ORIG_QUERY=&SP_DATA=&COOKIE_DATA=&url=&DV_DATA=1404790627462&

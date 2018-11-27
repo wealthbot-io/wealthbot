@@ -22,7 +22,7 @@ parameters:
 
     pager_per_page:    10
 
-    site_domain:    local.wealthbot.io
+    site_domain:    local.wealthbot.io  # Also, you can place IP address as value
 
     uploads_dir: "%kernel.root_dir%/../uploads"
     uploads_ria_company_logos_dir: %uploads_dir%/ria_company_logos

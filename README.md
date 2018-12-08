@@ -1,6 +1,7 @@
 wealthbot.io
 ===============
 
+[![](https://www.codeshelter.co/static/badges/badge-flat.svg)](https://www.codeshelter.co/)
 [![GitHub license](https://img.shields.io/github/license/mashape/apistatus.svg)]()
 
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/881769ff-b0e8-43f0-b67f-e0915d7aee5f/big.png)](https://insight.sensiolabs.com/projects/881769ff-b0e8-43f0-b67f-e0915d7aee5f)

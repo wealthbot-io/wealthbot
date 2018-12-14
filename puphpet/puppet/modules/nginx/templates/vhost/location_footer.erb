@@ -1,15 +1,21 @@
 <% if @location_cfg_append -%>
-  <%- @location_cfg_append.sort_by {|k,v| k}.each do |key,value| -%>
-    <%- if value.is_a?(Hash) -%>
-      <%- value.each do |subkey,subvalue| -%>
-        <%- Array(subvalue).each do |asubvalue| -%>
-    <%= key %> <%= subkey %> <%= asubvalue %>;
+  <%- if @location_cfg_append.is_a?(Hash) -%>
+    <%- @location_cfg_append.sort_by {|k,v| k}.each do |key,value| -%>
+      <%- if value.is_a?(Hash) -%>
+        <%- value.each do |subkey,subvalue| -%>
+          <%- Array(subvalue).each do |asubvalue| -%>
+      <%= key %> <%= subkey %> <%= asubvalue %>;
+          <%- end -%>
+        <%- end -%>
+      <%- else -%>
+        <%- Array(value).each do |asubvalue| -%>
+      <%= key %> <%= asubvalue %>;
         <%- end -%>
       <%- end -%>
-    <%- else -%>
-      <%- Array(value).each do |asubvalue| -%>
-    <%= key %> <%= asubvalue %>;
-      <%- end -%>
+    <%- end -%>
+  <%- elsif @location_cfg_append.is_a?(Array) -%>
+    <%- Array(@location_cfg_append).each do |value| -%>
+      <%= value %>;
     <%- end -%>
   <%- end -%>
 <% end -%>

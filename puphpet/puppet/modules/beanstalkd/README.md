@@ -6,9 +6,11 @@ puppet module for managing beanstalkd, a simple and fast work queue - https://gi
 
 ## Supported OSes
 
-redhat/centos and debian/ubuntu currently.  Please PR updates for others!
+redhat/centos and debian/ubuntu currently. Please PR updates for others!
 
-Requires packages (rpm, etc) with traditional init scripts supported by service{} for your OS.
+init used for RHEL/CentOS <= 6, Debian <= 7 and Ubuntu < 16.04.
+
+systemd used for RHEL/CentOS >= 7, Debian <= 8 and Ubuntu >= 16.04.
 
 ## Basic Usage
 

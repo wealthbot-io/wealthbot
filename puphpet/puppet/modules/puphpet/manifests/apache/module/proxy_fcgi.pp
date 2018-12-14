@@ -1,5 +1,5 @@
 # Sets up Apache to use fcgi
-# Useful for things like php-fpm or hhvm
+# Useful for things like php-fpm
 
 class puphpet::apache::module::proxy_fcgi {
 

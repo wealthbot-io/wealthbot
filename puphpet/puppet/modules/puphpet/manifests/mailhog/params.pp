@@ -5,9 +5,6 @@ class puphpet::mailhog::params
   $user  = 'mailhog'
   $group = 'mailhog'
 
-  $package_name = 'hhvm'
-  $service_name = 'hhvm'
-
   $install_path = '/usr/local/bin/mailhog'
 
   $filename = $::architecture ? {

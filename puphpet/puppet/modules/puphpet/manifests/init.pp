@@ -33,10 +33,6 @@ class puphpet  (
     include ::puphpet::elasticsearch::install
   }
 
-  if array_true($puphpet::params::hiera['hhvm'], 'install') {
-    include ::puphpet::hhvm::install
-  }
-
   if array_true($puphpet::params::hiera['mailhog'], 'install') {
     include ::puphpet::mailhog::install
   }
@@ -71,10 +67,6 @@ class puphpet  (
     if array_true($puphpet::params::hiera['blackfire'], 'install') {
       include ::puphpet::blackfire::install
     }
-
-    if array_true($puphpet::params::hiera['xhprof'], 'install') {
-      include ::puphpet::xhprof
-    }
   }
 
   if array_true($puphpet::params::hiera['postgresql'], 'install') {
@@ -102,7 +94,7 @@ class puphpet  (
   }
 
   if array_true($puphpet::params::hiera['wpcli'], 'install') {
-    include ::puphpet::wpcli
+    include ::puphpet::wpcli::install
   }
 
 }

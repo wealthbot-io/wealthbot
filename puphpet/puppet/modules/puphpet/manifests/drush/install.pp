@@ -1,7 +1,7 @@
 # == Class: puphpet::drush::install
 #
 # Installs Drush CLI tool.
-# (PHP or HHVM) and Composer must be flagged for installation.
+# PHP and Composer must be flagged for installation.
 #
 # Usage:
 #
@@ -13,20 +13,19 @@ class puphpet::drush::install
 
   $drush = $puphpet::params::hiera['drush']
   $php   = $puphpet::params::hiera['php']
-  $hhvm  = $puphpet::params::hiera['hhvm']
 
-  $engine   = (array_true($php, 'install') or array_true($hhvm, 'install'))
-  $composer = (array_true($php, 'composer') or array_true($hhvm, 'composer'))
+  $engine   = array_true($php, 'install')
+  $composer = array_true($php, 'composer')
 
   if !$engine {
-    info('Drush not installed: PHP or HHVM not selected')
+    info('Drush not installed: PHP not selected')
   }
 
   if !$composer {
     info('Drush not installed: Composer not selected')
   }
 
-  # Requires either PHP or HHVM, and Composer
+  # Requires either PHP and Composer
   if $drush['version'] != undef and $engine and $composer {
     $drush_github   = 'https://github.com/drush-ops/drush.git'
     $drush_location = '/usr/share/drush'

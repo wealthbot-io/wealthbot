@@ -2,7 +2,7 @@
 #
 # Installs beanstalkd work queue.
 # If beanstalkd_console GUI chosen for install,
-# (Apache or Nginx) and (PHP or HHVM) must also be chosen
+# (Apache or Nginx) and PHP must also be chosen
 #
 # Usage:
 #
@@ -19,7 +19,6 @@ class puphpet::beanstalkd::install
   $nginx      = $puphpet::params::hiera['nginx']
   $apache     = $puphpet::params::hiera['apache']
   $php        = $puphpet::params::hiera['php']
-  $hhvm       = $puphpet::params::hiera['hhvm']
 
   # beanstalk_console requires Apache or Nginx
   if array_true($nginx, 'install') {
@@ -31,7 +30,7 @@ class puphpet::beanstalkd::install
   }
 
   # beanstalk_console requires PHP engine
-  if array_true($php, 'install') or array_true($hhvm, 'install') {
+  if array_true($php, 'install') {
     $php_installed = true
   } else {
     $php_installed = false

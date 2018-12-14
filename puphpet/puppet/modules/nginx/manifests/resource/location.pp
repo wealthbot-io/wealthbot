@@ -60,7 +60,7 @@
 #   [*location_custom_cfg_append*]    - Expects a array with extra directives
 #     to put before anything else inside location (used with all other types
 #     except custom_cfg). Used for logical structures such as if.
-#   [*location_cfg_append*]  - Expects a hash with extra directives to put
+#   [*location_cfg_append*]  - Expects a hash or array with extra directives to put
 #     after everything else inside location (used with all other types except
 #     custom_cfg)
 #   [*try_files*]            - An array of file locations to try
@@ -238,7 +238,9 @@ define nginx::resource::location (
     validate_legacy(Hash, 'validate_hash', $location_cfg_prepend)
   }
   if ($location_cfg_append != undef) {
-    validate_legacy(Hash, 'validate_hash', $location_cfg_append)
+    if ($location_cfg_append !~ Array) and ($location_cfg_append !~ Hash) {
+      fail('$location_cfg_append must be either a hash or array')
+    }
   }
   if ($try_files != undef) {
     validate_legacy(Array, 'validate_array', $try_files)

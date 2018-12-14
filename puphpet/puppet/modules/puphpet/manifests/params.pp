@@ -52,7 +52,6 @@ class puphpet::params (
     users_groups   => lookup('users_groups',    Hash, $strategy, {}),
     wpcli          => lookup('wpcli',           Hash, $strategy, {}),
     xdebug         => lookup('xdebug',          Hash, $strategy, {}),
-    xhprof         => lookup('xhprof',          Hash, $strategy, {}),
   }
 
 }

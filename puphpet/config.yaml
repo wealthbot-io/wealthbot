@@ -93,6 +93,9 @@ server:
         - git
         - acl
         - nano
+        - composer
+        - zip
+        - unzip
 users_groups:
     install: '1'
     groups: {  }
@@ -235,11 +238,12 @@ php:
             - cli
             - intl
             - xml
-            - mongo
             - imagick
             - curl
             - apcu
             - mcrypt
+            - zip
+            - mongo
         pear: {  }
         pecl: {  }
     ini:
@@ -291,7 +295,7 @@ drush:
     install: '0'
     version: 8.0.5
 ruby:
-    install: '1'
+    install: '0'
     versions:
         ruby1:
             default: '1'

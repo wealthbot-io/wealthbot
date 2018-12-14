@@ -2,7 +2,7 @@ forge "https://forgeapi.puppetlabs.com"
 
 mod 'puphpet/puphpet',
     :git => 'https://github.com/puphpet/puppet-puphpet.git',
-    :ref => '9664bd901784590c040b8807a3f7efbd98bb6c0a'
+    :ref => '7f2efa0eec61b93408d318a82826af0a38b5ef8c'
 
 mod 'puppetlabs/stdlib',
     :git => 'https://github.com/puppetlabs/puppetlabs-stdlib.git',
@@ -18,7 +18,7 @@ mod 'voxpupuli/archive',
     :ref => 'v2.2.0'
 mod 'keen99/beanstalkd',
     :git => 'https://github.com/keen99/puppet-beanstalkd.git',
-    :ref => '1.0.4'
+    :ref => '1.0.5'
 mod 'puphpet/composer',
     :git => 'https://github.com/puphpet/puppet-composer.git',
     :ref => '1.5.0'

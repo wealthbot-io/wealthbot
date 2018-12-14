@@ -5,7 +5,7 @@ class puphpet::mariadb::repo::debian (
 ){
 
   $os       = downcase($::operatingsystem)
-  $location = "http://mirror.jmu.edu/pub/mariadb/repo/${version}/${os}"
+  $location = "http://sfo1.mirrors.digitalocean.com/mariadb/repo/${version}/${os}"
 
   if ! defined(Apt::Key['199369E5404BD5FC7D2FE43BCBCB082A1BB943DB']) {
     ::apt::key { '199369E5404BD5FC7D2FE43BCBCB082A1BB943DB':

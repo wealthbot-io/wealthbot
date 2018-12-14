@@ -1,6 +1,6 @@
 {
   "name": "keen99-beanstalkd",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "author": "keen99",
   "summary": "Puppet module for managing beanstalkd, a simple and fast work queue",
   "license": "Apache License, Version 2.0",

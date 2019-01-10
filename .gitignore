@@ -7,6 +7,9 @@ app/config/parameters_test.yml
 app/build/logs/junit.xml
 app/config/parameters.ini
 
+#Docker
+docker/logs/nginx/symfony_access.log
+
 # Managed by Composer
 app/bootstrap.php.cache
 var/bootstrap.php.cache

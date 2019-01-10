@@ -6,8 +6,6 @@ wealthbot.io
 
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/881769ff-b0e8-43f0-b67f-e0915d7aee5f/big.png)](https://insight.sensiolabs.com/projects/881769ff-b0e8-43f0-b67f-e0915d7aee5f)
 
-## Please Note: This project is not actively supported. We are keeping this code up because it's free and open. Enjoy at your own risk.
-
 ### Wealth Management, Set Free
 
 Hi, I'm [wealthbot.io](http://wealthbot.io). Webo for short. I'm an open source wealth management platform. I help Investment Advisors profitably serve the mass affluent.
@@ -76,14 +74,14 @@ Go grab a coffee or a beer ... this will take a while the first time you run it.
 
 Once complete, simply go to http://local.wealthbot.io in your browser to see the wealthbot.io demo landing page.
 
-Note: To use the app you'll need to setup an SMTP server with authentication. The config is in wealthbot/app/config/parameters.yml. Digital Ocean has [a good writeup on how to use your Gmail account](https://www.digitalocean.com/community/tutorials/how-to-use-google-s-smtp-server) for this. 
+Note: To use the app you'll need to setup an SMTP server with authentication. The config is in wealthbot/app/config/parameters.yml. Digital Ocean has [a good writeup on how to use your Gmail account](https://www.digitalocean.com/community/tutorials/how-to-use-google-s-smtp-server) for this.
 
 If you want to take a look around your vagrant box you can `vagrant ssh`.
 The config is located in `wealthbot\puphpet\config.yaml`
 
 We strongly recommend running all console commands inside the vagrant box.
 
-# Contributing 
+# Contributing
 
 We love pull requests! The details on how to contribute to Wealthbot can be found [here](CONTRIBUTING.md).
 

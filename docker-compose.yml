@@ -5,11 +5,6 @@ services:
         command: ["--default-authentication-plugin=mysql_native_password"]
         ports:
             - "3306:3306"
-        environment:
-            MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
-            MYSQL_DATABASE: ${MYSQL_DATABASE}
-            MYSQL_USER: ${MYSQL_USER}
-            MYSQL_PASSWORD: ${MYSQL_PASSWORD}
         env_file:
             - .env
     mongodb:
@@ -17,15 +12,15 @@ services:
             context: ./docker/mongo
             dockerfile: Dockerfile.mongodb
             args:
-                - mongodb_username=${MONGODB_USER}
+                - mongodb_username=${MONGODB_USERNAME}
                 - mongodb_password=${MONGODB_PASSWORD}
-                - mongodb_initdb_database=${MONGODB_DB}
+                - mongodb_initdb_database=${MONGO_INITDB_DATABASE}
         volumes:
             - ./.data/mongo:/data/db:rw
-        ports:
-            - "27017:27017"
         env_file:
             - .env
+        ports:
+            - "27017:27017"
     php:
         build: ./docker/php-fpm
         ports:

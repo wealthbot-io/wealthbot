@@ -11,19 +11,21 @@
 
 namespace Wealthbot\UserBundle\Form\Handler;
 
-use FOS\UserBundle\Form\Handler\RegistrationFormHandler;
+use FOS\UserBundle\FOSUserEvents;
+use FOS\UserBundle\Event\FormEvent;
+
 use FOS\UserBundle\Mailer\MailerInterface;
 use FOS\UserBundle\Model\UserInterface;
 use FOS\UserBundle\Model\UserManagerInterface;
 use FOS\UserBundle\Util\TokenGeneratorInterface;
 use Symfony\Component\Form\FormInterface;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Wealthbot\AdminBundle\Manager\FeeManager;
 use Wealthbot\RiaBundle\Entity\RiaCompanyInformation;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-/* TODO:<Symfony3> */
-class RiaRegistrationFormHandler
+
+class RiaRegistrationFormHandler implements EventSubscriberInterface
 {
 
     protected $feeManager;
@@ -40,8 +42,13 @@ class RiaRegistrationFormHandler
         $this->feeManager = $feeManager;
     }
 
-    protected function onSuccess(UserInterface $user, $confirmation)
+    protected function onSuccess(FormEvent $event)
     {
+//        UserInterface $user, $confirmation
+
+        $user = $event->getResponse();
+        $confirmation = $user->
+
         if ($confirmation) {
             $user->setEnabled(false);
             if (null === $user->getConfirmationToken()) {
@@ -65,5 +72,15 @@ class RiaRegistrationFormHandler
         if ($riaCompanyInformation->getRelationshipType() === RiaCompanyInformation::RELATIONSHIP_TYPE_LICENSE_FEE) {
             $this->feeManager->resetRiaFee($user);
         }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public static function getSubscribedEvents()
+    {
+        return array(
+            FOSUserEvents::REGISTRATION_SUCCESS => 'onSuccess',
+        );
     }
 }

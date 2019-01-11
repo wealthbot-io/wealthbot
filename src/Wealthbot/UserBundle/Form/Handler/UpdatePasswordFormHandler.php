@@ -2,11 +2,14 @@
 
 namespace Wealthbot\UserBundle\Form\Handler;
 
+use FOS\UserBundle\Event\FormEvent;
 use FOS\UserBundle\Form\Handler\ChangePasswordFormHandler;
+use FOS\UserBundle\FOSUserEvents;
 use FOS\UserBundle\Model\UserInterface;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /* TODO:<Symfony3> */
-class UpdatePasswordFormHandler
+class UpdatePasswordFormHandler implements EventSubscriberInterface
 {
     /**
      * @return string
@@ -16,7 +19,7 @@ class UpdatePasswordFormHandler
         return $this->form->getData()->getPlainPassword();
     }
 
-    public function process(UserInterface $user)
+    public function onSuccess(FormEvent $event)
     {
         $this->form->setData($user);
 
@@ -31,5 +34,15 @@ class UpdatePasswordFormHandler
         }
 
         return false;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public static function getSubscribedEvents()
+    {
+        return array(
+            FOSUserEvents::CHANGE_PASSWORD_COMPLETED => 'onSuccess',
+        );
     }
 }

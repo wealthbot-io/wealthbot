@@ -9,12 +9,17 @@
 
 namespace Wealthbot\UserBundle\Form\Handler;
 
-use FOS\UserBundle\Form\Handler\RegistrationFormHandler;
+
 use FOS\UserBundle\Model\UserInterface;
-/* TODO:<Symfony3> */
-class ClientRegistrationFormHandler
+use FOS\UserBundle\FOSUserEvents;
+use FOS\UserBundle\Event\FormEvent;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+
+
+
+class ClientRegistrationFormHandler implements EventSubscriberInterface
 {
-    protected function onSuccess(UserInterface $user, $confirmation)
+    protected function onSuccess(FormEvent $event)
     {
         if ($confirmation) {
             $user->setEnabled(false);
@@ -30,5 +35,25 @@ class ClientRegistrationFormHandler
         $user->setRoles(['ROLE_CLIENT']);
         $user->setEnabled(true);
         $user->setLastLogin(new \DateTime());
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public static function getSubscribedEvents()
+    {
+        return array(
+            FOSUserEvents::REGISTRATION_SUCCESS => 'onSuccess',
+        );
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public static function getSubscribedEvents()
+    {
+        return array(
+            FOSUserEvents::REGISTRATION_SUCCESS => 'onSuccess',
+        );
     }
 }

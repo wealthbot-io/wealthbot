@@ -1,8 +1,0 @@
----
-:backends:
-  - yaml
-:yaml:
-  :datadir: 'spec/fixtures/hiera'
-:hierarchy:
-  - fqdn/%{fqdn}
-  - parameter_tests/%{parameter_tests}

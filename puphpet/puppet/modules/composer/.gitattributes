@@ -1,2 +1,0 @@
-# Files copied to linux hosts should have linux line endings
-*.erb text eol=lf

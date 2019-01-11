@@ -1,5 +1,0 @@
-parameters:
-    database_name:     wealthbot_test
-    database_user:     webo
-    database_password: password
-    mongodb_database: wealthbot_test

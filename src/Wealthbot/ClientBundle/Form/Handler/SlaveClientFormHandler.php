@@ -12,6 +12,7 @@ namespace Wealthbot\ClientBundle\Form\Handler;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Wealthbot\MailerBundle\Mailer\TwigSwiftMailer;
 use Wealthbot\UserBundle\Entity\User;
 
@@ -22,10 +23,10 @@ class SlaveClientFormHandler
     private $em;
     private $mailer;
 
-    public function __construct(FormInterface $form, Request $request, EntityManager $em, TwigSwiftMailer $mailer)
+    public function __construct(FormInterface $form, RequestStack $requestStack, EntityManager $em, TwigSwiftMailer $mailer)
     {
         $this->form = $form;
-        $this->request = $request;
+        $this->request = $requestStack->getCurrentRequest();
         $this->em = $em;
         $this->mailer = $mailer;
     }

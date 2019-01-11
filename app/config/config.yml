@@ -45,7 +45,7 @@ doctrine:
         driver: 'pdo_mysql'
         charset:  'UTF8'
         server_version: '5.6'
-        url: '%env(resolve:DATABASE_URL)%'
+        url: '%env(DATABASE_URL)%'
     orm:
         auto_generate_proxy_classes: %kernel.debug%
         auto_mapping: true
@@ -54,7 +54,7 @@ doctrine:
 doctrine_mongodb:
     connections:
         default:
-            server: '%env(resolve:MONGODB_SERVER)%'
+            server: '%env(MONGODB_SERVER)%'
             options:
                 username: '%env(resolve:MONGODB_USERNAME)%'
                 password: '%env(resolve:MONGODB_PASSWORD)%'
@@ -73,7 +73,7 @@ stof_doctrine_extensions:
 
 # Swiftmailer Configuration
 swiftmailer:
-    url: '%env(MAILER_URL)%'
+    url: '%env(resolve:MAILER_URL)%'
     spool: { type: 'memory' }
 
 #FOSUserBundle Configuration
@@ -119,8 +119,8 @@ nelmio_api_doc: ~
 parameters:
     jms_serializer.camel_case_naming_strategy.class: JMS\Serializer\Naming\IdenticalPropertyNamingStrategy
     locale: en
-    secret: '%env(SECRET)%'
-    site_domain: '%env(DOMAIN)%'
+    secret: 'EA155B775CYU8E27997E385A5E4F8349SECRET'
+    site_domain: 'wealthbot.localhost'
     pager_per_page: 20
     uploads_dir: '%kernel.root_dir%/../uploads'
     uploads_ria_company_logos_dir: '%uploads_dir%/ria_company_logos'

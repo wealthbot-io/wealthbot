@@ -11,8 +11,8 @@ namespace Wealthbot\UserBundle\Form\Handler;
 
 use FOS\UserBundle\Form\Handler\RegistrationFormHandler;
 use FOS\UserBundle\Model\UserInterface;
-
-class ClientRegistrationFormHandler extends RegistrationFormHandler
+/* TODO:<Symfony3> */
+class ClientRegistrationFormHandler
 {
     protected function onSuccess(UserInterface $user, $confirmation)
     {

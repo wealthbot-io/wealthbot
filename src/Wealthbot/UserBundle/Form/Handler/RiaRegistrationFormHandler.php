@@ -22,8 +22,10 @@ use Symfony\Component\HttpFoundation\RequestStack;
 use Wealthbot\AdminBundle\Manager\FeeManager;
 use Wealthbot\RiaBundle\Entity\RiaCompanyInformation;
 
-class RiaRegistrationFormHandler extends RegistrationFormHandler
+/* TODO:<Symfony3> */
+class RiaRegistrationFormHandler
 {
+
     protected $feeManager;
 
     public function __construct(FormInterface $form,

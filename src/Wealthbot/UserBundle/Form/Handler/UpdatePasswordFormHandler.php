@@ -5,7 +5,8 @@ namespace Wealthbot\UserBundle\Form\Handler;
 use FOS\UserBundle\Form\Handler\ChangePasswordFormHandler;
 use FOS\UserBundle\Model\UserInterface;
 
-class UpdatePasswordFormHandler extends ChangePasswordFormHandler
+/* TODO:<Symfony3> */
+class UpdatePasswordFormHandler
 {
     /**
      * @return string

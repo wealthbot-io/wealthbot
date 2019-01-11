@@ -60,11 +60,13 @@ Once complete, simply go to http://local.wealthbot.io in your browser to see the
 
 Note: To use the app you'll need to setup an SMTP server with authentication. The config is in wealthbot/app/config/parameters.yml. Digital Ocean has [a good writeup on how to use your Gmail account](https://www.digitalocean.com/community/tutorials/how-to-use-google-s-smtp-server) for this.
 
-If you want to take a look around your docker container you can `docker-compose exec php bash`.
+If you want to take a look around your docker container you can `docker-compose exec wealthbot_php_1 bash`.
 
 To access Kibana (ELK Stack) go to http://local.wealthbot.io:81/
 
 We strongly recommend running all console commands inside the docker container.
+
+Search /* TODO:<Symfony3> */ for files to refactor
 
 # Contributing
 

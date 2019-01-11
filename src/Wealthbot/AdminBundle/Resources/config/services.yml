@@ -64,7 +64,7 @@ services:
     wealthbot_admin.securities.form.handler:
         class: Wealthbot\AdminBundle\Form\Handler\SecurityFormHandler
         scope: request
-        arguments: ["@wealthbot_admin.securities.form", "@request", "@doctrine.orm.entity_manager", { token_storage : "@security.token_storage" }]
+        arguments: ["@wealthbot_admin.securities.form", "@request_stack", "@doctrine.orm.entity_manager", { token_storage : "@security.token_storage" }]
 
     wealthbot_admin.security_prices.event_listener:
         class: Wealthbot\AdminBundle\EventListener\SecurityPriceEventListener

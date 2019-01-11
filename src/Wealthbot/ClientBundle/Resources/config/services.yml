@@ -80,7 +80,7 @@ services:
     wealthbot_client.slave_client.form.handler:
         class: Wealthbot\ClientBundle\Form\Handler\SlaveClientFormHandler
         scope: request
-        arguments: ["@wealthbot_client.slave_client.form", "@request", "@doctrine.orm.entity_manager", "@wealthbot.mailer"]
+        arguments: ["@wealthbot_client.slave_client.form", "@request_stack", "@doctrine.orm.entity_manager", "@wealthbot.mailer"]
 
     wealthbot_client.acl:
         class: Wealthbot\ClientBundle\Model\Acl

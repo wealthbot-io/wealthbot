@@ -19,8 +19,8 @@ class UpdatePasswordFormHandler extends ChangePasswordFormHandler
     {
         $this->form->setData($user);
 
-        if ('POST' === $this->request->getMethod()) {
-            $this->form->handleRequest($this->request);
+        if ('POST' === $this->request->getCurrentRequest()->getMethod()) {
+            $this->form->handleRequest($this->request->getCurrentRequest());
 
             if ($this->form->isValid()) {
                 $this->onSuccess($user);

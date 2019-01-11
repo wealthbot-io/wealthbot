@@ -27,7 +27,7 @@ services:
     wealthbot_user.registration.ria.form.handler:
         class: %wealthbot_user.ria.registration.form.handler.class%
         scope: request
-        arguments: ["@wealthbot_user.registration.ria.form", "@request", "@fos_user.user_manager", "@fos_user.mailer", "@fos_user.util.token_generator", "@wealthbot.manager.fee"]
+        arguments: ["@wealthbot_user.registration.ria.form", "@request_stack", "@fos_user.user_manager", "@fos_user.mailer", "@fos_user.util.token_generator", "@wealthbot.manager.fee"]
 
     wealthbot_user.registration.client.form:
         factory_method: createNamed
@@ -44,7 +44,7 @@ services:
     wealthbot_user.registration.client.form.handler:
         class: %wealthbot_user.client.registration.form.handler.class%
         scope: request
-        arguments: ["@wealthbot_user.registration.client.form", "@request", "@fos_user.user_manager", "@fos_user.mailer", "@fos_user.util.token_generator"]
+        arguments: ["@wealthbot_user.registration.client.form", "@request_stack", "@fos_user.user_manager", "@fos_user.mailer", "@fos_user.util.token_generator"]
 
 
     wealthbot_user.mailer:
@@ -66,7 +66,7 @@ services:
     wealthbot_user.update_password.form.handler:
         class: Wealthbot\UserBundle\Form\Handler\UpdatePasswordFormHandler
         scope: request
-        arguments: ["@wealthbot_user.update_password.form", "@request", "@fos_user.user_manager"]
+        arguments: ["@wealthbot_user.update_password.form", "@request_stack", "@fos_user.user_manager"]
 
     wealthbot_user.document_manager:
         class: Wealthbot\UserBundle\Manager\DocumentManager
@@ -94,7 +94,7 @@ services:
             - "@security.encoder_factory"
             - "@fos_user.util.username_canonicalizer"
             - "@fos_user.util.email_canonicalizer"
-            - "@fos_user.entity_manager"
+            - "@fos_user.object_manager"
             - Wealthbot\UserBundle\Entity\User
 
     wealthbot_user.listener.serializer:

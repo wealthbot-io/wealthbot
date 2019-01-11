@@ -18,6 +18,7 @@ use FOS\UserBundle\Model\UserManagerInterface;
 use FOS\UserBundle\Util\TokenGeneratorInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Wealthbot\AdminBundle\Manager\FeeManager;
 use Wealthbot\RiaBundle\Entity\RiaCompanyInformation;
 
@@ -26,13 +27,13 @@ class RiaRegistrationFormHandler extends RegistrationFormHandler
     protected $feeManager;
 
     public function __construct(FormInterface $form,
-                                Request $request,
+                                RequestStack $requestStack,
                                 UserManagerInterface $userManager,
                                 MailerInterface $mailer,
                                 TokenGeneratorInterface $tokenGenerator,
                                 FeeManager $feeManager)
     {
-        parent::__construct($form, $request, $userManager, $mailer, $tokenGenerator);
+        parent::__construct($form, $requestStack->getCurrentRequest(), $userManager, $mailer, $tokenGenerator);
 
         $this->feeManager = $feeManager;
     }

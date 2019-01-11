@@ -10,6 +10,8 @@ services:
             MYSQL_DATABASE: ${MYSQL_DATABASE}
             MYSQL_USER: ${MYSQL_USER}
             MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+        env_file:
+            - .env
     mongodb:
         build:
             context: ./docker/mongo
@@ -22,7 +24,8 @@ services:
             - ./.data/mongo:/data/db:rw
         ports:
             - "27017:27017"
-
+        env_file:
+            - .env
     php:
         build: ./docker/php-fpm
         ports:
@@ -43,6 +46,8 @@ services:
         volumes:
             - ./docker/logs/nginx:/var/log/nginx:cached
             - ./:/var/www/symfony:cached
+        env_file:
+            - .env
     elk:
         image: willdurand/elk
         ports:

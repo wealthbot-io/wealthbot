@@ -16,3 +16,6 @@
 172.22.0.1 - - [11/Jan/2019:10:00:31 +0000] "GET / HTTP/1.1" 200 228 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36"
 172.22.0.1 - - [11/Jan/2019:10:00:33 +0000] "GET / HTTP/1.1" 200 228 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36"
 172.22.0.1 - - [11/Jan/2019:10:00:33 +0000] "GET /favicon.ico HTTP/1.1" 200 318 "http://wealthbot.localhost/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36"
+172.22.0.1 - - [11/Jan/2019:10:19:57 +0000] "GET / HTTP/1.1" 200 228 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36"
+172.23.0.1 - - [11/Jan/2019:10:40:13 +0000] "GET / HTTP/1.1" 502 568 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36"
+172.23.0.1 - - [11/Jan/2019:10:40:14 +0000] "GET /favicon.ico HTTP/1.1" 200 318 "http://wealthbot.localhost/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36"

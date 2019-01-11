@@ -1,0 +1,6 @@
+2019/01/11 10:22:25 [emerg] 1#0: directive "server_name" is not terminated by ";" in /etc/nginx/sites-enabled/symfony:2
+2019/01/11 10:23:18 [emerg] 1#0: directive "server_name" is not terminated by ";" in /etc/nginx/sites-enabled/symfony:2
+2019/01/11 10:31:17 [emerg] 1#0: host not found in upstream "php:9000" in /etc/nginx/conf.d/upstream.conf:1
+2019/01/11 10:32:17 [emerg] 1#0: host not found in upstream "php:9000" in /etc/nginx/conf.d/upstream.conf:1
+2019/01/11 10:35:23 [emerg] 1#0: host not found in upstream "php:9000" in /etc/nginx/conf.d/upstream.conf:1
+2019/01/11 10:36:32 [emerg] 1#0: host not found in upstream "php:9000" in /etc/nginx/conf.d/upstream.conf:1

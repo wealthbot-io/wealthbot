@@ -1,8 +1,8 @@
 {
-    "name": "symfony/framework-standard-edition",
+    "name": "wealthbot/wealthbot.io",
     "license": "MIT",
     "type": "project",
-    "description": "The \"Symfony Standard Edition\" distribution",
+    "description": "Wealthbot",
     "autoload": {
         "psr-4": {
             "Wealthbot\\": "src/Wealthbot"
@@ -10,14 +10,12 @@
         "classmap": [ "app/AppKernel.php", "app/AppCache.php" ]
     },
     "autoload-dev": {
-        "psr-4": { "Tests\\": "tests/" },
         "files": [ "vendor/symfony/symfony/src/Symfony/Component/VarDumper/Resources/functions/dump.php" ]
     },
     "require": {
         "php": ">=7.3.1",
         "doctrine/doctrine-bundle": "^1.6",
         "doctrine/orm": "^2.5",
-        "incenteev/composer-parameter-handler": "^2.0",
         "jms/security-extra-bundle": "1.6.1",
         "sensio/distribution-bundle": "^5.0.19",
         "sensio/framework-extra-bundle": "^5.0.0",
@@ -41,7 +39,7 @@
         "jms/serializer-bundle": "2.4.3",
         "friendsofsymfony/jsrouting-bundle": "2.2.*",
         "nelmio/api-doc-bundle": "3.3.*",
-        "phpoffice/phpexcel": "1.8.*"
+        "phpoffice/phpspreadsheet": "1.6.*"
 
     },
     "require-dev": {
@@ -50,7 +48,6 @@
     },
     "scripts": {
         "symfony-scripts": [
-            "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
@@ -75,18 +72,7 @@
         "symfony-bin-dir": "bin",
         "symfony-var-dir": "var",
         "symfony-web-dir": "web",
-        "symfony-tests-dir": "tests",
         "symfony-assets-install": "relative",
-        "incenteev-parameters": [
-            {
-                "file": "app/config/parameters.yml",
-                "keep-outdated": true
-            },
-            {
-                "file": "app/config/parameters_test.yml",
-                "keep-outdated": false
-            }
-        ],
         "branch-alias": {
             "dev-master": "3.4-dev"
         }

@@ -1,1 +1,0 @@
-2019/01/11 10:40:13 [error] 8#0: *1 connect() failed (113: No route to host) while connecting to upstream, client: 172.23.0.1, server: wealthbot.localhost, request: "GET / HTTP/1.1", upstream: "fastcgi://172.23.0.5:9000", host: "wealthbot.localhost"

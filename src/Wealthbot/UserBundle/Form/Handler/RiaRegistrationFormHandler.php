@@ -18,6 +18,7 @@ use FOS\UserBundle\Mailer\MailerInterface;
 use FOS\UserBundle\Model\UserInterface;
 use FOS\UserBundle\Model\UserManagerInterface;
 use FOS\UserBundle\Util\TokenGeneratorInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Wealthbot\AdminBundle\Manager\FeeManager;
@@ -30,24 +31,29 @@ class RiaRegistrationFormHandler implements EventSubscriberInterface
 
     protected $feeManager;
 
+
+    private $container;
+
     public function __construct(FormInterface $form,
                                 RequestStack $requestStack,
                                 UserManagerInterface $userManager,
                                 MailerInterface $mailer,
                                 TokenGeneratorInterface $tokenGenerator,
-                                FeeManager $feeManager)
+                                FeeManager $feeManager,
+ContainerInterface $container)
     {
         parent::__construct($form, $requestStack->getCurrentRequest(), $userManager, $mailer, $tokenGenerator);
 
         $this->feeManager = $feeManager;
+        $this->container = $container;
     }
 
     protected function onSuccess(FormEvent $event)
     {
-//        UserInterface $user, $confirmation
 
-        $user = $event->getResponse();
-        $confirmation = $user->
+        $user = $event->getForm()->getData();
+        $confirmation = $this->container->getParameter('fos_user.registration.confirmation.enabled');
+
 
         if ($confirmation) {
             $user->setEnabled(false);

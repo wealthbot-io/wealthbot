@@ -21,6 +21,7 @@ class UpdatePasswordFormHandler implements EventSubscriberInterface
 
     public function onSuccess(FormEvent $event)
     {
+        $user = $event->getForm()->getData();
         $this->form->setData($user);
 
         if ('POST' === $this->request->getCurrentRequest()->getMethod()) {

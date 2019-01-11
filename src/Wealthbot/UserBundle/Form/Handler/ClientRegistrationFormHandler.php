@@ -13,14 +13,25 @@ namespace Wealthbot\UserBundle\Form\Handler;
 use FOS\UserBundle\Model\UserInterface;
 use FOS\UserBundle\FOSUserEvents;
 use FOS\UserBundle\Event\FormEvent;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 
 
 class ClientRegistrationFormHandler implements EventSubscriberInterface
 {
+
+    private $container;
+
+    public function __construct(ContainerInterface $container)
+    {
+        $this->container = $container;
+    }
+
     protected function onSuccess(FormEvent $event)
     {
+        $user = $event->getForm()->getData();
+        $confirmation = $this->container->getParameter('fos_user.registration.confirmation.enabled');
         if ($confirmation) {
             $user->setEnabled(false);
             if (null === $user->getConfirmationToken()) {
@@ -47,13 +58,4 @@ class ClientRegistrationFormHandler implements EventSubscriberInterface
         );
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public static function getSubscribedEvents()
-    {
-        return array(
-            FOSUserEvents::REGISTRATION_SUCCESS => 'onSuccess',
-        );
-    }
 }

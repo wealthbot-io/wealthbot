@@ -1,9 +1,0 @@
-*.swp
-.bundle/
-.vagrant
-/coverage/
-Gemfile.lock
-log/
-pkg/
-spec/fixtures
-vendor/

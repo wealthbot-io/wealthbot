@@ -1,5 +1,0 @@
-# THIS FILE IS MANAGED BY PUPPET
-
-<% $ntp::keys.each |$key| { -%>
-<%= $key %>
-<% } -%>

@@ -1,3 +1,0 @@
-fixtures:
-  symlinks:
-    wget: "#{source_dir}"

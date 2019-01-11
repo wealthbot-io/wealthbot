@@ -1,3 +1,0 @@
----
-resolv_conf::config_file: '/etc/resolv.conf'
-resolv_conf::update_cmd: '/usr/sbin/nscfg import -f dns/client'

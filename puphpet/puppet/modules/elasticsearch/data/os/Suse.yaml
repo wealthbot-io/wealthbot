@@ -1,3 +1,0 @@
----
-elasticsearch::defaults_location: /etc/sysconfig
-elasticsearch::systemd_service_path: /usr/lib/systemd/system

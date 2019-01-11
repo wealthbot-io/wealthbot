@@ -1,6 +1,0 @@
----
-elasticsearch::instances:
-  default:
-    config:
-      node.name: 'default'
-      network.host: '0.0.0.0'

@@ -1,4 +1,0 @@
-fixtures:
-  symlinks:
-    gnupg: "#{source_dir}"
-

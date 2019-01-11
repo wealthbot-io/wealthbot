@@ -1,4 +1,4 @@
-php_version: 5
+php_version: 7
 global_exclude_dirs:
     - vendor
     - vendors

@@ -1,13 +1,10 @@
 #!/usr/bin/env bash
 
-# Temp. comment (TODO: remove comments after fixation of composer dependencies)
-#chmod -R 0777 app/cache app/logs
-#composer clear-cache
-#composer install
-#
-#app/console doctrine:database:drop --force
-#app/console doctrine:database:create
-#app/console doctrine:schema:create
-#app/console doctrine:fixtures:load --append
-#app/console assetic:dump
+chmod -R 0777 app/cache app/logs
+COMPOSER_MEMORY_LIMIT=-1 composer up --ignore-platform-reqs
+php bin/console doctrine:database:drop --force
+php bin/console doctrine:database:create
+php bin/console doctrine:schema:create
+php bin/console doctrine:fixtures:load --append
+php bin/console assetic:dump
 

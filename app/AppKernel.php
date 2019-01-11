@@ -29,7 +29,6 @@ class AppKernel extends Kernel
             new JMS\DiExtraBundle\JMSDiExtraBundle($this),
             new JMS\SecurityExtraBundle\JMSSecurityExtraBundle(),
             new FOS\UserBundle\FOSUserBundle(),
-            new Hpatoio\DeployBundle\DeployBundle(),
             new Wealthbot\UserBundle\WealthbotUserBundle(),
             new Wealthbot\RiaBundle\WealthbotRiaBundle(),
             new Wealthbot\ClientBundle\WealthbotClientBundle(),
@@ -43,14 +42,12 @@ class AppKernel extends Kernel
             new JMS\SerializerBundle\JMSSerializerBundle(),
             new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
             new Nelmio\ApiDocBundle\NelmioApiDocBundle(),
-            new Ornicar\ApcBundle\OrnicarApcBundle(),
             new Symfony\Bundle\WebProfilerBundle\WebProfilerBundle()
         ];
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
             $bundles[] = new Sensio\Bundle\DistributionBundle\SensioDistributionBundle();
             $bundles[] = new Sensio\Bundle\GeneratorBundle\SensioGeneratorBundle();
-            $bundles[] = new IC\Bundle\Base\TestBundle\ICBaseTestBundle();
             $bundles[] = new Symfony\Bundle\DebugBundle\DebugBundle();
         }
 

@@ -25,8 +25,9 @@ framework:
 twig:
     debug:            %kernel.debug%
     strict_variables: %kernel.debug%
-    form:
-        resources: ['bootstrap_3_layout.html.twig', '::form/main.html.twig']
+    form_themes:
+        - 'bootstrap_3_layout.html.twig'
+        - '::form/main.html.twig'
 # Assetic Configuration
 assetic:
     debug:          %kernel.debug%
@@ -93,20 +94,9 @@ fos_user:
     user_class: Wealthbot\UserBundle\Entity\User
     group:
         group_class: Wealthbot\UserBundle\Entity\Group
-
-deploy:
-    prod:
-        rsync-options: '-azC --force --delete --progress -h --checksum'
-        host: 127.0.0.1
-        user: root
-        dir: /path/to/dir
-        port: 22
-    stage:
-        host: 127.0.0.1
-        user: root2
-        dir: /path/to/dir
-        port: 22
-
+    from_email:
+        address: noreply@wealthbot.io
+        sender_name: 'Wealthbot.io'
 knp_paginator:
     page_range: 5                      # default page range used in pagination control
     default_options:
@@ -140,7 +130,3 @@ parameters:
     jms_serializer.camel_case_naming_strategy.class: JMS\Serializer\Naming\IdenticalPropertyNamingStrategy
 
 nelmio_api_doc: ~
-
-ornicar_apc:
-    host: %site_domain%
-    web_dir: %kernel.root_dir%/../web

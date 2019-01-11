@@ -6,10 +6,23 @@ services:
         ports:
             - "3306:3306"
         environment:
-            MYSQL_ROOT_PASSWORD: root
-            MYSQL_DATABASE: symfony
-            MYSQL_USER: symfony
-            MYSQL_PASSWORD: symfony
+            MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+            MYSQL_DATABASE: ${MYSQL_DATABASE}
+            MYSQL_USER: ${MYSQL_USER}
+            MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    mongodb:
+        build:
+            context: ./docker/mongo
+            dockerfile: Dockerfile.mongodb
+            args:
+                - mongodb_username=${MONGODB_USER}
+                - mongodb_password=${MONGODB_PASSWORD}
+                - mongodb_initdb_database=${MONGODB_DB}
+        volumes:
+            - ./.data/mongo:/data/db:rw
+        ports:
+            - "27017:27017"
+
     php:
         build: ./docker/php-fpm
         ports:

@@ -12,6 +12,8 @@ namespace Wealthbot\RiaBundle\Form\Type;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormEvent;
@@ -52,18 +54,18 @@ class SuggestedPortfolioFormType extends AbstractType
         }
 
         $builder
-            ->add('action_type', 'hidden', [
+            ->add('action_type', HiddenType::class, [
                 'mapped' => false,
                 'attr' => ['value' => ''],
             ])
-            ->add('unconsolidated_ids', 'hidden', [
+            ->add('unconsolidated_ids', HiddenType::class, [
                 'mapped' => false,
                 'attr' => ['value' => ''],
             ])
-            ->add('is_qualified', 'hidden', [
+            ->add('is_qualified', HiddenType::class, [
                 'mapped' => false,
             ])
-            ->add('paymentMethod', 'choice', [
+            ->add('paymentMethod', ChoiceType::class, [
                 'choices' => [
                     Profile::PAYMENT_METHOD_DIRECT_DEBIT => 'Direct Debit',
                     Profile::PAYMENT_METHOD_OUTSIDE_PAYMENT => 'Outside Payment',
@@ -239,7 +241,7 @@ class SuggestedPortfolioFormType extends AbstractType
         if ($clientPortfolios->count() === 1) {
             if ($clientPortfolios[0]->isProposed()) {
                 if ($riaCompanyInfo->isClientByClientManagedLevel()) {
-                    $builder->add('client_account_managed', 'choice', [
+                    $builder->add('client_account_managed', ChoiceType::class, [
                         'choices' => Profile::$client_account_managed_choices,
                         'expanded' => false,
                         'constraints' => [
@@ -249,12 +251,12 @@ class SuggestedPortfolioFormType extends AbstractType
                         ],
                     ]);
                 } else {
-                    $builder->add('client_account_managed', 'hidden', [
+                    $builder->add('client_account_managed', HiddenType::class, [
                         'data' => $riaCompanyInfo->getAccountManaged(),
                     ]);
                 }
             } else {
-                $builder->add('client_account_managed', 'choice', [
+                $builder->add('client_account_managed', ChoiceType::class, [
                     'choices' => Profile::$client_account_managed_choices,
                     'expanded' => false,
                     'constraints' => [

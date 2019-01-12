@@ -9,6 +9,7 @@
 namespace Wealthbot\RiaBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -16,7 +17,7 @@ class OneTimeDistributionFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('amount', 'money', [
+        $builder->add('amount', MoneyType::class, [
             'attr' => ['class' => 'input-mini'],
             'currency' => 'USD',
             'label' => 'One Time Distribution',

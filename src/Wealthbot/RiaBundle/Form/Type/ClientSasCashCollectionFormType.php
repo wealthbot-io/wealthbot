@@ -4,6 +4,7 @@ namespace Wealthbot\RiaBundle\Form\Type;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Wealthbot\ClientBundle\Entity\SystemAccount;
 use Wealthbot\UserBundle\Entity\User;
@@ -28,7 +29,7 @@ class ClientSasCashCollectionFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('sas_cash_collection', 'collection', [
+            ->add('sas_cash_collection', CollectionType::class, [
                 'type' => 'number',
                 'data' => new ArrayCollection($this->clientAccounts),
                 'options' => [

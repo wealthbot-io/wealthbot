@@ -10,6 +10,8 @@
 namespace Wealthbot\ClientBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
@@ -27,10 +29,10 @@ class ClientSpouseFormType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options = [])
     {
-        $builder->add('first_name', 'text', ['required' => false])
-            ->add('middle_name', 'text', ['required' => false])
-            ->add('last_name', 'text', ['required' => false])
-            ->add('birth_date', 'date', [
+        $builder->add('first_name', TextType::class, ['required' => false])
+            ->add('middle_name', TextType::class, ['required' => false])
+            ->add('last_name', TextType::class, ['required' => false])
+            ->add('birth_date', DateType::class, [
                 'widget' => 'single_text',
                 'format' => 'MM-dd-yyyy',
                 'required' => false,

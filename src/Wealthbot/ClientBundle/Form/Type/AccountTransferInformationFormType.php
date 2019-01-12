@@ -11,6 +11,8 @@ namespace Wealthbot\ClientBundle\Form\Type;
 
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormEvent;
@@ -34,8 +36,8 @@ class AccountTransferInformationFormType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('is_firm_not_appear', 'checkbox', ['mapped' => false, 'required' => false])
-            ->add('transfer_custodian_id', 'hidden', []);
+        $builder->add('is_firm_not_appear', CheckboxType::class, ['mapped' => false, 'required' => false])
+            ->add('transfer_custodian_id', HiddenType::class, []);
 
         $this->factory = $builder->getFormFactory();
 

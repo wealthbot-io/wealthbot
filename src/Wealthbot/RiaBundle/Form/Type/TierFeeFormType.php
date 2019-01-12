@@ -4,6 +4,7 @@ namespace Wealthbot\RiaBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\DataTransformer\IntegerToLocalizedStringTransformer;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
@@ -14,12 +15,12 @@ class TierFeeFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('fee_without_retirement', 'number', [
+            ->add('fee_without_retirement', NumberType::class, [
                 'label' => 'Fee',
-                'precision' => 4,
+                'scale' => 4,
                 'rounding_mode' => IntegerToLocalizedStringTransformer::ROUND_HALFEVEN,
             ])
-            ->add('tier_top', 'number')
+            ->add('tier_top', NumberType::class)
         ;
 
         $builder->addEventListener(FormEvents::PRE_SUBMIT, [$this, 'onPreSubmit']);

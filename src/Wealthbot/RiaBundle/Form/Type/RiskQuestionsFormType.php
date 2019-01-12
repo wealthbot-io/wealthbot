@@ -13,6 +13,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormEvent;
@@ -48,7 +49,7 @@ class RiskQuestionsFormType extends AbstractType
     {
         foreach ($this->questions as $question) {
             if ($question->getIsWithdrawAgeInput()) {
-                $builder->add('client_birth_date', 'date', [
+                $builder->add('client_birth_date', DateType::class, [
                         'widget' => 'text',
                         'pattern' => '{{ month }}-{{ day }}-{{ year }}',
                         'required' => true,

@@ -11,6 +11,7 @@ namespace Wealthbot\ClientBundle\Form\Type;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormEvent;
@@ -20,7 +21,7 @@ class CloseAccountsFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options = [])
     {
-        $builder->add('accounts_ids', 'hidden', [
+        $builder->add('accounts_ids', HiddenType::class, [
                 'mapped' => false,
             ])
             ->add('messages', 'entity', [

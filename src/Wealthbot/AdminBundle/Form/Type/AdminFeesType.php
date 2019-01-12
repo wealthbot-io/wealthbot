@@ -10,6 +10,7 @@
 namespace Wealthbot\AdminBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormEvent;
@@ -32,7 +33,7 @@ class AdminFeesType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('fees', 'collection', [
+        $builder->add('fees', CollectionType::class, [
             'type' => new FeeFormType($this->owner),
             'allow_add' => true,
             'allow_delete' => true,

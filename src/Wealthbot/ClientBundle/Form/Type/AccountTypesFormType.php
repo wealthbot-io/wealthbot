@@ -11,6 +11,7 @@ namespace Wealthbot\ClientBundle\Form\Type;
 
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Wealthbot\ClientBundle\Entity\AccountGroup;
 use Wealthbot\UserBundle\Entity\User;
@@ -49,7 +50,7 @@ class AccountTypesFormType extends AbstractType
                 'expanded' => true,
                 'property' => 'type.name',
             ])
-            ->add('groups', 'hidden', [
+            ->add('groups', HiddenType::class, [
                 'data' => $group,
             ]);
     }

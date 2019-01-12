@@ -10,6 +10,8 @@
 namespace Wealthbot\ClientBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
@@ -30,28 +32,28 @@ class BankInformationFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('account_owner_first_name', 'text', ['required' => false])
-            ->add('account_owner_middle_name', 'text', ['required' => false])
-            ->add('account_owner_last_name', 'text', ['required' => false])
-            ->add('joint_account_owner_first_name', 'text', ['required' => false])
-            ->add('joint_account_owner_middle_name', 'text', ['required' => false])
-            ->add('joint_account_owner_last_name', 'text', ['required' => false])
-            ->add('name', 'text', ['required' => false])
-            ->add('account_title', 'text', ['required' => false])
-            ->add('phone_number', 'text', ['required' => false])
-            ->add('routing_number', 'text', [
+            ->add('account_owner_first_name', TextType::class, ['required' => false])
+            ->add('account_owner_middle_name', TextType::class, ['required' => false])
+            ->add('account_owner_last_name', TextType::class, ['required' => false])
+            ->add('joint_account_owner_first_name', TextType::class, ['required' => false])
+            ->add('joint_account_owner_middle_name', TextType::class, ['required' => false])
+            ->add('joint_account_owner_last_name', TextType::class, ['required' => false])
+            ->add('name', TextType::class, ['required' => false])
+            ->add('account_title', TextType::class, ['required' => false])
+            ->add('phone_number', TextType::class, ['required' => false])
+            ->add('routing_number', TextType::class, [
                 'constraints' => [
                     new Type(['type' => 'numeric']),
                 ],
                 'required' => false,
             ])
-            ->add('account_number', 'text', [
+            ->add('account_number', TextType::class, [
                 'constraints' => [
                     new Type(['type' => 'numeric']),
                 ],
                 'required' => false,
             ])
-            ->add('account_type', 'choice', [
+            ->add('account_type', ChoiceType::class, [
                 'choices' => BankInformation::getAccountTypeChoices(),
                 'expanded' => true,
                 'multiple' => false,

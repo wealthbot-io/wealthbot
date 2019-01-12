@@ -11,6 +11,7 @@ namespace Wealthbot\ClientBundle\Form\Type;
 
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Wealthbot\ClientBundle\Entity\ClientAccount;
 
@@ -28,7 +29,7 @@ class DashboardSystemAccountsFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options = [])
     {
         if (count($this->systemAccounts) === 1) {
-            $builder->add('account', 'hidden', ['attr' => ['value' => $this->systemAccounts[0]->getId()]]);
+            $builder->add('account', HiddenType::class, ['attr' => ['value' => $this->systemAccounts[0]->getId()]]);
         } else {
             $clientId = $this->account->getClientId();
             $type = $this->account->getSystemType();

@@ -4,6 +4,9 @@ namespace Wealthbot\RiaBundle\Form\Type;
 
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\PercentType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormEvent;
@@ -68,7 +71,7 @@ class RiaCompanyInformationThreeType extends AbstractType
             }
 
             $builder
-                ->add('model_type', 'choice', [
+                ->add('model_type', ChoiceType::class, [
                     'choices' => [
                         //code_v2: NOT DELETE THIS CODE
                         //CeModel::TYPE_STRATEGY => 'Use a Strategists Models',
@@ -79,7 +82,7 @@ class RiaCompanyInformationThreeType extends AbstractType
                     'required' => false,
                     'mapped' => false,
                 ])
-                ->add('strategy_model', 'choice', [
+                ->add('strategy_model', ChoiceType::class, [
                     'choices' => $strategyChoices,
                     'multiple' => false,
                     'expanded' => true,
@@ -90,7 +93,7 @@ class RiaCompanyInformationThreeType extends AbstractType
         }
 
         if (!$this->isChangeProfile) {
-            $builder->add('portfolio_processing', 'choice', [
+            $builder->add('portfolio_processing', ChoiceType::class, [
                 'choices' => RiaCompanyInformation::getPortfolioProcessingChoices(),
                 'required' => false,
                 'expanded' => true,
@@ -98,101 +101,101 @@ class RiaCompanyInformationThreeType extends AbstractType
         }
 
         $builder
-            ->add('is_allow_retirement_plan', 'choice', [
+            ->add('is_allow_retirement_plan', ChoiceType::class, [
                 'choices' => [1 => 'Yes', 0 => 'No'],
                 'required' => false,
                 'expanded' => true,
                 //#code_v2: NOT DELETE THIS CODE #
                 'data' => 0,
             ])
-            ->add('account_managed', 'choice', [
+            ->add('account_managed', ChoiceType::class, [
                 'choices' => $data->getAccountManagedChoices(),
                 'required' => false,
                 'expanded' => true,
             ])
-            ->add('is_use_qualified_models', 'choice', [
+            ->add('is_use_qualified_models', ChoiceType::class, [
                 'choices' => ['No', 'Yes'],
                 'expanded' => true,
                 'multiple' => false,
                 'label' => 'For clients who do not hold outside retirement accounts, will you be offering qualified and non-qualified models depending on the account type?',
                 'required' => false,
             ])
-            ->add('rebalanced_method', 'choice', [
+            ->add('rebalanced_method', ChoiceType::class, [
                 'choices' => RiaCompanyInformation::$rebalanced_method_choices,
                 'required' => true,
                 'placeholder' => 'Choose an Option',
                 'expanded' => false,
             ])
-            ->add('rebalanced_frequency', 'choice', [
+            ->add('rebalanced_frequency', ChoiceType::class, [
                 'choices' => RiaCompanyInformation::$rebalanced_frequency_choices,
                 'required' => true,
                 'placeholder' => 'Choose an Option',
                 'expanded' => false,
             ])
-            ->add('use_municipal_bond', 'choice', [
+            ->add('use_municipal_bond', ChoiceType::class, [
                 'choices' => [1 => 'Yes', 0 => 'No'],
                 'expanded' => true,
             ])
-            ->add('clients_tax_bracket', 'percent', [
-                'precision' => 0,
+            ->add('clients_tax_bracket', PercentType::class, [
+                'scale' => 0,
                 'required' => false,
             ])
-            ->add('transaction_amount', 'number', [
-                'precision' => 2,
+            ->add('transaction_amount', NumberType::class, [
+                'scale' => 2,
                 'required' => true,
             ])
-            ->add('transaction_amount_percent', 'percent', [
-                'precision' => 2,
+            ->add('transaction_amount_percent', PercentType::class, [
+                'scale' => 2,
                 'required' => true,
             ])
-            ->add('is_transaction_fees', 'choice', [
+            ->add('is_transaction_fees', ChoiceType::class, [
                 'choices' => [1 => 'Yes', 0 => 'No'],
                 'required' => true,
                 'expanded' => true,
                 'data' => ($data->getId() && $data->getIsTransactionFees() !== null ? $data->getIsTransactionFees() : 1),
             ])
-            ->add('is_transaction_minimums', 'choice', [
+            ->add('is_transaction_minimums', ChoiceType::class, [
                 'choices' => [1 => 'Yes', 0 => 'No'],
                 'required' => true,
                 'expanded' => true,
                 'data' => ($data->getId() && $data->getIsTransactionMinimums() !== null ? $data->getIsTransactionMinimums() : 1),
             ])
-            ->add('is_transaction_redemption_fees', 'choice', [
+            ->add('is_transaction_redemption_fees', ChoiceType::class, [
                 'choices' => [1 => 'Yes', 0 => 'No'],
                 'required' => true,
                 'expanded' => true,
                 'data' => ($data->getId() && $data->getIsTransactionRedemptionFees() !== null ? $data->getIsTransactionRedemptionFees() : 1),
             ])
-            ->add('is_tax_loss_harvesting', 'choice', [
+            ->add('is_tax_loss_harvesting', ChoiceType::class, [
                 'choices' => [1 => 'Yes', 0 => 'No'],
                 'required' => true,
                 'expanded' => true,
                 'data' => (($data->getId() && $data->getIsTaxLossHarvesting() !== null) ? $data->getIsTaxLossHarvesting() : 1),
             ])
-            ->add('tax_loss_harvesting', 'number', [
-                'precision' => 2,
+            ->add('tax_loss_harvesting', NumberType::class, [
+                'scale' => 2,
                 'required' => false,
                 'grouping' => true,
             ])
-            ->add('stop_tlh_value', 'number', [
-                'precision' => 2,
+            ->add('stop_tlh_value', NumberType::class, [
+                'scale' => 2,
                 'required' => false,
                 'grouping' => true,
             ])
-            ->add('tax_loss_harvesting_percent', 'percent', [
-                'precision' => 2,
+            ->add('tax_loss_harvesting_percent', PercentType::class, [
+                'scale' => 2,
                 'required' => false,
             ])
-            ->add('tax_loss_harvesting_minimum', 'number', [
-                'precision' => 2,
+            ->add('tax_loss_harvesting_minimum', NumberType::class, [
+                'scale' => 2,
                 'grouping' => true,
                 'required' => false,
             ])
-            ->add('tax_loss_harvesting_minimum_percent', 'percent', [
-                'precision' => 2,
+            ->add('tax_loss_harvesting_minimum_percent', PercentType::class, [
+                'scale' => 2,
                 'required' => false,
             ])
-            ->add('tlh_buy_back_original', 'choice', [
+            ->add('tlh_buy_back_original', ChoiceType::class, [
                 'choices' => [1 => 'Yes', 0 => 'No'],
                 'data' => 0,
                 'disabled' => true,

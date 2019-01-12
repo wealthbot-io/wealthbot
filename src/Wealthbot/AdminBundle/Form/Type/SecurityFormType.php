@@ -10,6 +10,8 @@
 namespace Wealthbot\AdminBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Wealthbot\AdminBundle\Entity\Security;
@@ -25,10 +27,10 @@ class SecurityFormType extends AbstractType
                 'property' => 'description',
                 'placeholder' => 'Choose an Option',
             ])
-            ->add('name', 'text')
-            ->add('symbol', 'text')
+            ->add('name', TextType::class)
+            ->add('symbol', TextType::class)
             ->add('expense_ratio')
-            ->add('price', 'number', [
+            ->add('price', NumberType::class, [
                 'data' => $this->getPriceData($builder->getData()),
                 'mapped' => false,
                 'grouping' => true,

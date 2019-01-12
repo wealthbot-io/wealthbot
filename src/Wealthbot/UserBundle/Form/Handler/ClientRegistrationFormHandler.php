@@ -10,9 +10,9 @@
 namespace Wealthbot\UserBundle\Form\Handler;
 
 
-use FOS\UserBundle\Model\UserInterface;
-use FOS\UserBundle\FOSUserEvents;
 use FOS\UserBundle\Event\FormEvent;
+use FOS\UserBundle\FOSUserEvents;
+use FOS\UserBundle\Model\UserInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 

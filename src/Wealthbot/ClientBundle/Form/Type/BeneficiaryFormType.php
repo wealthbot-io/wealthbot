@@ -3,6 +3,10 @@
 namespace Wealthbot\ClientBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormEvent;
@@ -30,28 +34,28 @@ class BeneficiaryFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('type', 'choice', [
+            ->add('type', ChoiceType::class, [
                 'choices' => Beneficiary::getTypeChoices(),
             ])
-            ->add('first_name', 'text', ['required' => true])
-            ->add('middle_name', 'text', ['required' => false])
-            ->add('last_name', 'text', ['required' => true])
-            ->add('birth_date', 'date', [
+            ->add('first_name', TextType::class, ['required' => true])
+            ->add('middle_name', TextType::class, ['required' => false])
+            ->add('last_name', TextType::class, ['required' => true])
+            ->add('birth_date', DateType::class, [
                 'widget' => 'single_text',
                 'format' => 'MM-dd-yyyy',
                 'attr' => ['class' => 'jq-date input-small'],
             ])
-            ->add('city', 'text', ['required' => true])
-            ->add('street', 'text', ['required' => true])
+            ->add('city', TextType::class, ['required' => true])
+            ->add('street', TextType::class, ['required' => true])
             ->add('state', 'entity', [
                 'class' => 'Wealthbot\\AdminBundle\\Entity\\State',
                 'label' => 'State',
                 'placeholder' => 'Select a State',
             ])
-            ->add('zip', 'text', ['required' => true,
+            ->add('zip', TextType::class, ['required' => true,
             ])
-            ->add('relationship', 'text', ['required' => true])
-            ->add('share', 'number', ['required' => true])
+            ->add('relationship', TextType::class, ['required' => true])
+            ->add('share', NumberType::class, ['required' => true])
         ;
 
         $factory = $builder->getFormFactory();

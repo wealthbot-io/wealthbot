@@ -9,6 +9,8 @@
 namespace Wealthbot\RiaBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
@@ -30,12 +32,12 @@ class ScheduledDistributionFormType extends AbstractType
         $this->factory = $builder->getFormFactory();
 
         $builder
-            ->add('frequency', 'choice', [
+            ->add('frequency', ChoiceType::class, [
                 'expanded' => true,
                 'label' => 'Frequency of transaction: ',
                 'choices' => Distribution::getFrequencyChoices(),
             ])
-            ->add('amount', 'money', [
+            ->add('amount', MoneyType::class, [
                 'attr' => ['class' => 'input-mini'],
                 'currency' => 'USD',
                 'label' => 'Amount: ',

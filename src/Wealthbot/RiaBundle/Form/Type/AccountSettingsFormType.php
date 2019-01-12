@@ -4,6 +4,10 @@ namespace Wealthbot\RiaBundle\Form\Type;
 
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\MoneyType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormEvent;
@@ -54,24 +58,24 @@ class AccountSettingsFormType extends AbstractType
         ];
 
         $builder
-            ->add('dateClosed', 'date', [
+            ->add('dateClosed', DateType::class, [
                 'attr' => ['class' => 'jq-ce-date input-small'],
                 'format' => 'MM-dd-yyyy',
                 'property_path' => 'systemAccount.closed',
                 'required' => false,
                 'widget' => 'single_text',
             ])
-            ->add('status', 'choice', [
+            ->add('status', ChoiceType::class, [
                 'attr' => ['class' => 'input-medium'],
                 'property_path' => 'systemAccount.status',
                 'choices' => $statusChoices,
             ])
-            ->add('firstName', 'text', [
+            ->add('firstName', TextType::class, [
                 'attr' => ['class' => 'input-small'],
                 'label' => 'First Name',
                 'property_path' => 'primaryApplicant.firstName',
             ])
-            ->add('lastName', 'text', [
+            ->add('lastName', TextType::class, [
                 'attr' => ['class' => 'input-small'],
                 'label' => 'Last Name',
                 'property_path' => 'primaryApplicant.lastName',
@@ -79,30 +83,30 @@ class AccountSettingsFormType extends AbstractType
         ;
 
         $builder
-            ->add('accountNumber', 'text', [
+            ->add('accountNumber', TextType::class, [
                 'attr' => ['class' => 'input-small'],
                 'label' => 'Account Number: ',
                 'property_path' => 'systemAccount.accountNumber',
             ])
-            ->add('accountType', 'choice', [
+            ->add('accountType', ChoiceType::class, [
                 'attr' => ['class' => 'input-xlarge'],
                 'choices' => SystemAccount::getTypeChoices(),
                 'label' => 'Account Type: ',
                 'property_path' => 'systemAccount.type',
             ])
-            ->add('sasCash', 'money', [
+            ->add('sasCash', MoneyType::class, [
                 'attr' => ['class' => 'input-mini'],
                 'currency' => 'USD',
                 'label' => 'SAS Cash',
             ])
-            ->add('performanceInception', 'date', [
+            ->add('performanceInception', DateType::class, [
                 'attr' => ['class' => 'jq-date input-small'],
                 'format' => 'MM-dd-yyyy',
                 'label' => 'Performance Inception: ',
                 'property_path' => 'systemAccount.performanceInception',
                 'widget' => 'single_text',
             ])
-            ->add('billingInception', 'date', [
+            ->add('billingInception', DateType::class, [
                 'attr' => ['class' => 'jq-date input-small'],
                 'format' => 'MM-dd-yyyy',
                 'label' => 'Billing Inception: ',

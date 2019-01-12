@@ -6,7 +6,7 @@ use FOS\UserBundle\Controller\SecurityController as BaseSecurity;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Security\Core\Security;
-use
+
 
 class SecurityController extends BaseSecurity
 {

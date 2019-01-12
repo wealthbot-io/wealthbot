@@ -5,6 +5,8 @@ namespace Wealthbot\RiaBundle\Form\Type;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormEvent;
@@ -76,11 +78,11 @@ class OutsideFundAssociationFormType extends AbstractType
                 'placeholder' => 'Choose an Option',
                 'required' => false,
             ])
-            ->add('is_preferred', 'checkbox', [
+            ->add('is_preferred', CheckboxType::class, [
                 'required' => false,
                 'data' => $isPreferred,
             ])
-            ->add('expense_ratio', 'hidden', ['data' => 0.0001])
+            ->add('expense_ratio', HiddenType::class, ['data' => 0.0001])
         ;
 
         $builder->addEventListener(FormEvents::PRE_SUBMIT, function (FormEvent $event) use ($em, $ria, $factory) {

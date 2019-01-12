@@ -10,6 +10,7 @@
 namespace Wealthbot\RiaBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -25,7 +26,7 @@ class ModelRiskRatingFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $choices = array_combine(range(1, $this->maxRating), range(1, $this->maxRating));
-        $builder->add('risk_rating', 'choice', [
+        $builder->add('risk_rating', ChoiceType::class, [
             'placeholder' => false,
             'choices' => $choices,
         ]);

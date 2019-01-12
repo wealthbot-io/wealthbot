@@ -11,6 +11,7 @@ namespace Wealthbot\AdminBundle\Form\Type;
 
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormEvent;
@@ -76,7 +77,7 @@ class StrategyModelFormType extends AbstractType
             $choices = range(0, $modelsCount);
         }
 
-        $builder->add('name', 'text');
+        $builder->add('name', TextType::class);
 
         if ($this->user->isSuperAdmin() || $assumption) {
             $builder->add('assumption', new ModelAssumptionFormType(), [

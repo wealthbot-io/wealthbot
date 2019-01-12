@@ -3,6 +3,8 @@
 namespace Wealthbot\RiaBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
@@ -23,13 +25,13 @@ class RebalanceFormType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('is_all', 'checkbox', [
+        $builder->add('is_all', CheckboxType::class, [
             'label' => 'Check all',
             'required' => false,
         ]);
 
         if ($this->isShowType) {
-            $builder->add('rebalance_type', 'choice', [
+            $builder->add('rebalance_type', ChoiceType::class, [
                 'choices' => Job::rebalanceTypeChoicesForSelect(),
                 'required' => true,
             ]);

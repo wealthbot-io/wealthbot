@@ -10,6 +10,7 @@
 namespace Wealthbot\ClientBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormEvent;
@@ -29,7 +30,7 @@ class BeneficiariesCollectionFormType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('beneficiaries', 'collection', [
+        $builder->add('beneficiaries', CollectionType::class, [
             'label' => '',
             'type' => new BeneficiaryFormType($this->isPreSaved, $this->showSsn),
             'allow_add' => true,

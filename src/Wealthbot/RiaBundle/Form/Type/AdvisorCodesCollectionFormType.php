@@ -9,6 +9,7 @@
 namespace Wealthbot\RiaBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -39,7 +40,7 @@ class AdvisorCodesCollectionFormType extends AbstractType
         $advisorCodeFormType->setRiaCompany($this->riaCompany);
 
         $builder
-            ->add('advisorCodes', 'collection', [
+            ->add('advisorCodes', CollectionType::class, [
                 'allow_add' => true,
                 'allow_delete' => true,
                 'by_reference' => false,

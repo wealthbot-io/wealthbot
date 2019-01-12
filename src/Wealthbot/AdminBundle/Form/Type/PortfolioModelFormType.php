@@ -10,6 +10,7 @@
 namespace Wealthbot\AdminBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
@@ -34,7 +35,7 @@ class PortfolioModelFormType extends AbstractType
         $owner = $this->owner;
         $parent = $this->parent;
 
-        $builder->add('name', 'text');
+        $builder->add('name', TextType::class);
 
         // Add Event - when we create a model then we will need to set owner and parent
         $builder->addEventListener(FormEvents::SUBMIT, function (FormEvent $event) use ($owner, $parent) {

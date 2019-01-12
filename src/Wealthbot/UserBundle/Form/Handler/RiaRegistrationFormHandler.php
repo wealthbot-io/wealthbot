@@ -11,19 +11,19 @@
 
 namespace Wealthbot\UserBundle\Form\Handler;
 
-use FOS\UserBundle\FOSUserEvents;
 use FOS\UserBundle\Event\FormEvent;
+use FOS\UserBundle\FOSUserEvents;
 
 use FOS\UserBundle\Mailer\MailerInterface;
 use FOS\UserBundle\Model\UserInterface;
 use FOS\UserBundle\Model\UserManagerInterface;
 use FOS\UserBundle\Util\TokenGeneratorInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Wealthbot\AdminBundle\Manager\FeeManager;
 use Wealthbot\RiaBundle\Entity\RiaCompanyInformation;
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 
 class RiaRegistrationFormHandler implements EventSubscriberInterface

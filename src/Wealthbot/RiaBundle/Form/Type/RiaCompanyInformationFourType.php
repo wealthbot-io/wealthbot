@@ -10,6 +10,9 @@
 namespace Wealthbot\RiaBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -39,19 +42,19 @@ class RiaCompanyInformationFourType extends AbstractType
         }*/
 
         $builder
-            ->add('is_searchable_db', 'hidden', [
+            ->add('is_searchable_db', HiddenType::class, [
 //                'choices' => array( true => 'Yes', false => 'No'),
 //                'required' => false,
 //                'expanded' => true,
                 'data' => true,
 //                'hidden' => true
             ])
-            ->add('min_asset_size', 'number', [
-                'precision' => 2,
+            ->add('min_asset_size', NumberType::class, [
+                'scale' => 2,
                 'grouping' => true,
                 'required' => false,
             ])
-            ->add('logo_file', 'file', ['required' => false])
+            ->add('logo_file', FileType::class, ['required' => false])
         ;
 
         if (!$this->isPreSave) {

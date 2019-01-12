@@ -11,6 +11,10 @@ namespace Wealthbot\ClientBundle\Form\Type;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\RadioType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormEvent;
@@ -35,44 +39,44 @@ class TransferInformationFormType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('title_first', 'text', [
+        $builder->add('title_first', TextType::class, [
                 'constraints' => [new NotBlank()],
             ])
-            ->add('title_middle', 'text', [
+            ->add('title_middle', TextType::class, [
                 'constraints' => [new NotBlank()],
             ])
-            ->add('title_last', 'text', [
+            ->add('title_last', TextType::class, [
                 'constraints' => [new NotBlank()],
             ])
-            ->add('transfer_from', 'choice', [
+            ->add('transfer_from', ChoiceType::class, [
                 'choices' => TransferInformation::getTransferFromChoices(),
                 'expanded' => true,
                 'multiple' => false,
                 'required' => false,
             ])
-            ->add('account_number', 'text', ['required' => true])
-            ->add('firm_address', 'text', ['required' => true])
-            ->add('phone_number', 'text', ['required' => true])
-            ->add('is_include_policy', 'choice', [
+            ->add('account_number', TextType::class, ['required' => true])
+            ->add('firm_address', TextType::class, ['required' => true])
+            ->add('phone_number', TextType::class, ['required' => true])
+            ->add('is_include_policy', ChoiceType::class, [
                 'choices' => [true => 'Yes', false => 'No'],
                 'expanded' => true,
                 'label' => ' ',
                 'constraints' => [new NotBlank()],
             ])
-            ->add('transfer_shares_cash', 'choice', [
+            ->add('transfer_shares_cash', ChoiceType::class, [
                 'choices' => [1 => 'Transfer my shares in-kind OR', 0 => 'sell my shares, and then transfer cash'],
                 'expanded' => true,
                 'multiple' => false,
                 'required' => false,
             ])
-            ->add('insurance_policy_type', 'choice', [
+            ->add('insurance_policy_type', ChoiceType::class, [
                 'choices' => TransferInformation::getInsurancePolicyTypeChoices(),
                 'expanded' => true,
                 'multiple' => false,
                 'required' => false,
             ])
-            ->add('penalty_amount', 'number', ['required' => false])
-            ->add('redeem_certificates_deposit', 'radio', ['required' => false])
+            ->add('penalty_amount', NumberType::class, ['required' => false])
+            ->add('redeem_certificates_deposit', RadioType::class, ['required' => false])
             ->add('statementDocument', new PdfDocumentFormType());
 
         $factory = $builder->getFormFactory();

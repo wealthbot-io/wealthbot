@@ -9,6 +9,9 @@
 namespace Wealthbot\RiaBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
@@ -35,28 +38,28 @@ class HouseholdSpouseFormType extends AbstractType
         $this->factory = $builder->getFormFactory();
 
         $builder
-            ->add('firstName', 'text', [
+            ->add('firstName', TextType::class, [
                 'attr' => [
                     'class' => 'input-medium',
                     'placeholder' => 'First Name',
                 ],
                 'required' => false,
             ])
-            ->add('middleName', 'text', [
+            ->add('middleName', TextType::class, [
                 'attr' => [
                     'class' => 'input-small',
                     'placeholder' => 'Middle Name',
                 ],
                 'required' => false,
             ])
-            ->add('lastName', 'text', [
+            ->add('lastName', TextType::class, [
                 'attr' => [
                     'class' => 'input-medium',
                     'placeholder' => 'Last Name',
                 ],
                 'required' => false,
             ])
-            ->add('birthDate', 'date', [
+            ->add('birthDate', DateType::class, [
                 'attr' => [
                     'class' => 'jq-ce-date input-small',
                     'placeholder' => 'MM-DD-YYYY',
@@ -66,7 +69,7 @@ class HouseholdSpouseFormType extends AbstractType
                 'required' => false,
                 'widget' => 'single_text',
             ])
-            ->add('citizenship', 'choice', [
+            ->add('citizenship', ChoiceType::class, [
                 'choices' => ['1' => 'Yes', '0' => 'No'],
                 'data' => 1,
                 'expanded' => true,
@@ -78,37 +81,37 @@ class HouseholdSpouseFormType extends AbstractType
         ;
 
         $builder
-            ->add('employmentType', 'choice', [
+            ->add('employmentType', ChoiceType::class, [
                 'choices' => Profile::getEmploymentTypeChoices(),
                 'expanded' => true,
                 'label' => 'Employment Status',
                 'multiple' => false,
                 'required' => true,
             ])
-            ->add('employerName', 'text', [
+            ->add('employerName', TextType::class, [
                 'attr' => ['class' => 'input-medium'],
                 'label' => 'Employer Name',
                 'required' => false,
             ])
-            ->add('industry', 'text', [
+            ->add('industry', TextType::class, [
                 'attr' => ['class' => 'input-medium'],
                 'required' => false,
             ])
-            ->add('occupation', 'text', [
+            ->add('occupation', TextType::class, [
                 'attr' => ['class' => 'input-medium'],
                 'required' => false,
             ])
-            ->add('businessType', 'text', [
+            ->add('businessType', TextType::class, [
                 'attr' => ['class' => 'input-medium'],
                 'label' => 'Type of Business',
                 'required' => false,
             ])
-            ->add('employerAddress', 'text', [
+            ->add('employerAddress', TextType::class, [
                 'attr' => ['class' => 'input-large'],
                 'label' => 'Employer Address',
                 'required' => false,
             ])
-            ->add('employmentCity', 'text', [
+            ->add('employmentCity', TextType::class, [
                 'attr' => ['class' => 'input-medium'],
                 'label' => 'Employment City',
                 'required' => false,
@@ -120,7 +123,7 @@ class HouseholdSpouseFormType extends AbstractType
                 'placeholder' => 'Select a State',
                 'required' => false,
             ])
-            ->add('employmentZip', 'text', [
+            ->add('employmentZip', TextType::class, [
                 'attr' => ['class' => 'input-mini'],
                 'label' => 'Zip Code',
                 'required' => false,

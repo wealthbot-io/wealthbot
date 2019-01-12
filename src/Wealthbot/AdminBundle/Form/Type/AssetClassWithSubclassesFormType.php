@@ -11,6 +11,8 @@ namespace Wealthbot\AdminBundle\Form\Type;
 
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
@@ -41,11 +43,11 @@ class AssetClassWithSubclassesFormType extends AbstractType
         $allSubclasses = $this->allSubclasses;
 
         $builder
-            ->add('name', 'text', ['constraints' => [new NotBlank()]]);
+            ->add('name', TextType::class, ['constraints' => [new NotBlank()]]);
 
         if ($user->hasRole('ROLE_RIA') &&
                 $user->getRiaCompanyInformation()->isRebalancedFrequencyToleranceBand()) {
-            $builder->add('tolerance_band', 'number', ['precision' => 2]);
+            $builder->add('tolerance_band', NumberType::class, ['scale' => 2]);
         }
 
         $factory = $builder->getFormFactory();

@@ -11,6 +11,9 @@ namespace Wealthbot\RiaBundle\Form\Type;
 
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Wealthbot\ClientBundle\Entity\AccountGroup;
@@ -57,35 +60,35 @@ class RiaClientAccountFormType extends AbstractType
             $consolidate = true;
         }
 
-        $builder->add('group', 'choice', [
+        $builder->add('group', ChoiceType::class, [
                 'choices' => $groupChoices,
                 'mapped' => false,
                 'placeholder' => false,
                 'data' => $selectedGroup,
             ])
-            ->add('consolidate', 'checkbox', [
+            ->add('consolidate', CheckboxType::class, [
                 'mapped' => false,
                 'attr' => $consolidate ? ['checked' => 'checked'] : [],
                 'required' => false,
             ])
-            ->add('value', 'number', [
+            ->add('value', NumberType::class, [
                 'grouping' => true,
-                'precision' => 2,
+                'scale' => 2,
                 'label' => 'Estimated Value',
             ])
-            ->add('monthly_contributions', 'number', [
+            ->add('monthly_contributions', NumberType::class, [
                 'grouping' => true,
-                'precision' => 2,
+                'scale' => 2,
                 'label' => 'Estimated Monthly Contributions', 'required' => false,
             ])
-            ->add('monthly_distributions', 'number', [
+            ->add('monthly_distributions', NumberType::class, [
                 'grouping' => true,
-                'precision' => 2,
+                'scale' => 2,
                 'label' => 'Estimated Monthly Distributions', 'required' => false,
             ])
-            ->add('sas_cash', 'number', [
+            ->add('sas_cash', NumberType::class, [
                 'grouping' => true,
-                'precision' => 2,
+                'scale' => 2,
                 'required' => false,
             ]);
 

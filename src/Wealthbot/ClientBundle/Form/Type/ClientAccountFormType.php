@@ -11,6 +11,8 @@ namespace Wealthbot\ClientBundle\Form\Type;
 
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormEvent;
@@ -177,13 +179,13 @@ class ClientAccountFormType extends AbstractType
         ]);
 
         $builder
-            ->add('financial_institution', 'text', [
+            ->add('financial_institution', TextType::class, [
                 'constraints' => [new NotBlank()],
                 'label' => 'Financial Institution:',
             ])
-            ->add('value', 'number', [
+            ->add('value', NumberType::class, [
                 'grouping' => true,
-                'precision' => 2,
+                'scale' => 2,
                 'label' => 'Estimated Value',
                 'constraints' => [new NotBlank()],
             ]);
@@ -211,9 +213,9 @@ class ClientAccountFormType extends AbstractType
             'placeholder' => 'Select Type',
         ]);
 
-        $builder->add('value', 'number', [
+        $builder->add('value', NumberType::class, [
             'grouping' => true,
-            'precision' => 2,
+            'scale' => 2,
             'label' => 'Estimated Deposit',
             'constraints' => [new NotBlank()],
         ]);
@@ -225,7 +227,7 @@ class ClientAccountFormType extends AbstractType
         $isAllowRetirementPlan = $this->isAllowRetirementPlan;
 
         $builder
-            ->add('financial_institution', 'text', [
+            ->add('financial_institution', TextType::class, [
                 'label' => 'Former Employer:',
             ])
             ->add('groupType', 'entity', [
@@ -246,9 +248,9 @@ class ClientAccountFormType extends AbstractType
                 'label' => 'Account Type',
                 'placeholder' => 'Select Type',
             ])
-            ->add('value', 'number', [
+            ->add('value', NumberType::class, [
                 'grouping' => true,
-                'precision' => 2,
+                'scale' => 2,
                 'label' => 'Estimated Value',
             ]);
     }
@@ -270,11 +272,11 @@ class ClientAccountFormType extends AbstractType
             $company = null;
         }
 
-        $builder->add('financial_institution', 'text', [
+        $builder->add('financial_institution', TextType::class, [
                 'label' => 'Employer Name',
                 'data' => $company,
             ])
-            ->add('plan_provider', 'text', [
+            ->add('plan_provider', TextType::class, [
                 'label' => 'Retirement Plan Provider',
                 'mapped' => false,
                 'data' => $provider,
@@ -297,9 +299,9 @@ class ClientAccountFormType extends AbstractType
                 'label' => 'Account Type',
                 'placeholder' => 'Select Type',
             ])
-            ->add('value', 'number', [
+            ->add('value', NumberType::class, [
                 'grouping' => true,
-                'precision' => 2,
+                'scale' => 2,
                 'label' => 'Estimated Value',
             ]);
     }
@@ -309,7 +311,7 @@ class ClientAccountFormType extends AbstractType
         $group = $this->group;
         $isAllowRetirementPlan = $this->isAllowRetirementPlan;
 
-        $builder->add('financial_institution', 'text', [
+        $builder->add('financial_institution', TextType::class, [
                 'label' => 'Financial Institution:',
             ])
             ->add('groupType', 'entity', [
@@ -333,9 +335,9 @@ class ClientAccountFormType extends AbstractType
                 'label' => 'Account Type:',
                 'placeholder' => 'Select Type',
             ])
-            ->add('value', 'number', [
+            ->add('value', NumberType::class, [
                 'grouping' => true,
-                'precision' => 2,
+                'scale' => 2,
                 'label' => 'Estimated Value',
             ]);
     }

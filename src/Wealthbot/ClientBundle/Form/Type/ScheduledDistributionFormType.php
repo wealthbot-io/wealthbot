@@ -11,6 +11,7 @@ namespace Wealthbot\ClientBundle\Form\Type;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
@@ -50,8 +51,8 @@ class ScheduledDistributionFormType extends AbstractType
                 'expanded' => true,
                 'multiple' => false,
             ])
-            ->add('amount', 'number', [
-                'precision' => 2,
+            ->add('amount', NumberType::class, [
+                'scale' => 2,
                 'grouping' => true,
                 'required' => false,
             ]);

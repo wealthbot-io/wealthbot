@@ -9,6 +9,7 @@
 namespace Wealthbot\RiaBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -17,11 +18,11 @@ class HouseholdContactSettingsFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('street', 'text', [
+            ->add('street', TextType::class, [
                 'attr' => ['class' => 'input-xxlarge'],
                 'label' => 'Street Address',
             ])
-            ->add('city', 'text', [
+            ->add('city', TextType::class, [
                 'attr' => ['class' => 'input-medium'],
             ])
             ->add('state', 'entity', [
@@ -30,14 +31,14 @@ class HouseholdContactSettingsFormType extends AbstractType
                 'label' => 'State',
                 'placeholder' => 'Select a State',
             ])
-            ->add('zip', 'text', [
+            ->add('zip', TextType::class, [
                 'attr' => ['class' => 'input-mini'],
             ])
-            ->add('mailingStreet', 'text', [
+            ->add('mailingStreet', TextType::class, [
                 'attr' => ['class' => 'input-xxlarge'],
                 'label' => 'Mailing Street',
             ])
-            ->add('mailingCity', 'text', [
+            ->add('mailingCity', TextType::class, [
                 'attr' => ['class' => 'input-medium'],
                 'label' => 'Mailing City',
             ])
@@ -47,15 +48,15 @@ class HouseholdContactSettingsFormType extends AbstractType
                 'label' => 'Mailing State',
                 'placeholder' => 'Select a State',
             ])
-            ->add('mailingZip', 'text', [
+            ->add('mailingZip', TextType::class, [
                 'attr' => ['class' => 'input-mini'],
                 'label' => 'Mailing Zip Code',
             ])
-            ->add('email', 'text', [
+            ->add('email', TextType::class, [
                 'attr' => ['class' => 'input-medium'],
                 'property_path' => 'user.email',
             ])
-            ->add('phoneNumber', 'text', [
+            ->add('phoneNumber', TextType::class, [
                 'attr' => ['class' => 'input-medium'],
                 'label' => 'Phone Number',
             ])

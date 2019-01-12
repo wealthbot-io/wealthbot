@@ -13,6 +13,8 @@ use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormEvent;
@@ -65,19 +67,19 @@ class TransferFundingFormType extends AbstractType
                 'multiple' => false,
                 'required' => false,
             ])
-            ->add('type', 'choice', [
+            ->add('type', ChoiceType::class, [
                 'choices' => $typeChoices,
                 'expanded' => true,
                 'multiple' => false,
                 'required' => false,
                 'auto_initialize' => false,
             ])
-            ->add('amount', 'number', [
-                'precision' => 2,
+            ->add('amount', NumberType::class, [
+                'scale' => 2,
                 'grouping' => true,
                 'required' => false,
             ])
-            ->add('transaction_frequency', 'choice', [
+            ->add('transaction_frequency', ChoiceType::class, [
                 'choices' => $frequencyTransactionChoices,
                 'expanded' => true,
                 'multiple' => false,

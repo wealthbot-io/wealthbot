@@ -10,6 +10,7 @@
 namespace Wealthbot\RiaBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -24,7 +25,7 @@ class RiaCustodianFormType extends AbstractType
                 'property' => 'name',
                 'expanded' => true,
             ])
-            ->add('allow_non_electronically_signing', 'choice', [
+            ->add('allow_non_electronically_signing', ChoiceType::class, [
                 'choices' => [true => 'Yes', false => 'No'],
                 'expanded' => true,
             ])

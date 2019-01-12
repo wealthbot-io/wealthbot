@@ -10,6 +10,8 @@
 namespace Wealthbot\AdminBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\PercentType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Wealthbot\RiaBundle\Entity\RiaCompanyInformation;
@@ -28,9 +30,9 @@ class SecurityTransactionFormType extends AbstractType
         if ($this->riaCompanyInformation->getIsTransactionFees()) {
             $builder->add(
                 'transaction_fee',
-                'number',
+                NumberType::class,
                 [
-                    'precision' => 2,
+                    'scale' => 2,
                     'grouping' => true,
                     'required' => false,
                 ]
@@ -41,27 +43,27 @@ class SecurityTransactionFormType extends AbstractType
             $builder
                 ->add(
                     'minimum_buy',
-                    'number',
+                    NumberType::class,
                     [
-                        'precision' => 2,
+                        'scale' => 2,
                         'grouping' => true,
                         'required' => false,
                     ]
                 )
                 ->add(
                     'minimum_initial_buy',
-                    'number',
+                    NumberType::class,
                     [
-                        'precision' => 2,
+                        'scale' => 2,
                         'grouping' => true,
                         'required' => false,
                     ]
                 )
                 ->add(
                     'minimum_sell',
-                    'number',
+                    NumberType::class,
                     [
-                        'precision' => 2,
+                        'scale' => 2,
                         'grouping' => true,
                         'required' => false,
                     ]
@@ -72,25 +74,25 @@ class SecurityTransactionFormType extends AbstractType
             $builder
                 ->add(
                     'redemption_penalty_interval',
-                    'number',
+                    NumberType::class,
                     [
                         'required' => false,
                     ]
                 )
                 ->add(
                     'redemption_fee',
-                    'number',
+                    NumberType::class,
                     [
-                        'precision' => 2,
+                        'scale' => 2,
                         'grouping' => true,
                         'required' => false,
                     ]
                 )
                 ->add(
                     'redemption_percent',
-                    'percent',
+                    PercentType::class,
                     [
-                        'precision' => 2,
+                        'scale' => 2,
                         'required' => false,
                     ]
                 );

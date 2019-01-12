@@ -10,6 +10,7 @@
 namespace Wealthbot\ClientBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormEvent;
@@ -31,7 +32,7 @@ class TransferReviewFormType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('is_agree', 'checkbox', [
+        $builder->add('is_agree', CheckboxType::class, [
             'label' => 'I agree.',
             'constraints' => [
                 new NotBlank(['message' => 'You have to agree to the terms.']),

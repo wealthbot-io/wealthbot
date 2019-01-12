@@ -10,6 +10,11 @@
 namespace Wealthbot\ClientBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\PercentType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormEvent;
@@ -38,45 +43,45 @@ class ClientProfileFormType extends AbstractType
         $isExist = $data->getId();
 
         $builder
-            ->add('first_name', 'text', [
+            ->add('first_name', TextType::class, [
                 'required' => false,
             ])
-            ->add('middle_name', 'text', [
+            ->add('middle_name', TextType::class, [
                 'required' => false,
             ])
-            ->add('last_name', 'text', [
+            ->add('last_name', TextType::class, [
                 'required' => false,
             ])
-            ->add('street', 'text', ['required' => false])
-            ->add('city', 'text', ['required' => false])
+            ->add('street', TextType::class, ['required' => false])
+            ->add('city', TextType::class, ['required' => false])
             ->add('state', 'entity', [
                 'class' => 'Wealthbot\\AdminBundle\\Entity\\State',
                 'label' => 'State',
                 'placeholder' => 'Select a State',
                 'required' => true,
             ])
-            ->add('zip', 'text', ['required' => false])
-            ->add('is_different_address', 'checkbox', [
+            ->add('zip', TextType::class, ['required' => false])
+            ->add('is_different_address', CheckboxType::class, [
                 'label' => 'Is your mailing address different than the one above?',
                 'required' => false,
             ])
-            ->add('mailing_street', 'text', ['required' => false])
-            ->add('mailing_city', 'text', ['required' => false])
+            ->add('mailing_street', TextType::class, ['required' => false])
+            ->add('mailing_city', TextType::class, ['required' => false])
             ->add('mailingState', 'entity', [
                 'class' => 'Wealthbot\\AdminBundle\\Entity\\State',
                 'label' => 'Mailing state',
                 'placeholder' => 'Select a State',
                 'required' => false,
             ])
-            ->add('mailing_zip', 'text', ['required' => false])
-            ->add('birth_date', 'date', [
+            ->add('mailing_zip', TextType::class, ['required' => false])
+            ->add('birth_date', DateType::class, [
                 'widget' => 'single_text',
                 'format' => 'MM-dd-yyyy',
                 'required' => true,
                 'attr' => ['class' => 'jq-date input-small'],
             ])
-            ->add('phone_number', 'text', ['required' => false])
-            ->add('citizenship', 'choice', [
+            ->add('phone_number', TextType::class, ['required' => false])
+            ->add('citizenship', ChoiceType::class, [
                 'choices' => [
                     1 => 'Yes',
                     0 => 'No',
@@ -88,7 +93,7 @@ class ClientProfileFormType extends AbstractType
                 'data' => $isExist ? 1 : null,
                 'label' => ($data && $data->getMaritalStatus() === 'Married' ? 'Are you and your spouse both U.S. citizens?' : 'Are you a U.S. citizen?'),
             ])
-            ->add('marital_status', 'choice', [
+            ->add('marital_status', ChoiceType::class, [
                 'choices' => Profile::getMaritalStatusChoices(),
                 'placeholder' => 'Choose an Option',
                 'required' => false,
@@ -96,22 +101,22 @@ class ClientProfileFormType extends AbstractType
             ->add('spouse', new ClientSpouseFormType(), [
                 'property_path' => 'user.spouse',
             ])
-            ->add('annual_income', 'choice', [
+            ->add('annual_income', ChoiceType::class, [
                 'choices' => Profile::getAnnualIncomeChoices(),
                 'placeholder' => 'Choose an Option',
                 'required' => false,
             ])
-            ->add('estimated_income_tax', 'percent', [
-                'precision' => 0,
+            ->add('estimated_income_tax', PercentType::class, [
+                'scale' => 0,
                 'required' => false,
                 'label' => 'What is your estimated income tax bracket?',
             ])
-            ->add('liquid_net_worth', 'choice', [
+            ->add('liquid_net_worth', ChoiceType::class, [
                 'choices' => Profile::getLiquidNetWorthChoices(),
                 'placeholder' => 'Choose an Option',
                 'required' => false,
             ])
-            ->add('employment_type', 'choice', [
+            ->add('employment_type', ChoiceType::class, [
                 'choices' => Profile::getEmploymentTypeChoices(),
                 'expanded' => true,
                 'multiple' => false,

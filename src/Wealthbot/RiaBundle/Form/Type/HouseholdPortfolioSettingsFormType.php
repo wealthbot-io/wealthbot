@@ -9,6 +9,8 @@
 namespace Wealthbot\RiaBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\PercentType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
@@ -43,7 +45,7 @@ class HouseholdPortfolioSettingsFormType extends AbstractType
         }
 
         $builder
-            ->add('rebalancingLevel', 'choice', [
+            ->add('rebalancingLevel', ChoiceType::class, [
                 'attr' => ['class' => 'input-medium'],
                 'choices' => Profile::$client_account_managed_choices,
                 'label' => 'Rebalancing Level: ',
@@ -52,28 +54,28 @@ class HouseholdPortfolioSettingsFormType extends AbstractType
         ;
 
         $builder
-            ->add('annualIncome', 'choice', [
+            ->add('annualIncome', ChoiceType::class, [
                 'attr' => ['class' => 'input-large'],
                 'choices' => Profile::getAnnualIncomeChoices(),
                 'placeholder' => 'Choose an Option',
                 'label' => 'Annual Income',
                 'property_path' => 'profile.annualIncome',
             ])
-            ->add('estimatedIncomeTax', 'percent', [
+            ->add('estimatedIncomeTax', PercentType::class, [
                 'attr' => ['class' => 'input-mini'],
                 'precision' => 0,
                 'required' => false,
                 'label' => 'Income tax bracket',
                 'property_path' => 'profile.estimatedIncomeTax',
             ])
-            ->add('liquidNetWorth', 'choice', [
+            ->add('liquidNetWorth', ChoiceType::class, [
                 'attr' => ['class' => 'input-large'],
                 'choices' => Profile::getLiquidNetWorthChoices(),
                 'placeholder' => 'Choose an Option',
                 'label' => 'Liquid Net Worth',
                 'property_path' => 'profile.liquidNetWorth',
             ])
-            ->add('group', 'choice', [
+            ->add('group', ChoiceType::class, [
                 'attr' => ['class' => 'input-medium'],
                 'choices' => $groups,
                 'data' => $selectedGroupId,

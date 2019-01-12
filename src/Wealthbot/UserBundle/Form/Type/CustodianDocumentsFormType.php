@@ -3,6 +3,7 @@
 namespace Wealthbot\UserBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormEvent;
@@ -21,9 +22,9 @@ class CustodianDocumentsFormType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('account_disclosure', 'file', ['label' => 'Account Disclosure', 'required' => false])
-            ->add('ira_account_disclosure', 'file', ['label' => 'IRA Account Disclosure', 'required' => false])
-            ->add('roth_account_disclosure', 'file', ['label' => 'Roth Account Disclosure', 'required' => false]);
+        $builder->add('account_disclosure', FileType::class, ['label' => 'Account Disclosure', 'required' => false])
+            ->add('ira_account_disclosure', FileType::class, ['label' => 'IRA Account Disclosure', 'required' => false])
+            ->add('roth_account_disclosure', FileType::class, ['label' => 'Roth Account Disclosure', 'required' => false]);
 
         $builder->addEventListener(FormEvents::SUBMIT, function (FormEvent $event) {
             $data = $event->getData();

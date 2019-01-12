@@ -10,6 +10,7 @@
 namespace Wealthbot\ClientBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormEvent;
@@ -35,7 +36,7 @@ class AccountGroupsFormType extends AbstractType
             unset($choices[AccountGroup::GROUP_EMPLOYER_RETIREMENT]);
         }
 
-        $builder->add('groups', 'choice', [
+        $builder->add('groups', ChoiceType::class, [
             'choices' => $choices,
             'multiple' => false,
             'expanded' => true,

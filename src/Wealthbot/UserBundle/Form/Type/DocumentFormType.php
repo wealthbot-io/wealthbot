@@ -3,6 +3,8 @@
 namespace Wealthbot\UserBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormEvent;
@@ -15,8 +17,8 @@ class DocumentFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('file', 'file')
-            ->add('type', 'hidden');
+            ->add('file', FileType::class)
+            ->add('type', HiddenType::class);
 
         $builder->addEventListener(FormEvents::SUBMIT, [$this, 'onSubmit']);
     }

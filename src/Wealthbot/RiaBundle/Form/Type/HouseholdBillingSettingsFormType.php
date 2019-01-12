@@ -10,6 +10,7 @@ namespace Wealthbot\RiaBundle\Form\Type;
 
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Wealthbot\UserBundle\Entity\Profile;
@@ -32,7 +33,7 @@ class HouseholdBillingSettingsFormType extends AbstractType
                         ->setParameter('ria', $client->getRia());
                 },
             ])
-            ->add('paymentMethod', 'choice', [
+            ->add('paymentMethod', ChoiceType::class, [
                 'label' => 'Payment Method: ',
                 'property_path' => 'profile.paymentMethod',
                 'choices' => [

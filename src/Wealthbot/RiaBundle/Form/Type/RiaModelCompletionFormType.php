@@ -11,6 +11,7 @@ namespace Wealthbot\RiaBundle\Form\Type;
 
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Wealthbot\UserBundle\Entity\User;
@@ -31,19 +32,19 @@ class RiaModelCompletionFormType extends AbstractType
         $model = $this->ria->getRiaCompanyInformation()->getPortfolioModel();
 
         $builder
-            ->add('users_and_user_groups', 'checkbox', ['required' => false])
-            ->add('select_custodians', 'checkbox', ['required' => false])
-            ->add('rebalancing_settings', 'checkbox', ['required' => false])
-            ->add('customize_proposals', 'checkbox', ['required' => false])
-            ->add('billingComplete', 'checkbox', ['required' => false])
-            ->add('proposalDocuments', 'checkbox', ['required' => false])
+            ->add('users_and_user_groups', CheckboxType::class, ['required' => false])
+            ->add('select_custodians', CheckboxType::class, ['required' => false])
+            ->add('rebalancing_settings', CheckboxType::class, ['required' => false])
+            ->add('customize_proposals', CheckboxType::class, ['required' => false])
+            ->add('billingComplete', CheckboxType::class, ['required' => false])
+            ->add('proposalDocuments', CheckboxType::class, ['required' => false])
         ;
 
         if ($model->isCustom()) {
             $builder
-                ->add('create_securities', 'checkbox', ['required' => false])
-                ->add('assign_securities', 'checkbox', ['required' => false])
-                ->add('models_created', 'checkbox', ['required' => false])
+                ->add('create_securities', CheckboxType::class, ['required' => false])
+                ->add('assign_securities', CheckboxType::class, ['required' => false])
+                ->add('models_created', CheckboxType::class, ['required' => false])
             ;
         }
     }

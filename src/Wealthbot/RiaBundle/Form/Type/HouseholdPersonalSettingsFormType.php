@@ -9,6 +9,9 @@
 namespace Wealthbot\RiaBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
@@ -28,29 +31,29 @@ class HouseholdPersonalSettingsFormType extends AbstractType
         $this->factory = $builder->getFormFactory();
 
         $builder
-            ->add('firstName', 'text', [
+            ->add('firstName', TextType::class, [
                 'attr' => ['class' => 'input-medium'],
                 'label' => 'First Name',
                 'property_path' => 'profile.firstName',
             ])
-            ->add('lastName', 'text', [
+            ->add('lastName', TextType::class, [
                 'attr' => ['class' => 'input-medium'],
                 'label' => 'Last Name',
                 'property_path' => 'profile.lastName',
             ])
-            ->add('middleName', 'text', [
+            ->add('middleName', TextType::class, [
                 'attr' => ['class' => 'input-medium'],
                 'label' => 'Middle Name',
                 'property_path' => 'profile.middleName',
             ])
-            ->add('birthDate', 'date', [
+            ->add('birthDate', DateType::class, [
                 'attr' => ['class' => 'jq-ce-date input-small'],
                 'format' => 'MM-dd-yyyy',
                 'label' => 'Birth Date',
                 'property_path' => 'profile.birthDate',
                 'widget' => 'single_text',
             ])
-            ->add('citizenship', 'choice', [
+            ->add('citizenship', ChoiceType::class, [
                 'expanded' => true,
                 'label' => 'U.S. citizen?',
                 'data' => 1,
@@ -62,7 +65,7 @@ class HouseholdPersonalSettingsFormType extends AbstractType
         ;
 
         $builder
-            ->add('employmentStatus', 'choice', [
+            ->add('employmentStatus', ChoiceType::class, [
                 'choices' => Profile::getEmploymentTypeChoices(),
                 'expanded' => true,
                 'label' => 'Employment Status',
@@ -70,35 +73,35 @@ class HouseholdPersonalSettingsFormType extends AbstractType
                 'property_path' => 'profile.employmentType',
                 'required' => true,
             ])
-            ->add('employerName', 'text', [
+            ->add('employerName', TextType::class, [
                 'attr' => ['class' => 'input-small'],
                 'label' => 'Employer Name',
                 'property_path' => 'clientPersonalInformation.employerName',
                 'required' => false,
             ])
-            ->add('industry', 'text', [
+            ->add('industry', TextType::class, [
                 'attr' => ['class' => 'input-small'],
                 'property_path' => 'clientPersonalInformation.industry',
                 'required' => false,
             ])
-            ->add('occupation', 'text', [
+            ->add('occupation', TextType::class, [
                 'attr' => ['class' => 'input-small'],
                 'property_path' => 'clientPersonalInformation.occupation',
                 'required' => false,
             ])
-            ->add('businessType', 'text', [
+            ->add('businessType', TextType::class, [
                 'attr' => ['class' => 'input-small'],
                 'label' => 'Type of Business',
                 'property_path' => 'clientPersonalInformation.businessType',
                 'required' => false,
             ])
-            ->add('employerAddress', 'text', [
+            ->add('employerAddress', TextType::class, [
                 'attr' => ['class' => 'input-medium'],
                 'label' => 'Employer Address',
                 'property_path' => 'clientPersonalInformation.employerAddress',
                 'required' => false,
             ])
-            ->add('employmentCity', 'text', [
+            ->add('employmentCity', TextType::class, [
                 'attr' => ['class' => 'input-medium'],
                 'label' => 'Employment City',
                 'property_path' => 'clientPersonalInformation.city',
@@ -112,7 +115,7 @@ class HouseholdPersonalSettingsFormType extends AbstractType
                 'property_path' => 'clientPersonalInformation.state',
                 'required' => false,
             ])
-            ->add('employmentZip', 'text', [
+            ->add('employmentZip', TextType::class, [
                 'attr' => ['class' => 'input-mini'],
                 'label' => 'Zip Code',
                 'property_path' => 'clientPersonalInformation.zipcode',
@@ -121,7 +124,7 @@ class HouseholdPersonalSettingsFormType extends AbstractType
         ;
 
         $builder
-            ->add('maritalStatus', 'choice', [
+            ->add('maritalStatus', ChoiceType::class, [
                 'attr' => ['class' => 'input-small'],
                 'choices' => Profile::getMaritalStatusChoices(),
                 'placeholder' => 'Choose an Option',

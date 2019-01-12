@@ -4,6 +4,9 @@ namespace Wealthbot\RiaBundle\Form\Type;
 
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormEvent;
@@ -27,15 +30,15 @@ class InviteProspectFormType extends AbstractType
         $typeChoices = ['online' => 'Online', 'internal' => 'Internal'];
 
         $builder
-            ->add('first_name', 'text', [
+            ->add('first_name', TextType::class, [
                 'required' => true,
                 'property_path' => 'profile.first_name',
             ])
-            ->add('last_name', 'text', [
+            ->add('last_name', TextType::class, [
                 'required' => true,
                 'property_path' => 'profile.last_name',
             ])
-            ->add('email', 'email', ['required' => true])
+            ->add('email', EmailType::class, ['required' => true])
             ->add('groups', 'entity', [
                 'property' => 'name', // Assuming that the entity has a "name" property
                 'label' => 'Groups:',
@@ -46,7 +49,7 @@ class InviteProspectFormType extends AbstractType
                         ->setParameter('owner', $ria);
                 },
             ])
-            ->add('type', 'choice', [
+            ->add('type', ChoiceType::class, [
                 'choices' => $typeChoices,
                 'mapped' => false,
             ]);

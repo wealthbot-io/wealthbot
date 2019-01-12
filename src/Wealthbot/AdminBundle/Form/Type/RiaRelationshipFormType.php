@@ -3,6 +3,7 @@
 namespace Wealthbot\AdminBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Wealthbot\RiaBundle\Entity\RiaCompanyInformation;
@@ -14,7 +15,7 @@ class RiaRelationshipFormType extends AbstractType
         /** @var RiaCompanyInformation $data */
         $data = $builder->getData();
 
-        $builder->add('relationship_type', 'choice', [
+        $builder->add('relationship_type', ChoiceType::class, [
             'choices' => RiaCompanyInformation::$relationship_type_choices,
             'expanded' => true,
             'multiple' => false,

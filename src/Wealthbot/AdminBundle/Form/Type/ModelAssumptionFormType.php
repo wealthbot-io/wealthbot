@@ -11,6 +11,7 @@ namespace Wealthbot\AdminBundle\Form\Type;
 
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Wealthbot\AdminBundle\Entity\CeModel;
@@ -34,16 +35,16 @@ class ModelAssumptionFormType extends AbstractType
 
         if ($owner->hasRole('ROLE_RIA') && $owner->getRiaCompanyInformation()->getIsShowClientExpectedAssetClass()) {
             $builder
-                ->add('generous_market_return', 'number', [
+                ->add('generous_market_return', NumberType::class, [
                         'label' => 'Generous Market Returns',
-                        'precision' => 2,
+                        'scale' => 2,
                         'grouping' => true,
                         'required' => true,
                     ]
                 )
-                ->add('low_market_return', 'number', [
+                ->add('low_market_return', NumberType::class, [
                         'label' => 'Low Market Returns',
-                        'precision' => 2,
+                        'scale' => 2,
                         'grouping' => true,
                         'required' => true,
                     ]

@@ -10,6 +10,7 @@
 namespace Wealthbot\ClientBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
@@ -39,10 +40,10 @@ class OtherAccountOwnerFormType extends AbstractType
             $relationship = null;
         }
 
-        $builder->add('first_name', 'text', ['attr' => ['value' => $firstName]])
-            ->add('middle_name', 'text', ['attr' => ['value' => $middleName]])
-            ->add('last_name', 'text', ['attr' => ['value' => $lastName]])
-            ->add('relationship', 'text', ['attr' => ['value' => $relationship]]);
+        $builder->add('first_name', TextType::class, ['attr' => ['value' => $firstName]])
+            ->add('middle_name', TextType::class, ['attr' => ['value' => $middleName]])
+            ->add('last_name', TextType::class, ['attr' => ['value' => $lastName]])
+            ->add('relationship', TextType::class, ['attr' => ['value' => $relationship]]);
 
         $builder->addEventListener(FormEvents::SUBMIT, function (FormEvent $event) {
             $data = $event->getData();

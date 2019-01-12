@@ -4,6 +4,8 @@ namespace Wealthbot\RiaBundle\Form\Type;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormEvent;
@@ -49,7 +51,7 @@ class RiaCompanyInformationTwoFormType extends AbstractType
         }
 
         $builder
-            ->add('fees', 'collection', [
+            ->add('fees', CollectionType::class, [
                 'type' => new FeeFormType($this->user),
                 'allow_add' => true,
                 'allow_delete' => true,
@@ -59,8 +61,8 @@ class RiaCompanyInformationTwoFormType extends AbstractType
                 'mapped' => false,
                 'data' => $fees,
             ])
-            ->add('minimum_billing_fee', 'number', [
-                'precision' => 2,
+            ->add('minimum_billing_fee', NumberType::class, [
+                'scale' => 2,
                 'grouping' => true,
                 'required' => false,
             ])

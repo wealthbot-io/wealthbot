@@ -3,6 +3,9 @@
 namespace Wealthbot\RiaBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
@@ -24,11 +27,11 @@ class BillingSpecFormType extends AbstractType
         $this->builder = $builder;
 
         $builder
-            ->add('name', 'text')
-            ->add('master', 'checkbox')
+            ->add('name', TextType::class)
+            ->add('master', CheckboxType::class)
         //@TODO need custom validator by values
-            ->add('type', 'integer')
-            ->add('minimalFee', 'integer')
+            ->add('type', IntegerType::class)
+            ->add('minimalFee', IntegerType::class)
         ;
 
         $builder->addEventListener(FormEvents::PRE_SET_DATA, [$this, 'addFees']);

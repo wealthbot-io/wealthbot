@@ -3,6 +3,8 @@
 namespace Wealthbot\RiaBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
@@ -21,16 +23,16 @@ class RebalanceHistoryFilterFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('client', 'text', [
+            ->add('client', TextType::class, [
                 'required' => false,
             ])
-            ->add('date_from', 'text', [
+            ->add('date_from', TextType::class, [
                 'required' => false,
             ])
-            ->add('date_to', 'text', [
+            ->add('date_to', TextType::class, [
                 'required' => false,
             ])
-            ->add('client_id', 'hidden', [
+            ->add('client_id', HiddenType::class, [
                 'required' => false,
             ])
         ;

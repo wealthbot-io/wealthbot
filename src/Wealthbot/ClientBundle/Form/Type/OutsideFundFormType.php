@@ -11,6 +11,7 @@ namespace Wealthbot\ClientBundle\Form\Type;
 
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
@@ -41,7 +42,7 @@ class OutsideFundFormType extends AbstractType
         ;
 
         if ($this->account) {
-            $builder->add('account_id', 'hidden', ['data' => $this->account->getId()]);
+            $builder->add('account_id', HiddenType::class, ['data' => $this->account->getId()]);
         }
 
         $em = $this->em;

@@ -3,6 +3,7 @@
 namespace Wealthbot\RiaBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormEvent;
@@ -28,12 +29,12 @@ class RiaProposalFormType extends AbstractType
 
         $builder
             //Performance assumption
-            ->add('is_show_client_expected_asset_class', 'choice', [
+            ->add('is_show_client_expected_asset_class', ChoiceType::class, [
                 'choices' => [1 => 'Yes', 0 => 'No'],
                 'required' => false,
                 'expanded' => true,
             ])
-            ->add('is_show_expected_costs', 'choice', [
+            ->add('is_show_expected_costs', ChoiceType::class, [
                 'choices' => [1 => 'Yes', 0 => 'No'],
                 'expanded' => true,
                 'required' => false,

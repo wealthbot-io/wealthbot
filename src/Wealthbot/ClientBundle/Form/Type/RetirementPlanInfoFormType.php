@@ -10,6 +10,8 @@
 namespace Wealthbot\ClientBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -21,9 +23,9 @@ class RetirementPlanInfoFormType extends AbstractType
             ->add('financial_institution')
             ->add('account_number')
             ->add('account_description')
-            ->add('web_address_login', 'url')
+            ->add('web_address_login', UrlType::class)
             ->add('username')
-            ->add('password', 'password');
+            ->add('password', PasswordType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver)

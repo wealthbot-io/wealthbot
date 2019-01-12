@@ -3,6 +3,12 @@
 namespace Wealthbot\RiaBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormEvent;
@@ -43,36 +49,36 @@ class RiaCompanyProfileFormType extends AbstractType
 
         //Company information
         $builder
-            ->add('name', 'text', ['data' => $name, 'required' => false])
-            ->add('slug', 'text', ['required' => true])
-            ->add('primary_first_name', 'text', ['data' => $primaryFirstName, 'required' => false])
-            ->add('primary_last_name', 'text', ['data' => $primaryLastName, 'required' => false])
-            ->add('website', 'url', ['required' => false])
-            ->add('address', 'text', ['required' => false])
-            ->add('office', 'text', ['required' => false])
-            ->add('city', 'text', ['required' => false])
+            ->add('name', TextType::class, ['data' => $name, 'required' => false])
+            ->add('slug', TextType::class, ['required' => true])
+            ->add('primary_first_name', TextType::class, ['data' => $primaryFirstName, 'required' => false])
+            ->add('primary_last_name', TextType::class, ['data' => $primaryLastName, 'required' => false])
+            ->add('website', UrlType::class, ['required' => false])
+            ->add('address', TextType::class, ['required' => false])
+            ->add('office', TextType::class, ['required' => false])
+            ->add('city', TextType::class, ['required' => false])
             ->add('state', 'entity', [
                 'class' => 'Wealthbot\\AdminBundle\\Entity\\State',
                 'label' => 'State',
                 'placeholder' => 'Select a State',
                 'required' => false,
             ])
-            ->add('zipcode', 'text', ['required' => false])
-            ->add('phone_number', 'text', ['required' => false])
-            ->add('fax_number', 'text', ['required' => false])
-            ->add('contact_email', 'email', ['data' => $contactEmail, 'required' => false])
+            ->add('zipcode', TextType::class, ['required' => false])
+            ->add('phone_number', TextType::class, ['required' => false])
+            ->add('fax_number', TextType::class, ['required' => false])
+            ->add('contact_email', EmailType::class, ['data' => $contactEmail, 'required' => false])
         ;
 
         //Other information
         $builder
-            ->add('min_asset_size', 'number', [
-                'precision' => 2,
+            ->add('min_asset_size', NumberType::class, [
+                'scale' => 2,
                 'grouping' => true,
             ])
-            ->add('logo_file', 'file')
+            ->add('logo_file', FileType::class)
         ;
         //Proposal processing
-        $builder->add('portfolio_processing', 'choice', [
+        $builder->add('portfolio_processing', ChoiceType::class, [
             'choices' => RiaCompanyInformation::getPortfolioProcessingChoices(),
             'expanded' => true,
         ]);

@@ -10,6 +10,7 @@
 namespace Wealthbot\ClientBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -18,15 +19,15 @@ class ClientInvestmentAccountFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('financial_institution', 'text')
+            ->add('financial_institution', TextType::class)
             ->add('accountType', 'entity', [
                 'class' => 'Wealthbot\\ClientBundle\\Entity\\ClientInvestmentAccountType',
                 'property' => 'name',
                 'label' => 'Account Type',
             ])
-            ->add('value', 'text', ['label' => 'Estimated Value'])
-            ->add('monthly_contributions', 'text', ['label' => 'Estimated Monthly Contributions'])
-            ->add('monthly_distributions', 'text', ['label' => 'Estimated Monthly Distributions'])
+            ->add('value', TextType::class, ['label' => 'Estimated Value'])
+            ->add('monthly_contributions', TextType::class, ['label' => 'Estimated Monthly Contributions'])
+            ->add('monthly_distributions', TextType::class, ['label' => 'Estimated Monthly Distributions'])
         ;
     }
 

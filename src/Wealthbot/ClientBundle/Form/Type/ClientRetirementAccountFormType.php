@@ -10,6 +10,7 @@
 namespace Wealthbot\ClientBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -23,8 +24,8 @@ class ClientRetirementAccountFormType extends AbstractType
                 'property' => 'name',
                 'label' => 'Type',
             ])
-            ->add('value', 'text', ['label' => 'Estimated Value'])
-            ->add('monthly_contributions', 'text', ['label' => 'Estimated Monthly Contributions'])
+            ->add('value', TextType::class, ['label' => 'Estimated Value'])
+            ->add('monthly_contributions', TextType::class, ['label' => 'Estimated Monthly Contributions'])
         ;
     }
 

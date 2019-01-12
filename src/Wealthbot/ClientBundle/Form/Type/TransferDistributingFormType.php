@@ -10,6 +10,8 @@
 namespace Wealthbot\ClientBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
@@ -28,22 +30,22 @@ class TransferDistributingFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('distribution_method', 'choice', [
+            ->add('distribution_method', ChoiceType::class, [
                 'choices' => AccountContribution::getDistributionMethodChoices(),
                 'expanded' => true,
                 'multiple' => false,
                 'required' => false,
             ])
-            ->add('has_federal_withholding', 'choice', [
+            ->add('has_federal_withholding', ChoiceType::class, [
                 'choices' => [1 => 'Yes', 0 => 'No'],
                 'expanded' => true,
                 'multiple' => false,
                 'required' => false,
             ])
-            ->add('percent_tax_rate', 'text', [
+            ->add('percent_tax_rate', TextType::class, [
                 'required' => false,
             ])
-            ->add('money_tax_rate', 'text', [
+            ->add('money_tax_rate', TextType::class, [
                 'required' => false,
             ])
         ;

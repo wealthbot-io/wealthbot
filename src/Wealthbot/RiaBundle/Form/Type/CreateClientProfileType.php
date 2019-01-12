@@ -3,6 +3,7 @@
 namespace Wealthbot\RiaBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Wealthbot\RiaBundle\Entity\RiaCompanyInformation;
@@ -34,7 +35,7 @@ class CreateClientProfileType extends AbstractType
         // If ria managed as client by client, then add choices...
         if ($ria->getRiaCompanyInformation()->getAccountManaged() === $accManagedChoices['Client by Client Basis']) {
             $builder->add(
-                'client_account_managed', 'choice', [
+                'client_account_managed', ChoiceType::class, [
                     'choices' => Profile::$client_account_managed_choices,
                     'expanded' => true,
                 ]

@@ -12,6 +12,9 @@ namespace Wealthbot\AdminBundle\Form\Type;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormEvent;
@@ -40,17 +43,17 @@ class ModelSecurityFormType extends AbstractType
         $em = $this->em;
 
         $builder
-            ->add('fund_symbol', 'text', [
+            ->add('fund_symbol', TextType::class, [
                 //'mapped' => false /*'fund.symbol'*/
             ])
-            ->add('security_id', 'hidden', ['constraints' => [new NotBlank(['message' => 'Please choice a Symbol from list.'])]])
-            ->add('type', 'hidden', ['mapped' => false])
-            ->add('expense_ratio', 'hidden', ['mapped' => false]);
+            ->add('security_id', HiddenType::class, ['constraints' => [new NotBlank(['message' => 'Please choice a Symbol from list.'])]])
+            ->add('type', HiddenType::class, ['mapped' => false])
+            ->add('expense_ratio', HiddenType::class, ['mapped' => false]);
 
         $factory = $builder->getFormFactory();
 
         if ($model->getOwner()->hasRole('ROLE_RIA') && $model->getOwner()->getRiaCompanyInformation()->getUseMunicipalBond()) {
-            $builder->add('muni_substitution', 'checkbox', ['required' => false]);
+            $builder->add('muni_substitution', CheckboxType::class, ['required' => false]);
         }
 
         $refreshSubclasses = function ($form, $assetClass) use ($factory, $model) {

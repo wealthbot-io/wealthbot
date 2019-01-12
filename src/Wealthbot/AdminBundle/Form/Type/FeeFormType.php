@@ -10,6 +10,8 @@
 namespace Wealthbot\AdminBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
@@ -48,9 +50,9 @@ class FeeFormType extends AbstractType
         };
 
         $builder
-            ->add('fee_with_retirement', 'text', ['label' => 'Fee with retirement (%)'])
-            ->add('fee_without_retirement', 'text', ['label' => 'Fee without retirement (%)'])
-            ->add('tier_bottom', 'number', [
+            ->add('fee_with_retirement', TextType::class, ['label' => 'Fee with retirement (%)'])
+            ->add('fee_without_retirement', TextType::class, ['label' => 'Fee without retirement (%)'])
+            ->add('tier_bottom', NumberType::class, [
                 'label' => 'Tier bottom ($)',
                 'required' => true,
                // 'mapped' => false,

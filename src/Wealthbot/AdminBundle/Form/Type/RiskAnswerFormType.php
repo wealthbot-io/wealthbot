@@ -10,6 +10,7 @@
 namespace Wealthbot\AdminBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormEvent;
@@ -23,7 +24,7 @@ class RiskAnswerFormType extends AbstractType
         $choices = array_combine(range(-100, 100), range(-100, 100));
 
         $builder->add('title')
-            ->add('point', 'choice', [
+            ->add('point', ChoiceType::class, [
                 'placeholder' => 'Select value',
                 'choices' => $choices,
             ])

@@ -10,6 +10,10 @@
 namespace Wealthbot\ClientBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormEvent;
@@ -41,13 +45,13 @@ class AccountOwnerPersonalInformationFormType extends AbstractType
     {
         // SST_TIN fields always must be blank in initial form
         $builder
-            ->add('citezen', 'choice', [
+            ->add('citezen', ChoiceType::class, [
                 'label' => 'Citizenship',
                 'choices' => ['us' => 'United States', 'other' => 'Other'],
                 'mapped' => false,
                 'data' => 'us',
             ])
-            ->add('ssn_tin_1', 'text', [
+            ->add('ssn_tin_1', TextType::class, [
                 'mapped' => false,
                 'data' => '',
                 'constraints' => [
@@ -62,7 +66,7 @@ class AccountOwnerPersonalInformationFormType extends AbstractType
                     ]),
                 ],
             ])
-            ->add('ssn_tin_2', 'text', [
+            ->add('ssn_tin_2', TextType::class, [
                 'mapped' => false,
                 'data' => '',
                 'constraints' => [
@@ -77,7 +81,7 @@ class AccountOwnerPersonalInformationFormType extends AbstractType
                     ]),
                 ],
             ])
-            ->add('ssn_tin_3', 'text', [
+            ->add('ssn_tin_3', TextType::class, [
                 'mapped' => false,
                 'data' => '',
                 'constraints' => [
@@ -95,16 +99,16 @@ class AccountOwnerPersonalInformationFormType extends AbstractType
         ;
 
         if (true === $this->withMaritalStatus) {
-            $builder->add('marital_status', 'choice', [
+            $builder->add('marital_status', ChoiceType::class, [
                     'choices' => Profile::getMaritalStatusChoices(),
                     'placeholder' => 'Choose an Option',
                     'required' => false,
                 ])
                 //->add('spouse', new ClientSpouseFormType());
-                ->add('spouse_first_name', 'text', ['required' => false])
-                ->add('spouse_middle_name', 'text', ['required' => false])
-                ->add('spouse_last_name', 'text', ['required' => false])
-                ->add('spouse_birth_date', 'date', [
+                ->add('spouse_first_name', TextType::class, ['required' => false])
+                ->add('spouse_middle_name', TextType::class, ['required' => false])
+                ->add('spouse_last_name', TextType::class, ['required' => false])
+                ->add('spouse_birth_date', DateType::class, [
                     'widget' => 'single_text',
                     'format' => 'dd-MM-yyyy',
                     'required' => false,
@@ -112,60 +116,60 @@ class AccountOwnerPersonalInformationFormType extends AbstractType
                 ]);
         }
 
-        $builder->add('employment_type', 'choice', [
+        $builder->add('employment_type', ChoiceType::class, [
                 'choices' => Profile::getEmploymentTypeChoices(),
                 'expanded' => true,
                 'multiple' => false,
                 'required' => true,
             ])
-            ->add('income_source', 'choice', [
+            ->add('income_source', ChoiceType::class, [
                 'choices' => PersonalInformation::getIncomeSourceChoices(),
                 'placeholder' => 'Choose an Option',
                 'required' => false,
             ])
-            ->add('employer_name', 'text', ['required' => false])
-            ->add('industry', 'text', ['required' => false])
-            ->add('occupation', 'text', ['required' => false])
-            ->add('business_type', 'text', ['required' => false])
-            ->add('employer_address', 'text', ['required' => false])
-            ->add('employment_city', 'text', ['required' => false])
+            ->add('employer_name', TextType::class, ['required' => false])
+            ->add('industry', TextType::class, ['required' => false])
+            ->add('occupation', TextType::class, ['required' => false])
+            ->add('business_type', TextType::class, ['required' => false])
+            ->add('employer_address', TextType::class, ['required' => false])
+            ->add('employment_city', TextType::class, ['required' => false])
             ->add('employmentState', 'entity', [
                 'class' => 'Wealthbot\\AdminBundle\\Entity\\State',
                 'label' => 'State',
                 'placeholder' => 'Select a State',
                 'required' => false,
             ])
-            ->add('employment_zip', 'text', ['required' => false])
-            ->add('is_senior_political_figure', 'choice', [
+            ->add('employment_zip', TextType::class, ['required' => false])
+            ->add('is_senior_political_figure', ChoiceType::class, [
                 'choices' => [1 => 'Yes', 0 => 'No'],
                 'expanded' => true,
                 'multiple' => false,
             ])
-            ->add('senior_spf_name', 'text', ['required' => false])
-            ->add('senior_political_title', 'text', ['required' => false])
-            ->add('senior_account_owner_relationship', 'text', ['required' => false])
-            ->add('senior_country_office', 'text', ['required' => false])
-            ->add('is_publicly_traded_company', 'choice', [
+            ->add('senior_spf_name', TextType::class, ['required' => false])
+            ->add('senior_political_title', TextType::class, ['required' => false])
+            ->add('senior_account_owner_relationship', TextType::class, ['required' => false])
+            ->add('senior_country_office', TextType::class, ['required' => false])
+            ->add('is_publicly_traded_company', ChoiceType::class, [
                 'choices' => [1 => 'Yes', 0 => 'No'],
                 'expanded' => true,
                 'multiple' => false,
             ])
-            ->add('publicle_company_name', 'text', ['required' => false])
-            ->add('publicle_address', 'text', ['required' => false])
-            ->add('publicle_city', 'text', ['required' => false])
+            ->add('publicle_company_name', TextType::class, ['required' => false])
+            ->add('publicle_address', TextType::class, ['required' => false])
+            ->add('publicle_city', TextType::class, ['required' => false])
             ->add('publicleState', 'entity', [
                 'class' => 'Wealthbot\\AdminBundle\\Entity\\State',
                 'label' => 'State',
                 'placeholder' => 'Select a State',
                 'required' => false,
             ])
-            ->add('is_broker_security_exchange_person', 'choice', [
+            ->add('is_broker_security_exchange_person', ChoiceType::class, [
                 'choices' => [1 => 'Yes', 0 => 'No'],
                 'expanded' => true,
                 'multiple' => false,
             ])
-            ->add('broker_security_exchange_company_name', 'text', ['required' => false])
-            ->add('compliance_letter_file', 'file', ['required' => false])
+            ->add('broker_security_exchange_company_name', TextType::class, ['required' => false])
+            ->add('compliance_letter_file', FileType::class, ['required' => false])
         ;
 
         $builder->addEventListener(FormEvents::SUBMIT, [$this, 'validatePreSave']);

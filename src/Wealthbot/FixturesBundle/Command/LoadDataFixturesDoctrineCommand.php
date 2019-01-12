@@ -2,10 +2,10 @@
 
 namespace Wealthbot\FixturesBundle\Command;
 
-use Doctrine\Bundle\DoctrineBundle\Command\DoctrineCommand;
 use Doctrine\Common\DataFixtures\Executor\ORMExecutor;
 use Doctrine\Common\DataFixtures\Purger\ORMPurger;
 use InvalidArgumentException;
+use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -17,7 +17,7 @@ use Wealthbot\FixturesBundle\DataFixtures\DataFixturesLoader;
  * @author Fabien Potencier <fabien@symfony.com>
  * @author Jonathan H. Wage <jonwage@gmail.com>
  */
-class LoadDataFixturesDoctrineCommand extends DoctrineCommand
+class LoadDataFixturesDoctrineCommand extends ContainerAwareCommand
 {
     protected function configure()
     {

@@ -2,11 +2,21 @@
 
 namespace Wealthbot\UserBundle\Manager;
 
+use Doctrine\Common\Persistence\ObjectManager;
 use FOS\UserBundle\Doctrine\UserManager as BaseManager;
+use FOS\UserBundle\Util\CanonicalFieldsUpdater;
+use FOS\UserBundle\Util\PasswordUpdaterInterface;
 use Wealthbot\UserBundle\Entity\User;
 
 class UserManager extends BaseManager
 {
+
+    public function __construct(PasswordUpdaterInterface $passwordUpdater, CanonicalFieldsUpdater $canonicalFieldsUpdater, ObjectManager $om, string $class)
+    {
+        parent::__construct($passwordUpdater, $canonicalFieldsUpdater, $om, $class);
+    }
+
+
     /**
      * @return User
      */

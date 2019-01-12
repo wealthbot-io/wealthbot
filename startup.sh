@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-chmod -R 0777 app/cache app/logs
+chmod -R 0777 var
 COMPOSER_MEMORY_LIMIT=-1 composer up --ignore-platform-reqs
 php bin/console doctrine:database:drop --force
 php bin/console doctrine:database:create

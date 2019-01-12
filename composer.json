@@ -1,8 +1,8 @@
 {
-    "name": "wealthbot/wealthbot.io",
+    "name": "symfony/symfony-standard",
     "license": "MIT",
     "type": "project",
-    "description": "Wealthbot",
+    "description": "Wealthbot - financial Robo Advisor system",
     "autoload": {
         "psr-4": {
             "Wealthbot\\": "src/Wealthbot"
@@ -43,8 +43,8 @@
 
     },
     "require-dev": {
-        "sensio/generator-bundle": "^3.0",
-        "symfony/phpunit-bridge": "^3.0"
+        "sensio/generator-bundle": "3.1.*",
+        "symfony/phpunit-bridge": "3.4.*"
     },
     "scripts": {
         "symfony-scripts": [
@@ -74,7 +74,7 @@
         "symfony-web-dir": "web",
         "symfony-assets-install": "relative",
         "branch-alias": {
-            "dev-master": "3.4-dev"
+            "dev-master": "3.4.x-dev"
         }
     }
 }

@@ -23,8 +23,8 @@ RUN ln -snf /usr/share/zoneinfo/${TIMEZONE} /etc/localtime && echo ${TIMEZONE} >
 RUN docker-php-ext-install pdo pdo_mysql
 
 # Install APCu
-RUN pecl install apcu
-RUN echo "extension=apcu.so" > /usr/local/etc/php/conf.d/apcu.ini
+RUN pecl install apcu \
+ && docker-php-ext-enable apcu
 
 # install xdebug
 # RUN pecl install xdebug \

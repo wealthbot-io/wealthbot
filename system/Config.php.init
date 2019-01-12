@@ -28,7 +28,7 @@ class Config {
     static public $MYSQL_PASSWORD_TEST = 'password';
 	static public $MYSQL_DATABASE_TEST = 'wealthbot_test';
 
-	static public $MONGODB_HOST = '127.0.0.1';
+	static public $MONGODB_HOST = 'mongodb';
 	static public $MONGODB_USERNAME = 'webo';
 	static public $MONGODB_PASSWORD = 'passowrd';
 	static public $MONGODB_PORT = 27017;

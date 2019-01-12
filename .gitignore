@@ -49,3 +49,4 @@ wealthbot_test.db
 #vagrant
 .vagrant
 .data
+logs

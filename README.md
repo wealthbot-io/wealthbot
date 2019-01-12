@@ -57,7 +57,7 @@ https://gitter.im/wealthbot-io
 
 Once complete, simply go to http://wealthbot.localhost in your browser to see the wealthbot.io demo landing page.
 
-Note: To use the app you'll need to setup an SMTP server with authentication. The config is in .env Environment file. Digital Ocean has [a good writeup on how to use your Gmail account](https://www.digitalocean.com/community/tutorials/how-to-use-google-s-smtp-server) for this.
+Note: To use the app you'll need to setup an SMTP server with authentication. The config is in .env Environment file. Digital Ocean has [a good writeup on how to use your Gmail account](https://symfony.com/doc/3.4/email/gmail.html) for this.
 
 If you want to take a look around your docker container you can `docker-compose exec wealthbot_php_1 bash`.
 

@@ -52,7 +52,6 @@ https://gitter.im/wealthbot-io
 
 **Prereqs:**
 * Install [Docker](https://www.docker.com/) and [Docker Compose](https://docs.docker.com/compose/)
-* Add `127.0.0.1  local.wealthbot.io` to your etc/hosts file
 * Run `docker-compose build` in the root folder
 * Then `docker-compose up -d`
 
@@ -70,4 +69,4 @@ Search /* TODO:<Symfony3> */ for files to refactor
 
 # Contributing
 
-We love pull requests! The details on how to contribute to Wealthbot can be found [here](CONTRIBUTING.md).
+We love pull requests! The details on how to contribute to Wealthbot can be found [here](docs/CONTRIBUTING.md).

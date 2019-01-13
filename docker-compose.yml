@@ -30,8 +30,6 @@ services:
         volumes:
             - ./docker/logs/nginx:/var/log/nginx:cached
             - ./:/var/www/symfony:cached
-        env_file:
-            - .env
     elk:
         image: willdurand/elk
         ports:

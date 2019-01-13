@@ -48,6 +48,8 @@ doctrine:
         charset:  'UTF8'
         server_version: '5.6'
         url: '%db_url%'
+        options:
+            1002: "SET sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''))"
     orm:
         auto_generate_proxy_classes: %kernel.debug%
         auto_mapping: true

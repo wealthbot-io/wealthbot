@@ -11,6 +11,8 @@ namespace Wealthbot\AdminBundle\Form\Type;
 
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Wealthbot\AdminBundle\Form\EventListener\CeModelFormTypeEventsListener;
 use Wealthbot\AdminBundle\Model\CeModelInterface;
@@ -37,12 +39,21 @@ class CeModelFormType extends ParentCeModelFormType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+
+        $builder->addEventListener(FormEvents::POST_SET_DATA, function (FormEvent $event){
+            $this->em = $event->getForm()->getConfig()->getOption('em');
+            $this->user =  $event->getForm()->getConfig()->getOption('user');
+            $this->parent =  $event->getForm()->getConfig()->getOption('parent');
+            $this->isShowAssumption = $event->getForm()->getConfig()->getOption('isShowAssumption');
+        });
+
+
         parent::buildForm($builder, $options);
 
         if ($this->isShowAssumption) {
             $modelAssumptionType = new ModelAssumptionFormType($this->em);
             $modelAssumptionType->buildForm($builder, $options);
-        }
+        };
 
         $this->subscribe($builder);
     }

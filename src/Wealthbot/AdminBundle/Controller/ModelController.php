@@ -27,7 +27,7 @@ class ModelController extends AclController
         $modelManager = $this->get('wealthbot_admin.ce_model_manager');
 
         $parentModel = $modelManager->createStrategyModel();
-        $form = $this->createForm(new ParentCeModelFormType(), $parentModel);
+        $form = $this->createForm(ParentCeModelFormType::class, $parentModel);
 
         if ($request->isMethod('post')) {
             $this->checkAccess(Acl::PERMISSION_EDIT);
@@ -58,7 +58,11 @@ class ModelController extends AclController
 
         $admin = $this->getUser();
         $model = $modelManager->createChild($parentModel);
-        $form = $this->createForm(new CeModelFormType($em, $admin, $parentModel), $model);
+        $form = $this->createForm(CeModelFormType::class, $model, [
+            'em' => $em,
+            'user' => $admin,
+            'parent' => $parentModel
+        ]);
 
         return $this->render('WealthbotAdminBundle:Model:index_strategy.html.twig', [
             'strategy_model_form' => $form->createView(),
@@ -106,7 +110,9 @@ class ModelController extends AclController
         /** @var $model CeModel */
         $model = $modelManager->findCeModelBy(['id' => $request->get('id')]);
         $admin = $this->getUser();
-        $form = $this->createForm(new ParentCeModelFormType($admin), $model);
+        $form = $this->createForm(ParentCeModelFormType::class, $model, [
+            'admin' => $admin
+        ]);
 
         if ($request->isMethod('post')) {
             $formHandler = new ParentCeModelFormHandler($form, $request, $em);
@@ -180,7 +186,12 @@ class ModelController extends AclController
         $parentModel = $model->getParent();
         $user = $this->getUser();
 
-        $form = $this->createForm(new CeModelFormType($em, $user, $parentModel, true), $model);
+        $form = $this->createForm(CeModelFormType::class, $model,[
+            'em' => $em,
+            'user' => $user,
+            'parent' => $parentModel,
+            'isShowAssumption' => true
+        ]);
 
         if ($request->isMethod('post')) {
             $formHandler = new CeModelFormHandler($form, $request, $em, ['is_show_assumption' => true]);
@@ -228,7 +239,11 @@ class ModelController extends AclController
         $parentModel = $modelManager->findCeModelBySlugAndOwnerId($request->get('slug'));
         $model = $modelManager->createChild($parentModel);
 
-        $form = $this->createForm(new CeModelFormType($em, $admin, $parentModel), $model);
+        $form = $this->createForm(CeModelFormType::class, $model, [
+            'em' => $em,
+            'user' => $admin,
+            'parent' => $parentModel
+        ]);
         $formHandler = new CeModelFormHandler($form, $request, $em);
 
         if ($formHandler->process()) {

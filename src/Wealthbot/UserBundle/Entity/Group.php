@@ -3,12 +3,11 @@
 namespace Wealthbot\UserBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use FOS\UserBundle\Model\Group as BaseGroup;
 
 /**
  * Wealthbot\UserBundle\Entity\Group.
  */
-class Group extends BaseGroup
+class Group
 {
     /**
      * @var int
@@ -19,6 +18,9 @@ class Group extends BaseGroup
      * @var \Doctrine\Common\Collections\Collection
      */
     private $users;
+
+
+    private $group_name;
 
     /**
      * @var array
@@ -61,9 +63,9 @@ class Group extends BaseGroup
      *
      * @return Group
      */
-    public function setName($name)
+    public function setGroupName($name)
     {
-        parent::setName($name);
+        $this->group_name = $name;
 
         return $this;
     }
@@ -73,9 +75,9 @@ class Group extends BaseGroup
      *
      * @return string
      */
-    public function getName()
+    public function getGroupName()
     {
-        return parent::getName();
+        return $this->group_name;
     }
 
     /**

@@ -51,7 +51,7 @@ doctrine:
     orm:
         auto_generate_proxy_classes: %kernel.debug%
         auto_mapping: true
-
+        quote_strategy: doctrine.orm.quote_strategy.default
 stof_doctrine_extensions:
     orm:
         default:

@@ -5,8 +5,11 @@ services:
         command: ["--default-authentication-plugin=mysql_native_password"]
         ports:
             - "3306:3306"
-        env_file:
-            - .env
+        environment:
+            MYSQL_ROOT_PASSWORD: root
+            MYSQL_DATABASE: webalthbot
+            MYSQL_USER: webo
+            MYSQL_PASSWORD: password
     php:
         build: ./docker/php-fpm
         ports:

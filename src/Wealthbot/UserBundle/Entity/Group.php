@@ -21,11 +21,6 @@ class Group extends BaseGroup
     private $users;
 
     /**
-     * @var string
-     */
-    protected $name;
-
-    /**
      * @var array
      */
     protected $roles;

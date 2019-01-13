@@ -2,7 +2,9 @@
 
 namespace Wealthbot\UserBundle\Controller;
 
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Wealthbot\ClientBundle\Entity\TransferCustodian;
@@ -12,8 +14,8 @@ class DefaultController extends Controller
     public function indexAction()
     {
         $form = $this->createFormBuilder()
-            ->add('is_not_locate', 'checkbox', ['required' => false])
-            ->add('state', 'entity', [
+            ->add('is_not_locate', CheckboxType::class, ['required' => false])
+            ->add('state', EntityType::class, [
                 'class' => 'Wealthbot\\AdminBundle\\Entity\\State',
                 'label' => 'State',
                 'placeholder' => 'Select a State',
@@ -30,8 +32,8 @@ class DefaultController extends Controller
         $em = $this->container->get('doctrine.orm.entity_manager');
 
         $form = $this->createFormBuilder()
-            ->add('is_not_locate', 'checkbox', ['required' => false])
-            ->add('state', 'entity', [
+            ->add('is_not_locate', CheckboxType::class, ['required' => false])
+            ->add('state', EntityType::class, [
                 'class' => 'Wealthbot\\AdminBundle\\Entity\\State',
                 'label' => 'State',
                 'placeholder' => 'Select a State',

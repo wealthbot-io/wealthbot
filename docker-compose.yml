@@ -7,20 +7,6 @@ services:
             - "3306:3306"
         env_file:
             - .env
-    mongodb:
-        build:
-            context: ./docker/mongo
-            dockerfile: Dockerfile.mongodb
-            args:
-                - mongodb_username=${MONGODB_USERNAME}
-                - mongodb_password=${MONGODB_PASSWORD}
-                - mongodb_initdb_database=${MONGO_INITDB_DATABASE}
-        volumes:
-            - ./.data/mongo:/data/db:rw
-        env_file:
-            - .env
-        ports:
-            - "27017:27017"
     php:
         build: ./docker/php-fpm
         ports:

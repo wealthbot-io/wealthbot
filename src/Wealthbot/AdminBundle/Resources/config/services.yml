@@ -134,7 +134,7 @@ services:
         class: Wealthbot\AdminBundle\PasInterfaces\BaseData
         arguments:
             - "@doctrine.orm.entity_manager"
-            - "@doctrine.odm.mongodb.document_manager"
+            - ""
             - "@knp_paginator"
             - %pager_per_page%
 
@@ -162,7 +162,7 @@ services:
             - {name: wealthbot_admin.pas_interface_loader}
         arguments:
             - "@doctrine.orm.entity_manager"
-            - "@doctrine.odm.mongodb.document_manager"
+            - ""
             - "@wealthbot_admin.business_calendar"
 
     wealthbot_admin.pas_interface.positions:

@@ -10,7 +10,7 @@ use Symfony\Component\Security\Core\Security;
 
 class SecurityController extends BaseSecurity
 {
-    public function loginAction()
+    public function loginAction(Request $request)
     {
         $request = $this->container->get('request_stack')->getCurrentRequest();
 

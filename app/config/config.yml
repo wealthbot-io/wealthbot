@@ -52,20 +52,6 @@ doctrine:
         auto_generate_proxy_classes: %kernel.debug%
         auto_mapping: true
 
-#Doctrine MongoDB
-doctrine_mongodb:
-    connections:
-        default:
-            server: 'mongodb://mongodb:27017'
-            options:
-                username: '%mongo_user%'
-                password: '%mongo_password%'
-                db: '%mongo_db%'
-    default_database: '%mongo_db%'
-    document_managers:
-        default:
-            auto_mapping: true
-
 stof_doctrine_extensions:
     orm:
         default:

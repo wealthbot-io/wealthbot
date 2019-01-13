@@ -65,8 +65,6 @@ To access Kibana (ELK Stack) go to http://wealthbot.localhost:81/
 
 We strongly recommend running all console commands inside the docker container.
 
-Search /* TODO:<Symfony3> */ for files to refactor
-
 # Contributing
 
 We love pull requests! The details on how to contribute to Wealthbot can be found [here](docs/CONTRIBUTING.md).

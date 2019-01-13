@@ -121,6 +121,6 @@ services:
         tags:
             - { name: doctrine.event_subscriber, connection: default }
             
-    wealthbot.activity.manager:
-        class: Wealthbot\ClientBundle\Manager\ActivityManager
-        arguments: ["@doctrine.odm.mongodb.document_manager", %wealthbot.activity.class%, "@wealthbot.workflow.manager"]
+#    wealthbot.activity.manager:
+#        class: Wealthbot\ClientBundle\Manager\ActivityManager
+#        arguments: ["@doctrine.odm.mongodb.document_manager", %wealthbot.activity.class%, "@wealthbot.workflow.manager"]

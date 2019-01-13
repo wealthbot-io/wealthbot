@@ -64,6 +64,7 @@ class FeeFormType extends AbstractType
         $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) use ($refreshTierTop) {
             $form = $event->getForm();
             $data = $event->getData();
+            $this->user = $event->getForm()->getConfig()->getOption('user');
 
             if ($data === null) {
                 $refreshTierTop($form, null);

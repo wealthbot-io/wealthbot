@@ -38,7 +38,7 @@ class GeneralSettingsController extends AclController
         $form->get('fees')->setData($fees);
 
         $documents = $documentManager->getUserDocuments($superAdmin->getId());
-        $documentForm = $this->createForm(new DocumentFormType());
+        $documentForm = $this->createForm(DocumentFormType::class);
 
         $documentTypes = [];
         foreach (Document::getAdminTypeChoices() as $key) {
@@ -129,7 +129,9 @@ class GeneralSettingsController extends AclController
         $em = $this->container->get('doctrine.orm.entity_manager');
         $superAdmin = $this->get('wealthbot.manager.user')->getAdmin();
 
-        $form = $this->createForm(new FeeFormType($superAdmin));
+        $form = $this->createForm(FeeFormType::class,null,[
+            'user' => $superAdmin
+        ]);
 
         if ($request->isMethod('post')) {
             $form->handleRequest($request);
@@ -157,7 +159,9 @@ class GeneralSettingsController extends AclController
         $superAdmin = $this->get('wealthbot.manager.user')->getAdmin();
 
         $fee = $em->getRepository('WealthbotAdminBundle:Fee')->find($id);
-        $form = $this->createForm(new FeeFormType($superAdmin), $fee);
+        $form = $this->createForm(FeeFormType::class, $fee,[
+            'user' => $superAdmin
+        ]);
 
         if ($request->isMethod('post')) {
             $form->handleRequest($request);
@@ -202,7 +206,7 @@ class GeneralSettingsController extends AclController
 
         /** @var User $superAdmin */
         $superAdmin = $this->get('wealthbot.manager.user')->getAdmin();
-        $form = $this->createForm(new DocumentFormType());
+        $form = $this->createForm(DocumentFormType::class);
         $formHandler = new DocumentFormHandler($form, $request, $em, $this->get('wealthbot.mailer'), ['user' => $superAdmin]);
 
         if ($request->isMethod('post')) {

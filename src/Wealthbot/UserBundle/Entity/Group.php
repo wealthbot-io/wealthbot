@@ -43,7 +43,7 @@ class Group
     {
         $this->users = new ArrayCollection();
 
-        parent::__construct($name, $roles);
+        $this->group_name = $name;
     }
 
     /**

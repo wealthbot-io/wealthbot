@@ -54,7 +54,7 @@ class DoctrineSubscriber implements EventSubscriber
     {
         $this->updated = [];
 
-        $activityManager = $this->container->get('wealthbot.activity.manager');
+       // $activityManager = $this->container->get('wealthbot.activity.manager');
         $workflowManager = $this->container->get('wealthbot.workflow.manager');
 
         $em = $eventArgs->getEntityManager();
@@ -92,8 +92,8 @@ class DoctrineSubscriber implements EventSubscriber
                         $changeSet['status'][0] !== ClientPortfolio::STATUS_CLIENT_ACCEPTED &&
                         $changeSet['status'][1] === ClientPortfolio::STATUS_CLIENT_ACCEPTED
                     ) {
-                        $activity = $activityManager->createActivity($workflow);
-                        $activityManager->updateActivity($activity);
+                      //  $activity = $activityManager->createActivity($workflow);
+                       // $activityManager->updateActivity($activity);
                     }
                 }
             } elseif ($entity instanceof SystemAccount) {
@@ -128,19 +128,19 @@ class DoctrineSubscriber implements EventSubscriber
         foreach ($this->updated as $id => $item) {
             $client = $item->getClientAccount()->getClient();
 
-            $activity = $this->createActivity($client, $this->messages[$id], $item->getAmount());
-            $activityManager->updateActivity($activity);
+          ///  $activity = $this->createActivity($client, $this->messages[$id], $item->getAmount());
+         //   $activityManager->updateActivity($activity);
         }
     }
 
     public function PostFlush(PostFlushEventArgs $eventArgs)
     {
-        $activityManager = $this->container->get('wealthbot.activity.manager');
+       /// $activityManager = $this->container->get('wealthbot.activity.manager');
         $paperworkMessages = Workflow::getPaperworkMessageChoices();
 
         foreach ($this->inserted as $entity) {
             if (($entity instanceof ActivityInterface)) {
-                $activityManager->saveActivityByObject($entity);
+              //  $activityManager->saveActivityByObject($entity);
             }
 
             if (($entity instanceof Distribution) || ($entity instanceof BaseContribution)) {
@@ -148,8 +148,8 @@ class DoctrineSubscriber implements EventSubscriber
                 $message = str_replace('New/Update', 'New', $paperworkMessages[$entity->getWorkflowMessageCode()]);
                 $message = substr($message, 0, -1);
 
-                $activity = $this->createActivity($client, $message, $entity->getAmount());
-                $activityManager->updateActivity($activity);
+              //  $activity = $this->createActivity($client, $message, $entity->getAmount());
+               // $activityManager->updateActivity($activity);
             }
         }
     }

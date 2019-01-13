@@ -1014,7 +1014,7 @@ class User extends BaseUser implements ActivityInterface
      *
      * @return User
      */
-    public function addGroup(\FOS\UserBundle\Model\GroupInterface $groups)
+    public function addGroup($groups)
     {
         $this->groups[] = $groups;
 
@@ -1032,7 +1032,7 @@ class User extends BaseUser implements ActivityInterface
     {
         if (is_array($groups)) {
             $this->groups = $groups;
-        } elseif ($groups instanceof \FOS\UserBundle\Model\GroupInterface) {
+        } else {
             $this->groups = [$groups];
         }
 
@@ -1044,7 +1044,7 @@ class User extends BaseUser implements ActivityInterface
      *
      * @param \FOS\UserBundle\Model\GroupInterface $groups
      */
-    public function removeGroup(\FOS\UserBundle\Model\GroupInterface $groups)
+    public function removeGroup($groups)
     {
         $this->groups->removeElement($groups);
     }

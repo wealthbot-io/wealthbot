@@ -24,7 +24,7 @@ class WorkflowController extends Controller
     public function indexAction(Request $request)
     {
         $workflowManager = $this->get('wealthbot.workflow.manager');
-        $activityManager = $this->get('wealthbot.activity.manager');
+       /// $activityManager = $this->get('wealthbot.activity.manager');
 
         $ria = $this->getUser();
         $tab = $request->get('tab', 'active');
@@ -58,7 +58,7 @@ class WorkflowController extends Controller
                     break;
                 case 'activity':
                     $responseParameters['pagination'] = $this->buildPaginator(
-                        $activityManager->findByRiaQuery($ria),
+                        //$activityManager->findByRiaQuery($ria),
                         $page
                     );
 
@@ -92,7 +92,7 @@ class WorkflowController extends Controller
             );
 
             $paginations['activity'] = $this->buildPaginator(
-                $activityManager->findByRiaQuery($ria),
+              //  $activityManager->findByRiaQuery($ria),
                 $tab === 'activity' ? $page : 1
             );
 
@@ -300,32 +300,32 @@ class WorkflowController extends Controller
 
     public function deleteActivitySummaryAction(Request $request)
     {
-        $activityManager = $this->get('wealthbot.activity.manager');
+       /// $activityManager = $this->get('wealthbot.activity.manager');
 
-        $activity = $activityManager->find($request->get('id'));
+       //// $activity = $activityManager->find($request->get('id'));
         $ria = $this->getUser();
 
-        if (!$activity || ($activity->getRiaUserId() !== $ria->getId())) {
-            throw $this->createNotFoundException('Activity Summary with id %s not found');
-        }
+     ////   if (!$activity || ($activity->getRiaUserId() !== $ria->getId())) {
+      ////      throw $this->createNotFoundException('Activity Summary with id %s not found');
+      ////  }
 
-        $activity->setIsShowRia(false);
+       //// $activity->setIsShowRia(false);
 
-        $activityManager->updateActivity($activity);
+     ////   $activityManager->updateActivity($activity);
 
-        $pagination = $this->buildPaginator(
-            $activityManager->findByRiaQuery($ria)
-        );
+     ///   $pagination = $this->buildPaginator(
+     ///       $activityManager->findByRiaQuery($ria)
+      ///  );
 
-        $showPagination = $request->get('show_pagination', true);
+     //   $showPagination = $request->get('show_pagination', true);
 
         return $this->getJsonResponse([
             'status' => 'success',
             'content' => $this->renderView('WealthbotRiaBundle:Workflow:_workflow_activity_list.html.twig', [
                 'tab' => 'activity',
                 'with_layout' => false,
-                'pagination' => $pagination,
-                'show_pagination' => $showPagination,
+           /////     'pagination' => $pagination,
+                'show_pagination' => false,
             ]),
         ]);
     }

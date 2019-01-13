@@ -19,7 +19,7 @@ use Wealthbot\UserBundle\Entity\User;
 class ActivityManager
 {
     /** @var \Doctrine\Common\Persistence\ObjectManager */
-    private $dm;
+    private $em;
 
     /** @var \Doctrine\ODM\MongoDB\DocumentRepository */
     private $repository;
@@ -27,10 +27,10 @@ class ActivityManager
     /** @var \Wealthbot\ClientBundle\Manager\WorkflowManager */
     private $workflowManager;
 
-    public function __construct(DocumentManager $dm, $class, WorkflowManager $workflowManager)
+    public function __construct($em, $class, WorkflowManager $workflowManager)
     {
-        $this->dm = $dm;
-        $this->repository = $dm->getRepository($class);
+        $this->em = $em;
+        $this->repository = $this->em->getRepository($class);
         $this->workflowManager = $workflowManager;
     }
 
@@ -156,8 +156,8 @@ class ActivityManager
     public function updateActivity(Activity $activity)
     {
         if (null !== $activity) {
-            $this->dm->persist($activity);
-            $this->dm->flush();
+         //   $this->em->persist($activity);
+         ///   $this->dm->flush();
         }
     }
 }

@@ -41,19 +41,19 @@ class DashboardController extends Controller
 
         $workflowRepository = $em->getRepository('WealthbotClientBundle:Workflow');
         $userRepository = $em->getRepository('WealthbotUserBundle:User');
-        $activityManager = $this->get('wealthbot.activity.manager');
+      //  $activityManager = $this->get('wealthbot.activity.manager');
 
         $user = $this->getUser();
         $clients = $userRepository->findClientsByRiaId($user->getId());
 
         $paginator = $this->get('knp_paginator');
-        $recentActivityPagination = $paginator->paginate($activityManager->findByRiaQuery($user), 1, 10);
+       //// $recentActivityPagination = $paginator->paginate($activityManager->findByRiaQuery($user), 1, 10);
 
         if ($request->isXmlHttpRequest() && $request->get('block') === 'most_recent_activity') {
             return $this->getJsonResponse([
                 'status' => 'success',
                 'content' => $this->renderView('WealthbotRiaBundle:Workflow:_workflow_activity_list.html.twig', [
-                    'pagination' => $recentActivityPagination,
+                  //  'pagination' => $recentActivityPagination,
                     'show_pagination' => false,
                 ]),
             ]);

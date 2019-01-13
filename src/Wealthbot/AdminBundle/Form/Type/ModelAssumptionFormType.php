@@ -22,11 +22,6 @@ class ModelAssumptionFormType extends AbstractType
     /** @var \Doctrine\ORM\EntityManager  */
     private $em;
 
-    public function __construct(EntityManager $em)
-    {
-        $this->em = $em;
-    }
-
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         /** @var CeModel $data */

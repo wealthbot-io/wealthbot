@@ -23,11 +23,6 @@ class FeeFormType extends AbstractType
     /** @var \Wealthbot\UserBundle\Entity\User $user */
     private $user;
 
-    public function __construct(\Wealthbot\UserBundle\Entity\User $user)
-    {
-        $this->user = $user;
-    }
-
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $factory = $builder->getFormFactory();
@@ -64,6 +59,7 @@ class FeeFormType extends AbstractType
         $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) use ($refreshTierTop) {
             $form = $event->getForm();
             $data = $event->getData();
+
             $this->user = $event->getForm()->getConfig()->getOption('user');
 
             if ($data === null) {

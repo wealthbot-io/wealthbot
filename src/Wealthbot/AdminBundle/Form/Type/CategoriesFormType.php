@@ -25,13 +25,8 @@ use Wealthbot\UserBundle\Entity\User;
 class CategoriesFormType extends AbstractType
 {
     private $user;
-    private $em;
 
-    public function __construct(User $user, EntityManager $em)
-    {
-        $this->user = $user;
-        $this->em = $em;
-    }
+    private $em;
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -73,6 +68,7 @@ class CategoriesFormType extends AbstractType
         $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) use ($refreshAssets, $user, $em) {
             $form = $event->getForm();
             $data = $event->getData();
+
             $this->user = $event->getForm()->getConfig()->getOption('user');
             $this->em = $event->getForm()->getConfig()->getOption('em');
 

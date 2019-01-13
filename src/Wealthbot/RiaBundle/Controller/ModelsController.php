@@ -207,13 +207,21 @@ class ModelsController extends Controller
         $modelManager = $this->get('wealthbot_admin.ce_model_manager');
         $model = $modelManager->createChild($parentModel);
 
-        $form = $this->createForm(new CeModelFormType($em, $user, $parentModel), $model);
+        $form = $this->createForm(CeModelFormType::class, $model, [
+            'em' => $em,
+            'user' => $user,
+            'parent' => $parentModel
+        ]);
         $formHandler = new CeModelFormHandler($form, $request, $em);
 
         if ($request->isMethod('post')) {
             if ($formHandler->process()) {
                 if ($request->isXmlHttpRequest()) {
-                    $form = $this->createForm(new CeModelFormType($em, $user, $parentModel), $modelManager->createChild($parentModel));
+                    $form = $this->createForm(CeModelFormType::class, $modelManager->createChild($parentModel), [
+                        'em' => $em,
+                        'user' => $user,
+                        'parent' => $parentModel
+                    ]);
 
                     return $this->getJsonResponse([
                         'form' => $this->renderView('WealthbotRiaBundle:Models:_create_model_form.html.twig', [

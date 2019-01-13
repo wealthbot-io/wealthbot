@@ -29,15 +29,15 @@ class AssetClassWithSubclassesFormType extends AbstractType
 
     private $allSubclasses;
 
-    public function __construct(User $user, EntityManager $em, $subclasses = [])
-    {
-        $this->user = $user;
-        $this->em = $em;
-        $this->allSubclasses = $subclasses;
-    }
-
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+
+        $builder->addEventListener(FormEvents::POST_SET_DATA,function (FormEvent $event){
+            $this->user = $event->getForm()->getConfig()->getOption('user');
+            $this->em = $event->getForm()->getConfig()->getOption('em');
+            $this->allSubclasses = $event->getForm()->getConfig()->getOption('allSubclasses');
+        });
+
         $em = $this->em;
         $user = $this->user;
         $allSubclasses = $this->allSubclasses;

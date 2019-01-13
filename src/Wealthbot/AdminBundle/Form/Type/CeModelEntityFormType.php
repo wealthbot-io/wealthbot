@@ -12,6 +12,8 @@ namespace Wealthbot\AdminBundle\Form\Type;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Wealthbot\AdminBundle\Entity\CeModel;
 use Wealthbot\AdminBundle\Form\EventListener\CeModelEntityTypeEventsListener;
@@ -30,14 +32,6 @@ class CeModelEntityFormType extends AbstractType
 
     private $isQualifiedModel;
 
-    public function __construct(CeModelInterface $ceModel, EntityManager $em, User $user, $isQualifiedModel = false)
-    {
-        $this->ceModel = $ceModel;
-        $this->em = $em;
-        $this->user = $user;
-        $this->isQualifiedModel = $isQualifiedModel;
-    }
-
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $model = $this->ceModel;
@@ -53,6 +47,15 @@ class CeModelEntityFormType extends AbstractType
 
         $builder->addEventSubscriber($subscriber);
         $builder->add('percent');
+
+
+        $builder->addEventListener(FormEvents::POST_SET_DATA, function(FormEvent $event){
+
+            $this->ceModel = $event->getForm()->getConfig()->getOption('ceModel');
+            $this->em = $event->getForm()->getConfig()->getOption('em');
+            $this->user =  $event->getForm()->getConfig()->getOption('user');
+            $this->isQualifiedModel =  $event->getForm()->getConfig()->getOption('isQualifiedModel');
+        });
     }
 
     public function configureOptions(OptionsResolver $resolver)

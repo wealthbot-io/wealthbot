@@ -29,14 +29,6 @@ class CeModelFormType extends ParentCeModelFormType
 
     private $parent;
 
-    public function __construct(EntityManager $em, User $user, CeModelInterface $parent, $isShowAssumption = false)
-    {
-        $this->user = $user;
-        $this->parent = $parent;
-        $this->em = $em;
-        $this->isShowAssumption = $isShowAssumption;
-    }
-
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
 

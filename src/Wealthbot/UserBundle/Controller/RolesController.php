@@ -273,8 +273,8 @@ class RolesController extends Controller
             $token = unserialize($session->get('rx_admin.login_as_token'));
 
             $userManager = $this->get('fos_user.user_manager');
-            $user = $userManager->refreshUser($token->getUser());
-            $userManager->updateUser($user);
+            $user = $token->getUser();
+            //$userManager->updateUser($token);
 
             $token->setUser($user);
             $tokenStorage->setToken($token);

@@ -43,6 +43,7 @@ class Group
     {
         $this->users = new ArrayCollection();
 
+        $this->roles = [];
         $this->group_name = $name;
     }
 
@@ -97,7 +98,7 @@ class Group
      */
     public function setRoles(array $roles)
     {
-        parent::setRoles($roles);
+        $this->roles = $roles;
 
         return $this;
     }
@@ -109,7 +110,10 @@ class Group
      */
     public function getRoles()
     {
-        return parent::getRoles();
+        if(!$this->roles){
+            return [];
+        };
+        return $this->roles;
     }
 
     /**
@@ -196,7 +200,7 @@ class Group
 
     public function isAll()
     {
-        return $this->getName() === self::GROUP_NAME_ALL;
+        return $this->group_name === self::GROUP_NAME_ALL;
     }
 
     public function getRiaCount($riaId)

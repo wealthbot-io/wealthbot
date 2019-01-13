@@ -7,7 +7,7 @@ services:
             - "3306:3306"
         environment:
             MYSQL_ROOT_PASSWORD: root
-            MYSQL_DATABASE: webalthbot
+            MYSQL_DATABASE: wealthbot
             MYSQL_USER: webo
             MYSQL_PASSWORD: password
     php:

@@ -1,5 +1,5 @@
 parameters:
-    db_url: 'mysql://webo@password@wealthbot_db_1:3306/wealthbot'
+    db_url: 'mysql://root:root@wealthbot_db_1:3306/wealthbot'
     mongo_user: 'webo'
     mongo_password: 'password'
     mongo_db: 'wealthbot'

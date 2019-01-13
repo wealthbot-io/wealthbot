@@ -92,8 +92,7 @@ class SecuredController extends AclController
 
     protected function renderLogin(array $data)
     {
-        $template = sprintf('WealthbotAdminBundle:Dashboard:login.html.%s', $this->container->getParameter('fos_user.template.engine'));
 
-        return $this->container->get('templating')->renderResponse($template, $data);
+        return $this->container->get('templating')->renderResponse('WealthbotAdminBundle:Dashboard:login.html.twig', $data);
     }
 }

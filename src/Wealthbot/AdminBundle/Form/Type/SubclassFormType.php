@@ -29,13 +29,6 @@ class SubclassFormType extends AbstractType
 
     private $allSubclasses;
 
-    public function __construct($user, EntityManager $em, $allSubclasses = null)
-    {
-        $this->user = $user;
-        $this->em = $em;
-        $this->allSubclasses = $allSubclasses;
-    }
-
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $user = $this->user;
@@ -124,6 +117,12 @@ class SubclassFormType extends AbstractType
             if ($data instanceof Subclass && $user->hasRole('ROLE_RIA')) {
                 $data->setOwner($user);
             }
+        });
+
+        $builder->addEventListener(FormEvents::POST_SET_DATA, function(FormEvent $event){
+            $this->user = $event->getForm()->getConfig('user');
+            $this->em = $event->getForm()->getConfig('em');
+            $this->allSubclasses = $event->getForm()->getConfig('allSubclasses');
         });
     }
 

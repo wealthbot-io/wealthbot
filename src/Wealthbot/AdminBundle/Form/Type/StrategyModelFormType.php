@@ -35,14 +35,6 @@ class StrategyModelFormType extends AbstractType
     /** @var ModelAssumption */
     private $assumption;
 
-    public function __construct(EntityManager $em, User $user, PortfolioModel $thirdParty = null, ModelAssumption $assumption = null)
-    {
-        $this->thirdParty = $thirdParty;
-        $this->user = $user;
-        $this->em = $em;
-        $this->assumption = $assumption;
-    }
-
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $choices = range(0, 10);
@@ -92,6 +84,11 @@ class StrategyModelFormType extends AbstractType
 
             $data = $event->getData();
             $form = $event->getForm();
+
+            $this->thirdParty = $form->getConfig()->getOption('thirdParty');
+            $this->user = $form->getConfig()->getOption('user');
+            $this->em = $form->getConfig()->getOption('em');
+            $this->assumption = $form->getConfig()->getOption('assumption');
 
             if (null === $data) {
                 return;

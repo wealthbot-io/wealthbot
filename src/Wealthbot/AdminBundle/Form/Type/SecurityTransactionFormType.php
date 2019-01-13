@@ -13,17 +13,14 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\PercentType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Wealthbot\RiaBundle\Entity\RiaCompanyInformation;
 
 class SecurityTransactionFormType extends AbstractType
 {
     private $riaCompanyInformation;
-
-    public function __construct(RiaCompanyInformation $riaCompanyInformation)
-    {
-        $this->riaCompanyInformation = $riaCompanyInformation;
-    }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -96,7 +93,13 @@ class SecurityTransactionFormType extends AbstractType
                         'required' => false,
                     ]
                 );
-        }
+        };
+
+        $builder->addEventListener(FormEvents::POST_SET_DATA, function(FormEvent $event){
+
+            $this->riaCompanyInformation = $event->getForm()->getConfig()->getOption('riaCompanyInformation');
+
+        });
     }
 
     public function configureOptions(OptionsResolver $resolver)

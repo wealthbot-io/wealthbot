@@ -31,13 +31,6 @@ class PortfolioModelEntityFormType extends AbstractType
 
     private $user;
 
-    public function __construct(CeModel $portfolioModel, \Doctrine\ORM\EntityManager $em, User $user)
-    {
-        $this->portfolioModel = $portfolioModel;
-        $this->em = $em;
-        $this->user = $user;
-    }
-
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $model = $this->portfolioModel;
@@ -59,6 +52,11 @@ class PortfolioModelEntityFormType extends AbstractType
         $builder->add('percent');
 
         $builder->addEventListener(FormEvents::SUBMIT, [$this, 'onSubmit']);
+        $builder->addEventListener(FormEvents::POST_SET_DATA, function (FormEvent $event){
+            $this->portfolioModel = $event->getForm()->getConfig()->getOption('portfolioModel');
+            $this->em =  $event->getForm()->getConfig()->getOption('em');
+            $this->user =  $event->getForm()->getConfig()->getOption('user');
+        });
     }
 
     public function onSubmit(FormEvent $event)

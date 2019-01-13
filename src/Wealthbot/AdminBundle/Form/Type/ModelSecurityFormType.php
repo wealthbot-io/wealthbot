@@ -31,12 +31,6 @@ class ModelSecurityFormType extends AbstractType
     private $model;
     private $em;
 
-    public function __construct(CeModel $model, EntityManager $em)
-    {
-        $this->model = $model;
-        $this->em = $em;
-    }
-
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $model = $this->model;
@@ -102,6 +96,9 @@ class ModelSecurityFormType extends AbstractType
 
             $form = $event->getForm();
             $data = $event->getData();
+
+            $this->model = $form->getConfig()->getOption('model');
+            $this->em = $form->getConfig()->getOption('model');
 
             if ($data === null) {
                 return;

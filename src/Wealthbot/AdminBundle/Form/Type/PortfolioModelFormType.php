@@ -24,12 +24,6 @@ class PortfolioModelFormType extends AbstractType
 
     private $owner;
 
-    public function __construct(CeModel $parent, User $owner)
-    {
-        $this->parent = $parent;
-        $this->owner = $owner;
-    }
-
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $owner = $this->owner;
@@ -46,6 +40,11 @@ class PortfolioModelFormType extends AbstractType
                 $data->setOwner($owner);
                 $data->setParent($parent);
             }
+        });
+
+        $builder->addEventListener(FormEvents::POST_SET_DATA, function(FormEvent $event){
+           $this->parent = $event->getForm()->getConfig()->getOption('parent');
+           $this->owner = $event->getForm()->getConfig()->getOption('owner');
         });
     }
 

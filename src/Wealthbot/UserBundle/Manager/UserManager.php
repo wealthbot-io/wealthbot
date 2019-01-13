@@ -11,9 +11,12 @@ use Wealthbot\UserBundle\Entity\User;
 class UserManager extends BaseManager
 {
 
+    private $repository;
+
     public function __construct(PasswordUpdaterInterface $passwordUpdater, CanonicalFieldsUpdater $canonicalFieldsUpdater, ObjectManager $om, string $class)
     {
         parent::__construct($passwordUpdater, $canonicalFieldsUpdater, $om, $class);
+        $this->repository = $om->getRepository($class);
     }
 
 

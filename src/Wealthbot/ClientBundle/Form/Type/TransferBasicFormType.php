@@ -12,6 +12,7 @@ namespace Wealthbot\ClientBundle\Form\Type;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Wealthbot\ClientBundle\Model\AccountOwnerInterface;
 
@@ -19,13 +20,12 @@ class TransferBasicFormType extends ClientProfileFormType
 {
     private $class;
 
-    public function __construct(AccountOwnerInterface $owner)
-    {
-        $this->class = get_class($owner);
-    }
-
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $builder->addEventListener(FormEvents::POST_SET_DATA,function(FormEvent $event){
+            $this->class = get_class($event->getForm()->getConfig()->getOption('owner'));
+        });
+
         parent::buildForm($builder, $options);
 
         $builder
@@ -49,6 +49,7 @@ class TransferBasicFormType extends ClientProfileFormType
             'attr' => ['value' => $email],
             'required' => false,
         ]);
+
     }
 
     public function validate(FormEvent $event)

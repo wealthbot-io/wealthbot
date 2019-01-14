@@ -20,15 +20,13 @@ use Wealthbot\ClientBundle\Entity\AccountContribution;
 
 class TransferDistributingFormType extends AbstractType
 {
-    private $isPreSaved;
-
-    public function __construct($isPreSaved = false)
-    {
-        $this->isPreSaved = $isPreSaved;
-    }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $builder->addEventListener(FormEvents::POST_SET_DATA,function(FormEvent $event){
+            $this->isPreSaved = get_class($event->getForm()->getConfig()->getOption('isPreSaved'));
+        });
+
         $builder
             ->add('distribution_method', ChoiceType::class, [
                 'choices' => AccountContribution::getDistributionMethodChoices(),

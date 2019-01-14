@@ -12,6 +12,8 @@ namespace Wealthbot\ClientBundle\Form\Type;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use Wealthbot\ClientBundle\Entity\AccountGroup;
 use Wealthbot\ClientBundle\Entity\ClientAccount;
 use Wealthbot\ClientBundle\Form\EventListener\TransferFundingFormEventSubscriber;
@@ -25,19 +27,17 @@ class TransferFundingDistributingFormType extends AbstractType
     private $hasDistributing;
     private $isPreSaved;
 
-    public function __construct(EntityManager $em, ClientAccount $account, $isPreSaved = false)
-    {
-        $this->em = $em;
-        $this->account = $account;
-
-        $this->hasFunding = $account->hasFunding();
-        $this->hasDistributing = $account->hasDistributing();
-
-        $this->isPreSaved = $isPreSaved;
-    }
-
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $builder->addEventListener(FormEvents::POST_SET_DATA,function(FormEvent $event){
+            $this->em = get_class($event->getForm()->getConfig()->getOption('em'));
+            $this->account = get_class($event->getForm()->getConfig()->getOption('account'));
+            $this->isPreSaved = get_class($event->getForm()->getConfig()->getOption('isPreSaved'));
+            $this->hasFunding = $this->account->hasFunding();
+            $this->hasDistributing = $this->account->hasDistributing();
+        });
+
+
         $adm = new AccountDocusignManager($this->em, 'Wealthbot\ClientBundle\Entity\ClientAccountDocusign');
 
         if ($this->account->hasGroup(AccountGroup::GROUP_DEPOSIT_MONEY) ||

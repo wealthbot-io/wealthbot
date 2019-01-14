@@ -18,13 +18,13 @@ use Wealthbot\UserBundle\Entity\User;
 
 class SlaveClientFormType extends RegistrationFormType
 {
-    public function __construct()
-    {
-        parent::__construct('Wealthbot\UserBundle\Entity\User');
-    }
+    private $class;
+
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $this->class = 'Wealthbot\UserBundle\Entity\User';
+
         parent::buildForm($builder, $options);
 
         $builder->remove('username');

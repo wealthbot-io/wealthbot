@@ -16,10 +16,6 @@ use Wealthbot\ClientBundle\Entity\SystemAccount;
 
 class AccountContributionFormType extends  TransferFundingFormType
 {
-    public function __construct(EntityManager $em, SystemAccount $account, EventSubscriberInterface $subscriber = null)
-    {
-        parent::__construct($em, $account->getClientAccount(), $subscriber, false);
-    }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {

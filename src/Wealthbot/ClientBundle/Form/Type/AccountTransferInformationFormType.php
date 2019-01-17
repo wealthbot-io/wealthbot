@@ -29,11 +29,6 @@ class AccountTransferInformationFormType extends AbstractType
     /** @var  FormFactoryInterface */
     private $factory;
 
-    public function __construct(EntityManager $em)
-    {
-        $this->em = $em;
-    }
-
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('is_firm_not_appear', CheckboxType::class, ['mapped' => false, 'required' => false])
@@ -55,6 +50,8 @@ class AccountTransferInformationFormType extends AbstractType
     {
         $form = $event->getForm();
         $data = $event->getData();
+
+        $this->em = $form->getConfig()->getOption('em');
 
         if (null === $data) {
             return;

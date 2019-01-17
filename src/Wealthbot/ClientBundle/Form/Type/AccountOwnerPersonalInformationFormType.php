@@ -36,9 +36,6 @@ class AccountOwnerPersonalInformationFormType extends AbstractType
 
     public function __construct(AccountOwnerInterface $owner, $isPreSaved = false, $withMaritalStatus = false)
     {
-        $this->class = get_class($owner);
-        $this->isPreSaved = $isPreSaved;
-        $this->withMaritalStatus = $withMaritalStatus;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -176,7 +173,13 @@ class AccountOwnerPersonalInformationFormType extends AbstractType
 
         if (!$this->isPreSaved) {
             $builder->addEventListener(FormEvents::SUBMIT, [$this, 'validate']);
-        }
+        };
+
+        $builder->addEventListener(FormEvents::PRE_SET_DATA, function(FormEvent $event){
+            $this->class = $event->getForm()->getConfig()->getOption('class');
+            $this->isPreSaved = $event->getForm()->getConfig()->getOption('isPreSaved');
+            $this->withMaritalStatus =  $event->getForm()->getConfig()->getOption('withMaritalStatus');
+        });
     }
 
     public function validatePreSave(FormEvent $event)

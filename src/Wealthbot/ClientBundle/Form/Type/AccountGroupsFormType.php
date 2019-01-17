@@ -22,11 +22,6 @@ class AccountGroupsFormType extends AbstractType
 {
     private $client;
 
-    public function __construct(User $client)
-    {
-        $this->client = $client;
-    }
-
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $riaCompanyInformation = $this->client->getProfile()->getRia()->getRiaCompanyInformation();
@@ -41,6 +36,10 @@ class AccountGroupsFormType extends AbstractType
             'multiple' => false,
             'expanded' => true,
         ]);
+
+        $builder->add(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
+            $this->client = $event->getForm()->getConfig()->getOption('client');
+        });
 
         $builder->addEventListener(FormEvents::SUBMIT, function (FormEvent $event) use ($choices) {
             $form = $event->getForm();

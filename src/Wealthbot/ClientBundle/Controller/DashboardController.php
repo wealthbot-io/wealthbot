@@ -79,7 +79,7 @@ class DashboardController extends Controller
             }
         }
 
-        $sasCashForm = $this->createForm(new ClientSasCashCollectionFormType($client));
+        $sasCashForm = $this->createForm(ClientSasCashCollectionFormType::class, $client);
 
         $parameters = [
             'client' => $client,
@@ -1056,7 +1056,7 @@ class DashboardController extends Controller
         $data = ['groups' => $this->get('session')->get('client.accounts.groups')];
         $this->get('session')->set('client.accounts.is_consolidate_account', false);
 
-        $form = $this->createForm(new AccountGroupsFormType($client), $data);
+        $form = $this->createForm(AccountGroupsFormType::class, $data);
 
         return $this->getJsonResponse([
             'status' => 'success',

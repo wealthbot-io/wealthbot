@@ -29,7 +29,7 @@ class ProfileController extends Controller
 
         $isPreSave = $request->isXmlHttpRequest();
 
-        $form = $this->createForm(new RiaCompanyProfileFormType($isPreSave), $ria->getRiaCompanyInformation());
+        $form = $this->createForm(RiaCompanyProfileFormType::class, $ria->getRiaCompanyInformation());
 
         if ($request->isMethod('POST')) {
             $form->handleRequest($request);

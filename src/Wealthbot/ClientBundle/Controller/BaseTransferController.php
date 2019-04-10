@@ -188,7 +188,7 @@ class BaseTransferController extends Controller
         $primaryApplicant = $account->getPrimaryApplicant();
         $isPreSaved = $request->isXmlHttpRequest();
 
-        $form = $this->createForm(new TransferBasicFormType($primaryApplicant), $primaryApplicant);
+        $form = $this->createForm(TransferBasicFormType::class, $primaryApplicant);
         $formHandler = new TransferBasicFormHandler($form, $request, $em);
 
         if ($request->isMethod('post')) {
@@ -419,7 +419,7 @@ class BaseTransferController extends Controller
         }
 
         $isPreSaved = $request->isXmlHttpRequest();
-        $form = $this->createForm(new BeneficiariesCollectionFormType($isPreSaved));
+        $form = $this->createForm(BeneficiariesCollectionFormType::class,$isPreSaved);
         $form->get('beneficiaries')->setData($beneficiaries);
 
         $originalBeneficiaries = [];
@@ -836,7 +836,7 @@ class BaseTransferController extends Controller
         }
 
         $owner = $accountOwner->getOwner();
-        $form = $this->createForm(new AccountOwnerReviewInformationFormType($owner), $owner);
+        $form = $this->createForm(AccountOwnerReviewInformationFormType::class, $owner);
 
         $status = 'success';
         $content = $this->renderView('WealthbotClientBundle:Transfer:_review_owner_information_form.html.twig',
@@ -1129,7 +1129,7 @@ class BaseTransferController extends Controller
         $data = ['groups' => $this->get('session')->get('client.accounts.groups')];
         $this->get('session')->set('client.accounts.is_consolidate_account', false);
 
-        $form = $this->createForm(new AccountGroupsFormType($client), $data);
+        $form = $this->createForm(AccountGroupsFormType::class, $client);
 
         return $this->render($this->getTemplate('finished.html.twig'), [
             'client' => $client,

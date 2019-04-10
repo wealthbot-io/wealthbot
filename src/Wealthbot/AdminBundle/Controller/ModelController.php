@@ -272,7 +272,7 @@ class ModelController extends AclController
         $parentModel = $modelManager->findCeModelBy(['id' => $request->get('id')]);
 
         $isShowForecast = true;
-        $form = $this->createForm(new ModelAssumptionFormType($isShowForecast), $parentModel);
+        $form = $this->createForm(ModelAssumptionFormType::class, $isShowForecast, $parentModel);
 
         if ($request->isMethod('post')) {
             $formHandler = new ModelAssumptionFormHandler($form, $request, $em);

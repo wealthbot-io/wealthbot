@@ -87,7 +87,7 @@ class UserController extends AclController
         if (!$user) {
             throw $this->createNotFoundException('User does not exist.');
         }
-        $form = $this->createForm(new CreateAdminUserType($user), $user);
+        $form = $this->createForm(CreateAdminUserType::class, $user);
 
         if ($request->isMethod('post')) {
             $form->handleRequest($request);

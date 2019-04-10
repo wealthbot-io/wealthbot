@@ -91,7 +91,7 @@ class RebalancerController extends Controller
 
         $filters = $session->get('rebalance_history_filter', []);
 
-        $historyFilterForm = $this->createForm(new RebalanceHistoryFilterFormType($ria), $filters);
+        $historyFilterForm = $this->createForm(RebalanceHistoryFilterFormType::class, $filters);
 
         if ($request->get('is_filter')) {
             $historyFilterFormHandler = new RebalanceHistoryFilterFormHandler($historyFilterForm, $request, $em, [
@@ -287,7 +287,7 @@ class RebalancerController extends Controller
             $isInitRebalance = true;
         }
 
-        $sasCashForm = $this->createForm(new ClientSasCashCollectionFormType($client));
+        $sasCashForm = $this->createForm(ClientSasCashCollectionFormType::class, $client);
         $parameters = [
             'client' => $client,
             'is_client_view' => false,
@@ -531,7 +531,7 @@ class RebalancerController extends Controller
             $clientValuesIds[] = $clientValue->getId();
         }
 
-        $form = $this->createForm(new RebalanceFormType($clientValuesIds));
+        $form = $this->createForm(RebalanceFormType::class,$clientValuesIds);
 
         $responseData = [
             'client_values_pagination' => $clientValuesPagination,

@@ -72,7 +72,7 @@ class ProspectsController extends Controller
 
         $user = new User();
         $user->setProfile(new Profile());
-        $form = $this->createForm(new InviteProspectFormType($ria), $user);
+        $form = $this->createForm(InviteProspectFormType::class,$ria, $user);
 
         $em = $this->get('doctrine.orm.entity_manager');
         $inviteFormHandler = new InviteProspectFormHandler($form, $request, $em, [
@@ -86,7 +86,7 @@ class ProspectsController extends Controller
                 'status' => 'success',
                 'status_message' => 'User was inviting successfully',
                 'content' => $this->renderView('WealthbotRiaBundle:Prospects:_invite_prospect_form_fields.html.twig', [
-                    'form' => $this->createForm(new InviteProspectFormType($ria))->createView(),
+                    'form' => $this->createForm(InviteProspectFormType::class,$ria)->createView(),
                 ]),
             ];
 

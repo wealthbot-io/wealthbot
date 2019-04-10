@@ -569,7 +569,7 @@ class ModelsController extends Controller
             ]);
         }
 
-        $form = $this->createForm(new ModelAssumptionFormType($em), $parentModel);
+        $form = $this->createForm(ModelAssumptionFormType::class, $parentModel);
 
         if ($request->isMethod('post')) {
             $formHandler = new ModelAssumptionFormHandler($form, $request, $em);
@@ -615,7 +615,7 @@ class ModelsController extends Controller
             ]);
         }
 
-        $form = $this->createForm(new ModelAssumptionFormType($em), $model);
+        $form = $this->createForm(ModelAssumptionFormType::class, $model);
 
         if ($request->isMethod('post')) {
             $formHandler = new ModelAssumptionFormHandler($form, $request, $em);
@@ -788,7 +788,7 @@ class ModelsController extends Controller
             ['parentId' => $model->getId(), 'ownerId' => $user->getId(), 'isDeleted' => 0]
         );
 
-        $form = $this->createForm(new RiskAdjustmentFormType($portfolioModels));
+        $form = $this->createForm(RiskAdjustmentFormType::class, $portfolioModels);
 
         if ($request->isMethod('post')) {
             $form->handleRequest($request);

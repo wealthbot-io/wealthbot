@@ -166,7 +166,7 @@ class RebalancerController extends AclController
             $clientValuesIds[] = $clientValue->getId();
         }
 
-        $form = $this->createForm(new RebalanceFormType($clientValuesIds));
+        $form = $this->createForm(RebalanceFormType::class, $clientValuesIds);
 
         $responseData = [
             'client_values_pagination' => $clientValuesPagination,

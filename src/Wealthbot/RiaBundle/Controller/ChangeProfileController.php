@@ -64,8 +64,8 @@ class ChangeProfileController extends Controller
         $isCustomModel = $parentModel->isCustom();
         $session = $this->get('session');
 
-        $companyForm = $this->createForm(new RiaCompanyInformationType($user, false), $riaCompanyInfo);
-        $proposalForm = $this->createForm(new RiaProposalFormType($documentManager), $riaCompanyInfo);
+        $companyForm = $this->createForm(RiaCompanyInformationType::class, $user);
+        $proposalForm = $this->createForm(RiaProposalFormType::class, $user);
 //        $marketingForm = $this->createForm(new RiaCompanyInformationFourType($user, false), $riaCompanyInfo);
         //$alertsConfigurationForm = $this->createForm(new RiaAlertsConfigurationFormType(), $riaAlertsConfiguration);
 //        $billingAndAccountsForm  = $this->createForm(new RiaCompanyInformationTwoFormType($user, false), $riaCompanyInfo);
@@ -105,8 +105,8 @@ class ChangeProfileController extends Controller
         $user = $this->getUser();
         $riaCompanyInfo = $user->getRiaCompanyInformation();
 
-        $custodianForm = $this->createForm(new RiaCustodianFormType($em), $riaCompanyInfo);
-        $advisorCodesForm = $this->createForm(new AdvisorCodesCollectionFormType($em));
+        $custodianForm = $this->createForm(RiaCustodianFormType::class, $riaCompanyInfo);
+        $advisorCodesForm = $this->createForm(AdvisorCodesCollectionFormType::class);
 
         /* @var \Wealthbot\AdminBundle\Repository\CustodianRepository $custodianRepo */
         $custodianRepo = $em->getRepository('WealthbotAdminBundle:Custodian');
@@ -134,7 +134,7 @@ class ChangeProfileController extends Controller
                 'custodianId' => $custodianId,
         ]);
 
-        $advisorCodesForm = $this->createForm(new AdvisorCodesCollectionFormType($em), ['advisorCodes' => $advisorCodes]);
+        $advisorCodesForm = $this->createForm(AdvisorCodesCollectionFormType::class, ['advisorCodes' => $advisorCodes]);
 
         return $this->render('WealthbotRiaBundle:ChangeProfile:advisor_codes.html.twig',
             [
@@ -198,7 +198,7 @@ class ChangeProfileController extends Controller
         /** @var RiaCompanyInformation $riaCompanyInformation */
         $riaCompanyInformation = $ria->getRiaCompanyInformation();
 
-        $riaProposalForm = $this->createForm(new RiaProposalFormType($documentManager), $riaCompanyInformation);
+        $riaProposalForm = $this->createForm(RiaProposalFormType::class, $riaCompanyInformation);
         $riaProposalFormHandler = new RiaProposalFormHandler($riaProposalForm, $request, $em, ['email_service' => $emailService]);
 
         $riaProposalFormHandler->process();
@@ -509,7 +509,7 @@ class ChangeProfileController extends Controller
             ]
         );
 
-        $custodianForm = $this->createForm(new RiaCustodianFormType($em), $companyInformation);
+        $custodianForm = $this->createForm(RiaCustodianFormType::class, $companyInformation);
 
         if ($request->isMethod('post')) {
             $custodianForm->handleRequest($request);

@@ -167,7 +167,7 @@ class ProfileController extends Controller
 
         /** @var User $user */
         $user = $this->getUser();
-        $form = $this->createForm(new AccountGroupsFormType($user));
+        $form = $this->createForm(AccountGroupsFormType::class,$user);
 
         if ($request->isMethod('post')) {
             $form->handleRequest($request);
@@ -356,14 +356,14 @@ class ProfileController extends Controller
 
         $client = $this->getUser();
 
-        $accountGroupForm = $this->createForm(new AccountGroupsFormType($client));
+        $accountGroupForm = $this->createForm(AccountGroupsFormType::class, $client);
         $accountGroupForm->handleRequest($request);
 
         if ($accountGroupForm->isValid()) {
             $group = $this->getAccountGroup();
 
             if ($group === AccountGroup::GROUP_DEPOSIT_MONEY) {
-                $form = $this->createForm(new AccountTypesFormType($client));
+                $form = $this->createForm(AccountTypesFormType::class,$client);
 
                 return $this->getJsonResponse([
                     'status' => 'success',

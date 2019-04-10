@@ -34,7 +34,7 @@ class GeneralSettingsController extends AclController
             $fees = [];
         }
 
-        $form = $this->createForm(new AdminFeesType($superAdmin));
+        $form = $this->createForm(AdminFeesType::class,$superAdmin);
         $form->get('fees')->setData($fees);
 
         $documents = $documentManager->getUserDocuments($superAdmin->getId());
@@ -75,7 +75,7 @@ class GeneralSettingsController extends AclController
             $fees = [];
         }
 
-        $form = $this->createForm(new AdminFeesType($superAdmin));
+        $form = $this->createForm(AdminFeesType::class,$superAdmin);
         $form->get('fees')->setData($fees);
 
         if ($request->getMethod() === 'POST') {
@@ -97,7 +97,7 @@ class GeneralSettingsController extends AclController
                 $em->flush();
 
                 if ($request->isXmlHttpRequest()) {
-                    $formNew = $this->createForm(new AdminFeesType($superAdmin));
+                    $formNew = $this->createForm(AdminFeesType::class,$superAdmin);
                     $formNew->get('fees')->setData($form['fees']->getData());
 
                     return $this->getJsonResponse([
@@ -255,7 +255,7 @@ class GeneralSettingsController extends AclController
 
         /** @var \Doctrine\ORM\EntityManager $em  */
         $em = $this->container->get('doctrine.orm.entity_manager');
-        $form = $this->createForm(new SubclassType());
+        $form = $this->createForm(SubclassType::class);
 
         if ($request->isMethod('post')) {
             $form->handleRequest($request);
@@ -281,7 +281,7 @@ class GeneralSettingsController extends AclController
         $em = $this->container->get('doctrine.orm.entity_manager');
         $subclass = $em->getRepository('WealthbotAdminBundle:Subclass')->find($id);
 
-        $form = $this->createForm(new SubclassType(), $subclass);
+        $form = $this->createForm(SubclassType::class, $subclass);
 
         if ($request->isMethod('post')) {
             $form->handleRequest($request);

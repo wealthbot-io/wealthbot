@@ -50,7 +50,7 @@ class ChangeProfileController extends Controller
         $clients = $em->getRepository('WealthbotUserBundle:User')->getClientsByMasterClientId($user->getId());
         $suggestedClientPortfolio = $clientPortfolioManager->getApprovedClientPortfolio($user);
 
-        $chooseClientPortfolioForm = $this->createForm(new ChooseClientPortfolioFormType($suggestedClientPortfolio), $user);
+        $chooseClientPortfolioForm = $this->createForm(ChooseClientPortfolioFormType::class, $user);
 
         $parameters = [
             'risk_tolerance_form' => $riskToleranceForm->createView(),

@@ -101,7 +101,7 @@ class DashboardController extends Controller
             'paperwork_counts' => $workflowRepository->getPaperworkCountsByRiaId($user->getId()),
             'portfolios_counts' => $portfoliosCount,
             'securities_statistic' => json_encode($securitiesStatistic),
-            'recent_activity_pagination' => $recentActivityPagination,
+           // 'recent_activity_pagination' => $recentActivityPagination,
             //'firm_metrics' => $firmMetrics
         ]);
     }
@@ -173,7 +173,7 @@ class DashboardController extends Controller
     {
         $ria = $this->getUser();
         $activeTab = $request->get('tab') ? $request->get('tab') : 'clients';
-        $inviteForm = $this->createForm(new InviteProspectFormType($ria));
+        $inviteForm = $this->createForm(InviteProspectFormType::class, ($ria);
 
         return $this->render('WealthbotRiaBundle:Dashboard:clients_list.html.twig', [
             'inviteForm' => $inviteForm->createView(),
@@ -219,9 +219,9 @@ class DashboardController extends Controller
         $em = $this->get('doctrine.orm.entity_manager');
 
         $householdForm = $this
-            ->createForm(new HouseholdPersonalSettingsFormType(), $riaClient);
+            ->createForm(HouseholdPersonalSettingsFormType::class, $riaClient);
         $spouseForm = $this
-            ->createForm(new HouseholdSpouseFormType($riaClient), $riaClient->getSpouse());
+            ->createForm(HouseholdSpouseFormType::class, $riaClient);
 
         if ($request->isMethod('POST')) {
             $householdForm->handleRequest($request);
@@ -318,7 +318,7 @@ class DashboardController extends Controller
         $em = $this->get('doctrine.orm.entity_manager');
 
         $form = $this
-            ->createForm(new HouseholdPortfolioSettingsFormType($em), $riaClient);
+            ->createForm(HouseholdPortfolioSettingsFormType::class, $riaClient);
 
         if ($request->isMethod('POST')) {
             $form->handleRequest($request);
@@ -347,7 +347,7 @@ class DashboardController extends Controller
         /** @var EntityManager $em */
         $em = $this->get('doctrine.orm.entity_manager');
         $systemAccount = $account->getSystemAccount();
-        $form = $this->createForm(new AccountSettingsFormType($em), $account);
+        $form = $this->createForm(AccountSettingsFormType::class, $account);
 
         $oneTimeDistribution = new Distribution();
         $oneTimeDistribution->setType(Distribution::TYPE_ONE_TIME);
@@ -418,7 +418,7 @@ class DashboardController extends Controller
         $acl->setClientForRiaClientView($ria, $client->getId());
 
         $activeTab = $request->get('tab') ? $request->get('tab') : 'clients';
-        $inviteForm = $this->createForm(new InviteProspectFormType($ria));
+        $inviteForm = $this->createForm(InviteProspectFormType::class, $ria);
 
         return $this->render('WealthbotRiaBundle:Dashboard:show_client.html.twig', [
             'inviteForm' => $inviteForm->createView(),
@@ -447,14 +447,17 @@ class DashboardController extends Controller
         $acl->setClientForRiaClientView($ria, $client->getId());
 
         $activeTab = $request->get('tab') ? $request->get('tab') : 'clients';
-        $inviteForm = $this->createForm(new InviteProspectFormType($ria));
+        $inviteForm = $this->createForm(InviteProspectFormType::class, $ria);
 
         return $this->render('WealthbotRiaBundle:Dashboard:client_portfolio.html.twig', [
             'inviteForm' => $inviteForm->createView(),
             'activeTab' => $activeTab,
             'client' => $client,
-            'searchForm' => $this->createForm(new RiaSearchClientsFormType())->createView(),
-        ]);
+            'searchForm' => $this->createForm(
+                RiaSearchClientsFormType::class
+            )
+                ->createView()
+        ];
     }
 
     public function clientViewAction(Request $request)

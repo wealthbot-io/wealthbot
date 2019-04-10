@@ -357,7 +357,7 @@ class TransferController extends BaseTransferController
         $client = $this->getUser();
         $clientInfo = new UserAccountOwnerAdapter($client);
 
-        $form = $this->createForm(new TransferClientInfoFormType($clientInfo), $clientInfo);
+        $form = $this->createForm(TransferClientInfoFormType::class, $clientInfo);
 
         if ($request->isMethod('post')) {
             $form->handleRequest($request);

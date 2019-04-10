@@ -161,7 +161,7 @@ class SecuritiesController extends BaseController
             throw $this->createNotFoundException(sprintf('SecurityAssignment with id %d does not exist.', $request->get('id')));
         }
 
-        $form = $this->createForm(new SecurityTransactionFormType($riaCompanyInformation), $securityAssignment->getSecurityTransaction());
+        $form = $this->createForm(SecurityTransactionFormType::class, $riaCompanyInformation, $securityAssignment->getSecurityTransaction());
 
         if ($request->isMethod('post')) {
             $form->handleRequest($request);

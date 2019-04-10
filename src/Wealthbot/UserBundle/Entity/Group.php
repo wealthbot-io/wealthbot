@@ -4,10 +4,12 @@ namespace Wealthbot\UserBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 
+use FOS\UserBundle\Model\Group as BaseGroup;
+
 /**
  * Wealthbot\UserBundle\Entity\Group.
  */
-class Group
+class Group extends BaseGroup
 {
     /**
      * @var int

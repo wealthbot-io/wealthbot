@@ -1007,19 +1007,7 @@ class User extends BaseUser implements ActivityInterface
         return $this->clientSettings;
     }
 
-    /**
-     * Add groups.
-     *
-     * @param \FOS\UserBundle\Model\GroupInterface $groups
-     *
-     * @return User
-     */
-    public function addGroup($groups)
-    {
-        $this->groups[] = $groups;
 
-        return $this;
-    }
 
     /**
      * Add groups.
@@ -1039,15 +1027,6 @@ class User extends BaseUser implements ActivityInterface
         return $this;
     }
 
-    /**
-     * Remove groups.
-     *
-     * @param \FOS\UserBundle\Model\GroupInterface $groups
-     */
-    public function removeGroup($groups)
-    {
-        $this->groups->removeElement($groups);
-    }
 
     /**
      * Get groups.

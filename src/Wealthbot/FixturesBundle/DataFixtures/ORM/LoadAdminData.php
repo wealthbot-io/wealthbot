@@ -75,6 +75,7 @@ class LoadAdminData extends AbstractFixture implements OrderedFixtureInterface
     private function createGroupAll(ObjectManager $manager)
     {
         $group = new Group('All');
+        $group->setName('All');
         $manager->persist($group);
 
         $this->addReference('group-all', $group);

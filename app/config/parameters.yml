@@ -7,7 +7,7 @@ parameters:
     jms_serializer.camel_case_naming_strategy.class: JMS\Serializer\Naming\IdenticalPropertyNamingStrategy
     locale: en
     secret: 'EA155B775CYU8E27997E385A5E4F8349SECRET'
-    site_domain: 'wealthbot.localhost'
+    site_domain: 'localhost'
     pager_per_page: 20
     uploads_dir: '%kernel.root_dir%/../uploads'
     uploads_ria_company_logos_dir: '%uploads_dir%/ria_company_logos'

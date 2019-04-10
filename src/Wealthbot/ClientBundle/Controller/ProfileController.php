@@ -3,6 +3,7 @@
 namespace Wealthbot\ClientBundle\Controller;
 
 use Doctrine\ORM\EntityManager;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -61,9 +62,10 @@ class ProfileController extends Controller
             $profile->setUser($user);
         }
 
-        $isPreSave = ($request->isXmlHttpRequest() || $request->get('is_pre_save'));
+        $profile->isPreSave = ($request->isXmlHttpRequest() || $request->get('is_pre_save'));
 
-        $form = $this->createForm(new ClientProfileFormType($isPreSave), $profile);
+        $form = $this->createForm(EntityType::class,
+            ['class' => ClientProfileFormType::class, 'empty_data' => $profile]);
 
         if ($request->isMethod('post')) {
             $form->handleRequest($request);

@@ -34,4 +34,4 @@ swiftmailer:
 #This will speed up development. When you changed entities, you have to use command "app/console apc:clear"
 doctrine:
     orm:
-        metadata_cache_driver: apc
+        metadata_cache_driver: array

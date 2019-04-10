@@ -51,13 +51,13 @@ https://gitter.im/wealthbot-io
 ## Installation
 
 **Prereqs:**
-* Fetch dependencies with composer `composer install`
+* Fetch dependencies with composer `composer install  --ignore-platform-reqs`
 * Install [Docker](https://www.docker.com/) and [Docker Compose](https://docs.docker.com/compose/)
 * Run `docker-compose build` in the root folder
 * Then `docker-compose up -d`
 
 **For Demo installation**
-* Log in to php container `docker-composer exec php bash`
+* Log in to php container `docker exec -it wealthbot_php_1 sh`
 * Create database schema `.bin/console doctrine:schema:create`
 * Load fixtures `.bin/console wealthbot:fixtures:load`
 

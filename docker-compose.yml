@@ -4,7 +4,7 @@ services:
         image: mysql
         command: ["--default-authentication-plugin=mysql_native_password"]
         ports:
-            - "3306:3306"
+            - "3307:3307"
         environment:
             MYSQL_ROOT_PASSWORD: root
             MYSQL_DATABASE: wealthbot

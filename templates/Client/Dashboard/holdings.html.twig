@@ -1,0 +1,111 @@
+{% extends is_ajax is defined and is_ajax ? '/Client/clear_layout.html.twig' : '/Client/Dashboard/index.html.twig' %}
+
+{% block content %}
+    <!-- start: Account selector -->
+    {% include '/Client/Dashboard/account_selector.html.twig' with {
+        'client': client,
+        'is_client_view': is_client_view,
+        'action': layout_variables.action,
+        'accounts': accounts
+    } %}
+    <!-- end: Account selector -->
+
+    <div class="row sortable">
+        <div class="box col-md-12">
+            <div class="box-header shadow">
+                <h2>Holdings</h2>
+            </div>
+            <div class="box-content shadow">
+                <!-- client_holdings_table_test -->
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Asset Type</th>
+                            <th>Weight</th>
+                            <th>Description</th>
+                            <th>Symbol</th>
+                            <th>Shares Owned</th>
+                            <th>Current Value</th>
+                            <th>Cost Basis</th>
+                            <th>Unrealized Gain / (Loss) $</th>
+                            <th>Unrealized Gain / (Loss) %</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        {% set sumAllWeight = 0 %}
+                        {% set sumAllCurrentValue = 0 %}
+                        {% set sumAllGainLoss = 0 %}
+                        {% set sumAllGainLossPercent = 0 %}
+
+                        {% for assetType in assetTypes|keys %}
+                            {% set asset = assetTypes[assetType] %}
+
+                            {% for stock in asset %}
+                                <tr>
+                                    {% if loop.first %}<td rowspan="{{ asset|length }}" class="center">{{ stock.asset }}</td>{% endif %}
+                                    <td>{{ (stock.weight * 100) | number_format(2, '.') }}%</td>
+                                    <td>{{ stock.description }}</td>
+                                    <td>{{ stock.symbol }}</td>
+                                    <td>{{ stock.sharesOwned | number_format }}</td>
+                                    <td>${{ stock.currentValue | number_format(2, '.', ',') }}</td>
+                                    <td>${{ stock.costBasis | number_format(2, '.', ',') }}</td>
+                                    <td>
+                                        {% if stock.unrealizedGain < 0 %}
+                                            <span class="label-important">(${{ (-stock.unrealizedGain) | number_format(2, '.', ',') }})</span>
+                                        {% else %}
+                                            ${{ stock.unrealizedGain | number_format(2, '.', ',') }}
+                                        {% endif %}
+                                    </td>
+                                    <td>{{ stock.unrealizedGainPercent | number_format(2, '.') }}%</td>
+                                </tr>
+                            {% endfor %}
+
+                            {% set summs = assetTypesSumm[assetType] %}
+                            <tr class="info">
+                                <td></td>
+                                <td>{{ (summs.sumWeight * 100) | number_format(2, '.') }}%</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>${{ summs.sumCurrentValue | number_format(2, '.', ',') }}</td>
+                                <td>${{ summs.sumCostBasis | number_format(2, '.', ',') }}</td>
+                                <td>
+                                    {% if summs.sumGainLoss < 0 %}
+                                        <span class="label-important">(${{ (-summs.sumGainLoss) | number_format(2, '.', ',') }})</span>
+                                    {% else %}
+                                        ${{ summs.sumGainLoss | number_format(2, '.') }}
+                                    {% endif %}
+                                </td>
+                                <td>{{ summs.sumGainLossPercent | number_format(2, '.') }}%</td>
+                            </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+                    <tfoot>
+                        <tr class="total">
+                            <td></td>
+                            <td>{{ (total.sumAllWeight * 100) | number_format(2, '.') }}%</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>${{ total.sumAllCurrentValue | number_format(2, '.', ',') }}</td>
+                            <td>${{ total.sumAllCostBasis | number_format(2, '.', ',') }}</td>
+                            <td>
+                                {% if total.sumAllGainLoss < 0 %}
+                                    <span class="label-important">(${{ (-total.sumAllGainLoss) | number_format(2, '.', ',') }})</span>
+                                {% else %}
+                                    ${{ total.sumAllGainLoss | number_format(2, '.') }}
+                                {% endif %}
+                            </td>
+                            <td>{{ total.sumAllGainLossPercent | number_format(2, '.') }}%</td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div><!--/span-->
+    </div><!--/row-->
+
+    <hr>
+{% endblock %}

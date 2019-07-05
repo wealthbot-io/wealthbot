@@ -1,0 +1,36 @@
+{% extends '/Admin/layout.html.twig' %}
+
+{% macro documentForm(form) %}
+{% spaceless %}
+    {% include '/Admin/GeneralSettings/_document_form.html.twig' with { 'form': form } %}
+{% endspaceless %}
+{% endmacro %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="{{ asset('js/admin/admin.general_settings.js') }}"></script>
+{% endblock %}
+
+{% block body %}
+    <h1>Settings</h1>
+
+    <div class="tabbable">
+        <ul class="nav nav-tabs">
+            <li class="active"><a href="#fees_tab" data-toggle="tab">Fees</a></li>
+            <li><a href="#documents_tab" data-toggle="tab">Documents</a></li>
+        </ul>
+
+        <div class="tab-content">
+            <div class="tab-pane active" id="fees_tab">
+                <h3>Fees:</h3>
+                <div class="admin-fees-list">
+                    {% include '/Admin/GeneralSettings/_fees_form.html.twig' with { 'form': form } %}
+                </div>
+            </div>
+
+            <div class="tab-pane" id="documents_tab" data-form="{{ _self.documentForm(document_form)|escape }}">
+                {% include '/Admin/GeneralSettings/_documents.html.twig' with { 'types': document_types } %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

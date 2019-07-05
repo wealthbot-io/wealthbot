@@ -1,0 +1,27 @@
+{% if form.owners is defined %}
+    <div class="form-group">
+        {{ form_label(form.owners, 'Who is this account for?') }}
+        {{ form_errors(form.owners) }}
+
+        <div>
+            {{ form_errors(form.owners.owner_types) }}
+            {% for field in form.owners.owner_types %}
+                <label class="radio" for="{{ field.vars.id }}">
+                    {% if field.vars.value == 'other' %}
+                        {{ form_widget(field, { 'attr': {'class': 'other-contact-owner'} }) }}
+                    {% else %}
+                        {{ form_widget(field) }}
+                    {% endif %}
+
+                    {{ field.vars.label }}
+                </label>
+            {% endfor %}
+        </div>
+
+        {% if form.owners.other_contact is defined %}
+            <div class="other-owner-fields">
+                {% include '/Ria/Prospects/_other_account_owner_fields.html.twig' with { 'form': form } %}
+            </div>
+        {% endif %}
+    </div>
+{% endif %}

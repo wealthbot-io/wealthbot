@@ -1,0 +1,43 @@
+App\Entity\Custodian:
+    type: entity
+    table: custodians
+    repositoryClass: App\Repository\CustodianRepository
+    fields:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+        name:
+            type: string
+            length: 255
+        email:
+            type: string
+            length: 255
+    uniqueConstraints:
+        name_unique:
+            name: name_UNIQUE_C
+            columns: [ name ]
+        email_unique:
+            name: email_UNIQUE_C
+            columns: [ email ]
+    oneToMany:
+        advisorCodes:
+            targetEntity:  App\Entity\AdvisorCode
+            mappedBy: custodian
+            onDelete: set null
+            cascade: ['persist']
+    manyToMany:
+        custodianDocuments:
+            targetEntity:  App\Entity\Document
+            inversedBy: custodians
+            joinTable:
+                name: custodian_documents
+                joinColumns:
+                    custodian_id:
+                        referencedColumnName: id
+                inverseJoinColumns:
+                    document_id:
+                        referencedColumnName: id
+                        unique: true
+            cascade: ['persist']

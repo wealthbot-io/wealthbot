@@ -1,0 +1,51 @@
+{% extends '/Admin/layout.html.twig' %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-md-12 admin-pas-interfaces" id="pasInterfaceApp">
+            <h3>PAS Interfaces</h3>
+            <div>
+                <input type="text" class="jq-us-date input-small form-control" id="on_date" placeholder="mm/dd/yyyy" value="{{ date|date('m/d/Y') }}"/>
+            </div>
+            <div class="tabbable">
+                <ul class="nav nav-tabs">
+                    <li class="{{ action == constant('Wealthbot\\AdminBundle\\PasInterfaces\\DataInterface::DATA_TYPE_ALL_FILES') ? 'active' : '' }}"><a href="{{ path('rx_admin_pas_interfaces_file_index', { date: date|date('Y-m-d') }) }}">Files</a></li>
+                    <li class="{{ action == constant('Wealthbot\\AdminBundle\\PasInterfaces\\DataInterface::DATA_TYPE_SECURITIES') ? 'active' : '' }}"><a href="{{ path('rx_admin_pas_interfaces_security_index', { date: date|date('Y-m-d') }) }}">Securities</a></li>
+                    <li class="{{ action == constant('Wealthbot\\AdminBundle\\PasInterfaces\\DataInterface::DATA_TYPE_PRICES') ? 'active' : '' }}"><a href="{{ path('rx_admin_pas_interfaces_price_index', { date: date|date('Y-m-d') }) }}">Prices</a></li>
+                    <li class="{{ action == constant('Wealthbot\\AdminBundle\\PasInterfaces\\DataInterface::DATA_TYPE_ACCOUNTS') ? 'active' : '' }}"><a href="{{ path('rx_admin_pas_interfaces_account_index', { date: date|date('Y-m-d') }) }}">Accounts</a></li>
+                    <li class="{{ action == constant('Wealthbot\\AdminBundle\\PasInterfaces\\DataInterface::DATA_TYPE_POSITIONS') ? 'active' : '' }}"><a href="{{ path('rx_admin_pas_interfaces_position_index', { date: date|date('Y-m-d') }) }}">Positions</a></li>
+                    <li class="{{ action == constant('Wealthbot\\AdminBundle\\PasInterfaces\\DataInterface::DATA_TYPE_TRANSACTIONS') ? 'active' : '' }}"><a href="{{ path('rx_admin_pas_interfaces_transaction_index', { date: date|date('Y-m-d') }) }}">Transactions</a></li>
+                    <li class="{{ action == constant('Wealthbot\\AdminBundle\\PasInterfaces\\DataInterface::DATA_TYPE_UNREALIZED_GAINS') ? 'active' : '' }}"><a href="{{ path('rx_admin_pas_interfaces_unrealized_gain_index', { date: date|date('Y-m-d') }) }}">Unrealized Gains</a></li>
+                    <li class="{{ action == constant('Wealthbot\\AdminBundle\\PasInterfaces\\DataInterface::DATA_TYPE_REALIZED_GAINS') ? 'active' : '' }}"><a href="{{ path('rx_admin_pas_interfaces_realized_gain_index', { date: date|date('Y-m-d') }) }}">Realized Gains</a></li>
+                    <li class="{{ action == constant('Wealthbot\\AdminBundle\\PasInterfaces\\DataInterface::DATA_TYPE_TRADE_RECON') ? 'active' : '' }}"><a href="{{ path('rx_admin_pas_interfaces_trade_recon_index', { date: date|date('Y-m-d') }) }}">Trade Recon</a></li>
+                    <li class="{{ action == constant('Wealthbot\\AdminBundle\\PasInterfaces\\DataInterface::DATA_TYPE_FEE_RECON') ? 'active' : '' }}"><a href="{{ path('rx_admin_pas_interfaces_fee_recon_index', { date: date|date('Y-m-d') }) }}">Fee Recon</a></li>
+                </ul>
+                <div class="tab-content pas-data">
+                    {% block tab_content %}
+                    {% endblock %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/admin.interfaces.css') }}" />
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script>
+        App.Var.date = '{{ date|date('Y-m-d') }}';
+        App.Var.curRoute = '{{ app.request.attributes.get('_route') }}';
+    </script>
+    <script type="text/javascript" src="{{ asset('js/admin/PAS/Interface/admin.pas.interface.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/admin/PAS/Interface/admin.pas.transaction.js') }}"></script>
+
+    <script>
+        App.module('Wealthbot.Admin.Pas.Interface').start();
+    </script>
+
+{% endblock %}

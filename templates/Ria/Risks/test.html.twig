@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>
+        {%- if block('title') -%}
+            {{ block('title') }} | wealthbot.io
+        {%- else -%}
+            wealthbot.io
+        {%- endif -%}
+    </title>
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1" name="viewport">
+
+    <link rel="stylesheet" href="/css/bootstrap.css">
+    <link rel="stylesheet" href="/css/bootstrap-theme.css">
+    <link rel="stylesheet" href="/css/styles.css">
+
+
+    <link rel="stylesheet" href="{{ asset('css/email.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('css/icons.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('css/jquery-picklist.css/') }}"/>
+    <link rel="stylesheet" href="{{ asset('css/theme-css/style.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('css/billing.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('css/admin-styles.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('css/admin.interfaces.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('css/icons-color.css') }}"/>
+
+
+    <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" />
+
+</head>
+<body>
+
+<div class="container" style="margin-top: 50px;">
+    {% for type, flashMessages in app.session.flashbag.all() %}
+        {% for flashMessage in flashMessages %}
+            <div class="alert alert-{{ type }}">
+                {{ flashMessage }}
+                <a class="close" data-dismiss="alert" href="#">&times;</a>
+            </div>
+        {% endfor %}
+    {% endfor %}
+
+    {% block body %}
+        <form action="{{ path("rx_ria_risks_test") }}" method="post" data-presave="true">
+            {% if (form.client_birth_date is defined) %}
+                <div>
+                    {{ form_label(form.client_birth_date) }}
+                    {{ form_errors(form.client_birth_date) }}
+                    <div id="{{ form.client_birth_date.get('id') }}">
+                        {% spaceless %}
+                            {{ form_widget(form.client_birth_date.month, {'attr': {'class': 'input-mini', 'placeholder': 'MM'}})  }}
+                            {{ form_widget(form.client_birth_date.day, {'attr': {'class': 'input-mini', 'placeholder': 'DD'}}) }}
+                            {{ form_widget(form.client_birth_date.year, {'attr': {'class': 'input-small', 'placeholder': 'YYYY'}}) }}
+                        {% endspaceless %}
+                    </div>
+                </div><br/>
+            {% endif %}
+
+            {{ form_rest(form) }}
+
+            <div class="form-actions">
+                <input class="btn btn-default"  type="submit" name="Submit" value="Submit"/>
+            </div>
+        </form>
+    {% endblock %}
+</div>
+
+
+{% block javascripts %}
+        <script type="text/javascript" src="{{ asset('js/ria/ria.risks.js') }}"></script>
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script type="text/javascript" src="/js/jquery.form.js"></script>
+        <script type="text/javascript" src="/js/jquery.autoNumeric.js"></script>
+        <script type="text/javascript" src="/js/custom.js"></script>
+        <script type="text/javascript" src="/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="/js/typeahead.js"></script>
+{% endblock %}
+</body>
+</html>

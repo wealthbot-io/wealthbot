@@ -1,0 +1,63 @@
+<form id="edit_model_form" class="form-inline" action="{{ path('rx_admin_models_edit_model', {'id': third_party_model.id}) }}" method="post">
+    {{ form_errors(form.name) }}
+    {{ form_errors(form.risk_rating) }}
+    {{ form_widget(form.name, {'attr': {'placeholder': 'Name of Model', 'class': 'input-medium'}}) }}
+    {{ form_widget(form.risk_rating) }}
+
+    <div id="assumption">
+        <div class="form-group">
+            {{ form_label(form.commission_min, 'Commissions:', {'label_attr': {'class': 'control-label'}}) }}
+            <div class="controls">
+                {{ form_errors(form.commission_min) }}
+                <div class="input-group">
+                    <span class="input-group-addon">$</span>
+                    {{ form_widget(form.commission_min, {'attr': {'class': 'input-mini auto-numeric assumption-commission', 'placeholder': '0.00 '}}) }}
+                </div>
+
+                -
+
+                {{ form_errors(form.commission_max) }}
+                <div class="input-group">
+                    <span class="input-group-addon">$</span>
+                    {{ form_widget(form.commission_max, {'attr': {'class': 'input-mini auto-numeric assumption-commission', 'placeholder': '0.00 '}}) }}
+                </div>
+
+                <span class="help-inline"><strong>Per Trade (Estimate)</strong></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.forecast, 'Forecast:', {'label_attr': {'class': 'control-label'}}) }}
+            <div class="controls">
+                {{ form_errors(form.forecast) }}
+                <div class="input-group">
+                    {{ form_widget(form.forecast, {'attr': {'class': 'input-small'}}) }}
+                    <span class="input-group-addon">Years</span>
+                </div>
+            </div>
+        </div>
+
+        <strong>Market Return Multiplier:</strong>
+
+        <div class="form-group">
+            <div class="controls">
+                {{ form_errors(form.generous_market_return) }}
+                {{ form_widget(form.generous_market_return, {'attr': {'class': 'input-small auto-numeric generous-market-return', 'placeholder': '0.00 '}}) }}
+                {{ form_label(form.generous_market_return, 'Generous Market Return', {'label_attr': {'class': 'help-inline'}}) }}
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="controls">
+                {{ form_errors(form.low_market_return) }}
+                {{ form_widget(form.low_market_return, {'attr': {'class': 'input-small auto-numeric low-market-return', 'placeholder': '0.00 '}}) }}
+                {{ form_label(form.low_market_return, 'Low Market Return', {'label_attr': {'class': 'help-inline'}}) }}
+            </div>
+        </div>
+        {{ form_rest(form) }}
+    </div>
+
+    {#{% include '/Admin/Model/_third_party_model_edit_model_assumption_form.html.twig' with { 'form': form.assumption } %}#}
+
+    {{ form_rest(form) }}
+</form>

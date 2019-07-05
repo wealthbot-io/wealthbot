@@ -1,0 +1,113 @@
+{% extends '/Client/Profile/client_intake.html.twig' %}
+
+{% block javascripts %}
+    {{ parent() }}
+        <script type="text/javascript" src="/js/inputmask/jquery.inputmask.js"></script>
+        <script type="text/javascript" src="/js/inputmask/jquery.inputmask.extensions.js"></script>
+        <script src="{{ asset('js/client/client.profile.step1.js') }}"></script>
+{% endblock %}
+
+{% block body %}
+    <div class="row margin-top-25">
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-10">
+                    <img class="img-rounded w200h100" src="{{ path('rx_file_download', {'ria_id': ria_company_information.ria.id}) }}"/>
+                </div>
+                <div class="save-and-logout">
+                    <a class="btn btn-default"  id="reg_save_btn" href="{{ path('logout') }}">Logout</a>
+                    <span class="help-block">We'll save your progress.</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row margin-top-10">
+        <div class="col-md-12">
+            <div class="alert alert-success">
+                Register on our system in 3 easy steps. Logout at any point and we will save your progress automatically for when you return.
+                <a class="close" data-dismiss="alert" href="#">&times;</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-6">
+                    <h3>Step 1 of 3: Your Information</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <legend><p>Please fill in some basic information about yourself for us to understand your financial situation better.</p></legend>
+
+    <form action="{{ path("rx_client_profile_step_one") }}" method="post" data-presave="false" data-save="true" >
+        <fieldset class="b-label">
+            {% include '/Client/Profile/_personal_information_form_type_fields.html.twig' with {'form': form} %}
+
+            {% include '/Client/Profile/_contact_information_form_type_fields.html.twig' with {'form': form} %}
+
+
+            <div class="form-title">
+                <h4>Financial Status</h4>
+                <hr/>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        {{ form_label(form.annual_income, 'Annual Income') }}
+                        {{ form_errors(form.annual_income) }}
+                        {{ form_widget(form.annual_income) }}
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        {{ form_label(form.estimated_income_tax) }}
+                        {{ form_errors(form.estimated_income_tax) }}
+                        {{ form_widget(form.estimated_income_tax) }}
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        {{ form_label(form.liquid_net_worth, 'Your Estimated Liquid Net Worth') }}
+                        {{ form_errors(form.liquid_net_worth) }}
+                        {{ form_widget(form.liquid_net_worth) }}
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        {{ form_label(form.employment_type, 'Your Employment Status') }}
+                        <div class="controls">
+                            {{ form_errors(form.employment_type) }}
+                            {% for radio in form.employment_type %}
+                                <label for="{{ radio.vars.id }}"
+                                       class="radio inline">{{ form_widget(radio) }} {{ radio.vars.label }}</label>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-actions">
+                        {{ form_rest(form) }}
+                        <input class="btn btn-default"  type="submit" name="Continue" value="Continue"/>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+{% endblock %}

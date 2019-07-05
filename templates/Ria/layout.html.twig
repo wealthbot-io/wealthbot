@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block headernav %}
+	<div class="navbar navbar-default">
+		<div class="navbar-inner">
+			<div class="container-fluid">
+				<a class="navbar-brand" href="#" name="top">wealthbot.io</a>
+
+				<p class="text-right">
+					<ul class="nav nav-pills">
+					{% if is_granted('IS_AUTHENTICATED_FULLY') %}
+	                    <li><a href="{{ path('logout') }}">Logout</a></li>
+	                {% else %}
+	                    <li><a href="{{ path('login') }}">Login</a></li>
+	                    <li><a href="{{ path('rx_ria_register') }}">Register Ria</a></li>
+	                {% endif %}
+		            </ul>
+	        	</p>
+			</div>
+			<!--/.container-fluid -->
+		</div>
+		<!--/.navbar-inner -->
+	</div>
+	<!--/.navbar -->
+{% endblock %}
+
+{% block body %}
+{% endblock %}

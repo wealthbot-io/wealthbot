@@ -1,0 +1,9 @@
+{% extends '/Client/Transfer/index.html.twig' %}
+
+{% block top_content %}
+    {{ render(controller('App\Controller\Client\TransferController:progressMenu', { 'account': account, 'step': 'beneficiaries' })) }}
+{% endblock %}
+
+{% block main_content %}
+    {% include '/Client/Transfer/_beneficiaries_form.html.twig' with { 'form': form, 'account': account } %}
+{% endblock %}

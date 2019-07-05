@@ -1,0 +1,10 @@
+<div id="bank_information_form_fields" data-url="{{ path('rx_client_transfer_create_bank_account', {'account_id': account_id}) }}">
+    {% include '/Client/Transfer/_bank_account_form_fields.html.twig' with { 'form': form } %}
+
+    <div class="form-group row">
+        <div class="span">
+            <button class="btn cancel-create-bank-info-btn">Cancel</button>
+            <input id="create_bank_information_btn" class="btn btn-info" type="button" value="Create"/>
+        </div>
+    </div>
+</div>

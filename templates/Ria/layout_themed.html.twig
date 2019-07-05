@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+
+    <link id="base-style" href="/css/theme-css/style.css" rel="stylesheet">
+
+{% endblock %}
+
+{% block headernav %}
+    <div class="row spacer"></div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('js/backbone.marionette/underscore.js') }}"></script>
+    <script src="{{ asset('js/ria/Util.js') }}"></script>
+    <script src="{{ asset('js/ria/ria.layout.js') }}"></script>
+{% endblock %}
+
+
+{% block body %}
+    {% block ria_nav %}
+        <!-- start: RIA  nav/menu -->
+        {% include '/Ria/menu_nav.html.twig' %}
+        <!-- end: RIA nav/menu -->
+    {% endblock %}
+
+    {% block main_content %}
+    {% endblock %}
+{% endblock %}

@@ -1,0 +1,138 @@
+{% if title_message is defined %}
+    <h4>{{ title_message }}</h4>
+{% endif %}
+
+<form id="client_account_form" action="{{ path("rx_client_profile_create_account", {'group': group}) }}" method="post" class="form-horizontal">
+    {{ form_errors(form) }}
+    {% if (form.financial_institution is defined) %}
+        <div class="form-group">
+            <div class="row">
+                <div class="col-md-9 col-md-offset-3">
+                    <div>{{ form_errors(form.financial_institution) }}</div>
+                    {% if form.transferInformation is defined %}
+                        <div>{{ form_errors(form.transferInformation.transfer_custodian_id) }}</div>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="row">
+                {{ form_label(form.financial_institution, null, { 'label_attr': {'class': ' client-intake-step-three-label'}}) }}
+                <div >
+                    <div class="row">
+                        <div class="col-md-12">
+                            {% if form.transferInformation is defined %}
+                                {{ form_widget(form.financial_institution, { 'attr': {
+                                class: 'input-xlarge fin-inst-typeahead ajaxed typeahead',
+                                'data-complete-url': path('rx_complete_transfer_custodian'),
+                                'data-update-url': path('rx_client_update_transfer_information'),
+                                'autocomplete': 'off'
+                                } }) }}
+                            {% else %}
+                                {{ form_widget(form.financial_institution) }}
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% if form.transferInformation is defined %}
+                        <div class="row">
+                            <div class="col-md-9">
+                                {{ form_errors(form.transferInformation.is_firm_not_appear) }}
+                                <label class="checkbox" for="{{ form.transferInformation.is_firm_not_appear.vars.id }}">
+                                    {{ form_widget(form.transferInformation.is_firm_not_appear) }}
+                                    <span class="help-block">The name of the firm does not appear in the available choices.</span>
+                                </label>
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+    {% if (form.plan_provider is defined) %}
+        <div class="form-group">
+            {{ form_label(form.plan_provider, label|default(null), { 'label_attr': {'class': 'control-label client-intake-step-three-label'}}) }}
+            <div class="controls">
+                {{ form_errors(form.plan_provider) }}
+                {{ form_widget(form.plan_provider) }}
+                <div class="input-examples"><b>Examples</b>: Vanguard, Fidelity, Schwab</div>
+            </div>
+        </div>
+    {% endif %}
+
+    {% if "hidden" not in form.groupType.vars.block_prefixes %}
+    <div class="form-group">
+        {{ form_label(form.groupType, 'Account Type:', { 'label_attr': {'class': 'client-intake-step-three-label'}}) }}
+        <div>
+            {{ form_errors(form.groupType) }}
+            {{ form_widget(form.groupType) }}
+        </div>
+    </div>
+    {% endif %}
+
+    <div class="form-group">
+        {{ form_errors(form.value) }}
+        <div class="row">
+            {{ form_label(form.value, 'Estimated Value:', { 'label_attr': {'class': ' client-intake-step-three-label'}}) }}
+            <div >
+                <div class="input-group">
+                    <span class="input-group-addon">$</span>
+                    {{ form_widget(form.value, {'attr': {'class': 'input-medium auto-numeric'}}) }}
+                </div>
+                <span class="retirement-value-help" style="display:none;">Minimum value must be $50,000 for retirement plans.</span>
+            </div>
+        </div>
+    </div>
+
+    <div id="contribution_distribution_fields">
+        {% if (form.contribution_type is defined) %}
+            {% spaceless %}
+                <strong>
+                    {% if group == 'employer_retirement' %}
+                        Will you be making contributions to this account?
+                    {% else %}
+                        Will you be making more contributions or withdrawing money from the account?
+                    {% endif %}
+                </strong>
+            {% endspaceless %}
+
+            {{ form_errors(form.contribution_type) }}
+            <div class="contribution-type-choices" data-url="{{ path('rx_client_profile_update_account_form', { 'group': group }) }}">
+                {% for child in form.contribution_type %}
+                    <div class="col-md-3">
+                        <label class="radio" for="{{ child.vars.id }}">{{ form_widget(child) }} {{ child.vars.label }}</label>
+                    </div>
+                {% endfor %}
+            </div>
+          {% endif %}
+
+        <div class="row">
+            <div class="form-group">
+                {{ form_label(form.monthly_contributions, 'Estimated Monthly Contributions:', { 'label_attr': {'class': 'client-intake-step-three-label'}}) }}
+                <div >
+                    {{ form_errors(form.monthly_contributions) }}
+                    <div class="input-group">
+                        <span class="input-group-addon">$</span>
+                        {{ form_widget(form.monthly_contributions, {'attr': {'class': 'input-medium auto-numeric'}}) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group">
+                {{ form_label(form.monthly_distributions, 'Estimated Monthly Distributions:', { 'label_attr': {'class': 'client-intake-step-three-label'}}) }}
+                <div >
+                    {{ form_errors(form.monthly_distributions) }}
+                    <div class="input-group">
+                        <span class="input-group-addon">$</span>
+                        {{ form_widget(form.monthly_distributions, {'attr': {'class': 'input-medium auto-numeric'}}) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{ form_rest(form) }}
+
+    {% if hide_submit_button is not defined %}
+    <input class="btn btn-default"  type="submit" name="submit" value="Add"/>
+    {% endif %}
+</form>

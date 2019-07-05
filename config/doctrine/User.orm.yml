@@ -1,0 +1,149 @@
+App\Entity\User:
+  type: entity
+  table: users
+  repositoryClass: App\Repository\UserRepository
+  fields:
+    id:
+      type: integer
+      id: true
+      generator:
+        strategy: AUTO
+    password_expired_at:
+      type: datetime
+    master_client_id:
+      type: integer
+      nullable: true
+    is_password_reset:
+      type: boolean
+      nullable: true
+    closed:
+      type: datetime
+      nullable: true
+    created:
+      type: date
+      gedmo:
+        timestampable:
+          on: create
+    updated:
+      type: datetime
+      gedmo:
+        timestampable:
+          on: update
+  uniqueConstraints:
+    email_unique:
+      name: email_UNIQUE_UR
+      columns: [ email ]
+  oneToOne:
+    profile:
+      targetEntity:  App\Entity\Profile
+      mappedBy: user
+      cascade: ['persist']
+    clientPersonalInformation:
+      targetEntity:  App\Entity\PersonalInformation
+      mappedBy: client
+      cascade: ['persist']
+    riaCompanyInformation:
+      targetEntity:  App\Entity\RiaCompanyInformation
+      mappedBy: ria
+      cascade: ['persist']
+    riaModelCompletion:
+      targetEntity:  App\Entity\RiaModelCompletion
+      mappedBy: ria
+      cascade: ['persist']
+    alertsConfiguration:
+      targetEntity:  App\Entity\AlertsConfiguration
+      mappedBy: user
+      cascade: ['persist']
+    clientSettings:
+      targetEntity:  App\Entity\ClientSettings
+      mappedBy: client
+      cascade: ['persist']
+  oneToMany:
+    clientPortfolios:
+      targetEntity:  App\Entity\ClientPortfolio
+      mappedBy: client
+      cascade: ['persist']
+    billingSpecs:
+      targetEntity:  App\Entity\BillingSpec
+      mappedBy: owner
+
+    clientAccounts:
+      targetEntity:  App\Entity\ClientAccount
+      mappedBy: client
+      cascade: ['persist']
+    systemAccounts:
+      targetEntity:  App\Entity\SystemAccount
+      mappedBy: client
+      cascade: ['persist']
+    additionalContacts:
+      targetEntity:  App\Entity\ClientAdditionalContact
+      mappedBy: client
+      cascade: ['persist']
+    slaveClients:
+      targetEntity:  App\Entity\User
+      mappedBy: masterClient
+      cascade: ['persist']
+    riaDashboardBoxes:
+      targetEntity:  App\Entity\RiaDashboardBox
+      mappedBy: ria
+      cascade: ['persist']
+    clientActivitySummaries:
+      targetEntity:  App\Entity\ClientActivitySummary
+      mappedBy: client
+      cascade: ['persist']
+    bills:
+      targetEntity:  App\Entity\Bill
+      mappedBy: client
+      cascade: ['persist']
+    ownGroups:
+      targetEntity:  App\Entity\Group
+      mappedBy: owner
+      cascade: ['persist']
+    ceModels:
+      targetEntity: CeModel
+      mappedBy: owner
+      cascade: ['persist']
+  manyToOne:
+    masterClient:
+      targetEntity:  App\Entity\User
+      inversedBy: slaveClients
+      joinColumn:
+        name: master_client_id
+        referencedColumnName: id
+        onDelete: set null
+      cascade: ['persist']
+    appointedBillingSpec:
+      targetEntity:  App\Entity\BillingSpec
+      inversedBy: appointedUsers
+      joinColumn:
+        name: appointed_billing_spec_id
+        referencedColumnName: id
+        onDelete: set null
+
+  manyToMany:
+    userDocuments:
+      targetEntity:  App\Entity\Document
+      inversedBy: users
+      joinTable:
+        name: user_documents
+        joinColumns:
+          user_id:
+            referencedColumnName: id
+        inverseJoinColumns:
+          document_id:
+            referencedColumnName: id
+      cascade: ['persist']
+    groups:
+      targetEntity:  App\Entity\Group
+      inversedBy: users
+      joinTable:
+        name: user_groups
+        joinColumns:
+          user_id:
+            referencedColumnName: id
+            onDelete: cascade
+        inverseJoinColumns:
+          group_id:
+            referencedColumnName: id
+            onDelete: cascade
+  lifecycleCallbacks: {  }

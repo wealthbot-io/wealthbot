@@ -1,0 +1,14 @@
+{% extends '/Ria/Dashboard/index.html.twig' %}
+
+{% block main_content %}
+    <h3>Create Prospect</h3>
+
+    <div class="create-client-form">
+        {% include '/Ria/Client/_create_form.html.twig' with {'form': form} %}
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('js/ria/ria.client.js') }}"></script>
+{% endblock %}

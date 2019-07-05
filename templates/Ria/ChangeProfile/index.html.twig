@@ -1,0 +1,70 @@
+{% extends '/Ria/Dashboard/index.html.twig' %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script type="text/javascript" src="/js/inputmask/jquery.inputmask.js"></script>
+    <script type="text/javascript" src="/js/inputmask/jquery.inputmask.extensions.js"></script>
+    <script src="{{ asset('js/ria/ria.fees.table.js') }}"></script>
+    <script src="{{ asset('js/ria/ria.portfolio.management.js') }}"></script>
+    <script src="{{ asset('js/ria/ria.change_profile.js') }}"></script>
+
+{% endblock %}
+
+{% block main_content %}
+    <h1>Admin Settings</h1>
+
+    <ul class="nav nav-tabs" id="myTab">
+        <li class="{{ active_tab == 'company_profile' ? 'active' : '' }}">
+            <a data-toggle="tab" href="#company_profile">Company Profile</a>
+        </li>
+        {#<li class="{{ active_tab == 'billing' ? 'active' : '' }}">
+            <a data-toggle="tab" href="#billing">Billing and Accounts</a>
+        </li>#}
+        <li class="{{ active_tab == 'rebalancing' ? 'active' : '' }}">
+            <a data-toggle="tab" href="#rebalancing">Rebalancing</a>
+        </li>
+        <li class="{{ active_tab == 'proposals' ? 'active' : '' }}">
+            <a data-toggle="tab" href="#proposals">Proposals</a>
+        </li>
+        <li class="{{ active_tab == 'custodians' ? 'active' : '' }}">
+            <a data-toggle="tab" href="#custodians">Custodians</a>
+        </li>
+        {#<li class="{{ active_tab == 'documents' ? 'active' : '' }}">
+            <a data-toggle="tab" href="#documents">Documents</a>
+        </li>#}
+    </ul>
+
+    <div class="tab-content change-profile">
+        <div class="tab-pane {{ active_tab == 'company_profile' ? 'active' : '' }}" id="company_profile">
+            {% include '/Ria/ChangeProfile/_company_profile_form.html.twig' with { 'form': companyForm } %}
+        </div>
+        {#<div class="tab-pane {{ active_tab == 'billing' ? 'active' : '' }}" id="billing">
+            {% include '/Ria/ChangeProfile/_billing_n_accounts_form.html.twig' with {
+                'form': billingAndAccountsForm,
+                'show_alerts': true
+            }  %}
+        </div>#}
+        <div class="tab-pane {{ active_tab == 'rebalancing' ? 'active' : '' }}" id="rebalancing">
+            {% include '/Ria/ChangeProfile/_rebalancing_form.html.twig' with {
+                'form': portfolioManagementForm,
+                'company_information': company_information
+            } %}
+        </div>
+        {#
+        <div class="tab-pane {{ active_tab == 'proposals' ? 'active' : '' }}" id="proposals">
+            {% include '/Ria/ChangeProfile/_proposal_form.html.twig' with {'form': proposal_form} %}
+        </div>
+        #}
+        <div class="tab-pane {{ active_tab == 'custodians' ? 'active' : '' }}" id="custodians">
+            {{ render(controller("\\App\\Controller\\Ria\\ChangeProfileController:custodianTab")) }}
+        </div>
+        {#<div class="tab-pane {{ active_tab == 'documents' ? 'active' : '' }}" id="documents">
+            {% include '/Ria/ChangeProfile/_documents.html.twig' with {
+                'form': documents_form,
+                'admin_documents': admin_documents,
+                'documents': documents
+            } %}
+        </div>#}
+    </div>
+{% endblock %}

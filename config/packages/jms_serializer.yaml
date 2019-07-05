@@ -1,0 +1,4 @@
+jms_serializer:
+    metadata:
+        debug: '%kernel.debug%'
+        auto_detection: true

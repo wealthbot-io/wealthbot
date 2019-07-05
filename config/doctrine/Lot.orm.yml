@@ -1,0 +1,95 @@
+#Trade Lot, not divided part for trading, contains shares count for an account on date.
+App\Entity\Lot:
+    type: entity
+    table: lots
+    repositoryClass: App\Repository\LotRepository
+    fields:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+        quantity:
+            type: float
+            nullable: true
+        amount:
+            type: float
+            nullable: true
+        status:
+            type: integer
+            nullable: true
+        date:
+            type: date
+            nullable: true
+
+        #If we know costBasis value
+        #CostBasis needs some value, however costBasisKnown can be false.
+        costBasisKnown:
+            column: is_cost_basis_known
+            type: boolean
+            nullable: false
+
+        #"wash sale" is very specific term. some ETF's have rules so you can't buy and sell within a certain period.
+        #you must hold the security for a certain amount of time
+        #the original tx date is tied through the transactions table
+        washSale:
+            type: boolean
+            nullable: false
+            column: is_wash_sale
+
+        #price including all taxes (custodian fees and so on)
+        costBasis:
+            type: float
+            nullable: false
+            column: cost_basis
+
+        #when Lot is closed this flag on *Initial* Lot must be set to true
+        wasClosed:
+            type: boolean
+            nullable: false
+            column: was_closed
+
+        realizedGain:
+            type: float
+            nullable: true
+            column: realized_gain_loss
+
+        wasRebalancerDiff:
+            type: boolean
+            nullable: false
+            column: was_rebalancer_diff
+
+    manyToOne:
+        #daily position
+        position:
+            targetEntity:  App\Entity\Position
+            inversedBy: lots
+            joinColumn:
+                name: position_id
+                referencedColumnName: id
+                onDelete: cascade
+        clientSystemAccount:
+            targetEntity:  App\Entity\SystemAccount
+            joinColumn:
+                name: client_system_account_id
+                referencedColumnName: id
+                onDelete: cascade
+            cascade: ['persist']
+        security:
+            targetEntity:  App\Entity\Security
+            joinColumn:
+                name: security_id
+                referencedColumnName: id
+                onDelete: cascade
+            cascade: ['persist']
+        initial:
+            targetEntity:  App\Entity\Lot
+            joinColumn:
+                name: initial_lot_id
+                referencedColumnName: id
+                onDelete: set null
+            cascade: ['persist']
+    oneToMany:
+        transactions:
+            targetEntity:  App\Entity\Transaction
+            mappedBy: lot

@@ -1,0 +1,35 @@
+{% extends '/Ria/layout.html.twig' %}
+
+{% block flash_messages %}{% endblock %}
+
+{% block body %}
+<div class="row portfoliomanagement">
+    <div class="col-md-12">
+        <div class="row">
+            <div class="col-md-10">
+                <h2>Step 4 of 5: Portfolio Management</h2>
+            </div>
+            <div class="save-and-logout">
+                <a class="btn btn-default"  id="reg_save_btn" href="{{ path('logout') }}">Logout</a>
+                <span class="help-block">We'll save your progress.</span>
+            </div>
+        </div>
+        <legend>
+            <p>
+                <small class="normal">
+                    Customize how our system will manage your client's portfolios.
+                </small>
+            </p>
+        </legend>
+    </div>
+
+    {% include '/Ria/Profile/_step_four_form.html.twig' with { 'form': form, 'company_information': company_information } %}
+</div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('js/ria/ria.portfolio.management.js') }}"></script>
+    <script src="{{ asset('js/ria/ria.profile.js') }}"></script>
+	
+{% endblock %}

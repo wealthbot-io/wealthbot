@@ -1,0 +1,131 @@
+{% extends '/Admin/layout.html.twig' %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-md-9">
+            <h3>Newest RIA's</h3>
+            {% if rias is not empty %}
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>Firm Name</th>
+                        <th>Signed Up</th>
+                        <th>Process Step</th>
+                        <th>Main Contact</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>City</th>
+                        <th>State</th>
+                        <th>Last Login</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for ria in rias %}
+                        <tr>
+                            <td>{{ ria.riaCompanyInformation ? ria.riaCompanyInformation.name : '' }}</td>
+                            <td>{{ ria.created|date('m/d/Y') }}</td>
+                            <td>{{ ria.profile.riaRegistrationStep }}</td>
+                            <td>
+                                {{ ria.riaCompanyInformation ? ria.riaCompanyInformation.primaryFirstName : '' }}
+                                {{ ria.riaCompanyInformation ? ria.riaCompanyInformation.primaryLastName : '' }}
+                            </td>
+                            <td>{{ ria.email }}</td>
+                            <td>{{ ria.riaCompanyInformation ? ria.riaCompanyInformation.phoneNumber : '' }}</td>
+                            <td>{{ ria.riaCompanyInformation ? ria.riaCompanyInformation.city : '' }}</td>
+                            <td>{{ ria.riaCompanyInformation ? ria.riaCompanyInformation.state : '' }}</td>
+                            <td>{{ ria.lastLogin ? ria.lastLogin|date('m/d/Y - H:i') : 'Never' }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <p class="empty">No registered rias.</p>
+            {% endif %}
+
+            <h3>Newest Clients</h3>
+            {% if clients is not empty %}
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>Last name</th>
+                        <th>First name</th>
+                        <th>Signed Up</th>
+                        <th>Process Step</th>
+                        <th>RIA</th>
+                        <th>Email</th>
+                        <th>City</th>
+                        <th>State</th>
+                        <th>Last Login</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for item in clients %}
+                        {% set client = item['user'] %}
+                        {% set nbFunds = item['nb_funds'] %}
+
+                        <tr>
+                            <td>{{ client.profile.lastName }}</td>
+                            <td>{{ client.profile.firstName }}</td>
+                            <td>{{ client.created|date('m/d/Y') }}</td>
+                            <td>{{ client.profile.clientRegistrationStep }}</td>
+                            <td>{{ client.ria.riaCompanyInformation ? client.ria.riaCompanyInformation.name : '' }}</td>
+                            <td>{{ client.email }}</td>
+                            <td>{{ client.profile.city }}</td>
+                            <td>{{ client.profile.state }}</td>
+                            <td>{{ client.lastLogin ? client.lastLogin|date('m/d/Y - H:i') : 'Never' }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <p class="empty">No registered clients.</p>
+            {% endif %}
+        </div>
+        <div class="col-md-3">
+            <h3>Alerts</h3>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th colspan="2">PAS</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Recon Issues</td>
+                        <td><span class="red-text">10</span></td>
+                    </tr>
+                    <tr>
+                        <td>Unmapped Accounts</td>
+                        <td><span class="red-text">5</span></td>
+                    </tr>
+                    <tr>
+                        <td>Incomplete Account Data</td>
+                        <td><span class="red-text">2</span></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th colspan="2">Rebalancer</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Unable to rebalance</td>
+                        <td><span class="red-text">10</span></td>
+                    </tr>
+                    <tr>
+                        <td>Reconcilliation Issues</td>
+                        <td><span class="red-text">5</span></td>
+                    </tr>
+                    <tr>
+                        <td>Other Issues</td>
+                        <td><span class="red-text">2</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,30 @@
+App\Entity\TransferCustodianQuestion:
+    type: entity
+    table: transfer_custodian_questions
+    repositoryClass: App\Repository\TransferCustodianQuestionRepository
+    fields:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+        transfer_custodian_id:
+            type: integer
+        title:
+            type: string
+            length: 255
+        docusign_eligible_answer:
+            type: boolean
+    uniqueConstraints:
+        transfer_custodian_id_unique:
+            name: transfer_custodian_id_UNIQUE
+            columns: [ transfer_custodian_id ]
+    oneToOne:
+        transferCustodian:
+            targetEntity:  App\Entity\TransferCustodian
+            joinColumn:
+                name: transfer_custodian_id
+                referencedColumnName: id
+                onDelete: cascade
+            inversedBy: transferCustodianQuestion
+            cascade: ['persist']

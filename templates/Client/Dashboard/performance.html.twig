@@ -1,0 +1,46 @@
+{% extends is_ajax is defined and is_ajax ? '/Client/clear_layout.html.twig' : '/Client/Dashboard/index.html.twig' %}
+
+{% block content %}
+
+    <!-- start: Account selector -->
+
+    {% if (client.profile.getClientAccountManagedAsString == 'account level') %}
+        {% include '/Client/Dashboard/account_selector.html.twig' with {
+            'client': client,
+            'is_client_view': is_client_view,
+            'action': layout_variables.action,
+            'accounts': accounts,
+            'client_portfolio': client_portfolio
+        } %}
+    {% endif %}
+    <!-- end: Account selector -->
+
+    <!-- start: reports -->
+    <div class="fluid-row">
+        <div class="col-md-12">
+            Quick Reports:
+            <div class="btn-group">
+                <a class="btn active" href="#" data-role="period" data-value="1">MTD</a>
+                <a class="btn btn-default"  href="#" data-role="period" data-value="2">QTD</a>
+                <a class="btn btn-default"  href="#" data-role="period" data-value="3">YTD</a>
+                <a class="btn btn-default"  href="#" data-role="period" data-value="4">1 YR</a>
+                <a class="btn btn-default"  href="#" data-role="period" data-value="5">3 YR</a>
+                <a class="btn btn-default"  href="#" data-role="period" data-value="6">Since Inception</a>
+            </div>
+        </div>
+    </div>
+    <!-- end: reports -->
+
+    <!-- start: performance stats -->
+
+    <div class="fluid-row" id="performanceDataContent">
+        {% include '/Client/Dashboard/_performance_data.html.twig' %}
+    </div>
+
+    <hr>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="{{ asset('js/client/client.performance.js') }}"></script>
+{% endblock %}

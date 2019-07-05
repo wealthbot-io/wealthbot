@@ -1,0 +1,189 @@
+<div class="box dashboard-cart" id="firm_metrics_cart" data-include=":Ria:Dashboard/_firm_metrics_box.html.twig">
+    <div class="box-content most-recent-activity">
+        <h2>Firm Metrics</h2>
+
+        <div class="row margin-bottom-20">
+            <div class="center-text">
+                <a href="#">Clients</a> |
+                <a href="#">Assets</a>
+            </div>
+        </div>
+        <div class="row">
+            {% if firm_metrics|length > 0 %}
+            <div class="col-md-10 col-md-offset-1">
+                <div class="row no-space">
+                    <div class="col-md-4 box-content box-statistic">
+                        <div class="center-text box-title blank">Clients</div>
+                        <div class="center-text">
+                            <span class="box-number">{{ firm_metrics.clients }}</span>
+                        </div>
+                    </div>
+                    <div class="col-md-4 box-content box-statistic">
+                        <div class="center-text box-title {{ firm_metrics.clientsQtdChange == 0 ? 'blank': '' }}">QTD Change</div>
+                        <div class="center-text">
+                            {% if firm_metrics.clientsQtdChange != 0 %}
+                                <div class="{{ firm_metrics.clientsQtdChange > 0 ? 'arrow-up': 'arrow-down' }}">
+                                    <i class="glyphicon glyphicon-play text-success"></i>
+                                </div>
+                            {% endif %}
+                            <span class="box-number">{{ firm_metrics.clientsQtdChange }}%</span>
+                        </div>
+                    </div>
+                    <div class="col-md-4 box-content box-statistic">
+                        <div class="center-text box-title {{ firm_metrics.clientsYearChange == 0 ? 'blank': '' }}">Year Change</div>
+                        <div class="center-text">
+                            {% if firm_metrics.clientsYearChange != 0 %}
+                                <div class="{{ firm_metrics.clientsYearChange > 0 ? 'arrow-up': 'arrow-down' }}">
+                                    <i class="glyphicon glyphicon-play text-success"></i>
+                                </div>
+                            {% endif %}
+                            <span class="box-number">{{ firm_metrics.clientsYearChange }}%</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row no-space">
+                    <div class="col-md-4 box-content box-statistic">
+                        <div class="center-text box-title blank">Accounts</div>
+                        <div class="center-text">
+                            <span class="box-number">1100</span>
+                        </div>
+                    </div>
+                    <div class="col-md-4 box-content box-statistic">
+                        <div class="center-text box-title">QTD Change</div>
+                        <div class="center-text">
+                            <div class="arrow-up"><i class="glyphicon glyphicon-play text-success"></i></div>
+                            <span class="box-number">10%</span>
+                        </div>
+                    </div>
+                    <div class="col-md-4 box-content box-statistic">
+                        <div class="center-text box-title">Year Change</div>
+                        <div class="center-text">
+                            <div class="arrow-up"><i class="glyphicon glyphicon-play text-success"></i></div>
+                            <span class="box-number">10%</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row no-space">
+                    <div class="col-md-4 box-content box-statistic">
+                        <div class="center-text box-title blank">Prospects</div>
+                        <div class="center-text">
+                            <span class="box-number">{{ firm_metrics.prospects }}</span>
+                        </div>
+                    </div>
+                    <div class="col-md-4 box-content box-statistic">
+                        <div class="center-text box-title {{ firm_metrics.prospectsQtdChange == 0 ? 'blank': '' }}">QTD Change</div>
+                        <div class="center-text">
+                            {% if firm_metrics.prospectsQtdChange != 0 %}
+                                <div class="{{ firm_metrics.prospectsQtdChange > 0 ? 'arrow-up': 'arrow-down' }}">
+                                    <i class="glyphicon glyphicon-play text-success"></i>
+                                </div>
+                            {% endif %}
+                            <span class="box-number">{{ firm_metrics.prospectsQtdChange }}%</span>
+                        </div>
+                    </div>
+                    <div class="col-md-4 box-content box-statistic">
+                        <div class="center-text box-title {{ firm_metrics.prospectsYearChange == 0 ? 'blank': '' }}">Year Change</div>
+                        <div class="center-text">
+                            {% if firm_metrics.prospectsYearChange != 0 %}
+                                <div class="{{ firm_metrics.prospectsYearChange > 0 ? 'arrow-up': 'arrow-down' }}">
+                                    <i class="glyphicon glyphicon-play text-success"></i>
+                                </div>
+                            {% endif %}
+                            <span class="box-number">{{ firm_metrics.prospectsYearChange }}%</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row no-space">
+                    <div class="col-md-4 box-content box-statistic">
+                        <div class="center-text box-title blank">Fees Collected</div>
+                        <div class="center-text">
+                            <span class="box-number">$10,000,000</span>
+                        </div>
+                    </div>
+                    <div class="col-md-4 box-content box-statistic">
+                        <div class="center-text box-title">QTD Change</div>
+                        <div class="center-text">
+                            <div class="arrow-up"><i class="glyphicon glyphicon-play text-success"></i></div>
+                            <span class="box-number">10%</span>
+                        </div>
+                    </div>
+                    <div class="col-md-4 box-content box-statistic">
+                        <div class="center-text box-title">Year Change</div>
+                        <div class="center-text">
+                            <div class="arrow-up"><i class="glyphicon glyphicon-play text-success"></i></div>
+                            <span class="box-number">10%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+
+        {#<table class="table table-striped">
+            <thead>
+            <tr>
+                <th></th>
+                <th>Year to Date</th>
+                <th>QTD Change</th>
+                <th>Year Change</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>Total firm AUM</td>
+                <td>$405,000,000</td>
+                <td>10%</td>
+                <td>30%</td>
+            </tr>
+            <tr>
+                <td>Total Number of Accounts</td>
+                <td>500</td>
+                <td>10%</td>
+                <td>30%</td>
+            </tr>
+            <tr>
+                <td>Total Number of Households</td>
+                <td>200</td>
+                <td>10%</td>
+                <td>30%</td>
+            </tr>
+            <tr>
+                <td>Average Account Size</td>
+                <td>$50,000</td>
+                <td>10%</td>
+                <td>30%</td>
+            </tr>
+            <tr>
+                <td>Average Household Size</td>
+                <td>$300,000</td>
+                <td>10%</td>
+                <td>30%</td>
+            </tr>
+            <tr>
+                <td>Cash In Flows</td>
+                <td>$100,000</td>
+                <td>10%</td>
+                <td>30%</td>
+            </tr>
+            <tr>
+                <td>Cash Out Flows</td>
+                <td>$50,000</td>
+                <td>10%</td>
+                <td>30%</td>
+            </tr>
+            <tr>
+                <td><a href="#">Outstanding Prospects</a></td>
+                <td>20</td>
+                <td>10%</td>
+                <td>30%</td>
+            </tr>
+            <tr>
+                <td>Fees Collected</td>
+                <td>$200,000</td>
+                <td>10%</td>
+                <td>30%</td>
+            </tr>
+            </tbody>
+        </table>#}
+    </div>
+</div>

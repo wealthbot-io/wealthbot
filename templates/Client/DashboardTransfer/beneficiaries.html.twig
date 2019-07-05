@@ -1,0 +1,11 @@
+{% extends '/Client/Transfer/beneficiaries.html.twig' %}
+
+{% block javascripts %}
+    <script type="text/javascript" src="{{ asset('js/client/client.transfer.js') }}"></script>
+{% endblock %}
+{% block header_row %}{% endblock %}
+{% block bottom_content %}{% endblock %}
+
+{% block main_content %}
+    {% include '/Client/DashboardTransfer/_beneficiaries_form.html.twig' with { 'form': form, 'account': account } %}
+{% endblock %}

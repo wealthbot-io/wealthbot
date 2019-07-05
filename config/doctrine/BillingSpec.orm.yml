@@ -1,0 +1,47 @@
+App\Entity\BillingSpec:
+  type: entity
+  table: billing_spec
+#  repositoryClass: App\Repository\BillingSpec
+  fields:
+    id:
+      type: integer
+      id: true
+      generator:
+        strategy: AUTO
+
+    name:
+      type: string
+      length: 255
+      nullable: false
+
+    master:
+      type: boolean
+      nullable: false
+
+    type:
+      type: integer
+      nullable: false
+
+    minimalFee:
+      type: float
+      nullable: false
+
+  manyToOne:
+    owner:
+      targetEntity:  App\Entity\User
+      inversedBy: billingSpecs
+      joinColumn:
+        name: owner_id
+        referencedColumnName: id
+        onDelete: cascade
+      cascade: ['persist']
+
+  oneToMany:
+    fees:
+      targetEntity:  App\Entity\Fee
+      mappedBy: billingSpec
+      cascade: ['persist']
+    #appointedUsers - that is RIA for admin fees, and Client for RIA fees.
+    appointedUsers:
+      targetEntity:  App\Entity\User
+      mappedBy: appointedBillingSpec

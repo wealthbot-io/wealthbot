@@ -1,0 +1,34 @@
+{% extends '/Ria/Dashboard/index.html.twig' %}
+
+{% block main_content %}
+
+    <h1>User Management</h1>
+
+    <ul class="nav nav-tabs" id="myTab">
+        <li class="active"><a data-toggle="tab" href="#user_management">User Management</a></li>
+        <li><a data-toggle="tab" href="#user_password_management">Group Management</a></li>
+    </ul>
+
+    <div class="tab-content user-management">
+        <div class="tab-pane active" id="user_management">
+            {% include '/Ria/User/create.html.twig' with { 'form': create_user_form, 'ria_users': ria_users } %}
+        </div>
+        <div class="tab-pane" id="user_password_management">
+            {% include '/Ria/User/groups.html.twig' with { 'form': groups_form, 'groups': groups, 'ria':ria }  %}
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('js/ria/ria.change_profile.js') }}"></script>
+    <script src="/js/jquery.ui.widget.js"></script>
+    <script src="/js/jquery-picklist.js"></script>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="/css/jquery-picklist.css">
+    <link rel="stylesheet" href="/css/jquery-picklist-ie7.css">
+
+{% endblock %}

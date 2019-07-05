@@ -1,0 +1,19 @@
+wealthbot_docusign_sign:
+    path:  /{signature_id}/sign
+    defaults: { _controller: \App\Controller\Signature\DocusignController:sign }
+
+wealthbot_docusign_application_sign:
+    path:  /application/{account_id}/sign
+    defaults: { _controller: \App\Controller\Signature\DocusignController:applicationSign }
+
+wealthbot_docusign_application_sign_callback:
+    path:  /application-sign/callback/{envelope_id}
+    defaults: { _controller: \App\Controller\Signature\DocusignController:applicationSignCallback }
+
+wealthbot_docusign_check_application_signed:
+    path:  /check-application-signed/{account_id}
+    defaults: { _controller: \App\Controller\Signature\DefaultController:checkApplicationSigned }
+
+wealthbot_docusign_fill_pdf:
+    path:  /fill-pdf
+    defaults: { _controller: \App\Controller\Signature\DefaultController:fillPdf }

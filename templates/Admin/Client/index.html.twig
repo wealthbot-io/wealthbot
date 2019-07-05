@@ -1,0 +1,40 @@
+{% extends '/Admin/layout.html.twig' %}
+
+{% block body %}
+    <h3>CLIENTS LIST</h3>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>{{ knp_pagination_sortable(pagination, 'First Name', 'first_name') }}</th>
+            <th>{{ knp_pagination_sortable(pagination, 'Last Name', 'last_name') }}</th>
+            <th>{{ knp_pagination_sortable(pagination, 'Signed Up', 'signed_up') }}</th>
+            <th>{{ knp_pagination_sortable(pagination, 'Process Step', 'process_step') }}</th>
+            <th>{{ knp_pagination_sortable(pagination, 'RIA', 'ria') }}</th>
+            <th>{{ knp_pagination_sortable(pagination, 'Email', 'email') }}</th>
+            <th>{{ knp_pagination_sortable(pagination, 'City', 'city') }}</th>
+            <th>{{ knp_pagination_sortable(pagination, 'State', 'state') }}</th>
+            <th>{{ knp_pagination_sortable(pagination, 'Outside Account', 'outside_account') }}</th>
+            <th>{{ knp_pagination_sortable(pagination, 'Last Login', 'last_login') }}</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for client in pagination %}
+            <tr>
+                <td><a href="{{ path("rx_admin_client_specific_dashboard", { 'id': client.user.id}) }}">{{ client.user.profile.firstName }}</a></td>
+                <td><a href="{{ path("rx_admin_client_specific_dashboard", { 'id': client.user.id}) }}">{{ client.user.profile.lastName }}</a></td>
+                <td>{{ client.user.created|date("m/d/Y") }}</td>
+                <td>{{ client.user.profile.clientRegistrationStep }}</td>
+                <td><a href="{{ path("rx_admin_ria_specific_dashboard", { 'id': client.user.ria.id }) }}">{{ client.user.RiaCompanyInformation.name}}</a></td>
+                <td><a href="mailto:{{ client.user.email }}">{{ client.user.email }}</a></td>
+                <td>{{ client.user.profile.city }}</td>
+                <td>{{ client.user.profile.state }}</td>
+                <td>{{ (client.nb_funds > 0) ? 'Yes' : 'No' }}</td>
+                <td>{{ client.user.lastLogin ? client.user.lastLogin | date("m/d/Y - H:i") : 'Never' }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <div class="pagination pagination-centered">
+        {{ knp_pagination_render(pagination) }}
+    </div>
+{% endblock %}

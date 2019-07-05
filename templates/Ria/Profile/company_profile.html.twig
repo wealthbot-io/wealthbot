@@ -1,0 +1,47 @@
+{% extends '/Ria/layout.html.twig' %}
+
+{% block headernav %}{% endblock %}
+
+{% block flash_messages %}
+    <div class="alert alert-success">
+        <span class="text-bold">You've successfully created your login credentials</span><br />
+        Logout at any point and the system will automatically save your progress.
+    </div>
+{% endblock %}
+
+{% block body %}
+
+    <div class="row companyinfo">
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-10">
+                    <legend><h3>Company Profile</h3></legend>
+                </div>
+                <div class="save-and-logout">
+                    <a class="btn btn-default"  id="reg_save_btn" href="{{ path('logout') }}">Logout</a>
+                    <span class="help-block">We'll save your progress.</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-md-6">
+            {% include '/Ria/Profile/_company_profile_form.html.twig' with { 'form': form } %}
+        </div>
+        <div class="col-md-6">
+
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script type="text/javascript" src="/js/inputmask/jquery.inputmask.js"></script>
+    <script type="text/javascript" src="/js/inputmask/jquery.inputmask.extensions.js"></script>
+
+    <script src="{{ asset('js/ria/ria.profile.js') }}"></script>
+{% endblock %}

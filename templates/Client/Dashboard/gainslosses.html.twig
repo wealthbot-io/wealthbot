@@ -1,0 +1,144 @@
+{% extends is_ajax is defined and is_ajax ? '/Client/clear_layout.html.twig' : '/Client/Dashboard/index.html.twig' %}
+
+{% block content %}
+    <div class="rx-horizontal-form">
+
+        <!-- start: Account selector -->
+        {% include '/Client/Dashboard/account_selector.html.twig' with {
+            'client': client,
+            'is_client_view': is_client_view,
+            'action': layout_variables.action,
+            'accounts': accounts
+        } %}
+
+        <!-- end: Account selector -->
+
+        <div class="form-group">
+            <label class="control-label" for="year">Select Year</label>
+            <div class="controls">
+                <select id="year">
+                    {% for gainLossYear in gainLossYears %}
+                        <option value="{{ gainLossYear.year }}"{% if gainLossYear.year == app.request.get('year') %} selected="selected"{% endif %}>{{ gainLossYear.year }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="clearfix"></div>
+
+    {% if (not is_client_view) %}
+        {% include '/Client/Dashboard/gainlosses_stop_tlh_form.html.twig' with {"form" : stop_tlh_form} %}
+    {% endif %}
+
+    <div class="row sortable">
+        <div class="box col-md-12">
+            <div class="box-header shadow">
+                <h2>Gains and Losses</h2>
+            </div>
+            <div class="box-content shadow">
+                {% if (lots is defined and lots) %}
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>{{ knp_pagination_sortable(pagination, 'Security', 'securities.name') }}</th>
+                            <th>{{ knp_pagination_sortable(pagination, 'Date Acquired', 'positions.date') }}</th>
+                            <th>{{ knp_pagination_sortable(pagination, 'Date Sold', 'initial_lots.date') }}</th>
+                            <th>Shares</th>
+                            <th>Net Proceeds</th>
+                            <th>Cost</th>
+                            <th>Total Gain/Loss</th>
+                            <th>Short Term Gain/Loss</th>
+                            <th>Long Term Gain/Loss</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for lot in lots %}
+                        <tr>
+                            <td>{{ lot.position.security.name }}</td>
+                            <td class="center">{{ lot.initial.date|date("m/d/Y") }}</td>
+                            <td class="center">{{ lot.date|date("m/d/Y") }}</td>
+                            <td class="center">{{ lot.quantity }}</td>
+                            <td>${{ lot.amount|number_format(2) }}</td>
+	                        <td>${{ lot.initial.amount|number_format(2) }}</td>
+                            <td>
+	                            {% if lot.realizedGain < 0 %}
+	                                <span class="label label-important">(${{ lot.realizedGain|abs()|number_format(2) }})</span>
+	                            {% else %}
+		                            ${{ lot.realizedGain|number_format(2) }}
+                                {% endif %}
+                            </td>
+                            <td>
+	                            {% if lot.shortTermGain < 0 %}
+		                            <span class="label label-important">(${{ lot.shortTermGain|abs()|number_format(2) }})</span>
+	                            {% else %}
+		                            ${{ lot.shortTermGain|number_format(2) }}
+	                            {% endif %}
+                            </td>
+                            <td>
+	                            {% if lot.longTermGain < 0 %}
+		                            <span class="label label-important">(${{ lot.longTermGain|abs()|number_format(2) }})</span>
+	                            {% else %}
+		                            ${{ lot.longTermGain|number_format(2) }}
+	                            {% endif %}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                        <tr>
+                            <td colspan="4"></td>
+                            <td><strong>${{ totalNetProceeds|abs()|number_format(2) }}</strong></td>
+                            <td><strong>${{ totalCost|abs()|number_format(2) }}</strong></td>
+                            <td>
+	                            {% if totalGainLoss < 0 %}
+	                                <span class="label label-important">(
+                                {% else %}
+	                                <strong>
+                                {% endif %}
+                                ${{ totalGainLoss|number_format(2) }}
+                                {% if totalGainLoss < 0 %}
+	                                )</span>
+	                            {% else %}
+	                                </strong>
+	                            {% endif %}
+	                            </td>
+                            <td>
+	                            {% if shortTermGainLoss < 0 %}
+	                                <span class="label label-important">(
+                                {% else %}
+	                                <strong>
+                                {% endif %}
+                                ${{ shortTermGainLoss|number_format(2) }}
+                                {% if shortTermGainLoss < 0 %}
+	                                )</span>
+	                            {% else %}
+	                                </strong>
+	                            {% endif %}
+                            </td>
+                            <td>
+	                            {% if longTermGainLoss < 0 %}
+	                                <span class="label label-important">(
+                                {% else %}
+	                                <strong>
+                                {% endif %}
+                                ${{ longTermGainLoss|number_format(2) }}
+                                {% if longTermGainLoss < 0 %}
+	                                )</span>
+	                            {% else %}
+	                                </strong>
+	                            {% endif %}
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <div class="pagination pagination-centered">
+                        {{ knp_pagination_render(pagination) }}
+                    </div>
+                {% else %}
+                    <div class="center-text text-bold">Once you have incurred some gains and losses in your portfolio, you'll see them here.</div>
+                {% endif %}
+            </div>
+        </div><!--/span-->
+    </div><!--/row-->
+
+    <hr>
+{% endblock %}

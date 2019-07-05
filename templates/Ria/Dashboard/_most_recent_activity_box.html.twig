@@ -1,0 +1,21 @@
+<div class="box dashboard-cart" id="most_recent_activity_cart" data-include=":Ria:Dashboard/_most_recent_activity_box.html.twig">
+    <div class="box-content">
+        <h2><a href="{{ path('rx_ria_workflow_tab', {tab: 'activity'}) }}">Most Recent Activity</a></h2>
+       {# <div>
+            {% include '/Ria/Workflow/_workflow_activity_list.html.twig'
+                with { 'pagination': recent_activity_pagination, 'show_pagination': 'false' } %}
+        </div>#}
+                {% for item in recent_activity_pagination %}
+                    {% set client_url = (item.client.hasStatusProspect) ? 'rx_ria_prospect_portfolio' : 'rx_ria_dashboard_show_client' %}
+                        <p>
+                            <a href="{{ path(client_url, {'client_id': item.client.id}) }}">
+                                {{ item.client.lastName }}, {{ item.client.firstName }}
+                            </a>
+                        </p>
+                      {#  <p>{{ item.created|date('m/d/y') }}</p>
+                        <p><a href="">{{ item.description }}</a></p>#}
+                        <p><a class="close delete-most-recent-activity" href="{{ path('rx_ria_dashboard_most_recent_activity_delete', {'id': item.id}) }}">×</a></p>
+                    </tr>
+                {% endfor %}
+    </div>
+</div>

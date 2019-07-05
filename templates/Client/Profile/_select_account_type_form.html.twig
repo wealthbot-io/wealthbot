@@ -1,0 +1,19 @@
+<h4>Which type of account will you be opening?</h4>
+<form id="client_account_types_form" action="{{ path('rx_client_profile_show_deposit_account_form') }}" method="post" data-save="false">
+    <div class="form-group spec-rx">
+        {{ form_errors(form) }}
+
+        <div id="{{ form.group_type.vars.id }}">
+            {% if (group == 'deposit_money') %}
+                {% include '/Client/Profile/_deposit_account_type_fields.html.twig'
+                    with { 'types': form.group_type }
+                %}
+            {% elseif (group == 'financial_institution') %}
+                {% include '/Client/Profile/_transfer_account_type_fields.html.twig'
+                    with { 'types': form.group_type }
+                %}
+            {% endif %}
+        </div>
+        {{ form_rest(form) }}
+    </div>
+</form>

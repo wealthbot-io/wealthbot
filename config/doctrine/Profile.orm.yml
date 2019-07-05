@@ -1,0 +1,146 @@
+App\Entity\Profile:
+    type: entity
+    table: user_profiles
+    fields:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+        user_id:
+            type: integer
+        ria_user_id:
+            type: integer
+            nullable: true
+        registration_step:
+            type: integer
+            nullable: false
+        company:
+            type: string
+            length: 255
+            nullable: true
+        first_name:
+            type: string
+            length: 255
+        last_name:
+            type: string
+            length: 255
+        middle_name:
+            type: string
+            length: 255
+            nullable: true
+        street:
+            type: string
+            length: 255
+            nullable: true
+        city:
+            type: string
+            length: 255
+            nullable: true
+        state_id:
+            type: integer
+            nullable: true
+        zip:
+            type: string
+            length: 255
+            nullable: true
+        is_different_address:
+            type: boolean
+            nullable: true
+        mailing_street:
+            type: string
+            length: 255
+            nullable: true
+        mailing_city:
+            type: string
+            length: 255
+            nullable: true
+        mailing_state_id:
+            type: integer
+            nullable: true
+        mailing_zip:
+            type: string
+            length: 255
+            nullable: true
+        birth_date:
+            type: date
+            nullable: true
+        phone_number:
+            type: string
+            length: 255
+            nullable: true
+        marital_status:
+            type: string(20)
+            nullable: true
+        annual_income:
+            type: string(100)
+            nullable: true
+        estimated_income_tax:
+            type: string(100)
+            nullable: true
+        liquid_net_worth:
+            type: string(100)
+            nullable: true
+        employment_type:
+            type: string(50)
+            nullable: true
+        suggested_portfolio_id:
+            type: integer
+            nullable: true
+        questionnaire_step:
+            type: smallint
+            nullable: true
+        withdraw_age:
+            type: integer
+            nullable: true
+        client_source:
+            type: string(10)
+            nullable: true
+        client_account_managed:
+            type: smallint
+            nullable: true
+        client_status:
+            type: smallint
+            nullable: true
+        paymentMethod:
+            type: integer
+            nullable: true
+    oneToOne:
+        user:
+            targetEntity:  App\Entity\User
+            joinColumn:
+                name: user_id
+                referencedColumnName: id
+                onDelete: cascade
+            inversedBy: profile
+            cascade: ['persist']
+    manyToOne:
+        ria:
+            targetEntity:  App\Entity\User
+            joinColumn:
+                name: ria_user_id
+                referencedColumnName: id
+                onDelete: set null
+            cascade: ['persist']
+        state:
+            targetEntity:  App\Entity\State
+            joinColumn:
+                name: state_id
+                referencedColumnName: id
+                onDelete: set null
+            cascade: ['persist']
+        mailingState:
+            targetEntity:  App\Entity\State
+            joinColumn:
+                name: mailing_state_id
+                referencedColumnName: id
+                onDelete: set null
+            cascade: ['persist']
+        suggestedPortfolio:
+            targetEntity:  App\Entity\CeModel
+            joinColumn:
+                name: suggested_portfolio_id
+                referencedColumnName: id
+                onDelete: set null
+            cascade: ['persist']
+    lifecycleCallbacks: {  }

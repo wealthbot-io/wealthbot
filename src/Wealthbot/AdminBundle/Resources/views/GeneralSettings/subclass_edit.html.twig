@@ -1,7 +1,0 @@
-{% extends 'WealthbotAdminBundle::layout.html.twig' %}
-
-{% block body %}
-    <h1>Edit Subclass</h1>
-
-    {% include 'WealthbotAdminBundle:GeneralSettings:_form.html.twig' with {'form': form, 'action': path('rx_admin_subclass_edit', { 'id': form.vars.value.id })} %}
-{% endblock %}

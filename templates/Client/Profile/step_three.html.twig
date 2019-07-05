@@ -1,0 +1,13 @@
+{% extends '/Client/Profile/client_intake.html.twig' %}
+
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('js/client/client.profile.js') }}"></script>
+    <script src="{{ asset('js/client/client.accounts.js') }}"></script>
+    <script src="{{ asset('js/client/client.portfolio.js') }}"></script>
+{% endblock %}
+
+{% block body %}
+    {% include '/Client/Profile/_open_or_transfer_account.html.twig' with { 'form': form, 'client': client } %}
+{% endblock %}

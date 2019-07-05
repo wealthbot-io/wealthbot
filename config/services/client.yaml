@@ -1,0 +1,135 @@
+parameters:
+    wealthbot_client.mailer.close_accounts.template: ":Client:Dashboard/close_accounts_email.html.twig"
+    wealthbot_client.mailer.from_email: noreply@wealthbot.io
+    wealthbot_client.mailer.suggested_portfolio.template: "/Client/Portfolio/email.html.twig"
+    wealthbot_client.mailer.welcome.template: "/Client/ChangeProfile/welcome_email.html.twig"
+    wealthbot_client.workflow.class: App\Entity\Workflow
+services:
+    wealthbot.distribution.manager:
+        arguments:
+            - "@doctrine.orm.entity_manager"
+        class: App\Manager\DistributionManager
+    wealthbot.workflow.extension:
+        arguments:
+            - "@wealthbot.workflow.manager"
+            - "@wealthbot_user.document_manager"
+        class: App\Twig\WorkflowTwigExtension
+        tags:
+            -
+                name: twig.extension
+    wealthbot.workflow.listener:
+        public: true
+        arguments:
+            - "@wealthbot.workflow.manager"
+        class: App\EventListener\WorkflowEventListener
+        tags:
+            -
+                name: kernel.event_subscriber
+    wealthbot.workflow.manager:
+        arguments:
+            - "@doctrine.orm.entity_manager"
+            - "%wealthbot_client.workflow.class%"
+            - "@wealthbot_docusign.document_signature.manager"
+            - "@wealthbot_client.client_account_values.manager"
+        class: App\Manager\WorkflowManager
+        public: true
+    wealthbot_client.activity_summary.manager:
+        arguments:
+            - "@doctrine.orm.entity_manager"
+        class: App\Manager\ActivitySummaryManager
+    wealthbot_client.breadcrumbs_manager:
+        arguments:
+            - "@router"
+        class: App\Manager\BreadcrumbsManager
+        public: true
+    wealthbot_client.cash.manager:
+        arguments:
+            - "@doctrine.orm.entity_manager"
+        class: App\Manager\CashCalculationManager
+        public: true
+    wealthbot_client.client_account_values.manager:
+        arguments:
+            - "@doctrine.orm.entity_manager"
+            - "@wealthbot.manager.user"
+        class: App\Manager\ClientAccountValuesManager
+        public: true
+    wealthbot_client.client_allocation_values.manager:
+        arguments:
+            - "@doctrine.orm.entity_manager"
+            - "@wealthbot_client.system_account_manager"
+        class: App\Manager\ClientAllocationValuesManager
+        public: true
+    wealthbot_client.client_portfolio.manager:
+        arguments:
+            - "@doctrine.orm.entity_manager"
+            - "@wealthbot_admin.ce_model_manager"
+        class: App\Manager\ClientPortfolioManager
+        public: true
+    wealthbot_client.client_portfolio_values.manager:
+        arguments:
+            - "@doctrine.orm.entity_manager"
+            - "@wealthbot.manager.user"
+        class: App\Manager\ClientPortfolioValuesManager
+        public: true
+    wealthbot_client.contribution_form_factory:
+        arguments:
+            - "@form.factory"
+            - "@doctrine.orm.entity_manager"
+        class: App\Form\Factory\AccountContributionFormFactory
+    wealthbot_client.distribution_form_factory:
+        arguments:
+            - "@form.factory"
+            - "@wealthbot.distribution.manager"
+        class: App\Form\Factory\DistributionFormFactory
+    wealthbot_client.doctrine.subscriber:
+        arguments:
+            - "@service_container"
+        class: App\Service\DoctrineSubscriber
+        tags:
+            -
+                connection: default
+                name: doctrine.event_subscriber
+    wealthbot_client.portfolio_information_manager:
+        arguments:
+            - "@doctrine.orm.entity_manager"
+            - "@wealthbot.manager.fee"
+        class: App\Manager\PortfolioInformationManager
+        public: true
+    wealthbot_client.slave_client.form:
+        arguments:
+            - slave_client_form
+            - "@wealthbot_client.slave_client.form.type"
+        class: Symfony\Component\Form\Form
+        factory:
+            - "@form.factory"
+            - createNamed
+        public: true
+    wealthbot_client.slave_client.form.handler:
+        arguments:
+            - "@wealthbot_client.slave_client.form"
+            - "@request_stack"
+            - "@doctrine.orm.entity_manager"
+            - "@wealthbot.mailer"
+        class: App\Form\Handler\SlaveClientFormHandler
+    wealthbot_client.slave_client.form.type:
+        class: App\Form\Type\SlaveClientFormType
+        tags:
+            -
+                alias: slave_client
+                name: form.type
+        public: true
+    wealthbot_client.system_account_manager:
+        arguments:
+            - "@doctrine.orm.entity_manager"
+            - "@wealthbot_client.client_account_values.manager"
+        class: App\Manager\SystemAccountManager
+        public: true
+    wealthbot_client.transfer_screen_step.manager:
+        arguments:
+            - "@wealthbot_docusign.account_docusign.manager"
+        class: App\Manager\TransferScreenStepManager
+        public: true
+    wealthbot_client.acl:
+        class: App\Model\ClientAcl
+        arguments: ["@service_container"]
+        public: true

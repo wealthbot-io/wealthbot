@@ -1,0 +1,22 @@
+App\Entity\SecurityType:
+  type: entity
+  table: security_types
+  repositoryClass: App\Repository\SecurityTypeRepository
+  fields:
+    id:
+      type: integer
+      id: true
+      generator:
+        strategy: AUTO
+    name:
+      type: string
+      length: 40
+      nullable: false
+    description:
+      type: string
+      length: 40
+      nullable: true
+  uniqueConstraints:
+    name_unique:
+      name: name_UNIQUE_ST
+      columns: [ name ]

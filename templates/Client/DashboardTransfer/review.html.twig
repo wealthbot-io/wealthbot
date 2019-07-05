@@ -1,0 +1,9 @@
+{% extends '/Client/Transfer/review.html.twig' %}
+
+{% block javascripts %}
+    <script type="text/javascript" src="{{ asset('js/docusign.listeners.js') }}"></script>
+{% endblock %}
+{% block header_row %}{% endblock %}
+{% block form_action %}{{ path('rx_client_dashboard_transfer_review', { 'account_id': account.id }) }}{% endblock %}
+{% block back_url %}{{ path('rx_client_dashboard_transfer_back', {'account_id': account.id, 'action': 'review'}) }}{% endblock %}
+{% block bottom_content %}{% endblock %}

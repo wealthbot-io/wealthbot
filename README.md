@@ -1,5 +1,6 @@
 wealthbot.io
 ===============
+Written in Symfony Flex
 
 [![](https://www.codeshelter.co/static/badges/badge-flat.svg)](https://www.codeshelter.co/)
 [![GitHub license](https://img.shields.io/github/license/mashape/apistatus.svg)]()
@@ -51,26 +52,20 @@ https://gitter.im/wealthbot-io
 ## Installation
 
 **Prereqs:**
-* Fetch dependencies with composer `composer install  --ignore-platform-reqs`
-* Install [Docker](https://www.docker.com/) and [Docker Compose](https://docs.docker.com/compose/)
-* Run `docker-compose build` in the root folder
-* Then `docker-compose up -d`
+* PHP 7.3 with GD and Imagick
 
 **For Demo installation**
-* Log in to php container `docker exec -it wealthbot_php_1 sh`
-* Create database schema `.bin/console doctrine:schema:create`
-* Load fixtures `.bin/console wealthbot:fixtures:load`
 
-Once complete, simply go to http://wealthbot.localhost in your browser to see the wealthbot.io demo landing page.
+* `git clone https://github.com/azatyan/wealthbot-flex`
+* `cd wealthbot`
+* `COMPOSER_MEMORY_LIMIT=-1 composer install --ignore-platform-reqs`
+* `bin/console doctrine:database:create`
+* `bin/console doctrine:schema:create`
+* `bin/console wealthbot:fixtures:load`
+* `bin/console server:run`
 
-Note: To use the app you'll need to setup an SMTP server with authentication. The config is in .env Environment file. Symfony has [a good writeup on how to use your Gmail account](https://symfony.com/doc/3.4/email/gmail.html) for this.
-
-If you want to take a look around your docker container you can `docker exec -it wealthbot_php_1 sh`.
-
-To access Kibana (ELK Stack) go to http://wealthbot.localhost:81/
-
-We strongly recommend running all console commands inside the docker container.
+Once complete, simply go to http://127.0.0.1:8000 in your browser to see the wealthbot.io demo landing page.
 
 # Contributing
 
-We love pull requests! The details on how to contribute to Wealthbot can be found [here](docs/CONTRIBUTING.md).
+We love pull requests! The details on how to contribute to Wealthbot can be found [here](CONTRIBUTING.md).

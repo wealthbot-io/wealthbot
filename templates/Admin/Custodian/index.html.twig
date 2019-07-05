@@ -1,0 +1,50 @@
+{% extends '/Admin/Dashboard/index.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="http://netdna.bootstrapcdn.com/font-awesome/3.0.2/css/font-awesome.css" rel="stylesheet" />
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+        <script type="text/javascript" src="{{ asset('js/admin/admin.custodian.js') }}"></script>
+        <script type="text/javascript" src="/js/bootstrap-wysiwyg/jquery.hotkeys.js"></script>
+        <script type="text/javascript" src="/js/bootstrap-wysiwyg/bootstrap-wysiwyg.js"></script>
+{% endblock %}
+
+{% block body %}
+    <h3>Custodians</h3>
+
+    {% if tabs|length > 0 %}
+        <div class="tabbable">
+            <ul class="nav nav-tabs">
+                {% for tab in tabs %}
+                    <li {{ loop.index == 1 ? 'class="active"' : '' }}>
+                        <a href="#custodian{{ loop.index }}" data-toggle="tab">{{ tab.custodian.name }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+            <div class="tab-content">
+                {% for key, tab in tabs %}
+                    <div class="tab-pane {{ loop.index == 1 ? 'active' : '' }}" id="custodian{{ key }}">
+                        <h4>{{ tab.custodian.name }}</h4>
+
+                            <div id="custodian{{ key }}_form_container" class="col-md-5 rx-v-divider">
+                                {% include '/Admin/Custodian/_documents_form.html.twig' with {
+                                    'form': tab.form,
+                                    'custodian': tab.custodian,
+                                    'documents': tab.documents
+                                } %}
+                            </div>
+                            <div class="col-md-7">
+                                {% include '/Admin/Custodian/_messages.html.twig' with { 'custodian': tab.custodian } %}
+                            </div>
+
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% else %}
+        <p class="empty">Custodians does not exists.</p>
+    {% endif %}
+{% endblock %}

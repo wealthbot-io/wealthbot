@@ -1,0 +1,195 @@
+parameters:
+    validator.class: App\Validator\Validator
+    wealthbot_admin.ce_model_class: App\Entity\CeModel
+    wealthbot_admin.user_history.class: App\Entity\UserHistory
+services:
+    wealthbot.manager.bill:
+        arguments:
+            - "@doctrine.orm.default_entity_manager"
+            - "@wealthbot.manager.fee"
+        class: App\Manager\BillManager
+    wealthbot.manager.billing_spec:
+        arguments:
+            - "@doctrine.orm.default_entity_manager"
+        class: App\Manager\BillingSpecManager
+    wealthbot.manager.fee:
+        arguments:
+            - "@doctrine.orm.default_entity_manager"
+            - "@wealthbot.manager.user"
+            - "@wealthbot_client.cash.manager"
+            - "@wealthbot_ria.period.manager"
+            - "@wealthbot.manager.billing_spec"
+        class: App\Manager\FeeManager
+        public: true
+    wealthbot.manager.rebalancer_queue:
+        arguments:
+            - "@doctrine.orm.default_entity_manager"
+        class: App\Manager\RebalancerQueueManager
+    wealthbot.manager.twr_calculator:
+        arguments:
+            - "@doctrine.orm.default_entity_manager"
+        class: App\Manager\TwrCalculatorManager
+        public: true
+    wealthbot.twig.rx_extension:
+        class: App\Twig\WealthbotExtension
+        tags:
+            -
+                name: twig.extension
+    wealthbot_admin.acl:
+        arguments:
+            - "@security.token_storage"
+            - "@security.authorization_checker"
+        class: App\Model\Acl
+        public: true
+    wealthbot_admin.twig.acl_extension:
+        class: App\Twig\AclExtension
+        arguments: ["@wealthbot_admin.acl"]
+        tags:
+            -
+                name: twig.extension
+    wealthbot_admin.business_calendar:
+        arguments:
+            - "@doctrine.orm.entity_manager"
+        class: App\Service\BusinessCalendar
+    wealthbot_admin.ce_model_manager:
+        arguments:
+            - "@doctrine.orm.entity_manager"
+            - "%wealthbot_admin.ce_model_class%"
+        class: App\Manager\CeModelManager
+        public: true
+    wealthbot_admin.pas_interface.accounts:
+        arguments:
+            - "@doctrine.orm.entity_manager"
+            - ""
+            - "@wealthbot_admin.business_calendar"
+        class: App\PasInterfaces\AccountsData
+        tags:
+            -
+                name: wealthbot_admin.pas_interface_loader
+    wealthbot_admin.pas_interface.all_loader:
+        class: App\PasInterfaces\AllFilesData
+        parent: wealthbot_admin.pas_interface.base
+        tags:
+            -
+                name: wealthbot_admin.pas_interface_loader
+    wealthbot_admin.pas_interface.base:
+        arguments:
+            - "@doctrine.orm.entity_manager"
+            - ""
+            - "@knp_paginator"
+            - "15"
+        class: App\PasInterfaces\BaseData
+    wealthbot_admin.pas_interface.information:
+        arguments:
+            - ""
+        class: App\Service\PasInterfacesInformation
+        public: true
+    wealthbot_admin.pas_interface.positions:
+        class: App\PasInterfaces\PositionsData
+        parent: wealthbot_admin.pas_interface.base
+        tags:
+            -
+                name: wealthbot_admin.pas_interface_loader
+    wealthbot_admin.pas_interface.prices:
+        class: App\PasInterfaces\PricesData
+        parent: wealthbot_admin.pas_interface.base
+        tags:
+            -
+                name: wealthbot_admin.pas_interface_loader
+    wealthbot_admin.pas_interface.realized_gains:
+        class: App\PasInterfaces\RealizedGainsData
+        parent: wealthbot_admin.pas_interface.base
+        tags:
+            -
+                name: wealthbot_admin.pas_interface_loader
+    wealthbot_admin.pas_interface.securities:
+        class: App\PasInterfaces\SecuritiesData
+        parent: wealthbot_admin.pas_interface.base
+        tags:
+            -
+                name: wealthbot_admin.pas_interface_loader
+    wealthbot_admin.pas_interface.trade_recon:
+        arguments:
+            - "@wealthbot_admin.trade_recon.manager"
+        class: App\PasInterfaces\TradeReconData
+        tags:
+            -
+                name: wealthbot_admin.pas_interface_loader
+    wealthbot_admin.pas_interface.transactions:
+        class: App\PasInterfaces\TransactionsData
+        parent: wealthbot_admin.pas_interface.base
+        tags:
+            -
+                name: wealthbot_admin.pas_interface_loader
+    wealthbot_admin.pas_interface.unrealized_gains:
+        class: App\PasInterfaces\UnrealizedGainsData
+        parent: wealthbot_admin.pas_interface.base
+        tags:
+            -
+                name: wealthbot_admin.pas_interface_loader
+    wealthbot_admin.portfolio_information_manager:
+        arguments:
+            - "@doctrine.orm.entity_manager"
+            - "@wealthbot.manager.fee"
+        class: App\Manager\PortfolioInformationManager
+        public: true
+    wealthbot_admin.securities.form.type:
+        class: App\Form\Type\SecurityFormType
+        tags:
+            -
+                alias: admin_security_form
+                name: form.type
+        public: true
+    wealthbot_admin.securities.form:
+        arguments:
+            - "admin_security_form"
+            - "\\App\\Form\\Type\\SecurityFormType"
+            - ~
+            - []
+        class: Symfony\Component\Form\Form
+        factory: ["@form.factory", "createNamed"]
+        public: true
+    wealthbot_admin.securities.form.handler:
+        arguments:
+            - "@wealthbot_admin.securities.form"
+            - "@request_stack"
+            - "@doctrine.orm.entity_manager"
+            -
+                token_storage: "@security.token_storage"
+        class: App\Form\Handler\SecurityFormHandler
+        public: true
+    wealthbot_admin.security_prices.event_listener:
+        class: App\EventListener\SecurityPriceEventListener
+        tags:
+            -
+                event: prePersist
+                name: doctrine.event_listener
+    wealthbot_admin.trade_recon.manager:
+        arguments:
+            - "@doctrine.orm.entity_manager"
+        class: App\Manager\TradeReconManager
+        public: true
+    wealthbot_admin.user_history.listener:
+        public: true
+        arguments:
+            - "@wealthbot_admin.user_history.manager"
+        class: App\EventListener\UserHistoryEventListener
+        tags:
+            -
+                name: kernel.event_subscriber
+    wealthbot_admin.user_history.manager:
+        arguments:
+            - "@doctrine.orm.entity_manager"
+            - "%wealthbot_admin.user_history.class%"
+            - "@security.token_storage"
+            - "@security.authorization_checker"
+        class: App\Manager\UserHistoryManager
+        public: true
+    wealthbot_admin.validator.fee_tier:
+        arguments:
+            - "@doctrine.orm.entity_manager"
+        class: App\Validator\Constraints\FeeTierValidator
+        tags:
+            -
+                alias: validator.rx_fee_tier
+                name: validator.constraint_validator

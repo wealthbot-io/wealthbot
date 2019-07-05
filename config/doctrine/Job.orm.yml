@@ -1,0 +1,39 @@
+App\Entity\Job:
+  type: entity
+  table: jobs
+  repositoryClass: App\Repository\JobRepository
+  fields:
+    id:
+      type: integer
+      id: true
+      generator:
+        strategy: AUTO
+    name:
+      type: string(100)
+      nullable: false
+    started_at:
+      type: datetime
+      nullable: false
+    finished_at:
+      type: datetime
+      nullable: true
+    is_error:
+      type: boolean
+      nullable: false
+    rebalance_type:
+      type: integer
+      nullable: true
+  manyToOne:
+    user:
+      targetEntity:  App\Entity\User
+      joinColumn:
+        name: user_id
+        referencedColumnName: id
+        onDelete: SET NULL
+      cascade: ['persist']
+  oneToMany:
+    rebalancerActions:
+      targetEntity:  App\Entity\RebalancerAction
+      mappedBy: job
+      cascade: ['persist']
+  lifecycleCallbacks: {  }

@@ -1,0 +1,16 @@
+<script type="text/javascript" src="{{ asset('js/client/client.accounts.js') }}"></script>
+
+
+{% include '/Client/Profile/retirement_account_form.html.twig' with {'form': form} %}
+
+<div class="client-retirement-account-funds">
+    <h3>If you would like personalized recommendations for your <span class="current-account-type">401k</span>, please input all the funds your retirement account offers:</h3>
+
+    <ul class="client-retirement-account-funds-list">
+        {% if ((accountFunds is defined) and (accountFunds is not null)) %}
+            {% include '/Client/Profile/retirement_funds_list.html.twig' with {'funds': accountFunds} %}
+        {% endif %}
+    </ul>
+
+    {% include '/Client/Profile/retirement_account_fund_form.html.twig' with {'form': fundForm} %}
+</div>

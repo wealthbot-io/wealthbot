@@ -1,0 +1,139 @@
+{% extends is_ajax is defined and is_ajax ? '/Client/clear_layout.html.twig' : '/Client/Dashboard/index.html.twig' %}
+
+{% block content %}
+    <div class="box">
+
+        {% block flash_messages %}
+            {% for type, flashMessages in app.session.flashbag.all() %}
+                {% for flashMessage in flashMessages %}
+                    <div class="alert alert-{{ type }}">
+                        {{ flashMessage }}
+                        <a class="close" data-dismiss="alert" href="#">&times;</a>
+                    </div>
+                {% endfor %}
+            {% endfor %}
+        {% endblock %}
+
+
+            <form action="{{ path('wealthbot_client_documents') }}" id="client_document_upload_form" class="form-inline padding-left-10" enctype="multipart/form-data" method="post">
+                {{ form_errors(document_upload_form) }}
+
+                <div class="row">
+
+                    <div class="col-md-6">
+
+                        <div class="row well">
+                        {% if (is_client_view) %}
+                            <div class="col-md-3">
+                                {{ form_label(document_upload_form.file, 'Upload a Document:') }}
+                            </div>
+                            <div class="col-md-6">
+                                {{ form_errors(document_upload_form.file) }}
+                                {{ form_widget(document_upload_form.file, {'attr': {'class': ''}}) }}
+                            </div>
+                        {% else %}
+                            <div class="col-md-5">
+                                <div class="form-group">
+                                    <div class="controls inline-block">
+                                        {{ form_errors(document_upload_form.file) }}
+                                        {{ form_label(document_upload_form.file, 'Upload a Document') }}
+                                        {{ form_widget(document_upload_form.file, {'attr': {'class': 'padding-left-78'}}) }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="form-group">
+                                    <div class="controls">
+                                        {{ form_errors(document_upload_form.is_client_notified) }}
+                                        {{ form_widget(document_upload_form.is_client_notified) }}
+                                        {{ form_label(document_upload_form.is_client_notified) }}
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="controls">
+                                        {{ form_errors(document_upload_form.is_for_all_clients) }}
+                                        {{ form_widget(document_upload_form.is_for_all_clients) }}
+                                        {{ form_label(document_upload_form.is_for_all_clients) }}
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+
+                        <div class="col-md-3">
+                            <input class="btn btn-default"  type="submit" value="Upload"/>
+                        </div>
+
+                     </div>
+
+                    </div>
+
+                </div>
+
+                {{ form_rest(document_upload_form) }}
+            </form>
+
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>{{ knp_pagination_sortable(pagination, 'Type', 'type') }}</th>
+                    <th>{{ knp_pagination_sortable(pagination, 'Source', 'source') }}</th>
+                    <th>{{ knp_pagination_sortable(pagination, 'Date', 'date') }}</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if ria_documents.investment_management_agreement is defined and ria_documents.investment_management_agreement %}
+                    <tr>
+                        <td>
+                            <i class="icon-star icon"></i>
+                            <a href="{{ path('rx_download_document', {'filename': ria_documents.investment_management_agreement.filename}) }}" target="_blank">
+                                {{ ria_documents.investment_management_agreement.originalName }} <i class="icon-download"></i>
+                            </a>
+                        </td>
+                        <td>{{ ria_documents.investment_management_agreement.isApplication ? 'Applications' : 'Document' }}</td>
+                        <td>Advisor</td>
+                        <td>{{ ria_documents.investment_management_agreement.created|date('m/d/Y') }}</td>
+                        <td></td>
+                    </tr>
+                {% endif %}
+                {% if ria_documents.adv is defined and ria_documents.adv %}
+                    <tr>
+                        <td>
+                            <i class="icon-star icon"></i>
+                            <a href="{{ path('rx_download_document', {'filename': ria_documents.adv.filename}) }}" target="_blank">
+                                {{ ria_documents.adv.originalName }} <i class="icon-download"></i>
+                            </a>
+                        </td>
+                        <td>{{ ria_documents.adv.isApplication ? 'Applications' : 'Document' }}</td>
+                        <td>Advisor</td>
+                        <td>{{ ria_documents.adv.created|date('m/d/Y') }}</td>
+                        <td></td>
+                    </tr>
+                {% endif %}
+                {% for client_document in pagination %}
+                    <tr>
+                        <td>
+                            <a href="{{ path('rx_download_document', {'filename': client_document.filename}) }}" target="_blank">
+                                {{ client_document.originalName }} <i class="icon-download"></i>
+                            </a>
+                        </td>
+                        <td>{{ client_document.isApplication ? 'Applications' : 'Document' }}</td>
+                        <td>{{ client_document.owner.hasRole('ROLE_RIA') ? 'Advisor' : 'Client' }}</td>
+                        <td>{{ client_document.created|date('m/d/Y') }}</td>
+                        <td>
+                            {% if not client_document.isApplication %}
+                                <a class="close client-document-delete-btn" href="{{ path('wealthbot_client_document_delete', {'document_id': client_document.id})}}">&times;</a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="pagination pagination-centered">
+            {{ knp_pagination_render(pagination) }}
+        <div>
+    </div>
+{% endblock %}

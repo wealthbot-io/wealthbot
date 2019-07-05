@@ -1,0 +1,60 @@
+App\Entity\AccountContribution:
+    type: entity
+    table: client_account_contribution
+    repositoryClass: App\Repository\AccountContributionRepository
+    fields:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+        account_id:
+            type: integer
+            nullable: false
+        bank_information_id:
+            type: integer
+            nullable: true
+        type:
+            type: string
+            length: 255
+        start_transfer_date:
+            type: date
+            nullable: true
+        amount:
+            type: float
+            nullable: true
+        transaction_frequency:
+            type: smallint
+            nullable: true
+        contribution_year:
+            type: string
+            length: 4
+            nullable: true
+        createdAt:
+            type: datetime
+            gedmo:
+                timestampable:
+                    on: create
+        updatedAt:
+            type: datetime
+            gedmo:
+                timestampable:
+                    on: update
+    oneToOne:
+        account:
+            targetEntity:  App\Entity\ClientAccount
+            joinColumn:
+                name: account_id
+                referencedColumnName: id
+                onDelete: cascade
+            inversedBy: accountContribution
+            cascade: ['persist']
+    manyToOne:
+        bankInformation:
+            targetEntity:  App\Entity\BankInformation
+            joinColumn:
+                name: bank_information_id
+                referencedColumnName: id
+                onDelete: SET NULL
+#            inversedBy: accountContribution
+            cascade: ['all']

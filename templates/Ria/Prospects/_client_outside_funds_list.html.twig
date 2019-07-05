@@ -1,0 +1,76 @@
+{% set with_edit = client.hasApprovedPortfolio ? false : true %}
+
+<table class="table table-bordered shadow">
+    <thead>
+        <tr>
+            {% set employer_financial_institurion = account.financialInstitution | split('(') %}
+            <th colspan="3">{{ employer_financial_institurion[1] | trim(' )') }} {{ account.typeName }} Investment Options</th>
+        </tr>
+        <tr>
+            <th>Symbol</th>
+            <th>Name</th>
+            <th>Asset Class</th>
+            <th>Preferred</th>
+
+            {% if with_edit %}
+                <th></th>
+            {% endif %}
+        </tr>
+    </thead>
+    <tbody>
+        {% if accountSecurities is not empty %}
+            {% for association in accountSecurities %}
+                {% set security_assignment = association.securityAssignment %}
+                <tr>
+                    <td>{{ security_assignment.security.symbol }}</td>
+                    <td>{{ security_assignment.security.name }}</td>
+                    <td>{{ security_assignment.subclass ? security_assignment.subclass.name }}</td>
+                    <td>{{ association.isPreferred ? 'Yes' : 'No' }}</td>
+
+                    {% if with_edit %}
+                        <td>
+                            <a class="edit-client-outside-fund-btn" href="{{ path('rx_ria_prospect_edit_client_outside_fund', {'client_id': client.id, 'account_id': account.id, 'security_id': security_assignment.id }) }}">Edit</a>
+                            |
+                            <a class="remove-client-outside-fund-btn" href="{{ path('rx_ria_prospect_delete_client_outside_fund', {'client_id': client.id, 'account_id': account.id, 'fund_id': security_assignment.security.id }) }}">Delete</a>
+                        </td>
+                    {% endif %}
+                </tr>
+            {% endfor %}
+        {% else %}
+            <tr>
+                <td colspan="4">No funds.</td>
+            </tr>
+        {% endif %}
+    </tbody>
+</table>
+
+{% if with_edit %}
+    <div class="outside-fund-form">
+        {% if form.is_override is defined %}
+            {% if form.vars.value.id is defined %}
+                <form id="edit_client_outside_fund_form" action="{{ path('rx_ria_prospect_edit_client_outside_fund', {'client_id': client.id, 'account_id': account.id, 'security_id': form.vars.value.id}) }}" method="post" >
+            {% else %}
+                <form id="add_client_outside_fund_form" action="{{ path("rx_ria_prospect_create_client_outside_fund", {'client_id': client.id, 'account_id': account.id}) }}" method="post" >
+            {% endif %}
+                {{ form_errors(form) }}
+                <div style="display: none;">
+                    {{ form_rest(form) }}
+                </div>
+                <div>
+                    <a class="edit-client-outside-fund-btn btn" href="{{ path('rx_ria_prospect_edit_client_outside_fund', {'client_id': client.id, 'account_id': account.id, 'security_id': form.vars.value.id }) }}">Cancel</a>
+                    <input type="submit" class="btn btn-primary" name='Override' value="Override" />
+                </div>
+            </form
+        {% else %}
+            {% if form.vars.data and form.vars.data.id is not null  %}
+                {% include '/Ria/Prospects/_edit_client_outside_fund_form.html.twig' with {
+                    'form': form, 'client': client, 'account': account
+                } %}
+            {% else %}
+                {% include '/Ria/Prospects/_client_outside_fund_form.html.twig' with {
+                    'form': form, 'client': client, 'account': account
+                } %}
+            {% endif %}
+        {% endif %}
+    </div>
+{% endif %}

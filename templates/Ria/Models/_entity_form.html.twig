@@ -1,0 +1,32 @@
+<form id="ria_model_form" class="ria-model-entity-form"
+      action="{{ path('rx_ria_models_create_entity', {'slug': model.slug}) }}"
+      data-update-url="{{ path('rx_ria_models_update_entity_form') }}"
+      data-slug="{{ app.request.attributes.get('slug') }}" method="post">
+
+    <div class="form-group">
+        {{ form_label(form.assetClass, 'Asset Class') }}
+        <div class="controls">
+            {{ form_errors(form.assetClass) }}
+            {{ form_widget(form.assetClass) }}
+        </div>
+    </div>
+
+    <div class="form-fields">
+        {% include '/Ria/Models/_entity_form_fields.html.twig' with {'form': form} %}
+    </div>
+
+    <div class="form-group">
+        {{ form_label(form.percent) }}
+        <div class="controls">
+            {{ form_errors(form.percent) }}
+			<div class="input-group">
+                {{ form_widget(form.percent) }}
+                <span class="input-group-addon">%</span>
+			</div>
+        </div>
+    </div>
+
+    {{ form_row(form._token) }}
+	<br />
+    <input class="btn btn-default"  type="submit" name="submit" value="Add"/>
+</form>

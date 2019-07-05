@@ -1,0 +1,45 @@
+{% extends '/Client/layout_styled.html.twig' %}
+
+{% block javascripts %}
+        {{ parent() }}
+        <script src="{{ asset('js/ria/ria.model.chart.js') }}"></script>
+        <script src="{{ asset('js/client/client.dashboard.gainlosses.js') }}"></script>
+        <script src="{{ asset('js/client/client.account_selector.js') }}"></script>
+        <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+        <script src="{{ asset('') }}"></script>
+{% endblock %}
+
+{% block body %}
+    {% set is_client_view_value = is_client_view is defined ? is_client_view : true %}
+
+    <div class="container-fluid">
+
+        <div class="row margin-top-25">
+            <div class="col-md-6">
+                <img class="img-rounded" width="150px" src="{{ layout_variables.ria_logo }}"/>
+            </div>
+            <div class="col-md-6 right-text">
+                <a class="btn btn-default"  href="{{ path('logout') }}">Logout</a>
+            </div>
+        </div>
+
+        <div class="row">
+
+            {% include '/Client/Dashboard/_nav.html.twig' with {'action' : layout_variables.action, 'is_client_view': is_client_view_value} %}
+
+            <div id="content" class="col-md-10 margin-top-7">
+
+                <hr />
+                {% block content %}
+                    {% include '/Client/Dashboard/_index_content.html.twig' with {
+                        'account_values': account_values,
+                        'is_init_rebalance': is_init_rebalance,
+                        'client': client,
+                        'is_client_view': is_client_view,
+                        'sas_cash_form': sas_cash_form
+                    } %}
+                {% endblock %}
+            </div><!--/.fluid-container-->
+        </div>
+    </div>
+{% endblock %}

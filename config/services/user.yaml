@@ -1,0 +1,86 @@
+parameters:
+    wealthbot_user.ria.registration.form.handler.class: "App\\Form\\Handler\\RiaRegistrationFormHandler"
+    wealthbot_user.ria.registration.form.class:         "App\\Form\\Type\\RiaRegistrationType"
+    wealthbot_user.client.registration.form.handler.class: App\Form\Handler\ClientRegistrationFormHandler
+    wealthbot_user.client.registration.form.class: "App\\Form\\Type\\ClientRegistrationFormType"
+    wealthbot_user.document_class: App\Entity\Document
+    wealthbot_user.subdomain_manager.class: App\Entity\RiaCompanyInformation
+
+services:
+    wealthbot_user.registration.ria.form:
+        factory: ["@form.factory", createNamed]
+        class: Symfony\Component\Form\Form
+        arguments: ["%fos_user.registration.form.name%", "%wealthbot_user.ria.registration.form.class%", null, [] ]
+        public: true
+    wealthbot_user.registration.ria.form.handler:
+        class: "%wealthbot_user.ria.registration.form.handler.class%"
+        arguments: ["@wealthbot_user.registration.ria.form", "@request_stack", "@fos_user.user_manager", "@fos_user.mailer", "@fos_user.util.token_generator", "@wealthbot.manager.fee"]
+        public: true
+    wealthbot_user.update_password.form:
+        factory: ["@form.factory",createNamed]
+        class: Symfony\Component\Form\Form
+        arguments: ['update_password_form', "@wealthbot_user.update_password.form.type", null, { validation_groups: ['password', 'ChangePassword', 'Default'] } ]
+        public: true
+    wealthbot_user.update_password.form.type:
+        class: App\Form\Type\UpdatePasswordFormType
+        tags:
+            - { name: form.type, alias: update_password }
+
+    wealthbot_user.update_password.form.handler:
+        class: App\Form\Handler\UpdatePasswordFormHandler
+        arguments: ["@wealthbot_user.update_password.form", "@request_stack", "@fos_user.user_manager"]
+
+    wealthbot_user.document_manager:
+        class: App\Manager\DocumentManager
+        arguments: ["@doctrine.orm.entity_manager", "%wealthbot_user.document_class%", "@router"]
+        public: true
+
+    wealthbot_user.subdomain_manager:
+        class: App\Manager\SubdomainManager
+        arguments: ["@doctrine.orm.entity_manager", "@router", "%wealthbot_user.subdomain_manager.class%", "%site_domain%"]
+        public: true
+    wealthbot_user.twig.subdomain_routing_extension:
+        class: App\Twig\SubdomainRoutingExtension
+        arguments: ["@wealthbot_user.subdomain_manager"]
+        tags:
+            - { name: twig.extension }
+
+    wealthbot_user.twig.document_extension:
+        class: App\Twig\DocumentExtension
+        arguments: ["@wealthbot_user.document_manager"]
+        tags:
+            - { name: twig.extension }
+
+    wealthbot.manager.user:
+        public: true
+        class: App\Manager\UserManager
+        arguments:
+            - "@fos_user.util.password_updater"
+            - "@fos_user.util.canonical_fields_updater"
+            - "@fos_user.object_manager"
+            - App\Entity\User
+
+    wealthbot_user.listener.serializer:
+        class: App\Service\SerializerSubscriber
+        tags:
+            - { name: jms_serializer.event_subscriber, direction: serialization, format: json }
+        arguments:
+            - "@doctrine.orm.entity_manager"
+            - "@wealthbot_client.cash.manager"
+
+
+    wealthbot_user.registration.client.form.type:
+        class: "%wealthbot_user.client.registration.form.class%"
+        tags:
+            - { name: "form.type", alias: "client_registration" }
+        public: true
+
+    wealthbot_user.registration.client.form:
+        factory: ["@form.factory", "createNamed"]
+        class: Symfony\Component\Form\Form
+        arguments: ["client_registration", "\\App\\Form\\Type\\ClientRegistrationFormType", null, [] ]
+        public: true
+    wealthbot_user.registration.client.form.handler:
+        class: "%wealthbot_user.client.registration.form.handler.class%"
+        arguments: ["@service_container", "@wealthbot_user.registration.client.form", "@fos_user.user_manager", "@fos_user.mailer", "@fos_user.util.token_generator"]
+        public: true

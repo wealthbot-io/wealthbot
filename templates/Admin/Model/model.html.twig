@@ -1,0 +1,113 @@
+{% extends '/Admin/layout.html.twig' %}
+
+{% block javascripts %}
+    {{ parent() }}
+        <script type="text/javascript" src="{{ asset('js/admin/admin.models.js' )}}"></script>
+{% endblock %}
+
+{% block body %}
+
+    <div class="navbar navbar-inverse">
+        <div class="navbar-inner">
+            <div class="container">
+
+                <!-- Everything you want hidden at 940px or less, place within here -->
+                <div class="navbar-collapse">
+                    <!-- .nav, .navbar-search, .navbar-form, etc -->
+                    <ul class="nav navbar-nav">
+                        {{ render(controller('App\Controller\Admin\ModelController:portfolioMenu', {'selected_strategy_id': selected_strategy.id })) }}
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="btn-group" data-toggle="buttons-radio">
+        {{ render(controller('App\Controller\Admin\ModelController:modelMenu', {'strategySlug' : selected_strategy.slug, 'modelSlug': model.slug })) }}
+    </div>
+
+    <div>
+        <a class="edit-model-btn" href="{{ path('rx_admin_models_edit_model', {'id': model.id}) }}">Edit</a>
+        <a class="delete-model-btn" href="{{ path('rx_admin_models_delete_model', {'id': model.id}) }}">Delete</a>
+    </div>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Asset Class</th>
+            <th>Subclass</th>
+            <th>Symbol</th>
+            <th>ETF</th>
+            <th>Muni Substitution</th>
+            <th>Muni Substitution Symbol</th>
+            <th>Percent</th>
+
+            {% if is_permitted('edit') %}
+                <th></th>
+            {% endif %}
+        </tr>
+        </thead>
+        <tbody id="model_entities_list">
+        {% set totalPercent = 0 %}
+
+        {% if modelEntities is not empty %}
+            {% for entity in modelEntities %}
+                <tr data-row="model-{{ entity.id }}">
+                    <td>{{ entity.assetClass.name }}</td>
+                    <td>{{ entity.subclass.name }}</td>
+                    <td>{{ entity.securityAssignment.security.symbol }}</td>
+                    <td>{{ entity.securityAssignment.security.name }}</td>
+                    <td>{{ entity.muniSubstitution ? entity.muniSubstitution.security.name : '' }}</td>
+                    <td>{{ entity.muniSubstitution ? entity.muniSubstitution.security.symbol : '' }}</td>
+                    <td class="percent">{{ entity.percent|number_format(2, '.', ',') }} %</td>
+
+                    {% if is_permitted('edit') %}
+                        <td>
+                            <a href="{{ path('rx_admin_model_edit', {'id': entity.id}) }}" class="edit-btn">
+                                <i class="icon-pencil"></i> Edit
+                            </a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;
+                            <a href="{{ path('rx_admin_model_delete', {'id': entity.id}) }}" class="delete-btn">
+                                <i class="icon-trash"></i> Delete
+                            </a>
+                        </td>
+                    {% endif %}
+                </tr>
+
+                {% set totalPercent = totalPercent + entity.percent %}
+            {% endfor %}
+        {% else %}
+            <tr class="empty">
+                <td colspan="8">No Asset Classes Selected.</td>
+            </tr>
+        {% endif %}
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="5"></td>
+                <td>Total:</td>
+                <td class="total-percent" colspan="3"><strong>{{ totalPercent|number_format(2, '.', ',') }} %</strong></td>
+            </tr>
+        </tfoot>
+    </table>
+
+    {% if is_permitted('edit') %}
+        {% include '/Admin/Model/_form.html.twig' with {'form': form, 'model': model} %}
+    {% endif %}
+
+    <div id="modal_dialog" class="modal longModal">
+        <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h3></h3>
+        </div>
+        <div class="modal-body">
+
+        </div>
+        <div class="modal-footer">
+            <button type="submit" class="btn save-modal-form-btn btn-primary">Save</button>
+            <a href="#" class="btn btn-default"  data-dismiss="modal" aria-hidden="true">Cancel</a>
+        </div>
+        </div>
+    </div>
+{% endblock %}

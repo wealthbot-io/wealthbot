@@ -1,0 +1,54 @@
+App\Entity\DocumentOwnerSignature:
+    type: entity
+    table: document_owner_signatures
+    repositoryClass: App\Repository\DocumentOwnerSignatureRepository
+    fields:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+        document_signature_id:
+            type: integer
+        owner_client_user_id:
+            type: integer
+            nullable: true
+        owner_contact_id:
+            type: integer
+            nullable: true
+        status:
+            type: string
+            length: 45
+        created:
+            type: date
+            gedmo:
+                timestampable:
+                    on: create
+        updated:
+            type: datetime
+            gedmo:
+                timestampable:
+                    on: update
+    manyToOne:
+        documentSignature:
+            targetEntity:  App\Entity\DocumentSignature
+            inversedBy: ownerSignatures
+            joinColumn:
+                name: document_signature_id
+                referencedColumnName: id
+                onDelete: cascade
+            cascade: ['persist']
+        clientOwner:
+            targetEntity:  App\Entity\User
+            joinColumn:
+                name: owner_client_user_id
+                referencedColumnName: id
+                onDelete: cascade
+            cascade: ['persist']
+        contactOwner:
+            targetEntity:  App\Entity\ClientAdditionalContact
+            joinColumn:
+                name: owner_contact_id
+                referencedColumnName: id
+                onDelete: cascade
+            cascade: ['persist']

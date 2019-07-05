@@ -1,0 +1,9 @@
+{% block subject %}
+        Portfolio was suggested.
+{% endblock %}
+{% block body_html %}
+{% spaceless %}
+        {{ 'Portfolio' }} <strong>{{ '%portfolio%' | trans({ '%portfolio%': portfolio })  }}</strong> {{ 'was suggested a client' }} <strong>{{ '%client%' | trans({ '%client%': client.username}) }}</strong>.
+{% endspaceless %}
+{% endblock %}
+{% block body_text %}{% endblock %}

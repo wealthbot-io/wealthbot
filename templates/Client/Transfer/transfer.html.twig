@@ -1,0 +1,14 @@
+{% extends '/Client/Transfer/index.html.twig' %}
+
+{% block top_content %}
+    {{ render(controller('App\Controller\Client\TransferController:progressMenu', { 'account': account, 'step': 'transfer' })) }}
+{% endblock %}
+
+{% block main_content %}
+    {% include '/Client/Transfer/_transfer_form.html.twig' with {
+        'form': form,
+        'account': account,
+        'current_account': current_account,
+        'account_index': account_index
+    } %}
+{% endblock %}

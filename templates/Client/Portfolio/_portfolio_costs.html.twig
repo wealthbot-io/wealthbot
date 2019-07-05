@@ -1,0 +1,94 @@
+<div class="box-header shadow">
+    <h2>Your Costs</h2>
+</div>
+<div class="box-content shadow">
+    {%  if billing_spec is not empty and billing_spec.type == constant("App\\Entity\\BillingSpec::TYPE_FLAT") %}
+
+        {% if billing_spec.fees|length > 0 %}
+            {% set fee = billing_spec.fees[0] %}
+            {% set bottom = 0 %}
+
+            <table class="table ">
+                <thead>
+                    <tr>
+                        <th>Fee Amount:</th>
+                        {#<th colspan="2" class="center-text">Amount of Assets Managed:</th>#}
+                    </tr>
+                </thead>
+                    <tr>
+                        <td>$ {{ fee.feeWithoutRetirement | number_format(0, '.', ',') }} / year</td>
+                    </tr>
+            </table>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <span class="label label-important">Minimum Fee: ${{ ria_company_information.minimumBillingFee|number_format(2, '.', ',') }}</span>
+                </div>
+                {% if action == 'view_and_test' or ria_company_information.isShowExpectedCosts %}
+                    <div class="col-md-6">
+                        <strong>Fund Expenses:</strong> {{ '%.2f' | format(fund_expenses) }}%/year <br/>
+                        {% if commissions is defined and commissions %}
+                            <strong>Estimated Commissions:</strong> {{ commissions }} Per Trade (Estimate)
+                        {% endif %}
+                    </div>
+                {% endif %}
+            </div>
+        {% endif %}
+
+    {% else %}
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th width="30%">Fee Amount: {#code_v2: NOT DELETE THIS CODE #}{#(Without a Retirement Plan)#}</th>
+                {#code_v2: NOT DELETE THIS CODE #}
+                {#{% if is_allow_retirement_plan %}#}
+                {#<th>Fee (With a Retirement Plan)</th>#}
+                {#{% endif %}#}
+                <th> &nbsp; </th>
+                <th colspan="3" class="text-right">Amount of Assets Managed:</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% set bottom = 0 %}
+            {% if billing_spec.fees is defined %}
+                {% for fee in billing_spec.fees %}
+                    <tr>
+                        <td class="fee-value">{{ (fee.feeWithoutRetirement*100) | number_format(2, '.', ',') }}%</td>
+                        <td> &nbsp; </td>
+                        {#code_v2: NOT DELETE THIS CODE #}
+                        {#{% if is_allow_retirement_plan %}#}
+                        {#<td class="fee-value">{{ fee.fee_with_retirement }}</td>#}
+                        {#{% endif %}#}
+                        {% if fee.tierTop == 1000000000000 %}
+                            <td class="tier-value">$ {{ bottom | number_format(2, '.', ',') }} </td>
+                            <td> + </td>
+                            <td> </td>
+                        {% else %}
+                            <td class="tier-value">$ {{ bottom | number_format(2, '.', ',') }} </td>
+                            <td> &#8211; </td>
+                            <td class="tier-value">$ {{ fee.tierTop | number_format(2, '.', ',') }} </td>
+                        {% endif %}
+                    </tr>
+                    {% set bottom = fee.tierTop + 0.01 %}
+                {% endfor %}
+            {% endif %}
+            </tbody>
+        </table>
+
+        <div class="row">
+            <div class="col-md-6">
+                <span class="label label-important">Minimum Fee: ${{ ria_company_information.minimumBillingFee|number_format(2, '.', ',') }}</span>
+            </div>
+            {% if action == 'view_and_test' or ria_company_information.isShowExpectedCosts %}
+                <div class="col-md-6">
+                    <strong>Fund Expenses:</strong> {{ '%.2f' | format(fund_expenses) }}%/year <br/>
+                    {% if commissions is defined and commissions %}
+                        <strong>Estimated Commissions:</strong> {{ commissions }} Per Trade (Estimate)
+                    {% endif %}
+                </div>
+            {% endif %}
+        </div>
+
+    {% endif %}
+</div>

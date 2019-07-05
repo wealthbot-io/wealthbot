@@ -1,0 +1,30 @@
+App\Entity\Group:
+    type: entity
+    table: group_names
+    repositoryClass: App\Repository\GroupRepository
+    uniqueConstraints:
+        unique_group_idx:
+            columns: [ name, owner_id ]
+    fields:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+        owner_id:
+            type: integer
+            nullable: true
+    manyToOne:
+        owner:
+            targetEntity:  App\Entity\User
+            inversedBy: ownGroups
+            joinColumn:
+                name: owner_id
+                referencedColumnName: id
+                onDelete: cascade
+            cascade: ['persist']
+    manyToMany:
+        users:
+            targetEntity:  App\Entity\User
+            mappedBy: groups
+    lifecycleCallbacks: {  }

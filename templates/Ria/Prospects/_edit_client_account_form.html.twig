@@ -1,0 +1,38 @@
+{% set group = form.vars.value.groupName %}
+
+<form id="edit_client_account_form" action="{{ path("rx_ria_prospect_edit_client_account", {'client_id': client.id, 'account_id': form.vars.value.id}) }}" method="post"
+      data-update-url="{{ path('rx_ria_prospect_update_client_account_form', {'client_id': client.id}) }}"
+      data-update-owners-url="{{ path('rx_ria_prospect_update_client_account_owners_form', {'client_id': client.id}) }}" class="form-horizontal">
+
+    <div class="form-group">
+        {{ form_label(form.group, 'Activity')}}
+        <div>
+            {{ form_errors(form.group) }}
+            {{ form_widget(form.group) }}
+        </div>
+    </div>
+
+    <div class="advanced-fields">
+        {% include '/Ria/Prospects/_account_form_fields.html.twig' with { 'form': form } %}
+    </div>
+
+    <div class="form-group">
+        {{ form_errors(form.consolidate) }}
+        <div>
+            <label for="{{ form.consolidate.vars.id }}">
+                {{ form_widget(form.consolidate) }}
+                Consolidate
+            </label>
+        </div>
+    </div>
+
+    <div class="account-owners-fields">
+        {% include '/Ria/Prospects/_account_owners_fields.html.twig' with { 'form': form } %}
+    </div>
+
+    {% include '/Ria/Prospects/_account_money_values_fields.html.twig' with { 'form': form, 'group' : group } %}
+
+    {{ form_rest(form) }}
+    <a class="btn cancel-edit-client-account-btn" href="javascript:void(0)">Cancel</a>
+    <input class="btn btn-info" type="submit" name="submit" value="Update" />
+</form>

@@ -1,0 +1,18 @@
+{% extends '/Ria/Dashboard/show_client.html.twig' %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('js/ria/ria.dashboard.clientPortfolio.js') }}"></script>
+{% endblock %}
+
+{% block client_menu %}
+    {% include '/Client/Dashboard/_nav.html.twig' with {
+        'action' : 'Account Management', 'is_client_view': false
+    } %}
+{% endblock %}
+
+{% block content %}
+    {{ render(controller('App\Controller\Client\DashboardController:accountManagement',{
+        'active_tab': 'your_portfolio', 'is_clear_layout': true
+    })) }}
+{% endblock %}

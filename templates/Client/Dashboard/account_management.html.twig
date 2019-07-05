@@ -1,0 +1,206 @@
+{% extends is_clear_layout is defined and is_clear_layout ? '/Client/clear_layout.html.twig' : '/Client/Dashboard/index.html.twig' %}
+
+{% block javascripts %}
+    {% if not is_clear_layout %}
+        {{ parent() }}
+
+        <script type="text/javascript" src="/js/inputmask/jquery.inputmask.js"></script>
+        <script type="text/javascript" src="/js/inputmask/jquery.inputmask.extensions.js"></script>
+        <script type="text/javascript" src="{{ asset('js/client/client.profile.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('js/client/client.accounts.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('js/client/client.portfolio.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('js/client/client.dashboard.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('js/client/client.transfer.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('js/client/client.dashboard.accountManagement.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('js/client/client.profile.step1.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('js/client/client.changeProfile.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('js/client/client.billing.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('js/client/client.performance.js') }}"></script>
+        <script type="text/javascript">
+            $(function() {
+                var changeProfileUrl = '{{ (ajax_url is defined and ajax_url) ? ajax_url : "" }}';
+                if (changeProfileUrl) {
+                    ajaxChangeProfile(changeProfileUrl);
+                }
+            });
+        </script>
+    {% endif %}
+{% endblock %}
+
+{% block page_title %}<h1>Dashboard - Account Management</h1>{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="client-account-management">
+            <ol type="1" class="actions-list span">
+                {#code_v2: NOT DELETE THIS CODE #}
+                {#<li>#}
+                    {#<a href="javascript:void(0)" class="black-link">Change outside retirement account information</a>#}
+                    {#<div class="action-info">#}
+                        {#{% if retirement_accounts|length > 0 %}#}
+                            {#{% for account in retirement_accounts %}#}
+                                {#<label class="radio">#}
+                                    {#<input type="radio" class="edit-retirement-account-info select-account" name="selected_retirement_account" data-url="{{ path('rx_client_dashboard_edit_retirement_account_info', { 'account_id': account.id }) }}" />#}
+                                    {#<span>{{ account.accountNumber }} - {{ account.accountDescription }}</span>#}
+                                {#</label>#}
+                            {#{% endfor %}#}
+                        {#{% else %}#}
+                            {#<p class="empty">You do not have the appropriate accounts.</p>#}
+                        {#{% endif %}#}
+                    {#</div>#}
+                {#</li>#}
+
+                <li>
+                    <a href="{{ path('rx_client_change_profile_index') }}" class="change-profile-btn black-link">Manage account settings</a>
+                </li>
+                <li>
+                    <a class="open-or-transfer-account-btn black-link" href="{{ path('rx_client_dashboard_new_account') }}">Open, transfer, or rollover a new account</a>
+                </li>
+                <li>
+                    <a href="javascript:void(0)" class="black-link">Manage account contributions</a>
+                    <div class="contribution-accounts-list action-info">
+                        {% if contribution_distribution_accounts|length > 0 %}
+                            {% for item in contribution_distribution_accounts %}
+                                {% set account = item.account %}
+                                <label class="radio">
+                                    <input type="radio" class="change-account-contribution" name="selected_contribution_account" />
+                                    <span>{{ account.accountNumber }} - {{ account.accountDescription }}</span>
+                                </label>
+                                <div class="contribute-account-action sub-list">
+                                    <label class="radio">
+                                        <input type="radio" class="select-contribute-account" data-url="{{ path('rx_client_dashboard_account_contribution', {'account_id': account.id, 'type': 'one_time'}) }}" name="contribute_account_{{ account.id }}" /> A one-time contribution
+                                    </label>
+                                    {% if account.hasAutoInvestContribution %}
+                                        <label class="radio">
+                                            <input type="radio" class="select-contribute-account" data-url="{{ path('rx_client_dashboard_account_contribution', {'account_id': account.id, 'type': 'update'}) }}" name="contribute_account_{{ account.id }}" /> Update existing auto-invest contribution instructions
+                                        </label>
+                                    {% else %}
+                                        <label class="radio">
+                                            <input type="radio" class="select-contribute-account" data-url="{{ path('rx_client_dashboard_account_contribution', {'account_id': account.id, 'type': 'create'}) }}" name="contribute_account_{{ account.id }}" /> Create auto-invest contribution instructions
+                                        </label>
+                                    {% endif %}
+                                </div>
+                            {% endfor %}
+                        {% else %}
+                            <p class="empty">You do not have the appropriate accounts.</p>
+                        {% endif %}
+                    </div>
+                </li>
+
+                <li>
+                    <a href="javascript:void(0)" class="black-link">Manage account distributions</a>
+                    <div class="action-info">
+                        {% if contribution_distribution_accounts|length > 0 %}
+                            {% for item in contribution_distribution_accounts %}
+                                {% set account = item.account %}
+                                <label class="radio">
+                                    <input type="radio" class="change-account-distribution" name="selected_distribution_account" />
+                                    <span>{{ account.accountNumber }} - {{ account.accountDescription }}</span>
+                                </label>
+                                <div class="distribute-account-action sub-list">
+                                    <label class="radio">
+                                        <input type="radio" class="select-distribute-account" data-url="{{ path('rx_client_dashboard_account_distribution', {'account_id': account.id, 'type': 'one_time'}) }}" name="distribute_account_{{ account.id }}" /> A one-time distribution
+                                    </label>
+                                    <label class="radio">
+                                        <input type="radio" class="select-distribute-account" data-url="{{ path('rx_client_dashboard_account_distribution', {'account_id': account.id, 'type': 'scheduled'}) }}" name="distribute_account_{{ account.id }}" />
+                                        {% if item.has_scheduled_distribution %}
+                                            Update existing auto-distribution instructions
+                                        {% else %}
+                                            Create auto-distribution instructions
+                                        {% endif %}
+
+                                    </label>
+                                </div>
+                            {% endfor %}
+                        {% else %}
+                            <p class="empty">You do not have the appropriate accounts.</p>
+                        {% endif %}
+                    </div>
+                </li>
+
+                <li>
+                    <a href="javascript:void(0)" class="black-link">Manage beneficiaries</a>
+                    <div class="action-info">
+                        {% if beneficiaries_accounts|length > 0 %}
+                            {% for account in beneficiaries_accounts %}
+                                <label class="radio">
+                                    <input type="radio" class="account-beneficiaries select-account" name="selected_beneficiaries_account" data-url="{{ path('rx_client_dashboard_account_beneficiaries', { 'account_id': account.id }) }}" />
+                                    <span>{{ account.accountNumber }} - {{ account.accountDescription }}</span>
+                                </label>
+                            {% endfor %}
+                        {% else %}
+                            <p class="empty">You do not have the appropriate accounts.</p>
+                        {% endif %}
+                    </div>
+                </li>
+
+                <li>
+                    <a class="change-address-btn black-link" href="{{ path('rx_client_dashboard_change_address') }}">Update your address</a>
+                </li>
+
+                <li>
+                    <a href="javascript:void(0)" class="black-link">Manage bank information</a>
+                    <div class="action-info def-form"  data-bank-info-form="{{ bank_info_form | escape }}">
+                        <div class="inner-ch">
+                            <div class="bank-accounts-list">
+                                {% for item in bank_accounts %}
+                                    {% include '/Client/Dashboard/_bank_account_item.html.twig' with { 'bank_account': item } %}
+                                {% endfor %}
+                            </div>
+                            <a class="add-new-bank-btn" href="javascript:void(0);">+ Add New Bank</a>
+                            <div class="add-new-bank-form"></div>
+                        </div>
+                    </div>
+                </li>
+
+                {% if client.ria.riaCompanyInformation.isStraightThroughProcessing and not is_ria_client_view %}
+                    <li>
+                        <a class="change-portfolio-btn black-link" href="{{ path('rx_client_dashboard_change_portfolio') }}">Change Your Portfolio</a>
+                    </li>
+                {% endif %}
+
+                {% if is_ria_client_view %}
+                    <li>
+                        <a href="javascript:void(0)" class="black-link">Close client's account(s)</a>
+                        <div class="action-info" data-action-url="{{ path('rx_client_dashboard_close_accounts') }}">
+                            {% if all_accounts|length > 0 %}
+                                {% for account in all_accounts %}
+                                    <label class="checkbox">
+                                        <input type="checkbox" class="close-selected-account" name="closing_accounts_ids[]" value="{{ account.id }}" />
+                                        {{ account.accountNumber }} - {{ account.accountDescription }}
+                                    </label>
+                                {% endfor %}
+                            {% else %}
+                                <p class="empty">You do not have the appropriate accounts.</p>
+                            {% endif %}
+                        </div>
+                    </li>
+                {% endif %}
+            </ol>
+        </div>
+    </div>
+
+    <hr/>
+    <div id="result_container"></div>
+
+    <div id="modal_dialog" class="modal longModal" style="width:auto;">
+
+        <div class="modal-content">
+
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3></h3>
+            </div>
+            <div class="modal-body">
+
+            </div>
+
+            <div class="modal-footer">
+                <button type="submit" class="btn save-modal-form-btn btn-primary">Save</button>
+                <a href="#" class="btn btn-default"  data-dismiss="modal" aria-hidden="true">Cancel</a>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}

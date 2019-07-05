@@ -1,0 +1,105 @@
+{% extends '/Client/layout_styled.html.twig' %}
+
+{% block javascripts %}
+    {{ parent() }}
+        <script src="{{ asset('/js/ria/ria.model.chart.js') }}"></script>
+        <script src="{{ asset('/js/client/client.portfolio.js') }}"></script>
+{% endblock %}
+
+{% block flash_messages %}
+    {% if is_final or (is_risks_test is defined and is_risks_test) %}
+        {{ parent() }}
+        {% if is_final %}
+            <div class="save-and-logout">
+                <a class="btn btn-default"  id="reg_save_btn" href="{{ path('logout') }}">Logout</a>
+                <span class="help-block">We'll save your progress.</span>
+            </div>
+        {% endif %}
+    {% else %}
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    {{ parent() }}
+                    <div class="alert alert-success">
+                        Congratulations! We have been notified you have reached this stage of the process and will contact you shortly to discuss your portfolio with you.
+                        <a class="close" data-dismiss="alert" href="#">&times;</a>
+                    </div>
+                </div>
+                <div class="save-and-logout">
+                    <a class="btn btn-default"  id="reg_save_btn" href="{{ path('logout') }}">Logout</a>
+                    <span class="help-block">We'll save your progress.</span>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}
+
+{% block body %}
+    <div  class="center-text">
+        {% if is_risks_test is defined and is_risks_test %}
+            <h1>Suggested Portfolio</h1>
+        {% else %}
+            <h1>{{ is_final ? 'Approve Your Portfolio' : 'Your Personalized Portfolio' }}</h1>
+        {% endif %}
+    </div>
+
+    {% if is_use_qualified_models %}
+        {% if is_risks_test is defined and is_risks_test %}
+            <div align="center">
+                <a href="{{ path('rx_ria_risks_test_result', { is_qualified: 1 }) }}" class="qualified">Qualified</a>
+                &nbsp;|&nbsp;
+                <a href="{{ path('rx_ria_risks_test_result', { is_qualified: 0 }) }}">Non-Qualified</a>
+            </div>
+        {% else %}
+            <div align="center">
+                <a href="{{ path('rx_client_portfolio', { is_qualified: 1 }) }}" class="qualified">Qualified</u></a>
+                &nbsp;|&nbsp;
+                <a href="{{ path('rx_client_portfolio', { is_qualified: 0 }) }}">Non-Qualified</a>
+            </div>
+        {% endif %}
+    {% endif %}
+
+    {% include '/Client/Portfolio/_portfolio.html.twig' with {
+        'portfolio_information': portfolio_information,
+        'ria_company_information': ria_company_information,
+        'has_retirement_account': has_retirement_account,
+        'client': client,
+        'action': action
+    } %}
+
+    {% if client_accounts is defined and client_accounts|length > 0 %}
+        {% include '/Client/Portfolio/_accounts_list.html.twig' with {
+            'client': client,
+            'client_accounts': client_accounts,
+            'total': total,
+            'with_edit': false,
+            'show_sas_cash': show_sas_cash
+        } %}
+    {% endif %}
+
+    {% if is_risks_test is defined and is_risks_test %}
+        <div class="form-actions">
+            <a class="btn btn-default"  href="{{ path('rx_ria_risks_test') }}">Back</a>
+        </div>
+    {% endif %}
+
+    {% if is_final %}
+        <p class="center-text port-acceptance">
+            By accepting this portfolio, you are agreeing to our <a href="{{ documents['ria_investment_management_agreement'] }}" target="_blank">Investment Management Agreement</a>
+        </p>
+
+        <form class="form-inline center-text" action="{{ path('rx_client_accept_final_portfolio') }}">
+            {{ form_label(form.name, 'Full Name:') }}
+            {{ form_widget(form.name, { 'attr': { 'class': 'input-xlarge' } }) }}
+            {{ form_errors(form.name) }}
+
+            <span class="date">Date:</span> {{ signing_date|date('m/d/Y') }}
+
+            <div class="form-actions row">
+                <div class="center-text">
+                    <input class="btn btn-default"  type="submit" name="Accept" value="Accept" />
+                </div>
+            </div>
+        </form>
+    {% endif %}
+{% endblock %}

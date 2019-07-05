@@ -1,0 +1,78 @@
+App\Entity\Admin\Fee:
+    properties:
+        fee_with_retirement:
+            - Range:
+                min: 0
+                max: 1
+                groups: [tier]
+            - Range:
+                min: 0
+                groups: [flat]
+
+            - Type:
+                type: float
+                groups: [tier, flat]
+
+        fee_without_retirement:
+            - Range:
+                min: 0
+                max: 1
+                groups: [tier]
+            - Type:
+                type: float
+                groups: [tier, flat]
+
+        tier_bottom:
+            - Range:
+                min: 0
+                groups: [tier]
+
+            - Type:
+                type: float
+                groups: [tier, flat]
+
+        tier_top:
+            - Range:
+                min: 0
+                groups: [tier]
+
+            - Type:
+                type: float
+                groups: [tier, flat]
+
+App\Entity\Admin\Subclass:
+    properties:
+        name:
+            - NotBlank: ~
+        expected_performance:
+            - NotBlank: ~
+            - Range:
+                min: 0
+                max: 100
+
+App\Entity\Admin\State:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: { fields: [name, abbr] }
+
+App\Entity\Admin\Security:
+    properties:
+        expense_ratio:
+            - Range:
+                min: 0.0001
+                max: 1
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: { fields: [symbol] }
+
+
+App\Entity\Admin\BillingSpec:
+    properties:
+        name:
+            - NotNull: ~
+            - Length:
+                min: 2
+                max: 255
+        minimalFee:
+            - NotNull: ~
+            - NotBlank: ~
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: { fields: [name, owner] }

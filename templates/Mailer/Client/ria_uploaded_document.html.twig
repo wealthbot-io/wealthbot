@@ -1,0 +1,18 @@
+{% extends '/Mailer/Client/_client_layout.html.twig' %}
+
+{% block subject %}
+    {% autoescape false %}
+    Your Advisor Uploaded a Document
+    {% endautoescape %}
+{% endblock %}
+
+{% block message %}
+    {% if (ria.riaCompanyInformation.slug) %}
+        {% set login_url = subdomain_url(ria.riaCompanyInformation, 'login', {'redirect_url': url('wealthbot_client_documents')}) %}
+    {% else %}
+        {% set login_url = url('login', {'redirect_url': url('wealthbot_client_documents')}) %}
+    {% endif %}
+
+    {{ client.firstName }},<br/><br/>
+    Your advisor has uploaded a document and you may now <a href="{{ login_url }}">login</a> to view the document.
+{% endblock %}

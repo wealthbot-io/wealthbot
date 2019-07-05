@@ -1,0 +1,161 @@
+<form action="{% block form_action %}{{ path('rx_client_dashboard_transfer_transfer_account', { 'account_id': account.id, 'account_index': account_index }) }}{% endblock %}"
+      method="post" class="def-form" enctype="multipart/form-data" data-presave="true" data-save="true"
+      data-update-url="{% block form_update_url %}{{ path('rx_client_transfer_update_transfer_form', { 'account_id': account.id, 'account_index': account_index }) }}{% endblock %}">
+    <h2>Transfer an Account</h2>
+    <h4>{{ current_account.ownersAsString }} {{ current_account.financialInstitution }} {{ current_account.typeName }}</h4>
+
+    <ol id="transfer_account_form_sections" type="1">
+        <li class="account-information">
+            <h5>Information On The Account You Are Transferring:</h5>
+            <span class="help-block">Account Title/Registration as shown exactly on your statement:</span>
+            <div>
+                {% if form.joint_title_first is defined %}Account Name #1:{% endif %}
+                <div class="row">
+                    <div class="span">
+                        {{ form_errors(form.title_first) }}
+                        {{ form_widget(form.title_first, { 'attr': { 'class': 'input-medium', 'placeholder': 'First' } }) }}
+                    </div>
+                    <div class="span margin-left-15">
+                        {{ form_errors(form.title_middle) }}
+                        {{ form_widget(form.title_middle, { 'attr': { 'class': 'input-medium', 'placeholder': 'Middle' } }) }}
+                    </div>
+                    <div class="span margin-left-15">
+                        {{ form_errors(form.title_last) }}
+                        {{ form_widget(form.title_last, { 'attr': { 'class': 'input-medium', 'placeholder': 'Last' } }) }}
+                    </div>
+                </div>
+
+                {% if form.joint_title_first is defined %}
+                    Account Name #2:
+                    <div class="row">
+                        <div class="span">
+                            {{ form_errors(form.joint_title_first) }}
+                            {{ form_widget(form.joint_title_first, { 'attr': { 'class': 'input-medium', 'placeholder': 'First' } }) }}
+                        </div>
+                        <div class="span margin-left-15">
+                            {{ form_errors(form.joint_title_middle) }}
+                            {{ form_widget(form.joint_title_middle, { 'attr': { 'class': 'input-medium', 'placeholder': 'Middle' } }) }}
+                        </div>
+                        <div class="span margin-left-15">
+                            {{ form_errors(form.joint_title_last) }}
+                            {{ form_widget(form.joint_title_last, { 'attr': { 'class': 'input-medium', 'placeholder': 'Last' } }) }}
+                        </div>
+                    </div>
+                {% endif %}
+
+                {{ form_label(form.account_number, 'Account Number:') }}
+                {{ form_errors(form.account_number) }}
+                {{ form_widget(form.account_number, { 'attr': { 'class': 'col-md-4' } }) }}
+
+                {{ form_label(form.financial_institution, 'Name of Financial Institution You Are Transferring From:') }}
+                {{ form_errors(form.financial_institution) }}
+                {{ form_widget(form.financial_institution, { 'attr': { 'class': 'col-md-4' } }) }}
+
+                {{ form_label(form.firm_address, 'Address of Firm:') }}
+                {{ form_errors(form.firm_address) }}
+                {{ form_widget(form.firm_address, { 'attr': { 'class': 'col-md-4' } }) }}
+
+                {{ form_label(form.phone_number, 'Telephone Number:') }}
+                {{ form_errors(form.phone_number) }}
+                {{ form_widget(form.phone_number, { 'attr': { 'class': 'col-md-4', 'data-mask-type': 'phone' } }) }}
+            </div>
+        </li>
+
+        <li class="policy-information">
+            <h5>Does this account include an annuity or life insurance policy?</h5>
+            <div>
+                {{ form_errors(form.is_include_policy) }}
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="row">
+                            {% for child in form.is_include_policy %}
+                                <div class="col-md-1">
+                                    <label for="{{ child.vars.id }}">{{ form_widget(child, { 'attr': { 'class': 'not-presave' } }) }} {{ child.vars.label }}</label>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </li>
+
+        {% include '/Client/Transfer/_transfer_form_custodian_questions_fields.html.twig' with { 'form': form } %}
+
+        <li class="financial-institution-information">
+            <h5>What type of financial institution are you transferring assets from? <span class="help-inline help-info">Note: All transfers will be of an entire account.</span></h5>
+            <div>
+                {% set label = ['A', 'B', 'C', 'D'] %}
+
+                {{ form_errors(form.transfer_from) }}
+                {% for child in form.transfer_from.children %}
+                    <label for="{{ child.vars.id }}">{{ form_widget(child) }} {{ label[loop.index0] }}. {{ child.vars.label }}</label>
+
+                    {% if child.vars.value == constant('App\\Entity\\TransferInformation::TRANSFER_FROM_MUTUAL_FUND_COMPANY') %}
+                        <div class="child-block">
+                            <div class="form-inline">
+                                {{ form_errors(form.transfer_shares_cash) }}
+                                {% for radio in form.transfer_shares_cash %}
+                                    <label for="{{ radio.vars.id }}">{{ form_widget(radio) }} {{ radio.vars.label }}</label>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    {% endif %}
+
+                    {% if child.vars.value == constant('App\\Entity\\TransferInformation::TRANSFER_FROM_BANK') %}
+                        <div class="child-block">
+                            <label><b>If transferring an annuity/life insurance policy:</b></label>
+
+                            {{ form_errors(form.insurance_policy_type) }}
+                            {% for policy_type_child in form.insurance_policy_type.children %}
+                                {% if policy_type_child.vars.value == constant('App\\Entity\\TransferInformation::INSURANCE_POLICY_TYPE_TRANSFER_PENALTY_FREE_AMOUNT') %}
+                                    <div class="form-inline">
+                                        <label for="{{ policy_type_child.vars.id }}">{{ form_widget(policy_type_child) }} {{ policy_type_child.vars.label }}
+                                            {{ form_errors(form.penalty_amount) }}
+                                            <div class="input-group">
+                                                {{ form_widget(form.penalty_amount) }}
+                                                <span class="input-group-addon">$</span>
+                                            </div>
+                                        </label>
+                                    </div>
+                                {% else %}
+                                    <label for="{{ policy_type_child.vars.id }}">{{ form_widget(policy_type_child) }} {{ policy_type_child.vars.label }}</label>
+                                {% endif %}
+
+                                {% if not loop.last %}
+                                    <div class="center-text">OR</div>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+
+                    {% if child.vars.value == constant('App\\Entity\\TransferInformation::TRANSFER_FROM_DEPOSIT_CERTIFICATES') %}
+                        <div class="child-block">
+                            {{ form_errors(form.redeem_certificates_deposit) }}
+                            <label for="{{ form.redeem_certificates_deposit.vars.id }}">{{ form_widget(form.redeem_certificates_deposit) }} Redeem my CD immediately.  I am aware of, and acknowledge, that I am responsible for any penalties that I may incur from any early withdrawal.</label>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </li>
+
+        {% include '/Client/Transfer/_transfer_form_account_discrepancies_fields.html.twig' with { 'form': form } %}
+
+        <li class="pdf-statement">
+            <h5>You must upload a PDF copy of a statement that is within 6 months of a today's date</h5>
+            <div>
+                <div class="form-inline">
+                    {{ form_label(form.statementDocument.file, 'You must upload a statement') }}
+                    {{ form_errors(form.statementDocument) }}
+                    {{ form_errors(form.statementDocument.file) }}
+                    {{ form_widget(form.statementDocument.file) }}
+                </div>
+                {{ form_rest(form) }}
+            </div>
+        </li>
+    </ol>
+
+    <div class="form-actions">
+        <a href="{% block back_url %}{{ path('rx_client_dashboard_transfer_back', {'account_id': account.id, 'action': 'transfer', 'id': current_account.id}) }}{% endblock %}" class="btn btn-inverse">Back </a>
+        <input type="submit" class="btn btn-default"  name="continue" value="Continue" />
+    </div>
+</form>

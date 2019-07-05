@@ -1,0 +1,59 @@
+App\Entity\RebalancerQueue:
+    type: entity
+    table: rebalancer_queue
+    repositoryClass: App\Repository\RebalancerQueueRepository
+    fields:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+        quantity:
+            type: integer
+            nullable: true
+        amount:
+            type: float
+            nullable: true
+        status:
+            type: string
+            nullable: false
+        is_deleted:
+            type: boolean
+            nullable: false
+    manyToOne:
+        rebalancerAction:
+            targetEntity:  App\Entity\RebalancerAction
+            inversedBy: rebalancerQueue
+            joinColumn:
+                name: rebalancer_action_id
+                referencedColumnName: id
+                onDelete: cascade
+            cascade: ['persist']
+        security:
+            targetEntity:  App\Entity\Security
+            joinColumn:
+                name: security_id
+                referencedColumnName: id
+                onDelete: cascade
+            cascade: ['persist']
+        subclass:
+            targetEntity:  App\Entity\Subclass
+            joinColumn:
+              name: subclass_id
+              referencedColumnName: id
+              onDelete: cascade
+            cascade: ['persist']
+        lot:
+            targetEntity:  App\Entity\Lot
+            joinColumn:
+                name: lot_id
+                referencedColumnName: id
+                onDelete: cascade
+            cascade: ['persist']
+        systemClientAccount:
+            targetEntity:  App\Entity\SystemAccount
+            joinColumn:
+                name: system_client_account_id
+                referencedColumnName: id
+                onDelete: SET NULL
+            cascade: ['persist']

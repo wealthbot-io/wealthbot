@@ -1,0 +1,31 @@
+{% if is_permitted('edit') %}
+    {% if selected_strategy is defined %}
+        <a class="edit-strategy-btn" href="{{ path('rx_admin_models_edit_strategy', {'id': selected_strategy.id}) }}"><i class="icon-pencil"></i> Edit</a> |
+        <a class="delete-strategy-btn" onclick="return confirm('Are you sure?');" href="{{ path('rx_admin_models_delete_strategy', {'id': selected_strategy.id}) }}"><i class="icon-trash"></i> Delete</a> |
+        <a class="model-assumption-edit-btn" href="{{ path('rx_admin_models_edit_model_assumption', {'id': selected_strategy.id}) }}"><i class="icon-cog"></i> Model assumption</a>
+        <br/><br/>
+    {% endif %}
+
+    {% if selected_strategy is defined and strategy_model_form is defined %}
+        <form id="create_model_form" class="form-inline" action="{{ path('rx_admin_models_create', {'slug': selected_strategy.slug }) }}" method="post">
+            <legend>Create Model</legend>
+
+            {{ form_errors(strategy_model_form.name) }}
+            {{ form_widget(strategy_model_form.name, {'attr': {'placeholder': 'Name of Model', 'class': 'input-medium'}}) }}
+            {% if strategy_model_form.risk_rating is defined %}
+                {{ form_errors(strategy_model_form.risk_rating) }}
+                {{ form_widget(strategy_model_form.risk_rating) }}
+            {% endif %}
+
+            {% if strategy_model_form.assumption is defined %}
+                {% include '/Admin/Model/_third_party_model_edit_model_assumption_form.html.twig' with { 'form': strategy_model_form.assumption } %}
+            {% endif %}
+            {{ form_rest(strategy_model_form) }}
+            <button type="submit" class="btn btn-default" >Create</button>
+        </form>
+    {% endif %}
+{% endif %}
+
+<div class="btn-group" data-toggle="buttons-radio">
+    {{ render(controller("App\Controller\Admin\ModelController:modelMenu", {'strategySlug' : selected_strategy.slug })) }}
+</div>

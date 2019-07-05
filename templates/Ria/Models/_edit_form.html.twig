@@ -1,0 +1,15 @@
+<form id="edit_ria_model_form" action="{{ path('rx_ria_models_assumption_save', {'slug' : model.slug}) }}" method="post" class="form-inline">
+    <div class="form-group">
+        <div class="controls">
+            {{ form_errors(form.name) }}
+            {{ form_errors(form.risk_rating) }}
+            {{ form_widget(form.name, {'attr': {'placeholder': 'Name of Model', 'class': 'input-medium'}}) }}
+            {{ form_widget(form.risk_rating) }}
+
+            {% include '/Admin/Model/_model_assumption_form_fields.html.twig' with {'form': form} %}
+        </div>
+    </div>
+
+    {{ form_rest(form) }}
+
+</form>

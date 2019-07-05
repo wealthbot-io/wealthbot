@@ -1,0 +1,502 @@
+rx_admin_homepage:
+    path:  /admin
+    defaults: { _controller: \App\Controller\Admin\DashboardController:index }
+
+rx_admin_login:
+    path:  /admin/login
+    defaults: { _controller: \App\Controller\Admin\SecuredController:login }
+
+rx_admin_login_as:
+    path: /admin/login-as/{username}
+    defaults: { _controller: \App\Controller\Admin\SecuredController:loginAs }
+
+rx_admin_logout:
+    path:  /admin/logout
+    defaults: { _controller: \App\Controller\Admin\SecuredController:logout }
+
+rx_admin_login_check:
+    path:  /admin/login_check
+    defaults: { _controller: \App\Controller\Admin\SecuredController:check }
+
+rx_admin_general_settings:
+    path:  /admin/general-settings
+    defaults: { _controller: \App\Controller\Admin\GeneralSettingsController:index }
+
+rx_admin_update_fees:
+    path:  /admin/general-settings/update-fees
+    defaults: { _controller: \App\Controller\Admin\GeneralSettingsController:updateFees }
+
+rx_admin_upload_documents:
+    path:  /admin/general-settings/upload-documents
+    defaults: { _controller: \App\Controller\Admin\GeneralSettingsController:uploadDocuments }
+
+rx_admin_custodians:
+    path:  /admin/custodians
+    defaults: { _controller: \App\Controller\Admin\CustodianController:index }
+
+rx_admin_upload_custodian_documents:
+    path:  /admin/custodian/{id}/upload-documents
+    defaults: { _controller: \App\Controller\Admin\CustodianController:uploadDocuments }
+    requirements:
+        id:   \d+
+
+rx_admin_custodian_message:
+    path:  /admin/custodian/{id}/message/{type}
+    defaults: { _controller: \App\Controller\Admin\CustodianController:message }
+    requirements:
+        id:   \d+
+        type: mail_check|wire_transfer|rollover
+
+#rx_admin_fee_new:
+#    path:  /admin/fee/new
+#    defaults: { _controller: \App\Controller\Admin\GeneralSettings:newFee }
+#
+#rx_admin_fee_edit:
+#    path:  /admin/fee/{id}/edit
+#    defaults: { _controller: \App\Controller\Admin\GeneralSettings:editFee }
+#    requirements:
+#        id:  \d+
+#
+#rx_admin_fee_delete:
+#    path:  /admin/fee/{id}/delete
+#    defaults: { _controller: \App\Controller\Admin\GeneralSettings:deleteFee }
+#    requirements:
+#        id:  \d+
+
+# CATEGORIES ROUTING
+
+rx_admin_categories_index:
+    path: /admin/categories/index
+    defaults: { _controller: \App\Controller\Admin\CategoriesController:index }
+
+rx_admin_categories_asset_delete:
+    path: /admin/categories/asset/{id}/delete
+    defaults: { _controller: \App\Controller\Admin\CategoriesController:assetDelete }
+
+rx_admin_categories_subclass_delete:
+    path: /admin/categories/subclass/{id}/delete
+    defaults: { _controller: \App\Controller\Admin\CategoriesController:subclassDelete }
+
+# END CATEGORIES ROUTING
+
+# MODEL SECURITIES ROUTING
+
+rx_admin_model_securities_list:
+    path: /admin/model/{model_id}/securities/list
+    defaults: { _controller: \App\Controller\Admin\SecuritiesController:modelSecuritiesList }
+
+rx_admin_model_securities_complete_funds:
+    path: /admin/model/securities/complete-funds
+    defaults: { _controller: \App\Controller\Admin\SecuritiesController:completeFunds }
+
+rx_admin_model_securities_complete_subclasses:
+    path: /admin/model/securities/complete-subclasses
+    defaults: { _controller: \App\Controller\Admin\SecuritiesController:completeSubclasses }
+
+rx_admin_model_securities_edit:
+    path: /admin/model/securities/{id}/edit
+    defaults: { _controller: \App\Controller\Admin\SecuritiesController:editModelSecurity }
+
+rx_admin_model_securities_delete:
+    path: /admin/model/securities/{id}/delete
+    defaults: { _controller: \App\Controller\Admin\SecuritiesController:deleteModelSecurity }
+
+# END MODEL SECURITIES ROUTING
+
+rx_admin_subclass_new:
+    path:  /admin/subclass/new
+    defaults: { _controller: \App\Controller\Admin\GeneralSettingsController:newSubclass }
+
+rx_admin_subclass_edit:
+    path:  /admin/subclass/{id}/edit
+    defaults: { _controller: \App\Controller\Admin\GeneralSettingsController:editSubclass }
+    requirements:
+        id:  \d+
+
+rx_admin_subclass_delete:
+    path:  /admin/subclass/{id}/delete
+    defaults: { _controller: \App\Controller\Admin\GeneralSettingsController:deleteSubclass }
+    requirements:
+        id:  \d+
+
+rx_admin_securities:
+    path:  /admin/securities
+    defaults: { _controller: \App\Controller\Admin\SecuritiesController:index }
+
+rx_admin_securities_update_subclass:
+    path:  /admin/securities/update-subclass
+    defaults: { _controller: \App\Controller\Admin\SecuritiesController:updateSubclassFormField }
+
+rx_admin_security_new:
+    path:  /admin/securities/new
+    defaults: { _controller: \App\Controller\Admin\SecuritiesController:new }
+
+rx_admin_security_edit:
+    path:  /admin/security/{id}/edit
+    defaults: { _controller: \App\Controller\Admin\SecuritiesController:edit }
+    requirements:
+        id:  \d+
+
+rx_admin_security_delete:
+    path:  /admin/security/{id}/delete
+    defaults: { _controller: \App\Controller\Admin\SecuritiesController:delete }
+    requirements:
+        id:  \d+
+
+rx_admin_security_price_history:
+    path: /admin/security/{id}/prices
+    defaults: { _controller: \App\Controller\Admin\SecuritiesController:priceHistory }
+
+rx_admin_security_price_history_batch:
+    path: /admin/security/{id}/price-history/{action}
+    defaults: { _controller: \App\Controller\Admin\SecuritiesController:priceHistoryBatch }
+    requirements:
+        id:  \d+
+        action: delete|unpost|repost
+
+rx_admin_models:
+    path:  /admin/models
+    defaults: { _controller: \App\Controller\Admin\ModelController:index }
+
+rx_admin_models_index_strategy:
+    path:  /admin/models/{slug}
+    defaults: { _controller: \App\Controller\Admin\ModelController:indexStrategy }
+
+rx_admin_models_create:
+    path:  /admin/models/{slug}/create-model
+    defaults: { _controller: \App\Controller\Admin\ModelController:createModel }
+
+rx_admin_models_update_form:
+    path:  /admin/models/update-form/securities/model-entity-id/{model_entity_id}
+    defaults: { _controller: \App\Controller\Admin\ModelController:updateForm, model_entity_id: 0 }
+
+rx_admin_models_edit_strategy:
+    path:  /admin/models/strategy/{id}/edit
+    defaults: { _controller: \App\Controller\Admin\ModelController:editStrategy }
+    requirements:
+        id:  \d+
+
+rx_admin_models_edit_model_assumption:
+    path:  /admin/models/strategy/{id}/edit-model-assumption
+    defaults: { _controller: \App\Controller\Admin\Model:editModelAssumption }
+    requirements:
+        id:  \d+
+
+rx_admin_models_delete_strategy:
+    path:  /admin/models/strategy/{id}/delete
+    defaults: { _controller: \App\Controller\Admin\ModelController:deleteStrategy }
+    requirements:
+        id:  \d+
+
+rx_admin_models_edit_model:
+    path:  /admin/models/model/{id}/edit
+    defaults: { _controller: \App\Controller\Admin\ModelController:editModel }
+    requirements:
+        id:  \d+
+
+rx_admin_models_delete_model:
+    path:  /admin/models/model/{id}/delete
+    defaults: { _controller: \App\Controller\Admin\ModelController:deleteModel }
+    requirements:
+        id:  \d+
+
+rx_admin_model_save:
+    path:  /admin/model/{modelSlug}/save
+    defaults: { _controller: \App\Controller\Admin\ModelController:save }
+
+rx_admin_model_delete:
+    path:  /admin/model/{id}/delete
+    defaults: { _controller: \App\Controller\Admin\ModelController:delete }
+    requirements:
+        id:  \d+
+
+rx_admin_model_edit:
+    path:  /admin/model/{id}/edit
+    defaults: { _controller: \App\Controller\Admin\ModelController:edit }
+    requirements:
+        id:  \d+
+
+rx_admin_model_schema:
+    path:  /admin/models/{strategy_slug}/{model_slug}
+    defaults: { _controller: \App\Controller\Admin\ModelController:model }
+
+rx_admin_risks:
+    path:  /admin/risks
+    defaults: { _controller: \App\Controller\Admin\RisksController:index }
+
+rx_admin_risks_create_question:
+    path:  /admin/risks/question/create
+    defaults: { _controller: \App\Controller\Admin\RisksController:createQuestion }
+
+rx_admin_risks_edit_question:
+    path:  /admin/risks/question/{id}/edit
+    defaults: { _controller: \App\Controller\Admin\RisksController:editQuestion }
+    requirements:
+        id:  \d+
+
+rx_admin_risks_delete_question:
+    path:  /admin/risks/question/{id}/delete
+    defaults: { _controller: \App\Controller\Admin\RisksController:deleteQuestion }
+    requirements:
+        id:  \d+
+
+rx_admin_risks_update_order:
+    path:  /admin/risks/update-order
+    defaults: { _controller: \App\Controller\Admin\RisksController:updateOrder }
+
+rx_admin_ria_index:
+    path:  /admin/ria/index
+    defaults: { _controller: \App\Controller\Admin\RiaController:index }
+
+rx_admin_ria_specific_dashboard:
+    path:  /admin/ria/{id}/specific-dashboard
+    defaults: { _controller: \App\Controller\Admin\RiaController:specificDashboard }
+    requirements:
+        id:  \d+
+
+rx_admin_ria_activate:
+    path:  /admin/ria/{id}/activate/{activate}
+    defaults: { _controller: \App\Controller\Admin\RiaController:activate }
+    requirements:
+        activate: 0|1
+
+rx_admin_ria_update_relationship :
+    path: /admin/ria/{id}/update-relationship
+    defaults: { _controller: \App\Controller\Admin\RiaController:updateRelationship }
+
+rx_admin_ria_sd_settings:
+    path:  /admin/ria/{ria_id}/specific-dashboard/settings
+    defaults: { _controller: \App\Controller\Admin\RiaController:riaSettings }
+
+rx_admin_ria_update_fees:
+    path:  /admin/ria/{ria_id}/specific-dashboard/update-fees
+    defaults: { _controller: \App\Controller\Admin\RiaController:updateFees }
+
+rx_admin_ria_sd_save_company_profile:
+    path:  /admin/ria/{ria_id}/specific-dashboard/save-company-profile
+    defaults: { _controller: \App\Controller\Admin\RiaController:saveCompanyProfile }
+
+rx_admin_ria_sd_save_marketing:
+    path:  /admin/ria/{ria_id}/specific-dashboard/save-marketing
+    defaults: { _controller: \App\Controller\Admin\RiaController:saveMarketing }
+
+rx_admin_ria_sd_save_billing:
+    path:  /admin/ria/{ria_id}/specific-dashboard/save-billing
+    defaults: { _controller: \App\Controller\Admin\RiaController:saveBilling }
+
+rx_admin_ria_sd_save_portfolio_management:
+    path:  /admin/ria/{ria_id}/specific-dashboard/save-portfolio-management
+    defaults: { _controller: \App\Controller\Admin\RiaController:savePortfolioManagement }
+
+rx_admin_clients_index:
+    path:  /admin/clients/index
+    defaults: { _controller: \App\Controller\Admin\ClientController:index }
+
+rx_admin_client_specific_dashboard:
+    path:  /admin/client/{id}/specific-dashboard
+    defaults: { _controller: \App\Controller\Admin\ClientController:specificDashboard }
+    requirements:
+        id:  \d+
+
+rx_admin_client_outside_funds:
+    path:  /admin/clients/account/{account_id}/outside-funds
+    defaults: { _controller: \App\Controller\Admin\ClientController:outsideFunds }
+    requirements:
+        account_id:  \d+
+
+rx_admin_users:
+    path:  /admin/users/index
+    defaults: { _controller: \App\Controller\Admin\UserController:index }
+
+rx_admin_users_create_user:
+    path:  /admin/users/create-user
+    defaults: { _controller: \App\Controller\Admin\UserController:create }
+
+rx_admin_user_edit:
+    path:  /admin/user/{id}/edit
+    defaults: { _controller: \App\Controller\Admin\UserController:edit }
+    requirements:
+        id:  \d+
+
+rx_admin_user_delete:
+    path:  /admin/user/{id}/delete
+    defaults: { _controller: \App\Controller\Admin\UserController:delete }
+    requirements:
+        id:  \d+
+
+#############################################
+# Admin billing
+#############################################
+rx_admin_billing:
+    path:  /admin/billing/index
+    defaults: { _controller: \App\Controller\Admin\BillingController:index }
+
+rx_admin_billing_client_list:
+    path:  /admin/billing/client-list/{year}/{quarter}
+    defaults: { _controller: \App\Controller\Admin\BillingController:clientList }
+    options:
+        expose: true
+
+rx_admin_billing_custodian_fee_file:
+    path:  /admin/billing/custodian-fee-file/{year}/{quarter}
+    defaults: { _controller: \App\Controller\Admin\BillingController:custodianFeeFile }
+    options:
+        expose: true
+
+rx_admin_billing_summary_report:
+    path:  /admin/billing/summary-report/{year}
+    defaults: { _controller: \App\Controller\Admin\BillingController:summaryReport }
+    options:
+        expose: true
+#############################################
+# End admin billing
+#############################################
+
+
+#############################################
+# Admin PAS Interfaces
+#############################################
+rx_admin_pas_interfaces_file_index:
+    path: /admin/pas/interfaces/files
+    defaults: { _controller: \App\Controller\Admin\PasInterfacesController:fileIndex }
+    options:
+        expose: true
+
+rx_admin_pas_interfaces_security_index:
+    path: /admin/pas/interfaces/securities
+    defaults: { _controller: \App\Controller\Admin\PasInterfacesController:securityIndex }
+    options:
+        expose: true
+
+rx_admin_pas_interfaces_price_index:
+    path: /admin/pas/interfaces/prices
+    defaults: { _controller: \App\Controller\Admin\PasInterfacesController:priceIndex }
+    options:
+        expose: true
+
+rx_admin_pas_interfaces_position_index:
+    path: /admin/pas/interfaces/positions
+    defaults: { _controller: \App\Controller\Admin\PasInterfacesController:positionIndex }
+    options:
+        expose: true
+
+rx_admin_pas_interfaces_transaction_index:
+    path: /admin/pas/interfaces/transactions
+    defaults: { _controller: \App\Controller\Admin\PasInterfacesController:transactionIndex }
+    options:
+        expose: true
+
+rx_admin_pas_interfaces_transaction_create:
+    path: /admin/pas/interfaces/transactions/create
+    defaults: { _controller: \App\Controller\Admin\PasInterfacesController:transactionCreate }
+    methods: [POST]
+    options:
+        expose: true
+
+rx_admin_pas_interfaces_account_index:
+    path: /admin/pas/interfaces/accounts
+    defaults: { _controller: \App\Controller\Admin\PasInterfacesController:accountIndex }
+    options:
+        expose: true
+
+rx_admin_pas_interfaces_unrealized_gain_index:
+    path: /admin/pas/interfaces/unrealized-gains
+    defaults: { _controller: \App\Controller\Admin\PasInterfacesController:unrealizedGainIndex }
+    options:
+        expose: true
+
+rx_admin_pas_interfaces_realized_gain_index:
+    path: /admin/pas/interfaces/realized-gains
+    defaults: { _controller: \App\Controller\Admin\PasInterfacesController:realizedGainIndex }
+    options:
+        expose: true
+
+rx_admin_pas_interfaces_trade_recon_index:
+    path: /admin/pas/interfaces/trade-recon
+    defaults: { _controller: \App\Controller\Admin\PasInterfacesController:tradeReconIndex }
+    options:
+        expose: true
+
+rx_admin_pas_interfaces_fee_recon_index:
+    path: /admin/pas/interfaces/fee-recon
+    defaults: { _controller: \App\Controller\Admin\PasInterfacesController:feeReconIndex }
+    options:
+        expose: true
+
+rx_admin_pas_interfaces_advisor_code_autocomplete:
+    path: /admin/pas/interfaces/advisor-codes/autocomplete
+    defaults: { _controller: \App\Controller\Admin\PasInterfacesController:advisorCodeAutocomplete }
+    options:
+        expose: true
+
+rx_admin_pas_interfaces_transaction_type_autocomplete:
+    path: /admin/pas/interfaces/transaction-types/autocomplete
+    defaults: { _controller: \App\Controller\Admin\PasInterfacesController:transactionTypeAutocomplete }
+    options:
+        expose: true
+
+rx_admin_pas_interfaces_security_autocomplete:
+    path: /admin/pas/interfaces/securities/autocomplete
+    defaults: { _controller: \App\Controller\Admin\PasInterfacesController:securityAutocomplete }
+    options:
+        expose: true
+
+rx_admin_pas_interfaces_security_type_autocomplete:
+    path: /admin/pas/interfaces/security-types/autocomplete
+    defaults: { _controller: \App\Controller\Admin\PasInterfacesController:securityTypeAutocomplete }
+    options:
+        expose: true
+
+rx_admin_pas_interfaces_account_number_autocomplete:
+    path: /admin/pas/interfaces/account-numbers/autocomplete
+    defaults: { _controller: \App\Controller\Admin\PasInterfacesController:accountNumberAutocomplete }
+    options:
+        expose: true
+
+rx_admin_pas_interfaces_closing_method_autocomplete:
+    path: /admin/pas/interfaces/closing-methods/autocomplete
+    defaults: { _controller: \App\Controller\Admin\PasInterfacesController:closingMethodAutocomplete }
+    options:
+        expose: true
+#############################################
+# End admin PAS Interfaces
+#############################################
+
+#############################################
+# Admin Rebalancer Interfaces
+#############################################
+
+rx_admin_rebalancer:
+  path: /admin/rebalancer
+  defaults: { _controller: \App\Controller\Admin\RebalancerController:index }
+
+rx_admin_rebalancer_history:
+  path: /admin/rebalancer/history
+  defaults: { _controller: \App\Controller\Admin\RebalancerController:history }
+
+rx_admin_rebalancer_start:
+  path: /admin/rebalancer/start
+  defaults: { _controller: \App\Controller\Admin\RebalancerController:start }
+
+rx_admin_rebalance_check_progress:
+  path: /admin/rebalancer/check-progress
+  defaults: { _controller: \App\Controller\Admin\RebalancerController:checkProgress }
+  options:
+      expose: true
+rx_admin_rebalance_post_rebalance:
+  path: /admin/rebalancer/post-rebalance
+  defaults: { _controller: \App\Controller\Admin\RebalancerController:postRebalance }
+  options:
+      expose: true
+
+rx_admin_rebalancer_show_details:
+  path: /admin/rebalancer/show-details/client_account_value/{id}
+  defaults: { _controller: \App\Controller\Admin\RebalancerController:showDetails }
+
+rx_admin_rebalancer_accounts_view:
+  path: /admin/rebalancer/account-view/client-portfolio/{client_portfolio_id}
+  defaults: { _controller: \App\Controller\Admin\RebalancerController:accountsView }
+
+#############################################
+# End admin Rebalancer Interfaces
+#############################################

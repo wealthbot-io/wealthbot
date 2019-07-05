@@ -1,0 +1,108 @@
+{% extends '/Client/Transfer/index.html.twig' %}
+
+{% if (form.funding is defined) and (form.distributing is defined) %}
+    {% set title = 'Funding & Distributing' %}
+{% elseif form.funding is defined %}
+    {% set title = 'Funding' %}
+{% elseif form.distributing is defined %}
+    {% set title = 'Distributing' %}
+{% else %}
+    {% set title = 'Funding' %}
+{% endif %}
+
+{% block top_content %}
+    {{ render(controller('App\Controller\Client\TransferController:progressMenu', { 'account': account, 'step': 'funding_distributing' })) }}
+{% endblock %}
+
+{% block main_content %}
+    {% set group = account.groupName %}
+
+    {% if group == constant('App\\Entity\\AccountGroup::GROUP_FINANCIAL_INSTITUTION') %}
+        {% set funding_message = 'How will you be additionally funding this account?' %}
+        {% set distibuting_message = 'How would you like to receive money from this account?' %}
+    {% elseif group == constant('App\\Entity\\AccountGroup::GROUP_DEPOSIT_MONEY') %}
+        {% set funding_message = 'How would you like to fund this account?' %}
+        {% set distibuting_message = 'How would you like to receive money from this account?' %}
+    {% elseif group == constant('App\\Entity\\AccountGroup::GROUP_OLD_EMPLOYER_RETIREMENT') %}
+        {% set funding_message = 'How will you be additionally funding this account?' %}
+        {% set distibuting_message = 'How would you like to receive money from this account?' %}
+    {% endif %}
+
+    <form action="{% block form_action %}{{ path('rx_client_transfer_funding_distributing', { 'account_id': account.id }) }}{% endblock %}"
+          method="post" class="def-form" id="fd_form" enctype="multipart/form-data" data-presave="true"
+          data-save="true" data-bank-info-form="{{ bank_info_form | escape }}">
+
+        <h3>{{ title }}</h3>
+
+        {% if form.funding is defined %}
+            <h3>{{ funding_message }}</h3>
+
+            <div id="funding">
+                {% if has_docusign_error %}
+                    <div class="row">
+                        <div class="col-md-7">
+                            <div class="alert alert-error">
+                                <button type="button" class="close" data-dismiss="alert">×</button>
+                                {{ '<p>Sorry, but we cannot process this transfer due to some of your answers
+                                    on the previous screen. You must liquidate your account at the current custodian
+                                    and then come back to this application to select how you will deposit the funds
+                                    into your account with us.</p><p>Please note - If this a Traditional, Roth,
+                                    or Rollover IRA, you must deposit the funds into your new account with us
+                                    before the IRS mandated 60 day grace period.</p>'|trans|raw }}
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+
+                <div class="row">
+                    {{ form_errors(form) }}
+                </div>
+
+                {{ form_errors(form.funding.type) }}
+                {% include '/Client/Transfer/_funding_form_fields.html.twig' with {
+                    'form': form.funding,
+                    'account': account,
+                    'messages': messages
+                } %}
+            </div>
+        {% endif %}
+
+        {% if account.hasDistributing %}
+            <h3>Distributing from your account:</h3>
+
+            <div id="distrib">
+                <p>
+                    Once your account has been set up and invested in the appropriate model, you will receive a
+                    notification letting you know you may set up instructions to receive distributions from your account.
+                </p>
+            </div>
+        {% endif %}
+
+        <div class="form-actions">
+            {{ form_widget(form._token) }}
+            <a href="{% block back_url %}{{ path('rx_client_transfer_back', {'account_id': account.id, 'action': 'funding_distributing'}) }}{% endblock %}" class="btn btn-inverse">Back </a>
+            <input type="submit" class="btn btn-default"  name="continue" value="Continue" />
+        </div>
+    </form>
+
+    <div id="modal_dialog" class="modal longModal" style="width:auto;">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3></h3>
+            </div>
+
+            <div class="modal-body">
+
+            </div>
+
+            <div class="modal-footer">
+                <button type="submit" class="btn save-modal-form-btn btn-primary">Save</button>
+                <a href="#" class="btn btn-default"  data-dismiss="modal" aria-hidden="true">Cancel</a>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}

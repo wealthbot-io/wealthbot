@@ -1,0 +1,74 @@
+{% extends '/User/layout.html.twig' %}
+
+{% block body %}
+    {% set ria_company = ria.riaCompanyInformation %}
+    {% set params = { 'ria_id': ria.id } %}
+
+    {% if group is defined and group|length > 0 %}
+        {% set params = params|merge({ 'group': group }) %}
+    {% endif %}
+
+    <div class="row">
+        <div class="col-md-5 col-md-offset-1">
+            <div class="login-box-client">
+                <form action="{{ path("rx_client_registration",  params) }}" method="post" >
+                    <div class="row">
+                        <div class="col-md-11">
+                            <div class="row">
+                                <div class="col-md-5">
+                                    {{ form_errors(form.profile.first_name) }}
+                                    {{ form_widget(form.profile.first_name, {'attr': { 'placeholder': 'First Name', 'class': 'width-150' } }) }}
+                                </div>
+                                <div class="col-md-5 margin-left-0">
+                                    {{ form_errors(form.profile.last_name) }}
+                                    {{ form_widget(form.profile.last_name, {'attr': { 'placeholder': 'Last Name', 'class': 'width-150' } }) }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        {{ form_errors(form.email) }}
+                        {{ form_widget(form.email, {'attr': { 'placeholder': 'Your Email' } }) }}
+                    </div>
+                    <div>
+                        {{ form_errors(form.plainPassword.first) }}
+                        {{ form_widget(form.plainPassword.first, {'attr': { 'placeholder': 'Create Password' } }) }}
+                        <a class="pop" href="#" rel="popover" title="Password Complexity" data-content="<p>Your password must fufill the following requirements:</p>
+                                <ol>
+                                <li>At least 6 characters</li>
+                                <li>At least 1 uppercase</li>
+                                <li>At least 1 number</li>
+                                <li>No parts of first or last name</li>
+                                </ol>
+
+                                ">
+                            <i class="mini-color mini-ico-info-sign"></i>
+                        </a>
+                    </div>
+                    <div>
+                        {{ form_errors(form.plainPassword.second) }}
+                        {{ form_widget(form.plainPassword.second, {'attr': { 'placeholder': 'Verify Password' } }) }}
+                    </div>
+                    <div class="accpet_checkbox">
+                        {{ form_errors(form.is_accepted) }}
+                        {{ form_widget(form.is_accepted) }}
+                        <label for="wealthbot_userbundle_client_usertype_is_accepted" class="required client-agreements">
+                            By registering, you are agreeing to our <a href="{{ documents['admin_privacy_policy'] }}" target="_blank">Privacy Policy</a> and <a href="{{ documents['admin_user_agreements'] }}" target="_blank">User Agreement</a>.
+                            You are also confirming you are asking to receive an ADV from <a href="{{ documents['ria_adv'] }}" target="_blank">{{ ria_company.name }}</a>.
+                        </label>
+                    </div>
+                    {{ form_rest(form) }}
+                    <input class="btn btn-default"  type="submit" value="Register">
+                    <span style="vertical-align: super;" class="margin-left-15 fs10">
+                        or continue your registration by <a href="{{ path('login') }}">logging in</a>.
+                    </span>
+                </form>
+            </div>
+        </div>
+        <div class="col-md-5">
+            <div class="login-box-company-logo">
+                <img src="{{ path('rx_file_download', {'ria_id': ria.id}) }}" alt="">
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,45 @@
+<div class="navbar-collapse">
+    <!-- .nav, .navbar-search, .navbar-form, etc -->
+    <ul class="nav navbar-nav">
+        <li {{ route == 'rx_ria_dashboard' ? 'class="active"' : '' }}><a href="{{ path('rx_ria_dashboard') }}">Dashboard</a></li>
+        <li {{ route == 'rx_ria_workflow' ? 'class="active"' : '' }}>
+            <a href="{{ path('rx_ria_workflow') }}">Workflow</a>
+        </li>
+        <li {{ route == 'rx_ria_dashboard_clients' ? 'class="active"' : '' }}><a href="{{ path('rx_ria_dashboard_clients') }}">Clients</a></li>
+        {% if riaCompanyInformation.portfolioModel.custom %}
+            <li {{ route == 'rx_ria_dashboard_models_tab' ? 'class="active"' : '' }}><a class="" href="{{ path('rx_ria_dashboard_models_tab', {tab:'categories'}) }}">Portfolios</a></li>
+        {% else %}
+            <li {{ route == 'rx_ria_models' ? 'class="active"' : '' }}><a href="{{ path('rx_ria_models') }}">Models</a></li>
+        {% endif %}
+        <li {{ route == 'rx_ria_billing' ? 'class="active"' : '' }}><a href="{{ path("rx_ria_billing") }}">Billing</a></li>
+        {#<li {{ route == 'rx_ria_prospects' ? 'class="active"' : '' }}><a href="{{ path('rx_ria_prospects') }}">Prospects</a></li>#}
+        {% if riaCompanyInformation.relationTypeLicenseFee %}
+            <li {{ route == 'rx_ria_dashboard_rebalancing' ? 'class="active"' }}><a href="{{ path('rx_ria_dashboard_rebalancing') }}">Rebalancing</a></li>
+        {% endif %}
+        <li {{ route == 'rx_ria_risk_profiling' ? 'class="active"' : '' }}><a href="{{ path('rx_ria_risk_profiling') }}">Risks</a></li>
+    </ul>
+
+    <ul class="nav navbar-nav pull-right">
+        <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ app.user.profile.firstName }} <b class="caret"></b></a>
+            <ul class="dropdown-menu">
+                <li></li>
+                {% if (is_granted('ROLE_RIA_ADMIN')) %}
+                    <li><a href="{{ path('rx_ria_change_profile') }}">Admin Settings</a></li>
+                {% endif %}
+
+                <li><a href="{{ path('rx_ria_profile') }}">Profile Management</a></li>
+
+                {% if (is_granted('ROLE_RIA_ADMIN')) %}
+                    <li><a href="{{ path('rx_ria_user_management')}}">User Management</a></li>
+                {% endif %}
+
+                {#<li class="divider"></li>
+                <li><a href="{{path('rx_ria_user_create')}}">Create User</a></li>
+                <li><a href="{{ path('rx_ria_user_reset_internally_password') }}">Reset User's Password</a></li>#}
+                <li class="divider"></li>
+                <li><a href="{{ path('logout') }}">Logout</a></li>
+            </ul>
+        </li>
+    </ul>
+</div>

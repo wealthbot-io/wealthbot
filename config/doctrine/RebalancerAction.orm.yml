@@ -1,0 +1,63 @@
+App\Entity\RebalancerAction:
+  type: entity
+  table: rebalancer_actions
+  repositoryClass: App\Repository\RebalancerActionRepository
+  fields:
+    id:
+      type: integer
+      id: true
+      generator:
+        strategy: AUTO
+    name:
+      type: string(100)
+      nullable: true
+    status:
+      type: integer
+      nullable: true
+    started_at:
+      type: datetime
+      nullable: false
+    finished_at:
+      type: datetime
+      nullable: true
+    is_error:
+      type: boolean
+      nullable: false
+  manyToOne:
+    job:
+      targetEntity:  App\Entity\Job
+      inversedBy: rebalancerActions
+      joinColumn:
+        name: job_id
+        referencedColumnName: id
+        onDelete: SET NULL
+      cascade: ['persist']
+    clientPortfolioValue:
+      targetEntity:  App\Entity\ClientPortfolioValue
+      inversedBy: rebalancerActions
+      joinColumn:
+        name: client_portfolio_value_id
+        referencedColumnName: id
+        onDelete: SET NULL
+      cascade: ['persist']
+    clientAccountValue:
+      targetEntity:  App\Entity\ClientAccountValue
+      inversedBy: rebalancerActions
+      joinColumn:
+        name: client_account_value_id
+        referencedColumnName: id
+        onDelete: SET NULL
+      cascade: ['persist']
+    systemClientAccount:
+      targetEntity: App\Entity\SystemAccount
+      inversedBy: rebalancerActions
+  oneToMany:
+    rebalancerActionLogs:
+      targetEntity:  App\Entity\RebalancerActionLog
+      mappedBy: rebalancerAction
+      cascade: ['persist']
+    rebalancerQueue:
+      targetEntity: App\Entity\RebalancerQueue
+      mappedBy: rebalancerAction
+      cascade: ['persist']
+  lifecycleCallbacks: {  }

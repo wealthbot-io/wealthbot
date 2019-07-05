@@ -1,0 +1,30 @@
+App\Entity\PortfolioTwrValue:
+    type: entity
+    table: portfolio_twr_values
+    repositoryClass: App\Repository\PortfolioTwrValueRepository
+    fields:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+        netValue:
+            type: float
+            nullable: true
+            column: net_value
+        grossValue:
+            type: float
+            nullable: true
+            column: gross_value
+        date:
+            type: date
+            nullable: true
+    manyToOne:
+        client:
+            targetEntity:  App\Entity\User
+            joinColumn:
+                name: client_id
+                referencedColumnName: id
+                onDelete: cascade
+            inversedBy: systemAccounts
+            cascade: ['persist']

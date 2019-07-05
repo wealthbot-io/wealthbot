@@ -1,0 +1,26 @@
+App\Entity\ClosingAccountHistory:
+    type: entity
+    table: closing_account_history
+    repositoryClass: App\Repository\ClosingAccountHistoryRepository
+    fields:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+        account_id:
+            type: integer
+            nullable: false
+        messages:
+            type: array
+        closing_date:
+            type: datetime
+            nullable: false
+    oneToOne:
+        account:
+            targetEntity:  App\Entity\SystemAccount
+            joinColumn:
+                name: account_id
+                referencedColumnName: id
+                onDelete: cascade
+            cascade: ['persist']

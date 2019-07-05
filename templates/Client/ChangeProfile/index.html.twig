@@ -1,0 +1,56 @@
+{% extends '/Client/clear_layout.html.twig' %}
+{#{% extends '/Client/Dashboard/index.html.twig' %}#}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('js/client/client.profile.step1.js') }}"></script>
+    <script src="{{ asset('js/client/client.transfer.js') }}"></script>
+    <script src="{{ asset('js/client/client.changeProfile.js') }}"></script>
+    <script src="{{ asset('js/client/client.portfolio.js') }}"></script>
+    <script type="text/javascript" src="/js/inputmask/jquery.inputmask.js"></script>
+    <script type="text/javascript" src="/js/inputmask/jquery.inputmask.extensions.js"></script>
+
+{% endblock %}
+
+{% block content %}
+    <h1>Settings</h1>
+
+    <ul class="nav nav-tabs" id="myTab">
+        <li class="{{ active_tab == 'your_information' ? 'active' : '' }}"><a data-toggle="tab" href="#your_information">Your Information</a></li>
+        <li><a data-toggle="tab" href="#risk_tolerance">Risk Tolerance</a></li>
+        <li class="{{ active_tab == 'your_portfolio' ? 'active' : '' }}"><a data-toggle="tab" href="#your_portfolio">Your Portfolio</a></li>
+        <li class="{{ active_tab == 'update_password' ? 'active' : '' }}"><a data-toggle="tab" href="#update_password">Update Password</a></li>
+        {% if not is_granted('ROLE_SLAVE_CLIENT') %}
+            <li><a data-toggle="tab" href="#manage_users">Manage Users</a></li>
+        {% endif %}
+    </ul>
+
+    <div class="tab-content change-profile">
+        <div class="tab-pane {{ active_tab == 'your_information' ? 'active' : '' }}" id="your_information">
+            {{ render(controller("App\\Controller\\Client\\ChangeProfileController:information")) }}
+        </div>
+        <div class="tab-pane" id="risk_tolerance">
+            {% include '/Client/ChangeProfile/_risk_tolerance.html.twig' with { 'form': risk_tolerance_form } %}
+        </div>
+        <div class="tab-pane {{ active_tab == 'your_portfolio' ? 'active' : '' }}" id="your_portfolio">
+            {% include '/Client/ChangeProfile/_your_portfolio.html.twig' with {
+                'client': client,
+                'is_ria_client_view': is_ria_client_view,
+                'temp_portfolios': temp_portfolios,
+                'choose_client_portfolio_form': choose_client_portfolio_form,
+                'suggested_portfolio': suggested_portfolio
+            } %}
+        </div>
+        <div class="tab-pane {{ active_tab == 'documents' ? 'active' : '' }}" id="documents">
+            {% include '/Client/ChangeProfile/_documents.html.twig' %}
+        </div>
+        <div class="tab-pane {{ active_tab == 'update_password' ? 'active' : '' }}" id="update_password">
+            {% include '/Client/ChangeProfile/_update_password.html.twig' with { 'form': update_password_form } %}
+        </div>
+
+        {% if not is_granted('ROLE_SLAVE_CLIENT') %}
+            <div class="tab-pane" id="manage_users">
+                {% include '/Client/ChangeProfile/_manage_users.html.twig' with { 'form': manage_user_form, 'clients': clients } %}
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

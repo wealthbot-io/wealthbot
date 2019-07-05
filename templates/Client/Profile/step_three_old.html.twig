@@ -1,0 +1,193 @@
+{% extends '/Client/layout.html.twig' %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="/js/jquery.form.js"></script>
+    <script type="text/javascript">
+        $(function(){
+
+            var hasRetirementAccount = {{ retirementAccounts|json_encode() }};
+            var accountTypes = JSON.parse('{{ types|json_encode() }}');
+
+            if(hasRetirementAccount){
+                $('#current_employer_retirement_plan_1').attr('checked', true);
+            }
+
+            checkSelectedAccountType(accountTypes, '#wealthbot_userbundle_client_account_type_account_type');
+
+            $('#wealthbot_userbundle_client_account_type_account_type').on('change', function(event){
+                checkSelectedAccountType(accountTypes, '#wealthbot_userbundle_client_account_type_account_type');
+            });
+
+            $(document).on('click','.remove-account-btn', function(event){
+                var elem = $(this);
+
+                if(confirm('Are you sure?')){
+                    $.ajax({
+                        url: elem.attr('href'),
+                        dataType: 'json',
+                        success: function(response){
+                            if(response.status == 'success'){
+                                var row = elem.closest('tr');
+                                var rowClass = row.attr('class');
+
+                                var removeRow = $('.'+rowClass);
+                                var retirementAccountFundsSelector = $('.client-retirement-account .'+rowClass).find('.select-retirement-account:checked');
+
+                                removeRow.remove();
+
+                                if(retirementAccountFundsSelector.length > 0){
+                                    $('.client-retirement-account-funds').html('');
+                                }
+
+                            }
+                            if(response.status == 'error'){
+                                alert('Error: '+response.message);
+                            }
+                        }
+                    });
+                }
+
+                event.preventDefault();
+            });
+
+            $('#client_account_form').on('submit', function(event){
+                var form = $(this);
+
+                var options = {
+                    dataType: 'json',
+                    type: 'POST',
+                    success: function(response){
+                        form.replaceWith(response.form);
+                        updateAutoNumeric()
+
+                        if(response.status === 'success'){
+                            var clientRetirementAccount = $('.client-retirement-account');
+
+                            $('.client-accounts').html(response.accounts);
+                            if(clientRetirementAccount){
+                                clientRetirementAccount.html(response.retirementAccounts);
+                            }
+                            $('.client-retirement-account-funds').html('');
+                        }
+
+                        checkSelectedAccountType(accountTypes, '#wealthbot_userbundle_client_account_type_account_type');
+                    }
+                };
+
+                form.ajaxSubmit(options);
+                event.preventDefault();
+            });
+
+            $('.select-retirement-account').on('change', function(event){
+                var elem = $(this);
+                var url = elem.data('url');
+
+                $.ajax({
+                    url: url,
+                    dataType: 'json',
+                    success: function(response){
+                        if(response.status == 'success'){
+                            $('.client-retirement-account-funds').html(response.content);
+                        }
+                    }
+                });
+            });
+
+            $('#retirement_account_fund_form').on('submit', function(event){
+                var form = $(this);
+                var accountId = $('.select-retirement-account:checked').val();
+
+                if(accountId){
+                    var options = {
+                        dataType: 'json',
+                        type: 'POST',
+                        data: { account_id: accountId },
+                        success: function(response){
+                            if(response.status == 'success'){
+                                $('.retirement-account-funds').html(response.content);
+                            }
+                            if(response.status == 'error' && response.content){
+                                form.replaceWith(response.content);
+
+                            }
+                        }
+                    };
+
+                    form.ajaxSubmit(options);
+                }
+
+                event.preventDefault();
+            });
+
+            $(document).on('click','.remove-outside-fund-btn', function(event){
+                var elem = $(this);
+
+                if(confirm('Are you sure?')){
+                    $.ajax({
+                        url: elem.attr('href'),
+                        dataType: 'json',
+                        success: function(response){
+                            if(response.status == 'success'){
+                                elem.closest('tr').remove();
+                            }
+                            if(response.status == 'error'){
+                                alert('Error: '+response.message);
+                            }
+                        }
+                    });
+                }
+
+                event.preventDefault();
+            });
+        });
+
+        function checkSelectedAccountType(types, selector){
+            var value = $(selector).val();
+
+            if(types[value]){
+                var selector = $('#wealthbot_userbundle_client_account_type_monthly_distributions').closest('.form-group');
+
+                if(types[value] == 'investment'){
+                    selector.show();
+                    $('.retirement-value-help').hide();
+                }
+                if(types[value] == 'retirement'){
+                    selector.hide();
+                    $('.retirement-value-help').show();
+                }
+            }
+        }
+    </script>
+{% endblock %}
+
+{% block body %}
+    <legend>
+        <h2>Step 3 of 3: Your Accounts</h2>
+    </legend>
+
+    <h3>Please tell us about your current investment accounts you will be transferring to us or would like to open:</h3>
+
+    <div class="client-accounts">
+        {% include '/Client/Profile/_accounts_list.html.twig' with {'investmentAccounts': investmentAccounts, 'retirementAccounts': retirementAccounts} %}
+    </div>
+
+    {% include '/Client/Profile/_client_accounts_form.html.twig' with {'form': form} %}
+
+
+
+    {% if client.Profile.ria.riaCompanyInformation.isAllowRetirementPlan %}
+        <div class="client-retirement-account">
+            {% include '/Client/Profile/_retirement_accounts_list.html.twig' with {'retirementAccounts': retirementAccounts} %}
+        </div>
+
+        <div class="client-retirement-account-funds"></div>
+    {% endif %}
+
+    <form action="{{ path("rx_client_profile_step_three") }}" method="post">
+        <div class="form-actions">
+            <a class="btn btn-inverse" href="{{ path('rx_client_profile_step_two') }}">Back</a>
+            <input type="submit" class="btn btn-default"  value="Finish" />
+        </div>
+    </form>
+{% endblock %}

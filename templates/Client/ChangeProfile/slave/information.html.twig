@@ -1,0 +1,18 @@
+<fieldset class="b-label" disabled>
+    {% include '/Client/Profile/_personal_information_form_type_fields.html.twig' with {'form': form} %}
+
+    {% include '/Client/Profile/_contact_information_form_type_fields.html.twig' with {'form': form, 'is_change_profile': true} %}
+
+    <div class="form-title">
+        <h4>Financial Status</h4>
+        <hr/>
+    </div>
+
+    {% include '/Client/Transfer/_employment_information_form_type_fields.html.twig' with {'form': form} %}
+
+    <div class="row">
+        <div class="col-md-12">
+            {{ form_rest(form) }}
+        </div>
+    </div>
+</fieldset>

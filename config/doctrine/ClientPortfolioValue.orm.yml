@@ -1,0 +1,58 @@
+App\Entity\ClientPortfolioValue:
+    type: entity
+    table: client_portfolio_values
+    repositoryClass: App\Repository\ClientPortfolioValueRepository
+    fields:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+        client_portfolio_id:
+            type: integer
+        total_value:
+            type: float
+            nullable: true
+        total_in_securities:
+            type: float
+            nullable: true
+        total_cash_in_accounts:
+            type: float
+            nullable: true
+        total_cash_in_money_market:
+            type: float
+            nullable: true
+        sas_cash:
+            type: float
+            nullable: true
+        cash_buffer:
+            type: float
+            nullable: true
+        billing_cash:
+            type: float
+            nullable: true
+        model_deviation:
+            type: float
+            nullable: true
+        required_cash:
+            type: float
+            nullable: true
+        investable_cash:
+            type: float
+            nullable: true
+        date:
+            type: datetime
+            nullable: true
+    manyToOne:
+        clientPortfolio:
+            targetEntity:  App\Entity\ClientPortfolio
+            joinColumn:
+                name: client_portfolio_id
+                referencedColumnName: id
+                onDelete: cascade
+            cascade: ['persist']
+    oneToMany:
+        rebalancerActions:
+            targetEntity:  App\Entity\RebalancerAction
+            mappedBy: clientPortfolioValue
+            cascade: ['persist']

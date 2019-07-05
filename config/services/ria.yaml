@@ -1,0 +1,75 @@
+parameters:
+  wealthbot_ria.ce_model_class: 'App/Entity/CeModel'
+
+
+services:
+  wealthbot_ria.flash_listener:
+    public: true
+    class: App\EventListener\FlashListener
+    arguments: ["@session"]
+    tags:
+      - { name: kernel.event_subscriber }
+
+
+  #    wealthbot_ria.example:
+  #        class: %wealthbot_ria.example.class%
+  #        arguments: [@service_id, "plain_value", %parameter%]
+
+  wealthbot_ria.validator.user_password:
+    class: App\Validator\Constraints\CurrentPasswordValidator
+    arguments: ["@wealthbot_admin.acl", "@security.encoder_factory"]
+    tags:
+      - { name: validator.constraint_validator, alias: wealthbot_ria.validator.user_password }
+
+  wealthbot_ria.doctrine.subscriber:
+    class: App\Service\DoctrineSubscriber
+    tags:
+      - { name: doctrine.event_subscriber, connection: default }
+
+  # Ria manager
+  wealthbot_ria.summary_information.manager:
+    class: App\Manager\SummaryInformationManager
+    public: true
+    arguments:
+      - "@doctrine.orm.entity_manager"
+      - "@wealthbot_client.cash.manager"
+      - "@wealthbot_ria.period.manager"
+      - "@translator.default"
+
+  wealthbot_ria.period.manager:
+    class: App\Manager\PeriodManager
+    public: true
+
+  wealthbot_ria.billing_report.manager:
+    class: App\Manager\BillingReportManager
+    arguments:
+      - "@doctrine.orm.entity_manager"
+      - "@twig"
+      - "@wealthbot_ria.summary_information.manager"
+      - "@wealthbot.manager.fee"
+      - "@wealthbot_ria.period.manager"
+
+  # Ria security
+  wealthbot_ria.security.voter.ria_client:
+    class: App\Security\Voter\RiaClientVoter
+    public: false
+    tags:
+      - { name: security.voter }
+
+  wealthbot_ria.security.voter.billing_spec:
+    class: App\Security\Voter\BillingSpecVoter
+    public: false
+    tags:
+      - { name: security.voter }
+
+  wealthbot_ria.security.voter.bill_item:
+    class: App\Security\Voter\BillItemVoter
+    public: false
+    tags:
+      - { name: security.voter }
+
+  wealthbot_ria.security.voter.client_account:
+    class: App\Security\Voter\ClientAccountVoter
+    public: false
+    tags:
+      - { name: security.voter }

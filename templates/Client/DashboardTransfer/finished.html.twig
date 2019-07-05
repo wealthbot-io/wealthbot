@@ -1,0 +1,20 @@
+{% extends '/Client/Profile/_open_or_transfer_account.html.twig' %}
+
+
+{% block title %}Open or transfer an account{% endblock %}
+
+{% block header_row %}
+    <div class="alert alert-success">
+        You will be notified when your accounts have been opened.
+        <a class="close" data-dismiss="alert" href="#">&times;</a>
+    </div>
+{% endblock %}
+{% block top_links %}{% endblock %}
+{% block help_title %}{% endblock %}
+
+{% block form_actions %}
+    <div class="form-actions">
+        <a class="btn btn-default"  href="javascript:void(0);" id="account_continue_btn">Continue</a>
+    </div>
+{% endblock %}
+

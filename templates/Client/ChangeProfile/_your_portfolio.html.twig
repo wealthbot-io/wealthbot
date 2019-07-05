@@ -1,0 +1,56 @@
+{% if is_ria_client_view %}
+    {% if client.ria.riaCompanyInformation.isStraightThroughProcessing %}
+        {% for temp_portfolio in temp_portfolios %}
+            <span>
+                <a class="change-profile-temp-rebalance-btn" href="{{ path('rx_client_change_profile_temp_rebalance', {'id': temp_portfolio.id}) }}">Temp portfolio - #{{ temp_portfolio.id }} Rebalance</a>
+            </span>
+        {% endfor %}
+    {% endif %}
+
+    <form id="choose_another_portfolio_form" action="{{ path('rx_client_change_profile_submit_another_portfolio') }}" method="post">
+        {{ form_errors(choose_client_portfolio_form) }}
+
+        <div class="form-group form-inline">
+            {{ form_errors(choose_client_portfolio_form.portfolio) }}
+
+            <div class="controls">
+                {{ form_label(choose_client_portfolio_form.portfolio, 'Choose another portfolio:', {'label_attr': {'class': 'text-bold'}}) }}
+                {{ form_widget(choose_client_portfolio_form.portfolio) }}
+            </div>
+        </div>
+
+        {{ render(controller('App\Controller\Client\ChangeProfileController:portfolio')) }}
+
+        <input type="submit" class="btn btn-info" value="Submit Final Portfolio" />
+
+        {{ form_rest(choose_client_portfolio_form) }}
+    </form>
+{% else %}
+
+    {% if (suggested_portfolio is defined and suggested_portfolio) %}
+        <b>Suggested Portfolio:</b>
+        <ul>
+            <li>
+                <a class="show-previous-client-portfolio-btn" href="{{ path('rx_client_change_profile_approve_another_portfolio') }}">
+                    {{ suggested_portfolio.name }} - Not approved
+                </a>
+            </li>
+        </ul>
+    {% endif %}
+
+
+    {% if (client_portfolio_history is not empty) %}
+        <b>Previous Portfolios:</b>
+        <ol>
+            {% for previous_portfolio in client_portfolio_history %}
+                <li>
+                    <a class="show-previous-client-portfolio-btn" href="{{ path('rx_client_change_profile_show_client_portfolio', {'id': previous_portfolio.id}) }}">
+                        {{ previous_portfolio.portfolio.name }} - Approved {{ previous_portfolio.approvedAt|date('m/d/Y') }}
+                    </a>
+                </li>
+            {% endfor %}
+        </ol>
+    {% endif %}
+ {% endif %}
+
+

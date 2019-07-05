@@ -1,0 +1,65 @@
+App\Entity\SecurityAssignment:
+  type: entity
+  table: securities_assignments
+  repositoryClass: App\Repository\SecurityAssignmentRepository
+  fields:
+    id:
+      type: integer
+      id: true
+      generator:
+        strategy: AUTO
+    security_id:
+      type: integer
+      nullable: false
+    subclass_id:
+      type: integer
+      nullable: true
+    model_id:
+      type: integer
+      nullable: true
+    is_preferred:
+      type: boolean
+      nullable: false
+    muni_substitution:
+      type: boolean
+      nullable: false
+  oneToOne:
+    securityTransaction:
+      targetEntity:  App\Entity\SecurityTransaction
+      mappedBy: securityAssignment
+      cascade: ['persist']
+  oneToMany:
+    accountAssociations:
+      targetEntity:  App\Entity\AccountOutsideFund
+      mappedBy: securityAssignment
+    ceModelEntity:
+      targetEntity:  App\Entity\CeModelEntity
+      mappedBy: securityAssignment
+  manyToOne:
+    security:
+      targetEntity:  App\Entity\Security
+      inversedBy: securityAssignments
+      joinColumn:
+        name: security_id
+        referencedColumnName: id
+        onDelete: cascade
+      cascade: ['persist']
+    subclass:
+      targetEntity:  App\Entity\Subclass
+      inversedBy: securityAssignments
+      joinColumn:
+        name: subclass_id
+        referencedColumnName: id
+        onDelete: cascade
+      cascade: ['persist']
+    model:
+      targetEntity:  App\Entity\CeModel
+      joinColumn:
+        name: model_id
+        referencedColumnName: id
+        onDelete: cascade
+      cascade: ['persist']
+  uniqueConstraints:
+    security_subclass_idx:
+      columns: security_id, subclass_id
+  lifecycleCallbacks: {  }

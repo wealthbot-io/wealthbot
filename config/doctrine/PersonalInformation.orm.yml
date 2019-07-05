@@ -1,0 +1,119 @@
+App\Entity\PersonalInformation:
+    type: entity
+    table: client_personal_information
+    repositoryClass: App\Repository\PersonalInformationRepository
+    fields:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+        client_id:
+            type: integer
+            nullable: false
+        dependents:
+            type: smallint
+            nullable: true
+        ssn_tin:
+            type: string(20)
+            nullable: true
+        income_source:
+            type: string(100)
+            nullable: true
+        employer_name:
+            type: string(255)
+            nullable: true
+        industry:
+            type: string(255)
+            nullable: true
+        occupation:
+            type: string(255)
+            nullable: true
+        business_type:
+            type: string(255)
+            nullable: true
+        employer_address:
+            type: string(255)
+            nullable: true
+        city:
+            type: string(255)
+            nullable: true
+        state_id:
+            type: integer
+            nullable: true
+        zipcode:
+            type: string(255)
+            nullable: true
+        is_senior_political_figure:
+            type: boolean
+            nullable: true
+        senior_spf_name:
+            type: string(255)
+            nullable: true
+        senior_political_title:
+            type: string(255)
+            nullable: true
+        senior_account_owner_relationship:
+            type: string(255)
+            nullable: true
+        senior_country_office:
+            type: string(255)
+            nullable: true
+        is_publicly_traded_company:
+            type: boolean
+            nullable: true
+        publicle_company_name:
+            type: string(255)
+            nullable: true
+        publicle_address:
+            type: string(255)
+            nullable: true
+        publicle_city:
+            type: string(255)
+            nullable: true
+        publicle_state_id:
+            type: integer
+            nullable: true
+        is_broker_security_exchange_person:
+            type: boolean
+            nullable: true
+        broker_security_exchange_company_name:
+            type: string(255)
+            nullable: true
+        broker_security_exchange_compliance_letter:
+            type: string(255)
+            nullable: true
+    uniqueConstraints:
+        unique_ssn:
+            name: UNIQ_SSN_IDX_PI
+            columns: [ ssn_tin ]
+    oneToOne:
+        client:
+            targetEntity:  App\Entity\User
+            joinColumn:
+                name: client_id
+                referencedColumnName: id
+                onDelete: cascade
+            inversedBy: clientPersonalInformation
+            cascade: ['persist']
+    manyToOne:
+        state:
+            targetEntity:  App\Entity\State
+            joinColumn:
+                name: state_id
+                referencedColumnName: id
+                onDelete: set null
+            cascade: ['persist']
+        publicleState:
+            targetEntity:  App\Entity\State
+            joinColumn:
+                name: publicle_state_id
+                referencedColumnName: id
+                onDelete: set null
+            cascade: ['persist']
+    lifecycleCallbacks:
+        prePersist:  [ preUpload ]
+        preUpdate:   [ preUpload ]
+        postPersist: [ upload ]
+        postUpdate:  [ upload ]
+        postRemove:  [ removeUpload ]

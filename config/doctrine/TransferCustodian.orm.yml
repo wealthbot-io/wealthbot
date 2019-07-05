@@ -1,0 +1,22 @@
+App\Entity\TransferCustodian:
+    type: entity
+    table: transfer_custodians
+    repositoryClass: App\Repository\TransferCustodianRepository
+    fields:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+        name:
+            type: string
+            length: 255
+    uniqueConstraints:
+        name_unique:
+            name: name_UNIQUE_TC
+            columns: [ name ]
+    oneToOne:
+        transferCustodianQuestion:
+            targetEntity:  App\Entity\TransferCustodianQuestion
+            mappedBy: transferCustodian
+            cascade: ['persist']

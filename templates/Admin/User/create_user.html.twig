@@ -1,0 +1,71 @@
+{% extends '/Admin/layout.html.twig' %}
+
+{% block body %}
+    <div class="container">
+        <div class="col-md-8">
+        {% block form_title %}<h3>Create user</h3>{% endblock %}
+
+        <form class="form-horizontal" action="" method="post">
+            {{ form_errors(createAdminUserForm) }}
+            <div class="row">
+                <div class="form-group">
+                    <div class="col-md-6">
+                        {{ form_label(createAdminUserForm.profile.first_name, 'First Name:', { 'label_attr': { 'class': 'control-label' } }) }}
+                        <div class="controls">
+                            {{ form_errors(createAdminUserForm.profile.first_name) }}
+                            {{ form_widget(createAdminUserForm.profile.first_name, {'attr': { 'class': 'input-small' } }) }}
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        {{ form_label(createAdminUserForm.profile.last_name, 'Last Name:', { 'label_attr': { 'class': 'control-label width-90' } }) }}
+                        <div class="controls">
+                            {{ form_errors(createAdminUserForm.profile.last_name) }}
+                            {{ form_widget(createAdminUserForm.profile.last_name, {'attr': { 'class': 'input-small' } }) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% if createAdminUserForm.email is defined %}
+                <div class="form-group">
+                    {{ form_label(createAdminUserForm.email, 'Email:', { 'label_attr': { 'class': 'control-label' } }) }}
+                    <div class="controls">
+                        {{ form_errors(createAdminUserForm.email) }}
+                        {{ form_widget(createAdminUserForm.email) }}
+                    </div>
+                </div>
+            {% endif %}
+            <div class="form-group">
+                {{ form_label(createAdminUserForm.plainPassword.first, null, { 'label_attr': { 'class': 'control-label' } }) }}
+                <div class="controls">
+                    {{ form_errors(createAdminUserForm.plainPassword.first) }}
+                    {{ form_widget(createAdminUserForm.plainPassword.first) }}
+                </div>
+            </div>
+            <div class="form-group">
+                {{ form_label(createAdminUserForm.plainPassword.second, null, { 'label_attr': { 'class': 'control-label' } }) }}
+                <div class="controls">
+                    {{ form_errors(createAdminUserForm.plainPassword.second) }}
+                    {{ form_widget(createAdminUserForm.plainPassword.second) }}
+                </div>
+            </div>
+            <div class="form-group">
+                {{ form_label(createAdminUserForm.level, 'Level:', { 'label_attr': { 'class': 'control-label' } }) }}
+                <div class="controls">
+                    {{ form_errors(createAdminUserForm.level) }}
+                    {{ form_widget(createAdminUserForm.level) }}
+                </div>
+            </div>
+            <div>
+                {{ form_rest(createAdminUserForm) }}
+            </div>
+            <div class="form-actions">
+                {% block form_actions %}
+                    <a class="btn btn-default" href="{{ path('rx_admin_users') }}">Back</a>
+                    <input class="btn-primary btn" type="submit" value="Create">
+                {% endblock %}
+            </div>
+        </form>
+
+        </div>
+    </div>
+{% endblock %}

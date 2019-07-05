@@ -1,0 +1,16 @@
+App\Entity\User\Profile:
+    properties:
+        estimated_income_tax:
+            - Range:
+                min: 0
+                max: 100
+App\Entity\User\User:
+    constraints:
+        - Callback:
+            methods: [isPasswordLegal]
+            groups: [password]
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: username
+App\Entity\User\Group:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+            fields: [name, owner]

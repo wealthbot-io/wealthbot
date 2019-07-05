@@ -1,0 +1,214 @@
+App\Entity\ClientAdditionalContact:
+    type: entity
+    table: client_additional_contacts
+    repositoryClass: App\Repository\ClientAdditionalContactRepository
+    fields:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+        client_id:
+            type: integer
+            nullable: false
+        first_name:
+            type: string
+            length: 255
+            nullable: true
+        last_name:
+            type: string
+            length: 255
+            nullable: true
+        middle_name:
+            type: string
+            length: 255
+            nullable: true
+        street:
+            type: string
+            length: 255
+            nullable: true
+        city:
+            type: string
+            length: 255
+            nullable: true
+        state_id:
+            type: integer
+            nullable: true
+        zip:
+            type: string
+            length: 255
+            nullable: true
+        is_different_address:
+            type: boolean
+            nullable: true
+        mailing_street:
+            type: string
+            length: 255
+            nullable: true
+        mailing_city:
+            type: string
+            length: 255
+            nullable: true
+        mailing_state_id:
+            type: integer
+            nullable: true
+        mailing_zip:
+            type: string
+            length: 255
+            nullable: true
+        birth_date:
+            type: date
+            nullable: true
+        phone_number:
+            type: string
+            length: 255
+            nullable: true
+        dependents:
+            type: smallint
+            nullable: true
+        ssn_tin:
+            type: string(20)
+            nullable: true
+        income_source:
+            type: string(100)
+            nullable: true
+        employer_name:
+            type: string(255)
+            nullable: true
+        industry:
+            type: string(255)
+            nullable: true
+        occupation:
+            type: string(255)
+            nullable: true
+        business_type:
+            type: string(255)
+            nullable: true
+        employer_address:
+            type: string(255)
+            nullable: true
+        employment_city:
+            type: string(255)
+            nullable: true
+        employment_state_id:
+            type: integer
+            nullable: true
+        employment_zip:
+            type: string(255)
+            nullable: true
+        is_senior_political_figure:
+            type: boolean
+            nullable: true
+        senior_spf_name:
+            type: string(255)
+            nullable: true
+        senior_political_title:
+            type: string(255)
+            nullable: true
+        senior_account_owner_relationship:
+            type: string(255)
+            nullable: true
+        senior_country_office:
+            type: string(255)
+            nullable: true
+        is_publicly_traded_company:
+            type: boolean
+            nullable: true
+        publicle_company_name:
+            type: string(255)
+            nullable: true
+        publicle_address:
+            type: string(255)
+            nullable: true
+        publicle_city:
+            type: string(255)
+            nullable: true
+        publicle_state_id:
+            type: integer
+            nullable: true
+        is_broker_security_exchange_person:
+            type: boolean
+            nullable: true
+        broker_security_exchange_company_name:
+            type: string(255)
+            nullable: true
+        broker_security_exchange_compliance_letter:
+            type: string(255)
+            nullable: true
+        email:
+            type: string(255)
+            nullable: true
+        type:
+            type: string(10)
+            nullable: false
+        relationship:
+            type: string(255)
+            nullable: true
+        employment_type:
+            type: string(50)
+            nullable: true
+        marital_status:
+            type: string(20)
+            nullable: true
+        spouse_first_name:
+            type: string(255)
+            nullable: true
+        spouse_middle_name:
+            type: string(255)
+            nullable: true
+        spouse_last_name:
+            type: string(255)
+            nullable: true
+        spouse_birth_date:
+            type: date
+            nullable: true
+    uniqueConstraints:
+        ssn_unique:
+            name: UNIQ_SSN_IDX_CACR
+            columns: [ ssn_tin ]
+        email_unique:
+            name: email_UNIQUE_CACR
+            columns: [ email ]
+    manyToOne:
+        client:
+            targetEntity:  App\Entity\User
+            joinColumn:
+                name: client_id
+                referencedColumnName: id
+                onDelete: cascade
+            inversedBy: additionalContacts
+            cascade: ['persist']
+        state:
+            targetEntity:  App\Entity\State
+            joinColumn:
+                name: state_id
+                referencedColumnName: id
+                onDelete: set null
+            cascade: ['persist']
+        mailingState:
+            targetEntity:  App\Entity\State
+            joinColumn:
+                name: mailing_state_id
+                referencedColumnName: id
+                onDelete: set null
+            cascade: ['persist']
+        employmentState:
+            targetEntity:  App\Entity\State
+            joinColumn:
+                name: employment_state_id
+                referencedColumnName: id
+                onDelete: set null
+            cascade: ['persist']
+        publicleState:
+            targetEntity:  App\Entity\State
+            joinColumn:
+                name: publicle_state_id
+                referencedColumnName: id
+                onDelete: set null
+            cascade: ['persist']
+    lifecycleCallbacks:
+        prePersist:  [ preUpload ]
+        preUpdate:   [ preUpload ]
+        postPersist: [ upload ]
+        postUpdate:  [ upload ]
+        postRemove:  [ removeUpload ]

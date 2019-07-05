@@ -1,0 +1,44 @@
+App\Entity\Client\ClientInvestmentAccount:
+    properties:
+        value:
+            - Min: 0
+        monthly_contributions:
+            - Min: 0
+        monthly_distributions:
+            - Min: 0
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: { fields: [client_id, account_type_id] }
+
+App\Entity\Client\ClientRetirementAccount:
+    properties:
+        value:
+            - Min: 50000
+        monthly_contributions:
+            - Min: 0
+
+App\Entity\Client\ClientAdditionalContact:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: email
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: ssn_tin
+
+App\Entity\Client\PersonalInformation:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: ssn_tin
+
+App\Entity\Client\SystemAccount:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: account_number
+    properties:
+        account_number:
+            - NotBlank: ~
+
+App\Entity\Client\Distribution:
+    properties:
+        amount:
+            - Type:
+                type: float
+
+#App\Entity\Client\ClientAccount:
+#    properties:
+#        owner:
+#            - Choice: { callback: getOwnerChoices }

@@ -1,0 +1,14 @@
+App\Entity\ClosingAccountMessage:
+    type: entity
+    table: closing_account_messages
+    repositoryClass: App\Repository\ClosingAccountMessageRepository
+    fields:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+        message:
+            type: string
+            length: 255
+            nullable: true

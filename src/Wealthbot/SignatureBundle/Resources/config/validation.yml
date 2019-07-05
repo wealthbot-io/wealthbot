@@ -1,3 +1,0 @@
-Wealthbot\SignatureBundle\Entity\DocumentSignature:
-    constraints:
-        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: docusign_envelope_id

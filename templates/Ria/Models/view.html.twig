@@ -1,0 +1,43 @@
+{% extends '/Ria/Dashboard/index.html.twig' %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="{{ asset('js/ria/ria.models.js') }}"></script>
+{% endblock %}
+
+{% block main_content %}
+    {% include '/Ria/Models/_create_model_form.html.twig' with {'form': create_model_form, 'model_id': portfolio_information.model.id} %}
+
+    <h3>Models</h3>
+
+    {% include '/Ria/Models/_models_list.html.twig' with {'models': models} %}
+
+    {% include '/Ria/Models/_model_view.html.twig' with {
+        'portfolio_information': portfolio_information,
+        'form': form,
+        'is_use_qualified': is_use_qualified,
+        'is_show_municipal_bond': is_show_municipal_bond,
+        'is_show_tax_loss_harvesting': is_show_tax_loss_harvesting
+    } %}
+
+    <div id="modal_dialog" class="modal longModal">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3></h3>
+            </div>
+
+            <div class="modal-body">
+
+            </div>
+
+            <div class="modal-footer">
+                <button type="submit" class="btn save-modal-form-btn btn-primary">Save</button>
+                <a href="#" class="btn btn-default"  data-dismiss="modal" aria-hidden="true">Close</a>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}

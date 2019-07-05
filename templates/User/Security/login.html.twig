@@ -1,0 +1,52 @@
+{% extends "/User/layout.html.twig" %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('js/user.default.js') }}"></script>
+{% endblock %}
+
+{% block fos_user_content %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-8">
+            <div class="logo-ce-login center-text"><img class="img-responsive" src="{{ ria_logo is defined and ria_logo ? ria_logo : '/img/logo.png' }}" alt=""></div>
+        </div>
+        {% block login_content %}
+        <div class="col-md-4 form-container">
+            <form style="padding: 8px 8px" action="{{ path("check") }}" method="post" class="regRia-form">
+                <fieldset>
+                    <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+                    <div class="form-group">
+                        <label for="username" class="required">Email Address:{#{{ 'security.login.username'|trans({}, 'FOSUserBundle') }}#}</label>
+                        {% if error %}
+                            <div class="error">{{ error|trans({}, 'FOSUserBundle') }}</div>
+                        {% endif %}
+                        <div class="controls">
+                            <input class="form-control" type="text" id="username" name="_username" value="{{ last_username }}" required="required" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="password" class="control-label required">{{ 'security.login.password'|trans({}, 'FOSUserBundle') }}</label>
+                        <input class="form-control" type="password" id="password" name="_password" required="required" />
+
+                        <br />
+                        <div class="form-inline">
+                            <input type="checkbox" id="remember_me" name="_remember_me" value="on" />
+                            <label for="remember_me">{{ 'security.login.remember_me'|trans({}, 'FOSUserBundle') }}</label>
+                        </div>
+                    </div>
+
+                    <a href="{{ path('rx_security_reset_password') }}" id="forgot-password-button">Forgot your password?</a>
+
+                    <div class="form-group">
+                        <input class="btn btn-info" type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans({}, 'FOSUserBundle') }}" />
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+        {% endblock %}
+    </div>
+</div>
+
+{% endblock fos_user_content %}

@@ -11,16 +11,14 @@ class ApplicationAvailabilityFunctionalTest extends WebTestCase
      */
     public function testPageIsSuccessful($url)
     {
-
+        $url = $this->urlProvider();
         $client = self::createClient();
         $client->request('GET', $url);
-
-        $this->assertTrue($client->getResponse()->isSuccessful());
+        $this->assertTrue($client->getResponse()->isOk());
     }
 
     public function urlProvider()
     {
-        yield '/';
-        // ...
+        yield ['/'];
     }
 }

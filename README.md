@@ -7,6 +7,9 @@ Written in Symfony Flex
 
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/881769ff-b0e8-43f0-b67f-e0915d7aee5f/big.png)](https://insight.sensiolabs.com/projects/881769ff-b0e8-43f0-b67f-e0915d7aee5f)
 
+For development and customisation purposes you can write to hi[@]createit.am 
+
+
 ### Wealth Management, Set Free
 
 Hi, I'm [wealthbot.io](http://wealthbot.io). Webo for short. I'm an open source wealth management platform. I help Investment Advisors profitably serve the mass affluent.

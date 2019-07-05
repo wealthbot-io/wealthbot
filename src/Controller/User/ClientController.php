@@ -130,7 +130,7 @@ class ClientController extends Controller
             $this->setFlash('success', 'Client user successfully registered!');
         }
 
-        $portfolio = \RiskManagement\BaselinePortfolio::$models[$user->getProfile()->getSuggestedPortfolio()];
+        $portfolio = \App\RiskManagement\BaselinePortfolio::$models[$user->getProfile()->getSuggestedPortfolio()];
 
         return $this->render('/User/Client/portfolios.html.twig', ['portfolio' => $portfolio]);
     }

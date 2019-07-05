@@ -1,7 +1,8 @@
 security:
     encoders:
         #Symfony\Component\Security\Core\User\User: plaintext
-        FOS\UserBundle\Model\UserInterface: sha512
+        FOS\UserBundle\Model\UserInterface:
+            algorithm: 'auto'
 
     role_hierarchy:
         ROLE_ADMIN:        [ROLE_USER, ROLE_CLIENT_FULL]

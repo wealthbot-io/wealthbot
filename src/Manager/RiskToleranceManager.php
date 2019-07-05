@@ -19,7 +19,7 @@ use App\Entity\User;
 
 class RiskToleranceManager
 {
-    /** @var \Entity\User */
+    /** @param \App\Entity\User */
     private $user;
 
     /** @var ObjectManager */

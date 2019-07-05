@@ -15,10 +15,10 @@ use App\Manager\DocumentManager;
 
 class WorkflowTwigExtension extends \Twig_Extension
 {
-    /** @var WorkflowManager */
+    /** @var \App\Manager\WorkflowManager */
     private $manager;
 
-    /** @var \Manager\DocumentManager */
+    /** @var \App\Manager\DocumentManager */
     private $documentManager;
 
     public function __construct(WorkflowManager $manager, DocumentManager $documentManager)

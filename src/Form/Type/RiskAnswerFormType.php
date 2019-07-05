@@ -31,7 +31,7 @@ class RiskAnswerFormType extends AbstractType
         ;
 
         $builder->addEventListener(FormEvents::SUBMIT, function (FormEvent $event) {
-            /** @var \Entity\RiskAnswer $data */
+            /** @param \App\Entity\RiskAnswer $data */
             $data = $event->getData();
             $form = $event->getForm();
 

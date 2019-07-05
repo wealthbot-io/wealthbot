@@ -115,7 +115,7 @@ class Security
     /**
      * Add security assignment.
      *
-     * @param \Entity\AccountOutsideFund $securities
+     * @param \App\Entity\AccountOutsideFund $securities
      *
      * @return Security
      */
@@ -129,7 +129,7 @@ class Security
     /**
      * Remove security assignment.
      *
-     * @param \Entity\AccountOutsideFund $securities
+     * @param \App\Entity\AccountOutsideFund $securities
      */
     public function removeSecurityAssignment(AccountOutsideFund $securities)
     {
@@ -195,14 +195,14 @@ class Security
     }
 
     /**
-     * @var \Entity\SecurityType
+     * @param \App\Entity\SecurityType
      */
     private $securityType;
 
     /**
      * Set securityType.
      *
-     * @param \Entity\SecurityType $securityType
+     * @param \App\Entity\SecurityType $securityType
      *
      * @return Security
      */
@@ -216,7 +216,7 @@ class Security
     /**
      * Get securityType.
      *
-     * @return \Entity\SecurityType
+     * @return \App\Entity\SecurityType
      */
     public function getSecurityType()
     {

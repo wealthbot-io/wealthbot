@@ -165,7 +165,7 @@ class ClientProfileFormType extends AbstractType
 
     public function validate(FormEvent $event)
     {
-        /** @var \Entity\Profile $data */
+        /** @param \App\Entity\Profile $data */
         $data = $event->getData();
         $form = $event->getForm();
 

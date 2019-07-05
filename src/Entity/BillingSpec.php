@@ -102,7 +102,7 @@ class BillingSpec
     }
 
     /**
-     * @param \Entity\User $owner
+     * @param \App\Entity\User $owner
      */
     public function setOwner($owner)
     {
@@ -110,7 +110,7 @@ class BillingSpec
     }
 
     /**
-     * @return \Entity\User
+     * @return \App\Entity\User
      */
     public function getOwner()
     {
@@ -134,7 +134,7 @@ class BillingSpec
     }
 
     /**
-     * @param \Entity\Fee[] $fees
+     * @param \App\Entity\Fee[] $fees
      */
     public function setFees($fees)
     {
@@ -159,7 +159,7 @@ class BillingSpec
     }
 
     /**
-     * @return \Entity\Fee[]|ArrayCollection
+     * @return \App\Entity\Fee[]|ArrayCollection
      */
     public function getFees()
     {

@@ -26,12 +26,12 @@ class ClientPortfolio extends BaseClientPortfolio
     private $portfolio_id;
 
     /**
-     * @var \Entity\User
+     * @param \App\Entity\User
      */
     private $client;
 
     /**
-     * @var \Entity\CeModel
+     * @param \App\Entity\CeModel
      */
     private $portfolio;
 
@@ -126,7 +126,7 @@ class ClientPortfolio extends BaseClientPortfolio
     /**
      * Set client.
      *
-     * @param \Entity\User $client
+     * @param \App\Entity\User $client
      *
      * @return ClientPortfolio
      */
@@ -140,7 +140,7 @@ class ClientPortfolio extends BaseClientPortfolio
     /**
      * Get client.
      *
-     * @return \Entity\User
+     * @return \App\Entity\User
      */
     public function getClient()
     {

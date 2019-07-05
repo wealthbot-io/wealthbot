@@ -26,7 +26,7 @@ class FeeTierValidator extends ConstraintValidator
     }
 
     /**
-     * @param \Entity\Fee                       $fee
+     * @param \App\Entity\Fee                       $fee
      * @param \Symfony\Component\Validator\Constraint $constraint
      */
     public function validate($fee, Constraint $constraint)

@@ -33,7 +33,7 @@ class Group extends BaseGroup
     private $owner_id;
 
     /**
-     * @var \Entity\User
+     * @param \App\Entity\User
      */
     private $owner;
 
@@ -96,7 +96,7 @@ class Group extends BaseGroup
     /**
      * Add users.
      *
-     * @param \Entity\User $users
+     * @param \App\Entity\User $users
      *
      * @return Group
      */
@@ -110,7 +110,7 @@ class Group extends BaseGroup
     /**
      * Remove users.
      *
-     * @param \Entity\User $users
+     * @param \App\Entity\User $users
      */
     public function removeUser(User $users)
     {
@@ -154,7 +154,7 @@ class Group extends BaseGroup
     /**
      * Set owner.
      *
-     * @param \Entity\User $owner
+     * @param \App\Entity\User $owner
      *
      * @return Group
      */

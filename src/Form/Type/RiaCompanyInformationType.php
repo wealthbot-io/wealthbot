@@ -31,7 +31,7 @@ class RiaCompanyInformationType extends AbstractType
         $this->isPreSave = $options['isPreSave'];
 
 
-        /** @var \Entity\RiaCompanyInformation $info */
+        /** @param \App\Entity\RiaCompanyInformation $info */
         $info = $this->user->getRiaCompanyInformation();
 
         if ($info) {
@@ -112,7 +112,7 @@ class RiaCompanyInformationType extends AbstractType
         $builder->addEventListener(\Symfony\Component\Form\FormEvents::SUBMIT, function (\Symfony\Component\Form\FormEvent $event) {
             $form = $event->getForm();
 
-            /** @var \Entity\RiaCompanyInformation $data */
+            /** @param \App\Entity\RiaCompanyInformation $data */
             $data = $event->getData();
 
             $phoneDigits = 10;

@@ -100,7 +100,7 @@ class AccountType
     /**
      * Add clientInvestmentAccounts.
      *
-     * @param \Entity\ClientAccount $clientInvestmentAccounts
+     * @param \App\Entity\ClientAccount $clientInvestmentAccounts
      *
      * @return AccountType
      */
@@ -114,7 +114,7 @@ class AccountType
     /**
      * Remove clientInvestmentAccounts.
      *
-     * @param \Entity\ClientAccount $clientInvestmentAccounts
+     * @param \App\Entity\ClientAccount $clientInvestmentAccounts
      */
     public function removeClientInvestmentAccount(ClientAccount $clientInvestmentAccounts)
     {
@@ -139,7 +139,7 @@ class AccountType
     /**
      * Add groupTypes.
      *
-     * @param \Entity\AccountGroupType $groupTypes
+     * @param \App\Entity\AccountGroupType $groupTypes
      *
      * @return AccountType
      */
@@ -153,7 +153,7 @@ class AccountType
     /**
      * Remove groupTypes.
      *
-     * @param \Entity\AccountGroupType $groupTypes
+     * @param \App\Entity\AccountGroupType $groupTypes
      */
     public function removeGroupType(AccountGroupType $groupTypes)
     {

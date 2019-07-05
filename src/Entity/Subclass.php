@@ -41,7 +41,7 @@ class Subclass
     private $account_type_id;
 
     /**
-     * @var \Entity\SubclassAccountType
+     * @param \App\Entity\SubclassAccountType
      */
     private $accountType;
 
@@ -56,12 +56,12 @@ class Subclass
     private $source_id;
 
     /**
-     * @var \Entity\User
+     * @param \App\Entity\User
      */
     private $owner;
 
     /**
-     * @var \Entity\Subclass
+     * @param \App\Entity\Subclass
      */
     private $source;
 
@@ -190,7 +190,7 @@ class Subclass
     /**
      * Set assetClass.
      *
-     * @param \Entity\AssetClass $assetClass
+     * @param \App\Entity\AssetClass $assetClass
      *
      * @return Subclass
      */
@@ -238,7 +238,7 @@ class Subclass
     /**
      * Set accountType.
      *
-     * @param \Entity\SubclassAccountType $accountType
+     * @param \App\Entity\SubclassAccountType $accountType
      *
      * @return Subclass
      */
@@ -310,7 +310,7 @@ class Subclass
     /**
      * Set owner.
      *
-     * @param \Entity\User $owner
+     * @param \App\Entity\User $owner
      *
      * @return Subclass
      */
@@ -334,7 +334,7 @@ class Subclass
     /**
      * Set source.
      *
-     * @param \Entity\Subclass $source
+     * @param \App\Entity\Subclass $source
      *
      * @return Subclass
      */
@@ -358,7 +358,7 @@ class Subclass
     /**
      * Add targets.
      *
-     * @param \Entity\Subclass $targets
+     * @param \App\Entity\Subclass $targets
      *
      * @return Subclass
      */
@@ -372,7 +372,7 @@ class Subclass
     /**
      * Remove targets.
      *
-     * @param \Entity\Subclass $targets
+     * @param \App\Entity\Subclass $targets
      */
     public function removeTarget(Subclass $targets)
     {
@@ -392,7 +392,7 @@ class Subclass
     /**
      * Add security assignment.
      *
-     * @param \Entity\SecurityAssignment $securities
+     * @param \App\Entity\SecurityAssignment $securities
      *
      * @return Subclass
      */
@@ -406,7 +406,7 @@ class Subclass
     /**
      * Remove security assignment.
      *
-     * @param \Entity\SecurityAssignment $securities
+     * @param \App\Entity\SecurityAssignment $securities
      */
     public function removeSecurityAssignment(SecurityAssignment $securities)
     {
@@ -450,7 +450,7 @@ class Subclass
     /**
      * Add ceModelEntities.
      *
-     * @param \Entity\CeModelEntity $ceModelEntities
+     * @param \App\Entity\CeModelEntity $ceModelEntities
      *
      * @return Subclass
      */
@@ -464,7 +464,7 @@ class Subclass
     /**
      * Remove ceModelEntities.
      *
-     * @param \Entity\CeModelEntity $ceModelEntities
+     * @param \App\Entity\CeModelEntity $ceModelEntities
      */
     public function removeCeModelEntitie(CeModelEntity $ceModelEntities)
     {
@@ -506,7 +506,7 @@ class Subclass
     /**
      * Add ceModelEntities.
      *
-     * @param \Entity\CeModelEntity $ceModelEntities
+     * @param \App\Entity\CeModelEntity $ceModelEntities
      *
      * @return Subclass
      */
@@ -520,7 +520,7 @@ class Subclass
     /**
      * Remove ceModelEntities.
      *
-     * @param \Entity\CeModelEntity $ceModelEntities
+     * @param \App\Entity\CeModelEntity $ceModelEntities
      */
     public function removeCeModelEntity(CeModelEntity $ceModelEntities)
     {

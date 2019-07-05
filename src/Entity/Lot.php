@@ -215,7 +215,7 @@ class Lot
     }
 
     /**
-     * @param \Entity\Position $position
+     * @param \App\Entity\Position $position
      */
     public function setPosition($position)
     {
@@ -223,7 +223,7 @@ class Lot
     }
 
     /**
-     * @return \Entity\Position
+     * @return \App\Entity\Position
      */
     public function getPosition()
     {
@@ -305,7 +305,7 @@ class Lot
     /**
      * Set clientSystemAccount.
      *
-     * @param \Entity\SystemAccount $clientSystemAccount
+     * @param \App\Entity\SystemAccount $clientSystemAccount
      *
      * @return Position
      */
@@ -319,7 +319,7 @@ class Lot
     /**
      * Get clientSystemAccount.
      *
-     * @return \Entity\SystemAccount
+     * @return \App\Entity\SystemAccount
      */
     public function getClientSystemAccount()
     {
@@ -329,7 +329,7 @@ class Lot
     /**
      * Set security.
      *
-     * @param \Entity\Security $security
+     * @param \App\Entity\Security $security
      *
      * @return Position
      */
@@ -343,7 +343,7 @@ class Lot
     /**
      * Get security.
      *
-     * @return \Entity\Security
+     * @return \App\Entity\Security
      */
     public function getSecurity()
     {
@@ -353,7 +353,7 @@ class Lot
     /**
      * Set initial.
      *
-     * @param \Entity\Lot $initial
+     * @param \App\Entity\Lot $initial
      *
      * @return Lot
      */
@@ -367,7 +367,7 @@ class Lot
     /**
      * Get initial.
      *
-     * @return \Entity\Lot
+     * @return \App\Entity\Lot
      */
     public function getInitial()
     {

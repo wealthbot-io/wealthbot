@@ -89,7 +89,7 @@ class FeeFormType extends AbstractType
 
     public function onSubmit(FormEvent $event)
     {
-        /** @var \Entity\Fee $fee */
+        /** @param \App\Entity\Fee $fee */
         $fee = $event->getData();
 
         $form = $event->getForm();

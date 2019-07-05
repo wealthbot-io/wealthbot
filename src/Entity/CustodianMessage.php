@@ -38,7 +38,7 @@ class CustodianMessage
     protected static $_types = null;
 
     /**
-     * @var \Entity\Custodian
+     * @param \App\Entity\Custodian
      */
     private $custodian;
 
@@ -157,7 +157,7 @@ class CustodianMessage
     /**
      * Set custodian.
      *
-     * @param \Entity\Custodian $custodian
+     * @param \App\Entity\Custodian $custodian
      *
      * @return CustodianMessage
      */
@@ -171,7 +171,7 @@ class CustodianMessage
     /**
      * Get custodian.
      *
-     * @return \Entity\Custodian
+     * @return \App\Entity\Custodian
      */
     public function getCustodian()
     {

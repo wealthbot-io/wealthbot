@@ -22,7 +22,7 @@ class OneTimeContribution extends BaseOneTimeContribution implements SignableInt
     private $system_account_id;
 
     /**
-     * @var \Entity\SystemAccount
+     * @param \App\Entity\SystemAccount
      */
     private $systemAccount;
 
@@ -37,7 +37,7 @@ class OneTimeContribution extends BaseOneTimeContribution implements SignableInt
     protected $start_transfer_date;
 
     /**
-     * @var \Entity\BankInformation
+     * @param \App\Entity\BankInformation
      */
     protected $bankInformation;
 
@@ -213,7 +213,7 @@ class OneTimeContribution extends BaseOneTimeContribution implements SignableInt
     /**
      * Set systemAccount.
      *
-     * @param \Entity\SystemAccount $systemAccount
+     * @param \App\Entity\SystemAccount $systemAccount
      *
      * @return OneTimeContribution
      */
@@ -227,7 +227,7 @@ class OneTimeContribution extends BaseOneTimeContribution implements SignableInt
     /**
      * Get systemAccount.
      *
-     * @return \Entity\SystemAccount
+     * @return \App\Entity\SystemAccount
      */
     public function getSystemAccount()
     {
@@ -237,7 +237,7 @@ class OneTimeContribution extends BaseOneTimeContribution implements SignableInt
     /**
      * Set bankInformation.
      *
-     * @param \Entity\BankInformation $bankInformation
+     * @param \App\Entity\BankInformation $bankInformation
      *
      * @return OneTimeContribution
      */
@@ -251,7 +251,7 @@ class OneTimeContribution extends BaseOneTimeContribution implements SignableInt
     /**
      * Get bankInformation.
      *
-     * @return \Entity\BankInformation
+     * @return \App\Entity\BankInformation
      */
     public function getBankInformation()
     {

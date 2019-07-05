@@ -148,7 +148,7 @@ class Position
     /**
      * Set clientSystemAccount.
      *
-     * @param \Entity\SystemAccount $clientSystemAccount
+     * @param \App\Entity\SystemAccount $clientSystemAccount
      *
      * @return Position
      */
@@ -162,7 +162,7 @@ class Position
     /**
      * Get clientSystemAccount.
      *
-     * @return \Entity\SystemAccount
+     * @return \App\Entity\SystemAccount
      */
     public function getClientSystemAccount()
     {
@@ -172,7 +172,7 @@ class Position
     /**
      * Set security.
      *
-     * @param \Entity\Security $security
+     * @param \App\Entity\Security $security
      *
      * @return Position
      */
@@ -186,7 +186,7 @@ class Position
     /**
      * Get security.
      *
-     * @return \Entity\Security
+     * @return \App\Entity\Security
      */
     public function getSecurity()
     {

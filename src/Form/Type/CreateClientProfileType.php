@@ -22,7 +22,7 @@ class CreateClientProfileType extends AbstractType
 
 
 
-        /** @var \Entity\User $ria */
+        /** @param \App\Entity\User $ria */
         $ria = $this->ria;
         $portfolioModel = $ria->getRiaCompanyInformation()->getPortfolioModel();
 

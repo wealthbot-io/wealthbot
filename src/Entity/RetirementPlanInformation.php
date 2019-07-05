@@ -43,7 +43,7 @@ class RetirementPlanInformation
     private $username;
 
     /**
-     * @var \Entity\ClientAccount
+     * @param \App\Entity\ClientAccount
      */
     private $account;
 
@@ -156,7 +156,7 @@ class RetirementPlanInformation
     /**
      * Set account.
      *
-     * @param \Entity\ClientAccount $account
+     * @param \App\Entity\ClientAccount $account
      *
      * @return RetirementPlanInformation
      */
@@ -170,7 +170,7 @@ class RetirementPlanInformation
     /**
      * Get account.
      *
-     * @return \Entity\ClientAccount
+     * @return \App\Entity\ClientAccount
      */
     public function getAccount()
     {

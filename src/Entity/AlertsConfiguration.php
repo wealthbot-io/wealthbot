@@ -28,7 +28,7 @@ class AlertsConfiguration
     private $is_client_driven_account_closures;
 
     /**
-     * @var \Entity\User
+     * @param \App\Entity\User
      */
     private $user;
 
@@ -117,7 +117,7 @@ class AlertsConfiguration
     /**
      * Set user.
      *
-     * @param \Entity\User $user
+     * @param \App\Entity\User $user
      *
      * @return AlertsConfiguration
      */
@@ -131,7 +131,7 @@ class AlertsConfiguration
     /**
      * Get user.
      *
-     * @return \Entity\User
+     * @return \App\Entity\User
      */
     public function getUser()
     {

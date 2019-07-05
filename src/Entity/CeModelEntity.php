@@ -66,32 +66,32 @@ class CeModelEntity extends BaseCeModelEntity
     protected $isQualified;
 
     /**
-     * @var \Entity\CeModel
+     * @param \App\Entity\CeModel
      */
     protected $model;
 
     /**
-     * @var \Entity\AssetClass
+     * @param \App\Entity\AssetClass
      */
     protected $assetClass;
 
     /**
-     * @var \Entity\Subclass
+     * @param \App\Entity\Subclass
      */
     protected $subclass;
 
     /**
-     * @var \Entity\SecurityAssignment
+     * @param \App\Entity\SecurityAssignment
      */
     protected $securityAssignment;
 
     /**
-     * @var \Entity\SecurityAssignment
+     * @param \App\Entity\SecurityAssignment
      */
     protected $muniSubstitution;
 
     /**
-     * @var \Entity\SecurityAssignment
+     * @param \App\Entity\SecurityAssignment
      */
     protected $taxLossHarvesting;
 
@@ -369,7 +369,7 @@ class CeModelEntity extends BaseCeModelEntity
     /**
      * Get model.
      *
-     * @return \Entity\CeModel
+     * @return \App\Entity\CeModel
      */
     public function getModel()
     {
@@ -379,7 +379,7 @@ class CeModelEntity extends BaseCeModelEntity
     /**
      * Set assetClass.
      *
-     * @param \Entity\AssetClass $assetClass
+     * @param \App\Entity\AssetClass $assetClass
      *
      * @return CeModelEntity
      */
@@ -393,7 +393,7 @@ class CeModelEntity extends BaseCeModelEntity
     /**
      * Get assetClass.
      *
-     * @return \Entity\AssetClass
+     * @return \App\Entity\AssetClass
      */
     public function getAssetClass()
     {
@@ -403,7 +403,7 @@ class CeModelEntity extends BaseCeModelEntity
     /**
      * Set subclass.
      *
-     * @param \Entity\Subclass $subclass
+     * @param \App\Entity\Subclass $subclass
      *
      * @return CeModelEntity
      */
@@ -417,7 +417,7 @@ class CeModelEntity extends BaseCeModelEntity
     /**
      * Get subclass.
      *
-     * @return \Entity\Subclass
+     * @return \App\Entity\Subclass
      */
     public function getSubclass()
     {
@@ -427,7 +427,7 @@ class CeModelEntity extends BaseCeModelEntity
     /**
      * Set securityAssignment.
      *
-     * @param \Entity\SecurityAssignment $securityAssignment
+     * @param \App\Entity\SecurityAssignment $securityAssignment
      *
      * @return CeModelEntity
      */
@@ -441,7 +441,7 @@ class CeModelEntity extends BaseCeModelEntity
     /**
      * Get securityAssignment.
      *
-     * @return \Entity\SecurityAssignment
+     * @return \App\Entity\SecurityAssignment
      */
     public function getSecurityAssignment()
     {
@@ -451,7 +451,7 @@ class CeModelEntity extends BaseCeModelEntity
     /**
      * Set muniSubstitution.
      *
-     * @param \Entity\SecurityAssignment $muniSubstitution
+     * @param \App\Entity\SecurityAssignment $muniSubstitution
      *
      * @return CeModelEntity
      */
@@ -465,7 +465,7 @@ class CeModelEntity extends BaseCeModelEntity
     /**
      * Get muniSubstitution.
      *
-     * @return \Entity\SecurityAssignment
+     * @return \App\Entity\SecurityAssignment
      */
     public function getMuniSubstitution()
     {
@@ -475,7 +475,7 @@ class CeModelEntity extends BaseCeModelEntity
     /**
      * Set taxLossHarvesting.
      *
-     * @param \Entity\SecurityAssignment $taxLossHarvesting
+     * @param \App\Entity\SecurityAssignment $taxLossHarvesting
      *
      * @return CeModelEntity
      */
@@ -489,7 +489,7 @@ class CeModelEntity extends BaseCeModelEntity
     /**
      * Get taxLossHarvesting.
      *
-     * @return \Entity\SecurityAssignment
+     * @return \App\Entity\SecurityAssignment
      */
     public function getTaxLossHarvesting()
     {

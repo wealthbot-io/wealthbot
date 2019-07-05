@@ -57,17 +57,17 @@ class DocumentOwnerSignature
     private $updated;
 
     /**
-     * @var \Entity\DocumentSignature
+     * @param \App\Entity\DocumentSignature
      */
     private $documentSignature;
 
     /**
-     * @var \Entity\User
+     * @param \App\Entity\User
      */
     private $clientOwner;
 
     /**
-     * @var \Entity\ClientAdditionalContact
+     * @param \App\Entity\ClientAdditionalContact
      */
     private $contactOwner;
 
@@ -260,7 +260,7 @@ class DocumentOwnerSignature
     /**
      * Set documentSignature.
      *
-     * @param \Entity\DocumentSignature $documentSignature
+     * @param \App\Entity\DocumentSignature $documentSignature
      *
      * @return DocumentOwnerSignature
      */
@@ -284,7 +284,7 @@ class DocumentOwnerSignature
     /**
      * Set clientOwner.
      *
-     * @param \Entity\User $clientOwner
+     * @param \App\Entity\User $clientOwner
      *
      * @return DocumentOwnerSignature
      */
@@ -298,7 +298,7 @@ class DocumentOwnerSignature
     /**
      * Get clientOwner.
      *
-     * @return \Entity\User
+     * @return \App\Entity\User
      */
     public function getClientOwner()
     {
@@ -308,7 +308,7 @@ class DocumentOwnerSignature
     /**
      * Set contactOwner.
      *
-     * @param \Entity\ClientAdditionalContact $contactOwner
+     * @param \App\Entity\ClientAdditionalContact $contactOwner
      *
      * @return DocumentOwnerSignature
      */

@@ -31,12 +31,12 @@ class AccountGroupType
     private $clientAccounts;
 
     /**
-     * @var \Entity\AccountGroup
+     * @param \App\Entity\AccountGroup
      */
     private $group;
 
     /**
-     * @var \Entity\AccountType
+     * @param \App\Entity\AccountType
      */
     private $type;
 
@@ -114,7 +114,7 @@ class AccountGroupType
     /**
      * Add clientAccounts.
      *
-     * @param \Entity\ClientAccount $clientAccounts
+     * @param \App\Entity\ClientAccount $clientAccounts
      *
      * @return AccountGroupType
      */
@@ -128,7 +128,7 @@ class AccountGroupType
     /**
      * Remove clientAccounts.
      *
-     * @param \Entity\ClientAccount $clientAccounts
+     * @param \App\Entity\ClientAccount $clientAccounts
      */
     public function removeClientAccount(ClientAccount $clientAccounts)
     {
@@ -148,7 +148,7 @@ class AccountGroupType
     /**
      * Set group.
      *
-     * @param \Entity\AccountGroup $group
+     * @param \App\Entity\AccountGroup $group
      *
      * @return AccountGroupType
      */
@@ -162,7 +162,7 @@ class AccountGroupType
     /**
      * Get group.
      *
-     * @return \Entity\AccountGroup
+     * @return \App\Entity\AccountGroup
      */
     public function getGroup()
     {
@@ -172,7 +172,7 @@ class AccountGroupType
     /**
      * Set type.
      *
-     * @param \Entity\AccountType $type
+     * @param \App\Entity\AccountType $type
      *
      * @return AccountGroupType
      */
@@ -186,7 +186,7 @@ class AccountGroupType
     /**
      * Get type.
      *
-     * @return \Entity\AccountType
+     * @return \App\Entity\AccountType
      */
     public function getType()
     {

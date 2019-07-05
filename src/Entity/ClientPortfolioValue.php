@@ -47,7 +47,7 @@ class ClientPortfolioValue
     private $date;
 
     /**
-     * @var \Entity\ClientPortfolio
+     * @param \App\Entity\ClientPortfolio
      */
     private $clientPortfolio;
 
@@ -256,7 +256,7 @@ class ClientPortfolioValue
     /**
      * Set clientPortfolio.
      *
-     * @param \Entity\ClientPortfolio $clientPortfolio
+     * @param \App\Entity\ClientPortfolio $clientPortfolio
      *
      * @return ClientPortfolioValue
      */
@@ -424,7 +424,7 @@ class ClientPortfolioValue
     /**
      * Add rebalancerActions.
      *
-     * @param \Entity\RebalancerAction $rebalancerActions
+     * @param \App\Entity\RebalancerAction $rebalancerActions
      *
      * @return ClientPortfolioValue
      */
@@ -438,7 +438,7 @@ class ClientPortfolioValue
     /**
      * Remove rebalancerActions.
      *
-     * @param \Entity\RebalancerAction $rebalancerActions
+     * @param \App\Entity\RebalancerAction $rebalancerActions
      */
     public function removeRebalancerAction(RebalancerAction $rebalancerActions)
     {

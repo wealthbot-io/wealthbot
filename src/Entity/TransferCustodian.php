@@ -52,14 +52,14 @@ class TransferCustodian
     }
 
     /**
-     * @var \Entity\TransferCustodianQuestion
+     * @param \App\Entity\TransferCustodianQuestion
      */
     private $transferCustodianQuestion;
 
     /**
      * Set transferCustodianQuestion.
      *
-     * @param \Entity\TransferCustodianQuestion $transferCustodianQuestion
+     * @param \App\Entity\TransferCustodianQuestion $transferCustodianQuestion
      *
      * @return TransferCustodian
      */
@@ -73,7 +73,7 @@ class TransferCustodian
     /**
      * Get transferCustodianQuestion.
      *
-     * @return \Entity\TransferCustodianQuestion
+     * @return \App\Entity\TransferCustodianQuestion
      */
     public function getTransferCustodianQuestion()
     {

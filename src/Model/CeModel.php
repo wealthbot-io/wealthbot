@@ -25,7 +25,7 @@ class CeModel implements CeModelInterface
     protected $parentId;
 
     /**
-     * @var \Entity\CeModel
+     * @param \App\Entity\CeModel
      */
     protected $parent;
 
@@ -40,7 +40,7 @@ class CeModel implements CeModelInterface
     protected $ownerId;
 
     /**
-     * @var \Entity\User
+     * @param \App\Entity\User
      */
     protected $owner;
 

@@ -20,7 +20,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ChooseClientPortfolioFormType extends AbstractType
 {
-    /** @var \Entity\ClientPortfolio */
+    /** @param \App\Entity\ClientPortfolio */
     private $proposedPortfolio;
 
 

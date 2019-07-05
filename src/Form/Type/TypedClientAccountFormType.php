@@ -27,7 +27,7 @@ class TypedClientAccountFormType extends ClientAccountFormType
     protected $em;
     private $groupType;
 
-    /** @var \Entity\User $client */
+    /** @param \App\Entity\User $client */
     protected $client;
     protected $group;
     protected $validateAdditionalFields;

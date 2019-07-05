@@ -79,12 +79,12 @@ class Distribution implements SignableInterface, PaymentWorkflowableInterface
     private $updatedAt;
 
     /**
-     * @var \Entity\SystemAccount
+     * @param \App\Entity\SystemAccount
      */
     private $systemClientAccount;
 
     /**
-     * @var \Entity\BankInformation
+     * @param \App\Entity\BankInformation
      */
     private $bankInformation;
 
@@ -150,7 +150,7 @@ class Distribution implements SignableInterface, PaymentWorkflowableInterface
     private $stateWithholdPercent;
 
     /**
-     * @var \Entity\State
+     * @param \App\Entity\State
      */
     private $residenceState;
 
@@ -410,7 +410,7 @@ class Distribution implements SignableInterface, PaymentWorkflowableInterface
     /**
      * Set systemClientAccount.
      *
-     * @param \Entity\SystemAccount $systemClientAccount
+     * @param \App\Entity\SystemAccount $systemClientAccount
      *
      * @return Distribution
      */
@@ -434,7 +434,7 @@ class Distribution implements SignableInterface, PaymentWorkflowableInterface
     /**
      * Set bankInformation.
      *
-     * @param \Entity\BankInformation $bankInformation
+     * @param \App\Entity\BankInformation $bankInformation
      *
      * @return Distribution
      */
@@ -703,7 +703,7 @@ class Distribution implements SignableInterface, PaymentWorkflowableInterface
     /**
      * Set residenceState.
      *
-     * @param \Entity\State $residenceState
+     * @param \App\Entity\State $residenceState
      *
      * @return Distribution
      */

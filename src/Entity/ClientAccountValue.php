@@ -56,7 +56,7 @@ class ClientAccountValue
     private $client_portfolio_id;
 
     /**
-     * @var \Entity\ClientPortfolio
+     * @param \App\Entity\ClientPortfolio
      */
     private $clientPortfolio;
 
@@ -66,7 +66,7 @@ class ClientAccountValue
     private $system_client_account_id;
 
     /**
-     * @var \Entity\SystemAccount
+     * @param \App\Entity\SystemAccount
      */
     private $systemClientAccount;
 
@@ -323,7 +323,7 @@ class ClientAccountValue
     /**
      * Set client_portfolio.
      *
-     * @param \Entity\ClientPortfolio $clientPortfolio
+     * @param \App\Entity\ClientPortfolio $clientPortfolio
      *
      * @return ClientAccountValue
      */
@@ -337,7 +337,7 @@ class ClientAccountValue
     /**
      * Get client_portfolio.
      *
-     * @return \Entity\ClientPortfolio
+     * @return \App\Entity\ClientPortfolio
      */
     public function getClientPortfolio()
     {
@@ -371,7 +371,7 @@ class ClientAccountValue
     /**
      * Set systemClientAccount.
      *
-     * @param \Entity\SystemAccount $systemClientAccount
+     * @param \App\Entity\SystemAccount $systemClientAccount
      *
      * @return ClientAccountValue
      */
@@ -385,7 +385,7 @@ class ClientAccountValue
     /**
      * Get systemClientAccount.
      *
-     * @return \Entity\SystemAccount
+     * @return \App\Entity\SystemAccount
      */
     public function getSystemClientAccount()
     {
@@ -539,7 +539,7 @@ class ClientAccountValue
     /**
      * Add rebalancerActions.
      *
-     * @param \Entity\RebalancerAction $rebalancerActions
+     * @param \App\Entity\RebalancerAction $rebalancerActions
      *
      * @return ClientAccountValue
      */
@@ -553,7 +553,7 @@ class ClientAccountValue
     /**
      * Remove rebalancerActions.
      *
-     * @param \Entity\RebalancerAction $rebalancerActions
+     * @param \App\Entity\RebalancerAction $rebalancerActions
      */
     public function removeRebalancerAction(RebalancerAction $rebalancerActions)
     {

@@ -35,7 +35,7 @@ class User extends BaseUser implements ActivityInterface
     private $clientAccounts;
 
     /**
-     * @var \Entity\RiaCompanyInformation
+     * @param \App\Entity\RiaCompanyInformation
      */
     private $riaCompanyInformation;
 
@@ -60,7 +60,7 @@ class User extends BaseUser implements ActivityInterface
     protected $password_expired_at;
 
     /**
-     * @var \Entity\RiaModelCompletion
+     * @param \App\Entity\RiaModelCompletion
      */
     private $riaModelCompletion;
 
@@ -80,12 +80,12 @@ class User extends BaseUser implements ActivityInterface
     private $slaveClients;
 
     /**
-     * @var \Entity\User
+     * @param \App\Entity\User
      */
     private $masterClient;
 
     /**
-     * @var \Entity\Profile
+     * @param \App\Entity\Profile
      */
     protected $profile;
 
@@ -182,7 +182,7 @@ class User extends BaseUser implements ActivityInterface
     /**
      * Set profile.
      *
-     * @param \Entity\Profile $profile
+     * @param \App\Entity\Profile $profile
      *
      * @return User
      */
@@ -200,7 +200,7 @@ class User extends BaseUser implements ActivityInterface
     /**
      * Get profile.
      *
-     * @return \Entity\Profile
+     * @return \App\Entity\Profile
      */
     public function getProfile()
     {
@@ -210,7 +210,7 @@ class User extends BaseUser implements ActivityInterface
     /**
      * Add clientAccounts.
      *
-     * @param \Entity\ClientAccount $clientAccounts
+     * @param \App\Entity\ClientAccount $clientAccounts
      *
      * @return User
      */
@@ -224,7 +224,7 @@ class User extends BaseUser implements ActivityInterface
     /**
      * Remove clientAccounts.
      *
-     * @param \Entity\ClientAccount $clientAccounts
+     * @param \App\Entity\ClientAccount $clientAccounts
      */
     public function removeClientAccount(ClientAccount $clientAccounts)
     {
@@ -234,7 +234,7 @@ class User extends BaseUser implements ActivityInterface
     /**
      * Set riaCompanyInformation.
      *
-     * @param \Entity\RiaCompanyInformation $riaCompanyInformation
+     * @param \App\Entity\RiaCompanyInformation $riaCompanyInformation
      *
      * @return User
      */
@@ -248,7 +248,7 @@ class User extends BaseUser implements ActivityInterface
     /**
      * Get riaCompanyInformation.
      *
-     * @return \Entity\RiaCompanyInformation|null
+     * @return \App\Entity\RiaCompanyInformation|null
      *
      * @throws \Exception
      */
@@ -270,7 +270,7 @@ class User extends BaseUser implements ActivityInterface
     /**
      * Get custodian.
      *
-     * @return \Entity\Custodian
+     * @return \App\Entity\Custodian
      */
     public function getCustodian()
     {
@@ -280,7 +280,7 @@ class User extends BaseUser implements ActivityInterface
     /**
      * Add fees.
      *
-     * @param \Entity\Fee $fees
+     * @param \App\Entity\Fee $fees
      *
      * @return User
      */
@@ -294,7 +294,7 @@ class User extends BaseUser implements ActivityInterface
     /**
      * Remove fees.
      *
-     * @param \Entity\Fee $fees
+     * @param \App\Entity\Fee $fees
      */
     public function removeFee(Fee $fees)
     {
@@ -396,7 +396,7 @@ class User extends BaseUser implements ActivityInterface
     /**
      * Set riaModelCompletion.
      *
-     * @param \Entity\RiaModelCompletion $riaModelCompletion
+     * @param \App\Entity\RiaModelCompletion $riaModelCompletion
      *
      * @return User
      */
@@ -410,7 +410,7 @@ class User extends BaseUser implements ActivityInterface
     /**
      * Get riaModelCompletion.
      *
-     * @return \Entity\RiaModelCompletion
+     * @return \App\Entity\RiaModelCompletion
      */
     public function getRiaModelCompletion()
     {
@@ -418,14 +418,14 @@ class User extends BaseUser implements ActivityInterface
     }
 
     /**
-     * @var \Entity\PersonalInformation
+     * @param \App\Entity\PersonalInformation
      */
     private $clientPersonalInformation;
 
     /**
      * Set clientPersonalInformation.
      *
-     * @param \Entity\PersonalInformation $clientPersonalInformation
+     * @param \App\Entity\PersonalInformation $clientPersonalInformation
      *
      * @return User
      */
@@ -439,7 +439,7 @@ class User extends BaseUser implements ActivityInterface
     /**
      * Get clientPersonalInformation.
      *
-     * @return \Entity\PersonalInformation
+     * @return \App\Entity\PersonalInformation
      */
     public function getClientPersonalInformation()
     {
@@ -449,7 +449,7 @@ class User extends BaseUser implements ActivityInterface
     /**
      * Add systemAccount.
      *
-     * @param \Entity\SystemAccount $systemAccounts
+     * @param \App\Entity\SystemAccount $systemAccounts
      *
      * @return User
      */
@@ -463,7 +463,7 @@ class User extends BaseUser implements ActivityInterface
     /**
      * Remove systemAccount.
      *
-     * @param \Entity\SystemAccount $systemAccounts
+     * @param \App\Entity\SystemAccount $systemAccounts
      */
     public function removeSystemAccount(SystemAccount $systemAccounts)
     {
@@ -509,7 +509,7 @@ class User extends BaseUser implements ActivityInterface
     /**
      * Add additionalContacts.
      *
-     * @param \Entity\ClientAdditionalContact $additionalContacts
+     * @param \App\Entity\ClientAdditionalContact $additionalContacts
      *
      * @return User
      */
@@ -523,7 +523,7 @@ class User extends BaseUser implements ActivityInterface
     /**
      * Remove additionalContacts.
      *
-     * @param \Entity\ClientAdditionalContact $additionalContacts
+     * @param \App\Entity\ClientAdditionalContact $additionalContacts
      */
     public function removeAdditionalContact(ClientAdditionalContact $additionalContacts)
     {
@@ -593,7 +593,7 @@ class User extends BaseUser implements ActivityInterface
     /**
      * Get user state.
      *
-     * @return \Entity\State|null
+     * @return \App\Entity\State|null
      */
     public function getState()
     {
@@ -782,7 +782,7 @@ class User extends BaseUser implements ActivityInterface
     /**
      * Add slaveClients.
      *
-     * @param \Entity\User $slaveClients
+     * @param \App\Entity\User $slaveClients
      *
      * @return User
      */
@@ -796,7 +796,7 @@ class User extends BaseUser implements ActivityInterface
     /**
      * Remove slaveClients.
      *
-     * @param \Entity\User $slaveClients
+     * @param \App\Entity\User $slaveClients
      */
     public function removeSlaveClient(User $slaveClients)
     {
@@ -816,7 +816,7 @@ class User extends BaseUser implements ActivityInterface
     /**
      * Set masterClient.
      *
-     * @param \Entity\User $masterClient
+     * @param \App\Entity\User $masterClient
      *
      * @return User
      */
@@ -830,7 +830,7 @@ class User extends BaseUser implements ActivityInterface
     /**
      * Get masterClient.
      *
-     * @return \Entity\User
+     * @return \App\Entity\User
      */
     public function getMasterClient()
     {
@@ -864,7 +864,7 @@ class User extends BaseUser implements ActivityInterface
     /**
      * Add userDocuments.
      *
-     * @param \Entity\Document $userDocuments
+     * @param \App\Entity\Document $userDocuments
      *
      * @return User
      */
@@ -878,7 +878,7 @@ class User extends BaseUser implements ActivityInterface
     /**
      * Remove userDocuments.
      *
-     * @param \Entity\Document $userDocuments
+     * @param \App\Entity\Document $userDocuments
      */
     public function removeUserDocument(Document $userDocuments)
     {
@@ -925,14 +925,14 @@ class User extends BaseUser implements ActivityInterface
     }
 
     /**
-     * @var \Entity\AlertsConfiguration
+     * @param \App\Entity\AlertsConfiguration
      */
     private $alertsConfiguration;
 
     /**
      * Set alertsConfiguration.
      *
-     * @param \Entity\AlertsConfiguration $alertsConfiguration
+     * @param \App\Entity\AlertsConfiguration $alertsConfiguration
      *
      * @return User
      */
@@ -946,7 +946,7 @@ class User extends BaseUser implements ActivityInterface
     /**
      * Get alertsConfiguration.
      *
-     * @return \Entity\AlertsConfiguration
+     * @return \App\Entity\AlertsConfiguration
      */
     public function getAlertsConfiguration()
     {
@@ -956,7 +956,7 @@ class User extends BaseUser implements ActivityInterface
     /**
      * Add riaDashboardBoxes.
      *
-     * @param \Entity\RiaDashboardBox $riaDashboardBoxes
+     * @param \App\Entity\RiaDashboardBox $riaDashboardBoxes
      *
      * @return User
      */
@@ -968,7 +968,7 @@ class User extends BaseUser implements ActivityInterface
     /**
      * Remove riaDashboardBoxes.
      *
-     * @param \Entity\RiaDashboardBox $riaDashboardBoxes
+     * @param \App\Entity\RiaDashboardBox $riaDashboardBoxes
      */
     protected function removeRiaDashboardBoxe(RiaDashboardBox $riaDashboardBoxes)
     {
@@ -986,14 +986,14 @@ class User extends BaseUser implements ActivityInterface
     }
 
     /**
-     * @var \Entity\ClientSettings
+     * @param \App\Entity\ClientSettings
      */
     private $clientSettings;
 
     /**
      * Set clientSettings.
      *
-     * @param \Entity\ClientSettings $clientSettings
+     * @param \App\Entity\ClientSettings $clientSettings
      *
      * @return User
      */
@@ -1007,7 +1007,7 @@ class User extends BaseUser implements ActivityInterface
     /**
      * Get clientSettings.
      *
-     * @return \Entity\ClientSettings
+     * @return \App\Entity\ClientSettings
      */
     public function getClientSettings()
     {
@@ -1060,7 +1060,7 @@ class User extends BaseUser implements ActivityInterface
     /**
      * Add clientActivitySummaries.
      *
-     * @param \Entity\ClientActivitySummary $clientActivitySummaries
+     * @param \App\Entity\ClientActivitySummary $clientActivitySummaries
      *
      * @return User
      */
@@ -1072,7 +1072,7 @@ class User extends BaseUser implements ActivityInterface
     /**
      * Remove clientActivitySummaries.
      *
-     * @param \Entity\ClientActivitySummary $clientActivitySummary
+     * @param \App\Entity\ClientActivitySummary $clientActivitySummary
      */
     protected function removeClientActivitySummarie(ClientActivitySummary $clientActivitySummary)
     {
@@ -1097,7 +1097,7 @@ class User extends BaseUser implements ActivityInterface
     /**
      * Add clientPortfolio.
      *
-     * @param \Entity\ClientPortfolio $clientPortfolio
+     * @param \App\Entity\ClientPortfolio $clientPortfolio
      *
      * @return User
      */
@@ -1111,7 +1111,7 @@ class User extends BaseUser implements ActivityInterface
     /**
      * Remove clientPortfolios.
      *
-     * @param \Entity\ClientPortfolio $clientPortfolio
+     * @param \App\Entity\ClientPortfolio $clientPortfolio
      */
     public function removeClientPortfolio(ClientPortfolio $clientPortfolio)
     {
@@ -1121,7 +1121,7 @@ class User extends BaseUser implements ActivityInterface
     /**
      * Get clientPortfolios.
      *
-     * @return \Entity\ClientPortfolio[]
+     * @return \App\Entity\ClientPortfolio[]
      */
     public function getClientPortfolios()
     {
@@ -1129,7 +1129,7 @@ class User extends BaseUser implements ActivityInterface
     }
 
     /**
-     * @param \Entity\BillingSpec[]|ArrayCollection $billingSpecs
+     * @param \App\Entity\BillingSpec[]|ArrayCollection $billingSpecs
      */
     public function setBillingSpecs($billingSpecs)
     {
@@ -1137,7 +1137,7 @@ class User extends BaseUser implements ActivityInterface
     }
 
     /**
-     * @return \Entity\BillingSpec[]|ArrayCollection
+     * @return \App\Entity\BillingSpec[]|ArrayCollection
      */
     public function getBillingSpecs()
     {
@@ -1147,7 +1147,7 @@ class User extends BaseUser implements ActivityInterface
     /**
      * Add billingSpecs.
      *
-     * @param \Entity\BillingSpec $billingSpecs
+     * @param \App\Entity\BillingSpec $billingSpecs
      *
      * @return User
      */
@@ -1161,7 +1161,7 @@ class User extends BaseUser implements ActivityInterface
     /**
      * Remove billingSpecs.
      *
-     * @param \Entity\BillingSpec $billingSpecs
+     * @param \App\Entity\BillingSpec $billingSpecs
      */
     public function removeBillingSpec(BillingSpec $billingSpecs)
     {
@@ -1171,7 +1171,7 @@ class User extends BaseUser implements ActivityInterface
     /**
      * Add riaDashboardBoxes.
      *
-     * @param \Entity\RiaDashboardBox $riaDashboardBoxes
+     * @param \App\Entity\RiaDashboardBox $riaDashboardBoxes
      *
      * @return User
      */
@@ -1185,7 +1185,7 @@ class User extends BaseUser implements ActivityInterface
     /**
      * Remove riaDashboardBoxes.
      *
-     * @param \Entity\RiaDashboardBox $riaDashboardBoxes
+     * @param \App\Entity\RiaDashboardBox $riaDashboardBoxes
      */
     public function removeRiaDashboardBox(RiaDashboardBox $riaDashboardBoxes)
     {
@@ -1195,7 +1195,7 @@ class User extends BaseUser implements ActivityInterface
     /**
      * Add clientActivitySummaries.
      *
-     * @param \Entity\ClientActivitySummary $clientActivitySummaries
+     * @param \App\Entity\ClientActivitySummary $clientActivitySummaries
      *
      * @return User
      */
@@ -1209,7 +1209,7 @@ class User extends BaseUser implements ActivityInterface
     /**
      * Remove clientActivitySummaries.
      *
-     * @param \Entity\ClientActivitySummary $clientActivitySummaries
+     * @param \App\Entity\ClientActivitySummary $clientActivitySummaries
      */
     public function removeClientActivitySummary(ClientActivitySummary $clientActivitySummaries)
     {
@@ -1219,7 +1219,7 @@ class User extends BaseUser implements ActivityInterface
     /**
      * Add ownGroups.
      *
-     * @param \Entity\Group $ownGroups
+     * @param \App\Entity\Group $ownGroups
      *
      * @return User
      */
@@ -1233,7 +1233,7 @@ class User extends BaseUser implements ActivityInterface
     /**
      * Remove ownGroups.
      *
-     * @param \Entity\Group $ownGroups
+     * @param \App\Entity\Group $ownGroups
      */
     public function removeOwnGroup(Group $ownGroups)
     {
@@ -1251,7 +1251,7 @@ class User extends BaseUser implements ActivityInterface
     }
 
     /**
-     * @param \Entity\BillingSpec $appointedBillingSpec
+     * @param \App\Entity\BillingSpec $appointedBillingSpec
      */
     public function setAppointedBillingSpec($appointedBillingSpec)
     {
@@ -1259,7 +1259,7 @@ class User extends BaseUser implements ActivityInterface
     }
 
     /**
-     * @return \Entity\BillingSpec
+     * @return \App\Entity\BillingSpec
      */
     public function getAppointedBillingSpec()
     {

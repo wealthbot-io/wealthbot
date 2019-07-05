@@ -89,17 +89,17 @@ class TransferInformation extends BaseTransferInformation implements SignableInt
     private $ameritrade_account_title;
 
     /**
-     * @var \Entity\Document
+     * @param \App\Entity\Document
      */
     private $statementDocument;
 
     /**
-     * @var \Entity\ClientAccount
+     * @param \App\Entity\ClientAccount
      */
     private $clientAccount;
 
     /**
-     * @var \Entity\SystemAccount
+     * @param \App\Entity\SystemAccount
      */
     private $systemAccount;
 
@@ -154,7 +154,7 @@ class TransferInformation extends BaseTransferInformation implements SignableInt
     private $joint_title_last;
 
     /**
-     * @var \Entity\TransferCustodian
+     * @param \App\Entity\TransferCustodian
      */
     private $transferCustodian;
 
@@ -519,7 +519,7 @@ class TransferInformation extends BaseTransferInformation implements SignableInt
     /**
      * Set clientAccount.
      *
-     * @param \Entity\ClientAccount $clientAccount
+     * @param \App\Entity\ClientAccount $clientAccount
      *
      * @return TransferInformation
      */
@@ -543,7 +543,7 @@ class TransferInformation extends BaseTransferInformation implements SignableInt
     /**
      * Set systemAccount.
      *
-     * @param \Entity\SystemAccount $systemAccount
+     * @param \App\Entity\SystemAccount $systemAccount
      *
      * @return TransferInformation
      */
@@ -735,7 +735,7 @@ class TransferInformation extends BaseTransferInformation implements SignableInt
     /**
      * Set transferCustodian.
      *
-     * @param \Entity\TransferCustodian $transferCustodian
+     * @param \App\Entity\TransferCustodian $transferCustodian
      *
      * @return TransferInformation
      */
@@ -817,7 +817,7 @@ class TransferInformation extends BaseTransferInformation implements SignableInt
     /**
      * Add questionnaireAnswers.
      *
-     * @param \Entity\TransferCustodianQuestionAnswer $questionnaireAnswers
+     * @param \App\Entity\TransferCustodianQuestionAnswer $questionnaireAnswers
      *
      * @return TransferInformation
      */
@@ -831,7 +831,7 @@ class TransferInformation extends BaseTransferInformation implements SignableInt
     /**
      * Remove questionnaireAnswers.
      *
-     * @param \Entity\TransferCustodianQuestionAnswer $questionnaireAnswers
+     * @param \App\Entity\TransferCustodianQuestionAnswer $questionnaireAnswers
      */
     public function removeQuestionnaireAnswer(TransferCustodianQuestionAnswer $questionnaireAnswers)
     {
@@ -871,7 +871,7 @@ class TransferInformation extends BaseTransferInformation implements SignableInt
     /**
      * Set statementDocument.
      *
-     * @param \Entity\Document $statementDocument
+     * @param \App\Entity\Document $statementDocument
      *
      * @return TransferInformation
      */

@@ -68,7 +68,7 @@ class Workflow extends BaseWorkflow
     protected $submitted;
 
     /**
-     * @var \Entity\User
+     * @param \App\Entity\User
      */
     protected $client;
 
@@ -323,7 +323,7 @@ class Workflow extends BaseWorkflow
     /**
      * Set client.
      *
-     * @param \Entity\User $client
+     * @param \App\Entity\User $client
      *
      * @return Workflow
      */
@@ -337,7 +337,7 @@ class Workflow extends BaseWorkflow
     /**
      * Get client.
      *
-     * @return \Entity\User
+     * @return \App\Entity\User
      */
     public function getClient()
     {
@@ -395,7 +395,7 @@ class Workflow extends BaseWorkflow
     /**
      * Add documentSignatures.
      *
-     * @param \Entity\DocumentSignature $documentSignatures
+     * @param \App\Entity\DocumentSignature $documentSignatures
      *
      * @return Workflow
      */
@@ -409,7 +409,7 @@ class Workflow extends BaseWorkflow
     /**
      * Remove documentSignatures.
      *
-     * @param \Entity\DocumentSignature $documentSignatures
+     * @param \App\Entity\DocumentSignature $documentSignatures
      */
     public function removeDocumentSignature(DocumentSignature $documentSignatures)
     {

@@ -20,10 +20,10 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class AdminFeesType extends AbstractType
 {
-    /** @var \Entity\User $owner */
+    /** @param \App\Entity\User $owner */
     private $owner;
 
-    /** @var \Entity\User $appointedUser */
+    /** @param \App\Entity\User $appointedUser */
     private $appointedUser;
 
     public function buildForm(FormBuilderInterface $builder, array $options)

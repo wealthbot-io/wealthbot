@@ -17,7 +17,7 @@ interface MailerInterface
     /**
      * Send an email to a user to confirm the account creation.
      *
-     * @param \Entity\User $client
+     * @param \App\Entity\User $client
      */
     public function sendSuggestedPortfolioEmailMessage(User $client);
 

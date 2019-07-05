@@ -30,7 +30,7 @@ class ClosingAccountHistory extends BaseClosingAccountHistory
     private $closing_date;
 
     /**
-     * @var \Entity\SystemAccount
+     * @param \App\Entity\SystemAccount
      */
     private $account;
 
@@ -95,7 +95,7 @@ class ClosingAccountHistory extends BaseClosingAccountHistory
     /**
      * Set account.
      *
-     * @param \Entity\SystemAccount $account
+     * @param \App\Entity\SystemAccount $account
      *
      * @return ClosingAccountHistory
      */
@@ -109,7 +109,7 @@ class ClosingAccountHistory extends BaseClosingAccountHistory
     /**
      * Get account.
      *
-     * @return \Entity\SystemAccount
+     * @return \App\Entity\SystemAccount
      */
     public function getAccount()
     {

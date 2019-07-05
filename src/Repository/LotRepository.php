@@ -168,7 +168,7 @@ class LotRepository extends EntityRepository
         $lots = $qb->getQuery()->execute();
 
         foreach ($lots as $lot) {
-            /* @var \Entity\Lot $lot */
+            /* @param \App\Entity\Lot $lot */
             if ($lot->getWasRebalancerDiff()) {
                 $isReconciled = false;
             }

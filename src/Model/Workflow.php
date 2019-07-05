@@ -159,7 +159,7 @@ class Workflow implements PaymentActivityInterface
     protected $submitted;
 
     /**
-     * @var \Entity\User
+     * @param \App\Entity\User
      */
     protected $client;
 
@@ -679,7 +679,7 @@ class Workflow implements PaymentActivityInterface
     /**
      * Set client.
      *
-     * @param \Entity\User $client
+     * @param \App\Entity\User $client
      *
      * @return Workflow
      */
@@ -693,7 +693,7 @@ class Workflow implements PaymentActivityInterface
     /**
      * Get client.
      *
-     * @return \Entity\User
+     * @return \App\Entity\User
      */
     public function getClient()
     {

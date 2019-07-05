@@ -28,12 +28,12 @@ class TransferCustodianQuestionAnswer
     private $value;
 
     /**
-     * @var \Entity\TransferCustodianQuestion
+     * @param \App\Entity\TransferCustodianQuestion
      */
     private $question;
 
     /**
-     * @var \Entity\TransferInformation
+     * @param \App\Entity\TransferInformation
      */
     private $transferInformation;
 
@@ -122,7 +122,7 @@ class TransferCustodianQuestionAnswer
     /**
      * Set question.
      *
-     * @param \Entity\TransferCustodianQuestion $question
+     * @param \App\Entity\TransferCustodianQuestion $question
      *
      * @return TransferCustodianQuestionAnswer
      */
@@ -136,7 +136,7 @@ class TransferCustodianQuestionAnswer
     /**
      * Get question.
      *
-     * @return \Entity\TransferCustodianQuestion
+     * @return \App\Entity\TransferCustodianQuestion
      */
     public function getQuestion()
     {
@@ -146,7 +146,7 @@ class TransferCustodianQuestionAnswer
     /**
      * Set transferInformation.
      *
-     * @param \Entity\TransferInformation $transferInformation
+     * @param \App\Entity\TransferInformation $transferInformation
      *
      * @return TransferCustodianQuestionAnswer
      */
@@ -160,7 +160,7 @@ class TransferCustodianQuestionAnswer
     /**
      * Get transferInformation.
      *
-     * @return \Entity\TransferInformation
+     * @return \App\Entity\TransferInformation
      */
     public function getTransferInformation()
     {

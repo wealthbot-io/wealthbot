@@ -28,27 +28,27 @@ class RebalancerQueue
     private $status;
 
     /**
-     * @var \Entity\Lot
+     * @param \App\Entity\Lot
      */
     private $lot;
 
     /**
-     * @var \Entity\Security
+     * @param \App\Entity\Security
      */
     private $security;
 
     /**
-     * @var \Entity\SystemAccount
+     * @param \App\Entity\SystemAccount
      */
     private $systemClientAccount;
 
     /**
-     * @var \Entity\RebalancerAction
+     * @param \App\Entity\RebalancerAction
      */
     private $rebalancerAction;
 
     /**
-     * @var \Entity\Subclass
+     * @param \App\Entity\Subclass
      */
     private $subclass;
 
@@ -126,7 +126,7 @@ class RebalancerQueue
     /**
      * Set lot.
      *
-     * @param \Entity\Lot $lot
+     * @param \App\Entity\Lot $lot
      *
      * @return RebalancerQueue
      */
@@ -140,7 +140,7 @@ class RebalancerQueue
     /**
      * Get lot.
      *
-     * @return \Entity\Lot
+     * @return \App\Entity\Lot
      */
     public function getLot()
     {
@@ -150,7 +150,7 @@ class RebalancerQueue
     /**
      * Set security.
      *
-     * @param \Entity\Security $security
+     * @param \App\Entity\Security $security
      *
      * @return RebalancerQueue
      */
@@ -164,7 +164,7 @@ class RebalancerQueue
     /**
      * Get security.
      *
-     * @return \Entity\Security
+     * @return \App\Entity\Security
      */
     public function getSecurity()
     {
@@ -174,7 +174,7 @@ class RebalancerQueue
     /**
      * Set systemClientAccount.
      *
-     * @param \Entity\SystemAccount $systemClientAccount
+     * @param \App\Entity\SystemAccount $systemClientAccount
      *
      * @return RebalancerQueue
      */
@@ -188,7 +188,7 @@ class RebalancerQueue
     /**
      * Get systemClientAccount.
      *
-     * @return \Entity\SystemAccount
+     * @return \App\Entity\SystemAccount
      */
     public function getSystemClientAccount()
     {
@@ -222,7 +222,7 @@ class RebalancerQueue
     /**
      * Set rebalancerAction.
      *
-     * @param \Entity\RebalancerAction $rebalancerAction
+     * @param \App\Entity\RebalancerAction $rebalancerAction
      *
      * @return RebalancerQueue
      */
@@ -236,7 +236,7 @@ class RebalancerQueue
     /**
      * Get rebalancerAction.
      *
-     * @return \Entity\RebalancerAction
+     * @return \App\Entity\RebalancerAction
      */
     public function getRebalancerAction()
     {
@@ -246,7 +246,7 @@ class RebalancerQueue
     /**
      * Set subclass.
      *
-     * @param \Entity\Subclass $subclass
+     * @param \App\Entity\Subclass $subclass
      *
      * @return RebalancerQueue
      */
@@ -260,7 +260,7 @@ class RebalancerQueue
     /**
      * Get subclass.
      *
-     * @return \Entity\Subclass
+     * @return \App\Entity\Subclass
      */
     public function getSubclass()
     {

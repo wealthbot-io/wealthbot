@@ -117,7 +117,7 @@ class DashboardController extends Controller
         $clientPortfolioValuesRepo = $em->getRepository('App\Entity\ClientPortfolioValue');
         /** @var \Repository\ClientAccountValueRepository $clientAccountValuesRepo */
         $clientAccountValuesRepo = $em->getRepository('App\Entity\ClientAccountValue');
-        /** @var \Entity\User[] $clients */
+        /** @param \App\Entity\User[] $clients */
         $clients = $userRepo->findClientsByRia($ria);
 
         $clientPortfolioManager = $this->get('wealthbot_client.client_portfolio.manager');
@@ -140,7 +140,7 @@ class DashboardController extends Controller
                 'ceModels' => HOUSEHOLD_LEVEL === $client->getProfile()->getClientAccountManaged() ? $clientPortfolio->getPortfolio()->getName() : '',
                 'hasClosedAccounts' => false,
             ];
-            /** @var \Entity\SystemAccount $account */
+            /** @param \App\Entity\SystemAccount $account */
             foreach ($client->getSystemAccounts() as $account) {
                 $lastSystemClientAccountValue = $clientAccountValuesRepo->getLatestValueForSystemClientAccountId($account->getId());
                 $accountItem = [
@@ -698,7 +698,7 @@ class DashboardController extends Controller
 
     public function securities(Request $request)
     {
-        /** @var \Entity\User $user */
+        /** @param \App\Entity\User $user */
         $user = $this->getUser();
 
         $isShowPriority = false;

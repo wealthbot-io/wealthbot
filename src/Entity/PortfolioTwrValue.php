@@ -28,7 +28,7 @@ class PortfolioTwrValue
     protected $date;
 
     /**
-     * @var \Entity\User
+     * @param \App\Entity\User
      */
     private $client;
 
@@ -117,7 +117,7 @@ class PortfolioTwrValue
     /**
      * Set client.
      *
-     * @param \Entity\User $client
+     * @param \App\Entity\User $client
      *
      * @return SystemAccount
      */

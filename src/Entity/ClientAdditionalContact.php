@@ -212,27 +212,27 @@ class ClientAdditionalContact extends BaseClientAdditionalContact implements Acc
     private $broker_security_exchange_compliance_letter;
 
     /**
-     * @var \Entity\User
+     * @param \App\Entity\User
      */
     private $client;
 
     /**
-     * @var \Entity\State
+     * @param \App\Entity\State
      */
     private $state;
 
     /**
-     * @var \Entity\State
+     * @param \App\Entity\State
      */
     private $mailingState;
 
     /**
-     * @var \Entity\State
+     * @param \App\Entity\State
      */
     private $employmentState;
 
     /**
-     * @var \Entity\State
+     * @param \App\Entity\State
      */
     private $publicleState;
 
@@ -1235,7 +1235,7 @@ class ClientAdditionalContact extends BaseClientAdditionalContact implements Acc
     /**
      * Set client.
      *
-     * @param \Entity\User $client
+     * @param \App\Entity\User $client
      *
      * @return ClientAdditionalContact
      */
@@ -1249,7 +1249,7 @@ class ClientAdditionalContact extends BaseClientAdditionalContact implements Acc
     /**
      * Get client.
      *
-     * @return \Entity\User
+     * @return \App\Entity\User
      */
     public function getClient()
     {
@@ -1259,7 +1259,7 @@ class ClientAdditionalContact extends BaseClientAdditionalContact implements Acc
     /**
      * Set state.
      *
-     * @param \Entity\State $state
+     * @param \App\Entity\State $state
      *
      * @return ClientAdditionalContact
      */
@@ -1273,7 +1273,7 @@ class ClientAdditionalContact extends BaseClientAdditionalContact implements Acc
     /**
      * Get state.
      *
-     * @return \Entity\State
+     * @return \App\Entity\State
      */
     public function getState()
     {
@@ -1283,7 +1283,7 @@ class ClientAdditionalContact extends BaseClientAdditionalContact implements Acc
     /**
      * Set mailingState.
      *
-     * @param \Entity\State $mailingState
+     * @param \App\Entity\State $mailingState
      *
      * @return ClientAdditionalContact
      */
@@ -1297,7 +1297,7 @@ class ClientAdditionalContact extends BaseClientAdditionalContact implements Acc
     /**
      * Get mailingState.
      *
-     * @return \Entity\State
+     * @return \App\Entity\State
      */
     public function getMailingState()
     {
@@ -1307,7 +1307,7 @@ class ClientAdditionalContact extends BaseClientAdditionalContact implements Acc
     /**
      * Set employmentState.
      *
-     * @param \Entity\State $employmentState
+     * @param \App\Entity\State $employmentState
      *
      * @return ClientAdditionalContact
      */
@@ -1321,7 +1321,7 @@ class ClientAdditionalContact extends BaseClientAdditionalContact implements Acc
     /**
      * Get employmentState.
      *
-     * @return \Entity\State
+     * @return \App\Entity\State
      */
     public function getEmploymentState()
     {
@@ -1331,7 +1331,7 @@ class ClientAdditionalContact extends BaseClientAdditionalContact implements Acc
     /**
      * Set publicleState.
      *
-     * @param \Entity\State $publicleState
+     * @param \App\Entity\State $publicleState
      *
      * @return ClientAdditionalContact
      */
@@ -1345,7 +1345,7 @@ class ClientAdditionalContact extends BaseClientAdditionalContact implements Acc
     /**
      * Get publicleState.
      *
-     * @return \Entity\State
+     * @return \App\Entity\State
      */
     public function getPublicleState()
     {

@@ -29,11 +29,11 @@ class CeModelEntity implements CeModelEntityInterface
     /** @var int */
     protected $taxLossHarvestingId;
 
-    /** @var \Entity\SecurityAssignment */
+    /** @param \App\Entity\SecurityAssignment */
     protected $taxLossHarvesting;
 
     /**
-     * @var \Entity\CeModel
+     * @param \App\Entity\CeModel
      */
     protected $model;
 
@@ -43,16 +43,16 @@ class CeModelEntity implements CeModelEntityInterface
     /** @var int */
     protected $subclassId;
 
-    /** @var \Entity\Subclass */
+    /** @param \App\Entity\Subclass */
     protected $subclass;
 
     /** @var int */
     protected $assetClassId;
 
-    /** @var \Entity\AssetClass */
+    /** @param \App\Entity\AssetClass */
     protected $assetClass;
 
-    /** @var \Entity\SecurityAssignment */
+    /** @param \App\Entity\SecurityAssignment */
     protected $muniSubstitution;
 
     public function __construct()
@@ -150,7 +150,7 @@ class CeModelEntity implements CeModelEntityInterface
     /**
      * Get model.
      *
-     * @return \Entity\CeModel
+     * @return \App\Entity\CeModel
      */
     public function getModel()
     {

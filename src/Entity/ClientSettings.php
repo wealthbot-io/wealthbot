@@ -23,7 +23,7 @@ class ClientSettings
     private $stop_tlh_value;
 
     /**
-     * @var \Entity\User
+     * @param \App\Entity\User
      */
     private $client;
 
@@ -103,7 +103,7 @@ class ClientSettings
     /**
      * Set client.
      *
-     * @param \Entity\User $client
+     * @param \App\Entity\User $client
      *
      * @return ClientSettings
      */
@@ -117,7 +117,7 @@ class ClientSettings
     /**
      * Get client.
      *
-     * @return \Entity\User
+     * @return \App\Entity\User
      */
     public function getClient()
     {

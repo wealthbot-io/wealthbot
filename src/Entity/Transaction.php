@@ -65,17 +65,17 @@ class Transaction implements PaymentActivityInterface
     private static $_statuses = null;
 
     /**
-     * @var \Entity\SystemAccount
+     * @param \App\Entity\SystemAccount
      */
     private $account;
 
     /**
-     * @var \Entity\TransactionType
+     * @param \App\Entity\TransactionType
      */
     private $transactionType;
 
     /**
-     * @var \Entity\ClosingMethod
+     * @param \App\Entity\ClosingMethod
      */
     private $closingMethod;
 
@@ -85,7 +85,7 @@ class Transaction implements PaymentActivityInterface
     private $cancelStatus;
 
     /**
-     * @var \Entity\SystemAccount
+     * @param \App\Entity\SystemAccount
      */
     private $transferAccount;
 
@@ -97,7 +97,7 @@ class Transaction implements PaymentActivityInterface
     /**
      * TODO: remove this later (in position exists security).
      *
-     * @var \Entity\Security
+     * @param \App\Entity\Security
      */
     private $security;
 
@@ -345,7 +345,7 @@ class Transaction implements PaymentActivityInterface
     /**
      * Get account.
      *
-     * @return \Entity\SystemAccount
+     * @return \App\Entity\SystemAccount
      */
     public function getAccount()
     {
@@ -355,7 +355,7 @@ class Transaction implements PaymentActivityInterface
     /**
      * Set transactionType.
      *
-     * @param \Entity\TransactionType $transactionType
+     * @param \App\Entity\TransactionType $transactionType
      *
      * @return Transaction
      */
@@ -369,7 +369,7 @@ class Transaction implements PaymentActivityInterface
     /**
      * Get transactionType.
      *
-     * @return \Entity\TransactionType
+     * @return \App\Entity\TransactionType
      */
     public function getTransactionType()
     {
@@ -379,7 +379,7 @@ class Transaction implements PaymentActivityInterface
     /**
      * Set closingMethod.
      *
-     * @param \Entity\ClosingMethod $closingMethod
+     * @param \App\Entity\ClosingMethod $closingMethod
      *
      * @return Transaction
      */
@@ -393,7 +393,7 @@ class Transaction implements PaymentActivityInterface
     /**
      * Get closingMethod.
      *
-     * @return \Entity\ClosingMethod
+     * @return \App\Entity\ClosingMethod
      */
     public function getClosingMethod()
     {
@@ -427,7 +427,7 @@ class Transaction implements PaymentActivityInterface
     /**
      * Set transferAccount.
      *
-     * @param \Entity\SystemAccount $transferAccount
+     * @param \App\Entity\SystemAccount $transferAccount
      *
      * @return Transaction
      */
@@ -441,7 +441,7 @@ class Transaction implements PaymentActivityInterface
     /**
      * Get transferAccount.
      *
-     * @return \Entity\SystemAccount
+     * @return \App\Entity\SystemAccount
      */
     public function getTransferAccount()
     {
@@ -451,7 +451,7 @@ class Transaction implements PaymentActivityInterface
     /**
      * Set security.
      *
-     * @param \Entity\Security $security
+     * @param \App\Entity\Security $security
      *
      * @return Transaction
      */
@@ -465,7 +465,7 @@ class Transaction implements PaymentActivityInterface
     /**
      * Get security.
      *
-     * @return \Entity\Security
+     * @return \App\Entity\Security
      */
     public function getSecurity()
     {
@@ -516,7 +516,7 @@ class Transaction implements PaymentActivityInterface
     }
 
     /**
-     * @param \Entity\Lot $lot
+     * @param \App\Entity\Lot $lot
      */
     public function setLot($lot)
     {
@@ -524,7 +524,7 @@ class Transaction implements PaymentActivityInterface
     }
 
     /**
-     * @return \Entity\Lot
+     * @return \App\Entity\Lot
      */
     public function getLot()
     {

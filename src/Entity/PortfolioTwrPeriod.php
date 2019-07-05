@@ -73,7 +73,7 @@ class PortfolioTwrPeriod
     protected $grossSinceInception;
 
     /**
-     * @var \Entity\User
+     * @param \App\Entity\User
      */
     private $client;
 
@@ -378,7 +378,7 @@ class PortfolioTwrPeriod
     /**
      * Set client.
      *
-     * @param \Entity\User $client
+     * @param \App\Entity\User $client
      *
      * @return SystemAccount
      */
@@ -392,7 +392,7 @@ class PortfolioTwrPeriod
     /**
      * Get client.
      *
-     * @return \Entity\User
+     * @return \App\Entity\User
      */
     public function getClient()
     {

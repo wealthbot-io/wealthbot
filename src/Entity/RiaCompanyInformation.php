@@ -73,7 +73,7 @@ class RiaCompanyInformation
     private $ria_user_id;
 
     /**
-     * @var \Entity\User
+     * @param \App\Entity\User
      */
     private $ria;
 
@@ -440,7 +440,7 @@ class RiaCompanyInformation
     /**
      * Set ria.
      *
-     * @param \Entity\User $ria
+     * @param \App\Entity\User $ria
      *
      * @return RiaCompanyInformation
      */
@@ -454,7 +454,7 @@ class RiaCompanyInformation
     /**
      * Get ria.
      *
-     * @return \Entity\User
+     * @return \App\Entity\User
      */
     public function getRia()
     {
@@ -943,7 +943,7 @@ class RiaCompanyInformation
     private $state_id;
 
     /**
-     * @var \Entity\State
+     * @param \App\Entity\State
      */
     private $state;
 
@@ -974,7 +974,7 @@ class RiaCompanyInformation
     /**
      * Set state.
      *
-     * @param \Entity\State $state
+     * @param \App\Entity\State $state
      *
      * @return RiaCompanyInformation
      */
@@ -988,7 +988,7 @@ class RiaCompanyInformation
     /**
      * Get state.
      *
-     * @return \Entity\State
+     * @return \App\Entity\State
      */
     public function getState()
     {
@@ -1045,7 +1045,7 @@ class RiaCompanyInformation
     /**
      * Add fee.
      *
-     * @param \Entity\Fee $fee
+     * @param \App\Entity\Fee $fee
      *
      * @return RiaCompanyInformation
      */
@@ -1057,7 +1057,7 @@ class RiaCompanyInformation
     /**
      * Remove fee.
      *
-     * @param \Entity\Fee $fee
+     * @param \App\Entity\Fee $fee
      */
     public function removeFee(Fee $fee)
     {
@@ -1702,14 +1702,14 @@ class RiaCompanyInformation
     }
 
     /**
-     * @var \Entity\Custodian
+     * @param \App\Entity\Custodian
      */
     private $custodian;
 
     /**
      * Set custodian.
      *
-     * @param \Entity\Custodian $custodian
+     * @param \App\Entity\Custodian $custodian
      *
      * @return RiaCompanyInformation
      */
@@ -1723,7 +1723,7 @@ class RiaCompanyInformation
     /**
      * Get custodian.
      *
-     * @return \Entity\Custodian
+     * @return \App\Entity\Custodian
      */
     public function getCustodian()
     {
@@ -1919,7 +1919,7 @@ class RiaCompanyInformation
     /**
      * Add advisor_codes.
      *
-     * @param \Entity\AdvisorCode $advisorCode
+     * @param \App\Entity\AdvisorCode $advisorCode
      *
      * @return RiaCompanyInformation
      */
@@ -1933,7 +1933,7 @@ class RiaCompanyInformation
     /**
      * Remove advisor_codes.
      *
-     * @param \Entity\AdvisorCode $advisorCode
+     * @param \App\Entity\AdvisorCode $advisorCode
      */
     public function removeAdvisorCode(AdvisorCode $advisorCode)
     {

@@ -22,7 +22,7 @@ use App\Entity\User;
  */
 class RiaCompanyInformationTwoFormType extends AbstractType
 {
-    /** @var \Entity\User $user */
+    /** @param \App\Entity\User $user */
     private $user;
 
     /** @var bool $isPreSave */

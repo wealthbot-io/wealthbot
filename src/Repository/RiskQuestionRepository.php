@@ -16,7 +16,7 @@ class RiskQuestionRepository extends EntityRepository
     /**
      * @param null $firstResult
      *
-     * @return \Entity\RiskQuestion $question | null
+     * @return \App\Entity\RiskQuestion $question | null
      */
     public function getOneQuestionOrderedBySequence($firstResult = null)
     {

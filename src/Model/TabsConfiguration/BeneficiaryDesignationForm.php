@@ -14,7 +14,7 @@ use App\Model\TabCollection;
 
 class BeneficiaryDesignationForm extends AbstractTabsConfiguration
 {
-    /** @var \Entity\Beneficiary */
+    /** @param \App\Entity\Beneficiary */
     private $beneficiary;
 
     public function __construct(Beneficiary $beneficiary)

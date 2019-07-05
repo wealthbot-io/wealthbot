@@ -82,12 +82,12 @@ class Beneficiary extends BaseBeneficiary implements SignableInterface
     private $share;
 
     /**
-     * @var \Entity\State
+     * @param \App\Entity\State
      */
     private $state;
 
     /**
-     * @var \Entity\ClientAccount
+     * @param \App\Entity\ClientAccount
      */
     private $account;
 
@@ -424,7 +424,7 @@ class Beneficiary extends BaseBeneficiary implements SignableInterface
     /**
      * Set state.
      *
-     * @param \Entity\State $state
+     * @param \App\Entity\State $state
      *
      * @return Beneficiary
      */
@@ -438,7 +438,7 @@ class Beneficiary extends BaseBeneficiary implements SignableInterface
     /**
      * Get state.
      *
-     * @return \Entity\State
+     * @return \App\Entity\State
      */
     public function getState()
     {
@@ -448,7 +448,7 @@ class Beneficiary extends BaseBeneficiary implements SignableInterface
     /**
      * Set account.
      *
-     * @param \Entity\ClientAccount $account
+     * @param \App\Entity\ClientAccount $account
      *
      * @return Beneficiary
      */
@@ -462,7 +462,7 @@ class Beneficiary extends BaseBeneficiary implements SignableInterface
     /**
      * Get account.
      *
-     * @return \Entity\ClientAccount
+     * @return \App\Entity\ClientAccount
      */
     public function getAccount()
     {

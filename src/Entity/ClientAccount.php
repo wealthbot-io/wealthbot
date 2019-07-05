@@ -44,7 +44,7 @@ class ClientAccount extends BaseClientAccount
     protected $monthly_distributions;
 
     /**
-     * @var \Entity\User
+     * @param \App\Entity\User
      */
     protected $client;
 
@@ -59,7 +59,7 @@ class ClientAccount extends BaseClientAccount
     private $group_type_id;
 
     /**
-     * @var \Entity\AccountGroupType
+     * @param \App\Entity\AccountGroupType
      */
     protected $groupType;
 
@@ -79,7 +79,7 @@ class ClientAccount extends BaseClientAccount
     private $is_pre_saved;
 
     /**
-     * @var \Entity\SystemAccount
+     * @param \App\Entity\SystemAccount
      */
     protected $systemAccount;
 
@@ -89,12 +89,12 @@ class ClientAccount extends BaseClientAccount
     protected $beneficiaries;
 
     /**
-     * @var \Entity\RetirementPlanInformation
+     * @param \App\Entity\RetirementPlanInformation
      */
     private $retirementPlanInfo;
 
     /**
-     * @var \Entity\TransferInformation
+     * @param \App\Entity\TransferInformation
      */
     protected $transferInformation;
 
@@ -104,7 +104,7 @@ class ClientAccount extends BaseClientAccount
     private $accountOutsideFunds;
 
     /**
-     * @var \Entity\AccountContribution
+     * @param \App\Entity\AccountContribution
      */
     protected $accountContribution;
 
@@ -119,7 +119,7 @@ class ClientAccount extends BaseClientAccount
     protected $consolidatedAccounts;
 
     /**
-     * @var \Entity\ClientAccount
+     * @param \App\Entity\ClientAccount
      */
     protected $consolidator;
 
@@ -314,7 +314,7 @@ class ClientAccount extends BaseClientAccount
     /**
      * Set client.
      *
-     * @param \Entity\User $client
+     * @param \App\Entity\User $client
      *
      * @return ClientAccount
      */
@@ -328,7 +328,7 @@ class ClientAccount extends BaseClientAccount
     /**
      * Get client.
      *
-     * @return \Entity\User
+     * @return \App\Entity\User
      */
     public function getClient()
     {
@@ -410,7 +410,7 @@ class ClientAccount extends BaseClientAccount
     /**
      * Get groupType.
      *
-     * @return \Entity\AccountGroupType
+     * @return \App\Entity\AccountGroupType
      */
     public function getGroupType()
     {
@@ -442,7 +442,7 @@ class ClientAccount extends BaseClientAccount
     /**
      * Add beneficiaries.
      *
-     * @param \Entity\Beneficiary $beneficiaries
+     * @param \App\Entity\Beneficiary $beneficiaries
      *
      * @return ClientAccount
      */
@@ -490,7 +490,7 @@ class ClientAccount extends BaseClientAccount
     /**
      * Get retirementPlanInfo.
      *
-     * @return \Entity\RetirementPlanInformation
+     * @return \App\Entity\RetirementPlanInformation
      */
     public function getRetirementPlanInfo()
     {
@@ -514,7 +514,7 @@ class ClientAccount extends BaseClientAccount
     /**
      * Get transferInformation.
      *
-     * @return \Entity\TransferInformation
+     * @return \App\Entity\TransferInformation
      */
     public function getTransferInformation()
     {
@@ -584,7 +584,7 @@ class ClientAccount extends BaseClientAccount
     /**
      * Remove accountOutsideFunds.
      *
-     * @param \Entity\AccountOutsideFund $accountOutsideFunds
+     * @param \App\Entity\AccountOutsideFund $accountOutsideFunds
      */
 
     /**
@@ -622,7 +622,7 @@ class ClientAccount extends BaseClientAccount
     /**
      * Set systemAccount.
      *
-     * @param \Entity\SystemAccount $systemAccount
+     * @param \App\Entity\SystemAccount $systemAccount
      *
      * @return ClientAccount
      */
@@ -636,7 +636,7 @@ class ClientAccount extends BaseClientAccount
     /**
      * Get systemAccount.
      *
-     * @return \Entity\SystemAccount
+     * @return \App\Entity\SystemAccount
      */
     public function getSystemAccount()
     {
@@ -646,7 +646,7 @@ class ClientAccount extends BaseClientAccount
     /**
      * Set accountContribution.
      *
-     * @param \Entity\AccountContribution $accountContribution
+     * @param \App\Entity\AccountContribution $accountContribution
      *
      * @return ClientAccount
      */
@@ -694,7 +694,7 @@ class ClientAccount extends BaseClientAccount
     /**
      * Add consolidatedAccounts.
      *
-     * @param \Entity\ClientAccount $consolidatedAccounts
+     * @param \App\Entity\ClientAccount $consolidatedAccounts
      *
      * @return ClientAccount
      */
@@ -708,7 +708,7 @@ class ClientAccount extends BaseClientAccount
     /**
      * Remove consolidatedAccounts.
      *
-     * @param \Entity\ClientAccount $consolidatedAccounts
+     * @param \App\Entity\ClientAccount $consolidatedAccounts
      */
     public function removeConsolidatedAccount(ClientAccount $consolidatedAccounts)
     {
@@ -728,7 +728,7 @@ class ClientAccount extends BaseClientAccount
     /**
      * Set consolidator.
      *
-     * @param \Entity\ClientAccount $consolidator
+     * @param \App\Entity\ClientAccount $consolidator
      *
      * @return ClientAccount
      */
@@ -742,7 +742,7 @@ class ClientAccount extends BaseClientAccount
     /**
      * Get consolidator.
      *
-     * @return \Entity\ClientAccount
+     * @return \App\Entity\ClientAccount
      */
     public function getConsolidator()
     {
@@ -906,7 +906,7 @@ class ClientAccount extends BaseClientAccount
     /**
      * Add beneficiaries.
      *
-     * @param \Entity\Beneficiary $beneficiaries
+     * @param \App\Entity\Beneficiary $beneficiaries
      *
      * @return ClientAccount
      */
@@ -920,7 +920,7 @@ class ClientAccount extends BaseClientAccount
     /**
      * Remove beneficiaries.
      *
-     * @param \Entity\Beneficiary $beneficiaries
+     * @param \App\Entity\Beneficiary $beneficiaries
      */
     public function removeBeneficiary(Beneficiary $beneficiaries)
     {

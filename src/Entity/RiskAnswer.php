@@ -23,7 +23,7 @@ class RiskAnswer
     private $title;
 
     /**
-     * @var \Entity\RiskQuestion
+     * @param \App\Entity\RiskQuestion
      */
     private $question;
 
@@ -107,7 +107,7 @@ class RiskAnswer
     /**
      * Set question.
      *
-     * @param \Entity\RiskQuestion $question
+     * @param \App\Entity\RiskQuestion $question
      *
      * @return RiskAnswer
      */
@@ -121,7 +121,7 @@ class RiskAnswer
     /**
      * Get question.
      *
-     * @return \Entity\RiskQuestion
+     * @return \App\Entity\RiskQuestion
      */
     public function getQuestion()
     {

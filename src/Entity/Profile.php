@@ -156,7 +156,7 @@ class Profile implements WorkflowableInterface
     private $user_id;
 
     /**
-     * @var \Entity\User
+     * @param \App\Entity\User
      */
     private $user;
 
@@ -187,7 +187,7 @@ class Profile implements WorkflowableInterface
     /**
      * Set user.
      *
-     * @param \Entity\User $user
+     * @param \App\Entity\User $user
      *
      * @return Profile
      */
@@ -201,7 +201,7 @@ class Profile implements WorkflowableInterface
     /**
      * Get user.
      *
-     * @return \Entity\User
+     * @return \App\Entity\User
      */
     public function getUser()
     {
@@ -890,7 +890,7 @@ class Profile implements WorkflowableInterface
     private $ria_user_id;
 
     /**
-     * @var \Entity\User
+     * @param \App\Entity\User
      */
     private $ria;
 
@@ -921,7 +921,7 @@ class Profile implements WorkflowableInterface
     /**
      * Set ria.
      *
-     * @param \Entity\User $ria
+     * @param \App\Entity\User $ria
      *
      * @return Profile
      */
@@ -935,7 +935,7 @@ class Profile implements WorkflowableInterface
     /**
      * Get ria.
      *
-     * @return \Entity\User
+     * @return \App\Entity\User
      */
     public function getRia()
     {
@@ -1028,7 +1028,7 @@ class Profile implements WorkflowableInterface
     private $mailing_state_id;
 
     /**
-     * @var \Entity\State
+     * @param \App\Entity\State
      */
     private $mailingState;
 
@@ -1081,14 +1081,14 @@ class Profile implements WorkflowableInterface
     }
 
     /**
-     * @var \Entity\State
+     * @param \App\Entity\State
      */
     private $state;
 
     /**
      * Set state.
      *
-     * @param \Entity\State $state
+     * @param \App\Entity\State $state
      *
      * @return Profile
      */
@@ -1102,7 +1102,7 @@ class Profile implements WorkflowableInterface
     /**
      * Get state.
      *
-     * @return \Entity\State
+     * @return \App\Entity\State
      */
     public function getState()
     {
@@ -1112,7 +1112,7 @@ class Profile implements WorkflowableInterface
     /**
      * Set mailingState.
      *
-     * @param \Entity\State $mailingState
+     * @param \App\Entity\State $mailingState
      *
      * @return Profile
      */
@@ -1126,7 +1126,7 @@ class Profile implements WorkflowableInterface
     /**
      * Get mailingState.
      *
-     * @return \Entity\State
+     * @return \App\Entity\State
      */
     public function getMailingState()
     {

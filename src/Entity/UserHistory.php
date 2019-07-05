@@ -33,12 +33,12 @@ class UserHistory
     private $created;
 
     /**
-     * @var \Entity\User
+     * @param \App\Entity\User
      */
     private $user;
 
     /**
-     * @var \Entity\User
+     * @param \App\Entity\User
      */
     private $updater;
 
@@ -166,7 +166,7 @@ class UserHistory
     /**
      * Set user.
      *
-     * @param \Entity\User $user
+     * @param \App\Entity\User $user
      *
      * @return UserHistory
      */
@@ -180,7 +180,7 @@ class UserHistory
     /**
      * Get user.
      *
-     * @return \Entity\User
+     * @return \App\Entity\User
      */
     public function getUser()
     {
@@ -190,7 +190,7 @@ class UserHistory
     /**
      * Set updater.
      *
-     * @param \Entity\User $updater
+     * @param \App\Entity\User $updater
      *
      * @return UserHistory
      */
@@ -204,7 +204,7 @@ class UserHistory
     /**
      * Get updater.
      *
-     * @return \Entity\User
+     * @return \App\Entity\User
      */
     public function getUpdater()
     {

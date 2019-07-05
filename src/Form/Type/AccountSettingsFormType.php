@@ -33,7 +33,7 @@ class AccountSettingsFormType extends AbstractType
     {
         $billingAccountChoices = [];
         foreach ($account->getClient()->getSystemAccounts() as $billingAccount) {
-            /* @var \Entity\SystemAccount $billingAccount */
+            /* @param \App\Entity\SystemAccount $billingAccount */
             $billingAccountId = $billingAccount->getId();
             $billingAccountOwner = $billingAccount->getClientAccount()->getPrimaryApplicant();
             $billingAccountName = $billingAccountOwner->getFirstName().' '.$billingAccountOwner->getLastName();

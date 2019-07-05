@@ -284,24 +284,24 @@ class GainLoss
     }
 
     /**
-     * @var \Entity\SystemAccount
+     * @param \App\Entity\SystemAccount
      */
     private $clientSystemAccount;
 
     /**
-     * @var \Entity\Transaction
+     * @param \App\Entity\Transaction
      */
     private $transaction;
 
     /**
-     * @var \Entity\Security
+     * @param \App\Entity\Security
      */
     private $security;
 
     /**
      * Set clientSystemAccount.
      *
-     * @param \Entity\SystemAccount $clientSystemAccount
+     * @param \App\Entity\SystemAccount $clientSystemAccount
      *
      * @return $this
      */
@@ -315,7 +315,7 @@ class GainLoss
     /**
      * Get clientSystemAccount.
      *
-     * @return \Entity\SystemAccount
+     * @return \App\Entity\SystemAccount
      */
     public function getClientSystemAccount()
     {
@@ -325,7 +325,7 @@ class GainLoss
     /**
      * Set transaction.
      *
-     * @param \Entity\Transaction $transaction
+     * @param \App\Entity\Transaction $transaction
      *
      * @return $this
      */
@@ -339,7 +339,7 @@ class GainLoss
     /**
      * Get transaction.
      *
-     * @return \Entity\Transaction
+     * @return \App\Entity\Transaction
      */
     public function getTransaction()
     {
@@ -349,7 +349,7 @@ class GainLoss
     /**
      * Set security.
      *
-     * @param \Entity\Security $security
+     * @param \App\Entity\Security $security
      *
      * @return $this
      */
@@ -363,7 +363,7 @@ class GainLoss
     /**
      * Get security.
      *
-     * @return \Entity\Security
+     * @return \App\Entity\Security
      */
     public function getSecurity()
     {

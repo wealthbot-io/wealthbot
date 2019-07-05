@@ -58,7 +58,7 @@ class SecurityTransaction
     private $redemption_percent;
 
     /**
-     * @var \Entity\SecurityAssignment
+     * @param \App\Entity\SecurityAssignment
      */
     private $securityAssignment;
 
@@ -291,7 +291,7 @@ class SecurityTransaction
     /**
      * Set securityAssignment.
      *
-     * @param \Entity\SecurityAssignment $securityAssignment
+     * @param \App\Entity\SecurityAssignment $securityAssignment
      *
      * @return SecurityTransaction
      */

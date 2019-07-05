@@ -25,7 +25,7 @@ class RebalancerActionLog
     private $result;
 
     /**
-     * @var \Entity\RebalancerAction
+     * @param \App\Entity\RebalancerAction
      */
     private $rebalancerAction;
 
@@ -96,7 +96,7 @@ class RebalancerActionLog
     /**
      * Set rebalancerAction.
      *
-     * @param \Entity\RebalancerAction $rebalancerAction
+     * @param \App\Entity\RebalancerAction $rebalancerAction
      *
      * @return RebalancerActionLog
      */
@@ -110,7 +110,7 @@ class RebalancerActionLog
     /**
      * Get rebalancerAction.
      *
-     * @return \Entity\RebalancerAction
+     * @return \App\Entity\RebalancerAction
      */
     public function getRebalancerAction()
     {

@@ -103,12 +103,12 @@ class BankInformation implements WorkflowableInterface
     private $client_id;
 
     /**
-     * @var \Entity\User
+     * @param \App\Entity\User
      */
     private $client;
 
     /**
-     * @var \Entity\Document
+     * @param \App\Entity\Document
      */
     private $pdfDocument;
 
@@ -633,7 +633,7 @@ class BankInformation implements WorkflowableInterface
     /**
      * Set client.
      *
-     * @param \Entity\User $client
+     * @param \App\Entity\User $client
      *
      * @return BankInformation
      */
@@ -672,7 +672,7 @@ class BankInformation implements WorkflowableInterface
     /**
      * Set pdfDocument.
      *
-     * @param \Entity\Document $pdfDocument
+     * @param \App\Entity\Document $pdfDocument
      *
      * @return BankInformation
      */

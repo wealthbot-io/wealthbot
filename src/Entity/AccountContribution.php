@@ -32,7 +32,7 @@ class AccountContribution extends BaseAccountContribution implements SignableInt
     protected $amount;
 
     /**
-     * @var \Entity\ClientAccount
+     * @param \App\Entity\ClientAccount
      */
     private $account;
 
@@ -170,7 +170,7 @@ class AccountContribution extends BaseAccountContribution implements SignableInt
     /**
      * Set account.
      *
-     * @param \Entity\ClientAccount $account
+     * @param \App\Entity\ClientAccount $account
      *
      * @return AccountContribution
      */
@@ -242,7 +242,7 @@ class AccountContribution extends BaseAccountContribution implements SignableInt
     /**
      * Set bankInformation.
      *
-     * @param \Entity\BankInformation $bankInformation
+     * @param \App\Entity\BankInformation $bankInformation
      *
      * @return AccountContribution
      */

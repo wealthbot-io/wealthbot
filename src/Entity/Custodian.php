@@ -100,7 +100,7 @@ class Custodian
     /**
      * Add custodianDocuments.
      *
-     * @param \Entity\Document $custodianDocuments
+     * @param \App\Entity\Document $custodianDocuments
      *
      * @return Custodian
      */
@@ -114,7 +114,7 @@ class Custodian
     /**
      * Remove custodianDocuments.
      *
-     * @param \Entity\Document $custodianDocuments
+     * @param \App\Entity\Document $custodianDocuments
      */
     public function removeCustodianDocument(Document $custodianDocuments)
     {
@@ -139,7 +139,7 @@ class Custodian
     /**
      * Add advisorCodes.
      *
-     * @param \Entity\AdvisorCode $advisorCodes
+     * @param \App\Entity\AdvisorCode $advisorCodes
      *
      * @return Custodian
      */
@@ -153,7 +153,7 @@ class Custodian
     /**
      * Remove advisorCodes.
      *
-     * @param \Entity\AdvisorCode $advisorCodes
+     * @param \App\Entity\AdvisorCode $advisorCodes
      */
     public function removeAdvisorCode(AdvisorCode $advisorCodes)
     {

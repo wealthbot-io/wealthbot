@@ -36,7 +36,7 @@ class Job
     private $is_error;
 
     /**
-     * @var \Entity\User
+     * @param \App\Entity\User
      */
     private $user;
 
@@ -206,7 +206,7 @@ class Job
     /**
      * Set user.
      *
-     * @param \Entity\User $user
+     * @param \App\Entity\User $user
      *
      * @return Job
      */
@@ -220,7 +220,7 @@ class Job
     /**
      * Get user.
      *
-     * @return \Entity\User
+     * @return \App\Entity\User
      */
     public function getUser()
     {
@@ -230,7 +230,7 @@ class Job
     /**
      * Add rebalancerActions.
      *
-     * @param \Entity\RebalancerAction $rebalancerActions
+     * @param \App\Entity\RebalancerAction $rebalancerActions
      *
      * @return Job
      */
@@ -244,7 +244,7 @@ class Job
     /**
      * Remove rebalancerActions.
      *
-     * @param \Entity\RebalancerAction $rebalancerActions
+     * @param \App\Entity\RebalancerAction $rebalancerActions
      */
     public function removeRebalancerAction(RebalancerAction $rebalancerActions)
     {

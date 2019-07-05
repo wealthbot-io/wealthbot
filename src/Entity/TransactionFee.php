@@ -28,12 +28,12 @@ class TransactionFee
     private $fee_type_id;
 
     /**
-     * @var \Entity\Transaction
+     * @param \App\Entity\Transaction
      */
     private $transaction;
 
     /**
-     * @var \Entity\TransactionFeeType
+     * @param \App\Entity\TransactionFeeType
      */
     private $feeType;
 
@@ -122,7 +122,7 @@ class TransactionFee
     /**
      * Set transaction.
      *
-     * @param \Entity\Transaction $transaction
+     * @param \App\Entity\Transaction $transaction
      *
      * @return TransactionFee
      */
@@ -136,7 +136,7 @@ class TransactionFee
     /**
      * Get transaction.
      *
-     * @return \Entity\Transaction
+     * @return \App\Entity\Transaction
      */
     public function getTransaction()
     {
@@ -146,7 +146,7 @@ class TransactionFee
     /**
      * Set feeType.
      *
-     * @param \Entity\TransactionFeeType $feeType
+     * @param \App\Entity\TransactionFeeType $feeType
      *
      * @return TransactionFee
      */
@@ -160,7 +160,7 @@ class TransactionFee
     /**
      * Get feeType.
      *
-     * @return \Entity\TransactionFeeType
+     * @return \App\Entity\TransactionFeeType
      */
     public function getFeeType()
     {

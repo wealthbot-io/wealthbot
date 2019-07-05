@@ -27,12 +27,12 @@ class OutsideFundAssociationFormType extends AbstractType
     private $em;
 
     /**
-     * @var \Entity\User
+     * @param \App\Entity\User
      */
     private $ria;
 
     /**
-     * @var \Entity\ClientAccount
+     * @param \App\Entity\ClientAccount
      */
     private $account;
 

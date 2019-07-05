@@ -31,7 +31,7 @@ class HouseholdPortfolioSettingsFormType extends AbstractType
         $this->em = $options['em'];
 
 
-        /** @var \Entity\User $ria */
+        /** @param \App\Entity\User $ria */
         $ria = $client->getRia();
 
         $groups = [];
@@ -93,24 +93,24 @@ class HouseholdPortfolioSettingsFormType extends AbstractType
     {
         $form = $event->getForm();
         $client = $event->getData();
-        /** @var \Entity\ClientSettings $clientSettings */
+        /** @param \App\Entity\ClientSettings $clientSettings */
         $clientSettings = $client->getClientSettings();
 
         if ($clientSettings && (null !== $clientSettings->getStopTlhValue())) {
             $stopTlhValue = $clientSettings->getStopTlhValue();
         } else {
-            /** @var \Entity\RiaCompanyInformation $riaCompanyInfo */
+            /** @param \App\Entity\RiaCompanyInformation $riaCompanyInfo */
             $riaCompanyInfo = $client->getRiaCompanyInformation();
             $stopTlhValue = $riaCompanyInfo && $riaCompanyInfo->getStopTlhValue() ? $riaCompanyInfo->getStopTlhValue() : 0;
         }
 
         $performanceInception = new \DateTime();
-        /** @var \Entity\SystemAccount $systemAccount */
+        /** @param \App\Entity\SystemAccount $systemAccount */
         foreach ($client->getSystemAccounts() as $systemAccount) {
             if ($systemAccount->getPerformanceInception()) {
                 $performanceInception = $systemAccount->getPerformanceInception();
             } else {
-                /** @var \Entity\RebalancerAction $rebalancerAction */
+                /** @param \App\Entity\RebalancerAction $rebalancerAction */
                 $rebalancerAction = $systemAccount->getRebalancerActions()->first();
                 if ($rebalancerAction &&
                     $performanceInception > $date = $rebalancerAction->getStartedAt()) {

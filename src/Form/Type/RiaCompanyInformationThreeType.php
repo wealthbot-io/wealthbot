@@ -25,7 +25,7 @@ class RiaCompanyInformationThreeType extends AbstractType
     /** @var \Doctrine\ORM\EntityManager $em */
     private $em;
 
-    /** @var \Entity\User $user */
+    /** @param \App\Entity\User $user */
     private $user;
 
     /** @var bool $isPreSave */
@@ -297,7 +297,7 @@ class RiaCompanyInformationThreeType extends AbstractType
         $builder->addEventListener(FormEvents::SUBMIT, function (FormEvent $event) use ($em, $ria, $isModels) {
             /** @var $form */
             $form = $event->getForm();
-            /** @var \Entity\RiaCompanyInformation $data */
+            /** @param \App\Entity\RiaCompanyInformation $data */
             $data = $event->getData();
 
             /** @var $repo CeModelRepository */

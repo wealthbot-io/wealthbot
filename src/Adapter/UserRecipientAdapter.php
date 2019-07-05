@@ -19,7 +19,7 @@ use App\Entity\User;
 class UserRecipientAdapter implements RecipientInterface
 {
     /**
-     * @var \Entity\User
+     * @param \App\Entity\User
      */
     private $user;
 

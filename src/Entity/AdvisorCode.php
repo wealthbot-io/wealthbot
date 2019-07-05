@@ -28,12 +28,12 @@ class AdvisorCode
     private $name;
 
     /**
-     * @var \Entity\RiaCompanyInformation
+     * @param \App\Entity\RiaCompanyInformation
      */
     private $riaCompany;
 
     /**
-     * @var \Entity\Custodian
+     * @param \App\Entity\Custodian
      */
     private $custodian;
 
@@ -127,7 +127,7 @@ class AdvisorCode
     /**
      * Set riaCompany.
      *
-     * @param \Entity\RiaCompanyInformation $riaCompany
+     * @param \App\Entity\RiaCompanyInformation $riaCompany
      *
      * @return AdvisorCode
      */
@@ -141,7 +141,7 @@ class AdvisorCode
     /**
      * Get riaCompany.
      *
-     * @return \Entity\RiaCompanyInformation
+     * @return \App\Entity\RiaCompanyInformation
      */
     public function getRiaCompany()
     {
@@ -151,7 +151,7 @@ class AdvisorCode
     /**
      * Set custodian.
      *
-     * @param \Entity\Custodian $custodian
+     * @param \App\Entity\Custodian $custodian
      *
      * @return AdvisorCode
      */
@@ -165,7 +165,7 @@ class AdvisorCode
     /**
      * Get custodian.
      *
-     * @return \Entity\Custodian
+     * @return \App\Entity\Custodian
      */
     public function getCustodian()
     {

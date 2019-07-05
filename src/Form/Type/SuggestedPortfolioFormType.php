@@ -33,7 +33,7 @@ class SuggestedPortfolioFormType extends AbstractType
     /** @var EntityManager $em */
     private $em;
 
-    /** @var \Entity\ClientPortfolio */
+    /** @param \App\Entity\ClientPortfolio */
     private $clientPortfolio;
 
     public function buildForm(FormBuilderInterface $builder, array $options)

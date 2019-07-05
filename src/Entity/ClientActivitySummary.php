@@ -31,7 +31,7 @@ class ClientActivitySummary implements ActivityInterface
     private $created;
 
     /**
-     * @var \Entity\User
+     * @param \App\Entity\User
      */
     private $client;
 
@@ -130,7 +130,7 @@ class ClientActivitySummary implements ActivityInterface
     /**
      * Set client.
      *
-     * @param \Entity\User $client
+     * @param \App\Entity\User $client
      *
      * @return ClientActivitySummary
      */
@@ -144,7 +144,7 @@ class ClientActivitySummary implements ActivityInterface
     /**
      * Get client.
      *
-     * @return \Entity\User
+     * @return \App\Entity\User
      */
     public function getClient()
     {
@@ -181,7 +181,7 @@ class ClientActivitySummary implements ActivityInterface
     private $document_id;
 
     /**
-     * @var \Entity\Document
+     * @param \App\Entity\Document
      */
     private $Document;
 
@@ -212,7 +212,7 @@ class ClientActivitySummary implements ActivityInterface
     /**
      * Set Document.
      *
-     * @param \Entity\Document $document
+     * @param \App\Entity\Document $document
      *
      * @return ClientActivitySummary
      */

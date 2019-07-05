@@ -20,7 +20,7 @@ class AccountOutsideFund
     private $account_id;
 
     /**
-     * @var \Entity\ClientAccount
+     * @param \App\Entity\ClientAccount
      */
     private $account;
 
@@ -30,7 +30,7 @@ class AccountOutsideFund
     private $security_assignment_id;
 
     /**
-     * @var \Entity\SecurityAssignment
+     * @param \App\Entity\SecurityAssignment
      */
     private $securityAssignment;
 
@@ -71,7 +71,7 @@ class AccountOutsideFund
     /**
      * Set account.
      *
-     * @param \Entity\ClientAccount $account
+     * @param \App\Entity\ClientAccount $account
      *
      * @return AccountOutsideFund
      */
@@ -85,7 +85,7 @@ class AccountOutsideFund
     /**
      * Get account.
      *
-     * @return \Entity\ClientAccount
+     * @return \App\Entity\ClientAccount
      */
     public function getAccount()
     {
@@ -119,7 +119,7 @@ class AccountOutsideFund
     /**
      * Set securityAssignment.
      *
-     * @param \Entity\SecurityAssignment $securityAssignment
+     * @param \App\Entity\SecurityAssignment $securityAssignment
      *
      * @return AccountOutsideFund
      */
@@ -133,7 +133,7 @@ class AccountOutsideFund
     /**
      * Get securityAssignment.
      *
-     * @return \Entity\SecurityAssignment
+     * @return \App\Entity\SecurityAssignment
      */
     public function getSecurityAssignment()
     {

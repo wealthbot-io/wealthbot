@@ -15,7 +15,7 @@ use App\Entity\User;
 
 class RiskTolerance
 {
-    /** @var \Entity\User */
+    /** @param \App\Entity\User */
     private $user;
 
     /** @var array $answers array of ClientQuestionnaireAnswer objects */

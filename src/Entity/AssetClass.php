@@ -43,7 +43,7 @@ class AssetClass
     private $model_id;
 
     /**
-     * @var \Entity\CeModel
+     * @param \App\Entity\CeModel
      */
     private $model;
 
@@ -169,7 +169,7 @@ class AssetClass
     /**
      * Add subclasses.
      *
-     * @param \Entity\Subclass $subclasses
+     * @param \App\Entity\Subclass $subclasses
      *
      * @return AssetClass
      */
@@ -183,7 +183,7 @@ class AssetClass
     /**
      * Remove subclasses.
      *
-     * @param \Entity\Subclass $subclasses
+     * @param \App\Entity\Subclass $subclasses
      */
     public function removeSubclasse(Subclass $subclasses)
     {
@@ -240,7 +240,7 @@ class AssetClass
     /**
      * Get model.
      *
-     * @return \Entity\CeModel
+     * @return \App\Entity\CeModel
      */
     public function getModel()
     {
@@ -265,7 +265,7 @@ class AssetClass
     /**
      * Add subclasses.
      *
-     * @param \Entity\Subclass $subclasses
+     * @param \App\Entity\Subclass $subclasses
      *
      * @return AssetClass
      */
@@ -279,7 +279,7 @@ class AssetClass
     /**
      * Remove subclasses.
      *
-     * @param \Entity\Subclass $subclasses
+     * @param \App\Entity\Subclass $subclasses
      */
     public function removeSubclass(Subclass $subclasses)
     {

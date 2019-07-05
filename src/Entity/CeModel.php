@@ -25,7 +25,7 @@ class CeModel extends BaseCeModel
     protected $ownerId;
 
     /**
-     * @var \Entity\User
+     * @param \App\Entity\User
      */
     protected $owner;
 
@@ -35,7 +35,7 @@ class CeModel extends BaseCeModel
     protected $parentId;
 
     /**
-     * @var \Entity\CeModel
+     * @param \App\Entity\CeModel
      */
     protected $parent;
 
@@ -500,7 +500,7 @@ class CeModel extends BaseCeModel
     /**
      * Get owner.
      *
-     * @return \Entity\User
+     * @return \App\Entity\User
      */
     public function getOwner()
     {
@@ -524,7 +524,7 @@ class CeModel extends BaseCeModel
     /**
      * Get parent.
      *
-     * @return \Entity\CeModel
+     * @return \App\Entity\CeModel
      */
     public function getParent()
     {
@@ -562,7 +562,7 @@ class CeModel extends BaseCeModel
     /**
      * Add children.
      *
-     * @param \Entity\CeModel $children
+     * @param \App\Entity\CeModel $children
      *
      * @return CeModel
      */
@@ -576,7 +576,7 @@ class CeModel extends BaseCeModel
     /**
      * Remove children.
      *
-     * @param \Entity\CeModel $children
+     * @param \App\Entity\CeModel $children
      */
     public function removeChild(CeModel $children)
     {
@@ -615,7 +615,7 @@ class CeModel extends BaseCeModel
     /**
      * Add clientPortfolio.
      *
-     * @param \Entity\ClientPortfolio $clientPortfolio
+     * @param \App\Entity\ClientPortfolio $clientPortfolio
      *
      * @return CeModel
      */
@@ -629,7 +629,7 @@ class CeModel extends BaseCeModel
     /**
      * Remove clientPortfolio.
      *
-     * @param \Entity\ClientPortfolio $clientPortfolio
+     * @param \App\Entity\ClientPortfolio $clientPortfolio
      */
     public function removeClientPortfolio(ClientPortfolio $clientPortfolio)
     {

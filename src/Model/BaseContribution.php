@@ -49,7 +49,7 @@ class BaseContribution implements PaymentWorkflowableInterface
     protected $bank_information_id;
 
     /**
-     * @var \Entity\BankInformation
+     * @param \App\Entity\BankInformation
      */
     protected $bankInformation;
 
@@ -240,7 +240,7 @@ class BaseContribution implements PaymentWorkflowableInterface
     /**
      * Set bankInformation.
      *
-     * @param \Entity\BankInformation $bankInformation
+     * @param \App\Entity\BankInformation $bankInformation
      *
      * @return AccountContribution
      */

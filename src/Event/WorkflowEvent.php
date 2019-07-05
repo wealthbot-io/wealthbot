@@ -10,7 +10,7 @@ use App\Entity\User;
 
 class WorkflowEvent extends Event
 {
-    /** @var \Entity\User */
+    /** @param \App\Entity\User */
     private $client;
 
     /** @var \Model\WorkflowableInterface */

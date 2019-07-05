@@ -14,7 +14,7 @@ class User extends BaseUser
     protected $password_expired_at;
 
     /**
-     * @var \Entity\Profile
+     * @param \App\Entity\Profile
      */
     protected $profile;
 
@@ -31,7 +31,7 @@ class User extends BaseUser
     /**
      * Get profile.
      *
-     * @return \Entity\Profile
+     * @return \App\Entity\Profile
      */
     public function getProfile()
     {
@@ -301,7 +301,7 @@ class User extends BaseUser
     /**
      * Add clientActivitySummary.
      *
-     * @param \Entity\ClientActivitySummary $clientActivitySummary
+     * @param \App\Entity\ClientActivitySummary $clientActivitySummary
      *
      * @return User
      */
@@ -320,7 +320,7 @@ class User extends BaseUser
     /**
      * Remove clientActivitySummary.
      *
-     * @param \Entity\ClientActivitySummary $clientActivitySummary
+     * @param \App\Entity\ClientActivitySummary $clientActivitySummary
      */
     protected function removeClientActivitySummarie(\App\Entity\ClientActivitySummary $clientActivitySummary)
     {

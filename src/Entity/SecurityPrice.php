@@ -43,7 +43,7 @@ class SecurityPrice
     private $datetime;
 
     /**
-     * @var \Entity\Security
+     * @param \App\Entity\Security
      */
     private $security;
 
@@ -209,7 +209,7 @@ class SecurityPrice
     /**
      * Set security.
      *
-     * @param \Entity\Security $security
+     * @param \App\Entity\Security $security
      *
      * @return SecurityPrice
      */
@@ -223,7 +223,7 @@ class SecurityPrice
     /**
      * Get security.
      *
-     * @return \Entity\Security
+     * @return \App\Entity\Security
      */
     public function getSecurity()
     {

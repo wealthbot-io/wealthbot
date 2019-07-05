@@ -47,12 +47,12 @@ class SystemAccount extends BaseSystemAccount
     protected $type;
 
     /**
-     * @var \Entity\User
+     * @param \App\Entity\User
      */
     private $client;
 
     /**
-     * @var \Entity\ClientAccount
+     * @param \App\Entity\ClientAccount
      */
     private $clientAccount;
 
@@ -196,7 +196,7 @@ class SystemAccount extends BaseSystemAccount
     /**
      * Add transferInformations.
      *
-     * @param \Entity\TransferInformation $transferInformations
+     * @param \App\Entity\TransferInformation $transferInformations
      *
      * @return SystemAccount
      */
@@ -210,7 +210,7 @@ class SystemAccount extends BaseSystemAccount
     /**
      * Remove transferInformations.
      *
-     * @param \Entity\TransferInformation $transferInformations
+     * @param \App\Entity\TransferInformation $transferInformations
      */
     public function removeTransferInformation(TransferInformation $transferInformations)
     {
@@ -230,7 +230,7 @@ class SystemAccount extends BaseSystemAccount
     /**
      * Set client.
      *
-     * @param \Entity\User $client
+     * @param \App\Entity\User $client
      *
      * @return SystemAccount
      */
@@ -244,7 +244,7 @@ class SystemAccount extends BaseSystemAccount
     /**
      * Get client.
      *
-     * @return \Entity\User
+     * @return \App\Entity\User
      */
     public function getClient()
     {
@@ -302,7 +302,7 @@ class SystemAccount extends BaseSystemAccount
     /**
      * Set clientAccount.
      *
-     * @param \Entity\ClientAccount $clientAccount
+     * @param \App\Entity\ClientAccount $clientAccount
      *
      * @return SystemAccount
      */
@@ -316,7 +316,7 @@ class SystemAccount extends BaseSystemAccount
     /**
      * Get clientAccount.
      *
-     * @return \Entity\ClientAccount
+     * @return \App\Entity\ClientAccount
      */
     public function getClientAccount()
     {
@@ -456,7 +456,7 @@ class SystemAccount extends BaseSystemAccount
     /**
      * Add rebalancerActions.
      *
-     * @param \Entity\RebalancerAction $rebalancerActions
+     * @param \App\Entity\RebalancerAction $rebalancerActions
      *
      * @return SystemAccount
      */
@@ -470,7 +470,7 @@ class SystemAccount extends BaseSystemAccount
     /**
      * Remove rebalancerActions.
      *
-     * @param \Entity\RebalancerAction $rebalancerActions
+     * @param \App\Entity\RebalancerAction $rebalancerActions
      */
     public function removeRebalancerAction(RebalancerAction $rebalancerActions)
     {
@@ -556,7 +556,7 @@ class SystemAccount extends BaseSystemAccount
     /**
      * Add distributions.
      *
-     * @param \Entity\Distribution $distributions
+     * @param \App\Entity\Distribution $distributions
      *
      * @return SystemAccount
      */
@@ -570,7 +570,7 @@ class SystemAccount extends BaseSystemAccount
     /**
      * Remove distributions.
      *
-     * @param \Entity\Distribution $distributions
+     * @param \App\Entity\Distribution $distributions
      */
     public function removeDistribution(Distribution $distributions)
     {
@@ -662,14 +662,14 @@ class SystemAccount extends BaseSystemAccount
     }
 
     /**
-     * @var \Entity\SystemAccount
+     * @param \App\Entity\SystemAccount
      */
     private $billingAccount;
 
     /**
      * Set billingAccount.
      *
-     * @param \Entity\SystemAccount $billingAccount
+     * @param \App\Entity\SystemAccount $billingAccount
      *
      * @return SystemAccount
      */
@@ -683,7 +683,7 @@ class SystemAccount extends BaseSystemAccount
     /**
      * Get billingAccount.
      *
-     * @return \Entity\SystemAccount
+     * @return \App\Entity\SystemAccount
      */
     public function getBillingAccount()
     {

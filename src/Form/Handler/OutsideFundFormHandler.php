@@ -14,8 +14,8 @@ class OutsideFundFormHandler extends AbstractOutsideFundFormHandler
      * @Deprecated
      * Create new securityAssignment
      *
-     * @param \Entity\User      $ria
-     * @param \Entity\Security $security
+     * @param \App\Entity\User      $ria
+     * @param \App\Entity\Security $security
      *
      * @return SecurityAssignment
      */

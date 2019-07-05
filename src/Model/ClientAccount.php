@@ -28,7 +28,7 @@ class ClientAccount implements WorkflowableInterface, SignableInterface
     protected $id;
 
     /**
-     * @var \Entity\AccountGroupType
+     * @param \App\Entity\AccountGroupType
      */
     protected $groupType;
 
@@ -38,7 +38,7 @@ class ClientAccount implements WorkflowableInterface, SignableInterface
     protected $client_id;
 
     /**
-     * @var \Entity\User
+     * @param \App\Entity\User
      */
     protected $client;
 
@@ -97,7 +97,7 @@ class ClientAccount implements WorkflowableInterface, SignableInterface
     private static $_stepActionValues = null;
 
     /**
-     * @var \Entity\SystemAccount
+     * @param \App\Entity\SystemAccount
      */
     protected $systemAccount;
 
@@ -117,7 +117,7 @@ class ClientAccount implements WorkflowableInterface, SignableInterface
     protected $monthly_distributions;
 
     /**
-     * @var \Entity\AccountContribution
+     * @param \App\Entity\AccountContribution
      */
     protected $accountContribution;
 
@@ -128,7 +128,7 @@ class ClientAccount implements WorkflowableInterface, SignableInterface
     private static $_ownerValues = null;
 
     /**
-     * @var \Entity\TransferInformation
+     * @param \App\Entity\TransferInformation
      */
     protected $transferInformation;
 
@@ -153,7 +153,7 @@ class ClientAccount implements WorkflowableInterface, SignableInterface
     protected $consolidatedAccounts;
 
     /**
-     * @var \Entity\ClientAccount
+     * @param \App\Entity\ClientAccount
      */
     protected $consolidator;
 
@@ -207,7 +207,7 @@ class ClientAccount implements WorkflowableInterface, SignableInterface
     /**
      * Set client.
      *
-     * @param \Entity\User $client
+     * @param \App\Entity\User $client
      *
      * @return ClientAccount
      */
@@ -521,7 +521,7 @@ class ClientAccount implements WorkflowableInterface, SignableInterface
     /**
      * Set transferInformation.
      *
-     * @param \Entity\TransferInformation $transferInformation
+     * @param \App\Entity\TransferInformation $transferInformation
      *
      * @return $this
      */
@@ -545,7 +545,7 @@ class ClientAccount implements WorkflowableInterface, SignableInterface
     /**
      * Add beneficiaries.
      *
-     * @param \Entity\Beneficiary $beneficiaries
+     * @param \App\Entity\Beneficiary $beneficiaries
      *
      * @return ClientAccount
      */
@@ -559,7 +559,7 @@ class ClientAccount implements WorkflowableInterface, SignableInterface
     /**
      * Remove beneficiaries.
      *
-     * @param \Entity\Beneficiary $beneficiaries
+     * @param \App\Entity\Beneficiary $beneficiaries
      */
     public function removeBeneficiarie(\App\Entity\Beneficiary $beneficiaries)
     {
@@ -625,7 +625,7 @@ class ClientAccount implements WorkflowableInterface, SignableInterface
     /**
      * Set accountContribution.
      *
-     * @param \Entity\AccountContribution $accountContribution
+     * @param \App\Entity\AccountContribution $accountContribution
      *
      * @return ClientAccount
      */
@@ -673,7 +673,7 @@ class ClientAccount implements WorkflowableInterface, SignableInterface
     /**
      * Add consolidatedAccounts.
      *
-     * @param \Entity\ClientAccount $consolidatedAccounts
+     * @param \App\Entity\ClientAccount $consolidatedAccounts
      *
      * @return ClientAccount
      */
@@ -687,7 +687,7 @@ class ClientAccount implements WorkflowableInterface, SignableInterface
     /**
      * Remove consolidatedAccounts.
      *
-     * @param \Entity\ClientAccount $consolidatedAccounts
+     * @param \App\Entity\ClientAccount $consolidatedAccounts
      */
     public function removeConsolidatedAccount(\App\Entity\ClientAccount $consolidatedAccounts)
     {
@@ -707,7 +707,7 @@ class ClientAccount implements WorkflowableInterface, SignableInterface
     /**
      * Set consolidator.
      *
-     * @param \Entity\ClientAccount $consolidator
+     * @param \App\Entity\ClientAccount $consolidator
      *
      * @return ClientAccount
      */
@@ -721,7 +721,7 @@ class ClientAccount implements WorkflowableInterface, SignableInterface
     /**
      * Set systemAccount.
      *
-     * @param \Entity\SystemAccount $systemAccount
+     * @param \App\Entity\SystemAccount $systemAccount
      *
      * @return ClientAccount
      */

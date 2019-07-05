@@ -28,7 +28,7 @@ class DocumentSignature
     private $document_id;
 
     /**
-     * @var \Entity\Document
+     * @param \App\Entity\Document
      */
     private $document;
 
@@ -152,7 +152,7 @@ class DocumentSignature
     /**
      * Set document.
      *
-     * @param \Entity\Document $document
+     * @param \App\Entity\Document $document
      *
      * @return DocumentSignature
      */
@@ -390,7 +390,7 @@ class DocumentSignature
     /**
      * Add ownerSignatures.
      *
-     * @param \Entity\DocumentOwnerSignature $ownerSignatures
+     * @param \App\Entity\DocumentOwnerSignature $ownerSignatures
      *
      * @return DocumentSignature
      */
@@ -404,7 +404,7 @@ class DocumentSignature
     /**
      * Remove ownerSignatures.
      *
-     * @param \Entity\DocumentOwnerSignature $ownerSignatures
+     * @param \App\Entity\DocumentOwnerSignature $ownerSignatures
      */
     public function removeOwnerSignature(DocumentOwnerSignature $ownerSignatures)
     {

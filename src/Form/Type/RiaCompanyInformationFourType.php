@@ -20,7 +20,7 @@ use App\Entity\User;
 
 class RiaCompanyInformationFourType extends AbstractType
 {
-    /** @var \Entity\User $user */
+    /** @param \App\Entity\User $user */
     protected $user;
 
     /** @var bool $isPreSave */
@@ -65,7 +65,7 @@ class RiaCompanyInformationFourType extends AbstractType
         $builder->addEventListener(\Symfony\Component\Form\FormEvents::SUBMIT, function (\Symfony\Component\Form\FormEvent $event) {
             $form = $event->getForm();
 
-            /** @var \Entity\RiaCompanyInformation $data */
+            /** @param \App\Entity\RiaCompanyInformation $data */
             $data = $event->getData();
 
             /*$isSearchable = $form->get('is_searchable_db')->getData();

@@ -42,7 +42,7 @@ class RiskQuestionsFormHandler extends BaseHandler
     /**
      * Get age of the client.
      *
-     * @param \Entity\User $user
+     * @param \App\Entity\User $user
      *
      * @return int
      */

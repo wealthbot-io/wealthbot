@@ -19,7 +19,7 @@ class AdminSecuritiesCollection
     /**
      * Add item.
      *
-     * @param \Entity\SecurityAssignment $item
+     * @param \App\Entity\SecurityAssignment $item
      *
      * @return App\Collection\AdminSecuritiesCollection
      */
@@ -33,7 +33,7 @@ class AdminSecuritiesCollection
     /**
      * Remove item.
      *
-     * @param \Entity\SecurityAssignment $item
+     * @param \App\Entity\SecurityAssignment $item
      */
     public function removeItem(\App\Entity\SecurityAssignment $item)
     {

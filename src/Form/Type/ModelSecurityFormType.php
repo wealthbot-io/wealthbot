@@ -26,7 +26,7 @@ use App\Entity\SecurityAssignment;
 
 class ModelSecurityFormType extends AbstractType
 {
-    /** @var \Entity\CeModel */
+    /** @param \App\Entity\CeModel */
     private $model;
     private $em;
 

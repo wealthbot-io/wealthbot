@@ -28,7 +28,7 @@ class RiaDashboardBox
     private $sequence;
 
     /**
-     * @var \Entity\User
+     * @param \App\Entity\User
      */
     private $ria;
 
@@ -117,7 +117,7 @@ class RiaDashboardBox
     /**
      * Set ria.
      *
-     * @param \Entity\User $ria
+     * @param \App\Entity\User $ria
      *
      * @return RiaDashboardBox
      */
@@ -131,7 +131,7 @@ class RiaDashboardBox
     /**
      * Get ria.
      *
-     * @return \Entity\User
+     * @return \App\Entity\User
      */
     public function getRia()
     {

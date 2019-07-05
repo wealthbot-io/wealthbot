@@ -25,7 +25,7 @@ class SecurityAssignment
     private $subclass_id;
 
     /**
-     * @var \Entity\Subclass
+     * @param \App\Entity\Subclass
      */
     private $subclass;
 
@@ -45,12 +45,12 @@ class SecurityAssignment
     private $security_id;
 
     /**
-     * @var \Entity\Security
+     * @param \App\Entity\Security
      */
     private $security;
 
     /**
-     * @var \Entity\AccountOutsideFund
+     * @param \App\Entity\AccountOutsideFund
      */
     private $accountAssociations;
 
@@ -60,7 +60,7 @@ class SecurityAssignment
     private $model_id;
 
     /**
-     * @var \Entity\CeModel
+     * @param \App\Entity\CeModel
      */
     private $model;
 
@@ -121,7 +121,7 @@ class SecurityAssignment
     /**
      * Set subclass.
      *
-     * @param \Entity\Subclass $subclass
+     * @param \App\Entity\Subclass $subclass
      *
      * @return SecurityAssignment
      */
@@ -193,7 +193,7 @@ class SecurityAssignment
     /**
      * Set security.
      *
-     * @param \Entity\Security $security
+     * @param \App\Entity\Security $security
      *
      * @return SecurityAssignment
      */
@@ -217,7 +217,7 @@ class SecurityAssignment
     /**
      * Set accountAssociations.
      *
-     * @param \Entity\AccountOutsideFund $accountAssociations
+     * @param \App\Entity\AccountOutsideFund $accountAssociations
      *
      * @return SecurityAssignment
      */
@@ -231,7 +231,7 @@ class SecurityAssignment
     /**
      * Get accountAssociations.
      *
-     * @return \Entity\AccountOutsideFund
+     * @return \App\Entity\AccountOutsideFund
      */
     public function getAccountAssociations()
     {
@@ -241,7 +241,7 @@ class SecurityAssignment
     /**
      * Add accountAssociations.
      *
-     * @param \Entity\AccountOutsideFund $accountAssociations
+     * @param \App\Entity\AccountOutsideFund $accountAssociations
      *
      * @return SecurityAssignment
      */
@@ -255,7 +255,7 @@ class SecurityAssignment
     /**
      * Remove accountAssociations.
      *
-     * @param \Entity\AccountOutsideFund $accountAssociations
+     * @param \App\Entity\AccountOutsideFund $accountAssociations
      */
     public function removeAccountAssociation(AccountOutsideFund $accountAssociations)
     {
@@ -347,7 +347,7 @@ class SecurityAssignment
     /**
      * Set securityTransaction.
      *
-     * @param \Entity\SecurityTransaction $securityTransaction
+     * @param \App\Entity\SecurityTransaction $securityTransaction
      *
      * @return SecurityAssignment
      */
@@ -391,7 +391,7 @@ class SecurityAssignment
     /**
      * Add ceModelEntity.
      *
-     * @param \Entity\CeModelEntity $ceModelEntity
+     * @param \App\Entity\CeModelEntity $ceModelEntity
      *
      * @return SecurityAssignment
      */
@@ -405,7 +405,7 @@ class SecurityAssignment
     /**
      * Remove ceModelEntity.
      *
-     * @param \Entity\CeModelEntity $ceModelEntity
+     * @param \App\Entity\CeModelEntity $ceModelEntity
      */
     public function removeCeModelEntity(CeModelEntity $ceModelEntity)
     {

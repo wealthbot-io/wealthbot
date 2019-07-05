@@ -16,7 +16,7 @@ class PersonalInformation extends BasePersonalInformation
     private $id;
 
     /**
-     * @var \Entity\User
+     * @param \App\Entity\User
      */
     private $client;
 
@@ -33,7 +33,7 @@ class PersonalInformation extends BasePersonalInformation
     /**
      * Set client.
      *
-     * @param \Entity\User $client
+     * @param \App\Entity\User $client
      *
      * @return PersonalInformation
      */
@@ -47,7 +47,7 @@ class PersonalInformation extends BasePersonalInformation
     /**
      * Get client.
      *
-     * @return \Entity\User
+     * @return \App\Entity\User
      */
     public function getClient()
     {
@@ -814,14 +814,14 @@ class PersonalInformation extends BasePersonalInformation
     }
 
     /**
-     * @var \Entity\State
+     * @param \App\Entity\State
      */
     private $state;
 
     /**
      * Set state.
      *
-     * @param \Entity\State $state
+     * @param \App\Entity\State $state
      *
      * @return PersonalInformation
      */
@@ -835,7 +835,7 @@ class PersonalInformation extends BasePersonalInformation
     /**
      * Get state.
      *
-     * @return \Entity\State
+     * @return \App\Entity\State
      */
     public function getState()
     {
@@ -843,14 +843,14 @@ class PersonalInformation extends BasePersonalInformation
     }
 
     /**
-     * @var \Entity\State
+     * @param \App\Entity\State
      */
     private $publicleState;
 
     /**
      * Set publicleState.
      *
-     * @param \Entity\State $publicleState
+     * @param \App\Entity\State $publicleState
      *
      * @return PersonalInformation
      */
@@ -864,7 +864,7 @@ class PersonalInformation extends BasePersonalInformation
     /**
      * Get publicleState.
      *
-     * @return \Entity\State
+     * @return \App\Entity\State
      */
     public function getPublicleState()
     {

@@ -109,7 +109,7 @@ class RiaCompanyProfileFormType extends AbstractType
         $builder->addEventListener(FormEvents::SUBMIT, function (FormEvent $event) {
             $form = $event->getForm();
 
-            /** @var \Entity\RiaCompanyInformation $data */
+            /** @param \App\Entity\RiaCompanyInformation $data */
             $data = $event->getData();
 
             //Company information

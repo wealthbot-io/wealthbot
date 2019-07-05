@@ -40,7 +40,7 @@ class Fee
     private $is_final_tier;
 
     /**
-     * @var \Entity\BillingSpec
+     * @param \App\Entity\BillingSpec
      */
     private $billingSpec;
 
@@ -153,7 +153,7 @@ class Fee
     /**
      * Set billingSpec.
      *
-     * @param \Entity\BillingSpec $billingSpec
+     * @param \App\Entity\BillingSpec $billingSpec
      *
      * @return Fee
      */
@@ -167,7 +167,7 @@ class Fee
     /**
      * Get billingSpec.
      *
-     * @return \Entity\BillingSpec
+     * @return \App\Entity\BillingSpec
      */
     public function getBillingSpec()
     {

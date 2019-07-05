@@ -37,7 +37,7 @@ class TradeReconManager
         $rebalancerQueue = $rebalancerQueueRepo->getTradeRecon($dateFrom, $dateTo, $ria, $clientName);
         $ids = [];
         foreach ($rebalancerQueue as $queueItem) {
-            /* @var \Entity\RebalancerQueue $queueItem */
+            /* @param \App\Entity\RebalancerQueue $queueItem */
             $lot = $queueItem->getLot();
             if ($lot) {
                 $ids[] = $lot->getId();
@@ -45,7 +45,7 @@ class TradeReconManager
         }
         $transactions = $lotRepo->getTradeRecon($dateFrom, $dateTo, $ria, $ids, $clientName);
 
-        /* @var \Entity\RebalancerQueue $queueItem */
+        /* @param \App\Entity\RebalancerQueue $queueItem */
         foreach ($rebalancerQueue as $queueItem) {
             $systemAccount = $queueItem->getSystemClientAccount();
             $client = $systemAccount->getClient();
@@ -67,7 +67,7 @@ class TradeReconManager
             ];
         }
 
-        /* @var \Entity\Lot $transaction */
+        /* @param \App\Entity\Lot $transaction */
         foreach ($transactions as $transaction) {
             $systemAccount = $transaction->getClientSystemAccount();
             $client = $systemAccount->getClient();

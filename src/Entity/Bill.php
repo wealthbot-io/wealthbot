@@ -140,7 +140,7 @@ class Bill extends BaseBill
     }
 
     /**
-     * @param \Entity\User $client
+     * @param \App\Entity\User $client
      */
     public function setClient($client)
     {
@@ -148,7 +148,7 @@ class Bill extends BaseBill
     }
 
     /**
-     * @return \Entity\User
+     * @return \App\Entity\User
      */
     public function getClient()
     {

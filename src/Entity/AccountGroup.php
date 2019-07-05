@@ -71,7 +71,7 @@ class AccountGroup extends BaseAccountGroup
     /**
      * Add groupTypes.
      *
-     * @param \Entity\AccountGroupType $groupTypes
+     * @param \App\Entity\AccountGroupType $groupTypes
      *
      * @return AccountGroup
      */
@@ -85,7 +85,7 @@ class AccountGroup extends BaseAccountGroup
     /**
      * Remove groupTypes.
      *
-     * @param \Entity\AccountGroupType $groupTypes
+     * @param \App\Entity\AccountGroupType $groupTypes
      */
     public function removeGroupType(AccountGroupType $groupTypes)
     {

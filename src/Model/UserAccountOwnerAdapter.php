@@ -233,7 +233,7 @@ class UserAccountOwnerAdapter implements AccountOwnerInterface
      *
      * @param int $dependents
      *
-     * @return \Entity\ClientAdditionalContact
+     * @return \App\Entity\ClientAdditionalContact
      */
     public function setDependents($dependents)
     {
@@ -257,7 +257,7 @@ class UserAccountOwnerAdapter implements AccountOwnerInterface
      *
      * @param string $ssnTin
      *
-     * @return \Entity\ClientAdditionalContact
+     * @return \App\Entity\ClientAdditionalContact
      */
     public function setSsnTin($ssnTin)
     {
@@ -281,7 +281,7 @@ class UserAccountOwnerAdapter implements AccountOwnerInterface
      *
      * @param string $incomeSource
      *
-     * @return \Entity\ClientAdditionalContact
+     * @return \App\Entity\ClientAdditionalContact
      */
     public function setIncomeSource($incomeSource)
     {
@@ -305,7 +305,7 @@ class UserAccountOwnerAdapter implements AccountOwnerInterface
      *
      * @param string $employerName
      *
-     * @return \Entity\ClientAdditionalContact
+     * @return \App\Entity\ClientAdditionalContact
      */
     public function setEmployerName($employerName)
     {
@@ -329,7 +329,7 @@ class UserAccountOwnerAdapter implements AccountOwnerInterface
      *
      * @param string $industry
      *
-     * @return \Entity\ClientAdditionalContact
+     * @return \App\Entity\ClientAdditionalContact
      */
     public function setIndustry($industry)
     {
@@ -353,7 +353,7 @@ class UserAccountOwnerAdapter implements AccountOwnerInterface
      *
      * @param string $occupation
      *
-     * @return \Entity\ClientAdditionalContact
+     * @return \App\Entity\ClientAdditionalContact
      */
     public function setOccupation($occupation)
     {
@@ -377,7 +377,7 @@ class UserAccountOwnerAdapter implements AccountOwnerInterface
      *
      * @param string $businessType
      *
-     * @return \Entity\ClientAdditionalContact
+     * @return \App\Entity\ClientAdditionalContact
      */
     public function setBusinessType($businessType)
     {
@@ -401,7 +401,7 @@ class UserAccountOwnerAdapter implements AccountOwnerInterface
      *
      * @param string $employerAddress
      *
-     * @return \Entity\ClientAdditionalContact
+     * @return \App\Entity\ClientAdditionalContact
      */
     public function setEmployerAddress($employerAddress)
     {
@@ -425,7 +425,7 @@ class UserAccountOwnerAdapter implements AccountOwnerInterface
      *
      * @param string $employmentCity
      *
-     * @return \Entity\ClientAdditionalContact
+     * @return \App\Entity\ClientAdditionalContact
      */
     public function setEmploymentCity($employmentCity)
     {
@@ -449,7 +449,7 @@ class UserAccountOwnerAdapter implements AccountOwnerInterface
      *
      * @param string $employmentZip
      *
-     * @return \Entity\ClientAdditionalContact
+     * @return \App\Entity\ClientAdditionalContact
      */
     public function setEmploymentZip($employmentZip)
     {
@@ -699,7 +699,7 @@ class UserAccountOwnerAdapter implements AccountOwnerInterface
     /**
      * Set publicleState.
      *
-     * @param \Entity\State $publicleState
+     * @param \App\Entity\State $publicleState
      *
      * @return AccountOwnerInterface
      */
@@ -713,7 +713,7 @@ class UserAccountOwnerAdapter implements AccountOwnerInterface
     /**
      * Get publicleState.
      *
-     * @return \Entity\State
+     * @return \App\Entity\State
      */
     public function getPublicleState()
     {
@@ -1017,7 +1017,7 @@ class UserAccountOwnerAdapter implements AccountOwnerInterface
     /**
      * Create new spouse object for user.
      *
-     * @return \Entity\ClientAdditionalContact
+     * @return \App\Entity\ClientAdditionalContact
      */
     private function createSpouseObject()
     {

@@ -1160,7 +1160,7 @@ class BaseTransferController extends Controller
     /**
      * Get next step of the transfer account process.
      *
-     * @param \Entity\ClientAccount $account
+     * @param \App\Entity\ClientAccount $account
      * @param string                       $action  current step of the transfer account process
      *
      * @return string

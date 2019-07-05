@@ -27,7 +27,7 @@ class ClientAccountOwner extends BaseClientAccountOwner
     protected $owner_type;
 
     /**
-     * @var \Entity\ClientAccount
+     * @param \App\Entity\ClientAccount
      */
     private $account;
 
@@ -37,7 +37,7 @@ class ClientAccountOwner extends BaseClientAccountOwner
     private $owner_contact_id;
 
     /**
-     * @var \Entity\ClientAdditionalContact
+     * @param \App\Entity\ClientAdditionalContact
      */
     private $contact;
 
@@ -47,7 +47,7 @@ class ClientAccountOwner extends BaseClientAccountOwner
     private $owner_client_id;
 
     /**
-     * @var \Entity\User
+     * @param \App\Entity\User
      */
     private $client;
 
@@ -95,7 +95,7 @@ class ClientAccountOwner extends BaseClientAccountOwner
     /**
      * Set account.
      *
-     * @param \Entity\ClientAccount $account
+     * @param \App\Entity\ClientAccount $account
      *
      * @return ClientAccountOwner
      */
@@ -119,7 +119,7 @@ class ClientAccountOwner extends BaseClientAccountOwner
     /**
      * Set contact.
      *
-     * @param \Entity\ClientAdditionalContact $contact
+     * @param \App\Entity\ClientAdditionalContact $contact
      *
      * @return ClientAccountOwner
      */
@@ -215,7 +215,7 @@ class ClientAccountOwner extends BaseClientAccountOwner
     /**
      * Set client.
      *
-     * @param \Entity\User $client
+     * @param \App\Entity\User $client
      *
      * @return ClientAccountOwner
      */

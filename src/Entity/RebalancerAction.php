@@ -36,7 +36,7 @@ class RebalancerAction
     private $is_error;
 
     /**
-     * @var \Entity\Job
+     * @param \App\Entity\Job
      */
     private $job;
 
@@ -46,12 +46,12 @@ class RebalancerAction
     private $rebalancerActionLogs;
 
     /**
-     * @var \Entity\ClientAccountValue
+     * @param \App\Entity\ClientAccountValue
      */
     private $clientAccountValue;
 
     /**
-     * @var \Entity\ClientPortfolioValue
+     * @param \App\Entity\ClientPortfolioValue
      */
     private $clientPortfolioValue;
 
@@ -183,7 +183,7 @@ class RebalancerAction
     /**
      * Set job.
      *
-     * @param \Entity\Job $job
+     * @param \App\Entity\Job $job
      *
      * @return RebalancerAction
      */
@@ -207,7 +207,7 @@ class RebalancerAction
     /**
      * Add rebalancerActionLogs.
      *
-     * @param \Entity\RebalancerActionLog $rebalancerActionLogs
+     * @param \App\Entity\RebalancerActionLog $rebalancerActionLogs
      *
      * @return RebalancerAction
      */
@@ -221,7 +221,7 @@ class RebalancerAction
     /**
      * Remove rebalancerActionLogs.
      *
-     * @param \Entity\RebalancerActionLog $rebalancerActionLogs
+     * @param \App\Entity\RebalancerActionLog $rebalancerActionLogs
      */
     public function removeRebalancerActionLog(RebalancerActionLog $rebalancerActionLogs)
     {
@@ -241,7 +241,7 @@ class RebalancerAction
     /**
      * Set clientAccountValue.
      *
-     * @param \Entity\ClientAccountValue $clientAccountValue
+     * @param \App\Entity\ClientAccountValue $clientAccountValue
      *
      * @return RebalancerAction
      */
@@ -265,7 +265,7 @@ class RebalancerAction
     /**
      * Set clientPortfolioValue.
      *
-     * @param \Entity\ClientPortfolioValue $clientPortfolioValue
+     * @param \App\Entity\ClientPortfolioValue $clientPortfolioValue
      *
      * @return RebalancerAction
      */
@@ -323,7 +323,7 @@ class RebalancerAction
     /**
      * Add rebalancerQueue.
      *
-     * @param \Entity\RebalancerActionLog $rebalancerQueue
+     * @param \App\Entity\RebalancerActionLog $rebalancerQueue
      *
      * @return RebalancerAction
      */
@@ -337,7 +337,7 @@ class RebalancerAction
     /**
      * Remove rebalancerQueue.
      *
-     * @param \Entity\RebalancerActionLog $rebalancerQueue
+     * @param \App\Entity\RebalancerActionLog $rebalancerQueue
      */
     public function removeRebalancerQueue(RebalancerActionLog $rebalancerQueue)
     {

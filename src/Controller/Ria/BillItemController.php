@@ -18,7 +18,7 @@ class BillItemController extends Controller
      * SecureParam(name="billItem", permissions="CHANGE_FEE")
      * @ParamConverter("billItem", class="App\Entity\BillItem")
      *
-     * @param \Entity\BillItem                   $billItem
+     * @param \App\Entity\BillItem                   $billItem
      * @param \Symfony\Component\HttpFoundation\Request $request
      *
      * @return JsonResponse

@@ -235,7 +235,7 @@ class TwigSwiftMailer implements MailerInterface
             'new_password' => $newPassword,
             'logo' => $this->router->getContext()->getHost().'/img/logo.png',
         ];
-        $this->sendMessage($template, $context,$this->from_email, $riaUser->getEmail(), );
+        $this->sendMessage($template, $context,$this->from_email, $riaUser->getEmail());
     }
     public function sendRiaUserCreateEmail(User $riaUser, $password)
     {

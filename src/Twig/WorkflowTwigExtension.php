@@ -30,11 +30,11 @@ class WorkflowTwigExtension extends \Twig_Extension
     public function getFunctions()
     {
         return [
-            new \Twig_SimpleFunction('workflow_activity', [$this, 'getActivity']),
-            new \Twig_SimpleFunction('workflowable_object', [$this, 'getWorkflowableObject']),
-            new \Twig_SimpleFunction('workflowable_objects', [$this, 'getWorkflowableObjects']),
-            new \Twig_SimpleFunction('workflow_documents', [$this, 'getWorkflowDocuments']),
-            new \Twig_SimpleFunction('workflow_documents_link', [$this, 'getWorkflowDocumentsLink']),
+            new \Twig\TwigFunction('workflow_activity', [$this, 'getActivity']),
+            new \Twig\TwigFunction('workflowable_object', [$this, 'getWorkflowableObject']),
+            new \Twig\TwigFunction('workflowable_objects', [$this, 'getWorkflowableObjects']),
+            new \Twig\TwigFunction('workflow_documents', [$this, 'getWorkflowDocuments']),
+            new \Twig\TwigFunction('workflow_documents_link', [$this, 'getWorkflowDocumentsLink']),
         ];
     }
 

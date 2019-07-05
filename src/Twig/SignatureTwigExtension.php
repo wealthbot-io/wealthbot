@@ -27,12 +27,12 @@ class SignatureTwigExtension extends \Twig_Extension
     public function getFunctions()
     {
         return [
-            new \Twig_SimpleFunction('is_signature_completed', [$this, 'isSignatureCompleted']),
-            new \Twig_SimpleFunction('is_owner_signature_completed', [$this, 'isOwnerSignatureCompleted']),
-            new \Twig_SimpleFunction('is_application_signed', [$this, 'isApplicationSigned']),
-            new \Twig_SimpleFunction('is_owner_sign_application', [$this, 'isOwnerSignApplication']),
-            new \Twig_SimpleFunction('document_signature_source', [$this, 'getDocumentSignatureSource']),
-            new \Twig_SimpleFunction('document_signature_activity', [$this, 'getDocumentSignatureActivity']),
+            new \Twig\TwigFunction('is_signature_completed', [$this, 'isSignatureCompleted']),
+            new \Twig\TwigFunction('is_owner_signature_completed', [$this, 'isOwnerSignatureCompleted']),
+            new \Twig\TwigFunction('is_application_signed', [$this, 'isApplicationSigned']),
+            new \Twig\TwigFunction('is_owner_sign_application', [$this, 'isOwnerSignApplication']),
+            new \Twig\TwigFunction('document_signature_source', [$this, 'getDocumentSignatureSource']),
+            new \Twig\TwigFunction('document_signature_activity', [$this, 'getDocumentSignatureActivity']),
         ];
     }
 
@@ -91,7 +91,7 @@ class SignatureTwigExtension extends \Twig_Extension
      *
      * @param DocumentSignature $signature
      *
-     * @return App\Model\SignableInterface
+     * @return \App\Model\SignableInterface
      */
     public function getDocumentSignatureSource(DocumentSignature $signature)
     {

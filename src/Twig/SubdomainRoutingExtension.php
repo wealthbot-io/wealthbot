@@ -17,10 +17,10 @@ class SubdomainRoutingExtension extends \Twig_Extension
     public function getFunctions()
     {
         return [
-            new \Twig_SimpleFunction('subdomain_url', [$this, 'subDomainUrl']),
-            new \Twig_SimpleFunction('has_subdomain', [$this, 'hasSubDomain']),
-            new \Twig_SimpleFunction('get_subdomain', [$this, 'getSubDomain']),
-            new \Twig_SimpleFunction('get_domain', [$this, 'getDomain']),
+            new \Twig\TwigFunction('subdomain_url', [$this, 'subDomainUrl']),
+            new \Twig\TwigFunction('has_subdomain', [$this, 'hasSubDomain']),
+            new \Twig\TwigFunction('get_subdomain', [$this, 'getSubDomain']),
+            new \Twig\TwigFunction('get_domain', [$this, 'getDomain']),
         ];
     }
 

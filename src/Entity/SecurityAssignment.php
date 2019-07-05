@@ -11,7 +11,6 @@ use Doctrine\Common\Collections\Collection;
  */
 class SecurityAssignment
 {
-    // @todo
     public $fund_symbol;
     public $asset_class_id;
 

@@ -311,12 +311,6 @@ rx_ria_risks_test_result:
   path: /ria/dashboard/risks/test/result
   defaults: { _controller: \App\Controller\Ria\RisksController:testResult }
 
-#TODO: delete?
-#rx_ria_risk_test_result_details:
-#    path:  /ria/dashboard/risks/test/{model_id}/details
-#    defaults: { _controller: \App\Controller\Ria\ProspectsController:riaModelDetails }
-#    requirements:
-#        model_id:  \d+
 
 rx_ria_risks_create_question:
   path:  /ria/dashboard/risks/question/create

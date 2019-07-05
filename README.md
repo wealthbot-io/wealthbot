@@ -69,3 +69,8 @@ Once complete, simply go to http://127.0.0.1:8000 in your browser to see the wea
 # Contributing
 
 We love pull requests! The details on how to contribute to Wealthbot can be found [here](CONTRIBUTING.md).
+
+
+# Todo:
+
+* Use Webpack Encore to manage assets

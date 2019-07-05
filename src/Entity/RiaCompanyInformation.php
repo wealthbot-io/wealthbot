@@ -15,7 +15,6 @@ use App\Entity\User;
  */
 class RiaCompanyInformation
 {
-    // @todo
     public $fees;
 
     /**

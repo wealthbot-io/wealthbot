@@ -22,7 +22,6 @@ $(function(){
         }
     });
 
-    //TODO check in IE /ria/client/create
     $(document).on('change',"#wealthbot_riabundle_riacreateclienttype_profile_model", function(event){
         $('#wealthbot_riabundle_riacreateclienttype_profile_suggested_portfolio').attr('disabled', 'disabled');
 

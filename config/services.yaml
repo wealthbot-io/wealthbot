@@ -12,17 +12,19 @@ imports:
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
-    mailer_url: 'null://localhost'
+    mailer_url: "%env(resolve:MAILER_URL)%"
     jms_serializer.camel_case_naming_strategy.class: JMS\Serializer\Naming\IdenticalPropertyNamingStrategy
-    locale: en
+    locale: "%env(resolve:APP_LOCALE)%"
     secret: "%env(resolve:APP_SECRET)%"
-    site_domain: 'localhost'
-    pager_per_page: 20
+    site_domain: "%env(resolve:APP_HOST)%"
+    pager_per_page: "%env(resolve:PAGER_PP)%"
     uploads_dir: '%kernel.root_dir%/../uploads'
     uploads_ria_company_logos_dir: '%uploads_dir%/ria_company_logos'
     uploads_documents_dir: '%uploads_dir%/documents'
     uploads_trade_files_dir: '%uploads_dir%/trade_files'
     active_jobs_dir: '%kernel.root_dir%/../system/incoming_files/active_jobs'
+    wkhtmltopdf_path: "%env(resolve:WKHTMLTOPDF_PATH)%"
+
     docusign_username: 14d3fac4-ea15-46e9-95f8-96c84c3c8b51
     docusign_password: pass4wealthbot
     docusign_integrator_key: ROOW-10ed1300-2a9d-4169-b30c-f2849d8be519
@@ -35,7 +37,6 @@ parameters:
     docusign_ira_distribution_form: 907D8593-315D-4F67-8224-4B649B8AD4BD
     docusign_beneficiary_designation_form: CC91DE97-A57B-4BED-BD33-5B5F3FDF530F
     docusign_brand_id: bd5bd28d-c8f3-4760-b70c-2be64e67ebf4
-    wkhtmltopdf_path: /opt/wkhtmltopdf/bin/wkhtmltopdf
 services:
     # default configuration for services in *this* file
     _defaults:

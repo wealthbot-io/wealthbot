@@ -37,13 +37,6 @@ class Recipient implements RecipientInterface
      */
     private $type;
 
-    const TYPE_SIGNER = 'signer';
-    const TYPE_AGENT = 'agent';
-    const TYPE_EDITOR = 'editor';
-    const TYPE_CARBON_COPY = 'carbonCopy';
-    const TYPE_CERTIFIED_DELIVERY = 'certifiedDelivery';
-    const TYPE_IN_PERSON_SIGNER = 'InPersonSigner';
-
     private static $_types = null;
 
     public function __construct()

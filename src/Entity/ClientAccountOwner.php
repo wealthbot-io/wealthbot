@@ -109,7 +109,7 @@ class ClientAccountOwner extends BaseClientAccountOwner
     /**
      * Get account.
      *
-     * @return App\Entity\ClientAccount
+     * @return \App\Entity\ClientAccount
      */
     public function getAccount()
     {
@@ -133,7 +133,7 @@ class ClientAccountOwner extends BaseClientAccountOwner
     /**
      * Get contact.
      *
-     * @return App\Entity\ClientAdditionalContact
+     * @return \App\Entity\ClientAdditionalContact
      */
     public function getContact()
     {
@@ -229,7 +229,7 @@ class ClientAccountOwner extends BaseClientAccountOwner
     /**
      * Get client.
      *
-     * @return App\Entity\User
+     * @return \App\Entity\User
      */
     public function getClient()
     {

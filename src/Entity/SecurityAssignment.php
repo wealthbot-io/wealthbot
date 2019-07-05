@@ -135,7 +135,7 @@ class SecurityAssignment
     /**
      * Get subclass.
      *
-     * @return App\Entity\Subclass
+     * @return \App\Entity\Subclass
      */
     public function getSubclass()
     {
@@ -207,7 +207,7 @@ class SecurityAssignment
     /**
      * Get security.
      *
-     * @return App\Entity\Security
+     * @return \App\Entity\Security
      */
     public function getSecurity()
     {
@@ -303,7 +303,7 @@ class SecurityAssignment
     /**
      * Get model.
      *
-     * @return App\Entity\CeModel
+     * @return \App\Entity\CeModel
      */
     public function getModel()
     {

@@ -254,7 +254,7 @@ class BaseContribution implements PaymentWorkflowableInterface
     /**
      * Get bankInformation.
      *
-     * @return App\Entity\BankInformation
+     * @return \App\Entity\BankInformation
      */
     public function getBankInformation()
     {

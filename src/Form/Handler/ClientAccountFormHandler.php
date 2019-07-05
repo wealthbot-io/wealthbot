@@ -142,7 +142,7 @@ class ClientAccountFormHandler
      *
      * @param ClientAccount $account
      *
-     * @return App\Entity\TransferInformation
+     * @return \App\Entity\TransferInformation
      */
     protected function saveTransferInformation(ClientAccount $account)
     {

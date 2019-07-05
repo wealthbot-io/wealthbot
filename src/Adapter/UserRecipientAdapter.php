@@ -91,7 +91,7 @@ class UserRecipientAdapter implements RecipientInterface
     /**
      * Set tab collection.
      *
-     * @param \Model\TabCollection $tabs
+     * @param \App\Model\TabCollection $tabs
      */
     public function setTabs(TabCollection $tabs)
     {
@@ -123,7 +123,7 @@ class UserRecipientAdapter implements RecipientInterface
     /**
      * Get tab collection.
      *
-     * @return App\Model\TabCollection
+     * @return \App\Model\TabCollection
      */
     public function getTabs()
     {

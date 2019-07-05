@@ -198,7 +198,7 @@ class PortfolioController extends Controller
     /**
      * Add element to the beginning of the array collection.
      *
-     * @param Collection $collection
+     * @param \App\Collection $collection
      * @param $element
      *
      * @return ArrayCollection

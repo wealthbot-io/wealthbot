@@ -226,7 +226,7 @@ class ClientActivitySummary implements ActivityInterface
     /**
      * Get Document.
      *
-     * @return App\Entity\Document
+     * @return \App\Entity\Document
      */
     public function getDocument()
     {

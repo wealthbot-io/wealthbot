@@ -97,5 +97,23 @@
             "require": "4.4.*"
         }
     },
-    "minimum-stability": "dev"
+    "minimum-stability": "dev",
+
+    "repositories": [{
+        "type": "package",
+        "package": {
+            "name": "PHPOffice/PHPExcel",
+            "version": "1.7.8",
+            "source": {
+                "url": "https://github.com/PHPOffice/PHPExcel.git",
+                "type": "git",
+                "reference": "PHPExcel_1.7.8"
+            },
+            "autoload": {
+                "psr-0": {
+                    "PHPExcel": "Classes/"
+                }
+            }
+        }
+    }]
 }

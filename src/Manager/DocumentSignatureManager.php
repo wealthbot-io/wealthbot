@@ -225,7 +225,7 @@ class DocumentSignatureManager
      *
      * @param ClientAccount $account
      *
-     * @return App\Entity\DocumentSignature[]
+     * @return \App\Entity\DocumentSignature[]
      */
     public function getApplicationSignatures(ClientAccount $account)
     {

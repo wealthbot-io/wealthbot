@@ -305,7 +305,7 @@ class SecurityTransaction
     /**
      * Get securityAssignment.
      *
-     * @return App\Entity\SecurityAssignment
+     * @return \App\Entity\SecurityAssignment
      */
     public function getSecurityAssignment()
     {

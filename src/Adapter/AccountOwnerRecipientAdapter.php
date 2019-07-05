@@ -121,7 +121,7 @@ class AccountOwnerRecipientAdapter implements RecipientInterface
     /**
      * Set tab collection.
      *
-     * @param \Model\TabCollection $tabs
+     * @param \App\Model\TabCollection $tabs
      */
     public function setTabs(TabCollection $tabs)
     {
@@ -153,7 +153,7 @@ class AccountOwnerRecipientAdapter implements RecipientInterface
     /**
      * Get tab collection.
      *
-     * @return App\Model\TabCollection
+     * @return \App\Model\TabCollection
      */
     public function getTabs()
     {

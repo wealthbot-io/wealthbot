@@ -14,7 +14,7 @@ class AccountsData implements DataInterface
     /** @var \Doctrine\ODM\MongoDB\DocumentManager */
     private $mongoManager;
 
-    /** @var \Service\BusinessCalendar */
+    /** @param \App\Service\BusinessCalendar */
     private $businessCalendar;
 
     public function __construct(EntityManager $em, BusinessCalendar $businessCalendar)

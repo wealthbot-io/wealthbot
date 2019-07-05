@@ -647,7 +647,7 @@ class BankInformation implements WorkflowableInterface
     /**
      * Get client.
      *
-     * @return App\Entity\User
+     * @return \App\Entity\User
      */
     public function getClient()
     {
@@ -686,7 +686,7 @@ class BankInformation implements WorkflowableInterface
     /**
      * Get pdfDocument.
      *
-     * @return App\Entity\Document
+     * @return \App\Entity\Document
      */
     public function getPdfDocument()
     {

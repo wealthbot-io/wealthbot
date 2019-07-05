@@ -64,7 +64,7 @@ class RiskToleranceManager
     /**
      * * Returns suggested portfolio.
      *
-     * @return App\Entity\CeModel|null
+     * @return \App\Entity\CeModel|null
      */
     public function getSuggestedPortfolio()
     {

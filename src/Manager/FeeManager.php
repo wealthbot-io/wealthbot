@@ -48,7 +48,7 @@ class FeeManager
      *
      * @throws \Exception
      *
-     * @return array|\Entity\Fee[]
+     * @return array|\App\Entity\Fee[]
      */
     public function getAdminFee(User $ria)
     {

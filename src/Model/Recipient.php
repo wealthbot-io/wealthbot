@@ -184,7 +184,7 @@ class Recipient implements RecipientInterface
     }
 
     /**
-     * @param \Model\TabCollection $tabs
+     * @param \App\Model\TabCollection $tabs
      */
     public function setTabs(TabCollection $tabs)
     {
@@ -202,7 +202,7 @@ class Recipient implements RecipientInterface
     }
 
     /**
-     * @return App\Model\TabCollection
+     * @return \App\Model\TabCollection
      */
     public function getTabs()
     {

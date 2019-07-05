@@ -120,7 +120,7 @@ class Group extends BaseGroup
     /**
      * Get users.
      *
-     * @return App\Doctrine\Common\Collections\Collection
+     * @return \App\Doctrine\Common\Collections\Collection
      */
     public function getUsers()
     {
@@ -168,7 +168,7 @@ class Group extends BaseGroup
     /**
      * Get owner.
      *
-     * @return App\Entity\User
+     * @return \App\Entity\User
      */
     public function getOwner()
     {

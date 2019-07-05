@@ -13,7 +13,7 @@ interface SignableInterface
     /**
      * Get client account object.
      *
-     * @return App\Model\ClientAccount
+     * @return \App\Model\ClientAccount
      */
     public function getClientAccount();
 

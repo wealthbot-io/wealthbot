@@ -21,7 +21,7 @@ class SummaryInformationManager
     /** @var \Manager\CashCalculationManager */
     private $cashManager;
 
-    /** @var \Service\Manager\PeriodManager */
+    /** @param \App\Service\Manager\PeriodManager */
     private $periodManager;
 
     /** @var \Symfony\Bundle\FrameworkBundle\Translation\Translator */

@@ -131,10 +131,10 @@ class DocumentSignatureRepository extends EntityRepository
         $signatures = $query->getResult();
         usort($signatures, function (
             \App\Entity\DocumentSignature $a,
-            \App\Еntity\Signature\DocumentSignature $b
+            \App\Entity\DocumentSignature $b
         ) {
-            /* @var DocumentSignature $a */
-            /* @var DocumentSignature $b */
+            /* @var  \App\Entity\DocumentSignature $a */
+            /* @var  \App\Entity\DocumentSignature $b */
             return $a->getOrder() - $b->getOrder();
         });
 

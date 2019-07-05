@@ -131,7 +131,7 @@ class PortfolioTwrValue
     /**
      * Get client.
      *
-     * @return App\Entity\User
+     * @return \App\Entity\User
      */
     public function getClient()
     {

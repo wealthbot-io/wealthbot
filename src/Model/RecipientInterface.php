@@ -104,7 +104,7 @@ interface RecipientInterface
     /**
      * Set tab collection.
      *
-     * @param \Model\TabCollection $tabs
+     * @param \App\Model\TabCollection $tabs
      */
     public function setTabs(TabCollection $tabs);
 
@@ -127,7 +127,7 @@ interface RecipientInterface
     /**
      * Get tab collection.
      *
-     * @return App\Model\TabCollection
+     * @return \App\Model\TabCollection
      */
     public function getTabs();
 }

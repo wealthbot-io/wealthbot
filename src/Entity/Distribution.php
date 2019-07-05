@@ -424,7 +424,7 @@ class Distribution implements SignableInterface, PaymentWorkflowableInterface
     /**
      * Get systemClientAccount.
      *
-     * @return App\Entity\SystemAccount
+     * @return \App\Entity\SystemAccount
      */
     public function getSystemClientAccount()
     {
@@ -448,7 +448,7 @@ class Distribution implements SignableInterface, PaymentWorkflowableInterface
     /**
      * Get bankInformation.
      *
-     * @return App\Entity\BankInformation
+     * @return \App\Entity\BankInformation
      */
     public function getBankInformation()
     {
@@ -717,7 +717,7 @@ class Distribution implements SignableInterface, PaymentWorkflowableInterface
     /**
      * Get residenceState.
      *
-     * @return App\Entity\State
+     * @return \App\Entity\State
      */
     public function getResidenceState()
     {
@@ -727,7 +727,7 @@ class Distribution implements SignableInterface, PaymentWorkflowableInterface
     /**
      * Get client account object.
      *
-     * @return App\Model\ClientAccount
+     * @return \App\Model\ClientAccount
      */
     public function getClientAccount()
     {

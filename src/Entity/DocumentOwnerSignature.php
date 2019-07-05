@@ -274,7 +274,7 @@ class DocumentOwnerSignature
     /**
      * Get documentSignature.
      *
-     * @return App\Entity\DocumentSignature
+     * @return \App\Entity\DocumentSignature
      */
     public function getDocumentSignature()
     {
@@ -322,7 +322,7 @@ class DocumentOwnerSignature
     /**
      * Get contactOwner.
      *
-     * @return App\Entity\ClientAdditionalContact
+     * @return \App\Entity\ClientAdditionalContact
      */
     public function getContactOwner()
     {

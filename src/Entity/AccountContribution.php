@@ -184,7 +184,7 @@ class AccountContribution extends BaseAccountContribution implements SignableInt
     /**
      * Get account.
      *
-     * @return App\Entity\ClientAccount
+     * @return \App\Entity\ClientAccount
      */
     public function getAccount()
     {
@@ -256,7 +256,7 @@ class AccountContribution extends BaseAccountContribution implements SignableInt
     /**
      * Get bankInformation.
      *
-     * @return App\Entity\BankInformation
+     * @return \App\Entity\BankInformation
      */
     public function getBankInformation()
     {
@@ -266,7 +266,7 @@ class AccountContribution extends BaseAccountContribution implements SignableInt
     /**
      * Get client account object.
      *
-     * @return App\Model\ClientAccount
+     * @return \App\Model\ClientAccount
      */
     public function getClientAccount()
     {

@@ -24,7 +24,7 @@ class BillingReportManager
     protected $twig;
 
     /**
-     * @var \Service\Manager\SummaryInformationManager
+     * @param \App\Service\Manager\SummaryInformationManager
      */
     protected $summaryInformationManager;
 

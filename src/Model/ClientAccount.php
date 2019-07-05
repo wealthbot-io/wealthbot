@@ -221,7 +221,7 @@ class ClientAccount implements WorkflowableInterface, SignableInterface
     /**
      * Get client.
      *
-     * @return App\Entity\User
+     * @return \App\Entity\User
      */
     public function getClient()
     {
@@ -294,7 +294,7 @@ class ClientAccount implements WorkflowableInterface, SignableInterface
     /**
      * Get groupType.
      *
-     * @return App\Entity\AccountGroupType
+     * @return \App\Entity\AccountGroupType
      */
     public function getGroupType()
     {
@@ -535,7 +535,7 @@ class ClientAccount implements WorkflowableInterface, SignableInterface
     /**
      * Get transferInformation.
      *
-     * @return App\Entity\TransferInformation
+     * @return \App\Entity\TransferInformation
      */
     public function getTransferInformation()
     {
@@ -639,7 +639,7 @@ class ClientAccount implements WorkflowableInterface, SignableInterface
     /**
      * Get accountContribution.
      *
-     * @return App\Entity\AccountContribution
+     * @return \App\Entity\AccountContribution
      */
     public function getAccountContribution()
     {
@@ -735,7 +735,7 @@ class ClientAccount implements WorkflowableInterface, SignableInterface
     /**
      * Get systemAccount.
      *
-     * @return App\Entity\SystemAccount
+     * @return \App\Entity\SystemAccount
      */
     public function getSystemAccount()
     {
@@ -870,7 +870,7 @@ class ClientAccount implements WorkflowableInterface, SignableInterface
     /**
      * Get consolidator.
      *
-     * @return App\Entity\ClientAccount
+     * @return \App\Entity\ClientAccount
      */
     public function getConsolidator()
     {

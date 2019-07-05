@@ -270,7 +270,7 @@ class ClientPortfolioValue
     /**
      * Get clientPortfolio.
      *
-     * @return App\Entity\ClientPortfolio
+     * @return \App\Entity\ClientPortfolio
      */
     public function getClientPortfolio()
     {

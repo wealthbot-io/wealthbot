@@ -342,9 +342,6 @@
     "symfony/css-selector": {
         "version": "v4.3.1"
     },
-    "symfony/debug": {
-        "version": "v4.3.1"
-    },
     "symfony/debug-bundle": {
         "version": "4.1",
         "recipe": {
@@ -371,6 +368,9 @@
     },
     "symfony/dotenv": {
         "version": "v4.3.1"
+    },
+    "symfony/error-catcher": {
+        "version": "4.4-dev"
     },
     "symfony/event-dispatcher": {
         "version": "v4.3.1"

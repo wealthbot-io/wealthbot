@@ -197,7 +197,7 @@ class RebalancerAction
     /**
      * Get job.
      *
-     * @return App\Entity\Job
+     * @return \App\Entity\Job
      */
     public function getJob()
     {
@@ -255,7 +255,7 @@ class RebalancerAction
     /**
      * Get clientAccountValue.
      *
-     * @return App\Entity\ClientAccountValue
+     * @return \App\Entity\ClientAccountValue
      */
     public function getClientAccountValue()
     {
@@ -279,7 +279,7 @@ class RebalancerAction
     /**
      * Get clientPortfolioValue.
      *
-     * @return App\Entity\ClientPortfolioValue
+     * @return \App\Entity\ClientPortfolioValue
      */
     public function getClientPortfolioValue()
     {

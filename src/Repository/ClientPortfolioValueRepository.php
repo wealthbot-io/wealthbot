@@ -36,7 +36,7 @@ class ClientPortfolioValueRepository extends EntityRepository
      *
      * @param User $ria
      *
-     * @return App\Doctrine\ORM\QueryBuilder
+     * @return \Doctrine\ORM\QueryBuilder
      */
     public function findHistoryForRiaClientsQuery(User $ria, $filters = [])
     {
@@ -121,7 +121,7 @@ class ClientPortfolioValueRepository extends EntityRepository
      *
      * @param $clients
      *
-     * @return App\Doctrine\ORM\QueryBuilder
+     * @return \Doctrine\ORM\QueryBuilder
      */
     public function findLatestValuesForRiaClientsQuery($clients)
     {
@@ -250,7 +250,7 @@ class ClientPortfolioValueRepository extends EntityRepository
     /**
      * @param User $client
      *
-     * @return ClientPortfolioValue|null
+     * @return \App\Entity\ClientPortfolioValue|null
      */
     public function getLastValueByClient(User $client)
     {

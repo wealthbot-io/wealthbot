@@ -21,7 +21,7 @@ class AdminSecuritiesCollection
      *
      * @param \App\Entity\SecurityAssignment $item
      *
-     * @return App\Collection\AdminSecuritiesCollection
+     * @return \App\Collection\AdminSecuritiesCollection
      */
     public function addItem(\App\Entity\SecurityAssignment $item)
     {

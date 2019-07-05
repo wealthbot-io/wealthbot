@@ -472,7 +472,7 @@ class Beneficiary extends BaseBeneficiary implements SignableInterface
     /**
      * Get client account object.
      *
-     * @return \Model\ClientAccount;
+     * @return \App\Model\ClientAccount;
      */
     public function getClientAccount()
     {

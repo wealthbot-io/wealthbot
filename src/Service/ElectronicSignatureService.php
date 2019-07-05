@@ -25,13 +25,13 @@ use App\Model\SignableInterface;
 
 class ElectronicSignatureService
 {
-    /** @var \Docusign\AbstractDocusign */
+    /** @var \App\Docusign\AbstractDocusign */
     private $docusignApi;
 
-    /** @var \Manager\DocumentSignatureManager */
+    /** @var \App\Manager\DocumentSignatureManager */
     private $signatureManager;
 
-    /** @var \Manager\AccountDocusignManager */
+    /** @var \App\Manager\AccountDocusignManager */
     private $accountDocusignManager;
 
     /** @var array */
@@ -214,7 +214,7 @@ class ElectronicSignatureService
      * @param ClientAccount $account
      * @param string        $type
      *
-     * @return App\Entity\DocumentSignature
+     * @return \App\Entity\DocumentSignature
      */
     public function updateAccountSignatureStatusByAccountAndType(ClientAccount $account, $type)
     {

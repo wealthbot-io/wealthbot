@@ -533,7 +533,7 @@ class TransferInformation extends BaseTransferInformation implements SignableInt
     /**
      * Get clientAccount.
      *
-     * @return App\Entity\ClientAccount
+     * @return \App\Entity\ClientAccount
      */
     public function getClientAccount()
     {
@@ -557,7 +557,7 @@ class TransferInformation extends BaseTransferInformation implements SignableInt
     /**
      * Get systemAccount.
      *
-     * @return App\Entity\SystemAccount
+     * @return \App\Entity\SystemAccount
      */
     public function getSystemAccount()
     {
@@ -749,7 +749,7 @@ class TransferInformation extends BaseTransferInformation implements SignableInt
     /**
      * Get transferCustodian.
      *
-     * @return App\Entity\TransferCustodian
+     * @return \App\Entity\TransferCustodian
      */
     public function getTransferCustodian()
     {
@@ -885,7 +885,7 @@ class TransferInformation extends BaseTransferInformation implements SignableInt
     /**
      * Get statementDocument.
      *
-     * @return App\Entity\Document
+     * @return \App\Entity\Document
      */
     public function getStatementDocument()
     {

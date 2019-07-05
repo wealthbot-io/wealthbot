@@ -204,7 +204,7 @@ class Subclass
     /**
      * Get assetClass.
      *
-     * @return App\Entity\AssetClass
+     * @return \App\Entity\AssetClass
      */
     public function getAssetClass()
     {
@@ -252,7 +252,7 @@ class Subclass
     /**
      * Get accountType.
      *
-     * @return App\Entity\SubclassAccountType
+     * @return \App\Entity\SubclassAccountType
      */
     public function getAccountType()
     {
@@ -324,7 +324,7 @@ class Subclass
     /**
      * Get owner.
      *
-     * @return App\Entity\User
+     * @return \App\Entity\User
      */
     public function getOwner()
     {
@@ -348,7 +348,7 @@ class Subclass
     /**
      * Get source.
      *
-     * @return App\Entity\Subclass
+     * @return \App\Entity\Subclass
      */
     public function getSource()
     {

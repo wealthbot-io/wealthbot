@@ -872,7 +872,7 @@ class ClientAccount extends BaseClientAccount
     /**
      * Add accountOwners.
      *
-     * @param \Model\ClientAccountOwner $accountOwner
+     * @param \App\Model\ClientAccountOwner $accountOwner
      *
      * @return ClientAccount
      */
@@ -886,7 +886,7 @@ class ClientAccount extends BaseClientAccount
     /**
      * Remove accountOwners.
      *
-     * @param \Model\ClientAccountOwner $accountOwner
+     * @param \App\Model\ClientAccountOwner $accountOwner
      */
     public function removeAccountOwner(\App\Model\ClientAccountOwner $accountOwner)
     {

@@ -49,6 +49,7 @@ class DocumentSignature
     const TYPE_ONE_TIME_CONTRIBUTION = 'one_time_contribution';
     const TYPE_ONE_TIME_DISTRIBUTION = 'one_time_distribution';
     const TYPE_CHANGE_BENEFICIARY = 'change_beneficiary';
+    const TYPE_BANK_INFORMATION  = 'bank_information';
 
     //const TYPE_BANK_INFORMATION = 'bank_information';
 
@@ -166,7 +167,7 @@ class DocumentSignature
     /**
      * Get document.
      *
-     * @return App\Entity\Document
+     * @return \App\Entity\Document
      */
     public function getDocument()
     {
@@ -414,7 +415,7 @@ class DocumentSignature
     /**
      * Get ownerSignatures.
      *
-     * @return App\Doctrine\Common\Collections\Collection
+     * @return \App\Doctrine\Common\Collections\Collection
      */
     public function getOwnerSignatures()
     {

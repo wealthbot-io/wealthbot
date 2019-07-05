@@ -8,6 +8,8 @@
 namespace App\Mailer;
 
 use App\Entity\ClientAccount;
+use Psr\Log\LoggerInterface;
+use Psr\Log\LogLevel;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use App\Entity\User;
 
@@ -22,8 +24,9 @@ class TwigSwiftMailer implements MailerInterface
     protected $parameters;
     protected $em;
     protected $from_email;
+    protected $logger;
 
-    public function __construct(\Swift_Mailer $mailer, UrlGeneratorInterface $router, \Twig\Environment $twig,$em,$from_email, $parameters)
+    public function __construct(\Swift_Mailer $mailer, UrlGeneratorInterface $router, \Twig\Environment $twig,$em,$from_email, $parameters, LoggerInterface $logger)
     {
         $this->mailer = $mailer;
         $this->router = $router;
@@ -31,6 +34,7 @@ class TwigSwiftMailer implements MailerInterface
         $this->parameters = (array) $parameters;
         $this->em = $em;
         $this->from_email = $from_email;
+        $this->logger = $logger;
     }
 
     public function sendSuggestedPortfolioEmailMessage(User $client)
@@ -74,6 +78,7 @@ class TwigSwiftMailer implements MailerInterface
 
     protected function sendMessage($templateName, $context, $fromEmail, $toEmail, array $attachments = [])
     {
+        try {
         $template = $this->twig->load($templateName);
         $subject = $template->renderBlock('subject', $context);
         $textBody = $template->renderBlock('body_text', $context);
@@ -102,7 +107,11 @@ class TwigSwiftMailer implements MailerInterface
             }
         }
 
-        $this->mailer->send($message);
+            $this->mailer->send($message);
+        } catch (\Exception $e){
+            $this->logger->log(LogLevel::ERROR, 'Error sending message');
+        };
+
     }
 
     public function sendRiaActivatedEmailMessage($toEmail, User $ria)

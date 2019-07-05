@@ -69,6 +69,7 @@ services:
                 bill_report:                            "%wealthbot_mailer.bill_report%"
                 invite:                                 "%wealthbot_mailer.invite%"
                 created_user:                           "%wealthbot_mailer.created_user%"
+            - "@monolog.logger"
     wealthbot_mailer.alerts_configuration_manager:
         class: App\Manager\AlertsConfigurationManager
         arguments: ["@doctrine.orm.entity_manager", "%wealthbot_mailer.alerts_configuration_class%"]

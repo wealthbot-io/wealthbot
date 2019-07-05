@@ -56,7 +56,7 @@ https://gitter.im/wealthbot-io
 
 **For Demo installation**
 
-* `git clone https://github.com/azatyan/wealthbot-flex`
+* `git clone https://github.com/wealthbot-io/wealthbot`
 * `cd wealthbot`
 * `COMPOSER_MEMORY_LIMIT=-1 composer install --ignore-platform-reqs`
 * `bin/console doctrine:database:create`

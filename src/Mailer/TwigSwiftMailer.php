@@ -498,4 +498,14 @@ class TwigSwiftMailer implements MailerInterface
         }
         return 0;
     }
+
+    /**
+     * @param $ria_id
+     * @return string
+     */
+    private function getRiaLogo($ria_id){
+
+        // @todo: write function returning full url of uploaded RIA logo
+        return '/img/logo.png';
+    }
 }

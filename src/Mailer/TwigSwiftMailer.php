@@ -505,7 +505,13 @@ class TwigSwiftMailer implements MailerInterface
      */
     private function getRiaLogo($ria_id){
 
-        // @todo: write function returning full url of uploaded RIA logo//rx_file_download
+        $url = $this->router->generate('rx_file_download',[
+            'ria_id' => $ria_id
+        ],UrlGeneratorInterface::ABSOLUTE_URL);
+
+        if(file_exists($url)){
+            return $url;
+        };
         return '/img/logo.png';
 
     }

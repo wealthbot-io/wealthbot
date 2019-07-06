@@ -74,7 +74,8 @@ class ClientDocumentFormType extends DocumentFormType
     {
         $resolver->setDefaults([
             'data_class' => 'App\Entity\Document',
-            'is_client_view' => null
+            'is_client_view' => null,
+            'csrf_protection' => false
         ]);
     }
 }

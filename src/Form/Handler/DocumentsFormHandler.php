@@ -9,12 +9,12 @@
 
 namespace App\Form\Handler;
 
+use App\Mailer\TwigSwiftMailer;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use App\Form\Handler\AbstractFormHandler;
-use Mailer\MailerInterface;
 use App\Entity\Document;
 use App\Entity\User;
 
@@ -22,7 +22,7 @@ class DocumentsFormHandler extends AbstractFormHandler
 {
     protected $mailer;
 
-    public function __construct(Form $form, Request $request, EntityManager $em, MailerInterface $mailer, $options = [])
+    public function __construct(Form $form, Request $request, EntityManager $em, TwigSwiftMailer $mailer, $options = [])
     {
         parent::__construct($form, $request, $em, $options);
 
@@ -50,6 +50,8 @@ class DocumentsFormHandler extends AbstractFormHandler
                 $document->upload();
 
                 $this->addDocumentForOwner($owner, $document);
+                $this->em->persist($document);
+                $this->em->flush();
 
                 if (Document::TYPE_ADV === $key || Document::TYPE_INVESTMENT_MANAGEMENT_AGREEMENT === $key) {
                     $this->sendEmailMessages($owner, $key);
@@ -96,15 +98,17 @@ class DocumentsFormHandler extends AbstractFormHandler
     }
 
     /**
-     * Add document for owner.
-     *
-     * @param object   $owner
+     * Add document for owner
+     * @param $owner
      * @param Document $document
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
      */
     protected function addDocumentForOwner($owner, Document $document)
     {
         if (!$owner->getUserDocuments()->contains($document)) {
             $owner->addUserDocument($document);
+
         }
     }
 

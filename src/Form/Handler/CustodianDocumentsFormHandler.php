@@ -11,33 +11,91 @@ namespace App\Form\Handler;
 
 use App\Entity\Custodian;
 use App\Entity\Document;
+use App\Entity\User;
+use App\Mailer\TwigSwiftMailer;
+use Doctrine\ORM\EntityManager;
+use Symfony\Component\Form\Form;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\HttpFoundation\Request;
 
-class CustodianDocumentsFormHandler extends DocumentsFormHandler
+class CustodianDocumentsFormHandler
 {
-    protected function getDocumentsOwner()
-    {
-        $owner = $this->getOption('documents_owner');
-        if (!($owner instanceof Custodian)) {
-            throw new \InvalidArgumentException(sprintf('Option documents_owner must be instance of %s', get_class(new Custodian())));
-        }
 
-        return $owner;
+
+    protected $mailer;
+    protected $form;
+    protected $request;
+    protected $em;
+    protected $custodian;
+
+    public function __construct(Form $form, Request $request, EntityManager $em, TwigSwiftMailer $mailer, $options)
+    {
+        $this->mailer = $mailer;
+        $this->form = $form;
+        $this->request = $request;
+        $this->em = $em;
+        $this->custodian = $options['documents_owner'];
     }
 
-    protected function getExistDocuments($owner)
+    protected function getExistDocuments($custodian)
     {
         $documents = [];
-        foreach ($owner->getCustodianDocuments() as $doc) {
+        foreach ($custodian->getCustodianDocuments() as $doc) {
             $documents[$doc->getType()] = $doc;
-        }
+        };
 
         return $documents;
     }
 
-    protected function addDocumentForOwner($owner, Document $document)
+    protected function addDocumentForOwner($custodian, Document $document)
     {
-        if (!$owner->getCustodianDocuments()->contains($document)) {
-            $owner->addCustodianDocument($document);
+        if (!$custodian->getCustodianDocuments()->contains($document)) {
+            $custodian->addCustodianDocument($document);
+        }
+
+    }
+
+    public function success()
+    {
+        $custodian = $this->custodian;
+        $data = $this->form->getData();
+
+        dump($data);
+
+        foreach ($data as $key => $file) {
+            if ($file instanceof UploadedFile) {
+                $document = new Document();
+                $document->setFile($file);
+                $document->setType($key);
+                $document->upload();
+                $this->addDocumentForOwner($custodian, $document);
+                $this->em->persist($document);
+                $this->em->flush();
+            }
+        }
+
+        $this->em->persist($this->custodian);
+
+        dump($this->custodian);
+
+        $this->em->flush();
+    }
+
+
+    protected function sendEmailMessages(User $owner, $documentType)
+    {
+        $custodianRepo = $this->em->getRepository('App\Entity\User');
+
+        $clients = [];
+        if ($owner->hasRole('ROLE_RIA')) {
+            $clients = $custodianRepo->findClientsByRiaId($owner->getId());
+        }
+
+        foreach ($clients as $client) {
+            foreach ($client->getSlaveClients() as $slaveClient) {
+                $this->mailer->sendClientUpdatedDocumentsEmail($slaveClient, $documentType);
+            }
+            $this->mailer->sendClientUpdatedDocumentsEmail($client, $documentType);
         }
     }
 }

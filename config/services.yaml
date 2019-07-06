@@ -17,7 +17,7 @@ parameters:
     locale: "%env(resolve:APP_LOCALE)%"
     secret: "%env(resolve:APP_SECRET)%"
     site_domain: "%env(resolve:APP_HOST)%"
-    pager_per_page: 20
+    pager_per_page: "%env(resolve:PAGER_PP)%"
     uploads_dir: '%kernel.root_dir%/../uploads'
     uploads_ria_company_logos_dir: '%uploads_dir%/ria_company_logos'
     uploads_documents_dir: '%uploads_dir%/documents'

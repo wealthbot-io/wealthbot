@@ -38,7 +38,7 @@ class WorkflowManager
     /** @var \Doctrine\Common\Persistence\ObjectRepository */
     private $repository;
 
-    /** @var \Manager\DocumentSignatureManager */
+    /** @var \App\Manager\DocumentSignatureManager */
     private $signatureManager;
 
     /** @var ClientAccountValuesManager */

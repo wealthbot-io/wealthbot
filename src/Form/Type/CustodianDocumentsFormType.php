@@ -21,14 +21,25 @@ class CustodianDocumentsFormType extends AbstractType
     {
         $this->custodian = $options['custodian'];
 
-        $builder->add('account_disclosure', FileType::class, ['label' => 'Account Disclosure', 'required' => false])
-            ->add('ira_account_disclosure', FileType::class, ['label' => 'IRA Account Disclosure', 'required' => false])
-            ->add('roth_account_disclosure', FileType::class, ['label' => 'Roth Account Disclosure', 'required' => false]);
+        $builder->add('account_disclosure', FileType::class, [
+            'label' => 'Account Disclosure',
+            'required' => false,
+            'mapped' => false
+        ])
+            ->add('ira_account_disclosure', FileType::class, [
+                'label' => 'IRA Account Disclosure',
+                'required' => false,
+                'mapped' => false
+            ])
+            ->add('roth_account_disclosure', FileType::class, [
+                'label' => 'Roth Account Disclosure',
+                'required' => false,
+                'mapped' => false
+            ]);
 
-        $builder->addEventListener(FormEvents::SUBMIT, function (FormEvent $event) {
+        $builder->addEventListener(FormEvents::PRE_SUBMIT, function (FormEvent $event) {
             $data = $event->getData();
             $form = $event->getForm();
-
             $file = null;
             foreach ($data as $item) {
                 if ($item instanceof UploadedFile) {
@@ -44,13 +55,14 @@ class CustodianDocumentsFormType extends AbstractType
 
     public function getBlockPrefix()
     {
-        return 'custodian_'.$this->custodian.'_documents';
+        return 'custodian_documents';
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'custodian' => null
+            'custodian' => null,
+            'data_class' => null
         ]);
     }
 }

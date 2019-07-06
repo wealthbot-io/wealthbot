@@ -8,8 +8,11 @@
 namespace App\Mailer;
 
 use App\Entity\ClientAccount;
+use App\Entity\Document;
+use App\Model\AccountOwnerInterface;
 use Psr\Log\LoggerInterface;
 use Psr\Log\LogLevel;
+use Symfony\Component\DependencyInjection\Exception\ParameterNotFoundException;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use App\Entity\User;
 

@@ -70,6 +70,7 @@ class ClientDocumentFormHandler extends DocumentFormHandler
             $client->addClientActivitySummary($clientActivitySummary);
 
             $this->em->persist($client);
+            $this->em->flush();
         }
     }
 }

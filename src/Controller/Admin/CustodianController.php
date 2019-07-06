@@ -43,10 +43,13 @@ class CustodianController extends AclController
         }
 
         $form = $this->createForm(CustodianDocumentsFormType::class, $custodian);
-        $formHandler = new CustodianDocumentsFormHandler($form, $request, $em, $this->get('wealthbot.mailer'), ['documents_owner' => $custodian]);
 
         if ($request->isMethod('post')) {
-            $formHandler->process();
+            $form->submit($request->get('custodian_documents'));
+            if($form->isValid()){
+                $formHandler = new CustodianDocumentsFormHandler($form, $request, $em, $this->get('wealthbot.mailer'), ['documents_owner' => $custodian]);
+                $formHandler->success();
+            }
         }
 
         return $this->render('/Admin/Custodian/_documents_form.html.twig', [

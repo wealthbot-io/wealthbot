@@ -58,7 +58,7 @@ class WorkflowController extends Controller
                     break;
                 case 'activity':
                     $responseParameters['pagination'] = $this->buildPaginator(
-                        //$activityManager->findByRiaQuery($ria),
+                        $workflowManager->findByRiaQuery($ria->getId()),
                         $page
                     );
 
@@ -83,17 +83,17 @@ class WorkflowController extends Controller
 
             $paginations['active'] = $this->buildPaginator(
                 $workflowManager->findByRiaIdQuery($ria->getId(), false),
-                'active' === $tab ? $page : []
+                'active' === $tab ? $page : 1
             );
 
             $paginations['archived'] = $this->buildPaginator(
                 $workflowManager->findByRiaIdQuery($ria->getId(), true),
-                'archived' === $tab ? $page : []
+                'archived' === $tab ? $page : 1
             );
 
             $paginations['activity'] = $this->buildPaginator(
-              //  $activityManager->findByRiaQuery($ria),
-                'activity' === $tab ? $page : []
+                $workflowManager->findByRiaIdQuery($ria->getId()),
+                'activity' === $tab ? $page : 1
             );
 
             $responseParameters['paginations'] = $paginations;

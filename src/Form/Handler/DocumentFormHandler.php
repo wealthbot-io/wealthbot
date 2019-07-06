@@ -9,11 +9,11 @@
 
 namespace App\Form\Handler;
 
+use App\Mailer\TwigSwiftMailer;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
 use App\Form\Handler\AbstractFormHandler;
-use Mailer\MailerInterface;
 use App\Entity\Document;
 use App\Entity\User;
 
@@ -21,7 +21,7 @@ class DocumentFormHandler extends AbstractFormHandler
 {
     protected $mailer;
 
-    public function __construct(Form $form, Request $request, EntityManager $em, MailerInterface $mailer, $options = [])
+    public function __construct(Form $form, Request $request, EntityManager $em, TwigSwiftMailer $mailer, $options = [])
     {
         parent::__construct($form, $request, $em, $options);
 

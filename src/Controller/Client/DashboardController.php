@@ -597,6 +597,12 @@ class DashboardController extends Controller
             'adv' => $documentManager->getUserDocumentByType($ria->getId(), Document::TYPE_ADV),
         ];
 
+        $clientDocuments = $em->getRepository('App\Entity\Document')->findByUserId($this->getUser()->getId());
+
+        dump($clientDocuments);
+
+        $riaDocuments = array_merge($riaDocuments, $clientDocuments);
+
         $clientDocumentUploadForm = $this->createForm(ClientDocumentFormType::class, null, [
             'is_client_view' => $this->isRiaClientView()
     ]);

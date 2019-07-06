@@ -421,4 +421,10 @@ class SecurityAssignment
     {
         return $this->ceModelEntity;
     }
+
+
+    public function __toString()
+    {
+       return $this->getSecurity()->getName();
+    }
 }

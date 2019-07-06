@@ -758,7 +758,7 @@ class ModelsController extends Controller
             $formHandler = new CeModelEntityFormHandler($form, $request, $em);
 
             if ($formHandler->process()) {
-                $form = $this->createForm(CeModelEntityFormType::class, null, ['model'=>$model, 'em'=>$em, 'user'=> $user, 'isQualifiedModel'=> $isQualifiedModel]);
+                $form = $this->createForm(CeModelEntityFormType::class, null, ['model'=>$model, 'em'=>$em, 'user' => $user, 'isQualifiedModel'=> $isQualifiedModel]);
 
 
                 return $this->json([

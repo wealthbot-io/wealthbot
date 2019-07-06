@@ -210,7 +210,7 @@ class CeModelEntityTypeEventsListener implements EventSubscriberInterface
 
         $form->add($this->factory->createNamed('subclass', EntityType::class, null, [
             'class' => 'App\\Entity\\Subclass',
-            'property_path' => 'name',
+            'property_path' => 'subclass',
             'auto_initialize' => false,
             'required' => false,
             'placeholder' => 'Choose Subclass',
@@ -239,7 +239,7 @@ class CeModelEntityTypeEventsListener implements EventSubscriberInterface
 
                 $form->add($this->factory->createNamed('muniSubstitution', EntityType::class, null, [
                     'class' => 'App\\Entity\\SecurityAssignment',
-                    'property_path' => 'security.name',
+                    'property_path' => 'muniSubstitution',
                     'auto_initialize' => false,
                     'required' => false,
                     'placeholder' => 'Choose Muni Substitution',
@@ -255,7 +255,7 @@ class CeModelEntityTypeEventsListener implements EventSubscriberInterface
 
         $form->add($this->factory->createNamed('securityAssignment', EntityType::class, null, [
             'class' => 'App\\Entity\\SecurityAssignment',
-            'property_path' => 'security.name',
+            'property_path' => 'securityAssignment.security.name',
             'auto_initialize' => false,
             'placeholder' => 'Choose Security',
             'query_builder' => $queryBuilder,
@@ -271,9 +271,9 @@ class CeModelEntityTypeEventsListener implements EventSubscriberInterface
             $securityAssignmentRepo = $this->em->getRepository('App\Entity\SecurityAssignment');
             $securityQueryBuilder = $securityAssignmentRepo->getSecuritiesQBBySubclassIdAndWithoutSecuritiesIds($subclassId, $withoutIds);
 
-            $form->add($this->factory->createNamed('tax_loss_harvesting', EntityType::class, null, [
+            $form->add($this->factory->createNamed('tax_loss_harvesting', EntityType::class,null, [
                 'class' => 'App\\Entity\\SecurityAssignment',
-                'property_path' => 'security.name',
+                'property_path' => 'taxLossHarvesting',
                 'auto_initialize' => false,
                 'placeholder' => 'Choose TLH Substitution',
                 'query_builder' => $securityQueryBuilder,

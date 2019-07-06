@@ -22,11 +22,11 @@ App\Entity\CeModelEntity:
     subclassId:
       type: integer
       column: subclass_id
-      nullable: false
+      nullable: true
     securityAssignmentId:
       type: integer
       column: security_assignment_id
-      nullable: false
+      nullable: true
     muniSubstitutionId:
       type: integer
       column: muni_substitution_id

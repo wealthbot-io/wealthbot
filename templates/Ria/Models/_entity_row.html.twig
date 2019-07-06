@@ -1,7 +1,7 @@
 <tr data-row="model-{{ modelEntity.id }}">
     <td>{{ modelEntity.assetClass.name }}</td>
-    <td>{{ modelEntity.subclass.name }}</td>
-    <td>{{ modelEntity.securityAssignment.security.name }}</td>
+    <td>{{ modelEntity.subclass }}</td>
+    <td>{{ modelEntity.securityAssignment ?  modelEntity.securityAssignment.security.name: ' ' }}</td>
     {% if (is_show_municipal_bond) %}
         <td>{{ modelEntity.muniSubstitution ? modelEntity.muniSubstitution.security.name : '' }}</td>
     {% endif %}

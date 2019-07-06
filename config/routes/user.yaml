@@ -77,7 +77,7 @@ rx_file_download:
     defaults: { _controller: App\Controller\User\FilesController:logo }
 
 rx_download_document:
-    path: /file/document/{filename}/{originalName}
+    path: /uploads/documents/{filename}/{originalName}
     defaults: { _controller: App\Controller\User\FilesController:documents, originalName: null }
 
 rx_download_trade_file:

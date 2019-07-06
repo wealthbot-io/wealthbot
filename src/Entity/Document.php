@@ -330,13 +330,16 @@ class Document
             return;
         }
 
-        $this->getFile()->move($this->getUploadRootDir(), $this->filename);
-        $this->setFile(null);
 
         if (isset($this->temp)) {
             unlink($this->temp);
             $this->temp = null;
         }
+
+        dump($this->getUploadRootDir());
+
+        $this->getFile()->move($this->getUploadRootDir(), $this->getFilename());
+        $this->setFile(null);
     }
 
     /**
@@ -356,7 +359,7 @@ class Document
      */
     public static function getUploadRootDir()
     {
-        return getcwd().'/public/'.self::getUploadDir();
+        return getcwd().'/'.self::getUploadDir();
     }
 
     /**

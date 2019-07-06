@@ -150,7 +150,7 @@ class DashboardController extends Controller
                     'firstName' => $account->getClientAccount()->getPrimaryApplicant()->getFirstName(),
                     'accountType' => $account->getTypeAsString(),
                     'number' => $account->getAccountNumber(),
-                    'ceModels' => ACCOUNT_LEVEL === $client->getProfile()->getClientAccountManaged() ? $clientPortfolio->getPortfolio()->getName() : '',
+                    'ceModels' => ACCOUNT_LEVEL === $client->getProfile()->getClientAccountManaged() ? '' : '',
                     'totalValue' => $lastSystemClientAccountValue ? $lastSystemClientAccountValue->getTotalValue() : 0,
                 ];
                 $clientItem['accounts'][] = $accountItem;

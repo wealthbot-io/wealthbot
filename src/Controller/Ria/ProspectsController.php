@@ -198,6 +198,7 @@ class ProspectsController extends Controller
                 }
 
                 $portfolio = $settingsForm->get('client')->get('portfolio')->getData();
+
             }
         }
 

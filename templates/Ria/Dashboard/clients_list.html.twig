@@ -7,10 +7,10 @@
 
 {% block javascripts %}
         {{ parent() }}
-        <script src="/js/backbone.marionette/underscore.js"></script>
-        <script src="/js/backbone.marionette/backbone.js"></script>
-        <script src="/js/backbone.marionette/backbone.marionette.js"></script>
-        <script type="text/javascript" src="/js/inputmask/jquery.inputmask.js"></script>
+        <script src="{{  asset('/js/backbone.marionette/underscore.js') }}"></script>
+        <script src="{{  asset('/js/backbone.marionette/backbone.js') }}"></script>
+        <script src="{{  asset('/js/backbone.marionette/backbone.marionette.js') }}"></script>
+        <script type="text/javascript" src="{{  asset('/js/inputmask/jquery.inputmask.js') }}"></script>
         <script src="{{ asset('/js/ria/ria.dashboard.clients.js') }}"></script>
         <script src="{{ asset('/js/ria/ria.prospects.js') }}"></script>
         <script src="{{ asset('/js/ria/ria.model.chart.js') }}"></script>
@@ -29,13 +29,13 @@
         <script src="{{ asset('/js/client/client.dashboard.documents.js') }}"></script>
         <script src="{{ asset('/js/client/client.billing.js') }}"></script>
         <script src="{{ asset('/js/client/client.performance.js') }}"></script>
-        <script src="/js/theme-js/jquery.flot.min.js"></script>
-        <script src="/js/theme-js/jquery.flot.pie.min.js"></script>
-        <script src="/js/theme-js/jquery.flot.stack.js"></script>
-        <script src="/js/theme-js/jquery.flot.resize.min.js"></script>
-        <script src="/js/theme-js/jquery.flot.tooltip.min.js"></script>
-        <script src="/js/theme-js/jquery.flot.crosshair.js"></script>
-        <script src="/js/theme-js/jquery.dataTables.min.js"></script>
+        <script src="{{ asset('/js/theme-js/jquery.flot.min.js') }}"></script>
+        <script src="{{ asset('/js/theme-js/jquery.flot.pie.min.js') }}"></script>
+        <script src="{{ asset('/js/theme-js/jquery.flot.stack.js') }}"></script>
+        <script src="{{ asset('/js/theme-js/jquery.flot.resize.min.js') }}"></script>
+        <script src="{{ asset('/js/theme-js/jquery.flot.tooltip.min.js') }}"></script>
+        <script src="{{ asset('/js/theme-js/jquery.flot.crosshair.js') }}"></script>
+        <script src="{{ asset('/js/theme-js/jquery.dataTables.min.js') }}"></script>
 {% endblock %}
 
 {% block body %}

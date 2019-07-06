@@ -149,6 +149,8 @@ class SuggestedPortfolioFormHandler extends AbstractFormHandler
             $profile->setClientAccountManaged($riaCompanyInfo->getAccountManaged());
         }
 
+        $profile->setStatusClient();
+        $this->em->persist($profile);
         $this->em->persist($client);
         $this->em->flush();
 

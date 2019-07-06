@@ -108,20 +108,20 @@
         })
     </script>
 
-    <script src="/bundles/wealthbotria/js/ria.fees.table.js"></script>
-    <script src="/js/backbone.marionette/underscore.js"></script>
-    <script src="/js/backbone.marionette/backbone.js"></script>
-    <script src="/js/backbone.marionette/backbone.marionette.js"></script>
-    <script src="/bundles/wealthbotria/js/src/Util.js"></script>
-    <script src="/bundles/wealthbotria/js/src/ErrorHandler.js"></script>
-    <script src="/bundles/wealthbotria/js/src/app.js"></script>
+    <script src="{{ asset('/js/ria/ria.fees.table.js') }}"></script>
+    <script src="{{ asset('/js/backbone.marionette/underscore.js') }}"></script>
+    <script src="{{ asset('/js/backbone.marionette/backbone.js') }}"></script>
+    <script src="{{ asset('/js/backbone.marionette/backbone.marionette.js') }}"></script>
+    <script src="{{ asset('/js/ria/Util.js') }}"></script>
+    <script src="{{ asset("/js/src/plugin/errorHandler.js") }}"></script>
+    <script src="{{ asset('/js/ria/app.js') }}"></script>
     {% include "js_constants.html.twig" %}
     {% include "js_alert.html.twig" %}
-    <script src="/bundles/wealthbotria/js/src/CollectionSorter.js"></script>
-    <script src="/bundles/wealthbotria/js/src/alert.js"></script>
-    <script src="/bundles/wealthbotria/js/src/fields.js"></script>
-    <script src="/bundles/wealthbotria/js/src/Billing/ria-dashboard.js"></script>
-    <script src="/bundles/wealthbotria/js/src/Billing/ria-summary.js"></script>
+    <script src="{{ asset('/js/ria/CollectionSorter.js') }}"></script>
+    <script src="{{ asset('/js/ria/alert.js') }}"></script>
+    <script src="{{ asset('/js/ria/fields.js') }}"></script>
+    <script src="{{ asset('/js/ria/Billing/ria-dashboard.js') }}"></script>
+    <script src="{{ asset('/js/ria/Billing/ria-summary.js') }}"></script>
 
     <script>
         App.csrf = "{{ csrf }}";

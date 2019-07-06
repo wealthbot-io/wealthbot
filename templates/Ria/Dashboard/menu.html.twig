@@ -13,9 +13,9 @@
         {% endif %}
         <li {{ route == 'rx_ria_billing' ? 'class="active"' : '' }}><a href="{{ path("rx_ria_billing") }}">Billing</a></li>
         {#<li {{ route == 'rx_ria_prospects' ? 'class="active"' : '' }}><a href="{{ path('rx_ria_prospects') }}">Prospects</a></li>#}
-        {% if riaCompanyInformation.relationTypeLicenseFee %}
+        {# % if riaCompanyInformation.relationTypeLicenseFee %}
             <li {{ route == 'rx_ria_dashboard_rebalancing' ? 'class="active"' }}><a href="{{ path('rx_ria_dashboard_rebalancing') }}">Rebalancing</a></li>
-        {% endif %}
+        {% endif % #}
         <li {{ route == 'rx_ria_risk_profiling' ? 'class="active"' : '' }}><a href="{{ path('rx_ria_risk_profiling') }}">Risks</a></li>
     </ul>
 

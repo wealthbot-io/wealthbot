@@ -3,12 +3,16 @@
     {% set params = {'tab': 'prospects'} %}
 {% else %}
     {% set url = 'rx_ria_dashboard_show_client' %}
-    {% set params = {'client_id': activityItem.clientUserId} %}
+    {% if activityItem.client is defined %}
+        {% set params = {'client_id': activityItem.client.id } %}
+    {% else %}
+        {% set params = {} %}
+    {% endif %}
 {% endif %}
 
 <tr>
-    <td><a href="{{ path(url, params) }}">{{ activityItem.lastName }}, {{ activityItem.firstName }}</a></td>
-    <td>{{ activityItem.createdAt|date('m/d/y') }}</td>
+    <td><a href="{{ path(url, params) }}">{{ activityItem.client.lastName }}, {{ activityItem.client.firstName }}</a></td>
+  {#  <td>{{ activityItem.client.profile.createdAt|date('m/d/y') }}</td> #}
     <td><a href="{{ path(url, params) }}">{{ activityItem.message }}</a></td>
     <td><a class="close delete-activity-summary" href="{{ path('rx_ria_workflow_activity_summary_delete', {'id': activityItem.id}) }}">×</a></td>
 </tr>

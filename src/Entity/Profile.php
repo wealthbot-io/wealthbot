@@ -1425,11 +1425,6 @@ class Profile implements WorkflowableInterface
         if (null === $level) {
             return $this->getRia()->getRiaCompanyInformation()->getAccountManagementAsString();
         }
-
-        if (!array_key_exists($level, self::$client_account_managed_choices)) {
-            throw new \Exception(sprintf("Value of client account managed for key : %d doesn't exist.", $level));
-        }
-
         return strtolower(self::$client_account_managed_choices[$level]);
     }
 

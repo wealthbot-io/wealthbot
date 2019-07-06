@@ -5,7 +5,7 @@ parameters:
     wealthbot_mailer.change_password: '/Mailer/Ria/change_password.html.twig'
     wealthbot_mailer.ria_user_reset_password: '/Mailer/Ria/ria_user_reset_password.html.twig'
     wealthbot_mailer.ria_user_create: '/Mailer/Ria/ria_user_create.html.twig'
-    wealthbot_mailer.client_suggested_portfolio: '/Mailer/Ria/client_suggested_portfolio.html.twig'
+    wealthbot_mailer.suggested_portfolio: '/Mailer/Ria/client_suggested_portfolio.html.twig'
     wealthbot_mailer.client_closed_accounts: '/Mailer/Ria/client_closed_accounts.html.twig'
     wealthbot_mailer.activated: '/Mailer/Ria/activated.html.twig'
     wealthbot_mailer.client_not_finished_registration: '/Mailer/Client/not_finished_registration.html.twig'
@@ -46,7 +46,7 @@ services:
                 ria_change_password:                    "%wealthbot_mailer.change_password%"
                 ria_user_reset_password:                "%wealthbot_mailer.ria_user_reset_password%"
                 ria_user_create:                        "%wealthbot_mailer.ria_user_create%"
-                ria_client_suggested_portfolio:         "%wealthbot_mailer.client_suggested_portfolio%"
+                suggested_portfolio:         "%wealthbot_mailer.suggested_portfolio%"
                 ria_client_closed_accounts:             "%wealthbot_mailer.client_closed_accounts%"
                 ria_activated:                          "%wealthbot_mailer.activated%"
                 client_not_finished_registration:       "%wealthbot_mailer.not_finished_registration%"

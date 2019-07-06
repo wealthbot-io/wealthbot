@@ -37,19 +37,16 @@ class CustodianDocumentsFormType extends AbstractType
                 'mapped' => false
             ]);
 
-        $builder->addEventListener(FormEvents::PRE_SUBMIT, function (FormEvent $event) {
+        $builder->addEventListener(FormEvents::SUBMIT, function (FormEvent $event) {
             $data = $event->getData();
             $form = $event->getForm();
-            $file = null;
+            $files = [];
             foreach ($data as $item) {
                 if ($item instanceof UploadedFile) {
-                    $file = $item;
+                    $files[] = $item;
                 }
             }
-
-            if (null === $file) {
-                $form->addError(new FormError('No files to upload.'));
-            }
+            $form->setData($files);
         });
     }
 

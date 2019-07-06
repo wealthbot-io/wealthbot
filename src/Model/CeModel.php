@@ -109,6 +109,8 @@ class CeModel implements CeModelInterface
      */
     protected $isAssumptionLocked;
 
+    private $isUseQualified;
+
     public function __construct($name = null)
     {
         $this->name = $name;

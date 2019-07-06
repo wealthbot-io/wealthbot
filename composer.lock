@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "445b8ed465ca5b44a347f3b2f3a98559",
+    "content-hash": "b1b9be250a2b2986bfe6eb4a4d6afe97",
     "packages": [
         {
             "name": "behat/transliterator",
@@ -3077,12 +3077,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Seldaek/monolog.git",
-                "reference": "319f4d79059e9df8cb97e796d291f4b39548d743"
+                "reference": "17cbfb8b9ccf56c03a32cb72d4a5ec466961eaa3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/319f4d79059e9df8cb97e796d291f4b39548d743",
-                "reference": "319f4d79059e9df8cb97e796d291f4b39548d743",
+                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/17cbfb8b9ccf56c03a32cb72d4a5ec466961eaa3",
+                "reference": "17cbfb8b9ccf56c03a32cb72d4a5ec466961eaa3",
                 "shasum": ""
             },
             "require": {
@@ -3147,7 +3147,7 @@
                 "logging",
                 "psr-3"
             ],
-            "time": "2019-07-03T14:29:27+00:00"
+            "time": "2019-07-06T13:03:00+00:00"
         },
         {
             "name": "nelmio/api-doc-bundle",
@@ -4920,12 +4920,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/dependency-injection.git",
-                "reference": "86ad8cd7968de0fef7b16a3d2ef8c53546a780de"
+                "reference": "b524c1e13f837c9c620f18102b4c47635ad8bfad"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/dependency-injection/zipball/86ad8cd7968de0fef7b16a3d2ef8c53546a780de",
-                "reference": "86ad8cd7968de0fef7b16a3d2ef8c53546a780de",
+                "url": "https://api.github.com/repos/symfony/dependency-injection/zipball/b524c1e13f837c9c620f18102b4c47635ad8bfad",
+                "reference": "b524c1e13f837c9c620f18102b4c47635ad8bfad",
                 "shasum": ""
             },
             "require": {
@@ -4985,7 +4985,7 @@
             ],
             "description": "Symfony DependencyInjection Component",
             "homepage": "https://symfony.com",
-            "time": "2019-07-04T13:46:31+00:00"
+            "time": "2019-07-05T19:06:26+00:00"
         },
         {
             "name": "symfony/doctrine-bridge",
@@ -5609,12 +5609,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/framework-bundle.git",
-                "reference": "b9950ca156b3f3db0fec3c73a7eb01ca12f133bf"
+                "reference": "33d3f1d8a3a601c917c06dd3432dfa0b350021fe"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/framework-bundle/zipball/b9950ca156b3f3db0fec3c73a7eb01ca12f133bf",
-                "reference": "b9950ca156b3f3db0fec3c73a7eb01ca12f133bf",
+                "url": "https://api.github.com/repos/symfony/framework-bundle/zipball/33d3f1d8a3a601c917c06dd3432dfa0b350021fe",
+                "reference": "33d3f1d8a3a601c917c06dd3432dfa0b350021fe",
                 "shasum": ""
             },
             "require": {
@@ -5725,7 +5725,7 @@
             ],
             "description": "Symfony FrameworkBundle",
             "homepage": "https://symfony.com",
-            "time": "2019-07-05T06:35:10+00:00"
+            "time": "2019-07-05T19:50:21+00:00"
         },
         {
             "name": "symfony/http-client",
@@ -7020,12 +7020,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/security-bundle.git",
-                "reference": "a05a2c64853116b83359bdea7166517d46c5abd5"
+                "reference": "6515def480bd1223bdc26f3d58802f6e600efd8b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/security-bundle/zipball/a05a2c64853116b83359bdea7166517d46c5abd5",
-                "reference": "a05a2c64853116b83359bdea7166517d46c5abd5",
+                "url": "https://api.github.com/repos/symfony/security-bundle/zipball/6515def480bd1223bdc26f3d58802f6e600efd8b",
+                "reference": "6515def480bd1223bdc26f3d58802f6e600efd8b",
                 "shasum": ""
             },
             "require": {
@@ -7096,7 +7096,7 @@
             ],
             "description": "Symfony SecurityBundle",
             "homepage": "https://symfony.com",
-            "time": "2019-07-02T14:37:50+00:00"
+            "time": "2019-07-05T21:02:06+00:00"
         },
         {
             "name": "symfony/security-core",

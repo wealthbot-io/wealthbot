@@ -41,11 +41,8 @@ class ClientRetirementFund
     }
 
     /**
-     * Set name.
-     *
-     * @param string $name
-     *
-     * @return ClientRetiremenFund
+     * @param $name
+     * @return $this
      */
     public function setName($name)
     {
@@ -67,9 +64,9 @@ class ClientRetirementFund
     /**
      * Add accounts.
      *
-     * @param Entity\ClientAccount $accounts
+     * @param \App\Entity\ClientAccount $accounts
      *
-     * @return ClientRetiremenFund
+     * @return $this;
      */
     public function addAccount(ClientAccount $accounts)
     {
@@ -81,7 +78,7 @@ class ClientRetirementFund
     /**
      * Remove accounts.
      *
-     * @param Entity\ClientAccount $accounts
+     * @param \App\Entity\ClientAccount $accounts
      */
     public function removeAccount(ClientAccount $accounts)
     {
@@ -91,7 +88,7 @@ class ClientRetirementFund
     /**
      * Get accounts.
      *
-     * @return Doctrine\Common\Collections\Collection
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getAccounts()
     {

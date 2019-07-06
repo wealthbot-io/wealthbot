@@ -261,7 +261,7 @@ class OneTimeContribution extends BaseOneTimeContribution implements SignableInt
     /**
      * Get client account object.
      *
-     * @return \Model\ClientAccount
+     * @return \App\Model\ClientAccount
      */
     public function getClientAccount()
     {

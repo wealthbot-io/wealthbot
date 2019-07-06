@@ -340,7 +340,7 @@ class ClientAccount extends BaseClientAccount
      *
      * @param float $sasCash
      *
-     * @return ClientAccount
+     * @return $this
      */
     public function setSasCash($sasCash)
     {

@@ -28,10 +28,10 @@ class TradeReconManager
         $dateFrom->setTime(0, 0, 0);
         $dateTo->setTime(23, 59, 59);
 
-        /* @var \Repository\LotRepository $lotRepo */
+        /* @var \App\Repository\LotRepository $lotRepo */
         $lotRepo = $this->em->getRepository('App\Entity\Lot');
 
-        /* @var \Repository\RebalancerQueueRepository $rebalancerQueueRepo */
+        /* @var \APp\Repository\RebalancerQueueRepository $rebalancerQueueRepo */
         $rebalancerQueueRepo = $this->em->getRepository('App\Entity\RebalancerQueue');
 
         $rebalancerQueue = $rebalancerQueueRepo->getTradeRecon($dateFrom, $dateTo, $ria, $clientName);

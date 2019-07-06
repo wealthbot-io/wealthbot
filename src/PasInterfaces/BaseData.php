@@ -23,10 +23,6 @@ class BaseData implements DataInterface
      */
     protected $em;
 
-    /**
-     * @var \Doctrine\ODM\MongoDB\DocumentManager
-     */
-    protected $mongoManager;
 
     /**
      * @var array
@@ -38,18 +34,20 @@ class BaseData implements DataInterface
      */
     protected $securityHash = [];
 
+
+    protected $mongoManager;
+
     /**
      * @param EntityManager   $em
-     * @param DocumentManager $mongoManager
+     * @param $mongoManager
      * @param $paginator
      * @param $perPage
      */
-    public function __construct(EntityManager $em, DocumentManager $mongoManager, $paginator, $perPage)
+    public function __construct(EntityManager $em, $mongoManager, $paginator, $perPage)
     {
         $this->em = $em;
         $this->perPage = $perPage;
         $this->paginator = $paginator;
-        $this->mongoManager = $mongoManager;
     }
 
     /**
@@ -72,7 +70,7 @@ class BaseData implements DataInterface
     /**
      * @param string $accountNumber
      *
-     * @return SystemAccount|null
+     * @return \App\Entity\SystemAccount|null
      */
     protected function getSystemAccountByAccountNumber($accountNumber)
     {
@@ -84,17 +82,13 @@ class BaseData implements DataInterface
             return $this->systemAccountHash[$accountNumber];
         }
 
-        return $this->systemAccountHash[$accountNumber] = $this
-            ->em
-            ->getRepository('App\Entity\SystemAccount')
-            ->findOneBy(['account_number' => $accountNumber])
-        ;
+        return $this->systemAccountHash[$accountNumber] == $this->em->getRepository('\App\Entity\SystemAccount')->findOneBy(['account_number' => $accountNumber]);
     }
 
     /**
      * @param $symbol
      *
-     * @return Security|null
+     * @return \App\Entity\Security|null
      */
     protected function getSecurityBySymbol($symbol)
     {
@@ -106,10 +100,7 @@ class BaseData implements DataInterface
             return $this->securityHash[$symbol];
         }
 
-        return $this->securityHash[$symbol] = $this
-            ->em
-            ->getRepository('App\Entity\Security')
-            ->findOneBy(['symbol' => $symbol])
+        return $this->securityHash[$symbol] == $this->em->getRepository('\App\Entity\Security')->findOneBy(['symbol' => $symbol])
         ;
     }
 }

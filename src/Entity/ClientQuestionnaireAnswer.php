@@ -28,17 +28,17 @@ class ClientQuestionnaireAnswer
     private $answer_id;
 
     /**
-     * @var Entity\User
+     * @var \App\Entity\User
      */
     private $client;
 
     /**
-     * @var Entity\RiskQuestion
+     * @var \App\Entity\RiskQuestion
      */
     private $question;
 
     /**
-     * @var Entity\RiskAnswer
+     * @var \App\Entity\RiskAnswer
      */
     private $answer;
 
@@ -127,7 +127,7 @@ class ClientQuestionnaireAnswer
     /**
      * Set client.
      *
-     * @param Entity\User $client
+     * @param \App\Entity\User $client
      *
      * @return ClientQuestionnaireAnswer
      */
@@ -141,7 +141,7 @@ class ClientQuestionnaireAnswer
     /**
      * Get client.
      *
-     * @return Entity\User
+     * @return \App\Entity\User
      */
     public function getClient()
     {
@@ -151,7 +151,7 @@ class ClientQuestionnaireAnswer
     /**
      * Set question.
      *
-     * @param Entity\RiskQuestion $question
+     * @param \App\Entity\RiskQuestion $question
      *
      * @return ClientQuestionnaireAnswer
      */
@@ -165,7 +165,7 @@ class ClientQuestionnaireAnswer
     /**
      * Get question.
      *
-     * @return Entity\RiskQuestion
+     * @return \App\Entity\RiskQuestion
      */
     public function getQuestion()
     {
@@ -175,7 +175,7 @@ class ClientQuestionnaireAnswer
     /**
      * Set answer.
      *
-     * @param Entity\RiskAnswer $answer
+     * @param \App\Entity\RiskAnswer $answer
      *
      * @return ClientQuestionnaireAnswer
      */
@@ -189,7 +189,7 @@ class ClientQuestionnaireAnswer
     /**
      * Get answer.
      *
-     * @return Entity\RiskAnswer
+     * @return \App\Entity\RiskAnswer
      */
     public function getAnswer()
     {

@@ -41,7 +41,7 @@ class RiskQuestion
     private $owner_id;
 
     /**
-     * @var Entity\User
+     * @var \App\Entity\User
      */
     private $owner;
 
@@ -157,7 +157,7 @@ class RiskQuestion
     /**
      * Add answers.
      *
-     * @param Entity\RiskAnswer $answers
+     * @param \App\Entity\RiskAnswer $answers
      *
      * @return RiskQuestion
      */
@@ -171,7 +171,7 @@ class RiskQuestion
     /**
      * Remove answers.
      *
-     * @param Entity\RiskAnswer $answers
+     * @param \App\Entity\RiskAnswer $answers
      */
     public function removeAnswer(RiskAnswer $answers)
     {
@@ -179,9 +179,8 @@ class RiskQuestion
     }
 
     /**
-     * Get answers.
-     *
-     * @return Doctrine\Common\Collections\Collection
+     * Get Answers
+     * @return ArrayCollection
      */
     public function getAnswers()
     {
@@ -239,7 +238,7 @@ class RiskQuestion
     /**
      * Set owner.
      *
-     * @param Entity\User $owner
+     * @param \App\Entity\User $owner
      *
      * @return RiskQuestion
      */
@@ -253,7 +252,7 @@ class RiskQuestion
     /**
      * Get owner.
      *
-     * @return Entity\User
+     * @return \App\Entity\User
      */
     public function getOwner()
     {

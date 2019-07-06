@@ -22,6 +22,9 @@ class AccountGroup extends BaseAccountGroup
      */
     protected $name;
 
+
+    private $types;
+
     /**
      * Constructor.
      */

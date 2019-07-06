@@ -415,7 +415,7 @@ class DocumentSignature
     /**
      * Get ownerSignatures.
      *
-     * @return \App\Doctrine\Common\Collections\Collection
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getOwnerSignatures()
     {

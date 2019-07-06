@@ -18,7 +18,7 @@ use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Collection\AssetCollection;
+use App\Collection\AssetCollection;
 
 class CategoriesFormType extends AbstractType
 {

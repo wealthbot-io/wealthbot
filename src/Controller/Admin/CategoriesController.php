@@ -94,7 +94,7 @@ class CategoriesController extends Controller
         $subclass = $em->getRepository('App\Entity\Subclass')->find($request->get('id'));
 
         if (!$subclass) {
-            throw $this->createNotFoundException(sprinf('Subclass with ID %s does not exist.', $request->get('id')));
+            throw $this->createNotFoundException(sprintf('Subclass with ID %s does not exist.', $request->get('id')));
         }
 
         $em->remove($subclass);

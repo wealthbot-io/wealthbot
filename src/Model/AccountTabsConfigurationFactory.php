@@ -24,7 +24,7 @@ use App\Model\TabsConfiguration\WireInstructions;
 
 class AccountTabsConfigurationFactory implements TabsConfigurationFactoryInterface
 {
-    /** @var \Model\SignableInterface */
+    /** @var \App\Model\SignableInterface */
     private $signableObject;
 
     public function __construct(SignableInterface $object)

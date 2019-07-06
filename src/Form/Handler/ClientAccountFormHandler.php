@@ -19,6 +19,8 @@ class ClientAccountFormHandler
     protected $em;
     private $owners;
     private $consolidate;
+    private $user;
+    private $groupType;
 
     public function __construct(Form $form, Request $request, AccountDocusignManager $adm, array $owners = [], $consolidate = true, $user, $groupType)
     {

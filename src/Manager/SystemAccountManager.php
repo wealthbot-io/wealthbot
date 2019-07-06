@@ -19,7 +19,7 @@ class SystemAccountManager implements SystemAccountManagerInterface
     /** @var \Doctrine\ORM\EntityManager */
     private $em;
 
-    /** @var \Manager\ClientAccountValuesManager */
+    /** @var \App\Manager\ClientAccountValuesManager */
     private $accountValuesManager;
 
     public function __construct(EntityManager $em, ClientAccountValuesManager $accountValuesManager)

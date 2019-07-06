@@ -26,8 +26,11 @@ use App\Entity\RiaCompanyInformation;
 class RiaRegistrationFormHandler
 {
     protected $feeManager;
-
-    private $container;
+    protected $form;
+    protected $request;
+    protected $userManager;
+    protected $mailer;
+    protected $tokenGenerator;
 
     public function __construct(
         FormInterface $form,

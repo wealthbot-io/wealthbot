@@ -56,6 +56,8 @@ class Position
      */
     private $lots;
 
+    private $transactions;
+
     public function __construct()
     {
         $this->transactions = new ArrayCollection();
@@ -210,7 +212,7 @@ class Position
     }
 
     /**
-     * @param \Doctrine\Common\Collections\ArrayCollection|\Entity\Lot[] $lots
+     * @param \Doctrine\Common\Collections\ArrayCollection|\App\Entity\Lot[] $lots
      */
     public function setLots($lots)
     {
@@ -218,7 +220,7 @@ class Position
     }
 
     /**
-     * @return \Doctrine\Common\Collections\ArrayCollection|\Entity\Lot[]
+     * @return \Doctrine\Common\Collections\ArrayCollection|\App\Entity\Lot[]
      */
     public function getLots()
     {

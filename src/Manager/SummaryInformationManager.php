@@ -18,7 +18,7 @@ class SummaryInformationManager
     /** @var \Doctrine\ORM\EntityManager */
     private $em;
 
-    /** @var \Manager\CashCalculationManager */
+    /** @var \App\Manager\CashCalculationManager */
     private $cashManager;
 
     /** @param \App\Service\Manager\PeriodManager */

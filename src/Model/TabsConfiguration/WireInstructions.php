@@ -15,7 +15,7 @@ use App\Model\TabCollection;
 
 class WireInstructions extends AbstractTabsConfiguration
 {
-    /** @var \Model\SignableInterface */
+    /** @var \App\Model\SignableInterface */
     private $signableObject;
 
     public function __construct(SignableInterface $object)

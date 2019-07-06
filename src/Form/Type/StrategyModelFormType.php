@@ -27,7 +27,7 @@ class StrategyModelFormType extends AbstractType
     /** @var EntityManager */
     private $em;
 
-    /** @var PortfolioModel */
+    /** @var \App\Entity\PortfolioModel */
     private $thirdParty;
 
     /** @var User */

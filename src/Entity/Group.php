@@ -41,6 +41,7 @@ class Group extends BaseGroup
 
     public function __construct($name = null, $roles = [])
     {
+        parent::__construct($name, $roles);
         $this->users = new ArrayCollection();
 
         $this->roles = [];
@@ -120,7 +121,7 @@ class Group extends BaseGroup
     /**
      * Get users.
      *
-     * @return \App\Doctrine\Common\Collections\Collection
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getUsers()
     {

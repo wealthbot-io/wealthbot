@@ -28,7 +28,7 @@ class RiskToleranceManager
     /** @var array $userAnswers array of ClientQuestionnaireAnswer objects */
     private $userAnswers;
 
-    /** @var \Model\RiskTolerance */
+    /** @var \App\Model\RiskTolerance */
     private $riskTolerance;
 
     public function __construct(User $user, ObjectManager $em, array $answers)

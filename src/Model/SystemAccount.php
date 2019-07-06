@@ -69,6 +69,9 @@ class SystemAccount implements WorkflowableInterface
      */
     protected $closed;
 
+
+    protected $creationType;
+
     /**
      * Constructor.
      */

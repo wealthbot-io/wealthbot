@@ -6,6 +6,10 @@ use App\Manager\TradeReconManager;
 
 class TradeReconData implements DataInterface
 {
+
+    protected $tradeReconManager;
+
+
     public function __construct(TradeReconManager $tradeReconManager)
     {
         $this->tradeReconManager = $tradeReconManager;

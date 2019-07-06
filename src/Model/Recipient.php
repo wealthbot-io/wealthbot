@@ -162,12 +162,12 @@ class Recipient implements RecipientInterface
      *
      * @return mixed|void
      *
-     * @throws InvalidRecipientTypeException
+     * @throws \App\Exception\InvalidRecipientTypeException
      */
     public function setType($type)
     {
         if (!in_array($type, self::getTypeChoices())) {
-            throw new InvalidRecipientTypeException(sprintf('Invalid recipient type: %s', $type));
+            throw new \App\Exception\InvalidRecipientTypeException(sprintf('Invalid recipient type: %s', $type));
         }
 
         $this->type = $type;

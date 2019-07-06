@@ -168,6 +168,8 @@ class RiaCompanyInformation
      */
     private $tlh_buy_back_original;
 
+    private $items;
+
     public function __construct()
     {
         $this->activated = false;

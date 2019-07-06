@@ -356,7 +356,7 @@ class Document
      */
     public static function getUploadRootDir()
     {
-        return getcwd().'/'.self::getUploadDir();
+        return getcwd().'/public/'.self::getUploadDir();
     }
 
     /**

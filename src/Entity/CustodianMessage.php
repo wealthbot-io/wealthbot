@@ -110,7 +110,7 @@ class CustodianMessage
         if (null === self::$_types) {
             self::$_types = [];
 
-            $oClass = new \ReflectionClass('\Entity\CustodianMessage');
+            $oClass = new \ReflectionClass('\App\Entity\CustodianMessage');
             $classConstants = $oClass->getConstants();
             $constantPrefix = 'TYPE_';
 

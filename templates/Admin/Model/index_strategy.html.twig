@@ -29,15 +29,15 @@
     <h3>Models</h3>
     <div class="tabbable"> <!-- Only required for left/right tabs -->
         <ul class="nav nav-tabs">
-            <li class="active"><a href="#categories_tab" data-toggle="tab">Categories</a></li>
-            <li><a href="#securities_tab" data-toggle="tab">Securities</a></li>
+            <li><a href="#categories_tab" data-toggle="tab">Categories</a></li>
+            <li class="active"><a href="#securities_tab" data-toggle="tab">Securities</a></li>
             <li><a href="#models_tab" data-toggle="tab">Models</a></li>
         </ul>
         <div class="tab-content">
-            <div class="tab-pane active" id="categories_tab">
+            <div class="tab-pane" id="categories_tab">
                 {{ render(controller('App\Controller\Admin\CategoriesController:index', {'model_id': selected_strategy.id })) }}
             </div>
-            <div class="tab-pane" id="securities_tab">
+            <div class="tab-pane active" id="securities_tab">
                 {{ render(controller('App\Controller\Admin\SecuritiesController:modelSecuritiesList', {'model_id': selected_strategy.id } )) }}
             </div>
             <div class="tab-pane" id="models_tab">

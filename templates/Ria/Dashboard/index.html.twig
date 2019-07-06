@@ -3,20 +3,20 @@
 {% block stylesheets %}
     {{ parent() }}
 
-    <link id="base-style" href="/css/bootstrap-glyphicons.css" rel="stylesheet">
+    <link id="base-style" href="{{ asset('/css/bootstrap-glyphicons.css') }}" rel="stylesheet">
 
 {% endblock %}
 
 {% block javascripts %}
     {{ parent() }}
 
-    <script src="/js/theme-js/jquery.flot.min.js"></script>
-    <script src="/js/theme-js/jquery.flot.pie.min.js"></script>
-    <script src="/js/theme-js/jquery.flot.stack.js"></script>
-    <script src="/js/theme-js/jquery.flot.resize.min.js"></script>
-    <script src="/js/theme-js/jquery.flot.tooltip.min.js"></script>
-    <script src="/js/theme-js/jquery.flot.crosshair.js"></script>
-    <script src="/js/theme-js/jquery.dataTables.min.js"></script>
+    <script src="{{ asset('/js/theme-js/jquery.flot.min.js') }}"></script>
+    <script src="{{ asset('/js/theme-js/jquery.flot.pie.min.js') }}"></script>
+    <script src="{{ asset('/js/theme-js/jquery.flot.stack.js') }}"></script>
+    <script src="{{ asset('/js/theme-js/jquery.flot.resize.min.js') }}"></script>
+    <script src="{{ asset('/js/theme-js/jquery.flot.tooltip.min.js') }}"></script>
+    <script src="{{ asset('/js/theme-js/jquery.flot.crosshair.js') }}"></script>
+    <script src="{{ asset('/js/theme-js/jquery.dataTables.min.js') }}"></script>
 
     <script type="text/javascript" src="{{ asset('js/ria/Util.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/backbone.marionette/underscore.js') }}"></script>

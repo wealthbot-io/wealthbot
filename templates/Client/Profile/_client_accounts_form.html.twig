@@ -104,6 +104,7 @@
             </div>
           {% endif %}
 
+        {% if form.monthly_contributions is defined %}
         <div class="row">
             <div class="form-group">
                 {{ form_label(form.monthly_contributions, 'Estimated Monthly Contributions:', { 'label_attr': {'class': 'client-intake-step-three-label'}}) }}
@@ -116,6 +117,8 @@
                 </div>
             </div>
         </div>
+        {% endif %}
+        {% if form.monthly_distributions is defined %}
         <div class="row">
             <div class="form-group">
                 {{ form_label(form.monthly_distributions, 'Estimated Monthly Distributions:', { 'label_attr': {'class': 'client-intake-step-three-label'}}) }}
@@ -128,6 +131,7 @@
                 </div>
             </div>
         </div>
+        {% endif %}
     </div>
 
     {{ form_rest(form) }}

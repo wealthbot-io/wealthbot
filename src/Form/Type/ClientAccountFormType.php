@@ -86,15 +86,6 @@ class ClientAccountFormType extends AbstractType
             'constraints' => [new NotBlank()],
         ]);
 
-
-        $builder->add('contribution_type', ChoiceType::class, [
-            'mapped' => false,
-            'choices' => $this->contributionTypes,
-            'expanded' => true,
-            'multiple' => false,
-            'auto_initialize' => false,
-        ]);
-
         $builder->add('monthly_contributions', NumberType::class, [
                 'grouping' => true,
                 'scale' => 2,
@@ -104,15 +95,8 @@ class ClientAccountFormType extends AbstractType
                 'auto_initialize' => false,
         ]);
 
-        $builder->add('monthly_distributions', NumberType::class, [
-                'grouping' => true,
-                'scale' => 2,
-                'label' => 'Estimated Monthly Distributions',
-                'required' => false,
-                'attr' => [],
-                'auto_initialize' => false,
-        ]);
     }
+
 
     public function configureOptions(OptionsResolver $resolver)
     {

@@ -149,7 +149,7 @@ class Envelope
      *
      * @param string $status
      *
-     * @throws \Exception\InvalidEnvelopeStatusException
+     * @throws \App\Exception\InvalidEnvelopeStatusException
      */
     public function setStatus($status)
     {

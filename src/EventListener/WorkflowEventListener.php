@@ -16,7 +16,7 @@ use App\Manager\WorkflowManager;
 
 class WorkflowEventListener implements EventSubscriberInterface
 {
-    /** @var \Manager\WorkflowManager */
+    /** @var \App\Manager\WorkflowManager */
     private $wm;
 
     public function __construct(WorkflowManager $wm)

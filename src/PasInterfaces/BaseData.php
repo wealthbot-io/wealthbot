@@ -7,6 +7,17 @@ use Doctrine\ORM\EntityManager;
 
 class BaseData implements DataInterface
 {
+
+    /**
+     * @var int
+     */
+    protected $perPage = 20;
+
+    /**
+     * @var
+     */
+    protected $paginator;
+
     /**
      * @var \Doctrine\ORM\EntityManager
      */

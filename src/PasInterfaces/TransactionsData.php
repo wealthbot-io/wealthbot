@@ -18,6 +18,7 @@ class TransactionsData extends BaseData
      */
     public function load(\DateTime $date, $page = 0)
     {
+        $this->perPage = 20;
         $tableData = [];
         $shortDate = $date->format('Y-m-d');
 

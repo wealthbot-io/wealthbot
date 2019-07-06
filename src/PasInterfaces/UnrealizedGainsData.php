@@ -18,6 +18,7 @@ class UnrealizedGainsData extends BaseData
     {
         $tableData = [];
         $shortDate = $date->format('Y-m-d');
+        $this->perPage = 20;
 
         $builder = $this
             ->mongoManager

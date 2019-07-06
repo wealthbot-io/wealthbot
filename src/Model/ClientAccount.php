@@ -330,7 +330,7 @@ class ClientAccount implements WorkflowableInterface, SignableInterface
      *
      * @return mixed
      *
-     * @throws \Exception
+     * @throws \App\Exception
      *
      * @return string
      */

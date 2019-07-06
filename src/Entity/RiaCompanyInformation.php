@@ -514,6 +514,7 @@ class RiaCompanyInformation
 
     public function upload()
     {
+        dump($this->logo_file, $this->getUploadRootDir());
         if (null === $this->logo_file) {
             return;
         }
@@ -521,14 +522,7 @@ class RiaCompanyInformation
         if (!is_dir($this->getUploadRootDir())) {
             mkdir($this->getUploadRootDir(), 0777, true);
         }
-
-        $image = new \Imagick($this->logo_file->getPathname());
-        try {
-            $image->scaleImage(300, 0);
-        } catch (\Exception $e) {
-        };
-        $image->writeimage($this->getUploadRootDir().'/'.$this->logo);
-
+        $this->logo_file->move($this->getUploadRootDir(), $this->logo);
         unset($this->logo_file);
     }
 

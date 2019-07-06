@@ -3,10 +3,12 @@
 namespace App\Controller\User;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController as Controller;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\File\Exception\FileNotFoundException;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class FilesController extends Controller
 {
@@ -18,22 +20,14 @@ class FilesController extends Controller
         if (!$ria) {
             throw $this->createNotFoundException();
         }
-
-        $defaultLogoPath = $this->get('kernel')->getRootDir().'/../public/img/logo.png';
+        $defaultLogoPath = getcwd().'/img/logo.png';
         $companyInformation = $ria->getRiaCompanyInformation();
-        if ($companyInformation && $companyInformation->getLogo()) {
+        if ($companyInformation->getLogo()) {
             $logoPath = $this->container->getParameter('uploads_ria_company_logos_dir').'/'.$companyInformation->getLogo();
-        } else {
-            $logoPath = $defaultLogoPath;
-        }
+        };
 
-        try {
-            $file = new File($logoPath);
-        } catch (FileNotFoundException $e) {
-            $file = new File($defaultLogoPath);
-        }
-
-        return $this->prepareResponse($file, $companyInformation->getName().'_logo.'.$file->getExtension());
+        $logo =  $logoPath ?? $defaultLogoPath;
+        return new BinaryFileResponse($logo);
     }
 
     public function documents($filename, $originalName = null)

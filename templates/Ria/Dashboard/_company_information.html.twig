@@ -4,7 +4,7 @@
         <div class="row">
             <div class="col-md-2"><img class="img-rounded" width="150" alt="" src="{{ path('rx_file_download', {'ria_id': company_information.ria.id}) }}"></div>
             <div class="col-md-10">
-                {% if not company_information.activated %}
+                {# % if not company_information.activated %}
                     <div class="col-md-9">
                         {% if (progress < 100) %}
                             <div class="alert alert-error">
@@ -60,7 +60,7 @@
                                             <span class="v-align-middle">Modify the risk rating of the models (if necessary).</span>
                                             {{ form_widget(form.risk_rating_modified, {'attr': {'data-url': path('rx_ria_models')}}) }}
                                         </li>
-                                    {% endif %}#}
+                                    {% endif %}
 
                                     {% if (form.customize_proposals is defined) %}
                                         <li {{ (form.vars.value|length > 0 and form.vars.value.customizeProposals) ? 'class=done' : '' }}>
@@ -101,7 +101,7 @@
                             </div>
                         </div>
                     </div>
-                {% endif %}
+                {% endif % #}
             </div>
         </div>
     </div>

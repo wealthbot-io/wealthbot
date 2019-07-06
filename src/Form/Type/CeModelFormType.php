@@ -45,7 +45,7 @@ class CeModelFormType extends ParentCeModelFormType
     }
 
     /**
-     * @param OptionsResolverInterface $resolver
+     * @param OptionsResolver $resolver
      */
     public function configureOptions(OptionsResolver $resolver)
     {

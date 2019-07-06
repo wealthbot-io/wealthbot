@@ -9,6 +9,7 @@
 
 namespace App\Form\Type;
 
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormEvent;
@@ -22,11 +23,11 @@ class RegistrationStepOneFormType extends RiaCustodianFormType
     {
         parent::buildForm($builder, $options);
 
-        $builder->add('allow_non_electronically_signing', 'choice', [
+        $builder->add('allow_non_electronically_signing', ChoiceType::class, [
                 'choices' => [true => 'Yes', false => 'No'],
                 'expanded' => true,
             ])
-            ->add('documents', new RiaDocumentsFormType(), ['mapped' => false])
+            ->add('documents', RiaDocumentsFormType::class, ['mapped' => false])
             ->add('signature', 'text', ['mapped' => false]);
 
         $builder->addEventListener(FormEvents::SUBMIT, function (FormEvent $event) {

@@ -27,6 +27,8 @@ class ModelAssumptionFormType extends AbstractType
         $data = $builder->getData();
         $owner = $data->getOwner();
 
+        $this->em = $options['em'];
+
         if ($owner->hasRole('ROLE_RIA') && $owner->getRiaCompanyInformation()->getIsShowClientExpectedAssetClass()) {
             $builder
                 ->add(
@@ -59,6 +61,7 @@ class ModelAssumptionFormType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => 'App\Entity\CeModel',
+            'em'=>null
         ]);
     }
 

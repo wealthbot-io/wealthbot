@@ -8,8 +8,10 @@
 
 namespace App\Form\Type;
 
+use Doctrine\DBAL\Types\DateType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\PercentType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
@@ -131,7 +133,7 @@ class HouseholdPortfolioSettingsFormType extends AbstractType
         }
 
         $form
-            ->add($this->factory->createNamed('stopTlhValue', 'number', $stopTlhValue, [
+            ->add($this->factory->createNamed('stopTlhValue', NumberType::class, $stopTlhValue, [
                 'attr' => ['class' => 'input-mini'],
                 'label' => 'Tax Loss Harvesting Stop: ',
                 'property_path' => 'clientSettings.stopTlhValue',
@@ -140,7 +142,7 @@ class HouseholdPortfolioSettingsFormType extends AbstractType
                 'grouping' => true,
                 'auto_initialize' => false,
             ]))
-            ->add($this->factory->createNamed('performanceInception', 'date', $performanceInception, [
+            ->add($this->factory->createNamed('performanceInception', DateType::class, $performanceInception, [
                 'attr' => ['class' => 'input-small'],
                 'format' => 'MM-dd-yy',
                 'label' => 'Performance Inception: ',
@@ -150,7 +152,7 @@ class HouseholdPortfolioSettingsFormType extends AbstractType
                 'widget' => 'single_text',
                 'auto_initialize' => false,
             ]))
-            ->add($this->factory->createNamed('portfolio', 'choice', $activePortfolio->getId(), [
+            ->add($this->factory->createNamed('portfolio', ChoiceType::class, $activePortfolio->getId(), [
                 'attr' => ['class' => 'input-medium'],
                 'choices' => $portfolios,
                 'label' => 'Portfolio: ',

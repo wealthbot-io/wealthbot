@@ -11,6 +11,7 @@ namespace App\Form\Type;
 
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormError;
@@ -72,9 +73,10 @@ class StrategyModelFormType extends AbstractType
         $builder->add('name', TextType::class);
 
         if ($this->user->isSuperAdmin() || $assumption) {
-            $builder->add('assumption', new ModelAssumptionFormType(), [
+            $builder->add('assumption', ModelAssumptionFormType::class, [
                 'mapped' => false,
                 'data' => $assumption,
+                'em' => $this->em
             ]);
         }
 
@@ -94,7 +96,7 @@ class StrategyModelFormType extends AbstractType
             }
             // check if the product object is not "new"
             if ($data->getId()) {
-                $form->add($factory->createNamed('risk_rating', 'choice', $riskRating, [
+                $form->add($factory->createNamed('risk_rating', ChoiceType::class, $riskRating, [
                     'placeholder' => 'Select Risk Rating',
                     'choices' => $choices,
                     'auto_initialize' => false,

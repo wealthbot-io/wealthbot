@@ -496,14 +496,14 @@ class ModelsController extends Controller
         $isQualifiedModel = $this->getIsQualifiedModel();
 
         $modelEntity = new CeModelEntity();
-        $form = $this->createForm(new CeModelEntityFormType($model, $em, $user, $isQualifiedModel), $modelEntity);
+        $form = $this->createForm(CeModelEntityFormType::class, $modelEntity,['model' => $model, 'em'=>$em, 'user'=> $user,'isQualifiedModel'=> $isQualifiedModel]);
         $formHandler = new CeModelEntityFormHandler($form, $request, $em, [
             'model' => $model,
             'is_qualified' => $this->getIsQualifiedModel(),
         ]);
 
         if ($formHandler->process()) {
-            $newForm =  $this->createForm(CeModelEntityFormType::class, null, ['model'=>$model, 'em'=>$em, 'user'=>$ria, 'isQualifiedModel'=> $isQualifiedModel]);
+            $newForm =  $this->createForm(CeModelEntityFormType::class, null, ['model'=>$model, 'em'=>$em, 'user'=>$user, 'isQualifiedModel'=> $isQualifiedModel]);
 
             $result = [
                 'status' => 'success',

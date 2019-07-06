@@ -4,6 +4,7 @@ namespace App\Form\EventListener;
 
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
@@ -54,18 +55,18 @@ class ModelAssumptionFormTypeEventListener implements EventSubscriberInterface
         if ($data->getParent() && ($riaCompanyInformation && $riaCompanyInformation->getIsShowExpectedCosts())) {
             $commissions = $repo->findMinAndMaxTransactionFeeForModel($parentModelId);
 
-            $form->add($this->factory->createNamed('commission_min', 'number', null, [
+            $form->add($this->factory->createNamed('commission_min', NumberType::class, null, [
                 'label' => 'Commissions:',
-                'precision' => 2,
+                'scale' => 2,
                 'grouping' => true,
                 'data' => isset($commissions['minimum']) ? $commissions['minimum'] : 0.00,
                 'disabled' => true,
                 'auto_initialize' => false,
             ]));
 
-            $form->add($this->factory->createNamed('commission_max', 'number', null, [
+            $form->add($this->factory->createNamed('commission_max', NumberType::class, null, [
                 'label' => '',
-                'precision' => 2,
+                'scale' => 2,
                 'grouping' => true,
                 'data' => isset($commissions['maximum']) ? $commissions['maximum'] : 0.00,
                 'disabled' => true,
@@ -74,7 +75,7 @@ class ModelAssumptionFormTypeEventListener implements EventSubscriberInterface
         }
 
         if ($owner->hasRole('ROLE_RIA') && $owner->getRiaCompanyInformation()->getIsShowClientExpectedAssetClass()) {
-            $form->add($this->factory->createNamed('forecast', 'number', null, [
+            $form->add($this->factory->createNamed('forecast', NumberType::class, null, [
                 'label' => 'Forecast:',
                 'data' => ($data && $data->getForecast() ? $data->getForecast() : 0),
                 'auto_initialize' => false,

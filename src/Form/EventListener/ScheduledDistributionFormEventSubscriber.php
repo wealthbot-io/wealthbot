@@ -10,6 +10,7 @@
 namespace App\Form\EventListener;
 
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
@@ -60,7 +61,7 @@ class ScheduledDistributionFormEventSubscriber implements EventSubscriberInterfa
 
         $frequencyChoices = $this->getFrequencyChoices();
         if (is_array($frequencyChoices) && count($frequencyChoices)) {
-            $form->add($this->factory->createNamed('frequency', 'choice', null, [
+            $form->add($this->factory->createNamed('frequency', ChoiceType::class, null, [
                 'choices' => $frequencyChoices,
                 'expanded' => true,
                 'multiple' => false,

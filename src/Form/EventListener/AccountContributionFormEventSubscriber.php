@@ -10,6 +10,7 @@
 namespace App\Form\EventListener;
 
 use Doctrine\ORM\EntityManager;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -53,7 +54,7 @@ class AccountContributionFormEventSubscriber extends TransferFundingFormEventSub
             $frequency = null;
         }
 
-        $form->add($this->factory->createNamed('transaction_frequency', 'choice', null, [
+        $form->add($this->factory->createNamed('transaction_frequency', ChoiceType::class, null, [
             'choices' => $frequencyChoices,
             'expanded' => true,
             'multiple' => false,

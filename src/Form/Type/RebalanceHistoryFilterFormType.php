@@ -3,6 +3,7 @@
 namespace App\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -42,7 +43,7 @@ class RebalanceHistoryFilterFormType extends AbstractType
             $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) use ($factory, $choices) {
                 $form = $event->getForm();
 
-                $form->add($factory->createNamed('set_id', 'choice', null, [
+                $form->add($factory->createNamed('set_id', ChoiceType::class, null, [
                     'choices' => $choices,
                     'required' => true,
                     'auto_initialize' => false,

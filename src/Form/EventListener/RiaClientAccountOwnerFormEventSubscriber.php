@@ -79,7 +79,7 @@ class RiaClientAccountOwnerFormEventSubscriber implements EventSubscriberInterfa
 
         if ($this->isJoint) {
             $form->add(
-                $this->factory->createNamed('owner_types', 'choice', $data['owner_types'], [
+                $this->factory->createNamed('owner_types', ChoiceType::class, $data['owner_types'], [
                     'mapped' => false,
                     'choices' => $this->getOwnerTypesChoices(),
                     'expanded' => true,
@@ -103,7 +103,7 @@ class RiaClientAccountOwnerFormEventSubscriber implements EventSubscriberInterfa
             }
         } else {
             $form->add(
-                $this->factory->createNamed('owner_types', 'choice', $data, [
+                $this->factory->createNamed('owner_types', ChoiceType::class, $data, [
                     'mapped' => false,
                     'choices' => $this->getOwnerTypesChoices(),
                     'expanded' => true,

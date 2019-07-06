@@ -40,7 +40,7 @@ class OneTimeContributionFormEventSubscriber extends TransferFundingFormEventSub
         ];
 
         $form->add(
-            $this->factory->createNamed('type', 'choice', null, [
+            $this->factory->createNamed('type', ChoiceType::class, null, [
                 'choices' => $typeChoices,
                 'data' => false,
                 'expanded' => true,
@@ -51,7 +51,7 @@ class OneTimeContributionFormEventSubscriber extends TransferFundingFormEventSub
         );
 
         $form->add(
-            $this->factory->createNamed('transaction_frequency', 'choice', null, [
+            $this->factory->createNamed('transaction_frequency', ChoiceType::class, null, [
                 'choices' => [BaseContribution::TRANSACTION_FREQUENCY_ONE_TIME => 'One-time'],
                 'expanded' => true,
                 'multiple' => false,

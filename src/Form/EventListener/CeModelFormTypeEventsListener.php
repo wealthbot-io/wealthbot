@@ -4,6 +4,7 @@ namespace App\Form\EventListener;
 
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
@@ -46,7 +47,7 @@ class CeModelFormTypeEventsListener implements EventSubscriberInterface
         if ($data->getId()) {
             //$modelsCount = $this->em->getRepository('App\Entity\CeModel')->getModelsCountByParentIdAndOwnerId($data->getParent()->getId(), $data->getOwnerId());
 
-            $form->add($this->factory->createNamed('risk_rating', 'choice', $data->getRiskRating(), [
+            $form->add($this->factory->createNamed('risk_rating', ChoiceType::class, $data->getRiskRating(), [
                 'placeholder' => 'Select Risk Rating',
                 'choices' => array_combine(range(1, 100), range(1, 100)),
                 'mapped' => false,

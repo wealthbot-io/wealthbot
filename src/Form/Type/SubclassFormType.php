@@ -10,6 +10,7 @@
 namespace App\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -52,7 +53,7 @@ class SubclassFormType extends AbstractType
             if (false) {
                 $factory = $builder->getFormFactory();
                 $refreshPriority = function ($form, $choices) use ($factory, $em) {
-                    $form->add($factory->createNamed('priority', 'choice', null, [
+                    $form->add($factory->createNamed('priority', ChoiceType::class, null, [
                         'choices' => $choices,
                         'auto_initialize' => false,
                     ]));

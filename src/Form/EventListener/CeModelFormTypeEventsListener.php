@@ -20,10 +20,16 @@ class CeModelFormTypeEventsListener implements EventSubscriberInterface
     /** @var EntityManager */
     private $em;
 
-    public function __construct(FormFactoryInterface $factory, EntityManager $em)
+    private $parent;
+
+    private $user;
+
+    public function __construct(FormFactoryInterface $factory, EntityManager $em, $parent, $user)
     {
         $this->factory = $factory;
         $this->em = $em;
+        $this->parent = $parent;
+        $this->user = $user;
     }
 
     public static function getSubscribedEvents()
@@ -74,7 +80,7 @@ class CeModelFormTypeEventsListener implements EventSubscriberInterface
                 );
 
                 if ($isExistRiskRating) {
-                    $form->get('risk_rating')->addError(new FormError('The risk with parameter :risk is already exists.', [':risk' => $riskRating]));
+               //     $form->get('risk_rating')->addError(new FormError('The risk with parameter :risk is already exists.', [':risk' => $riskRating]));
                 }
             }
         }

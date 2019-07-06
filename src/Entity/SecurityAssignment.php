@@ -425,6 +425,6 @@ class SecurityAssignment
 
     public function __toString()
     {
-       return $this->getSecurity()->getName();
+       return (string) $this->getSecurity();
     }
 }

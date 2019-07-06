@@ -214,8 +214,8 @@ class CeModelEntityTypeEventsListener implements EventSubscriberInterface
             'auto_initialize' => false,
             'required' => false,
             'placeholder' => 'Choose Subclass',
-            'query_builder' => $queryBuilder,
-            'attr' => is_null($assetClassId) ? ['disabled' => 'disabled'] : [],
+        //    'query_builder' => $queryBuilder,
+            'attr' => [],
         ]));
     }
 
@@ -255,11 +255,11 @@ class CeModelEntityTypeEventsListener implements EventSubscriberInterface
 
         $form->add($this->factory->createNamed('securityAssignment', EntityType::class, null, [
             'class' => 'App\\Entity\\SecurityAssignment',
-            'property_path' => 'securityAssignment.security.name',
+            'property_path' => 'securityAssignment',
             'auto_initialize' => false,
             'placeholder' => 'Choose Security',
-            'query_builder' => $queryBuilder,
-            'attr' => is_null($subclassId) ? ['disabled' => 'disabled'] : [],
+         //   'query_builder' => $queryBuilder,
+
         ]));
     }
 
@@ -276,8 +276,8 @@ class CeModelEntityTypeEventsListener implements EventSubscriberInterface
                 'property_path' => 'taxLossHarvesting',
                 'auto_initialize' => false,
                 'placeholder' => 'Choose TLH Substitution',
-                'query_builder' => $securityQueryBuilder,
-                'attr' => empty($withoutIds) ? ['disabled' => 'disabled'] : [],
+               // 'query_builder' => $securityQueryBuilder,
+
                 'required' => false,
             ]));
         }

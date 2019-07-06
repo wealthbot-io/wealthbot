@@ -104,7 +104,8 @@ class ModelsController extends Controller
             'model'=>$model,
             'em'=> $em,
             'user'=> $user,
-            'model' => $model
+            'model' => $model,
+            'isQualifiedModel' => $isQualified
         ]);
         $createModelForm = $this->createForm(CeModelFormType::class, null, [
             'em' => $em, 'user' => $user, 'parent'=> $parentModel]);
@@ -751,13 +752,13 @@ class ModelsController extends Controller
 
         $isQualifiedModel = $this->getIsQualifiedModel();
 
-        $form = $this->createForm(new CeModelEntityFormType($model, $em, $user, $isQualifiedModel), $modelEntity);
+        $form = $this->createForm(CeModelEntityFormType::class,$modelEntity,['model'=> $model, 'em'=> $em,'user'=> $user,'isQualifiedModel'=> $isQualifiedModel]);
 
         if ($request->isMethod('post')) {
             $formHandler = new CeModelEntityFormHandler($form, $request, $em);
 
             if ($formHandler->process()) {
-                $form = $this->createForm(CeModelEntityFormType::class, null, ['model'=>$model, 'em'=>$em, 'user'=>$ria, 'isQualifiedModel'=> $isQualifiedModel]);
+                $form = $this->createForm(CeModelEntityFormType::class, null, ['model'=>$model, 'em'=>$em, 'user'=> $user, 'isQualifiedModel'=> $isQualifiedModel]);
 
 
                 return $this->json([

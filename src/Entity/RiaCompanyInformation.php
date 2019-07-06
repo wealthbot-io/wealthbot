@@ -494,14 +494,13 @@ class RiaCompanyInformation
 
     protected function getUploadRootDir()
     {
-        // the absolute directory path where uploaded documents should be saved
-        return getcwd().$this->getUploadDir();
+        return __DIR__.'/../../'.$this->getUploadDir();
     }
 
     protected function getUploadDir()
     {
         // get rid of the __DIR__ so it doesn't screw when displaying uploaded doc/image in the view.
-        return '/uploads/ria_company_logos';
+        return 'public/uploads/ria_company_logos';
     }
 
     public function preUpload()

@@ -336,7 +336,6 @@ class Document
             $this->temp = null;
         }
 
-        dump($this->getUploadRootDir());
 
         $this->getFile()->move($this->getUploadRootDir(), $this->getFilename());
         $this->setFile(null);
@@ -359,7 +358,7 @@ class Document
      */
     public static function getUploadRootDir()
     {
-        return getcwd().'/'.self::getUploadDir();
+        return __DIR__.'/../../'.self::getUploadDir();
     }
 
     /**
@@ -369,7 +368,7 @@ class Document
      */
     public static function getUploadDir()
     {
-        return 'uploads/documents';
+        return 'public/uploads/documents';
     }
 
     /**

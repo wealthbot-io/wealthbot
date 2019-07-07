@@ -1,0 +1,6 @@
+{
+	"minimum-stability": "dev",
+    "require-dev": {
+        "monolog/monolog": "1.6.*@dev"
+    }
+}

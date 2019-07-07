@@ -1,0 +1,44 @@
+<?php
+/**
+ * This is the Main Config file having global configurations
+ * COPY THIS FILE AS "Config.php" IN THE SAME FOLDER (do not remove original)
+ *
+ */
+date_default_timezone_set('America/New_York');
+
+class Config {
+	static public $DEBUG = 0; // 0 - Disabled, >=1 - Enabled
+	static public $PROD_MODE = 0;
+
+	const ENV_PROD = 0;
+    const ENV_DEV =  1;
+    const ENV_TEST = 2;
+
+    static public $SQLITE_DATABASE_TEST = 'wealthbot_test.db';
+    static public $SQLITE_DATABASE = 'wealthbot.db';
+
+	static public $MYSQL_HOST = '127.0.0.1';
+    static public $MYSQL_PORT = 3306;
+
+    static public $MYSQL_USERNAME = 'webo';
+    static public $MYSQL_PASSWORD = 'password';
+	static public $MYSQL_DATABASE = 'wealthbot';
+
+    static public $MYSQL_USERNAME_TEST = 'webo';
+    static public $MYSQL_PASSWORD_TEST = 'password';
+	static public $MYSQL_DATABASE_TEST = 'wealthbot_test';
+
+	static public $MONGODB_HOST = '127.0.0.1';
+	static public $MONGODB_USERNAME = 'webo';
+	static public $MONGODB_PASSWORD = 'passowrd';
+	static public $MONGODB_PORT = 27017;
+	static public $MONGODB_DATABASE = 'wealthbot';
+
+    static public $ARCHIVE_SOURCE_PATH = '/mnt/windows_downloads/';
+    static public $ARCHIVE_UNPACK_PATH = '/mnt/tmp/';
+    static public $UNPACK_COMMAND = "unzip";
+    static public $UNPACK_DESTINATION_COMMAND = "-od";
+
+    static public $from = 'noreply@wealthbot.io';
+    static public $to = 'hi@wealthbot.io';
+}

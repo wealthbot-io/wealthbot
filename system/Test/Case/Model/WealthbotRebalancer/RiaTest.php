@@ -1,0 +1,191 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: amalyuhin
+ * Date: 13.02.14
+ * Time: 14:25
+ */
+
+namespace Test\Model\WealthbotRebalancer;
+
+require_once(__DIR__ . '/../../../../AutoLoader.php');
+\AutoLoader::registerAutoloader();
+
+use Model\WealthbotRebalancer\Client;
+use Model\WealthbotRebalancer\ClientCollection;
+use Model\WealthbotRebalancer\Ria;
+use Model\WealthbotRebalancer\RiaCompanyInformation;
+
+class RiaTest extends \PHPUnit_Framework_TestCase
+{
+    /** @var  Ria */
+    private $ria;
+
+    public function setUp()
+    {
+        $data = array(
+            'id' => 5,
+            'email' => 'ria@ria.com',
+            'isActive' => true,
+            'rebalancingFrequency' => Ria::REBALANCED_FREQUENCY_QUARTERLY,
+            'useTransactionFees' => true,
+            'buySellMins' => true,
+            'isTlhEnabled' => true,
+            'clientTaxBracket' => 0.12,
+            'minTlh' => 100,
+            'minTlhPercent' => 0.10,
+            'minRelationshipValue' => 50000,
+            'use_redemption_fees' => true,
+            'is_use_municipal_bond' => false,
+            'ria_company_information' => array('id' => 12),
+            'transaction_min_amount' => 5000
+//            'clients' => array(
+//                array('id' => 1),
+//                array('id' => 2)
+//            )
+        );
+
+        $this->ria = $this->getMockBuilder('Model\WealthbotRebalancer\Ria')
+            ->disableOriginalConstructor()
+            ->setMethods(null)
+            ->getMock();
+
+        $this->ria->loadFromArray($data);
+    }
+
+    public function testGetIsActive()
+    {
+        $this->assertTrue($this->ria->getIsActive());
+    }
+
+    public function testSetIsActive()
+    {
+        $this->ria->setIsActive(false);
+        $this->assertFalse($this->ria->getIsActive());
+    }
+
+    public function testGetRebalancingFrequency()
+    {
+        $this->assertEquals(Ria::REBALANCED_FREQUENCY_QUARTERLY, $this->ria->getRebalancingFrequency());
+    }
+
+    public function testSetRebalancingFrequency()
+    {
+        $this->ria->setRebalancingFrequency(Ria::REBALANCED_FREQUENCY_ANNUALLY);
+        $this->assertEquals(Ria::REBALANCED_FREQUENCY_ANNUALLY, $this->ria->getRebalancingFrequency());
+    }
+
+    public function testGetIsTlhEnabled()
+    {
+        $this->assertTrue($this->ria->getIsTlhEnabled());
+    }
+
+    public function testSetIsTlhEnabled()
+    {
+        $this->ria->setIsTlhEnabled(false);
+
+        $this->assertFalse($this->ria->getIsTlhEnabled());
+    }
+
+    public function testGetRiaCompanyInformation()
+    {
+        $this->assertEquals(12,$this->ria->getRiaCompanyInformation()->getId());
+    }
+
+    public function testSetRiaCompanyInformation()
+    {
+        $riaCompanyInformation = new RiaCompanyInformation();
+        $riaCompanyInformation->setId(98);
+
+        $this->ria->setRiaCompanyInformation($riaCompanyInformation);
+        $this->assertEquals(98, $this->ria->getRiaCompanyInformation()->getId());
+    }
+//    public function testBuySellMins()
+//    {
+//       $this->assertTrue($this->ria->getBuySellMins());
+//       $this->ria->setBuySellMins(false);
+//       $this->assertFalse($this->ria->getBuySellMins());
+//    }
+
+    public function testTransactionMinAmount()
+    {
+       $this->assertEquals(5000, $this->ria->getTransactionMinAmount());
+       $this->ria->setTransactionMinAmount(1000);
+       $this->assertEquals(1000, $this->ria->getTransactionMinAmount());
+    }
+
+    public function testUseTransactionFees()
+    {
+        $this->assertTrue($this->ria->getUseTransactionFees());
+        $this->ria->setUseTransactionFees(false);
+        $this->assertFalse($this->ria->getUseTransactionFees());
+    }
+
+    public function testGetClientTaxBracket()
+    {
+        $this->assertEquals(0.12, $this->ria->getClientTaxBracket());
+    }
+
+    public function testSetClientTaxBracket()
+    {
+        $this->ria->setClientTaxBracket(0.31);
+        $this->assertEquals(0.31, $this->ria->getClientTaxBracket());
+    }
+
+    public function testGetMinTlh()
+    {
+        $this->assertEquals(100, $this->ria->getMinTlh());
+    }
+
+    public function testSetMinTlh()
+    {
+        $this->ria->setMinTlh(320);
+        $this->assertEquals(320, $this->ria->getMinTlh());
+    }
+
+    public function testGetMinTlhPercent()
+    {
+        $this->assertEquals(0.10, $this->ria->getMinTlhPercent());
+    }
+
+    public function testSetMinTlhPercent()
+    {
+        $this->ria->setMinTlhPercent(0.15);
+        $this->assertEquals(0.15, $this->ria->getMinTlhPercent());
+    }
+
+    public function testGetMinRelationshipValue()
+    {
+        $this->assertEquals(50000, $this->ria->getMinRelationshipValue());
+    }
+
+    public function testSetMinRelationshipValue()
+    {
+        $this->ria->setMinRelationshipValue(300);
+        $this->assertEquals(300, $this->ria->getMinRelationshipValue());
+    }
+
+    public function testGetEmail()
+    {
+        $this->assertEquals('ria@ria.com', $this->ria->getEmail());
+    }
+
+    public function testSetEmail()
+    {
+        $this->ria->setEmail('ria@example.com');
+        $this->assertEquals('ria@example.com', $this->ria->getEmail());
+    }
+
+    public function testGetIsUseMunicipalBond()
+    {
+        $this->assertFalse($this->ria->getIsUseMunicipalBond());
+    }
+
+    public function testSetIsUseMunicipalBond()
+    {
+        $this->ria->setIsUseMunicipalBond(true);
+
+        $this->assertTrue($this->ria->getIsUseMunicipalBond());
+    }
+
+}

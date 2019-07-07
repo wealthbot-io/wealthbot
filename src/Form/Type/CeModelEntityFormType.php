@@ -46,7 +46,7 @@ class CeModelEntityFormType extends AbstractType
         $builder->add('assetClass', EntityType::class, [
             'class' => 'App\\Entity\\AssetClass',
             'placeholder' => 'Choose Asset Class',
-            'query_builder' => $this->em->getRepository('App\Entity\AssetClass')->getAssetClassesForModelQB($parentModel->getId()),
+            //'query_builder' => $this->em->getRepository('App\Entity\AssetClass')->getAssetClassesForModelQB($parentModel->getId()),
         ]);
 
         $builder->addEventSubscriber($subscriber);

@@ -33,7 +33,7 @@ class RiaController extends Controller
 
                     $em->persist($user);
                     $em->flush();
-                    $response = $this->redirect($this->generateUrl('rx_ria_company_profile'));
+                    $response = $this->redirect($this->generateUrl('rx_ria_dashboard'));
                     $this->authenticateUser($user, $request);
 
                     return $response;

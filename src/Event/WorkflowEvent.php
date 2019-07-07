@@ -62,10 +62,10 @@ class WorkflowEvent extends Event
         return $this->type;
     }
 
+
     /**
-     *  Get signatures.
-     *
-     * @return signature
+     * Get Signatures
+     * @return DocumentSignature|DocumentSignature[]|null
      */
     public function getSignatures()
     {

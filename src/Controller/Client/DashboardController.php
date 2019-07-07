@@ -395,10 +395,7 @@ class DashboardController extends Controller
         $billingSpec = $client->getAppointedBillingSpec();
         $isBillingSpecTier = (BillingSpec::TYPE_TIER === $billingSpec->getType());
 
-        if ($isBillingSpecTier) {
-            $fees = $client->getAppointedBillingSpec()->getFees();
-        }
-
+        $fees = $client->getAppointedBillingSpec()->getFees();
         $accounts = $em->getRepository('App\Entity\ClientAccount')->findByClient($client);
 
         $billTotal = $averageTotal = $value = 0;

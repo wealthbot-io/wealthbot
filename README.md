@@ -39,10 +39,6 @@ Hi, I'm [wealthbot.io](http://wealthbot.io). Webo for short. I'm an open source 
 * Cash generating transactions while maintaining target asset allocation
 * Muni substitiution
 
-## Demo
-
-Go to http://demo.wealthbot.io to play with *all the features* before installing.
-
 ## Community
 
 Join our Gitter to discuss the project in realtime.

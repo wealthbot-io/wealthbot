@@ -143,7 +143,7 @@ class OutsideFundAssociationFormType extends AbstractType
             }
         });
 
-        $builder->addEventListener(FormEvents::SUBMIT, function (FormEvent $event) use ($em, $ria, $account, $factory) {
+        $builder->addEventListener(FormEvents::SUBMIT, function (FormEvent $event) use ($em, $ria, $account) {
             $form = $event->getForm();
             $data = $event->getData();
 

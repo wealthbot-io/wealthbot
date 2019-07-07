@@ -11,6 +11,7 @@ namespace App\DataFixtures\ORM;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
+use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use App\Manager\FeeManager;
@@ -21,7 +22,7 @@ use App\Entity\User;
 
 class LoadBillData extends AbstractFixture implements OrderedFixtureInterface, ContainerAwareInterface
 {
-    /** @var \ProjectServiceContainer */
+    /** @var Container */
     private $container;
 
     /** @var PeriodManager */

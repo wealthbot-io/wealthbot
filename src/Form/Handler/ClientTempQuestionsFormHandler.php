@@ -8,14 +8,10 @@
  */
 
 namespace App\Form\Handler;
-
-use Doctrine\ODM\MongoDB\DocumentManager;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
-use Document\TempPortfolio;
-use Document\TempQuestionnaire;
-use Manager\RiskToleranceManager;
+use App\Manager\RiskToleranceManager;
 use App\Entity\User;
 
 class ClientTempQuestionsFormHandler
@@ -25,7 +21,7 @@ class ClientTempQuestionsFormHandler
     private $em;
     private $dm;
 
-    public function __construct(Form $form, Request $request, EntityManager $em, DocumentManager $dm)
+    public function __construct(Form $form, Request $request, EntityManager $em, $dm)
     {
         $this->form = $form;
         $this->request = $request;
@@ -52,18 +48,18 @@ class ClientTempQuestionsFormHandler
     private function preSuccess(User $user)
     {
         $userId = $user->getId();
-        $questionnaire = $this->dm->getRepository('App\Entity\TempQuestionnaire')->findByClientUserId($userId);
-        $portfolio = $this->dm->getRepository('App\Entity\TempPortfolio')->findOneByClientUserId($userId);
+        $questionnaire = $this->em->getRepository('App\Entity\TempQuestionnaire')->findByClientUserId($userId);
+        $portfolio = $this->em->getRepository('App\Entity\TempPortfolio')->findOneByClientUserId($userId);
 
         if ($portfolio) {
-            $this->dm->remove($portfolio);
+            $this->em->remove($portfolio);
         }
 
         foreach ($questionnaire as $item) {
-            $this->dm->remove($item);
+            $this->em->remove($item);
         }
 
-        $this->dm->flush();
+        $this->em->flush();
     }
 
     private function onSuccess(User $user, User $questionsOwner)
@@ -84,7 +80,7 @@ class ClientTempQuestionsFormHandler
             if ($question->getIsWithdrawAgeInput()) {
                 $withdrawAge = (int) $answer;
 
-                $age = $this->getClientAge($user);
+                $age = $user->getProfile()->getAge();
                 $ageDiff = $withdrawAge - (int) $age;
 
                 $answer['data'] = $ageDiff;
@@ -93,36 +89,11 @@ class ClientTempQuestionsFormHandler
             }
 
             $answers[] = $answer;
-
-            $this->saveTempQuestionnaireItem($user->getId(), $question->getId(), $data->getId());
         }
 
         $riskToleranceManager = new RiskToleranceManager($user, $this->em, $answers);
-        $suggestedPortfolio = $riskToleranceManager->getSuggestedPortfolio();
 
-        $this->saveTempPortfolio($user->getId(), $suggestedPortfolio->getId());
-
-        $this->dm->flush();
+        $this->em->flush();
     }
 
-    private function saveTempQuestionnaireItem($userId, $questionId, $answerId)
-    {
-        $tmpQuestionnaire = new TempQuestionnaire();
-
-        $tmpQuestionnaire->setClientUserId($userId);
-        $tmpQuestionnaire->setQuestionId($questionId);
-        $tmpQuestionnaire->setAnswerId($answerId);
-
-        $this->dm->persist($tmpQuestionnaire);
-    }
-
-    private function saveTempPortfolio($userId, $modelId)
-    {
-        $tmpPortfolio = new TempPortfolio();
-
-        $tmpPortfolio->setClientUserId($userId);
-        $tmpPortfolio->setModelId($modelId);
-
-        $this->dm->persist($tmpPortfolio);
-    }
 }

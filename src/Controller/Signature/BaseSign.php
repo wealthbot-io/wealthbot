@@ -11,6 +11,14 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class BaseSign extends Controller
 {
+    protected $api;
+
+    protected $signatureManager;
+
+    protected $electronicSignature;
+
+    protected $em;
+
     public function setContainer(ContainerInterface $container = null)
     {
         parent::setContainer($container);

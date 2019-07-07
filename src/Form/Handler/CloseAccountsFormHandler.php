@@ -10,13 +10,14 @@
 namespace App\Form\Handler;
 
 use Doctrine\ORM\EntityManager;
+use http\Exception\InvalidArgumentException;
 use Symfony\Component\Form\Exception\NotValidException;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
 use App\Entity\ClosingAccountHistory;
 use App\Entity\SystemAccount;
-use Repository\SystemAccountRepository;
-use Mailer\TwigSwiftMailer;
+use App\Repository\SystemAccountRepository;
+use App\Mailer\TwigSwiftMailer;
 use App\Entity\User;
 
 class CloseAccountsFormHandler
@@ -50,7 +51,7 @@ class CloseAccountsFormHandler
      *
      * @return bool
      *
-     * @throws NotValidException
+     * @throws \InvalidArgumentException
      */
     public function process(User $client)
     {
@@ -59,9 +60,9 @@ class CloseAccountsFormHandler
 
             $accountsIds = $this->form->get('accounts_ids')->getData();
             if (!is_array($accountsIds) || empty($accountsIds)) {
-                throw new NotValidException('Select accounts which you want to close.');
+                throw new \InvalidArgumentException('Select accounts which you want to close.');
             } elseif (!$this->repo->isClientAccounts($client->getId(), $accountsIds)) {
-                throw new NotValidException('You can not close this accounts.');
+                throw new \InvalidArgumentException('You can not close this accounts.');
             }
 
             if ($this->form->isValid()) {

@@ -10,7 +10,7 @@
 namespace App\Form\Handler;
 
 use App\Entity\CeModel;
-use Manager\CeModelManager;
+use App\Manager\CeModelManager;
 
 class ModelAssumptionFormHandler extends AbstractFormHandler
 {

@@ -97,6 +97,7 @@ class ActivityManager
                         $id = $item->getId();
                     }
 
+                    /*
                     $activity = new Activity();
                     $activity->setClientUserId($client->getId());
                     $activity->setFirstName($client->getFirstName());
@@ -107,6 +108,7 @@ class ActivityManager
                     $activity->setCreatedAt(new \DateTime());
 
                     $this->updateActivity($activity);
+                    */
                 }
             } else {
                 $activity = $this->createActivity($object);
@@ -115,12 +117,11 @@ class ActivityManager
         }
     }
 
+
     /**
-     * Create activity by object.
-     *
      * @param ActivityInterface $object
-     *
-     * @return Activity|null
+     * @return null
+     * @throws \Exception
      */
     public function createActivity(ActivityInterface $object)
     {
@@ -129,17 +130,16 @@ class ActivityManager
 
         $activity = null;
         if ($client && $message) {
-            $activity = new Activity();
-            $activity->setClientUserId($client->getId());
-            $activity->setClientStatus($client->getProfile()->getClientStatus());
-            $activity->setFirstName($client->getFirstName());
-            $activity->setLastName($client->getLastName());
-            $activity->setRiaUserId($client->getRia()->getId());
-            $activity->setMessage($message);
-            $activity->setCreatedAt(new \DateTime());
+            $object->setClientUserId($client->getId());
+            $object->setClientStatus($client->getProfile()->getClientStatus());
+            $object->setFirstName($client->getFirstName());
+            $object->setLastName($client->getLastName());
+            $object->setRiaUserId($client->getRia()->getId());
+            $object->setMessage($message);
+            $object->setCreatedAt(new \DateTime());
 
             if ($object instanceof PaymentActivityInterface) {
-                $activity->setAmount($object->getActivityAmount());
+                $object->setAmount($object->getActivityAmount());
             }
         }
 
@@ -154,8 +154,8 @@ class ActivityManager
     public function updateActivity(ActivityInterface $activity)
     {
         if (null !== $activity) {
-            //   $this->em->persist($activity);
-         ///   $this->dm->flush();
+            $this->em->persist($activity);
+            $this->em->flush();
         }
     }
 }

@@ -284,7 +284,10 @@ class ProspectsController extends Controller
             ]);
         }
 
-        $form = $this->createForm(new RiaClientAccountFormType($client, $em));
+        $form = $this->createForm(RiaClientAccountFormType::class,$ria,[
+            'em'=>$em,
+            'client' => $client
+        ]);
         $formHandler = new RiaClientAccountFormHandler($form, $request, $adm);
 
         if ($request->isMethod('post')) {
@@ -444,7 +447,7 @@ class ProspectsController extends Controller
             ]);
         }
 
-        $formType = new RiaClientAccountFormType($client, $em);
+        $formType = $this->createForm(RiaClientAccountFormType::class, null, ['client'=> $client, 'em'=>$em]);
         $data = $request->get($formType->getName());
 
         $data['groupType'] = '';
@@ -569,7 +572,7 @@ class ProspectsController extends Controller
 
         $securities = $securityAssignmentRepo->findByAccountIdAndRiaId($account->getId(), $ria->getId());
         $accountSecurities = $em->getRepository('App\Entity\AccountOutsideFund')->findBy(['account_id' => $account->getId()]);
-        $form = $this->createForm(new OutsideFundAssociationFormType($em, $ria, $account));
+        $form = $this->createForm(OutsideFundAssociationFormType::class,null,['em'=>$em, 'ria'=>$ria, 'account'=>$account]);
 
         return $this->json([
             'status' => 'success',
@@ -671,7 +674,7 @@ class ProspectsController extends Controller
             ]);
         }
 
-        $form = $this->createForm(new OutsideFundAssociationFormType($em, $ria, $account), $securityAssignment);
+        $form = $this->createForm(OutsideFundAssociationFormType::class, $securityAssignment,['em'=>$em, 'ria'=>$ria, 'account'=>$account]);
         $formHandler = new OutsideFundAssociationFormHandler($form, $request, $em);
         $process = $formHandler->process($account, $ria);
 

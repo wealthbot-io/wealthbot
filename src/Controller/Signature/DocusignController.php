@@ -27,17 +27,17 @@ use App\Entity\Document;
 
 class DocusignController extends BaseSign
 {
-    /** @var \Docusign\DocusignSessionPersistence */
-    private $api;
+    /** @var \App\Docusign\DocusignSessionPersistence */
+    protected $api;
 
-    /** @var \Manager\DocumentSignatureManager */
-    private $signatureManager;
+    /** @var \App\Manager\DocumentSignatureManager */
+    protected $signatureManager;
 
     /** @var ElectronicSignatureService */
-    private $electronicSignature;
+    protected $electronicSignature;
 
     /** @var EntityManager */
-    private $em;
+    protected $em;
 
     public function sign($signature_id)
     {

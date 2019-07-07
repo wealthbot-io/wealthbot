@@ -340,11 +340,11 @@ class ClientAccount implements WorkflowableInterface, SignableInterface
         $step = $this->getProcessStep();
 
         if (!array_key_exists($group, self::$_processSteps)) {
-            throw new \Exception(sprintf('Process step value is not defined for group: $s.', $group));
+            throw new \Exception(sprintf('Process step value is not defined for group: %s.', $group));
         }
 
         if (!array_key_exists($step, self::$_processSteps[$group])) {
-            throw new \Exception(sprintf('Undefined process step $s for account group: $s.', $group));
+            throw new \Exception(sprintf('Undefined process step $s for account group: %s.', $group));
         }
 
         if ($this->getConsolidatedAccounts()->count()) {

@@ -61,6 +61,7 @@ class Transaction implements PaymentActivityInterface
     const STATUS_IN_PROGRESS = 'in progress';
     const STATUS_PLACED = 'placed';
     const STATUS_VERIFIED = 'verified';
+    const STATUS_NOT_POSTED = 'not posted';
 
     private static $_statuses = null;
 

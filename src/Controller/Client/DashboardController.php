@@ -86,7 +86,7 @@ class DashboardController extends Controller
         $parameters = [
             'client' => $client,
             'is_client_view' => $isClientView,
-            'layout_variables' => $this->getLayoutVariables('Overview', 'rx_client_dashboard', false),
+            'layout_variables' => $this->getLayoutVariables( 'rx_client_dashboard'),
             'sas_cash_form' => $sasCashForm->createView(),
             'account_values' => $accountValues,
             'is_init_rebalance' => $isInitRebalance,
@@ -1423,10 +1423,10 @@ class DashboardController extends Controller
         $portfolioInformation = $portfolioInformationManager->getPortfolioInformation($client, $portfolio, $isQualified);
 
         if ($request->isMethod('post')) {
-            $tmpPortfolio->setStatus(TempPortfolio::STATUS_APPROVED);
+           // $tmpPortfolio->setStatus(TempPortfolio::STATUS_APPROVED);
 
-            $dm->persist($tmpPortfolio);
-            $dm->flush();
+            //$dm->persist($tmpPortfolio);
+            ///$dm->flush();
 
             return $this->render('/Client/Dashboard/approve_portfolio.html.twig', [
                 'is_approved' => true,
@@ -1543,7 +1543,7 @@ class DashboardController extends Controller
         $activeClientAccounts = $systemAccountManager->getAccountsForClient($client, $isClientView);
 
         $parameters = [
-            'layout_variables' => $this->getLayoutVariables($action, 'wealthbot_client_'.$tab),
+            'layout_variables' => $this->getLayoutVariables($action),
             'is_ajax' => $isAjax,
             'is_clear_layout' => $isClearLayout,
             'accounts' => $activeClientAccounts,

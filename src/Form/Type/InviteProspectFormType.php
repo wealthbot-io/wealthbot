@@ -18,7 +18,7 @@ use App\Entity\User;
 class InviteProspectFormType extends AbstractType
 {
     private $ria;
-
+    private $user;
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -64,7 +64,7 @@ class InviteProspectFormType extends AbstractType
             }
         });
 
-        $builder->addEventListener(FormEvents::SUBMIT, function (FormEvent $event) use ($typeChoices) {
+        $builder->addEventListener(FormEvents::SUBMIT, function (FormEvent $event)  {
             $data = $event->getData();
 
             if ($data instanceof User) {

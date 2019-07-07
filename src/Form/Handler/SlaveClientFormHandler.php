@@ -12,7 +12,7 @@ namespace App\Form\Handler;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
-use Mailer\TwigSwiftMailer;
+use App\Mailer\TwigSwiftMailer;
 use App\Entity\User;
 
 class SlaveClientFormHandler

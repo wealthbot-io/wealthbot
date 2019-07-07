@@ -44,7 +44,7 @@ class DashboardTransferController extends BaseTransferController
         /** @var ClientAccount $account */
         $account = $repo->find($request->get('account_id'));
         if (!$account || $account->getClient() !== $this->getUser()) {
-            throw $this->createNotFoundException(sprintf('Account with id : %s does not exist.'));
+            throw $this->createNotFoundException(sprintf('Account with id : %s does not exist.', $account->getId()));
         }
 
         $group = $account->getGroupName();

@@ -13,6 +13,7 @@ class CreateClientFormHandler
     protected $request;
     protected $client;
     protected $form;
+    protected $em;
 
     public function __construct(Form $form, Request $request, EntityManager $em)
     {

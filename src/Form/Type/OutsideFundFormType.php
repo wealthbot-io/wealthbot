@@ -64,14 +64,6 @@ class OutsideFundFormType extends AbstractType
                 }
             }
         });
-
-        $builder->addEventListener(FormEvents::SUBMIT, function (FormEvent $event) use ($ria) {
-            $data = $event->getData();
-
-            if ($data) {
-                //                $data->setRia($ria); Deprecated
-            }
-        });
     }
 
     public function configureOptions(OptionsResolver $resolver)

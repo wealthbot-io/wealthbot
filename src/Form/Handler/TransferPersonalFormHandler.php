@@ -15,7 +15,7 @@ use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\ConstraintViolation;
 use Symfony\Component\Validator\Validator;
-use Symfony\Component\Validator\ValidatorInterface;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 use App\Entity\ClientAccount;
 use App\Entity\ClientAdditionalContact;
 use App\Model\AccountOwnerInterface;

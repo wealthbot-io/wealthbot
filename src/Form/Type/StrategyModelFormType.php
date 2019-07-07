@@ -52,8 +52,7 @@ class StrategyModelFormType extends AbstractType
                 if ($data->getParent()->getOwner()) {
                     $ownerId = $data->getParent()->getOwner();
                 } else {
-                    $superAdmin = $this->get('wealthbot.manager.user')->getAdmin();
-                    $ownerId = $superAdmin->getId();
+                   $ownerId = $this->user->getId();
                 }
 
                 $modelRiskRating = $this->em->getRepository('App\Entity\ModelRiskRating')->findOneBy([
@@ -104,13 +103,13 @@ class StrategyModelFormType extends AbstractType
             }
         });
 
-        $builder->addEventListener(FormEvents::SUBMIT, function (FormEvent $event) use ($thirdParty, $existsRatings) {
+        $builder->addEventListener(FormEvents::SUBMIT, function (FormEvent $event) use ( $existsRatings) {
             $form = $event->getForm();
 
             if ($form->has('risk_rating')) {
                 $riskRating = $form->get('risk_rating')->getData();
                 if (in_array($riskRating, $existsRatings)) {
-                    $form->get('risk_rating')->addError(new FormError('The risk with parameter :risk is already exists.', [':risk' => $riskRating]));
+                    $form->get('risk_rating')->addError(new FormError('The risk with parameter :risk is already exists.',  $riskRating));
                 }
             }
         });

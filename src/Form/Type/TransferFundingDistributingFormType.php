@@ -15,7 +15,7 @@ use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use App\Entity\AccountGroup;
 use App\Form\EventListener\TransferFundingFormEventSubscriber;
-use Manager\AccountDocusignManager;
+use App\Manager\AccountDocusignManager;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class TransferFundingDistributingFormType extends AbstractType

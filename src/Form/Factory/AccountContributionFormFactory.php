@@ -69,10 +69,10 @@ class AccountContributionFormFactory
     {
         if ('one_time' === $action) {
             $subscriber = new OneTimeContributionFormEventSubscriber($this->factory, $this->em, $account);
-            $formType = new OneTimeContributionFormType($this->em, $account, $subscriber);
+            $formType = OneTimeContributionFormType::class;
         } else {
             $subscriber = new AccountContributionFormEventSubscriber($this->factory, $this->em, $account);
-            $formType = new AccountContributionFormType($this->em, $account, $subscriber);
+            $formType = AccountContributionFormType::class;
         }
 
         return $formType;

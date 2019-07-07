@@ -54,7 +54,7 @@ class SecuredController extends AclController
         $user = $userManager->findUserByUsername($username);
 
         if (!$user) {
-            throw $this->createNotFoundException(sprintf('User with username: "%s" does not exist.'));
+            throw $this->createNotFoundException(sprintf('User with username: %s does not exist.', $user->getUsername()));
         }
 
         if (!$user->hasRole('ROLE_RIA') && !$user->hasRole('ROLE_CLIENT')) {

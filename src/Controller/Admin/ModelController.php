@@ -388,7 +388,7 @@ class ModelController extends AclController
         }
 
         $modelEntity = new CeModelEntity();
-        $form = $this->createForm(CeModelEntityFormType::class, null, ['model'=>$model,'em'=> $em,'user'=> $this->getUser()], $modelEntity);
+        $form = $this->createForm(CeModelEntityFormType::class, $modelEntity, ['model'=>$model,'em'=> $em,'user'=> $this->getUser()]);
 
         $formHandler = new CeModelEntityFormHandler($form, $request, $em, ['model' => $model]);
 
@@ -432,7 +432,7 @@ class ModelController extends AclController
             ]);
         }
 
-        $form = $this->createForm(CeModelEntityFormType::class, $modelEntity, ['model'=>$model,'em'=> $em,'user'=> $this->getUser()]);
+        $form = $this->createForm(CeModelEntityFormType::class, null, ['model'=>$model,'em'=> $em,'user'=> $this->getUser()]);
         $form->handleRequest($request);
 
         $result = [

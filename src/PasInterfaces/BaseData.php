@@ -48,6 +48,7 @@ class BaseData implements DataInterface
         $this->em = $em;
         $this->perPage = $perPage;
         $this->paginator = $paginator;
+        $this->mongoManager = $mongoManager;
     }
 
     /**

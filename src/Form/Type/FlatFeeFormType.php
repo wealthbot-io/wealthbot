@@ -16,7 +16,7 @@ class FlatFeeFormType extends AbstractType
             ->add('fee_without_retirement', NumberType::class, [
                 'label' => 'Fee',
                 'scale' => 4,
-                'rounding_mode' => IntegerToLocalizedStringTransformer::ROUND_HALFEVEN,
+                'rounding_mode' => IntegerToLocalizedStringTransformer::ROUND_HALF_EVEN,
                 'grouping' => true,
             ])
         ;

@@ -26,11 +26,11 @@ class SecuredController extends Controller
         $client = $userManager->findUserByUsername($username);
 
         if (!$client) {
-            throw $this->createNotFoundException(sprintf('User with username: "%s" does not exist.'));
+            throw $this->createNotFoundException(sprintf('User with username: "%s" does not exist.', $username));
         }
 
         if (!$client->hasRole('ROLE_CLIENT') || $client->getRia()->getId() !== $this->getUser()->getId()) {
-            return $this->createAccessDeniedException(sprintf('Access Denied. You cannot login as "%s"', $username));
+            return $this->createAccessDeniedException(sprintf('Access Denied. You cannot login as %s', $username));
         }
 
         $acl = $this->get('wealthbot_client.acl');

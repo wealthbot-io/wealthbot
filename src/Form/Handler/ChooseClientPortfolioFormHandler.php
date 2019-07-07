@@ -3,8 +3,8 @@
 namespace App\Form\Handler;
 
 use App\Form\Handler\AbstractFormHandler;
-use Manager\CeModelManager;
-use Manager\ClientPortfolioManager;
+use App\Manager\CeModelManager;
+use App\Manager\ClientPortfolioManager;
 use App\Entity\Profile;
 
 class ChooseClientPortfolioFormHandler extends AbstractFormHandler

@@ -19,7 +19,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use App\Entity\CeModel;
 use App\Entity\CeModelEntity;
 use App\Form\EventListener\PortfolioModelEntityTypeEventsListener;
-use RiskManagement\BaselinePortfolio;
+use App\RiskManagement\BaselinePortfolio;
 
 class PortfolioModelEntityFormType extends AbstractType
 {

@@ -11,7 +11,7 @@ class AccountsData implements DataInterface
     /** @var \Doctrine\ORM\EntityManager */
     private $em;
 
-    /** @var \Doctrine\ODM\MongoDB\DocumentManager */
+    /** @var */
     private $mongoManager;
 
     /** @param \App\Service\BusinessCalendar */

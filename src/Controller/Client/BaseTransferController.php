@@ -358,9 +358,9 @@ class BaseTransferController extends Controller
         }
 
         $isPreSaved = $request->isXmlHttpRequest();
-        $form = $this->createForm(AccountOwnerPersonalInformationFormType::class, $primaryApplicant, [
+        $form = $this->createForm(AccountOwnerPersonalInformationFormType::class, $account, [
             'class' => 'App\Entity\ClientAccountOwner',
-            'primaryApplicant'=>$primaryApplicant, 'isPreSaved'=> $isPreSaved, 'withMaterialStatus' => $withMaritalStatus]);
+            'primaryApplicant'=>$account, 'isPreSaved'=> $isPreSaved, 'withMaterialStatus' => true]);
         $formHandler = new TransferPersonalFormHandler($form, $request, $em);
 
         if ($request->isMethod('post')) {

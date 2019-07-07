@@ -16,7 +16,7 @@ use App\Model\TabCollection;
 
 class AccountTransferForm extends AbstractTabsConfiguration
 {
-    /** @var \Model\ClientAccount */
+    /** @var \App\Model\ClientAccount */
     private $account;
 
     public function __construct(ClientAccount $account)

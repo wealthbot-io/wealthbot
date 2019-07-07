@@ -350,4 +350,8 @@ class AccountContribution extends BaseAccountContribution implements SignableInt
     {
         return $this->updatedAt;
     }
+
+    public static function getDistributionMethodChoices(){
+
+    }
 }

@@ -22,7 +22,7 @@ class RiaSubclassCollectionType extends AbstractType
             'required' => false,
             'allow_add' => true,
             'prototype' => true,
-            'type' => new \Form\Type\RiaSubclassType(),
+            'entry_type' => new \App\Form\Type\RiaSubclassType(),
         ]);
     }
 

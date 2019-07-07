@@ -33,7 +33,7 @@ class PortfolioModelEntityTypeEventsListener implements EventSubscriberInterface
     /** @var CeModel */
     private $portfolioModel;
 
-    /** @var \Model\User */
+    /** @var \App\Model\User */
     private $user;
 
     private $isQualifiedModel;
@@ -198,7 +198,7 @@ class PortfolioModelEntityTypeEventsListener implements EventSubscriberInterface
 
     protected function updateMuniSubstitution(FormInterface $form, $subclass)
     {
-        if (!($subclass instanceof \Entity\Subclass)) {
+        if (!($subclass instanceof \App\Entity\Subclass)) {
             $subclass = $this->em->getRepository('App\Entity\Subclass')->find($subclass);
         }
 
@@ -290,7 +290,7 @@ class PortfolioModelEntityTypeEventsListener implements EventSubscriberInterface
     protected function updateSecuritySymbol(FormInterface $form, $securityAssignmentId)
     {
         if ($securityAssignmentId) {
-            /** @var $obj \Entity\SecurityAssignment */
+            /** @var $obj \App\Entity\SecurityAssignment */
             $obj = $this->em->getRepository('App\Entity\SecurityAssignment')->find($securityAssignmentId);
             $value = $obj->getSecurity()->getSymbol();
         } else {

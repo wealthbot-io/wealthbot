@@ -16,7 +16,7 @@ use App\Model\TabCollection;
 
 class CheckRequest extends AbstractTabsConfiguration
 {
-    /** @var \Model\SignableInterface */
+    /** @var \App\Model\SignableInterface */
     private $signableObject;
 
     public function __construct(SignableInterface $object)

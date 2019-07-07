@@ -34,6 +34,7 @@ class AccountOwnerPersonalInformationFormType extends AbstractType
     protected $class;
     protected $isPreSaved;
     protected $withMaritalStatus;
+    protected $owner;
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -200,7 +201,7 @@ class AccountOwnerPersonalInformationFormType extends AbstractType
         $form = $event->getForm();
 
         $this->validateCitizen($form);
-        $this->validateMaritalStatus($form, $data);
+        $this->validateMaritalStatus($form);
         $this->validateEmploymentType($form, $data);
 
         $this->validateSeniorPoliticalFigure($form, $data);

@@ -20,6 +20,7 @@ class RiaModelCompletionFormType extends AbstractType
 {
     private $ria;
     private $em;
+    private $modelCompletion;
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {

@@ -474,17 +474,17 @@ class RebalancerController extends Controller
      */
     private function createRebalancer(Job $job, ClientPortfolioValue $clientPortfolioValue, ClientAccountValue $clientAccountValue = null)
     {
-        $rebalancerAction = new Rebalaner();
-        $rebalancerAction->setJob($job);
-        $rebalancerAction->setClientPortfolioValue($clientPortfolioValue);
-        $rebalancerAction->setClientAccountValue($clientAccountValue);
+      ///  $rebalancerAction = new Rebalaner();
+      //  $rebalancerAction->setJob($job);
+      ///  $rebalancerAction->setClientPortfolioValue($clientPortfolioValue);
+      ///  $rebalancerAction->setClientAccountValue($clientAccountValue);
 
         //rebalance proccess
         //HOLD
 
 //        $rebalancerAction->setFinishedAt(new \DateTime());
 
-        return $rebalancerAction;
+      ///  return $rebalancerAction;
     }
 
     public function postRebalance(Request $request)

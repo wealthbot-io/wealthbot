@@ -16,13 +16,13 @@ use App\Entity\ClientAccount;
 use App\Entity\ClientAccountOwner;
 use App\Entity\ClientAdditionalContact;
 use App\Form\Handler\ClientAccountFormHandler as BaseClientAccountFormHandler;
-use Manager\AccountDocusignManager;
+use App\Manager\AccountDocusignManager;
 
 class RiaClientAccountFormHandler extends BaseClientAccountFormHandler
 {
     public function __construct(Form $form, Request $request, AccountDocusignManager $adm)
     {
-        parent::__construct($form, $request, $adm);
+        parent::__construct($form, $request, $adm,[],true,null,null);
     }
 
     /**

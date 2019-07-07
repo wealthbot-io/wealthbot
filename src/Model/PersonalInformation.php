@@ -36,6 +36,8 @@ class PersonalInformation
     const INCOME_SOURCE_UNEMPLOYMENT_BENEFITS = 'Unemployment Benefits';
 
     private static $_incomeSourceValues = null;
+    private $broker_security_exchange_compliance_letter;
+    private $compliance_letter_file;
 
     /**
      * Get array ENUM values income_source column.

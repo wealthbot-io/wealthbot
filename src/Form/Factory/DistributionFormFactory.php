@@ -23,7 +23,7 @@ class DistributionFormFactory
     /** @var \Symfony\Component\Form\FormFactoryInterface */
     private $factory;
 
-    /** @var \Manager\DistributionManager */
+    /** @var \App\Manager\DistributionManager */
     private $manager;
 
     public function __construct(FormFactoryInterface $factory, DistributionManager $manager)
@@ -70,11 +70,11 @@ class DistributionFormFactory
         switch ($type) {
             case Distribution::TYPE_SCHEDULED:
                 $subscriber = new ScheduledDistributionFormEventSubscriber($this->factory);
-                $formType = new ScheduledDistributionFormType($account, $subscriber);
+                $formType = ScheduledDistributionFormType::class;//($account, $subscriber);
                 break;
             case Distribution::TYPE_ONE_TIME:
-                $subscriber = new OneTimeDistributionFormEventSubscriber($this->factory, $account);
-                $formType = new OneTimeDistributionFormType($account, $subscriber);
+                $subscriber = new OneTimeDistributionFormEventSubscriber($this->factory);
+                $formType = OneTimeDistributionFormType::class;///($account, $subscriber);
                 break;
             default:
                 throw new \InvalidArgumentException(sprintf('Invalid value for type argument: %s', $type));

@@ -9,6 +9,7 @@ namespace App\Mailer;
 
 use App\Entity\ClientAccount;
 use App\Entity\Document;
+use App\Entity\Workflow;
 use App\Model\AccountOwnerInterface;
 use Psr\Log\LoggerInterface;
 use Psr\Log\LogLevel;

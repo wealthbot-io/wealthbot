@@ -176,7 +176,7 @@ class RiaClientAccountFormEventSubscriber implements EventSubscriberInterface
                 )->add(
                     $this->factory->createNamed(
                         'transferInformation',
-                        new AccountTransferInformationFormType($this->em),
+                        AccountTransferInformationFormType::class,
                         null,
                         ['label' => ' ']
                     )
@@ -231,7 +231,7 @@ class RiaClientAccountFormEventSubscriber implements EventSubscriberInterface
             $form->add(
                 $this->factory->createNamed(
                     'owners',
-                    new RiaClientAccountOwnerFormType($this->client, $account, $isJoint),
+                    RiaClientAccountOwnerFormType::class,
                     null,
                     [
                         'mapped' => false,

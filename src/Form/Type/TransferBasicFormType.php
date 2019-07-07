@@ -18,6 +18,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class TransferBasicFormType extends ClientProfileFormType
 {
     private $class;
+    private $secondaryApplicant;
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {

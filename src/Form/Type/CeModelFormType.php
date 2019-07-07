@@ -37,7 +37,7 @@ class CeModelFormType extends ParentCeModelFormType
         parent::buildForm($builder, $options);
 
         if ($this->isShowAssumption) {
-            $modelAssumptionType = new ModelAssumptionFormType($this->em);
+            $modelAssumptionType = new ModelAssumptionFormType();
             $modelAssumptionType->buildForm($builder, $options);
         }
 

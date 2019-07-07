@@ -19,6 +19,7 @@ class OneTimeDistributionFormValidator extends ScheduledDistributionFormValidato
     {
         $this->form = $form;
         $this->data = $data;
+        parent::__construct($form,$data);
     }
 
     /**

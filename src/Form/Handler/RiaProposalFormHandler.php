@@ -11,7 +11,7 @@ namespace App\Form\Handler;
 
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use App\Form\Handler\AbstractFormHandler;
-use Mailer\MailerInterface;
+use App\Mailer\MailerInterface;
 use App\Entity\RiaCompanyInformation;
 use App\Entity\Document;
 use App\Entity\User;

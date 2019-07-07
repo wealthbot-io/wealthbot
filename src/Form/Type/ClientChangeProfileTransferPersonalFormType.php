@@ -21,6 +21,12 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class ClientChangeProfileTransferPersonalFormType extends AccountOwnerPersonalInformationFormType
 {
     protected $em;
+    protected $owner;
+    protected $primaryAccount;
+    protected $class;
+    protected $isPreSaved;
+    protected $withMaritalStatus;
+
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {

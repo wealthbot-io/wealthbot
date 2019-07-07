@@ -2,7 +2,7 @@
 
 namespace App\Event;
 
-use Symfony\Component\EventDispatcher\Event;
+use Symfony\Contracts\EventDispatcher\Event;
 use App\Entity\Workflow;
 use App\Model\WorkflowableInterface;
 use App\Entity\DocumentSignature;
@@ -13,7 +13,7 @@ class WorkflowEvent extends Event
     /** @param \App\Entity\User */
     private $client;
 
-    /** @var \Model\WorkflowableInterface */
+    /** @var \App\Model\WorkflowableInterface */
     private $object;
 
     /** @var int */
@@ -63,9 +63,7 @@ class WorkflowEvent extends Event
     }
 
     /**
-     *  Get signatures.
-     *
-     * @return signature
+     * @return DocumentSignature|DocumentSignature[]|null
      */
     public function getSignatures()
     {

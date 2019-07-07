@@ -18,6 +18,8 @@ class CreateUserFormType extends AbstractType
 {
     private $ria;
 
+    private $class;
+
     const TYPE_ADMIN = 'admin';
     const TYPE_USER = 'user';
 
@@ -51,7 +53,7 @@ class CreateUserFormType extends AbstractType
             ])
         ;
 
-        $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) use ($ria, $factory, $choices) {
+        $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) use ($factory, $choices) {
             $form = $event->getForm();
             $user = $event->getData();
 
@@ -69,7 +71,7 @@ class CreateUserFormType extends AbstractType
             }
         });
 
-        $builder->addEventListener(FormEvents::SUBMIT, function (FormEvent $event) use ($ria) {
+        $builder->addEventListener(FormEvents::SUBMIT, function (FormEvent $event) {
             /** @var $user User */
             $user = $event->getData();
             $form = $event->getForm();

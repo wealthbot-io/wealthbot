@@ -10,6 +10,7 @@
 namespace App\Form\EventListener;
 
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -97,7 +98,7 @@ class RiaClientAccountOwnerFormEventSubscriber implements EventSubscriberInterfa
                 $form->add(
                     $this->factory->createNamed(
                         'other_contact',
-                        new OtherAccountOwnerFormType($this->getOtherContactData())
+                        new OtherAccountOwnerFormType()
                     )
                 );
             }

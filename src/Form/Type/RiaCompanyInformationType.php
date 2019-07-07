@@ -2,6 +2,7 @@
 
 namespace App\Form\Type;
 
+use FOS\UserBundle\Event\FormEvent;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -93,7 +94,7 @@ class RiaCompanyInformationType extends AbstractType
 
     protected function addValidator(FormBuilderInterface $builder)
     {
-        $builder->addEventListener(\Symfony\Component\Form\FormEvents::SUBMIT, function (\Symfony\Component\Form\Event\DataEvent $event) {
+        $builder->addEventListener(\Symfony\Component\Form\FormEvents::SUBMIT, function (FormEvent $event) {
             $data = $event->getData();
 
             $phoneNum = str_replace([' ', '_', '-', '(', ')'], '', $data->getPhoneNumber());

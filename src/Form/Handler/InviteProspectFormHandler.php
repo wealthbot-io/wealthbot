@@ -10,7 +10,7 @@
 namespace App\Form\Handler;
 
 use App\Form\Handler\AbstractFormHandler;
-use Mailer\TwigSwiftMailer;
+use App\Mailer\TwigSwiftMailer;
 use App\Entity\Profile;
 use App\Entity\User;
 

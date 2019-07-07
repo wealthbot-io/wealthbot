@@ -48,7 +48,7 @@ services:
       - "@wealthbot_ria.summary_information.manager"
       - "@wealthbot.manager.fee"
       - "@wealthbot_ria.period.manager"
-
+    public: true
   # Ria security
   wealthbot_ria.security.voter.ria_client:
     class: App\Security\Voter\RiaClientVoter

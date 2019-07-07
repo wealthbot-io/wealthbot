@@ -96,7 +96,7 @@ class TransferScreenStepManager
 
             default:
                 throw new \InvalidArgumentException(
-                    sprintf('Invalid value of account system_type: $s.', $type)
+                    sprintf('Invalid value of account %s .', $type)
                 );
                 break;
         }

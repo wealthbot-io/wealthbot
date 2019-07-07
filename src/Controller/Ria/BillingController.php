@@ -7,6 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController as Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use App\Entity\Bill;
 use App\Entity\ClientAccount;
@@ -15,6 +16,9 @@ use App\Form\Handler\RiaCompanyInformationTwoFormHandler;
 use App\Form\Type\RiaCompanyInformationTwoFormType;
 use App\Entity\Profile;
 use App\Entity\User;
+use PhpOffice\PhpSpreadsheet\Writer as Writer;
+
+
 
 class BillingController extends Controller
 {
@@ -290,13 +294,16 @@ class BillingController extends Controller
             'Cache-Control' => 'max-age=0',
         ]);
 
-        ob_start();
+        $writer = new Writer\Xls($excel);
 
-        $writer = new \PHPExcel_Writer_Excel2007($excel);
-        $writer->save('php://output');
-
-        $response->setContent(ob_get_clean());
-
+        $response =  new StreamedResponse(
+            function () use ($writer) {
+                $writer->save('php://output');
+            }
+        );
+        $response->headers->set('Content-Type', 'application/vnd.ms-excel');
+        $response->headers->set('Content-Disposition', 'attachment;filename="ExportScan.xls"');
+        $response->headers->set('Cache-Control','max-age=0');
         return $response;
     }
 
@@ -401,10 +408,10 @@ class BillingController extends Controller
             $ria = $this->getUser();
 
             if ($consolidateAccount->getClient()->getRia() !== $ria) {
-                throw new AccessDeniedException('Consolidate account do not belongs to Your RIA');
+                return $this->createAccessDeniedException('Consolidate account do not belongs to Your RIA');
             }
             if ($consolidateAccount->getClient() !== $account->getClient()) {
-                throw new AccessDeniedException('Consolidate account do not belongs to client');
+                return $this->createAccessDeniedException('Consolidate account do not belongs to client');
             }
             $account->setConsolidator($consolidateAccount);
         }

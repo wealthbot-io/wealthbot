@@ -125,7 +125,7 @@ class ClientAllocationValuesManager
             }
 
             $tableData[$subclassId]['targetPercent'] = $targetDataRow['data'];
-            $tableData[$subclassId]['targetValue'] = $this->percentsToDollars($targetDataRow['data'], true);
+            $tableData[$subclassId]['targetValue'] = $this->percentsToDollars($targetDataRow['data']);
 
             $tableData[$subclassId]['dollarVariance'] = $tableData[$subclassId]['dollarVariance'] - $targetDataRow['data'] * $this->totalAmount / 100;
             $tableData[$subclassId]['percentVariance'] = $tableData[$subclassId]['percentVariance'] - $targetDataRow['data'];

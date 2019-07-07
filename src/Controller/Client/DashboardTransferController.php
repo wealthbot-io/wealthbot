@@ -302,7 +302,7 @@ class DashboardTransferController extends BaseTransferController
         $this->denyAccessForCurrentRetirementAccount($account);
 
         if (!$account->hasGroup(AccountGroup::GROUP_FINANCIAL_INSTITUTION)) {
-            throw new AccessDeniedException('Current account has not this step.');
+            return $this->createAccessDeniedException('Current account has not this step.');
         }
 
         $accountIndex = $request->get('account_index', 1);

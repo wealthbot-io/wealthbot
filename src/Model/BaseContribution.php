@@ -14,6 +14,7 @@ class BaseContribution implements PaymentWorkflowableInterface
     const TYPE_FUNDING_BANK = 'funding_bank_transfer';
     const TYPE_FUNDING_WIRE = 'funding_wire_transfer';
     const TYPE_NOT_FUNDING = 'not_funding';
+    const TYPE_DISTRIBUTING = 'distribution';
 
     private static $_typeValues = null;
 

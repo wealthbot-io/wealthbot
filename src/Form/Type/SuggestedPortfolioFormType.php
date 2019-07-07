@@ -36,6 +36,8 @@ class SuggestedPortfolioFormType extends AbstractType
     /** @param \App\Entity\ClientPortfolio */
     private $clientPortfolio;
 
+    private $client;
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $this->em = $options['em'];
@@ -130,7 +132,6 @@ class SuggestedPortfolioFormType extends AbstractType
         $builder
             ->add('billingSpec', EntityType::class, [
                     'class' => 'App\\Entity\\BillingSpec',
-                    'property_path' => 'name',
                     'property_path' => 'user.appointedBillingSpec',
                     'multiple' => false,
                     'query_builder' => function (EntityRepository $er) use ($client) {
@@ -161,7 +162,6 @@ class SuggestedPortfolioFormType extends AbstractType
             ])
             ->add('selected_model', EntityType::class, [
                 'class' => 'App\\Entity\\CeModel',
-                'property_path' => 'name',
                 'expanded' => true,
                 'multiple' => false,
                 'property_path' => 'suggested_portfolio',

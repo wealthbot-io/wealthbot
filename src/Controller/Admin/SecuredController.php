@@ -58,7 +58,7 @@ class SecuredController extends AclController
         }
 
         if (!$user->hasRole('ROLE_RIA') && !$user->hasRole('ROLE_CLIENT')) {
-            throw new AccessDeniedException(sprintf('Access Denied. You cannot login as "%s"', $username));
+            return $this->createAccessDeniedException(sprintf('Access Denied. You cannot login as "%s"', $username));
         }
 
         $tokenStorage = $this->get('security.token_storage');

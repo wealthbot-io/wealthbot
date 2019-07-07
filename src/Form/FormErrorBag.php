@@ -10,6 +10,10 @@ use Symfony\Component\Form\FormError;
  */
 class FormErrorBag
 {
+
+    protected $form;
+
+
     /**
      * @param Form $form
      */

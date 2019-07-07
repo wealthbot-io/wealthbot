@@ -59,7 +59,7 @@ class AssetClassWithSubclassesFormType extends AbstractType
             ]));
         };
 
-        $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) use ($refreshSubclasses, $em, $allSubclasses) {
+        $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) use ($refreshSubclasses, $allSubclasses) {
             $form = $event->getForm();
             $data = $event->getData();
 
@@ -72,7 +72,7 @@ class AssetClassWithSubclassesFormType extends AbstractType
             }
         });
 
-        $builder->addEventListener(FormEvents::PRE_SUBMIT, function (FormEvent $event) use ($refreshSubclasses, $user, $allSubclasses) {
+        $builder->addEventListener(FormEvents::PRE_SUBMIT, function (FormEvent $event) use ($refreshSubclasses, $allSubclasses) {
             $form = $event->getForm();
             $data = $event->getData();
 

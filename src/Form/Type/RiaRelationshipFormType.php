@@ -18,7 +18,7 @@ class RiaRelationshipFormType extends AbstractType
 
 
         $builder->add('relationship_type', ChoiceType::class, [
-            'choices' => array_replace(RiaCompanyInformation::$relationship_type_choices),
+            'choices' => array_combine(array_values(RiaCompanyInformation::$relationship_type_choices),array_keys(RiaCompanyInformation::$relationship_type_choices)),
             'expanded' => true,
             'multiple' => false,
             'data' => ($data && $data->getRelationshipType() ? $data->getRelationshipType() : 0),
@@ -26,7 +26,7 @@ class RiaRelationshipFormType extends AbstractType
     }
 
     /**
-     * @param OptionsResolverInterface $resolver
+     * @param OptionsResolver $resolver
      */
     public function configureOptions(OptionsResolver $resolver)
     {

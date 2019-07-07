@@ -15,10 +15,10 @@ class ClientPortfolioManager
     /** @var \Doctrine\Common\Persistence\ObjectManager */
     private $om;
 
-    /** @var \Repository\ClientPortfolioRepository */
+    /** @var \App\Repository\ClientPortfolioRepository */
     private $repository;
 
-    /** @var \Manager\CeModelManager */
+    /** @var \App\Manager\CeModelManager */
     private $modelManager;
 
     public function __construct(ObjectManager $om, CeModelManager $modelManager)
@@ -79,7 +79,7 @@ class ClientPortfolioManager
      *
      * @param User $client
      *
-     * @return array|\Entity\ClientPortfolio[]
+     * @return array|\App\Entity\ClientPortfolio[]
      */
     public function getNotActivePortfolios(User $client)
     {
@@ -239,7 +239,7 @@ class ClientPortfolioManager
     {
         //1. try to get from history
 
-        /** @var ClientPortfolioValue $lastValues */
+        /** @var \App\Entity\ClientPortfolioValue $lastValues */
         if ($lastValues = $this->om->getRepository('App\Entity\ClientPortfolioValue')->getLastValueByClient($client)) {
             $sum = $lastValues->getTotalValue();
         } else {

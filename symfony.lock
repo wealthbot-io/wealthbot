@@ -211,6 +211,12 @@
             "config/packages/knp_snappy.yaml"
         ]
     },
+    "markbaker/complex": {
+        "version": "1.4.7"
+    },
+    "markbaker/matrix": {
+        "version": "1.1.4"
+    },
     "monolog/monolog": {
         "version": "1.24.0"
     },
@@ -266,6 +272,9 @@
     "phpdocumentor/type-resolver": {
         "version": "0.4.0"
     },
+    "phpoffice/phpspreadsheet": {
+        "version": "dev-master"
+    },
     "phpstan/phpdoc-parser": {
         "version": "0.3-dev"
     },
@@ -283,6 +292,9 @@
     },
     "psr/log": {
         "version": "1.1.0"
+    },
+    "psr/simple-cache": {
+        "version": "1.0.x-dev"
     },
     "sensio/framework-extra-bundle": {
         "version": "5.2",

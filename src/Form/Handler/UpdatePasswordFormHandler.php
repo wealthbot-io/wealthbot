@@ -9,6 +9,9 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 /* TODO:<Symfony3> */
 class UpdatePasswordFormHandler implements EventSubscriberInterface
 {
+    private $form;
+    private $request;
+
     /**
      * @return string
      */

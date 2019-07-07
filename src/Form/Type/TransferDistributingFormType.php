@@ -20,6 +20,10 @@ use App\Entity\AccountContribution;
 
 class TransferDistributingFormType extends AbstractType
 {
+
+    private $isPreSaved;
+
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->addEventListener(FormEvents::POST_SET_DATA, function (FormEvent $event) {

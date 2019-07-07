@@ -11,6 +11,7 @@ use App\Entity\SystemAccount;
 use App\Repository\ClientAccountRepository;
 use App\Entity\Profile;
 
+
 class BillingReportManager
 {
     /**
@@ -24,12 +25,12 @@ class BillingReportManager
     protected $twig;
 
     /**
-     * @param \App\Service\Manager\SummaryInformationManager
+     * @param \App\Manager\SummaryInformationManager
      */
     protected $summaryInformationManager;
 
     /**
-     * @var \Manager\FeeManager
+     * @var \App\Manager\FeeManager
      */
     protected $feeManager;
 
@@ -108,10 +109,10 @@ class BillingReportManager
             $sheet->setCellValue("B{$index}", isset($params[$value]) ? $params[$value] : '');
 
             // Set background
-            $sheet->getStyle("A{$index}:K{$index}")->getFill()->applyFromArray(['type' => \PHPExcel_Style_Fill::FILL_SOLID, 'startcolor' => ['rgb' => 'CCFFCC']]);
+            $sheet->getStyle("A{$index}:K{$index}")->getFill()->applyFromArray(['type' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID, 'startcolor' => ['rgb' => 'CCFFCC']]);
 
             // Set text align to left
-            $sheet->getStyle("B{$index}")->getAlignment()->setHorizontal(\PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
+            $sheet->getStyle("B{$index}")->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_LEFT);
 
             // Set font style
             $font = $sheet->getStyle("A{$index}")->getFont();
@@ -141,7 +142,7 @@ class BillingReportManager
         $index = 9;
 
         // Set table head background
-        $sheet->getStyle("A{$index}:K{$index}")->getFill()->applyFromArray(['type' => \PHPExcel_Style_Fill::FILL_SOLID, 'startcolor' => ['rgb' => '8EB4E3']]);
+        $sheet->getStyle("A{$index}:K{$index}")->getFill()->applyFromArray(['type' =>  \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID, 'startcolor' => ['rgb' => '8EB4E3']]);
 
         $totals = '';
         $totalCell = "K{$index}";
@@ -168,8 +169,8 @@ class BillingReportManager
                 $sheet->setCellValue("K{$index}", "=SUM(I{$index}:J{$index})");
 
                 // Set currency USD format
-                $sheet->getStyle("G{$index}")->applyFromArray(['numberformat' => ['code' => \PHPExcel_Style_NumberFormat::FORMAT_CURRENCY_USD]]);
-                $sheet->getStyle("I{$index}:K{$index}")->applyFromArray(['numberformat' => ['code' => \PHPExcel_Style_NumberFormat::FORMAT_CURRENCY_USD]]);
+                $sheet->getStyle("G{$index}")->applyFromArray(['numberformat' => ['code' => \PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_CURRENCY_USD]]);
+                $sheet->getStyle("I{$index}:K{$index}")->applyFromArray(['numberformat' => ['code' => \PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_CURRENCY_USD]]);
 
                 $font = $sheet->getStyle("A{$index}:K{$index}")->getFont();
                 $font->setName('Arial')->setSize(10);
@@ -178,30 +179,28 @@ class BillingReportManager
                 $totals .= "K{$index},";
 
                 // Set table body background
-                $sheet->getStyle("A{$index}:K{$index}")->getFill()->applyFromArray(['type' => \PHPExcel_Style_Fill::FILL_SOLID, 'startcolor' => ['rgb' => 'DCE6F2']]);
+                $sheet->getStyle("A{$index}:K{$index}")->getFill()->applyFromArray(['type' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID, 'startcolor' => ['rgb' => 'DCE6F2']]);
             }
         }
 
         // Calculate total
         $sheet->setCellValue($totalCell, '=SUM('.substr($totals, 0, -1).')');
         $sheet->getStyle($totalCell)->getFont()->setBold(true);
-        $sheet->getStyle($totalCell)->applyFromArray(['numberformat' => ['code' => \PHPExcel_Style_NumberFormat::FORMAT_CURRENCY_USD]]);
+        $sheet->getStyle($totalCell)->applyFromArray(['numberformat' => ['code' => \PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_CURRENCY_USD]]);
 
         return $sheet;
     }
 
     /**
      * Generate billing summary report (format: xlsx).
-     *
      * @param $ria
-     * @param $client
      * @param null $quarters
-     *
-     * @return \PHPExcel
+     * @return \PhpOffice\PhpSpreadsheet\Spreadsheet
+     * @throws \PhpOffice\PhpSpreadsheet\Exception
      */
     public function generateSummary($ria, $quarters = null)
     {
-        $excel = new \PHPExcel();
+        $excel = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
         $excel->setActiveSheetIndex(0);
         $sheet = $excel->getActiveSheet();
 

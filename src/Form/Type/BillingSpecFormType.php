@@ -20,6 +20,8 @@ class BillingSpecFormType extends AbstractType
      */
     protected $factory;
 
+    protected $builder;
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $this->factory = $builder->getFormFactory();

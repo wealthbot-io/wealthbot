@@ -19,7 +19,7 @@ class ClientAccountValuesManager
     /** @var \Doctrine\ORM\EntityManager */
     private $em;
 
-    /** @var ClientAccountValueRepository */
+    /** @var \App\Repository\ClientAccountValueRepository */
     private $repo;
 
     public function getLatestClientAccountValuesByPortfolioValue(ClientPortfolioValue $clientPortfolioValue)
@@ -27,7 +27,7 @@ class ClientAccountValuesManager
         return $this->repo->findLatestClientAccountValuesByPortfolioValue($clientPortfolioValue);
     }
 
-    /** @var \Manager\UserManager */
+    /** @var \App\Manager\UserManager */
     private $userManager;
 
     public function __construct(EntityManager $em, UserManager $userManager)

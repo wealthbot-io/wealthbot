@@ -237,7 +237,7 @@ class SecuritiesController extends BaseController
         }
 
         if ($securityAssignment->getSubclass()->getOwnerId() !== $ria->getId()) {
-            throw new AccessDeniedException();
+            return $this->createAccessDeniedException();
         }
     }
 }

@@ -104,7 +104,6 @@ class ModelsController extends Controller
             'model'=>$model,
             'em'=> $em,
             'user'=> $user,
-            'model' => $model,
             'isQualifiedModel' => $isQualified
         ]);
         $createModelForm = $this->createForm(CeModelFormType::class, null, [
@@ -711,7 +710,7 @@ class ModelsController extends Controller
     public function editEntity(Request $request)
     {
         if (!$request->isXmlHttpRequest()) {
-            throw new \HttpRequestMethodException('Request works only with XmlHttp');
+           return $this->createNotFoundException('Request works only with XmlHttp');
         }
 
         /** @var \Doctrine\ORM\EntityManager $em */

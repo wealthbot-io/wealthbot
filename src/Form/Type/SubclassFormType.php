@@ -9,6 +9,7 @@
 
 namespace App\Form\Type;
 
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
@@ -19,7 +20,7 @@ use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Range;
 use App\Entity\Subclass;
-use Repository\SubclassRepository;
+use App\Repository\SubclassRepository;
 
 class SubclassFormType extends AbstractType
 {
@@ -52,7 +53,7 @@ class SubclassFormType extends AbstractType
 //            if ($user->getRiaCompanyInformation()->isShowSubclassPriority()) {
             if (false) {
                 $factory = $builder->getFormFactory();
-                $refreshPriority = function ($form, $choices) use ($factory, $em) {
+                $refreshPriority = function ($form, $choices) use ($factory) {
                     $form->add($factory->createNamed('priority', ChoiceType::class, null, [
                         'choices' => $choices,
                         'auto_initialize' => false,
@@ -78,7 +79,8 @@ class SubclassFormType extends AbstractType
                     }
                 });
 
-                $builder->addEventListener(FormEvents::PRE_SUBMIT, function (FormEvent $event) use ($refreshPriority, $allSubclasses, $user) {
+                $user = $this->user;
+                $builder->addEventListener(FormEvents::PRE_SUBMIT, function (FormEvent $event) use ($refreshPriority, $allSubclasses) {
                     $form = $event->getForm();
                     $data = $event->getData();
 
@@ -101,7 +103,7 @@ class SubclassFormType extends AbstractType
             }
         }
 
-        $builder->addEventListener(FormEvents::SUBMIT, function (FormEvent $event) use ($user, $em) {
+        $builder->addEventListener(FormEvents::SUBMIT, function (FormEvent $event) use ($user) {
             $data = $event->getData();
 
             if (null === $data) {

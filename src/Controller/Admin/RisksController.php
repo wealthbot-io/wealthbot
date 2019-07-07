@@ -35,9 +35,9 @@ class RisksController extends AclController
         /** @var \Doctrine\ORM\EntityManager $em */
         $em = $this->get('doctrine.orm.entity_manager');
 
-        $question = new \Entity\RiskQuestion();
+        $question = new \App\Entity\RiskQuestion();
         for ($i = 0; $i < 2; ++$i) {
-            $answer = new \Entity\RiskAnswer();
+            $answer = new \App\Entity\RiskAnswer();
             $question->addAnswer($answer);
         }
 

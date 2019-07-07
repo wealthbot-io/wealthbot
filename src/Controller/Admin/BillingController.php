@@ -6,6 +6,8 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\StreamedResponse;
+use PhpOffice\PhpSpreadsheet\Writer as Writer;
+
 
 class BillingController extends AclController
 {
@@ -117,13 +119,16 @@ class BillingController extends AclController
             'Cache-Control' => 'max-age=0',
         ]);
 
-        ob_start();
+        $writer = new Writer\Xls($excel);
 
-        $writer = new \PHPExcel_Writer_Excel2007($excel);
-        $writer->save('php://output');
-
-        $response->setContent(ob_get_clean());
-
+        $response =  new StreamedResponse(
+            function () use ($writer) {
+                $writer->save('php://output');
+            }
+        );
+        $response->headers->set('Content-Type', 'application/vnd.ms-excel');
+        $response->headers->set('Content-Disposition', 'attachment;filename="ExportScan.xls"');
+        $response->headers->set('Cache-Control','max-age=0');
         return $response;
     }
 }

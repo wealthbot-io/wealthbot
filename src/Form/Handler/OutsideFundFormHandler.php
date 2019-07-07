@@ -55,12 +55,12 @@ class OutsideFundFormHandler extends AbstractOutsideFundFormHandler
      *
      * @return mixed|void
      *
-     * @throws \Exception\DataAlreadyExistsException
+     * @throws \Exception
      */
     protected function checkAccountAssociation(ClientAccount $account, SecurityAssignment $securityAssignment, $isPreferred)
     {
         if ($this->existAccountAssociation($account->getId(), $securityAssignment->getId())) {
-            throw new DataAlreadyExistsException(sprintf(
+            throw new \Exception(sprintf(
                 'SecurityAssignment with id: %s already exist for client account with id: %s',
                 $securityAssignment->getId(),
                 $account->getId()

@@ -19,10 +19,10 @@ class ActivityManager
     /** @var \Doctrine\Common\Persistence\ObjectManager */
     private $em;
 
-    /** @var \Doctrine\ODM\MongoDB\DocumentRepository */
+    /** @var  */
     private $repository;
 
-    /** @var \Manager\WorkflowManager */
+    /** @var \App\Manager\WorkflowManager */
     private $workflowManager;
 
     public function __construct($em, $class, WorkflowManager $workflowManager)
@@ -149,9 +149,9 @@ class ActivityManager
     /**
      * Update activity.
      *
-     * @param Activity $activity
+     * @param \App\Model\ActivityInterface $activity
      */
-    public function updateActivity(Activity $activity)
+    public function updateActivity(ActivityInterface $activity)
     {
         if (null !== $activity) {
             //   $this->em->persist($activity);

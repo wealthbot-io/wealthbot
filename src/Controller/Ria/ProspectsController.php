@@ -68,7 +68,7 @@ class ProspectsController extends Controller
     {
         $ria = $this->getUser();
         if (!$request->isXmlHttpRequest()) {
-            throw new AccessDeniedException();
+            return $this->createAccessDeniedException();
         }
 
         $user = new User();

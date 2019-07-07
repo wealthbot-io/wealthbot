@@ -36,7 +36,7 @@ class AccountTypesFormType extends AbstractType
 
         $builder->add('group_type', EntityType::class, [
                 'class' => 'App\Entity\AccountGroupType',
-                'query_builder' => function (EntityRepository $er) use ($group, $isAllowRetirementPlan) {
+                'query_builder' => function (EntityRepository $er) use ($group) {
                     $qb = $er->createQueryBuilder('gt');
                     $qb
                         ->leftJoin('gt.group', 'g')

@@ -235,7 +235,7 @@ class BaseTransferController extends Controller
         $this->denyAccessForCurrentRetirementAccount($account);
 
         if (!$repo->isJointAccount($account)) {
-            throw new AccessDeniedException('Current account has not this step.');
+            return $this->createAccessDeniedException('Current account has not this step.');
         }
 
         $secondaryApplicant = $account->getSecondaryApplicant();
@@ -349,7 +349,7 @@ class BaseTransferController extends Controller
         $this->denyAccessForCurrentRetirementAccount($account);
 
         if (!$repo->isJointAccount($account)) {
-            throw new AccessDeniedException('Current account has not this step.');
+           return $this->createAccessDeniedException('Current account has not this step.');
         }
 
         $secondaryApplicant = $account->getSecondaryApplicant();
@@ -608,7 +608,7 @@ class BaseTransferController extends Controller
         if (SystemAccount::TYPE_ROTH_IRA !== $account->getSystemType() &&
             !$account->hasGroup(AccountGroup::GROUP_OLD_EMPLOYER_RETIREMENT)
         ) {
-            throw new AccessDeniedException('Current account has not this step.');
+            return $this->createAccessDeniedException('Current account has not this step.');
         }
 
         /** @var CustodianMessage $rolloverMessage */
@@ -661,7 +661,7 @@ class BaseTransferController extends Controller
 
         $isCurrentRetirement = $repo->findRetirementAccountById($account->getId()) ? true : false;
         if (!$isCurrentRetirement) {
-            throw new AccessDeniedException('Not current retirement accounts has not this step.');
+            return $this->createAccessDeniedException('Not current retirement accounts has not this step.');
         }
 
         $planInfo = $account->getRetirementPlanInfo();
@@ -1265,7 +1265,7 @@ class BaseTransferController extends Controller
 
         $isCurrentRetirement = $repo->findRetirementAccountById($account->getId()) ? true : false;
         if ($isCurrentRetirement) {
-            throw new AccessDeniedException('Current retirement accounts has not this step.');
+            return $this->createAccessDeniedException('Current retirement accounts has not this step.');
         }
     }
 

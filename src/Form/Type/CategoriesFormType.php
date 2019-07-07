@@ -26,6 +26,10 @@ class CategoriesFormType extends AbstractType
 
     private $em;
 
+    private $ria;
+
+    private $assets;
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $this->assets = $options['assets'];
@@ -67,7 +71,7 @@ class CategoriesFormType extends AbstractType
             }
         };
 
-        $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) use ($refreshAssets, $user, $em) {
+        $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) use ($refreshAssets) {
             $form = $event->getForm();
             $data = $event->getData();
 
@@ -83,7 +87,7 @@ class CategoriesFormType extends AbstractType
             }
         });
 
-        $builder->addEventListener(FormEvents::PRE_SUBMIT, function (FormEvent $event) use ($refreshAssets, $user) {
+        $builder->addEventListener(FormEvents::PRE_SUBMIT, function (FormEvent $event) use ($refreshAssets) {
             $form = $event->getForm();
             $data = $event->getData();
 
@@ -104,7 +108,7 @@ class CategoriesFormType extends AbstractType
             $refreshAssets($form, $allSubclasses);
         });
 
-        $builder->addEventListener(FormEvents::SUBMIT, function (FormEvent $event) use ($em, $validateUniqueName) {
+        $builder->addEventListener(FormEvents::SUBMIT, function (FormEvent $event) use ($validateUniqueName) {
             /** @var AssetCollection $data */
             $data = $event->getData();
             $form = $event->getForm();

@@ -30,7 +30,7 @@ class SecuredController extends Controller
         }
 
         if (!$client->hasRole('ROLE_CLIENT') || $client->getRia()->getId() !== $this->getUser()->getId()) {
-            throw new AccessDeniedException(sprintf('Access Denied. You cannot login as "%s"', $username));
+            return $this->createAccessDeniedException(sprintf('Access Denied. You cannot login as "%s"', $username));
         }
 
         $acl = $this->get('wealthbot_client.acl');

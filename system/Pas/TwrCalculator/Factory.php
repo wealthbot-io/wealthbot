@@ -1,6 +1,6 @@
 <?php
 
-namespace Pas\TwrCalculator;
+namespace System\Pas\TwrCalculator;
 
 class Factory
 {

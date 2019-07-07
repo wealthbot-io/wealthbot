@@ -1,6 +1,6 @@
 <?php
 
-namespace Model\Pas\DocumentRepository;
+namespace System\Model\Pas\DocumentRepository;
 
 class UnrealizedRepository extends BaseRepository
 {

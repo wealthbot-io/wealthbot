@@ -6,8 +6,8 @@
  * Usage: php AccountCalc.php
  */
 namespace Model\Pas\Calculator;
-use Model\Pas\Base;
-use Model\Pas\Accounts;
+use System\Model\Pas\Base;
+use System\Model\Pas\Accounts;
 
 class Accountcalc extends Base
 {

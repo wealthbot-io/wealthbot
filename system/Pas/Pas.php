@@ -1,8 +1,8 @@
 <?php
 
-namespace Pas;
+namespace System\Pas;
 
-use Model\Pas\Repository\BaseRepository;
+use System\Model\Pas\Repository\BaseRepository;
 
 class Pas
 {

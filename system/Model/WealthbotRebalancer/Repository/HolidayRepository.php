@@ -1,6 +1,6 @@
 <?php
 
-namespace Model\WealthbotRebalancer\Repository;
+namespace System\Model\WealthbotRebalancer\Repository;
 
 require_once(__DIR__ . '/../../../AutoLoader.php');
 \AutoLoader::registerAutoloader();

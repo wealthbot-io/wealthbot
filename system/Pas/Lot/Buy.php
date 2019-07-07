@@ -1,10 +1,10 @@
 <?php
 
-namespace Pas\Lot;
+namespace System\Pas\Lot;
 
-use Model\Pas\Lot as LotModel;
-use Model\Pas\RebalancerQueue as RebalancerQueueModel;
-use Wealthbot\ClientBundle\Entity\Lot as WealthbotLot;
+use System\Model\Pas\Lot as LotModel;
+use System\Model\Pas\RebalancerQueue as RebalancerQueueModel;
+use App\Entity\Lot as WealthbotLot;
 
 class Buy extends AbstractLot
 {

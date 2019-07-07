@@ -6,7 +6,7 @@
  * Time: 13:10
  */
 
-namespace Model\WealthbotRebalancer;
+namespace System\Model\WealthbotRebalancer;
 
 require_once(__DIR__ . '/../../AutoLoader.php');
 \AutoLoader::registerAutoloader();

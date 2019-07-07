@@ -12,9 +12,9 @@ namespace Console;
 require_once(__DIR__ . '/../AutoLoader.php');
 \AutoLoader::registerAutoloader();
 
-use \Database\Database;
-use \Database\Connection;
-use \Lib\Ioc;
+use System\Database\Database;
+use System\Database\Connection;
+use System\Lib\Ioc;
 
 class Normalizer {
 

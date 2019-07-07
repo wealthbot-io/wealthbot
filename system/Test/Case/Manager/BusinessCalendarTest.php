@@ -6,13 +6,13 @@
  * Time: 20:12
  */
 
-namespace Test\Manager;
+namespace System\Test\Manager;
 
 require_once(__DIR__ . '/../../../AutoLoader.php');
 \AutoLoader::registerAutoloader();
 
-use Manager\BusinessCalendar;
-use Test\Suit\ExtendedTestCase;
+use System\Manager\BusinessCalendar;
+use System\Test\Suit\ExtendedTestCase;
 
 class BusinessCalendarTest extends ExtendedTestCase
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Model\Pas;
+namespace System\Model\Pas;
 
 class ClientAccountValue extends Base
 {

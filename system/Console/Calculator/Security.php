@@ -1,5 +1,5 @@
 <?php
-namespace Console\Calculator;
+namespace System\Console\Calculator;
 
 require_once(__DIR__ . '/../../AutoLoader.php');
 \AutoLoader::registerAutoloader();

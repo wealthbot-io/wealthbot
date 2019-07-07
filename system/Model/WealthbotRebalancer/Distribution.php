@@ -1,6 +1,6 @@
 <?php
 
-namespace Model\WealthbotRebalancer;
+namespace System\Model\WealthbotRebalancer;
 
 
 class Distribution extends Base

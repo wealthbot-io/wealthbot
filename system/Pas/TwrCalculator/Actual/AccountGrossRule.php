@@ -1,8 +1,8 @@
 <?php
 
-namespace Pas\TwrCalculator\Actual;
+namespace System\Pas\TwrCalculator\Actual;
 
-use Model\Pas\Repository\AccountTwrValueRepository as AccountTwrValueRepo;
+use System\Model\Pas\Repository\AccountTwrValueRepository as AccountTwrValueRepo;
 
 class AccountGrossRule extends Rule
 {

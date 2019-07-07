@@ -1,13 +1,13 @@
 <?php
 
-namespace Test\Suit;
+namespace System\Test\Suit;
 
 require_once(__DIR__ . '/../../AutoLoader.php');
 \AutoLoader::registerAutoloader();
 
 $loader = require_once __DIR__.'/../../../app/autoload.php';
 
-use Database\WealthbotSqliteConnection;
+use System\Database\WealthbotSqliteConnection;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\Console\Input\ArrayInput;

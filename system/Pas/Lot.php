@@ -1,21 +1,21 @@
 <?php
 
-namespace Pas;
+namespace System\Pas;
 
-use Pas\Lot\Factory;
-use Model\Pas\Lot as LotModel;
-use Model\Pas\Security as SecurityModel;
-use Model\Pas\Position as PositionModel;
-use Model\Pas\SystemClientAccount as SystemClientAccountModel;
+use System\Pas\Lot\Factory;
+use System\Model\Pas\Lot as LotModel;
+use System\Model\Pas\Security as SecurityModel;
+use System\Model\Pas\Position as PositionModel;
+use System\Model\Pas\SystemClientAccount as SystemClientAccountModel;
 
-use Model\Pas\Repository\LotRepository;
-use Model\Pas\Repository\PositionRepository;
-use Model\Pas\Repository\SecurityRepository;
-use Model\Pas\Repository\TransactionRepository;
-use Model\Pas\Repository\SystemClientAccountRepository;
+use System\Model\Pas\Repository\LotRepository;
+use System\Model\Pas\Repository\PositionRepository;
+use System\Model\Pas\Repository\SecurityRepository;
+use System\Model\Pas\Repository\TransactionRepository;
+use System\Model\Pas\Repository\SystemClientAccountRepository;
 
-use Wealthbot\ClientBundle\Entity\Lot as WealthbotLot;
-use Wealthbot\ClientBundle\Entity\Position as WealthbotPosition;
+use App\Entity\Lot as WealthbotLot;
+use App\Entity\Position as WealthbotPosition;
 
 class Lot extends Pas
 {

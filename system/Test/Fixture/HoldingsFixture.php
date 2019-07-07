@@ -1,5 +1,5 @@
 <?php
-namespace Test\Fixture;
+namespace System\Test\Fixture;
 
 class HoldingsFixture {
 

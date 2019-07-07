@@ -1,8 +1,8 @@
 <?php
 
-namespace Pas\TwrCalculator;
+namespace System\Pas\TwrCalculator;
 
-use Pas\TwrCalculator\Actual\IRule;
+use System\Pas\TwrCalculator\Actual\IRule;
 
 class Actual
 {

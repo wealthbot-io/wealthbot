@@ -1,5 +1,5 @@
 <?php
-namespace Model\WealthbotRebalancer\Repository;
+namespace System\Model\WealthbotRebalancer\Repository;
 
 use Model\WealthbotRebalancer\Job;
 use Model\WealthbotRebalancer\Lot;

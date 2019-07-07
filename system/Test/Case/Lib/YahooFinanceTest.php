@@ -2,7 +2,7 @@
 require_once(__DIR__ . '/../../../AutoLoader.php');
 \AutoLoader::registerAutoloader();
 
-use \Lib\YahooFinance;
+use System\Lib\YahooFinance;
 
 class YahooFinanceTest extends PHPUnit_Framework_TestCase {
 

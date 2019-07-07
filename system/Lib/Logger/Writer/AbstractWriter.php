@@ -1,5 +1,5 @@
 <?php
-namespace Lib\Logger\Writer;
+namespace System\Lib\Logger\Writer;
 
 
 abstract class AbstractWriter

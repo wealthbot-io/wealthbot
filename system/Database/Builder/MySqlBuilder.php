@@ -1,6 +1,6 @@
 <?php
 
-namespace Database\Builder;
+namespace System\Database\Builder;
 
 class MySqlBuilder
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Model\Pas\DocumentRepository;
+namespace System\Model\Pas\DocumentRepository;
 
 use Lib\Ioc;
 use Database\Builder\MongoBuilder as MB;

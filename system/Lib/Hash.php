@@ -28,7 +28,7 @@
  * @package       Cake.Utility
  */
 
-namespace Lib;
+namespace System\Lib;
 
 class Hash {
 

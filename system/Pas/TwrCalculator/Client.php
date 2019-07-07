@@ -1,14 +1,14 @@
 <?php
 
-namespace Pas\TwrCalculator;
+namespace System\Pas\TwrCalculator;
 
-use Model\Pas\PortfolioTwrValue as PortfolioTwrValueModel;
-use Model\Pas\PortfolioTwrPeriod as PortfolioTwrPeriodModel;
-use Model\Pas\Repository\PortfolioTwrValueRepository as PortfolioTwrValueRepo;
-use Model\Pas\Repository\PortfolioTwrPeriodRepository as PortfolioTwrPeriodRepo;
-use Pas\TwrCalculator\Actual\PortfolioNetRule as PortfolioActualNetRule;
-use Pas\TwrCalculator\Actual\PortfolioGrossRule as PortfolioActualGrossRule;
-use Lib\Util;
+use System\Model\Pas\PortfolioTwrValue as PortfolioTwrValueModel;
+use System\Model\Pas\PortfolioTwrPeriod as PortfolioTwrPeriodModel;
+use System\Model\Pas\Repository\PortfolioTwrValueRepository as PortfolioTwrValueRepo;
+use System\Model\Pas\Repository\PortfolioTwrPeriodRepository as PortfolioTwrPeriodRepo;
+use System\Pas\TwrCalculator\Actual\PortfolioNetRule as PortfolioActualNetRule;
+use System\Pas\TwrCalculator\Actual\PortfolioGrossRule as PortfolioActualGrossRule;
+use System\Lib\Util;
 
 class Client
 {

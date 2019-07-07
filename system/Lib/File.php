@@ -1,6 +1,6 @@
 <?php
 
-namespace Lib;
+namespace System\Lib;
 
 use FilesystemIterator as fIterator;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Test\Model\Pas;
+namespace System\Test\Model\Pas;
 
 require_once(__DIR__ . '/../../../../AutoLoader.php');
 \AutoLoader::registerAutoloader();

@@ -1,6 +1,6 @@
 <?php
 
-namespace Pas\Lot;
+namespace System\Pas\Lot;
 
 class Factory
 {

@@ -1,8 +1,8 @@
 <?php
 
-namespace Manager;
+namespace System\Manager;
 
-require_once __DIR__ . '/../../src/Wealthbot/AdminBundle/Model/AbstractBusinessCalendar.php';
+require_once __DIR__ . '/../../src/Model/AbstractBusinessCalendar.php';
 
 use Model\WealthbotRebalancer\Holiday;
 use Model\WealthbotRebalancer\Repository\HolidayRepository;

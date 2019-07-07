@@ -1,6 +1,6 @@
 <?php
 
-namespace Test\Util;
+namespace System\Test\Util;
 
 
 class PHPUnitUtil

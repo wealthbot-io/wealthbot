@@ -1,12 +1,12 @@
 <?php
 
-namespace Test\Model\Pas;
+namespace System\Test\Model\Pas;
 
 require_once(__DIR__ . '/../../../../AutoLoader.php');
 \AutoLoader::registerAutoloader();
 
-use Model\Pas\Repository\LotRepository;
-use Wealthbot\ClientBundle\Entity\Lot as WealthbotLot;
+use System\Model\Pas\Repository\LotRepository;
+use App\Entity\Lot as WealthbotLot;
 
 class LotTest extends \PHPUnit_Framework_TestCase
 {

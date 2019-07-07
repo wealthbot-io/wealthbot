@@ -1,5 +1,5 @@
 <?php
-namespace Model\WealthbotRebalancer\Repository;
+namespace System\Model\WealthbotRebalancer\Repository;
 
 use Database\WealthbotMysqlSqliteConnection;
 use Model\WealthbotRebalancer\ArrayCollection;

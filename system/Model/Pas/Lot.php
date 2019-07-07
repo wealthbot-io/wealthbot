@@ -1,8 +1,8 @@
 <?php
 
-namespace Model\Pas;
+namespace System\Model\Pas;
 
-use Wealthbot\ClientBundle\Entity\Lot as WealthbotLot;
+use App\Entity\Lot as WealthbotLot;
 
 class Lot extends Base
 {

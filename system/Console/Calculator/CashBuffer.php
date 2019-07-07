@@ -1,16 +1,13 @@
 <?php
-namespace Console;
-
-require_once(__DIR__ . '/../AutoLoader.php');
-\AutoLoader::registerAutoloader();
-
-use \Database\Database;
-use \Database\Connection;
-
-use \Model\Rebalancer\Account;
+namespace System\Console;
 
 require_once(__DIR__ . '/../../AutoLoader.php');
-\AutoLoader::registerAutoloader();
+System\AutoLoader::registerAutoloader();
+
+use System\Database\Database;
+use System\Database\Connection;
+
+use System\Model\Rebalancer\Account;
 
 class CashBufferCalculator {
 

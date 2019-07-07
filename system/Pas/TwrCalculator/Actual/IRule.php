@@ -1,6 +1,6 @@
 <?php
 
-namespace Pas\TwrCalculator\Actual;
+namespace System\Pas\TwrCalculator\Actual;
 
 interface IRule
 {

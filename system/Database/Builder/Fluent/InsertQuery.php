@@ -1,6 +1,6 @@
 <?php
 
-namespace Database\Builder\Fluent; 
+namespace System\Database\Builder\Fluent;
 
 /** INSERT query builder
  */

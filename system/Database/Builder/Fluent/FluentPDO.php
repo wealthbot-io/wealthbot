@@ -14,14 +14,14 @@ namespace Database\Builder\Fluent;
  * @license http://www.gnu.org/licenses/gpl-2.0.html GNU General Public License, version 2 (one or other)
  */
 
-use Database\Builder\Fluent\FluentStructure;
-use Database\Builder\Fluent\FluentUtils;
-use Database\Builder\Fluent\FluentLiteral;
-use Database\Builder\Fluent\BaseQuery;
-use Database\Builder\Fluent\CommonQuery;
-use Database\Builder\Fluent\SelectQuery;
-use Database\Builder\Fluent\UpdateQuery;
-use Database\Builder\Fluent\DeleteQuery;
+use System\Database\Builder\Fluent\FluentStructure;
+use System\Database\Builder\Fluent\FluentUtils;
+use System\Database\Builder\Fluent\FluentLiteral;
+use System\Database\Builder\Fluent\BaseQuery;
+use System\Database\Builder\Fluent\CommonQuery;
+use System\Database\Builder\Fluent\SelectQuery;
+use System\Database\Builder\Fluent\UpdateQuery;
+use System\Database\Builder\Fluent\DeleteQuery;
  
 class FluentPDO {
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Database;
+namespace System\Database;
 
 /**
 * borrowed from: http://blog.vjeux.com/2009/php/mysqli-wrapper-short-and-secure-queries.html

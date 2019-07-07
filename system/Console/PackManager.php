@@ -6,11 +6,11 @@ require_once(__DIR__ . '/../Config.php');
 require_once(__DIR__ . '/../AutoLoader.php');
 \AutoLoader::registerAutoloader();
 
-use Lib\File;
-use Lib\ArrayCollection;
-use Model\Pas\Repository\CustodianRepository;
-use Model\Pas\Repository\AdvisorCodeRepository;
-use Console\Packer\Archive;
+use System\Lib\File;
+use System\Lib\ArrayCollection;
+use System\Model\Pas\Repository\CustodianRepository;
+use System\Model\Pas\Repository\AdvisorCodeRepository;
+use System\Console\Packer\Archive;
 
 class PackManager extends Console
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Bug;
+namespace System\Bug;
 
 class Model 
 {

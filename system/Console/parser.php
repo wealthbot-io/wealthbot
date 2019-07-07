@@ -18,11 +18,11 @@ if (!defined('DS')) {
 require_once(__DIR__ . '/../AutoLoader.php');
 \AutoLoader::registerAutoloader();
 
-use \Database\Connection;
-use \Lib\Ioc;
-use Model\Pas\Repository\CustodianRepository as CustodianRepo;
-use Model\Pas\Repository\AdvisorCodeRepository as AdvisorCodeRepo;
-use Model\Pas\DocumentRepository\BaseRepository;
+use System\Database\Connection;
+use System\Lib\Ioc;
+use System\Model\Pas\Repository\CustodianRepository as CustodianRepo;
+use System\Model\Pas\Repository\AdvisorCodeRepository as AdvisorCodeRepo;
+use System\Model\Pas\DocumentRepository\BaseRepository;
 
 class Parser extends Console
 {

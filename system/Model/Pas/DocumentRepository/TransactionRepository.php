@@ -1,6 +1,6 @@
 <?php
 
-namespace Model\Pas\DocumentRepository;
+namespace System\Model\Pas\DocumentRepository;
 
 class TransactionRepository extends BaseRepository
 {

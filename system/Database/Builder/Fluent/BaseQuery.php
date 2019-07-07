@@ -1,6 +1,6 @@
 <?php
 
-namespace Database\Builder\Fluent;
+namespace System\Database\Builder\Fluent;
 
 use Database\Builder\Fluent\FluentLiteral;
 use Database\Builder\Fluent\FluentUtils;

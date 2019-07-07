@@ -1,14 +1,14 @@
 <?php
 
-namespace Pas;
+namespace System\Pas;
 
-use Model\Pas\SystemClientAccount as SystemClientAccountModel;
-use Model\Pas\Repository\LotRepository as LotRepo;
-use Model\Pas\Repository\SecurityRepository as SecurityRepo;
-use Model\Pas\Repository\SystemClientAccountRepository as SystemClientAccountRepo;
-use Model\Pas\DocumentRepository\BaseRepository as DocumentBaseRepo;
-use Model\Pas\DocumentRepository\UnrealizedRepository as DocumentUnrealizedRepo;
-use Wealthbot\ClientBundle\Entity\Lot as WealthbotLot;
+use System\Model\Pas\SystemClientAccount as SystemClientAccountModel;
+use System\Model\Pas\Repository\LotRepository as LotRepo;
+use System\Model\Pas\Repository\SecurityRepository as SecurityRepo;
+use System\Model\Pas\Repository\SystemClientAccountRepository as SystemClientAccountRepo;
+use System\Model\Pas\DocumentRepository\BaseRepository as DocumentBaseRepo;
+use System\Model\Pas\DocumentRepository\UnrealizedRepository as DocumentUnrealizedRepo;
+use App\Entity\Lot as WealthbotLot;
 
 class Unrealized
 {

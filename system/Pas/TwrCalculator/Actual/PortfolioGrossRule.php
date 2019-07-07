@@ -2,7 +2,7 @@
 
 namespace Pas\TwrCalculator\Actual;
 
-use Model\Pas\Repository\PortfolioTwrValueRepository as PortfolioTwrValueRepo;
+use System\Model\Pas\Repository\PortfolioTwrValueRepository as PortfolioTwrValueRepo;
 
 class PortfolioGrossRule extends Rule
 {

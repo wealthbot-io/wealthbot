@@ -1,5 +1,5 @@
 <?php
-namespace Lib;
+namespace System\Lib;
 
 class YahooFinance {
 

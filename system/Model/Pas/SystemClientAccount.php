@@ -2,7 +2,7 @@
 
 namespace Model\Pas;
 
-use Wealthbot\ClientBundle\Model\SystemAccount as WealthbotSystemAccount;
+use App\Model\SystemAccount as WealthbotSystemAccount;
 
 class SystemClientAccount extends Base
 {

@@ -2,7 +2,7 @@
 
 namespace Pas\TwrCalculator\Actual;
 
-use Pas\TwrCalculator\Functions;
+use System\Pas\TwrCalculator\Functions;
 
 class Rule implements IRule
 {

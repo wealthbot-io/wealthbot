@@ -1,9 +1,9 @@
 <?php
 
-namespace Lib\Logger;
+namespace System\Lib\Logger;
 
 
-use Lib\Logger\Writer\AbstractWriter;
+use System\Lib\Logger\Writer\AbstractWriter;
 
 class Logger
 {

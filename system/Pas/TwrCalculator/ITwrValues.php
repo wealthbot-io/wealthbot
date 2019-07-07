@@ -1,6 +1,6 @@
 <?php
 
-namespace Model\Pas\TwrCalculator;
+namespace System\Model\Pas\TwrCalculator;
 
 
 interface ITwrValues

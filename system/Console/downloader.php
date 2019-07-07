@@ -7,7 +7,7 @@
 /**
 * Responsible for downloading custodian files
 */
-namespace Console;
+namespace System\Console;
 
 if (!defined('DS')) {
 	define('DS', DIRECTORY_SEPARATOR);

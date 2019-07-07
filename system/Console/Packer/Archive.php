@@ -6,7 +6,7 @@ require_once(__DIR__ . '/../../Config.php');
 require_once(__DIR__ . '/../../AutoLoader.php');
 \AutoLoader::registerAutoloader();
 
-use Lib\File;
+use System\Lib\File;
 
 class Archive
 {

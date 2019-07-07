@@ -11,9 +11,9 @@ namespace Console;
     require_once(__DIR__ . '/../../AutoLoader.php');
 \AutoLoader::registerAutoloader();
 
-use \Database\Database;
-use \Database\Connection;
-use \Model\Pas\Base;
+use System\Database\Database;
+use System\Database\Connection;
+use System\Model\Pas\Base;
 
 
 class Accounts extends Base {

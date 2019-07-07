@@ -1,5 +1,5 @@
 <?php
-namespace Database;
+namespace System\Database;
 
 require_once(__DIR__ . '/../AutoLoader.php');
 \AutoLoader::registerAutoloader();

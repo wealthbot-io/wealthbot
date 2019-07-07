@@ -1,8 +1,8 @@
 <?php
 
-namespace Model\Pas;
+namespace System\Model\Pas;
 
-use Wealthbot\ClientBundle\Entity\BillItem as WealthbotBillItem;
+use App\Entity\BillItem as WealthbotBillItem;
 
 class BillItem extends Base
 {

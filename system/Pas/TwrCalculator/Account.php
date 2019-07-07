@@ -2,16 +2,16 @@
 
 namespace Pas\TwrCalculator;
 
-use Model\Pas\Repository\TransactionRepository as TransactionRepo;
-use Model\Pas\Repository\ClientAccountValueRepository as ClientAccountValueRepo;
-use Model\Pas\Repository\AccountTwrValueRepository as AccountTwrValueRepo;
-use Model\Pas\Repository\AccountTwrPeriodRepository as AccountTwrPeriodRepo;
-use Model\Pas\AccountTwrValue as AccountTwrValueModel;
-use Model\Pas\AccountTwrPeriod as AccountTwrPeriodModel;
-use Model\Pas\SystemClientAccount as SystemClientAccountModel;
-use Pas\TwrCalculator\Actual\AccountNetRule as AccountActualNetRule;
-use Pas\TwrCalculator\Actual\AccountGrossRule as AccountActualGrossRule;
-use Lib\Util;
+use System\Model\Pas\Repository\TransactionRepository as TransactionRepo;
+use System\Model\Pas\Repository\ClientAccountValueRepository as ClientAccountValueRepo;
+use System\Model\Pas\Repository\AccountTwrValueRepository as AccountTwrValueRepo;
+use System\Model\Pas\Repository\AccountTwrPeriodRepository as AccountTwrPeriodRepo;
+use System\Model\Pas\AccountTwrValue as AccountTwrValueModel;
+use System\Model\Pas\AccountTwrPeriod as AccountTwrPeriodModel;
+use System\Model\Pas\SystemClientAccount as SystemClientAccountModel;
+use System\Pas\TwrCalculator\Actual\AccountNetRule as AccountActualNetRule;
+use System\Pas\TwrCalculator\Actual\AccountGrossRule as AccountActualGrossRule;
+use System\Lib\Util;
 
 class Account
 {

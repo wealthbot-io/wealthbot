@@ -1,12 +1,12 @@
 <?php
 
-namespace Pas;
+namespace System\Pas;
 
-use Model\Pas\Security as SecurityModel;
-use Model\Pas\Repository\SecurityRepository as SecurityRepo;
-use Model\Pas\Repository\SecurityTypeRepository as SecurityTypeRepo;
-use Model\Pas\DocumentRepository\BaseRepository as DocumentBaseRepo;
-use Model\Pas\DocumentRepository\SecurityRepository as DocumentSecurityRepo;
+use System\Model\Pas\Security as SecurityModel;
+use System\Model\Pas\Repository\SecurityRepository as SecurityRepo;
+use System\Model\Pas\Repository\SecurityTypeRepository as SecurityTypeRepo;
+use System\Model\Pas\DocumentRepository\BaseRepository as DocumentBaseRepo;
+use System\Model\Pas\DocumentRepository\SecurityRepository as DocumentSecurityRepo;
 
 class Security
 {

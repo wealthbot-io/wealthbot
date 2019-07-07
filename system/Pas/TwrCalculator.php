@@ -1,9 +1,9 @@
 <?php
 
-namespace Pas;
+namespace System\Pas;
 
-use Pas\TwrCalculator\Account;
-use Model\Pas\Repository\SystemClientAccountRepository as SystemClientAccountRepo;
+use System\Pas\TwrCalculator\Account;
+use System\Model\Pas\Repository\SystemClientAccountRepository as SystemClientAccountRepo;
 
 class TwrCalculator
 {

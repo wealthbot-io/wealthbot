@@ -37,7 +37,7 @@ class AutoLoader
         if (file_exists($fileName)) {
 	        require $fileName;
 	    } else {
-            return require_once __DIR__.'/../app/autoload.php';
+            return require_once __DIR__.'/vendor/autoload.php';
         }
 	}
 

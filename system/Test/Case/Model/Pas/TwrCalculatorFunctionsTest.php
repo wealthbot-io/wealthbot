@@ -1,8 +1,8 @@
 <?php
 
-namespace Test\Model\Pas;
+namespace System\Test\Model\Pas;
 
-use Pas\TwrCalculator\Functions as TwrFunctions;
+use System\Pas\TwrCalculator\Functions as TwrFunctions;
 
 require_once(__DIR__ . '/../../../../AutoLoader.php');
 \AutoLoader::registerAutoloader();

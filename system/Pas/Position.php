@@ -1,17 +1,17 @@
 <?php
 
-namespace Pas;
+namespace System\Pas;
 
-use Model\Pas\Security as SecurityModel;
-use Model\Pas\ClientAccountValue as ClientAccountValueModel;
-use Model\Pas\ClientPortfolioValue as ClientPortfolioValueModel;
-use Model\Pas\SystemClientAccount as SystemClientAccountModel;
-use Model\Pas\Repository\ClientPortfolioRepository as ClientPortfolioRepo;
-use Model\Pas\Repository\SystemClientAccountRepository as SystemClientAccountRepo;
-use Model\Pas\Repository\ClientAccountValueRepository as ClientAccountValueRepo;
-use Model\Pas\Repository\ClientPortfolioValueRepository as ClientPortfolioValueRepo;
-use Model\Pas\DocumentRepository\BaseRepository as DocumentBaseRepo;
-use Model\Pas\DocumentRepository\PositionRepository as DocumentPositionRepo;
+use System\Model\Pas\Security as SecurityModel;
+use System\Model\Pas\ClientAccountValue as ClientAccountValueModel;
+use System\Model\Pas\ClientPortfolioValue as ClientPortfolioValueModel;
+use System\Model\Pas\SystemClientAccount as SystemClientAccountModel;
+use System\Model\Pas\Repository\ClientPortfolioRepository as ClientPortfolioRepo;
+use System\Model\Pas\Repository\SystemClientAccountRepository as SystemClientAccountRepo;
+use System\Model\Pas\Repository\ClientAccountValueRepository as ClientAccountValueRepo;
+use System\Model\Pas\Repository\ClientPortfolioValueRepository as ClientPortfolioValueRepo;
+use System\Model\Pas\DocumentRepository\BaseRepository as DocumentBaseRepo;
+use System\Model\Pas\DocumentRepository\PositionRepository as DocumentPositionRepo;
 
 class Position
 {

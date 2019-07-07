@@ -1,19 +1,19 @@
 <?php
 
-namespace Pas;
+namespace System\Pas;
 
-use Model\Pas\Transaction as TransactionModel;
-use Model\Pas\SystemClientAccount as SystemClientAccountModel;
+use System\Model\Pas\Transaction as TransactionModel;
+use System\Model\Pas\SystemClientAccount as SystemClientAccountModel;
 
-use Model\Pas\Repository\SecurityRepository;
-use Model\Pas\Repository\TransactionRepository;
-use Model\Pas\Repository\ClosingMethodRepository;
-use Model\Pas\Repository\TransactionTypeRepository;
-use Model\Pas\Repository\SystemClientAccountRepository;
-use Model\Pas\Repository\BillItemRepository;
+use System\Model\Pas\Repository\SecurityRepository;
+use System\Model\Pas\Repository\TransactionRepository;
+use System\Model\Pas\Repository\ClosingMethodRepository;
+use System\Model\Pas\Repository\TransactionTypeRepository;
+use System\Model\Pas\Repository\SystemClientAccountRepository;
+use System\Model\Pas\Repository\BillItemRepository;
 
-use Model\Pas\DocumentRepository\BaseRepository as DocumentBaseRepo;
-use Model\Pas\DocumentRepository\TransactionRepository as DocumentTransactionRepo;
+use System\Model\Pas\DocumentRepository\BaseRepository as DocumentBaseRepo;
+use System\Model\Pas\DocumentRepository\TransactionRepository as DocumentTransactionRepo;
 
 class Transaction extends Pas
 {

@@ -56,7 +56,7 @@ security:
                 provider: fos_userbundle
                 login_path:     /login
                 use_forward:    false
-                check_path:     /login_check
+                check_path:     /check
                 failure_path:   null
                 default_target_path: /after-login
             logout:

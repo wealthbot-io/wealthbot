@@ -54,6 +54,10 @@ security:
             pattern: ^/
             form_login:
                 provider: fos_userbundle
+                login_path:     /login
+                use_forward:    false
+                check_path:     /login_check
+                failure_path:   null
                 default_target_path: /after-login
             logout:
                 path: /logout

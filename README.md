@@ -71,6 +71,10 @@ https://gitter.im/wealthbot-io
 * `bin/console server:run`
 
 
+** Cron jobs
+
+* `30 2 * * * /usr/bin/php bin/console rx:mailer:send-cron-emails`
+
 Once complete, simply go to http://127.0.0.1:8000 in your browser to see the wealthbot.io demo landing page.
 
 # Contributing

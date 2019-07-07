@@ -15,13 +15,13 @@ done
 php Console/PackManager.php $DATE &&
 
 # Load data to mongo
-php Console/parser.php TRN $DATE &&      # Transaction
-php Console/parser.php SEC $DATE &&      # Security
-php Console/parser.php PRI $DATE &&      # Price
-php Console/parser.php POS $DATE &&      # Position
-php Console/parser.php TXT $DATE &&      # Realized
-php Console/parser.php CBL $DATE &&      # Unrealized
-php Console/parser.php CBP $DATE &&      # Unrealized
+#php Console/parser.php TRN $DATE &&      # Transaction
+#php Console/parser.php SEC $DATE &&      # Security
+#php Console/parser.php PRI $DATE &&      # Price
+#php Console/parser.php POS $DATE &&      # Position
+#php Console/parser.php TXT $DATE &&      # Realized
+#php Console/parser.php CBL $DATE &&      # Unrealized
+#php Console/parser.php CBP $DATE &&      # Unrealized
 
 # Load data from mongo to mysql
 php Console/normalizer.php SEC $DATE &&  # Security

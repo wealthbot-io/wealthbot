@@ -13,17 +13,17 @@
 {% block main_content %}
     <h1>Change Profile</h1>
 
-    <ul class="nav nav-tabs" id="myTab">
-        <li class="{{ active_tab == 'profile' ? 'active' : '' }}">
-            <a data-toggle="tab" href="#profile">My Profile</a>
+    <nav class="nav" id="myTab">
+        <li class="{{ active_tab == 'profile' ? 'active nav-item' : 'nav-item' }}">
+            <a class="nav-link" data-toggle="tab" href="#profile">My Profile</a>
         </li>
-        <li class="{{ active_tab == 'change_password' ? 'active' : '' }}">
-            <a data-toggle="tab" href="#update_password">Update password</a>
+        <li class="{{ active_tab == 'change_password' ? 'active nav-item' : 'nav-item' }}">
+            <a class="nav-link" data-toggle="tab" href="#update_password">Update password</a>
         </li>
-        <li class="{{ active_tab == 'alerts' ? 'active' : '' }}">
-            <a data-toggle="tab" href="#alerts">Alerts</a>
+        <li class="{{ active_tab == 'alerts' ? 'active nav-item' : 'nav-item' }}">
+            <a class="nav-link" data-toggle="tab" href="#alerts">Alerts</a>
         </li>
-    </ul>
+    </nav>
 
     <div class="tab-content change-profile">
         <div class="tab-pane {{ active_tab == 'profile' ? 'active' : '' }}" id="profile">

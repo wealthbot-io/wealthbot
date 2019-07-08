@@ -9,10 +9,10 @@
     <div id="admin_rebalancing_page_content">
         {% block content %}
         <div class="tabbable"> <!-- Only required for left/right tabs -->
-            <ul class="nav nav-tabs">
-                <li class="active"><a href="#rebalancer_tab" data-toggle="tab">Rebalancer</a></li>
-                <li><a href="#history_tab" data-toggle="tab">History</a></li>
-            </ul>
+            <nav class="nav">
+                <li class="active nav-item"><a class="nav-link" href="#rebalancer_tab" data-toggle="tab">Rebalancer</a></li>
+                <li class="nav-item"><a class="nav-link" href="#history_tab" data-toggle="tab">History</a></li>
+            </nav>
             <div class="tab-content">
                 <div class="tab-pane active" id="rebalancer_tab">
                     <form action="{{ path('rx_admin_rebalancer_start') }}" method="post" id="rebalance_form">

@@ -3,11 +3,11 @@
 {% block body %}
     <h3>CLIENT SPECIFIC DASHBOARD</h3>
     <div class="tabbable">
-        <ul class="nav nav-tabs">
-            <li class="active"><a href="#tab1" data-toggle="tab">Client Profile</a></li>
-            <li><a href="#tab2" data-toggle="tab">Transactions</a></li>
-            <li><a href="#tab3" data-toggle="tab">History</a></li>
-        </ul>
+        <nav class="nav">
+            <li class="active nav-item"><a class="nav-link" href="#tab1" data-toggle="tab">Client Profile</a></li>
+            <li class="nav-item"><a class="nav-link" href="#tab2" data-toggle="tab">Transactions</a></li>
+            <li class="nav-item"><a class="nav-link" href="#tab3" data-toggle="tab">History</a></li>
+        </nav>
         <div class="tab-content">
             <div class="tab-pane active" id="tab1">
                 {% include '/Admin/Client/_client_profile.html.twig' with { 'client': client } %}

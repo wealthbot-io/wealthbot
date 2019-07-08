@@ -17,13 +17,13 @@
 
     {% if tabs|length > 0 %}
         <div class="tabbable">
-            <ul class="nav nav-tabs">
+            <nav class="nav">
                 {% for tab in tabs %}
-                    <li {{ loop.index == 1 ? 'class="active"' : '' }}>
-                        <a href="#custodian{{ loop.index }}" data-toggle="tab">{{ tab.custodian.name }}</a>
+                    <li {{ loop.index == 1 ? 'class="active nav-item"' : 'nav-item' }}>
+                        <a class="nav-link" href="#custodian{{ loop.index }}" data-toggle="tab">{{ tab.custodian.name }}</a>
                     </li>
                 {% endfor %}
-            </ul>
+            </nav>
             <div class="tab-content">
                 {% for key, tab in tabs %}
                     <div class="tab-pane {{ loop.index == 1 ? 'active' : '' }}" id="custodian{{ key }}">

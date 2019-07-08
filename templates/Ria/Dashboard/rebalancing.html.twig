@@ -11,11 +11,11 @@
     <div id="ria_rebalancing_page_content">
         {% block content %}
             <div class="tabbable"> <!-- Only required for left/right tabs -->
-                <ul class="nav nav-tabs">
-                    <li {{ active_tab == 'rebalancer' ? 'class="active"' : '' }}><a href="#rebalancer_tab" data-toggle="tab">Rebalancer</a></li>
-                    <li {{ active_tab == 'history' ? 'class="active"' : '' }}><a href="#history_tab" data-toggle="tab">History</a></li>
-                    <li {{ active_tab == 'trade_recon' ? 'class="active"' : '' }}><a href="#trade_recon_tab" data-toggle="tab">Trade Recon</a></li>
-                </ul>
+                <nav class="nav">
+                    <li {{ active_tab == 'rebalancer' ? 'class="active nav-item"' : 'nav-item' }}><a class="nav-link" href="#rebalancer_tab" data-toggle="tab">Rebalancer</a></li>
+                    <li {{ active_tab == 'history' ? 'class="active nav-item"' : 'nav-item' }}><a class="nav-link" href="#history_tab" data-toggle="tab">History</a></li>
+                    <li {{ active_tab == 'trade_recon' ? 'class="active nav-item"' : 'nav-item' }}><a class="nav-link" href="#trade_recon_tab" data-toggle="tab">Trade Recon</a></li>
+                </nav>
                 <div class="tab-content">
                     <div class="tab-pane {{ active_tab == 'rebalancer' ? 'active' : '' }}" id="rebalancer_tab">
                         {{ render(controller('App\\Controller\\Ria\\RebalancerController:index')) }}

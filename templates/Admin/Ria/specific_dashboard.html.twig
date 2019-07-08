@@ -12,16 +12,16 @@
 {% block body %}
     <h3>RIA SPECIFIC DASHBOARD</h3>
     <div class="tabbable">
-        <ul class="nav nav-tabs">
-            <li class="active"><a href="#tab1" data-toggle="tab">Basic Info</a></li>
-            <li><a href="#tab2" data-toggle="tab">Clients</a></li>
+        <nav class="nav">
+            <li class="active nav-item"><a class="nav-link" href="#tab1" data-toggle="tab">Basic Info</a></li>
+            <li class="nav-item"><a class="nav-link" href="#tab2" data-toggle="tab">Clients</a></li>
 
             {% if is_permitted('edit') %}
-                <li><a href="#tab3" data-toggle="tab">Settings</a></li>
+                <li class="nav-item"><a class="nav-link" href="#tab3" data-toggle="tab">Settings</a></li>
             {% endif %}
 
-            <li><a href="#tab4" data-toggle="tab">History</a></li>
-        </ul>
+            <li class="nav-item"><a class="nav-link" href="#tab4" data-toggle="tab">History</a></li>
+        </nav>
         <div class="tab-content">
             <div class="tab-pane active" id="tab1">
                 {% include '/Admin/Ria/_basic_info.html.twig' with { 'basicInfo': basicInfo } %}

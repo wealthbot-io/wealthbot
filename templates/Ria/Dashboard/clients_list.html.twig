@@ -47,17 +47,11 @@
     <h3>Clients</h3>
 
     <div class="tabbable">
-        <ul class="nav nav-tabs">
-            <li {{ activeTab == 'clients' ? 'class="active"' : '' }}><a href="#tab_clients"
-                                                                        data-toggle="tab">Clients</a></li>
-            <li {{ activeTab == 'prospects' ? 'class="active"' : '' }}><a href="#tab_prospects" data-toggle="tab">Prospects</a>
-            </li>
-            <li {{ activeTab == 'invite-a-prospect' ? 'class="active"' : '' }}><a href="#tab_invite_prospect"
-                                                                                  data-toggle="tab">Invite a
-                    Prospect</a></li>
-
+        <ul class="nav">
+            <li {{ activeTab == 'clients' ? 'class="active nav-item"' : 'nav-item' }}><a class="nav-link" href="#tab_clients" data-toggle="tab">Clients</a></li>
+            <li {{ activeTab == 'prospects' ? 'class="active nav-item"' : 'nav-item' }}><a  class="nav-link" href="#tab_prospects" data-toggle="tab">Prospects</a></li>
+            <li {{ activeTab == 'invite-a-prospect' ? 'class="active nav-item"' : 'nav-item' }}><a  class="nav-link" href="#tab_invite_prospect" data-toggle="tab">Invite a Prospect</a></li>
             {#code_v2: NOT DELETE THIS CODE #}
-
             {#<li><a href="#tab4" data-toggle="tab" class="create-client-lnk"#}
             {#data-is-can-create-url="{{ path('rx_ria_dashboard_is_can_create_client') }}"#}
             {#data-url="{{ path('rx_ria_client_create') }}">Create Prospect</a>#}

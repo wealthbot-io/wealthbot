@@ -7,13 +7,16 @@
     {% include '/Ria/menu_nav.html.twig' %}
 <!-- end: RIA nav/menu -->
 {% endblock %}
+
+
+
     <div class="tabbable"> <!-- Only required for left/right tabs -->
-        <ul class="nav nav-tabs">
-            <li {{ active_tab == 'categories' ? 'class="active"' : '' }}><a href="#categories_tab" data-toggle="tab">Categories</a></li>
-            <li {{ active_tab == 'securities' ? 'class="active"' : '' }}><a href="#securities_tab" data-toggle="tab">Securities</a></li>
-            <li {{ active_tab == 'models' ? 'class="active"' : '' }}><a href="#models_tab" data-toggle="tab">Models</a></li>
+        <ul class="nav">
+            <li class="nav-item"><a class="nav-link" href="#categories_tab" data-toggle="tab">Categories</a></li>
+            <li class="nav-item"><a class="nav-link" href="#securities_tab" data-toggle="tab">Securities</a></li>
+            <li class="nav-item active"><a class="nav-link" href="#models_tab" data-toggle="tab">Models</a></li>
             {% if is_show_rebalancer_history %}
-                <li>{{ active_tab == 'rebalancer_history' ? 'class="active"' : '' }}<a href="#history_tab" data-toggle="tab">Rebalancer History</a></li>
+                <li class="nav-item">{{ active_tab == 'rebalancer_history' ? 'class="active"' : '' }}<a class="nav-link" href="#history_tab" data-toggle="tab">Rebalancer History</a></li>
             {% endif %}
         </ul>
         <div class="tab-content">

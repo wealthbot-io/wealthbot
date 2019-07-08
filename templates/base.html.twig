@@ -32,7 +32,6 @@
 {% block html_body %}
     <body id="mainApp">
     {% block headernav %}
-        {% if app.request.get('_route') == 'rx_user_homepage' %}
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <a class="navbar-brand" href="{{path('rx_admin_homepage')}}">wealthbot.io</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -53,7 +52,6 @@
                 </ul>
             </div>
         </nav>
-        {% endif %}
     {% endblock %}
 
     {% block main_container %}
@@ -86,6 +84,7 @@
         <script type="text/javascript" src="{{ asset('js/jquery/jquery.autoNumeric.js') }}"></script>
         <script type="text/javascript" src="{{ asset('js/jquery/jquery.placeholder.min.js') }}"></script>
         <script type="text/javascript" src="{{ asset('js/bootstrap.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
         <script type="text/javascript" src="{{ asset('js/typeahead.js') }}"></script>
         <script type="text/javascript" src="{{ asset('js/custom.js') }}"></script>
         <script src="{{ asset('js/backbone.marionette/underscore.js') }}"></script>

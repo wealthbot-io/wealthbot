@@ -2,10 +2,16 @@
 
 {% block main_content %}
     <h1>Workflow</h1>
-    <ul class="nav nav-tabs">
-        <li {{ tab == 'active' ? 'class="active"' : '' }}><a data-toggle="tab" href="#tab_active" >Active Workflow</a></li>
-        <li {{ tab == 'archived' ? 'class="active"' : '' }}><a data-toggle="tab" href="#tab_archived" >Archived Workflow</a></li>
-        <li {{ tab == 'activity' ? 'class="active"' : '' }}><a data-toggle="tab" href="#tab_activity" >Activity Summary</a></li>
+    <ul class="nav">
+        <li {{ tab == 'active' ? 'class="active nav-item"' : 'nav-item' }}>
+            <a class="nav-link" data-toggle="tab" href="#tab_active" >Active Workflow</a>
+        </li>
+        <li {{ tab == 'archived' ? 'class="active nav-item"' : 'nav-item' }}>
+            <a class="nav-link" data-toggle="tab" href="#tab_archived" >Archived Workflow</a>
+        </li>
+        <li {{ tab == 'activity' ? 'class="active nav-item"' : 'nav-item' }}>
+            <a class="nav-link" data-toggle="tab" href="#tab_activity" >Activity Summary</a>
+        </li>
     </ul>
 
     <div class="tab-content">

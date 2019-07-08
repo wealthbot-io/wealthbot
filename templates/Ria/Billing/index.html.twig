@@ -7,9 +7,9 @@
 <div class="billing">
     <h1>Billing</h1>
 
-    <ul class="nav nav-tabs">
-        <li class="{{ active_tab == 'summary' ? 'active' : '' }}"><a href="#summary" data-toggle="tab">Billing Summary</a></li>
-        <li class="{{ active_tab == 'specs' ? 'active' : '' }}"><a href="#specs" data-toggle="tab">Billing Specs</a></li>
+    <ul class="nav">
+        <li class="{{ active_tab == 'summary' ? 'active nav-item' : ' nav-item' }}"><a class="nav-link" href="#summary" data-toggle="tab">Billing Summary</a></li>
+        <li class="{{ active_tab == 'specs' ? 'active nav-item' : ' nav-item' }}"><a class="nav-link" href="#specs" data-toggle="tab">Billing Specs</a></li>
         {#<li><a href="#old" data-toggle="tab">Old</a></li>#}
     </ul>
 

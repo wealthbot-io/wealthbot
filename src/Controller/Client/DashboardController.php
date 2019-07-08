@@ -393,9 +393,13 @@ class DashboardController extends Controller
         $period = $periodManager->getPeriod($year, $quarter);
 
         $billingSpec = $client->getAppointedBillingSpec();
-        $isBillingSpecTier = (BillingSpec::TYPE_TIER === $billingSpec->getType());
+        $isBillingSpecTier = ($billingSpec && BillingSpec::TYPE_TIER === $billingSpec->getType());
 
-        $fees = $client->getAppointedBillingSpec()->getFees();
+        $fees = [];
+
+        if($fees) {
+            $fees = $client->getAppointedBillingSpec()->getFees();
+        };
         $accounts = $em->getRepository('App\Entity\ClientAccount')->findByClient($client);
 
         $billTotal = $averageTotal = $value = 0;

@@ -2,14 +2,8 @@
 
 <div class="row">
     <div class="col-12">
-        <div class="navbar navbar-default ria-nav">
-            <div class="navbar-inner">
-                <div class="container-fluid">
-                    <!-- Everything you want hidden at 940px or less, place within here -->
-                    {% set route = app.request.attributes.get('_route') %}
-                    {{ render(controller('App\\Controller\\Ria\\DashboardController:menu', { 'route': route } )) }}
-                </div>
-            </div>
-        </div>
+        <!-- Everything you want hidden at 940px or less, place within here -->
+        {% set route = app.request.attributes.get('_route') %}
+        {{ render(controller('App\\Controller\\Ria\\DashboardController:menu', { 'route': route } )) }}
     </div>
 </div>

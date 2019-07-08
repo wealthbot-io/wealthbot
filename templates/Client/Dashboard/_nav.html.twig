@@ -1,6 +1,6 @@
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="{{path('rx_admin_homepage')}}">
+    <a class="navbar-brand" href="{{path('rx_client_dashboard')}}">
         <img class="img-rounded" width="150px" src="{{ layout_variables.ria_logo }}"/>
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -8,9 +8,6 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-            <li {% if action == 'Overview' %}class="active nav-item"{%else %}class="nav-item"{% endif %}>
-                <a class="nav-link" href="{{ path('rx_client_dashboard', is_client_view == 0 ? {'is_client_view': is_client_view} : {}) }}"><i class="icon-home icon"></i><span class="hidden-tablet"> Overview</span></a>
-            </li>
             <li {% if action == 'Holdings' %}class="active nav-item"{%else %}class="nav-item"{% endif %}>
                 <a class="nav-link" href="{{ path('wealthbot_client_holdings', is_client_view == 0 ? {'is_client_view': is_client_view} : {}) }}"><i class="icon-briefcase icon"></i><span class="hidden-tablet"> Holdings</span></a>
             </li>

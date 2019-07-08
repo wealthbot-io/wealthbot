@@ -85,8 +85,8 @@ class ClientChangeProfileTransferPersonalFormType extends AccountOwnerPersonalIn
                 ])
             ->add('citizenship', ChoiceType::class, [
                 'choices' => [
-                    1 => 'Yes',
-                    0 => 'No',
+                    'Yes' => 1,
+                    'No' => 0,
                 ],
                 'expanded' => true,
                 'multiple' => false,
@@ -139,8 +139,8 @@ class ClientChangeProfileTransferPersonalFormType extends AccountOwnerPersonalIn
                         null,
                         [
                         'choices' => [
-                            1 => 'Yes',
-                            0 => 'No',
+                            'Yes' => 1,
+                            'No' => 0,
                         ],
                         'expanded' => true,
                         'multiple' => false,

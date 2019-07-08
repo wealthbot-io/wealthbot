@@ -47,8 +47,21 @@ class RiaCompanyProfileFormType extends AbstractType
 
         //Company information
         $builder
-            ->add('name', TextType::class, ['data' => $name, 'required' => false])
-            ->add('slug', TextType::class, ['required' => true])
+            ->add('name', TextType::class, [
+                'data' => $name,
+                'required' => false,
+                'label' => 'Company Name:'
+            ])
+            ->add('slug', TextType::class, ['required' => true,
+                'label' => 'Your Custom URL',
+                'attr' => [
+                        'placeholder' => 'custom-url.wealthbot.io'
+                ],
+                'help_html'=> true,
+                'help' => '<span class="help-block ria-intake-help">(No spaces or symbols allowed)</span>'
+
+
+            ])
             ->add('primary_first_name', TextType::class, ['data' => $primaryFirstName, 'required' => false])
             ->add('primary_last_name', TextType::class, ['data' => $primaryLastName, 'required' => false])
             ->add('website', UrlType::class, ['required' => false])
@@ -61,7 +74,9 @@ class RiaCompanyProfileFormType extends AbstractType
                 'placeholder' => 'Select a State',
                 'required' => false,
             ])
-            ->add('zipcode', TextType::class, ['required' => false])
+            ->add('zipcode', TextType::class, ['required' => false, 'attr'=>[
+                'placeholder' => '00000'
+            ]])
             ->add('phone_number', TextType::class, ['required' => false])
             ->add('fax_number', TextType::class, ['required' => false])
             ->add('contact_email', EmailType::class, ['data' => $contactEmail, 'required' => false])
@@ -184,7 +199,8 @@ class RiaCompanyProfileFormType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => 'App\Entity\RiaCompanyInformation',
-            'isPreSave' => null
+            'isPreSave' => null,
+            'error_bubbling' => true
         ]);
     }
 

@@ -4,10 +4,10 @@
 
     <h1>User Management</h1>
 
-    <ul class="nav nav-tabs" id="myTab">
-        <li class="active"><a data-toggle="tab" href="#user_management">User Management</a></li>
-        <li><a data-toggle="tab" href="#user_password_management">Group Management</a></li>
-    </ul>
+    <nav class="nav" id="myTab">
+        <li class="active nav-item"><a class="nav-link" data-toggle="tab" href="#user_management">User Management</a></li>
+        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#user_password_management">Group Management</a></li>
+    </nav>
 
     <div class="tab-content user-management">
         <div class="tab-pane active" id="user_management">
@@ -22,13 +22,12 @@
 {% block javascripts %}
     {{ parent() }}
     <script src="{{ asset('js/ria/ria.change_profile.js') }}"></script>
-    <script src="/js/jquery.ui.widget.js"></script>
-    <script src="/js/jquery-picklist.js"></script>
+    <script src="{{ asset('js/jquery/jquery.ui.widget.js') }}"></script>
+    <script src="{{ asset('js/jquery/jquery-picklist.js') }}"></script>
 {% endblock %}
 
 {% block stylesheets %}
     {{ parent() }}
-    <link rel="stylesheet" href="/css/jquery-picklist.css">
-    <link rel="stylesheet" href="/css/jquery-picklist-ie7.css">
+    <link rel="stylesheet" href="{{ asset('css/jquery-picklist.css') }}">
 
 {% endblock %}

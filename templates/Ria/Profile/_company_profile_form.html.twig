@@ -1,21 +1,9 @@
 {% block form_main_tag %}
 <form action="{{ path('rx_ria_company_profile') }}" method="post" data-presave="true" data-save="true"
       enctype="multipart/form-data">
-    {{ form_errors(form) }}
     {% endblock %}
     {{ form_widget(form) }}
 {#
-    <fieldset>
-        <div class="row">
-
-        <div class="form-group">
-            <legend>Contact Information:</legend>
-            {{ form_label(form.name, 'Company Name:', { 'label_attr': {'class': 'control-label'}}) }}
-            <div class="form-form-control">
-                {{ form_widget(form.name) }}
-                {{ form_errors(form.name) }}
-            </div>
-        </div>
 
         <div class="form-group">
             {{ form_label(form.slug, 'Your Custom URL:', { 'label_attr': {'class': 'control-label'}}) }}

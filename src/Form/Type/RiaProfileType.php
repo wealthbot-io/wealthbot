@@ -34,7 +34,7 @@ class RiaProfileType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => 'App\Entity\Profile',
+            'data_class' => 'App\Entity\Profile'
         ]);
     }
 

@@ -1,10 +1,11 @@
 <?php
+namespace System;
 
 if (!defined('DS')) {
 	define('DS', DIRECTORY_SEPARATOR);
 }
 
-class AutoLoader 
+class AutoLoader
 {
 	public static function autoload($className) 
     {

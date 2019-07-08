@@ -3,13 +3,15 @@
       enctype="multipart/form-data">
     {{ form_errors(form) }}
     {% endblock %}
-    <fieldset class="b-label" style="padding:20px 20px 0px 20px">
+    {{ form_widget(form) }}
+{#
+    <fieldset>
         <div class="row">
 
         <div class="form-group">
             <legend>Contact Information:</legend>
             {{ form_label(form.name, 'Company Name:', { 'label_attr': {'class': 'control-label'}}) }}
-            <div class="controls">
+            <div class="form-form-control">
                 {{ form_widget(form.name) }}
                 {{ form_errors(form.name) }}
             </div>
@@ -17,7 +19,7 @@
 
         <div class="form-group">
             {{ form_label(form.slug, 'Your Custom URL:', { 'label_attr': {'class': 'control-label'}}) }}
-            <div class="controls">
+            <div class="form-form-control">
                 {{ form_widget(form.slug, { 'attr': {
                     'class': 'ajaxed not-presave',
                     'data-url': path('rx_ria_profile_check_company_slug')
@@ -27,67 +29,64 @@
             </div>
         </div>
 
-        <span class="help-block">
-            <b>Primary Contact Name:</b>
-            <a class="pop" href="#" rel="popover" title="Primary Contact Name"
-               data-content="<p>This should be the primary person in your company a prospect or user should contact.</p>"><i
-                        class="mini-color mini-ico-info-sign"></i></a>
-        </span>
             <div class="form-group">
                 {{ form_label(form.primary_first_name, 'First Name:', { 'label_attr': {'class': 'control-label'}}) }}
-                <div class="controls form-inline">
+                <div class="form-control form-inline">
                     {{ form_widget(form.primary_first_name) }}
                     {{ form_errors(form.primary_first_name) }}
                 </div>
             </div>
             <div class="form-group">
                 {{ form_label(form.primary_last_name, 'Last Name:', { 'label_attr': {'class': 'control-label'}}) }}
-                <div class="controls form-inline">
+                <div class="form-control form-inline">
                     {{ form_widget(form.primary_last_name) }}
                     {{ form_errors(form.primary_last_name) }}
                 </div>
             </div>
 
             <div class="form-group">
-                {{ form_label(form.contact_email, 'Primary Contact Email Address:', { 'label_attr': {'class': 'control-label'}}) }}
-                <div class="controls">
-                    {{ form_widget(form.contact_email) }} <a class="pop" href="#" rel="popover"
-                                                             title="Primary Contact Email"
-                                                             data-content="<p>This should be the primary email address a prospect or user should contact.</p>"><i
-                                class="mini-color mini-ico-info-sign"></i></a>
+                {{ form_label(form.contact_email, 'Email Address:', { 'label_attr': {'class': 'control-label'}}) }}
+                <div class="form-form-control">
+                    {{ form_widget(form.contact_email) }} <a href="#" data-toggle="popover"
+                                                              title="Primary Contact Email"
+                                                              data-container="body"
+                                                             data-placement="top"
+                                                              data-content="This should be the primary email address a prospect or user should contact"><i class="glyphicon glyphicon-info-sign"></i></a>
                     {{ form_errors(form.contact_email) }}
                 </div>
             </div>
 
             <div class="form-group">
                 {{ form_label(form.phone_number, 'Phone Number:', { 'label_attr': {'class': 'control-label'}}) }}
-                <div class="controls">
-                    {{ form_widget(form.phone_number, {'attr': {'placeholder': '(###) ###-####'}}) }} <a class="pop"
+                <div class="form-form-control">
+                    {{ form_widget(form.phone_number, {'attr': {'placeholder': '(###) ###-####'}}) }} <a 
                                                                                                          href="#"
-                                                                                                         rel="popover"
+                                                                                                         data-toggle="popover"
                                                                                                          title="Primary Phone Number"
-                                                                                                         data-content="<p>This should be the primary phone number a prospect or user should contact.</p>"><i
-                                class="mini-color mini-ico-info-sign"></i></a>
+                                                                                                         data-container="body"
+                                                                                                         data-placement="top"
+                                                                                                         data-content="This should be the primary phone number a prospect or user should contact."><i class="glyphicon glyphicon-info-sign"></i></a>
                     {{ form_errors(form.phone_number) }}
                 </div>
             </div>
 
             <div class="form-group">
                 {{ form_label(form.fax_number, 'Fax Number:', { 'label_attr': {'class': 'control-label'}}) }}
-                <div class="controls">
-                    {{ form_widget(form.fax_number, {'attr': {'placeholder': '(###) ###-####'}}) }} <a class="pop"
+                <div class="form-form-control">
+                    {{ form_widget(form.fax_number, {'attr': {'placeholder': '(###) ###-####'}}) }} <a 
                                                                                                        href="#"
-                                                                                                       rel="popover"
+                                                                                                       data-toggle="popover"
                                                                                                        title="Primary Fax Number"
-                                                                                                       data-content="<p>This should be the primary fax number a prospect or user should contact.</p>"><i
-                                class="mini-color mini-ico-info-sign"></i></a>
+                                                                                                       data-container="body"
+                                                                                                       data-placement="top"
+                                                                                                       data-content="This should be the primary fax number a prospect or user should contact."><i class="glyphicon glyphicon-info-sign"></i></a>
                     {{ form_errors(form.fax_number) }}
                 </div>
             </div>
 
             <div class="form-group">
                 {{ form_label(form.website, 'Company Website:', { 'label_attr': {'class': 'control-label'}}) }}
-                <div class="controls form-inline">
+                <div class="form-control form-inline">
                     {{ form_widget(form.website) }}
                     <a class="website-test btn" target="_blank" href="">Test</a>
                     {{ form_errors(form.website) }}
@@ -97,7 +96,7 @@
 
             <div class="form-group">
                 {{ form_label(form.address, 'Company Address:', { 'label_attr': {'class': 'control-label'}}) }}
-                <div class="controls">
+                <div class="form-form-control">
                     {{ form_widget(form.address) }}
                     {{ form_errors(form.address) }}
                 </div>
@@ -106,7 +105,7 @@
 
             <div class="form-group">
                 {{ form_label(form.office, 'Suite or Office #:', { 'label_attr': {'class': 'control-label'}}) }}
-                <div class="controls">
+                <div class="form-form-control">
                     {{ form_widget(form.office) }}
                     {{ form_errors(form.office) }}
                 </div>
@@ -114,7 +113,7 @@
 
                 <div class="form-group">
                     {{ form_label(form.city, 'City:', { 'label_attr': {'class': 'control-label'}}) }}
-                    <div class="controls">
+                    <div class="form-form-control">
                         {{ form_widget(form.city) }}
                         {{ form_errors(form.city) }}
                     </div>
@@ -122,7 +121,7 @@
 
                 <div class="form-group">
                     {{ form_label(form.state, 'State:', { 'label_attr': {'class': 'control-label'}}) }}
-                    <div class="controls">
+                    <div class="form-form-control">
                         {{ form_widget(form.state, {'attr': {'placeholder': '(###) ###-####'}}) }}
                         {{ form_errors(form.state) }}
                     </div>
@@ -130,17 +129,16 @@
 
                 <div class="form-group">
                     {{ form_label(form.zipcode, 'Zip Code:', { 'label_attr': {'class': 'control-label'}}) }}
-                    <div class="controls">
+                    <div class="form-form-control">
                         {{ form_widget(form.zipcode) }}
                         {{ form_errors(form.zipcode) }}
                     </div>
                 </div>
 
             <div class="form-group">
-                <legend>Other Information:</legend>
 
                 {{ form_label(form.min_asset_size, 'Asset Management Minimum:') }}
-                <div class="controls">
+                <div class="form-form-control">
                     {{ form_errors(form.min_asset_size) }}
                     <div class="input-group">
                         <span class="input-group-addon">$</span>
@@ -152,17 +150,18 @@
             <div class="form-group">
                 <legend>Logo</legend>
                 {{ form_label(form.logo_file, 'Upload your company logo (PNG, JPG or GIF)') }}
-                <div class="controls">
+                <div class="form-form-control">
                     {{ form_errors(form.logo_file) }}
                     {{ form_widget(form.logo_file) }}
                 </div>
             </div>
 
-
+            <div class="clearfix"></div>
+        </div>
             <div class="form-group">
                 <legend>Proposal Processing</legend>
                 <div class="portfolio-processing">
-                    {#{{ form_label(form.portfolio_processing, 'How would you like portfolios to be suggested to the client?') }}#}
+                    {{ form_label(form.portfolio_processing, 'How would you like portfolios to be suggested to the client?') }}
                     <div class="controls">
                         {{ form_errors(form.portfolio_processing) }}
                         {% for radio in form.portfolio_processing %}
@@ -173,15 +172,17 @@
                 </div>
             </div>
 
-            {% block form_actions %}
 
-                <div class="form-actions">
-                    {{ form_rest(form) }}
-                    <input class="btn btn-info" type="submit" name="Continue" value="Next"/>
-                </div>
-            {% endblock %}
 
             <br />
         </div>
     </fieldset>
+    #}
+    {% block form_actions %}
+
+        <div class="">
+            {{ form_rest(form) }}
+            <input class="btn btn-outline-info" type="submit" name="Continue" value="Next"/>
+        </div>
+    {% endblock %}
 </form>

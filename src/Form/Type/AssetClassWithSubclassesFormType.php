@@ -10,6 +10,7 @@
 namespace App\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -29,6 +30,8 @@ class AssetClassWithSubclassesFormType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        dump($options);
+
         $this->user = $options['user'];
         $this->em = $options['em'];
         $this->allSubclasses = $options['allSubclasses'];
@@ -40,7 +43,7 @@ class AssetClassWithSubclassesFormType extends AbstractType
         $builder
             ->add('name', TextType::class, ['constraints' => [new NotBlank()]]);
 
-        if ($user->hasRole('ROLE_RIA') &&
+        if ($this->user->hasRole('ROLE_RIA') &&
                 $user->getRiaCompanyInformation()->isRebalancedFrequencyToleranceBand()) {
             $builder->add('tolerance_band', NumberType::class, ['scale' => 2]);
         }
@@ -48,9 +51,8 @@ class AssetClassWithSubclassesFormType extends AbstractType
         $factory = $builder->getFormFactory();
 
         $refreshSubclasses = function ($form, $allSubclasses) use ($factory, $user, $em) {
-            $form->add($factory->createNamed('subclasses', 'collection', null, [
-                'type' => SubclassFormType::class, null,  ['user'=>$user, 'em'=>$em, 'allSubclasses'=>$allSubclasses],
-                'cascade_validation' => true,
+            $form->add($factory->createNamed('subclasses', CollectionType::class, null, [
+                'entry_type' => SubclassFormType::class, null,  ['user'=>$user, 'em'=>$em, 'allSubclasses'=>$allSubclasses],
                 'allow_add' => true,
                 'allow_delete' => true,
                 'prototype' => true,

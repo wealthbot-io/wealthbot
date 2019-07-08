@@ -45,13 +45,14 @@
 
             <li class="nav-item"><a class="nav-link"  href="{{ path('rx_admin_custodians') }}">Custodians</a></li>
 
-            <li {{ app.request.attributes.get('_route') == 'rx_admin_models' ? 'class="active nav-item"' : 'nav-item' }}>
+         {#   <li {{ app.request.attributes.get('_route') == 'rx_admin_models' ? 'class="active nav-item"' : 'nav-item' }}>
                 <a class="nav-link"  href="{{ path('rx_admin_models') }}">Models</a>
             </li>
 
             <li {{ app.request.attributes.get('_route') == 'rx_admin_risks' ? 'class="active nav-item"' : 'nav-item' }}>
                 <a class="nav-link"  href="{{ path('rx_admin_risks') }}">Risks</a>
             </li>
+            #}
 
             <li {{ app.request.attributes.get('_route') == 'rx_admin_general_settings' ? 'class="active nav-item"' : 'nav-item' }}>
                 <a class="nav-link"  href="{{ path('rx_admin_general_settings') }}">Settings</a>

@@ -321,7 +321,7 @@ class ModelController extends AclController
         ]);
     }
 
-    public function modelMenu($strategySlug, $modelSlug = null)
+    public function modelMenu($strategySlug  = null, $modelSlug = null)
     {
         $models = [];
         if (isset($strategySlug)) {

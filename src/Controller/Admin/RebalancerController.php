@@ -20,7 +20,6 @@ class RebalancerController extends AclController
     public function index(Request $request)
     {
         /** @var ClientAccountValuesManager $clientAccountValuesManager */
-        /*
         $clientAccountValuesManager = $this->get('wealthbot_client.client_account_values.manager');
         $clientPortfolioManager = $this->get('wealthbot_client.client_portfolio.manager');
 
@@ -53,12 +52,12 @@ class RebalancerController extends AclController
             'client_values_pagination' => $clientValuesPagination,
             'form' => $chooseRebalanceTypeForm->createView(),
         ]);
-        */
+
     }
 
     public function history(Request $request)
     {
-        /*
+
         $clientAccountValuesManager = $this->get('wealthbot_client.client_account_values.manager');
         $em = $this->get('doctrine.orm.entity_manager');
         $paginator = $this->get('knp_paginator');
@@ -104,23 +103,22 @@ class RebalancerController extends AclController
         }
 
         return $this->render('/Admin/Rebalancer/history.html.twig', $responseData);
-        */
+
     }
 
     public function checkProgress(Request $request)
     {
-        /*
+
+        $em = $this->getDoctrine()->getManager();
         if (!$request->isXmlHttpRequest()) {
             throw $this->createNotFoundException();
         }
 
-        $dm = $this->get('doctrine.odm.mongodb.document_manager');
-
         $admin = $this->getUser();
 
         /** @var RebalanceProgress $rebalanceProgress */
-        /*
-        $rebalanceProgress = $dm->getRepository('App\Entity\RebalanceProgress')->findOneBy(['userId' => $admin->getId()]);
+
+        $rebalanceProgress = $em->getRepository('App\Entity\RebalanceProgress')->findOneBy(['userId' => $admin->getId()]);
 
         if (!$rebalanceProgress) {
             return $this->json([
@@ -136,18 +134,17 @@ class RebalancerController extends AclController
             'status' => 'success',
             'progress' => (int) $progress,
         ]);
-        */
+
     }
 
     public function postRebalance(Request $request)
     {
-        /*
         $em = $this->get('doctrine.orm.entity_manager');
         $dm = $this->get('doctrine.odm.mongodb.document_manager');
 
         $admin = $this->getUser();
 
-        /** @var RebalanceProgress $progress
+        /** @var RebalanceProgress $progress */
         $progress = $dm->getRepository('App\Entity\RebalanceProgress')->findOneBy(['userId' => $admin->getId()]);
         if ($progress && $progress->getTotalCount() === $progress->getCompleteCount()) {
             $dm->remove($progress);
@@ -189,12 +186,11 @@ class RebalancerController extends AclController
         }
 
         return $this->render('/Admin/Rebalancer/post_rebalance.html.twig', $responseData);
-        */
     }
 
     public function showDetails(Request $request)
     {
-        /*
+
         $clientValueId = $request->get('id');
 
         if (!$request->isXmlHttpRequest() || !$clientValueId) {
@@ -211,12 +207,11 @@ class RebalancerController extends AclController
                     'client_value' => $clientValue,
                 ]),
         ]);
-        */
+
     }
 
     public function accountsView(Request $request)
     {
-        /*
         if (!$request->isXmlHttpRequest()) {
             throw $this->createNotFoundException();
         }
@@ -242,12 +237,12 @@ class RebalancerController extends AclController
                     'client_account_values' => $clientAccountValues,
                 ]),
         ]);
-        */
+
     }
 
     public function start(Request $request)
     {
-        /*
+
         $em = $this->get('doctrine.orm.entity_manager');
         $dm = $this->get('doctrine.odm.mongodb.document_manager');
         $clientAccountValuesManager = $this->get('wealthbot_client.client_account_values.manager');
@@ -328,19 +323,16 @@ class RebalancerController extends AclController
         return $this->json([
             'status' => 'error',
         ]);
-        */
     }
 
     private function createJob($type)
     {
-        /*
         $job = new Job();
         $job->setNameRebalancer();
         $job->setUser($this->getUser());
         $job->setRebalanceType($type);
 
         return $job;
-        */
     }
 
     /**
@@ -352,7 +344,6 @@ class RebalancerController extends AclController
      */
     private function createRebalancer(Job $job, ClientPortfolioValue $clientPortfolioValue, ClientAccountValue $clientAccountValue = null)
     {
-        /*
         $rebalancerAction = new Rebalancer();
         $rebalancerAction->setJob($job);
         $rebalancerAction->setClientPortfolioValue($clientPortfolioValue);
@@ -360,11 +351,10 @@ class RebalancerController extends AclController
 
         //rebalance proccess
         //HOLD
-
-//        $rebalancerAction->setFinishedAt(new \DateTime());
+        $rebalancerAction->setFinishedAt(new \DateTime());
 
         return $rebalancerAction;
-        */
+
     }
 
     protected function getJsonResponse(array $data, $code = 200)

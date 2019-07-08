@@ -34,7 +34,7 @@ class CategoriesController extends Controller
             'original_subclasses' => $this->collectOriginalSubclassesForAssets($assetClasses),
         ];
 
-        $form = $this->createForm(CategoriesFormType::class, $assets);
+        $form = $this->createForm(CategoriesFormType::class,null,['em'=>$em,'user'=>$user,'assets'=> $assets]);
         $formHandler = new CategoriesFormHandler($form, $request, $em, $options);
 
         if ($request->isMethod('post') && $formHandler->process()) {
@@ -54,6 +54,7 @@ class CategoriesController extends Controller
                 'is_show_expected_asset' => true,
                 'is_show_account_type' => true,
                 'is_show_priority' => false,
+                'is_show_tolerance_band' => true,
                 'account_types' => $accountTypes,
             ]);
 
@@ -65,6 +66,7 @@ class CategoriesController extends Controller
             'is_show_expected_asset' => true,
             'is_show_account_type' => true,
             'is_show_priority' => false,
+            'is_show_tolerance_band' => true,
             'account_types' => $accountTypes,
         ]);
     }

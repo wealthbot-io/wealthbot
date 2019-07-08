@@ -18,7 +18,7 @@
                 <div class="navbar-collapse">
                     <!-- .nav, .navbar-search, .navbar-form, etc -->
                     <ul class="nav navbar-nav">
-                        {{ render(controller('App\Controller\Admin\ModelController:portfolioMenu', {'selected_strategy_id': selected_strategy.id } )) }}
+                        {{ render(controller("App\\Controller\\Admin\\ModelController:portfolioMenu", {'selected_strategy_id': selected_strategy.id } )) }}
                     </ul>
                 </div>
 
@@ -35,10 +35,10 @@
         </ul>
         <div class="tab-content">
             <div class="tab-pane" id="categories_tab">
-                {{ render(controller('App\Controller\Admin\CategoriesController:index', {'model_id': selected_strategy.id })) }}
+                {{ render(controller("App\\Controller\\Admin\\CategoriesController:index", {'model_id': selected_strategy.id })) }}
             </div>
             <div class="tab-pane" id="securities_tab">
-                {{ render(controller('App\Controller\Admin\SecuritiesController:modelSecuritiesList', {'model_id': selected_strategy.id } )) }}
+                {{ render(controller("App\\Controller\\Admin\\SecuritiesController:modelSecuritiesList", {'model_id': selected_strategy.id } )) }}
             </div>
             <div class="tab-pane active" id="models_tab">
                 {% include '/Admin/Model/_models_tab.html.twig' %}

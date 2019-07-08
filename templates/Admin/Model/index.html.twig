@@ -41,7 +41,7 @@
                 <div class="navbar-collapse">
                     <!-- .nav, .navbar-search, .navbar-form, etc -->
                     <ul class="nav navbar-nav">
-                        {{ render(controller('App\Controller\Admin\ModelController:portfolioMenu')) }}
+                        {{ render(controller("App\\Controller\\Admin\\ModelController:portfolioMenu")) }}
                     </ul>
                 </div>
 
@@ -70,7 +70,7 @@
     {% endif %}
 
     <div class="btn-group" data-toggle="buttons-radio">
-        {{ render(controller('App\Controller\Admin\ModelController:modelMenu', {'type': modelsType, 'portfolioSlug' : portfolioSlug, 'modelSlug' : modelSlug })) }}
+        {{ render(controller("App\\Controller\\Admin\\ModelController:modelMenu")) }}
     </div>
 
     {% if is_permitted('edit') %}

@@ -45,7 +45,7 @@ class ModelSecurityFormType extends AbstractType
 
         $factory = $builder->getFormFactory();
 
-        if ($model->getOwner()->hasRole('ROLE_RIA') && $model->getOwner()->getRiaCompanyInformation()->getUseMunicipalBond()) {
+        if ($model->getOwner() && $model->getOwner()->hasRole('ROLE_RIA') && $model->getOwner()->getRiaCompanyInformation()->getUseMunicipalBond()) {
             $builder->add('muni_substitution', CheckboxType::class, ['required' => false]);
         }
 

@@ -12,6 +12,7 @@ namespace App\Form\Type;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormEvent;
@@ -32,6 +33,7 @@ class CategoriesFormType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+
         $this->assets = $options['assets'];
         $this->em = $options['em'];
         $this->ria = $options['ria'];
@@ -41,9 +43,8 @@ class CategoriesFormType extends AbstractType
         $factory = $builder->getFormFactory();
 
         $refreshAssets = function (FormInterface $form, $allSubclasses) use ($factory, $user, $em) {
-            $form->add($factory->createNamed('assets', 'collection', null, [
-                'type' => AssetClassWithSubclassesFormType::class, null, ['user'=>$user, 'em'=>$em, 'allSubclasses'=>$allSubclasses],
-                'cascade_validation' => true,
+            $form->add($factory->createNamed('assets', CollectionType::class, null, [
+                'entry_type' => $factory->create(AssetClassWithSubclassesFormType::class,null, ['user'=>$this->user, 'em'=>$this->em, 'allSubclasses'=>$this->assets]),
                 'allow_add' => true,
                 'allow_delete' => true,
                 'by_reference' => false,
@@ -152,7 +153,6 @@ class CategoriesFormType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => null,
-            'cascade_validation' => true,
             'em' => null,
             'ria' => null,
             'assets' => null,

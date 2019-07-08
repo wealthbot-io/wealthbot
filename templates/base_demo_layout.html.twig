@@ -10,7 +10,7 @@
         {% block stylesheets %}
             <link rel="stylesheet" href="/css/bootstrap.css">
             <link rel="stylesheet" href="/css/bootstrap-theme.css">
-            <link rel="stylesheet" href="/css/styles.css">
+            <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
             <link rel="stylesheet" href="/css/jquery-ui-1.9.2.custom.min.css"/>
             <link rel="stylesheet" href="{{ asset('css/email.css') }}"/>
             <link rel="stylesheet" href="{{ asset('css/icons.css') }}"/>
@@ -31,27 +31,6 @@
 {% block html_body %}
     <body>
     {% block headernav %}
-
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <a class="navbar-brand" href="{{path('rx_admin_homepage')}}">wealthbot.io</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto">
-                    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-                        <li class="nav-item"><a class="nav-link" href="{{ path('logout') }}">Logout</a></li>
-                    {% endif %}
-
-                    {% if is_granted('ROLE_PREVIOUS_ADMIN') %}
-                        <li class="pull-right nav-item">
-                            <a class="nav-link" href="{{ path('rx_user_switch_to_admin', { _switch_user: '_exit' }) }}">Back to Admin</a>
-                        </li>
-                    {% endif %}
-                </ul>
-            </div>
-        </nav>
     {% endblock %}
 
 
@@ -62,11 +41,10 @@
             <!-- start: Container test deploy 3-->
             <div class="container-fluid">
 
-                <h2>Welcome to the wealthbot.io demo</h2>
+                <h2>wealthbot.io</h2>
 
             </div>
             <!-- end: Container  test deploy 3-->
-
         </div>
 
     </div>

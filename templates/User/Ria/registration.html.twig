@@ -1,8 +1,8 @@
 {% extends '/User/layout.html.twig' %}
 
 {% block body %}
-<div class="row">
-    <div class="col-4">
+<div class="container-fluid">
+    <div class="flex-row d-flex align-items-center align-content-center justify-content-center mt-5">
         <form action="{{ path("rx_ria_register") }}" method="post" class="regRia-form">
             <div style="padding: 10px 10px 0px 10px">
                 <div class="form-group">
@@ -68,7 +68,7 @@
                         {{ form_rest(form) }}
                         <div >
                             <br />
-                            <input class="btn btn-info" type="submit" value="Register">
+                            <input class="btn btn-outline-info" type="submit" value="Register">
                         </div>
                     </div>
                 </div>

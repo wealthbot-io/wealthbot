@@ -2074,16 +2074,7 @@ div.container.ceNavbar{ margin-bottom: 0; }
 
 
 #page-title {
-    background: rgb(32,123,191); /* Old browsers */
-    /* IE9 SVG, needs conditional override of 'filter' to 'none' */
-    background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzIwN2JiZiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiM4MWI2ZTIiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
-    background: -moz-linear-gradient(top,  rgba(32,123,191,1) 0%, rgba(129,182,226,1) 100%); /* FF3.6+ */
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(32,123,191,1)), color-stop(100%,rgba(129,182,226,1))); /* Chrome,Safari4+ */
-    background: -webkit-linear-gradient(top,  rgba(32,123,191,1) 0%,rgba(129,182,226,1) 100%); /* Chrome10+,Safari5.1+ */
-    background: -o-linear-gradient(top,  rgba(32,123,191,1) 0%,rgba(129,182,226,1) 100%); /* Opera 11.10+ */
-    background: -ms-linear-gradient(top,  rgba(32,123,191,1) 0%,rgba(129,182,226,1) 100%); /* IE10+ */
-    background: linear-gradient(to bottom,  rgba(32,123,191,1) 0%,rgba(129,182,226,1) 100%); /* W3C */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#207bbf', endColorstr='#81b6e2',GradientType=0 ); /* IE6-8 */
+    background: #17a2b8 !important;
     display: block;
     position: relative;
     z-index: 1;
@@ -2857,4 +2848,11 @@ a.disabled:hover {
 
 #mainApp  input[type="checkbox"]{
     float: left !important;
+}
+
+
+.front-cards .card-img-top {
+    padding: 20px 20px;
+    width: 200px;
+    height: 200px;
 }

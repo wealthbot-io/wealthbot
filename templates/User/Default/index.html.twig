@@ -5,33 +5,66 @@
 {% endblock %}
 
 {% block body %}
-<div class="row">
-    <div class="col-12">
-        <h1><a href="/login">Login as an RIA</a></h1>
-        <div>
-            Take a look at the features of the RIA account. Use <strong>webo/weboDemo32</strong> to login.
+    <!-- Start of Card Groups Layout -->
+    <div class="card-group front-cards">
+        <div class="card">
+            <img class="card-img-top" src="{{ asset('img/consulting.png') }}" alt="Wealthbot">
+            <div class="card-body">
+                <h4 class="card-title">Login as an RIA</h4>
+                <p class="card-text">
+                    Take a look at the features of the RIA account. Use <strong>webo/weboDemo32</strong> to login.
+                </p>
+            </div>
+            <div class="card-footer d-flex justify-content-center">
+                <small class="text-muted"><a class="btn btn-outline-info" href="/login">Login as an RIA</a></small>
+            </div>
+        </div>
+        <div class="card">
+            <img class="card-img-top" src="{{ asset('img/user.png') }}" alt="Wealthbot">
+            <div class="card-body">
+                <h4 class="card-title">Login as a Client</h4>
+                <p class="card-text">Take a look at the client dashboard. Use <strong>webo/weboDemo32</strong> to login.</p>
+            </div>
+            <div class="card-footer d-flex justify-content-center">
+                <small class="text-muted"><a class="btn btn-outline-info"  href="/login">Login as a Client</a></small>
+            </div>
         </div>
 
-        <h1><a href="/login">Login as a Client</a></h1>
-        <div>
-            Take a look at the client dashboard. Use <strong>webo/weboDemo32</strong> to login.
+        <div class="card">
+            <img class="card-img-top" src="{{ asset('img/admin-with-cogwheels.png') }}" alt="Wealthbot">
+            <div class="card-body">
+                <h4 class="card-title">Login as a super admin</h4>
+                Our platform allows you to create and manage multiple RIA firms under one installation. Use <strong>webo/weboDemo32</strong> to login.
+            </div>
+            <div class="card-footer d-flex justify-content-center">
+                <small class="text-muted"><a class="btn btn-outline-info"  href="/admin/login">Login as super admin</a></small>
+            </div>
         </div>
 
-         <h1><a href="/admin/login">Login as a super admin</a></h1>
-        <div>
-            Our platform allows you to create and manage multiple RIA firms under one installation. Use <strong>webo/weboDemo32</strong> to login.
+
+        <div class="card">
+            <img class="card-img-top" src="{{ asset('img/icon.png') }}" alt="Wealthbot">
+            <div class="card-body">
+                <h4 class="card-title">Register RIA</h4>
+                <p class="card-text">Use wealthbot.io to offer SaaS for multiple RIA's, or run a single RIA entity on the same platform. The choice is yours.</p>
+            </div>
+            <div class="card-footer d-flex justify-content-center">
+                <small class="text-muted"><a class="btn btn-outline-info"  href="/ria/registration">Register RIA</a></small>
+            </div>
         </div>
 
-        <h1><a href="/ria/registration">Register RIA</a></h1>
-        <div>
-            Use wealthbot.io to offer SaaS for multiple RIA's, or run a single RIA entity on the same platform. The choice is yours.
-        </div>
 
-        <h1><a href="/client/registration/{{ ria.id }}">Register Client</a></h1>
-        <div>
-            wealthbot.io will automatically select a matching portfolio based on the client's risk tolerance. This is how we establish a relationship between a client
-            and an RIA.
+        <div class="card">
+            <img class="card-img-top" src="{{ asset('img/user.png') }}" alt="Wealthbot">
+            <div class="card-body">
+                <h4 class="card-title">Login as a Client</h4>
+                <p class="card-text">wealthbot.io will automatically select a matching portfolio based on the client's risk tolerance. This is how we establish a relationship between a client
+                    and an RIA.
+                </p>
+            </div>
+            <div class="card-footer d-flex justify-content-center">
+                <small class="text-muted"><a class="btn btn-outline-info"  href="/client/registration/{{ ria.id }}">Register Client</a></small>
+            </div>
         </div>
     </div>
-</div>
 {% endblock %}

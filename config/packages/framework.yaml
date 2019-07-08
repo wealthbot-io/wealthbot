@@ -16,3 +16,5 @@ framework:
         log: true
     templating:
         engines: ['twig', 'php']
+    assets:
+        version: 'v3'

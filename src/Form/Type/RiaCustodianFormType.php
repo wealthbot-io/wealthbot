@@ -28,7 +28,7 @@ class RiaCustodianFormType extends AbstractType
                 'mapped' => true
             ])
             ->add('allow_non_electronically_signing', ChoiceType::class, [
-                'choices' => [true => 'Yes', false => 'No'],
+                'choices' => [ 'Yes'=>true, 'No'=>false],
                 'expanded' => true,
             ])
         ;

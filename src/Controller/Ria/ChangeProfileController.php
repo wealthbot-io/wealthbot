@@ -516,18 +516,13 @@ class ChangeProfileController extends Controller
 
         foreach ($advisorCodes as $advisorCode) {
             $originalAdvisorCodes[] = $advisorCode;
-        }
+        };
 
-        $advisorCodesCollectionFormType = $this->createForm(AdvisorCodesCollectionFormType::class, null, ['em' => $em, 'riaCompany' => $companyInformation, 'custodian' => $custodian]);
+        $advisorCodesForm = $this->createForm(AdvisorCodesCollectionFormType::class, $advisorCodes,[
+            'em' => $em, 'riaCompany' => $companyInformation, 'custodian' => $custodian
+        ]);
 
-        $advisorCodesForm = $this->createForm(
-            $advisorCodesCollectionFormType,
-            [
-                'advisorCodes' => $advisorCodes,
-            ]
-        );
-
-        $custodianForm = $this->createForm(RiaCustodianFormType::class, $companyInformation);
+        $custodianForm = $this->createForm(RiaCustodianFormType::class, $companyInformation,[]);
 
         if ($request->isMethod('post')) {
             $custodianForm->handleRequest($request);

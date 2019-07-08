@@ -21,10 +21,11 @@ class AdvisorCodeFormType extends AbstractType
     protected $custodian;
     protected $riaCompany;
 
-    public function __construct($custodian = null, $riaCompany = null)
+    public function __construct($custodian = null, $riaCompany = null, $em = null)
     {
         $this->custodian = $custodian;
         $this->riaCompany = $riaCompany;
+        $this->em = $em;
     }
 
     public function setCustodian($custodian)

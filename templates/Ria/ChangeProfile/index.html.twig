@@ -14,24 +14,24 @@
 {% block main_content %}
     <h1>Admin Settings</h1>
 
-    <ul class="nav nav-tabs" id="myTab">
-        <li class="{{ active_tab == 'company_profile' ? 'active' : '' }}">
-            <a data-toggle="tab" href="#company_profile">Company Profile</a>
+    <ul class="nav" id="myTab">
+        <li class="{{ active_tab == 'company_profile' ? 'active nav-item' : ' nav-item' }}">
+            <a class="nav-link" data-toggle="tab" href="#company_profile">Company Profile</a>
         </li>
-        {#<li class="{{ active_tab == 'billing' ? 'active' : '' }}">
-            <a data-toggle="tab" href="#billing">Billing and Accounts</a>
+        {#<li class="{{ active_tab == 'billing' ? 'active nav-item' : ' nav-item' }}">
+            <a class="nav-link" data-toggle="tab" href="#billing">Billing and Accounts</a>
         </li>#}
-        <li class="{{ active_tab == 'rebalancing' ? 'active' : '' }}">
-            <a data-toggle="tab" href="#rebalancing">Rebalancing</a>
+        <li class="{{ active_tab == 'rebalancing' ? 'active nav-item' : ' nav-item nav-item' }}">
+            <a class="nav-link" data-toggle="tab" href="#rebalancing">Rebalancing</a>
         </li>
-        <li class="{{ active_tab == 'proposals' ? 'active' : '' }}">
-            <a data-toggle="tab" href="#proposals">Proposals</a>
+        <li class="{{ active_tab == 'proposals' ? 'active nav-item' : ' nav-item' }}">
+            <a class="nav-link" data-toggle="tab" href="#proposals">Proposals</a>
         </li>
-        <li class="{{ active_tab == 'custodians' ? 'active' : '' }}">
-            <a data-toggle="tab" href="#custodians">Custodians</a>
+        <li class="{{ active_tab == 'custodians' ? 'active nav-item' : ' nav-item' }}">
+            <a class="nav-link" data-toggle="tab" href="#custodians">Custodians</a>
         </li>
-        {#<li class="{{ active_tab == 'documents' ? 'active' : '' }}">
-            <a data-toggle="tab" href="#documents">Documents</a>
+        {#<li class="{{ active_tab == 'documents' ? 'active nav-item' : ' nav-item' }}">
+            <a class="nav-link" data-toggle="tab" href="#documents">Documents</a>
         </li>#}
     </ul>
 

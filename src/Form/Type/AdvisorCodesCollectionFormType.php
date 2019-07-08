@@ -15,8 +15,18 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class AdvisorCodesCollectionFormType extends AbstractType
 {
+    public $em;
+
+    public $custodian;
+
+    public $riaCompany;
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $this->em = $options['em'];
+        $this->custodian = $options['custodian'];
+        $this->riaCompany = $options['riaCompany'];
+
         $builder
             ->add('advisorCodes', CollectionType::class, [
                 'allow_add' => true,

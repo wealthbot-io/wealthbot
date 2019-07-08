@@ -34,14 +34,7 @@ class RolesController extends Controller
             $this->checkIsPasswordExpired($user);
 
             if (($authorizationChecker->isGranted('ROLE_RIA') || $authorizationChecker->isGranted('ROLE_RIA_USER'))) {
-                $session = $this->get('session');
-                if ($session->has('wealthbot.ria_view.client_id')) {
-                    $redirectUrl = $this->generateUrl('rx_ria_dashboard_show_client', [
-                        'client_id' => $session->get('wealthbot.ria_view.client_id'),
-                    ]);
-                } else {
                     $redirectUrl = $this->generateUrl('rx_ria_dashboard');
-                }
             } elseif ($authorizationChecker->isGranted('ROLE_CLIENT')) {
                 $redirectUrl = $this->generateUrl('rx_client_dashboard');
             } else {

@@ -2,7 +2,7 @@
     <div class="btn-group" data-toggle="buttons-radio" id="models_list_btns">
         {% for childModel in models %}
             <a href="{{ path('rx_ria_models_view', {'slug' : childModel.slug}) }}"
-               class="btn btn-default {{ active_model_id is defined and active_model_id == childModel.id ? 'active' : '' }}">{{ childModel.name }}</a>
+               class="btn btn-outline-info {{ active_model_id is defined and active_model_id == childModel.id ? 'active' : '' }}">{{ childModel.name }}</a>
         {% endfor %}
         <a class="btn btn-info" href="{{ path('rx_ria_models_risk_adjustment') }}">Risk Adjustment</a>
     </div>

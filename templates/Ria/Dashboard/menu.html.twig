@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="{{path('rx_admin_homepage')}}">
+    <a class="navbar-brand" href="{{path('rx_ria_dashboard')}}">
         <img class="img-rounded" width="150px" src="{{ asset('img/logo.png') }}"/>
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -18,18 +18,31 @@
                 <li {{ route == 'rx_ria_models' ? 'class="active nav-item"' : 'nav-item' }}><a  class="nav-link" href="{{ path('rx_ria_models') }}">Models</a></li>
             {% endif %}
             <li {{ route == 'rx_ria_billing' ? 'class="active nav-item"' : 'nav-item' }}><a  class="nav-link" href="{{ path("rx_ria_billing") }}">Billing</a></li>
-            <li {{ route == 'rx_ria_prospects' ? 'class="active nav-item"' : 'nav-item' }}><a class="nav-link" href="{{ path('rx_ria_prospects') }}">Prospects</a></li>
+            {#<li {{ route == 'rx_ria_prospects' ? 'class="active nav-item"' : 'nav-item' }}><a class="nav-link" href="{{ path('rx_ria_prospects') }}">Prospects</a></li> #}
             {# % if riaCompanyInformation.relationTypeLicenseFee %}
                 <li {{ route == 'rx_ria_dashboard_rebalancing' ? 'class="active"' }}><a href="{{ path('rx_ria_dashboard_rebalancing') }}">Rebalancing</a></li>
             {% endif % #}
             <li {{ route == 'rx_ria_risk_profiling' ? 'class="active nav-item"' : 'nav-item' }}><a  class="nav-link" href="{{ path('rx_ria_risk_profiling') }}">Risks</a></li>
 
-            <ul class="nav navbar-nav pull-right">
-                <li class="dropdown">
-                    <a  class="nav-link" href="#" class="dropdown-toggle" data-toggle="dropdown">{{ app.user.profile.firstName }} <b class="caret"></b></a>
-                    <ul class="dropdown-menu">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ app.user.username|capitalize}}</a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <h6 class="dropdown-header">Menu header</h6>
+                        <a class="dropdown-item"  href="{{ path('rx_admin_general_settings') }}"><i class="icon-wrench"></i>&nbsp;Settings</a>
+                        <a class="dropdown-item" href="{{ path('rx_admin_logout') }}"><i class="icon-off"></i>&nbsp;Logout</a>
+                    </div>
+                </li>
+            </ul>
+            <!--
+        </ul>
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ app.user.username|capitalize}}</a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <h6 class="dropdown-header">Menu header</h6>
                         {% if (is_granted('ROLE_RIA_ADMIN')) %}
-                            <li class="dropdown-item"><a  class="nav-link" href="{{ path('rx_ria_change_profile') }}">Admin Settings</a></li>
+                        <li class="dropdown-item"><a  class="nav-link" href="{{ path('rx_ria_change_profile') }}">Admin Settings</a></li>
                         {% endif %}
 
                         <li  class="dropdown-item"><a  class="nav-link" href="{{ path('rx_ria_profile') }}">Profile Management</a></li>
@@ -38,11 +51,10 @@
                             <li  class="dropdown-item"><a  class="nav-link" href="{{ path('rx_ria_user_management')}}">User Management</a></li>
                         {% endif %}
                         <li class="dropdown-item"><a class="nav-link" href="{{path('rx_ria_user_create')}}">Create User</a></li>
-                      {#  <li class="dropdown-item"><a class="nav-link" href="{{ path('rx_ria_user_reset_internally_password') }}">Reset User's Password</a></li>#}
+                        {#  <li class="dropdown-item"><a class="nav-link" href="{{ path('rx_ria_user_reset_internally_password') }}">Reset User's Password</a></li>#}
                         <li class="dropdown-item"><a  class="nav-link" href="{{ path('logout') }}">Logout</a></li>
-                    </ul>
+                    </div>
                 </li>
-            </ul>
-        </ul>
+        </ul>-->
     </div>
 </nav>

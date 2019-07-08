@@ -13,7 +13,7 @@
     <!-- start: Content -->
 
     <div class="row sortable">
-        <div class="box col-md-12">
+        <div class="box col-12">
             <div class="box-header shadow">
                 <h2>Recent Account Activity</h2>
             </div>
@@ -21,16 +21,16 @@
                 <table class="table table-striped">
                     <thead>
                     <tr>
-                        <th class="col-md-6">
+                        <th class="col-6">
                             {{ knp_pagination_sortable(pagination, 'Security', 'securities.name') }}
                         </th>
-                        <th class="col-md-2">
+                        <th class="col-2">
                             {{ knp_pagination_sortable(pagination, 'Symbol', 'securities.symbol') }}
                         </th>
-                        <th class="col-md-2">
+                        <th class="col-2">
                             {{ knp_pagination_sortable(pagination, 'Date of Transaction', 'transactions.txDate') }}
                         </th>
-                        <th class="col-md-2">
+                        <th class="col-2">
                             {{ knp_pagination_sortable(pagination, 'Type', 'transaction_types.description') }}
                         </th>
                     </tr>

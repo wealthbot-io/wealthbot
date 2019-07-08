@@ -21,59 +21,57 @@
 <body>
 
 
-<div class="navbar navbar-inverse navbar-fixed-top">
-    <div class="navbar-inner">
-        <div class="container">
-            <a class="navbar-brand" href="{{path('rx_admin_homepage')}}">wealthbot.io</a>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li {{ app.request.attributes.get('_route') == 'rx_admin_homepage' ? 'class="active"' : '' }}>
-                        <a href="{{ path('rx_admin_homepage') }}">Home</a>
-                    </li>
-                    <li class="divider-vertical"></li>
-                    <li><a href="{{ path('rx_admin_ria_index') }}">Advisors</a></li>
-                    <li class="divider-vertical"></li>
-                    <li><a href="{{ path('rx_admin_clients_index') }}">Clients</a></li>
-                    <li class="divider-vertical"></li>
-                    <li><a href="{{ path('rx_admin_securities') }}">Securities</a></li>
-                    <li class="divider-vertical"></li>
-                    <li><a href="{{ path('rx_admin_billing') }}">Billing</a></li>
-                    <li class="divider-vertical"></li>
-                   <!--- <li><a href="{{ path('rx_admin_rebalancer') }}">Rebalancer</a></li>-->
-                    <li class="divider-vertical"></li>
-                    <li><a href="{{ path('rx_admin_custodians') }}">Custodians</a></li>
-                    <li class="divider-vertical"></li>
-                    {#<li {{ app.request.attributes.get('_route') == 'rx_admin_models' ? 'class="active"' : '' }}>
-                        <a href="{{ path('rx_admin_models') }}">Models</a>
-                    </li>
-                    <li class="divider-vertical"></li>
-                    <li {{ app.request.attributes.get('_route') == 'rx_admin_risks' ? 'class="active"' : '' }}>
-                        <a href="{{ path('rx_admin_risks') }}">Risks</a>
-                    </li>
-                    <li class="divider-vertical"></li>#}
-                    <li {{ app.request.attributes.get('_route') == 'rx_admin_general_settings' ? 'class="active"' : '' }}>
-                        <a href="{{ path('rx_admin_general_settings') }}">Settings</a>
-                    </li>
-                    <li class="divider-vertical"></li>
-                    <li><a href="{{ path('rx_admin_users') }}">Admin</a></li>
-                </ul>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="{{path('rx_admin_homepage')}}">wealthbot.io</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
 
-                {% if is_granted('ROLE_ADMIN') %}
-                <ul class="nav navbar-nav pull-right">
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-user"></i>&nbsp;{{ app.user.username|capitalize}}</a>
-                        <ul class="dropdown-menu">
-                            <li><a href="{{ path('rx_admin_general_settings') }}"><i class="icon-wrench"></i>&nbsp;Settings</a></li>
-                            <li class="divider"></li>
-                            <li><a href="{{ path('rx_admin_logout') }}"><i class="icon-off"></i>&nbsp;Logout</a></li>
-                        </ul>
-                    </li>
-                </ul>
-                {% endif %}
-            </div><!--/.navbar-collapse -->
-        </div>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li {{ app.request.attributes.get('_route') == 'rx_admin_homepage' ? 'class="active nav-item"' : 'nav-item' }}>
+                <a class="nav-link" href="{{ path('rx_admin_homepage') }}">Home</a>
+            </li>
+
+            <li class="nav-item"><a class="nav-link"  href="{{ path('rx_admin_ria_index') }}">Advisors</a></li>
+
+            <li class="nav-item"><a class="nav-link"  href="{{ path('rx_admin_clients_index') }}">Clients</a></li>
+
+            <li class="nav-item"><a class="nav-link"  href="{{ path('rx_admin_securities') }}">Securities</a></li>
+
+            <li class="nav-item"><a class="nav-link"  href="{{ path('rx_admin_billing') }}">Billing</a></li>
+
+            <li class="nav-item"><a class="nav-link"  href="{{ path('rx_admin_rebalancer') }}">Rebalancer</a></li>
+
+            <li class="nav-item"><a class="nav-link"  href="{{ path('rx_admin_custodians') }}">Custodians</a></li>
+
+            <li {{ app.request.attributes.get('_route') == 'rx_admin_models' ? 'class="active nav-item"' : 'nav-item' }}>
+                <a class="nav-link"  href="{{ path('rx_admin_models') }}">Models</a>
+            </li>
+
+            <li {{ app.request.attributes.get('_route') == 'rx_admin_risks' ? 'class="active nav-item"' : 'nav-item' }}>
+                <a class="nav-link"  href="{{ path('rx_admin_risks') }}">Risks</a>
+            </li>
+
+            <li {{ app.request.attributes.get('_route') == 'rx_admin_general_settings' ? 'class="active nav-item"' : 'nav-item' }}>
+                <a class="nav-link"  href="{{ path('rx_admin_general_settings') }}">Settings</a>
+            </li>
+
+            <li class="nav-item"><a class="nav-link"  href="{{ path('rx_admin_users') }}">Admin</a></li>
+        </ul>
+
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ app.user.username|capitalize}}</a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <h6 class="dropdown-header">Menu header</h6>
+                    <a class="dropdown-item"  href="{{ path('rx_admin_general_settings') }}"><i class="icon-wrench"></i>&nbsp;Settings</a>
+                    <a class="dropdown-item" href="{{ path('rx_admin_logout') }}"><i class="icon-off"></i>&nbsp;Logout</a>
+                </div>
+            </li>
+        </ul>
     </div>
-</div>
+</nav>
 
 <div class="container-fluid" style="margin-top: 50px;">
     {% block flash_messages %}
@@ -114,7 +112,8 @@
     <script type="text/javascript" src="/js/jquery/jquery.form.js"></script>
     <script type="text/javascript" src="/js/jquery/jquery.autoNumeric.js"></script>
     <script type="text/javascript" src="/js/jquery/jquery.placeholder.min.js"></script>
-    <script type="text/javascript" src="/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="{{ asset('/js/bootstrap.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('/js/bootstrap.bundle.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/typeahead.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/inputmask/jquery.inputmask.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/inputmask/jquery.inputmask.extensions.js') }}"></script>

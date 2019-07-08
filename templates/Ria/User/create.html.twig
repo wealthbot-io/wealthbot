@@ -12,7 +12,7 @@
 {% endblock %}
 
 <div class="row">
-        <form action="{% block form_action %}{{ path('rx_ria_user_create') }}{% endblock %}" id="user-form" method="post" class="form-horizontal col-md-5 col-md-offset-1">
+        <form action="{% block form_action %}{{ path('rx_ria_user_create') }}{% endblock %}" id="user-form" method="post" class="form-horizontal col-5 col-offset-1">
             {{ form_errors(form) }}
                 <div class="form-group">
                     {{ form_label(form.profile.first_name, null, { 'label_attr': { 'class': 'control-label' } }) }}
@@ -59,7 +59,7 @@
                 <br />
         </form>
 
-    <div class="col-md-6">
+    <div class="col-6">
         <table id="users_list" class="table table-striped">
             <thead>
             <tr>

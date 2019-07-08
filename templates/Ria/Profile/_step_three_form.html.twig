@@ -3,7 +3,7 @@
     <form id="step_three_form" action="{{path('rx_ria_profile_step_three')}}" method="post" data-presave="true" data-save="true">
     {%  endblock %}
 
-        <div class="col-md-12 alertable" id="billing_fee">
+        <div class="col-12 alertable" id="billing_fee">
             <legend>Minimum Billing Fee</legend>
             <span class="help-block">You have the ability to charge a minimum billing fee, per quarter, you would like to charge each client. We will charge this amount if your AUM fee is less than minimum billing fee.</span>
             <div class="form-group">
@@ -23,14 +23,14 @@
             </div>
         </div>
 
-        <div class="col-md-12">
+        <div class="col-12">
             <div class="fees-form-block">
                 {% include '/Ria/Profile/_step_three_fees_form.html.twig' with {'form': form} %}
             </div>
         </div>
 
         {% block form_actions %}
-        <div class="col-md-12">
+        <div class="col-12">
             <div class="form-actions">
                 {{ form_widget(form._token) }}
                 <a class="btn btn-default"  href="{{ path('rx_ria_profile_step_two') }}">Back</a>

@@ -32,34 +32,31 @@
 {% block html_body %}
     <body id="mainApp">
     {% block headernav %}
-        {% if app.environment != 'prod' %}
-            <div class="navbar  navbar-default">
-                <div class="navbar-inner">
-                    <div class="container-fluid">
-                        <a class="navbar-brand" href="/" name="top">wealthbot.io</a>
-                        <div class="navbar-collapse collapse">
-                            <ul class="nav navbar-nav">
-                                {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-                                    <li><a href="{{ path('logout') }}">Logout</a></li>
-                                {% endif %}
+        {% if app.request.get('_path') == 'rx_user_homepage' %}
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <a class="navbar-brand" href="{{path('rx_admin_homepage')}}">wealthbot.io</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-                                {% if is_granted('ROLE_PREVIOUS_ADMIN') %}
-                                    <li class="pull-right">
-                                        <a href="{{ path('rx_user_switch_to_admin', { _switch_user: '_exit' }) }}">Back to Admin</a>
-                                    </li>
-                                {% endif %}
-                            </ul>
-                        </div><!--/.navbar-collapse -->
-                    </div>
-                    <!--/.container-fluid -->
-                </div>
-                <!--/.navbar-inner -->
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                        <li class="nav-item"><a class="nav-link" href="{{ path('logout') }}">Logout</a></li>
+                    {% endif %}
+
+                    {% if is_granted('ROLE_PREVIOUS_ADMIN') %}
+                        <li class="pull-right nav-item">
+                            <a class="nav-link" href="{{ path('rx_user_switch_to_admin', { _switch_user: '_exit' }) }}">Back to Admin</a>
+                        </li>
+                    {% endif %}
+                </ul>
             </div>
+        </nav>
         {% endif %}
     {% endblock %}
 
     {% block main_container %}
-        <div class="container">
             {% block flash_messages %}
                 {% for type, flashMessages in app.session.flashbag.all() %}
                     {% for flashMessage in flashMessages %}
@@ -72,7 +69,6 @@
             {% endblock %}
 
             {% block body %}{% endblock %}
-        </div>
     {% endblock %}
 
     {% block javascripts %}

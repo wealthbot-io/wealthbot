@@ -1,7 +1,7 @@
 {% if (action == 'view_and_test' or ria_company_information.isShowClientExpectedAssetClass) %}
     {% set investment_market = 0 %}
 
-    <div class="box col-md-6">
+    <div class="box col-6">
         {% include "/Client/Portfolio/_portfolio_costs.html.twig" with {
             'ria_company_information': ria_company_information,
             'has_retirement_account': has_retirement_account,
@@ -14,7 +14,7 @@
         %}
     </div>
 
-    <div class="box col-md-6 suggested-portfolio-performance">
+    <div class="box col-6 suggested-portfolio-performance">
         <div class="box-header shadow">
             Performance
         </div>
@@ -51,7 +51,7 @@
         </div>
     </div>
 {% else %}
-    <div class="box col-md-6">
+    <div class="box col-6">
         {% include "/Client/Portfolio/_portfolio_costs.html.twig" with {
             'ria_company_information': ria_company_information,
             'has_retirement_account': has_retirement_account,

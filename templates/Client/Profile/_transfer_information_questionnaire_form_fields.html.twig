@@ -5,7 +5,7 @@
     {% endif %}
     <div class="row">
         {% for child in form.transferInformation.is_include_policy %}
-            <div class="col-md-1">
+            <div class="col-1">
                 <label class="radio" for="{{ child.vars.id }}">{{ form_widget(child) }} {{ child.vars.label }}</label>
             </div>
         {% endfor %}
@@ -21,7 +21,7 @@
         {% endif %}
         <div class="row">
             {% for child in field.value %}
-                <div class="col-md-1">
+                <div class="col-1">
                     <label class="radio" for="{{ child.vars.id }}">{{ form_widget(child) }} {{ child.vars.label }}</label>
                 </div>
             {% endfor %}

@@ -1,6 +1,6 @@
 {% for flashMessage in app.session.flashbag.get('notice') %}
     <div class="row">
-        <div class="col-md-8 col-md-offset-2">
+        <div class="col-8 col-offset-2">
             <div class="alert alert-success">
                 {{ flashMessage }}
             </div>
@@ -15,7 +15,7 @@
 
     {{ form_errors(form) }}
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-6">
             <div class="form-group">
                 {{ form_label(form.email, 'Email:') }}
                 <div class="controls">
@@ -38,7 +38,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-6">
+        <div class="col-6">
             {% if form.profile.model is defined %}
             <div class="form-group">
                 {{ form_label(form.profile.model, 'Model:') }}

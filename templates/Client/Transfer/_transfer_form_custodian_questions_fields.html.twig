@@ -6,10 +6,10 @@
                 {{ form_errors(field) }}
                 {{ form_errors(field.value) }}
                 <div class="row">
-                    <div class="col-md-8">
+                    <div class="col-8">
                         <div class="row">
                             {% for child in field.value %}
-                                <div class="col-md-1">
+                                <div class="col-1">
                                     <label for="{{ child.vars.id }}">{{ form_widget(child, { 'attr': { 'class': 'not-presave' } }) }} {{ child.vars.label }}</label>
                                 </div>
                             {% endfor %}

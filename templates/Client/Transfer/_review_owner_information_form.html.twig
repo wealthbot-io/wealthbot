@@ -5,21 +5,21 @@
         <legend>Basic</legend>
 
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-4">
                 {{ form_label(form.first_name) }}
                 {{ form_errors(form.first_name) }}
                 <div class="controls">
                     {{ form_widget(form.first_name, { 'attr': { 'class': 'input-medium' } }) }}
                 </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-4">
                 {{ form_label(form.middle_name) }}
                 {{ form_errors(form.middle_name) }}
                 <div class="controls">
                     {{ form_widget(form.middle_name, { 'attr': { 'class': 'input-mini' } }) }}
                 </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-4">
                 {{ form_label(form.last_name) }}
                 {{ form_errors(form.last_name) }}
                 <div class="controls">
@@ -29,7 +29,7 @@
         </div>
 
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-12">
                 {{ form_label(form.street, 'Street Address') }}
                 {{ form_errors(form.street) }}
                 <div class="controls">
@@ -39,21 +39,21 @@
         </div>
 
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-4">
                 {{ form_label(form.city) }}
                 {{ form_errors(form.city) }}
                 <div class="controls">
                     {{ form_widget(form.city, { 'attr': { 'class': 'input-medium' } }) }}
                 </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-4">
                 {{ form_label(form.state) }}
                 {{ form_errors(form.state) }}
                 <div class="controls">
                     {{ form_widget(form.state, { 'attr': { 'class': 'input-medium' } }) }}
                 </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-4">
                 {{ form_label(form.zip) }}
                 {{ form_errors(form.zip) }}
                 <div class="controls">
@@ -63,7 +63,7 @@
         </div>
 
         <div class="row form-inline">
-            <div class="col-md-12">
+            <div class="col-12">
                 {{ form_errors(form.is_different_address) }}
                 {{ form_widget(form.is_different_address, { 'attr': { 'class': 'checkbox' } }) }}
                 {{ form_label(form.is_different_address) }}
@@ -73,7 +73,7 @@
         <div class="row mailing-address">
             <div class="mailing-address-block" style="display:none;">
                 <div class="row">
-                    <div class="col-md-12">
+                    <div class="col-12">
                         {{ form_label(form.mailing_street) }}
                         {{ form_errors(form.mailing_street) }}
                         <div class="controls">
@@ -83,21 +83,21 @@
                 </div>
 
                 <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-4">
                         {{ form_label(form.mailing_city) }}
                         {{ form_errors(form.mailing_city) }}
                         <div class="controls">
                             {{ form_widget(form.mailing_city, { 'attr': { 'class': 'input-medium' } }) }}
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-4">
                         {{ form_label(form.mailingState) }}
                         {{ form_errors(form.mailingState) }}
                         <div class="controls">
                             {{ form_widget(form.mailingState, { 'attr': { 'class': 'input-medium' } }) }}
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-4">
                         {{ form_label(form.mailing_zip) }}
                         {{ form_errors(form.mailing_zip) }}
                         <div class="controls">
@@ -109,14 +109,14 @@
         </div>
 
         <div class="row">
-            <div class="col-md-3">
+            <div class="col-3">
                 {{ form_label(form.birth_date) }}
                 {{ form_errors(form.birth_date) }}
                 <div class="controls">
                     {{ form_widget(form.birth_date) }}
                 </div>
             </div>
-            <div class="col-md-9">
+            <div class="col-9">
                 {{ form_label(form.phone_number) }}
                 {{ form_errors(form.phone_number) }}
                 <div class="controls">
@@ -126,7 +126,7 @@
         </div>
 
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-12">
                 {{ form_label(form.email) }}
                 {{ form_errors(form.email) }}
                 <div class="controls">
@@ -140,12 +140,12 @@
         <legend>Personal</legend>
 
         <div class="row">
-            <div class="col-md-3">
+            <div class="col-3">
                 {{ form_label(form.citezen) }}
                 {{ form_errors(form.citezen) }}
                 {{ form_widget(form.citezen, { 'attr': { 'class': 'input-medium' } }) }}
             </div>
-            <div class="col-md-9">
+            <div class="col-9">
                 <label>Social Security Number</label>
                 {{ form_errors(form) }}
                 <div>
@@ -160,7 +160,7 @@
         </div>
 
         <div class="row">
-            <div class="col-md-12 margin-bottom-10">
+            <div class="col-12 margin-bottom-10">
                 {{ form_label(form.employment_type, 'Employment Status') }}
                 <div class="form-inline employment-status">
                     {{ form_errors(form.employment_type) }}
@@ -173,8 +173,8 @@
             </div>
         </div>
         <div class="row employed-block" style="display:none;">
-            <div class="col-md-7 gray-block">
-                <div class="col-md-12">
+            <div class="col-7 gray-block">
+                <div class="col-12">
                     {{ form_label(form.income_source, 'Source of Income') }}
                     {{ form_errors(form.income_source) }}
                     {{ form_widget(form.income_source, { 'attr': { 'class': 'input-medium' } }) }}
@@ -182,7 +182,7 @@
             </div>
         </div>
         <div class="row unemployed-block margin-left-0" style="display:none;">
-            <div class="col-md-7 gray-block">
+            <div class="col-7 gray-block">
                 <div class="span">
                     {{ form_label(form.employer_name) }}
                     {{ form_errors(form.employer_name) }}
@@ -198,15 +198,15 @@
                     {{ form_errors(form.occupation) }}
                     {{ form_widget(form.occupation, { 'attr': { 'class': 'input-small' } }) }}
                 </div>
-                <div class="col-md-6">
+                <div class="col-6">
                     {{ form_label(form.business_type, 'Type of Business') }}
                     {{ form_errors(form.business_type) }}
-                    {{ form_widget(form.business_type, { 'attr': { 'class': 'col-md-4' } }) }}
+                    {{ form_widget(form.business_type, { 'attr': { 'class': 'col-4' } }) }}
                 </div>
-                <div class="col-md-6">
+                <div class="col-6">
                     {{ form_label(form.employer_address) }}
                     {{ form_errors(form.employer_address) }}
-                    {{ form_widget(form.employer_address, { 'attr': { 'class': 'col-md-4' } }) }}
+                    {{ form_widget(form.employer_address, { 'attr': { 'class': 'col-4' } }) }}
                 </div>
                 <div class="span">
                     {{ form_label(form.employment_city) }}
@@ -226,18 +226,18 @@
             </div>
         </div>
         <div class="row political-figure-block">
-            <div class="col-md-7 gray-block">
-                <div class="col-md-4">
+            <div class="col-7 gray-block">
+                <div class="col-4">
                     Check here if you or a member of your family, or any business associate is a senior political figure
                 </div>
-                <div class="col-md-2">
+                <div class="col-2">
                     {% for radio in form.is_senior_political_figure %}
                         <label for="{{ radio.vars.id }}"accesskey=""  class="checkbox">
                             {{ form_widget(radio) }} {{ radio.vars.label }}
                         </label>
                     {% endfor %}
                 </div>
-                <div class="row col-md-6 political-figure-fields">
+                <div class="row col-6 political-figure-fields">
                     <div class="span">
                         {{ form_label(form.senior_spf_name, 'Name of the SPF') }}
                         {{ form_errors(form.senior_spf_name) }}
@@ -262,22 +262,22 @@
             </div>
         </div>
         <div class="row publicly-traded-company-block">
-            <div class="col-md-7 gray-block">
-                <div class="col-md-4">
+            <div class="col-7 gray-block">
+                <div class="col-4">
                     Check here if you are a director, 10% shareholders, or policy-making officer of a publicly traded company
                 </div>
-                <div class="col-md-2">
+                <div class="col-2">
                     {% for radio in form.is_publicly_traded_company %}
                         <label for="{{ radio.vars.id }}"accesskey=""  class="checkbox">
                             {{ form_widget(radio) }} {{ radio.vars.label }}
                         </label>
                     {% endfor %}
                 </div>
-                <div class="row col-md-6 publicly-traded-company-fields">
+                <div class="row col-6 publicly-traded-company-fields">
                     <div class="span">
                         {{ form_label(form.publicle_company_name, 'Company Name') }}
                         {{ form_errors(form.publicle_company_name) }}
-                        {{ form_widget(form.publicle_company_name, { 'attr': { 'class': 'col-md-5' } }) }}
+                        {{ form_widget(form.publicle_company_name, { 'attr': { 'class': 'col-5' } }) }}
                     </div>
                     <div class="span">
                         {{ form_label(form.publicle_address, 'Address') }}
@@ -298,18 +298,18 @@
             </div>
         </div>
         <div class="row broker-security-exchange-person-block">
-            <div class="col-md-7 gray-block">
-                <div class="col-md-4">
+            <div class="col-7 gray-block">
+                <div class="col-4">
                     Check here if you are a licensed or employed by a registered broker/dealer, securities exchange, or member of a securities exchange
                 </div>
-                <div class="col-md-2">
+                <div class="col-2">
                     {% for radio in form.is_broker_security_exchange_person %}
                         <label for="{{ radio.vars.id }}"accesskey=""  class="checkbox">
                             {{ form_widget(radio) }} {{ radio.vars.label }}
                         </label>
                     {% endfor %}
                 </div>
-                <div class="row col-md-6 broker-security-exchange-person-fields">
+                <div class="row col-6 broker-security-exchange-person-fields">
                     <div class="span">
                         {{ form_label(form.broker_security_exchange_company_name, 'Company Name') }}
                         {{ form_errors(form.broker_security_exchange_company_name) }}

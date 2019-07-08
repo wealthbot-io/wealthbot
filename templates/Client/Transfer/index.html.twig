@@ -17,7 +17,7 @@
     {% block header_row %}
 
         <div class="row margin-top-25">
-            <div class="col-md-10">
+            <div class="col-10">
                 <img class="img-rounded w200h100" src="{{ path('rx_file_download', {'ria_id': client.ria.id}) }}"/>
             </div>
             <div class="save-and-logout">
@@ -62,7 +62,7 @@
     {% endblock %}
 
     {% block top_content %}
-        <div class="container">
+        <div class="container-fluid">
             <div class="row">
                 {{ render(controller('App\\Controller\\Client\\TransferController:accountsList')) }}
             </div>

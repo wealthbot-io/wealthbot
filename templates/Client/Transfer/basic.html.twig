@@ -58,7 +58,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-5">
+            <div class="col-5">
                 {{ form_errors(form.is_different_address) }}
                 <label class="checkbox">
                     {{ form_widget(form.is_different_address) }} {{ form.is_different_address.vars.label }}
@@ -66,12 +66,12 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-7 mailing-address">
+            <div class="col-7 mailing-address">
                 <div class="form-group mailing-address-block" style="display:none;">
-                    <div class="col-md-6">
+                    <div class="col-6">
                         {{ form_label(form.mailing_street, 'Mailing Street') }}
                         {{ form_errors(form.mailing_street) }}
-                        {{ form_widget(form.mailing_street, { 'attr': { 'class': 'col-md-5' } }) }}
+                        {{ form_widget(form.mailing_street, { 'attr': { 'class': 'col-5' } }) }}
                     </div>
 
                     <div class="span">
@@ -110,7 +110,7 @@
                 {{ form_label(form.email, 'Email Address', { 'label_attr': {'class': 'control-label'}}) }}
             <div class="controls">
                 {{ form_errors(form.email) }}
-                {{ form_widget(form.email, { 'attr': { 'class': 'col-md-3' } }) }}
+                {{ form_widget(form.email, { 'attr': { 'class': 'col-3' } }) }}
             </div>
         </div>
 

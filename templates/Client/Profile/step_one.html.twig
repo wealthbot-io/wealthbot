@@ -9,9 +9,9 @@
 
 {% block body %}
     <div class="row margin-top-25">
-        <div class="col-md-12">
+        <div class="col-12">
             <div class="row">
-                <div class="col-md-10">
+                <div class="col-10">
                     <img class="img-rounded w200h100" src="{{ path('rx_file_download', {'ria_id': ria_company_information.ria.id}) }}"/>
                 </div>
                 <div class="save-and-logout">
@@ -23,7 +23,7 @@
     </div>
 
     <div class="row margin-top-10">
-        <div class="col-md-12">
+        <div class="col-12">
             <div class="alert alert-success">
                 Register on our system in 3 easy steps. Logout at any point and we will save your progress automatically for when you return.
                 <a class="close" data-dismiss="alert" href="#">&times;</a>
@@ -32,9 +32,9 @@
     </div>
 
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-12">
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-6">
                     <h3>Step 1 of 3: Your Information</h3>
                 </div>
             </div>
@@ -56,7 +56,7 @@
             </div>
 
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-12">
                     <div class="form-group">
                         {{ form_label(form.annual_income, 'Annual Income') }}
                         {{ form_errors(form.annual_income) }}
@@ -66,7 +66,7 @@
             </div>
 
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-12">
                     <div class="form-group">
                         {{ form_label(form.estimated_income_tax) }}
                         {{ form_errors(form.estimated_income_tax) }}
@@ -76,7 +76,7 @@
             </div>
 
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-12">
                     <div class="form-group">
                         {{ form_label(form.liquid_net_worth, 'Your Estimated Liquid Net Worth') }}
                         {{ form_errors(form.liquid_net_worth) }}
@@ -86,7 +86,7 @@
             </div>
 
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-12">
                     <div class="form-group">
                         {{ form_label(form.employment_type, 'Your Employment Status') }}
                         <div class="controls">
@@ -101,7 +101,7 @@
             </div>
 
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-12">
                     <div class="form-actions">
                         {{ form_rest(form) }}
                         <input class="btn btn-default"  type="submit" name="Continue" value="Continue"/>

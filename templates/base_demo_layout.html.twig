@@ -31,31 +31,27 @@
 {% block html_body %}
     <body>
     {% block headernav %}
-        {% if app.environment != 'prod' %}
-            <div class="navbar navbar-default">
-                <div class="navbar-inner">
-                    <div class="container-fluid">
-                        <a class="navbar-brand" href="/" name="top">wealthbot.io</a>
-                        <a href="https://github.com/wealthbot-io"><img style="position: absolute; top: 0; right: 0; border: 0; z-index: 9999;" src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
-                        <div class="navbar-collapse collapse">
-                            <ul class="nav navbar-nav">
-                                {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-                                    <li><a href="{{ path('logout') }}">Logout</a></li>
-                                {% endif %}
 
-                                {% if is_granted('ROLE_PREVIOUS_ADMIN') %}
-                                    <li class="pull-right">
-                                        <a href="{{ path('rx_user_switch_to_admin', { _switch_user: '_exit' }) }}">Back to Admin</a>
-                                    </li>
-                                {% endif %}
-                            </ul>
-                        </div><!--/.navbar-collapse -->
-                    </div>
-                    <!--/.container-fluid -->
-                </div>
-                <!--/.navbar-inner -->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <a class="navbar-brand" href="{{path('rx_admin_homepage')}}">wealthbot.io</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                        <li class="nav-item"><a class="nav-link" href="{{ path('logout') }}">Logout</a></li>
+                    {% endif %}
+
+                    {% if is_granted('ROLE_PREVIOUS_ADMIN') %}
+                        <li class="pull-right nav-item">
+                            <a class="nav-link" href="{{ path('rx_user_switch_to_admin', { _switch_user: '_exit' }) }}">Back to Admin</a>
+                        </li>
+                    {% endif %}
+                </ul>
             </div>
-        {% endif %}
+        </nav>
     {% endblock %}
 
 
@@ -64,7 +60,7 @@
         <div id="page-title-inner">
 
             <!-- start: Container test deploy 3-->
-            <div class="container">
+            <div class="container-fluid">
 
                 <h2>Welcome to the wealthbot.io demo</h2>
 
@@ -77,7 +73,7 @@
 
 
     {% block main_container %}
-        <div class="container">
+        <div class="container-fluid">
             {% block flash_messages %}
                 {% for type, flashMessages in app.session.flashbag.all() %}
                     {% for flashMessage in flashMessages %}

@@ -12,7 +12,7 @@
             <div class="span">
                 {{ form_label(form.citezen) }}
                 {{ form_errors(form.citezen) }}
-                {{ form_widget(form.citezen, { 'attr': { 'class': 'col-md-4' } }) }}
+                {{ form_widget(form.citezen, { 'attr': { 'class': 'col-4' } }) }}
             </div>
         </div>
         <div class="form-group row">
@@ -24,9 +24,9 @@
                     {{ form_errors(form.ssn_tin_2) }}
                     {{ form_errors(form.ssn_tin_3) }}
                 </div>
-                {{ form_widget(form.ssn_tin_1, { 'attr': { 'class': 'col-md-1', 'placeholder': '###' } }) }}
-                {{ form_widget(form.ssn_tin_2, { 'attr': { 'class': 'col-md-1', 'placeholder': '##' } }) }}
-                {{ form_widget(form.ssn_tin_3, { 'attr': { 'class': 'col-md-1', 'placeholder': '####' } }) }}
+                {{ form_widget(form.ssn_tin_1, { 'attr': { 'class': 'col-1', 'placeholder': '###' } }) }}
+                {{ form_widget(form.ssn_tin_2, { 'attr': { 'class': 'col-1', 'placeholder': '##' } }) }}
+                {{ form_widget(form.ssn_tin_3, { 'attr': { 'class': 'col-1', 'placeholder': '####' } }) }}
             </div>
         </div>
         {% if form.marital_status is defined %}
@@ -34,28 +34,28 @@
                 <div class="span">
                     {{ form_label(form.marital_status) }}
                     {{ form_errors(form.marital_status) }}
-                    {{ form_widget(form.marital_status, { 'attr': { 'class': 'col-md-2' } }) }}
+                    {{ form_widget(form.marital_status, { 'attr': { 'class': 'col-2' } }) }}
                 </div>
             </div>
             <div class="form-group row">
-                <div class="col-md-7 spouse-field">
+                <div class="col-7 spouse-field">
                     <div class="form-group spouse-fields-block" style="display:none;">
-                        <div class="col-md-12">
+                        <div class="col-12">
                             <label for="wealthbot_client_bundle_profile_type_spouse_first_name">Spouse Name</label>
                         </div>
-                        <div class="col-md-2">
+                        <div class="col-2">
                             {{ form_errors(form.spouse_first_name) }}
                             {{ form_widget(form.spouse_first_name, { 'attr': { 'class': 'input-medium', 'placeholder': 'First Name' } }) }}
                         </div>
-                        <div class="col-md-2">
+                        <div class="col-2">
                             {{ form_errors(form.spouse_middle_name) }}
                             {{ form_widget(form.spouse_middle_name, { 'attr': { 'class': 'input-medium', 'placeholder': 'Middle Name' } }) }}
                         </div>
-                        <div class="col-md-2">
+                        <div class="col-2">
                             {{ form_errors(form.spouse_last_name) }}
                             {{ form_widget(form.spouse_last_name, { 'attr': { 'class': 'input-medium', 'placeholder': 'Last Name' } }) }}
                         </div>
-                        <div class="col-md-12">
+                        <div class="col-12">
                             {{ form_label(form.spouse_birth_date, 'Spouse Date of Birth') }}
                             {{ form_errors(form.spouse_birth_date) }}
 
@@ -71,14 +71,14 @@
             <div class="span">
                 {{ form_label(form.dependents) }}
                 {{ form_errors(form.dependents) }}
-                {{ form_widget(form.dependents, { 'attr': { 'class': 'col-md-2' } }) }}
+                {{ form_widget(form.dependents, { 'attr': { 'class': 'col-2' } }) }}
             </div>
         </div>
         <div class="row">
             <div class="span">
                 {{ form_label(form.annual_income, 'Annual Income') }}
                 {{ form_errors(form.annual_income) }}
-                {{ form_widget(form.annual_income, { 'attr': { 'class': 'col-md-2' } }) }}
+                {{ form_widget(form.annual_income, { 'attr': { 'class': 'col-2' } }) }}
             </div>
         </div>
         <div class="row">
@@ -102,7 +102,7 @@
             </div>
         </div>
         <div class="form-group row employed-block" style="display:none;">
-            <div class="col-md-7 gray-block">
+            <div class="col-7 gray-block">
                 <div class="span">
                     {{ form_label(form.income_source, 'Source of Income') }}
                     {{ form_errors(form.income_source) }}
@@ -111,7 +111,7 @@
             </div>
         </div>
         <div class="form-group row unemployed-block" style="display:none;">
-            <div class="col-md-7 gray-block">
+            <div class="col-7 gray-block">
                 <div class="span">
                     {{ form_label(form.employer_name) }}
                     {{ form_errors(form.employer_name) }}
@@ -127,15 +127,15 @@
                     {{ form_errors(form.occupation) }}
                     {{ form_widget(form.occupation, { 'attr': { 'class': 'input-small' } }) }}
                 </div>
-                <div class="col-md-6">
+                <div class="col-6">
                     {{ form_label(form.business_type, 'Type of Business') }}
                     {{ form_errors(form.business_type) }}
-                    {{ form_widget(form.business_type, { 'attr': { 'class': 'col-md-4' } }) }}
+                    {{ form_widget(form.business_type, { 'attr': { 'class': 'col-4' } }) }}
                 </div>
-                <div class="col-md-6">
+                <div class="col-6">
                     {{ form_label(form.employer_address) }}
                     {{ form_errors(form.employer_address) }}
-                    {{ form_widget(form.employer_address, { 'attr': { 'class': 'col-md-4' } }) }}
+                    {{ form_widget(form.employer_address, { 'attr': { 'class': 'col-4' } }) }}
                 </div>
                 <div class="span">
                     {{ form_label(form.employment_city) }}
@@ -155,18 +155,18 @@
             </div>
         </div>
         <div class="form-group row political-figure-block">
-            <div class="col-md-7 gray-block">
-                <div class="col-md-4">
+            <div class="col-7 gray-block">
+                <div class="col-4">
                     Check here if you or a member of your family, or any business associate is a senior political figure
                 </div>
-                <div class="col-md-2">
+                <div class="col-2">
                     {% for radio in form.is_senior_political_figure %}
                         <label for="{{ radio.vars.id }}"accesskey=""  class="checkbox">
                             {{ form_widget(radio) }} {{ radio.vars.label }}
                         </label>
                     {% endfor %}
                 </div>
-                <div class="row col-md-6 political-figure-fields">
+                <div class="row col-6 political-figure-fields">
                     <div class="span">
                         {{ form_label(form.senior_spf_name, 'Name of the SPF') }}
                         {{ form_errors(form.senior_spf_name) }}
@@ -191,22 +191,22 @@
             </div>
         </div>
         <div class="form-group row publicly-traded-company-block">
-            <div class="col-md-7 gray-block">
-                <div class="col-md-4">
+            <div class="col-7 gray-block">
+                <div class="col-4">
                     Check here if you are a director, 10% shareholders, or policy-making officer of a publicly traded company
                 </div>
-                <div class="col-md-2">
+                <div class="col-2">
                     {% for radio in form.is_publicly_traded_company %}
                         <label for="{{ radio.vars.id }}"accesskey=""  class="checkbox">
                             {{ form_widget(radio) }} {{ radio.vars.label }}
                         </label>
                     {% endfor %}
                 </div>
-                <div class="row col-md-6 publicly-traded-company-fields">
+                <div class="row col-6 publicly-traded-company-fields">
                     <div class="span">
                         {{ form_label(form.publicle_company_name, 'Company Name') }}
                         {{ form_errors(form.publicle_company_name) }}
-                        {{ form_widget(form.publicle_company_name, { 'attr': { 'class': 'col-md-5' } }) }}
+                        {{ form_widget(form.publicle_company_name, { 'attr': { 'class': 'col-5' } }) }}
                     </div>
                     <div class="span">
                         {{ form_label(form.publicle_address, 'Address') }}
@@ -227,18 +227,18 @@
             </div>
         </div>
         <div class="form-group row broker-security-exchange-person-block">
-            <div class="col-md-7 gray-block">
-                <div class="col-md-4">
+            <div class="col-7 gray-block">
+                <div class="col-4">
                     Check here if you are a licensed or employed by a registered broker/dealer, securities exchange, or member of a securities exchange
                 </div>
-                <div class="col-md-2">
+                <div class="col-2">
                     {% for radio in form.is_broker_security_exchange_person %}
                         <label for="{{ radio.vars.id }}"accesskey=""  class="checkbox">
                             {{ form_widget(radio) }} {{ radio.vars.label }}
                         </label>
                     {% endfor %}
                 </div>
-                <div class="row col-md-6 broker-security-exchange-person-fields">
+                <div class="row col-6 broker-security-exchange-person-fields">
                     <div class="span">
                         {{ form_label(form.broker_security_exchange_company_name, 'Company Name') }}
                         {{ form_errors(form.broker_security_exchange_company_name) }}

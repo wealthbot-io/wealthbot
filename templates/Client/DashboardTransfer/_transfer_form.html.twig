@@ -45,19 +45,19 @@
 
                 {{ form_label(form.account_number, 'Account Number:') }}
                 {{ form_errors(form.account_number) }}
-                {{ form_widget(form.account_number, { 'attr': { 'class': 'col-md-4' } }) }}
+                {{ form_widget(form.account_number, { 'attr': { 'class': 'col-4' } }) }}
 
                 {{ form_label(form.financial_institution, 'Name of Financial Institution You Are Transferring From:') }}
                 {{ form_errors(form.financial_institution) }}
-                {{ form_widget(form.financial_institution, { 'attr': { 'class': 'col-md-4' } }) }}
+                {{ form_widget(form.financial_institution, { 'attr': { 'class': 'col-4' } }) }}
 
                 {{ form_label(form.firm_address, 'Address of Firm:') }}
                 {{ form_errors(form.firm_address) }}
-                {{ form_widget(form.firm_address, { 'attr': { 'class': 'col-md-4' } }) }}
+                {{ form_widget(form.firm_address, { 'attr': { 'class': 'col-4' } }) }}
 
                 {{ form_label(form.phone_number, 'Telephone Number:') }}
                 {{ form_errors(form.phone_number) }}
-                {{ form_widget(form.phone_number, { 'attr': { 'class': 'col-md-4', 'data-mask-type': 'phone' } }) }}
+                {{ form_widget(form.phone_number, { 'attr': { 'class': 'col-4', 'data-mask-type': 'phone' } }) }}
             </div>
         </li>
 
@@ -66,10 +66,10 @@
             <div>
                 {{ form_errors(form.is_include_policy) }}
                 <div class="row">
-                    <div class="col-md-8">
+                    <div class="col-8">
                         <div class="row">
                             {% for child in form.is_include_policy %}
-                                <div class="col-md-1">
+                                <div class="col-1">
                                     <label for="{{ child.vars.id }}">{{ form_widget(child, { 'attr': { 'class': 'not-presave' } }) }} {{ child.vars.label }}</label>
                                 </div>
                             {% endfor %}

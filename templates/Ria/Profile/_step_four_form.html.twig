@@ -4,7 +4,7 @@
     {% endblock %}
     {% block suggested_portfolio %}
 
-        <div class="col-md-12">
+        <div class="col-12">
             <legend>Portfolio Processing</legend>
             <div class="form-group">
                 <div class="portfolio-processing">
@@ -21,7 +21,7 @@
     {% endblock %}
 
         {% block models %}
-            <div class="col-md-12">
+            <div class="col-12">
                 <legend>Models</legend>
                 <div class="portfolio-model form-group">
                     {{ form_label(form.model_type, 'Choose which types of models you will use for your clients:') }}
@@ -58,7 +58,7 @@
         {% endblock %}
 
 
-        <div class="col-md-12" id="outside_retirement_accounts_block" {#code_v2: NOT DELETE THIS CODE #}style="display: none;">
+        <div class="col-12" id="outside_retirement_accounts_block" {#code_v2: NOT DELETE THIS CODE #}style="display: none;">
             <legend>Outside Retirement Account <a class="pop" href="#" rel="popover" title="Outside Retirement Accounts" data-content="<p>We allow you to consider client's outside retirement accounts (401k's, 403b's, TSP's, etc.) in their overall portfolio. The client will be asked to give you the various choices they have in their plan, where you can then recommend the best options.</p>"><i class="mini-color mini-ico-info-sign"></i></a></legend>
             <div class="form-group">
                 <div class="outsideretirementaccountinfo">
@@ -79,7 +79,7 @@
             </div>
         </div>
 
-        <div class="col-md-12" id="portfolio_managment_level_block">
+        <div class="col-12" id="portfolio_managment_level_block">
             <legend>Portfolio Management Level <a class="pop" href="#" rel="popover" title="Portfolio Management Level" data-content="<ul>
             <li><strong>Account Level:</strong> Each account will be managed by its own model. <i>Note-All accounts must use the same model.</i></li>
             <li><strong>Household Level:</strong> The accounts will be managed as a group, rebalanced against an overall model.</li>
@@ -116,7 +116,7 @@
             {% endblock %}
         </div>
 
-        <div class="col-md-12">
+        <div class="col-12">
             <legend>Rebalancing Level <a class="pop" href="#" rel="popover" title="Rebalancing Level" data-content="<ul>
             <li><b>Asset Class Rebalancing:</b> We will only rebalance a client’s portfolio when it exceeds your thresholds or is out of target on systematic basis you want rebalanced. Asset classes are stocks and bonds. This type of rebalancing will result in less rebalances, allowing markets to move.</li>
             <li><b>Subclass Rebalancing:</b> We will only rebalance when a client’s subclasses are out of balance (Small Value, REITs, Short Term Bonds, etc.) This type of rebalancing will result in more rebalances.</li>
@@ -134,7 +134,7 @@
             </div>
         </div>
 
-        <div class="col-md-12">
+        <div class="col-12">
             <legend>Rebalancing Frequency <a class="pop" href="#" rel="popover" title="Rebalancing Frequency" data-content="<ul>
             <li><strong>Quarterly:</strong> We will rebalance your client portfolios around 1/1, 4/1, 7/1, and 10/1.</li>
             <li><strong>Semi Annually:</strong> We will rebalance your client portfolios around 1/1 and 7/1.</li>
@@ -164,7 +164,7 @@
             {#</div>#}
         </div>
 
-        <div class="col-md-12">
+        <div class="col-12">
             <legend>Transactions</legend>
             <div class="form-group transaction-amount">
                 {{ form_label(form.transaction_amount, 'What is the minimum amount you would you like us to use for buys and sells? Choose either a dollar figure or a percentage and we will use the lesser of each, on a per trade basis.') }}
@@ -209,7 +209,7 @@
             </div>
         </div>
 
-        <div class="col-md-12" id="municipal_bonds_block">
+        <div class="col-12" id="municipal_bonds_block">
             <legend>Municipal Bonds</legend>
             <div class="municipal-bonds">
                 <div class="form-group use-municipal-bond">
@@ -235,7 +235,7 @@
             </div>
         </div>
 
-        <div class="col-md-12">
+        <div class="col-12">
             <legend>Tax Loss Harvesting</legend>
             <div class="tax-loss-harvesting">
                 <div class="form-group">
@@ -300,7 +300,7 @@
             </div>
         </div>
 
-        <div class="col-md-12">
+        <div class="col-12">
             <legend>Portfolio Assumptions <a class="pop" href="#" rel="popover" title="Portfolio Management Level" data-content="<p>
             Asset class return assumptions will used when calculating the expected performance of client portfolios, if you choose to show them this data when picking a portfolio. The client will see the expected performance of their portfolio and the asset classes within it when their portfolio is suggested.
             </p>"><i class="mini-color mini-ico-info-sign"></i></a></legend>
@@ -328,7 +328,7 @@
 
         {% block expected_assets %}
             <div style="display: none;">
-                <div class="col-md-12 asset-block alertable" id="asset_block">
+                <div class="col-12 asset-block alertable" id="asset_block">
                     <legend>Expected Asset Returns & Asset Location Optimization</legend>
                     <div class="alert alert-error" id="asset_block_alert" style="display: none;">
                         <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -381,7 +381,7 @@
         {% endblock %}
 
         {% block form_actions %}
-        <div class="col-md-12">
+        <div class="col-12">
             <div class="form-actions">
                 {{ form_widget(form._token) }}
                 <a class="btn btn-default"  href="{{ path('rx_ria_profile_step_three') }}">Back</a>

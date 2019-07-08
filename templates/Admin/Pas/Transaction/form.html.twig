@@ -10,7 +10,7 @@
         <form method="post" {{ form_start(form) }}>
             {{ form_row(form._token) }}
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-4">
                     <div class="form-group">
                         {{ form_label(form.advisorCode, 'Advisor code', {'label_attr': {'class': 'control-label'}}) }}
                         <div class="controls">
@@ -40,7 +40,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-4">
                     <div class="form-group">
                         {{ form_label(form.accountNumber, 'Account number', {'label_attr': {'class': 'control-label'}}) }}
                         <div class="controls">
@@ -70,7 +70,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-4">
                     <div class="form-group">
                         {{ form_label(form.transactionCode, 'Transaction code', {'label_attr': {'class': 'control-label'}}) }}
                         <div class="controls">
@@ -95,11 +95,11 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-12">
                     <div class="form-group">
                         {{ form_label(form.notes, 'Notes', {'label_attr': {'class': 'control-label'}}) }}
                         <div class="controls">
-                            {{ form_widget(form.notes, {'attr': {'class': 'col-md-12'}}) }}
+                            {{ form_widget(form.notes, {'attr': {'class': 'col-12'}}) }}
                             {{ form_errors(form.notes) }}
                         </div>
                     </div>

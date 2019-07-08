@@ -77,16 +77,16 @@
                     {% endif %}
                 </div>
                 <div class="clearfix">
-                    <div class="col-md-12 clearfix">
+                    <div class="col-12 clearfix">
                         {{ form_label(form.transaction_frequency, 'Frequency of transaction:') }}
                         {{ form_errors(form.transaction_frequency) }}
                     </div>
 
                     {% if form.transaction_frequency|length > 4 %}
-                        <div class="col-md-3">
+                        <div class="col-3">
                         {% for radio in form.transaction_frequency %}
                             {% if (loop.index == 5) or (loop.index == 9) %}
-                                </div><div class="col-md-3">
+                                </div><div class="col-3">
                             {% endif %}
                             <label for="{{ radio.vars.id }}" class="radio">{{ form_widget(radio) }}{{ radio.vars.label }}</label>
                         {% endfor %}

@@ -10,7 +10,7 @@
 
     <form id="portfolio_management_form" action="{{path('rx_ria_change_profile_save_portfolio_management')}}" method="post">
 
-        <div class="col-md-12 alertable" id="is_allow_retirement" {#code_v2: NOT DELETE THIS CODE #}style="display: none;">
+        <div class="col-12 alertable" id="is_allow_retirement" {#code_v2: NOT DELETE THIS CODE #}style="display: none;">
             <legend>Outside Retirement Account <a class="pop" href="#" rel="popover" title="Outside Retirement Accounts" data-content="<p>We allow you to consider client's outside retirement accounts (401k's, 403b's, TSP's, etc.) in their overall portfolio. The client will be asked to give you the various choices they have in their plan, where you can then recommend the best options.</p>"><i class="mini-color mini-ico-info-sign"></i></a></legend>
             <div class="form-group">
                 <div class="outsideretirementaccountinfo">
@@ -31,7 +31,7 @@
             </div>
         </div>
 
-        <div class="col-md-12 alertable" id="account_type">
+        <div class="col-12 alertable" id="account_type">
             <legend>Portfolio Management Level <a class="pop" href="#" rel="popover" title="Portfolio Management Level" data-content="<ul>
                     <li><strong>Account Level:</strong> Each account will be managed by its own model. <i>Note-All accounts must use the same model.</i></li>
                     <li><strong>Household Level:</strong> The accounts will be managed as a group, rebalanced against an overall model.</li>
@@ -57,7 +57,7 @@
             </div>
         </div>
 
-        <div class="col-md-12 alertable" id="municipal_bonds">
+        <div class="col-12 alertable" id="municipal_bonds">
             <legend>Municipal Bonds</legend>
             <div class="municipal-bonds">
                 <div class="form-group use-municipal-bond">
@@ -83,7 +83,7 @@
             </div>
         </div>
 
-        <div class="col-md-12 alertable" id="rebalancing_level">
+        <div class="col-12 alertable" id="rebalancing_level">
             <legend>Rebalancing Level <a class="pop" href="#" rel="popover" title="Rebalancing Level" data-content="<ul>
                     <li><b>Asset Class Rebalancing:</b> We will only rebalance a client’s portfolio when it exceeds your thresholds or is out of target on systematic basis you want rebalanced. Asset classes are stocks and bonds. This type of rebalancing will result in less rebalances, allowing markets to move.</li>
                     <li><b>Subclass Rebalancing:</b> We will only rebalance when a client’s subclasses are out of balance (Small Value, REITs, Short Term Bonds, etc.) This type of rebalancing will result in more rebalances.</li>
@@ -101,7 +101,7 @@
             </div>
         </div>
 
-        <div class="col-md-12 alertable" id="rebalancer_frequency">
+        <div class="col-12 alertable" id="rebalancer_frequency">
             <legend>Rebalancing Frequency <a class="pop" href="#" rel="popover" title="Rebalancing Frequency" data-content="<ul>
                     <li><strong>Quarterly:</strong> We will rebalance your client portfolios around 1/1, 4/1, 7/1, and 10/1.</li>
                     <li><strong>Semi Annually:</strong> We will rebalance your client portfolios around 1/1 and 7/1.</li>
@@ -131,7 +131,7 @@
             {#</div>#}
         </div>
 
-        <div class="col-md-12 alertable" id="transactions_settings">
+        <div class="col-12 alertable" id="transactions_settings">
             <legend>Transactions</legend>
 
             <div class="alert alert-error" id="transactions_settings_alert" style="display: none;">
@@ -182,7 +182,7 @@
             </div>
         </div>
 
-        <div class="col-md-12 alertable" id="tax_loss_harvesting">
+        <div class="col-12 alertable" id="tax_loss_harvesting">
             <legend>Tax Loss Harvesting</legend>
             <div class="tax-loss-harvesting">
                 <div class="form-group">
@@ -276,7 +276,7 @@
         {% if (form.subclasses is defined) %}
             {% if form.subclasses|length > 0 and not isCustomModel %}
                 <div style="display: none;">
-                    <div class="col-md-12 asset-block alertable" id="asset_block">
+                    <div class="col-12 asset-block alertable" id="asset_block">
                         <legend>Expected Asset Returns & Asset Location Optimization</legend>
                         <div class="alert alert-error" id="asset_block_alert" style="display: none;">
                             <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -330,7 +330,7 @@
         {% endif %}
 
         {{ form_widget(form._token) }}
-        <div class="col-md-12">
+        <div class="col-12">
             <div class="form-actions">
                 <button type="submit" class="btn btn-default btn-ajax" data-loading-text="Saving...">Save</button>
             </div>

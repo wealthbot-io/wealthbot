@@ -1,22 +1,22 @@
 {% extends '/Admin/layout.html.twig' %}
 
 {% block body %}
-    <div class="container">
-        <div class="col-md-8">
+    <div class="container-fluid">
+        <div class="col-8">
         {% block form_title %}<h3>Create user</h3>{% endblock %}
 
         <form class="form-horizontal" action="" method="post">
             {{ form_errors(createAdminUserForm) }}
             <div class="row">
                 <div class="form-group">
-                    <div class="col-md-6">
+                    <div class="col-6">
                         {{ form_label(createAdminUserForm.profile.first_name, 'First Name:', { 'label_attr': { 'class': 'control-label' } }) }}
                         <div class="controls">
                             {{ form_errors(createAdminUserForm.profile.first_name) }}
                             {{ form_widget(createAdminUserForm.profile.first_name, {'attr': { 'class': 'input-small' } }) }}
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-6">
                         {{ form_label(createAdminUserForm.profile.last_name, 'Last Name:', { 'label_attr': { 'class': 'control-label width-90' } }) }}
                         <div class="controls">
                             {{ form_errors(createAdminUserForm.profile.last_name) }}

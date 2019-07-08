@@ -1,39 +1,46 @@
-<div class="col-md-2 main-menu-span">
-    <div class="navbar-collapse sidebar-nav">
-        <ul class="nav nav-tabs nav-stacked main-menu">
-            <li {% if action == 'Overview' %}class="active"{% endif %}>
-                <a href="{{ path('rx_client_dashboard', is_client_view == 0 ? {'is_client_view': is_client_view} : {}) }}"><i class="icon-home icon"></i><span class="hidden-tablet"> Overview</span></a>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="{{path('rx_admin_homepage')}}">
+        <img class="img-rounded" width="150px" src="{{ layout_variables.ria_logo }}"/>
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li {% if action == 'Overview' %}class="active nav-item"{%else %}class="nav-item"{% endif %}>
+                <a class="nav-link" href="{{ path('rx_client_dashboard', is_client_view == 0 ? {'is_client_view': is_client_view} : {}) }}"><i class="icon-home icon"></i><span class="hidden-tablet"> Overview</span></a>
             </li>
-            <li {% if action == 'Holdings' %}class="active"{% endif %}>
-                <a href="{{ path('wealthbot_client_holdings', is_client_view == 0 ? {'is_client_view': is_client_view} : {}) }}"><i class="icon-briefcase icon"></i><span class="hidden-tablet"> Holdings</span></a>
+            <li {% if action == 'Holdings' %}class="active nav-item"{%else %}class="nav-item"{% endif %}>
+                <a class="nav-link" href="{{ path('wealthbot_client_holdings', is_client_view == 0 ? {'is_client_view': is_client_view} : {}) }}"><i class="icon-briefcase icon"></i><span class="hidden-tablet"> Holdings</span></a>
             </li>
-            <li {% if action == 'Allocation' %}class="active"{% endif %}>
-                <a href="{{ path('wealthbot_client_allocation', is_client_view == 0 ? {'is_client_view': is_client_view} : {}) }}"><i class="icon-th icon"></i><span class="hidden-tablet"> Asset Allocation</span></a>
+            <li {% if action == 'Allocation' %}class="active nav-item"{%else %}class="nav-item"{% endif %}>
+                <a class="nav-link" href="{{ path('wealthbot_client_allocation', is_client_view == 0 ? {'is_client_view': is_client_view} : {}) }}"><i class="icon-th icon"></i><span class="hidden-tablet"> Asset Allocation</span></a>
             </li>
-            <li {% if action == 'Gains/Losses' %}class="active"{% endif %}>
-                <a href="{{ path('wealthbot_client_gainslosses', is_client_view == 0 ? {'is_client_view': is_client_view} : {}) }}"><i class="icon-resize-vertical icon"></i><span class="hidden-tablet"> Realized Gains/Losses</span></a>
+            <li {% if action == 'Gains/Losses' %}class="active nav-item"{%else %}class="nav-item"{% endif %}>
+                <a class="nav-link" href="{{ path('wealthbot_client_gainslosses', is_client_view == 0 ? {'is_client_view': is_client_view} : {}) }}"><i class="icon-resize-vertical icon"></i><span class="hidden-tablet"> Realized Gains/Losses</span></a>
             </li>
-            <li {% if action == 'Transactions' %}class="active"{% endif %}>
-                <a href="{{ path('wealthbot_client_transactions', is_client_view == 0 ? {'is_client_view': is_client_view} : {}) }}"><i class="icon-book icon"></i><span class="hidden-tablet"> Transactions</span></a>
+            <li {% if action == 'Transactions' %}class="active nav-item"{%else %}class="nav-item"{% endif %}>
+                <a class="nav-link" href="{{ path('wealthbot_client_transactions', is_client_view == 0 ? {'is_client_view': is_client_view} : {}) }}"><i class="icon-book icon"></i><span class="hidden-tablet"> Transactions</span></a>
             </li>
-            <li {% if action == 'Billing' %}class="active"{% endif %}>
-                <a href="{{ path('wealthbot_client_billing', is_client_view == 0 ? {'is_client_view': is_client_view} : {}) }}"><i class="icon-check icon"></i><span class="hidden-tablet"> Billing</span></a>
+            <li {% if action == 'Billing' %}class="active nav-item"{%else %}class="nav-item"{% endif %}>
+                <a class="nav-link" href="{{ path('wealthbot_client_billing', is_client_view == 0 ? {'is_client_view': is_client_view} : {}) }}"><i class="icon-check icon"></i><span class="hidden-tablet"> Billing</span></a>
             </li>
-            <li {% if action == 'Performance' %}class="active"{% endif %}>
-                <a href="{{ path('wealthbot_client_performance', is_client_view == 0 ? {'is_client_view': is_client_view} : {}) }}"><i class="icon-signal icon"></i><span class="hidden-tablet"> Performance</span></a>
+            <li {% if action == 'Performance' %}class="active nav-item"{%else %}class="nav-item"{% endif %}>
+                <a class="nav-link" href="{{ path('wealthbot_client_performance', is_client_view == 0 ? {'is_client_view': is_client_view} : {}) }}"><i class="icon-signal icon"></i><span class="hidden-tablet"> Performance</span></a>
             </li>
-            <li {% if action == 'Activity' %}class="active"{% endif %}>
-                <a href="{{ path('rx_client_portfolio', is_client_view == 0 ? {'is_client_view': is_client_view} : {}) }}"><i class="icon-align-justify icon"></i><span class="hidden-tablet"> Portfolio</span></a>
+            <li {% if action == 'Activity' %}class="active nav-item"{%else %}class="nav-item"{% endif %}>
+                <a class="nav-link" href="{{ path('rx_client_portfolio', is_client_view == 0 ? {'is_client_view': is_client_view} : {}) }}"><i class="icon-align-justify icon"></i><span class="hidden-tablet"> Portfolio</span></a>
             </li>
-            <li {% if action == 'Documents' %}class="active"{% endif %}>
-                <a href="{{ path('wealthbot_client_documents', is_client_view == 0 ? {'is_client_view': is_client_view} : {}) }}"><i class="icon-list-alt icon"></i><span class="hidden-tabler"> Documents</span></a>
+            <li {% if action == 'Documents' %}class="active nav-item"{%else %}class="nav-item"{% endif %}>
+                <a class="nav-link" href="{{ path('wealthbot_client_documents', is_client_view == 0 ? {'is_client_view': is_client_view} : {}) }}"><i class="icon-list-alt icon"></i><span class="hidden-tabler"> Documents</span></a>
             </li>
 
             {% if is_granted('ROLE_CLIENT_FULL') %}
-                <li {% if action == 'Account Management' %}class="active"{% endif %}>
-                    <a href="{{ path('rx_client_dashboard_account_management', is_client_view == 0 ? {'is_client_view': is_client_view} : {}) }}"><i class="icon-user icon"></i><span class="hidden-tablet"> Account Management</span></a>
+                <li {% if action == 'Account Management' %}class="active nav-item"{%else %}class="nav-item"{% endif %}>
+                    <a class="nav-link" href="{{ path('rx_client_dashboard_account_management', is_client_view == 0 ? {'is_client_view': is_client_view} : {}) }}"><i class="icon-user icon"></i><span class="hidden-tablet"> Account Management</span></a>
                 </li>
             {% endif %}
         </ul>
-    </div><!--/.well -->
-</div><!--/span-->
+    </div>
+</nav>

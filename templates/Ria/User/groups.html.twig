@@ -20,7 +20,7 @@
 {% endif %}
 
 <div class="row">
-    <form action="{{ url }}" method="post" class="form-horizontal col-md-6">
+    <form action="{{ url }}" method="post" class="form-horizontal col-6">
         {{ form_errors(form) }}
         <div class="form-group" style="margin: 10px 10px 0px 0px">
                 {{ form_label(form.name , null, { 'label_attr': { 'class': 'control-label' } }) }}
@@ -36,7 +36,7 @@
 
     </form>
 
-    <div class="col-md-6">
+    <div class="col-6">
         <table id="users_list" class="table table-striped">
             <thead>
             <tr>

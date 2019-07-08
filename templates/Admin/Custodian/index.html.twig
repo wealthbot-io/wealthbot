@@ -29,14 +29,14 @@
                     <div class="tab-pane {{ loop.index == 1 ? 'active' : '' }}" id="custodian{{ key }}">
                         <h4>{{ tab.custodian.name }}</h4>
 
-                            <div id="custodian{{ key }}_form_container" class="col-md-5 rx-v-divider">
+                            <div id="custodian{{ key }}_form_container" class="col-5 rx-v-divider">
                                 {% include '/Admin/Custodian/_documents_form.html.twig' with {
                                     'form': tab.form,
                                     'custodian': tab.custodian,
                                     'documents': tab.documents
                                 } %}
                             </div>
-                            <div class="col-md-7">
+                            <div class="col-7">
                                 {% include '/Admin/Custodian/_messages.html.twig' with { 'custodian': tab.custodian } %}
                             </div>
 

@@ -6,7 +6,7 @@
     {% endif %}
 
 
-    <form class="form-signin col-md-4" action="{{ path("rx_admin_login_check") }}" method="post">
+    <form class="form-signin col-4" action="{{ path("rx_admin_login_check") }}" method="post">
         <label for="username">{{ 'security.login.username'|trans({}, 'FOSUserBundle') }}</label>
         <input class="form-control" type="text" id="username" name="_username" value="{{ last_username }}" />
         <br />

@@ -13,21 +13,10 @@
     {% set is_client_view_value = is_client_view is defined ? is_client_view : true %}
 
     <div class="container-fluid">
-
-        <div class="row margin-top-25">
-            <div class="col-md-6">
-                <img class="img-rounded" width="150px" src="{{ layout_variables.ria_logo }}"/>
-            </div>
-            <div class="col-md-6 right-text">
-                <a class="btn btn-default"  href="{{ path('logout') }}">Logout</a>
-            </div>
-        </div>
-
         <div class="row">
-
             {% include '/Client/Dashboard/_nav.html.twig' with {'action' : layout_variables.action, 'is_client_view': is_client_view_value} %}
 
-            <div id="content" class="col-md-10 margin-top-7">
+            <div id="content" class="col-10 margin-top-7">
 
                 <hr />
                 {% block content %}

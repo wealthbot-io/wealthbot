@@ -7,7 +7,7 @@
     {% if (form.financial_institution is defined) %}
         <div class="form-group">
             <div class="row">
-                <div class="col-md-9 col-md-offset-3">
+                <div class="col-9 col-offset-3">
                     <div>{{ form_errors(form.financial_institution) }}</div>
                     {% if form.transferInformation is defined %}
                         <div>{{ form_errors(form.transferInformation.transfer_custodian_id) }}</div>
@@ -18,7 +18,7 @@
                 {{ form_label(form.financial_institution, null, { 'label_attr': {'class': ' client-intake-step-three-label'}}) }}
                 <div >
                     <div class="row">
-                        <div class="col-md-12">
+                        <div class="col-12">
                             {% if form.transferInformation is defined %}
                                 {{ form_widget(form.financial_institution, { 'attr': {
                                 class: 'input-xlarge fin-inst-typeahead ajaxed typeahead',
@@ -33,7 +33,7 @@
                     </div>
                     {% if form.transferInformation is defined %}
                         <div class="row">
-                            <div class="col-md-9">
+                            <div class="col-9">
                                 {{ form_errors(form.transferInformation.is_firm_not_appear) }}
                                 <label class="checkbox" for="{{ form.transferInformation.is_firm_not_appear.vars.id }}">
                                     {{ form_widget(form.transferInformation.is_firm_not_appear) }}
@@ -97,7 +97,7 @@
             {{ form_errors(form.contribution_type) }}
             <div class="contribution-type-choices" data-url="{{ path('rx_client_profile_update_account_form', { 'group': group }) }}">
                 {% for child in form.contribution_type %}
-                    <div class="col-md-3">
+                    <div class="col-3">
                         <label class="radio" for="{{ child.vars.id }}">{{ form_widget(child) }} {{ child.vars.label }}</label>
                     </div>
                 {% endfor %}

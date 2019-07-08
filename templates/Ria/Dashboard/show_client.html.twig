@@ -6,8 +6,8 @@
 {% endblock %}
 
 {% block clients_header %}
-    <div class="ria-client-dashboard-header-content row col-md-10">
-        <div class="col-md-11">
+    <div class="ria-client-dashboard-header-content row col-10">
+        <div class="col-11">
             <h1>
                 {% if app.request.query.get('showBreadcrumbs') %}
                     {{ form_widget(searchForm.search, {
@@ -42,7 +42,7 @@
             {% endblock %}
         </div>
 
-        <div class="col-md-10 margin-top-7">
+        <div class="col-10 margin-top-7">
             <hr />
             <div id="ria_dashboard_client_content"></div>
         </div>

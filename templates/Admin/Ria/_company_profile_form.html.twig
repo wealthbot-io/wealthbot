@@ -5,12 +5,12 @@
 {% endblock %}
 
 {% block form_actions %}
-    <div class="col-md-12">
+    <div class="col-12">
         {{ form_rest(form) }}
     </div>
 
     {% if is_permitted('edit') %}
-        <div class="col-md-12">
+        <div class="col-12">
             <div class="form-actions">
                 <button type="submit" class="btn btn-primary btn-ajax" data-loading-text="Saving...">Save changes</button>
             </div>

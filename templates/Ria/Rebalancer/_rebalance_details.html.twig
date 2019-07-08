@@ -2,13 +2,13 @@
 {% set portfolio = client_value.clientPortfolio.portfolio %}
 
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-4">
         <h3>Relationship: {{ client.lastName ~ ', ' ~ client.firstName }}</h3>
     </div>
-    <div class="col-md-4">
+    <div class="col-4">
         <h4>Value: ${{ client_value.totalValue|number_format(2, '.', ',') }}</h4>
     </div>
-    <div class="col-md-4">
+    <div class="col-4">
         <h5>Model: {{ portfolio.name }}</h5>
     </div>
 </div>
@@ -21,11 +21,11 @@
 </div>
 
 <div class="row">
-    <div class="col-md-8" id="rebalance_portfolio_allocation">
+    <div class="col-8" id="rebalance_portfolio_allocation">
         <span class="text-bold">Portfolio Allocation:</span>
         {% include '/Ria/Rebalancer/_portfolio_allocation_table.html.twig' with {'allocations': allocations} %}
     </div>
-    <div class="col-md-4" id="rebalance_rebalancing_summary">
+    <div class="col-4" id="rebalance_rebalancing_summary">
         <span class="text-bold">Rebalancing Summary:</span>
         {% include '/Ria/Rebalancer/_rebalancing_summary_table.html.twig' with {'summary': summary} %}
     </div>

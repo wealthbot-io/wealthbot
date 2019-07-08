@@ -9,17 +9,17 @@
     {% endif %}
 
     <div class="row">
-        <div class="col-md-5 col-md-offset-1">
+        <div class="col-5 col-offset-1">
             <div class="login-box-client">
                 <form action="{{ path("rx_client_registration",  params) }}" method="post" >
                     <div class="row">
-                        <div class="col-md-11">
+                        <div class="col-11">
                             <div class="row">
-                                <div class="col-md-5">
+                                <div class="col-5">
                                     {{ form_errors(form.profile.first_name) }}
                                     {{ form_widget(form.profile.first_name, {'attr': { 'placeholder': 'First Name', 'class': 'width-150' } }) }}
                                 </div>
-                                <div class="col-md-5 margin-left-0">
+                                <div class="col-5 margin-left-0">
                                     {{ form_errors(form.profile.last_name) }}
                                     {{ form_widget(form.profile.last_name, {'attr': { 'placeholder': 'Last Name', 'class': 'width-150' } }) }}
                                 </div>
@@ -65,7 +65,7 @@
                 </form>
             </div>
         </div>
-        <div class="col-md-5">
+        <div class="col-5">
             <div class="login-box-company-logo">
                 <img src="{{ path('rx_file_download', {'ria_id': ria.id}) }}" alt="">
             </div>

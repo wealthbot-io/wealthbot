@@ -12,7 +12,7 @@
     </div>
 
     <div class="row">
-        <div class="col-md-3">
+        <div class="col-3">
             <div class="form-group">
                 {{ form_label(form.email) }}
                 {{ form_errors(form.email) }}
@@ -23,7 +23,7 @@
 
 {% else %}
     <div class="row">
-        <div class="col-md-3">
+        <div class="col-3">
             <div class="form-group">
                 {{ form_label(form.street) }}
                 {{ form_errors(form.street) }}
@@ -33,21 +33,21 @@
     </div>
 
     <div class="row">
-        <div class="col-md-2">
+        <div class="col-2">
             <div class="form-group">
                 {{ form_label(form.city, 'City') }}
                 {{ form_errors(form.city) }}
                 {{ form_widget(form.city) }}
             </div>
         </div>
-        <div class="col-md-2">
+        <div class="col-2">
             <div class="form-group">
                 {{ form_label(form.state) }}
                 {{ form_errors(form.state) }}
                 {{ form_widget(form.state) }}
             </div>
         </div>
-        <div class="col-md-2">
+        <div class="col-2">
             <div class="form-group">
                 {{ form_label(form.zip, 'Zip Code') }}
                 {{ form_errors(form.zip) }}
@@ -57,7 +57,7 @@
     </div>
 
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-12">
             <div class="form-group">
                 {{ form_label(form.is_different_address, 'Is your mailing address different than the address above?') }}
                 {{ form_errors(form.is_different_address) }}
@@ -67,24 +67,24 @@
     </div>
 
     <div class="row">
-        <div class="col-md-7 mailing-address">
+        <div class="col-7 mailing-address">
             <div class="form-group mailing-address-block" style="display:none;">
-                <div class="col-md-12">
+                <div class="col-12">
                     {{ form_label(form.mailing_street, 'Mailing Street') }}
                     {{ form_errors(form.mailing_street) }}
                     {{ form_widget(form.mailing_street) }}
                 </div>
-                <div class="col-md-2">
+                <div class="col-2">
                     {{ form_label(form.mailing_city, 'Mailing City') }}
                     {{ form_errors(form.mailing_city) }}
                     {{ form_widget(form.mailing_city) }}
                 </div>
-                <div class="col-md-2">
+                <div class="col-2">
                     {{ form_label(form.mailingState, 'Mailing State') }}
                     {{ form_errors(form.mailingState) }}
                     {{ form_widget(form.mailingState) }}
                 </div>
-                <div class="col-md-2">
+                <div class="col-2">
                     {{ form_label(form.mailing_zip, 'Mailing Zip Code') }}
                     {{ form_errors(form.mailing_zip) }}
                     {{ form_widget(form.mailing_zip) }}
@@ -95,7 +95,7 @@
 {% endif %}
 
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-6">
         <div class="form-group">
             {{ form_label(form.phone_number, 'Phone Number') }}
             {{ form_errors(form.phone_number) }}

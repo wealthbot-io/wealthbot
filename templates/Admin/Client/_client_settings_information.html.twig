@@ -19,10 +19,10 @@
 
     {% if profile.isDifferentAddress %}
         <div class="row">
-            <div class="col-md-10 col-md-offset-1">
+            <div class="col-10 col-offset-1">
                 <strong>Mailing Street:</strong> {{ profile.mailingStreet }}
             </div>
-            <div class="col-md-10 col-md-offset-1">
+            <div class="col-10 col-offset-1">
                 <strong>Mailing City:</strong> {{ profile.mailingStreet }} &nbsp;&nbsp;
                 <strong>Mailing State:</strong> {{ profile.mailingState.name }} &nbsp;&nbsp;
                 <strong>Mailing Zip code:</strong> {{ profile.mailingZip }} &nbsp;&nbsp;
@@ -44,12 +44,12 @@
 
     {% if profile.maritalStatus == 'Married' %}
         <div class="row">
-            <div class="col-md-10 col-md-offset-1">
+            <div class="col-10 col-offset-1">
                 <strong>Spouse First Name:</strong> {{ profile.spouseFirstName }} &nbsp;&nbsp;
                 {{ profile.middleName ? '<strong>Spouse Middle Name:</strong> ' ~ profile.spouseMiddleName : ''  }} &nbsp;&nbsp;
                 <strong>Spouse Last Name:</strong> {{ profile.spouseLastName }}
             </div>
-            <div class="col-md-10 col-md-offset-1">
+            <div class="col-10 col-offset-1">
                 <strong>Spouse Birth Date:</strong> {{ profile.spouseBirthDate | date('m/d/Y') }}
             </div>
         </div>

@@ -39,11 +39,11 @@
 
     <div id="swappable_content" data-url="{{ path('rx_ria_dashboard_swap_boxes') }}" style="display: none;" data-sequence="{{ blocks_sequence }}">
         <div class="row">
-            <div class="col-md-6 dashboard-box" data-id="0">
+            <div class="col-6 dashboard-box" data-id="0">
                 {{ render(controller('App\\Controller\\Ria\\WorkflowController:index', {'with_layout': false})) }}
             </div>
 
-            <div class="col-md-6 dashboard-box" data-id="1">
+            <div class="col-6 dashboard-box" data-id="1">
                 {% include '/Ria/Dashboard/_workflow_box.html.twig' with {
                 'paperwork_counts': paperwork_counts,
                 'portfolios_counts': portfolios_counts
@@ -52,11 +52,11 @@
         </div>
 
         {#<div class="row">
-            <div class="col-md-6 dashboard-box" data-id="2">
+            <div class="col-6 dashboard-box" data-id="2">
                 {% include '/Ria/Dashboard/_firm_metrics_box.html.twig' with { 'firm_metrics': firm_metrics } %}
             </div>
 
-            <div class="col-md-6 dashboard-box" data-id="3">
+            <div class="col-6 dashboard-box" data-id="3">
                 {% include '/Ria/Dashboard/_analytics_box.html.twig' with { 'securities_statistic': securities_statistic } %}
             </div>
         </div>#}

@@ -3,7 +3,7 @@
 
         <div class="form-group">
             <div class="label-name"><%= name %></div>
-            <div class="col-md-2 masterBilling">
+            <div class="col-2 masterBilling">
                 <% if (!isNew() && master == true) { %>
                 <i class="icon-ok" title="To change it edit another Billing Spec and turn on &quot;master&quot; checkbox"></i>
                 <input type="checkbox" name="master" class="is_master hidden" checked="checked">
@@ -12,7 +12,7 @@
                 <% } %>
                 Master Billing Schedule
             </div>
-            <div class="col-md-2">
+            <div class="col-2">
                 <a href="#" class="delete-spec">Delete</a>
             </div>
         </div>
@@ -27,7 +27,7 @@
         <div class="controls-line">
             <div class="input-group">
                 <span class="input-group-addon">$</span>
-                <input type="text" name="minimalFee" class="auto-numeric not-presave col-md-6 minimal-fee form-control" value="<%= minimalFee.formatMoney(0) %>">
+                <input type="text" name="minimalFee" class="auto-numeric not-presave col-6 minimal-fee form-control" value="<%= minimalFee.formatMoney(0) %>">
             </div>
         </div>
     </div>

@@ -3,7 +3,7 @@
     <form action="{{path('rx_ria_profile_step_five')}}" method="post" data-presave="false" data-save="true" enctype="multipart/form-data">
     {% endblock %}
 
-        {#<div class="col-md-12">#}
+        {#<div class="col-12">#}
             {#<legend>AdvisorLink Display</legend>#}
             {#<div class="form-group">#}
                 {#{{ form_label(form.is_searchable_db, 'Do you wish to be in our searchable database where consumers will be able to find your services?') }}#}
@@ -17,7 +17,7 @@
             {#</div>#}
         {#</div>#}
 
-        <div class="col-md-12">
+        <div class="col-12">
             <div class="form-group">
                 <legend>Minimum Asset Size</legend>
 
@@ -32,7 +32,7 @@
             </div>
         </div>
 
-        <div class="col-md-12">
+        <div class="col-12">
             <legend>Your Logo <a class="pop" href="#" rel="popover" title="Your Logo" data-content="<p>
             Your logo should be at least 200px x 200px in preferably PNG format. Your logo should be either transparent or have a white background.
             </p>"><i class="mini-color mini-ico-info-sign"></i></a></legend>
@@ -46,7 +46,7 @@
         </div>
 
         {% block form_actions %}
-        <div class="col-md-12">
+        <div class="col-12">
             <div class="form-actions">
                 {{ form_widget(form._token) }}
                 <a class="btn btn-default"  href="{{ path('rx_ria_profile_step_four') }}">Back</a>

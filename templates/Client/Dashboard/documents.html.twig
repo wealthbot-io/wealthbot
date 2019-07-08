@@ -20,19 +20,19 @@
 
                 <div class="row">
 
-                    <div class="col-md-6">
+                    <div class="col-6">
 
                         <div class="row well">
                         {% if (is_client_view) %}
-                            <div class="col-md-3">
+                            <div class="col-3">
                                 {{ form_label(document_upload_form.file, 'Upload a Document:') }}
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-6">
                                 {{ form_errors(document_upload_form.file) }}
                                 {{ form_widget(document_upload_form.file, {'attr': {'class': ''}}) }}
                             </div>
                         {% else %}
-                            <div class="col-md-5">
+                            <div class="col-5">
                                 <div class="form-group">
                                     <div class="controls inline-block">
                                         {{ form_errors(document_upload_form.file) }}
@@ -41,7 +41,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-5">
+                            <div class="col-5">
                                 <div class="form-group">
                                     <div class="controls">
                                         {{ form_errors(document_upload_form.is_client_notified) }}
@@ -59,7 +59,7 @@
                             </div>
                         {% endif %}
 
-                        <div class="col-md-3">
+                        <div class="col-3">
                             <input class="btn btn-default"  type="submit" value="Upload"/>
                         </div>
 

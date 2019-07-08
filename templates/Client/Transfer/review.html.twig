@@ -22,7 +22,7 @@
         </div>#}
 
         <div class="row">
-            <div class="col-md-8">
+            <div class="col-8">
                 <h4>1. Please carefully review this information for accuracy:</h4>
                 <ul class="account-owners-information-list margin-left-70">
                     {% for accountOwner in account.accountOwners %}
@@ -35,13 +35,13 @@
         </div>
 
         <div class="row transfer-review-final-signatures">
-            <div class="col-md-8">
+            <div class="col-8">
                 <h4>2. Please sign the following document packet:</h4>
                 {% include '/Client/Transfer/_applications_list.html.twig' with { 'accounts': [account], 'company_information': company_information } %}
              </div>
             </div>
         <div class="row review-final-disclosures">
-            <div class="col-md-10">
+            <div class="col-10">
                 <h4>3. I hereby acknowledge that:</h4>
                 <ol type="1">
 
@@ -72,7 +72,7 @@
                     </div>
                 {% endif %}
 
-                <div class="col-md-5">
+                <div class="col-5">
                     {{ form_errors(form.is_agree) }}
                     <label class="checkbox">
                         {{ form_widget(form.is_agree, { 'attr': {'class': 'check-not-signed-applications not-presave', 'data-url': path('wealthbot_docusign_check_application_signed', { 'account_id': account.id }) } }) }} {{ form.is_agree.vars.label }}

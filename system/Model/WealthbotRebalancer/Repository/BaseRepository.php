@@ -5,8 +5,8 @@ use Database\WealthbotMysqlSqliteConnection;
 use Model\WealthbotRebalancer\ArrayCollection;
 use Model\WealthbotRebalancer\Base;
 
-require_once(__DIR__ . '/../../../AutoLoader.php');
-\AutoLoader::registerAutoloader();
+
+
 
 abstract class BaseRepository {
 

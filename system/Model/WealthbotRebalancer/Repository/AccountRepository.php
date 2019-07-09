@@ -6,8 +6,8 @@ use Model\WealthbotRebalancer\AccountCollection;
 use Model\WealthbotRebalancer\Client;
 use Model\WealthbotRebalancer\RebalancerAction;
 
-require_once(__DIR__ . '/../../../AutoLoader.php');
-\AutoLoader::registerAutoloader();
+
+
 
 class AccountRepository extends BaseRepository
 {

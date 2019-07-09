@@ -8,8 +8,8 @@
 */
 namespace Console;
 
-    require_once(__DIR__ . '/../../AutoLoader.php');
-\AutoLoader::registerAutoloader();
+
+
 
 use System\Database\Database;
 use System\Database\Connection;

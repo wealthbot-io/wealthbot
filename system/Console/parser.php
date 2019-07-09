@@ -15,8 +15,8 @@ if (!defined('DS')) {
 	define('DS', DIRECTORY_SEPARATOR);
 }
 
-require_once(__DIR__ . '/../AutoLoader.php');
-\AutoLoader::registerAutoloader();
+
+
 
 use System\Database\Connection;
 use System\Lib\Ioc;

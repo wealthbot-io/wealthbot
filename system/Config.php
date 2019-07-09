@@ -4,6 +4,10 @@
  * COPY THIS FILE AS "Config.php" IN THE SAME FOLDER (do not remove original)
  *
  */
+
+
+require_once(__DIR__.'/vendor/autoload.php');
+
 date_default_timezone_set('America/New_York');
 
 class Config {

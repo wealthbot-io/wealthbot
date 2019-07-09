@@ -5,8 +5,8 @@ namespace System\Model\WealthbotRebalancer\Repository;
 use Model\WealthbotRebalancer\Ria;
 use Model\WealthbotRebalancer\RiaCompanyInformation;
 
-require_once(__DIR__ . '/../../../AutoLoader.php');
-\AutoLoader::registerAutoloader();
+
+
 
 class RiaCompanyInformationRepository extends BaseRepository
 {

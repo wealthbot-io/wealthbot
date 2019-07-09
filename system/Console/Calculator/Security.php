@@ -1,8 +1,8 @@
 <?php
 namespace System\Console\Calculator;
 
-require_once(__DIR__ . '/../../AutoLoader.php');
-\AutoLoader::registerAutoloader();
+
+
 
 class Security {
 

@@ -8,8 +8,8 @@ use Model\WealthbotRebalancer\Portfolio;
 use Model\WealthbotRebalancer\RebalancerAction;
 use Model\WealthbotRebalancer\Ria;
 
-require_once(__DIR__ . '/../../../AutoLoader.php');
-\AutoLoader::registerAutoloader();
+
+
 
 class ClientRepository extends BaseRepository {
 

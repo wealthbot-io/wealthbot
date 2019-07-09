@@ -6,8 +6,8 @@ use Model\WealthbotRebalancer\Portfolio;
 use Model\WealthbotRebalancer\Security;
 use Model\WealthbotRebalancer\SecurityCollection;
 
-require_once(__DIR__ . '/../../../AutoLoader.php');
-\AutoLoader::registerAutoloader();
+
+
 
 class SecurityRepository extends BaseRepository {
 

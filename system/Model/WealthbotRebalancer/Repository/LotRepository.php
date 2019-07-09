@@ -11,8 +11,8 @@ use Model\WealthbotRebalancer\Position;
 use Model\WealthbotRebalancer\Security;
 use Model\WealthbotRebalancer\Subclass;
 
-require_once(__DIR__ . '/../../../AutoLoader.php');
-\AutoLoader::registerAutoloader();
+
+
 
 class LotRepository extends BaseRepository {
 

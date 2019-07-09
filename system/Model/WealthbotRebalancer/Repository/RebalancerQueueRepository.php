@@ -10,8 +10,8 @@ use Model\WealthbotRebalancer\RebalancerQueue;
 use Model\WealthbotRebalancer\Security;
 use Model\WealthbotRebalancer\TradeData;
 
-require_once(__DIR__ . '/../../../AutoLoader.php');
-\AutoLoader::registerAutoloader();
+
+
 
 class RebalancerQueueRepository extends BaseRepository {
 

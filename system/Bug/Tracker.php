@@ -2,8 +2,8 @@
 
 namespace System\Bug;
 
-require_once(__DIR__ . '/../AutoLoader.php');
-\AutoLoader::registerAutoloader();
+
+
 
 use Lib\Ioc;
 

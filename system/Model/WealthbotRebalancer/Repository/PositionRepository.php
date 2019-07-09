@@ -2,8 +2,8 @@
 
 namespace System\Model\WealthbotRebalancer\Repository;
 
-require_once(__DIR__ . '/../../../AutoLoader.php');
-\AutoLoader::registerAutoloader();
+
+
 
 class PositionRepository extends BaseRepository
 {

@@ -4,8 +4,8 @@ namespace System\Model\WealthbotRebalancer\Repository;
 use Model\WealthbotRebalancer\Client;
 use Model\WealthbotRebalancer\Portfolio;
 
-require_once(__DIR__ . '/../../../AutoLoader.php');
-\AutoLoader::registerAutoloader();
+
+
 
 class PortfolioRepository extends BaseRepository {
 

@@ -6,8 +6,8 @@ use Model\WealthbotRebalancer\Job;
 use Model\WealthbotRebalancer\Portfolio;
 use Model\WealthbotRebalancer\RebalancerAction;
 
-require_once(__DIR__ . '/../../../AutoLoader.php');
-\AutoLoader::registerAutoloader();
+
+
 
 class RebalancerActionRepository extends BaseRepository {
 

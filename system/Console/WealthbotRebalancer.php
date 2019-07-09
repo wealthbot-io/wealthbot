@@ -34,8 +34,6 @@ use System\Model\WealthbotRebalancer\Repository\SecurityTransactionRepository;
 use System\Model\WealthbotRebalancer\Repository\SubclassRepository;
 use System\Model\WealthbotRebalancer\Repository\DistributionRepository;
 
-require_once(__DIR__ . '/../AutoLoader.php');
-\AutoLoader::registerAutoloader();
 
 class WealthbotRebalancer {
 

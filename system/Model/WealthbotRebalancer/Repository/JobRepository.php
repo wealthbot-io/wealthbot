@@ -5,8 +5,8 @@ use Model\WealthbotRebalancer\Job;
 use Model\WealthbotRebalancer\Lot;
 use Model\WealthbotRebalancer\Subclass;
 
-require_once(__DIR__ . '/../../../AutoLoader.php');
-\AutoLoader::registerAutoloader();
+
+
 
 class JobRepository extends BaseRepository {
 

@@ -125,6 +125,15 @@
     "gedmo/doctrine-extensions": {
         "version": "v2.4.37"
     },
+    "guzzlehttp/guzzle": {
+        "version": "6.3-dev"
+    },
+    "guzzlehttp/promises": {
+        "version": "1.4-dev"
+    },
+    "guzzlehttp/psr7": {
+        "version": "1.x-dev"
+    },
     "hoa/compiler": {
         "version": "3.17.08.08"
     },
@@ -287,6 +296,9 @@
     "psr/container": {
         "version": "1.0.0"
     },
+    "psr/http-message": {
+        "version": "1.0.x-dev"
+    },
     "psr/link": {
         "version": "1.0.0"
     },
@@ -295,6 +307,12 @@
     },
     "psr/simple-cache": {
         "version": "1.0.x-dev"
+    },
+    "ralouphie/getallheaders": {
+        "version": "3.0.3"
+    },
+    "scheb/yahoo-finance-api": {
+        "version": "v3.1.1"
     },
     "sensio/framework-extra-bundle": {
         "version": "5.2",

@@ -7,7 +7,7 @@
  * Allowed file types: TRN, SEC, CBL, PRI, POS, TRD
  * Allowed date format: yyyy-mm-dd
  */
-namespace Console;
+namespace System\Console;
 
 
 

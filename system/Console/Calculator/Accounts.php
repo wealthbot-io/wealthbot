@@ -6,10 +6,7 @@
 /**
 * Responsible for Updating account value and portfoliao value.
 */
-namespace Console;
-
-
-
+namespace Accounts\Console;
 
 use System\Database\Database;
 use System\Database\Connection;

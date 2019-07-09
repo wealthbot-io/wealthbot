@@ -4,8 +4,6 @@ namespace Console\Packer;
 
 require_once(__DIR__ . '/../../Config.php');
 
-
-
 use System\Lib\File;
 
 class Archive

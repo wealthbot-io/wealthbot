@@ -5,9 +5,9 @@
  *
  * Usage: php AccountCalc.php
  */
-namespace Model\Pas\Calculator;
+namespace System\Console\Calculator;
 use System\Model\Pas\Base;
-use System\Model\Pas\Accounts;
+use Accounts;
 
 class Accountcalc extends Base
 {

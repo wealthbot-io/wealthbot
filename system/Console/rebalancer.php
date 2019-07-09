@@ -1,5 +1,5 @@
 <?php
-namespace Console;
+namespace System\Console;
 
 
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Console;
+namespace System\Console;
 
 require_once(__DIR__ . '/../Config.php');
 

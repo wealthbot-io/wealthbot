@@ -47,9 +47,9 @@ class RebalancerCommand extends ContainerAwareCommand
     }
 
 
-
     /**
-     * @see Command
+     * @param $output
+     * @return object[]
      */
     protected function updateSecurities($output)
     {
@@ -86,6 +86,11 @@ class RebalancerCommand extends ContainerAwareCommand
         return $securities;
     }
 
+    /**
+     * @param $em
+     * @param $securities
+     * @return array
+     */
     protected function processPrices($em, $securities){
         $prices = [];
         foreach ($securities as $security){
@@ -114,26 +119,51 @@ class RebalancerCommand extends ContainerAwareCommand
 
 
     /**
+     * @param $id
+     * @return mixed
+     */
+    protected function getPricesDiff($id){
+        foreach($this->prices as $price){
+            if($price['security_id'] == $id){
+                return $price['price'] / $price['old_price'];
+            }
+        }
+    }
+
+
+    /**
      * @param ClientPortfolio $portfolio
      * @param $em
      */
-    protected function processPortfolio($portfolio, $em){
+    protected function processPortfolio($portfolio, $em)
+    {
 
         $accounts = $portfolio->getClient()->getClientAccounts();
-        foreach($accounts as $account){
+        foreach ($accounts as $account) {
             $total = $account->getValueSum() + $account->getContributionsSum() - $account->getDistributionsSum();
 
             $modelValues[] = $portfolio->getPortfolio()->getModelEntities()->map(
 
-                function($entity) use ($total) {
+                function ($entity) use ($total) {
+
+                    $prices_diff =  $this->getPricesDiff($entity->getSecurityAssignment()->getSecurity()->getId());
+                    $old_amount = ($entity->getPercent() / 100) * $total;
+                    $amount = $prices_diff * $old_amount;
                     return
                         [
+                            'total' => $total,
+                            'amount' => $amount,
+                            'old_amount' => $old_amount,
+                            'prices_diff' => $prices_diff,
                             'model_id' => $entity->getModel()->getId(),
-                       /** @var $entity \App\Entity\CeModelEntity */
-                      'security_id'=> $entity->getSecurityAssignment()->getSecurity()->getId(), 'percent' => $entity->getPercent() ];
-            });
+                            'security_id' => $entity->getSecurityAssignment()->getSecurity()->getId(),
+                            'percent' => $entity->getPercent()
+                        ];
+                });
 
         };
+
+        var_dump($modelValues);
     }
 
 }

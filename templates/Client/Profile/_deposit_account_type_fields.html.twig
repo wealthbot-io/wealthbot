@@ -20,12 +20,6 @@
     <div>
         <label class="checkbox" for="{{ type.vars.id }}">
             {{ form_widget(type) }}
-            {% if (new_label is defined) and (new_sub_label is defined) %}
-                {{ new_label }}<br/>
-                <span class="descr-lbl">{{ new_sub_label }}</span>
-            {% else %}
-                {{ form_label(type) }}
-            {% endif %}
         </label>
     </div>
 {% endfor %}

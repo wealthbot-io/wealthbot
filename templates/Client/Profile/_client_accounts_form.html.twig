@@ -68,13 +68,16 @@
     </div>
     {% endif %}
 
-    <div class="form-group">
-        {{ form_errors(form.value) }}
+
         <div class="row">
+            <div class="form-group">
             {{ form_label(form.value, 'Estimated Value:', { 'label_attr': {'class': ' client-intake-step-three-label'}}) }}
+            <br />
             <div >
                 <div class="input-group">
-                    <span class="input-group-addon">$</span>
+                    <span class="input-group-append">
+                        <span class="input-group-text">$</span>
+                    </span>
                     {{ form_widget(form.value, {'attr': {'class': 'input-medium auto-numeric'}}) }}
                 </div>
                 <span class="retirement-value-help" style="display:none;">Minimum value must be $50,000 for retirement plans.</span>
@@ -108,10 +111,13 @@
         <div class="row">
             <div class="form-group">
                 {{ form_label(form.monthly_contributions, 'Estimated Monthly Contributions:', { 'label_attr': {'class': 'client-intake-step-three-label'}}) }}
+                <br />
                 <div >
                     {{ form_errors(form.monthly_contributions) }}
                     <div class="input-group">
-                        <span class="input-group-addon">$</span>
+                        <span class="input-group-append">
+                            <span class="input-group-text">$</span>
+                        </span>
                         {{ form_widget(form.monthly_contributions, {'attr': {'class': 'input-medium auto-numeric'}}) }}
                     </div>
                 </div>

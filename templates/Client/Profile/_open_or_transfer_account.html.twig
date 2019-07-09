@@ -41,21 +41,21 @@
 
                     <div>
                         <label class="checkbox" for="{{ form.groups[1].vars.id }}">
-                            {{ form_widget(form.groups[1]) }} Open a new account
+                           <input value="deposit_money" type="radio" name="client_account_types[groups]"> Open a new account
                             <span class="descr-lbl">Open a new investment account or retirement account.</span>
                         </label>
                     </div>
 
                     <div>
                         <label class="checkbox" for="{{ form.groups[0].vars.id }}">
-                            {{ form_widget(form.groups[0]) }} Transfer an account
+                            <input value="employer_retirement" type="radio" name="client_account_types[groups]">Transfer an account
                             <span class="descr-lbl">Move an IRA or other investment account.</span>
                         </label>
                     </div>
 
-                    <div>
+                    <div {#code_v2: NOT DELETE THIS CODE#}style="display: none;">
                         <label class="checkbox" for="{{ form.groups[2].vars.id }}">
-                            {{ form_widget(form.groups[2]) }} Rollover a 401(k) plan
+                            <input value="financial_institution" type="radio" name="client_account_types[groups]"> Rollover a 401(k) plan
                             <span class="descr-lbl">Move an employer-sponsorded retirement plan, such as a 401(k).</span>
                         </label>
                     </div>
@@ -63,13 +63,12 @@
                     {% if form.groups[3] is defined %}
                         <div {#code_v2: NOT DELETE THIS CODE#}style="display: none;">
                             <label class="checkbox" for="{{ form.groups[3].vars.id }}">
-                                {{ form_widget(form.groups[3]) }} Advice for your current 401(k) plan <span class="descr-lbl">Receive advice on your current employer-sponsored retirement plan. <br /><b>$50,000 minimum account value.</b></span>
+                                <input value="old_employer_retirement" type="radio" name="client_account_types[groups]"> Advice for your current 401(k) plan <span class="descr-lbl">Receive advice on your current employer-sponsored retirement plan. <br /><b>$50,000 minimum account value.</b></span>
                             </label>
                         </div>
                     {% endif %}
                 </div>
-
-                {{ form_rest(form) }}
+                {{ form_widget(form._token) }}
             </div>
         </form>
     </div>

@@ -82,8 +82,8 @@ class ClientProfileFormType extends AbstractType
             ->add('phone_number', TextType::class, ['required' => false])
             ->add('citizenship', ChoiceType::class, [
                 'choices' => [
-                   1 => 'Yes',
-                   0 => 'No'
+                    'Yes' => 1,
+                    'No' => 0
                 ],
                 'expanded' => true,
                 'multiple' => false,

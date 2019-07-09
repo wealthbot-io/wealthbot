@@ -16,6 +16,9 @@
 {% endblock %}
 
 {% block body %}
+    <div class="container-fluid">
+    <div class="row">
+    <div class="col-12">
     {% set action_route = is_client_view ? 'rx_ria_prospect_portfolio_client_view' : 'rx_ria_prospect_portfolio' %}
 
     {% block ria_nav %}
@@ -226,5 +229,5 @@
             <input class="submit-final-portfolio-btn btn btn-info" type="submit" value="Submit Final Portfolio" />
         </div>
     {% endif %}
-
+    </div></div></div>
 {% endblock %}

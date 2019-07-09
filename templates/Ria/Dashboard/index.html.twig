@@ -27,13 +27,14 @@
 {% endblock %}
 
 {% block body %}
-
 {% block ria_nav %}
 <!-- start: RIA  nav/menu -->
     {% include '/Ria/menu_nav.html.twig' %}
 <!-- end: RIA nav/menu -->
 {% endblock %}
-
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
 {% block main_content %}
     <h1>{{ company_information.name }} Dashboard</h1>
 
@@ -85,4 +86,5 @@
     </div>
 
 </div>
+    </div></div></div>
 {% endblock %}

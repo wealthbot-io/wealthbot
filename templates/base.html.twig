@@ -65,15 +65,7 @@
                     {% endfor %}
                 {% endfor %}
             {% endblock %}
-
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-1"></div>
-                <div class="col-11">
-                        {% block body %}{% endblock %}
-                    </div>
-            </div>
-        </div>
+            {% block body %}{% endblock %}
     {% endblock %}
 
     {% block javascripts %}

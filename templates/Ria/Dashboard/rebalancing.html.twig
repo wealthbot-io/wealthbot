@@ -7,7 +7,9 @@
         {% include '/Ria/menu_nav.html.twig' %}
         <!-- end: RIA nav/menu -->
     {% endblock %}
-
+    <div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
     <div id="ria_rebalancing_page_content">
         {% block content %}
             <div class="tabbable"> <!-- Only required for left/right tabs -->
@@ -55,6 +57,7 @@
         </div>
 
     </div>
+        </div></div></div>
 {% endblock %}
 
 {% block javascripts %}

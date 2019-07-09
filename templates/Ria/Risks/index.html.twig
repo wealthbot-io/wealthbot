@@ -1,8 +1,9 @@
 {% extends '/Ria/Dashboard/index.html.twig' %}
 
 {% block main_content %}
+    <div class="container-fluid">
     <div class="row">
-        <div class="col-10"><h3 class="bbh3">Proposals</h3></div>
+        <div class="col-10"><h3 class="bbh3">Risk Questions</h3></div>
     </div>
 
     <ol type="1" class="questions-list" data-url="{{ path("rx_ria_risks_update_order") }}">
@@ -16,6 +17,7 @@
             <a class="create-question-btn btn" href="{{ path('rx_ria_risks_create_question') }}">New Question</a>
             <a class="btn btn-primary"  target="_blank" href="{{ path('rx_ria_risks_test') }}">View and Test</a>
         </div>
+    </div>
     </div>
 {% endblock %}
 

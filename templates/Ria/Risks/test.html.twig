@@ -42,6 +42,9 @@
     {% endfor %}
 
     {% block body %}
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
         <form action="{{ path("rx_ria_risks_test") }}" method="post" data-presave="true">
             {% if (form.client_birth_date is defined) %}
                 <div>
@@ -63,6 +66,10 @@
                 <input class="btn btn-primary"  type="submit" name="Submit" value="Submit"/>
             </div>
         </form>
+
+                </div>
+            </div>
+        </div>
     {% endblock %}
 </div>
 

@@ -1,6 +1,9 @@
 {% extends '/Admin/layout.html.twig' %}
 
 {% block body %}
+    <div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
     <h3>Billing</h3>
 
     <div class="row" id="billingApp">
@@ -68,6 +71,7 @@
             {#<div><a href="<%= Routing.generate('rx_admin_billing_summary_report', { year: year } %>">Billing summary <i class="icon-download"></i></a></div>#}
         <% } %>
     </script>
+        </div></div></div>
 {% endblock %}
 
 {% block javascripts %}

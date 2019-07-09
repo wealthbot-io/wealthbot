@@ -76,6 +76,6 @@ class Downloader extends Console
 	public function processHtml($html)
 	{
 		$this->dom->loadHTML($html);
-		file_put_contents('logs/downloader.log', print_r($this->dom, 1));
+		file_put_contents('../logs/downloader.log', print_r($this->dom, 1));
 	}
 }

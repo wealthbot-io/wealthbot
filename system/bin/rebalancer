@@ -1,5 +1,7 @@
 #!/usr/bin/env php
 <?php
+require_once(dirname(__DIR__).'/vendor/autoload.php');
+
 $rebalancer = new System\Console\WealthbotRebalancer();
 
 $rebalancer->start();

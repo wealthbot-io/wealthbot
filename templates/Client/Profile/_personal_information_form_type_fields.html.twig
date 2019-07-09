@@ -85,7 +85,7 @@
                 {{ form_errors(form.citizenship) }}
                 {% for radio in form.citizenship %}
                     <label for="{{ radio.vars.id }}"
-                           class="radio inline">{{ form_widget(radio) }} {{ radio.vars.label }}</label>
+                           class="radio inline">{{ form_widget(radio) }}</label>
                 {% endfor %}
             </div>
         </div>

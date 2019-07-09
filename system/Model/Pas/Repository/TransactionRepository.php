@@ -1,8 +1,8 @@
 <?php
 
-namespace Model\Pas\Repository;
+namespace System\Model\Pas\Repository;
 
-use Model\Pas\Transaction;
+use System\Model\Pas\Transaction;
 
 class TransactionRepository extends BaseRepository
 {

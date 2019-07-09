@@ -1,8 +1,8 @@
 <?php
 
-namespace Model\Pas\Repository;
+namespace System\Model\Pas\Repository;
 
-use Model\Pas\PortfolioTwrPeriod;
+use System\Model\Pas\PortfolioTwrPeriod;
 
 class PortfolioTwrPeriodRepository extends BaseRepository
 {

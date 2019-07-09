@@ -1,8 +1,8 @@
 <?php
 
-namespace Model\Pas\Repository;
+namespace System\Model\Pas\Repository;
 
-use Model\Pas\Lot;
+use System\Model\Pas\Lot;
 use Wealthbot\ClientBundle\Entity\Lot as WealthbotLot;
 
 class LotRepository extends BaseRepository

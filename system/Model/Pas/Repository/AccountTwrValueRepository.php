@@ -1,8 +1,8 @@
 <?php
 
-namespace Model\Pas\Repository;
+namespace System\Model\Pas\Repository;
 
-use Model\Pas\AccountTwrValue;
+use System\Model\Pas\AccountTwrValue;
 
 class AccountTwrValueRepository extends BaseRepository
 {

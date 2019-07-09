@@ -1,8 +1,8 @@
 <?php
 
-namespace Model\Pas\Repository;
+namespace System\Model\Pas\Repository;
 
-use Model\Pas\Position;
+use System\Model\Pas\Position;
 
 class PositionRepository extends BaseRepository
 {

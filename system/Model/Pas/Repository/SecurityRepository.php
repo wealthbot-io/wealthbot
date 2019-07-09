@@ -1,8 +1,8 @@
 <?php
 
-namespace Model\Pas\Repository;
+namespace System\Model\Pas\Repository;
 
-use Model\Pas\Security;
+use System\Model\Pas\Security;
 
 class SecurityRepository extends BaseRepository
 {

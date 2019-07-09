@@ -1,9 +1,9 @@
 <?php
 
-namespace Model\Pas\Repository;
+namespace System\Model\Pas\Repository;
 
 use Lib\Util;
-use Model\Pas\BillItem;
+use System\Model\Pas\BillItem;
 
 class BillItemRepository extends BaseRepository
 {

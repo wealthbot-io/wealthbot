@@ -1,6 +1,6 @@
 <?php
 
-namespace Model\Pas\Repository;
+namespace System\Model\Pas\Repository;
 
 use Database\WealthbotMysqlSqliteConnection;
 use Database\Builder\Fluent\FluentPDO;

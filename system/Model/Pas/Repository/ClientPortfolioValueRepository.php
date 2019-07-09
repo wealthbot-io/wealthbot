@@ -1,8 +1,8 @@
 <?php
 
-namespace Model\Pas\Repository;
+namespace System\Model\Pas\Repository;
 
-use Model\Pas\ClientPortfolioValue;
+use System\Model\Pas\ClientPortfolioValue;
 
 class ClientPortfolioValueRepository extends BaseRepository
 {

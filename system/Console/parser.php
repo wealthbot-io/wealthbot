@@ -9,7 +9,7 @@
 * Responsible for injecting header line to each CSV file.
 * Uses "mongoimport" to store the custodian CSV file into mongo
 */
-namespace Console;
+namespace System\Console;
 
 if (!defined('DS')) {
 	define('DS', DIRECTORY_SEPARATOR);

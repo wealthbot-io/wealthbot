@@ -9,9 +9,6 @@
  */
 namespace System\Console;
 
-
-
-
 use System\Database\Database;
 use System\Database\Connection;
 use System\Lib\Ioc;

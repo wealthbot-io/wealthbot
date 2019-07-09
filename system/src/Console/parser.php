@@ -11,13 +11,6 @@
 */
 namespace System\Console;
 
-if (!defined('DS')) {
-	define('DS', DIRECTORY_SEPARATOR);
-}
-
-
-
-
 use System\Database\Connection;
 use System\Lib\Ioc;
 use System\Model\Pas\Repository\CustodianRepository as CustodianRepo;

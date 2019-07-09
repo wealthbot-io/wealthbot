@@ -9,13 +9,6 @@
 */
 namespace System\Console;
 
-if (!defined('DS')) {
-	define('DS', DIRECTORY_SEPARATOR);
-}
-
-
-
-
 
 class Downloader extends Console
 {

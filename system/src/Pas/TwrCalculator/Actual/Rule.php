@@ -1,10 +1,11 @@
 <?php
 
-namespace Pas\TwrCalculator\Actual;
+namespace System\Pas\TwrCalculator\Actual;
 
 use System\Pas\TwrCalculator\Functions;
 
-class Rule implements IRule
+
+class Rule
 {
     /**
      * @var string

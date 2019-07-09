@@ -5,7 +5,7 @@ namespace System\Console;
 
 
 
-use Lib\File;
+use System\Lib\File;
 
 class Console
 {

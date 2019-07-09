@@ -2,11 +2,9 @@
 
 namespace System\Manager;
 
-require_once __DIR__ . '/../../src/Model/AbstractBusinessCalendar.php';
-
-use Model\WealthbotRebalancer\Holiday;
-use Model\WealthbotRebalancer\Repository\HolidayRepository;
-use Wealthbot\AdminBundle\Model\AbstractBusinessCalendar;
+use System\Model\WealthbotRebalancer\Holiday;
+use System\Model\WealthbotRebalancer\Repository\HolidayRepository;
+use App\Model\AbstractBusinessCalendar;
 
 class BusinessCalendar extends AbstractBusinessCalendar
 {

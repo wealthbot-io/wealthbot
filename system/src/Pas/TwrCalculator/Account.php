@@ -1,6 +1,6 @@
 <?php
 
-namespace Pas\TwrCalculator;
+namespace System\Pas\TwrCalculator;
 
 use System\Model\Pas\Repository\TransactionRepository as TransactionRepo;
 use System\Model\Pas\Repository\ClientAccountValueRepository as ClientAccountValueRepo;

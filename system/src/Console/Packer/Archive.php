@@ -1,8 +1,8 @@
 <?php
 
-namespace Console\Packer;
+namespace System\Console\Packer;
 
-require_once(__DIR__ . '/../../Config.php');
+require_once(__DIR__ . '/../../../Config.php');
 
 use System\Lib\File;
 

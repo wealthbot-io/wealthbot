@@ -1,6 +1,6 @@
 <?php
 
-namespace Database\Builder\Fluent; 
+namespace System\Database\Builder\Fluent;
 
 /**
  * FluentPDO is simple and smart SQL query builder for PDO

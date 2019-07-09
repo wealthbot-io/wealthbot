@@ -17,7 +17,7 @@
 
     {% if tabs|length > 0 %}
         <div class="tabbable">
-            <nav class="nav">
+            <nav class="nav nav-pills ">
                 {% for tab in tabs %}
                     <li {{ loop.index == 1 ? 'class="active nav-item"' : 'nav-item' }}>
                         <a class="nav-link" href="#custodian{{ loop.index }}" data-toggle="tab">{{ tab.custodian.name }}</a>

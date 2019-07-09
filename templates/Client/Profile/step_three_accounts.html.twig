@@ -50,9 +50,9 @@
     <form id="step_three_form" action="{{ path("rx_client_profile_step_three_accounts", {'group': group}) }}" data-selected-group="{{ group }}" method="post">
         <div class="form-actions">
             {% if prev_group is not empty %}
-                <a class="btn btn-default"  href="{{ path('rx_client_profile_step_three_accounts', { group: prev_group }) }}">Back</a>
+                <a class="btn btn-primary"  href="{{ path('rx_client_profile_step_three_accounts', { group: prev_group }) }}">Back</a>
             {% else %}
-                <a class="btn btn-default"  href="{{ path('rx_client_profile_step_three') }}">Back</a>
+                <a class="btn btn-primary"  href="{{ path('rx_client_profile_step_three') }}">Back</a>
             {% endif %}
             <input type="submit" class="btn-primary btn" value="Continue" />
         </div>
@@ -72,7 +72,7 @@
             </div>
 
             <div class="modal-footer">
-                {#<button class="btn btn-default"  data-dismiss="modal" aria-hidden="true">Close</button>#}
+                {#<button class="btn btn-primary"  data-dismiss="modal" aria-hidden="true">Close</button>#}
                 <button class="update-account-btn btn">Save</button>
             </div>
         </div>

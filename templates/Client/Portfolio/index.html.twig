@@ -14,9 +14,9 @@
             <div class="row  align-items-center h-10 ">
                 <div class="col-2">
                     {% if is_final %}
-                        <a class="btn btn-default"  id="reg_save_btn" href="{{ path('logout') }}">Logout</a>
+                        <a class="btn btn-primary"  id="reg_save_btn" href="{{ path('logout') }}">Logout</a>
                     {% endif %}
-                    <a class="btn btn-default"  id="reg_save_btn" href="{{ path('logout') }}">Logout</a>
+                    <a class="btn btn-primary"  id="reg_save_btn" href="{{ path('logout') }}">Logout</a>
                 </div>
                 <div class="col-7">
                     {{ parent() }}
@@ -80,7 +80,7 @@
 
     {% if is_risks_test is defined and is_risks_test %}
         <div class="form-actions">
-            <a class="btn btn-default"  href="{{ path('rx_ria_risks_test') }}">Back</a>
+            <a class="btn btn-primary"  href="{{ path('rx_ria_risks_test') }}">Back</a>
         </div>
     {% endif %}
 
@@ -98,7 +98,7 @@
 
             <div class="form-actions row">
                 <div class="center-text">
-                    <input class="btn btn-default"  type="submit" name="Accept" value="Accept" />
+                    <input class="btn btn-primary"  type="submit" name="Accept" value="Accept" />
                 </div>
             </div>
         </form>

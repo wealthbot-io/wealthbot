@@ -21,12 +21,14 @@
             {{ form_errors(form.percent) }}
 			<div class="input-group">
                 {{ form_widget(form.percent) }}
-                <span class="input-group-addon">%</span>
+                <div class="input-group-append">
+                    <span class="input-group-text">%</span>
+                </div>
 			</div>
         </div>
     </div>
 
     {{ form_row(form._token) }}
 	<br />
-    <input class="btn btn-default"  type="submit" name="submit" value="Add"/>
+    <input class="btn btn-primary"  type="submit" name="submit" value="Add"/>
 </form>

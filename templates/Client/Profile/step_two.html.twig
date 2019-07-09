@@ -8,7 +8,7 @@
                     <img class="img-rounded w200h100" src="{{ path('rx_file_download', {'ria_id': ria_company_information.ria.id}) }}"/>
                 </div>
                 <div class="save-and-logout">
-                    <a class="btn btn-default"  id="reg_save_btn" href="{{ path('logout') }}">Logout</a>
+                    <a class="btn btn-primary"  id="reg_save_btn" href="{{ path('logout') }}">Logout</a>
                     <span class="help-block">We'll save your progress.</span>
                 </div>
             </div>
@@ -37,7 +37,7 @@
         </div>
         <div class="form-actions">
             <a class="btn btn-inverse" href="{{ path('rx_client_profile_step_one') }}">Back</a>
-            <input class="btn btn-default"  type="submit" name="Continue" value="Continue"/>
+            <input class="btn btn-primary"  type="submit" name="Continue" value="Continue"/>
         </div>
     </form>
 {% endblock %}

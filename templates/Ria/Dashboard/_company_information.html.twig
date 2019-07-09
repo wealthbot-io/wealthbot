@@ -1,8 +1,9 @@
+{#
 {% form_theme form  'form_div_layout.html.twig' %}
 <div class="row">
     <div class="col-9">
         <div class="row">
-            <div class="col-10">
+            <div class="col-10"> #}
                 {# % if not company_information.activated %}
                     <div class="col-9">
                         {% if (progress < 100) %}
@@ -101,6 +102,7 @@
                         </div>
                     </div>
                 {% endif % #}
+                {#
             </div>
         </div>
     </div>
@@ -115,3 +117,4 @@
         }}
     </div>
 </div>
+#}

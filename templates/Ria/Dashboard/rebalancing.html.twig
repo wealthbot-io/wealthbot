@@ -11,7 +11,7 @@
     <div id="ria_rebalancing_page_content">
         {% block content %}
             <div class="tabbable"> <!-- Only required for left/right tabs -->
-                <nav class="nav">
+                <nav class="nav nav-pills ">
                     <li {{ active_tab == 'rebalancer' ? 'class="active nav-item"' : 'nav-item' }}><a class="nav-link" href="#rebalancer_tab" data-toggle="tab">Rebalancer</a></li>
                     <li {{ active_tab == 'history' ? 'class="active nav-item"' : 'nav-item' }}><a class="nav-link" href="#history_tab" data-toggle="tab">History</a></li>
                     <li {{ active_tab == 'trade_recon' ? 'class="active nav-item"' : 'nav-item' }}><a class="nav-link" href="#trade_recon_tab" data-toggle="tab">Trade Recon</a></li>
@@ -50,7 +50,7 @@
 
             <div class="modal-footer">
                 <button type="submit" class="btn save-modal-form-btn btn-primary">Save</button>
-                <a href="#" class="btn btn-default"  data-dismiss="modal" aria-hidden="true">Cancel</a>
+                <a href="#" class="btn btn-primary"  data-dismiss="modal" aria-hidden="true">Cancel</a>
             </div>
         </div>
 

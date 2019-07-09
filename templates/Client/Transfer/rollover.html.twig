@@ -9,7 +9,7 @@
                 {% endblock %}
             </div>
             <div class="save-and-logout">
-                <a class="btn btn-default"  id="reg_save_btn" href="{{ path('logout') }}">Logout</a>
+                <a class="btn btn-primary"  id="reg_save_btn" href="{{ path('logout') }}">Logout</a>
                 <span class="help-block">We'll save your progress.</span>
             </div>
         </div>
@@ -27,9 +27,9 @@
         {{ rollover_message ? rollover_message.message : '' }}
         <div class="form-actions">
             <a href="{% block back_url %}{{ path('rx_client_transfer_back', {'account_id': account.id, 'action': 'rollover'}) }}{% endblock %}" class="btn btn-inverse">Back </a>
-            <input type="submit" class="btn btn-default"  name="continue" value="Continue" />
+            <input type="submit" class="btn btn-primary"  name="continue" value="Continue" />
         </div>
     </form>
 
-    <a class="btn btn-default"  href="{{ path('rx_client_transfer') }}">Back to home screen</a>
+    <a class="btn btn-primary"  href="{{ path('rx_client_transfer') }}">Back to home screen</a>
 {% endblock %}

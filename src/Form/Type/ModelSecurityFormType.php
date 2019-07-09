@@ -46,7 +46,7 @@ class ModelSecurityFormType extends AbstractType
         $factory = $builder->getFormFactory();
 
         if ($model->getOwner() && $model->getOwner()->hasRole('ROLE_RIA') && $model->getOwner()->getRiaCompanyInformation()->getUseMunicipalBond()) {
-            $builder->add('muni_substitution', CheckboxType::class, ['required' => false]);
+            $builder->add('muniSubstitution', CheckboxType::class, ['required' => false, 'mapped'=>false]);
         }
 
         $refreshSubclasses = function ($form, $assetClass) use ($factory, $model) {

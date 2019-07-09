@@ -55,7 +55,7 @@ class RiaCompanyProfileFormType extends AbstractType
             ->add('slug', TextType::class, ['required' => true,
                 'label' => 'Your Custom URL',
                 'attr' => [
-                        'placeholder' => 'custom-url.wealthbot.io'
+                      //  'placeholder' => 'custom-url.wealthbot.io'
                 ],
                 'help_html'=> true,
                 'help' => '<span class="help-block ria-intake-help">(No spaces or symbols allowed)</span>'

@@ -8,7 +8,7 @@
                 <input type="text" class="jq-us-date input-small form-control" id="on_date" placeholder="mm/dd/yyyy" value="{{ date|date('m/d/Y') }}"/>
             </div>
             <div class="tabbable">
-                <nav class="nav">
+                <nav class="nav nav-pills ">
                     <li class="{{ action == constant('Wealthbot\\AdminBundle\\PasInterfaces\\DataInterface::DATA_TYPE_ALL_FILES') ? 'active nav-item' : ' nav-item' }}"><a class="nav-link" href="{{ path('rx_admin_pas_interfaces_file_index', { date: date|date('Y-m-d') }) }}">Files</a></li>
                     <li class="{{ action == constant('Wealthbot\\AdminBundle\\PasInterfaces\\DataInterface::DATA_TYPE_SECURITIES') ? 'active nav-item' : ' nav-item' }}"><a class="nav-link" href="{{ path('rx_admin_pas_interfaces_security_index', { date: date|date('Y-m-d') }) }}">Securities</a></li>
                     <li class="{{ action == constant('Wealthbot\\AdminBundle\\PasInterfaces\\DataInterface::DATA_TYPE_PRICES') ? 'active nav-item' : ' nav-item' }}"><a class="nav-link" href="{{ path('rx_admin_pas_interfaces_price_index', { date: date|date('Y-m-d') }) }}">Prices</a></li>

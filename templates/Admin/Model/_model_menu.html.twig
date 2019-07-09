@@ -1,5 +1,5 @@
 {% if models is not empty %}
     {% for model in models %}
-        <a href="{{ path('rx_admin_model_schema', {'strategy_slug': strategy_slug, 'model_slug': model.slug}) }}" class="btn btn-default {{ model_slug == model.slug ? 'active' : '' }}">{{ model.name }}</a>
+        <a href="{{ path('rx_admin_model_schema', {'strategy_slug': strategy_slug, 'model_slug': model.slug}) }}" class="btn btn-primary {{ model_slug == model.slug ? 'active' : '' }}">{{ model.name }}</a>
     {% endfor %}
 {% endif %}

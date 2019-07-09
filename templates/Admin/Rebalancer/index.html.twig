@@ -9,7 +9,7 @@
     <div id="admin_rebalancing_page_content">
         {% block content %}
         <div class="tabbable"> <!-- Only required for left/right tabs -->
-            <nav class="nav">
+            <nav class="nav nav-pills ">
                 <li class="active nav-item"><a class="nav-link" href="#rebalancer_tab" data-toggle="tab">Rebalancer</a></li>
                 <li class="nav-item"><a class="nav-link" href="#history_tab" data-toggle="tab">History</a></li>
             </nav>
@@ -33,7 +33,7 @@
                                         {{ form_errors(form.rebalance_type) }}
                                         {{ form_widget(form.rebalance_type, {'attr': {'class': 'margin-bottom-0'}}) }}
                                     {% endif %}
-                                    <input type="submit" value="Rebalance" class="btn btn-default" />
+                                    <input type="submit" value="Rebalance" class="btn btn-primary" />
                                 </div>
                             </div>
 

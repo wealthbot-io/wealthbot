@@ -2,6 +2,19 @@
 <form action="{{ path('rx_ria_company_profile') }}" method="post" data-presave="true" data-save="true"
       enctype="multipart/form-data">
     {% endblock %}
+
+    <div class="form-group">
+        {{ form_label(form.slug) }}
+        <div class="controls">
+            {{ form_errors(form.slug) }}
+            <div class="input-group">
+                {{ form_widget(form.slug) }}
+                <div class="input-group-append">
+                    <span class="input-group-text">.wealthbot.io</span>
+                </div>
+            </div>
+        </div>
+    </div>
     {{ form_widget(form) }}
 {#
 

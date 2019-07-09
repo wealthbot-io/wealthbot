@@ -22,7 +22,7 @@
             </div>
             <div class="save-and-logout">
                 {% if app.request.attributes.get('_route') != 'rx_client_transfer' %}
-                    <a class="btn btn-default"  id="main_screen_btn" href="{{ path('rx_client_transfer') }}">Main Screen</a>
+                    <a class="btn btn-primary"  id="main_screen_btn" href="{{ path('rx_client_transfer') }}">Main Screen</a>
                 {% endif %}
 
                 <a class="btn margin-left-15" id="reg_save_btn" href="{{ path('logout') }}">Logout</a>

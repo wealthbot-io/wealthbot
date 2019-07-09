@@ -11,6 +11,7 @@ namespace App\Form\Type;
 
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\PercentType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
@@ -50,7 +51,12 @@ class CeModelEntityFormType extends AbstractType
         ]);
 
         $builder->addEventSubscriber($subscriber);
-        $builder->add('percent');
+        $builder->add('percent',null,[
+            'attr' => [
+                'placeholder' => 'Percent',
+                'class' => 'col-1'
+            ]
+        ]);
 
         $builder->addEventListener(FormEvents::POST_SET_DATA, function (FormEvent $event) {
             $this->ceModel = $event->getForm()->getConfig()->getOption('ceModel');

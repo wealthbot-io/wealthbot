@@ -81,7 +81,7 @@
         <div class="form-actions">
             {{ form_widget(form._token) }}
             <a href="{% block back_url %}{{ path('rx_client_transfer_back', {'account_id': account.id, 'action': 'funding_distributing'}) }}{% endblock %}" class="btn btn-inverse">Back </a>
-            <input type="submit" class="btn btn-default"  name="continue" value="Continue" />
+            <input type="submit" class="btn btn-primary"  name="continue" value="Continue" />
         </div>
     </form>
 
@@ -100,7 +100,7 @@
 
             <div class="modal-footer">
                 <button type="submit" class="btn save-modal-form-btn btn-primary">Save</button>
-                <a href="#" class="btn btn-default"  data-dismiss="modal" aria-hidden="true">Cancel</a>
+                <a href="#" class="btn btn-primary"  data-dismiss="modal" aria-hidden="true">Cancel</a>
             </div>
         </div>
 

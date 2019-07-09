@@ -6,7 +6,7 @@
                     <img class="img-rounded w200h100" src="{{ path('rx_file_download', {'ria_id': ria_company_information.ria.id}) }}"/>
                 </div>
                 <div class="save-and-logout">
-                    <a class="btn btn-default"  id="reg_save_btn" href="{{ path('logout') }}">Logout</a>
+                    <a class="btn btn-primary"  id="reg_save_btn" href="{{ path('logout') }}">Logout</a>
                     <span class="help-block">We'll save your progress.</span>
                 </div>
             </div>
@@ -93,8 +93,8 @@
         {% else %}
 
         {% endif %}
-        <a class="btn btn-default"  {{ client.clientAccounts.count > 0 ? 'style="display: none;"' : '' }} href="javascript:void(0);" id="account_continue_btn">Continue</a>
-        <a class="btn btn-default"  {{ client.clientAccounts.count > 0 ? '' : 'style="display: none;"' }} href="javascript:void(0);"
+        <a class="btn btn-primary"  {{ client.clientAccounts.count > 0 ? 'style="display: none;"' : '' }} href="javascript:void(0);" id="account_continue_btn">Continue</a>
+        <a class="btn btn-primary"  {{ client.clientAccounts.count > 0 ? '' : 'style="display: none;"' }} href="javascript:void(0);"
            data-url="{{ path('rx_client_profile_step_three_complete') }}"
            data-check-url="{{ path('rx_client_profile_check_accounts_sum') }}" id="account_suggested_btn">See My Portfolio</a>
 
@@ -117,7 +117,7 @@
 
 
         <div class="modal-footer">
-            {#<button class="btn btn-default"  data-dismiss="modal" aria-hidden="true">Close</button>#}
+            {#<button class="btn btn-primary"  data-dismiss="modal" aria-hidden="true">Close</button>#}
             <button class="update-account-btn btn">Save</button>
         </div>
     </div>

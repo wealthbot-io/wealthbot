@@ -3,10 +3,10 @@
         {% set new_label = 'Personal Investment Account' %}
         {% set new_sub_label = 'A standard, taxable account.' %}
 
-    {% elseif type.vars.label == 'Joint Account' %}
+   {# {% elseif type.vars.label == 'Joint Account' %}
         {% set new_label = 'Joint Investment Account' %}
         {% set new_sub_label = 'A taxable joint account with rights of survivorship.' %}
-
+#}
     {% elseif type.vars.label == 'Roth IRA' %}
         {% set new_label = 'Roth IRA' %}
         {% set new_sub_label = 'A tax-free retirement account. Contributions are not tax-deductible.' %}

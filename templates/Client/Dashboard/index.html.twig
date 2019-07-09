@@ -11,11 +11,11 @@
 
 {% block body %}
     {% set is_client_view_value = is_client_view is defined ? is_client_view : true %}
+            {% include '/Client/Dashboard/_nav.html.twig' with {'action' : layout_variables.action, 'is_client_view': is_client_view_value} %}
 
     <div class="container-fluid">
         <div class="row">
-            {% include '/Client/Dashboard/_nav.html.twig' with {'action' : layout_variables.action, 'is_client_view': is_client_view_value} %}
-
+            <div class="col-12">
             <div id="content" class="col-10 margin-top-7">
 
                 <hr />
@@ -30,5 +30,6 @@
                 {% endblock %}
             </div><!--/.fluid-container-->
         </div>
+    </div>
     </div>
 {% endblock %}

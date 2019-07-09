@@ -36,6 +36,10 @@
 {% endblock %}
 
 {% block body %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+
     <div  class="center-text">
         {% if is_risks_test is defined and is_risks_test %}
             <h1>Suggested Portfolio</h1>
@@ -103,4 +107,8 @@
             </div>
         </form>
     {% endif %}
+
+            </div>
+        </div>
+    </div>
 {% endblock %}

@@ -31,7 +31,7 @@ class AccountTypesFormType extends AbstractType
 
         $riaCompanyInformation = $this->client->getProfile()->getRia()->getRiaCompanyInformation();
 
-        $isAllowRetirementPlan = $riaCompanyInformation->getIsAllowRetirementPlan();
+        $isAllowRetirementPlan = false;
         $group = $this->group;
 
         $builder->add('group_type', EntityType::class, [

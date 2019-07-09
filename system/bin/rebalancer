@@ -1,8 +1,5 @@
 #!/usr/bin/env php
 <?php
-
-require_once __DIR__.'/WealthbotRebalancer.php';
-
 $rebalancer = new System\Console\WealthbotRebalancer();
 
 $rebalancer->start();

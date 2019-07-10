@@ -212,13 +212,13 @@ class RisksController extends Controller
             }
         }
 
-        return $this->render('/Ria/Risks/test.html.twig', ['form' => $form->createView()]);
+        return $this->render('Ria/Risks/test.html.twig', ['form' => $form->createView()]);
     }
 
     public function testResult(Request $request)
     {
         /** @var \Doctrine\ORM\EntityManager $em */
-        /* @var \Repository\CeModelRepository $repo */
+        /* @var \App\Repository\CeModelRepository $repo */
         $em = $this->get('doctrine.orm.entity_manager');
         $repo = $em->getRepository('App\Entity\CeModel');
 

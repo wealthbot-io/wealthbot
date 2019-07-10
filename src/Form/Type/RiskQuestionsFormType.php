@@ -40,7 +40,7 @@ class RiskQuestionsFormType extends AbstractType
     {
         $this->user = $options['user'];
         $this->em = $options['em'];
-        $this->isPreSave = $$options['isPreSave'];
+        $this->isPreSave = $options['is_pre_save'];
 
         $riaId = $this->user->getId();
         $this->questions = $this->em->getRepository('App\Entity\RiskQuestion')->getOwnerQuestionsOrAdminIfNotExists($riaId);
@@ -80,7 +80,7 @@ class RiskQuestionsFormType extends AbstractType
                                     ->setParameter('question_id', $question->getId());
                             },
                             'placeholder' => $userAnswer ? false : 'Choose an Option',
-                            'property' => 'title',
+                            'property_path' => 'title',
                             'mapped' => false,
                             'required' => true,
                             'label' => $question->getTitle(),

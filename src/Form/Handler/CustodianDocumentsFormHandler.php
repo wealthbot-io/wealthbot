@@ -28,13 +28,13 @@ class CustodianDocumentsFormHandler
     protected $em;
     protected $custodian;
 
-    public function __construct(Form $form, Request $request, EntityManager $em, TwigSwiftMailer $mailer, $options)
+    public function __construct(Form $form, Request $request, EntityManager $em, TwigSwiftMailer $mailer, $custodian)
     {
         $this->mailer = $mailer;
         $this->form = $form;
         $this->request = $request;
         $this->em = $em;
-        $this->custodian = $options['documents_owner'];
+        $this->custodian = $custodian;
     }
 
     protected function getExistDocuments($custodian)
@@ -59,8 +59,6 @@ class CustodianDocumentsFormHandler
     {
         $custodian = $this->custodian;
         $data = $this->form->getData();
-
-        dump($data);
 
         foreach ($data as $key => $file) {
             if ($file instanceof UploadedFile) {

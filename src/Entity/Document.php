@@ -313,7 +313,7 @@ class Document
      */
     public function getLink()
     {
-        return '/'.$this->getUploadDir().'/'.$this->getFilename();
+        return '/uploads/documents/'.$this->getFilename();
     }
 
     public function getRootLink()

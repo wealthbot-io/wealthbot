@@ -23,7 +23,7 @@ class CustodianController extends AclController
             $custodianId = $custodian->getId();
 
             $tabs[$custodianId]['custodian'] = $custodian;
-            $tabs[$custodianId]['form'] = $this->createForm(CustodianDocumentsFormType::class, [ 'custodian' => $custodianId])->createView();
+            $tabs[$custodianId]['form'] = $this->createForm(CustodianDocumentsFormType::class, null, [ 'custodian' => $custodian])->createView();
             $tabs[$custodianId]['documents'] = $documentManager->getCustodianDocuments($custodianId);
         }
 
@@ -42,12 +42,12 @@ class CustodianController extends AclController
             throw $this->createNotFoundException(sprintf('Custodian with id: %s does not exist.', $id));
         }
 
-        $form = $this->createForm(CustodianDocumentsFormType::class, $custodian);
+        $form = $this->createForm(CustodianDocumentsFormType::class, null, ['custodian' => $custodian ]);
 
         if ($request->isMethod('post')) {
-            $form->submit($request->get('custodian_documents'));
+            $form->handleRequest($request);
             if($form->isValid()){
-                $formHandler = new CustodianDocumentsFormHandler($form, $request, $em, $this->get('wealthbot.mailer'), ['documents_owner' => $custodian]);
+                $formHandler = new CustodianDocumentsFormHandler($form, $request, $em, $this->get('wealthbot.mailer'),$custodian);
                 $formHandler->success();
             }
         }

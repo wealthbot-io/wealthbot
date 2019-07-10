@@ -16,50 +16,39 @@ class CustodianDocumentsFormType extends AbstractType
 {
     private $custodian;
 
+    private $cid;
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $this->custodian = $options['custodian'];
+        $this->cid = $this->custodian->getId();
 
         $builder->add('account_disclosure', FileType::class, [
             'label' => 'Account Disclosure',
-            'required' => false,
-            'mapped' => false
+            'required' => false
         ])
             ->add('ira_account_disclosure', FileType::class, [
                 'label' => 'IRA Account Disclosure',
-                'required' => false,
-                'mapped' => false
+                'required' => false
             ])
             ->add('roth_account_disclosure', FileType::class, [
                 'label' => 'Roth Account Disclosure',
-                'required' => false,
-                'mapped' => false
+                'required' => false
             ]);
-
-        $builder->addEventListener(FormEvents::SUBMIT, function (FormEvent $event) {
-            $data = $event->getData();
-            $form = $event->getForm();
-            $files = [];
-            foreach ($data as $item) {
-                if ($item instanceof UploadedFile) {
-                    $files[] = $item;
-                }
-            }
-            $form->setData($files);
-        });
     }
 
     public function getBlockPrefix()
     {
-        return 'custodian_documents';
+        return 'custodian_documents_'.$this->cid;
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
             'custodian' => null,
-            'data_class' => null
+            'data_class' => null,
+            'csrf_protection' => false
         ]);
     }
+
 }

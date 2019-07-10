@@ -29,8 +29,6 @@ class ClientController extends Controller
         $em = $this->get('doctrine.orm.entity_manager');
         $subDomainManager = $this->container->get('wealthbot_user.subdomain_manager');
         $repository = $em->getRepository('App\Entity\User');
-        $ria = $repository->find(141);
-        //@todo: RIA list in front-end //
         $group = null;
 
         if ($subDomainManager->hasSubDomain()) {
@@ -39,7 +37,7 @@ class ClientController extends Controller
                 $ria = $riaCompanyInformation->getRia();
             }
         } else {
-            $ria = $repository->find($request->get('ria_id'));
+            $ria = $repository->find(141);
         }
 
         if (!$ria || !$ria->hasRole('ROLE_RIA')) {

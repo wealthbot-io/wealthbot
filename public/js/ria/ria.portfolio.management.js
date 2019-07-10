@@ -1,7 +1,7 @@
 $(function(){
     updateOutsideRetirementAccountsBlock();
     $(document).on('click','input:radio[name="wealthbot_riabundle_ria_proposals_form[portfolio_processing]"]',function(){
-        $('input:radio[name="wealthbot_riabundle_riacompanyinformationtype[account_managed]"]:checked').removeAttr('checked');
+        $('input:radio[name="ria_company_information[account_managed]"]:checked').removeAttr('checked');
         updateOutsideRetirementAccountsBlock();
         qualifiedModelsToggle();
     });
@@ -46,7 +46,7 @@ $(function(){
         updateTaxLossHarvesting($(this).val());
     });
 
-    $(document).on('click','input:radio[name="wealthbot_riabundle_riacompanyinformationtype[account_managed]"]', function(){
+    $(document).on('click','input:radio[name="ria_company_information[account_managed]"]', function(){
         updateRiaAssetSettingsTable();
         updateOutsideRetirementAlertMessage();
         qualifiedModelsToggle();
@@ -60,7 +60,7 @@ $(function(){
 //        municipalBondsToggle();
 //    });
 
-    $(document).on('change','input:radio[name="wealthbot_riabundle_riacompanyinformationtype[is_allow_retirement_plan]"]', function() {
+    $(document).on('change','input:radio[name="ria_company_information[is_allow_retirement_plan]"]', function() {
         updateOutsideRetirementAlertMessage();
         qualifiedModelsToggle();
     });
@@ -94,7 +94,7 @@ function completeSubclasses()
 {
     var container = $("#form_subclass_container");
 
-    $("#step_four_form").ajaxSubmit({
+    $(".step-four-form form").ajaxSubmit({
         url: container.attr('data-complete-url'),
         target: '#form_subclass_container',
         success: function () {
@@ -112,7 +112,7 @@ function completeSubclasses()
 //    if (account_type_id == 2 || (account_type_id != 2 && qualified_id == 0)) {
 //        $('#municipal_bonds_block').show();
 //    } else {
-//        $(document).on('click','#wealthbot_riabundle_riacompanyinformationtype_use_municipal_bond_1',);
+//        $(document).on('click','#ria_company_information_use_municipal_bond_1',);
 //        $('#municipal_bonds_block').hide();
 //    }
 //}
@@ -129,7 +129,7 @@ function toleranceBandToggle()
 
 function qualifiedModelsToggle()
 {
-    var is_allow_retirement_plan = parseInt($('input:radio[name="wealthbot_riabundle_riacompanyinformationtype[is_allow_retirement_plan]"]:checked').val());
+    var is_allow_retirement_plan = parseInt($('input:radio[name="ria_company_information[is_allow_retirement_plan]"]:checked').val());
     var account_managed = parseInt($("input[id*='account_managed']:checked").val());
     var qualified_container_selector = $("#qualified_container");
 
@@ -161,7 +161,7 @@ function updateQualifiedLabel(label)
 
 
 function updateRiaAssetSettingsTable(){
-    var is_allow_retirement_plan = parseInt($('input:radio[name="wealthbot_riabundle_riacompanyinformationtype[is_allow_retirement_plan]"]:checked').val());
+    var is_allow_retirement_plan = parseInt($('input:radio[name="ria_company_information[is_allow_retirement_plan]"]:checked').val());
     var account_managed = parseInt($("input[id*='account_managed']:checked").val());
     var is_show_asset = parseInt($("input[id*='is_show_client_expected_asset_class']:checked").val());
     var model = $("input[name*='model_type']:checked").val();
@@ -238,8 +238,8 @@ function updateRiaAssetSettingsTable(){
 
 function updateOutsideRetirementAlertMessage() {
     var alert_select = $('#outside_retirement_alert_id');
-    var is_allow_retirement_plan = parseInt($('input:radio[name="wealthbot_riabundle_riacompanyinformationtype[is_allow_retirement_plan]"]:checked').val());
-    var account = $('input:radio[name="wealthbot_riabundle_riacompanyinformationtype[account_managed]"]:checked');
+    var is_allow_retirement_plan = parseInt($('input:radio[name="ria_company_information[is_allow_retirement_plan]"]:checked').val());
+    var account = $('input:radio[name="ria_company_information[account_managed]"]:checked');
     var account_id = account.val();
     var portfolio_processing = parseInt($('input:radio[name="wealthbot_riabundle_ria_proposals_form[portfolio_processing]"]:checked').val());
 
@@ -255,7 +255,7 @@ function updateOutsideRetirementAlertMessage() {
 function updateOutsideRetirementAccountsBlock() {
     var elem = $('input:radio[name="wealthbot_riabundle_ria_proposals_form[portfolio_processing]"]:checked');
     var select = $('#outside_retirement_accounts_block');
-    var clientByClient = $('#wealthbot_riabundle_riacompanyinformationtype_account_managed_2').closest('label');
+    var clientByClient = $('#ria_company_information_account_managed_2').closest('label');
 
     updateOutsideRetirementAlertMessage();
 

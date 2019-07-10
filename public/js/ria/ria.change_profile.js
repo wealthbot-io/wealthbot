@@ -14,9 +14,9 @@ $(function(){
     });
 
     //Company profile
-    var phoneNumber = $('#wealthbot_riabundle_riacompanyinformationtype_phone_number');
+    var phoneNumber = $('#riacompanyinformationtype_phone_number');
     if (phoneNumber.length > 0) {
-        $("#wealthbot_riabundle_riacompanyinformationtype_phone_number").inputmask("mask", {"mask": "(999) 999-9999"});
+        $("#riacompanyinformationtype_phone_number").inputmask("mask", {"mask": "(999) 999-9999"});
     }
 
     var groupList = $("#wealthbot_riabundle_createuser_groups");
@@ -27,7 +27,7 @@ $(function(){
 
 
     $(document).on('click','.website-test.btn', function(event) {
-        var value = $('#wealthbot_riabundle_riacompanyinformationtype_website').val();
+        var value = $('#riacompanyinformationtype_website').val();
 
         if (!value || value === 'http://') {
             alert('Enter the value.');

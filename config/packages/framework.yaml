@@ -9,7 +9,9 @@ framework:
         handler_id: ~
         cookie_secure: auto
         cookie_samesite: lax
-
+        cookie_domain: "%site_domain%"
+        name: webosess
+        save_path: ~
     #esi: true
     #fragments: true
     php_errors:

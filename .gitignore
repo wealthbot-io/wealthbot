@@ -18,5 +18,3 @@
 .idea
 .DS_Store
 /public/uploads/
-/system/vendor/
-/system/Config.php

@@ -515,7 +515,6 @@ class RiaCompanyInformation
 
     public function upload()
     {
-        dump($this->logo_file, $this->getUploadRootDir());
         if (null === $this->logo_file) {
             return;
         }

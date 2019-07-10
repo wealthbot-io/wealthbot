@@ -30,8 +30,6 @@ class AssetClassWithSubclassesFormType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        dump($options);
-
         $this->user = $options['user'];
         $this->em = $options['em'];
         $this->allSubclasses = $options['allSubclasses'];

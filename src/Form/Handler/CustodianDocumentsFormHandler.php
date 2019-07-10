@@ -74,8 +74,6 @@ class CustodianDocumentsFormHandler
 
         $this->em->persist($this->custodian);
 
-        dump($this->custodian);
-
         $this->em->flush();
     }
 

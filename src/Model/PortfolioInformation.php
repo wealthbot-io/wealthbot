@@ -182,9 +182,6 @@ class PortfolioInformation
         }
 
         $data = [];
-
-        //var_dump($this->getModelEntities());die;
-
         /** @var CeModelEntityInterface $entity */
         foreach ($this->getModelEntities() as $entity) {
             $data[] = $entity->toArray();

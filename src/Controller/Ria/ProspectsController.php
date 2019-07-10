@@ -804,26 +804,21 @@ class ProspectsController extends Controller
         }
 
         $badAsset = [];
-        //echo "<pre>";
+
         foreach ($unPreferred as $account => $assetClasses) {
-            //var_dump($account, $assetClasses);
+
             if (isset($preferred[$account])) {
-                //var_dump($assetClasses, $preferred[$account]);
-                //echo "----";
                 // Search asset classes that's doesn't have preferred subclass
                 $diff = array_diff($assetClasses, $preferred[$account]);
                 // If exists than add to array with not valid asset classes
                 if ($diff) {
                     $badAsset[$account] = $diff;
                 }
-                //var_dump($badAsset);
-                //echo "<br/>";
+
             } else {
                 // All asset classes doesn't have preferred subclass
                 $badAsset[$account] = $assetClasses;
             }
-            //var_dump($badAsset);
-            //echo "<br/>------------------------------------------------------------<br/>";
         }
 
         $data['error'] = false;

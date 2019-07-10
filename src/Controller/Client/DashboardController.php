@@ -600,7 +600,6 @@ class DashboardController extends Controller
 
         $clientDocuments = $em->getRepository('App\Entity\Document')->findByUserId($this->getUser()->getId());
 
-        dump($clientDocuments);
 
         $riaDocuments = array_merge($riaDocuments, $clientDocuments);
 

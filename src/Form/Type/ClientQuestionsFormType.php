@@ -29,9 +29,6 @@ class ClientQuestionsFormType extends BaseType
         $this->em = $options['em'];
         $this->questions = $this->em->getRepository('App\Entity\RiskQuestion')->getOwnerQuestionsOrAdminIfNotExists($riaId);
 
-        //dump($this->questions);exit;
-
-
         foreach ($this->questions as $question) {
             if ($question->getIsWithdrawAgeInput()) {
                 $builder->add('answer_'.$question->getId(), 'text', [

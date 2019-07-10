@@ -136,10 +136,7 @@ class HouseholdSpouseFormType extends AbstractType
     {
         $form = $event->getForm();
         $spouse = $event->getData();
-        /*        var_dump($form->get('firstName'));
-                exit;
-
-                if (null === $form->get('employmentType')->getData()) {
+        /* if (null === $form->get('employmentType')->getData()) {
                     $form->get('employmentType')->setData(Profile::CLIENT_EMPLOYMENT_TYPE_EMPLOYED);
                 }*/
 

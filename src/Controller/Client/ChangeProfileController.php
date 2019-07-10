@@ -97,7 +97,6 @@ class ChangeProfileController extends Controller
 
         $accountUserAdapter = new UserAccountOwnerAdapter($user);
 
-        dump($accountUserAdapter);
 
         $form = $this->createForm(ClientChangeProfileTransferPersonalFormType::class, $accountUserAdapter, [
             'em' => $em,

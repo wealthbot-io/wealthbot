@@ -40,7 +40,7 @@ class CategoriesController extends BaseController
         $accountTypes = $em->getRepository('App\Entity\SubclassAccountType')->findAll();
 
         $assetClasses = $repo->findByModelIdAndOwnerId($selectedModel->getId(), $ria->getId());
-        //var_dump($selectedModel->getId(), $assetClasses);die;
+
         $assets = new AssetCollection($assetClasses, $selectedModel);
 
         $options = [

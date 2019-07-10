@@ -29,7 +29,6 @@ class AccountGroupsFormType extends AbstractType
         $riaCompanyInformation = $this->ria ? $this->ria->getRiaCompanyInformation() : new RiaCompanyInformation();
 
         $choices = AccountGroup::getGroupChoices();
-       // dump($choices);
 
         if (!$riaCompanyInformation->getIsAllowRetirementPlan()) {
             unset($choices[AccountGroup::GROUP_EMPLOYER_RETIREMENT]);

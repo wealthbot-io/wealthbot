@@ -132,7 +132,6 @@
             <div class="controls">
                 {{ form_errors(form.min_asset_size) }}
                 <div class="input-group">
-                    <span class="input-group-addon">$</span>
                     {{ form_widget(form.min_asset_size, {'attr': {'class': 'auto-numeric', 'placeholder': '0.00'}}) }}
                 </div>
             </div>
@@ -155,7 +154,7 @@
                 <div class="controls">
                     {{ form_errors(form.portfolio_processing) }}
                     {% for radio in form.portfolio_processing %}
-                        <label for="{{ radio.vars.id }}" class="radio inline">{{ form_widget(radio) }} {{ radio.vars.label }}</label>
+                        <label for="{{ radio.vars.id }}" class="radio inline">{{ form_widget(radio) }} </label>
                     {% endfor %}
                 </div>
             </div>

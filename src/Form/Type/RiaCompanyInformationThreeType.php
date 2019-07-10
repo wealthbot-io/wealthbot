@@ -165,24 +165,27 @@ class RiaCompanyInformationThreeType extends AbstractType
                 'expanded' => true,
                 'data' => (($data->getId() && null !== $data->getIsTaxLossHarvesting()) ? $data->getIsTaxLossHarvesting() : 1),
             ])
-            ->add('tax_loss_harvesting', NumberType::class, [
+            ->add('tax_loss_harvesting', MoneyType::class, [
                 'scale' => 2,
                 'required' => false,
                 'grouping' => true,
+                'currency' => 'USD'
             ])
-            ->add('stop_tlh_value', NumberType::class, [
+            ->add('stop_tlh_value',  MoneyType::class, [
                 'scale' => 2,
                 'required' => false,
+                'currency' => 'USD',
                 'grouping' => true,
             ])
             ->add('tax_loss_harvesting_percent', PercentType::class, [
                 'scale' => 2,
                 'required' => false,
             ])
-            ->add('tax_loss_harvesting_minimum', NumberType::class, [
+            ->add('tax_loss_harvesting_minimum', MoneyType::class, [
                 'scale' => 2,
                 'grouping' => true,
                 'required' => false,
+                'currency' => 'USD'
             ])
             ->add('tax_loss_harvesting_minimum_percent', PercentType::class, [
                 'scale' => 2,

@@ -128,6 +128,6 @@ class RiaCompanyInformationTwoFormType extends AbstractType
 
     public function getBlockPrefix()
     {
-        return 'wealthbot_riabundle_riacompanyinformationtype';
+        return 'ria_company_information_type';
     }
 }

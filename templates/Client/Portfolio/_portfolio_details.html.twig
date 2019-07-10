@@ -2,6 +2,9 @@
     {% set investment_market = 0 %}
 
     <div class="box col-6">
+
+        {% set appointedBillingSpec =  (client is defined and client is not null) ? client.appointedBillingSpec : null %}
+
         {% include "/Client/Portfolio/_portfolio_costs.html.twig" with {
             'ria_company_information': ria_company_information,
             'has_retirement_account': has_retirement_account,
@@ -9,7 +12,7 @@
             'fees': portfolio_information.fees,
             'commissions': portfolio_information.commissionsAsString,
             'action': action,
-            'billing_spec': client.appointedBillingSpec
+            'billing_spec': appointedBillingSpec
             }
         %}
     </div>

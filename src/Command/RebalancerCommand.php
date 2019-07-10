@@ -28,7 +28,8 @@ class RebalancerCommand extends ContainerAwareCommand
         $this
             ->setName('wealthbot:rebalancer')
             ->setDescription('Wealthbot Rebalancer')
-            ->setHelp('');
+            ->setHelp('This command allows you to rebalance webo...')
+        ;
     }
 
     /**
@@ -38,7 +39,7 @@ class RebalancerCommand extends ContainerAwareCommand
     {
         $em = $this->getContainer()->get('doctrine')->getManager();
         $em->getConnection()->getConfiguration()->setSQLLogger(null);
-        $securities = $this->updateSecurities($em);
+        $securities = $this->updateSecurities($em, $output);
         $this->prices = $this->processPrices($em, $securities);
         $accounts = $em->getRepository("App\\Entity\\ClientAccount")->findBy([
         ]);
@@ -55,7 +56,7 @@ class RebalancerCommand extends ContainerAwareCommand
           foreach($datum['values'] as $list){
              $newValue += $list['amount'];
           }
-          $account->setValue(doubleval($newValue));
+          $account->setValue(number_format($newValue,2, '.', ''));
           $em->persist($account);
         };
         $em->flush();
@@ -65,7 +66,7 @@ class RebalancerCommand extends ContainerAwareCommand
      * @param $output
      * @return object[]
      */
-    protected function updateSecurities($output)
+    protected function updateSecurities($em,$output)
     {
         $em = $this->getContainer()->get('doctrine')->getManager();
         $em->getConnection()->getConfiguration()->setSQLLogger(null);
@@ -74,18 +75,19 @@ class RebalancerCommand extends ContainerAwareCommand
         $client = ApiClientFactory::createApiClient();
 
         $securities = $em->getRepository('App\Entity\Security')->findAll();
-/*
+
         foreach($securities as $security){
 
             try {
                 $quotes = $client->getQuotes([$security->getSymbol()]);
+                $middle = ($quotes[0]->getRegularMarketDayHigh()+$quotes[0]->getRegularMarketDayLow()) * 0.5;
                 if (count($quotes) > 0) {
                     $price = new SecurityPrice();
                     $price->setSecurity($security);
                     $price->setSecurityId($security->getId());
                     $price->setDatetime($quotes[0]->getDividendDate());
                     $price->setIsCurrent(true);
-                    $price->setPrice($quotes[0]->getAsk());
+                    $price->setPrice($middle);
                     $price->setIsPosted(true);
                     $price->setSource($quotes[0]->getQuoteSourceName());
                     $em->persist($price);
@@ -96,7 +98,7 @@ class RebalancerCommand extends ContainerAwareCommand
             }
         };
 
-        $em->flush(); */
+        $em->flush();
         return $securities;
     }
 

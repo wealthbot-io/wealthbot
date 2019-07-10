@@ -35,7 +35,7 @@ class BillingController extends Controller
         /** @var \Doctrine\ORM\EntityManager $em */
         $em = $this->container->get('doctrine.orm.entity_manager');
 
-        /** @var \Repository\RiaCompanyInformationRepository $riaCompanyInfoRepo */
+        /** @var \App\Repository\RiaCompanyInformationRepository $riaCompanyInfoRepo */
         $riaCompanyInfoRepo = $em->getRepository('App\Entity\RiaCompanyInformation');
         /** @var RiaCompanyInformation $riaCompanyInfo */
         $riaCompanyInfo = $riaCompanyInfoRepo->findOneBy(['ria_user_id' => $ria->getId()]);

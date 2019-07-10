@@ -90,19 +90,15 @@ function updateTaxLossHarvesting(value) {
     }
 }
 
-function completeSubclasses()
-{
-    var container = $("#form_subclass_container");
 
-    $(".step-four-form form").ajaxSubmit({
-        url: container.attr('data-complete-url'),
-        target: '#form_subclass_container',
+$(".step-four-form form").ajaxSubmit({
+        url: $(".step-four-form form").attr('action'),
+              target: '#form_subclass_container',
         success: function () {
             updateAutoNumeric();
             updateRiaAssetSettingsTable();
         }
-    });
-}
+});
 
 //function municipalBondsToggle()
 //{

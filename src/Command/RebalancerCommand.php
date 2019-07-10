@@ -41,24 +41,26 @@ class RebalancerCommand extends ContainerAwareCommand
         $securities = $this->updateSecurities($em);
         $this->prices = $this->processPrices($em, $securities);
         $accounts = $em->getRepository("App\\Entity\\ClientAccount")->findBy([
-
         ]);
 
         foreach ($accounts as $account){
             /** @var $account ClientAccount */
-            if($account->getConsolidator()) {
-                $newData[] = $this->processClientAccounts($account);
-            }
+            $data[] = $this->processClientAccounts($account, $em);
         };
 
-        var_dump($newData);
+        foreach($data as $datum){
+          $account = $em->getRepository("App\\Entity\\ClientAccount")->find($datum['account_id']);
 
-        var_dump(count($newData));
-
+          $newValue = 0;
+          foreach($datum['values'] as $list){
+             $newValue += $list['amount'];
+          }
+          $account->setValue(doubleval($newValue));
+          $em->persist($account);
+        };
+        $em->flush();
         $output->writeln('Success!');
     }
-
-
     /**
      * @param $output
      * @return object[]
@@ -146,31 +148,33 @@ class RebalancerCommand extends ContainerAwareCommand
     /**
      * @param ClientAccount $account;
      */
-    protected function processClientAccounts($account)
+    protected function processClientAccounts($account, $em)
     {
-            $total = $account->getValueSum() + $account->getContributionsSum() - $account->getDistributionsSum();
-            $modelValues[] = $account->getClient()->getClientPortfolios()->map(function($clientPortfolio) use ($total, $account) {
-                return $clientPortfolio->getPortfolio()->getModelEntities()->map(
-                    function ($entity) use ($total, $account) {
+        $total = $account->getValueSum() + $account->getContributionsSum() - $account->getDistributionsSum();
+        $data = $account->getClient()->getClientPortfolios()->map(function ($clientPortfolio) use ($total, $account, $em) {
+            return [
+                'account_id'=>$account->getId(),
+                'values' =>  $clientPortfolio->getPortfolio()->getModelEntities()->map(
+                function ($entity) use ($total, $account, $clientPortfolio, $em) {
 
-                        $prices_diff =  $this->getPricesDiff($entity->getSecurityAssignment()->getSecurity()->getId());
-                        $old_amount = ($entity->getPercent() / 100) * $total;
-                        $amount = $prices_diff * $old_amount;
-                        return
-                            [
-                                'user_id' => $account->getClient()->getId(),
-                                'total' => $total,
-                                'amount' => $amount,
-                                'old_amount' => $old_amount,
-                                'prices_diff' => $prices_diff,
-                                'model_id' => $entity->getModel()->getId(),
-                                'security_id' => $entity->getSecurityAssignment()->getSecurity()->getId(),
-                                'percent' => $entity->getPercent()
-                            ];
-                    })[0];
-            })[0];
+                    $prices_diff = $this->getPricesDiff($entity->getSecurityAssignment()->getSecurity()->getId());
+                    $old_amount = ($entity->getPercent() / 100) * $total;
+                    $amount = $prices_diff * $old_amount;
+                    return
+                        [
+                            'user_id' => $account->getClient()->getId(),
+                            'old_total' => $total,
+                            'amount' => $amount,
+                            'old_amount' => $old_amount,
+                            'prices_diff' => $prices_diff,
+                            'model_id' => $entity->getId(),
+                            'security_id' => $entity->getSecurityAssignment()->getSecurity()->getId(),
+                            'percent' => $entity->getPercent()
+                        ];
+                })];
+        })[0];
 
-        return $modelValues;
+        return $data;
     }
 
 }

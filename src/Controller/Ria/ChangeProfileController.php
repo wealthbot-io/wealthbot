@@ -65,15 +65,19 @@ class ChangeProfileController extends Controller
         $session = $this->get('session');
 
         $companyForm = $this->createForm(RiaCompanyInformationType::class, null, ['user'=>$user,'isPreSave'=>true]);
-        ///   $proposalForm = $this->createForm(RiaProposalFormType::class, $user);
-//        $marketingForm = $this->createForm(new RiaCompanyInformationFourType($user, false), $riaCompanyInfo);
-        //$alertsConfigurationForm = $this->createForm(new RiaAlertsConfigurationFormType(), $riaAlertsConfiguration);
-//        $billingAndAccountsForm  = $this->createForm(new RiaCompanyInformationTwoFormType($user, false), $riaCompanyInfo);
+        ///$proposalForm = $this->createForm(RiaProposalFormType::class, $user);
+        $marketingForm = $this->createForm(RiaCompanyInformationFourType::class,$riaCompanyInfo, ['user'=>$user,'isPreSave'=> false]);
+        $alertsConfigurationForm = $this->createForm(RiaAlertsConfigurationFormType::class, $riaAlertsConfiguration);
+        $billingAndAccountsForm  = $this->createForm(RiaCompanyInformationTwoFormType::class,$riaCompanyInfo, ['user'=>$user,'is_pre_save'=> false]);
         $portfolioManagementForm = $this->createForm(
             RiaCompanyInformationThreeType::class,
             $riaCompanyInfo,
             ['em'=>$em, 'user'=>$user,'isPreSave' =>false, 'isModels' => false, 'isChangeProfile' =>true,'session' => $session]
         );
+
+
+        $documentForm = $this->createForm(RiaDocumentsFormType::class);
+
 
 //        RegistrationStepOneFormType
         return $this->render(
@@ -84,15 +88,15 @@ class ChangeProfileController extends Controller
                 'isCustomModel' => $isCustomModel,
                 'modelType' => $parentModel->isCustom() ? 'Custom' : 'Strategy',
                 'companyForm' => $companyForm->createView(),
-             //   'proposal_form' => $proposalForm->createView(),
-//                'marketingForm' => $marketingForm->createView(),
-//                'billingAndAccountsForm'  => $billingAndAccountsForm->createView(),
+                //'proposal_form' => $proposalForm->createView(),
+                'marketingForm' => $marketingForm->createView(),
+                'billingAndAccountsForm'  => $billingAndAccountsForm->createView(),
                 'portfolioManagementForm' => $portfolioManagementForm->createView(),
-                //'updatePasswordForm' => $this->get('wealthbot_user.update_password.form')->createView(),
+                'updatePasswordForm' => $this->get('wealthbot_user.update_password.form')->createView(),
 //                'admin_documents' => $documentManager->getUserDocuments($admin->getId()),
                 'documents' => $documentManager->getUserDocuments($user->getId()),
-//                'documents_form' => $documentForm->createView(),
-                //'alertsConfigurationForm' => $alertsConfigurationForm->createView(),
+                'documents_form' => $documentForm->createView(),
+                'alertsConfigurationForm' => $alertsConfigurationForm->createView(),
                 'active_tab' => $request->get('tab', null),
             ]
         );
@@ -114,8 +118,7 @@ class ChangeProfileController extends Controller
             'custodian' => $riaCompanyInfo->getCustodian(),
             'riaCompany' => $riaCompanyInfo
         ]);
-        dump(1);
-        /* @var \Repository\CustodianRepository $custodianRepo */
+        /* @var \App\Repository\CustodianRepository $custodianRepo */
         $custodianRepo = $em->getRepository('App\Entity\Custodian');
         $custodians = $custodianRepo->findAll();
 
@@ -409,25 +412,25 @@ class ChangeProfileController extends Controller
         return $this->render('/Ria/ChangeProfile/_update_password.html.twig', ['form' => $form->createView()]);
     }
 
-//    public function uploadDocuments(Request $request)
-//    {
-//        $em = $this->get('doctrine.orm.entity_manager');
-//        $documentManager = $this->get('wealthbot_user.document_manager');
-//
-//        $user = $this->getUser();
-//
-//        $form = $this->createForm(new RiaDocumentsFormType());
-//        $formHandler = new DocumentsFormHandler($form, $request, $em, $this->get('wealthbot.mailer'), array('documents_owner' => $user));
-//
-//        if ($request->isMethod('post')) {
-//            $formHandler->process();
-//        }
-//
-//        return $this->render('/Ria/ChangeProfile/_documents_form.html.twig', array(
-//            'form' => $form->createView(),
-//            'documents' => $documentManager->getUserDocuments($user->getId())
-//        ));
-//    }
+    public function uploadDocuments(Request $request)
+    {
+        $em = $this->get('doctrine.orm.entity_manager');
+        $documentManager = $this->get('wealthbot_user.document_manager');
+
+        $user = $this->getUser();
+
+        $form = $this->createForm(RiaDocumentsFormType::class);
+        $formHandler = new DocumentsFormHandler($form, $request, $em, $this->get('wealthbot.mailer'), array('documents_owner' => $user));
+
+        if ($request->isMethod('post')) {
+            $formHandler->process();
+        }
+
+        return $this->render('/Ria/ChangeProfile/_documents_form.html.twig', array(
+            'form' => $form->createView(),
+            'documents' => $documentManager->getUserDocuments($user->getId())
+        ));
+    }
 
     public function saveAlertsConfiguration(Request $request)
     {

@@ -13,7 +13,7 @@
         <div class="controls">
             {{ form_errors(custodianForm.allow_non_electronically_signing) }}
             {% for radio in custodianForm.allow_non_electronically_signing %}
-                <label for="{{ radio.vars.id }}" class="radio inline">{{ form_widget(radio) }} {{ radio.vars.label }}</label>
+                <label for="{{ radio.vars.id }}" class="radio inline">{{ form_widget(radio) }}</label>
             {% endfor %}
         </div>
     </div>

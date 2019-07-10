@@ -19,7 +19,7 @@ services:
     wealthbot_user.update_password.form:
         factory: ["@form.factory",createNamed]
         class: Symfony\Component\Form\Form
-        arguments: ['update_password_form', "@wealthbot_user.update_password.form.type", null, { validation_groups: ['password', 'ChangePassword', 'Default'] } ]
+        arguments: ['update_password_form', "App\\Form\\Type\\UpdatePasswordFormType", null, { validation_groups: ['password', 'ChangePassword', 'Default'] } ]
         public: true
     wealthbot_user.update_password.form.type:
         class: App\Form\Type\UpdatePasswordFormType

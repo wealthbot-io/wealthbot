@@ -3,6 +3,7 @@
 namespace App\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormEvent;
@@ -15,14 +16,14 @@ class RiaDocumentsFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add(Document::TYPE_ADV, 'file', [
+            ->add(Document::TYPE_ADV, FileType::class, [
                 'label' => 'ADV',
                 'required' => false,
                 'attr' => [
                     'accept' => '.pdf',
                 ],
             ])
-            ->add(Document::TYPE_INVESTMENT_MANAGEMENT_AGREEMENT, 'file', [
+            ->add(Document::TYPE_INVESTMENT_MANAGEMENT_AGREEMENT, FileType::class, [
                 'label' => 'Investment Management Agreement',
                 'required' => false,
             ]);

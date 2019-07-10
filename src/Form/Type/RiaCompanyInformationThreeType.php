@@ -5,6 +5,7 @@ namespace App\Form\Type;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\PercentType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -93,7 +94,7 @@ class RiaCompanyInformationThreeType extends AbstractType
 
         $builder
             ->add('is_allow_retirement_plan', ChoiceType::class, [
-                'choices' => [1 => 'Yes', 0 => 'No'],
+                'choices' => ['Yes' => 1,  'No' => 0],
                 'required' => false,
                 'expanded' => true,
                 //#code_v2: NOT DELETE THIS CODE #
@@ -124,41 +125,42 @@ class RiaCompanyInformationThreeType extends AbstractType
                 'expanded' => false,
             ])
             ->add('use_municipal_bond', ChoiceType::class, [
-                'choices' => [1 => 'Yes', 0 => 'No'],
+                'choices' => ['Yes' => 1,  'No' => 0],
                 'expanded' => true,
             ])
             ->add('clients_tax_bracket', PercentType::class, [
                 'scale' => 0,
                 'required' => false,
             ])
-            ->add('transaction_amount', NumberType::class, [
+            ->add('transaction_amount', MoneyType::class, [
                 'scale' => 2,
                 'required' => true,
+                'currency' => 'USD'
             ])
             ->add('transaction_amount_percent', PercentType::class, [
                 'scale' => 2,
                 'required' => true,
             ])
             ->add('is_transaction_fees', ChoiceType::class, [
-                'choices' => [1 => 'Yes', 0 => 'No'],
+                'choices' => ['Yes' => 1,  'No' => 0],
                 'required' => true,
                 'expanded' => true,
                 'data' => ($data->getId() && null !== $data->getIsTransactionFees() ? $data->getIsTransactionFees() : 1),
             ])
             ->add('is_transaction_minimums', ChoiceType::class, [
-                'choices' => [1 => 'Yes', 0 => 'No'],
+                'choices' => ['Yes' => 1,  'No' => 0],
                 'required' => true,
                 'expanded' => true,
                 'data' => ($data->getId() && null !== $data->getIsTransactionMinimums() ? $data->getIsTransactionMinimums() : 1),
             ])
             ->add('is_transaction_redemption_fees', ChoiceType::class, [
-                'choices' => [1 => 'Yes', 0 => 'No'],
+                'choices' => ['Yes' => 1,  'No' => 0],
                 'required' => true,
                 'expanded' => true,
                 'data' => ($data->getId() && null !== $data->getIsTransactionRedemptionFees() ? $data->getIsTransactionRedemptionFees() : 1),
             ])
             ->add('is_tax_loss_harvesting', ChoiceType::class, [
-                'choices' => [1 => 'Yes', 0 => 'No'],
+                'choices' => ['Yes' => 1,  'No' => 0],
                 'required' => true,
                 'expanded' => true,
                 'data' => (($data->getId() && null !== $data->getIsTaxLossHarvesting()) ? $data->getIsTaxLossHarvesting() : 1),
@@ -187,7 +189,7 @@ class RiaCompanyInformationThreeType extends AbstractType
                 'required' => false,
             ])
             ->add('tlh_buy_back_original', ChoiceType::class, [
-                'choices' => [1 => 'Yes', 0 => 'No'],
+                'choices' => ['Yes' => 1,  'No' => 0],
                 'data' => 0,
                 'disabled' => true,
                 'required' => true,

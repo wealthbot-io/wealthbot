@@ -10,6 +10,7 @@ use App\Entity\ClientQuestionnaireAnswer;
 use App\Entity\RiskAnswer;
 use App\Entity\SecurityPrice;
 use App\Entity\Transaction;
+use App\Entity\TransactionType;
 use App\Entity\User;
 use Doctrine\ORM\EntityManager;
 use Scheb\YahooFinanceApi\ApiClientFactory;
@@ -61,7 +62,7 @@ class RebalancerCommand extends ContainerAwareCommand
           }
           $account->setValue(number_format($newValue,2, '.', ''));
 
-          $this->buyOrSell($item, $em, $newValue, $output);
+          $this->buyOrSell($item, $em, $output);
           $this->updatePortfolioValues($item, $em, $newValue, $output);
           }
 
@@ -218,8 +219,7 @@ class RebalancerCommand extends ContainerAwareCommand
             return $portfolioValue;
     }
 
-    protected function buyOrSell($data, $em,$total, $output){
-
+    protected function buyOrSell($data, $em, $output){
 
             /** @var ClientPortfolio $portfolio */
             $portfolio = $em->getRepository('App\\Entity\\ClientPortfolio')->find($data['portfolio']);
@@ -239,34 +239,68 @@ class RebalancerCommand extends ContainerAwareCommand
                 if($point - $datum['prices_diff'] > 0  ){
 
                     if($datum['prices_diff'] > 1){
-                        $this->sell($datum, $em, $output);
+                        $this->sell($datum,$data['account_id'], $em, $output);
                     } else {
-                        $this->buy($datum, $em, $output);
+                        $this->buy($datum,$data['account_id'], $em, $output);
                     }
                 } else {
                     if($datum['prices_diff'] > 1){
-                        $this->buy($datum, $em, $output);
+                        $this->buy($datum,$data['account_id'], $em, $output);
                     } else {
-                        $this->sell($datum, $em, $output);
+                        $this->sell($datum,$data['account_id'], $em, $output);
                     }
                 }
 
             }
     }
 
-    protected function sell($info, $em, $output){
+    protected function sell($info, $account_id,  $em, $output){
+
+        $transactionType = new TransactionType();
+        $transactionType
+            ->setName('SELL')
+            ->setActivity('sell')
+            ->setReportAs(null)
+            ->setActivity('sell');
+
 
         $transaction = new Transaction();
         $security = $em->getRepository("App\\Entity\\Security")->find($info['security_id']);
+        $account = $em->getRepository("App\\Entity\\ClientAccount")->find($info['user_id']);
         $transaction->setSecurity($security);
-        //$transaction->setQty();
-        /// $transaction->setSecurity();
+        $transaction->setQty($info['amount']);
+      //  $transaction->setAccount($account);
+        $transaction->setTransactionType($transactionType);
+        $transaction->setTxDate(new \DateTime('now'));
         /// $transaction->setQty();
        /// $output->writeln('sell...');
+        ///
+        $em->persist($transaction);
+        $em->flush();
     }
 
-    protected function buy($info, $em, $output){
-       /// $output->writeln('buy...');
+    protected function buy($info, $account_id,  $em, $output){
+        $transactionType = new TransactionType();
+        $transactionType
+            ->setName('BUY')
+            ->setActivity('buy')
+            ->setReportAs(null)
+            ->setActivity('buy');
+
+
+        $transaction = new Transaction();
+        $security = $em->getRepository("App\\Entity\\Security")->find($info['security_id']);
+        $account = $em->getRepository("App\\Entity\\ClientAccount")->find($info['user_id']);
+        $transaction->setSecurity($security);
+        $transaction->setQty($info['amount']);
+       // $transaction->setAccount($account);
+        $transaction->setTransactionType($transactionType);
+        $transaction->setTxDate(new \DateTime('now'));
+        /// $transaction->setQty();
+        /// $output->writeln('sell...');
+        ///
+        $em->persist($transaction);
+        $em->flush();
     }
 
 }

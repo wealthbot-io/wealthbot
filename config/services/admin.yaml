@@ -12,6 +12,7 @@ services:
         arguments:
             - "@doctrine.orm.default_entity_manager"
         class: App\Manager\BillingSpecManager
+        public: true
     wealthbot.manager.fee:
         arguments:
             - "@doctrine.orm.default_entity_manager"

@@ -27,8 +27,8 @@ $(function() {
         var currentDate = new Date();
         var riaCreatedAt = new Date(billing.client_created_at);
 
-        quarters.hide();
-        quarters.removeClass('active');
+        //quarters.hide();
+        //quarters.removeClass('active');
 
         for (var i=1; i<=4; i++) {
             var date = new Date(billing.curYear + '/' + (i * 3) + '/01 12:00:00 AM');
@@ -57,7 +57,6 @@ $(function() {
 
     billing.clickQuarter = function(e) {
         e.preventDefault();
-
         var self = $(this);
 
         $('a[data-role="quarter"]').removeClass('active');

@@ -16,7 +16,7 @@
     </php>
 
     <testsuites>
-        <testsuite name="Wealthbot.io">
+        <testsuite name="Project Name">
             <directory>tests</directory>
         </testsuite>
     </testsuites>

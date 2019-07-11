@@ -44,19 +44,27 @@ Client can
 
 RIA Panel
 ==
-Currently we have - registration with custom options, see the workflow, clients and his portfolios.
-manage models. and your information, risk questionary questions.
+Currently we have - 
+* registration with custom options, 
+* see the workflow, 
+* clients and his portfolios.
+* manage models. 
+* your information.
+* risk questionary questions.
 
 After filling information from client’s side you can see thats name and suggested portfolio (from system) then accept it
 
 Admin panel
 ==
-currently we have Ria’s, clients, securities and billing. Some custodians and rebalancer integration and settings management.
+currently we have Ria’s, 
+
+* clients,
+* securities and billing. 
+* Some custodians and rebalancer integration and settings management.
 
 Bugs
 ==
 As any soft we have a some bugs and fixing that day by day.
-
 
 
 Many thanks for contributing.

@@ -77,7 +77,7 @@ class RebalancerCommand extends ContainerAwareCommand
         $client = ApiClientFactory::createApiClient();
 
         $securities = $em->getRepository('App\Entity\Security')->findAll();
-/*
+
         foreach($securities as $security){
 
             try {
@@ -101,7 +101,7 @@ class RebalancerCommand extends ContainerAwareCommand
         };
 
         $em->flush();
-*/
+
         return $securities;
     }
 

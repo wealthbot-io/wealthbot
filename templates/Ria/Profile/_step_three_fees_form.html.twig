@@ -37,7 +37,7 @@
 {% endmacro %}
 
 <legend>Your Billing Schedule</legend>
-<span class="help-block">Enter your desired fee schedule below. This is the fee schedule your client will be charged, in addition to ours. Click the "Preview Final Billing Specs" button to see a breakdown of wealthbot.io's Billing Schedule and what your client's will see.</span>
+<span class="help-block">Enter your desired fee schedule below. This is the fee schedule your client will be charged, in addition to ours. Click the "Preview Final Billing Specs" button to see a breakdown of {{ 'wealthbot.io' | trans }}'s Billing Schedule and what your client's will see.</span>
 
 {% if show_alerts is defined and show_alerts %}
     <div class="alert alert-error" id="fees_alert_id" style="display: none;">

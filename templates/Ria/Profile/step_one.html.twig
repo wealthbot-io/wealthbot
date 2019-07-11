@@ -39,7 +39,7 @@
                       enctype="multipart/form-data">
 
                     <legend>Your Custodian</legend>
-                    <span>Select the custodian you will use with wealthbot.io.</span>
+                    <span>Select the custodian you will use with {{ 'wealthbot.io' | trans }}.</span>
                     <div class="form-group">
                         {{ form_errors(form.custodian) }}
                         {{ form_widget(form.custodian) }}
@@ -62,13 +62,13 @@
                         {% endfor %}
                     </div>
 
-                    <legend>wealthbot.io' Contracts</legend>
+                    <legend>{{ 'wealthbot.io' | trans }}' Contracts</legend>
                     <span>You must read and agree to the following documents:</span>
 
                     <div class="form-group">
                         <ol type="1">
                             {% for contract in contracts %}
-                                <li>I have read and agree to wealthbot.io' <a href="{{ path('rx_download_document', {'filename': contract.filename}) }}" target="_blank">{{ contract.type == 'adv' ? 'ADV Part 2' : contract.name }}</a></li>
+                                <li>I have read and agree to {{ 'wealthbot.io' | trans }}' <a href="{{ path('rx_download_document', {'filename': contract.filename}) }}" target="_blank">{{ contract.type == 'adv' ? 'ADV Part 2' : contract.name }}</a></li>
                             {% endfor %}
                         </ol>
                     </div>

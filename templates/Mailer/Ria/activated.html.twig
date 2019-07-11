@@ -8,11 +8,11 @@
 
 {% block content %}
     {% autoescape false %}
-    Congratulations! We have reviewed your setup of wealthbot.io and determined you are ready to use the platform.
+    Congratulations! We have reviewed your setup of {{ 'wealthbot.io' | trans }} and determined you are ready to use the platform.
     <a href="{{ url('rx_ria_dashboard_clients') }}">Login</a> to start having clients sign up on the system and take on more clients, profitably.
     <br><br>
     Thank you,
     <br><br>
-    wealthbot.io
+    {{ 'wealthbot.io' | trans }}
     {% endautoescape %}
 {% endblock %}

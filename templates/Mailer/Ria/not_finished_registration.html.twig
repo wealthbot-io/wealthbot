@@ -8,10 +8,10 @@
 
 {% block content %}
     {% autoescape false %}
-        We noticed you haven’t completed your registration and set-up of wealthbot.io yet. Please <a href="{{ url('login') }}" target="_blank">login</a> and complete the process so you can start taking on more clients, profitably.
+        We noticed you haven’t completed your registration and set-up of {{ 'wealthbot.io' | trans }} yet. Please <a href="{{ url('login') }}" target="_blank">login</a> and complete the process so you can start taking on more clients, profitably.
         <br><br>
         Thank you,
         <br><br>
-        wealthbot.io
+        {{ 'wealthbot.io' | trans }}
     {% endautoescape %}
 {% endblock %}

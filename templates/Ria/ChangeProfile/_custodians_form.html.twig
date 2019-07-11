@@ -1,7 +1,7 @@
 <form id="billing_n_accounts_form" action="{{path('rx_ria_change_profile_save_custodians')}}" method="post">
 
     <legend>Your Custodian</legend>
-    <span>Select the custodian you will use with wealthbot.io.</span>
+    <span>Select the custodian you will use with {{ 'wealthbot.io' | trans }}.</span>
 
     <div class="form-group">
         {{ form_widget(custodianForm.custodian) }}

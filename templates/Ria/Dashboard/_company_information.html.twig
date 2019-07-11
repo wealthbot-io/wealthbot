@@ -8,7 +8,7 @@
                     <div class="col-9">
                         {% if (progress < 100) %}
                             <div class="alert alert-error">
-                                You must complete the following steps before wealthbot.io will be ready to use:
+                                You must complete the following steps before {{ 'wealthbot.io' | trans }} will be ready to use:
                             </div>
 
                             <form id="ria_model_completion_form" action="{{ path('rx_ria_models_update_completion') }}" method="post">

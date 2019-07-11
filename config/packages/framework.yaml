@@ -19,4 +19,4 @@ framework:
     templating:
         engines: ['twig', 'php']
     assets:
-        version: '7'
+        version: '10'

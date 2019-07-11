@@ -223,13 +223,16 @@ h6 {
 }
 
 .box-content {
-  	margin-top: -1px;
 	padding: 10px;
   	border: 1px solid #ddd;
   	background: #fcfcfc;
   	-webkit-border-radius: 0px 0px 2px 2px;
 	   -moz-border-radius: 0px 0px 2px 2px;
           	border-radius: 0px 0px 2px 2px;
+}
+
+.workflow-box .box-content {
+	width: 228px !important;
 }
 
 /* Header Section
@@ -270,6 +273,10 @@ h6 {
 #under-header {
 	margin: -20px 0px 20px 0px;
 	border-top: 1px solid #fcfcfc;	
+}
+
+nav.navbar-nav {
+	margin-bottom: 20px;
 }
 
 /* Navigation Section

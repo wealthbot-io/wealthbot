@@ -55,7 +55,7 @@
         </div>
         #}
         <div class="tab-pane {{ active_tab == 'custodians' ? 'active' : '' }}" id="custodians">
-            {{ render(controller("\\App\\Controller\\Ria\\ChangeProfileController:custodianTab")) }}
+            {{ render(controller("App\\Controller\\Ria\\ChangeProfileController:custodianTab"  )) }}
         </div>
         {#<div class="tab-pane {{ active_tab == 'documents' ? 'active' : '' }}" id="documents">
             {% include '/Ria/ChangeProfile/_documents.html.twig' with {

@@ -17,16 +17,24 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class RiaCustodianFormType extends AbstractType
 {
+
+    private  $ria;
+
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+
+        $this->ria = $options['ria'];
+
+
         $builder
             ->add('custodian', EntityType::class, [
                 'label' => false,
                 'class' => "App\\Entity\\Custodian",
                 'property_path' => 'name',
                 'id_reader' => 'id',
-               // 'expanded' => true,
-                'mapped' => true
+                'expanded' => true,
+                'mapped' => true,
             ])
             ->add('allow_non_electronically_signing', ChoiceType::class, [
                'choices' => [ 'Yes'=> true, 'No'=> false ],
@@ -39,6 +47,7 @@ class RiaCustodianFormType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => 'App\Entity\RiaCompanyInformation',
+            'ria' => null
         ]);
     }
 

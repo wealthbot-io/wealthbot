@@ -41,17 +41,14 @@ class ChangeProfileController extends Controller
         $em = $this->get('doctrine.orm.entity_manager');
 
         $documentManager = $this->get('wealthbot_user.document_manager');
-//        $documentForm = $this->createForm(new RiaDocumentsFormType());
+        $documentForm = $this->createForm(RiaDocumentsFormType::class);
 
         /** @var User $user */
         $user = $this->getUser();
         $riaCompanyInfo = $user->getRiaCompanyInformation();
 
 
-        dump($riaCompanyInfo);
-
-
-//        $admin = $this->get('wealthbot.manager.user')->getAdmin();
+        $admin = $this->get('wealthbot.manager.user')->getAdmin();
 
         if (!$riaCompanyInfo) {
             throw $this->createNotFoundException('Company profile with id %s not found');
@@ -97,7 +94,7 @@ class ChangeProfileController extends Controller
                 'billingAndAccountsForm'  => $billingAndAccountsForm->createView(),
                 'portfolioManagementForm' => $portfolioManagementForm->createView(),
                 'updatePasswordForm' => $this->get('wealthbot_user.update_password.form')->createView(),
-//                'admin_documents' => $documentManager->getUserDocuments($admin->getId()),
+                'admin_documents' => $documentManager->getUserDocuments($admin->getId()),
                 'documents' => $documentManager->getUserDocuments($user->getId()),
                 'documents_form' => $documentForm->createView(),
                 'alertsConfigurationForm' => $alertsConfigurationForm->createView(),
@@ -114,12 +111,12 @@ class ChangeProfileController extends Controller
         $user = $this->getUser();
         $riaCompanyInfo = $user->getRiaCompanyInformation();
 
-        $custodianForm = $this->createForm(RiaCustodianFormType::class);
+        $custodianForm = $this->createForm(RiaCustodianFormType::class, null, ["ria"=>$riaCompanyInfo]);
 
 
         $advisorCodesForm = $this->createForm(AdvisorCodesCollectionFormType::class,null,[
             'em'=> $em,
-            'custodian' => $riaCompanyInfo->getCustodian(),
+            'custodian' =>  $riaCompanyInfo->getCustodian(),
             'riaCompany' => $riaCompanyInfo
         ]);
         /* @var \App\Repository\CustodianRepository $custodianRepo */
@@ -530,18 +527,14 @@ class ChangeProfileController extends Controller
         ]);
 
         if ($request->isMethod('post')) {
-
-            if($custodianId){
-                $companyInformation->setCustodian($custodian);
-                $em->persist($companyInformation);
-                $em->flush();
-                return $this->redirect($this->generateUrl('rx_ria_change_profile'));
-            };
-            /*
-
-
-
+            $custodianForm = $this->createForm(RiaCustodianFormType::class, $companyInformation,[
+                'ria' => $companyInformation
+            ]);
             $custodianForm->handleRequest($request);
+            $em->persist($companyInformation);
+            $em->flush();
+
+
             $advisorCodesForm->handleRequest($request);
 
             if ($custodianForm->isValid() && $advisorCodesForm->isValid()) {
@@ -559,15 +552,11 @@ class ChangeProfileController extends Controller
                 foreach ($advisorCodesData['advisorCodes'] as $advisorCodeEntity) {
                     $em->persist($advisorCodeEntity);
                 }
-                $em->persist($custodianForm->getData());
-                $em->flush();
 
-                return $this->redirect($this->generateUrl('rx_ria_change_profile_custodian_tab', ['custodian_id' => $custodianId]));
+                return $this->redirect($this->generateUrl('rx_ria_change_profile'));
             }
-            */
         }
 
-        $custodianForm = $this->createForm(RiaCustodianFormType::class, $companyInformation,[]);
         return $this->render(
             '/Ria/ChangeProfile/_custodians_form.html.twig',
             [

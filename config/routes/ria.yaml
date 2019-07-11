@@ -560,9 +560,7 @@ rx_ria_change_profile_advisor_codes:
 
 rx_ria_change_profile_custodian_tab:
   path:  /ria/change-profile/custodian-tab
-  defaults: { _controller: \App\Controller\Ria\ChangeProfileController:custodianTab }
-  requirements:
-    custodian_id:  \d+
+  defaults: { _controller: \App\Controller\Ria\ChangeProfileController:index }
 
 rx_ria_change_profile_save_company_profile:
   path:  /ria/change-profile/save-company-profile

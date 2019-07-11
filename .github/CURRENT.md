@@ -21,15 +21,26 @@ Questions: what is your use case?
 ==
 Use Cases
 
-	Help human investment advisors compete with robo-advisors
-	Build your own SaaS robo-advisor
-	Manage a personal portfolio
-	Run multiple RIA firms under a single installation
+*	Help human investment advisors compete with robo-advisors
+*	Build your own SaaS robo-advisor
+*	Manage a personal portfolio
+*	Run multiple RIA firms under a single installation
 
 Client Panel
 ==
 Currently we  have
-Client can register, fill the profile and answer risk questionary questions, then open accounts, then see the portfolio, then login to client’s dashboard and manage information, billing, performance, upload documents and manage account.
+Client can 
+
+* register
+* fill the profile
+* fill answer risk questionary questions,
+* open accounts, 
+* see the portfolio, 
+* then login to client’s dashboard and manage information, 
+* billing, 
+* performance
+* upload documents 
+* and manage account.
 
 RIA Panel
 ==

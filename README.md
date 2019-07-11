@@ -53,7 +53,12 @@ https://gitter.im/wealthbot-io
 **Prereqs:**
 
 * PHP 7.3 with GD and Imagick
-* MySQL
+* MySQL 5.7 or 8
+* Composer
+* Curl extension
+* Zip extension
+* GD extension
+* MySQL extension
 
 **For installation**
 

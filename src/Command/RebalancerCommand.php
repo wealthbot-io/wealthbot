@@ -6,6 +6,8 @@ use App\Entity\CeModelEntity;
 use App\Entity\ClientAccount;
 use App\Entity\ClientPortfolio;
 use App\Entity\ClientPortfolioValue;
+use App\Entity\ClientQuestionnaireAnswer;
+use App\Entity\RiskAnswer;
 use App\Entity\SecurityPrice;
 use App\Entity\Transaction;
 use App\Entity\User;
@@ -163,6 +165,7 @@ class RebalancerCommand extends ContainerAwareCommand
         $total = $account->getValueSum() + $account->getContributionsSum() - $account->getDistributionsSum();
         $data = $account->getClient()->getClientPortfolios()->map(function ($clientPortfolio) use ($total, $account, $em) {
             return [
+                'risk_rating' => $clientPortfolio->getPortfolio()->getRiskRating(),
                 'portfolio' => $clientPortfolio->getId(),
                 'account_id'=>$account->getId(),
                 'values' =>  $clientPortfolio->getPortfolio()->getModelEntities()->map(
@@ -193,8 +196,8 @@ class RebalancerCommand extends ContainerAwareCommand
      */
     protected function updatePortfolioValues($cp, $em,$total, $output)
     {
+            /** @var ClientPortfolio $clientPortfolio */
             $clientPortfolio = $em->getRepository('App\\Entity\\ClientPortfolio')->find($cp['portfolio']);
-
             $portfolioValue = new ClientPortfolioValue();
             $portfolioValue->setClientPortfolio($clientPortfolio);
             $portfolioValue->setTotalCashInMoneyMarket($total);
@@ -217,25 +220,50 @@ class RebalancerCommand extends ContainerAwareCommand
     protected function buyOrSell($data, $em,$total, $output){
 
         foreach($data as $datum){
+
+            /** @var ClientPortfolio $portfolio */
+            $portfolio = $em->getRepository('App\\Entity\\ClientPortfolio')->find($datum['portfolio']);
+
+            $answers = $portfolio->getClient()->getAnswers();
+
+            $point = 0;
+            foreach($answers as $answer){
+                /** @var ClientQuestionnaireAnswer $answer */
+                $point += $answer->getAnswer()->getPoint();
+
+            };
+
+            $point = ($point / 100) + 1;
+
             foreach($datum['values'] as $value){
-                if($value['prices_diff'] > 1){
-                   $this->sell($datum, $em);
+                if($point - $value['prices_diff'] > 0  ){
+
+                    if($value['prices_diff'] > 1){
+                        $this->sell($datum, $em, $output);
+                    } else {
+                        $this->buy($datum, $em, $output);
+                    }
                 } else {
-                   $this->buy($datum, $em);
+                    if($value['prices_diff'] > 1){
+                        $this->buy($datum, $em, $output);
+                    } else {
+                        $this->sell($datum, $em, $output);
+                    }
                 }
+
             }
         }
     }
 
-    protected function sell($info, $em){
-     ///   $transaction = new Transaction();
-      ///  $transaction->setSecurity();
-       /// $transaction->setQty();
-
+    protected function sell($info, $em, $output){
+        /// $transaction = new Transaction();
+        /// $transaction->setSecurity();
+        /// $transaction->setQty();
+       /// $output->writeln('sell...');
     }
 
-    protected function buy($info, $em){
-
+    protected function buy($info, $em, $output){
+       /// $output->writeln('buy...');
     }
 
 }

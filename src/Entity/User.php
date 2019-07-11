@@ -145,6 +145,11 @@ class User extends BaseUser implements ActivityInterface
     private $closed;
 
     /**
+     * @var ArrayCollection
+     */
+    private $answers;
+
+    /**
      * Constructor.
      */
     public function __construct()
@@ -167,6 +172,7 @@ class User extends BaseUser implements ActivityInterface
         $this->additionalSerializerFields = [];
         $this->clientPortfolios = new ArrayCollection();
         $this->ownGroups = new ArrayCollection();
+        $this->answers = new ArrayCollection();
     }
 
     /**
@@ -1410,5 +1416,10 @@ class User extends BaseUser implements ActivityInterface
     public function getClosed()
     {
         return $this->closed;
+    }
+
+
+    public function getAnswers(){
+        return $this->answers;
     }
 }

@@ -79,6 +79,10 @@ App\Entity\User:
       targetEntity:  App\Entity\ClientAdditionalContact
       mappedBy: client
       cascade: ['persist']
+    answers:
+      targetEntity:  App\Entity\ClientQuestionnaireAnswer
+      mappedBy: client
+      cascade: ['persist']
     slaveClients:
       targetEntity:  App\Entity\User
       mappedBy: masterClient

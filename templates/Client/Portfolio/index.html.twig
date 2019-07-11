@@ -11,24 +11,16 @@
         {{ parent() }}
     {% else %}
         <div class="container-fluid">
-            <div class="row  align-items-center h-10 ">
-                <div class="col-2">
-                    {% if is_final %}
-                        <a class="btn btn-primary"  id="reg_save_btn" href="{{ path('logout') }}">Logout</a>
-                    {% endif %}
-                    <a class="btn btn-primary"  id="reg_save_btn" href="{{ path('logout') }}">Logout</a>
+            <div class="row  align-items-center mt-5 ">
+                <div class="col-1">
+                    <a class="btn btn-outline-info"  id="reg_save_btn" href="{{ path('logout') }}">Logout</a>
                 </div>
-                <div class="col-7">
+                <div class="col-11">
                     {{ parent() }}
                     <div class="alert alert-success">
                         Congratulations! We have been notified you have reached this stage of the process and will contact you shortly to discuss your portfolio with you.
                         <a class="close" data-dismiss="alert" href="#">&times;</a>
                     </div>
-                </div>
-                <div class="save-and-logout col-3">
-                    {% if is_final %}
-                        <span class="help-block">We'll save your progress.</span>
-                    {% endif %}
                 </div>
             </div>
         </div>

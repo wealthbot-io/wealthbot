@@ -12,13 +12,12 @@
         <div class="form-actions">
             <button type="submit" class="btn btn-primary btn-ajax" data-loading-text="Saving...">Save</button>
         </div>
-
-
-    {% if app.request.isXmlHttpRequest %}
         <script type="text/javascript">
-            // Company profile
-            $("#wealthbot_riabundle_riacompanyinformationtype_phone_number").inputmask("mask", {"mask": "(999) 999-9999"});
-            $("#company_profile .pop").popover();
+            jQuery(document).ready(function($){
+                // Company profile
+                $("#riacompanyinformationtype_phone_number").inputmask("mask", {"mask": "(999) 999-9999"});
+                $("#company_profile .pop").popover();
+            })
+
         </script>
-    {% endif %}
 {% endblock %}

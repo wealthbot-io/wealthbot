@@ -35,7 +35,7 @@
 
     <div class="tab-content change-profile">
         <div class="tab-pane {{ active_tab == 'company_profile' ? 'active' : '' }}" id="company_profile">
-            {% include '/Ria/ChangeProfile/_company_profile_form.html.twig' with { 'form': companyForm } %}
+            {% include '/Ria/ChangeProfile/_company_profile_form.html.twig' with { 'form': companyForm, 'company_information': company_information } %}
         </div>
         {#<div class="tab-pane {{ active_tab == 'billing' ? 'active' : '' }}" id="billing">
             {% include '/Ria/ChangeProfile/_billing_n_accounts_form.html.twig' with {

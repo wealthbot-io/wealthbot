@@ -111,14 +111,20 @@ class ChangeProfileController extends Controller
         $user = $this->getUser();
         $riaCompanyInfo = $user->getRiaCompanyInformation();
 
-        $custodianForm = $this->createForm(RiaCustodianFormType::class, null, ["ria"=>$riaCompanyInfo]);
+        $custodianForm = $this->createForm(RiaCustodianFormType::class, null,
+            [
+                'ria' => $riaCompanyInfo
+            ]);
+
+        $advisorCodes = $em->getRepository('App\Entity\AdvisorCode')
+            ->findBy([
+                'riaCompany' => $riaCompanyInfo,
+                'custodianId' => $riaCompanyInfo->getCustodianId(),
+            ]);
 
 
-        $advisorCodesForm = $this->createForm(AdvisorCodesCollectionFormType::class,null,[
-            'em'=> $em,
-            'custodian' =>  $riaCompanyInfo->getCustodian(),
-            'riaCompany' => $riaCompanyInfo
-        ]);
+        $advisorCodesForm = $this->createForm(AdvisorCodesCollectionFormType::class, ['advisorCodes' => $advisorCodes]);
+
         /* @var \App\Repository\CustodianRepository $custodianRepo */
         $custodianRepo = $em->getRepository('App\Entity\Custodian');
         $custodians = $custodianRepo->findAll();
@@ -525,16 +531,18 @@ class ChangeProfileController extends Controller
         $advisorCodesForm = $this->createForm(AdvisorCodesCollectionFormType::class, $advisorCodes,[
             'em' => $em, 'riaCompany' => $companyInformation, 'custodian' => $custodian
         ]);
-
+        $custodianForm = $this->createForm(RiaCustodianFormType::class, null,[
+            'ria' => $companyInformation
+        ]);
         if ($request->isMethod('post')) {
-            $custodianForm = $this->createForm(RiaCustodianFormType::class, $companyInformation,[
-                'ria' => $companyInformation
-            ]);
+
             $custodianForm->handleRequest($request);
+            $companyInformation->setCustodian($custodian);
             $em->persist($companyInformation);
             $em->flush();
 
 
+            /*
             $advisorCodesForm->handleRequest($request);
 
             if ($custodianForm->isValid() && $advisorCodesForm->isValid()) {
@@ -552,9 +560,10 @@ class ChangeProfileController extends Controller
                 foreach ($advisorCodesData['advisorCodes'] as $advisorCodeEntity) {
                     $em->persist($advisorCodeEntity);
                 }
+            */
 
                 return $this->redirect($this->generateUrl('rx_ria_change_profile'));
-            }
+           // }
         }
 
         return $this->render(

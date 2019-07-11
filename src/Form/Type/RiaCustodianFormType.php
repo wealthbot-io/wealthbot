@@ -25,6 +25,8 @@ class RiaCustodianFormType extends AbstractType
     {
 
         $this->ria = $options['ria'];
+        $data1 = $this->ria ? $this->ria->getCustodian() :null;
+        $data2 = $this->ria ? $this->ria->getAllowNonElectronicallySigning() : false;
 
 
         $builder
@@ -35,10 +37,12 @@ class RiaCustodianFormType extends AbstractType
                 'id_reader' => 'id',
                 'expanded' => true,
                 'mapped' => true,
+                'data'=> $data1
             ])
             ->add('allow_non_electronically_signing', ChoiceType::class, [
                'choices' => [ 'Yes'=> true, 'No'=> false ],
                 'expanded' => true,
+                'data'=> $data2
             ])
         ;
     }

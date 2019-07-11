@@ -18,21 +18,14 @@
     </div>
 
     <legend>Custodial Master IDs</legend>
-    {{ form_errors(custodianForm) }}
-    {{ form_errors(advisorCodesForm) }}
-    <select id="custodian_id" name="custodian_id">
-        <option value="">Choose an Option</option>
+    <select style="visibility: hidden" id="custodian_id" name="custodian_id">
         {% for custodian in custodians  %}
             <option value="{{ custodian.id }}"{% if custodian.id == app.request.get('custodian_id') %} selected="selected"{% endif %}>{{ custodian.name }}</option>
         {% endfor %}
     </select>
 
     <div id="advisor-codes-list">
-        {% if 'rx_ria_change_profile_custodian_tab' == app.request.attributes.get('_route') %}
-            {{ render(controller("App\\Controller\\Ria\\ChangeProfileController:advisorCodes", {'request': app.request})) }}
-        {% else %}
             {{ include('/Ria/ChangeProfile/advisor_codes.html.twig') }}
-        {% endif %}
     </div>
     <a id="new-id" href="#">New ID</a>
 

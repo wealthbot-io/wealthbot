@@ -223,8 +223,8 @@ App.module('Wealthbot.Admin.Billing', function(Mod, App, Backbone, Marionette, $
             var fromDate = new Date(App.Var.fromDate),
                 currentDate = new Date();
 
-            this.$('.quarter').hide();
-            this.$('.quarter').removeClass('active');
+           // this.$('.quarter').hide();
+           // this.$('.quarter').removeClass('active');
 
             for (var i = 1; i <= 4; i++) {
                 var date = new Date(year + '/' + (i * 3) + '/01 12:00:00 AM');
@@ -258,10 +258,10 @@ App.module('Wealthbot.Admin.Billing', function(Mod, App, Backbone, Marionette, $
 
             Mod.clientCollection.reset(response);
 
-            if (this.data.quarter) {
+           // if (this.data.quarter) {
                 var view = new Mod.ClientsView({ collection: Mod.clientCollection });
                 this.clientListRegion.show(view);
-            }
+          //  }
 
             // Render billing data block
             App.vent.trigger('billing:update-data');
@@ -278,6 +278,7 @@ App.module('Wealthbot.Admin.Billing', function(Mod, App, Backbone, Marionette, $
                     self.$el.spinner128(true);
                 },
                 success: function(response) {
+                    console.log(response);
                     self.renderData(response);
                 },
                 complete: function() {

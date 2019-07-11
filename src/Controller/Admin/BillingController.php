@@ -61,7 +61,7 @@ class BillingController extends AclController
             }
         }
 
-        return new JsonResponse($clientAccounts, 200);
+        return $this->json($clientAccounts);
     }
 
     public function custodianFeeFile($year, $quarter)

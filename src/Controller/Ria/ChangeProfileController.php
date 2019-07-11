@@ -47,6 +47,10 @@ class ChangeProfileController extends Controller
         $user = $this->getUser();
         $riaCompanyInfo = $user->getRiaCompanyInformation();
 
+
+        dump($riaCompanyInfo);
+
+
 //        $admin = $this->get('wealthbot.manager.user')->getAdmin();
 
         if (!$riaCompanyInfo) {
@@ -503,7 +507,7 @@ class ChangeProfileController extends Controller
         $user = $this->getUser();
         $custodianId = $request->get('custodian_id');
         $em = $this->get('doctrine.orm.entity_manager');
-        /* @var \Repository\CustodianRepository $custodianRepo */
+        /* @var \App\Repository\CustodianRepository $custodianRepo */
         $custodianRepo = $em->getRepository('App\Entity\Custodian');
         $companyInformation = $user->getRiaCompanyInformation();
         $custodian = $custodianRepo->find($custodianId);
@@ -525,9 +529,18 @@ class ChangeProfileController extends Controller
             'em' => $em, 'riaCompany' => $companyInformation, 'custodian' => $custodian
         ]);
 
-        $custodianForm = $this->createForm(RiaCustodianFormType::class, $companyInformation,[]);
-
         if ($request->isMethod('post')) {
+
+            if($custodianId){
+                $companyInformation->setCustodian($custodian);
+                $em->persist($companyInformation);
+                $em->flush();
+                return $this->redirect($this->generateUrl('rx_ria_change_profile'));
+            };
+            /*
+
+
+
             $custodianForm->handleRequest($request);
             $advisorCodesForm->handleRequest($request);
 
@@ -551,8 +564,10 @@ class ChangeProfileController extends Controller
 
                 return $this->redirect($this->generateUrl('rx_ria_change_profile_custodian_tab', ['custodian_id' => $custodianId]));
             }
+            */
         }
 
+        $custodianForm = $this->createForm(RiaCustodianFormType::class, $companyInformation,[]);
         return $this->render(
             '/Ria/ChangeProfile/_custodians_form.html.twig',
             [

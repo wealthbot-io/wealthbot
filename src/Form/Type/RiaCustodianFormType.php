@@ -22,13 +22,14 @@ class RiaCustodianFormType extends AbstractType
         $builder
             ->add('custodian', EntityType::class, [
                 'label' => false,
-                'class' => "App\Entity\Custodian",
+                'class' => "App\\Entity\\Custodian",
                 'property_path' => 'name',
-                'expanded' => true,
+                'id_reader' => 'id',
+               // 'expanded' => true,
                 'mapped' => true
             ])
             ->add('allow_non_electronically_signing', ChoiceType::class, [
-                'choices' => [ 'Yes'=>true, 'No'=>false],
+               'choices' => [ 'Yes'=> true, 'No'=> false ],
                 'expanded' => true,
             ])
         ;

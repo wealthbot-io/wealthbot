@@ -10,3 +10,9 @@
 {% endblock %}
 
 
+{% block javascripts %}
+	{{ parent() }}
+	<script src="{{ asset('js/backbone.marionette/underscore.js') }}"></script>
+	<script src="{{ asset('js/ria/Util.js') }}"></script>
+	<script src="{{ asset('js/ria/ria.layout.js') }}"></script>
+{% endblock %}

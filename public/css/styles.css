@@ -2856,3 +2856,7 @@ a.disabled:hover {
     width: 200px;
     height: 200px;
 }
+
+.navbar.navbar-expand-lg {
+    margin-bottom: 20px;
+}

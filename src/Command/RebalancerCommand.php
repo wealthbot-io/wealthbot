@@ -7,6 +7,7 @@ use App\Entity\ClientAccount;
 use App\Entity\ClientPortfolio;
 use App\Entity\ClientPortfolioValue;
 use App\Entity\SecurityPrice;
+use App\Entity\Transaction;
 use App\Entity\User;
 use Doctrine\ORM\EntityManager;
 use Scheb\YahooFinanceApi\ApiClientFactory;
@@ -58,7 +59,10 @@ class RebalancerCommand extends ContainerAwareCommand
              $newValue += $list['amount'];
           }
           $account->setValue(number_format($newValue,2, '.', ''));
+
+          $this->buyOrSell($data, $em, $newValue, $output);
           $this->updatePortfolioValues($datum, $em, $newValue, $output);
+
         };
 
         $em->flush();
@@ -77,7 +81,7 @@ class RebalancerCommand extends ContainerAwareCommand
         $client = ApiClientFactory::createApiClient();
 
         $securities = $em->getRepository('App\Entity\Security')->findAll();
-
+/*
         foreach($securities as $security){
 
             try {
@@ -99,7 +103,7 @@ class RebalancerCommand extends ContainerAwareCommand
                 $output->writeln("Security item [{$security->getSymbol()}] rejected.");
             }
         };
-
+*/
         $em->flush();
 
         return $securities;
@@ -110,7 +114,8 @@ class RebalancerCommand extends ContainerAwareCommand
      * @param $securities
      * @return array
      */
-    protected function processPrices($em, $securities){
+    protected function processPrices($em, $securities)
+    {
         $prices = [];
         foreach ($securities as $security){
 
@@ -207,6 +212,30 @@ class RebalancerCommand extends ContainerAwareCommand
 
 
             return $portfolioValue;
+    }
+
+    protected function buyOrSell($data, $em,$total, $output){
+
+        foreach($data as $datum){
+            foreach($datum['values'] as $value){
+                if($value['prices_diff'] > 1){
+                   $this->sell($datum, $em);
+                } else {
+                   $this->buy($datum, $em);
+                }
+            }
+        }
+    }
+
+    protected function sell($info, $em){
+     ///   $transaction = new Transaction();
+      ///  $transaction->setSecurity();
+       /// $transaction->setQty();
+
+    }
+
+    protected function buy($info, $em){
+
     }
 
 }

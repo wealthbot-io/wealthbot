@@ -5,6 +5,7 @@ namespace App\Command;
 use App\Entity\CeModelEntity;
 use App\Entity\ClientAccount;
 use App\Entity\ClientPortfolio;
+use App\Entity\ClientPortfolioValue;
 use App\Entity\SecurityPrice;
 use App\Entity\User;
 use Doctrine\ORM\EntityManager;
@@ -57,8 +58,9 @@ class RebalancerCommand extends ContainerAwareCommand
              $newValue += $list['amount'];
           }
           $account->setValue(number_format($newValue,2, '.', ''));
-          $em->persist($account);
+          $this->updatePortfolioValues($datum, $em, $newValue, $output);
         };
+
         $em->flush();
         $output->writeln('Success!');
     }
@@ -75,7 +77,7 @@ class RebalancerCommand extends ContainerAwareCommand
         $client = ApiClientFactory::createApiClient();
 
         $securities = $em->getRepository('App\Entity\Security')->findAll();
-
+/*
         foreach($securities as $security){
 
             try {
@@ -99,6 +101,7 @@ class RebalancerCommand extends ContainerAwareCommand
         };
 
         $em->flush();
+*/
         return $securities;
     }
 
@@ -155,6 +158,7 @@ class RebalancerCommand extends ContainerAwareCommand
         $total = $account->getValueSum() + $account->getContributionsSum() - $account->getDistributionsSum();
         $data = $account->getClient()->getClientPortfolios()->map(function ($clientPortfolio) use ($total, $account, $em) {
             return [
+                'portfolio' => $clientPortfolio->getId(),
                 'account_id'=>$account->getId(),
                 'values' =>  $clientPortfolio->getPortfolio()->getModelEntities()->map(
                 function ($entity) use ($total, $account, $clientPortfolio, $em) {
@@ -177,6 +181,32 @@ class RebalancerCommand extends ContainerAwareCommand
         })[0];
 
         return $data;
+    }
+
+    /**
+     * @param $values
+     */
+    protected function updatePortfolioValues($cp, $em,$total, $output)
+    {
+            $clientPortfolio = $em->getRepository('App\\Entity\\ClientPortfolio')->find($cp['portfolio']);
+
+            $portfolioValue = new ClientPortfolioValue();
+            $portfolioValue->setClientPortfolio($clientPortfolio);
+            $portfolioValue->setTotalCashInMoneyMarket($total);
+            $portfolioValue->setTotalInSecurities($total);
+            $portfolioValue->setTotalCashInAccounts($total);
+            $portfolioValue->setTotalValue($total);
+            $portfolioValue->setSasCash(0);
+            $portfolioValue->setCashBuffer(0);
+            $portfolioValue->setBillingCash(0);
+            $portfolioValue->setDate(new \DateTime('now'));
+            $portfolioValue->setModelDeviation(4);
+            $em->persist($portfolioValue);
+            $em->flush();
+            $output->writeln('New ClientPortfolioValue Added id: '.$portfolioValue->getId());
+
+
+            return $portfolioValue;
     }
 
 }

@@ -27,15 +27,6 @@
 {% endblock %}
 
 {% block body %}
-{% block ria_nav %}
-<!-- start: RIA  nav/menu -->
-    {% include '/Ria/menu_nav.html.twig' %}
-<!-- end: RIA nav/menu -->
-{% endblock %}
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-12">
-{% block main_content %}
     <h1>{{ company_information.name }} Dashboard</h1>
 
     <div id="swappable_content" data-url="{{ path('rx_ria_dashboard_swap_boxes') }}" style="display: none;" data-sequence="{{ blocks_sequence }}">
@@ -62,9 +53,6 @@
             </div>
         </div>#}
     </div>
-
-
-{% endblock %}
 
 <div id="modal_dialog" class="modal longModal">
 

@@ -8,7 +8,9 @@
 {% endblock %}
 
 {% block headernav %}
-    <div class="row spacer"></div>
+    <!-- start: RIA  nav/menu -->
+    {% include '/Ria/menu_nav.html.twig' %}
+    <!-- end: RIA nav/menu -->
 {% endblock %}
 
 {% block javascripts %}
@@ -20,12 +22,4 @@
 
 
 {% block body %}
-    {% block ria_nav %}
-        <!-- start: RIA  nav/menu -->
-        {% include '/Ria/menu_nav.html.twig' %}
-        <!-- end: RIA nav/menu -->
-    {% endblock %}
-
-    {% block main_content %}
-    {% endblock %}
 {% endblock %}

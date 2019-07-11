@@ -2857,6 +2857,6 @@ a.disabled:hover {
     height: 200px;
 }
 
-.navbar.navbar-expand-lg {
-    margin-bottom: 20px;
+.base_container {
+    margin: 20px 20px !important;
 }

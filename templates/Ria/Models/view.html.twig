@@ -5,7 +5,7 @@
     <script type="text/javascript" src="{{ asset('js/ria/ria.models.js') }}"></script>
 {% endblock %}
 
-{% block main_content %}
+{% block body %}
     {% include '/Ria/Models/_create_model_form.html.twig' with {'form': create_model_form, 'model_id': portfolio_information.model.id} %}
 
     <h3>Models</h3>

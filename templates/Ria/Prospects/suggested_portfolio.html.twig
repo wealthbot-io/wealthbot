@@ -20,15 +20,6 @@
     <div class="row">
     <div class="col-12">
     {% set action_route = is_client_view ? 'rx_ria_prospect_portfolio_client_view' : 'rx_ria_prospect_portfolio' %}
-
-    {% block ria_nav %}
-        {% if not is_client_view %}
-            <!-- start: RIA  nav/menu -->
-            {% include '/Ria/menu_nav.html.twig' %}
-            <!-- end: RIA nav/menu -->
-        {% endif %}
-    {% endblock %}
-
     {% set profile = client.profile %}
 
     <h3>Suggested Portfolio for: {{ profile.lastName }}, {{ profile.firstName }}</h3>

@@ -1,6 +1,6 @@
 {% extends ((with_layout is defined and with_layout) ? '/Ria/Dashboard/index.html.twig' : '/Ria/model_tab_layout.html.twig') %}
 
-{% block main_content %}
+{% block body %}
     <div id="models_tab">
 
         {% include '/Ria/Models/_create_model_form.html.twig' with {'form': form, 'model_id': model.id} %}

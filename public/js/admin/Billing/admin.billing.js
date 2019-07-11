@@ -224,7 +224,7 @@ App.module('Wealthbot.Admin.Billing', function(Mod, App, Backbone, Marionette, $
                 currentDate = new Date();
 
            // this.$('.quarter').hide();
-           // this.$('.quarter').removeClass('active');
+            this.$('.quarter').removeClass('active');
 
             for (var i = 1; i <= 4; i++) {
                 var date = new Date(year + '/' + (i * 3) + '/01 12:00:00 AM');

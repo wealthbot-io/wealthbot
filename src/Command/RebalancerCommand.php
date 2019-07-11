@@ -45,25 +45,25 @@ class RebalancerCommand extends ContainerAwareCommand
         $em->getConnection()->getConfiguration()->setSQLLogger(null);
         $securities = $this->updateSecurities($em, $output);
         $this->prices = $this->processPrices($em, $securities);
-        $accounts = $em->getRepository("App\\Entity\\ClientAccount")->findBy([
-        ]);
+        $accounts = $em->getRepository("App\\Entity\\ClientAccount")->findAll();
 
         foreach ($accounts as $account){
             /** @var $account ClientAccount */
             $data[] = $this->processClientAccounts($account, $em);
-        };
-
+        }
         foreach($data as $datum){
-          $account = $em->getRepository("App\\Entity\\ClientAccount")->find($datum['account_id']);
+          foreach($datum as $item){
+          $account = $em->getRepository("App\\Entity\\ClientAccount")->find($item['account_id']);
 
           $newValue = 0;
-          foreach($datum['values'] as $list){
+          foreach($item['values'] as $list){
              $newValue += $list['amount'];
           }
           $account->setValue(number_format($newValue,2, '.', ''));
 
-          $this->buyOrSell($data, $em, $newValue, $output);
-          $this->updatePortfolioValues($datum, $em, $newValue, $output);
+          $this->buyOrSell($item, $em, $newValue, $output);
+          $this->updatePortfolioValues($item, $em, $newValue, $output);
+          }
 
         };
 
@@ -186,7 +186,7 @@ class RebalancerCommand extends ContainerAwareCommand
                             'percent' => $entity->getPercent()
                         ];
                 })];
-        })[0];
+        });
 
         return $data;
     }
@@ -196,6 +196,7 @@ class RebalancerCommand extends ContainerAwareCommand
      */
     protected function updatePortfolioValues($cp, $em,$total, $output)
     {
+
             /** @var ClientPortfolio $clientPortfolio */
             $clientPortfolio = $em->getRepository('App\\Entity\\ClientPortfolio')->find($cp['portfolio']);
             $portfolioValue = new ClientPortfolioValue();
@@ -219,10 +220,9 @@ class RebalancerCommand extends ContainerAwareCommand
 
     protected function buyOrSell($data, $em,$total, $output){
 
-        foreach($data as $datum){
 
             /** @var ClientPortfolio $portfolio */
-            $portfolio = $em->getRepository('App\\Entity\\ClientPortfolio')->find($datum['portfolio']);
+            $portfolio = $em->getRepository('App\\Entity\\ClientPortfolio')->find($data['portfolio']);
 
             $answers = $portfolio->getClient()->getAnswers();
 
@@ -235,16 +235,16 @@ class RebalancerCommand extends ContainerAwareCommand
 
             $point = ($point / 100) + 1;
 
-            foreach($datum['values'] as $value){
-                if($point - $value['prices_diff'] > 0  ){
+            foreach($data['values'] as $datum){
+                if($point - $datum['prices_diff'] > 0  ){
 
-                    if($value['prices_diff'] > 1){
+                    if($datum['prices_diff'] > 1){
                         $this->sell($datum, $em, $output);
                     } else {
                         $this->buy($datum, $em, $output);
                     }
                 } else {
-                    if($value['prices_diff'] > 1){
+                    if($datum['prices_diff'] > 1){
                         $this->buy($datum, $em, $output);
                     } else {
                         $this->sell($datum, $em, $output);
@@ -252,11 +252,14 @@ class RebalancerCommand extends ContainerAwareCommand
                 }
 
             }
-        }
     }
 
     protected function sell($info, $em, $output){
-        /// $transaction = new Transaction();
+
+        $transaction = new Transaction();
+        $security = $em->getRepository("App\\Entity\\Security")->find($info['security_id']);
+        $transaction->setSecurity($security);
+        //$transaction->setQty();
         /// $transaction->setSecurity();
         /// $transaction->setQty();
        /// $output->writeln('sell...');

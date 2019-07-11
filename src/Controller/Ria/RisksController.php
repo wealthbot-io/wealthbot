@@ -288,13 +288,6 @@ class RisksController extends Controller
         return $this->json(['status' => 'success']);
     }
 
-    protected function getJsonResponse(array $data, $code = 200)
-    {
-        $response = json_encode($data);
-
-        return new Response($response, $code, ['Content-Type' => 'application/json']);
-    }
-
     /**
      * Set what type of models RIA will be used (qualified or non-qualified).
      *

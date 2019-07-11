@@ -574,11 +574,4 @@ class ChangeProfileController extends Controller
         $event = new UserHistoryEvent($user, $description);
         $this->get('event_dispatcher')->dispatch(AdminEvents::USER_HISTORY, $event);
     }
-
-    private function getJsonResponse(array $data, $code = 200)
-    {
-        $response = json_encode($data);
-
-        return new Response($response, $code, ['Content-Type' => 'application/json']);
-    }
 }

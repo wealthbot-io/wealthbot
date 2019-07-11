@@ -111,11 +111,4 @@ class ProfileController extends Controller
 
         return $this->json(['is_valid' => (preg_match('/^[a-zA-Z0-9]+$/', $slug) && !$exist)]);
     }
-
-    protected function getJsonResponse(array $data, $code = 200)
-    {
-        $response = json_encode($data);
-
-        return new Response($response, $code, ['Content-Type' => 'application/json']);
-    }
 }

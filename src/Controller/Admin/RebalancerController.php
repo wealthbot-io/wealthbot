@@ -356,9 +356,4 @@ class RebalancerController extends AclController
         return $rebalancerAction;
 
     }
-
-    protected function getJsonResponse(array $data, $code = 200)
-    {
-        return $this->json($data);
-    }
 }

@@ -368,11 +368,4 @@ class SecuritiesController extends AclController
             ),
         ]);
     }
-
-    protected function getJsonResponse(array $data, $code = 200)
-    {
-        $response = json_encode($data);
-
-        return new Response($response, $code, ['Content-Type' => 'application/json']);
-    }
 }

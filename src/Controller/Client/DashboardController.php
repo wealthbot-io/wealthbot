@@ -1512,13 +1512,6 @@ class DashboardController extends Controller
         ]);
     }
 
-    protected function getJsonResponse(array $data, $code = 200)
-    {
-        $response = json_encode($data);
-
-        return new Response($response, $code, ['Content-Type' => 'application/json']);
-    }
-
     private function prepareResponse(Request $request, $tab, $action = null, array $params = [])
     {
         /** @var EntityManager $em */

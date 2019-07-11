@@ -364,9 +364,4 @@ class WorkflowController extends Controller
 
         return $pagination;
     }
-
-    private function getJsonResponse(array $data, $code = 200)
-    {
-        return new Response(json_encode($data), $code, ['Content-Type' => 'application/json']);
-    }
 }

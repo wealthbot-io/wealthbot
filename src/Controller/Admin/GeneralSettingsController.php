@@ -314,11 +314,4 @@ class GeneralSettingsController extends AclController
 
         return $this->redirect($this->generateUrl('rx_admin_general_settings'));
     }
-
-    protected function getJsonResponse(array $data, $code = 200)
-    {
-        $response = json_encode($data);
-
-        return new Response($response, $code, ['Content-Type' => 'application/json']);
-    }
 }

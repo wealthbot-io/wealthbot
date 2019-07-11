@@ -523,13 +523,6 @@ class ChangeProfileController extends Controller
         return $variables;
     }
 
-    private function getJsonResponse(array $data, $code = 200)
-    {
-        $response = json_encode($data);
-
-        return new Response($response, $code, ['Content-Type' => 'application/json']);
-    }
-
     /**
      * Dispatch new UserHistoryEvent event.
      *

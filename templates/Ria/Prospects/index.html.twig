@@ -1,3 +1,5 @@
+{% extends "Ria/layout.html.twig" %}
+{% block body %}
 <form id="delete_clients_batch_form" action="{{ path('rx_ria_prospects_delete') }}" method="post">
     <table class="table table-striped prospects">
         <thead>
@@ -76,3 +78,4 @@
     <input class="btn btn-primary"  type="submit" name="Delete" value="Delete"/>
     <span class="help-inline">Delete Selected Prospect</span>
 </form>
+{% endblock %}

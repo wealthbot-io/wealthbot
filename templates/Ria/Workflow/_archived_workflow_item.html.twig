@@ -23,23 +23,22 @@
         {% if workflow.isAlert %}
             <a class="view-workflow-btn" href="{{ path('rx_ria_workflow_view', { 'id': workflow.id }) }}">View</a>
         {% else %}
-            <div class="btn-group">
-                <button class="workflow-actions-btn btn dropdown-toggle btn-primary" data-toggle="dropdown">
+            <div class="dropdown">
+                <button class="workflow-actions-btn btn dropdown-toggle btn-outline-primary" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Action
-                    <span class="caret"></span>
                 </button>
-                <ul class="dropdown-menu pull-right">
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                     {% if workflow.canHaveDocuments %}
                         {% if workflow.isDocumentSignaturesCompleted %}
-                            <li>
-                                <a href="{{ download_archive_link(workflow.signaturesDocuments, 'workflow_'~workflow.id~'_documents') }}">Downloads</a>
-                            </li>
+
+                                <a class="dropdown-item" href="{{ download_archive_link(workflow.signaturesDocuments, 'workflow_'~workflow.id~'_documents') }}">Downloads</a>
+
                         {% else %}
-                            <li class="disabled"><a href="#1">Downloads</a></li>
+                           <a class="dropdown-item" href="#1">Downloads</a>
                         {% endif %}
                     {% endif %}
-                    <li><a class="edit-workflow-note-btn" href="{{ path('rx_ria_workflow_edit_note', { 'id': workflow.id }) }}">Notes</a></li>
-                </ul>
+                  <a class="edit-workflow-note-btn" href="{{ path('rx_ria_workflow_edit_note', { 'id': workflow.id }) }}">Notes</a>
+                </div>
             </div>
         {% endif %}
     </td>

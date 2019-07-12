@@ -24,6 +24,7 @@ App\Entity\ClientQuestionnaireAnswer:
         referencedColumnName: id
         onDelete: cascade
       cascade: ['persist']
+      inversedBy: answers
     question:
       targetEntity:  App\Entity\RiskQuestion
       joinColumn:

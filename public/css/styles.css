@@ -2857,6 +2857,6 @@ a.disabled:hover {
     height: 200px;
 }
 
-.base_container {
-    margin: 20px 20px !important;
+#workflow_box .box-content {
+    width: 228px !important;
 }

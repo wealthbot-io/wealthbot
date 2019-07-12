@@ -126,7 +126,7 @@ class TypedClientAccountFormType extends ClientAccountFormType
 
         $builder->add('value', NumberType::class, [
             'grouping' => true,
-          //  'precision' => 2,
+          //  'scale' => 2,
             'label' => 'Estimated Deposit:',
             'constraints' => [new NotBlank()],
         ]);

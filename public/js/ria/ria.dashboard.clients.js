@@ -7,6 +7,7 @@
  */
 
 function ajaxLoadPage(url, successFunction) {
+    $('#ria_dashboard_client_content').empty();
     $.ajax({
         url: url,
         dataType: 'json',

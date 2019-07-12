@@ -65,7 +65,7 @@ class HouseholdPortfolioSettingsFormType extends AbstractType
             ])
             ->add('estimatedIncomeTax', PercentType::class, [
                 'attr' => ['class' => 'input-mini'],
-                'precision' => 0,
+                'scale' => 0,
                 'required' => false,
                 'label' => 'Income tax bracket',
                 'property_path' => 'profile.estimatedIncomeTax',
@@ -132,27 +132,28 @@ class HouseholdPortfolioSettingsFormType extends AbstractType
             }
         }
 
+        $activePortfolioId = $activePortfolio? $activePortfolio->getId() : null;
+
         $form
             ->add($this->factory->createNamed('stopTlhValue', NumberType::class, $stopTlhValue, [
                 'attr' => ['class' => 'input-mini'],
                 'label' => 'Tax Loss Harvesting Stop: ',
                 'property_path' => 'clientSettings.stopTlhValue',
                 'required' => false,
-                'precision' => 2,
+                'scale' => 2,
                 'grouping' => true,
                 'auto_initialize' => false,
             ]))
-            ->add($this->factory->createNamed('performanceInception', DateType::class, $performanceInception, [
-                'attr' => ['class' => 'input-small'],
+            ->add($this->factory->createNamed('performanceInception', \Symfony\Component\Form\Extension\Core\Type\DateType::class, $performanceInception, [
+                'attr' => ['class' => 'input-small', 'readonly' => 'readonly'],
                 'format' => 'MM-dd-yy',
                 'label' => 'Performance Inception: ',
                 'mapped' => false,
-                'read_only' => true,
                 'required' => false,
                 'widget' => 'single_text',
                 'auto_initialize' => false,
             ]))
-            ->add($this->factory->createNamed('portfolio', ChoiceType::class, $activePortfolio->getId(), [
+            ->add($this->factory->createNamed('portfolio', ChoiceType::class, $activePortfolioId, [
                 'attr' => ['class' => 'input-medium'],
                 'choices' => $portfolios,
                 'label' => 'Portfolio: ',

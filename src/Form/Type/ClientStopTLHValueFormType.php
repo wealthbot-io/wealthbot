@@ -33,7 +33,7 @@ class ClientStopTLHValueFormType extends AbstractType
                 'stop_tlh_value',
                 'number',
                 $value,
-                ['required' => false, 'precision' => 2, 'grouping' => true, 'auto_initialize' => false]
+                ['required' => false, 'scale' => 2, 'grouping' => true, 'auto_initialize' => false]
             ));
         });
     }

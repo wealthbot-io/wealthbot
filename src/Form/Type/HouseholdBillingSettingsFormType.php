@@ -26,7 +26,6 @@ class HouseholdBillingSettingsFormType extends AbstractType
             ->add('billingSpec', EntityType::class, [
                 'class' => 'App\\Entity\\BillingSpec',
                 'label' => 'Billing Spec: ',
-                'property' => 'name',
                 'property_path' => 'appointedBillingSpec',
                 'query_builder' => function (EntityRepository $er) use ($client) {
                     return $er->createQueryBuilder('b')
@@ -38,8 +37,8 @@ class HouseholdBillingSettingsFormType extends AbstractType
                 'label' => 'Payment Method: ',
                 'property_path' => 'profile.paymentMethod',
                 'choices' => [
-                    Profile::PAYMENT_METHOD_DIRECT_DEBIT => 'Direct Debit',
-                    Profile::PAYMENT_METHOD_OUTSIDE_PAYMENT => 'Outside Payment',
+                    'Direct Debit' => Profile::PAYMENT_METHOD_DIRECT_DEBIT,
+                    'Outside Payment' => Profile::PAYMENT_METHOD_OUTSIDE_PAYMENT,
                 ],
             ])
         ;

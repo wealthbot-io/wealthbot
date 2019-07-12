@@ -8,10 +8,12 @@
 
 namespace App\Form\Type;
 
+use App\Entity\PersonalInformation;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
@@ -144,7 +146,8 @@ class HouseholdPersonalSettingsFormType extends AbstractType
         $form = $event->getForm();
         $user = $event->getData();
 
-        $ssnParts = [1 => null, null, null];
+        $ssnParts = [1 => null,2=> null,3=> null];
+        /** @var PersonalInformation $personalInformation */
         $personalInformation = $user->getClientPersonalInformation();
         if ($personalInformation) {
             $ssn = $personalInformation->getSsnTin();
@@ -154,7 +157,7 @@ class HouseholdPersonalSettingsFormType extends AbstractType
         }
 
         $form
-            ->add($this->factory->createNamed('ssn1', 'number', $ssnParts[1], [
+            ->add($this->factory->createNamed('ssn1', NumberType::class, $ssnParts[1], [
                 'attr' => [
                     'class' => 'input-xmini',
                     'placeholder' => '###',
@@ -173,7 +176,7 @@ class HouseholdPersonalSettingsFormType extends AbstractType
                     ]),
             ], ]))
 
-            ->add($this->factory->createNamed('ssn2', 'number', $ssnParts[2], [
+            ->add($this->factory->createNamed('ssn2', NumberType::class, $ssnParts[2], [
                 'attr' => [
                     'class' => 'input-xmini',
                     'placeholder' => '##',
@@ -192,7 +195,7 @@ class HouseholdPersonalSettingsFormType extends AbstractType
                     ]),
             ], ]))
 
-            ->add($this->factory->createNamed('ssn3', 'number', $ssnParts[3], [
+            ->add($this->factory->createNamed('ssn3', NumberType::class, $ssnParts[3], [
                 'attr' => [
                     'class' => 'input-xmini',
                     'placeholder' => '####',

@@ -36,8 +36,8 @@ class HouseholdCloseFormType extends AbstractType
             ->add('enabled', ChoiceType::class, [
                 'attr' => ['class' => 'jq-ce-date input-medium'],
                 'choices' => [
-                    '1' => 'Household active',
-                    '0' => 'Household closed',
+                    'Household active' => 1,
+                    'Household closed' => 0,
                 ],
                 'disabled' => $hasUnclosedAccounts,
                 'label' => 'Status: ',

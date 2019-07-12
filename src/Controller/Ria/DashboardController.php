@@ -218,7 +218,7 @@ class DashboardController extends Controller
         $householdForm = $this
             ->createForm(HouseholdPersonalSettingsFormType::class, $riaClient);
         $spouseForm = $this
-            ->createForm(HouseholdSpouseFormType::class, $riaClient);
+            ->createForm(HouseholdSpouseFormType::class);
 
         if ($request->isMethod('POST')) {
             $householdForm->handleRequest($request);

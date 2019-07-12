@@ -943,7 +943,7 @@ table.workflow-list thead th:last-child {
 
 .modal-client-settings {
   width: 90%;
-  margin-left: -45%;
+  margin-left: 0%;
 }
 
 #contact table td:nth-child(1) {
@@ -1103,8 +1103,9 @@ table.workflow-list thead th:last-child {
   top: 4px;
 }
 
-#household-close form {
-  margin-bottom: -30px;
+#household-close {
+  margin-bottom: 30px !important;
+  height: 120px !important;
 }
 
 .right-inner-addon {
@@ -2685,7 +2686,7 @@ a.disabled:hover {
 /* Modal */
 .modal-800 {
     width: 800px;
-    margin-left: -400px;
+    margin-left: 400px;
 }
 
 .modal-700 {
@@ -2859,4 +2860,8 @@ a.disabled:hover {
 
 #workflow_box .box-content {
     width: 228px !important;
+}
+
+#flotTip {
+    display: none !important;
 }

@@ -12,6 +12,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
@@ -135,12 +136,13 @@ class HouseholdSpouseFormType extends AbstractType
     public function onPresetData(FormEvent $event)
     {
         $form = $event->getForm();
+        /** @var ClientAdditionalContact $spouse */
         $spouse = $event->getData();
         /* if (null === $form->get('employmentType')->getData()) {
                     $form->get('employmentType')->setData(Profile::CLIENT_EMPLOYMENT_TYPE_EMPLOYED);
                 }*/
 
-        $ssnParts = [1 => null, null, null];
+        $ssnParts = [1 => null, 2 => null, 3 => null];
         if ($spouse) {
             $ssn = $spouse->getSsnTin();
             if (preg_match("~^(\d{3})(\d{2})(\d{4})$~", $ssn, $matches)) {
@@ -149,7 +151,7 @@ class HouseholdSpouseFormType extends AbstractType
         }
 
         $form
-            ->add($this->factory->createNamed('ssn1', 'number', $ssnParts[1], [
+            ->add($this->factory->createNamed('ssn1', NumberType::class, $ssnParts[1], [
                 'attr' => [
                     'class' => 'input-xmini',
                     'placeholder' => '###',
@@ -168,7 +170,7 @@ class HouseholdSpouseFormType extends AbstractType
                     ]),
             ], ]))
 
-            ->add($this->factory->createNamed('ssn2', 'number', $ssnParts[2], [
+            ->add($this->factory->createNamed('ssn2', NumberType::class, $ssnParts[2], [
                 'attr' => [
                     'class' => 'input-xmini',
                     'placeholder' => '##',
@@ -187,7 +189,7 @@ class HouseholdSpouseFormType extends AbstractType
                     ]),
             ], ]))
 
-            ->add($this->factory->createNamed('ssn3', 'number', $ssnParts[3], [
+            ->add($this->factory->createNamed('ssn3', NumberType::class, $ssnParts[3], [
                 'attr' => [
                     'class' => 'input-xmini',
                     'placeholder' => '####',

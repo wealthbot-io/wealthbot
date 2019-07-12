@@ -58,16 +58,18 @@ class RebalancerCommand extends ContainerAwareCommand
         }
         foreach($data as $datum){
           foreach($datum as $item){
-          $account = $em->getRepository("App\\Entity\\ClientAccount")->find($item['account_id']);
+              if(isset($item['account_id'])) {
+                  $account = $em->getRepository("App\\Entity\\ClientAccount")->find($item['account_id']);
 
-          $newValue = 0;
-          foreach($item['values'] as $list){
-             $newValue += $list['amount'];
-          }
-          $account->setValue(number_format($newValue,2, '.', ''));
+                  $newValue = 0;
+                  foreach ($item['values'] as $list) {
+                      $newValue += $list['amount'];
+                  }
+                  $account->setValue(number_format($newValue, 2, '.', ''));
 
-          $this->buyOrSell($item, $em, $output);
-          $this->updatePortfolioValues($item, $em, $newValue, $output);
+                  $this->buyOrSell($item, $em, $output);
+                  $this->updatePortfolioValues($item, $em, $newValue, $output);
+              };
           }
 
         };
@@ -88,7 +90,7 @@ class RebalancerCommand extends ContainerAwareCommand
         $client = ApiClientFactory::createApiClient();
 
         $securities = $em->getRepository('App\Entity\Security')->findAll();
-
+/*
         foreach($securities as $security){
 
             try {
@@ -112,7 +114,7 @@ class RebalancerCommand extends ContainerAwareCommand
         };
 
         $em->flush();
-
+*/
         return $securities;
     }
 
@@ -177,28 +179,32 @@ class RebalancerCommand extends ContainerAwareCommand
     {
         $total = $account->getValueSum() + $account->getContributionsSum() - $account->getDistributionsSum();
         $data = $account->getClient()->getClientPortfolios()->map(function ($clientPortfolio) use ($total, $account, $em) {
-            return [
-                'risk_rating' => $clientPortfolio->getPortfolio()->getRiskRating(),
-                'portfolio' => $clientPortfolio->getId(),
-                'account_id'=>$account->getId(),
-                'values' =>  $clientPortfolio->getPortfolio()->getModelEntities()->map(
-                function ($entity) use ($total, $account, $clientPortfolio, $em) {
 
-                    $prices_diff = $this->getPricesDiff($entity->getSecurityAssignment()->getSecurity()->getId());
-                    $old_amount = ($entity->getPercent() / 100) * $total;
-                    $amount = $prices_diff * $old_amount;
-                    return
-                        [
-                            'user_id' => $account->getClient()->getId(),
-                            'old_total' => $total,
-                            'amount' => $amount,
-                            'old_amount' => $old_amount,
-                            'prices_diff' => $prices_diff,
-                            'model_id' => $entity->getId(),
-                            'security_id' => $entity->getSecurityAssignment()->getSecurity()->getId(),
-                            'percent' => $entity->getPercent()
-                        ];
-                })];
+            if($clientPortfolio->isAdvisorApproved()) {
+                return [
+                    'risk_rating' => $clientPortfolio->getPortfolio()->getRiskRating(),
+                    'portfolio' => $clientPortfolio->getId(),
+                    'account_id' => $account->getId(),
+                    'values' => $clientPortfolio->getPortfolio()->getModelEntities()->map(
+                        function ($entity) use ($total, $account, $clientPortfolio, $em) {
+                            /** @var ClientPortfolio $clientPortfolio */
+
+                            $prices_diff = $this->getPricesDiff($entity->getSecurityAssignment()->getSecurity()->getId());
+                            $old_amount = ($entity->getPercent() / 100) * $total;
+                            $amount = $prices_diff * $old_amount;
+                            return
+                                [
+                                    'user_id' => $account->getClient()->getId(),
+                                    'old_total' => $total,
+                                    'amount' => $amount,
+                                    'old_amount' => $old_amount,
+                                    'prices_diff' => $prices_diff,
+                                    'model_id' => $entity->getId(),
+                                    'security_id' => $entity->getSecurityAssignment()->getSecurity()->getId(),
+                                    'percent' => $entity->getPercent()
+                                ];
+                        })];
+            }
         });
 
         return $data;
@@ -233,6 +239,7 @@ class RebalancerCommand extends ContainerAwareCommand
 
     protected function buyOrSell($data, $em, $output){
 
+        if(isset($data['portfolio'])) {
             /** @var ClientPortfolio $portfolio */
             $portfolio = $em->getRepository('App\\Entity\\ClientPortfolio')->find($data['portfolio']);
 
@@ -247,23 +254,25 @@ class RebalancerCommand extends ContainerAwareCommand
 
             $point = ($point / 100) + 1;
 
-            foreach($data['values'] as $datum){
-                if($point - $datum['prices_diff'] > 0  ){
+                foreach ($data['values'] as $datum) {
+                    if ($point - $datum['prices_diff'] > 0) {
 
-                    if($datum['prices_diff'] > 1){
-                        $this->sell($datum,$data['account_id'], $em, $output);
+                        if ($datum['prices_diff'] > 1) {
+                            $this->sell($datum, $data['account_id'], $em, $output);
+                        } else {
+                            $this->buy($datum, $data['account_id'], $em, $output);
+                        }
                     } else {
-                        $this->buy($datum,$data['account_id'], $em, $output);
+                        if ($datum['prices_diff'] > 1) {
+                            $this->buy($datum, $data['account_id'], $em, $output);
+                        } else {
+                            $this->sell($datum, $data['account_id'], $em, $output);
+                        }
                     }
-                } else {
-                    if($datum['prices_diff'] > 1){
-                        $this->buy($datum,$data['account_id'], $em, $output);
-                    } else {
-                        $this->sell($datum,$data['account_id'], $em, $output);
-                    }
+
                 }
-
             }
+
     }
 
     protected function sell($info, $account_id,  $em, $output){

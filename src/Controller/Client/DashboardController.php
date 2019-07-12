@@ -353,7 +353,7 @@ class DashboardController extends Controller
         return $this->prepareResponse($request, 'gainslosses', 'Gains/Losses', $params);
     }
 
-    public function transactions(Request $request)
+    public function transactions(Request $request, $show_client = true)
     {
         $account_id = $request->query->get('account_id');
         $sort = $request->query->get('sort', 'transactions.txDate');
@@ -369,7 +369,10 @@ class DashboardController extends Controller
             $request->get('page', 1),
             10
         );
-        $params = ['pagination' => $pagination];
+        $params = [
+            'pagination' => $pagination,
+            'show_client' => $show_client
+        ];
 
         return $this->prepareResponse($request, 'transactions', 'Transactions', $params);
     }

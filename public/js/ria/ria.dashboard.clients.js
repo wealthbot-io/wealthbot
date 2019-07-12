@@ -7,12 +7,12 @@
  */
 
 function ajaxLoadPage(url, successFunction) {
-    $('#ria_dashboard_client_content').empty();
+   /// $('#ria_dashboard_client_content').empty();
     $.ajax({
         url: url,
         dataType: 'json',
         success: function(response) {
-            if (response.status == 'success') {
+
                 if (typeof(successFunction) != 'undefined') {
                     successFunction();
                 }
@@ -29,7 +29,7 @@ function ajaxLoadPage(url, successFunction) {
                         break;
                     default:
                         break
-                }
+
             }
 
             addBoldClosedTextInOption();
@@ -66,7 +66,7 @@ $(function() {
         event.preventDefault();
     });
 
-    $('#ria_dashboard_client_content').spinner128();
+    ///$('#ria_dashboard_client_content').spinner128();
 
     var activeButton = $('#ria_dashboard_client_menu ul.main-menu li.active a');
     activeButton.append('<img class="ajax-loader" src="/img/ajax-loader.gif">');

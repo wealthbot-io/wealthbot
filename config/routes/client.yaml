@@ -11,8 +11,8 @@ wealthbot_client_gainslosses:
     defaults: { _controller: \App\Controller\Client\DashboardController:gainslosses }
 
 wealthbot_client_transactions:
-    path:  /client/transactions
-    defaults: { _controller: \App\Controller\Client\DashboardController:transactions }
+    path:  /client/transactions/{show_client}
+    defaults: { _controller: \App\Controller\Client\DashboardController:transactions, show_client: true }
 
 wealthbot_client_billing:
     path:  /client/billing

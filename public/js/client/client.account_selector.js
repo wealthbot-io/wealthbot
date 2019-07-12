@@ -25,7 +25,7 @@ $(function() {
 
     function setURL(params) {
         if ($('#ria_dashboard_client_menu').length) {
-            var url = $('#ria_dashboard_client_menu ul.main-menu li.active a').get(0);
+            var url = $('#ria_dashboard_client_menu div ul li.active a').get(0);
             ajaxLoadPage(url.pathname + '?' + insertParams(url.search, params));
         } else {
             document.location.search = insertParams(document.location.search, params);

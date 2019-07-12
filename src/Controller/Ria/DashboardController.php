@@ -400,14 +400,14 @@ class DashboardController extends Controller
     public function showClient(Request $request)
     {
         $action = $request->query->get('action', 'Overview');
-        $doAction = 'Transactions' === $action ? 'App\Entity\Dashboard:transactions' : 'App\Entity\Dashboard:index';
+        $doAction = 'Transactions' === $action ? "App\\Controller\\Client\\DashboardController:transactions" : "App\\Controller\Client\\DashboardController:index";
 
         /** @var EntityManager $em */
         $em = $this->get('doctrine.orm.entity_manager');
         $repository = $em->getRepository('App\Entity\User');
 
         $ria = $this->getUser();
-        $client = $repository->getClientByIdAndRiaId($request->get('client_id'), $ria->getId());
+        $client = $repository->getClientByIdAndRiaId($request->get('account_id'), $ria->getId());
 
         if (!$client || $client->hasStatusProspect()) {
             return $this->redirect($this->generateUrl('rx_ria_dashboard_clients'));

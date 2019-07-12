@@ -34,17 +34,11 @@
 
 {% block clients_content %}
     <div class="row">
-        <div id="ria_dashboard_client_menu">
-            {% block client_menu %}
-                {% include '/Client/Dashboard/_nav.html.twig' with {
-                    'action' : action, 'is_client_view': false
-                } %}
-            {% endblock %}
-        </div>
-
-        <div class="col-10 margin-top-7">
+        <div class="col-12 margin-top-7">
             <hr />
-            <div id="ria_dashboard_client_content"></div>
+            <div id="ria_dashboard_client_content">
+                {{ render(controller(doAction, { client_view: false })) }}
+            </div>
         </div>
     </div>
 {% endblock %}

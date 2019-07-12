@@ -8,9 +8,11 @@ use App\Entity\ClientPortfolio;
 use App\Entity\ClientPortfolioValue;
 use App\Entity\ClientQuestionnaireAnswer;
 use App\Entity\Lot;
+use App\Entity\Position;
 use App\Entity\RiskAnswer;
 use App\Entity\Security;
 use App\Entity\SecurityPrice;
+use App\Entity\SystemAccount;
 use App\Entity\Transaction;
 use App\Entity\TransactionType;
 use App\Entity\User;
@@ -110,7 +112,6 @@ class RebalancerCommand extends ContainerAwareCommand
         };
 
         $em->flush();
-
 
         return $securities;
     }
@@ -269,7 +270,11 @@ class RebalancerCommand extends ContainerAwareCommand
 
         /** @var Security $security */
         $security = $em->getRepository("App\\Entity\\Security")->find($info['security_id']);
-        $account = $em->getRepository("App\\Entity\\ClientAccount")->find($account_id)->getSystemAccount();
+        /** @var ClientAccount $account */
+        $account = $em->getRepository("App\\Entity\\ClientAccount")->find($account_id);
+        /** @var SystemAccount $systemAccount */
+        $systemAccount = $account->getSystemAccount();
+
 
 
         $transactionType = new TransactionType();
@@ -286,8 +291,17 @@ class RebalancerCommand extends ContainerAwareCommand
 
 
         $lot = new Lot();
+        $position = new Position();
+        $position->setSecurity($security)
+            ->setDate(new \DateTime('now'))
+            ->setAmount($info['amount'])
+            ->setLots([$lot]);
+        $position->setClientSystemAccount($systemAccount);
+        $position->setQuantity(1);
+        $position->setStatus(Position::POSITION_STATUS_INITIAL);
+
         $lot->setAmount($info['amount']);
-        $lot->setClientSystemAccount($account);
+        $lot->setClientSystemAccount($systemAccount);
         $lot->setStatus(Lot::LOT_IS_OPEN);
         $lot->setDate(new \DateTime('now'));
         $lot->setQuantity(1);
@@ -295,32 +309,39 @@ class RebalancerCommand extends ContainerAwareCommand
         $lot->setCostBasisKnown(true);
         $lot->setCostBasis($this->getLatestPriceBySecurityId($security->getId()));
         $lot->setWashSale(false);
+        $lot->setPosition($position);
 
         $em->persist($lot);
+        $em->persist($position);
 
 
 
         $transaction = new Transaction();
         $security = $em->getRepository("App\\Entity\\Security")->find($info['security_id']);
-        $account = $em->getRepository("App\\Entity\\ClientAccount")->find($info['user_id']);
         $transaction->setSecurity($security);
         $transaction->setQty($info['amount']);
-      //  $transaction->setAccount($account);
+        $transaction->setAccount($systemAccount);
         $transaction->setTransactionType($transactionType);
         $transaction->setTxDate(new \DateTime('now'));
         $transaction->setLot($lot);
         /// $output->writeln('sell...');
         ///
         $em->persist($transaction);
+
+
         $em->flush();
+
+
     }
 
     protected function buy($info, $account_id,  $em, $output){
 
         /** @var Security $security */
         $security = $em->getRepository("App\\Entity\\Security")->find($info['security_id']);
-        $account = $em->getRepository("App\\Entity\\ClientAccount")->find($account_id)->getSystemAccount();
-
+        /** @var ClientAccount $account */
+        $account = $em->getRepository("App\\Entity\\ClientAccount")->find($account_id);
+        /** @var SystemAccount $systemAccount */
+        $systemAccount = $account->getSystemAccount();
 
         $transactionType = new TransactionType();
         $transactionType
@@ -334,8 +355,17 @@ class RebalancerCommand extends ContainerAwareCommand
 
 
         $lot = new Lot();
+        $position = new Position();
+        $position->setSecurity($security)
+            ->setDate(new \DateTime('now'))
+            ->setAmount($info['amount'])
+            ->setLots([$lot]);
+        $position->setClientSystemAccount($systemAccount);
+        $position->setQuantity(1);
+        $position->setStatus(Position::POSITION_STATUS_INITIAL);
+
         $lot->setAmount($info['amount']);
-        $lot->setClientSystemAccount($account);
+        $lot->setClientSystemAccount($systemAccount);
         $lot->setStatus(Lot::LOT_IS_OPEN);
         $lot->setDate(new \DateTime('now'));
         $lot->setQuantity(1);
@@ -343,19 +373,23 @@ class RebalancerCommand extends ContainerAwareCommand
         $lot->setCostBasisKnown(true);
         $lot->setCostBasis($this->getLatestPriceBySecurityId($security->getId()));
         $lot->setWashSale(false);
+        $lot->setPosition($position);
 
         $em->persist($lot);
+        $em->persist($position);
 
         $transaction = new Transaction();
         $transaction->setSecurity($security);
         $transaction->setQty($info['amount']);
-        $transaction->setAccount($account);
+        $transaction->setAccount($systemAccount);
         $transaction->setTransactionType($transactionType);
         $transaction->setTxDate(new \DateTime('now'));
         $transaction->setLot($lot);
         /// $output->writeln('sell...');
         ///
         $em->persist($transaction);
+
+
         $em->flush();
     }
 

@@ -170,7 +170,7 @@ class DashboardController extends Controller
             }
 
             $initialLot = $lotsRepo->getInitialLot($position);
-            $costBasis = $initialLot->getAmount() / $initialLot->getQuantity() * $position->getQuantity();
+            $costBasis = $initialLot ? ( $initialLot->getAmount() / $initialLot->getQuantity() * $position->getQuantity()) : 0;
             $currentValue = $position->getAmount();
             $sharesOwned = $position->getQuantity();
 

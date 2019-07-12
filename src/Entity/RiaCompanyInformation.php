@@ -119,17 +119,17 @@ class RiaCompanyInformation
      * Choices for account management.
      */
     public static $account_managed_choices = [
-        self::ACCOUNT_MANAGED_ACCOUNT => 'Account Level',
-        self::ACCOUNT_MANAGED_HOUSEHOLD => 'Household Level',
-        self::ACCOUNT_MANAGED_ACCOUNT_OR_HOUSEHOLD => 'Account or Household Level',
+        'Account Level' => self::ACCOUNT_MANAGED_ACCOUNT,
+        'Household Level' => self::ACCOUNT_MANAGED_HOUSEHOLD,
+        'Account or Household Level' => self::ACCOUNT_MANAGED_ACCOUNT_OR_HOUSEHOLD,
     ];
 
     /**
      * @var array Choices for rebalanced method
      */
     public static $rebalanced_method_choices = [
-        1 => 'Asset Class',
-        2 => 'Subclass',
+       'Asset Class' =>  1,
+        'Subclass' => 2,
     ];
 
     const REBALANCED_FREQUENCY_QUARTERLY = 1;
@@ -141,10 +141,10 @@ class RiaCompanyInformation
      * @var array Choices for rebalanced frequency choices
      */
     public static $rebalanced_frequency_choices = [
-        1 => 'Quarterly',
-        2 => 'Semi-Annually',
-        3 => 'Annually',
-        4 => 'Tolerance Bands',
+        'Quarterly' => 1,
+        'Semi-Annually' => 2,
+        'Annually' => 3,
+        'Tolerance Bands' => 4,
     ];
 
     /**

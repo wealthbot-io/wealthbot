@@ -59,7 +59,9 @@
                             <td>
                                 {{ form_errors(sas_cash_form.sas_cash_collection[clientAccount.id]) }}
                                 <div class="input-group">
-                                    <span class="input-group-addon">$</span>
+                                    <span class="input-group-prepend">
+                                        <span class="input-group-text">$</span>
+                                    </span>
                                     {{ form_widget(sas_cash_form.sas_cash_collection[clientAccount.id], {'attr': {class: 'input-mini auto-numeric'}}) }}
                                 </div>
                             </td>

@@ -7,7 +7,9 @@ use App\Entity\ClientAccount;
 use App\Entity\ClientPortfolio;
 use App\Entity\ClientPortfolioValue;
 use App\Entity\ClientQuestionnaireAnswer;
+use App\Entity\Lot;
 use App\Entity\RiskAnswer;
+use App\Entity\Security;
 use App\Entity\SecurityPrice;
 use App\Entity\Transaction;
 use App\Entity\TransactionType;
@@ -84,7 +86,7 @@ class RebalancerCommand extends ContainerAwareCommand
         $client = ApiClientFactory::createApiClient();
 
         $securities = $em->getRepository('App\Entity\Security')->findAll();
-
+        /*
         foreach($securities as $security){
 
             try {
@@ -108,6 +110,7 @@ class RebalancerCommand extends ContainerAwareCommand
         };
 
         $em->flush();
+        */
 
         return $securities;
     }
@@ -153,6 +156,14 @@ class RebalancerCommand extends ContainerAwareCommand
         foreach($this->prices as $price){
             if($price['security_id'] == $id){
                 return $price['price'] / $price['old_price'];
+            }
+        }
+    }
+
+    protected function getLatestPriceBySecurityId($id){
+        foreach($this->prices as $price){
+            if($price['security_id'] == $id){
+                return $price['price'];
             }
         }
     }
@@ -280,6 +291,12 @@ class RebalancerCommand extends ContainerAwareCommand
     }
 
     protected function buy($info, $account_id,  $em, $output){
+
+        /** @var Security $security */
+        $security = $em->getRepository("App\\Entity\\Security")->find($info['security_id']);
+        $account = $em->getRepository("App\\Entity\\ClientAccount")->find($account_id)->getSystemAccount();
+
+
         $transactionType = new TransactionType();
         $transactionType
             ->setName('BUY')
@@ -288,15 +305,26 @@ class RebalancerCommand extends ContainerAwareCommand
             ->setActivity('buy');
 
 
+        $lot = new Lot();
+        $lot->setAmount($info['amount']);
+        $lot->setClientSystemAccount($account);
+        $lot->setStatus(Lot::LOT_IS_OPEN);
+        $lot->setDate(new \DateTime('now'));
+        $lot->setQuantity(1);
+        $lot->setSecurity($security);
+        $lot->setCostBasisKnown(true);
+        $lot->setCostBasis($this->getLatestPriceBySecurityId($security->getId()));
+        $lot->setWashSale(false);
+
+        $em->persist($lot);
+
         $transaction = new Transaction();
-        $security = $em->getRepository("App\\Entity\\Security")->find($info['security_id']);
-        $account = $em->getRepository("App\\Entity\\ClientAccount")->find($info['user_id']);
         $transaction->setSecurity($security);
         $transaction->setQty($info['amount']);
-       // $transaction->setAccount($account);
+        $transaction->setAccount($account);
         $transaction->setTransactionType($transactionType);
         $transaction->setTxDate(new \DateTime('now'));
-        /// $transaction->setQty();
+        $transaction->setLot($lot);
         /// $output->writeln('sell...');
         ///
         $em->persist($transaction);

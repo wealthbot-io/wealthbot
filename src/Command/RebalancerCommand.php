@@ -86,7 +86,7 @@ class RebalancerCommand extends ContainerAwareCommand
         $client = ApiClientFactory::createApiClient();
 
         $securities = $em->getRepository('App\Entity\Security')->findAll();
-        /*
+
         foreach($securities as $security){
 
             try {
@@ -110,7 +110,7 @@ class RebalancerCommand extends ContainerAwareCommand
         };
 
         $em->flush();
-        */
+
 
         return $securities;
     }
@@ -267,12 +267,37 @@ class RebalancerCommand extends ContainerAwareCommand
 
     protected function sell($info, $account_id,  $em, $output){
 
+        /** @var Security $security */
+        $security = $em->getRepository("App\\Entity\\Security")->find($info['security_id']);
+        $account = $em->getRepository("App\\Entity\\ClientAccount")->find($account_id)->getSystemAccount();
+
+
         $transactionType = new TransactionType();
         $transactionType
             ->setName('SELL')
             ->setActivity('sell')
             ->setReportAs(null)
+            ->setDescription('Sell '. $security->getSymbol())
             ->setActivity('sell');
+
+
+        $em->persist($transactionType);
+
+
+
+        $lot = new Lot();
+        $lot->setAmount($info['amount']);
+        $lot->setClientSystemAccount($account);
+        $lot->setStatus(Lot::LOT_IS_OPEN);
+        $lot->setDate(new \DateTime('now'));
+        $lot->setQuantity(1);
+        $lot->setSecurity($security);
+        $lot->setCostBasisKnown(true);
+        $lot->setCostBasis($this->getLatestPriceBySecurityId($security->getId()));
+        $lot->setWashSale(false);
+
+        $em->persist($lot);
+
 
 
         $transaction = new Transaction();
@@ -283,8 +308,8 @@ class RebalancerCommand extends ContainerAwareCommand
       //  $transaction->setAccount($account);
         $transaction->setTransactionType($transactionType);
         $transaction->setTxDate(new \DateTime('now'));
-        /// $transaction->setQty();
-       /// $output->writeln('sell...');
+        $transaction->setLot($lot);
+        /// $output->writeln('sell...');
         ///
         $em->persist($transaction);
         $em->flush();
@@ -302,7 +327,10 @@ class RebalancerCommand extends ContainerAwareCommand
             ->setName('BUY')
             ->setActivity('buy')
             ->setReportAs(null)
+            ->setDescription('Buy '. $security->getSymbol())
             ->setActivity('buy');
+
+        $em->persist($transactionType);
 
 
         $lot = new Lot();

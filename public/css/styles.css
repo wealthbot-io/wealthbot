@@ -2865,3 +2865,7 @@ a.disabled:hover {
 #flotTip {
     display: none !important;
 }
+
+.modal-header .close {
+    margin: 0px 0px !important;
+}

@@ -3,8 +3,7 @@
 {% block content %}
 
     <!-- start: Account selector -->
-
-    {% if (client.profile.getClientAccountManagedAsString == 'account level') %}
+        {% if (client.profile.getClientAccountManaged == 1) %}
         {% include '/Client/Dashboard/account_selector.html.twig' with {
             'client': client,
             'is_client_view': is_client_view,

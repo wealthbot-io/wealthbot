@@ -60,7 +60,7 @@ class HouseholdPersonalSettingsFormType extends AbstractType
                 'expanded' => true,
                 'label' => 'U.S. citizen?',
                 'data' => 1,
-                'choices' => ['1' => 'Yes', '0' => 'No'],
+                'choices' => [ 'Yes' => 1, 'No' => 1],
                 'mapped' => false,
                 'constraints' => [
                     new IsTrue(['message' => 'Your client should be U. S. citizen.']),
@@ -206,8 +206,8 @@ class HouseholdPersonalSettingsFormType extends AbstractType
                     new NotBlank(['message' => 'Can not be blank.']),
                     new Regex(['pattern' => '/^\d+$/', 'message' => 'Must be a number.']),
                     new Length([
-                        'min' => 4,
-                        'max' => 4,
+                        'min' => 3,
+                        'max' => 3,
                         'minMessage' => 'SSN should be in the format: ### - ## - ####.',
                         'maxMessage' => 'SSN should be in the format: ### - ## - ####.',
                         'exactMessage' => 'SSN should be in the format: ### - ## - ####.',

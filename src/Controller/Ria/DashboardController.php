@@ -315,7 +315,9 @@ class DashboardController extends Controller
         $em = $this->get('doctrine.orm.entity_manager');
 
         $form = $this
-            ->createForm(HouseholdPortfolioSettingsFormType::class, $riaClient);
+            ->createForm(HouseholdPortfolioSettingsFormType::class, $riaClient,[
+                'em' => $em
+            ]);
 
         if ($request->isMethod('POST')) {
             $form->handleRequest($request);

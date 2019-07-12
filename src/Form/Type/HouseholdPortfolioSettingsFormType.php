@@ -177,7 +177,7 @@ class HouseholdPortfolioSettingsFormType extends AbstractType
             }
         }
 
-        $group = $this->em->getRepository('App\Entity\Group')
+        $group = $this->em->getRepository("App\\Entity\\Group")
             ->findOneBy(['id' => $groupId, 'owner' => $client->getRia()]);
         if (null === $group) {
             $group = [];

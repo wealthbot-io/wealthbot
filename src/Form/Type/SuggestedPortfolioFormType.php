@@ -67,8 +67,8 @@ class SuggestedPortfolioFormType extends AbstractType
             ])
             ->add('paymentMethod', ChoiceType::class, [
                 'choices' => [
-                    Profile::PAYMENT_METHOD_DIRECT_DEBIT => 'Direct Debit',
-                    Profile::PAYMENT_METHOD_OUTSIDE_PAYMENT => 'Outside Payment',
+                    'Direct Debit' => Profile::PAYMENT_METHOD_DIRECT_DEBIT,
+                    'Outside Payment'  =>  Profile::PAYMENT_METHOD_OUTSIDE_PAYMENT ,
                 ],
             ])
         ;

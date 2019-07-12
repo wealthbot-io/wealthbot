@@ -1384,8 +1384,8 @@ class Profile implements WorkflowableInterface
      * Choices for client account management.
      */
     public static $client_account_managed_choices = [
-        1 => 'Account Level',
-        2 => 'Householder Level',
+       'Account Level'=>  1 ,
+        'Householder Level' => 2,
     ];
 
     /**

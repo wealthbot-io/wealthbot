@@ -21,8 +21,8 @@ class ClientSasCashCollectionFormType extends AbstractType
         $client = $options['client'];
 
         if (null === $systemAccounts) {
-            $systemAccounts = $client->getSystemAccounts();
-        }
+            $systemAccounts = $client ? $client->getSystemAccounts() : null;
+        };
 
         /** @var SystemAccount $systemAccount */
         foreach ($systemAccounts as $systemAccount) {

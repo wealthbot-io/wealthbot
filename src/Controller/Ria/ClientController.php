@@ -34,7 +34,12 @@ class ClientController extends Controller
             $isInitRebalance = true;
         }
 
-        $sasCashForm = $this->createForm(ClientSasCashCollectionFormType::class, $client);
+
+        $sasCashForm = $this->createForm(ClientSasCashCollectionFormType::class, null, [
+            'client' => $client,
+            'systemAccounts' => $systemAccountManager->getAccountsForClient($client)
+        ]);
+
         $sasCashFormHandler = new ClientSasCashCollectionFormHandler($sasCashForm, $request, $em);
 
         return $this->json([

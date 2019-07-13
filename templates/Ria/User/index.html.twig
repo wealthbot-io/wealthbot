@@ -1,7 +1,7 @@
 {% extends '/Ria/Dashboard/index.html.twig' %}
 
 {% block body %}
-
+<div class="container-fluid"><div class="row"><div class="col-12">
     <h1>User Management</h1>
 
     <nav class="nav nav-tabs " id="myTab">
@@ -17,6 +17,7 @@
             {% include '/Ria/User/groups.html.twig' with { 'form': groups_form, 'groups': groups, 'ria':ria }  %}
         </div>
     </div>
+</div></div></div>
 {% endblock %}
 
 {% block javascripts %}

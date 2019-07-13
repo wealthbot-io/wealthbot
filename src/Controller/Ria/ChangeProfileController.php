@@ -388,13 +388,7 @@ class ChangeProfileController extends Controller
             }
         }
 
-        return $this->render('/Ria/ChangeProfile/_rebalancing_form.html.twig', [
-            'form' => $portfolioManagementForm->createView(),
-            'isCustomModel' => $isCustomModel,
-            'company_information' => $riaCompanyInfo,
-            'currentModel' => $parentModel,
-            'modelType' => $isCustomModel ? 'Custom' : 'Strategy',
-        ]);
+        return $this->redirectToRoute('rx_ria_change_profile');
     }
 
     public function updatePassword()

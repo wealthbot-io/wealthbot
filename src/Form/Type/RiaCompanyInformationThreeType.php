@@ -198,6 +198,15 @@ class RiaCompanyInformationThreeType extends AbstractType
                 'required' => true,
                 'expanded' => true,
             ])
+
+            ->add('is_use_qualified_models', ChoiceType::class, [
+                'choices' => ['Yes' => 1,  'No' => 0],
+                'data' => 0,
+                'disabled' => true,
+                'required' => true,
+                'expanded' => true,
+            ])
+
         ;
 
         $factory = $builder->getFormFactory();

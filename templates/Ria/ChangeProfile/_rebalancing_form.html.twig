@@ -250,6 +250,19 @@
                         <div class="clearfix"></div>
 
                         <div class="form-group">
+                            {{ form_label(form.is_use_qualified_models, 'Is use qualified models?') }}
+                            <div class="controls">
+                                {{ form_errors(form.is_use_qualified_models) }}
+                                {% for radio in form.is_use_qualified_models%}
+                                    <label for="{{ radio.vars.id }}" class="radio inline">{{ form_widget(radio) }} </label>
+                                {% endfor %}
+                            </div>
+                        </div>
+
+
+
+
+                        <div class="form-group">
                             {{ form_label(form.tlh_buy_back_original, 'Automatically buy back original security after 31 days:') }}
                             <div class="controls">
                                 {{ form_errors(form.tlh_buy_back_original) }}

@@ -37,7 +37,6 @@ class RebalancerCommand extends ContainerAwareCommand
         $this
             ->setName('wealthbot:rebalancer')
             ->setDescription('Wealthbot Rebalancer')
-            ->setHelp('This command allows you to rebalance webo...')
         ;
     }
 
@@ -48,7 +47,7 @@ class RebalancerCommand extends ContainerAwareCommand
     {
         $em = $this->getContainer()->get('doctrine')->getManager();
         $em->getConnection()->getConfiguration()->setSQLLogger(null);
-        $securities = $this->updateSecurities($em, $output);
+        $securities = $em->getRepository("App\\Entity\\Security")->findAll();
         $this->prices = $this->processPrices($em, $securities);
         $accounts = $em->getRepository("App\\Entity\\ClientAccount")->findAll();
 
@@ -66,9 +65,9 @@ class RebalancerCommand extends ContainerAwareCommand
                       $newValue += $list['amount'];
                   }
                   $account->setValue(number_format($newValue, 2, '.', ''));
-
                   $this->buyOrSell($item, $em, $output);
                   $this->updatePortfolioValues($item, $em, $newValue, $output);
+                  $output->writeln('Processing account id: '. $item['account_id']);
               };
           }
 
@@ -76,46 +75,6 @@ class RebalancerCommand extends ContainerAwareCommand
 
         $em->flush();
         $output->writeln('Success!');
-    }
-    /**
-     * @param $output
-     * @return object[]
-     */
-    protected function updateSecurities($em,$output)
-    {
-        $em = $this->getContainer()->get('doctrine')->getManager();
-        $em->getConnection()->getConfiguration()->setSQLLogger(null);
-
-        // Create a new client from the factory
-        $client = ApiClientFactory::createApiClient();
-
-        $securities = $em->getRepository('App\Entity\Security')->findAll();
-/*
-        foreach($securities as $security){
-
-            try {
-                $quotes = $client->getQuotes([$security->getSymbol()]);
-                $middle = ($quotes[0]->getRegularMarketDayHigh()+$quotes[0]->getRegularMarketDayLow()) * 0.5;
-                if (count($quotes) > 0) {
-                    $price = new SecurityPrice();
-                    $price->setSecurity($security);
-                    $price->setSecurityId($security->getId());
-                    $price->setDatetime($quotes[0]->getDividendDate());
-                    $price->setIsCurrent(true);
-                    $price->setPrice($middle);
-                    $price->setIsPosted(true);
-                    $price->setSource($quotes[0]->getQuoteSourceName());
-                    $em->persist($price);
-                    $output->writeln("Security item [{$security->getSymbol()}] has been updated.");
-                }
-            } catch (\Exception $e){
-                $output->writeln("Security item [{$security->getSymbol()}] rejected.");
-            }
-        };
-
-        $em->flush();
-*/
-        return $securities;
     }
 
     /**
@@ -181,7 +140,7 @@ class RebalancerCommand extends ContainerAwareCommand
         $data = $account->getClient()->getClientPortfolios()->map(function ($clientPortfolio) use ($total, $account, $em) {
 
             if($clientPortfolio->isAdvisorApproved()) {
-                /** ClientPortfolio $clientPortfolio */
+                /** @var \App\Entity\\ClientPortfolio $clientPortfolio */
                 return [
                     'risk_rating' => $clientPortfolio->getPortfolio()->getRiskRating(),
                     'portfolio' => $clientPortfolio->getId(),

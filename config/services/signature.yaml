@@ -28,6 +28,7 @@ services:
     wealthbot_docusign.document_signature.manager:
         class: App\Manager\DocumentSignatureManager
         arguments: ["@doctrine.orm.entity_manager", "%wealthbot_docusign.account_signature.class%", "%wealthbot_docusign.account_owner_signature.class%"]
+        public: true
 
     wealthbot_docusign.api_client:
         class: "%wealthbot_docusign.api_client.class%"

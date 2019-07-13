@@ -52,9 +52,6 @@ class BankInformationFormType extends AbstractType
             ])
             ->add('account_type', ChoiceType::class, [
                 'choices' => BankInformation::getAccountTypeChoices(),
-                'expanded' => true,
-                'multiple' => false,
-                'required' => false,
             ])
             ->add('pdfDocument', PdfDocumentFormType::class);
 

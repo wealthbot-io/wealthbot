@@ -81,6 +81,7 @@ services:
             - "@form.factory"
             - "@wealthbot.distribution.manager"
         class: App\Form\Factory\DistributionFormFactory
+        public: true
     wealthbot_client.doctrine.subscriber:
         arguments:
             - "@service_container"

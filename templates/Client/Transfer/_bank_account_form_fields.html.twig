@@ -7,7 +7,7 @@
         {{ form_widget(form.account_owner_first_name, { 'attr': { 'class': 'input-large not-presave' } }) }}
     </div>
     <div class="col-2">
-        {{ form_label(form.account_owner_middle_name, 'Middle Initial') }}
+        {{ form_label(form.account_owner_middle_name, 'Mid.Init.') }}
         {{ form_errors(form.account_owner_middle_name) }}
         {{ form_widget(form.account_owner_middle_name, { 'attr': { 'class': 'input-small not-presave' } }) }}
     </div>
@@ -31,7 +31,7 @@
         {{ form_widget(form.joint_account_owner_first_name, { 'attr': { 'class': 'input-large  not-presave' } }) }}
     </div>
     <div class="col-2">
-        {{ form_label(form.joint_account_owner_middle_name, 'Middle Initial') }}
+        {{ form_label(form.joint_account_owner_middle_name, 'Mid.initial') }}
         {{ form_errors(form.joint_account_owner_middle_name) }}
         {{ form_widget(form.joint_account_owner_middle_name, { 'attr': { 'class': 'input-small not-presave' } }) }}
     </div>
@@ -76,11 +76,7 @@
         <div>
             {{ form_errors(form.account_type) }}
         </div>
-        {% for radio in form.account_type %}
-            <div class="pull-left {{ (loop.index > 1) ? 'margin-left-15' : '' }}">
-                <label for="{{ radio.vars.id }}">{{ form_widget(radio, { 'attr': { 'class': 'not-presave' } }) }}{{ radio.vars.label }}</label>
-            </div>
-        {% endfor %}
+        {{ form_widget(form.account_type) }}
     </div>
 </div>
 

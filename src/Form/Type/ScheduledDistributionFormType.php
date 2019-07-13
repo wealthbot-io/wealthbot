@@ -11,6 +11,7 @@ namespace App\Form\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
@@ -58,7 +59,7 @@ class ScheduledDistributionFormType extends AbstractType
         $date = $distribution->getTransferDate();
 
         $form
-            ->add($this->factory->createNamed('month', 'number', null, [
+            ->add($this->factory->createNamed('month', NumberType::class, null, [
                 'attr' => [
                     'class' => 'input-xmini',
                     'placeholder' => 'MM',
@@ -76,7 +77,7 @@ class ScheduledDistributionFormType extends AbstractType
                         'maxMessage' => 'Month should be equal or less than 12.',
                     ]),
             ], ]))
-            ->add($this->factory->createNamed('day', 'number', null, [
+            ->add($this->factory->createNamed('day', NumberType::class, null, [
                 'attr' => [
                     'class' => 'input-xmini',
                     'placeholder' => 'DD',

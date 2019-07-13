@@ -3,6 +3,7 @@
 namespace App\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
@@ -31,7 +32,7 @@ class ClientStopTLHValueFormType extends AbstractType
 
             $form->add($factory->createNamed(
                 'stop_tlh_value',
-                'number',
+                NumberType::class,
                 $value,
                 ['required' => false, 'scale' => 2, 'grouping' => true, 'auto_initialize' => false]
             ));

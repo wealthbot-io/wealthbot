@@ -8,6 +8,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormError;
@@ -168,7 +169,7 @@ class AccountSettingsFormType extends AbstractType
         }
 
         $form
-            ->add($this->factory->createNamed('ssn1', 'number', null, [
+            ->add($this->factory->createNamed('ssn1', NumberType::class, null, [
                 'attr' => [
                     'class' => 'input-xmini',
                     'placeholder' => '###',
@@ -187,7 +188,7 @@ class AccountSettingsFormType extends AbstractType
                         'exactMessage' => 'SSN should be in the format: ### - ## - ####.',
                     ]),
             ], ]))
-            ->add($this->factory->createNamed('ssn2', 'number', null, [
+            ->add($this->factory->createNamed('ssn2', NumberType::class, null, [
                 'attr' => [
                     'class' => 'input-xmini',
                     'placeholder' => '###',
@@ -206,7 +207,7 @@ class AccountSettingsFormType extends AbstractType
                         'exactMessage' => 'SSN should be in the format: ### - ## - ####.',
                     ]),
             ], ]))
-            ->add($this->factory->createNamed('ssn3', 'number', null, [
+            ->add($this->factory->createNamed('ssn3', NumberType::class, null, [
                 'attr' => [
                     'class' => 'input-xmini',
                     'placeholder' => '###',
@@ -218,8 +219,8 @@ class AccountSettingsFormType extends AbstractType
                     new NotBlank(['message' => 'Can not be blank.']),
                     new Regex(['pattern' => '/^\d+$/', 'message' => 'Must be a number.']),
                     new Length([
-                        'min' => 4,
-                        'max' => 4,
+                        'min' => 3,
+                        'max' => 3,
                         'minMessage' => 'SSN should be in the format: ### - ## - ####.',
                         'maxMessage' => 'SSN should be in the format: ### - ## - ####.',
                         'exactMessage' => 'SSN should be in the format: ### - ## - ####.',

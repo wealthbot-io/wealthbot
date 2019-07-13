@@ -166,7 +166,8 @@ class ProspectsController extends Controller
         $ria = $this->getUser();
         $client = $em->getRepository('App\Entity\User')->find($request->get('client_id'));
 
-        if (!$client || !$client->getRia() || $client->getRia()->getId() !== $ria->getId() || !$client->hasStatusProspect()) {
+        /* todo: check this */
+        if (!$client || !$client->getRia() || $client->getRia()->getId() !== $ria->getId() || !$client->hasStatusClient()) {
             throw $this->createNotFoundException();
         }
 

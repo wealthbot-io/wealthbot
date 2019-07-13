@@ -181,6 +181,7 @@ class RebalancerCommand extends ContainerAwareCommand
         $data = $account->getClient()->getClientPortfolios()->map(function ($clientPortfolio) use ($total, $account, $em) {
 
             if($clientPortfolio->isAdvisorApproved()) {
+                /** ClientPortfolio $clientPortfolio */
                 return [
                     'risk_rating' => $clientPortfolio->getPortfolio()->getRiskRating(),
                     'portfolio' => $clientPortfolio->getId(),

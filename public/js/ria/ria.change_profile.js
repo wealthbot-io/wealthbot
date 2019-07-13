@@ -94,6 +94,7 @@ $(function(){
         event.preventDefault();
     });
 
+/*
     $(document).on('click','', function (event) {
 
         var button = $(this);
@@ -112,6 +113,7 @@ $(function(){
         event.preventDefault();
 
     });
+*/
 
     $(document).on('click','.edit-ria-user-btn, .delete-ria-user-btn, .cancel-edit-user-btn', function (event) {
         var button = $(this);

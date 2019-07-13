@@ -69,7 +69,7 @@ class HouseholdSpouseFormType extends AbstractType
                 'widget' => 'single_text',
             ])
             ->add('citizenship', ChoiceType::class, [
-                'choices' => ['1' => 'Yes', '0' => 'No'],
+                'choices' => ['Yes'=>'1', 'No'=>'0'],
                 'data' => 1,
                 'expanded' => true,
                 'label' => 'U.S. citizen?',

@@ -44,7 +44,7 @@ class SecurityRepository extends EntityRepository
     public function getFindWithCurrentPriceQueryBuilder()
     {
         $qb = $this->createQueryBuilder('s')
-            ->select('s as data', 'sp.price as current_price')
+            ->select('s as data', 'sp.price as current_price, sp.datetime as on_date')
             ->leftJoin('s.securityPrices', 'sp')
             ->where('sp.is_current = :is_current')
             ->setParameter('is_current', 1);

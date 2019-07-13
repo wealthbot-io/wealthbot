@@ -20,6 +20,7 @@
             <th>{{ knp_pagination_sortable(pagination, 'Preferred', 's.id') }}</th>
             <th>{{ knp_pagination_sortable(pagination, 'Employer Account Owned', 's.id') }}</th>
             <th>{{ knp_pagination_sortable(pagination, 'Employer Account Owned Preferred', 's.id') }}</th>
+            <th>{{ knp_pagination_sortable(pagination, 'Date', 'sp.date') }}</th>
             <th>{{ knp_pagination_sortable(pagination, 'Current Price', 'sp.price') }}</th>
 
             {% if is_permitted('edit') %}
@@ -34,6 +35,7 @@
                     {% include '/Admin/Securities/_securities_list_item.html.twig' with {
                         'security': security_item.data,
                         'current_price': security_item.current_price,
+                        'on_date' : security_item.on_date,
                         'is_employer_account_owned': is_employer_account_owned
                     } %}
                 {% endfor %}

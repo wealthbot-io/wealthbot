@@ -74,16 +74,17 @@ https://gitter.im/wealthbot-io
 
 ** Cron jobs
 
-* `30 2 * * * /usr/bin/php bin/console rx:mailer:send-cron-emails`
-* `30 1 * * * /usr/bin/php bin/console wealthbot:rebalancer`
+* `30 1 * * * /usr/bin/php bin/console rx:mailer:send-cron-emails`
+* `30 2 * * * /usr/bin/php bin/console wealthbot:security:price`
+* `30 3 * * * /usr/bin/php bin/console wealthbot:rebalancer`
 
 Once complete, simply go to http://127.0.0.1:8000 in your browser to see the wealthbot.io demo landing page.
 
-# Contributing
+## Contributing
 
 We love pull requests! The details on how to contribute to Wealthbot can be found [here](.github/CONTRIBUTING.md).
 
 
-# Todo:
+## Todo:
 
 * Use Webpack Encore to manage assets

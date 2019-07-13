@@ -77,7 +77,7 @@ class ClientProfileFormType extends AbstractType
                 'widget' => 'single_text',
                 'format' => 'MM-dd-yyyy',
                 'required' => true,
-                'attr' => ['class' => 'jq-date input-small'],
+                'attr' => ['class' => 'jq-date input-small col-3'],
             ])
             ->add('phone_number', TextType::class, ['required' => false])
             ->add('citizenship', ChoiceType::class, [
@@ -109,6 +109,9 @@ class ClientProfileFormType extends AbstractType
                 'scale' => 0,
                 'required' => false,
                 'label' => 'What is your estimated income tax bracket?',
+                'attr' => [
+                    'class' => 'col-1'
+                ]
             ])
             ->add('liquid_net_worth', ChoiceType::class, [
                 'choices' => Profile::getLiquidNetWorthChoices(),

@@ -136,7 +136,7 @@ class ClientSettings
         if (null === self::$_clientTypes) {
             self::$_clientTypes = [];
 
-            $rClass = new \ReflectionClass('Entity\ClientSettings');
+            $rClass = new \ReflectionClass('App\Entity\ClientSettings');
             $prefix = 'CLIENT_TYPE_';
             foreach ($rClass->getConstants() as $key => $value) {
                 if (substr($key, 0, strlen($prefix)) === $prefix) {

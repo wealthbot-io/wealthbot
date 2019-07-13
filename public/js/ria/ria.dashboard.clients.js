@@ -34,9 +34,9 @@ function ajaxLoadPage(url, successFunction) {
 
             addBoldClosedTextInOption();
             updateAutoNumeric();
+            $('.ajax-loader').remove();
         },
         complete: function() {
-            $('.ajax-loader').remove();
         }
     });
 }

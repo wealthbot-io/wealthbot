@@ -20,6 +20,7 @@ $(function(){
     $(document).on('change','#model_security_form_asset_class_id', function() {
         var url = $(this).attr('data-complete-url');
         $.get(url, { asset_id: $(this).val() }, function(data){
+            console.log(data);
             $('#model_security_form_subclass_id').html(data);
         });
     });
@@ -106,7 +107,6 @@ function fillSubclassParameters(params)
     $("#security_name_row").html(params.security_name);
     $("#security_type_row").html(params.type);
     $("#security_expense_ratio_row").html(params.expense_ratio);
-
     $("#model_security_form_type").val(params.type);
     $("#model_security_form_expense_ratio").val(params.expense_ratio);
     $("#model_security_form_security_id").val(params.id);

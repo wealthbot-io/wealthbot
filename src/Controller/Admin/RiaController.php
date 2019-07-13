@@ -156,10 +156,10 @@ class RiaController extends AclController
 
             $assetClasses = $assetClassRepository->findWithSubclassesByModelIdAndOwnerId($companyInformation->getPortfolioModel()->getId(), $ria->getId());
             if (empty($assetClasses)) {
-                $errors[] = 'Ria have not created asset and subclasses';
+              //  $errors[] = 'Ria have not created asset and subclasses';
             }
 
-            $securityAssignments = $em->getRepository('App\Entity\SecurityAssignment')->findBy(['model_id' => $companyInformation->getPortfolioModel()->getId()]);
+            $securityAssignments = $em->getRepository('App\Entity\SecurityAssignment')->findBy(['ria_user_id' => $ria]);
             if (empty($securityAssignments)) {
                 $errors[] = 'Ria have not assigned classes and subclasses.';
             }

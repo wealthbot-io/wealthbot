@@ -59,7 +59,15 @@ App\Entity\SecurityAssignment:
         referencedColumnName: id
         onDelete: cascade
       cascade: ['persist']
-  uniqueConstraints:
-    security_subclass_idx:
-      columns: security_id, subclass_id
+    ria_user_id:
+      targetEntity:  App\Entity\User
+      joinColumn:
+        name: ria_user_id
+        referencedColumnName: id
+        onDelete: cascade
+      cascade: ['persist']
+
+#  uniqueConstraints:
+#    security_subclass_idx:
+#      columns: security_id, subclass_id
   lifecycleCallbacks: {  }

@@ -35,7 +35,7 @@ class SecurityAssignment
     private $is_preferred = false;
 
     /**
-     * @var int
+     * @var User
      */
     private $ria_user_id;
 
@@ -427,4 +427,23 @@ class SecurityAssignment
     {
        return (string) $this->getSecurity();
     }
+
+    /**
+     * @return User
+     */
+    public function getRiaUserId(): User
+    {
+        return $this->ria_user_id;
+    }
+
+    /**
+     * @param User $ria_user_id
+     */
+    public function setRiaUserId(User $ria_user_id): void
+    {
+        $this->ria_user_id = $ria_user_id;
+    }
+
+
+
 }

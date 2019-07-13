@@ -9,6 +9,7 @@
 
 namespace App\Controller\Ria;
 
+use App\Entity\Subclass;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
@@ -37,20 +38,20 @@ class SecuritiesController extends BaseController
         /** @var CeModel $selectedModel */
         $selectedModel = $riaCompanyInformation->getPortfolioModel();
         $request->request->set('model_id', $selectedModel->getId());
-
-        $securityAssignments = $em->getRepository('App\Entity\SecurityAssignment')->findBy(['model_id' => $selectedModel->getId()]);
-
         $securityAssignment = new SecurityAssignment();
         $securityAssignment->setModel($selectedModel);
 
         $form = $this->createForm(ModelSecurityFormType::class, null, ['selected_model' =>  $selectedModel, 'em' => $em,'securityAssignment' =>$securityAssignment]);
-        $formHandler = new ModelSecurityFormHandler($form, $request, $em, ['security_assignment' => $securityAssignment]);
+        $formHandler = new ModelSecurityFormHandler($form, $request, $em, ['security_assignment' => $securityAssignment, 'selected_model' =>  $selectedModel, 'ria'=> $ria]);
 
         if ($request->isMethod('post')) {
             if ($formHandler->process()) {
                 return $this->redirect($this->generateUrl('rx_ria_model_securities_list', ['model_id' => $selectedModel->getId()]));
             }
         }
+
+        $securityAssignments = $em->getRepository('App\Entity\SecurityAssignment')->findBy(['ria_user_id' => $this->getUser()]);
+
 
         return $this->render('/Ria/Securities/model_securities_list.html.twig', [
             'form' => $form->createView(),
@@ -67,20 +68,33 @@ class SecuritiesController extends BaseController
 
         $ria = $this->getUser();
 
-        $assetClass = $em->getRepository('App\Entity\AssetClass')->find($request->get('asset_id'));
+        $assetClass = $em->getRepository("App\\Entity\\AssetClass")->find($request->get('asset_id'));
 
         if (!$assetClass) {
             throw $this->createNotFoundException(sprintf('AssetClass with id %d does not exist.', $request->get('asset_id')));
         }
 
-        $subclasses = $em->getRepository('App\Entity\Subclass')->findBy(['asset_class_id' => $assetClass->getId(), 'owner_id' => $ria->getId()]);
+        $subclasses = $em->getRepository("App\\Entity\\Subclass")->findBy(['assetClass' => $assetClass]);
 
-        $output = "<option value=''>Choose an Option</option>";
-        foreach ($subclasses as $subclass) {
-            $output .= "<option value='".$subclass->getId()."'>".$subclass->getName().'</option>';
+        $info[] = [
+            'id' => null,
+            'name' => 'Choose an Option'
+        ];
+        foreach($subclasses as $s){
+            /** @var Subclass $s */
+            $info[] =
+                ['id'=>$s->getId(),
+                'name' => $s->getName()
+                ];
+        };
+
+        $output = '';
+
+        foreach($info as $s){
+            $output .= "<option value='" . $s['id'] . "'>" . $s['name'] . "</option>";
         }
 
-        return new Response($output);
+        return new Response($output, Response::HTTP_OK);
     }
 
     public function deleteModelSecurity(Request $request)
@@ -220,6 +234,7 @@ class SecuritiesController extends BaseController
             $card['id'] = $security->getId();
             $card['display_name'] = $security->getSymbol().' ('.$security->getName().')';
             $card['security_name'] = $security->getName();
+            $card['security_id'] = $security->getId();
             $card['name'] = $security->getSymbol();
             $card['expense_ratio'] = $security->getExpenseRatio();
             $card['type'] = $security->getSecurityType()->getDescription();

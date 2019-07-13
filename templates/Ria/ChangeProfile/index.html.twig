@@ -2,9 +2,6 @@
 
 {% block javascripts %}
     {{ parent() }}
-
-    <script type="text/javascript" src="/js/inputmask/jquery.inputmask.js"></script>
-    <script type="text/javascript" src="/js/inputmask/jquery.inputmask.extensions.js"></script>
     <script src="{{ asset('js/ria/ria.fees.table.js') }}"></script>
     <script src="{{ asset('js/ria/ria.portfolio.management.js') }}"></script>
     <script src="{{ asset('js/ria/ria.change_profile.js') }}"></script>
@@ -30,9 +27,9 @@
         <li class="{{ active_tab == 'custodians' ? 'active nav-item' : ' nav-item' }}">
             <a class="nav-link" data-toggle="tab" href="#custodians">Custodians</a>
         </li>
-        {#<li class="{{ active_tab == 'documents' ? 'active nav-item' : ' nav-item' }}">
+        <li class="{{ active_tab == 'documents' ? 'active nav-item' : ' nav-item' }}">
             <a class="nav-link" data-toggle="tab" href="#documents">Documents</a>
-        </li>#}
+        </li>
     </ul>
 
     <div class="tab-content change-profile">
@@ -59,13 +56,13 @@
         <div class="tab-pane {{ active_tab == 'custodians' ? 'active' : '' }}" id="custodians">
             {{ render(controller("App\\Controller\\Ria\\ChangeProfileController:custodianTab"  )) }}
         </div>
-        {#<div class="tab-pane {{ active_tab == 'documents' ? 'active' : '' }}" id="documents">
+        <div class="tab-pane {{ active_tab == 'documents' ? 'active' : '' }}" id="documents">
             {% include '/Ria/ChangeProfile/_documents.html.twig' with {
                 'form': documents_form,
                 'admin_documents': admin_documents,
                 'documents': documents
             } %}
-        </div>#}
+        </div>
     </div>
             </div>
         </div>

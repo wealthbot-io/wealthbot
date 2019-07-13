@@ -16,6 +16,13 @@ class RiaDocumentsFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add(Document::TYPE_USER_AGREEMENT, FileType::class, [
+                'label' => 'User Agreement',
+                'required' => false,
+                'attr' => [
+                    'accept' => '.pdf',
+                ],
+            ])
             ->add(Document::TYPE_ADV, FileType::class, [
                 'label' => 'ADV',
                 'required' => false,
@@ -26,6 +33,9 @@ class RiaDocumentsFormType extends AbstractType
             ->add(Document::TYPE_INVESTMENT_MANAGEMENT_AGREEMENT, FileType::class, [
                 'label' => 'Investment Management Agreement',
                 'required' => false,
+                'attr' => [
+                    'accept' => '.pdf',
+                ],
             ]);
 
         $builder->addEventListener(FormEvents::SUBMIT, function (FormEvent $event) {

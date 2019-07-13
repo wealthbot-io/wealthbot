@@ -433,10 +433,7 @@ class ChangeProfileController extends Controller
             $formHandler->process();
         }
 
-        return $this->render('/Ria/ChangeProfile/_documents_form.html.twig', array(
-            'form' => $form->createView(),
-            'documents' => $documentManager->getUserDocuments($user->getId())
-        ));
+        return $this->redirect($this->generateUrl('rx_ria_change_profile'));
     }
 
     public function saveAlertsConfiguration(Request $request)

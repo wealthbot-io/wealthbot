@@ -353,12 +353,11 @@ class DashboardController extends Controller
         return $this->prepareResponse($request, 'gainslosses', 'Gains/Losses', $params);
     }
 
-    public function transactions(Request $request, $show_client = true)
+    public function transactions(Request $request, $is_ajax = false)
     {
         $account_id = $request->query->get('account_id');
         $sort = $request->query->get('sort', 'transactions.txDate');
         $direction = $request->query->get('direction', 'DESC');
-
         $em = $this->get('doctrine.orm.entity_manager');
         $repository = $em->getRepository('App\Entity\Transaction');
         $paginator = $this->get('knp_paginator');
@@ -371,7 +370,7 @@ class DashboardController extends Controller
         );
         $params = [
             'pagination' => $pagination,
-            'show_client' => $show_client
+            'is_ajax' => $is_ajax
         ];
 
         return $this->prepareResponse($request, 'transactions', 'Transactions', $params);

@@ -37,7 +37,7 @@
         <div class="col-12 margin-top-7">
             <hr />
             <div id="ria_dashboard_client_content">
-                {{ render(controller(doAction, { client_view: false })) }}
+                {{ render(controller(doAction, { is_ajax: true })) }}
             </div>
         </div>
     </div>

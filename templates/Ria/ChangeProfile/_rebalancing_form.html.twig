@@ -38,17 +38,7 @@
                     <li><strong>Client by Client Basis:</strong> You will select a level on a client by client basis when discussing the suggested portfolio with the client.</li>
                     </ul>"><i class="mini-color mini-ico-info-sign"></i></a></legend>
             <div class="form-group">
-                {{ form_label(form.account_managed, 'Default portfolio management level:') }}
-                <div class="alert alert-error" id="account_type_alert" style="display: none;">
-                    <button type="button" class="close" data-dismiss="alert">&times;</button>
-                    <strong>Warning!</strong> This will affect only new clients coming on the system.
-                </div>
-                <div class="controls">
-                    {{ form_errors(form.account_managed) }}
-                    {% for radio in form.account_managed %}
-                        <label for="{{ radio.vars.id }}" class="radio inline">{{ form_widget(radio) }}</label>
-                    {% endfor %}
-                </div>
+               {{ form_widget(form.account_managed) }}
                 <div class="alert alert-block" id="outside_retirement_alert_id" style="display: none;">
                     <button type="button" class="close" data-dismiss="alert">&times;</button>
                     <strong>Warning!</strong> Because you choice to allow outside retirement accounts within client's plans, any client who brings in an outside account

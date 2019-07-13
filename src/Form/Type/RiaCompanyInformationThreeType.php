@@ -103,7 +103,7 @@ class RiaCompanyInformationThreeType extends AbstractType
             ->add('account_managed', ChoiceType::class, [
                 'choices' => $data->getAccountManagedChoices(),
                 'required' => false,
-                'expanded' => true,
+                'expanded' => false,
             ])
             ->add('is_use_qualified_models', ChoiceType::class, [
                 'choices' => ['No', 'Yes'],

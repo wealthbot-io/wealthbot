@@ -9,16 +9,11 @@
 
     <div id="custodian_questions" class="form-group">
         {{ form_label(custodianForm.allow_non_electronically_signing, 'Do you want to allow for non-electronically signed transfer forms?') }}
-        <div class="controls">
-            {{ form_errors(custodianForm.allow_non_electronically_signing) }}
-            {% for radio in custodianForm.allow_non_electronically_signing %}
-                <label for="{{ radio.vars.id }}" class="radio inline">{{ form_widget(radio) }}</label>
-            {% endfor %}
-        </div>
+        {{ form_widget(custodianForm.allow_non_electronically_signing) }}
     </div>
 
     <legend>Custodial Master IDs</legend>
-    <select style="visibility: hidden" id="custodian_id" name="custodian_id">
+    <select id="custodian_id" name="custodian_id">
         {% for custodian in custodians  %}
             <option value="{{ custodian.id }}"{% if custodian.id == app.request.get('custodian_id') %} selected="selected"{% endif %}>{{ custodian.name }}</option>
         {% endfor %}
@@ -34,7 +29,7 @@
 
     <div class="col-12">
         <div class="form-actions">
-            <button type="submit" class="btn btn-primary btn-ajax" data-loading-text="Saving...">Save</button>
+            <button type="submit" class="btn btn-primary" data-loading-text="Saving...">Save</button>
         </div>
     </div>
 

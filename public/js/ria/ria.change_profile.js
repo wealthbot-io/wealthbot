@@ -16,7 +16,7 @@ $(function(){
     //Company profile
     var phoneNumber = $('#riacompanyinformationtype_phone_number');
     if (phoneNumber.length > 0) {
-        $("#riacompanyinformationtype_phone_number").inputmask("mask", {"mask": "(999) 999-9999"});
+        ///$("#riacompanyinformationtype_phone_number").inputmask("mask", {"mask": "(999) 999-9999"});
     }
 
     var groupList = $("#wealthbot_riabundle_createuser_groups");

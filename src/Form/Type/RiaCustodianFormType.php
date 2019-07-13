@@ -35,13 +35,12 @@ class RiaCustodianFormType extends AbstractType
                 'class' => "App\\Entity\\Custodian",
                 'property_path' => 'name',
                 'id_reader' => 'id',
-                'expanded' => true,
                 'mapped' => true,
                 'data'=> $data1
             ])
             ->add('allow_non_electronically_signing', ChoiceType::class, [
                'choices' => [ 'Yes'=> true, 'No'=> false ],
-                'expanded' => true,
+                'expanded' =>false,
                 'data'=> $data2
             ])
         ;

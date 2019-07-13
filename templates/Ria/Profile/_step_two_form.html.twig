@@ -25,7 +25,7 @@
 
         <span class="help-block">
             <b>Primary Contact Name:</b>
-            <a class="pop" href="#" rel="popover" title="Primary Contact Name" data-content="<p>This should be the primary person in your company a prospect or user should contact.</p>"><i class="mini-color mini-ico-info-sign"></i></a>
+            <a class="pop" href="#"   data-html="true" rel="popover" title="Primary Contact Name" data-content="<p>This should be the primary person in your company a prospect or user should contact.</p>"><i class="mini-color mini-ico-info-sign"></i></a>
         </span>
         <div class="row">
             <div class="span">
@@ -51,7 +51,7 @@
         <div class="form-group">
                 {{ form_label(form.contact_email, 'Primary Contact Email Address:', { 'label_attr': {'class': 'control-label'}}) }}
             <div class="controls">
-                {{ form_widget(form.contact_email) }} <a class="pop" href="#" rel="popover" title="Primary Contact Email" data-content="<p>This should be the primary email address a prospect or user should contact.</p>"><i class="mini-color mini-ico-info-sign"></i></a>
+                {{ form_widget(form.contact_email) }} <a  class="pop" href="#"  data-html="true" rel="popover" title="Primary Contact Email" data-content="<p>This should be the primary email address a prospect or user should contact.</p>"><i class="mini-color mini-ico-info-sign"></i></a>
                 {{ form_errors(form.contact_email) }}
             </div>
         </div>
@@ -59,7 +59,7 @@
         <div class="form-group">
                 {{ form_label(form.phone_number, 'Phone Number:', { 'label_attr': {'class': 'control-label'}}) }}
             <div class="controls">
-                {{ form_widget(form.phone_number, {'attr': {'placeholder': '(###) ###-####'}}) }} <a class="pop" href="#" rel="popover" title="Primary Phone Number" data-content="<p>This should be the primary phone number a prospect or user should contact.</p>"><i class="mini-color mini-ico-info-sign"></i></a>
+                {{ form_widget(form.phone_number, {'attr': {'placeholder': '(###) ###-####'}}) }} <a class="pop" href="#"  data-html="true" rel="popover" title="Primary Phone Number" data-content="<p>This should be the primary phone number a prospect or user should contact.</p>"><i class="mini-color mini-ico-info-sign"></i></a>
                 {{ form_errors(form.phone_number) }}
             </div>
         </div>
@@ -67,7 +67,7 @@
         <div class="form-group">
             {{ form_label(form.fax_number, 'Fax Number:', { 'label_attr': {'class': 'control-label'}}) }}
             <div class="controls">
-                {{ form_widget(form.fax_number, {'attr': {'placeholder': '(###) ###-####'}}) }} <a class="pop" href="#" rel="popover" title="Primary Fax Number" data-content="<p>This should be the primary fax number a prospect or user should contact.</p>"><i class="mini-color mini-ico-info-sign"></i></a>
+                {{ form_widget(form.fax_number, {'attr': {'placeholder': '(###) ###-####'}}) }} <a data-html="true" class="pop" href="#" rel="popover" title="Primary Fax Number" data-content="<p>This should be the primary fax number a prospect or user should contact.</p>"><i class="mini-color mini-ico-info-sign"></i></a>
                 {{ form_errors(form.fax_number) }}
             </div>
         </div>

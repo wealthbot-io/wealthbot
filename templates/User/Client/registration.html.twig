@@ -33,7 +33,7 @@
                     <div>
                         {{ form_errors(form.plainPassword.first) }}
                         {{ form_widget(form.plainPassword.first, {'attr': { 'placeholder': 'Create Password' } }) }}
-                        <a class="pop" href="#" rel="popover" title="Password Complexity" data-content="<p>Your password must fufill the following requirements:</p>
+                        <a class="pop" href="#" rel="popover" title="Password Complexity" data-html="true" data-content="<p>Your password must fufill the following requirements:</p>
                                 <ol>
                                 <li>At least 6 characters</li>
                                 <li>At least 1 uppercase</li>

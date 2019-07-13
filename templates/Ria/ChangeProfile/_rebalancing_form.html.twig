@@ -11,7 +11,7 @@
     <form id="portfolio_management_form" action="{{path('rx_ria_change_profile_save_portfolio_management')}}" method="post">
 
         <div class="col-12 alertable" id="is_allow_retirement" {#code_v2: NOT DELETE THIS CODE #}style="display: none;">
-            <legend>Outside Retirement Account <a class="pop" href="#" rel="popover" title="Outside Retirement Accounts" data-content="<p>We allow you to consider client's outside retirement accounts (401k's, 403b's, TSP's, etc.) in their overall portfolio. The client will be asked to give you the various choices they have in their plan, where you can then recommend the best options.</p>"><i class="mini-color mini-ico-info-sign"></i></a></legend>
+            <legend>Outside Retirement Account <a class="pop" href="#" data-html="true" rel="popover" title="Outside Retirement Accounts" data-content="<p>We allow you to consider client's outside retirement accounts (401k's, 403b's, TSP's, etc.) in their overall portfolio. The client will be asked to give you the various choices they have in their plan, where you can then recommend the best options.</p>"><i class="mini-color mini-ico-info-sign"></i></a></legend>
             <div class="form-group">
                 <div class="outsideretirementaccountinfo">
                     {{ form_label(form.is_allow_retirement_plan, 'Do you want to allow a client’s current retirement plan (401k, 403b, 457, etc.) to be considered in the plan?') }}
@@ -278,7 +278,7 @@
                     <span class="help-block">
                         <ol>
                             <li class="message-1">We assume the following returns over the next 30 years for the following asset classes, please edit the returns if you choose.</li>
-                            <li class="message-2">If you choose to have some clients’ households managed on a household level, please choose your preference for where certain asset classes should be held. <a class="pop" href="#" rel="popover" title="Asset Location Optimization" data-placement="top" data-content="<p>
+                            <li class="message-2">If you choose to have some clients’ households managed on a household level, please choose your preference for where certain asset classes should be held. <a class="pop" href="#" data-html="true" rel="popover" title="Asset Location Optimization" data-placement="top" data-content="<p>
                         You're able to override our default choices for where certain asset classes should be held. Client's can benefit from having more tax sensitive asset classes held in tax-free and tax-deferred accounts.
                         </p>"><i class="mini-color mini-ico-info-sign"></i></a></li>
                         </ol>

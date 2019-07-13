@@ -97,8 +97,8 @@ class BeneficiaryFormType extends AbstractType
                         new NotBlank(['message' => 'Can not be blank.']),
                         new Regex(['pattern' => '/^\d+$/', 'message' => 'Must be number.']),
                         new Length([
-                            'min' => 3,
-                            'max' => 3,
+                            'min' => 4,
+                            'max' => 4,
                             'minMessage' => 'Must have {{ limit }} digits.',
                             'maxMessage' => 'Must have {{ limit }} digits.',
                         ]),

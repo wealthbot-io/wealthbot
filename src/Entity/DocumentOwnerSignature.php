@@ -163,7 +163,7 @@ class DocumentOwnerSignature
         if (null === self::$_statuses) {
             self::$_statuses = [];
 
-            $rClass = new \ReflectionClass('Entity\DocumentOwnerSignature');
+            $rClass = new \ReflectionClass('App\\Entity\\DocumentOwnerSignature');
             $prefix = 'STATUS_';
 
             foreach ($rClass->getConstants() as $key => $value) {

@@ -208,7 +208,7 @@ class DocumentSignature
         if (null === self::$_types) {
             self::$_types = [];
 
-            $rClass = new \ReflectionClass('Entity\DocumentSignature');
+            $rClass = new \ReflectionClass('App\\Entity\\DocumentSignature');
             $prefix = 'TYPE_';
 
             foreach ($rClass->getConstants() as $key => $value) {
@@ -261,7 +261,7 @@ class DocumentSignature
      *
      * @return $this
      *
-     * @throws \Exception\InvalidEnvelopeStatusException
+     * @throws \App\Exception\InvalidEnvelopeStatusException
      */
     public function setStatus($status)
     {

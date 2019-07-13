@@ -11,6 +11,7 @@ namespace App\Form\EventListener;
 
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -73,7 +74,7 @@ class AccountContributionFormEventSubscriber extends TransferFundingFormEventSub
         if ($this->systemAccount->isRothIraType() || $this->systemAccount->isTraditionalIraType()) {
             $form->add($this->factory->createNamed(
                 'contribution_year',
-                'text',
+                TextType::class,
                 null,
                 ['required' => false, 'auto_initialize' => false]
             ));

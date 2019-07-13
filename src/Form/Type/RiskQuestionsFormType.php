@@ -15,6 +15,7 @@ use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormEvent;
@@ -54,7 +55,7 @@ class RiskQuestionsFormType extends AbstractType
                         'pattern' => '{{ month }}-{{ day }}-{{ year }}',
                         'required' => true,
                     ])
-                    ->add('answer_'.$question->getId(), 'text', [
+                    ->add('answer_'.$question->getId(), TextType::class, [
                         'label' => $question->getTitle(),
                         'mapped' => false,
                         'required' => true,

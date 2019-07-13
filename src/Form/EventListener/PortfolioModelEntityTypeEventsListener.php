@@ -12,6 +12,7 @@ namespace App\Form\EventListener;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
@@ -297,7 +298,7 @@ class PortfolioModelEntityTypeEventsListener implements EventSubscriberInterface
             $value = '';
         }
 
-        $form->add($this->factory->createNamed('symbol', 'text', null, [
+        $form->add($this->factory->createNamed('symbol', TextType::class, null, [
             'mapped' => false,
             'required' => false,
             'auto_initialize' => false,
@@ -318,7 +319,7 @@ class PortfolioModelEntityTypeEventsListener implements EventSubscriberInterface
             $value = $obj->getSecurity()->getSymbol();
         }
 
-        $form->add($this->factory->createNamed('muni_substitution_symbol', 'text', null, [
+        $form->add($this->factory->createNamed('muni_substitution_symbol', TextType::class, null, [
             'mapped' => false,
             'auto_initialize' => false,
             'required' => false,
@@ -339,7 +340,7 @@ class PortfolioModelEntityTypeEventsListener implements EventSubscriberInterface
             $value = $obj->getSecurity()->getSymbol();
         }
 
-        $form->add($this->factory->createNamed('tax_loss_harvesting_symbol', 'text', null, [
+        $form->add($this->factory->createNamed('tax_loss_harvesting_symbol', TextType::class, null, [
             'mapped' => false,
             'required' => false,
             'auto_initialize' => false,

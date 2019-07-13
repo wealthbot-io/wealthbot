@@ -11,6 +11,7 @@ namespace App\Form\EventListener;
 
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -62,7 +63,7 @@ class TransferFundingFormEventSubscriber implements EventSubscriberInterface
     protected function addContributionYearField(FormInterface $form)
     {
         if ($this->clientAccount->isRothIraType()) {
-            $form->add($this->factory->createNamed('contribution_year', 'text', null, ['required' => false, 'auto_initialize' => false]));
+            $form->add($this->factory->createNamed('contribution_year', TextType::class, null, ['required' => false, 'auto_initialize' => false]));
         }
     }
 
@@ -84,13 +85,13 @@ class TransferFundingFormEventSubscriber implements EventSubscriberInterface
 
     private function updateStartTransferDate(FormInterface $form, array $date)
     {
-        $form->add($this->factory->createNamed('start_transfer_date_month', 'text', $date['month'], [
+        $form->add($this->factory->createNamed('start_transfer_date_month', TextType::class, $date['month'], [
                 'attr' => ['value' => $date['month']],
                 'auto_initialize' => false,
                 'required' => false,
                 'mapped' => false,
             ]))
-            ->add($this->factory->createNamed('start_transfer_date_day', 'text', $date['day'], [
+            ->add($this->factory->createNamed('start_transfer_date_day', TextType::class, $date['day'], [
                 'attr' => ['value' => $date['day']],
                 'auto_initialize' => false,
                 'required' => false,

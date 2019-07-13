@@ -86,17 +86,17 @@ class TransferInformationFormType extends AbstractType
             $account = $data->getClientAccount();
             if ($account) {
                 if (!$adm->isUsedDocusign($account->getId())) {
-                    $form->add($factory->createNamed('delivering_account_title', 'text', null, [
+                    $form->add($factory->createNamed('delivering_account_title', TextType::class, null, [
                             'required' => false,
                             'auto_initialize' => false,
                         ]))
-                        ->add($factory->createNamed('ameritrade_account_title', 'text', null, [
+                        ->add($factory->createNamed('ameritrade_account_title', TextType::class, null, [
                             'required' => false,
                             'auto_initialize' => false,
                         ]));
                 }
 
-                $form->add($factory->createNamed('financial_institution', 'text', null, [
+                $form->add($factory->createNamed('financial_institution', TextType::class, null, [
                     'required' => true,
                     'read_only' => true,
                     'data' => $account->getFinancialInstitution(),
@@ -104,15 +104,15 @@ class TransferInformationFormType extends AbstractType
                 ]));
 
                 if ($account->isJointType()) {
-                    $form->add($factory->createNamed('joint_title_first', 'text', null, [
+                    $form->add($factory->createNamed('joint_title_first', TextType::class, null, [
                             'constraints' => [new NotBlank()],
                             'auto_initialize' => false,
                         ]))
-                        ->add($factory->createNamed('joint_title_middle', 'text', null, [
+                        ->add($factory->createNamed('joint_title_middle', TextType::class, null, [
                             'constraints' => [new NotBlank()],
                             'auto_initialize' => false,
                         ]))
-                        ->add($factory->createNamed('joint_title_last', 'text', null, [
+                        ->add($factory->createNamed('joint_title_last', TextType::class, null, [
                             'constraints' => [new NotBlank()],
                             'auto_initialize' => false,
                         ]));

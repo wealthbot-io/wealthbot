@@ -11,6 +11,7 @@ namespace App\Form\EventListener;
 
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
@@ -139,13 +140,13 @@ class ScheduledDistributionFormEventSubscriber implements EventSubscriberInterfa
      */
     protected function updateStartTransferDate(FormInterface $form, array $date)
     {
-        $form->add($this->factory->createNamed('transfer_date_month', 'text', null, [
+        $form->add($this->factory->createNamed('transfer_date_month', TextType::class, null, [
             'attr' => ['value' => $date['month']],
             'mapped' => false,
             'required' => false,
             'auto_initialize' => false,
         ]))
-        ->add($this->factory->createNamed('transfer_date_day', 'text', null, [
+        ->add($this->factory->createNamed('transfer_date_day', TextType::class, null, [
             'attr' => ['value' => $date['day']],
             'mapped' => false,
             'required' => false,

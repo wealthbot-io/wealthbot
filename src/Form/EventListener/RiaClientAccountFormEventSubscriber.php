@@ -12,6 +12,7 @@ namespace App\Form\EventListener;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
@@ -136,7 +137,7 @@ class RiaClientAccountFormEventSubscriber implements EventSubscriberInterface
 
             case AccountGroup::GROUP_OLD_EMPLOYER_RETIREMENT:
                 $form->add(
-                    $this->factory->createNamed('financial_institution', 'text', null, [
+                    $this->factory->createNamed('financial_institution', TextType::class, null, [
                         'label' => 'Former Employer',
                     ])
                 );
@@ -153,12 +154,12 @@ class RiaClientAccountFormEventSubscriber implements EventSubscriberInterface
                 }
 
                 $form->add(
-                    $this->factory->createNamed('financial_institution', 'text', null, [
+                    $this->factory->createNamed('financial_institution', TextType::class, null, [
                         'label' => 'Employer Name',
                         'data' => $company,
                     ])
                 )->add(
-                    $this->factory->createNamed('plan_provider', 'text', null, [
+                    $this->factory->createNamed('plan_provider', TextType::class, null, [
                             'label' => 'Retirement Plan Provide',
                             'mapped' => false,
                             'data' => $provider,
@@ -170,7 +171,7 @@ class RiaClientAccountFormEventSubscriber implements EventSubscriberInterface
                 //$group = AccountGroup::GROUP_FINANCIAL_INSTITUTION;
 
                 $form->add(
-                    $this->factory->createNamed('financial_institution', 'text', null, [
+                    $this->factory->createNamed('financial_institution', TextType::class, null, [
                         'label' => 'Financial Institution',
                     ])
                 )->add(

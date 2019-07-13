@@ -9,6 +9,8 @@
 namespace App\Form\Type;
 
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormEvent;
@@ -19,45 +21,45 @@ class AccountOwnerReviewInformationFormType extends AccountOwnerPersonalInformat
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('first_name', 'text', [
+        $builder->add('first_name', TextType::class, [
                 'required' => false,
             ])
-            ->add('middle_name', 'text', [
+            ->add('middle_name', TextType::class, [
                 'required' => false,
             ])
-            ->add('last_name', 'text', [
+            ->add('last_name', TextType::class, [
                 'required' => false,
             ])
-            ->add('street', 'text', ['required' => false])
-            ->add('city', 'text', ['required' => false])
+            ->add('street', TextType::class, ['required' => false])
+            ->add('city', TextType::class, ['required' => false])
             ->add('state', EntityType::class, [
                 'class' => 'App\\Entity\\State',
                 'label' => 'State',
                 'placeholder' => 'Select a State',
                 'required' => true,
             ])
-            ->add('zip', 'text', ['required' => false])
+            ->add('zip', TextType::class, ['required' => false])
             ->add('is_different_address', 'checkbox', [
                 'label' => 'Is your mailing address different than the one above?',
                 'required' => false,
             ])
-            ->add('mailing_street', 'text', ['required' => false])
-            ->add('mailing_city', 'text', ['required' => false])
+            ->add('mailing_street', TextType::class, ['required' => false])
+            ->add('mailing_city', TextType::class, ['required' => false])
             ->add('mailingState', EntityType::class, [
                 'class' => 'App\\Entity\\State',
                 'label' => 'Mailing state',
                 'placeholder' => 'Select a State',
                 'required' => false,
             ])
-            ->add('mailing_zip', 'text', ['required' => false])
-            ->add('birth_date', 'date', [
+            ->add('mailing_zip', TextType::class, ['required' => false])
+            ->add('birth_date', DateType::class, [
                 'widget' => 'single_text',
                 'format' => 'MM-dd-yyyy',
                 'required' => true,
                 'attr' => ['class' => 'jq-date input-small'],
             ])
-            ->add('phone_number', 'text', ['required' => false])
-            ->add('email', 'text', ['required' => true]);
+            ->add('phone_number', TextType::class, ['required' => false])
+            ->add('email', TextType::class, ['required' => true]);
 
         parent::buildForm($builder, $options);
     }

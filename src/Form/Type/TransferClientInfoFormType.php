@@ -33,7 +33,7 @@ class TransferClientInfoFormType extends TransferBasicFormType
 
         $factory = $builder->getFormFactory();
         $updateSsn = function (FormInterface $form, $ssn) use ($factory) {
-            $form->add($factory->createNamed('ssn', 'text', null, [
+            $form->add($factory->createNamed('ssn', TextType::class, null, [
                 'required' => false,
                 'mapped' => false,
                 'attr' => ['value' => $ssn],

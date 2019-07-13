@@ -28,7 +28,7 @@ class RegistrationStepOneFormType extends RiaCustodianFormType
                 'expanded' => true,
             ])
             ->add('documents', RiaDocumentsFormType::class, ['mapped' => false])
-            ->add('signature', 'text', ['mapped' => false]);
+            ->add('signature', TextType::class, ['mapped' => false]);
 
         $builder->addEventListener(FormEvents::SUBMIT, function (FormEvent $event) {
             $form = $event->getForm();

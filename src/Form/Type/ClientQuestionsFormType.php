@@ -8,6 +8,7 @@
 namespace App\Form\Type;
 
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use App\Form\Type\RiskQuestionsFormType as BaseType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -31,7 +32,7 @@ class ClientQuestionsFormType extends BaseType
 
         foreach ($this->questions as $question) {
             if ($question->getIsWithdrawAgeInput()) {
-                $builder->add('answer_'.$question->getId(), 'text', [
+                $builder->add('answer_'.$question->getId(), TextType::class, [
                     'label' => $question->getTitle(),
                     'mapped' => false,
                     'required' => false,

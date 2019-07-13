@@ -59,7 +59,7 @@ class BeneficiaryFormType extends AbstractType
         $showSsn = $this->showSsn;
 
         $updateSsn = function (FormInterface $form, $ssn) use ($factory) {
-            $form->add($factory->createNamed('ssn_1', 'text', null, [
+            $form->add($factory->createNamed('ssn_1', TextType::class, null, [
                     'mapped' => false,
                     'auto_initialize' => false,
                     'attr' => ['value' => $ssn[1]],
@@ -74,7 +74,7 @@ class BeneficiaryFormType extends AbstractType
                         ]),
                     ],
                 ]))
-                ->add($factory->createNamed('ssn_2', 'text', null, [
+                ->add($factory->createNamed('ssn_2', TextType::class, null, [
                     'mapped' => false,
                     'auto_initialize' => false,
                     'attr' => ['value' => $ssn[2]],
@@ -89,7 +89,7 @@ class BeneficiaryFormType extends AbstractType
                         ]),
                     ],
                 ]))
-                ->add($factory->createNamed('ssn_3', 'text', null, [
+                ->add($factory->createNamed('ssn_3', TextType::class, null, [
                     'mapped' => false,
                     'auto_initialize' => false,
                     'attr' => ['value' => $ssn[3]],
@@ -97,8 +97,8 @@ class BeneficiaryFormType extends AbstractType
                         new NotBlank(['message' => 'Can not be blank.']),
                         new Regex(['pattern' => '/^\d+$/', 'message' => 'Must be number.']),
                         new Length([
-                            'min' => 4,
-                            'max' => 4,
+                            'min' => 3,
+                            'max' => 3,
                             'minMessage' => 'Must have {{ limit }} digits.',
                             'maxMessage' => 'Must have {{ limit }} digits.',
                         ]),

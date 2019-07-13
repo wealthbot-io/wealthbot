@@ -206,8 +206,8 @@ class HouseholdPersonalSettingsFormType extends AbstractType
                     new NotBlank(['message' => 'Can not be blank.']),
                     new Regex(['pattern' => '/^\d+$/', 'message' => 'Must be a number.']),
                     new Length([
-                        'min' => 3,
-                        'max' => 3,
+                        'min' => 4,
+                        'max' => 4,
                         'minMessage' => 'SSN should be in the format: ### - ## - ####.',
                         'maxMessage' => 'SSN should be in the format: ### - ## - ####.',
                         'exactMessage' => 'SSN should be in the format: ### - ## - ####.',

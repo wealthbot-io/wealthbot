@@ -37,7 +37,7 @@ class ClientController extends Controller
                 $ria = $riaCompanyInformation->getRia();
             }
         } else {
-            $ria = $repository->find(141);
+            $ria = $repository->find(5);
         }
 
         if (!$ria || !$ria->hasRole('ROLE_RIA')) {

@@ -18,19 +18,7 @@
             <div class="form-group row">
                 <div class="span">
                     {{ form_label(bank_field, 'Current bank(s) on file:', { 'label_attr': {'class': 'control-label'}}) }}
-                    <div class="controls">
-                        {% for radio in bank_field %}
-                            <div class="bank-item">
-                                <label for="{{ radio.vars.id }}">
-                                    {% if is_one_bank %}
-                                        {{ form_widget(radio, { 'attr': { 'checked': 'checked' } }) }}
-                                    {% else %}
-                                        {{ form_widget(radio) }}
-                                    {% endif %}
-                                    {{ radio.vars.label }}
-                                </label>
-                            </div>
-                        {% endfor %}
+                    {{ form_widget(bank_field) }}
                     </div>
                 </div>
             </div>

@@ -33,13 +33,14 @@ services:
     wealthbot_docusign.api_client:
         class: "%wealthbot_docusign.api_client.class%"
         arguments: ["%wealthbot_docusign.connection%", "@session"]
-
+        public: true
     wealthbot_docusign.electronic_signature_service:
         class: App\Service\ElectronicSignatureService
         arguments: ["@wealthbot_docusign.api_client", "@wealthbot_docusign.document_signature.manager", "@wealthbot_docusign.account_docusign.manager", "%wealthbot_docusign.templates%"]
-
+        public: true
     wealthbot_user.twig.signature_extension:
         class: App\Twig\SignatureTwigExtension
         arguments: ["@wealthbot_docusign.document_signature.manager"]
         tags:
             - { name: twig.extension }
+        public: true

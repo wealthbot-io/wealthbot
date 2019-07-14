@@ -1152,7 +1152,12 @@ class DashboardController extends Controller
         try {
             /** @var $contributionFormFactory AccountContributionFormFactory */
             $contributionFormFactory = $this->get('wealthbot_client.contribution_form_factory');
-            $form = $contributionFormFactory->create($action, $account);
+            $form = $contributionFormFactory->create($action, $account,[
+                'em' => $em,
+                'account' => $account,
+                'isPreSaved' => true,
+                'subscriber' => null
+            ]);
         } catch (\Exception $e) {
             return $this->json([
                 'status' => 'error',

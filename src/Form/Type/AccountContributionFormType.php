@@ -10,6 +10,7 @@
 namespace App\Form\Type;
 
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class AccountContributionFormType extends TransferFundingFormType
 {
@@ -19,5 +20,15 @@ class AccountContributionFormType extends TransferFundingFormType
 
         $builder->remove('type');
         $builder->remove('transaction_frequency');
+    }
+
+    public function configureOptions(OptionsResolver $resolver)
+    {
+       $resolver->setDefaults([
+           'em' => null,
+           'account' => null,
+           'isPreSaved' => null,
+           'subscriber' => null
+       ]);
     }
 }

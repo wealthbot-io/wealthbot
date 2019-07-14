@@ -17,6 +17,7 @@ App\Entity\OneTimeContribution:
         type:
             type: string
             length: 255
+            nullable: true
         start_transfer_date:
             type: date
             nullable: true

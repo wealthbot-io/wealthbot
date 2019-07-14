@@ -18,7 +18,11 @@
             <div class="form-group row">
                 <div class="span">
                     {{ form_label(bank_field, 'Current bank(s) on file:', { 'label_attr': {'class': 'control-label'}}) }}
-                    {{ form_widget(bank_field) }}
+                    <div class="row">
+                        <div class="col-1"></div>
+                        <div class="col-11">
+                        {{ form_widget(bank_field) }}
+                        </div>
                     </div>
                 </div>
             </div>
@@ -40,6 +44,7 @@
             <h5>Transfer Information</h5>
             <div class="well clearfix">
                 <div class="form-inline clearfix">
+                    {% if form.start_transfer_date_month is defined %}
                     <div class="span">
                         <label>Start of transfer:</label>
                         {{ form_errors(form.start_transfer_date_month) }}
@@ -47,11 +52,16 @@
                         {{ form_widget(form.start_transfer_date_month, { 'attr': { 'class': 'input-mini', 'placeholder': 'MM' } }) }}
                         {{ form_widget(form.start_transfer_date_day, { 'attr': { 'class': 'input-mini', 'placeholder': 'DD' } }) }}
                     </div>
+                    {% endif %}
+
+
                     <div class="span">
                         {{ form_label(form.amount, 'Amount:') }}
                         {{ form_errors(form.amount) }}
                         <div class="input-group">
-                            <span class="input-group-addon">$</span>
+                            <span class="input-group-prepend">
+                               <span class="input-group-text">$</span>
+                            </span>
                             {{ form_widget(form.amount, { 'attr': { 'class': 'input-medium auto-numeric' } }) }}
                         </div>
                     </div>
@@ -64,6 +74,7 @@
                         </div>
                     {% endif %}
                 </div>
+                {% if form.transaction_frequency is defined %}
                 <div class="clearfix">
                     <div class="col-12 clearfix">
                         {{ form_label(form.transaction_frequency, 'Frequency of transaction:') }}
@@ -89,6 +100,7 @@
 
                 </div>
             </div>
+            {% endif %}
             <p>
                 Transfers will take place on the same day as the start date, each quarter, month, or every other week as you have selected.
             </p>

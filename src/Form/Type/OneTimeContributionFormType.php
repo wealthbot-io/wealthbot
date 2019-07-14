@@ -107,11 +107,4 @@ class OneTimeContributionFormType extends AccountContributionFormType
             }
         }
     }
-
-    public function configureOptions(OptionsResolver $resolver)
-    {
-        $resolver->setDefaults([
-            'data_class' => 'App\Entity\OneTimeContribution',
-        ]);
-    }
 }

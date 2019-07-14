@@ -702,7 +702,6 @@ font-size: 14px !important;}
 }
 .def-form input[type="checkbox"],
 .def-form input[type="radio"]{
-    margin: 0 5px 0 0;
     vertical-align: text-top;
 }
 .def-form label{

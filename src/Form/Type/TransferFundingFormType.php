@@ -39,14 +39,15 @@ class TransferFundingFormType extends AbstractType
         $this->subscriber = $options['subscriber'];
         $this->isPreSaved = $options['isPreSaved'];
 
+        //dump($this->account);
         $client = $this->account->getClient();
 
         // Array of types without TYPE_DISTRIBUTING
         $typeChoices = [
-            AccountContribution::TYPE_FUNDING_BANK => 'Bank Transfer',
-            AccountContribution::TYPE_FUNDING_MAIL => 'Mail Check',
-            AccountContribution::TYPE_FUNDING_WIRE => 'Wire Transfer',
-            AccountContribution::TYPE_NOT_FUNDING => 'I will not be funding my account at this time',
+            'Bank Transfer' =>  AccountContribution::TYPE_FUNDING_BANK,
+            'Mail Check' => AccountContribution::TYPE_FUNDING_MAIL,
+            'Wire Transfer' => AccountContribution::TYPE_FUNDING_WIRE,
+            'I will not be funding my account at this time' => AccountContribution::TYPE_NOT_FUNDING,
         ];
 
         // Array of transaction_frequency values
@@ -67,7 +68,6 @@ class TransferFundingFormType extends AbstractType
             ])
             ->add('type', ChoiceType::class, [
                 'choices' => $typeChoices,
-                'expanded' => true,
                 'multiple' => false,
                 'required' => false,
                 'auto_initialize' => false,
@@ -79,7 +79,6 @@ class TransferFundingFormType extends AbstractType
             ])
             ->add('transaction_frequency', ChoiceType::class, [
                 'choices' => $frequencyTransactionChoices,
-                'expanded' => true,
                 'multiple' => false,
                 'required' => false,
                 'auto_initialize' => false,

@@ -25,10 +25,10 @@ class BaseContribution implements PaymentWorkflowableInterface
     const TRANSACTION_FREQUENCY_QUARTERLY = 4;
 
     private static $_transactionFrequencies = [
-        self::TRANSACTION_FREQUENCY_ONE_TIME => 'One-time',
-        self::TRANSACTION_FREQUENCY_EVERY_OTHER_WEEK => 'Every other week',
-        self::TRANSACTION_FREQUENCY_MONTHLY => 'Monthly',
-        self::TRANSACTION_FREQUENCY_QUARTERLY => 'Quarterly',
+        'One-time' => self::TRANSACTION_FREQUENCY_ONE_TIME,
+        'Every other week' => self::TRANSACTION_FREQUENCY_EVERY_OTHER_WEEK,
+        'Monthly' => self::TRANSACTION_FREQUENCY_MONTHLY,
+        'Quarterly' => self::TRANSACTION_FREQUENCY_QUARTERLY,
     ];
 
     /**

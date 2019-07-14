@@ -26,15 +26,21 @@ class TransferFundingDistributingFormType extends AbstractType
     private $hasDistributing;
     private $isPreSaved;
 
+
+    public function __construct()
+    {
+
+        $this->em = $this->getOption('em');
+        $this->account = $this->getOption('account');
+        $this->isPreSaved = $this->getOption('isPreSaved');
+        $this->hasFunding = $this->account->hasFunding();
+        $this->hasDistributing = $this->account->hasDistributing();
+
+
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->addEventListener(FormEvents::POST_SET_DATA, function (FormEvent $event) {
-            $this->em = get_class($event->getForm()->getConfig()->getOption('em'));
-            $this->account = get_class($event->getForm()->getConfig()->getOption('account'));
-            $this->isPreSaved = get_class($event->getForm()->getConfig()->getOption('isPreSaved'));
-            $this->hasFunding = $this->account->hasFunding();
-            $this->hasDistributing = $this->account->hasDistributing();
-        });
 
         $adm = new AccountDocusignManager($this->em, 'Entity\ClientAccountDocusign');
 
@@ -48,7 +54,7 @@ class TransferFundingDistributingFormType extends AbstractType
                 'funding',
                 TransferFundingFormType::class,
                 [
-                    'em'=>$this->em,
+                    'em'=> $this->em,
                     'account' => $this->account,
                     'subscriber'=> $subscriber,
                     'isPreSaved'=> $this->isPreSaved

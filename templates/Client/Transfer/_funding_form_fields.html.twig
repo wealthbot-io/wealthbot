@@ -9,8 +9,8 @@
 {% endmacro %}
 
 {% macro bank_info_fields(form) %}
-    {% set bank_field = form.bankInformation ?  form.bankInformation : null %}
-    {% set is_one_bank = (form.vars.data and not form.vars.data.bankInformation and form.bankInformation|length == 1) ? true : false %}
+    {% set bank_field = form.bankInformation is defined ?  form.bankInformation : null %}
+    {% set is_one_bank = (form.vars.data and form.bankInformation is defined and not form.vars.data.bankInformation and form.bankInformation|length == 1) ? true : false %}
 
     {% block bank_info %}
 

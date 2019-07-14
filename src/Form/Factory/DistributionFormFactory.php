@@ -45,66 +45,22 @@ class DistributionFormFactory
      */
     public function create($type, SystemAccount $account, array $options = [])
     {
-        if (!array_key_exists($type, Distribution::getTypeChoices())) {
-            throw new \InvalidArgumentException(sprintf('Invalid value for type argument: %s', $type));
-        }
-
-        $formType = $this->buildFormType($type, $account);
-        $formData = $this->buildFormData($type, $account);
-
-        return $this->factory->create($formType, $formData, $options);
-    }
-
-    /**
-     * Build distribution form type.
-     *
-     * @param string        $type
-     * @param SystemAccount $account
-     *
-     * @return ScheduledDistributionFormType
-     *
-     * @throws \InvalidArgumentException
-     */
-    private function buildFormType($type, SystemAccount $account)
-    {
-        switch ($type) {
-            case Distribution::TYPE_SCHEDULED:
-                $subscriber = new ScheduledDistributionFormEventSubscriber($this->factory);
-                $formType = ScheduledDistributionFormType::class;//($account, $subscriber);
-                break;
-            case Distribution::TYPE_ONE_TIME:
-                $subscriber = new OneTimeDistributionFormEventSubscriber($this->factory);
-                $formType = OneTimeDistributionFormType::class;///($account, $subscriber);
-                break;
-            default:
-                throw new \InvalidArgumentException(sprintf('Invalid value for type argument: %s', $type));
-                break;
-        }
-
-        return $formType;
-    }
-
-    private function buildFormData($type, SystemAccount $account)
-    {
         $existDistribution = $this->manager->getScheduledDistribution($account);
 
-        switch ($type) {
-            case Distribution::TYPE_ONE_TIME:
-                $data = $this->buildOneTimeDistributionData($account, $existDistribution);
-                break;
-            case Distribution::TYPE_SCHEDULED:
-                if ($existDistribution) {
-                    $data = $existDistribution;
-                } else {
-                    $data = $this->buildScheduledDistributionData($account);
-                }
-                break;
-            default:
-                throw new \InvalidArgumentException(sprintf('Invalid value for type argument: %s', $type));
-                break;
-        }
+        if ($type === Distribution::TYPE_SCHEDULED) {
+            $data = $this->buildScheduledDistributionData($account);
+            $subscriber = new ScheduledDistributionFormEventSubscriber($this->factory);
+            $formType = ScheduledDistributionFormType::class;
+        } else {
+            $data = $this->buildOneTimeDistributionData($account, $existDistribution);
+            $subscriber = new OneTimeDistributionFormEventSubscriber($this->factory);
+            $formType = OneTimeDistributionFormType::class;
+        };
 
-        return $data;
+        return $this->factory->create($formType, $data, [
+            'client' => $account->getClient(),
+            'subscriber' => $subscriber
+        ]);
     }
 
     /**

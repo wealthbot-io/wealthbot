@@ -18,10 +18,15 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class OneTimeDistributionFormType extends AbstractType
 {
+
+    private $subscriber;
+
+
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $client = $options['client'];
-
+        $this->subscriber = $options['subscriber'];
 
         $builder->add('amount', MoneyType::class, [
             'attr' => ['class' => 'input-mini'],
@@ -40,13 +45,18 @@ class OneTimeDistributionFormType extends AbstractType
             'multiple' => false,
             'required' => false,
         ]);
+
+        if (!is_null($this->subscriber)) {
+            $builder->addEventSubscriber($this->subscriber);
+        }
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
             'data_class' => 'App\Entity\Distribution',
-            'client' => null
+            'client' => null,
+            'subscriber' => null
         ]);
     }
 

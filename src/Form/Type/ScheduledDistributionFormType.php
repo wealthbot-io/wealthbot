@@ -25,10 +25,12 @@ use App\Entity\Distribution;
 class ScheduledDistributionFormType extends AbstractType
 {
     protected $factory;
+    protected $subscriber;
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $client = $options['client'];
+        $this->subscriber = $options['subscriber'];
 
         $distribution = $builder->getData();
         if (null === $distribution->getFrequency()) {
@@ -63,6 +65,10 @@ class ScheduledDistributionFormType extends AbstractType
                  'required' => false,
              ]);
 
+
+        if (!is_null($this->subscriber)) {
+            $builder->addEventSubscriber($this->subscriber);
+        }
         $builder->addEventListener(FormEvents::PRE_SET_DATA, [$this, 'onPreSetData']);
         $builder->addEventListener(FormEvents::SUBMIT, [$this, 'onSubmitData']);
     }
@@ -131,7 +137,8 @@ class ScheduledDistributionFormType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => 'App\Entity\Distribution',
-            'client' => null
+            'client' => null,
+            'subscriber' => null
         ]);
     }
 

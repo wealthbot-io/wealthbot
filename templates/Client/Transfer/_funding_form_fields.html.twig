@@ -26,7 +26,6 @@
                                     {% else %}
                                         {{ form_widget(radio) }}
                                     {% endif %}
-                                    {{ radio.vars.label }}
                                 </label>
                             </div>
                         {% endfor %}
@@ -51,6 +50,7 @@
             <h5>Transfer Information</h5>
             <div class="well clearfix">
                 <div class="form-inline clearfix">
+                    {% if form.start_transfer_date_month is defined %}
                     <div class="span">
                         <label>Start of transfer:</label>
                         {{ form_errors(form.start_transfer_date_month) }}
@@ -58,6 +58,7 @@
                         {{ form_widget(form.start_transfer_date_month, { 'attr': { 'class': 'input-mini', 'placeholder': 'MM' } }) }}
                         {{ form_widget(form.start_transfer_date_day, { 'attr': { 'class': 'input-mini', 'placeholder': 'DD' } }) }}
                     </div>
+                    {% endif %}
                     <div class="span">
                         {{ form_label(form.amount, 'Amount:') }}
                         {{ form_errors(form.amount) }}
@@ -75,30 +76,17 @@
                         </div>
                     {% endif %}
                 </div>
+                {% if form.transaction_frequency is defined %}
                 <div class="clearfix">
                     <div class="col-12 clearfix">
                         {{ form_label(form.transaction_frequency, 'Frequency of transaction:') }}
                         {{ form_errors(form.transaction_frequency) }}
                     </div>
 
-                    {% if form.transaction_frequency|length > 4 %}
-                        <div class="col-3">
-                        {% for radio in form.transaction_frequency %}
-                            {% if (loop.index == 5) or (loop.index == 9) %}
-                                </div><div class="col-3">
-                            {% endif %}
-                            <label for="{{ radio.vars.id }}" class="radio">{{ form_widget(radio) }}{{ radio.vars.label }}</label>
-                        {% endfor %}
-                        </div>
-                    {% else %}
-                        <div class="inline-radio clearfix">
-                            {% for radio in form.transaction_frequency %}
-                                <div class="span"><label for="{{ radio.vars.id }}">{{ form_widget(radio) }}{{ radio.vars.label }}</label></div>
-                            {% endfor %}
-                        </div>
-                    {% endif %}
+                    {{ form_widget(form.transaction_frequency) }}
 
                 </div>
+                {% endif %}
             </div>
             <p>
                 Transfers will take place on the same day as the start date, each quarter, month, or every other week as you have selected.

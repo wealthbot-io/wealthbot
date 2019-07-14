@@ -8,6 +8,7 @@
 
 namespace App\Form\Type;
 
+use App\Entity\AccountContribution;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -27,8 +28,24 @@ class ScheduledDistributionFormType extends AbstractType
     protected $factory;
     protected $subscriber;
 
+
+    protected function getChoicesForTransactionFrequency()
+    {
+        $transactionFrequencyChoices = AccountContribution::getTransactionFrequencyChoices();
+
+        return $transactionFrequencyChoices;
+    }
+
+
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+
+        // Array of transaction_frequency values
+        $frequencyTransactionChoices = $this->getChoicesForTransactionFrequency();
+
+
+
         $client = $options['client'];
         $this->subscriber = $options['subscriber'];
 
@@ -40,7 +57,6 @@ class ScheduledDistributionFormType extends AbstractType
 
         $builder
             ->add('frequency', ChoiceType::class, [
-                'expanded' => false,
                 'label' => 'Frequency of transaction: ',
                 'choices' => Distribution::getFrequencyChoices(),
             ])
@@ -64,6 +80,13 @@ class ScheduledDistributionFormType extends AbstractType
                  'multiple' => false,
                  'required' => false,
              ]);
+
+               $builder->add('frequency', ChoiceType::class, [
+                    'choices' => $frequencyTransactionChoices,
+                    'multiple' => false,
+                    'required' => false,
+                    'auto_initialize' => false,
+                ]);
 
 
         if (!is_null($this->subscriber)) {

@@ -23,28 +23,7 @@
         </div>
         {% if form.frequency is defined %}
             <div class="clearfix">
-                <div class="col-12 clearfix">
-                    {{ form_label(form.frequency, 'Frequency of transaction: ') }}
-                    {{ form_errors(form.frequency) }}
-                </div>
-
-                {% if form.frequency|length > 4 %}
-                    <div class="col-3">
-                    {% for radio in form.frequency %}
-                        {% if (loop.index == 5) or (loop.index == 9) %}
-                            </div><div class="col-3">
-                        {% endif %}
-                        <label for="{{ radio.vars.id }}">{{ form_widget(radio) }}{{ radio.vars.id }}</label>
-                    {% endfor %}
-                    </div>
-                {% else %}
-                    <div class="inline-radio clearfix">
-                        {% for radio in form.frequency %}
-                            <div class="span"><label for="{{ radio.vars.id }}">{{ form_widget(radio) }}{{ radio.vars.id }}</label></div>
-                        {% endfor %}
-                    </div>
-                {% endif %}
-
+                {{ form_widget(form.frequency) }}
             </div>
         {% endif %}
     </div>
@@ -91,7 +70,6 @@
 
                             {{ form_errors(form.federal_withhold_money) }}
                             <div class="input-group">
-                                <span class="input-group-addon">$</span>
                                 {{ form_widget(form.federal_withhold_money, {'attr': {'class': 'input-mini auto-numeric'} }) }}
                             </div>
                             (not less then 10% of total distribution)
@@ -123,7 +101,6 @@
 
                                 {{ form_errors(form.state_withhold_money) }}
                                 <div class="input-group">
-                                    <span class="input-group-addon">$</span>
                                     {{ form_widget(form.state_withhold_money, {'attr': {'class': 'input-mini auto-numeric'} }) }}
                                 </div>
                                 (not less then 10% of total distribution)

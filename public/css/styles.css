@@ -2868,3 +2868,7 @@ a.disabled:hover {
 .modal-header .close {
     margin: 0px 0px !important;
 }
+
+.distribution-form-bank-info-fields {
+    padding-left: 30px !important;
+}

@@ -120,7 +120,7 @@
                             </a>
                         </td>
                         <td>{{ client_document.isApplication ? 'Applications' : 'Document' }}</td>
-                        <td>{{ client_document.owner.hasRole('ROLE_RIA') ? 'Advisor' : 'Client' }}</td>
+                        <td>{{ client_document.owner is not null  and client_document.owner.hasRole('ROLE_RIA') ? 'Advisor' : 'Client' }}</td>
                         <td>{{ client_document.created|date('m/d/Y') }}</td>
                         <td>
                             {% if not client_document.isApplication %}

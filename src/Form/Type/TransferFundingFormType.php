@@ -39,7 +39,6 @@ class TransferFundingFormType extends AbstractType
         $this->subscriber = $options['subscriber'];
         $this->isPreSaved = $options['isPreSaved'];
 
-        //dump($this->account);
         $client = $this->account->getClient();
 
         // Array of types without TYPE_DISTRIBUTING

@@ -604,9 +604,6 @@ class DashboardController extends Controller
 
         $riaDocuments = array_merge($riaDocuments, $clientDocuments);
 
-
-        dump($riaDocuments);
-
         $clientDocumentUploadForm = $this->createForm(ClientDocumentFormType::class, null, [
             'is_client_view' => $this->isRiaClientView()
     ]);

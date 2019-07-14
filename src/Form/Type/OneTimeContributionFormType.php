@@ -9,6 +9,7 @@
 
 namespace App\Form\Type;
 
+use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -17,6 +18,11 @@ use App\Form\Validator\BankInformationFormValidator;
 
 class OneTimeContributionFormType extends AccountContributionFormType
 {
+    public function buildForm(FormBuilderInterface $builder, array $options)
+    {
+        parent::buildForm($builder, $options);
+    }
+
     protected function updateData(FormInterface $form, $data)
     {
         if (OneTimeContribution::TYPE_FUNDING_BANK !== $data->getType()) {

@@ -63,7 +63,9 @@
                         {{ form_label(form.amount, 'Amount:') }}
                         {{ form_errors(form.amount) }}
                         <div class="input-group">
-                            <span class="input-group-addon">$</span>
+                            <span class="input-group-prepend">
+                                <span class="input-group-text">$</span>
+                            </span>
                             {{ form_widget(form.amount, { 'attr': { 'class': 'input-medium auto-numeric' } }) }}
                         </div>
                     </div>
@@ -83,6 +85,7 @@
                         {{ form_errors(form.transaction_frequency) }}
                     </div>
 
+                    {{ dump(form.transaction_frequency) }}
                     {{ form_widget(form.transaction_frequency) }}
 
                 </div>

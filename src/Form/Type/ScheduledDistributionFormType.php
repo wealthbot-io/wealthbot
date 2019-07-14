@@ -57,8 +57,10 @@ class ScheduledDistributionFormType extends AbstractType
 
         $builder
             ->add('frequency', ChoiceType::class, [
-                'label' => 'Frequency of transaction: ',
+                'label' => false,
+                'placeholder' => 'None of all',
                 'choices' => Distribution::getFrequencyChoices(),
+                'labels'=>false,
             ])
             ->add(
                 'amount',

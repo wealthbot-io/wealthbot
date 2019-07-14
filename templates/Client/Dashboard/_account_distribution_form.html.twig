@@ -13,17 +13,25 @@
                     {{ form_widget(form.transfer_date_day, { 'attr': { 'class': 'input-mini margin-left-5', 'placeholder': 'DD' } }) }}
                 </div>
             {% endif %}
-            <div>
+
                 {{ form_label(form.amount, 'Amount: ') }}
                 {{ form_errors(form.amount) }}
                 <div class="input-group padding-left-10">
                     {{ form_widget(form.amount, { 'attr': { 'class': 'input-mini auto-numeric' } }) }}
                 </div>
-            </div>
+
         </div>
         {% if form.frequency is defined %}
-            <div class="clearfix">
-                {{ form_widget(form.frequency) }}
+            <div class="span">
+                <div class="col-12 clearfix">
+                    {{ form_label(form.frequency, 'Frequency of transaction: ') }}
+                </div>
+                <select class="form-control col-3" name="{{ form.vars.name }}_{{ form.frequency.vars.name }}">
+                    {% for radio in form.frequency %}
+                        <option id="{{ radio.vars.id }}" value="{{ radio.vars.name }}">{{ radio.vars.value }}</option>
+                    {% endfor %}
+                </select>
+
             </div>
         {% endif %}
     </div>

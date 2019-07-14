@@ -47,40 +47,34 @@ class AmeritradeManager {
 
 
     public function createAccount(){
+       // PUT //accounts/{accountId}/preferences
+    }
 
+
+    public function getAccounts(){
+       //GET //accounts
     }
 
 
     public function getAccount(){
-
+       // GET //accounts/{accountId}
     }
-
-
-    public function editAccount(){
-
-    }
-
-
-    public function deleteAccount(){
-
-    }
-
 
 
     public function placeOrder(){
-
+      //POST  //accounts/{accountId}/orders
     }
 
 
 
     public function getOrder(){
-
+       //GET //accounts/{accountId}/orders/{orderId}
     }
 
 
 
     public function cancelOrder(){
-
+       //DELETE //accounts/{accountId}/orders/{orderId}
     }
 
 }

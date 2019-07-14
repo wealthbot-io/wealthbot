@@ -12,8 +12,6 @@ $(function(){
                 form.replaceWith(response.form);
 
                 init();
-            },
-            complete: function() {
                 btn.button('reset');
             }
         };
@@ -32,9 +30,6 @@ $(function(){
         $(form).ajaxSubmit({
             target:  form.closest('.tab-pane'),
             success: function(responseText, statusText, xhr, $form){
-
-            },
-            complete: function() {
                 $(".btn").button('reset');
             }
         });
@@ -73,8 +68,7 @@ $(function(){
                 if (response.status == 'error') {
                     alert('Error: ' + response.content);
                 }
-            },
-            complete: function() {
+
                 $('.ajax-loader').remove();
             }
         });

@@ -1273,7 +1273,9 @@ class DashboardController extends Controller
             /** @var $formFactory DistributionFormFactory */
             $formFactory = $this->get('wealthbot_client.distribution_form_factory');
             /** @var Form $form */
-            $form = $formFactory->create($type, $account);
+            $form = $formFactory->create($type, $account,[
+                'client' => $client
+            ]);
         } catch (\Exception $e) {
             return $this->json([
                 'status' => 'error',

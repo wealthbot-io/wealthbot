@@ -17,7 +17,6 @@
                 {{ form_label(form.amount, 'Amount: ') }}
                 {{ form_errors(form.amount) }}
                 <div class="input-group padding-left-10">
-                    <span class="input-group-addon">$</span>
                     {{ form_widget(form.amount, { 'attr': { 'class': 'input-mini auto-numeric' } }) }}
                 </div>
             </div>
@@ -35,13 +34,13 @@
                         {% if (loop.index == 5) or (loop.index == 9) %}
                             </div><div class="col-3">
                         {% endif %}
-                        <label for="{{ radio.vars.id }}">{{ form_widget(radio) }}{{ radio.vars.label }}</label>
+                        <label for="{{ radio.vars.id }}">{{ form_widget(radio) }}{{ radio.vars.id }}</label>
                     {% endfor %}
                     </div>
                 {% else %}
                     <div class="inline-radio clearfix">
                         {% for radio in form.frequency %}
-                            <div class="span"><label for="{{ radio.vars.id }}">{{ form_widget(radio) }}{{ radio.vars.label }}</label></div>
+                            <div class="span"><label for="{{ radio.vars.id }}">{{ form_widget(radio) }}{{ radio.vars.id }}</label></div>
                         {% endfor %}
                     </div>
                 {% endif %}
@@ -151,7 +150,7 @@
             <h4>How would you like to receive money from this account?</h4>
         {% endif %}
         {% for radio in form.transfer_method %}
-            <label for="{{ radio.vars.id }}">{{ form_widget(radio, { 'attr': { 'class': 'distribution-type-radio' } }) }}{{ radio.vars.label }}</label>
+            <label for="{{ radio.vars.id }}">{{ form_widget(radio, { 'attr': { 'class': 'distribution-type-radio' } }) }}</label>
 
             {% if radio.vars.value == 'receive_check' %}
                 <div id="receive_check" class="inner-ch">

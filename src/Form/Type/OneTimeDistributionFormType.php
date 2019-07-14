@@ -8,6 +8,9 @@
 
 namespace App\Form\Type;
 
+use Doctrine\ORM\EntityRepository;
+use Nette\Neon\Entity;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -17,10 +20,25 @@ class OneTimeDistributionFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $client = $options['client'];
+
+
         $builder->add('amount', MoneyType::class, [
             'attr' => ['class' => 'input-mini'],
             'currency' => 'USD',
             'label' => 'One Time Distribution',
+        ]);
+
+        $builder->add('bankInformation', EntityType::class, [
+            'class' => 'App\\Entity\\BankInformation',
+            'query_builder' => function (EntityRepository $er) use ($client) {
+                return $er->createQueryBuilder('bi')
+                    ->where('bi.client_id = :client_id')
+                    ->setParameter('client_id', $client->getId());
+            },
+            'expanded' => true,
+            'multiple' => false,
+            'required' => false,
         ]);
     }
 
@@ -28,6 +46,7 @@ class OneTimeDistributionFormType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => 'App\Entity\Distribution',
+            'client' => null
         ]);
     }
 

@@ -8,6 +8,8 @@
 
 namespace App\Form\Type;
 
+use Doctrine\ORM\EntityRepository;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
@@ -26,15 +28,17 @@ class ScheduledDistributionFormType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $client = $options['client'];
+
         $distribution = $builder->getData();
         if (null === $distribution->getFrequency()) {
             $distribution->setFrequency(Distribution::FREQUENCY_EVERY_OTHER_WEEK);
-        }
+        };
         $this->factory = $builder->getFormFactory();
 
         $builder
             ->add('frequency', ChoiceType::class, [
-                'expanded' => true,
+                'expanded' => false,
                 'label' => 'Frequency of transaction: ',
                 'choices' => Distribution::getFrequencyChoices(),
             ])
@@ -45,8 +49,19 @@ class ScheduledDistributionFormType extends AbstractType
                 'attr' => ['class' => 'input-mini'],
                 'currency' => 'USD',
                 'label' => 'Amount: ',
-            ]
-        );
+            ]);
+
+             $builder->add('bankInformation', EntityType::class, [
+                 'class' => 'App\\Entity\\BankInformation',
+                 'query_builder' => function (EntityRepository $er) use ($client) {
+                     return $er->createQueryBuilder('bi')
+                         ->where('bi.client_id = :client_id')
+                         ->setParameter('client_id', $client->getId());
+                 },
+                 'expanded' => true,
+                 'multiple' => false,
+                 'required' => false,
+             ]);
 
         $builder->addEventListener(FormEvents::PRE_SET_DATA, [$this, 'onPreSetData']);
         $builder->addEventListener(FormEvents::SUBMIT, [$this, 'onSubmitData']);
@@ -116,6 +131,7 @@ class ScheduledDistributionFormType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => 'App\Entity\Distribution',
+            'client' => null
         ]);
     }
 

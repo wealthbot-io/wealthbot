@@ -3,7 +3,7 @@
 {% block body %}
 <div class="container-fluid">
     <div class="flex-row d-flex align-items-center align-content-center justify-content-center mt-5">
-        <form action="{{ path("rx_ria_register") }}" method="post" class="regRia-form">
+        <form action="{{ path("rx_ria_register") }}" method="post" class="regRia-form col-6">
             <div style="padding: 10px 10px 0px 10px">
                         {{ form_widget(form) }}
                         {{ form_rest(form) }}
@@ -13,10 +13,12 @@
                 </p>
             </div>
         </form>
+
+        <div class="col-6">
+            <div class="center-text logo-ce"><img style="width: 600px;" src="/img/logo.png" alt=""/></div>
+        </div>
     </div>
 
-    <div class="col-8">
-        <div class="center-text logo-ce"><img style="width: 600px;" src="/img/logo.png" alt=""/></div>
-    </div>
+
 </div>
 {% endblock %}

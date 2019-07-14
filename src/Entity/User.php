@@ -150,6 +150,11 @@ class User extends BaseUser implements ActivityInterface
     private $answers;
 
     /**
+     * @var
+     */
+    private $ameritradeKey;
+
+    /**
      * Constructor.
      */
     public function __construct()
@@ -1422,4 +1427,23 @@ class User extends BaseUser implements ActivityInterface
     public function getAnswers(){
         return $this->answers;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getAmeritradeKey()
+    {
+        return $this->ameritradeKey;
+    }
+
+    /**
+     * @param mixed $ameritradeKey
+     */
+    public function setAmeritradeKey($ameritradeKey): void
+    {
+        $this->ameritradeKey = $ameritradeKey;
+    }
+
+
+
 }

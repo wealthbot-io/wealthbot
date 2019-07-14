@@ -1,0 +1,7 @@
+parameters:
+  ameritrade.class: "App\\Manager\\Ameritrade"
+services:
+  ameritrade:
+    class: "%ameritrade.class%"
+    arguments: ["GuzzleHttp\\Client", "@doctrine.orm.entity_manager","@logger"]
+    public: true

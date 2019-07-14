@@ -102,6 +102,13 @@ class RiaCompanyInformation
      */
     private $relationship_type;
 
+    /**
+     * @var
+     */
+    private $ameritradeKey;
+
+
+
     const RELATIONSHIP_TYPE_LICENSE_FEE = 0;
     const RELATIONSHIP_TYPE_TAMP = 1;
 
@@ -1967,4 +1974,23 @@ class RiaCompanyInformation
     {
         return $this->tlh_buy_back_original;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getAmeritradeKey()
+    {
+        return $this->ameritradeKey;
+    }
+
+    /**
+     * @param mixed $ameritradeKey
+     */
+    public function setAmeritradeKey($ameritradeKey): void
+    {
+        $this->ameritradeKey = $ameritradeKey;
+    }
+
+
+
 }

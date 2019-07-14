@@ -163,6 +163,10 @@ App\Entity\RiaCompanyInformation:
           type: string
           length: 45
           nullable: true
+        ameritradeKey:
+            type: string
+            length: 255
+            nullable: true
     uniqueConstraints:
         contact_email_unique:
             name: contact_email_UNIQUE

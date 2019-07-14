@@ -12,9 +12,9 @@ class RiaProfileType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-           // ->add('company', TextType::class, ['required' => true])
-          //  ->add('first_name')
-           // ->add('last_name')
+            ->add('company', TextType::class, ['required' => true])
+            ->add('first_name')
+            ->add('last_name')
         ;
 
         $builder->addEventListener(\Symfony\Component\Form\FormEvents::SUBMIT, function ($event) {

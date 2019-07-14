@@ -32,7 +32,6 @@ class RiaRegistrationType extends AbstractType
                 'invalid_message' => 'fos_user.password.mismatch',
             ))
         ;
-        $builder->add('ameritradeKey');
         $builder->add('profile', RiaProfileType::class, ['label' => ' ']);
         $builder->addEventListener(FormEvents::SUBMIT, function (FormEvent $event) {
             $user = $event->getData();

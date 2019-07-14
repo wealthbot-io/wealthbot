@@ -602,8 +602,10 @@ class DashboardController extends Controller
 
         $clientDocuments = $em->getRepository('App\Entity\Document')->findByUserId($this->getUser()->getId());
 
-
         $riaDocuments = array_merge($riaDocuments, $clientDocuments);
+
+
+        dump($riaDocuments);
 
         $clientDocumentUploadForm = $this->createForm(ClientDocumentFormType::class, null, [
             'is_client_view' => $this->isRiaClientView()
@@ -654,7 +656,7 @@ class DashboardController extends Controller
 
         $isUserDocument = $documentManager->isUserDocument($document->getId(), $user->getId());
 
-        if (!$document || ($document && (Document::TYPE_ANY !== $document->getType() || !$isUserDocument || $document->isApplication()))) {
+        if (!$document || !$isUserDocument) {
             throw $this->createNotFoundException();
         }
 

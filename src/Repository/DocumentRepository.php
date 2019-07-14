@@ -16,7 +16,7 @@ class DocumentRepository extends EntityRepository
     {
         $qb = $this->createQueryBuilder('d')
             ->leftJoin('d.users', 'u')
-            ->where('u.id = :userId AND d.filename IS NOT NULL')
+            ->where('u.id = :userId AND u.id is not null AND d.filename IS NOT NULL')
             ->setParameters([
                 'userId' => $userId,
             ]);

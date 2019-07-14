@@ -2,6 +2,7 @@
 
 namespace App\Form\Type;
 
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormEvent;
@@ -37,9 +38,7 @@ class ClientDocumentFormType extends DocumentFormType
     {
         $this->isRiaClientView = $options['is_client_view'];
 
-
         parent::buildForm($builder, $options);
-
         $builder->remove('type');
 
         if ($this->isRiaClientView) {
@@ -62,6 +61,7 @@ class ClientDocumentFormType extends DocumentFormType
     {
         $form = $event->getForm();
         $data = $event->getData();
+
 
         if ($data instanceof Document && !in_array($data->getMimeType(), $this->allowedMimeTypes)) {
             $formats = array_keys($this->allowedMimeTypes);

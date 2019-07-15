@@ -200,7 +200,7 @@ class ChangeProfileController extends Controller
             }
         }
 
-        return $this->redirectToRoute('rx_ria_company_profile');
+        return $this->redirectToRoute('rx_ria_change_profile');
     }
 
     public function saveProposal(Request $request)

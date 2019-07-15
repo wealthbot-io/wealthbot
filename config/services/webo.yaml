@@ -3,5 +3,5 @@ parameters:
 services:
   ameritrade:
     class: "%ameritrade.class%"
-    arguments: ["GuzzleHttp\\Client", "@doctrine.orm.entity_manager","@logger"]
+    arguments: ["@doctrine.orm.entity_manager","@logger"]
     public: true

@@ -2,7 +2,7 @@
 namespace App\Manager;
 
 use Doctrine\ORM\EntityManager;
-use GuzzleHttp\Client;
+use Symfony\Component\HttpClient\HttpClient;
 use Monolog\Logger;
 
 class AmeritradeManager {
@@ -20,14 +20,13 @@ class AmeritradeManager {
 
     /**
      * AmeritradeManager constructor.
-     * @param Client $guzzleHttp
      * @param EntityManager $entityManager
      * @param Logger $logger
      */
-    public function __construct(Client $guzzleHttp, EntityManager $entityManager, Logger $logger)
+    public function __construct(EntityManager $entityManager, Logger $logger)
     {
 
-        $this->httpClient = $guzzleHttp;
+        $this->httpClient = HttpClient::create();
         $this->em = $entityManager;
         $this->logger;
         $this->apiGateway = "https://api.tdameritrade.com/v1/";

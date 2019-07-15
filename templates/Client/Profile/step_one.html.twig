@@ -7,20 +7,11 @@
 
 {% block body %}
     <div class="container-fluid">
-    <div class="row margin-top-25">
-        <div class="col-12">
-            <div class="row">
-                <div class="col-10">
-                    <img class="img-rounded w200h100" src="{{ path('rx_file_download', {'ria_id': ria_company_information.ria.id}) }}"/>
-                </div>
-            </div>
-        </div>
+    <div class="row">
+        <img class="img-rounded w200h100" src="{{ path('rx_file_download', {'ria_id': ria_company_information.ria.id}) }}"/>
     </div>
 
-    <div class="row">
-        <span class="help-block">We'll save your progress. <a href="{{ path('logout') }}">Logout</a>
-        </span>
-    </div>
+    <span>We'll save your progress. <a href="{{ path('logout') }}">Logout</a></span>
 
     <div class="row margin-top-10">
         <div class="col-12">

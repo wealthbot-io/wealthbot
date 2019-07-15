@@ -4,21 +4,13 @@
     <div class="container-fluid">
     <div class="row margin-top-25">
         <div class="col-12">
-            <div class="row">
-                <div class="col-10">
-                    <img class="img-rounded w200h100" src="{{ path('rx_file_download', {'ria_id': ria_company_information.ria.id}) }}"/>
-                </div>
-                <div class="save-and-logout">
-                    <a class="btn btn-primary"  id="reg_save_btn" href="{{ path('logout') }}">Logout</a>
-                    <span class="help-block">We'll save your progress.</span>
-                </div>
-            </div>
+            <img class="img-rounded w200h100" src="{{ path('rx_file_download', {'ria_id': ria_company_information.ria.id}) }}"/>
         </div>
     </div>
-
     <div class="row" xmlns="http://www.w3.org/1999/html">
         <div class="col-10">
             <h3>Step 2 of 3: Your Risk Tolerance</h3>
+            <span>We'll save your progress. <a href="{{ path('logout') }}">Logout</a></span>
         </div>
     </div>
     <legend><p>Answer the following questions as honestly as possible. We use these to assess your risk tolerance and suggest a proper portfolio.</p></legend>

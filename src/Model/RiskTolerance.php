@@ -52,12 +52,12 @@ class RiskTolerance
      *
      * @return CeModel
      *
-     * @throws \Exception\AdvisorHasNoExistingModel
+     * @throws \App\Exception\AdvisorHasNoExistingModel
      */
     public function getSuggestedPortfolio($allowedModels)
     {
         $result = null;
-        $models = [];
+        $models = $this->getRia()->getCeModels();
         $points = $this->getPoints();
 
         foreach ($allowedModels as $model) {

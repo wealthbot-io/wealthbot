@@ -1,13 +1,14 @@
 <?php
-namespace App\Manager;
+namespace App\Api;
 
 use App\Entity\User;
 use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Component\Security\Core\Security;
 
-class AmeritradeManager {
+class Ameritrade {
 
     private $httpClient;
 
@@ -24,7 +25,7 @@ class AmeritradeManager {
      * @param EntityManager $entityManager
      * @param ContainerInterface $container
      */
-    public function __construct(EntityManager $entityManager, ContainerInterface $container, Security $security)
+    public function __construct(EntityManagerInterface $entityManager, ContainerInterface $container, Security $security)
     {
 
         $this->container = $container;

@@ -6,7 +6,6 @@ imports:
     - { resource: 'services/ria.yaml' }
     - { resource: 'services/signature.yaml' }
     - { resource: 'services/signature.yaml' }
-    - { resource: 'services/webo.yaml' }
 parameters:
     mailer_url: "%env(resolve:MAILER_URL)%"
     jms_serializer.camel_case_naming_strategy.class: JMS\Serializer\Naming\IdenticalPropertyNamingStrategy
@@ -50,5 +49,10 @@ services:
         resource: '../src/Controller'
         tags: ['controller.service_arguments']
 
+    App\Api\:
+        resource: '../src/Api'
+        autowire: true      # Automatically injects dependencies in your services.
+        autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+        public: true
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones

@@ -1,7 +1,0 @@
-parameters:
-  ameritrade.class: "App\\Manager\\Ameritrade"
-services:
-  ameritrade:
-    class: "%ameritrade.class%"
-    arguments: ["@doctrine.orm.entity_manager","@logger", "@service_container"]
-    public: true

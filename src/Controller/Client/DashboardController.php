@@ -59,9 +59,8 @@ class DashboardController extends Controller
     public function index(Request $request)
     {
 
-         $ameritrade = $this->get("App\Api\Ameritrade");
-
-         dump($ameritrade->getAccessToken());
+       //  $ameritrade = $this->get("App\Api\Ameritrade");
+       //  dump($ameritrade->getAccessToken());
 
 
 

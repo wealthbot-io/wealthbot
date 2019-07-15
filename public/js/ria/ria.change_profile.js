@@ -20,6 +20,10 @@ $(function(){
     }
 
 
+    $("#riacompanyinformationtype_phone_number").inputmask("mask", {"mask": "(999) 999-9999"});
+    $("#riacompanyinformationtype_fax_number").inputmask("mask", {"mask": "(999) 999-9999"});
+
+
     $(document).on('click','.website-test.btn', function(event) {
         var value = $('#riacompanyinformationtype_website').val();
 
@@ -41,11 +45,16 @@ $(function(){
                 if (groupList.length > 0) {
                     groupList.pickList();
                 }
+
+                $("#riacompanyinformationtype_phone_number").inputmask("mask", {"mask": "(999) 999-9999"});
+                $("#riacompanyinformationtype_fax_number").inputmask("mask", {"mask": "(999) 999-9999"});
+
             }
         });
     }
 
     $('.btn-ajax').on('click', function (event) {
+        event.preventDefault();
         var button = this;
         var form = $(button).closest('form');
 
@@ -83,8 +92,6 @@ $(function(){
                 updateUsersForm();
             }
         });
-
-        event.preventDefault();
     });
 
 /*

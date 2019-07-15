@@ -8,18 +8,18 @@
 {% block fos_user_content %}
 
 <div class="container-fluid">
-   <div class="d-flex flex-row justify-content-center align-items-center" style="margin-top: 200px;">
+   <div class="d-flex flex-row justify-content-center align-items-center"  style="margin-top: 100px;">
         {% block login_content %}
         <div class="p-2">
             <form style="padding: 8px 8px" action="{{ path("check") }}" method="post" class="regRia-form">
                 <img height="60" class="img-responsive" src="{{ ria_logo is defined and ria_logo ? ria_logo : '/img/logo.png' }}" alt="">
+                {% if error %}
+                    <div class="alert alert-danger">{{ error|trans({}, 'FOSUserBundle') }}</div>
+                {% endif %}
                 <fieldset>
                     <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
                     <div class="form-group">
                         <label for="username" class="required">Email Address:{#{{ 'security.login.username'|trans({}, 'FOSUserBundle') }}#}</label>
-                        {% if error %}
-                            <div class="error">{{ error|trans({}, 'FOSUserBundle') }}</div>
-                        {% endif %}
                         <div class="controls">
                             <input class="form-control" type="text" id="username" name="_username" value="{{ last_username }}" required="required" />
                         </div>

@@ -1,14 +1,14 @@
 {% extends "user_layout.html.twig" %}
 
 {% block fos_user_content %}
-    {% if error %}
-        <div>{{ error|trans({}, 'FOSUserBundle') }}</div>
-    {% endif %}
     <div class="container-fluid">
-        <div class="d-flex flex-row justify-content-center align-items-center" style="margin-top: 200px;">
+        <div class="d-flex flex-row justify-content-center align-items-center" style="margin-top: 100px;">
             <div class="p-2">
                 <div class="d-flex justify-content-center flex-row mt-5">
                     <form class="form-signin col-12" action="{{ path("rx_admin_login_check") }}" method="post">
+                        {% if error %}
+                            <div class="alert alert-danger">{{ error|trans({}, 'FOSUserBundle') }}</div>
+                        {% endif %}
                         <p class="text-center">
                             <img src="{{ asset('img/logo.png') }}" width="200"/>
                         </p>

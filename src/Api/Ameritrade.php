@@ -20,6 +20,8 @@ class Ameritrade {
 
     private $container;
 
+    private $ria;
+
     /**
      * AmeritradeManager constructor.
      * @param EntityManager $entityManager
@@ -39,6 +41,7 @@ class Ameritrade {
      * @throws \Exception
      */
     public function setApiKey(){
+        $this->ria = $this->security->getUser()->getRia();
         $this->apiKey = $this->security->getUser() ?  $this->security->getUser()->getRiaCompanyInformation()->getAmeritradeKey() : "";
     }
 

@@ -9,12 +9,10 @@
 
 <div class="container-fluid">
    <div class="d-flex flex-row justify-content-center align-items-center" style="margin-top: 200px;">
-        <div class="p-2">
-            <div class="logo-ce-login center-text"><img width="600" class="img-responsive" src="{{ ria_logo is defined and ria_logo ? ria_logo : '/img/logo.png' }}" alt=""></div>
-        </div>
         {% block login_content %}
         <div class="p-2">
             <form style="padding: 8px 8px" action="{{ path("check") }}" method="post" class="regRia-form">
+                <img height="60" class="img-responsive" src="{{ ria_logo is defined and ria_logo ? ria_logo : '/img/logo.png' }}" alt="">
                 <fieldset>
                     <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
                     <div class="form-group">

@@ -58,6 +58,14 @@ class DashboardController extends Controller
 
     public function index(Request $request)
     {
+
+         $ameritrade = $this->get("App\Api\Ameritrade");
+
+         dump($ameritrade->getAccessToken());
+
+
+
+
         $systemAccountManager = $this->get('wealthbot_client.system_account_manager');
         $clientPortfolioValuesManager = $this->get('wealthbot_client.client_portfolio_values.manager');
         $workflowManager = $this->get('wealthbot.workflow.manager');

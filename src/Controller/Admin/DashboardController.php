@@ -8,11 +8,6 @@ class DashboardController extends Controller
 {
     public function index()
     {
-      ///  $ameritrade = $this->get("App\Api\Ameritrade");
-
-      ///  dump($ameritrade->getAccounts());
-
-
         /** @var \Doctrine\ORM\EntityManager $em */
         $em = $this->container->get('doctrine.orm.entity_manager');
 

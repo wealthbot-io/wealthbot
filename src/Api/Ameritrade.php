@@ -35,6 +35,7 @@ class Ameritrade {
         $this->em = $entityManager;
         $this->apiGateway = "https://api.tdameritrade.com/v1/";
         $this->security = $security;
+        $this->setApiKey();
     }
 
     /**
@@ -43,6 +44,26 @@ class Ameritrade {
     public function setApiKey(){
         $this->ria = $this->security->getUser()->getRia();
         $this->apiKey = $this->security->getUser() ?  $this->security->getUser()->getRiaCompanyInformation()->getAmeritradeKey() : "";
+    }
+
+    public function getAccessToken(){
+        $body = [
+            'grant_type' => 'authorization_code',
+            'client_secret' => $this->apiKey,
+            'client_id' => 'wealthbotio',
+            'redirect_uri' => 'https://127.0.0.1:8000/ameriatrade',
+            'access_type' => 'online',
+            'response_type' => 'code'
+        ];
+
+        dump($body);
+
+        $data = $this->httpClient->request('POST',$this->apiGateway.'oauth2/token',[
+            "body" =>  $body
+        ]);
+
+
+        dump($data);
     }
 
     /**

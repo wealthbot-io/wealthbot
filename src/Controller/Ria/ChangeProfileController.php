@@ -65,7 +65,7 @@ class ChangeProfileController extends Controller
         $isCustomModel = $parentModel->isCustom();
         $session = $this->get('session');
 
-        $companyForm = $this->createForm(RiaCompanyInformationType::class, null, ['user'=>$user,'isPreSave'=>true]);
+        $companyForm = $this->createForm(RiaCompanyInformationType::class, $riaCompanyInfo, ['user'=>$user,'isPreSave'=>true]);
         ///$proposalForm = $this->createForm(RiaProposalFormType::class, $user);
         $marketingForm = $this->createForm(RiaCompanyInformationFourType::class,$riaCompanyInfo, ['user'=>$user,'isPreSave'=> false]);
         $alertsConfigurationForm = $this->createForm(RiaAlertsConfigurationFormType::class, $riaAlertsConfiguration);
@@ -79,8 +79,6 @@ class ChangeProfileController extends Controller
 
         $documentForm = $this->createForm(RiaDocumentsFormType::class);
 
-
-//        RegistrationStepOneFormType
         return $this->render(
             '/Ria/ChangeProfile/index.html.twig',
             [
@@ -202,7 +200,7 @@ class ChangeProfileController extends Controller
             }
         }
 
-        return $this->render('/Ria/ChangeProfile/_company_profile_form.html.twig', ['form' => $companyForm->createView()]);
+        return $this->redirectToRoute('rx_ria_company_profile');
     }
 
     public function saveProposal(Request $request)

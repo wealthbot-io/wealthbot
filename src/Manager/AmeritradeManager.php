@@ -5,16 +5,13 @@ use App\Entity\User;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpClient\HttpClient;
-use Monolog\Logger;
-use Symfony\Component\Security\Core\Authorization\AuthorizationChecker;
+use Symfony\Component\Security\Core\Security;
 
 class AmeritradeManager {
 
     private $httpClient;
 
     private $em;
-
-    private $logger;
 
     private $apiGateway;
 
@@ -27,23 +24,21 @@ class AmeritradeManager {
      * @param EntityManager $entityManager
      * @param ContainerInterface $container
      */
-    public function __construct(EntityManager $entityManager, ContainerInterface $container)
+    public function __construct(EntityManager $entityManager, ContainerInterface $container, Security $security)
     {
 
         $this->container = $container;
         $this->httpClient = HttpClient::create();
         $this->em = $entityManager;
-        $this->logger;
-        $this->apiGateway = "https://api.tdameritrade.com/v1/";}
-
+        $this->apiGateway = "https://api.tdameritrade.com/v1/";
+        $this->security = $security;
+    }
 
     /**
      * @throws \Exception
      */
     public function setApiKey(){
-        /** @var User $ria */
-        $ria = $this->container->get('security.token_storage')->getToken() ? $this->container->get('security.context')->getToken()->getUser()->getRia():null;
-        $this->apiKey = $ria->getRiaCompanyInformation()->getAmeritradeKey();
+        $this->apiKey = $this->security->getUser() ?  $this->security->getUser()->getRiaCompanyInformation()->getAmeritradeKey() : "";
     }
 
     /**

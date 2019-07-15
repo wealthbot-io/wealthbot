@@ -2,34 +2,37 @@
     <h4>Personal Information</h4>
     <hr/>
 </div>
-
+<div class="container-fluid">
 <div class="row">
-    <div class="col-2">
+    <div class="col-12">
         <div class="form-group">
             {{ form_label(form.first_name, 'First Name') }}
             {{ form_errors(form.first_name) }}
             {{ form_widget(form.first_name, {'attr': {'class': 'input-medium '}} ) }}
         </div>
     </div>
-
-    <div class="col-2">
+</div>
+<div class="row">
+    <div class="col-12">
         <div class="form-group">
             {{ form_label(form.middle_name, 'Middle Name') }}
             {{ form_errors(form.middle_name) }}
             {{ form_widget(form.middle_name, {'attr': {'class': 'input-medium '}} ) }}
         </div>
     </div>
-    <div class="col-2">
-        <div class="form-group">
-            {{ form_label(form.last_name, 'Last Name') }}
-            {{ form_errors(form.last_name) }}
-            {{ form_widget(form.last_name, {'attr': {'class': 'input-medium '}} ) }}
-        </div>
+</div>
+<div class="row">
+<div class="col-12">
+    <div class="form-group">
+        {{ form_label(form.last_name, 'Last Name') }}
+        {{ form_errors(form.last_name) }}
+        {{ form_widget(form.last_name, {'attr': {'class': 'input-medium '}} ) }}
     </div>
+</div>
 </div>
 
 <div class="row">
-    <div class="col-6">
+    <div class="col-12">
         <div class="form-group birthdate">
             {{ form_label(form.birth_date, 'Birth Date') }}
             {{ form_errors(form.birth_date) }}
@@ -39,7 +42,7 @@
 </div>
 
 <div class="row">
-    <div class="col-6">
+    <div class="col-12">
         <div class="form-group">
             {{ form_label(form.marital_status, 'Marital Status') }}
             {{ form_errors(form.marital_status) }}
@@ -49,7 +52,7 @@
 </div>
 
 <div class="row">
-    <div class="col-7 spouse-field">
+    <div class="col-12 spouse-field">
         <div class="form-group spouse-fields-block" style="display:none;">
             <div class="col-6">
                 <label for="wealthbot_client_bundle_profile_type_spouse_first_name">Spouse Name</label>
@@ -78,7 +81,7 @@
 </div>
 
 <div class="row" id="citizenship">
-    <div class="col-6">
+    <div class="col-12">
         <div class="form-group">
             <span class="main-label">{{ form_label(form.citizenship) }}</span>
             <div class="controls">
@@ -90,4 +93,5 @@
             </div>
         </div>
     </div>
+</div>
 </div>

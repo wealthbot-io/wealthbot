@@ -13,12 +13,13 @@
                 <div class="col-10">
                     <img class="img-rounded w200h100" src="{{ path('rx_file_download', {'ria_id': ria_company_information.ria.id}) }}"/>
                 </div>
-                <div class="save-and-logout">
-                    <a class="btn btn-primary"  id="reg_save_btn" href="{{ path('logout') }}">Logout</a>
-                    <span class="help-block">We'll save your progress.</span>
-                </div>
             </div>
         </div>
+    </div>
+
+    <div class="row">
+        <span class="help-block">We'll save your progress. <a href="{{ path('logout') }}">Logout</a>
+        </span>
     </div>
 
     <div class="row margin-top-10">
@@ -48,7 +49,7 @@
 
             {% include '/Client/Profile/_contact_information_form_type_fields.html.twig' with {'form': form} %}
 
-
+            <div class="container-fluid">
             <div class="form-title">
                 <h4>Financial Status</h4>
                 <hr/>
@@ -106,6 +107,7 @@
                         <input class="btn btn-primary"  type="submit" name="Continue" value="Continue"/>
                     </div>
                 </div>
+            </div>
             </div>
         </fieldset>
     </form>

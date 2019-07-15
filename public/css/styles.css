@@ -605,12 +605,11 @@ display: inline;
 }
 
 div.login-box-client{
-	margin: 80px auto;
+	margin: 10px auto;
 	padding: 10px;
-	border-right: 1px solid #d2d2d2;
 }
 .login-box-company-logo{
-    margin: 80px auto;
+    margin: 10px auto;
     padding: 10px;
 }
 

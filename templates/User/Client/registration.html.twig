@@ -9,8 +9,9 @@
     {% endif %}
 
     <div class="row">
-        <div class="col-5 col-offset-1">
+        <div class="col-11 col-offset-1">
             <div class="login-box-client">
+                <img height="60" src="{{ path('rx_file_download', {'ria_id': ria.id}) }}" alt="">
                 <form action="{{ path("rx_client_registration",  params) }}" method="post" >
                     <div class="row">
                         <div class="col-11">
@@ -63,11 +64,6 @@
                         or continue your registration by <a href="{{ path('login') }}">logging in</a>.
                     </span>
                 </form>
-            </div>
-        </div>
-        <div class="col-5">
-            <div class="login-box-company-logo">
-                <img src="{{ path('rx_file_download', {'ria_id': ria.id}) }}" alt="">
             </div>
         </div>
     </div>

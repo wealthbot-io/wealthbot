@@ -1,9 +1,13 @@
-<div class="form-title">
-    <h4>Contact Information</h4>
-    <hr/>
-</div>
+<div class="container-fluid">
 
-{% if (is_change_profile is defined and is_change_profile) %}
+
+
+    <div class="form-title">
+        <h4>Contact Information</h4>
+        <hr/>
+    </div>
+
+    {% if (is_change_profile is defined and is_change_profile) %}
     <div>
         <br />
         <h2>Address:</h2>
@@ -12,7 +16,7 @@
     </div>
 
     <div class="row">
-        <div class="col-3">
+        <div class="col-12">
             <div class="form-group">
                 {{ form_label(form.email) }}
                 {{ form_errors(form.email) }}
@@ -23,7 +27,7 @@
 
 {% else %}
     <div class="row">
-        <div class="col-3">
+        <div class="col-12">
             <div class="form-group">
                 {{ form_label(form.street) }}
                 {{ form_errors(form.street) }}
@@ -33,21 +37,21 @@
     </div>
 
     <div class="row">
-        <div class="col-2">
+        <div class="col-12">
             <div class="form-group">
                 {{ form_label(form.city, 'City') }}
                 {{ form_errors(form.city) }}
                 {{ form_widget(form.city) }}
             </div>
         </div>
-        <div class="col-2">
+        <div class="col-12">
             <div class="form-group">
                 {{ form_label(form.state) }}
                 {{ form_errors(form.state) }}
                 {{ form_widget(form.state) }}
             </div>
         </div>
-        <div class="col-2">
+        <div class="col-12">
             <div class="form-group">
                 {{ form_label(form.zip, 'Zip Code') }}
                 {{ form_errors(form.zip) }}
@@ -67,24 +71,24 @@
     </div>
 
     <div class="row">
-        <div class="col-7 mailing-address">
+        <div class="col-12 mailing-address">
             <div class="form-group mailing-address-block" style="display:none;">
                 <div class="col-12">
                     {{ form_label(form.mailing_street, 'Mailing Street') }}
                     {{ form_errors(form.mailing_street) }}
                     {{ form_widget(form.mailing_street) }}
                 </div>
-                <div class="col-2">
+                <div class="col-3">
                     {{ form_label(form.mailing_city, 'Mailing City') }}
                     {{ form_errors(form.mailing_city) }}
                     {{ form_widget(form.mailing_city) }}
                 </div>
-                <div class="col-2">
+                <div class="col-3">
                     {{ form_label(form.mailingState, 'Mailing State') }}
                     {{ form_errors(form.mailingState) }}
                     {{ form_widget(form.mailingState) }}
                 </div>
-                <div class="col-2">
+                <div class="col-3">
                     {{ form_label(form.mailing_zip, 'Mailing Zip Code') }}
                     {{ form_errors(form.mailing_zip) }}
                     {{ form_widget(form.mailing_zip) }}
@@ -95,11 +99,12 @@
 {% endif %}
 
 <div class="row">
-    <div class="col-6">
+    <div class="col-12">
         <div class="form-group">
             {{ form_label(form.phone_number, 'Phone Number') }}
             {{ form_errors(form.phone_number) }}
             {{ form_widget(form.phone_number, {'attr': {'placeholder': '(###) ###-####', 'data-mask-type': 'phone' }}) }}
         </div>
     </div>
+</div>
 </div>

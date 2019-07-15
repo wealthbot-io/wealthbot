@@ -427,7 +427,14 @@ class ChangeProfileController extends Controller
             $formHandler->process();
         }
 
-        return $this->redirect($this->generateUrl('rx_ria_change_profile'));
+        $admin = $this->get('wealthbot.manager.user')->getAdmin();
+        $documentManager = $this->container->get('wealthbot_user.document_manager');
+
+        return $this->render('Ria/ChangeProfile/_documents.html.twig',[
+            'form' => $form->createView(),
+            'admin_documents' => $documentManager->getUserDocuments($admin->getId()),
+            'documents' => $documentManager->getUserDocuments($user->getId()),
+        ]);
     }
 
     public function saveAlertsConfiguration(Request $request)

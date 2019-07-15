@@ -1,9 +1,12 @@
 <?php
 namespace App\Manager;
 
+use App\Entity\User;
 use Doctrine\ORM\EntityManager;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpClient\HttpClient;
 use Monolog\Logger;
+use Symfony\Component\Security\Core\Authorization\AuthorizationChecker;
 
 class AmeritradeManager {
 
@@ -17,27 +20,37 @@ class AmeritradeManager {
 
     private $apiKey;
 
+    private $container;
 
     /**
      * AmeritradeManager constructor.
      * @param EntityManager $entityManager
-     * @param Logger $logger
+     * @param ContainerInterface $container
      */
-    public function __construct(EntityManager $entityManager, Logger $logger)
+    public function __construct(EntityManager $entityManager, ContainerInterface $container)
     {
 
+        $this->container = $container;
         $this->httpClient = HttpClient::create();
         $this->em = $entityManager;
         $this->logger;
-        $this->apiGateway = "https://api.tdameritrade.com/v1/";
+        $this->apiGateway = "https://api.tdameritrade.com/v1/";}
+
+
+    /**
+     * @throws \Exception
+     */
+    public function setApiKey(){
+        /** @var User $ria */
+        $ria = $this->container->get('security.token_storage')->getToken() ? $this->container->get('security.context')->getToken()->getUser()->getRia():null;
+        $this->apiKey = $ria->getRiaCompanyInformation()->getAmeritradeKey();
     }
 
     /**
-     * @param $key
+     * @return string
      */
-    public function setApiKey($key){
-
-        $this->apiKey = $key;
+    public function addApiKey(){
+        return '?apiKey=' . $this->apiKey;
     }
 
     private function createRequest($data){
@@ -51,7 +64,7 @@ class AmeritradeManager {
 
 
     public function getAccounts(){
-       //GET //accounts
+        return $this->httpClient->request('GET', $this->apiGateway.'accounts'.$this->addApiKey())->getContent();
     }
 
 

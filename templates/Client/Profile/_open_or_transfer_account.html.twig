@@ -1,23 +1,11 @@
 {% block header_row %}
-    <div class="row margin-top-25">
-        <div class="col-12">
-            <div class="row">
-                <div class="col-10">
-                    <img class="img-rounded w200h100" src="{{ path('rx_file_download', {'ria_id': ria_company_information.ria.id}) }}"/>
-                </div>
-                <div class="save-and-logout">
-                    <a class="btn btn-primary"  id="reg_save_btn" href="{{ path('logout') }}">Logout</a>
-                    <span class="help-block">We'll save your progress.</span>
-                </div>
-            </div>
-        </div>
-    </div>
 {% endblock %}
-
+<div class="container-fluid">
 <div class="row">
     <div class="col-12">
         <div class="row">
             <div class="col-10">
+                <span class="help-block">We'll save your progress. <a href="{{ path('logout') }}">Logout</a></span>
                 <h3>{% block title %}Step 3 of 3: Your Accounts{% endblock %}</h3>
             </div>
         </div>
@@ -121,4 +109,5 @@
         </div>
     </div>
 
+</div>
 </div>

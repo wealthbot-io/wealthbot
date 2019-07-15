@@ -12,16 +12,13 @@
     {% else %}
         <div class="container-fluid">
             <div class="row  align-items-center mt-5 ">
-                <div class="col-1"></div>
-                <div class="col-1">
-                    <a class="btn btn-outline-info"  id="reg_save_btn" href="{{ path('logout') }}">Logout</a>
-                </div>
-                <div class="col-9">
+                <div class="col-12">
                     {{ parent() }}
                     <div class="alert alert-success">
                         Congratulations! We have been notified you have reached this stage of the process and will contact you shortly to discuss your portfolio with you.
                         <a class="close" data-dismiss="alert" href="#">&times;</a>
                     </div>
+                    <a href="{{ path('logout') }}">Logout</a>
                 </div>
                 <div class="col-1"></div>
             </div>
@@ -32,8 +29,7 @@
 {% block body %}
     <div class="container-fluid">
         <div class="row">
-            <div class="col-1"></div>
-            <div class="col-10">
+            <div class="col-12">
 
     <div  class="center-text">
         {% if is_risks_test is defined and is_risks_test %}
@@ -104,7 +100,6 @@
     {% endif %}
 
             </div>
-            <div class="col-1"></div>
         </div>
     </div>
 {% endblock %}

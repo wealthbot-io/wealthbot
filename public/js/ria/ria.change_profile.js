@@ -45,8 +45,7 @@ $(function(){
         });
     }
 
-    $('#company_profile_form .btn-ajax, #proposal_form .btn-ajax, #billing_n_accounts_form .btn-ajax, #portfolio_management_form .btn-ajax,' +
-        '#update_password .btn-ajax, #user_management .btn-ajax, #user_password_management .btn-ajax').on('click', function (event) {
+    $('.btn-ajax').on('click', function (event) {
         var button = this;
         var form = $(button).closest('form');
 

@@ -4,31 +4,31 @@
     {% if error %}
         <div>{{ error|trans({}, 'FOSUserBundle') }}</div>
     {% endif %}
+    <div class="container-fluid">
+        <div class="d-flex flex-row justify-content-center align-items-center" style="margin-top: 200px;">
+            <div class="p-2">
+                <div class="d-flex justify-content-center flex-row mt-5">
+                    <form class="form-signin col-12" action="{{ path("rx_admin_login_check") }}" method="post">
+                        <p class="text-center">
+                            <img src="{{ asset('img/logo.png') }}" width="200"/>
+                        </p>
+                        <label for="username">{{ 'security.login.username'|trans({}, 'FOSUserBundle') }}</label>
+                        <input class="form-control" type="text" id="username" name="_username"
+                               value="{{ last_username }}"/>
+                        <br/>
+                        <label for="password">{{ 'security.login.password'|trans({}, 'FOSUserBundle') }}</label>
+                        <input class="form-control" type="password" id="password" name="_password"/>
+                        <label for="remember_me">
+                            {{ 'security.login.remember_me'|trans({}, 'FOSUserBundle') }} <input type="checkbox"
+                                                                                                 name="_remember_me"/>
+                        </label>
+                        <br/>
+                        <button name="_submit" class="btn btn-primary" type="submit">Log in</button>
+                    </form>
+                </div>
 
-
-<div class="container-fluid">
-    <div class="d-flex flex-row justify-content-center align-items-center" style="margin-top: 200px;">
-        <div class="p-2">
-    <div class="d-flex justify-content-center flex-row mt-5">
-        <form class="form-signin col-12" action="{{ path("rx_admin_login_check") }}" method="post">
-            <p class="text-center">
-                <img src="{{ asset('img/logo.png') }}" width="200" />
-            </p>
-            <label for="username">{{ 'security.login.username'|trans({}, 'FOSUserBundle') }}</label>
-            <input class="form-control" type="text" id="username" name="_username" value="{{ last_username }}" />
-            <br />
-            <label for="password">{{ 'security.login.password'|trans({}, 'FOSUserBundle') }}</label>
-            <input  class="form-control"  type="password" id="password" name="_password" />
-            <label for="remember_me">
-                {{ 'security.login.remember_me'|trans({}, 'FOSUserBundle') }} <input type="checkbox" name="_remember_me"/>
-            </label>
-            <br />
-            <button name="_submit" class="btn btn-primary" type="submit">Log in</button>
-        </form>
-    </div>
-
+            </div>
         </div>
     </div>
-</div>
 
 {% endblock fos_user_content %}

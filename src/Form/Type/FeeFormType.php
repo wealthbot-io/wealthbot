@@ -15,7 +15,7 @@ use App\Entity\Fee;
 use App\Entity\User;
 
 /**
- * @deprecated
+ *
  * Class FeeFormType
  */
 class FeeFormType extends AbstractType
@@ -41,6 +41,7 @@ class FeeFormType extends AbstractType
                 'grouping' => true,
                 'attr' => [],
                 'csrf_protection' => false,
+                'scale' => 2
             ])
             ->add('billingSpec');
 

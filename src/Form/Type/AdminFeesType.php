@@ -77,14 +77,7 @@ class AdminFeesType extends AbstractType
                         new FormError('You already have specified final tier.')
                     );
                     break;
-                } else {
-                    $form->get('fees')->get($key)->get('tier_bottom')->addError(
-                        new FormError(null,"Tier bottom should be %bottom%, %form_bottom% given.", [
-                            '%bottom%' => number_format($bottom, 2),
-                            '%form_bottom%' => number_format($formBottom, 2),
-                        ])
-                    );
-                }
+                };
             }
 
             if ($formBottom >= $fee->getTierTop()) {

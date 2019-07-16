@@ -1,3 +1,10 @@
+Current jobs
+==
+* Rebalancer.
+* Custodian Integration.
+* Mobile UI improvements.
+
+
 About current wealthbot
 =
 Webo is a robo-advisor and not fully advisor so you need to do some paperwork. you can see more info in my medium blog 

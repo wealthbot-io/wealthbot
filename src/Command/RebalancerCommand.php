@@ -139,7 +139,7 @@ class RebalancerCommand extends ContainerAwareCommand
         $total = $account->getValueSum() + $account->getContributionsSum() - $account->getDistributionsSum();
         $data = $account->getClient()->getClientPortfolios()->map(function ($clientPortfolio) use ($total, $account, $em) {
 
-            if($clientPortfolio->isAdvisorApproved()) {
+            if($clientPortfolio->isClientAccepted()) {
                 /** @var \App\Entity\\ClientPortfolio $clientPortfolio */
                 return [
                     'risk_rating' => $clientPortfolio->getPortfolio()->getRiskRating(),

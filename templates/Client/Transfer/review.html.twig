@@ -6,7 +6,7 @@
 {% endblock %}
 
 {% block top_content %}
-    {{ render(controller('App\Controller\Client\TransferController:progressMenu', { 'account': account, 'step': 'review' })) }}
+    {{ render(controller('App\\Controller\\Client\\TransferController:progressMenu', { 'account': account, 'step': 'review' })) }}
 {% endblock %}
 
 {% block main_content %}
@@ -15,11 +15,11 @@
     <form action="{% block form_action %}{{ path('rx_client_transfer_review', { 'account_id': account.id }) }}{% endblock %}" method="post" class="acc-form" data-presave="true" data-save="true">
         <h2>Review & Sign</h2>
 
-        {#<h4>1. Please carefully review this information for accuracy:</h4>
+        <h4>1. Please carefully review this information for accuracy:</h4>
 
         <div class="client-info">
             {% include '/Client/Transfer/_client_info.html.twig' with { 'client': client } %}
-        </div>#}
+        </div>
 
         <div class="row">
             <div class="col-8">

@@ -223,7 +223,7 @@ class DashboardTransferController extends BaseTransferController
                     $consolidated->setProcessStep(ClientAccount::PROCESS_STEP_FINISHED_APPLICATION);
                 }
 
-                $account->setStep(ClientAccount::STEP_ACTION_REVIEW);
+                $account->setProcessStep(ClientAccount::STEP_ACTION_REVIEW);
                 $account->setIsPreSaved($isPreSaved);
 
                 $group = $account->getGroupName();

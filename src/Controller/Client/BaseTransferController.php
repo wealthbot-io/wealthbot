@@ -537,7 +537,7 @@ class BaseTransferController extends Controller
                     $em->remove($transferFunding);
                 }
 
-                $account->setStep(ClientAccount::STEP_ACTION_FUNDING_DISTRIBUTING);
+                $account->setProcessStep(ClientAccount::STEP_ACTION_FUNDING_DISTRIBUTING);
                 $account->setIsPreSaved($isPreSaved);
 
                 $em->persist($account);
@@ -1146,7 +1146,7 @@ class BaseTransferController extends Controller
         $data = ['groups' => $this->get('session')->get('client.accounts.groups')];
         $this->get('session')->set('client.accounts.is_consolidate_account', false);
 
-        $form = $this->createForm(AccountGroupsFormType::class, $client);
+        $form = $this->createForm(AccountGroupsFormType::class);
 
         return $this->render($this->getTemplate('finished.html.twig'), [
             'client' => $client,

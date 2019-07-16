@@ -1,7 +1,7 @@
 {% extends '/Client/Transfer/index.html.twig' %}
 
 {% block top_content %}
-    {{ render(controller('App\Controller\Client\TransferController:progressMenu', { 'account': account, 'step': 'transfer' })) }}
+    {{ render(controller('App\\Controller\\Client\\TransferController:progressMenu', { 'account': account, 'step': 'transfer' })) }}
 {% endblock %}
 
 {% block main_content %}

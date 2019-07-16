@@ -22,12 +22,6 @@ class AccountContribution extends BaseContribution
      */
     public function setTransactionFrequency($transactionFrequency)
     {
-        $choices = self::getTransactionFrequencyChoices();
-        if (!is_null($transactionFrequency) && !array_key_exists($transactionFrequency, $choices)) {
-            throw new \InvalidArgumentException(
-                sprintf('Invalid value for account_transfer_types.transaction_frequency : %s.', $transactionFrequency)
-            );
-        }
 
         parent::setTransactionFrequency($transactionFrequency);
 

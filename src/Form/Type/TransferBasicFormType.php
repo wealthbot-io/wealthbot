@@ -9,6 +9,7 @@
 
 namespace App\Form\Type;
 
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormEvent;
@@ -22,9 +23,6 @@ class TransferBasicFormType extends ClientProfileFormType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->addEventListener(FormEvents::POST_SET_DATA, function (FormEvent $event) {
-            $this->class = get_class($event->getForm()->getConfig()->getOption('owner'));
-        });
 
         $this->secondaryApplicant = $options['secondaryApplicant'];
 
@@ -47,7 +45,7 @@ class TransferBasicFormType extends ClientProfileFormType
             $email = $data->getEmail();
         }
 
-        $builder->add('email', 'email', [
+        $builder->add('email', EmailType::class, [
             'attr' => ['value' => $email],
             'required' => false,
         ]);
@@ -71,8 +69,10 @@ class TransferBasicFormType extends ClientProfileFormType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => $this->class,
-            'secondaryApplicant' => null
+            'data_class' => 'App\\Model\\UserAccountOwnerAdapter',
+            'secondaryApplicant' => null,
+            'is_pre_save' => null,
+            'profile' => null,
         ]);
     }
 

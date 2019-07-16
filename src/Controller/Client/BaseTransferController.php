@@ -188,7 +188,11 @@ class BaseTransferController extends Controller
         $primaryApplicant = $account->getPrimaryApplicant();
         $isPreSaved = $request->isXmlHttpRequest();
 
-        $form = $this->createForm(TransferBasicFormType::class, $primaryApplicant);
+        $form = $this->createForm(TransferBasicFormType::class, $primaryApplicant,[
+            'is_pre_save' => $isPreSaved,
+            'secondaryApplicant'=> $account->getSecondaryApplicant(),
+            'profile' => $this->getUser()->getProfile(),
+        ]);
         $formHandler = new TransferBasicFormHandler($form, $request, $em);
 
         if ($request->isMethod('post')) {
@@ -246,7 +250,8 @@ class BaseTransferController extends Controller
         $isPreSaved = $request->isXmlHttpRequest();
         $form = $this->createForm(TransferBasicFormType::class, $secondaryApplicant, [
             'secondaryApplicant'=> $secondaryApplicant,
-            'owner' => $this->getUser()
+            'is_pre_save' => $isPreSaved,
+            'profile' => $this->getUser()->getProfile()
             ]);
         $formHandler = new TransferBasicFormHandler($form, $request, $em);
 
@@ -1287,7 +1292,7 @@ class BaseTransferController extends Controller
             $templateName,
         ];
 
-        return implode(':', $params);
+        return implode('/', $params);
     }
 
     /**

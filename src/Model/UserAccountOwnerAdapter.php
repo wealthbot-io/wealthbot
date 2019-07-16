@@ -19,6 +19,9 @@ class UserAccountOwnerAdapter implements AccountOwnerInterface
     private $mailingStreetTwo;
     private $mailingRegion;
     private $email;
+    private $first_name;
+    private $last_name;
+    private $middle_name;
 
     public function __construct(User $user)
     {

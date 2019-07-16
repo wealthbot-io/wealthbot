@@ -4,7 +4,9 @@
         <select id="select_account_type">
             <option value="">All accounts</option>
             {% for systemAccount in accounts %}
-                <option class="{{ systemAccount.status == 'closed' ? 'account-option-closed' : '' }}" value="{{ systemAccount.clientAccount.id }}"{% if systemAccount.clientAccount.id == app.request.query.get('account_id') %} selected="selected"{% endif %}>{{ systemAccount.clientAccount.ownersAsString }}</option>
+                {% if systemAccount.clientAccount is not null %}
+                    <option class="{{ systemAccount.status == 'closed' ? 'account-option-closed' : '' }}" value="{{ systemAccount.clientAccount.id }}"{% if systemAccount.clientAccount.id == app.request.query.get('account_id') %} selected="selected"{% endif %}>{{ systemAccount.clientAccount.ownersAsString }}</option>
+                {% endif %}
             {% endfor %}
         </select>
         {% if (action == 'Allocation') %}

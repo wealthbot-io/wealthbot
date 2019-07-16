@@ -57,11 +57,7 @@ $(function(){
 
 
         if (!isAjax) {
-            if (!form.length ){
-                alert('Please select account in left box');
-                hasErrors = true;
-
-            } else {
+            if (form.length ){
                 var attrId = $(form).attr('id');
                 var contributionTypes = $('.contribution-type-choices');
 

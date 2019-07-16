@@ -37,6 +37,12 @@
                     <a class="nav-link" href="{{ path('rx_client_dashboard_account_management', is_client_view == 0 ? {'is_client_view': is_client_view} : {}) }}"><i class="icon-user icon"></i><span class="hidden-tablet"> Account Management</span></a>
                 </li>
             {% endif %}
+
+
+            <li class="nav-item pull-right">
+                <a class="nav-link" href="{{ path('logout') }}"><span>Logout</span></a>
+            </li>
+
         </ul>
     </div>
 </nav>

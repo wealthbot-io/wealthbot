@@ -5,7 +5,7 @@
         <div class="d-flex flex-row justify-content-center align-items-center" style="margin-top: 100px;">
             <div class="p-2">
                 <div class="d-flex justify-content-center flex-row mt-5">
-                    <form class="form-signin col-12" action="{{ path("rx_admin_login_check") }}" method="post">
+                    <form class="form-signin regRia-form" action="{{ path("rx_admin_login_check") }}" method="post">
                         {% if error %}
                             <div class="alert alert-danger">{{ error|trans({}, 'FOSUserBundle') }}</div>
                         {% endif %}

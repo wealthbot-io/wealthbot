@@ -1942,7 +1942,7 @@ div.tax-loss-harvesting-controls span.middle {
     background-image: linear-gradient(to bottom, #ffffff, #f2f2f2);
     background-repeat: repeat-x;
     border-radius: 8px;
-    padding: 0 0 0 10px;
+    padding: 10px 10px;
     -webkit-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3);
     -moz-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3);
     box-shadow:0 1px 4px rgba(0, 0, 0, 0.3);

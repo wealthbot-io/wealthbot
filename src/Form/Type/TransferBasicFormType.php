@@ -69,7 +69,8 @@ class TransferBasicFormType extends ClientProfileFormType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => 'App\\Model\\UserAccountOwnerAdapter',
+            'data_class' => "App\Model\UserAccountOwnerAdapter",
+            'primaryApplicant' => null,
             'secondaryApplicant' => null,
             'is_pre_save' => null,
             'profile' => null,

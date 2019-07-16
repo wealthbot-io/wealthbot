@@ -27,27 +27,17 @@ class TransferFundingDistributingFormType extends AbstractType
     private $isPreSaved;
 
 
-    public function __construct()
+    public function buildForm(FormBuilderInterface $builder, array $options)
     {
-
-        $this->em = $this->getOption('em');
-        $this->account = $this->getOption('account');
-        $this->isPreSaved = $this->getOption('isPreSaved');
+        $this->em = $options['em'];
+        $this->account = $options['account'];
+        $this->isPreSaved = $options['isPreSaved'];
         $this->hasFunding = $this->account->hasFunding();
         $this->hasDistributing = $this->account->hasDistributing();
 
 
-    }
+        $adm = new AccountDocusignManager($this->em, 'App\\Entity\\ClientAccountDocusign');
 
-    public function buildForm(FormBuilderInterface $builder, array $options)
-    {
-
-        $adm = new AccountDocusignManager($this->em, 'Entity\ClientAccountDocusign');
-
-        if ($this->account->hasGroup(AccountGroup::GROUP_DEPOSIT_MONEY) ||
-            true === $this->hasFunding ||
-            $adm->hasElectronicallySignError($this->account)
-        ) {
             $subscriber = new TransferFundingFormEventSubscriber($builder->getFormFactory(), $this->em, $this->account);
 
             $builder->add(
@@ -63,8 +53,8 @@ class TransferFundingDistributingFormType extends AbstractType
                     'label' => null,
                 ]
             );
-        }
     }
+
 
     public function getBlockPrefix()
     {
@@ -75,9 +65,9 @@ class TransferFundingDistributingFormType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'user' => null,
+            'account' => null,
             'em' => null,
-            'founding'  => null
+            'isPreSaved'  => null
         ]);
     }
 }

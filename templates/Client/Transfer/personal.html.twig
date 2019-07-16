@@ -1,7 +1,7 @@
 {% extends '/Client/Transfer/index.html.twig' %}
 
 {% block top_content %}
-    {{ render(controller('App\Controller\Client\TransferController:progressMenu', { 'account': account, 'step': 'personal' })) }}
+    {{ render(controller('App\\Controller\\Client\\TransferController:progressMenu', { 'account': account, 'step': 'personal' })) }}
 {% endblock %}
 
 {% block main_content %}
@@ -22,9 +22,12 @@
                     {{ form_errors(form.ssn_tin_2) }}
                     {{ form_errors(form.ssn_tin_3) }}
                 </div>
-                {{ form_widget(form.ssn_tin_1, { 'attr': { 'class': 'col-1', 'placeholder': '###' } }) }}
-                {{ form_widget(form.ssn_tin_2, { 'attr': { 'class': 'col-1', 'placeholder': '##' } }) }}
-                {{ form_widget(form.ssn_tin_3, { 'attr': { 'class': 'col-1', 'placeholder': '####' } }) }}
+                <div class="row">
+                    {{ form_widget(form.ssn_tin_1, { 'attr': { 'class': 'col-3', 'placeholder': '###' } }) }}
+                    {{ form_widget(form.ssn_tin_2, { 'attr': { 'class': 'col-2', 'placeholder': '##' } }) }}
+                    {{ form_widget(form.ssn_tin_3, { 'attr': { 'class': 'col-4', 'placeholder': '####' } }) }}
+                </div>
+
             </div>
         </div>
 

@@ -62,7 +62,7 @@
             {{ form_errors(form.employment_type) }}
             {% for radio in form.employment_type %}
                 <label for="{{ radio.vars.id }}"accesskey=""  class="checkbox inline">
-                    {{ form_widget(radio) }} {{ radio.vars.label }}
+                    {{ form_widget(radio) }}
                 </label>
             {% endfor %}
         </div>
@@ -134,7 +134,7 @@
             <div class="col-2">
                 {% for radio in form.is_senior_political_figure %}
                     <label for="{{ radio.vars.id }}"accesskey=""  class="checkbox">
-                        {{ form_widget(radio) }} {{ radio.vars.label }}
+                        {{ form_widget(radio) }}
                     </label>
                 {% endfor %}
             </div>
@@ -173,7 +173,7 @@
             <div class="col-2">
                 {% for radio in form.is_publicly_traded_company %}
                     <label for="{{ radio.vars.id }}"accesskey=""  class="checkbox">
-                        {{ form_widget(radio) }} {{ radio.vars.label }}
+                        {{ form_widget(radio) }}
                     </label>
                 {% endfor %}
             </div>
@@ -212,7 +212,7 @@
             <div class="col-2">
                 {% for radio in form.is_broker_security_exchange_person %}
                     <label for="{{ radio.vars.id }}"accesskey=""  class="checkbox">
-                        {{ form_widget(radio) }} {{ radio.vars.label }}
+                        {{ form_widget(radio) }}
                     </label>
                 {% endfor %}
             </div>

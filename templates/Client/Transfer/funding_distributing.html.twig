@@ -11,7 +11,7 @@
 {% endif %}
 
 {% block top_content %}
-    {{ render(controller('App\Controller\Client\TransferController:progressMenu', { 'account': account, 'step': 'funding_distributing' })) }}
+    {{ render(controller('App\\Controller\\Client\\TransferController:progressMenu', { 'account': account, 'step': 'funding_distributing' })) }}
 {% endblock %}
 
 {% block main_content %}
@@ -59,11 +59,7 @@
                 </div>
 
                 {{ form_errors(form.funding.type) }}
-                {% include '/Client/Transfer/_funding_form_fields.html.twig' with {
-                    'form': form.funding,
-                    'account': account,
-                    'messages': messages
-                } %}
+                {{ form_widget(form) }}
             </div>
         {% endif %}
 

@@ -38,7 +38,7 @@ class AccountOwnerPersonalInformationFormType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $this->owner = $options['primaryAccount'];
+        $this->owner = $options['primaryApplicant'];
         $this->class = get_class($options['owner']);
         $this->isPreSaved = $options['isPreSaved'];
         $this->withMaritalStatus = $options['withMaterialStatus'];
@@ -142,7 +142,7 @@ class AccountOwnerPersonalInformationFormType extends AbstractType
             ])
             ->add('employment_zip', TextType::class, ['required' => false])
             ->add('is_senior_political_figure', ChoiceType::class, [
-                'choices' => [1 => 'Yes', 0 => 'No'],
+                'choices' => ['Yes'=>1, 'No' => 0],
                 'expanded' => true,
                 'multiple' => false,
             ])
@@ -151,7 +151,7 @@ class AccountOwnerPersonalInformationFormType extends AbstractType
             ->add('senior_account_owner_relationship', TextType::class, ['required' => false])
             ->add('senior_country_office', TextType::class, ['required' => false])
             ->add('is_publicly_traded_company', ChoiceType::class, [
-                'choices' => [1 => 'Yes', 0 => 'No'],
+                'choices' => ['Yes'=>1, 'No' => 0],
                 'expanded' => true,
                 'multiple' => false,
             ])
@@ -165,7 +165,7 @@ class AccountOwnerPersonalInformationFormType extends AbstractType
                 'required' => false,
             ])
             ->add('is_broker_security_exchange_person', ChoiceType::class, [
-                'choices' => [1 => 'Yes', 0 => 'No'],
+                'choices' => ['Yes'=>1, 'No' => 0],
                 'expanded' => true,
                 'multiple' => false,
             ])
@@ -452,7 +452,8 @@ class AccountOwnerPersonalInformationFormType extends AbstractType
             'em' => null,
             'accountUserAdapter' => null,
             'class' => null,
-            'owner' => null
+            'owner' => null,
+            'primaryApplicant' => null
         ]);
     }
 

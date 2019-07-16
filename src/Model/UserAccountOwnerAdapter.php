@@ -11,7 +11,8 @@ namespace App\Model;
 
 use App\Entity\User;
 
-class UserAccountOwnerAdapter implements AccountOwnerInterface
+
+class UserAccountOwnerAdapter implements AccountOwnerInterface, \ArrayAccess
 {
     private $user;
     private $region;
@@ -22,6 +23,7 @@ class UserAccountOwnerAdapter implements AccountOwnerInterface
     private $first_name;
     private $last_name;
     private $middle_name;
+    private $employment_type;
 
     public function __construct(User $user)
     {
@@ -1107,6 +1109,25 @@ class UserAccountOwnerAdapter implements AccountOwnerInterface
         $this->mailingRegion = $mailingRegion;
     }
 
+    public function offsetExists($offset)
+    {
+        // TODO: Implement offsetExists() method.
+    }
+
+    public function offsetGet($offset)
+    {
+        // TODO: Implement offsetGet() method.
+    }
+
+    public function offsetSet($offset, $value)
+    {
+        // TODO: Implement offsetSet() method.
+    }
+
+    public function offsetUnset($offset)
+    {
+        // TODO: Implement offsetUnset() method.
+    }
 
 
 }

@@ -31,7 +31,7 @@ class ClientAccountOwner
     {
         if (null === self::$_ownerTypes) {
             self::$_ownerTypes = [];
-            $oClass = new \ReflectionClass('\App\Model\ClientAccountOwner');
+            $oClass = new \ReflectionClass('App\Model\ClientAccountOwner');
             $classConstants = $oClass->getConstants();
             $constantPrefix = 'OWNER_TYPE_';
             foreach ($classConstants as $key => $val) {

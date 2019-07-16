@@ -307,7 +307,8 @@ class BaseTransferController extends Controller
 
         $form = $this->createForm(AccountOwnerPersonalInformationFormType::class, $primaryApplicant, [
             'class' => 'App\Entity\ClientAccountOwner',
-            'primaryApplicant'=>$primaryApplicant, 'isPreSaved'=> $isPreSaved, 'withMaterialStatus' => $withMaritalStatus]);
+            'owner' => $this->getUser(),
+            'primaryApplicant'=>$this->getUser()->getProfile(), 'isPreSaved'=> $isPreSaved, 'withMaterialStatus' => $withMaritalStatus]);
         $formHandler = new TransferPersonalFormHandler($form, $request, $em, ['validator' => $this->get('validator')]);
 
         if ($request->isMethod('post')) {

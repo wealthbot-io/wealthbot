@@ -152,8 +152,7 @@ class DashboardTransferController extends BaseTransferController
             $transferForm = $this->createForm(
                 TransferFundingDistributingFormType::class,
                 null,
-                ['em'=>$em, 'account' => $account
-                ,'funding' => $account->getAccountContribution()]
+                ['em' => $em, 'account' => $account, 'isPreSaved' => $request->isXmlHttpRequest()]
             );
 
             $transferFormChildren = $transferForm->createView()->vars['form']->getChildren();

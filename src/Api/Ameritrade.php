@@ -18,6 +18,8 @@ class Ameritrade {
 
     private $apiKey;
 
+    private $apiSecret;
+
     private $container;
 
     private $ria;
@@ -43,25 +45,28 @@ class Ameritrade {
      */
     public function setApiKey(){
         $this->ria = $this->security->getUser()->getRia();
-        $this->apiKey = $this->security->getUser() ?  $this->security->getUser()->getRiaCompanyInformation()->getAmeritradeKey() : "";
+        $this->apiKey = $this->security->getUser() ?  $this->security->getUser()->getRiaCompanyInformation()->getCustodianKey() : "";
+        $this->apiSecret = $this->security->getUser() ?  $this->security->getUser()->getRiaCompanyInformation()->getCustodianSecret() : "";
     }
 
     public function getAccessToken(){
         $body = [
             'grant_type' => 'authorization_code',
-            'client_secret' => $this->apiKey,
+            'client_secret' => $this->apiSecret,
             'client_id' => 'wealthbotio',
-            'redirect_uri' => 'https://127.0.0.1:8000/ameriatrade',
+            'redirect_uri' => 'https://127.0.0.1:8000/ameritrade',
             'access_type' => 'online',
-            'response_type' => 'code'
+            'response_type' => 'code',
         ];
 
-        dump($body);
+        $headers = [
+            'Content-Type' => 'application/json'
+        ];
 
         $data = $this->httpClient->request('POST',$this->apiGateway.'oauth2/token',[
-            "body" =>  $body
+            "body" =>  $body,
+            "headers" => $headers
         ]);
-
 
         dump($data);
     }

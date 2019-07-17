@@ -105,8 +105,12 @@ class RiaCompanyInformation
     /**
      * @var
      */
-    private $ameritradeKey;
+    private $custodianKey;
 
+    /**
+     * @var
+     */
+    private $custodianSecret;
 
 
     const RELATIONSHIP_TYPE_LICENSE_FEE = 0;
@@ -1978,18 +1982,35 @@ class RiaCompanyInformation
     /**
      * @return mixed
      */
-    public function getAmeritradeKey()
+    public function getCustodianKey()
     {
-        return $this->ameritradeKey;
+        return $this->custodianKey;
     }
 
     /**
-     * @param mixed $ameritradeKey
+     * @param mixed $custodianKey
      */
-    public function setAmeritradeKey($ameritradeKey): void
+    public function setCustodianKey($custodianKey): void
     {
-        $this->ameritradeKey = $ameritradeKey;
+        $this->custodianKey = $custodianKey;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getCustodianSecret()
+    {
+        return $this->custodianSecret;
+    }
+
+    /**
+     * @param mixed $custodianSecret
+     */
+    public function setCustodianSecret($custodianSecret): void
+    {
+        $this->custodianSecret = $custodianSecret;
+    }
+
 
 
 

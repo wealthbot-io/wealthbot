@@ -13,6 +13,14 @@ class DefaultController extends Controller
 {
     public function index()
     {
+        //$ameritrade = $this->get("App\Api\Ameritrade");
+        //$ameritrade->getAccessToken();
+
+
+
+
+        exit;
+
         $form = $this->createFormBuilder()
             ->add('is_not_locate', CheckboxType::class, ['required' => false])
             ->add('state', EntityType::class, [

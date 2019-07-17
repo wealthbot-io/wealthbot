@@ -163,7 +163,11 @@ App\Entity\RiaCompanyInformation:
           type: string
           length: 45
           nullable: true
-        ameritradeKey:
+        custodianKey:
+            type: string
+            length: 255
+            nullable: true
+        custodianSecret:
             type: string
             length: 255
             nullable: true

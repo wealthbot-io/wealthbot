@@ -51,7 +51,8 @@ class RiaCompanyInformationType extends AbstractType
         $builder
             ->add('name', TextType::class, ['data' => $name, 'required' => false])
             ->add('slug', TextType::class, ['required' => false])
-            ->add('ameritradeKey')
+            ->add('custodianKey')
+            ->add('custodianSecret')
             ->add('primary_first_name', TextType::class, ['data' => $primaryFirstName, 'required' => false])
             ->add('primary_last_name', TextType::class, ['data' => $primaryLastName, 'required' => false])
             ->add('website', UrlType::class, ['required' => false])

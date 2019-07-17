@@ -128,39 +128,42 @@ class DashboardController extends Controller
             $lastPortfolioValue = $clientPortfolioValuesRepo->getLastValueByClient($client);
             $clientPortfolio = $clientPortfolioManager->getCurrentPortfolio($client);
 
-            $clientItem = [
-                'id' => $client->getId(),
-                'status' => $client->isEnabled() ? 'Active' : 'Closed',
-                'lastName' => $client->getLastName(),
-                'firstName' => $client->getFirstName(),
-                'advisorSet' => $clientGroup ? $clientGroup->getName() : '',
-                'custodian' => $client->getCustodian()->getName(),
-                'billingSpec' => $client->getAppointedBillingSpec()->getName(),
-                'totalValue' => $lastPortfolioValue ? $lastPortfolioValue->getTotalValue() : 0,
-                'ceModels' => HOUSEHOLD_LEVEL === $client->getProfile()->getClientAccountManaged() ? $clientPortfolio->getPortfolio()->getName() : '',
-                'hasClosedAccounts' => false,
-            ];
-            /** @param \App\Entity\SystemAccount $account */
-            foreach ($client->getSystemAccounts() as $account) {
-                $lastSystemClientAccountValue = $clientAccountValuesRepo->getLatestValueForSystemClientAccountId($account->getId());
-                $accountItem = [
-                    'id' => $account->getClientAccountId(),
-                    'status' => ucfirst($account->getStatus()),
-                    'lastName' => $account->getClientAccount()->getPrimaryApplicant()->getLastName(),
-                    'firstName' => $account->getClientAccount()->getPrimaryApplicant()->getFirstName(),
-                    'accountType' => $account->getTypeAsString(),
-                    'number' => $account->getAccountNumber(),
-                    'ceModels' => ACCOUNT_LEVEL === $client->getProfile()->getClientAccountManaged() ? '' : '',
-                    'totalValue' => $lastSystemClientAccountValue ? $lastSystemClientAccountValue->getTotalValue() : 0,
+                $clientItem = [
+                    'id' => $client->getId(),
+                    'status' => $client->isEnabled() ? 'Active' : 'Closed',
+                    'lastName' => $client->getLastName(),
+                    'firstName' => $client->getFirstName(),
+                    'advisorSet' => $clientGroup ? $clientGroup->getName() : '',
+                    'custodian' => $client->getCustodian()->getName(),
+                    'billingSpec' => $client->getAppointedBillingSpec()->getName(),
+                    'totalValue' => $lastPortfolioValue ? $lastPortfolioValue->getTotalValue() : 0,
+                    'ceModels' => HOUSEHOLD_LEVEL === $client->getProfile()->getClientAccountManaged() ? $clientPortfolio->getPortfolio()->getName() : '',
+                    'hasClosedAccounts' => false,
                 ];
-                $clientItem['accounts'][] = $accountItem;
+                /** @param \App\Entity\SystemAccount $account */
+                foreach ($client->getSystemAccounts() as $account) {
+                    if ($account->getClientAccount()) {
+                        $lastSystemClientAccountValue = $clientAccountValuesRepo->getLatestValueForSystemClientAccountId($account->getId());
+                        $accountItem = [
+                            'id' => $account->getClientAccountId(),
+                            'status' => ucfirst($account->getStatus()),
+                            'lastName' => $account->getClientAccount()->getPrimaryApplicant()->getLastName(),
+                            'firstName' => $account->getClientAccount()->getPrimaryApplicant()->getFirstName(),
+                            'accountType' => $account->getTypeAsString(),
+                            'number' => $account->getAccountNumber(),
+                            'ceModels' => ACCOUNT_LEVEL === $client->getProfile()->getClientAccountManaged() ? '' : '',
+                            'totalValue' => $lastSystemClientAccountValue ? $lastSystemClientAccountValue->getTotalValue() : 0,
+                        ];
+                        $clientItem['accounts'][] = $accountItem;
 
-                if (SystemAccount::STATUS_CLOSED === $account->getStatus()) {
-                    $clientItem['hasClosedAccounts'] = true;
+                        if (SystemAccount::STATUS_CLOSED === $account->getStatus()) {
+                            $clientItem['hasClosedAccounts'] = true;
+                        }
+
                 }
-            }
 
-            $results[] = $clientItem;
+                $results[] = $clientItem;
+            }
         }
 
         return $this->json($results);

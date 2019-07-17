@@ -352,7 +352,7 @@ App.module('Wealthbot.Clients', function(Mod, App, Backbone, Marionette, $) {
                     },
                     complete: function() {
                         submitButton
-                            .empty();
+                            .empty().text('Save');
                     }
                 });
             }
@@ -390,7 +390,7 @@ App.module('Wealthbot.Clients', function(Mod, App, Backbone, Marionette, $) {
                     },
                     complete: function() {
                         submitButton
-                            .empty();
+                            .empty().text('Save');
                     }
                 });
             }

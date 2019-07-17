@@ -9,6 +9,7 @@
 namespace App\Form\Type;
 
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -39,7 +40,7 @@ class AccountOwnerReviewInformationFormType extends AccountOwnerPersonalInformat
                 'required' => true,
             ])
             ->add('zip', TextType::class, ['required' => false])
-            ->add('is_different_address', 'checkbox', [
+            ->add('is_different_address', CheckboxType::class, [
                 'label' => 'Is your mailing address different than the one above?',
                 'required' => false,
             ])

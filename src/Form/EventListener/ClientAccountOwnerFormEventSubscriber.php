@@ -71,7 +71,7 @@ class ClientAccountOwnerFormEventSubscriber implements EventSubscriberInterface
         $form = $event->getForm();
         $ownerTypes = $form->get('owner_types')->getData();
 
-        if (2 !== count($ownerTypes) && $this->isJoint) {
+        if ($ownerTypes && $this->isJoint) {
             $form->addError(new FormError('You should select two owners of the account.'));
         }
 

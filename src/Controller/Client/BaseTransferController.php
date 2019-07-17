@@ -308,7 +308,7 @@ class BaseTransferController extends Controller
         $form = $this->createForm(AccountOwnerPersonalInformationFormType::class, $primaryApplicant, [
             'class' => 'App\Entity\ClientAccountOwner',
             'owner' => $this->getUser(),
-            'primaryApplicant'=>$this->getUser()->getProfile(), 'isPreSaved'=> $isPreSaved, 'withMaterialStatus' => $withMaritalStatus]);
+            'primaryAccount'=>$this->getUser()->getProfile(), 'isPreSaved'=> $isPreSaved, 'withMaterialStatus' => $withMaritalStatus]);
         $formHandler = new TransferPersonalFormHandler($form, $request, $em, ['validator' => $this->get('validator')]);
 
         if ($request->isMethod('post')) {
@@ -366,7 +366,8 @@ class BaseTransferController extends Controller
         $isPreSaved = $request->isXmlHttpRequest();
         $form = $this->createForm(AccountOwnerPersonalInformationFormType::class, $account, [
             'class' => 'App\Entity\ClientAccountOwner',
-            'primaryApplicant'=>$account, 'isPreSaved'=> $isPreSaved, 'withMaterialStatus' => true]);
+            'owner' => $this->getUser(),
+            'primaryAccount'=>$account, 'isPreSaved'=> $isPreSaved, 'withMaterialStatus' => true]);
         $formHandler = new TransferPersonalFormHandler($form, $request, $em);
 
         if ($request->isMethod('post')) {
@@ -836,9 +837,6 @@ class BaseTransferController extends Controller
 
     public function reviewOwnerInformation(Request $request, $owner_id)
     {
-        if (!$request->isXmlHttpRequest()) {
-            throw $this->createNotFoundException();
-        }
 
         $em = $this->get('doctrine.orm.entity_manager');
         $repository = $em->getRepository('App\Entity\ClientAccountOwner');
@@ -849,7 +847,11 @@ class BaseTransferController extends Controller
         }
 
         $owner = $accountOwner->getOwner();
-        $form = $this->createForm(AccountOwnerReviewInformationFormType::class, $owner);
+        $form = $this->createForm(AccountOwnerReviewInformationFormType::class, $owner,[
+            'owner' => $owner,
+            'primaryAccount'=> $this->getUser(),
+            'isPreSaved'=>true
+        ]);
 
         $status = 'success';
         $content = $this->renderView(

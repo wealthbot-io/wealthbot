@@ -116,9 +116,6 @@ class SystemAccount implements WorkflowableInterface
      */
     public function setType($type)
     {
-        if (!array_key_exists($type, self::getTypeChoices())) {
-            throw new \InvalidArgumentException(sprintf('Invalid value of type: %s for %s', $type, get_class($this)));
-        }
 
         $this->type = $type;
 
@@ -145,8 +142,9 @@ class SystemAccount implements WorkflowableInterface
         if (null === $this->type) {
             return '';
         }
+        dump($this->type);
 
-        return self::$_types[$this->type];
+        return array_values(self::$_types)[$this->type];
     }
 
     /**
@@ -183,10 +181,6 @@ class SystemAccount implements WorkflowableInterface
      */
     public function setStatus($status)
     {
-        if (!in_array($status, self::getStatusChoices())) {
-            throw new \InvalidArgumentException(sprintf('Invalid value for system_accounts.status : %s.', $status));
-        }
-
         $this->status = $status;
 
         return $this;

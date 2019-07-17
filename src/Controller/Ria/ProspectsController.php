@@ -251,7 +251,11 @@ class ProspectsController extends Controller
         }
 
         $proposedPortfolio = $clientPortfolioManager->getProposedClientPortfolio($client);
-        $settingsForm = $this->createForm(SuggestedPortfolioFormType::class, $client->getProfile(), ['em'=>$em, 'clientPortfolio'=>$proposedPortfolio]);
+        $settingsForm = $this->createForm(SuggestedPortfolioFormType::class, $client->getProfile(), [
+            'em'=>$em,
+            'clientPortfolio'=>$proposedPortfolio,
+            'client' => $client
+        ]);
 
         if ($request->isXmlHttpRequest()) {
             return $this->renderView('/Ria/Prospects/_asset_location_field.html.twig', ['settings_form' => $settingsForm->createView(), 'client_has_final_portfolio' => false]);
@@ -280,11 +284,11 @@ class ProspectsController extends Controller
             ]);
         }
 
-        $form = $this->createForm(RiaClientAccountFormType::class,$ria,[
+        $form = $this->createForm(RiaClientAccountFormType::class,null,[
             'em'=>$em,
             'client' => $client
         ]);
-        $formHandler = new RiaClientAccountFormHandler($form, $request, $adm);
+        $formHandler = new RiaClientAccountFormHandler($form, $request, $adm, $ria);
 
         if ($request->isMethod('post')) {
             $process = $formHandler->process();
@@ -292,7 +296,8 @@ class ProspectsController extends Controller
             if ($process) {
                 /** @var $clientAccount ClientAccount */
                 $clientAccount = $form->getData();
-                $newForm = $this->createForm(RiaClientAccountFormType::class, null, [
+                $client = $clientAccount->getClient();
+                $newForm = $this->createForm(RiaClientAccountFormType::class, $clientAccount, [
                     'client'=>$client, 'em' => $em]);
 
 

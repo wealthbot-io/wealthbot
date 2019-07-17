@@ -216,7 +216,7 @@ class RiaClientAccountFormEventSubscriber implements EventSubscriberInterface
 
                     return $qb;
                 },
-                'property_path' => 'type.name',
+                'property_path' => 'type',
                 'label' => 'Account Type',
                 'placeholder' => 'Select Type',
                 'auto_initialize' => false,

@@ -159,6 +159,9 @@ class ClientAccount extends BaseClientAccount
     private $modified_by;
 
 
+    /**
+     * @var
+     */
     public $type;
 
 

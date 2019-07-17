@@ -20,9 +20,9 @@ use App\Manager\AccountDocusignManager;
 
 class RiaClientAccountFormHandler extends BaseClientAccountFormHandler
 {
-    public function __construct(Form $form, Request $request, AccountDocusignManager $adm)
+    public function __construct(Form $form, Request $request, AccountDocusignManager $adm, $user)
     {
-        parent::__construct($form, $request, $adm,[],true,null,null);
+        parent::__construct($form, $request, $adm,[],true,$user,null);
     }
 
     /**

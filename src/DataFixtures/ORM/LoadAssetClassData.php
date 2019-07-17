@@ -17,9 +17,9 @@ use App\Entity\AssetClass;
 class LoadAssetClassData extends AbstractFixture implements OrderedFixtureInterface
 {
     private $assetClasses = [
-        'Assert class 1',
-        'Assert class 2',
-        'Assert class 3',
+        'Asset class 1',
+        'Asset class 2',
+        'Asset class 3',
     ];
 
     public function load(ObjectManager $manager)

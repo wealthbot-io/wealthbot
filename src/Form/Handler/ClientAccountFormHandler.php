@@ -39,7 +39,7 @@ class ClientAccountFormHandler
         if ('POST' === $this->request->getMethod()) {
             $this->form->handleRequest($this->request);
 
-            if ($this->form->isValid()) {
+            if ($this->form->isSubmitted()  && $this->form->isValid()) {
                 /** @var ClientAccount $data */
                 $data = $this->form->getData();
 

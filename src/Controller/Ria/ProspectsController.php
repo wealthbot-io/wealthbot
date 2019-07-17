@@ -198,7 +198,7 @@ class ProspectsController extends Controller
 
                 $portfolio = $settingsForm->get('client')->get('portfolio')->getData();
 
-            }
+            };
         }
 
         $companyInformation = $ria->getRiaCompanyInformation();
@@ -211,13 +211,16 @@ class ProspectsController extends Controller
             }
 
             $isQualified = $this->getIsQualifiedModel();
-        }
-
-        $form = $this->createForm(RiaClientAccountFormType::class, null, [
-            'client'=>$client, 'em' => $em]);
+        };
 
         $clientAccounts = $accountsRepo->findConsolidatedAccountsByClientId($client->getId());
         $portfolioInformationManager = $this->get('wealthbot_client.portfolio_information_manager');
+
+
+        $form = $this->createForm(RiaClientAccountFormType::class, $clientAccounts[0], [
+            'client'=>$client, 'em' => $em]);
+        $formHandler = new  RiaClientAccountFormHandler($form, $request, $this->get('wealthbot_docusign.account_docusign.manager'), $this->getUser());
+        $formHandler->process();
 
         $em->refresh($clientPortfolio);
         $data = [

@@ -349,12 +349,17 @@ class DashboardController extends Controller
         /** @var EntityManager $em */
         $em = $this->get('doctrine.orm.entity_manager');
         $systemAccount = $account->getSystemAccount();
-        $form = $this->createForm(AccountSettingsFormType::class, $account);
+        $form = $this->createForm(AccountSettingsFormType::class, $account,[
+            'em' => $em
+        ]);
 
         $oneTimeDistribution = new Distribution();
         $oneTimeDistribution->setType(Distribution::TYPE_ONE_TIME);
         $oneTimeDistribution->setSystemClientAccount($systemAccount);
-        $oneTimeDistributionForm = $this->createForm(OneTimeDistributionFormType::class, $oneTimeDistribution);
+        $oneTimeDistributionForm = $this->createForm(OneTimeDistributionFormType::class, $oneTimeDistribution,
+            [
+                'client' => $account->getClient()
+            ]);
 
         $scheduledDistribution = $em
             ->getRepository('App\Entity\Distribution')
@@ -364,7 +369,10 @@ class DashboardController extends Controller
             $scheduledDistribution->setType(Distribution::TYPE_SCHEDULED);
             $scheduledDistribution->setSystemClientAccount($systemAccount);
         }
-        $scheduledDistributionForm = $this->createForm(ScheduledDistributionFormType::class, $scheduledDistribution);
+        $scheduledDistributionForm = $this->createForm(ScheduledDistributionFormType::class, $scheduledDistribution,
+            [
+                'client' => $account->getClient()
+            ]);
 
         if ($request->isMethod('POST')) {
             $scheduledDistributionForm->handleRequest($request);

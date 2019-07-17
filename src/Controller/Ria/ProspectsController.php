@@ -75,39 +75,42 @@ class ProspectsController extends Controller
         $user->setProfile(new Profile());
         $form = $this->createForm(InviteProspectFormType::class, $ria, ['ria' => $ria, 'user'=> $user]);
 
-        $em = $this->get('doctrine.orm.entity_manager');
-        $inviteFormHandler = new InviteProspectFormHandler(
-            $form,
-            $request,
-            $em,
-            [
-            'email_service' => $this->get('wealthbot.mailer'),
-            'ria' => $this->getUser(), ]
-        );
+        if($request->isMethod('POST')) {
+            $em = $this->get('doctrine.orm.entity_manager');
+            $inviteFormHandler = new InviteProspectFormHandler(
+                $form,
+                $request,
+                $em,
+                [
+                    'email_service' => $this->get('wealthbot.mailer'),
+                    'ria' => $this->getUser(),]
+            );
 
-        $process = $inviteFormHandler->process();
-        if ($process) {
-            $data = [
-                'status' => 'success',
-                'status_message' => 'User was inviting successfully',
-                'content' => $this->renderView('/Ria/Prospects/_invite_prospect_form_fields.html.twig', [
-                    'form' => $this->createForm(InviteProspectFormType::class, $ria)->createView(),
-                ]),
-            ];
+            $form->submit($request->get('invite_prospect'));
+            $process = $inviteFormHandler->process();
+            if ($process) {
+                $data = [
+                    'status' => 'success',
+                    'status_message' => 'User was inviting successfully',
+                    'content' => $this->renderView('/Ria/Prospects/_invite_prospect_form_fields.html.twig', [
+                        'form' => $this->createForm(InviteProspectFormType::class, $ria)->createView(),
+                    ]),
+                ];
 
-            if ('internal' === $form->get('type')->getData()) {
-                $prospectsList = $em->getRepository('App\Entity\User')->findOrderedProspectsByRia(
-                    $ria,
-                    $request->get('sort'),
-                    $request->get('order')
-                );
+                if ('internal' === $form->get('type')->getData()) {
+                    $prospectsList = $em->getRepository('App\Entity\User')->findOrderedProspectsByRia(
+                        $ria,
+                        $request->get('sort'),
+                        $request->get('order')
+                    );
 
-                $data['prospectsList'] = $this->renderView('/Ria/Prospects/index.html.twig', [
-                    'clients_data' => $prospectsList,
-                ]);
+                    $data['prospectsList'] = $this->renderView('/Ria/Prospects/index.html.twig', [
+                        'clients_data' => $prospectsList,
+                    ]);
+                }
+
+                return $this->json($data);
             }
-
-            return $this->json($data);
         }
 
         return $this->json([

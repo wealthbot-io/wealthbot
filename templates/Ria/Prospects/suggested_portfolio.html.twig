@@ -142,6 +142,7 @@
                 {% endif %}
             {% endif %}
 
+            {% if settings_form.groups is defined %}
             <div class="form-group">
                 <strong>Group:</strong>
                 <div>
@@ -149,6 +150,7 @@
                     {{ form_widget(settings_form.groups) }}
                 </div>
             </div>
+            {% endif %}
 
             <div class="form-group">
                 <strong>Choose another billing spec:</strong>

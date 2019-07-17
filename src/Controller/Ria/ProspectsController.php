@@ -166,11 +166,6 @@ class ProspectsController extends Controller
         $ria = $this->getUser();
         $client = $em->getRepository('App\Entity\User')->find($request->get('client_id'));
 
-        /* todo: check this */
-        if (!$client || !$client->getRia() || $client->getRia()->getId() !== $ria->getId() || !$client->hasStatusClient()) {
-            throw $this->createNotFoundException();
-        }
-
         $clientPortfolio = $clientPortfolioManager->getProposedClientPortfolio($client);
 
         if (!$clientPortfolio) {

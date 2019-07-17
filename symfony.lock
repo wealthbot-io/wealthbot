@@ -402,7 +402,7 @@
     "symfony/dotenv": {
         "version": "v4.3.1"
     },
-    "symfony/error-catcher": {
+    "symfony/error-renderer": {
         "version": "4.4-dev"
     },
     "symfony/event-dispatcher": {

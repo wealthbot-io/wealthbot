@@ -38,7 +38,6 @@ class ClientChangeProfileTransferPersonalFormType extends AccountOwnerPersonalIn
         $this->primaryAccount = $options['owner'];
 
 
-
         parent::buildForm($builder, $options);
 
         $data = $builder->getData();

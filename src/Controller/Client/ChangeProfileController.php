@@ -90,6 +90,7 @@ class ChangeProfileController extends Controller
 
     public function information(Request $request)
     {
+
         /** @var $em EntityManager */
         $em = $this->get('doctrine.orm.entity_manager');
 
@@ -98,12 +99,17 @@ class ChangeProfileController extends Controller
         $accountUserAdapter = new UserAccountOwnerAdapter($user);
 
 
+
         $form = $this->createForm(ClientChangeProfileTransferPersonalFormType::class, $accountUserAdapter, [
             'em' => $em,
             'owner' => $user,
             'isPreSaved' => true,
             'class' => 'App\Entity\User'
         ]);
+        
+
+
+
         if ($request->isMethod('post')) {
             $formHandler = new ClientChangeProfileTransferPersonalFormHandler($form, $request, $em);
 
@@ -133,7 +139,6 @@ class ChangeProfileController extends Controller
                 ),
             ]);
         }
-
         return $this->render(
             '/Client/ChangeProfile/information.html.twig',
             ['form' => $form->createView()]

@@ -38,7 +38,7 @@ class AccountOwnerPersonalInformationFormType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $this->owner = $options['primaryApplicant'];
+        $this->owner = $options['primaryAccount'];
         $this->class = get_class($options['owner']);
         $this->isPreSaved = $options['isPreSaved'];
         $this->withMaritalStatus = $options['withMaterialStatus'];

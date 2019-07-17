@@ -16,11 +16,7 @@ class DefaultController extends Controller
         //$ameritrade = $this->get("App\Api\Ameritrade");
         //$ameritrade->getAccessToken();
 
-
-
-
-        exit;
-
+        /// todo: make ria users selection
         $form = $this->createFormBuilder()
             ->add('is_not_locate', CheckboxType::class, ['required' => false])
             ->add('state', EntityType::class, [

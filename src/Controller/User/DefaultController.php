@@ -13,7 +13,7 @@ class DefaultController extends Controller
 {
     public function index()
     {
-        //$ameritrade = $this->get("App\Api\Ameritrade");
+       // $ameritrade = $this->get("App\Api\Ameritrade");
         //$ameritrade->getAccessToken();
 
         /// todo: make ria users selection

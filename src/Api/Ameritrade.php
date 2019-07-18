@@ -53,7 +53,7 @@ class Ameritrade {
         $body = [
             'grant_type' => 'authorization_code',
             'client_secret' => $this->apiSecret,
-            'client_id' => 'wealthbotio',
+            'client_id' => $this->apiKey,
             'redirect_uri' => 'https://127.0.0.1:8000/ameritrade',
             'access_type' => 'online',
             'response_type' => 'code',

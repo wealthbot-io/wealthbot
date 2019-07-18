@@ -8,7 +8,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Component\Security\Core\Security;
 
-class Ameritrade {
+class Tradier {
 
     private $httpClient;
 
@@ -35,7 +35,7 @@ class Ameritrade {
         $this->container = $container;
         $this->httpClient = HttpClient::create();
         $this->em = $entityManager;
-        $this->apiGateway = "https://api.tdameritrade.com/v1/";
+        $this->apiGateway = "https://api.tradier.com/v2/";
         $this->security = $security;
         $this->setApiKey();
     }
@@ -49,26 +49,17 @@ class Ameritrade {
         $this->apiSecret = $this->security->getUser() ?  $this->security->getUser()->getRiaCompanyInformation()->getCustodianSecret() : "";
     }
 
-    public function getAccessToken(){
-        $body = [
-            'grant_type' => 'authorization_code',
-            'client_secret' => $this->apiSecret,
-            'client_id' => $this->apiKey,
-            'redirect_uri' => 'https://127.0.0.1:8000/ameritrade',
-            'access_type' => 'online',
-            'response_type' => 'code',
-        ];
+    public function getHeaders(){
+
+        $base64 = $this->apiKey . ":". $this->apiSecret;
+        $base64 = base64_encode($base64);
 
         $headers = [
-            'Content-Type' => 'application/json'
+            'Content-Type' => 'application/json',
+            'Authorization: Basic' . $base64
         ];
 
-        $data = $this->httpClient->request('POST',$this->apiGateway.'oauth2/token',[
-            "body" =>  $body,
-            "headers" => $headers
-        ]);
-
-        dump($data);
+        return $headers;
     }
 
     /**

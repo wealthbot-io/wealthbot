@@ -53,7 +53,7 @@ $(function(){
         });
     }
 
-    $('.btn-ajax').on('click', function (event) {
+   /* $('.btn-ajax').on('click', function (event) {
         event.preventDefault();
         var button = this;
         var form = $(button).closest('form');
@@ -94,26 +94,8 @@ $(function(){
         });
     });
 
-/*
-    $(document).on('click','', function (event) {
+    */
 
-        var button = $(this);
-
-        button.button('loading');
-
-        $.ajax({
-            url: button.attr('href'),
-//            method: POST,
-            success: function(response) {
-                button.button('reset');
-                button.closest('form').html(response);
-            }
-        });
-
-        event.preventDefault();
-
-    });
-*/
 
     $(document).on('click','.edit-ria-user-btn, .delete-ria-user-btn, .cancel-edit-user-btn', function (event) {
         var button = $(this);

@@ -40,10 +40,10 @@ class Tradier {
         $this->httpClient = HttpClient::create();
         $this->em = $entityManager;
         $this->apiSandboxGateway = "https://sandbox.tradier.com/v1/";
-        $this->apiGateway = "https://tradier.com/v1/";
+        $this->apiGateway = "https://api.tradier.com/v1/";
         $this->security = $security;
         $this->setApiKey();
-        $this->sandbox = true;
+        $this->sandbox = $sandbox;
     }
 
     /**
@@ -76,7 +76,7 @@ class Tradier {
     }
 
     private function createRequest($method, $path, $body = []){
-        $this->httpClient->request($method, $this->getEndpoint().$path,[
+        return $this->httpClient->request($method, $this->getEndpoint().$path,[
             'headers' => $this->getHeaders()
         ]);
     }

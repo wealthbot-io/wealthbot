@@ -8,7 +8,7 @@
 {% block body %}
     <div class="container-fluid">
     <div class="row">
-        <img class="img-rounded w200h100" src="{{ path('rx_file_download', {'ria_id': ria_company_information.ria.id}) }}"/>
+        <img class="img-rounded" height="60" src="{{ path('rx_file_download', {'ria_id': ria_company_information.ria.id}) }}"/>
     </div>
 
     <span>We'll save your progress. <a href="{{ path('logout') }}">Logout</a></span>

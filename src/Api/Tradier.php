@@ -16,6 +16,10 @@ class Tradier {
 
     private $apiGateway;
 
+    private $apiSandboxGateway;
+
+    private $sandbox;
+
     private $apiKey;
 
     private $apiSecret;
@@ -29,15 +33,17 @@ class Tradier {
      * @param EntityManager $entityManager
      * @param ContainerInterface $container
      */
-    public function __construct(EntityManagerInterface $entityManager, ContainerInterface $container, Security $security)
+    public function __construct(EntityManagerInterface $entityManager, ContainerInterface $container, Security $security, bool $sandbox = true)
     {
 
         $this->container = $container;
         $this->httpClient = HttpClient::create();
         $this->em = $entityManager;
-        $this->apiGateway = "https://api.tradier.com/v2/";
+        $this->apiSandboxGateway = "https://sandbox.tradier.com/v1/";
+        $this->apiGateway = "https://tradier.com/v1/";
         $this->security = $security;
         $this->setApiKey();
+        $this->sandbox = true;
     }
 
     /**
@@ -49,17 +55,26 @@ class Tradier {
         $this->apiSecret = $this->security->getUser() ?  $this->security->getUser()->getRiaCompanyInformation()->getCustodianSecret() : "";
     }
 
+
     public function getHeaders(){
 
-        $base64 = $this->apiKey . ":". $this->apiSecret;
-        $base64 = base64_encode($base64);
+        $base64 = $this->apiKey;
 
         $headers = [
             'Content-Type' => 'application/json',
-            'Authorization: Basic' . $base64
+            'Authorization: Bearer' . $base64
         ];
 
         return $headers;
+    }
+
+    /**
+     * @param bool $sandbox
+     * @return string
+     */
+    public function getEndpoint(){
+
+        return ($this->sandbox)? $this->apiSandboxGateway : $this->apiGateway;
     }
 
     /**

@@ -13,8 +13,8 @@ class DefaultController extends Controller
 {
     public function index()
     {
-       // $ameritrade = $this->get("App\Api\Ameritrade");
-        //$ameritrade->getAccessToken();
+      ///  $tradier = $this->get("App\Api\Tradier");
+       //// $tradier->createAccount();
 
         /// todo: make ria users selection
         $form = $this->createFormBuilder()

@@ -17,7 +17,6 @@
         "jms/serializer-bundle": "*",
         "knplabs/knp-paginator-bundle": "*",
         "knplabs/knp-snappy-bundle": "*",
-        "nelmio/api-doc-bundle": "*",
         "phpoffice/phpspreadsheet": "dev-master",
         "phpstan/phpstan": "^0.12.0@dev",
         "sensio/framework-extra-bundle": "^5.1",
@@ -50,10 +49,7 @@
     },
     "require-dev": {
         "symfony/debug-pack": "*",
-        "symfony/maker-bundle": "^1.0",
-        "symfony/profiler-pack": "*",
-        "symfony/test-pack": "*",
-        "symfony/web-server-bundle": "4.4.*"
+        "symfony/profiler-pack": "*"
     },
     "config": {
         "preferred-install": {
@@ -64,11 +60,6 @@
     "autoload": {
         "psr-4": {
             "App\\": "src/"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "App\\Tests\\": "tests/"
         }
     },
     "replace": {

@@ -49,18 +49,18 @@ class Tradier {
     /**
      * @throws \Exception
      */
-    public function setApiKey(){
+    private function setApiKey(){
         $this->ria = $this->security->getUser()->getRia();
         $this->apiKey = $this->security->getUser() ?  $this->security->getUser()->getRiaCompanyInformation()->getCustodianKey() : "";
         $this->apiSecret = $this->security->getUser() ?  $this->security->getUser()->getRiaCompanyInformation()->getCustodianSecret() : "";
     }
 
 
-    public function getHeaders(){
+    private function getHeaders(){
 
         $headers = [
-            'Content-Type' => 'application/json',
-            'Authorization: Bearer' . $this->apiKey
+            'Accept: application/json',
+            'Authorization: Bearer ' . $this->apiKey
         ];
 
         return $headers;
@@ -70,35 +70,20 @@ class Tradier {
      * @param bool $sandbox
      * @return string
      */
-    public function getEndpoint(){
+    private function getEndpoint(){
 
         return ($this->sandbox)? $this->apiSandboxGateway : $this->apiGateway;
     }
 
-    /**
-     * @return string
-     */
-    public function addApiKey(){
-        return '?apiKey=' . $this->apiKey;
+    private function createRequest($method, $path, $body = []){
+        $this->httpClient->request($method, $this->getEndpoint().$path,[
+            'headers' => $this->getHeaders()
+        ]);
     }
 
-    private function createRequest($data){
-
-    }
-
-
-    public function createAccount(){
-       // PUT //accounts/{accountId}/preferences
-    }
-
-
-    public function getAccounts(){
-        return $this->httpClient->request('GET', $this->apiGateway.'accounts'.$this->addApiKey())->getContent();
-    }
-
-
-    public function getAccount(){
-       // GET //accounts/{accountId}
+    public function getProfile(){
+       $data = $this->createRequest('GET','user/profile', []);
+       dump($data);
     }
 
 

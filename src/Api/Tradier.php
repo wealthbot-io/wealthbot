@@ -58,11 +58,9 @@ class Tradier {
 
     public function getHeaders(){
 
-        $base64 = $this->apiKey;
-
         $headers = [
             'Content-Type' => 'application/json',
-            'Authorization: Bearer' . $base64
+            'Authorization: Bearer' . $this->apiKey
         ];
 
         return $headers;

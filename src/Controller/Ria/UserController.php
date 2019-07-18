@@ -108,15 +108,15 @@ class UserController extends Controller
         ]);
     }
 
-    public function edit(Request $request)
+    public function edit(Request $request, \App\Entity\User $user_id)
     {
+
         $em = $this->get('doctrine.orm.entity_manager');
-        $userRepository = $em->getRepository('App\Entity\User');
-        $ria = $this->getUser();
+        $userRepository = $em->getRepository("App\\Entity\\User");
 
-        $riaUser = $userRepository->getClientByIdAndRiaId($request->get('user_id'), $this->getUser());
+        $ria = $user_id;
 
-        $form = $this->createForm(CreateUserFormType::class, $riaUser, ['class'=>'App\Entity\User']);
+        $form = $this->createForm(CreateUserFormType::class, $ria, ['class'=>'App\\Entity\\User']);
 
         if ($request->isMethod('post')) {
             $form->handleRequest($request);
@@ -133,13 +133,12 @@ class UserController extends Controller
                 return $this->getEmptyUserManagement();
             }
         }
-
         $riaUsers = $this->getRiaUsers();
 
         return $this->render('/Ria/User/edit.html.twig', [
             'form' => $form->createView(),
             'ria_users' => $riaUsers,
-            'ria_user' => $riaUser,
+            'ria_user' => $ria,
             'ria' => $ria,
         ]);
     }
@@ -205,6 +204,8 @@ class UserController extends Controller
                 $this->get('session')->getFlashBag()->add('success', 'Group Created Successfully');
 
                 return $this->getEmptyGroupManagement();
+            }
+        }
 
 
 
@@ -213,11 +214,8 @@ class UserController extends Controller
         return $this->render('/Ria/User/groups.html.twig', [
             'form' => $groupsForm->createView(),
             'groups' => $groups,
-            'group' => $group,
             'ria' => $ria,
         ]);
-            }
-        }
     }
 
     public function deleteGroup(Request $request)

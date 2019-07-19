@@ -72,7 +72,7 @@ class Tradier {
      */
     private function getEndpoint(){
 
-        return ($this->sandbox)? $this->apiSandboxGateway : $this->apiGateway;
+        return ($this->sandbox==true)? $this->apiSandboxGateway : $this->apiGateway;
     }
 
     private function createRequest($method, $path, $body = []){

@@ -2,10 +2,10 @@
 
 namespace App\Manager;
 
-use Doctrine\Common\Persistence\ObjectManager;
-use Symfony\Bundle\FrameworkBundle\Routing\Router;
+use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Custodian;
 use App\Entity\Document;
+use Symfony\Component\Routing\RouterInterface;
 
 class DocumentManager
 {
@@ -14,7 +14,7 @@ class DocumentManager
     protected $class;
     protected $repository;
 
-    public function __construct(ObjectManager $om, $class, Router $router)
+    public function __construct(EntityManagerInterface $om, $class, RouterInterface $router)
     {
         $this->objectManager = $om;
         $this->repository = $om->getRepository($class);

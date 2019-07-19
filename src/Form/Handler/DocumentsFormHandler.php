@@ -51,7 +51,6 @@ class DocumentsFormHandler extends AbstractFormHandler
 
                 $this->addDocumentForOwner($owner, $document);
                 $this->em->persist($document);
-                $this->em->flush();
 
                 if (Document::TYPE_ADV === $key || Document::TYPE_INVESTMENT_MANAGEMENT_AGREEMENT === $key) {
                     $this->sendEmailMessages($owner, $key);

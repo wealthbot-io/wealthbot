@@ -68,7 +68,6 @@ class CustodianDocumentsFormHandler
                 $document->upload();
                 $this->addDocumentForOwner($custodian, $document);
                 $this->em->persist($document);
-                $this->em->flush();
             }
         }
 

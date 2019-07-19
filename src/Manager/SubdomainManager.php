@@ -2,9 +2,10 @@
 
 namespace App\Manager;
 
-use Doctrine\Common\Persistence\ObjectManager;
-use Symfony\Bundle\FrameworkBundle\Routing\Router;
+
+use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\RiaCompanyInformation;
+use Symfony\Component\Routing\RouterInterface;
 
 class SubdomainManager
 {
@@ -15,7 +16,7 @@ class SubdomainManager
     private $repository;
     private $class;
 
-    public function __construct(ObjectManager $om, Router $router, $class, $domain)
+    public function __construct(EntityManagerInterface $om, RouterInterface $router, $class, $domain)
     {
         $this->om = $om;
         $this->repository = $om->getRepository($class);

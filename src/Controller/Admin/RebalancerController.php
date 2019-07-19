@@ -140,16 +140,8 @@ class RebalancerController extends AclController
     public function postRebalance(Request $request)
     {
         $em = $this->get('doctrine.orm.entity_manager');
-        $dm = $this->get('doctrine.odm.mongodb.document_manager');
 
         $admin = $this->getUser();
-
-        /** @var RebalanceProgress $progress */
-        $progress = $dm->getRepository('App\Entity\RebalanceProgress')->findOneBy(['userId' => $admin->getId()]);
-        if ($progress && $progress->getTotalCount() === $progress->getCompleteCount()) {
-            $dm->remove($progress);
-            $dm->flush();
-        }
 
         $job = $em->getRepository('App\Entity\Job')->findLastRebalanceJobForUser($admin);
 
@@ -244,7 +236,6 @@ class RebalancerController extends AclController
     {
 
         $em = $this->get('doctrine.orm.entity_manager');
-        $dm = $this->get('doctrine.odm.mongodb.document_manager');
         $clientAccountValuesManager = $this->get('wealthbot_client.client_account_values.manager');
         $clientPortfolioManager = $this->get('wealthbot_client.client_portfolio.manager');
         $clientPortfolioValuesManager = $this->get('wealthbot_client.client_portfolio_values.manager');
@@ -276,19 +267,12 @@ class RebalancerController extends AclController
             $formData = $form->getData();
 
             $rebalanceType = isset($formData['rebalance_type']) ? $formData['rebalance_type'] : null;
-
-            $progress = new RebalanceProgress(count($clientValuesIds));
-            $progress->setUserId($ria->getId());
-            $dm->persist($progress);
-            $dm->flush();
-
             $job = $this->createJob($rebalanceType);
 
             $em->persist($job);
             $em->flush();
 
             $em->clear();
-            $dm->clear();
 
             foreach ($clientValuesIds as $clientValueId) {
                 $accountValue = $clientAccountValuesManager->find($clientValueId);
@@ -297,15 +281,10 @@ class RebalancerController extends AclController
                 $rebalancerAction = $this->createRebalancer($job, $portfolioValue, $accountValue);
 
                 $em->persist($rebalancerAction);
-
-                $progress->setCompleteCount($progress->getCompleteCount() + 1);
-                $dm->persist($progress);
             }
 
             $em->flush();
-            $dm->flush();
             $em->clear();
-            $dm->clear();
 
             $job->setFinishedAt(new \DateTime());
             $job->setIsError(false);
@@ -344,7 +323,7 @@ class RebalancerController extends AclController
      */
     private function createRebalancer(Job $job, ClientPortfolioValue $clientPortfolioValue, ClientAccountValue $clientAccountValue = null)
     {
-        $rebalancerAction = new Rebalancer();
+        /* $rebalancerAction = new Rebalancer();
         $rebalancerAction->setJob($job);
         $rebalancerAction->setClientPortfolioValue($clientPortfolioValue);
         $rebalancerAction->setClientAccountValue($clientAccountValue);
@@ -355,5 +334,6 @@ class RebalancerController extends AclController
 
         return $rebalancerAction;
 
+        */
     }
 }

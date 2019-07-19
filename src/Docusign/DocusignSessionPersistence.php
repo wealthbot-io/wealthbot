@@ -9,7 +9,7 @@
 
 namespace App\Docusign;
 
-use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class DocusignSessionPersistence extends AbstractDocusign
 {
@@ -18,7 +18,7 @@ class DocusignSessionPersistence extends AbstractDocusign
     private $session;
     private $prefix;
 
-    public function __construct(array $config, Session $session, $prefix = self::PREFIX)
+    public function __construct(array $config, SessionInterface $session, $prefix = self::PREFIX)
     {
         $this->session = $session;
         $this->prefix = $prefix;

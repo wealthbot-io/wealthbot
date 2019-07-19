@@ -128,7 +128,7 @@ class LoadRiaData extends AbstractFixture implements OrderedFixtureInterface
         $riaCompanyInfo->setTaxLossHarvestingMinimumPercent(10);
 
         /** @var Custodian $custodian */
-        $custodian = $this->getReference('custodian-td-ameritrade');
+        $custodian = $this->getReference('custodian');
         $riaCompanyInfo->setCustodian($custodian);
         $manager->persist($riaCompanyInfo);
 
@@ -137,7 +137,7 @@ class LoadRiaData extends AbstractFixture implements OrderedFixtureInterface
 
     private function createAdvisorCode(ObjectManager $manager, RiaCompanyInformation $riaCompanyInfo)
     {
-        $custodian = $this->getReference('custodian-td-ameritrade');
+        $custodian = $this->getReference('custodian');
 
         $advisorCode = new AdvisorCode();
         $advisorCode->setCustodian($custodian);

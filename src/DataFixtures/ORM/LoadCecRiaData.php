@@ -712,7 +712,7 @@ class LoadCecRiaData extends AbstractFixture implements OrderedFixtureInterface,
             [
                 'group_type_key' => 'old_employer_retirement-2',
                 'consolidator_index' => 3,
-                'financial_institution' => 'TD Ameritrade',
+                'financial_institution' => 'Tradier',
                 'value' => 4000,
                 'monthly_contributions' => 200,
                 'monthly_distributions' => null,
@@ -1033,7 +1033,7 @@ class LoadCecRiaData extends AbstractFixture implements OrderedFixtureInterface,
         $riaCompanyInfo->setStopTlhValue(4.2);
 
         /** @var Custodian $custodian */
-        $custodian = $this->getReference('custodian-td-ameritrade');
+        $custodian = $this->getReference('custodian');
         $riaCompanyInfo->setCustodian($custodian);
 
         return $riaCompanyInfo;

@@ -33,7 +33,7 @@ class LoadClientAccountValuesData extends AbstractCsvFixture implements OrderedF
             $accountValue = new ClientAccountValue();
             $accountValue->setClientPortfolio($clientPortfolio);
             $accountValue->setSystemClientAccount($systemAccount);
-            $accountValue->setSource('td ameritrade');
+            $accountValue->setSource('tradier');
             $accountValue->setTotalInSecurities($accountRow[1]);
             $accountValue->setTotalCashInAccount($accountRow[2]);
             $accountValue->setTotalCashInMoneyMarket($accountRow[3]);
@@ -91,7 +91,7 @@ class LoadClientAccountValuesData extends AbstractCsvFixture implements OrderedF
                 $accountValue = new ClientAccountValue();
                 $accountValue->setClientPortfolio($clientPortfolio);
                 $accountValue->setSystemClientAccount($clientSystemAccount);
-                $accountValue->setSource('td ameritrade');
+                $accountValue->setSource('tradier');
                 $accountValue->setTotalInSecurities($securitiesTotal);
                 $accountValue->setTotalCashInAccount($accountsTotal);
                 $accountValue->setTotalCashInMoneyMarket($moneyMarket);

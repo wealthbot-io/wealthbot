@@ -62,6 +62,7 @@ https://gitter.im/wealthbot-io
 
 **For installation**
 
+* `install symfony  curl -sS https://get.symfony.com/cli/installer | bash`
 * `git clone https://github.com/wealthbot-io/wealthbot`
 * `cd wealthbot`
 * `COMPOSER_MEMORY_LIMIT=-1 composer install --ignore-platform-reqs`

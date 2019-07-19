@@ -24,7 +24,7 @@ class LoadCustodianData extends AbstractFixture implements OrderedFixtureInterfa
     public function load(ObjectManager $manager)
     {
         $custodian = new Custodian();
-        $custodian->setName('Rradier');
+        $custodian->setName('Tradier');
         $custodian->setEmail('support@tradier.com');
 
         $this->addReference('custodian', $custodian);

@@ -151,16 +151,6 @@ $(function(){
 
     });
 
-    $(document).on('submit','#ria_documents_form', function(event) {
-        var form = $(this);
-        var btn = form.find('input[type="submit"]');
-
-        btn.button('loading');
-
-        form.ajaxSubmit({target: ".ria-documents-form", complete: function(){ btn.button('reset') } });
-        event.preventDefault();
-    });
-
     $(document).on('submit','#alerts_configuration_form', function(event) {
         var form = $(this);
         var btn = form.find('button[type="submit"]');

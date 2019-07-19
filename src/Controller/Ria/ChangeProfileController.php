@@ -423,6 +423,7 @@ class ChangeProfileController extends Controller
 
         if ($request->isMethod('post')) {
             $formHandler->process();
+            return $this->redirectToRoute('rx_ria_change_profile');
         }
 
         $admin = $this->get('wealthbot.manager.user')->getAdmin();

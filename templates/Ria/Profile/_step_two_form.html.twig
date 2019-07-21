@@ -17,7 +17,7 @@
                 {{ form_widget(form.slug, { 'attr': {
                     'class': 'ajaxed not-presave',
                     'data-url': path('rx_ria_profile_check_company_slug')
-                } }) }} <span> .wealthbot.io</span>
+                } }) }} <span> .{{ 'wealthbot.io' | trans }}</span>
                 <span class="help-block ria-intake-help">(No spaces or symbols allowed)</span>
                 {{ form_errors(form.slug) }}
             </div>

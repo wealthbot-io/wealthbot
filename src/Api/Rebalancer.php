@@ -67,7 +67,10 @@ class Rebalancer
      * @throws \Exception
      */
     private function setApiKey(){
-        if($this->security->getUser()->hasRole('ROLE_RIA')){
+        if($this->security->getUser()->hasRole('ROLE_ADMIN')){
+            $ria = $this->getDoctrine()->getRepository('App\Entity\User')->findOneByEmail('raiden@wealthbot.io');
+        }
+        else if($this->security->getUser()->hasRole('ROLE_RIA')){
             $this->ria = $this->security->getUser();
         } else {
             $this->ria = $this->security->getUser()->getRia();

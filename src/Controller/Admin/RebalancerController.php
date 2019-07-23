@@ -323,17 +323,10 @@ class RebalancerController extends AclController
      */
     private function createRebalancer(Job $job, ClientPortfolioValue $clientPortfolioValue, ClientAccountValue $clientAccountValue = null)
     {
-        /* $rebalancerAction = new Rebalancer();
-        $rebalancerAction->setJob($job);
-        $rebalancerAction->setClientPortfolioValue($clientPortfolioValue);
-        $rebalancerAction->setClientAccountValue($clientAccountValue);
-
-        //rebalance proccess
-        //HOLD
-        $rebalancerAction->setFinishedAt(new \DateTime());
+        $rebalancerAction = $this->get('App\Api\Rebalancer');
 
         return $rebalancerAction;
 
-        */
+
     }
 }

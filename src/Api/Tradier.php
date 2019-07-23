@@ -29,9 +29,12 @@ class Tradier {
     private $ria;
 
     /**
-     * AmeritradeManager constructor.
-     * @param EntityManager $entityManager
+     * Tradier constructor.
+     * @param EntityManagerInterface $entityManager
      * @param ContainerInterface $container
+     * @param Security $security
+     * @param bool $sandbox
+     * @throws \Exception
      */
     public function __construct(EntityManagerInterface $entityManager, ContainerInterface $container, Security $security, bool $sandbox = true)
     {
@@ -42,28 +45,22 @@ class Tradier {
         $this->apiSandboxGateway = "https://sandbox.tradier.com/v1/";
         $this->apiGateway = "https://api.tradier.com/v1/";
         $this->security = $security;
-        $this->setApiKey();
         $this->sandbox = $sandbox;
+        $this->setApiKey();
     }
 
     /**
      * @throws \Exception
      */
     private function setApiKey(){
-        $this->ria = $this->security->getUser()->getRia();
-        $this->apiKey = $this->security->getUser() ?  $this->security->getUser()->getRiaCompanyInformation()->getCustodianKey() : "";
-        $this->apiSecret = $this->security->getUser() ?  $this->security->getUser()->getRiaCompanyInformation()->getCustodianSecret() : "";
-    }
 
-
-    private function getHeaders(){
-
-        $headers = [
-            'Accept: application/json',
-            'Authorization: Bearer ' . $this->apiKey
-        ];
-
-        return $headers;
+        if($this->security->getUser()->hasRole('ROLE_RIA')){
+            $this->ria = $this->security->getUser();
+        } else {
+            $this->ria = $this->security->getUser()->getRia();
+        };
+        $this->apiKey = $this->ria ?  $this->ria->getRiaCompanyInformation()->getCustodianKey() : " ";
+        $this->apiSecret = $this->ria ?  $this->ria->getRiaCompanyInformation()->getCustodianSecret() : " ";
     }
 
     /**
@@ -77,13 +74,20 @@ class Tradier {
 
     private function createRequest($method, $path, $body = []){
         return $this->httpClient->request($method, $this->getEndpoint().$path,[
-            'headers' => $this->getHeaders()
+            'headers' =>  [
+                'Accept: application/json',
+                'Authorization: Bearer '.$this->apiKey,
+                'Connection: close'
+            ]
         ]);
     }
 
+    public function getQuotes($symbol){
+        return $this->createRequest('GET','markets/quotes?symbols='.$symbol)->getContent();
+    }
+
     public function getProfile(){
-       $data = $this->createRequest('GET','user/profile', []);
-       dump($data);
+        return $this->createRequest('GET','user/profile', [])->getContent();
     }
 
 

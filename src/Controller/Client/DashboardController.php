@@ -264,11 +264,11 @@ class DashboardController extends Controller
         $em->getConfiguration()->addCustomDatetimeFunction('YEAR', 'App\DQL\DatetimeFunction\Year');
         $systemAccountManager = $this->get('wealthbot_client.system_account_manager');
 
-        /** @var \Repository\ClientSettings $repository */
+        /** @var \App\Repository\ClientSettings $repository */
         $repository = $em->getRepository('App\Entity\ClientSettings');
-        /** @var \Repository\PositionRepository $positionsRepo */
+        /** @var \App\Repository\PositionRepository $positionsRepo */
         $positionsRepo = $em->getRepository('App\Entity\Position');
-        /** @var \Repository\LotRepository $lotsRepo */
+        /** @var \App\Repository\LotRepository $lotsRepo */
         $lotsRepo = $em->getRepository('App\Entity\Lot');
 
         $isClientView = $this->isRiaClientView();
@@ -1269,19 +1269,12 @@ class DashboardController extends Controller
 
         $type = $request->get('type');
 
-        try {
-            /** @var $formFactory DistributionFormFactory */
-            $formFactory = $this->get('wealthbot_client.distribution_form_factory');
-            /** @var Form $form */
-            $form = $formFactory->create($type, $account,[
-                'client' => $client
-            ]);
-        } catch (\Exception $e) {
-            return $this->json([
-                'status' => 'error',
-                'message' => $e->getMessage(),
-            ]);
-        }
+        /** @var $formFactory DistributionFormFactory */
+        $formFactory = $this->get('wealthbot_client.distribution_form_factory');
+        /** @var Form $form */
+        $form = $formFactory->create($type, $account,[
+            'client' => $client
+        ]);
 
         if ($request->isMethod('post')) {
             $form->handleRequest($request);

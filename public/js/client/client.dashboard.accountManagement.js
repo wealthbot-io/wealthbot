@@ -68,6 +68,7 @@ function showSuccessMessage()
 }
 
 function successAccountForm(response, statusText, xhr, $form) {
+    console.log(response);
     if (response.status == 'error') {
         if (response.form) {
             showContentInRightBox(response.form);
@@ -99,7 +100,7 @@ function successAccountForm(response, statusText, xhr, $form) {
             showContentInRightBox("Some error, please try again.");
         }
     } else {
-        $('#result_container').html('<div class="client-management-transfer-form">'+response+'</div>');
+        $('#result_container').html('<div class="client-management-transfer-form">'+response.content+'</div>');
     }
 
     updateAutoNumeric();
@@ -109,7 +110,7 @@ function showTransferStep(transferUrl) {
     var container = $('#result_container');
 
     $.get(transferUrl, function(data) {
-        var html = '<div class="client-management-transfer-form">'+data+'</div>';
+        var html = '<div class="client-management-transfer-form">'+data.content+'</div>';
         container.html(html);
         init();
     });

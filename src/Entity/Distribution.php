@@ -63,9 +63,9 @@ class Distribution implements SignableInterface, PaymentWorkflowableInterface
 
     private static $_frequencies = [
         //self::FREQUENCY_ONE_TIME         => 'One-time',
-        self::FREQUENCY_EVERY_OTHER_WEEK => 'Every other week',
-        self::FREQUENCY_MONTHLY => 'Monthly',
-        self::FREQUENCY_QUARTERLY => 'Quarterly',
+        'Every other week' => self::FREQUENCY_EVERY_OTHER_WEEK ,
+        'Monthly' => self::FREQUENCY_MONTHLY,
+        'Quarterly' => self::FREQUENCY_QUARTERLY
     ];
 
     /**
@@ -340,9 +340,6 @@ class Distribution implements SignableInterface, PaymentWorkflowableInterface
      */
     public function setFrequency($frequency)
     {
-        if (null !== $frequency && !array_key_exists($frequency, self::getFrequencyChoices())) {
-            throw new \InvalidArgumentException(sprintf('Invalid value for frequency : %s.', $frequency));
-        }
 
         $this->frequency = $frequency;
 

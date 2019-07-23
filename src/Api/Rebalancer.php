@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Command;
+namespace App\Api;
 
 use App\Entity\CeModelEntity;
 use App\Entity\ClientAccount;
@@ -17,35 +17,97 @@ use App\Entity\Transaction;
 use App\Entity\TransactionType;
 use App\Entity\User;
 use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
+use Psr\Container\ContainerInterface;
 use Scheb\YahooFinanceApi\ApiClientFactory;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\HttpClient\HttpClient;
 
-class RebalancerCommand extends ContainerAwareCommand
+class Rebalancer
 {
 
+    private $container;
+
+    private $httpClient;
+
+    private $em;
+
+    private $apiGateway;
+
+    private $apiSandboxGateway;
+
+    private $sandbox;
+
+    private $apiKey;
+
+    private $apiSecret;
+
+    private $ria;
 
     private $prices;
 
 
-    /**
-     * @see Command
-     */
-    protected function configure()
+
+    public function __construct(EntityManagerInterface $entityManager, \Symfony\Component\DependencyInjection\ContainerInterface $container, \Symfony\Component\Security\Core\Security $security, bool $sandbox = true)
     {
-        $this
-            ->setName('wealthbot:rebalancer')
-            ->setDescription('Wealthbot Rebalancer')
-        ;
+        $this->container = $container;
+        $this->httpClient = HttpClient::create();
+        $this->em = $entityManager;
+        $this->apiSandboxGateway = "https://sandbox.tradier.com/v1/";
+        $this->apiGateway = "https://api.tradier.com/v1/";
+        $this->security = $security;
+        $this->sandbox = $sandbox;
+        $this->setApiKey();
+    }
+
+
+    /**
+     * @throws \Exception
+     */
+    private function setApiKey(){
+        if($this->security->getUser()->hasRole('ROLE_RIA')){
+            $this->ria = $this->security->getUser();
+        } else {
+            $this->ria = $this->security->getUser()->getRia();
+        };
+        $this->apiKey = $this->ria ?  $this->ria->getRiaCompanyInformation()->getCustodianKey() : " ";
+        $this->apiSecret = $this->ria ?  $this->ria->getRiaCompanyInformation()->getCustodianSecret() : " ";
+    }
+    /**
+     * @param bool $sandbox
+     * @return string
+     */
+    private function getEndpoint(){
+        return ($this->sandbox==true)? $this->apiSandboxGateway : $this->apiGateway;
+    }
+
+
+    private function createRequest($method, $path, $body = []){
+        return $this->httpClient->request($method, $this->getEndpoint().$path,[
+            'headers' =>  [
+                'Accept: application/json',
+                'Authorization: Bearer '.$this->apiKey,
+                'Connection: close'
+            ]
+        ]);
+    }
+
+    public function getQuotes($symbol){
+        return $this->createRequest('GET','markets/quotes?symbols='.$symbol)->getContent();
+    }
+
+    public function getProfile(){
+        return $this->createRequest('GET','user/profile', [])->getContent();
     }
 
     /**
      * @see Command
      */
-    protected function execute(InputInterface $input, OutputInterface $output)
+    public function start()
     {
-        $em = $this->getContainer()->get('doctrine')->getManager();
+        $em = $this->container->get('doctrine')->getManager();
         $em->getConnection()->getConfiguration()->setSQLLogger(null);
         $securities = $em->getRepository("App\\Entity\\Security")->findAll();
         $this->prices = $this->processPrices($em, $securities);
@@ -65,16 +127,14 @@ class RebalancerCommand extends ContainerAwareCommand
                       $newValue += $list['amount'];
                   }
                   $account->setValue(number_format($newValue, 2, '.', ''));
-                  $this->buyOrSell($item, $em, $output);
-                  $this->updatePortfolioValues($item, $em, $newValue, $output);
-                  $output->writeln('Processing account id: '. $item['account_id']);
+                  $this->buyOrSell($item);
+                  $this->updatePortfolioValues($item, $newValue);
               };
           }
 
         };
 
         $em->flush();
-        $output->writeln('Success!');
     }
 
     /**
@@ -114,7 +174,8 @@ class RebalancerCommand extends ContainerAwareCommand
      * @param $id
      * @return mixed
      */
-    protected function getPricesDiff($id){
+    protected function getPricesDiff($id)
+    {
         foreach($this->prices as $price){
             if($price['security_id'] == $id){
                 return $price['price'] / $price['old_price'];
@@ -122,7 +183,8 @@ class RebalancerCommand extends ContainerAwareCommand
         }
     }
 
-    protected function getLatestPriceBySecurityId($id){
+    protected function getLatestPriceBySecurityId($id)
+    {
         foreach($this->prices as $price){
             if($price['security_id'] == $id){
                 return $price['price'];
@@ -132,7 +194,9 @@ class RebalancerCommand extends ContainerAwareCommand
 
 
     /**
-     * @param ClientAccount $account;
+     * @param $account
+     * @param $em
+     * @return mixed
      */
     protected function processClientAccounts($account, $em)
     {
@@ -170,10 +234,15 @@ class RebalancerCommand extends ContainerAwareCommand
         return $data;
     }
 
+
     /**
-     * @param $values
+     * @param $cp
+     * @param $em
+     * @param $total
+     * @return ClientPortfolioValue
+     * @throws \Exception
      */
-    protected function updatePortfolioValues($cp, $em,$total, $output)
+    protected function updatePortfolioValues($cp,$total)
     {
 
             /** @var ClientPortfolio $clientPortfolio */
@@ -189,19 +258,24 @@ class RebalancerCommand extends ContainerAwareCommand
             $portfolioValue->setBillingCash(0);
             $portfolioValue->setDate(new \DateTime('now'));
             $portfolioValue->setModelDeviation(4);
-            $em->persist($portfolioValue);
-            $em->flush();
-            $output->writeln('New ClientPortfolioValue Added id: '.$portfolioValue->getId());
+            $this->em->persist($portfolioValue);
+            $this->em->flush();
 
 
             return $portfolioValue;
     }
 
-    protected function buyOrSell($data, $em, $output){
+
+    /**
+     * @param $data
+     * @param $em
+     * @throws \Exception
+     */
+    protected function buyOrSell($data) {
 
         if(isset($data['portfolio'])) {
             /** @var ClientPortfolio $portfolio */
-            $portfolio = $em->getRepository('App\\Entity\\ClientPortfolio')->find($data['portfolio']);
+            $portfolio = $this->em->getRepository('App\\Entity\\ClientPortfolio')->find($data['portfolio']);
 
             $answers = $portfolio->getClient()->getAnswers();
 
@@ -218,15 +292,15 @@ class RebalancerCommand extends ContainerAwareCommand
                     if ($point - $datum['prices_diff'] > 0) {
 
                         if ($datum['prices_diff'] > 1) {
-                            $this->sell($datum, $data['account_id'], $em, $output);
+                            $this->sell($datum, $data['account_id']);
                         } else {
-                            $this->buy($datum, $data['account_id'], $em, $output);
+                            $this->buy($datum, $data['account_id']);
                         }
                     } else {
                         if ($datum['prices_diff'] > 1) {
-                            $this->buy($datum, $data['account_id'], $em, $output);
+                            $this->buy($datum, $data['account_id']);
                         } else {
-                            $this->sell($datum, $data['account_id'], $em, $output);
+                            $this->sell($datum, $data['account_id']);
                         }
                     }
 
@@ -235,12 +309,18 @@ class RebalancerCommand extends ContainerAwareCommand
 
     }
 
-    protected function sell($info, $account_id,  $em, $output){
+    /**
+     * @param $info
+     * @param $account_id
+     * @param $em
+     * @throws \Exception
+     */
+    protected function sell($info, $account_id){
 
         /** @var Security $security */
-        $security = $em->getRepository("App\\Entity\\Security")->find($info['security_id']);
+        $security = $this->em->getRepository("App\\Entity\\Security")->find($info['security_id']);
         /** @var ClientAccount $account */
-        $account = $em->getRepository("App\\Entity\\ClientAccount")->find($account_id);
+        $account = $this->em->getRepository("App\\Entity\\ClientAccount")->find($account_id);
         /** @var SystemAccount $systemAccount */
         $systemAccount = $account->getSystemAccount();
 
@@ -255,7 +335,7 @@ class RebalancerCommand extends ContainerAwareCommand
             ->setActivity('sell');
 
 
-        $em->persist($transactionType);
+        $this->em->persist($transactionType);
 
 
 
@@ -280,8 +360,8 @@ class RebalancerCommand extends ContainerAwareCommand
         $lot->setWashSale(false);
         $lot->setPosition($position);
 
-        $em->persist($lot);
-        $em->persist($position);
+        $this->em->persist($lot);
+        $this->em->persist($position);
 
 
 
@@ -293,8 +373,6 @@ class RebalancerCommand extends ContainerAwareCommand
         $transaction->setTransactionType($transactionType);
         $transaction->setTxDate(new \DateTime('now'));
         $transaction->setLot($lot);
-        /// $output->writeln('sell...');
-        ///
         $em->persist($transaction);
 
 
@@ -303,12 +381,18 @@ class RebalancerCommand extends ContainerAwareCommand
 
     }
 
-    protected function buy($info, $account_id,  $em, $output){
+    /**
+     * @param $info
+     * @param $account_id
+     * @param $em
+     * @throws \Exception
+     */
+    protected function buy($info, $account_id){
 
         /** @var Security $security */
-        $security = $em->getRepository("App\\Entity\\Security")->find($info['security_id']);
+        $security = $this->em->getRepository("App\\Entity\\Security")->find($info['security_id']);
         /** @var ClientAccount $account */
-        $account = $em->getRepository("App\\Entity\\ClientAccount")->find($account_id);
+        $account = $this->em->getRepository("App\\Entity\\ClientAccount")->find($account_id);
         /** @var SystemAccount $systemAccount */
         $systemAccount = $account->getSystemAccount();
 
@@ -320,7 +404,7 @@ class RebalancerCommand extends ContainerAwareCommand
             ->setDescription('Buy '. $security->getSymbol())
             ->setActivity('buy');
 
-        $em->persist($transactionType);
+        $this->em->persist($transactionType);
 
 
         $lot = new Lot();
@@ -344,8 +428,8 @@ class RebalancerCommand extends ContainerAwareCommand
         $lot->setWashSale(false);
         $lot->setPosition($position);
 
-        $em->persist($lot);
-        $em->persist($position);
+        $this->em->persist($lot);
+        $this->em->persist($position);
 
         $transaction = new Transaction();
         $transaction->setSecurity($security);
@@ -354,12 +438,8 @@ class RebalancerCommand extends ContainerAwareCommand
         $transaction->setTransactionType($transactionType);
         $transaction->setTxDate(new \DateTime('now'));
         $transaction->setLot($lot);
-        /// $output->writeln('sell...');
-        ///
-        $em->persist($transaction);
-
-
-        $em->flush();
+        $this->em->persist($transaction);
+        $this->em->flush();
     }
 
 }

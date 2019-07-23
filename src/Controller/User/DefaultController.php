@@ -13,8 +13,8 @@ class DefaultController extends Controller
 {
     public function index()
     {
-        $tradier = $this->get("App\Api\Tradier");
-        dump($tradier->getQuotes('spy'));
+        //$tradier = $this->get("App\Api\Rebalancer");
+        //dump($tradier->getQuotes('spy'));
 
         /// todo: make ria users selection
         $form = $this->createFormBuilder()

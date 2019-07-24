@@ -28,6 +28,8 @@ class SecurityPriceCommand extends ContainerAwareCommand
 
     private $prices;
 
+    private $em;
+
 
     /**
      * @see Command
@@ -45,51 +47,8 @@ class SecurityPriceCommand extends ContainerAwareCommand
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $em = $this->getContainer()->get('doctrine')->getManager();
-        $em->getConnection()->getConfiguration()->setSQLLogger(null);
-        $securities = $this->updateSecurities($em, $output);
-        $em->flush();
-        $output->writeln('Success!');
+        $output->writeln('Update Securities started');
+        $this->getContainer()->get('App\Api\Rebalancer')->updateSecurities();
+        $output->writeln('Update Securities finished');
     }
-    /**
-     * @param $output
-     * @return object[]
-     */
-    protected function updateSecurities($em,$output)
-    {
-        $em = $this->getContainer()->get('doctrine')->getManager();
-        $em->getConnection()->getConfiguration()->setSQLLogger(null);
-
-        // Create a new client from the factory
-        $client = ApiClientFactory::createApiClient();
-
-        $securities = $em->getRepository('App\Entity\Security')->findAll();
-
-        foreach($securities as $security){
-
-            try {
-                $quotes = $client->getQuotes([$security->getSymbol()]);
-                $middle = ($quotes[0]->getRegularMarketDayHigh()+$quotes[0]->getRegularMarketDayLow()) * 0.5;
-                if (count($quotes) > 0) {
-                    $price = new SecurityPrice();
-                    $price->setSecurity($security);
-                    $price->setSecurityId($security->getId());
-                    $price->setDatetime($quotes[0]->getDividendDate());
-                    $price->setIsCurrent(true);
-                    $price->setPrice($middle);
-                    $price->setIsPosted(true);
-                    $price->setSource($quotes[0]->getQuoteSourceName());
-                    $em->persist($price);
-                    $output->writeln("Security item [{$security->getSymbol()}] has been updated.");
-                }
-            } catch (\Exception $e){
-                $output->writeln("Security item [{$security->getSymbol()}] rejected.");
-            }
-        };
-
-        $em->flush();
-
-        return $securities;
-    }
-
 }

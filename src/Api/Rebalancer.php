@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Api;
+
 use App\Entity\ClientAccount;
 use App\Entity\ClientPortfolio;
 use App\Entity\ClientPortfolioValue;
@@ -8,13 +9,20 @@ use App\Entity\ClientQuestionnaireAnswer;
 use App\Entity\Lot;
 use App\Entity\Position;
 use App\Entity\Security;
+use App\Entity\SecurityPrice;
 use App\Entity\SystemAccount;
 use App\Entity\Transaction;
 use App\Entity\TransactionType;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
+use Scheb\YahooFinanceApi\ApiClientFactory;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpClient\HttpClient;
+
+/**
+ * Class Rebalancer
+ * @package App\Api
+ */
 class Rebalancer
 {
 
@@ -95,16 +103,20 @@ class Rebalancer
      * @throws \Exception
      */
     private function setApiKey(){
-        if($this->security->getUser()->hasRole('ROLE_ADMIN')){
-            $this->ria = $this->getDoctrine()->getRepository('App\Entity\User')->findOneByEmail('raiden@wealthbot.io');
+        if($this->security->getUser()) {
+            if ($this->security->getUser()->hasRole('ROLE_ADMIN')) {
+                $this->ria = $this->getDoctrine()->getRepository('App\Entity\User')->findOneByEmail('raiden@wealthbot.io');
+            } else if ($this->security->getUser()->hasRole('ROLE_RIA')) {
+                $this->ria = $this->security->getUser();
+            } else {
+                $this->ria = $this->security->getUser()->getRia();
+            }
+            $this->apiKey = $this->ria ? $this->ria->getRiaCompanyInformation()->getCustodianKey() : " ";
+            $this->apiSecret = $this->ria ? $this->ria->getRiaCompanyInformation()->getCustodianSecret() : " ";
+        } else  {
+            $this->apiKey = $this->container->getParameter('tradier_api_key');
+            $this->apiSecret = $this->container->getParameter('tradier_api_secret');
         }
-        else if($this->security->getUser()->hasRole('ROLE_RIA')){
-            $this->ria = $this->security->getUser();
-        } else {
-            $this->ria = $this->security->getUser()->getRia();
-        };
-        $this->apiKey = $this->ria ?  $this->ria->getRiaCompanyInformation()->getCustodianKey() : " ";
-        $this->apiSecret = $this->ria ?  $this->ria->getRiaCompanyInformation()->getCustodianSecret() : " ";
     }
 
     /**
@@ -497,6 +509,44 @@ class Rebalancer
         $transaction->setLot($lot);
         $this->em->persist($transaction);
         $this->em->flush();
+    }
+
+
+
+    /**
+     * @return object[]
+     */
+    public function updateSecurities()
+    {
+
+        $securities = $this->em->getRepository('App\Entity\Security')->findAll();
+
+        foreach($securities as $security){
+
+            try {
+                $quotes = json_decode($this->getQuotes($security->getSymbol()));
+                $q = $quotes->quotes->quote;
+                if ($q) {
+                    $middle = $q->prevclose;
+                    $price = new SecurityPrice();
+                    $price->setSecurity($security);
+                    $price->setSecurityId($security->getId());
+                    $price->setDatetime( new \DateTime($q['trade_date']));
+                    $price->setIsCurrent(true);
+                    $price->setPrice($middle);
+                    $price->setIsPosted(true);
+                    $price->setSource("tradier");
+                    $this->em->persist($price);
+                }
+            } catch (\Exception $e){
+                $this->em->remove($security);
+                $this->em->flush();
+            }
+        };
+
+        $this->em->flush();
+
+        return $securities;
     }
 
 }

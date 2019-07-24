@@ -1,56 +1,83 @@
 <?php
 
 namespace App\Api;
-
-use App\Entity\CeModelEntity;
 use App\Entity\ClientAccount;
 use App\Entity\ClientPortfolio;
 use App\Entity\ClientPortfolioValue;
 use App\Entity\ClientQuestionnaireAnswer;
 use App\Entity\Lot;
 use App\Entity\Position;
-use App\Entity\RiskAnswer;
 use App\Entity\Security;
-use App\Entity\SecurityPrice;
 use App\Entity\SystemAccount;
 use App\Entity\Transaction;
 use App\Entity\TransactionType;
-use App\Entity\User;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
-use Psr\Container\ContainerInterface;
-use Scheb\YahooFinanceApi\ApiClientFactory;
-use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
-use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpClient\HttpClient;
-
 class Rebalancer
 {
 
+    /**
+     * @var ContainerInterface
+     */
     private $container;
 
+    /**
+     * @var \Symfony\Contracts\HttpClient\HttpClientInterface
+     */
     private $httpClient;
 
+    /**
+     * @var EntityManagerInterface
+     */
     private $em;
 
+    /**
+     * @var string
+     */
     private $apiGateway;
 
+    /**
+     * @var string
+     */
     private $apiSandboxGateway;
 
+    /**
+     * @var bool
+     */
     private $sandbox;
 
+    /**
+     * @var
+     */
     private $apiKey;
 
+    /**
+     * @var
+     */
     private $apiSecret;
 
+    /**
+     * @var
+     */
     private $ria;
 
+    /**
+     * @var array
+     */
     private $prices;
 
 
-
-    public function __construct(EntityManagerInterface $entityManager, \Symfony\Component\DependencyInjection\ContainerInterface $container, \Symfony\Component\Security\Core\Security $security, bool $sandbox = true)
+    /**
+     * Rebalancer constructor.
+     * @param EntityManagerInterface $entityManager
+     * @param ContainerInterface $container
+     * @param \Symfony\Component\Security\Core\Security $security
+     * @param bool $sandbox
+     * @throws \Exception
+     */
+    public function __construct(EntityManagerInterface $entityManager, ContainerInterface $container,\Symfony\Component\Security\Core\Security $security, bool $sandbox = true)
     {
         $this->container = $container;
         $this->httpClient = HttpClient::create();
@@ -64,6 +91,7 @@ class Rebalancer
 
 
     /**
+     * Sets api key and api secret
      * @throws \Exception
      */
     private function setApiKey(){
@@ -78,7 +106,9 @@ class Rebalancer
         $this->apiKey = $this->ria ?  $this->ria->getRiaCompanyInformation()->getCustodianKey() : " ";
         $this->apiSecret = $this->ria ?  $this->ria->getRiaCompanyInformation()->getCustodianSecret() : " ";
     }
+
     /**
+     * Get API Endpoint
      * @param bool $sandbox
      * @return string
      */
@@ -87,6 +117,14 @@ class Rebalancer
     }
 
 
+    /**
+     * Creates request
+     * @param $method
+     * @param $path
+     * @param array $body
+     * @return \Symfony\Contracts\HttpClient\ResponseInterface
+     * @throws \Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface
+     */
     private function createRequest($method, $path, $body = []){
         return $this->httpClient->request($method, $this->getEndpoint().$path,[
             'headers' =>  [
@@ -97,33 +135,50 @@ class Rebalancer
         ]);
     }
 
+    /**
+     * Get Quotes
+     * @param $symbol
+     * @return string
+     * @throws \Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface
+     * @throws \Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface
+     * @throws \Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface
+     * @throws \Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface
+     */
     public function getQuotes($symbol){
         return $this->createRequest('GET','markets/quotes?symbols='.$symbol)->getContent();
     }
 
+    /**
+     * Get Profile
+     * @return string
+     * @throws \Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface
+     * @throws \Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface
+     * @throws \Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface
+     * @throws \Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface
+     */
     public function getProfile(){
         return $this->createRequest('GET','user/profile', [])->getContent();
     }
 
     /**
-     * @see Command
+     * @throws \Exception
      */
     public function start()
     {
-        $em = $this->container->get('doctrine')->getManager();
-        $em->getConnection()->getConfiguration()->setSQLLogger(null);
-        $securities = $em->getRepository("App\\Entity\\Security")->findAll();
-        $this->prices = $this->processPrices($em, $securities);
-        $accounts = $em->getRepository("App\\Entity\\ClientAccount")->findAll();
+
+        $this->em->getConnection()->getConfiguration()->setSQLLogger(null);
+        $securities = $this->em->getRepository("App\\Entity\\Security")->findAll();
+        $this->prices = $this->processPrices($securities);
+        $accounts = $this->em->getRepository("App\\Entity\\ClientAccount")->findAll();
 
         foreach ($accounts as $account){
             /** @var $account ClientAccount */
-            $data[] = $this->processClientAccounts($account, $em);
+            $data[] = $this->processClientAccounts($account);
         }
         foreach($data as $datum){
           foreach($datum as $item){
               if(isset($item['account_id'])) {
-                  $account = $em->getRepository("App\\Entity\\ClientAccount")->find($item['account_id']);
+                  $account = $this->em->getRepository("App\\Entity\\ClientAccount")->find($item['account_id']);
 
                   $newValue = 0;
                   foreach ($item['values'] as $list) {
@@ -145,13 +200,12 @@ class Rebalancer
      * @param $securities
      * @return array
      */
-    protected function processPrices($em, $securities)
+    protected function processPrices($securities)
     {
         $prices = [];
         foreach ($securities as $security){
 
-            /** @var $em EntityManager */
-            $twoPrices  = $em->getRepository("App\Entity\SecurityPrice")->findBy(
+            $twoPrices  = $this->em->getRepository("App\Entity\SecurityPrice")->findBy(
                 ['security_id'=>$security->getId()],[
                 'datetime' => 'desc'
             ],2,0
@@ -201,10 +255,10 @@ class Rebalancer
      * @param $em
      * @return mixed
      */
-    protected function processClientAccounts($account, $em)
+    protected function processClientAccounts($account)
     {
         $total = $account->getValueSum() + $account->getContributionsSum() - $account->getDistributionsSum();
-        $data = $account->getClient()->getClientPortfolios()->map(function ($clientPortfolio) use ($total, $account, $em) {
+        $data = $account->getClient()->getClientPortfolios()->map(function ($clientPortfolio) use ($total, $account) {
 
             if($clientPortfolio->isClientAccepted()) {
                 /** @var \App\Entity\\ClientPortfolio $clientPortfolio */
@@ -213,7 +267,7 @@ class Rebalancer
                     'portfolio' => $clientPortfolio->getId(),
                     'account_id' => $account->getId(),
                     'values' => $clientPortfolio->getPortfolio()->getModelEntities()->map(
-                        function ($entity) use ($total, $account, $clientPortfolio, $em) {
+                        function ($entity) use ($total, $account, $clientPortfolio) {
                             /** @var ClientPortfolio $clientPortfolio */
 
                             $prices_diff = $this->getPricesDiff($entity->getSecurityAssignment()->getSecurity()->getId());
@@ -249,7 +303,7 @@ class Rebalancer
     {
 
             /** @var ClientPortfolio $clientPortfolio */
-            $clientPortfolio = $em->getRepository('App\\Entity\\ClientPortfolio')->find($cp['portfolio']);
+            $clientPortfolio = $this->em->getRepository('App\\Entity\\ClientPortfolio')->find($cp['portfolio']);
             $portfolioValue = new ClientPortfolioValue();
             $portfolioValue->setClientPortfolio($clientPortfolio);
             $portfolioValue->setTotalCashInMoneyMarket($total);

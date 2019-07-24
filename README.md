@@ -70,6 +70,7 @@ https://gitter.im/wealthbot-io
 * `bin/console doctrine:database:create`
 * `bin/console doctrine:schema:create`
 * `bin/console wealthbot:fixtures:load`
+* `bin/console wealthbot:security:price`
 * `symfony serve`
 
 

@@ -365,9 +365,9 @@ class Rebalancer
                         }
                     } else {
                         if ($datum['prices_diff'] > 1) {
-                            $this->buy($datum, $account);
-                        } else {
                             $this->sell($datum, $account);
+                        } else {
+                            $this->buy($datum, $account);
                         }
                     }
 

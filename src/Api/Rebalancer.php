@@ -181,35 +181,6 @@ class Rebalancer
 
         $securities = $this->em->getRepository("App\\Entity\\Security")->findAll();
         $this->prices = $this->processPrices($securities);
-        $accounts = $this->em->getRepository("App\\Entity\\ClientAccount")->findAll();
-
-        foreach ($accounts as $account){
-            /** @var $account ClientAccount */
-            $data[] = $this->processClientAccounts($account);
-        }
-        foreach($data as $datum){
-            foreach($datum as $item){
-                if(isset($item['account_id'])) {
-                    $account = $this->em->getRepository("App\\Entity\\ClientAccount")->find($item['account_id']);
-
-                    $newValue = 0;
-                    foreach ($item['values'] as $list) {
-                        $newValue += $list['amount'];
-                    }
-                    $account->setValue(number_format($newValue, 2, '.', ''));
-                   // $this->buyOrSell($item);
-                    $this->updatePortfolioValues($item, $newValue);
-                };
-            }
-
-        };
-
-        $this->em->flush();
-
-
-        exit;
-
-
         $actions = $this->em->getRepository('App\\Entity\\RebalancerAction')->findAll();
 
         foreach($actions as $action){
@@ -220,9 +191,9 @@ class Rebalancer
             dump($job->getRebalanceType());
 
             if($job->getRebalanceType() === Job::REBALANCE_TYPE_REQUIRED_CASH){
-                $this->updatePortfolioValues($action->getClientPortfolioValue(), Job::REBALANCE_TYPE_REQUIRED_CASH);
+                $this->processClientPortfolio($action->getClientPortfolioValue(), Job::REBALANCE_TYPE_REQUIRED_CASH);
             } else if($job->getRebalanceType() === Job::REBALANCE_TYPE_FULL_AND_TLH){
-                $this->updatePortfolioValues($action->getClientPortfolioValue(), Job::REBALANCE_TYPE_FULL_AND_TLH );
+                $this->processClientPortfolio($action->getClientPortfolioValue(), Job::REBALANCE_TYPE_FULL_AND_TLH);
             };
             $job->setFinishedAt(new \DateTime('now'));
             $job->setIsError(false);
@@ -230,7 +201,6 @@ class Rebalancer
             $job->setUser($this->ria);
             $this->em->persist($job);
         }
-
         $this->em->flush();
     }
 
@@ -294,28 +264,30 @@ class Rebalancer
      * @param $em
      * @return mixed
      */
-    protected function processClientAccounts($account)
+    protected function processClientPortfolio(ClientPortfolioValue $clientPortfolioValue, $type)
     {
-        $total = $account->getValueSum() + $account->getContributionsSum() - $account->getDistributionsSum();
-        $data = $account->getClient()->getClientPortfolios()->map(function ($clientPortfolio) use ($total, $account) {
-
-            if($clientPortfolio->isClientAccepted()) {
                 /** @var \App\Entity\\ClientPortfolio $clientPortfolio */
-                return [
+                $clientPortfolio = $clientPortfolioValue->getClientPortfolio();
+
+                if($type==Job::REBALANCE_TYPE_REQUIRED_CASH){
+                    $value = $clientPortfolioValue->getInvestableCash();
+                } else {
+                    $value = $clientPortfolioValue->getTotalValue();
+                }
+
+                $data =  [
                     'risk_rating' => $clientPortfolio->getPortfolio()->getRiskRating(),
                     'portfolio' => $clientPortfolio->getId(),
-                    'account_id' => $account->getId(),
                     'values' => $clientPortfolio->getPortfolio()->getModelEntities()->map(
-                        function ($entity) use ($total, $account, $clientPortfolio) {
+                        function ($entity) use ($clientPortfolio, $value) {
                             /** @var ClientPortfolio $clientPortfolio */
 
                             $prices_diff = $this->getPricesDiff($entity->getSecurityAssignment()->getSecurity()->getId());
-                            $old_amount = ($entity->getPercent() / 100) * $total;
+                            $old_amount = ($entity->getPercent() / 100) * $value;
                             $amount = $prices_diff * $old_amount;
                             return
                                 [
-                                    'user_id' => $account->getClient()->getId(),
-                                    'old_total' => $total,
+                                    'old_value' => $value,
                                     'amount' => $amount,
                                     'old_amount' => $old_amount,
                                     'prices_diff' => $prices_diff,
@@ -324,10 +296,10 @@ class Rebalancer
                                     'percent' => $entity->getPercent()
                                 ];
                         })];
-            }
-        });
 
-        return $data;
+
+                $this->buyOrSell($data);
+                $this->updatePortfolioValues($data, $value);
     }
 
 
@@ -338,11 +310,10 @@ class Rebalancer
      * @return ClientPortfolioValue
      * @throws \Exception
      */
-    protected function updatePortfolioValues($cp,$type, $total)
+    protected function updatePortfolioValues($clientPortfolio, $total)
     {
 
             /** @var ClientPortfolio $clientPortfolio */
-            $clientPortfolio = $this->em->getRepository('App\\Entity\\ClientPortfolio')->find($cp['portfolio']);
             $portfolioValue = new ClientPortfolioValue();
             $portfolioValue->setClientPortfolio($clientPortfolio);
             $portfolioValue->setTotalCashInMoneyMarket($total);
@@ -411,12 +382,12 @@ class Rebalancer
      * @param $em
      * @throws \Exception
      */
-    protected function sell($info, $account_id){
+    protected function sell($info, $clientPortfolio){
 
         /** @var Security $security */
         $security = $this->em->getRepository("App\\Entity\\Security")->find($info['security_id']);
         /** @var ClientAccount $account */
-        $account = $this->em->getRepository("App\\Entity\\ClientAccount")->find($account_id);
+        // client_account
         /** @var SystemAccount $systemAccount */
         $systemAccount = $account->getSystemAccount();
 
@@ -483,12 +454,12 @@ class Rebalancer
      * @param $em
      * @throws \Exception
      */
-    protected function buy($info, $account_id){
+    protected function buy($info, ClientPortfolio $clientPortfolio){
 
         /** @var Security $security */
         $security = $this->em->getRepository("App\\Entity\\Security")->find($info['security_id']);
         /** @var ClientAccount $account */
-        $account = $this->em->getRepository("App\\Entity\\ClientAccount")->find($account_id);
+        $account = $clientPortfolio->getPortfolio();
         /** @var SystemAccount $systemAccount */
         $systemAccount = $account->getSystemAccount();
 

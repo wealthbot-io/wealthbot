@@ -173,13 +173,14 @@ class Rebalancer
         return $this->createRequest('GET','user/profile', [])->getContent();
     }
 
+
+
     /**
      * @throws \Exception
      */
-    public function start()
+    public function rebalance()
     {
 
-        $this->em->getConnection()->getConfiguration()->setSQLLogger(null);
         $securities = $this->em->getRepository("App\\Entity\\Security")->findAll();
         $this->prices = $this->processPrices($securities);
         $accounts = $this->em->getRepository("App\\Entity\\ClientAccount")->findAll();
@@ -189,32 +190,28 @@ class Rebalancer
             $data[] = $this->processClientAccounts($account);
         }
         foreach($data as $datum){
-          foreach($datum as $item){
-              if(isset($item['account_id'])) {
-                  $account = $this->em->getRepository("App\\Entity\\ClientAccount")->find($item['account_id']);
+            foreach($datum as $item){
+                if(isset($item['account_id'])) {
+                    $account = $this->em->getRepository("App\\Entity\\ClientAccount")->find($item['account_id']);
 
-                  $newValue = 0;
-                  foreach ($item['values'] as $list) {
-                      $newValue += $list['amount'];
-                  }
-                  $account->setValue(number_format($newValue, 2, '.', ''));
-                  $this->buyOrSell($item);
-                  $this->updatePortfolioValues($item, $newValue);
-              };
-          }
+                    $newValue = 0;
+                    foreach ($item['values'] as $list) {
+                        $newValue += $list['amount'];
+                    }
+                    $account->setValue(number_format($newValue, 2, '.', ''));
+                   // $this->buyOrSell($item);
+                    $this->updatePortfolioValues($item, $newValue);
+                };
+            }
 
         };
 
         $this->em->flush();
-    }
 
 
+        exit;
 
-    /**
-     * @throws \Exception
-     */
-    public function rebalance()
-    {
+
         $actions = $this->em->getRepository('App\\Entity\\RebalancerAction')->findAll();
 
         foreach($actions as $action){
@@ -363,7 +360,7 @@ class Rebalancer
             $this->em->flush();
 
 
-            return $portfolioValue;
+          return $portfolioValue;
     }
 
 
@@ -552,25 +549,22 @@ class Rebalancer
     {
 
         $securities = $this->em->getRepository('App\Entity\Security')->findAll();
-
-        foreach($securities as $security){
-
-            try {
-                $quotes = json_decode($this->getQuotes($security->getSymbol()));
-                $q = $quotes->quotes->quote;
-                if ($q) {
-                    $middle = $q->prevclose;
-                    $price = new SecurityPrice();
-                    $price->setSecurity($security);
-                    $price->setSecurityId($security->getId());
-                    $price->setDatetime( new \DateTime($q->trade_date));
-                    $price->setIsCurrent(true);
-                    $price->setPrice($middle);
-                    $price->setIsPosted(true);
-                    $price->setSource("tradier");
-                    $this->em->persist($price);
-                }
-            } catch (\Exception $e){
+        $symbols = implode(",",array_map(function($security){
+            return $security->getSymbol();
+        },$securities));
+        $quotes = json_decode($this->getQuotes($symbols));
+        foreach($quotes->quotes->quote as $quote){
+            if(isset($quote->last)) {
+                $security = $this->em->getRepository('App\Entity\Security')->findOneBySymbol($quote->symbol);
+                $price = new SecurityPrice();
+                $price->setSecurity($security);
+                $price->setSecurityId($security->getId());
+                $price->setDatetime(new \DateTime('now'));
+                $price->setIsCurrent(true);
+                $price->setPrice($quote->last);
+                $price->setIsPosted(true);
+                $price->setSource("tradier");
+                $this->em->persist($price);
             }
         };
 

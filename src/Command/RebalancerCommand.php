@@ -27,7 +27,7 @@ class RebalancerCommand extends ContainerAwareCommand
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $output->writeln('Rebalancer started');
-        $this->getContainer()->get('App\Api\Rebalancer')->start();
+        $this->getContainer()->get('App\Api\Rebalancer')->rebalance();
 
         $output->writeln('Rebalancer finished');
     }

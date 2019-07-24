@@ -383,36 +383,9 @@ class RebalancerController extends Controller
                         $em->persist($rebalancerAction);
                     }
                 }
-
-//                $progress->setCompleteCount($progress->getCompleteCount()+1);
-//                $dm->persist($progress);
-//                $dm->flush();
             }
-//
-//            $job->setFinishedAt(new \DateTime());
-//            $job->setIsError(false);
-            $em->flush();
-            $em->clear();
-
             $em->persist($job);
             $em->flush();
-            $em->clear();
-
-            $filePath = $this->container->getParameter('active_jobs_dir').'/'.$job->getId();
-
-            $file = fopen($filePath, 'a+');
-            fclose($file);
-
-            chmod($filePath, 0666);
-
-            for ($i = 0; $i < 5; ++$i) {
-                $em->refresh($job);
-                if ($job->getFinishedAt()) {
-                    return $this->json([
-                        'status' => 'success',
-                    ]);
-                }
-            }
 
             return $this->json([
                 'status' => 'timeout',
@@ -474,17 +447,12 @@ class RebalancerController extends Controller
      */
     private function createRebalancer(Job $job, ClientPortfolioValue $clientPortfolioValue, ClientAccountValue $clientAccountValue = null)
     {
-      ///  $rebalancerAction = new Rebalaner();
-      //  $rebalancerAction->setJob($job);
-      ///  $rebalancerAction->setClientPortfolioValue($clientPortfolioValue);
-      ///  $rebalancerAction->setClientAccountValue($clientAccountValue);
 
-        //rebalance proccess
-        //HOLD
-
-//        $rebalancerAction->setFinishedAt(new \DateTime());
-
-      ///  return $rebalancerAction;
+        $rebalancerAction = new RebalancerAction();
+        $rebalancerAction->setJob($job);
+        $rebalancerAction->setClientPortfolioValue($clientPortfolioValue);
+        $rebalancerAction->setClientAccountValue($clientAccountValue);
+        return $rebalancerAction;
     }
 
     public function postRebalance(Request $request)

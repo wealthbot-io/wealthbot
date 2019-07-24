@@ -207,6 +207,24 @@ class Rebalancer
         $this->em->flush();
     }
 
+
+
+    /**
+     * @throws \Exception
+     */
+    public function rebalance()
+    {
+        $actions = $this->em->getRepository('App\\Entity\\RebalancerAction')->findAll();
+
+        foreach($actions as $action){
+            $job = $action->getJob();
+            dump($action->getClientAccountValue());
+            dump($action->getClientPortfolioValue());
+            dump($job->getRebalanceType());
+        }
+
+    }
+
     /**
      * @param $em
      * @param $securities

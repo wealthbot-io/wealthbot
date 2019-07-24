@@ -68,7 +68,7 @@ class Rebalancer
      */
     private function setApiKey(){
         if($this->security->getUser()->hasRole('ROLE_ADMIN')){
-            $ria = $this->getDoctrine()->getRepository('App\Entity\User')->findOneByEmail('raiden@wealthbot.io');
+            $this->ria = $this->getDoctrine()->getRepository('App\Entity\User')->findOneByEmail('raiden@wealthbot.io');
         }
         else if($this->security->getUser()->hasRole('ROLE_RIA')){
             $this->ria = $this->security->getUser();

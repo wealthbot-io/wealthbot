@@ -187,13 +187,13 @@ class Rebalancer
             /** @var Job $job */
             $job = $action->getJob();
 
-            dump($action->getClientPortfolioValue()->getInvestableCash());
-            dump($job->getRebalanceType());
+            $clientAccount = $this->em->getRepository('App\\Entity\\ClientAccount')->findOneByClient($action->getClientPortfolioValue()->getClientPortfolio()->getClientId());
+
 
             if($job->getRebalanceType() === Job::REBALANCE_TYPE_REQUIRED_CASH){
-                $this->processClientPortfolio($action->getClientPortfolioValue(), Job::REBALANCE_TYPE_REQUIRED_CASH);
+                $this->processClientPortfolio($action->getClientPortfolioValue(),$clientAccount, Job::REBALANCE_TYPE_REQUIRED_CASH);
             } else if($job->getRebalanceType() === Job::REBALANCE_TYPE_FULL_AND_TLH){
-                $this->processClientPortfolio($action->getClientPortfolioValue(), Job::REBALANCE_TYPE_FULL_AND_TLH);
+                $this->processClientPortfolio($action->getClientPortfolioValue(),$clientAccount, Job::REBALANCE_TYPE_FULL_AND_TLH);
             };
             $job->setFinishedAt(new \DateTime('now'));
             $job->setIsError(false);
@@ -264,7 +264,7 @@ class Rebalancer
      * @param $em
      * @return mixed
      */
-    protected function processClientPortfolio(ClientPortfolioValue $clientPortfolioValue, $type)
+    protected function processClientPortfolio(ClientPortfolioValue $clientPortfolioValue, $clientAccount, $type)
     {
                 /** @var \App\Entity\\ClientPortfolio $clientPortfolio */
                 $clientPortfolio = $clientPortfolioValue->getClientPortfolio();
@@ -298,8 +298,8 @@ class Rebalancer
                         })];
 
 
-                $this->buyOrSell($data);
-                $this->updatePortfolioValues($data, $value);
+                $this->buyOrSell($data, $clientAccount);
+               // $this->updatePortfolioValues($data, $value);
     }
 
 
@@ -338,7 +338,7 @@ class Rebalancer
      * @param $em
      * @throws \Exception
      */
-    protected function buyOrSell($data) {
+    protected function buyOrSell($data, $account) {
 
         if(isset($data['portfolio'])) {
             /** @var ClientPortfolio $portfolio */
@@ -359,15 +359,15 @@ class Rebalancer
                     if ($point - $datum['prices_diff'] > 0) {
 
                         if ($datum['prices_diff'] > 1) {
-                            $this->sell($datum, $data['account_id']);
+                            $this->sell($datum, $portfolio, $account);
                         } else {
-                            $this->buy($datum, $data['account_id']);
+                            $this->buy($datum, $portfolio, $account);
                         }
                     } else {
                         if ($datum['prices_diff'] > 1) {
-                            $this->buy($datum, $data['account_id']);
+                            $this->buy($datum, $portfolio, $account);
                         } else {
-                            $this->sell($datum, $data['account_id']);
+                            $this->sell($datum, $portfolio, $account);
                         }
                     }
 
@@ -382,12 +382,10 @@ class Rebalancer
      * @param $em
      * @throws \Exception
      */
-    protected function sell($info, $clientPortfolio){
+    protected function sell($info, ClientPortfolio $portfolio, ClientAccount $account){
 
         /** @var Security $security */
         $security = $this->em->getRepository("App\\Entity\\Security")->find($info['security_id']);
-        /** @var ClientAccount $account */
-        // client_account
         /** @var SystemAccount $systemAccount */
         $systemAccount = $account->getSystemAccount();
 
@@ -454,12 +452,10 @@ class Rebalancer
      * @param $em
      * @throws \Exception
      */
-    protected function buy($info, ClientPortfolio $clientPortfolio){
+    protected function buy($info, ClientPortfolio $portfolio, ClientAccount $account){
 
         /** @var Security $security */
         $security = $this->em->getRepository("App\\Entity\\Security")->find($info['security_id']);
-        /** @var ClientAccount $account */
-        $account = $clientPortfolio->getPortfolio();
         /** @var SystemAccount $systemAccount */
         $systemAccount = $account->getSystemAccount();
 

@@ -1,19 +1,9 @@
 <?php
 
 namespace App\Api;
-
-use App\Entity\ClientAccount;
 use App\Entity\ClientPortfolio;
 use App\Entity\ClientPortfolioValue;
-use App\Entity\ClientQuestionnaireAnswer;
 use App\Entity\Job;
-use App\Entity\Lot;
-use App\Entity\Position;
-use App\Entity\Security;
-use App\Entity\SecurityPrice;
-use App\Entity\SystemAccount;
-use App\Entity\Transaction;
-use App\Entity\TransactionType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpClient\HttpClient;
@@ -22,58 +12,62 @@ use Symfony\Component\HttpClient\HttpClient;
  * Class Rebalancer
  * @package App\Api
  */
-class Rebalancer
+class Rebalancer extends BaseRebalancer
 {
+
+    use Requests;
+    use Trade;
+
 
     /**
      * @var ContainerInterface
      */
-    private $container;
+    protected $container;
 
     /**
      * @var \Symfony\Contracts\HttpClient\HttpClientInterface
      */
-    private $httpClient;
+    protected  $httpClient;
 
     /**
      * @var EntityManagerInterface
      */
-    private $em;
+    protected  $em;
 
     /**
      * @var string
      */
-    private $apiGateway;
+    protected  $apiGateway;
 
     /**
      * @var string
      */
-    private $apiSandboxGateway;
+    protected  $apiSandboxGateway;
 
     /**
      * @var bool
      */
-    private $sandbox;
+    protected  $sandbox;
 
     /**
      * @var
      */
-    private $apiKey;
+    protected  $apiKey;
 
     /**
      * @var
      */
-    private $apiSecret;
+    protected  $apiSecret;
 
     /**
      * @var
      */
-    private $ria;
+    protected  $ria;
 
     /**
      * @var array
      */
-    private $prices;
+    protected  $prices;
 
 
     /**
@@ -95,83 +89,6 @@ class Rebalancer
         $this->sandbox = $sandbox;
         $this->setApiKey();
     }
-
-
-    /**
-     * Sets api key and api secret
-     * @throws \Exception
-     */
-    private function setApiKey(){
-        if($this->security->getUser()) {
-            if ($this->security->getUser()->hasRole('ROLE_ADMIN')) {
-                $this->ria = $this->getDoctrine()->getRepository('App\Entity\User')->findOneByEmail('raiden@wealthbot.io');
-            } else if ($this->security->getUser()->hasRole('ROLE_RIA')) {
-                $this->ria = $this->security->getUser();
-            } else {
-                $this->ria = $this->security->getUser()->getRia();
-            }
-            $this->apiKey = $this->ria ? $this->ria->getRiaCompanyInformation()->getCustodianKey() : " ";
-            $this->apiSecret = $this->ria ? $this->ria->getRiaCompanyInformation()->getCustodianSecret() : " ";
-        } else  {
-            $this->apiKey = $this->container->getParameter('tradier_api_key');
-            $this->apiSecret = $this->container->getParameter('tradier_api_secret');
-        }
-    }
-
-    /**
-     * Get API Endpoint
-     * @param bool $sandbox
-     * @return string
-     */
-    private function getEndpoint(){
-        return ($this->sandbox==true)? $this->apiSandboxGateway : $this->apiGateway;
-    }
-
-
-    /**
-     * Creates request
-     * @param $method
-     * @param $path
-     * @param array $body
-     * @return \Symfony\Contracts\HttpClient\ResponseInterface
-     * @throws \Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface
-     */
-    private function createRequest($method, $path, $body = []){
-        return $this->httpClient->request($method, $this->getEndpoint().$path,[
-            'headers' =>  [
-                'Accept: application/json',
-                'Authorization: Bearer '. $this->apiKey,
-                'Connection: close'
-            ]
-        ]);
-    }
-
-    /**
-     * Get Quotes
-     * @param $symbol
-     * @return string
-     * @throws \Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface
-     * @throws \Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface
-     * @throws \Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface
-     * @throws \Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface
-     */
-    public function getQuotes($symbol){
-        return $this->createRequest('GET','markets/quotes?symbols='.$symbol)->getContent();
-    }
-
-    /**
-     * Get Profile
-     * @return string
-     * @throws \Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface
-     * @throws \Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface
-     * @throws \Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface
-     * @throws \Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface
-     */
-    public function getProfile(){
-        return $this->createRequest('GET','user/profile', [])->getContent();
-    }
-
-
 
     /**
      * @throws \Exception
@@ -202,60 +119,6 @@ class Rebalancer
             $this->em->persist($job);
         }
         $this->em->flush();
-    }
-
-    /**
-     * @param $em
-     * @param $securities
-     * @return array
-     */
-    protected function processPrices($securities)
-    {
-        $prices = [];
-        foreach ($securities as $security){
-
-            $twoPrices  = $this->em->getRepository("App\Entity\SecurityPrice")->findBy(
-                ['security_id'=>$security->getId()],[
-                'datetime' => 'desc'
-            ],2,0
-            );
-            $prices[] = [
-                'security_id' => $security->getId(),
-                'old_price' => isset($twoPrices[1]) ? $twoPrices[1]->getPrice() : 0,
-                'price' => isset($twoPrices[0]) ? $twoPrices[0]->getPrice() : 0
-            ];
-
-            foreach($prices as $key => $price){
-                if($price == 0){
-                    unset($prices[$key]);
-                }
-            }
-        }
-
-        return $prices;
-    }
-
-
-    /**
-     * @param $id
-     * @return mixed
-     */
-    protected function getPricesDiff($id)
-    {
-        foreach($this->prices as $price){
-            if($price['security_id'] == $id){
-                return $price['price'] / $price['old_price'];
-            }
-        }
-    }
-
-    protected function getLatestPriceBySecurityId($id)
-    {
-        foreach($this->prices as $price){
-            if($price['security_id'] == $id){
-                return $price['price'];
-            }
-        }
     }
 
 
@@ -331,211 +194,4 @@ class Rebalancer
 
           return $portfolioValue;
     }
-
-
-    /**
-     * @param $data
-     * @param $em
-     * @throws \Exception
-     */
-    protected function buyOrSell($data, $account) {
-
-        if(isset($data['portfolio'])) {
-            /** @var ClientPortfolio $portfolio */
-            $portfolio = $this->em->getRepository('App\\Entity\\ClientPortfolio')->find($data['portfolio']);
-
-            $answers = $portfolio->getClient()->getAnswers();
-
-            $point = 0;
-            foreach($answers as $answer){
-                /** @var ClientQuestionnaireAnswer $answer */
-                $point += $answer->getAnswer()->getPoint();
-
-            };
-
-            $point = ($point / 100) + 1;
-
-                foreach ($data['values'] as $datum) {
-                    if ($point - $datum['prices_diff'] > 0) {
-
-                        if ($datum['prices_diff'] > 1) {
-                            $this->sell($datum, $account);
-                        } else {
-                            $this->buy($datum, $account);
-                        }
-                    } else {
-                        if ($datum['prices_diff'] > 1) {
-                            $this->sell($datum, $account);
-                        } else {
-                            $this->buy($datum, $account);
-                        }
-                    }
-
-                }
-            }
-
-    }
-
-    /**
-     * @param $info
-     * @param $account_id
-     * @param $em
-     * @throws \Exception
-     */
-    protected function sell($info, ClientAccount $account){
-
-        /** @var Security $security */
-        $security = $this->em->getRepository("App\\Entity\\Security")->find($info['security_id']);
-        /** @var SystemAccount $systemAccount */
-        $systemAccount = $account->getSystemAccount();
-
-
-
-        $transactionType = new TransactionType();
-        $transactionType
-            ->setName('SELL')
-            ->setActivity('sell')
-            ->setReportAs(null)
-            ->setDescription('Sell '. $security->getSymbol())
-            ->setActivity('sell');
-
-
-        $this->em->persist($transactionType);
-
-
-
-        $lot = new Lot();
-        $position = new Position();
-        $position->setSecurity($security)
-            ->setDate(new \DateTime('now'))
-            ->setAmount($info['amount'])
-            ->setLots([$lot]);
-        $position->setClientSystemAccount($systemAccount);
-        $position->setQuantity(1);
-        $position->setStatus(Position::POSITION_STATUS_INITIAL);
-
-        $lot->setAmount($info['amount']);
-        $lot->setClientSystemAccount($systemAccount);
-        $lot->setStatus(Lot::LOT_IS_OPEN);
-        $lot->setDate(new \DateTime('now'));
-        $lot->setQuantity(1);
-        $lot->setSecurity($security);
-        $lot->setCostBasisKnown(true);
-        $lot->setCostBasis($this->getLatestPriceBySecurityId($security->getId()));
-        $lot->setWashSale(false);
-        $lot->setPosition($position);
-
-        $this->em->persist($lot);
-        $this->em->persist($position);
-
-
-
-        $transaction = new Transaction();
-        $security = $this->em->getRepository("App\\Entity\\Security")->find($info['security_id']);
-        $transaction->setSecurity($security);
-        $transaction->setQty($info['amount']);
-        $transaction->setAccount($systemAccount);
-        $transaction->setTransactionType($transactionType);
-        $transaction->setTxDate(new \DateTime('now'));
-        $transaction->setLot($lot);
-        $this->em->persist($transaction);
-
-
-        $this->em->flush();
-
-
-    }
-
-    /**
-     * @param $info
-     * @param $account_id
-     * @param $em
-     * @throws \Exception
-     */
-    protected function buy($info, ClientAccount $account){
-
-        /** @var Security $security */
-        $security = $this->em->getRepository("App\\Entity\\Security")->find($info['security_id']);
-        /** @var SystemAccount $systemAccount */
-        $systemAccount = $account->getSystemAccount();
-
-        $transactionType = new TransactionType();
-        $transactionType
-            ->setName('BUY')
-            ->setActivity('buy')
-            ->setReportAs(null)
-            ->setDescription('Buy '. $security->getSymbol())
-            ->setActivity('buy');
-
-        $this->em->persist($transactionType);
-
-
-        $lot = new Lot();
-        $position = new Position();
-        $position->setSecurity($security)
-            ->setDate(new \DateTime('now'))
-            ->setAmount($info['amount'])
-            ->setLots([$lot]);
-        $position->setClientSystemAccount($systemAccount);
-        $position->setQuantity(1);
-        $position->setStatus(Position::POSITION_STATUS_INITIAL);
-
-        $lot->setAmount($info['amount']);
-        $lot->setClientSystemAccount($systemAccount);
-        $lot->setStatus(Lot::LOT_IS_OPEN);
-        $lot->setDate(new \DateTime('now'));
-        $lot->setQuantity(1);
-        $lot->setSecurity($security);
-        $lot->setCostBasisKnown(true);
-        $lot->setCostBasis($this->getLatestPriceBySecurityId($security->getId()));
-        $lot->setWashSale(false);
-        $lot->setPosition($position);
-
-        $this->em->persist($lot);
-        $this->em->persist($position);
-
-        $transaction = new Transaction();
-        $transaction->setSecurity($security);
-        $transaction->setQty($info['amount']);
-        $transaction->setAccount($systemAccount);
-        $transaction->setTransactionType($transactionType);
-        $transaction->setTxDate(new \DateTime('now'));
-        $transaction->setLot($lot);
-        $this->em->persist($transaction);
-        $this->em->flush();
-    }
-
-
-
-    /**
-     * @return object[]
-     */
-    public function updateSecurities()
-    {
-
-        $securities = $this->em->getRepository('App\Entity\Security')->findAll();
-        $symbols = implode(",",array_map(function($security){
-            return $security->getSymbol();
-        },$securities));
-        $quotes = json_decode($this->getQuotes($symbols));
-        foreach($quotes->quotes->quote as $quote){
-            if(isset($quote->last)) {
-                $security = $this->em->getRepository('App\Entity\Security')->findOneBySymbol($quote->symbol);
-                $price = new SecurityPrice();
-                $price->setSecurity($security);
-                $price->setSecurityId($security->getId());
-                $price->setDatetime(new \DateTime('now'));
-                $price->setIsCurrent(true);
-                $price->setPrice($quote->last);
-                $price->setIsPosted(true);
-                $price->setSource("tradier");
-                $this->em->persist($price);
-            }
-        };
-
-        $this->em->flush();
-
-        return $securities;
-    }
-
 }

@@ -6,6 +6,7 @@ use App\Entity\ClientAccount;
 use App\Entity\ClientPortfolio;
 use App\Entity\ClientPortfolioValue;
 use App\Entity\ClientQuestionnaireAnswer;
+use App\Entity\Job;
 use App\Entity\Lot;
 use App\Entity\Position;
 use App\Entity\Security;
@@ -217,12 +218,25 @@ class Rebalancer
         $actions = $this->em->getRepository('App\\Entity\\RebalancerAction')->findAll();
 
         foreach($actions as $action){
+            /** @var Job $job */
             $job = $action->getJob();
-            dump($action->getClientAccountValue());
-            dump($action->getClientPortfolioValue());
+
+            dump($action->getClientPortfolioValue()->getInvestableCash());
             dump($job->getRebalanceType());
+
+            if($job->getRebalanceType() === Job::REBALANCE_TYPE_REQUIRED_CASH){
+                $this->updatePortfolioValues($action->getClientPortfolioValue(), Job::REBALANCE_TYPE_REQUIRED_CASH);
+            } else if($job->getRebalanceType() === Job::REBALANCE_TYPE_FULL_AND_TLH){
+                $this->updatePortfolioValues($action->getClientPortfolioValue(), Job::REBALANCE_TYPE_FULL_AND_TLH );
+            };
+            $job->setFinishedAt(new \DateTime('now'));
+            $job->setIsError(false);
+            $job->setNameRebalancer('local');
+            $job->setUser($this->ria);
+            $this->em->persist($job);
         }
 
+        $this->em->flush();
     }
 
     /**
@@ -329,7 +343,7 @@ class Rebalancer
      * @return ClientPortfolioValue
      * @throws \Exception
      */
-    protected function updatePortfolioValues($cp,$total)
+    protected function updatePortfolioValues($cp,$type, $total)
     {
 
             /** @var ClientPortfolio $clientPortfolio */

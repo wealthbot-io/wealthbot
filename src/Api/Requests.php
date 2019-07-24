@@ -46,7 +46,7 @@ trait Requests
      * @throws \Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface
      */
     public function getQuotes($symbol){
-        return $this->createRequest('GET','markets/quotes?symbols='.$symbol)->getContent();
+        return $this->createRequest('GET','markets/quotes?symbols='.$symbol,'',[])->getContent();
     }
 
     /**
@@ -58,7 +58,7 @@ trait Requests
      * @throws \Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface
      */
     public function getProfile(){
-        return $this->createRequest('GET','user/profile', [])->getContent();
+        return $this->createRequest('GET','user/profile', [],'',[])->getContent();
     }
 
 

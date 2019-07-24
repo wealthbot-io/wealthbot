@@ -141,7 +141,7 @@ class Rebalancer
         return $this->httpClient->request($method, $this->getEndpoint().$path,[
             'headers' =>  [
                 'Accept: application/json',
-                'Authorization: Bearer '.$this->apiKey,
+                'Authorization: Bearer '. $this->apiKey,
                 'Connection: close'
             ]
         ]);
@@ -531,7 +531,7 @@ class Rebalancer
                     $price = new SecurityPrice();
                     $price->setSecurity($security);
                     $price->setSecurityId($security->getId());
-                    $price->setDatetime( new \DateTime($q['trade_date']));
+                    $price->setDatetime( new \DateTime($q->trade_date));
                     $price->setIsCurrent(true);
                     $price->setPrice($middle);
                     $price->setIsPosted(true);
@@ -539,8 +539,6 @@ class Rebalancer
                     $this->em->persist($price);
                 }
             } catch (\Exception $e){
-                $this->em->remove($security);
-                $this->em->flush();
             }
         };
 

@@ -464,17 +464,17 @@ class Rebalancer
 
 
         $transaction = new Transaction();
-        $security = $em->getRepository("App\\Entity\\Security")->find($info['security_id']);
+        $security = $this->em->getRepository("App\\Entity\\Security")->find($info['security_id']);
         $transaction->setSecurity($security);
         $transaction->setQty($info['amount']);
         $transaction->setAccount($systemAccount);
         $transaction->setTransactionType($transactionType);
         $transaction->setTxDate(new \DateTime('now'));
         $transaction->setLot($lot);
-        $em->persist($transaction);
+        $this->em->persist($transaction);
 
 
-        $em->flush();
+        $this->em->flush();
 
 
     }

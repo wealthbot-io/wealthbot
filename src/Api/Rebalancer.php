@@ -14,9 +14,7 @@ use App\Entity\SecurityPrice;
 use App\Entity\SystemAccount;
 use App\Entity\Transaction;
 use App\Entity\TransactionType;
-use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
-use Scheb\YahooFinanceApi\ApiClientFactory;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpClient\HttpClient;
 

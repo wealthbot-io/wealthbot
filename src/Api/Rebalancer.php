@@ -299,7 +299,7 @@ class Rebalancer
 
 
                 $this->buyOrSell($data, $clientAccount);
-               // $this->updatePortfolioValues($data, $value);
+                $this->updatePortfolioValues($clientPortfolio, $clientPortfolioValue->getTotalValue());
     }
 
 
@@ -359,15 +359,15 @@ class Rebalancer
                     if ($point - $datum['prices_diff'] > 0) {
 
                         if ($datum['prices_diff'] > 1) {
-                            $this->sell($datum, $portfolio, $account);
+                            $this->sell($datum, $account);
                         } else {
-                            $this->buy($datum, $portfolio, $account);
+                            $this->buy($datum, $account);
                         }
                     } else {
                         if ($datum['prices_diff'] > 1) {
-                            $this->buy($datum, $portfolio, $account);
+                            $this->buy($datum, $account);
                         } else {
-                            $this->sell($datum, $portfolio, $account);
+                            $this->sell($datum, $account);
                         }
                     }
 
@@ -382,7 +382,7 @@ class Rebalancer
      * @param $em
      * @throws \Exception
      */
-    protected function sell($info, ClientPortfolio $portfolio, ClientAccount $account){
+    protected function sell($info, ClientAccount $account){
 
         /** @var Security $security */
         $security = $this->em->getRepository("App\\Entity\\Security")->find($info['security_id']);
@@ -452,7 +452,7 @@ class Rebalancer
      * @param $em
      * @throws \Exception
      */
-    protected function buy($info, ClientPortfolio $portfolio, ClientAccount $account){
+    protected function buy($info, ClientAccount $account){
 
         /** @var Security $security */
         $security = $this->em->getRepository("App\\Entity\\Security")->find($info['security_id']);

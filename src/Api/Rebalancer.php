@@ -204,7 +204,7 @@ class Rebalancer
 
         };
 
-        $em->flush();
+        $this->em->flush();
     }
 
     /**

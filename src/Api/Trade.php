@@ -75,6 +75,14 @@ trait Trade
         $systemAccount = $account->getSystemAccount();
 
 
+        $account_id = 'VA000000';
+
+        $this->placeOrder($account_id,$security->getSymbol(),
+            'sell',
+            $info['amount'],
+            $this->getLatestPriceBySecurityId($security->getId()));
+
+
 
         $transactionType = new TransactionType();
         $transactionType
@@ -97,7 +105,7 @@ trait Trade
             ->setLots([$lot]);
         $position->setClientSystemAccount($systemAccount);
         $position->setQuantity(1);
-        $position->setStatus(Position::POSITION_STATUS_INITIAL);
+        $position->setStatus(Position::POSITION_STATUS_IS_OPEN);
 
         $lot->setAmount($info['amount']);
         $lot->setClientSystemAccount($systemAccount);
@@ -139,10 +147,22 @@ trait Trade
      */
     protected function buy($info, ClientAccount $account){
 
+
+        $account_id = 'VA000000';
+
+
         /** @var Security $security */
         $security = $this->em->getRepository("App\\Entity\\Security")->find($info['security_id']);
         /** @var SystemAccount $systemAccount */
         $systemAccount = $account->getSystemAccount();
+
+
+        $this->placeOrder($account_id,$security->getSymbol(),
+            'buy',
+            $info['amount'],
+            $this->getLatestPriceBySecurityId($security->getId()));
+
+
 
         $transactionType = new TransactionType();
         $transactionType
@@ -163,7 +183,7 @@ trait Trade
             ->setLots([$lot]);
         $position->setClientSystemAccount($systemAccount);
         $position->setQuantity(1);
-        $position->setStatus(Position::POSITION_STATUS_INITIAL);
+        $position->setStatus(Position::POSITION_STATUS_IS_OPEN);
 
         $lot->setAmount($info['amount']);
         $lot->setClientSystemAccount($systemAccount);

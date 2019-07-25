@@ -12,7 +12,7 @@ use Symfony\Component\HttpClient\HttpClient;
  * Class Rebalancer
  * @package App\Api
  */
-class Rebalancer extends BaseRebalancer
+class Rebalancer extends BaseRebalancer implements RebalancerInterface
 {
 
     use Requests;

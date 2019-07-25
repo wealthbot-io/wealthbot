@@ -62,6 +62,14 @@ trait Requests
     }
 
 
+    /**
+     * Creates Access Token
+     * @return string
+     * @throws \Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface
+     * @throws \Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface
+     * @throws \Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface
+     * @throws \Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface
+     */
     public function createAccessToken(){
         $body = 'grant_type=authorization_code&code=PRpnf1o7';
         $length = strlen($body);
@@ -71,6 +79,19 @@ trait Requests
     }
 
 
+    /**
+     * New order
+     * @param $account_id
+     * @param $symbol
+     * @param $side
+     * @param $quantity
+     * @param $price
+     * @return string
+     * @throws \Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface
+     * @throws \Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface
+     * @throws \Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface
+     * @throws \Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface
+     */
     public function placeOrder($account_id, $symbol, $side,$quantity, $price){
         $body = 'class=equity&symbol='.$symbol.'&side='.$side.'&quantity='.$quantity.
             '&type=market&duration=day&price='.$price.'&stop='.$price;
@@ -78,6 +99,20 @@ trait Requests
         return $this->createRequest('POST','accounts/'.$account_id.'/orders',$body,[
             'Content-length: ' . $length
         ])->getContent();
+    }
+
+    /**
+     * Cancel order
+     * @param $account_id
+     * @param $order_id
+     * @return string
+     * @throws \Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface
+     * @throws \Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface
+     * @throws \Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface
+     * @throws \Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface
+     */
+    public function cancelOrder($account_id, $order_id){
+        return $this->createRequest('DELETE','accounts/'. $account_id .'/orders/' . $order_id, [],'',[])->getContent();
     }
 
 }

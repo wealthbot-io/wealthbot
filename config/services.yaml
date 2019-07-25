@@ -33,7 +33,7 @@ parameters:
     docusign_brand_id: "bd5bd28d-c8f3-4760-b70c-2be64e67ebf4"
     tradier_api_key: "%env(resolve:TRADIER_API_KEY)%"
     tradier_api_secret: "%env(resolve:TRADIER_API_SECRET)%"
-
+    tradier_sandbox: "%env(resolve:TRADIER_SANDBOX)%"
 services:
     # default configuration for services in *this* file
     _defaults:

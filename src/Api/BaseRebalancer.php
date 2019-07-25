@@ -99,6 +99,7 @@ class BaseRebalancer
             return $security->getSymbol();
         },$securities));
         $quotes = $this->getQuotes($symbols);
+
         foreach($quotes->quotes->quote as $quote){
             if(isset($quote->last)) {
                 $security = $this->em->getRepository('App\Entity\Security')->findOneBySymbol($quote->symbol);

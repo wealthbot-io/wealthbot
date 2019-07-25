@@ -78,7 +78,7 @@ class Rebalancer extends BaseRebalancer
      * @param bool $sandbox
      * @throws \Exception
      */
-    public function __construct(EntityManagerInterface $entityManager, ContainerInterface $container,\Symfony\Component\Security\Core\Security $security, bool $sandbox = true)
+    public function __construct(EntityManagerInterface $entityManager, ContainerInterface $container,\Symfony\Component\Security\Core\Security $security)
     {
         $this->container = $container;
         $this->httpClient = HttpClient::create();
@@ -86,7 +86,7 @@ class Rebalancer extends BaseRebalancer
         $this->apiSandboxGateway = "https://sandbox.tradier.com/v1/";
         $this->apiGateway = "https://api.tradier.com/v1/";
         $this->security = $security;
-        $this->sandbox = $sandbox;
+        $this->sandbox = (bool) $this->container->getParameter('tradier_sandbox');
         $this->setApiKey();
     }
 

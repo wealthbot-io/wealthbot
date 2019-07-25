@@ -26,14 +26,14 @@ trait Requests
      * @throws \Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface
      */
     private function createRequest($method, $path, $body = '',$headers){
-        return $this->httpClient->request($method, $this->getEndpoint().$path,[
+        return json_decode($this->httpClient->request($method, $this->getEndpoint().$path,[
             'headers' =>  array_merge($headers, [
                 'Accept: application/json',
                 'Content-Type: application/x-www-form-urlencoded',
                 'Authorization: Bearer '. $this->apiKey,
                 'Connection: close'
             ])
-        ]);
+        ])->getContent());
     }
 
     /**
@@ -46,7 +46,7 @@ trait Requests
      * @throws \Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface
      */
     public function getQuotes($symbol){
-        return $this->createRequest('GET','markets/quotes?symbols='.$symbol,'',[])->getContent();
+        return $this->createRequest('GET','markets/quotes?symbols='.$symbol,'',[]);
     }
 
     /**
@@ -58,7 +58,7 @@ trait Requests
      * @throws \Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface
      */
     public function getProfile(){
-        return $this->createRequest('GET','user/profile', [],'',[])->toArray();
+        return $this->createRequest('GET','user/profile', [],'',[]);
     }
 
 
@@ -75,7 +75,7 @@ trait Requests
         $length = strlen($body);
         return $this->createRequest('POST','oauth/accesstoken',$body,[
             'Content-length: ' . $length
-        ])->toArray();
+        ]);
     }
 
 
@@ -98,7 +98,7 @@ trait Requests
         $length = strlen($body);
         return $this->createRequest('POST','accounts/'.$account_id.'/orders',$body,[
             'Content-length: ' . $length
-        ])->toArray();
+        ]);
     }
 
     /**
@@ -111,8 +111,9 @@ trait Requests
      * @throws \Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface
      * @throws \Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface
      */
-    public function cancelOrder($account_id, $order_id){
-        return $this->createRequest('DELETE','accounts/'. $account_id .'/orders/' . $order_id, [],'',[])->toArray();
+    public function cancelOrder($account_id, $order_id)
+    {
+        return $this->createRequest('DELETE', 'accounts/' . $account_id . '/orders/' . $order_id, [], '', []);
     }
 
 }

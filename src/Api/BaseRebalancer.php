@@ -98,7 +98,7 @@ class BaseRebalancer
         $symbols = implode(",",array_map(function($security){
             return $security->getSymbol();
         },$securities));
-        $quotes = json_decode($this->getQuotes($symbols));
+        $quotes = $this->getQuotes($symbols);
         foreach($quotes->quotes->quote as $quote){
             if(isset($quote->last)) {
                 $security = $this->em->getRepository('App\Entity\Security')->findOneBySymbol($quote->symbol);

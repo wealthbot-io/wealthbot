@@ -58,7 +58,7 @@ trait Requests
      * @throws \Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface
      */
     public function getProfile(){
-        return $this->createRequest('GET','user/profile', [],'',[])->getContent();
+        return $this->createRequest('GET','user/profile', [],'',[])->toArray();
     }
 
 
@@ -75,7 +75,7 @@ trait Requests
         $length = strlen($body);
         return $this->createRequest('POST','oauth/accesstoken',$body,[
             'Content-length: ' . $length
-        ])->getContent();
+        ])->toArray();
     }
 
 
@@ -98,7 +98,7 @@ trait Requests
         $length = strlen($body);
         return $this->createRequest('POST','accounts/'.$account_id.'/orders',$body,[
             'Content-length: ' . $length
-        ])->getContent();
+        ])->toArray();
     }
 
     /**
@@ -112,7 +112,7 @@ trait Requests
      * @throws \Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface
      */
     public function cancelOrder($account_id, $order_id){
-        return $this->createRequest('DELETE','accounts/'. $account_id .'/orders/' . $order_id, [],'',[])->getContent();
+        return $this->createRequest('DELETE','accounts/'. $account_id .'/orders/' . $order_id, [],'',[])->toArray();
     }
 
 }

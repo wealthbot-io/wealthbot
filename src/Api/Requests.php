@@ -70,4 +70,14 @@ trait Requests
         ])->getContent();
     }
 
+
+    public function placeOrder($account_id, $symbol, $side,$quantity, $price){
+        $body = 'class=equity&symbol='.$symbol.'&side='.$side.'&quantity='.$quantity.
+            '&type=market&duration=day&price='.$price.'&stop='.$price;
+        $length = strlen($body);
+        return $this->createRequest('POST','accounts/'.$account_id.'/orders',$body,[
+            'Content-length: ' . $length
+        ])->getContent();
+    }
+
 }

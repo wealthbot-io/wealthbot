@@ -74,7 +74,7 @@ https://gitter.im/wealthbot-io
 * `symfony serve`
 
 
-** Cron jobs
+**Cron jobs**
 
 * `30 1 * * * /usr/bin/php bin/console rx:mailer:send-cron-emails`
 * `30 2 * * * /usr/bin/php bin/console wealthbot:security:price`

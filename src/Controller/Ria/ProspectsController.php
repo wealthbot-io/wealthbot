@@ -387,7 +387,7 @@ class ProspectsController extends Controller
 
         $form = $this->createForm(RiaClientAccountFormType::class, $clientAccount, [
             'client'=>$client, 'em' => $em]);
-        $formHandler = new RiaClientAccountFormHandler($form, $request, $adm);
+        $formHandler = new RiaClientAccountFormHandler($form, $request, $adm, $clientAccount->getClient());
 
         if ($request->isMethod('post')) {
             $process = $formHandler->process();

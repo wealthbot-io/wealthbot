@@ -38,6 +38,7 @@ class BaseRebalancer
 
 
     /**
+     * Process prices
      * @param $em
      * @param $securities
      * @return array
@@ -70,6 +71,7 @@ class BaseRebalancer
 
 
     /**
+     * Get old and new prices difference
      * @param $id
      * @return mixed
      */
@@ -82,6 +84,11 @@ class BaseRebalancer
         }
     }
 
+    /**
+     * Get latest prices by security
+     * @param $id
+     * @return mixed
+     */
     protected function getLatestPriceBySecurityId($id)
     {
         foreach($this->prices as $price){
@@ -93,6 +100,7 @@ class BaseRebalancer
 
 
     /**
+     * Update Security Prices Command
      * @return object[]
      */
     public function updateSecurities()

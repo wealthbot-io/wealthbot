@@ -23,6 +23,7 @@ trait Trade
 
 
     /**
+     * Buy/Sell logic
      * @param $data
      * @param $em
      * @throws \Exception
@@ -66,6 +67,7 @@ trait Trade
     }
 
     /**
+     * Sell
      * @param $info
      * @param $account_id
      * @param $em
@@ -148,6 +150,7 @@ trait Trade
     }
 
     /**
+     * Buy
      * @param $info
      * @param $account_id
      * @param $em

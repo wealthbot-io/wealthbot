@@ -91,6 +91,7 @@ class Rebalancer extends BaseRebalancer implements RebalancerInterface
     }
 
     /**
+     * Main Method
      * @throws \Exception
      */
     public function rebalance()
@@ -123,9 +124,11 @@ class Rebalancer extends BaseRebalancer implements RebalancerInterface
 
 
     /**
-     * @param $account
-     * @param $em
-     * @return mixed
+     * Process client portfolio
+     * @param ClientPortfolioValue $clientPortfolioValue
+     * @param $clientAccount
+     * @param $type
+     * @throws \Exception
      */
     protected function processClientPortfolio(ClientPortfolioValue $clientPortfolioValue, $clientAccount, $type)
     {
@@ -167,6 +170,7 @@ class Rebalancer extends BaseRebalancer implements RebalancerInterface
 
 
     /**
+     * Update Client Portfolio Values
      * @param $cp
      * @param $em
      * @param $total

@@ -75,10 +75,6 @@ class CategoriesFormType extends AbstractType
         $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) use ($refreshAssets) {
             $form = $event->getForm();
             $data = $event->getData();
-
-            $this->user = $event->getForm()->getConfig()->getOption('user');
-            $this->em = $event->getForm()->getConfig()->getOption('em');
-
             if (null === $data) {
                 return;
             }

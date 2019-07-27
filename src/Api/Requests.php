@@ -62,7 +62,7 @@ trait Requests
      * @throws \Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface
      */
     public function getProfile(){
-        return $this->createRequest('GET','user/profile', [],'',[]);
+        return $this->createRequest('GET','user/profile','',[]);
     }
 
 
@@ -117,7 +117,7 @@ trait Requests
      */
     public function cancelOrder($account_id, $order_id)
     {
-        return $this->createRequest('DELETE', 'accounts/' . $account_id . '/orders/' . $order_id, [], '', []);
+        return $this->createRequest('DELETE', 'accounts/' . $account_id . '/orders/' . $order_id, '', []);
     }
 
 }

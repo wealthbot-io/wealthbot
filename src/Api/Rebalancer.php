@@ -94,7 +94,7 @@ class Rebalancer extends BaseRebalancer implements RebalancerInterface
                     'risk_rating' => $clientPortfolio->getPortfolio()->getRiskRating(),
                     'portfolio' => $clientPortfolio->getId(),
                     'values' => $clientPortfolio->getPortfolio()->getModelEntities()->map(
-                        function ($entity) use ($clientPortfolio, $value) {
+                        function ($entity) use ($value) {
                             /** @var ClientPortfolio $clientPortfolio */
 
                             $prices_diff = $this->getPricesDiff($entity->getSecurityAssignment()->getSecurity()->getId());

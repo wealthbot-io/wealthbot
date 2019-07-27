@@ -4,6 +4,7 @@ namespace App\Api;
 use App\Entity\ClientPortfolio;
 use App\Entity\ClientPortfolioValue;
 use App\Entity\Job;
+use App\Entity\SecurityPrice;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpClient\HttpClient;
@@ -146,4 +147,39 @@ class Rebalancer extends BaseRebalancer implements RebalancerInterface
 
           return $portfolioValue;
     }
+
+
+    /**
+     * Update Security Prices Command
+     * @return object[]
+     */
+    public function updateSecurities()
+    {
+
+        $securities = $this->em->getRepository('App\Entity\Security')->findAll();
+        $symbols = implode(",",array_map(function($security){
+            return $security->getSymbol();
+        },$securities));
+        $quotes = $this->getQuotes($symbols);
+
+        foreach($quotes->quotes->quote as $quote){
+            if(isset($quote->last)) {
+                $security = $this->em->getRepository('App\Entity\Security')->findOneBySymbol($quote->symbol);
+                $price = new SecurityPrice();
+                $price->setSecurity($security);
+                $price->setSecurityId($security->getId());
+                $price->setDatetime(new \DateTime('now'));
+                $price->setIsCurrent(true);
+                $price->setPrice($quote->last);
+                $price->setIsPosted(true);
+                $price->setSource("tradier");
+                $this->em->persist($price);
+            }
+        };
+
+        $this->em->flush();
+
+        return $securities;
+    }
+
 }

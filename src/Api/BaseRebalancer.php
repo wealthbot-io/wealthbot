@@ -78,7 +78,7 @@ class BaseRebalancer
     protected function setApiKey(){
         if($this->security->getUser()) {
             if ($this->security->getUser()->hasRole('ROLE_ADMIN')) {
-                $this->ria = $this->getDoctrine()->getRepository('App\Entity\User')->findOneByEmail('raiden@wealthbot.io');
+                $this->ria = $this->container->get('doctrine')->getRepository('App\Entity\User')->findOneByEmail('raiden@wealthbot.io');
             } else if ($this->security->getUser()->hasRole('ROLE_RIA')) {
                 $this->ria = $this->security->getUser();
             } else {
@@ -154,40 +154,5 @@ class BaseRebalancer
             }
         }
     }
-
-
-    /**
-     * Update Security Prices Command
-     * @return object[]
-     */
-    public function updateSecurities()
-    {
-
-        $securities = $this->em->getRepository('App\Entity\Security')->findAll();
-        $symbols = implode(",",array_map(function($security){
-            return $security->getSymbol();
-        },$securities));
-        $quotes = $this->getQuotes($symbols);
-
-        foreach($quotes->quotes->quote as $quote){
-            if(isset($quote->last)) {
-                $security = $this->em->getRepository('App\Entity\Security')->findOneBySymbol($quote->symbol);
-                $price = new SecurityPrice();
-                $price->setSecurity($security);
-                $price->setSecurityId($security->getId());
-                $price->setDatetime(new \DateTime('now'));
-                $price->setIsCurrent(true);
-                $price->setPrice($quote->last);
-                $price->setIsPosted(true);
-                $price->setSource("tradier");
-                $this->em->persist($price);
-            }
-        };
-
-        $this->em->flush();
-
-        return $securities;
-    }
-
 
 }

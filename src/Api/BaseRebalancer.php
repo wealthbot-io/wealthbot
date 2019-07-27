@@ -5,6 +5,8 @@ namespace App\Api;
 
 
 use App\Entity\SecurityPrice;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Class BaseRebalancer
@@ -12,6 +14,61 @@ use App\Entity\SecurityPrice;
  */
 class BaseRebalancer
 {
+
+    /**
+     * @var ContainerInterface
+     */
+    protected $container;
+
+    /**
+     * @var \Symfony\Contracts\HttpClient\HttpClientInterface
+     */
+    protected  $httpClient;
+
+    /**
+     * @var EntityManagerInterface
+     */
+    protected  $em;
+
+    /**
+     * @var string
+     */
+    protected  $apiGateway;
+
+    /**
+     * @var string
+     */
+    protected  $apiSandboxGateway;
+
+    /**
+     * @var bool
+     */
+    protected  $sandbox;
+
+    /**
+     * @var
+     */
+    protected  $apiKey;
+
+    /**
+     * @var
+     */
+    protected  $apiSecret;
+
+    /**
+     * @var
+     */
+    protected  $ria;
+
+    /**
+     * @var array
+     */
+    protected  $prices;
+
+    /**
+     * @var \Symfony\Component\Security\Core\Security
+     */
+    protected $security;
 
 
     /**

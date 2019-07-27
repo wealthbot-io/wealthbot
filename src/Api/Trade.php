@@ -14,6 +14,10 @@ use App\Entity\SystemAccount;
 use App\Entity\Transaction;
 use App\Entity\TransactionType;
 
+/**
+ * Trait Trade
+ * @package App\Api
+ */
 trait Trade
 {
 

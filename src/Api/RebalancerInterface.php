@@ -7,6 +7,10 @@ namespace App\Api;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
+/**
+ * Interface RebalancerInterface
+ * @package App\Api
+ */
 interface RebalancerInterface
 {
 

@@ -4,6 +4,10 @@
 namespace App\Api;
 
 
+/**
+ * Trait Requests
+ * @package App\Api
+ */
 trait Requests
 {
 

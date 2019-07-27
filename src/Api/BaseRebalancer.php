@@ -6,6 +6,10 @@ namespace App\Api;
 
 use App\Entity\SecurityPrice;
 
+/**
+ * Class BaseRebalancer
+ * @package App\Api
+ */
 class BaseRebalancer
 {
 

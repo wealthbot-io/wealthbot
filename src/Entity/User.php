@@ -1420,9 +1420,8 @@ class User extends BaseUser implements ActivityInterface
     }
 
 
-    public function getAnswers(){
+    public function getAnswers()
+    {
         return $this->answers;
     }
-
-
 }

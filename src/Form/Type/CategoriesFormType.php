@@ -33,7 +33,6 @@ class CategoriesFormType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-
         $this->assets = $options['assets'];
         $this->em = $options['em'];
         $this->ria = $options['ria'];
@@ -44,7 +43,7 @@ class CategoriesFormType extends AbstractType
 
         $refreshAssets = function (FormInterface $form, $allSubclasses) use ($factory, $user, $em) {
             $form->add($factory->createNamed('assets', CollectionType::class, null, [
-                'entry_type' => $factory->create(AssetClassWithSubclassesFormType::class,null, ['user'=>$this->user, 'em'=>$this->em, 'allSubclasses'=>$this->assets]),
+                'entry_type' => $factory->create(AssetClassWithSubclassesFormType::class, null, ['user'=>$this->user, 'em'=>$this->em, 'allSubclasses'=>$this->assets]),
                 'allow_add' => true,
                 'allow_delete' => true,
                 'by_reference' => false,

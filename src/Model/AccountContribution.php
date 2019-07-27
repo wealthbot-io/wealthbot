@@ -22,7 +22,6 @@ class AccountContribution extends BaseContribution
      */
     public function setTransactionFrequency($transactionFrequency)
     {
-
         parent::setTransactionFrequency($transactionFrequency);
 
         return $this;

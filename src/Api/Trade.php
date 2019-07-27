@@ -3,7 +3,6 @@
 
 namespace App\Api;
 
-
 use App\Entity\ClientAccount;
 use App\Entity\ClientPortfolio;
 use App\Entity\ClientQuestionnaireAnswer;
@@ -28,26 +27,24 @@ trait Trade
      * @param $em
      * @throws \Exception
      */
-    protected function buyOrSell($data, $account) {
-
-        if(isset($data['portfolio'])) {
+    protected function buyOrSell($data, $account)
+    {
+        if (isset($data['portfolio'])) {
             /** @var ClientPortfolio $portfolio */
             $portfolio = $this->em->getRepository('App\\Entity\\ClientPortfolio')->find($data['portfolio']);
 
             $answers = $portfolio->getClient()->getAnswers();
 
             $point = 0;
-            foreach($answers as $answer){
+            foreach ($answers as $answer) {
                 /** @var ClientQuestionnaireAnswer $answer */
                 $point += $answer->getAnswer()->getPoint();
-
             };
 
             $point = ($point / 100) + 1;
 
             foreach ($data['values'] as $datum) {
                 if ($point - $datum['prices_diff'] > 0) {
-
                     if ($datum['prices_diff'] > 1) {
                         $this->sell($datum, $account);
                     } else {
@@ -60,10 +57,8 @@ trait Trade
                         $this->buy($datum, $account);
                     }
                 }
-
             }
         }
-
     }
 
     /**
@@ -73,25 +68,29 @@ trait Trade
      * @param $em
      * @throws \Exception
      */
-    protected function sell($info, ClientAccount $account){
+    protected function sell($info, ClientAccount $account)
+    {
 
         /** @var Security $security */
         $security = $this->em->getRepository("App\\Entity\\Security")->find($info['security_id']);
         /** @var SystemAccount $systemAccount */
         $systemAccount = $account->getSystemAccount();
 
-       /// try {
-            $account_id = 'VA000000';
+        /// try {
+        $account_id = 'VA000000';
 
-            $result = $this->placeOrder($account_id, $security->getSymbol(),
+        $result = $this->placeOrder(
+                $account_id,
+                $security->getSymbol(),
                 'sell',
                 $info['amount'],
-                $this->getLatestPriceBySecurityId($security->getId()));
+                $this->getLatestPriceBySecurityId($security->getId())
+            );
 
-            dump($result);
-       /// } catch (\Exception $e){
+        dump($result);
+        /// } catch (\Exception $e){
 
-      ////  }
+        ////  }
 
 
         $transactionType = new TransactionType();
@@ -145,8 +144,6 @@ trait Trade
 
 
         $this->em->flush();
-
-
     }
 
     /**
@@ -156,7 +153,8 @@ trait Trade
      * @param $em
      * @throws \Exception
      */
-    protected function buy($info, ClientAccount $account){
+    protected function buy($info, ClientAccount $account)
+    {
 
         /** @var Security $security */
         $security = $this->em->getRepository("App\\Entity\\Security")->find($info['security_id']);
@@ -164,18 +162,21 @@ trait Trade
         $systemAccount = $account->getSystemAccount();
 
 
-       // try {
-            $account_id = 'VA000000';
+        // try {
+        $account_id = 'VA000000';
 
-            $result = $this->placeOrder($account_id, $security->getSymbol(),
+        $result = $this->placeOrder(
+                $account_id,
+                $security->getSymbol(),
                 'buy',
                 $info['amount'],
-                $this->getLatestPriceBySecurityId($security->getId()));
+                $this->getLatestPriceBySecurityId($security->getId())
+            );
 
-            dump($result);
-       /// } catch (\Exception $e){
+        dump($result);
+        /// } catch (\Exception $e){
 
-       // }
+        // }
 
 
 

@@ -23,7 +23,6 @@ class TransferBasicFormType extends ClientProfileFormType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-
         $this->secondaryApplicant = $options['secondaryApplicant'];
 
         parent::buildForm($builder, $options);

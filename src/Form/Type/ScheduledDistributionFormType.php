@@ -69,9 +69,10 @@ class ScheduledDistributionFormType extends AbstractType
                 'attr' => ['class' => 'input-mini'],
                 'currency' => 'USD',
                 'label' => 'Amount: ',
-            ]);
+            ]
+            );
 
-             $builder->add('bankInformation', EntityType::class, [
+        $builder->add('bankInformation', EntityType::class, [
                  'class' => 'App\\Entity\\BankInformation',
                  'query_builder' => function (EntityRepository $er) use ($client) {
                      return $er->createQueryBuilder('bi')
@@ -83,7 +84,7 @@ class ScheduledDistributionFormType extends AbstractType
                  'required' => false,
              ]);
 
-               $builder->add('frequency', ChoiceType::class, [
+        $builder->add('frequency', ChoiceType::class, [
                     'choices' => $frequencyTransactionChoices,
                     'multiple' => false,
                     'required' => false,

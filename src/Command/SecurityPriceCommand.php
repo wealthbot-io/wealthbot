@@ -24,8 +24,6 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class SecurityPriceCommand extends ContainerAwareCommand
 {
-
-
     private $prices;
 
     private $em;

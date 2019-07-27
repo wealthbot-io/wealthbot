@@ -24,7 +24,7 @@ class CeModelFormHandler extends AbstractFormHandler
             $ceModel->setIsAssumptionLocked(true);
         };
 
-        if($this->form->has('risk_rating')){
+        if ($this->form->has('risk_rating')) {
             $ceModel->setRiskRating($this->form->get('risk_rating')->getData());
         };
 

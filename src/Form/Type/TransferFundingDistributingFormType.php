@@ -38,9 +38,9 @@ class TransferFundingDistributingFormType extends AbstractType
 
         $adm = new AccountDocusignManager($this->em, 'App\\Entity\\ClientAccountDocusign');
 
-            $subscriber = new TransferFundingFormEventSubscriber($builder->getFormFactory(), $this->em, $this->account);
+        $subscriber = new TransferFundingFormEventSubscriber($builder->getFormFactory(), $this->em, $this->account);
 
-            $builder->add(
+        $builder->add(
                 'funding',
                 TransferFundingFormType::class,
                 [

@@ -51,7 +51,7 @@ class CeModelEntityFormType extends AbstractType
         ]);
 
         $builder->addEventSubscriber($subscriber);
-        $builder->add('percent',null,[
+        $builder->add('percent', null, [
             'attr' => [
                 'placeholder' => 'Percent',
                 'class' => 'col-1'

@@ -1602,7 +1602,6 @@ class RiaCompanyInformation
      */
     public function setPortfolioProcessing($portfolioProcessing)
     {
-
         $this->portfolio_processing = $portfolioProcessing;
 
         return $this;
@@ -2010,8 +2009,4 @@ class RiaCompanyInformation
     {
         $this->custodianSecret = $custodianSecret;
     }
-
-
-
-
 }

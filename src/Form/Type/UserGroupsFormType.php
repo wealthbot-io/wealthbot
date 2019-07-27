@@ -11,10 +11,12 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class UserGroupsFormType extends AbstractType
 {
-
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('name', null, [
+        $builder->add(
+            'name',
+            null,
+            [
             'label' => 'Group Name:',
             ]
         );

@@ -156,7 +156,7 @@ class RiaController extends AclController
 
             $assetClasses = $assetClassRepository->findWithSubclassesByModelIdAndOwnerId($companyInformation->getPortfolioModel()->getId(), $ria->getId());
             if (empty($assetClasses)) {
-              //  $errors[] = 'Ria have not created asset and subclasses';
+                //  $errors[] = 'Ria have not created asset and subclasses';
             }
 
             $securityAssignments = $em->getRepository('App\Entity\SecurityAssignment')->findBy(['ria_user_id' => $ria]);
@@ -240,7 +240,7 @@ class RiaController extends AclController
         $admin = $this->getUser();
         $data = $this->get('wealthbot.manager.fee')->getAdminFee($ria);
 
-        $form = $this->createForm(AdminFeesType::class,$this->getUser(), [ 'owner' => $admin , 'appointedUser' => $ria]);
+        $form = $this->createForm(AdminFeesType::class, $this->getUser(), [ 'owner' => $admin , 'appointedUser' => $ria]);
 
         if ($request->isMethod('post')) {
             $form->handleRequest($request);
@@ -249,7 +249,7 @@ class RiaController extends AclController
 
                 if ($data !== $fees) {
                     foreach ($data as $riaFee) {
-                     //   if ($riaFee->getAppointedUser() && $riaFee->getAppointedUser()->getId() === $ria->getId()) {
+                        //   if ($riaFee->getAppointedUser() && $riaFee->getAppointedUser()->getId() === $ria->getId()) {
                      ///       $em->remove($riaFee);
                      //   }
                     };

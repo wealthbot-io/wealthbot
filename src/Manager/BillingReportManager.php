@@ -11,7 +11,6 @@ use App\Entity\SystemAccount;
 use App\Repository\ClientAccountRepository;
 use App\Entity\Profile;
 
-
 class BillingReportManager
 {
     /**

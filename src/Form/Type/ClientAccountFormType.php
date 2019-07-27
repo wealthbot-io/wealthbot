@@ -94,7 +94,6 @@ class ClientAccountFormType extends AbstractType
                 'attr' => [],
                 'auto_initialize' => false,
         ]);
-
     }
 
 

@@ -185,7 +185,8 @@ class TransferController extends BaseTransferController
         if (0 !== $accountId) {
             $transferForm = $this->createForm(
                 TransferFundingDistributingFormType::class,
-                null,['em' => $em, 'account' => $account, 'isPreSaved' => $isPreSaved]
+                null,
+                ['em' => $em, 'account' => $account, 'isPreSaved' => $isPreSaved]
             );
 
             $transferFormChildren = $transferForm->createView()->vars['form']->getChildren();

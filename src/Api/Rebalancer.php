@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Api;
+
 use App\Entity\ClientPortfolio;
 use App\Entity\ClientPortfolioValue;
 use App\Entity\Job;
@@ -15,7 +16,6 @@ use Symfony\Component\HttpClient\HttpClient;
  */
 class Rebalancer extends BaseRebalancer implements RebalancerInterface
 {
-
     use Requests;
     use Trade;
 
@@ -27,7 +27,7 @@ class Rebalancer extends BaseRebalancer implements RebalancerInterface
      * @param bool $sandbox
      * @throws \Exception
      */
-    public function __construct(EntityManagerInterface $entityManager, ContainerInterface $container,\Symfony\Component\Security\Core\Security $security)
+    public function __construct(EntityManagerInterface $entityManager, ContainerInterface $container, \Symfony\Component\Security\Core\Security $security)
     {
         $this->container = $container;
         $this->httpClient = HttpClient::create();
@@ -45,22 +45,21 @@ class Rebalancer extends BaseRebalancer implements RebalancerInterface
      */
     public function rebalance()
     {
-
         $securities = $this->em->getRepository("App\\Entity\\Security")->findAll();
         $this->prices = $this->processPrices($securities);
         $actions = $this->em->getRepository('App\\Entity\\RebalancerAction')->findAll();
 
-        foreach($actions as $action){
+        foreach ($actions as $action) {
             /** @var Job $job */
             $job = $action->getJob();
 
             $clientAccount = $this->em->getRepository('App\\Entity\\ClientAccount')->findOneByClient($action->getClientPortfolioValue()->getClientPortfolio()->getClientId());
 
 
-            if($job->getRebalanceType() === Job::REBALANCE_TYPE_REQUIRED_CASH){
-                $this->processClientPortfolio($action->getClientPortfolioValue(),$clientAccount, Job::REBALANCE_TYPE_REQUIRED_CASH);
-            } else if($job->getRebalanceType() === Job::REBALANCE_TYPE_FULL_AND_TLH){
-                $this->processClientPortfolio($action->getClientPortfolioValue(),$clientAccount, Job::REBALANCE_TYPE_FULL_AND_TLH);
+            if ($job->getRebalanceType() === Job::REBALANCE_TYPE_REQUIRED_CASH) {
+                $this->processClientPortfolio($action->getClientPortfolioValue(), $clientAccount, Job::REBALANCE_TYPE_REQUIRED_CASH);
+            } elseif ($job->getRebalanceType() === Job::REBALANCE_TYPE_FULL_AND_TLH) {
+                $this->processClientPortfolio($action->getClientPortfolioValue(), $clientAccount, Job::REBALANCE_TYPE_FULL_AND_TLH);
             };
             $job->setFinishedAt(new \DateTime('now'));
             $job->setIsError(false);
@@ -81,16 +80,16 @@ class Rebalancer extends BaseRebalancer implements RebalancerInterface
      */
     protected function processClientPortfolio(ClientPortfolioValue $clientPortfolioValue, $clientAccount, $type)
     {
-                /** @var \App\Entity\\ClientPortfolio $clientPortfolio */
-                $clientPortfolio = $clientPortfolioValue->getClientPortfolio();
+        /** @var \App\Entity\\ClientPortfolio $clientPortfolio */
+        $clientPortfolio = $clientPortfolioValue->getClientPortfolio();
 
-                if($type==Job::REBALANCE_TYPE_REQUIRED_CASH){
-                    $value = $clientPortfolioValue->getInvestableCash();
-                } else {
-                    $value = $clientPortfolioValue->getTotalValue();
-                }
+        if ($type==Job::REBALANCE_TYPE_REQUIRED_CASH) {
+            $value = $clientPortfolioValue->getInvestableCash();
+        } else {
+            $value = $clientPortfolioValue->getTotalValue();
+        }
 
-                $data =  [
+        $data =  [
                     'risk_rating' => $clientPortfolio->getPortfolio()->getRiskRating(),
                     'portfolio' => $clientPortfolio->getId(),
                     'values' => $clientPortfolio->getPortfolio()->getModelEntities()->map(
@@ -110,11 +109,12 @@ class Rebalancer extends BaseRebalancer implements RebalancerInterface
                                     'security_id' => $entity->getSecurityAssignment()->getSecurity()->getId(),
                                     'percent' => $entity->getPercent()
                                 ];
-                        })];
+                        }
+                    )];
 
 
-                $this->buyOrSell($data, $clientAccount);
-                $this->updatePortfolioValues($clientPortfolio, $clientPortfolioValue->getTotalValue());
+        $this->buyOrSell($data, $clientAccount);
+        $this->updatePortfolioValues($clientPortfolio, $clientPortfolioValue->getTotalValue());
     }
 
 
@@ -130,22 +130,22 @@ class Rebalancer extends BaseRebalancer implements RebalancerInterface
     {
 
             /** @var ClientPortfolio $clientPortfolio */
-            $portfolioValue = new ClientPortfolioValue();
-            $portfolioValue->setClientPortfolio($clientPortfolio);
-            $portfolioValue->setTotalCashInMoneyMarket($total);
-            $portfolioValue->setTotalInSecurities($total);
-            $portfolioValue->setTotalCashInAccounts($total);
-            $portfolioValue->setTotalValue($total);
-            $portfolioValue->setSasCash(0);
-            $portfolioValue->setCashBuffer(0);
-            $portfolioValue->setBillingCash(0);
-            $portfolioValue->setDate(new \DateTime('now'));
-            $portfolioValue->setModelDeviation(4);
-            $this->em->persist($portfolioValue);
-            $this->em->flush();
+        $portfolioValue = new ClientPortfolioValue();
+        $portfolioValue->setClientPortfolio($clientPortfolio);
+        $portfolioValue->setTotalCashInMoneyMarket($total);
+        $portfolioValue->setTotalInSecurities($total);
+        $portfolioValue->setTotalCashInAccounts($total);
+        $portfolioValue->setTotalValue($total);
+        $portfolioValue->setSasCash(0);
+        $portfolioValue->setCashBuffer(0);
+        $portfolioValue->setBillingCash(0);
+        $portfolioValue->setDate(new \DateTime('now'));
+        $portfolioValue->setModelDeviation(4);
+        $this->em->persist($portfolioValue);
+        $this->em->flush();
 
 
-          return $portfolioValue;
+        return $portfolioValue;
     }
 
 
@@ -155,15 +155,14 @@ class Rebalancer extends BaseRebalancer implements RebalancerInterface
      */
     public function updateSecurities()
     {
-
         $securities = $this->em->getRepository('App\Entity\Security')->findAll();
-        $symbols = implode(",",array_map(function($security){
+        $symbols = implode(",", array_map(function ($security) {
             return $security->getSymbol();
-        },$securities));
+        }, $securities));
         $quotes = $this->getQuotes($symbols);
 
-        foreach($quotes->quotes->quote as $quote){
-            if(isset($quote->last)) {
+        foreach ($quotes->quotes->quote as $quote) {
+            if (isset($quote->last)) {
                 $security = $this->em->getRepository('App\Entity\Security')->findOneBySymbol($quote->symbol);
                 $price = new SecurityPrice();
                 $price->setSecurity($security);
@@ -181,5 +180,4 @@ class Rebalancer extends BaseRebalancer implements RebalancerInterface
 
         return $securities;
     }
-
 }

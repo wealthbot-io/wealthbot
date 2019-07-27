@@ -110,7 +110,6 @@ class UserController extends Controller
 
     public function edit(Request $request, \App\Entity\User $user_id)
     {
-
         $em = $this->get('doctrine.orm.entity_manager');
         $userRepository = $em->getRepository("App\\Entity\\User");
 

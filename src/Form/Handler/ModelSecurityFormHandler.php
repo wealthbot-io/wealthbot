@@ -10,7 +10,6 @@ use Symfony\Component\HttpFoundation\Request;
 
 class ModelSecurityFormHandler extends AbstractFormHandler
 {
-
     protected function success()
     {
         $securityAssignment = $this->form->getData();

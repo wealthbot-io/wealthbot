@@ -23,7 +23,6 @@ use Symfony\Component\Validator\Constraints\Regex;
 
 class OneTimeDistributionFormType extends AbstractType
 {
-
     private $subscriber;
 
     private $factory;

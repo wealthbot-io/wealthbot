@@ -50,5 +50,4 @@ class CustodianDocumentsFormType extends AbstractType
             'csrf_protection' => false
         ]);
     }
-
 }

@@ -20,8 +20,6 @@ use Symfony\Component\HttpFoundation\Request;
 
 class CustodianDocumentsFormHandler
 {
-
-
     protected $mailer;
     protected $form;
     protected $request;
@@ -52,7 +50,6 @@ class CustodianDocumentsFormHandler
         if (!$custodian->getCustodianDocuments()->contains($document)) {
             $custodian->addCustodianDocument($document);
         }
-
     }
 
     public function success()

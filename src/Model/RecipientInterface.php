@@ -13,7 +13,6 @@ use App\Model\Tab\AbstractTab;
 
 interface RecipientInterface
 {
-
     const TYPE_SIGNER = 'Signer';
     const TYPE_AGENT = 'Agent';
     const TYPE_EDITOR = 'Editor';

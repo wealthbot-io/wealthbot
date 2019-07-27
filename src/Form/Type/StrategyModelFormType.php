@@ -52,7 +52,7 @@ class StrategyModelFormType extends AbstractType
                 if ($data->getParent()->getOwner()) {
                     $ownerId = $data->getParent()->getOwner();
                 } else {
-                   $ownerId = $this->user->getId();
+                    $ownerId = $this->user->getId();
                 }
 
                 $modelRiskRating = $this->em->getRepository('App\Entity\ModelRiskRating')->findOneBy([
@@ -103,13 +103,13 @@ class StrategyModelFormType extends AbstractType
             }
         });
 
-        $builder->addEventListener(FormEvents::SUBMIT, function (FormEvent $event) use ( $existsRatings) {
+        $builder->addEventListener(FormEvents::SUBMIT, function (FormEvent $event) use ($existsRatings) {
             $form = $event->getForm();
 
             if ($form->has('risk_rating')) {
                 $riskRating = $form->get('risk_rating')->getData();
                 if (in_array($riskRating, $existsRatings)) {
-                    $form->get('risk_rating')->addError(new FormError('The risk with parameter :risk is already exists.',  $riskRating));
+                    $form->get('risk_rating')->addError(new FormError('The risk with parameter :risk is already exists.', $riskRating));
                 }
             }
         });

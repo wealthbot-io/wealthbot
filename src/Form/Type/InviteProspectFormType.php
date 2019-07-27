@@ -64,7 +64,7 @@ class InviteProspectFormType extends AbstractType
             }
         });
 
-        $builder->addEventListener(FormEvents::SUBMIT, function (FormEvent $event)  {
+        $builder->addEventListener(FormEvents::SUBMIT, function (FormEvent $event) {
             $data = $event->getData();
 
             if ($data instanceof User) {

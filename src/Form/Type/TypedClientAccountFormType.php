@@ -108,7 +108,7 @@ class TypedClientAccountFormType extends ClientAccountFormType
 
             $builder->add('groupType', EntityType::class, [
                 'class' => 'App\\Entity\\AccountGroupType',
-                'query_builder' => function (EntityRepository $er)  {
+                'query_builder' => function (EntityRepository $er) {
                     $qb = $er->createQueryBuilder('gt');
                     $qb
                         ->leftJoin('gt.group', 'g')

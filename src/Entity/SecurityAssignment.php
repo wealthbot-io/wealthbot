@@ -425,7 +425,7 @@ class SecurityAssignment
 
     public function __toString()
     {
-       return (string) $this->getSecurity();
+        return (string) $this->getSecurity();
     }
 
     /**
@@ -443,7 +443,4 @@ class SecurityAssignment
     {
         $this->ria_user_id = $ria_user_id;
     }
-
-
-
 }

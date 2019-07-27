@@ -58,7 +58,6 @@ class DashboardController extends Controller
 
     public function index(Request $request)
     {
-
         $systemAccountManager = $this->get('wealthbot_client.system_account_manager');
         $clientPortfolioValuesManager = $this->get('wealthbot_client.client_portfolio_values.manager');
         $workflowManager = $this->get('wealthbot.workflow.manager');
@@ -87,7 +86,7 @@ class DashboardController extends Controller
         $parameters = [
             'client' => $client,
             'is_client_view' => $isClientView,
-            'layout_variables' => $this->getLayoutVariables( 'rx_client_dashboard'),
+            'layout_variables' => $this->getLayoutVariables('rx_client_dashboard'),
             'sas_cash_form' => $sasCashForm->createView(),
             'account_values' => $accountValues,
             'is_init_rebalance' => $isInitRebalance,
@@ -171,7 +170,7 @@ class DashboardController extends Controller
             }
 
             $initialLot = $lotsRepo->getInitialLot($position);
-            $costBasis = $initialLot ? ( $initialLot->getAmount() / $initialLot->getQuantity() * $position->getQuantity()) : 0;
+            $costBasis = $initialLot ? ($initialLot->getAmount() / $initialLot->getQuantity() * $position->getQuantity()) : 0;
             $currentValue = $position->getAmount();
             $sharesOwned = $position->getQuantity();
 
@@ -400,7 +399,7 @@ class DashboardController extends Controller
 
         $fees = [];
 
-        if($fees) {
+        if ($fees) {
             $fees = $client->getAppointedBillingSpec()->getFees();
         };
         $accounts = $em->getRepository('App\Entity\ClientAccount')->findByClient($client);
@@ -1152,7 +1151,7 @@ class DashboardController extends Controller
         try {
             /** @var $contributionFormFactory AccountContributionFormFactory */
             $contributionFormFactory = $this->get('wealthbot_client.contribution_form_factory');
-            $form = $contributionFormFactory->create($action, $account,[
+            $form = $contributionFormFactory->create($action, $account, [
                 'em' => $em,
                 'account' => $account,
                 'isPreSaved' => true,
@@ -1272,7 +1271,7 @@ class DashboardController extends Controller
         /** @var $formFactory DistributionFormFactory */
         $formFactory = $this->get('wealthbot_client.distribution_form_factory');
         /** @var Form $form */
-        $form = $formFactory->create($type, $account,[
+        $form = $formFactory->create($type, $account, [
             'client' => $client
         ]);
 
@@ -1425,7 +1424,7 @@ class DashboardController extends Controller
         $portfolioInformation = $portfolioInformationManager->getPortfolioInformation($client, $portfolio, $isQualified);
 
         if ($request->isMethod('post')) {
-           // $tmpPortfolio->setStatus(TempPortfolio::STATUS_APPROVED);
+            // $tmpPortfolio->setStatus(TempPortfolio::STATUS_APPROVED);
 
             //$dm->persist($tmpPortfolio);
             ///$dm->flush();

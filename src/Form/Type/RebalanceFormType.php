@@ -29,7 +29,7 @@ class RebalanceFormType extends AbstractType
 
         if ($this->isShowType) {
             $builder->add('rebalance_type', ChoiceType::class, [
-                'choices' => array_combine(array_values(Job::rebalanceTypeChoicesForSelect()),array_keys(Job::rebalanceTypeChoicesForSelect())),
+                'choices' => array_combine(array_values(Job::rebalanceTypeChoicesForSelect()), array_keys(Job::rebalanceTypeChoicesForSelect())),
                 'required' => true,
             ]);
         }

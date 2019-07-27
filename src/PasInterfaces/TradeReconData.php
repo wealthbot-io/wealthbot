@@ -6,7 +6,6 @@ use App\Manager\TradeReconManager;
 
 class TradeReconData implements DataInterface
 {
-
     protected $tradeReconManager;
 
 

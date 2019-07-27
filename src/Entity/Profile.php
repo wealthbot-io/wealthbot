@@ -1665,7 +1665,8 @@ class Profile implements WorkflowableInterface
         return $this->paymentMethod;
     }
 
-    public function getAge(){
-      return (int) $this->birth_date->diff(new \DateTime('now'))->y;
+    public function getAge()
+    {
+        return (int) $this->birth_date->diff(new \DateTime('now'))->y;
     }
 }

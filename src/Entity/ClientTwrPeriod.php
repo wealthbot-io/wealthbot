@@ -9,5 +9,4 @@ namespace App\Entity;
  */
 class ClientTwrPeriod
 {
-
 }

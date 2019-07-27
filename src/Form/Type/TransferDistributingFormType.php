@@ -20,7 +20,6 @@ use App\Entity\AccountContribution;
 
 class TransferDistributingFormType extends AbstractType
 {
-
     private $isPreSaved;
 
 

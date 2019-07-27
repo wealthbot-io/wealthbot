@@ -192,7 +192,7 @@ class ClientChangeProfileTransferPersonalFormType extends AccountOwnerPersonalIn
 
     public function configureOptions(OptionsResolver $resolver)
     {
-       $resolver->setDefaults([
+        $resolver->setDefaults([
           'em' => null,
           'owner' => null,
           'isPreSaved' => null,
@@ -201,5 +201,4 @@ class ClientChangeProfileTransferPersonalFormType extends AccountOwnerPersonalIn
            'class' => null
        ]);
     }
-
 }

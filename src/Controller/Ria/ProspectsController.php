@@ -35,7 +35,6 @@ use App\Entity\Profile;
 use App\Entity\User;
 use App\Repository\UserRepository;
 
-
 class ProspectsController extends Controller
 {
     public function index(Request $request)
@@ -75,7 +74,7 @@ class ProspectsController extends Controller
         $user->setProfile(new Profile());
         $form = $this->createForm(InviteProspectFormType::class, $ria, ['ria' => $ria, 'user'=> $user]);
 
-        if($request->isMethod('POST')) {
+        if ($request->isMethod('POST')) {
             $em = $this->get('doctrine.orm.entity_manager');
             $inviteFormHandler = new InviteProspectFormHandler(
                 $form,
@@ -197,7 +196,6 @@ class ProspectsController extends Controller
                 }
 
                 $portfolio = $settingsForm->get('client')->get('portfolio')->getData();
-
             };
         }
 
@@ -290,7 +288,7 @@ class ProspectsController extends Controller
             ]);
         }
 
-        $form = $this->createForm(RiaClientAccountFormType::class,null,[
+        $form = $this->createForm(RiaClientAccountFormType::class, null, [
             'em'=>$em,
             'client' => $client
         ]);
@@ -579,7 +577,7 @@ class ProspectsController extends Controller
 
         $securities = $securityAssignmentRepo->findByAccountIdAndRiaId($account->getId(), $ria->getId());
         $accountSecurities = $em->getRepository('App\Entity\AccountOutsideFund')->findBy(['account_id' => $account->getId()]);
-        $form = $this->createForm(OutsideFundAssociationFormType::class,null,['em'=>$em, 'ria'=>$ria, 'account'=>$account]);
+        $form = $this->createForm(OutsideFundAssociationFormType::class, null, ['em'=>$em, 'ria'=>$ria, 'account'=>$account]);
 
         return $this->json([
             'status' => 'success',
@@ -681,7 +679,7 @@ class ProspectsController extends Controller
             ]);
         }
 
-        $form = $this->createForm(OutsideFundAssociationFormType::class, $securityAssignment,['em'=>$em, 'ria'=>$ria, 'account'=>$account]);
+        $form = $this->createForm(OutsideFundAssociationFormType::class, $securityAssignment, ['em'=>$em, 'ria'=>$ria, 'account'=>$account]);
         $formHandler = new OutsideFundAssociationFormHandler($form, $request, $em);
         $process = $formHandler->process($account, $ria);
 
@@ -813,7 +811,6 @@ class ProspectsController extends Controller
         $badAsset = [];
 
         foreach ($unPreferred as $account => $assetClasses) {
-
             if (isset($preferred[$account])) {
                 // Search asset classes that's doesn't have preferred subclass
                 $diff = array_diff($assetClasses, $preferred[$account]);
@@ -821,7 +818,6 @@ class ProspectsController extends Controller
                 if ($diff) {
                     $badAsset[$account] = $diff;
                 }
-
             } else {
                 // All asset classes doesn't have preferred subclass
                 $badAsset[$account] = $assetClasses;

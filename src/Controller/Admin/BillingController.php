@@ -8,7 +8,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 use PhpOffice\PhpSpreadsheet\Writer as Writer;
 
-
 class BillingController extends AclController
 {
     public function index(Request $request)
@@ -128,7 +127,7 @@ class BillingController extends AclController
         );
         $response->headers->set('Content-Type', 'application/vnd.ms-excel');
         $response->headers->set('Content-Disposition', 'attachment;filename="ExportScan.xls"');
-        $response->headers->set('Cache-Control','max-age=0');
+        $response->headers->set('Cache-Control', 'max-age=0');
         return $response;
     }
 }

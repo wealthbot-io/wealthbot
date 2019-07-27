@@ -202,7 +202,4 @@ class Fee
      * @var App\Entity\User
      */
    // private $appointedUser;
-
-
-
 }

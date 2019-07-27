@@ -171,7 +171,7 @@ class RiaCompanyInformationThreeType extends AbstractType
                 'grouping' => true,
                 'currency' => 'USD'
             ])
-            ->add('stop_tlh_value',  MoneyType::class, [
+            ->add('stop_tlh_value', MoneyType::class, [
                 'scale' => 2,
                 'required' => false,
                 'currency' => 'USD',

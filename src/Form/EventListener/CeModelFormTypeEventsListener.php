@@ -80,7 +80,7 @@ class CeModelFormTypeEventsListener implements EventSubscriberInterface
                 );
 
                 if ($isExistRiskRating) {
-               //     $form->get('risk_rating')->addError(new FormError('The risk with parameter :risk is already exists.', [':risk' => $riskRating]));
+                    //     $form->get('risk_rating')->addError(new FormError('The risk with parameter :risk is already exists.', [':risk' => $riskRating]));
                 }
             }
         }

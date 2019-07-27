@@ -447,7 +447,6 @@ class RebalancerController extends Controller
      */
     private function createRebalancer(Job $job, ClientPortfolioValue $clientPortfolioValue, ClientAccountValue $clientAccountValue = null)
     {
-
         $rebalancerAction = new RebalancerAction();
         $rebalancerAction->setJob($job);
         $rebalancerAction->setClientPortfolioValue($clientPortfolioValue);

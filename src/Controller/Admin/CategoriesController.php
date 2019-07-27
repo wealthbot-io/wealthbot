@@ -34,7 +34,7 @@ class CategoriesController extends Controller
             'original_subclasses' => $this->collectOriginalSubclassesForAssets($assetClasses),
         ];
 
-        $form = $this->createForm(CategoriesFormType::class,null,['em'=>$em,'user'=>$user,'assets'=> $assets]);
+        $form = $this->createForm(CategoriesFormType::class, null, ['em'=>$em,'user'=>$user,'assets'=> $assets]);
         $formHandler = new CategoriesFormHandler($form, $request, $em, $options);
 
         if ($request->isMethod('post') && $formHandler->process()) {

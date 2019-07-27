@@ -24,8 +24,8 @@ use App\Mailer\MailerInterface;
  * @author Thibault Duplessis <thibault.duplessis@gmail.com>
  * @author Christophe Coevoet <stof@notk.org>
  */
-class ChangePasswordController extends AbstractController {
-
+class ChangePasswordController extends AbstractController
+{
     public function resetPassword(Request $request)
     {
         /** @var $em EntityManager */

@@ -46,8 +46,8 @@ class CustodianController extends AclController
 
         if ($request->isMethod('post')) {
             $form->handleRequest($request);
-            if($form->isValid()){
-                $formHandler = new CustodianDocumentsFormHandler($form, $request, $em, $this->get('wealthbot.mailer'),$custodian);
+            if ($form->isValid()) {
+                $formHandler = new CustodianDocumentsFormHandler($form, $request, $em, $this->get('wealthbot.mailer'), $custodian);
                 $formHandler->success();
             }
         }

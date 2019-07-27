@@ -34,7 +34,7 @@ class RolesController extends Controller
             $this->checkIsPasswordExpired($user);
 
             if (($authorizationChecker->isGranted('ROLE_RIA') || $authorizationChecker->isGranted('ROLE_RIA_USER'))) {
-                    $redirectUrl = $this->generateUrl('rx_ria_dashboard');
+                $redirectUrl = $this->generateUrl('rx_ria_dashboard');
             } elseif ($authorizationChecker->isGranted('ROLE_CLIENT')) {
                 $redirectUrl = $this->generateUrl('rx_client_dashboard');
             } else {

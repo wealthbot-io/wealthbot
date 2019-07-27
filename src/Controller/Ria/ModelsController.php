@@ -496,7 +496,7 @@ class ModelsController extends Controller
         $isQualifiedModel = $this->getIsQualifiedModel();
 
         $modelEntity = new CeModelEntity();
-        $form = $this->createForm(CeModelEntityFormType::class, $modelEntity,['model' => $model, 'em'=>$em, 'user'=> $user,'isQualifiedModel'=> $isQualifiedModel]);
+        $form = $this->createForm(CeModelEntityFormType::class, $modelEntity, ['model' => $model, 'em'=>$em, 'user'=> $user,'isQualifiedModel'=> $isQualifiedModel]);
         $formHandler = new CeModelEntityFormHandler($form, $request, $em, [
             'model' => $model,
             'is_qualified' => $this->getIsQualifiedModel(),
@@ -710,7 +710,7 @@ class ModelsController extends Controller
     public function editEntity(Request $request)
     {
         if (!$request->isXmlHttpRequest()) {
-           return $this->createNotFoundException('Request works only with XmlHttp');
+            return $this->createNotFoundException('Request works only with XmlHttp');
         }
 
         /** @var \Doctrine\ORM\EntityManager $em */
@@ -751,7 +751,7 @@ class ModelsController extends Controller
 
         $isQualifiedModel = $this->getIsQualifiedModel();
 
-        $form = $this->createForm(CeModelEntityFormType::class,$modelEntity,['model'=> $model, 'em'=> $em,'user'=> $user,'isQualifiedModel'=> $isQualifiedModel]);
+        $form = $this->createForm(CeModelEntityFormType::class, $modelEntity, ['model'=> $model, 'em'=> $em,'user'=> $user,'isQualifiedModel'=> $isQualifiedModel]);
 
         if ($request->isMethod('post')) {
             $formHandler = new CeModelEntityFormHandler($form, $request, $em);

@@ -271,7 +271,7 @@ class CeModelEntityTypeEventsListener implements EventSubscriberInterface
             $securityAssignmentRepo = $this->em->getRepository('App\Entity\SecurityAssignment');
             $securityQueryBuilder = $securityAssignmentRepo->getSecuritiesQBBySubclassIdAndWithoutSecuritiesIds($subclassId, $withoutIds);
 
-            $form->add($this->factory->createNamed('tax_loss_harvesting', EntityType::class,null, [
+            $form->add($this->factory->createNamed('tax_loss_harvesting', EntityType::class, null, [
                 'class' => 'App\\Entity\\SecurityAssignment',
                 'property_path' => 'taxLossHarvesting',
                 'auto_initialize' => false,

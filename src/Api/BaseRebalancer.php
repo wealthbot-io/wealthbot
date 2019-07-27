@@ -3,7 +3,6 @@
 
 namespace App\Api;
 
-
 use App\Entity\SecurityPrice;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -23,47 +22,47 @@ class BaseRebalancer
     /**
      * @var \Symfony\Contracts\HttpClient\HttpClientInterface
      */
-    protected  $httpClient;
+    protected $httpClient;
 
     /**
      * @var EntityManagerInterface
      */
-    protected  $em;
+    protected $em;
 
     /**
      * @var string
      */
-    protected  $apiGateway;
+    protected $apiGateway;
 
     /**
      * @var string
      */
-    protected  $apiSandboxGateway;
+    protected $apiSandboxGateway;
 
     /**
      * @var bool
      */
-    protected  $sandbox;
+    protected $sandbox;
 
     /**
      * @var
      */
-    protected  $apiKey;
+    protected $apiKey;
 
     /**
      * @var
      */
-    protected  $apiSecret;
+    protected $apiSecret;
 
     /**
      * @var
      */
-    protected  $ria;
+    protected $ria;
 
     /**
      * @var array
      */
-    protected  $prices;
+    protected $prices;
 
     /**
      * @var \Symfony\Component\Security\Core\Security
@@ -75,18 +74,19 @@ class BaseRebalancer
      * Sets api key and api secret
      * @throws \Exception
      */
-    protected function setApiKey(){
-        if($this->security->getUser()) {
+    protected function setApiKey()
+    {
+        if ($this->security->getUser()) {
             if ($this->security->getUser()->hasRole('ROLE_ADMIN')) {
                 $this->ria = $this->container->get('doctrine')->getRepository('App\Entity\User')->findOneByEmail('raiden@wealthbot.io');
-            } else if ($this->security->getUser()->hasRole('ROLE_RIA')) {
+            } elseif ($this->security->getUser()->hasRole('ROLE_RIA')) {
                 $this->ria = $this->security->getUser();
             } else {
                 $this->ria = $this->security->getUser()->getRia();
             }
             $this->apiKey = $this->ria ? $this->ria->getRiaCompanyInformation()->getCustodianKey() : " ";
             $this->apiSecret = $this->ria ? $this->ria->getRiaCompanyInformation()->getCustodianSecret() : " ";
-        } else  {
+        } else {
             $this->apiKey = $this->container->getParameter('tradier_api_key');
             $this->apiSecret = $this->container->getParameter('tradier_api_secret');
         }
@@ -103,12 +103,14 @@ class BaseRebalancer
     protected function processPrices($securities)
     {
         $prices = [];
-        foreach ($securities as $security){
-
+        foreach ($securities as $security) {
             $twoPrices  = $this->em->getRepository("App\Entity\SecurityPrice")->findBy(
-                ['security_id'=>$security->getId()],[
+                ['security_id'=>$security->getId()],
+                [
                 'datetime' => 'desc'
-            ],2,0
+            ],
+                2,
+                0
             );
             $prices[] = [
                 'security_id' => $security->getId(),
@@ -116,8 +118,8 @@ class BaseRebalancer
                 'price' => isset($twoPrices[0]) ? $twoPrices[0]->getPrice() : 0
             ];
 
-            foreach($prices as $key => $price){
-                if($price == 0){
+            foreach ($prices as $key => $price) {
+                if ($price == 0) {
                     unset($prices[$key]);
                 }
             }
@@ -134,8 +136,8 @@ class BaseRebalancer
      */
     protected function getPricesDiff($id)
     {
-        foreach($this->prices as $price){
-            if($price['security_id'] == $id){
+        foreach ($this->prices as $price) {
+            if ($price['security_id'] == $id) {
                 return $price['price'] / $price['old_price'];
             }
         }
@@ -148,11 +150,10 @@ class BaseRebalancer
      */
     protected function getLatestPriceBySecurityId($id)
     {
-        foreach($this->prices as $price){
-            if($price['security_id'] == $id){
+        foreach ($this->prices as $price) {
+            if ($price['security_id'] == $id) {
                 return $price['price'];
             }
         }
     }
-
 }

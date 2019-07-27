@@ -8,6 +8,7 @@
  */
 
 namespace App\Form\Handler;
+
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
@@ -95,5 +96,4 @@ class ClientTempQuestionsFormHandler
 
         $this->em->flush();
     }
-
 }

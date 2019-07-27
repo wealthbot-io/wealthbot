@@ -2,7 +2,6 @@
 
 namespace App\Manager;
 
-
 use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\RiaCompanyInformation;
 use Symfony\Component\Routing\RouterInterface;

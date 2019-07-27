@@ -60,7 +60,7 @@ class FeeManager
         }
 
         if (null !== $billingSpec->getOwner()) {
-       //     throw new \Exception('Owner of Admin Billing Spec for RIA must be null. May be it is not admin fees?');
+            //     throw new \Exception('Owner of Admin Billing Spec for RIA must be null. May be it is not admin fees?');
         }
 
         return $billingSpec->getFees()->getValues();

@@ -107,7 +107,6 @@ class DocumentsFormHandler extends AbstractFormHandler
     {
         if (!$owner->getUserDocuments()->contains($document)) {
             $owner->addUserDocument($document);
-
         }
     }
 

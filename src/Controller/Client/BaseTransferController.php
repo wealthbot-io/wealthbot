@@ -188,7 +188,7 @@ class BaseTransferController extends Controller
         $primaryApplicant = $account->getPrimaryApplicant();
         $isPreSaved = $request->isXmlHttpRequest();
 
-        $form = $this->createForm(TransferBasicFormType::class, $primaryApplicant,[
+        $form = $this->createForm(TransferBasicFormType::class, $primaryApplicant, [
             'is_pre_save' => $isPreSaved,
             'secondaryApplicant'=> $account->getSecondaryApplicant(),
             'profile' => $this->getUser()->getProfile(),
@@ -355,7 +355,7 @@ class BaseTransferController extends Controller
         $this->denyAccessForCurrentRetirementAccount($account);
 
         if (!$repo->isJointAccount($account)) {
-           return $this->createAccessDeniedException('Current account has not this step.');
+            return $this->createAccessDeniedException('Current account has not this step.');
         }
 
         $secondaryApplicant = $account->getSecondaryApplicant();
@@ -837,7 +837,6 @@ class BaseTransferController extends Controller
 
     public function reviewOwnerInformation(Request $request, $owner_id)
     {
-
         $em = $this->get('doctrine.orm.entity_manager');
         $repository = $em->getRepository('App\Entity\ClientAccountOwner');
 
@@ -847,7 +846,7 @@ class BaseTransferController extends Controller
         }
 
         $owner = $accountOwner->getOwner();
-        $form = $this->createForm(AccountOwnerReviewInformationFormType::class, $owner,[
+        $form = $this->createForm(AccountOwnerReviewInformationFormType::class, $owner, [
             'owner' => $owner,
             'primaryAccount'=> $this->getUser(),
             'isPreSaved'=>true

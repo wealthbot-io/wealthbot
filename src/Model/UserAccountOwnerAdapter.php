@@ -11,7 +11,6 @@ namespace App\Model;
 
 use App\Entity\User;
 
-
 class UserAccountOwnerAdapter implements AccountOwnerInterface, \ArrayAccess
 {
     private $user;
@@ -1128,6 +1127,4 @@ class UserAccountOwnerAdapter implements AccountOwnerInterface, \ArrayAccess
     {
         // TODO: Implement offsetUnset() method.
     }
-
-
 }

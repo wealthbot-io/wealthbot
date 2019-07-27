@@ -67,9 +67,9 @@ class ChangeProfileController extends Controller
 
         $companyForm = $this->createForm(RiaCompanyInformationType::class, $riaCompanyInfo, ['user'=>$user,'isPreSave'=>true]);
         ///$proposalForm = $this->createForm(RiaProposalFormType::class, $user);
-        $marketingForm = $this->createForm(RiaCompanyInformationFourType::class,$riaCompanyInfo, ['user'=>$user,'isPreSave'=> false]);
+        $marketingForm = $this->createForm(RiaCompanyInformationFourType::class, $riaCompanyInfo, ['user'=>$user,'isPreSave'=> false]);
         $alertsConfigurationForm = $this->createForm(RiaAlertsConfigurationFormType::class, $riaAlertsConfiguration);
-        $billingAndAccountsForm  = $this->createForm(RiaCompanyInformationTwoFormType::class,$riaCompanyInfo, ['user'=>$user,'is_pre_save'=> false]);
+        $billingAndAccountsForm  = $this->createForm(RiaCompanyInformationTwoFormType::class, $riaCompanyInfo, ['user'=>$user,'is_pre_save'=> false]);
         $portfolioManagementForm = $this->createForm(
             RiaCompanyInformationThreeType::class,
             $riaCompanyInfo,
@@ -109,10 +109,13 @@ class ChangeProfileController extends Controller
         $user = $this->getUser();
         $riaCompanyInfo = $user->getRiaCompanyInformation();
 
-        $custodianForm = $this->createForm(RiaCustodianFormType::class, null,
+        $custodianForm = $this->createForm(
+            RiaCustodianFormType::class,
+            null,
             [
                 'ria' => $riaCompanyInfo
-            ]);
+            ]
+        );
 
         $advisorCodes = $em->getRepository('App\Entity\AdvisorCode')
             ->findBy([
@@ -429,7 +432,7 @@ class ChangeProfileController extends Controller
         $admin = $this->get('wealthbot.manager.user')->getAdmin();
         $documentManager = $this->container->get('wealthbot_user.document_manager');
 
-        return $this->render('Ria/ChangeProfile/_documents.html.twig',[
+        return $this->render('Ria/ChangeProfile/_documents.html.twig', [
             'form' => $form->createView(),
             'admin_documents' => $documentManager->getUserDocuments($admin->getId()),
             'documents' => $documentManager->getUserDocuments($user->getId()),
@@ -525,14 +528,13 @@ class ChangeProfileController extends Controller
             $originalAdvisorCodes[] = $advisorCode;
         };
 
-        $advisorCodesForm = $this->createForm(AdvisorCodesCollectionFormType::class, $advisorCodes,[
+        $advisorCodesForm = $this->createForm(AdvisorCodesCollectionFormType::class, $advisorCodes, [
             'em' => $em, 'riaCompany' => $companyInformation, 'custodian' => $custodian
         ]);
-        $custodianForm = $this->createForm(RiaCustodianFormType::class, null,[
+        $custodianForm = $this->createForm(RiaCustodianFormType::class, null, [
             'ria' => $companyInformation
         ]);
         if ($request->isMethod('post')) {
-
             $custodianForm->handleRequest($request);
             $companyInformation->setCustodian($custodian);
             $em->persist($companyInformation);
@@ -559,8 +561,8 @@ class ChangeProfileController extends Controller
                 }
             */
 
-                return $this->redirect($this->generateUrl('rx_ria_change_profile'));
-           // }
+            return $this->redirect($this->generateUrl('rx_ria_change_profile'));
+            // }
         }
 
         return $this->render(

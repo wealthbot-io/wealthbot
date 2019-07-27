@@ -340,7 +340,6 @@ class Distribution implements SignableInterface, PaymentWorkflowableInterface
      */
     public function setFrequency($frequency)
     {
-
         $this->frequency = $frequency;
 
         return $this;

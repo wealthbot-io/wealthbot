@@ -24,7 +24,7 @@ class AccountContributionFormType extends TransferFundingFormType
 
     public function configureOptions(OptionsResolver $resolver)
     {
-       $resolver->setDefaults([
+        $resolver->setDefaults([
            'em' => null,
            'account' => null,
            'isPreSaved' => null,

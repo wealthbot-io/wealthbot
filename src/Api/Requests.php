@@ -3,7 +3,6 @@
 
 namespace App\Api;
 
-
 /**
  * Trait Requests
  * @package App\Api
@@ -16,7 +15,8 @@ trait Requests
      * @param bool $sandbox
      * @return string
      */
-    private function getEndpoint(){
+    private function getEndpoint()
+    {
         return ($this->sandbox==true)? $this->apiSandboxGateway : $this->apiGateway;
     }
 
@@ -29,8 +29,9 @@ trait Requests
      * @return \Symfony\Contracts\HttpClient\ResponseInterface
      * @throws \Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface
      */
-    private function createRequest($method, $path, $body = '',$headers){
-        return json_decode($this->httpClient->request($method, $this->getEndpoint().$path,[
+    private function createRequest($method, $path, $body = '', $headers)
+    {
+        return json_decode($this->httpClient->request($method, $this->getEndpoint().$path, [
             'headers' =>  array_merge($headers, [
                 'Accept: application/json',
                 'Content-Type: application/x-www-form-urlencoded',
@@ -49,8 +50,9 @@ trait Requests
      * @throws \Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface
      * @throws \Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface
      */
-    public function getQuotes($symbol){
-        return $this->createRequest('GET','markets/quotes?symbols='.$symbol,'',[]);
+    public function getQuotes($symbol)
+    {
+        return $this->createRequest('GET', 'markets/quotes?symbols='.$symbol, '', []);
     }
 
     /**
@@ -61,8 +63,9 @@ trait Requests
      * @throws \Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface
      * @throws \Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface
      */
-    public function getProfile(){
-        return $this->createRequest('GET','user/profile','',[]);
+    public function getProfile()
+    {
+        return $this->createRequest('GET', 'user/profile', '', []);
     }
 
 
@@ -74,10 +77,11 @@ trait Requests
      * @throws \Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface
      * @throws \Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface
      */
-    public function createAccessToken(){
+    public function createAccessToken()
+    {
         $body = 'grant_type=authorization_code&code=PRpnf1o7';
         $length = strlen($body);
-        return $this->createRequest('POST','oauth/accesstoken',$body,[
+        return $this->createRequest('POST', 'oauth/accesstoken', $body, [
             'Content-length: ' . $length
         ]);
     }
@@ -96,11 +100,12 @@ trait Requests
      * @throws \Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface
      * @throws \Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface
      */
-    public function placeOrder($account_id, $symbol, $side,$quantity, $price){
+    public function placeOrder($account_id, $symbol, $side, $quantity, $price)
+    {
         $body = 'class=equity&symbol='.$symbol.'&side='.$side.'&quantity='.$quantity.
             '&type=market&duration=day&price='.$price.'&stop='.$price;
         $length = strlen($body);
-        return $this->createRequest('POST','accounts/'.$account_id.'/orders',$body,[
+        return $this->createRequest('POST', 'accounts/'.$account_id.'/orders', $body, [
             'Content-length: ' . $length
         ]);
     }
@@ -119,5 +124,4 @@ trait Requests
     {
         return $this->createRequest('DELETE', 'accounts/' . $account_id . '/orders/' . $order_id, '', []);
     }
-
 }

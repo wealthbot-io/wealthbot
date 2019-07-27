@@ -17,13 +17,11 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class RiaCustodianFormType extends AbstractType
 {
-
-    private  $ria;
+    private $ria;
 
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-
         $this->ria = $options['ria'];
         $data1 = $this->ria ? $this->ria->getCustodian() :null;
         $data2 = $this->ria ? $this->ria->getAllowNonElectronicallySigning() : false;

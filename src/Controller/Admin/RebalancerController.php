@@ -52,12 +52,10 @@ class RebalancerController extends AclController
             'client_values_pagination' => $clientValuesPagination,
             'form' => $chooseRebalanceTypeForm->createView(),
         ]);
-
     }
 
     public function history(Request $request)
     {
-
         $clientAccountValuesManager = $this->get('wealthbot_client.client_account_values.manager');
         $em = $this->get('doctrine.orm.entity_manager');
         $paginator = $this->get('knp_paginator');
@@ -103,12 +101,10 @@ class RebalancerController extends AclController
         }
 
         return $this->render('/Admin/Rebalancer/history.html.twig', $responseData);
-
     }
 
     public function checkProgress(Request $request)
     {
-
         $em = $this->getDoctrine()->getManager();
         if (!$request->isXmlHttpRequest()) {
             throw $this->createNotFoundException();
@@ -134,7 +130,6 @@ class RebalancerController extends AclController
             'status' => 'success',
             'progress' => (int) $progress,
         ]);
-
     }
 
     public function postRebalance(Request $request)
@@ -182,7 +177,6 @@ class RebalancerController extends AclController
 
     public function showDetails(Request $request)
     {
-
         $clientValueId = $request->get('id');
 
         if (!$request->isXmlHttpRequest() || !$clientValueId) {
@@ -199,7 +193,6 @@ class RebalancerController extends AclController
                     'client_value' => $clientValue,
                 ]),
         ]);
-
     }
 
     public function accountsView(Request $request)
@@ -229,12 +222,10 @@ class RebalancerController extends AclController
                     'client_account_values' => $clientAccountValues,
                 ]),
         ]);
-
     }
 
     public function start(Request $request)
     {
-
         $em = $this->get('doctrine.orm.entity_manager');
         $clientAccountValuesManager = $this->get('wealthbot_client.client_account_values.manager');
         $clientPortfolioManager = $this->get('wealthbot_client.client_portfolio.manager');
@@ -326,7 +317,5 @@ class RebalancerController extends AclController
         $rebalancerAction = $this->get('App\Api\Rebalancer');
 
         return $rebalancerAction;
-
-
     }
 }

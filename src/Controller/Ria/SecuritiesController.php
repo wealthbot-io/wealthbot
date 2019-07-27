@@ -80,7 +80,7 @@ class SecuritiesController extends BaseController
             'id' => null,
             'name' => 'Choose an Option'
         ];
-        foreach($subclasses as $s){
+        foreach ($subclasses as $s) {
             /** @var Subclass $s */
             $info[] =
                 ['id'=>$s->getId(),
@@ -90,7 +90,7 @@ class SecuritiesController extends BaseController
 
         $output = '';
 
-        foreach($info as $s){
+        foreach ($info as $s) {
             $output .= "<option value='" . $s['id'] . "'>" . $s['name'] . "</option>";
         }
 
@@ -175,7 +175,7 @@ class SecuritiesController extends BaseController
             throw $this->createNotFoundException(sprintf('SecurityAssignment with id %d does not exist.', $request->get('id')));
         }
 
-        $form = $this->createForm(SecurityTransactionFormType::class, $securityAssignment->getSecurityTransaction(),[
+        $form = $this->createForm(SecurityTransactionFormType::class, $securityAssignment->getSecurityTransaction(), [
             'ria' => $riaCompanyInformation
         ]);
 

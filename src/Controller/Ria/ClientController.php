@@ -10,8 +10,6 @@ use App\Form\Type\ClientSasCashCollectionFormType;
 
 class ClientController extends Controller
 {
-
-
     public function updateSasCash(Request $request)
     {
         $em = $this->get('doctrine.orm.entity_manager');

@@ -17,7 +17,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class ClientRegistrationFormHandler
 {
-    private   $container;
+    private $container;
     protected $form;
     protected $tokenGenerator;
     protected $mailer;

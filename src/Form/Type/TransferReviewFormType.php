@@ -44,7 +44,7 @@ class TransferReviewFormType extends AbstractType
             $form = $event->getForm();
 
             if (!$manager->isApplicationSigned($account->getId())) {
-               // $form->get('is_agree')->addError(
+                // $form->get('is_agree')->addError(
                    // new FormError('You have not signed applications. Please sign all applications.')
                /// );
             }

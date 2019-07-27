@@ -18,8 +18,6 @@ use App\Entity\Profile;
 use App\Entity\User;
 use PhpOffice\PhpSpreadsheet\Writer as Writer;
 
-
-
 class BillingController extends Controller
 {
     public function quarterIndex($year, $quarter)
@@ -303,7 +301,7 @@ class BillingController extends Controller
         );
         $response->headers->set('Content-Type', 'application/vnd.ms-excel');
         $response->headers->set('Content-Disposition', 'attachment;filename="ExportScan.xls"');
-        $response->headers->set('Cache-Control','max-age=0');
+        $response->headers->set('Cache-Control', 'max-age=0');
         return $response;
     }
 

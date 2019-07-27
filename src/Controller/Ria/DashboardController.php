@@ -128,7 +128,7 @@ class DashboardController extends Controller
             $lastPortfolioValue = $clientPortfolioValuesRepo->getLastValueByClient($client);
             $clientPortfolio = $clientPortfolioManager->getCurrentPortfolio($client);
 
-                $clientItem = [
+            $clientItem = [
                     'id' => $client->getId(),
                     'status' => $client->isEnabled() ? 'Active' : 'Closed',
                     'lastName' => $client->getLastName(),
@@ -140,11 +140,11 @@ class DashboardController extends Controller
                     'ceModels' => HOUSEHOLD_LEVEL === $client->getProfile()->getClientAccountManaged() ? $clientPortfolio->getPortfolio()->getName() : '',
                     'hasClosedAccounts' => false,
                 ];
-                /** @param \App\Entity\SystemAccount $account */
-                foreach ($client->getSystemAccounts() as $account) {
-                    if ($account->getClientAccount()) {
-                        $lastSystemClientAccountValue = $clientAccountValuesRepo->getLatestValueForSystemClientAccountId($account->getId());
-                        $accountItem = [
+            /** @param \App\Entity\SystemAccount $account */
+            foreach ($client->getSystemAccounts() as $account) {
+                if ($account->getClientAccount()) {
+                    $lastSystemClientAccountValue = $clientAccountValuesRepo->getLatestValueForSystemClientAccountId($account->getId());
+                    $accountItem = [
                             'id' => $account->getClientAccountId(),
                             'status' => ucfirst($account->getStatus()),
                             'lastName' => $account->getClientAccount()->getPrimaryApplicant()->getLastName(),
@@ -154,12 +154,11 @@ class DashboardController extends Controller
                             'ceModels' => ACCOUNT_LEVEL === $client->getProfile()->getClientAccountManaged() ? '' : '',
                             'totalValue' => $lastSystemClientAccountValue ? $lastSystemClientAccountValue->getTotalValue() : 0,
                         ];
-                        $clientItem['accounts'][] = $accountItem;
+                    $clientItem['accounts'][] = $accountItem;
 
-                        if (SystemAccount::STATUS_CLOSED === $account->getStatus()) {
-                            $clientItem['hasClosedAccounts'] = true;
-                        }
-
+                    if (SystemAccount::STATUS_CLOSED === $account->getStatus()) {
+                        $clientItem['hasClosedAccounts'] = true;
+                    }
                 }
 
                 $results[] = $clientItem;
@@ -318,7 +317,7 @@ class DashboardController extends Controller
         $em = $this->get('doctrine.orm.entity_manager');
 
         $form = $this
-            ->createForm(HouseholdPortfolioSettingsFormType::class, $riaClient,[
+            ->createForm(HouseholdPortfolioSettingsFormType::class, $riaClient, [
                 'em' => $em
             ]);
 
@@ -349,17 +348,20 @@ class DashboardController extends Controller
         /** @var EntityManager $em */
         $em = $this->get('doctrine.orm.entity_manager');
         $systemAccount = $account->getSystemAccount();
-        $form = $this->createForm(AccountSettingsFormType::class, $account,[
+        $form = $this->createForm(AccountSettingsFormType::class, $account, [
             'em' => $em
         ]);
 
         $oneTimeDistribution = new Distribution();
         $oneTimeDistribution->setType(Distribution::TYPE_ONE_TIME);
         $oneTimeDistribution->setSystemClientAccount($systemAccount);
-        $oneTimeDistributionForm = $this->createForm(OneTimeDistributionFormType::class, $oneTimeDistribution,
+        $oneTimeDistributionForm = $this->createForm(
+            OneTimeDistributionFormType::class,
+            $oneTimeDistribution,
             [
                 'client' => $account->getClient()
-            ]);
+            ]
+        );
 
         $scheduledDistribution = $em
             ->getRepository('App\Entity\Distribution')
@@ -369,10 +371,13 @@ class DashboardController extends Controller
             $scheduledDistribution->setType(Distribution::TYPE_SCHEDULED);
             $scheduledDistribution->setSystemClientAccount($systemAccount);
         }
-        $scheduledDistributionForm = $this->createForm(ScheduledDistributionFormType::class, $scheduledDistribution,
+        $scheduledDistributionForm = $this->createForm(
+            ScheduledDistributionFormType::class,
+            $scheduledDistribution,
             [
                 'client' => $account->getClient()
-            ]);
+            ]
+        );
 
         if ($request->isMethod('POST')) {
             $scheduledDistributionForm->handleRequest($request);

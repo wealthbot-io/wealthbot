@@ -22,7 +22,7 @@ class RiaClientAccountFormHandler extends BaseClientAccountFormHandler
 {
     public function __construct(Form $form, Request $request, AccountDocusignManager $adm, $user)
     {
-        parent::__construct($form, $request, $adm,[],true,$user,null);
+        parent::__construct($form, $request, $adm, [], true, $user, null);
     }
 
     /**

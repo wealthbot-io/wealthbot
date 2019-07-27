@@ -116,7 +116,6 @@ class SystemAccount implements WorkflowableInterface
      */
     public function setType($type)
     {
-
         $this->type = $type;
 
         return $this;

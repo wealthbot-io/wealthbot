@@ -158,8 +158,7 @@ class SuggestedPortfolioFormHandler extends AbstractFormHandler
         if ($mailer instanceof MailerInterface) {
             try {
                 $mailer->sendClientPortfolioIsSubmittedEmail($client);
-            } catch (\Exception $e){
-
+            } catch (\Exception $e) {
             }
         }
     }

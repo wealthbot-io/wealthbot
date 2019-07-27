@@ -10,3 +10,4 @@
 /.web-server-pid
 .idea
 .DS_Store
+.php_cs.cache

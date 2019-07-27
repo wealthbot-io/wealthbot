@@ -144,6 +144,7 @@ class TransferController extends BaseTransferController
         $client = $this->getUser();
         $accountId = (int) $request->get('account_id');
         $account = null;
+        $isPreSaved = $request->isXmlHttpRequest();
 
         if (0 !== $accountId) {
             /** @var ClientAccount $account */

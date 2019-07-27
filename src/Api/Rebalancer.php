@@ -69,6 +69,11 @@ class Rebalancer extends BaseRebalancer implements RebalancerInterface
      */
     protected  $prices;
 
+    /**
+     * @var \Symfony\Component\Security\Core\Security
+     */
+    protected $security;
+
 
     /**
      * Rebalancer constructor.

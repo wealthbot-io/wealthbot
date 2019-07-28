@@ -4,6 +4,18 @@
 	<!-- start: RIA  nav/menu -->
 	{% include '/Ria/menu_nav.html.twig' %}
 	<!-- end: RIA nav/menu -->
+
+
+	{% block flash_messages %}
+		{% for type, flashMessages in app.session.flashbag.all() %}
+			{% for flashMessage in flashMessages %}
+				<div class="alert alert-{{ type }}">
+					{{ flashMessage }}
+					<a class="close" data-dismiss="alert" href="#">&times;</a>
+				</div>
+			{% endfor %}
+		{% endfor %}
+	{% endblock %}
 {% endblock %}
 
 {% block body %}

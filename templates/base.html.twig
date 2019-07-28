@@ -52,16 +52,6 @@
     {% endblock %}
 
     {% block main_container %}
-            {% block flash_messages %}
-                {% for type, flashMessages in app.session.flashbag.all() %}
-                    {% for flashMessage in flashMessages %}
-                        <div class="alert alert-{{ type }}">
-                            {{ flashMessage }}
-                            <a class="close" data-dismiss="alert" href="#">&times;</a>
-                        </div>
-                    {% endfor %}
-                {% endfor %}
-            {% endblock %}
             {% block body %}{% endblock %}
     {% endblock %}
 

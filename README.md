@@ -65,7 +65,7 @@ https://gitter.im/wealthbot-io
 * `install symfony  curl -sS https://get.symfony.com/cli/installer | bash`
 * `git clone https://github.com/wealthbot-io/wealthbot`
 * `cd wealthbot`
-* `COMPOSER_MEMORY_LIMIT=-1 composer install --ignore-platform-reqs`
+* `symfony composer install --ignore-platform-reqs`
 *  `customise .env.{prod|dev}.local file`
 * `bin/console doctrine:database:create`
 * `bin/console doctrine:schema:create`

@@ -17,7 +17,6 @@
         "knplabs/knp-paginator-bundle": "*",
         "knplabs/knp-snappy-bundle": "*",
         "phpoffice/phpspreadsheet": "dev-master",
-        "phpstan/phpstan": "^0.12.0@dev",
         "sensio/framework-extra-bundle": "^5.1",
         "stof/doctrine-extensions-bundle": "*",
         "symfony/asset": "4.4.*",
@@ -47,7 +46,8 @@
     },
     "require-dev": {
         "symfony/debug-pack": "*",
-        "symfony/profiler-pack": "*"
+        "symfony/profiler-pack": "*",
+        "phpstan/phpstan": "^0.12.0@dev"
     },
     "config": {
         "preferred-install": {

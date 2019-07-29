@@ -78,21 +78,23 @@ class Rebalancer extends BaseRebalancer implements RebalancerInterface
 
         $portfolio = $clientPortfolio->getPortfolio();
         $client = $clientPortfolio->getClient();
-        $clientPortfolio->getPortfolio()->getModelEntities()->map(function(CeModelEntity $item) use ($clientPortfolio, $client) {
-            dump($item->getPercent());
-
+        $infos[] = $clientPortfolio->getPortfolio()->getModelEntities()->map(function(CeModelEntity $item) use ($clientPortfolio, $client) {
             $value = 0;
             foreach($clientPortfolio->getClient()->getClientAccounts() as $account){
                 $value += $account->getValueSum();
             };
-
             $value = $item->getPercent() * ($value / 100);
 
-            dump($value);
-
-            dump($item->getSecurityAssignment()->getSecurity()->getSymbol());
+            return [
+                'account_id' => 'VA00000',
+                'client_id' => $client->getId(),
+                'symbol' => $item->getSecurityAssignment()->getSecurity()->getSymbol(),
+                'security_id' => $item->getSecurityAssignment()->getSecurity()->getId(),
+                'amount' => $value
+            ];
         });
 
+        dump($infos);
     }
 
 

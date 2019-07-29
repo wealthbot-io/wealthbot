@@ -188,6 +188,8 @@ class ProspectsController extends Controller
         if ($request->isMethod('post')) {
             $process = $settingsFormHandler->success();
             if ($process) {
+                $tradier = $this->get("App\Api\Rebalancer");
+                $tradier->initialRebalance($clientPortfolio);
                 $workflowManager = $this->get('wealthbot.workflow.manager');
                 $workflow = $workflowManager->findOneByClientAndTypeAndObjectType($client, Workflow::TYPE_PAPERWORK, $portfolio);
 

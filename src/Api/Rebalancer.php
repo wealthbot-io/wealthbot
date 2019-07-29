@@ -74,27 +74,32 @@ class Rebalancer extends BaseRebalancer implements RebalancerInterface
 
 
     public function initialRebalance(ClientPortfolio $clientPortfolio){
+
+        $securities = $this->em->getRepository("App\\Entity\\Security")->findAll();
+        $this->prices = $this->processPrices($securities);
+        $actions = $this->em->getRepository('App\\Entity\\RebalancerAction')->findAll();
+
+
+
         $client = $clientPortfolio->getClient();
         $infos[] = $clientPortfolio->getPortfolio()->getModelEntities()->map(function(CeModelEntity $item) use ($clientPortfolio, $client) {
+
+            $clientAccount = $clientPortfolio->getClient()->getClientAccounts()->first();
+
             $value = 0;
+
             foreach($clientPortfolio->getClient()->getClientAccounts() as $account){
                 $value += $account->getValueSum();
             };
             $value = $item->getPercent() * ($value / 100);
-
-            return [
+            $this->buy([
                 'account_id' => 'VA00000',
                 'client_id' => $client->getId(),
                 'symbol' => $item->getSecurityAssignment()->getSecurity()->getSymbol(),
                 'security_id' => $item->getSecurityAssignment()->getSecurity()->getId(),
-                'amount' => $value,
-                'account' => $account
-            ];
+                'amount' => $value
+            ], $clientAccount);
         });
-
-        foreach($infos as $info){
-            $this->buy($info, $info['account']);
-        };
     }
 
 

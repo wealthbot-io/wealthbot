@@ -3,6 +3,7 @@
 namespace App\Api;
 
 use App\Entity\CeModelEntity;
+use App\Entity\ClientAccount;
 use App\Entity\ClientPortfolio;
 use App\Entity\ClientPortfolioValue;
 use App\Entity\Job;
@@ -79,7 +80,16 @@ class Rebalancer extends BaseRebalancer implements RebalancerInterface
         $client = $clientPortfolio->getClient();
         $clientPortfolio->getPortfolio()->getModelEntities()->map(function(CeModelEntity $item) use ($clientPortfolio, $client) {
             dump($item->getPercent());
-            ///dump($clientPortfolio->getClient()->getP);
+
+            $value = 0;
+            foreach($clientPortfolio->getClient()->getClientAccounts() as $account){
+                $value += $account->getValueSum();
+            };
+
+            $value = $item->getPercent() * ($value / 100);
+
+            dump($value);
+
             dump($item->getSecurityAssignment()->getSecurity()->getSymbol());
         });
 

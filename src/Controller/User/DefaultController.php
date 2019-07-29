@@ -14,7 +14,7 @@ class DefaultController extends Controller
     public function index()
     {
         $tradier = $this->get("App\Api\Rebalancer");
-       /// dump($tradier->initialRebalance($this->getUser()->getClientPortfolios()->first()));
+        dump($tradier->initialRebalance($this->getUser()->getClientPortfolios()->first()));
 
         /// todo: make ria users selection
         $form = $this->createFormBuilder()

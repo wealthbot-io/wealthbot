@@ -74,9 +74,6 @@ class Rebalancer extends BaseRebalancer implements RebalancerInterface
 
 
     public function initialRebalance(ClientPortfolio $clientPortfolio){
-
-
-        $portfolio = $clientPortfolio->getPortfolio();
         $client = $clientPortfolio->getClient();
         $infos[] = $clientPortfolio->getPortfolio()->getModelEntities()->map(function(CeModelEntity $item) use ($clientPortfolio, $client) {
             $value = 0;
@@ -90,11 +87,14 @@ class Rebalancer extends BaseRebalancer implements RebalancerInterface
                 'client_id' => $client->getId(),
                 'symbol' => $item->getSecurityAssignment()->getSecurity()->getSymbol(),
                 'security_id' => $item->getSecurityAssignment()->getSecurity()->getId(),
-                'amount' => $value
+                'amount' => $value,
+                'account' => $account
             ];
         });
 
-        dump($infos);
+        foreach($infos as $info){
+            $this->buy($info, $info['account']);
+        };
     }
 
 

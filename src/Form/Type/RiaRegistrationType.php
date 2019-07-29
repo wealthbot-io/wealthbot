@@ -43,8 +43,7 @@ class RiaRegistrationType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => 'App\Entity\User',
-            'csrf_protection' => true,
-            'csrf_field_name' => '_token',
+            'csrf_protection' => false,
             'cascade_validation' => true,
             'validation_groups' => ['Registration', 'password'],
         ]);

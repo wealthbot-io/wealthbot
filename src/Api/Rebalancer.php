@@ -75,10 +75,14 @@ class Rebalancer extends BaseRebalancer implements RebalancerInterface
     public function initialRebalance(ClientPortfolio $clientPortfolio){
 
 
-        $clientPortfolio->getPortfolio()->getModelEntities()->map(function(CeModelEntity $item){
-                dump($item->getPercent());
-                dump($item->getAssetClass());
+        $portfolio = $clientPortfolio->getPortfolio();
+        $client = $clientPortfolio->getClient();
+        $clientPortfolio->getPortfolio()->getModelEntities()->map(function(CeModelEntity $item) use ($clientPortfolio, $client) {
+            dump($item->getPercent());
+            ///dump($clientPortfolio->getClient()->getP);
+            dump($item->getSecurityAssignment()->getSecurity()->getSymbol());
         });
+
     }
 
 

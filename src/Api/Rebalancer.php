@@ -2,6 +2,7 @@
 
 namespace App\Api;
 
+use App\Entity\CeModelEntity;
 use App\Entity\ClientPortfolio;
 use App\Entity\ClientPortfolioValue;
 use App\Entity\Job;
@@ -68,6 +69,16 @@ class Rebalancer extends BaseRebalancer implements RebalancerInterface
             $this->em->persist($job);
         }
         $this->em->flush();
+    }
+
+
+    public function initialRebalance(ClientPortfolio $clientPortfolio){
+
+
+        $clientPortfolio->getPortfolio()->getModelEntities()->map(function(CeModelEntity $item){
+                dump($item->getPercent());
+                dump($item->getAssetClass());
+        });
     }
 
 

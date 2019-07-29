@@ -12,9 +12,7 @@
                 <th><a href="#1"><span class="caret"></span> Subclass</a></th>
                 <th><a href="#1"><span class="caret"></span> Type</a></th>
                 <th><a href="#1"><span class="caret"></span> Expense Ratio</a></th>
-                {% if (is_show_municipal_bond) %}
-                    <th>Muni<br/>Substitution</th>
-                {% endif %}
+                <th>Muni<br/>Substitution</th>
                 <th>Actions</th>
             </tr>
             </thead>
@@ -40,9 +38,7 @@
                 <td>{% if form.subclass_id is defined %} {{ form_widget(form.subclass_id) }}{% endif %}</td>
                 <td id="security_type_row"></td>
                 <td id="security_expense_ratio_row"></td>
-                {% if (is_show_municipal_bond) %}
-                    <td>{{ form_widget(form.muniSubstitution) }}</td>
-                {% endif %}
+                <td>{{ form_widget(form.muniSubstitution) }}</td>
                 <td><input type="submit" name="Add" value="Add" class="btn btn-primary" /></td>
             </tr>
             {{ form_rest(form) }}

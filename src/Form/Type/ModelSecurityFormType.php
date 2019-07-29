@@ -59,9 +59,9 @@ class ModelSecurityFormType extends AbstractType
         ]);
         $factory = $builder->getFormFactory();
 
-        if ($model->getOwner() && $model->getOwner()->hasRole('ROLE_RIA') && $model->getOwner()->getRiaCompanyInformation()->getUseMunicipalBond()) {
+       // if ($model->getOwner() && $model->getOwner()->hasRole('ROLE_RIA') && $model->getOwner()->getRiaCompanyInformation()->getUseMunicipalBond()) {
             $builder->add('muniSubstitution', CheckboxType::class, ['required' => false, 'mapped'=>false]);
-        };
+      ///  };
 
         $builder->addEventListener(FormEvents::SUBMIT, function (FormEvent $event) use ($em, $model) {
             $form = $event->getForm();

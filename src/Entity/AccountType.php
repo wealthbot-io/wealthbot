@@ -6,7 +6,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 
 /**
- * Entity\ClientAccountType.
+ * Class AccountType
+ * @package App\Entity
  */
 class AccountType
 {

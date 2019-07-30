@@ -5,7 +5,8 @@ namespace App\Entity;
 use App\Model\ClosingAccountHistory as BaseClosingAccountHistory;
 
 /**
- * ClosingAccountHistory.
+ * Class ClosingAccountHistory
+ * @package App\Entity
  */
 class ClosingAccountHistory extends BaseClosingAccountHistory
 {

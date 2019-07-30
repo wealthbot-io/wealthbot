@@ -11,6 +11,10 @@ namespace App\DQL\DatetimeFunction;
 use Doctrine\ORM\Query\AST\Functions\FunctionNode;
 use Doctrine\ORM\Query\Lexer;
 
+/**
+ * Class Year
+ * @package App\DQL\DatetimeFunction
+ */
 class Year extends FunctionNode
 {
     public $date;

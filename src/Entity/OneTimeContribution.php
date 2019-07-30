@@ -7,7 +7,8 @@ use App\Entity\DocumentSignature;
 use App\Model\SignableInterface;
 
 /**
- * OneTimeContribution.
+ * Class OneTimeContribution
+ * @package App\Entity
  */
 class OneTimeContribution extends BaseOneTimeContribution implements SignableInterface
 {

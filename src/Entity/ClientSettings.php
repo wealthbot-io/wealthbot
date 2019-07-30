@@ -3,7 +3,8 @@
 namespace App\Entity;
 
 /**
- * ClientSettings.
+ * Class ClientSettings
+ * @package App\Entity
  */
 class ClientSettings
 {

@@ -7,7 +7,8 @@ use App\Entity\DocumentSignature;
 use App\Model\SignableInterface;
 
 /**
- * Beneficiary.
+ * Class Beneficiary
+ * @package App\Entity
  */
 class Beneficiary extends BaseBeneficiary implements SignableInterface
 {

@@ -8,7 +8,8 @@ use App\Entity\DocumentSignature;
 use Doctrine\Common\Collections\Collection;
 
 /**
- * Workflow.
+ * Class Workflow
+ * @package App\Entity
  */
 class Workflow extends BaseWorkflow
 {

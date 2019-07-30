@@ -10,7 +10,8 @@ use App\Model\CeModelEntityInterface;
 use App\Model\CeModelInterface;
 
 /**
- * CeModel.
+ * Class CeModel
+ * @package App\Entity
  */
 class CeModel extends BaseCeModel
 {

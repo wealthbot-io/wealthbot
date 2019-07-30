@@ -3,7 +3,8 @@
 namespace App\Entity;
 
 /**
- * RiaDashboardBox.
+ * Class RiaDashboardBox
+ * @package App\Entity
  */
 class RiaDashboardBox
 {

@@ -7,7 +7,8 @@ use App\Model\ClientAccountOwner as BaseClientAccountOwner;
 use App\Model\UserAccountOwnerAdapter;
 
 /**
- * ClientAccountOwner.
+ * Class ClientAccountOwner
+ * @package App\Entity
  */
 class ClientAccountOwner extends BaseClientAccountOwner
 {

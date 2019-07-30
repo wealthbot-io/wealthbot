@@ -3,7 +3,8 @@
 namespace App\Entity;
 
 /**
- * SecurityType.
+ * Class SecurityType
+ * @package App\Entity
  */
 class SecurityType
 {

@@ -6,7 +6,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 
 /**
- * ClientAccountValue.
+ * Class ClientAccountValue
+ * @package App\Entity
  */
 class ClientAccountValue
 {

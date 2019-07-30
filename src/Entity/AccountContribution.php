@@ -7,7 +7,8 @@ use App\Entity\DocumentSignature;
 use App\Model\SignableInterface;
 
 /**
- * AccountContribution.
+ * Class AccountContribution
+ * @package App\Entity
  */
 class AccountContribution extends BaseAccountContribution implements SignableInterface
 {

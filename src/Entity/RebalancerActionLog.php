@@ -5,7 +5,8 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
- * RebalancerActionLog.
+ * Class RebalancerActionLog
+ * @package App\Entity
  */
 class RebalancerActionLog
 {

@@ -3,7 +3,8 @@
 namespace App\Entity;
 
 /**
- * SecurityPrice.
+ * Class SecurityPrice
+ * @package App\Entity
  */
 class SecurityPrice
 {

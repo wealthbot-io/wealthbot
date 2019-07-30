@@ -7,7 +7,8 @@ use Doctrine\Common\Collections\Collection;
 use FOS\UserBundle\Model\Group as BaseGroup;
 
 /**
- * Entity\Group.
+ * Class Group
+ * @package App\Entity
  */
 class Group extends BaseGroup
 {

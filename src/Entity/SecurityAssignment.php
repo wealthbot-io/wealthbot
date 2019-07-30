@@ -7,7 +7,8 @@ use App\Model\CeModelInterface;
 use Doctrine\Common\Collections\Collection;
 
 /**
- * Entity\SecurityAssignment.
+ * Class SecurityAssignment
+ * @package App\Entity
  */
 class SecurityAssignment
 {

@@ -11,6 +11,10 @@ namespace App\Entity;
 
 use Symfony\Component\Filesystem\Filesystem;
 
+/**
+ * Class AdvisorCodeEventListener
+ * @package App\Entity
+ */
 class AdvisorCodeEventListener
 {
     private $fs;

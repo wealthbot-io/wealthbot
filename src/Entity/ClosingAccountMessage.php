@@ -3,7 +3,8 @@
 namespace App\Entity;
 
 /**
- * ClosingAccountMessage.
+ * Class ClosingAccountMessage
+ * @package App\Entity
  */
 class ClosingAccountMessage
 {

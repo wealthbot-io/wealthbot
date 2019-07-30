@@ -3,7 +3,8 @@
 namespace App\Entity;
 
 /**
- * Entity\State.
+ * Class State
+ * @package App\Entity
  */
 class State
 {

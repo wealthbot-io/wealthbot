@@ -7,7 +7,8 @@ use App\Entity\User;
 use Doctrine\Common\Collections\Collection;
 
 /**
- * Entity\BillingSpec.
+ * Class BillingSpec
+ * @package App\Entity
  */
 class BillingSpec
 {

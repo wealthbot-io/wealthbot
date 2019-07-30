@@ -3,7 +3,8 @@
 namespace App\Entity;
 
 /**
- * TransferCustodianQuestionAnswer.
+ * Class TransferCustodianQuestionAnswer
+ * @package App\Entity
  */
 class TransferCustodianQuestionAnswer
 {

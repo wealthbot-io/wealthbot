@@ -6,7 +6,8 @@ use App\Model\CeModelInterface;
 use App\Model\ClientPortfolio as BaseClientPortfolio;
 
 /**
- * Entity\ClientPortfolio.
+ * Class ClientPortfolio
+ * @package App\Entity
  */
 class ClientPortfolio extends BaseClientPortfolio
 {

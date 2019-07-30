@@ -3,7 +3,8 @@
 namespace App\Entity;
 
 /**
- * SecurityTransaction.
+ * Class SecurityTransaction
+ * @package App\Entity
  */
 class SecurityTransaction
 {

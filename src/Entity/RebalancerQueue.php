@@ -3,7 +3,8 @@
 namespace App\Entity;
 
 /**
- * RebalancerQueue.
+ * Class RebalancerQueue
+ * @package App\Entity
  */
 class RebalancerQueue
 {

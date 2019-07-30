@@ -3,7 +3,8 @@
 namespace App\Entity;
 
 /**
- * BillItem.
+ * Class BillItem
+ * @package App\Entity
  */
 class BillItem
 {

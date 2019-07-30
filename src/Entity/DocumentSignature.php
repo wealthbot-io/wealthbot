@@ -8,7 +8,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 
 /**
- * DocumentSignature.
+ * Class DocumentSignature
+ * @package App\Entity
  */
 class DocumentSignature
 {

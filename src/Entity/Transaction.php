@@ -8,7 +8,8 @@ use App\Model\PaymentActivityInterface;
 use App\Entity\User;
 
 /**
- * Transaction.
+ * Class Transaction
+ * @package App\Entity
  */
 class Transaction implements PaymentActivityInterface
 {

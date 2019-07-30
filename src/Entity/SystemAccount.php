@@ -7,7 +7,8 @@ use App\Model\SystemAccount as BaseSystemAccount;
 use Doctrine\Common\Collections\Collection;
 
 /**
- * SystemAccount.
+ * Class SystemAccount
+ * @package App\Entity
  */
 class SystemAccount extends BaseSystemAccount
 {

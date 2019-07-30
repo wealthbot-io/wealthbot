@@ -8,6 +8,8 @@ use Doctrine\Common\Collections\Collection;
 
 /**
  * Trade Position, aggregates from lots for that account, security and date.
+ * Class Position
+ * @package App\Entity
  */
 class Position
 {

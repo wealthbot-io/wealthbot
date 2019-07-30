@@ -5,7 +5,8 @@ namespace App\Entity;
 use App\Exception\InvalidRecipientStatusException;
 
 /**
- * DocumentOwnerSignature.
+ * Class DocumentOwnerSignature
+ * @package App\Entity
  */
 class DocumentOwnerSignature
 {

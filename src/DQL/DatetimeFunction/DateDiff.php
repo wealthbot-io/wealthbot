@@ -5,6 +5,10 @@ namespace App\DQL\DatetimeFunction;
 use Doctrine\ORM\Query\AST\Functions\FunctionNode;
 use Doctrine\ORM\Query\Lexer;
 
+/**
+ * Class DateDiff
+ * @package App\DQL\DatetimeFunction
+ */
 class DateDiff extends FunctionNode
 {
     public $firstDateExpression = null;

@@ -3,7 +3,8 @@
 namespace App\Entity;
 
 /**
- * CustodianMessage.
+ * Class CustodianMessage
+ * @package App\Entity
  */
 class CustodianMessage
 {

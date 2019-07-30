@@ -6,7 +6,8 @@ use App\Model\CeModelEntity as BaseCeModelEntity;
 use App\Model\CeModelInterface;
 
 /**
- * CeModelEntity.
+ * Class CeModelEntity
+ * @package App\Entity
  */
 class CeModelEntity extends BaseCeModelEntity
 {

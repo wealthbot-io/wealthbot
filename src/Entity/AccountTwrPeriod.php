@@ -3,7 +3,8 @@
 namespace App\Entity;
 
 /**
- * AccountTwrPeriod.
+ * Class AccountTwrPeriod
+ * @package App\Entity
  */
 class AccountTwrPeriod
 {

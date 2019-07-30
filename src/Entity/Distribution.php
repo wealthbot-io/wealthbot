@@ -7,7 +7,8 @@ use App\Entity\DocumentSignature;
 use App\Model\SignableInterface;
 
 /**
- * Distribution.
+ * Class Distribution
+ * @package App\Entity
  */
 class Distribution implements SignableInterface, PaymentWorkflowableInterface
 {

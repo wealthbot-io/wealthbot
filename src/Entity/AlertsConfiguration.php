@@ -3,7 +3,8 @@
 namespace App\Entity;
 
 /**
- * AlertsConfiguration.
+ * Class AlertsConfiguration
+ * @package App\Entity
  */
 class AlertsConfiguration
 {

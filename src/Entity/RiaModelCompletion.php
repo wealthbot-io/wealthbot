@@ -5,7 +5,8 @@ namespace App\Entity;
 use App\Entity\User;
 
 /**
- * Entity\RiaModelCompletion.
+ * Class RiaModelCompletion
+ * @package App\Entity
  */
 class RiaModelCompletion
 {

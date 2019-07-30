@@ -7,7 +7,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 
 /**
- * ClientPortfolioValue.
+ * Class ClientPortfolioValue
+ * @package App\Entity
  */
 class ClientPortfolioValue
 {

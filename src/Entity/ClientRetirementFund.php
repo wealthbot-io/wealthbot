@@ -3,7 +3,8 @@
 namespace App\Entity;
 
 /**
- * Entity\ClientRetiremenFund.
+ * Class ClientRetirementFund
+ * @package App\Entity
  */
 class ClientRetirementFund
 {

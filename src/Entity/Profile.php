@@ -8,7 +8,8 @@ use App\Model\Workflow;
 use App\Model\WorkflowableInterface;
 
 /**
- * Entity\Profile.
+ * Class Profile
+ * @package App\Entity
  */
 class Profile implements WorkflowableInterface
 {

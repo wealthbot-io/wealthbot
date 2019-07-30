@@ -2,6 +2,10 @@
 
 namespace App\Entity;
 
+/**
+ * Class Holiday
+ * @package App\Entity
+ */
 class Holiday
 {
     const HOLIDAY_TYPE_WEEKEND = 1;

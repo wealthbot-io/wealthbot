@@ -11,7 +11,8 @@ use App\Entity\Document;
 use App\Entity\User;
 
 /**
- * Entity\RiaCompanyInformation.
+ * Class RiaCompanyInformation
+ * @package App\Entity
  */
 class RiaCompanyInformation
 {

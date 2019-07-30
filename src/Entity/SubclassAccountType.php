@@ -3,7 +3,8 @@
 namespace App\Entity;
 
 /**
- * Entity\SubclassAccountType.
+ * Class SubclassAccountType
+ * @package App\Entity
  */
 class SubclassAccountType
 {

@@ -3,8 +3,9 @@
 namespace App\Entity;
 
 /**
- * AccountOutsideFund.
- *
+ * AccountOutsideFund
+ * Class AccountOutsideFund
+ * @package App\Entity
  * @deprecated
  */
 class AccountOutsideFund

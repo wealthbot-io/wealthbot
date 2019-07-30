@@ -7,7 +7,8 @@ use App\Model\AccountOwnerInterface;
 use App\Model\ClientAdditionalContact as BaseClientAdditionalContact;
 
 /**
- * ClientAdditionalContact.
+ * Class ClientAdditionalContact
+ * @package App\Entity
  */
 class ClientAdditionalContact extends BaseClientAdditionalContact implements AccountOwnerInterface
 {

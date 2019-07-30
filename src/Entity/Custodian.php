@@ -6,7 +6,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 
 /**
- * Custodian.
+ * Class Custodian
+ * @package App\Entity
  */
 class Custodian
 {

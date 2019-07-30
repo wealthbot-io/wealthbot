@@ -3,7 +3,8 @@
 namespace App\Entity;
 
 /**
- * AdvisorCode.
+ * Class AdvisorCode
+ * @package App\Entity
  */
 class AdvisorCode
 {

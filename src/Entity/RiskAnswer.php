@@ -3,7 +3,8 @@
 namespace App\Entity;
 
 /**
- * Entity\RiskAnswer.
+ * Class RiskAnswer
+ * @package App\Entity
  */
 class RiskAnswer
 {

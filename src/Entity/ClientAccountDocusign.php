@@ -3,7 +3,8 @@
 namespace App\Entity;
 
 /**
- * ClientAccountDocusign.
+ * Class ClientAccountDocusign
+ * @package App\Entity
  */
 class ClientAccountDocusign
 {

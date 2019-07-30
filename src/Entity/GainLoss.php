@@ -3,7 +3,8 @@
 namespace App\Entity;
 
 /**
- * GainLoss.
+ * Class GainLoss
+ * @package App\Entity
  */
 class GainLoss
 {

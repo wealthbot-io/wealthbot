@@ -7,7 +7,8 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 use App\Model\WorkflowableInterface;
 
 /**
- * BankInformation.
+ * Class BankInformation
+ * @package App\Entity
  */
 class BankInformation implements WorkflowableInterface
 {

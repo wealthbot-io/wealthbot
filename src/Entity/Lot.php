@@ -8,8 +8,11 @@ use App\Entity\Transaction;
 use Doctrine\Common\Collections\Collection;
 
 /**
+ * Class Lot
  * Lot contains some count of shares and must be sold fully at one transaction.
  * Set of lots makes Position.
+ * @package App\Entity
+ *
  */
 class Lot
 {

@@ -7,7 +7,8 @@ use App\Model\CeModelInterface;
 use Doctrine\Common\Collections\Collection;
 
 /**
- * Entity\AssetClass.
+ * Class AssetClass
+ * @package App\Entity
  */
 class AssetClass
 {

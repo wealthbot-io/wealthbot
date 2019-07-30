@@ -7,7 +7,8 @@ use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
- * Document.
+ * Class Document
+ * @package App\Entity
  */
 class Document
 {

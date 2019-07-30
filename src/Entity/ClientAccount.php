@@ -9,7 +9,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 
 /**
- * Entity\ClientAccount.
+ * Class ClientAccount
+ * @package App\Entity
  */
 class ClientAccount extends BaseClientAccount
 {

@@ -3,7 +3,8 @@
 namespace App\Entity;
 
 /**
- * RetirementPlanInformation.
+ * Class RetirementPlanInformation
+ * @package App\Entity
  */
 class RetirementPlanInformation
 {

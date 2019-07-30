@@ -3,7 +3,8 @@
 namespace App\Entity;
 
 /**
- * Entity\ClientQuestionnaireAnswer.
+ * Class ClientQuestionnaireAnswer
+ * @package App\Entity
  */
 class ClientQuestionnaireAnswer
 {

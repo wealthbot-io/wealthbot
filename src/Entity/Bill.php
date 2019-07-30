@@ -8,7 +8,8 @@ use App\Entity\User;
 use Doctrine\Common\Collections\Collection;
 
 /**
- * Bill.
+ * Class Bill
+ * @package App\Entity
  */
 class Bill extends BaseBill
 {

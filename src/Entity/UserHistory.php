@@ -3,7 +3,8 @@
 namespace App\Entity;
 
 /**
- * UserHistory.
+ * Class UserHistory
+ * @package App\Entity
  */
 class UserHistory
 {

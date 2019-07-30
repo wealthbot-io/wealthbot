@@ -6,7 +6,8 @@ use App\Model\ActivityInterface;
 use App\Entity\User;
 
 /**
- * ClientActivitySummary.
+ * Class ClientActivitySummary
+ * @package App\Entity
  */
 class ClientActivitySummary implements ActivityInterface
 {

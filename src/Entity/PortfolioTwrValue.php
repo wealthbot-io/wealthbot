@@ -3,7 +3,8 @@
 namespace App\Entity;
 
 /**
- * PortfolioTwrValue.
+ * Class PortfolioTwrValue
+ * @package App\Entity
  */
 class PortfolioTwrValue
 {

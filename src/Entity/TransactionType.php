@@ -3,7 +3,8 @@
 namespace App\Entity;
 
 /**
- * TransactionType.
+ * Class TransactionType
+ * @package App\Entity
  */
 class TransactionType
 {

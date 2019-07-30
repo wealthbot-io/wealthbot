@@ -15,7 +15,8 @@ use App\Model\User as BaseUser;
 use Doctrine\Common\Collections\Collection;
 
 /**
- * Entity\User.
+ * Class User
+ * @package App\Entity
  */
 class User extends BaseUser implements ActivityInterface
 {

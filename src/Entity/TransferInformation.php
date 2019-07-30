@@ -9,7 +9,8 @@ use App\Model\SignableInterface;
 use Doctrine\Common\Collections\Collection;
 
 /**
- * TransferInformation.
+ * Class TransferInformation
+ * @package App\Entity
  */
 class TransferInformation extends BaseTransferInformation implements SignableInterface
 {

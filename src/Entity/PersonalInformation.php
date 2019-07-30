@@ -6,7 +6,8 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 use App\Model\PersonalInformation as BasePersonalInformation;
 
 /**
- * PersonalInformation.
+ * Class PersonalInformation
+ * @package App\Entity
  */
 class PersonalInformation extends BasePersonalInformation
 {

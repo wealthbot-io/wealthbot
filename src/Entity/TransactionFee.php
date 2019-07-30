@@ -3,7 +3,8 @@
 namespace App\Entity;
 
 /**
- * TransactionFee.
+ * Class TransactionFee
+ * @package App\Entity
  */
 class TransactionFee
 {

@@ -3,7 +3,8 @@
 namespace App\Entity;
 
 /**
- * ClosingMethod.
+ * Class ClosingMethod
+ * @package App\Entity
  */
 class ClosingMethod
 {

@@ -50,7 +50,13 @@ trait Trade
                     } else {
                         $this->buy($datum, $account);
                     }
-                };
+                } else {
+                    if ($datum['prices_diff'] > 1) {
+                        $this->sell($datum, $account);
+                    } else {
+                        $this->buy($datum, $account);
+                    }
+                }
             }
         }
     }

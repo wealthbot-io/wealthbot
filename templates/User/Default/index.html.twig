@@ -5,11 +5,15 @@
 {% endblock %}
 
 {% block body %}
+    <p class="text-center">
+        <a href="/">
+            <img src="{{ asset('img/big_logo.png') }}" />
+        </a>
+    </p>
     <!-- Start of Card Groups Layout -->
     <div class="card-group front-cards">
 
         <div class="card">
-            <img class="card-img-top" src="{{ asset('img/icon.png') }}" alt="Wealthbot">
             <div class="card-body">
                 <h4 class="card-title">Register RIA</h4>
                 <p class="card-text">Use {{ 'wealthbot.io' | trans }} to offer SaaS for multiple RIA's, or run a single RIA entity on the same platform. The choice is yours.</p>
@@ -19,7 +23,6 @@
             </div>
         </div>
         <div class="card">
-            <img class="card-img-top" src="{{ asset('img/icon.png') }}" alt="Wealthbot">
             <div class="card-body">
                 <h4 class="card-title">Login as an RIA</h4>
                 <p class="card-text">
@@ -32,7 +35,6 @@
         </div>
 
         <div class="card">
-            <img class="card-img-top" src="{{ asset('img/icon.png') }}" alt="Wealthbot">
             <div class="card-body">
                 <h4 class="card-title">Register a Client</h4>
                 <p class="card-text">{{ 'wealthbot.io' | trans }} will automatically select a matching portfolio based on the client's risk tolerance. This is how we establish a relationship between a client
@@ -46,7 +48,6 @@
 
 
         <div class="card">
-            <img class="card-img-top" src="{{ asset('img/icon.png') }}" alt="Wealthbot">
             <div class="card-body">
                 <h4 class="card-title">Login as a Client</h4>
                 <p class="card-text">

@@ -62,16 +62,16 @@ https://gitter.im/wealthbot-io
 
 **For installation**
 
-* `install symfony  curl -sS https://get.symfony.com/cli/installer | bash`
-* `git clone https://github.com/wealthbot-io/wealthbot`
-* `cd wealthbot`
-* `symfony composer install --ignore-platform-reqs`
-*  `customise .env.{prod|dev}.local file`
-* `bin/console doctrine:database:create`
-* `bin/console doctrine:schema:create`
-* `bin/console wealthbot:fixtures:load`
-* `bin/console wealthbot:security:price`
-* `symfony serve`
+1. Install symofony installer: `install symfony  curl -sS https://get.symfony.com/cli/installer | bash`
+2. Clone The repository: `git clone https://github.com/wealthbot-io/wealthbot`
+3. Move to dir:  `cd wealthbot`
+4. Install composer dependencies: `symfony composer install --ignore-platform-reqs`
+5. Make configurations: `customise .env.{prod|dev}.local file`
+6. Create the database: `bin/console doctrine:database:create`
+7. Create the DB schema: `bin/console doctrine:schema:create`
+8. Load the fixtures: `bin/console wealthbot:fixtures:load`
+9. Update security prices: `bin/console wealthbot:security:price`
+10. Run the symfony local server: `symfony serve`
 
 Once complete, simply go to https://127.0.0.1:8000 in your browser to see the wealthbot.io demo landing page.
 

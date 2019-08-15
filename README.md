@@ -1,6 +1,7 @@
 wealthbot.io
 ===============
-Written in Symfony Flex
+
+**Written with Symfony Flex**
 
 [![](https://www.codeshelter.co/static/badges/badge-flat.svg)](https://www.codeshelter.co/)
 [![GitHub license](https://img.shields.io/github/license/mashape/apistatus.svg)]()

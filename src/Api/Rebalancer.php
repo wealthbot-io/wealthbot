@@ -161,7 +161,7 @@ class Rebalancer extends BaseRebalancer implements RebalancerInterface
     protected function updatePortfolioValues($clientPortfolio, $total)
     {
 
-            /** @var ClientPortfolio $clientPortfolio */
+        /** @var ClientPortfolio $clientPortfolio */
         $portfolioValue = new ClientPortfolioValue();
         $portfolioValue->setClientPortfolio($clientPortfolio);
         $portfolioValue->setTotalCashInMoneyMarket($total);

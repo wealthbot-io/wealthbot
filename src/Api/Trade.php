@@ -47,14 +47,18 @@ trait Trade
                 if ($point - $datum['prices_diff'] > 0) {
                     if ($datum['prices_diff'] > 1) {
                         $this->sell($datum, $account);
+                        continue;
                     } else {
                         $this->buy($datum, $account);
+                        continue;
                     }
                 } else {
                     if ($datum['prices_diff'] > 1) {
                         $this->sell($datum, $account);
+                        continue;
                     } else {
                         $this->buy($datum, $account);
+                        continue;
                     }
                 }
             }

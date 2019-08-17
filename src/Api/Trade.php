@@ -63,6 +63,8 @@ trait Trade
                 }
             }
         }
+
+        return true;
     }
 
     /**
@@ -146,6 +148,8 @@ trait Trade
 
 
         $this->em->flush();
+
+        return $transaction;
     }
 
     /**
@@ -224,5 +228,8 @@ trait Trade
         $transaction->setLot($lot);
         $this->em->persist($transaction);
         $this->em->flush();
+
+
+        return $transaction;
     }
 }

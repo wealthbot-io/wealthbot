@@ -82,7 +82,6 @@ trait Trade
         /** @var SystemAccount $systemAccount */
         $systemAccount = $account->getSystemAccount();
 
-        try {
         $account_id = 'VA000000';
 
         $result = $this->placeOrder(
@@ -92,10 +91,6 @@ trait Trade
                 $info['amount'],
                 $this->getLatestPriceBySecurityId($security->getId())
             );
-        } catch (\Exception $e){
-
-        }
-
 
         $transactionType = new TransactionType();
         $transactionType
@@ -167,8 +162,6 @@ trait Trade
         /** @var SystemAccount $systemAccount */
         $systemAccount = $account->getSystemAccount();
 
-
-        try {
         $account_id = 'VA000000';
 
         $result = $this->placeOrder(
@@ -177,11 +170,7 @@ trait Trade
                 'buy',
                 $info['amount'],
                 $this->getLatestPriceBySecurityId($security->getId())
-            );
-        } catch (\Exception $e){
-
-        }
-
+        );
 
 
         $transactionType = new TransactionType();

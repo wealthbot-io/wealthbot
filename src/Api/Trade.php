@@ -44,7 +44,7 @@ trait Trade
             $point = ($point / 100) + 1;
 
             foreach ($data['values'] as $datum) {
-                if ($point - $datum['prices_diff'] > 0) {
+                if ($point - $datum['prices_diff'] > 0.15) {
                     if ($datum['prices_diff'] > 1) {
                         $this->sell($datum, $account);
                         continue;
@@ -53,7 +53,7 @@ trait Trade
                         continue;
                     }
                 } else {
-                    if ($datum['prices_diff'] > 1) {
+                    if ($datum['prices_diff'] > 1.15) {
                         $this->sell($datum, $account);
                         continue;
                     } else {

@@ -51,6 +51,8 @@ trait Trade
                     } elseif($datum['prices_diff'] < 0.85) {
                         $this->buy($datum, $account);
                         continue;
+                    } else {
+                        # do nothing, keep assets
                     }
                 } else {
                     if ($datum['prices_diff'] > 1.15) {
@@ -60,7 +62,7 @@ trait Trade
                         $this->buy($datum, $account);
                         continue;
                     } else {
-
+                        # do nothing, keep assets
                     }
                 }
             }

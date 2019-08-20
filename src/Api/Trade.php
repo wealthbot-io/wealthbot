@@ -45,10 +45,10 @@ trait Trade
 
             foreach ($data['values'] as $datum) {
                 if ($point - $datum['prices_diff'] > 0.15) {
-                    if ($datum['prices_diff'] > 1) {
+                    if ($datum['prices_diff'] > 1.15) {
                         $this->sell($datum, $account);
                         continue;
-                    } else {
+                    } elseif($datum['prices_diff'] < 0.85) {
                         $this->buy($datum, $account);
                         continue;
                     }
@@ -56,9 +56,11 @@ trait Trade
                     if ($datum['prices_diff'] > 1.15) {
                         $this->sell($datum, $account);
                         continue;
-                    } else {
+                    } elseif($datum['prices_diff'] < 0.85) {
                         $this->buy($datum, $account);
                         continue;
+                    } else {
+
                     }
                 }
             }
@@ -82,7 +84,7 @@ trait Trade
         /** @var SystemAccount $systemAccount */
         $systemAccount = $account->getSystemAccount();
 
-        $account_id = 'VA000000';
+        $account_id = 'VA000' . $account->getAccountNumber();
 
         $result = $this->placeOrder(
                 $account_id,
@@ -162,7 +164,7 @@ trait Trade
         /** @var SystemAccount $systemAccount */
         $systemAccount = $account->getSystemAccount();
 
-        $account_id = 'VA000000';
+        $account_id = 'VA000' . $account->getAccountNumber();
 
         $result = $this->placeOrder(
                 $account_id,

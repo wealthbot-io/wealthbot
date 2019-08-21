@@ -86,7 +86,7 @@ trait Trade
         /** @var SystemAccount $systemAccount */
         $systemAccount = $account->getSystemAccount();
 
-        $account_id = 'VA000' . $account->getAccountNumber();
+        $account_id = 'VA' . $account->getAccountNumber();
 
         $result = $this->placeOrder(
                 $account_id,
@@ -166,7 +166,7 @@ trait Trade
         /** @var SystemAccount $systemAccount */
         $systemAccount = $account->getSystemAccount();
 
-        $account_id = 'VA000' . $account->getAccountNumber();
+        $account_id = 'VA' . $account->getAccountNumber();
 
         $result = $this->placeOrder(
                 $account_id,

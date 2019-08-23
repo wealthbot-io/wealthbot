@@ -65,7 +65,7 @@ class Rebalancer extends BaseRebalancer implements RebalancerInterface
             };
             $job->setFinishedAt(new \DateTime('now'));
             $job->setIsError(false);
-            $job->setNameRebalancer('local');
+            $job->setNameRebalancer('tradier');
             $job->setUser($this->ria);
             $this->em->persist($job);
         }
@@ -84,6 +84,7 @@ class Rebalancer extends BaseRebalancer implements RebalancerInterface
         $client = $clientPortfolio->getClient();
         $infos[] = $clientPortfolio->getPortfolio()->getModelEntities()->map(function(CeModelEntity $item) use ($clientPortfolio, $client) {
 
+            /** @var ClientAccount $clientAccount */
             $clientAccount = $clientPortfolio->getClient()->getClientAccounts()->first();
 
             $value = 0;
@@ -93,7 +94,7 @@ class Rebalancer extends BaseRebalancer implements RebalancerInterface
             };
             $value = $item->getPercent() * ($value / 100);
             $this->buy([
-                'account_id' => 'VA00000',
+                'account_id' => 'VA' . $clientAccount->getAccountNumber(),
                 'client_id' => $client->getId(),
                 'symbol' => $item->getSecurityAssignment()->getSecurity()->getSymbol(),
                 'security_id' => $item->getSecurityAssignment()->getSecurity()->getId(),

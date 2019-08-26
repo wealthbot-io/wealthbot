@@ -22,9 +22,9 @@ class Rebalancer extends BaseRebalancer implements RebalancerInterface
     use Trade;
 
 
-    private apiSandboxGateway = "https://sandbox.tradier.com/v1/";
+    public $apiSandboxGateway = "https://sandbox.tradier.com/v1/";
 
-    private apiGateway = "https://api.tradier.com/v1/";
+    public $apiGateway = "https://api.tradier.com/v1/";
 
     /**
      * Rebalancer constructor.

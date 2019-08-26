@@ -21,6 +21,11 @@ class Rebalancer extends BaseRebalancer implements RebalancerInterface
     use Requests;
     use Trade;
 
+
+    private apiSandboxGateway = "https://sandbox.tradier.com/v1/";
+
+    private apiGateway = "https://api.tradier.com/v1/";
+
     /**
      * Rebalancer constructor.
      * @param EntityManagerInterface $entityManager
@@ -34,8 +39,6 @@ class Rebalancer extends BaseRebalancer implements RebalancerInterface
         $this->container = $container;
         $this->httpClient = HttpClient::create();
         $this->em = $entityManager;
-        $this->apiSandboxGateway = "https://sandbox.tradier.com/v1/";
-        $this->apiGateway = "https://api.tradier.com/v1/";
         $this->security = $security;
         $this->sandbox = (bool) $this->container->getParameter('tradier_sandbox');
         $this->setApiKey();

@@ -141,7 +141,6 @@ class SystemAccount implements WorkflowableInterface
         if (null === $this->type) {
             return '';
         }
-        dump($this->type);
 
         return array_values(self::$_types)[$this->type];
     }

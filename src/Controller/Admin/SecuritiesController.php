@@ -34,7 +34,7 @@ class SecuritiesController extends AclController
         $formHandler = $this->get('wealthbot_admin.securities.form.handler');
 
         if ($request->isMethod('post')) {
-            $process = $formHandler->process();
+            $process = $formHandler->success();
 
             if ($process) {
                 $form = $this->createForm(SecurityFormTypeAlias::class);

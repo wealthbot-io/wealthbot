@@ -6,6 +6,10 @@
         <script src="{{ asset('/js/client/client.portfolio.js') }}"></script>
 {% endblock %}
 
+{% block headernav %}
+    {% include(':Client/Dashboard:_nav.html.twig') %}
+{% endblock %}
+
 {% block flash_messages %}
     {% if is_final or (is_risks_test is defined and is_risks_test) %}
         {{ parent() }}

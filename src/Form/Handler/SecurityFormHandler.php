@@ -24,10 +24,15 @@ class SecurityFormHandler extends AbstractFormHandler
         parent::__construct($form, $requestStack->getCurrentRequest(), $em, $options);
     }
 
-    protected function success()
+    public function success()
     {
-        $security = $this->form->getData();
-        $price = $this->form->get('price')->getData();
+        $data = $this->request->request->get('admin_security');
+        $security = new Security();
+        $security->setSymbol($data['symbol']);
+        $security->setName($data['name']);
+        $security->setExpenseRatio($data['expense_ratio']);
+
+        $price = $data['price'];
         $this->em->persist($security);
         $this->em->flush();
 

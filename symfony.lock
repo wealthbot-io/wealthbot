@@ -98,9 +98,6 @@
     "egulias/email-validator": {
         "version": "2.1.8"
     },
-    "fig/link-util": {
-        "version": "1.0.0"
-    },
     "friendsofsymfony/jsrouting-bundle": {
         "version": "2.3",
         "recipe": {

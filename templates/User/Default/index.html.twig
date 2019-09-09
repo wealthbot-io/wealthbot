@@ -2,14 +2,24 @@
 
 {% block javascripts %}
     {{ parent() }}
+    <style>
+        .center-block {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    </style>
 {% endblock %}
 
 {% block body %}
-    <p>
-        <a href="/">
-            <img class="img-responsive" src="{{ asset('img/big_logo.png') }}" />
-        </a>
-    </p>
+
+    <div class="container">
+        <div class="row">
+            <div class="span4"></div>
+            <div class="span4"><img class="center-block" src="{{ asset('img/big_logo.png') }}" />
+            <div class="span4"></div>
+        </div>
+    </div>
     <!-- Start of Card Groups Layout -->
     <div class="card-group front-cards">
 

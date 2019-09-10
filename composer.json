@@ -34,7 +34,7 @@
         "doctrine/doctrine-fixtures-bundle": "*",
         "doctrine/orm": "2.6.*",
         "friendsofsymfony/jsrouting-bundle": "*",
-        "friendsofsymfony/user-bundle": "*",
+        "friendsofsymfony/user-bundle": "2.1.2",
         "jms/serializer-bundle": "*",
         "knplabs/knp-paginator-bundle": "*",
         "knplabs/knp-snappy-bundle": "*",

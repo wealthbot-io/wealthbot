@@ -63,7 +63,7 @@ https://gitter.im/wealthbot-io
 
 **For installation**
 
-1. Install symofony installer: `install symfony  curl -sS https://get.symfony.com/cli/installer | bash`
+1. Install symofony installer: `curl -sS https://get.symfony.com/cli/installer | bash`
 2. Clone The repository: `git clone https://github.com/wealthbot-io/wealthbot`
 3. Move to dir:  `cd wealthbot`
 4. Install composer dependencies: `symfony composer install --ignore-platform-reqs`

@@ -73,6 +73,8 @@ https://gitter.im/wealthbot-io
 8. Load the fixtures: `bin/console wealthbot:fixtures:load`
 9. Update security prices: `bin/console wealthbot:security:price`
 10. Run the symfony local server: `symfony serve`
+11. Register at tradier.com and get API keys for RIA (Brokerage Account)
+12. For any question write to hi@createit.am (azatyan)
 
 Once complete, simply go to https://127.0.0.1:8000 in your browser to see the wealthbot.io demo landing page.
 

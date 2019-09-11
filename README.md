@@ -40,15 +40,6 @@ Hi, I'm [wealthbot.io](http://wealthbot.io). Webo for short. I'm an open source 
 * Cash generating transactions while maintaining target asset allocation
 * Muni substitiution
 
-## Community
-
-Join our Gitter to discuss the project in realtime.
-* Talk to the core devs and the wealthbot.io community.
-* Learn from others and ask questions.
-* Share your work and demos.
-
-https://gitter.im/wealthbot-io
-
 ## Installation
 
 **Prereqs:**
@@ -84,6 +75,17 @@ Once complete, simply go to https://127.0.0.1:8000 in your browser to see the we
 * `30 1 * * * /usr/bin/php bin/console rx:mailer:send-cron-emails`
 * `30 2 * * * /usr/bin/php bin/console wealthbot:security:price`
 * `0 0 1 * * /usr/bin/php bin/console wealthbot:rebalancer`
+
+
+## Community
+
+Join our Gitter to discuss the project in realtime.
+* Talk to the core devs and the wealthbot.io community.
+* Learn from others and ask questions.
+* Share your work and demos.
+
+https://gitter.im/wealthbot-io
+
 
 ## Contributing
 

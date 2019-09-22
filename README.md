@@ -9,8 +9,11 @@ wealthbot.io
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/881769ff-b0e8-43f0-b67f-e0915d7aee5f/big.png)](https://insight.sensiolabs.com/projects/881769ff-b0e8-43f0-b67f-e0915d7aee5f)
 
 You can make a donation to sponsor this project:
+
 Bitcoin: `bc1q8kvkmud4zek3ujtch3782w8632z873u9k6q9mm`
+
 ETH: `0x9bCC8B60FBdA512fa9DEcaF253C26F0F764b469B`
+
 XRP: `rKv9FLC8FN79LrJmCp93wpYfNN4VqKqjo6`
 
 

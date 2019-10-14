@@ -8,15 +8,6 @@ wealthbot.io
 
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/881769ff-b0e8-43f0-b67f-e0915d7aee5f/big.png)](https://insight.sensiolabs.com/projects/881769ff-b0e8-43f0-b67f-e0915d7aee5f)
 
-You can make a donation to sponsor this project:
-
-Bitcoin: `bc1q8kvkmud4zek3ujtch3782w8632z873u9k6q9mm`
-
-ETH: `0x9bCC8B60FBdA512fa9DEcaF253C26F0F764b469B`
-
-XRP: `rKv9FLC8FN79LrJmCp93wpYfNN4VqKqjo6`
-
-
 ### Wealth Management, Set Free
 
 Hi, I'm [wealthbot.io](http://wealthbot.io). Webo for short. I'm an open source wealth management platform. I help Investment Advisors profitably serve the mass affluent.
@@ -71,7 +62,8 @@ Hi, I'm [wealthbot.io](http://wealthbot.io). Webo for short. I'm an open source 
 9. Update security prices: `bin/console wealthbot:security:price`
 10. Run the symfony local server: `symfony serve`
 11. Register at tradier.com and get API keys for RIA (Brokerage Account)
-12. For any question write to hi@createit.am (azatyan)
+12. Place your logo in public/img/logo.png and public/img/big_logo.png
+
 
 Once complete, simply go to https://127.0.0.1:8000 in your browser to see the wealthbot.io demo landing page.
 
@@ -96,3 +88,17 @@ https://gitter.im/wealthbot-io
 ## Contributing
 
 We love pull requests! The details on how to contribute to Wealthbot can be found [here](.github/CONTRIBUTING.md).
+
+
+## Donation
+
+You can make a donation to sponsor this project:
+
+BTC: `bc1q8kvkmud4zek3ujtch3782w8632z873u9k6q9mm`
+
+ETH: `0x9bCC8B60FBdA512fa9DEcaF253C26F0F764b469B`
+
+XRP: `rKv9FLC8FN79LrJmCp93wpYfNN4VqKqjo6`
+
+## Support
+For any questions you can write to tigran@azatyan.info (azatyan)

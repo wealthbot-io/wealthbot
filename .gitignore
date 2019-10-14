@@ -11,3 +11,5 @@
 .idea
 .DS_Store
 .php_cs.cache
+/public/img/logo.png
+/public/img/big_logo.png

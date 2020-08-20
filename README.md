@@ -35,7 +35,7 @@ Hi, I'm [wealthbot.io](http://wealthbot.io). Webo for short. I'm an open source 
 * Integration with financial custodians
 * Automated onboarding, document flow and e-signing
 * Cash generating transactions while maintaining target asset allocation
-* Muni substitiution
+* Muni substitution
 
 ## Installation
 

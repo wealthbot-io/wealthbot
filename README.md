@@ -94,11 +94,11 @@ We love pull requests! The details on how to contribute to Wealthbot can be foun
 
 You can make a donation to sponsor this project:
 
-BTC: `bc1q8kvkmud4zek3ujtch3782w8632z873u9k6q9mm`
+BTC: `12rXu28cidvH8guAe6t4rRAg2BzdGKS6Zu`
 
-ETH: `0x9bCC8B60FBdA512fa9DEcaF253C26F0F764b469B`
+ETH: `0x6bdb45921acD0CD4D770a3c791CCf79934A19D7f`
 
-XRP: `rKv9FLC8FN79LrJmCp93wpYfNN4VqKqjo6`
 
-## Support
-For any questions you can write to tigran@azatyan.info (azatyan)
+## Partnership and participation
+No tech support is offered at this time. The code is functional, but offered as-is.
+If you are interested in partnership or working on the core and new features, you can write to vlad.kobilansky@gmail.com. 

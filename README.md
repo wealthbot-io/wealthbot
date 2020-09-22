@@ -1,6 +1,12 @@
 wealthbot.io
 ===============
 
+## Project is NOT UNDER DEVELOPMENT.
+
+## Partnership and participation
+No tech support is offered at this time. The code is functional, but offered as-is.
+If you are interested in partnership or working on the core and new features, you can write to vlad.kobilansky+webo@gmail.com.
+
 **Written with Symfony Flex**
 
 [![](https://www.codeshelter.co/static/badges/badge-flat.svg)](https://www.codeshelter.co/)
@@ -96,9 +102,4 @@ You can make a donation to sponsor this project:
 
 BTC: `12rXu28cidvH8guAe6t4rRAg2BzdGKS6Zu`
 
-ETH: `0x6bdb45921acD0CD4D770a3c791CCf79934A19D7f`
-
-
-## Partnership and participation
-No tech support is offered at this time. The code is functional, but offered as-is.
-If you are interested in partnership or working on the core and new features, you can write to vlad.kobilansky@gmail.com. 
+ETH: `0x6bdb45921acD0CD4D770a3c791CCf79934A19D7f` 

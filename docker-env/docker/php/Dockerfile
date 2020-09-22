@@ -35,6 +35,6 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
     && composer --version \
     && composer global require hirak/prestissimo
 
-RUN composer isntall --prefer-source
+RUN composer install --prefer-source
 
 WORKDIR /var/www/symfony

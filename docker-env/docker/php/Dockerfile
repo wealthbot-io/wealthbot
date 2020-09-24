@@ -31,10 +31,14 @@ RUN ln -snf /usr/share/zoneinfo/${TIMEZONE} /etc/localtime && echo ${TIMEZONE} >
     && printf '[PHP]\ndate.timezone = "%s"\n', ${TIMEZONE} > /usr/local/etc/php/conf.d/tzone.ini \
     && "date"
 
+VOLUME [ "/var/www/symfony" ]
+WORKDIR /var/www/symfony
+
+COPY symfony /var/www/symfony
+
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer \
     && composer --version \
     && composer global require hirak/prestissimo
 
-RUN composer isntall --prefer-source
+RUN composer install --prefer-source
 
-WORKDIR /var/www/symfony

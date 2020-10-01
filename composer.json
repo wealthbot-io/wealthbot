@@ -72,10 +72,10 @@
             "assets:install --symlink --relative %PUBLIC_DIR%": "symfony-cmd",
             "security-checker security:check": "script"
         },
-        "USE post-install-cmd": [
+        "use post-install-cmd": [
             "@auto-scripts"
         ],
-        "USE post-update-cmd": [
+        "use post-update-cmd": [
             "@auto-scripts"
         ]
     },

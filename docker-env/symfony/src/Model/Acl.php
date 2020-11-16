@@ -2,6 +2,7 @@
 namespace App\Model;
 
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\UsageTrackingTokenStorage;
 use Symfony\Component\Security\Core\Authorization\AuthorizationChecker;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -26,11 +27,12 @@ class Acl
         self::PERMISSION_CREATE_USER => ['ROLE_ADMIN_MASTER'],
         self::PERMISSION_LOGIN_AS => ['ROLE_ALLOWED_TO_SWITCH'],
     ];
+
     /**
-     * @param TokenStorage         $tokenStorage
+     * @param UsageTrackingTokenStorage $tokenStorage
      * @param AuthorizationChecker $authorizationChecker
      */
-    public function __construct(TokenStorage $tokenStorage, AuthorizationChecker $authorizationChecker)
+    public function __construct(UsageTrackingTokenStorage $tokenStorage, AuthorizationChecker $authorizationChecker)
     {
         $this->tokenStorage = $tokenStorage;
         $this->authorizationChecker = $authorizationChecker;

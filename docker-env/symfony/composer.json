@@ -43,8 +43,9 @@
         "stof/doctrine-extensions-bundle": "*"
     },
     "require-dev": {
-        "symfony/profiler-pack": "*",
-        "phpstan/phpstan": "^0.12.0@dev"
+        "phpstan/phpstan": "^0.12.0@dev",
+        "symfony/debug-bundle": "4.4.*",
+        "symfony/profiler-pack": "*"
     },
     "config": {
         "preferred-install": {

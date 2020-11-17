@@ -30,7 +30,7 @@
         "twig/extensions": "1.5.4",
         "twig/twig": "^1.0||^2.0",
         "doctrine/data-fixtures": "*",
-        "doctrine/doctrine-bundle": "1.10.*",
+        "doctrine/doctrine-bundle": "1.12.*",
         "doctrine/doctrine-fixtures-bundle": "*",
         "doctrine/orm": "2.6.*",
         "friendsofsymfony/jsrouting-bundle": "*",

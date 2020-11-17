@@ -13,7 +13,6 @@ class DefaultController extends Controller
 {
     public function index()
     {
-        die('here');
 
         /// todo: make ria users selection
         $form = $this->createFormBuilder()

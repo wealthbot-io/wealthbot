@@ -10,7 +10,7 @@
 namespace App\Manager;
 
 use Doctrine\Common\Persistence\ObjectManager;
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationChecker;
 use Symfony\Component\Security\Core\Role\SwitchUserRole;
 use App\Entity\UserHistory;
@@ -43,7 +43,7 @@ class UserHistoryManager
      */
     private $authorizationChecker;
 
-    public function __construct(ObjectManager $om, $class, TokenStorage $tokenStorage, AuthorizationChecker $authorizationChecker)
+    public function __construct(ObjectManager $om, $class, TokenStorageInterface $tokenStorage, AuthorizationChecker $authorizationChecker)
     {
         $this->om = $om;
         $this->tokenStorage = $tokenStorage;
@@ -101,7 +101,6 @@ class UserHistoryManager
      * @param $description
      *
      * @return UserHistory
-     *
      * @throws \Exception
      */
     public function save(User $user, $description)

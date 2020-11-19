@@ -346,6 +346,26 @@ class User extends BaseUser
     }
 
     /**
+     * {@inheritdoc}
+     */
+    public function getRoles()
+    {
+        $roles = $this->roles;
+
+        if($this->getGroups()) {
+            foreach ($this->getGroups() as $group) {
+                $roles = array_merge($roles, $group->getRoles());
+            }
+        };
+
+        // we need to make sure to have at least one role
+        $roles[] = static::ROLE_DEFAULT;
+
+        return array_unique($roles);
+    }
+
+
+    /**
      * @return mixed|string
      */
     public function getAssignedGroupName()

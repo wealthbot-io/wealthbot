@@ -17,6 +17,8 @@ use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
 
 class ClientController extends Controller
 {
+    const TEST_RIA = 'raiden@wealthbot.io';
+
     public function registration(Request $request)
     {
         if ($this->getUser()) {
@@ -37,7 +39,7 @@ class ClientController extends Controller
                 $ria = $riaCompanyInformation->getRia();
             }
         } else {
-            $ria = $repository->find(5);
+            $ria = $repository->findOneByEmail(self::TEST_RIA);
         }
 
         if (!$ria || !$ria->hasRole('ROLE_RIA')) {

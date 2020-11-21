@@ -34,9 +34,9 @@ RUN ln -snf /usr/share/zoneinfo/${TIMEZONE} /etc/localtime && echo ${TIMEZONE} >
 VOLUME [ "/var/www/symfony" ]
 WORKDIR /var/www/symfony
 
-COPY symfony /var/www/symfony
+COPY . /var/www/symfony
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer \
     && composer --version
 
-RUN composer install --prefer-source
+#RUN composer install --prefer-source

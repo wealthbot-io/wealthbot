@@ -6,7 +6,7 @@ services:
             context: .
             dockerfile: docker/nginx/Dockerfile
         volumes:
-            - ./symfony/:/var/www/symfony/
+            - ./:/var/www/symfony/
         ports:
             - 80:80
         networks:
@@ -34,14 +34,11 @@ services:
             args:
                 TIMEZONE: ${TIMEZONE:-America/New_York}
         volumes:
-            - ./symfony/:/var/www/symfony/
-            - "composer_volume:/root/.composer"
+            - ./:/var/www/symfony/
         networks:
             - symfony
-
 volumes:
     db_app:
-    composer_volume:
 
 networks:
     symfony:

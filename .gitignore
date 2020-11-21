@@ -1,2 +1,15 @@
+/.env.local
+/.env.local.php
+/.env.*.local
+/public/bundles/
+/public/uploads/
+/var/
+/vendor/
+.phpunit
+/phpunit.xml
+/.web-server-pid
 .idea
-.env
+.DS_Store
+.php_cs.cache
+#/public/img/logo.png
+/public/img/big_logo.png

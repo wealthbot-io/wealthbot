@@ -39,4 +39,4 @@ COPY . /var/www/symfony
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer \
     && composer --version
 
-RUN composer install --prefer-source
+#RUN composer install --prefer-source

@@ -29,4 +29,6 @@ Creating symfony-docker_db_1    ... done
 Creating symfony-docker_php_1   ... done
 Creating symfony-docker_nginx_1 ... done
 ```
- 
+You can login to container with this command
+1. get php container id  `docker ps`
+2. the login into container `docker exec -it d79de1403460 /bin/bash`

@@ -1,7 +1,7 @@
 <div class="form-group">
     <label class="control-label" for="select_account_type">Select Account</label>
     <div class="controls">
-        <select id="select_account_type">
+        <select class="form-control" id="select_account_type">
             <option value="">All accounts</option>
             {% for systemAccount in accounts %}
                 {% if systemAccount.clientAccount is not null %}

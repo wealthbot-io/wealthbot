@@ -238,6 +238,10 @@ h6 {
 /* Header Section
 =================================================================== */
 
+.navbar.navbar-dark.bg-primary {
+	background-color: #0cbdc5 !important;
+}
+
 .navbar-inner {
   	min-height: 40px;
   	padding-right: 20px;
@@ -641,28 +645,12 @@ ul.dashboard-list li a span {
 /* Buttons
 =================================================================== */
 
-
-.btn-primary {
-  background-color: #006dcc;
-  color: #ffffff;
-  background-image: -moz-linear-gradient(top, #67c2ef, #2FABE9);
-  background-image: -ms-linear-gradient(top, #67c2ef, #2FABE9);
-  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#67c2ef), to(#2FABE9));
-  background-image: -webkit-linear-gradient(top, #67c2ef, #2FABE9);
-  background-image: -o-linear-gradient(top, #67c2ef, #2FABE9);
-  background-image: linear-gradient(top, #67c2ef, #2FABE9);
-  background-repeat: repeat-x;
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#'67c2ef, endColorstr='#'2FABE9, GradientType=0);
-  border-color: #1598d9 #1598d9 #007bb8 #1598d9;
-  filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
-}
-
 .btn-primary:hover,
 .btn-primary:active,
 .btn-primary.active,
 .btn-primary.disabled,
 .btn-primary[disabled] {
-  background-color: #2FABE9;
+  background-color: #2FABE9 !important;
 }
 
 .btn-primary:active,

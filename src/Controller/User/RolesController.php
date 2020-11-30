@@ -10,7 +10,7 @@
 namespace App\Controller\User;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController as Controller;
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use App\Entity\RiaCompanyInformation;
 use App\Entity\User;
 
@@ -136,19 +136,19 @@ class RolesController extends Controller
      * Check if there are 'login as' user token in session then returns user for this token.
      * Otherwise get a user from the Token Storage.
      *
-     * @param TokenStorage $tokenStorage
+     * @param TokenStorageInterface $tokenStorage
      *
      * @return \FOS\UserBundle\Model\UserInterface|mixed
      *
-     * @see Controller\SecuredController::loginAs()
+     * @see \App\Controller\SecuredController::loginAs()
      */
-    private function getCurrentUser(TokenStorage $tokenStorage = null)
+    private function getCurrentUser(TokenStorageInterface $tokenStorage = null)
     {
         if (null === $tokenStorage) {
             $tokenStorage = $this->get('security.token_storage');
         }
 
-        $user = $this->getUser();
+        $user = $tokenStorage->getToken()->getUser();
 
         $request = $this->get('request_stack')->getCurrentRequest();
         $session = $request->getSession();

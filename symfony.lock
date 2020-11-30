@@ -202,6 +202,9 @@
             "config/packages/knp_snappy.yaml"
         ]
     },
+    "maennchen/zipstream-php": {
+        "version": "2.1.0"
+    },
     "markbaker/complex": {
         "version": "1.4.7"
     },
@@ -210,6 +213,9 @@
     },
     "monolog/monolog": {
         "version": "1.24.0"
+    },
+    "myclabs/php-enum": {
+        "version": "1.7.7"
     },
     "nette/bootstrap": {
         "version": "3.0-dev"
@@ -264,6 +270,15 @@
     },
     "psr/container": {
         "version": "1.0.0"
+    },
+    "psr/http-client": {
+        "version": "1.0.x-dev"
+    },
+    "psr/http-factory": {
+        "version": "1.0.x-dev"
+    },
+    "psr/http-message": {
+        "version": "1.0.x-dev"
     },
     "psr/link": {
         "version": "1.0.0"
@@ -461,6 +476,9 @@
     "symfony/polyfill-intl-idn": {
         "version": "v1.11.0"
     },
+    "symfony/polyfill-intl-normalizer": {
+        "version": "1.21-dev"
+    },
     "symfony/polyfill-mbstring": {
         "version": "v1.11.0"
     },
@@ -469,6 +487,9 @@
     },
     "symfony/polyfill-php73": {
         "version": "v1.11.0"
+    },
+    "symfony/polyfill-php80": {
+        "version": "1.18-dev"
     },
     "symfony/process": {
         "version": "v4.3.1"

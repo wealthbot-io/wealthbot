@@ -251,7 +251,7 @@ class BillingReportManager
     {
         list($accounts, $total) = $this->getAccountsInfo($accounts, $year, $quarter, BillItem::STATUS_BILL_APPROVED);
 
-        return $this->twig->render('App\Entity\Billing/Report:bill_pdf.pdf.twig', [
+        return $this->render('App\Entity\Billing/Report:bill_pdf.pdf.twig', [
             'ria' => $ria,
             'client' => $client,
             'clientAccounts' => $accounts,

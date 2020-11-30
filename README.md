@@ -1,10 +1,8 @@
 wealthbot.io
 ===============
 
-## Project is NOT UNDER DEVELOPMENT.
-
 ## Partnership and participation
-No tech support is offered at this time. The code is functional, but offered as-is.
+The code is functional, but offered as-is.
 If you are interested in partnership or working on the core and new features, you can write to vlad.kobilansky+webo@gmail.com.
 
 **Written with Symfony Flex**
@@ -83,12 +81,9 @@ Once complete, simply go to https://127.0.0.1:8000 in your browser to see the we
 
 ## Community
 
-Join our Gitter to discuss the project in realtime.
-* Talk to the core devs and the wealthbot.io community.
-* Learn from others and ask questions.
-* Share your work and demos.
+Join our Slack to discuss the project in realtime.
 
-https://gitter.im/wealthbot-io
+https://wealthbot-io.slack.com/
 
 
 ## Contributing

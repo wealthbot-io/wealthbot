@@ -4,7 +4,7 @@
     "name": "wealthbotio/wealthbot",
     "description": "Open source wealth management framework, advisor",
     "require": {
-        "php": "^7.3.3",
+        "php": "7.4.*",
         "symfony/asset": "4.4.*",
         "symfony/console": "4.4.*",
         "symfony/debug": "4.4.*",
@@ -30,7 +30,7 @@
         "twig/extensions": "1.5.4",
         "twig/twig": "^1.0||^2.0",
         "doctrine/data-fixtures": "*",
-        "doctrine/doctrine-bundle": "1.10.*",
+        "doctrine/doctrine-bundle": "1.12.*",
         "doctrine/doctrine-fixtures-bundle": "*",
         "doctrine/orm": "2.6.*",
         "friendsofsymfony/jsrouting-bundle": "*",
@@ -43,15 +43,16 @@
         "stof/doctrine-extensions-bundle": "*"
     },
     "require-dev": {
-        "symfony/debug-pack": "*",
-        "symfony/profiler-pack": "*",
-        "phpstan/phpstan": "^0.12.0@dev"
+        "phpstan/phpstan": "^0.12.0@dev",
+        "symfony/debug-bundle": "4.4.*",
+        "symfony/profiler-pack": "*"
     },
     "config": {
         "preferred-install": {
             "*": "dist"
         },
-        "sort-packages": true
+        "sort-packages": true,
+        "disable-tls": false
     },
     "autoload": {
         "psr-4": {

@@ -13,6 +13,7 @@ class DefaultController extends Controller
 {
     public function index()
     {
+
         /// todo: make ria users selection
         $form = $this->createFormBuilder()
             ->add('is_not_locate', CheckboxType::class, ['required' => false])

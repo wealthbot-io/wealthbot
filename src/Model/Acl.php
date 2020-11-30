@@ -1,14 +1,8 @@
 <?php
-/**
- * Created by JetBrains PhpStorm.
- * User: amalyuhin
- * Date: 07.08.13
- * Time: 16:55
- * To change this template use File | Settings | File Templates.
- */
 namespace App\Model;
 
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\UsageTrackingTokenStorage;
 use Symfony\Component\Security\Core\Authorization\AuthorizationChecker;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -33,11 +27,12 @@ class Acl
         self::PERMISSION_CREATE_USER => ['ROLE_ADMIN_MASTER'],
         self::PERMISSION_LOGIN_AS => ['ROLE_ALLOWED_TO_SWITCH'],
     ];
+
     /**
-     * @param TokenStorage         $tokenStorage
+     * @param UsageTrackingTokenStorage $tokenStorage
      * @param AuthorizationChecker $authorizationChecker
      */
-    public function __construct(TokenStorage $tokenStorage, AuthorizationChecker $authorizationChecker)
+    public function __construct(UsageTrackingTokenStorage $tokenStorage, AuthorizationChecker $authorizationChecker)
     {
         $this->tokenStorage = $tokenStorage;
         $this->authorizationChecker = $authorizationChecker;

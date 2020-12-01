@@ -17,6 +17,6 @@ framework:
     php_errors:
         log: true
     templating:
-        engines: ['twig', 'php']
+        engines: ['twig']
     assets:
         version: '12b'

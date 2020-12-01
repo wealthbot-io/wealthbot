@@ -12,7 +12,7 @@
                 <a  class="nav-link" href="{{ path('rx_ria_workflow') }}">Workflow</a>
             </li>
             <li {{ route == 'rx_ria_dashboard_clients' ? 'class="active nav-item"' : 'nav-item' }}><a class="nav-link" href="{{ path('rx_ria_dashboard_clients') }}">Clients</a></li>
-            {% if riaCompanyInformation.portfolioModel.custom %}
+            {% if riaCompanyInformation.portfolioModel.custom ?? false %}
                 <li {{ route == 'rx_ria_dashboard_models_tab' ? 'class="active nav-item"' : 'nav-item' }}><a class="nav-link"  href="{{ path('rx_ria_dashboard_models_tab', {tab:'models'}) }}">Portfolios</a></li>
             {% else %}
                 <li {{ route == 'rx_ria_models' ? 'class="active nav-item"' : 'nav-item' }}><a  class="nav-link" href="{{ path('rx_ria_models') }}">Models</a></li>

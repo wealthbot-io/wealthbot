@@ -28,7 +28,7 @@ class RiaController extends Controller
                 if ($process) {
                     $user = $form->getData();
 
-                    $groupAll = $em->getRepository('App\Entity\Group')->findOneBy(['name' => Group::GROUP_NAME_ALL]);
+                    $groupAll = $em->getRepository(Group::class)->findOneBy(['name' => Group::GROUP_NAME_ALL]);
                     $user->addGroup($groupAll);
 
                     $em->persist($user);

@@ -14,11 +14,9 @@ class SecurityController extends BaseSecurity
 {
     public function login(Request $request)
     {
-        $request = $this->container->get('request_stack')->getCurrentRequest();
 
-        /* @var $request \Symfony\Component\HttpFoundation\Request */
-        $session = $request->getSession();
         /* @var $session Session */
+        $session = $request->getSession();
         // get the error if any (works with forward and redirect -- see below)
         if ($request->attributes->has(Security::AUTHENTICATION_ERROR)) {
             $error = $request->attributes->get(Security::AUTHENTICATION_ERROR);

@@ -1,0 +1,20 @@
+version: '1.0'
+stages:
+  - checkout
+  - package
+steps:
+  main_clone:
+    title: Cloning main repository...
+    type: git-clone
+    repo: '${{CF_REPO_OWNER}}/${{CF_REPO_NAME}}'
+    revision: '${{CF_REVISION}}'
+    stage: checkout
+  MyAppDockerImage:
+    title: Building Docker Image
+    type: build
+    stage: package
+    image_name: wealthbot
+    working_directory: ./
+    tag: v1.0.1
+    dockerfile: docker/php/Dockerfile
+    disable_push: true

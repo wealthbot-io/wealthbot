@@ -39,4 +39,10 @@ COPY . /var/www/symfony
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer \
     && composer --version
 
-#RUN composer install --prefer-source
+RUN composer install --ignore-platform-reqs --no-scripts
+
+# RUN bin/console doctrine:database:create
+# RUN bin/console doctrine:database:create
+# RUN bin/console doctrine:schema:create
+# RUN bin/console wealthbot:fixtures:load
+# RUN bin/console wealthbot:security:price

@@ -30,9 +30,6 @@ Hi, I'm [wealthbot.io](http://wealthbot.io). Webo for short. I'm an open source 
 * RIA Portal - define asset classes and representative securities, setup custom portofilios and multi-tiered billing, create your own risk profile questionnaire,  manage clients and document workflows.
 * Rebalancer - automatically rebalance client portfolios to match target allocations at the household or account-level, ad-hoc or on an set schedule.
 * Portfolio Accounting System - integrate with custodians to verify customer demographics and reconcile transactions placed by the Rebalancer.
-
-**Yea, We've Got That**
-
 * Tax loss harvesting
 * Custom portfolio models
 * Custom risk profiling
@@ -45,12 +42,12 @@ Hi, I'm [wealthbot.io](http://wealthbot.io). Webo for short. I'm an open source 
 
 **For installation**
 
-1. Clone The repository: `git clone git@github.com:wealthbot-io/devenv.git'
+1. Clone The [!repository](https://github.com/wealthbot-io/devenv)https://github.com/wealthbot-io/devenv: `git clone git@github.com:wealthbot-io/devenv.git' 
 2. Move to dir:  `cd devenv`
 3. Build Docker Containers: Run `docker-compose up --build -d`
 4. Find ID of PHP Container: Run `docker ps` and look for the container ID (ex. `abcd123efg`) beside devenv_monolith.php 
 5. Create the DB schema: Run `docker exec -it abcd123efg bin/console doctrine:schema:create`
-6. Load the fixtures: Run `docker exec -it abcd123efghttp://127.0.0.1:10001 bin/console wealthbot:fixtures:load`
+6. Load the fixtures: Run `docker exec -it abcd123efg bin/console wealthbot:fixtures:load`
 
 
 Once complete, simply go to http://127.0.0.1:10001 in your browser to see the wealthbot.io demo landing page.

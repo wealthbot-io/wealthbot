@@ -42,7 +42,7 @@ Hi, I'm [wealthbot.io](http://wealthbot.io). Webo for short. I'm an open source 
 
 **For installation**
 
-1. Clone The [!repository](https://github.com/wealthbot-io/devenv)https://github.com/wealthbot-io/devenv: `git clone git@github.com:wealthbot-io/devenv.git' 
+1. Clone The [repository](https://github.com/wealthbot-io/devenv): `git clone git@github.com:wealthbot-io/devenv.git' 
 2. Move to dir:  `cd devenv`
 3. Build Docker Containers: Run `docker-compose up --build -d`
 4. Find ID of PHP Container: Run `docker ps` and look for the container ID (ex. `abcd123efg`) beside devenv_monolith.php 

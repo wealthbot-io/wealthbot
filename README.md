@@ -3,7 +3,7 @@ wealthbot.io
 
 ## Partnership and participation
 The code is functional, but offered as-is.
-If you are interested in partnership or working on the core and new features, you can write to vlad.kobilansky+webo@gmail.com.
+If you are interested in partnership or working on the core and new features, you can write to hi@wealthbot.io.
 
 **Written with Symfony Flex**
 
@@ -43,41 +43,17 @@ Hi, I'm [wealthbot.io](http://wealthbot.io). Webo for short. I'm an open source 
 
 ## Installation
 
-**Prereqs:**
-
-* PHP 7.3 with GD and Imagick
-* MySQL 5.7 or 8
-* Composer
-* Curl extension
-* Zip extension
-* GD extension
-* MySQL extension
-
 **For installation**
 
-1. Install symofony installer: `curl -sS https://get.symfony.com/cli/installer | bash`
-2. Clone The repository: `git clone https://github.com/wealthbot-io/wealthbot`
-3. Move to dir:  `cd wealthbot`
-4. Install composer dependencies: `symfony composer install --ignore-platform-reqs`
-5. Override configurations: `nano .env.local file`
-6. Create the database: `bin/console doctrine:database:create`
-7. Create the DB schema: `bin/console doctrine:schema:create`
-8. Load the fixtures: `bin/console wealthbot:fixtures:load`
-9. Update security prices: `bin/console wealthbot:security:price`
-10. Run the symfony local server: `symfony serve`
-11. Register at tradier.com and get API keys for RIA (Brokerage Account)
-12. Place your logo in public/img/logo.png and public/img/big_logo.png
+1. Clone The repository: `git clone git@github.com:wealthbot-io/devenv.git'
+2. Move to dir:  `cd devenv`
+3. Build Docker Containers: Run `docker-compose up --build -d`
+4. Find ID of PHP Container: Run `docker ps` and look for the container ID (ex. `abcd123efg`) beside devenv_monolith.php 
+5. Create the DB schema: Run `docker exec -it abcd123efg bin/console doctrine:schema:create`
+6. Load the fixtures: Run `docker exec -it abcd123efghttp://127.0.0.1:10001 bin/console wealthbot:fixtures:load`
 
 
-Once complete, simply go to https://127.0.0.1:8000 in your browser to see the wealthbot.io demo landing page.
-
-
-**Cron jobs**
-
-* `30 1 * * * /usr/bin/php bin/console rx:mailer:send-cron-emails`
-* `30 2 * * * /usr/bin/php bin/console wealthbot:security:price`
-* `0 0 1 * * /usr/bin/php bin/console wealthbot:rebalancer`
-
+Once complete, simply go to http://127.0.0.1:10001 in your browser to see the wealthbot.io demo landing page.
 
 ## Community
 

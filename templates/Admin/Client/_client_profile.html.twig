@@ -75,12 +75,12 @@
             <td><strong>Login:</strong></td>
             <td>
                 {% if (client.hasStatusProspect == false) %}
-                    <a href="{{ path('rx_admin_login_as', { 'username': client.ria.username, 'client_id': client.id }) }}" target="_blank">
+                    <a href="{{ path('rx_ria_dashboard', {'_switch_user' : client.ria.username}) }}">
                         Login as Client (RIA View)
                     </a>
                     <br/>
                 {% endif %}
-                <a href="{{ path('rx_admin_login_as', { 'username': client.username }) }}" target="_blank">Login as Client (Client view)</a>
+                <a href="{{ path('rx_client_dashboard', {'_switch_user' : client.username}) }}" >Login as Client (Client view)</a>
             </td>
             <td>
             </td>

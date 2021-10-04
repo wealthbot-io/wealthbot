@@ -38,6 +38,9 @@
                         <a class="dropdown-item" href="{{path('rx_ria_user_create')}}">Create User</a>
                         <a class="dropdown-item" href="{{ path('rx_ria_user_reset_internally_password',{user_id:app.user.id}) }}">Reset User's Password</a>
                         <a  class="dropdown-item" href="{{ path('logout') }}">Logout</a>
+                        {% if is_granted('ROLE_PREVIOUS_ADMIN') %}
+                            <a class="dropdown-item" href="{{ path('rx_admin_homepage', {'_switch_user': '_exit'}) }}">Exit impersonation</a>
+                        {% endif %}
                     </div>
                 </li>
             </ul>

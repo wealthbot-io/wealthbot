@@ -48,7 +48,7 @@ security:
                 target:         /admin/login
             anonymous:    true
             switch_user:  true
-            context: backend_auth
+            context: frontend_auth
 
         main:
             pattern: ^/

@@ -26,31 +26,122 @@
     <script type="text/javascript" src="{{ asset('js/ria/ria.dashboard.js') }}"></script>
 {% endblock %}
 
-{% block body %}
-    <h1>{{ company_information.name }} Dashboard</h1>
+{% block mainContent %}
+    <div class="container-fluid">
 
-    <div id="swappable_content" data-url="{{ path('rx_ria_dashboard_swap_boxes') }}" style="display: none;" data-sequence="{{ blocks_sequence }}">
+    <!-- Page Heading -->
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">{{ company_information.name }} Dashboard</h1>
+        </div>
+        <h3>Paperwork</h3>
         <div class="row">
-            <div class="col-6 dashboard-box" data-id="0">
-                {{ render(controller('App\\Controller\\Ria\\WorkflowController:index', {'with_layout': false})) }}
+            <div class="col-xl-4 col-md-6 mb-4">
+                <div class="card border-left-primary shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{ paperwork_counts.new }}</div>
+                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">New</div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-
-            <div class="col-6 dashboard-box" data-id="1">
+            <div class="col-xl-4 col-md-6 mb-4">
+                <div class="card border-left-primary shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{ paperwork_counts.in_progress }}</div>
+                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">In process</div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-4 col-md-6 mb-4">
+                <div class="card border-left-primary shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{ paperwork_counts.pending }}</div>
+                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Pending</div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+           {#<div class="col-6 dashboard-box" data-id="1">
                 {% include '/Ria/Dashboard/_workflow_box.html.twig' with {
-                'paperwork_counts': paperwork_counts,
-                'portfolios_counts': portfolios_counts
+                    'paperwork_counts': paperwork_counts,
+                    'portfolios_counts': portfolios_counts
                 } %}
+            </div>#}
+        </div>
+        <h3>Portfolios</h3>
+        <div class="row">
+            <div class="col-xl-4 col-md-6 mb-4">
+                <div class="card border-left-primary shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{ portfolios_counts.initial_rebalance }}</div>
+                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Initial Rebalance</div>
+                            </div>
+                            <div class="col-auto">
+                                <div class="text-info glyphicon glyphicon-refresh align-right"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-4 col-md-6 mb-4">
+                <div class="card border-left-primary shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{ portfolios_counts.suggested_portfolios }}</div>
+                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Portfolio Proposals</div>
+                            </div>
+                            <div class="col-auto">
+                                <img width="48px" height="48px" src="/img/pie_chart.png" alt=""/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-4 col-md-6 mb-4">
+                <div class="card border-left-primary shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{ portfolios_counts.prospects}}</div>
+                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Prospects</div>
+                            </div>
+                            <div class="col-auto">
+                                <div class="text-error glyphicon glyphicon-user align-right"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-
-        {#<div class="row">
-            <div class="col-6 dashboard-box" data-id="2">
-                {% include '/Ria/Dashboard/_firm_metrics_box.html.twig' with { 'firm_metrics': firm_metrics } %}
+        <div id="swappable_content" data-url="{{ path('rx_ria_dashboard_swap_boxes') }}" style="display: none;" data-sequence="{{ blocks_sequence }}">
+            <div class="row">
+                <div class="col-xl-12 col-md-6 mb-4 dashboard-box" data-id="0">
+                    {{ render(controller('App\\Controller\\Ria\\WorkflowController:index', {'with_layout': false})) }}
+                </div>
             </div>
-
-            <div class="col-6 dashboard-box" data-id="3">
-                {% include '/Ria/Dashboard/_analytics_box.html.twig' with { 'securities_statistic': securities_statistic } %}
-            </div>
-        </div>#}
+        </div>
     </div>
+
 {% endblock %}

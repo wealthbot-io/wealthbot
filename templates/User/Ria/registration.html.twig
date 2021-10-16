@@ -1,24 +1,57 @@
 {% extends '/User/layout.html.twig' %}
 
 {% block body %}
-<div class="container-fluid">
-    <div class="flex-row d-flex align-items-center align-content-center justify-content-center mt-5">
-        <form action="{{ path("rx_ria_register") }}" method="post" class="regRia-form col-6">
-            <div style="padding: 10px 10px 0px 10px">
-                        {{ form_widget(form) }}
+    <div class="container h-100">
+        <div class="d-flex justify-content-center v-align-middle h-100">
+            <div class="user_card-registraion-ria">
+                <div class="d-flex justify-content-center">
+                    <div class="brand_logo_container">
+                        <img src="{{ asset('img/logo.png') }}" width="200" class="brand_logo" alt="Logo"/>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-center">
+                    <form action="{{ path("rx_ria_register") }}" method="post">
+                        <div class="input-group mb-3">
+                            <div class="input-group-append">
+                                <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                            </div>
+                            {{ form_widget(form.email) }}
+                        </div>
+                        <div class="input-group mb-3">
+                            <div class="input-group-append">
+                                <span class="input-group-text"><i class="fas fa-key"></i></span>
+                            </div>
+                            {{ form_widget(form.plainPassword.first) }}
+                        </div>
+                        <div class="input-group mb-3">
+                            <div class="input-group-append">
+                                <span class="input-group-text"><i class="fas fa-redo"></i></span>
+                            </div>
+                            {{ form_widget(form.plainPassword.second) }}
+                        </div>
+                        <div class="input-group mb-3">
+                            <div class="input-group-append">
+                                <span class="input-group-text"><i class="fas fa-building"></i></span>
+                            </div>
+                            {{ form_widget(form.profile.company) }}
+                        </div>
+                        <div class="input-group mb-3">
+                            <div class="input-group-append">
+                                <span class="input-group-text"><i class="fas fa-address-card"></i></span>
+                            </div>
+                            {{ form_widget(form.profile.first_name) }}
+                        </div>
+                        <div class="input-group mb-3">
+                            <div class="input-group-append">
+                                <span class="input-group-text"><i class="fas fa-address-card"></i></span>
+                            </div>
+                            {{ form_widget(form.profile.last_name) }}
+                        </div>
                         {{ form_rest(form) }}
-                        <input class="btn btn-outline-info" type="submit" value="Register">
-                <p>
-                    <br />
-                </p>
+                        <button  name="_submit" type="submit" class="btn login_btn">Register</button>
+                    </form>
+                </div>
             </div>
-        </form>
-
-        <div class="col-6">
-            <div class="center-text logo-ce"><img style="width: 600px;" src="/img/logo.png" alt=""/></div>
         </div>
     </div>
-
-
-</div>
 {% endblock %}

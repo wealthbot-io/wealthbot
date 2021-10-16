@@ -1,34 +1,44 @@
-{% extends "user_layout.html.twig" %}
+{% extends "/User/layout.html.twig" %}
 
 {% block fos_user_content %}
-    <div class="container-fluid">
-        <div class="d-flex flex-row justify-content-center align-items-center" style="margin-top: 100px;">
-            <div class="p-2">
-                <div class="d-flex justify-content-center flex-row mt-5">
-                    <form class="form-signin regRia-form" action="{{ path("rx_admin_login_check") }}" method="post">
+    <div class="container h-100">
+        <div class="d-flex justify-content-center v-align-middle h-100">
+            <div class="user_card">
+                <div class="d-flex justify-content-center">
+                    <div class="brand_logo_container">
+                        <img src="{{ asset('img/logo.png') }}" width="200" class="brand_logo" alt="Logo"/>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-center form_container">
+                    <form  action="{{ path("rx_admin_login_check") }}" method="post">
                         {% if error %}
                             <div class="alert alert-danger">{{ error|trans({}, 'FOSUserBundle') }}</div>
                         {% endif %}
-                        <p class="text-center">
-                            <img src="{{ asset('img/logo.png') }}" width="200"/>
-                        </p>
-                        <label for="username">{{ 'security.login.username'|trans({}, 'FOSUserBundle') }}</label>
-                        <input class="form-control" type="text" id="username" name="_username"
-                               value="{{ last_username }}"/>
-                        <br/>
-                        <label for="password">{{ 'security.login.password'|trans({}, 'FOSUserBundle') }}</label>
-                        <input class="form-control" type="password" id="password" name="_password"/>
-                        <label for="remember_me">
-                            {{ 'security.login.remember_me'|trans({}, 'FOSUserBundle') }} <input type="checkbox"
-                                                                                                 name="_remember_me"/>
-                        </label>
-                        <br/>
-                        <button name="_submit" class="btn btn-primary" type="submit">Log in</button>
+                        <div class="input-group mb-3">
+                            <div class="input-group-append">
+                                <span class="input-group-text"><i class="fas fa-user"></i></span>
+                            </div>
+                            <input class="form-control input_user" type="text" id="username" name="_username"
+                                   value="{{ last_username }}" placeholder="{{ 'security.login.username'|trans({}, 'FOSUserBundle') }}" required="required"/>
+                        </div>
+                        <div class="input-group mb-2">
+                            <div class="input-group-append">
+                                <span class="input-group-text"><i class="fas fa-key"></i></span>
+                            </div>
+                            <input class="form-control input_pass" type="password" id="password" name="_password" placeholder="{{ 'security.login.password'|trans({}, 'FOSUserBundle') }}" required="required"/>
+                        </div>
+                        <div class="form-group">
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox"  name="_remember_me" class="custom-control-input" id="customControlInline">
+                                <label class="custom-control-label" for="customControlInline">Remember me</label>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-center mt-3 login_container">
+                            <button  name="_submit" type="submit" class="btn login_btn">Login</button>
+                        </div>
                     </form>
                 </div>
-
             </div>
         </div>
     </div>
-
 {% endblock fos_user_content %}

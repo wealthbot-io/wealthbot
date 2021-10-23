@@ -1,4 +1,4 @@
-{% extends is_client_view ? '/Ria/clear_layout.html.twig' : '/Ria/Dashboard/index.html.twig' %}
+{% extends is_client_view ? '/Ria/Dashboard/index.html.twig' : '/Ria/Dashboard/index.html.twig' %}
 
 {% block javascripts %}
     {{ parent() }}
@@ -15,7 +15,7 @@
 
 {% endblock %}
 
-{% block body %}
+{% block mainContent %}
     <div class="container-fluid">
     <div class="row">
     <div class="col-12">

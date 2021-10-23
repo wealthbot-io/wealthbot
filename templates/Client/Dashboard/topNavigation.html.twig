@@ -30,32 +30,6 @@
 
         <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
              aria-labelledby="userDropdown">
-            {% if (is_granted('ROLE_RIA_ADMIN')) %}
-                <a class="dropdown-item" href="{{path('rx_ria_change_profile')}}">
-                    <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                    Admin Settings
-                </a>
-            {% endif %}
-            <a class="dropdown-item" href="{{ path('rx_ria_profile') }}">
-                <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                Profile Management
-            </a>
-            {% if (is_granted('ROLE_RIA_ADMIN')) %}
-                <a class="dropdown-item" href="{{ path('rx_ria_user_management')}}">
-                    <i class="fas fa-users fa-sm fa-fw mr-2 text-gray-400"></i>
-                    User Management
-                </a>
-            {% endif %}
-            <a class="dropdown-item" href="{{path('rx_ria_user_create')}}">
-                <i class="fas fa-user-plus fa-sm fa-fw mr-2 text-gray-400"></i>
-                Create User
-            </a>
-
-            <a class="dropdown-item" href="{{ path('rx_ria_user_reset_internally_password',{user_id:app.user.id}) }}">
-                <i class="fas fa-redo fa-sm fa-fw mr-2 text-gray-400"></i>
-                Reset User's Password
-            </a>
-
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                 <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>

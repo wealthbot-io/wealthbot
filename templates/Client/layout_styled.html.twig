@@ -7,10 +7,37 @@
 
 {% endblock %}
 
-{% block headernav %}
-{% endblock %}
+
 
 {% block body %}
+    <div id="wrapper">
+        <!-- start: RIA  nav/menu -->
+        {%  block sideBarNavigation %}
+        {% endblock %}
+        <!-- end: RIA nav/menu -->
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                {% include '/Client/Dashboard/topNavigation.html.twig' %}
+                {% block flash_messages %}
+                    {% for type, flashMessages in app.session.flashbag.all() %}
+                        {% for flashMessage in flashMessages %}
+                            <div class="alert alert-{{ type }}">
+                                {{ flashMessage }}
+                                <a class="close" data-dismiss="alert" href="#">&times;</a>
+                            </div>
+                        {% endfor %}
+                    {% endfor %}
+                {% endblock %}
+                    {% block mainContent %}
+                    {% endblock %}
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
 
 {% block javascripts %}

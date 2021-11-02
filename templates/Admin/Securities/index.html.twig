@@ -6,10 +6,14 @@
     <script src="{{ asset('js/admin/admin.securities.js') }}"></script>
 {% endblock %}
 
-{% block body %}
+{% block mainContent %}
     <h1>Securities</h1>
-
-    <table class="securities-list table table-striped">
+    {% if is_permitted('edit') %}
+        <div class="security-form">
+            {% include '/Admin/Securities/_form.html.twig' with {'form': form} %}
+        </div>
+    {% endif %}
+    <table class="table table-responsive table-bordered" id="dataTable">
         <thead>
         <tr>
             <th>{{ knp_pagination_sortable(pagination, '#', 's.id') }}</th>
@@ -47,13 +51,7 @@
         </tbody>
     </table>
 
-    <div class="pagination pagination-centered">
+   {# <div class="pagination pagination-centered">
         {{ knp_pagination_render(pagination) }}
-    </div>
-
-    {% if is_permitted('edit') %}
-        <div class="security-form">
-            {% include '/Admin/Securities/_form.html.twig' with {'form': form} %}
-        </div>
-    {% endif %}
+    </div>#}
 {% endblock %}

@@ -1,6 +1,6 @@
 {% extends '/Admin/layout.html.twig' %}
 
-{% block body %}
+{% block mainContent %}
     <br />
     {% if is_permitted('create_user') %}
         <a class="btn btn-primary"  href="{{ path('rx_admin_users_create_user') }}">Create User</a>

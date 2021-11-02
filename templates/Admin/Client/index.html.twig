@@ -1,8 +1,8 @@
 {% extends '/Admin/layout.html.twig' %}
 
-{% block body %}
+{% block mainContent %}
     <h3>CLIENTS LIST</h3>
-    <table class="table">
+    <table class="table table-responsive table-bordered" id="dataTable">
         <thead>
         <tr>
             <th>{{ knp_pagination_sortable(pagination, 'First Name', 'first_name') }}</th>
@@ -34,7 +34,7 @@
         {% endfor %}
         </tbody>
     </table>
-    <div class="pagination pagination-centered">
+   {# <div class="pagination pagination-centered">
         {{ knp_pagination_render(pagination) }}
-    </div>
+    </div>#}
 {% endblock %}

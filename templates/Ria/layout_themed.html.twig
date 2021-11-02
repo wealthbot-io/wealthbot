@@ -8,9 +8,6 @@
 {% endblock %}
 
 {% block headernav %}
-    <!-- start: RIA  nav/menu -->
-    {% include '/Ria/menu_nav.html.twig' %}
-    <!-- end: RIA nav/menu -->
 
     {% block flash_messages %}
         {% for type, flashMessages in app.session.flashbag.all() %}
@@ -33,4 +30,22 @@
 
 
 {% block body %}
+    <div id="wrapper">
+        <!-- start: RIA  nav/menu -->
+        {% include '/Ria/menu_nav.html.twig' %}
+        <!-- end: RIA nav/menu -->
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                {% include '/Ria/Dashboard/topNavigation.html.twig' %}
+                <div class="container-fluid">
+                    {% block mainContent %}
+                    {% endblock %}
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

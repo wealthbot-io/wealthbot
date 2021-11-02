@@ -1,6 +1,92 @@
 {% if is_client_view is not defined %}
     {% set is_client_view = true %}
 {% endif %}
+<!-- Sidebar -->
+<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+    <!-- Sidebar - Brand -->
+    <a class="sidebar-brand d-flex align-items-center justify-content-center"
+       href="{{ path('rx_client_dashboard') }}">
+        <div class="sidebar-brand-icon rotate-n-15">
+            <img src="{{ asset('img/logo.png') }}" width="20" alt="Logo"/>
+        </div>
+        <div class="sidebar-brand-text mx-3"> {{ 'wealthbot.io' | trans }}</div>
+    </a>
+
+    <!-- Divider -->
+    <hr class="sidebar-divider my-0">
+
+    <!-- Nav Item - Dashboard -->
+    <li class="{{ action == 'rx_client_dashboard' ? 'active nav-item' : 'nav-item' }}">
+        <a class="nav-link" href="{{ path('rx_client_dashboard') }}">
+            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <span>Dashboard</span></a>
+    </li>
+
+    <!-- Divider -->
+    <hr class="sidebar-divider">
+
+    <!-- Nav Item - Charts -->
+    <li class="{{action == 'Holdings' ? 'active nav-item' : 'nav-item' }}">
+        <a class="nav-link" href="{{ path('wealthbot_client_holdings', is_client_view == 0 ? {'is_client_view': is_client_view} : {}) }}">
+            <i class="fas fa-fw fa-briefcase"></i>
+            <span>Holdings</span></a>
+    </li>
+    <li class="{{action == 'Allocation' ? 'active nav-item' : 'nav-item' }}">
+        <a class="nav-link" href="{{ path('wealthbot_client_allocation', is_client_view == 0 ? {'is_client_view': is_client_view} : {}) }}">
+            <i class="fas fa-fw fa-th"></i>
+            <span>Asset Allocation</span></a>
+    </li>
+    <li class="{{action == 'Gains/Losses' ? 'active nav-item' : 'nav-item' }}">
+        <a class="nav-link" href="{{ path('wealthbot_client_gainslosses', is_client_view == 0 ? {'is_client_view': is_client_view} : {}) }}">
+            <i class="fas fa-fw fa-arrows-alt-v"></i>
+            <span>Realized Gains/Losses</span></a>
+    </li>
+    <li class="{{action == 'Transactions' ? 'active nav-item' : 'nav-item' }}">
+        <a class="nav-link" href="{{ path('wealthbot_client_transactions', is_client_view == 0 ? {'is_client_view': is_client_view} : {}) }}">
+            <i class="fas fa-fw fa-book"></i>
+            <span>Transactions</span></a>
+    </li>
+    <li class="{{action == 'Billing' ? 'active nav-item' : 'nav-item' }}">
+        <a class="nav-link" href="{{ path('wealthbot_client_billing', is_client_view == 0 ? {'is_client_view': is_client_view} : {}) }}">
+            <i class="fas fa-fw fa-check"></i>
+            <span>Billing</span></a>
+    </li>
+    <li class="{{action == 'Performance' ? 'active nav-item' : 'nav-item' }}">
+        <a class="nav-link" href="{{ path('wealthbot_client_performance', is_client_view == 0 ? {'is_client_view': is_client_view} : {}) }}">
+            <i class="fas fa-fw fa-sign"></i>
+            <span>Performance</span></a>
+    </li>
+
+    <li class="{{action == 'client_portfolio' ? 'active nav-item' : 'nav-item' }}">
+        <a class="nav-link" href="{{ path('rx_client_portfolio', is_client_view == 0 ? {'is_client_view': is_client_view} : {}) }}">
+            <i class="fas fa-fw fa-align-justify"></i>
+            <span>Portfolio</span></a>
+    </li>
+    <li class="{{action == 'Documents' ? 'active nav-item' : 'nav-item' }}">
+        <a class="nav-link" href="{{ path('wealthbot_client_documents', is_client_view == 0 ? {'is_client_view': is_client_view} : {}) }}">
+            <i class="fas fa-fw fa-list-alt"></i>
+            <span>Documents</span></a>
+    </li>
+    {% if is_granted('ROLE_CLIENT_FULL') %}
+        <li class="{{action == 'Account Management' ? 'active nav-item' : 'nav-item' }}">
+            <a class="nav-link" href="{{ path('rx_client_dashboard_account_management', is_client_view == 0 ? {'is_client_view': is_client_view} : {}) }}">
+                <i class="fas fa-fw fa-user"></i>
+                <span>Account Management</span></a>
+        </li>
+    {% endif %}
+    <!-- Divider -->
+    <hr class="sidebar-divider d-none d-md-block">
+
+    <!-- Sidebar Toggler (Sidebar) -->
+    <div class="text-center d-none d-md-inline">
+        <button class="rounded-circle border-0" id="sidebarToggle"></button>
+    </div>
+</ul>
+<!-- End of Sidebar -->
+{#{% if is_client_view is not defined %}
+    {% set is_client_view = true %}
+{% endif %}
 <nav class="navbar navbar-expand-lg navbar-dark bg-secondary">
     <a class="navbar-brand" href="{{path('rx_client_dashboard')}}">
         {{ 'wealthbot.io' | trans }}
@@ -54,15 +140,4 @@
 
         </ul>
     </div>
-</nav>
-
-{% block flash_messages %}
-    {% for type, flashMessages in app.session.flashbag.all() %}
-        {% for flashMessage in flashMessages %}
-            <div class="alert alert-{{ type }}">
-                {{ flashMessage }}
-                <a class="close" data-dismiss="alert" href="#">&times;</a>
-            </div>
-        {% endfor %}
-    {% endfor %}
-{% endblock %}
+</nav>#}

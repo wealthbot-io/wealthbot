@@ -2871,3 +2871,29 @@ a.disabled:hover {
 .distribution-form-bank-info-fields {
     padding-left: 30px !important;
 }
+
+.registration-login-cards {
+    background-color: #343a40;
+    color: white;
+    border: 1px solid white;
+}
+.first-page-login-registration-links  {
+    color: #fff;
+    background-color: #c0392b;
+    border-color: #c0392b;
+}
+
+.first-page-login-registration-links:hover {
+    color: white;
+    border-color: #36b9cc;
+    background-color: #36b9cc;
+}
+
+.first-page-login-registration-links:focus, .first-page-login-registration-links.focus {
+    box-shadow: 0 0 0 0.2rem rgba(54, 185, 204, 0.5);
+}
+
+.first-page-login-registration-links.disabled, .first-page-login-registration-links:disabled {
+    color: #36b9cc;
+    background-color: transparent;
+}

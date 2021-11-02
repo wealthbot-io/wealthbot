@@ -7,10 +7,11 @@
         <script src="{{ asset('js/client/client.account_selector.js') }}"></script>
         <script type="text/javascript" src="https://www.google.com/jsapi"></script>
 {% endblock %}
-
-{% block body %}
+{%  block sideBarNavigation %}
     {% set is_client_view_value = is_client_view is defined ? is_client_view : true %}
-            {% include '/Client/Dashboard/_nav.html.twig' with {'action' : layout_variables.action, 'is_client_view': is_client_view_value} %}
+    {% include '/Client/Dashboard/_nav.html.twig' with {'action' : layout_variables.action, 'is_client_view': is_client_view_value} %}
+{% endblock %}
+{% block mainContent %}
 
     <div class="container-fluid">
         <div class="row">

@@ -18,7 +18,10 @@ class RiaRegistrationType extends AbstractType
     {
         $builder
             ->remove('username')
-            ->add('email', EmailType::class, array('label' => 'form.email', 'translation_domain' => 'FOSUserBundle'))
+            ->add('email', EmailType::class,
+                array('label' => 'form.email', 'translation_domain' => 'FOSUserBundle','attr' => array(
+                    'placeholder' => 'form.email'
+                )))
             ->add('plainPassword', RepeatedType::class, array(
                 'type' => PasswordType::class,
                 'options' => array(
@@ -27,8 +30,8 @@ class RiaRegistrationType extends AbstractType
                         'autocomplete' => 'new-password',
                     ),
                 ),
-                'first_options' => array('label' => 'form.password'),
-                'second_options' => array('label' => 'form.password_confirmation'),
+                'first_options' => array('label' => 'form.password','attr' => array('placeholder' => 'form.password')),
+                'second_options' => array('label' => 'form.password_confirmation', 'attr' => array('placeholder' => 'form.password_confirmation')),
                 'invalid_message' => 'fos_user.password.mismatch',
             ))
         ;

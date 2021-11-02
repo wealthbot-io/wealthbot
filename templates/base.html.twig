@@ -19,6 +19,10 @@
             <link rel="stylesheet" href="{{ asset('css/billing.css') }}"/>
             <link rel="stylesheet" href="{{ asset('css/admin-styles.css') }}"/>
             <link rel="stylesheet" href="{{ asset('css/admin.interfaces.css') }}"/>
+            <link rel="stylesheet" href="{{ asset('css/login.css') }}"/>
+            <link rel="stylesheet" href="{{ asset('css/font-awsome/all.css') }}"/>
+            <link rel="stylesheet" href="{{ asset('css/sb-admin-2.css') }}"/>
+            <link rel="stylesheet" href="{{ asset('css/datatables/dataTables.bootstrap4.css') }}"/>
         {% endblock %}
 
         <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" />
@@ -28,7 +32,7 @@
 
 {% block html_body %}
     <body id="mainApp">
-    {% block headernav %}
+   {# {% block headernav %}
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <a class="navbar-brand" href="{{path('rx_user_homepage')}}">{{ 'wealthbot.io' | trans }}</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -49,7 +53,7 @@
                 </ul>
             </div>
         </nav>
-    {% endblock %}
+    {% endblock %}#}
 
     {% block main_container %}
             {% block body %}{% endblock %}
@@ -67,9 +71,13 @@
         <script type="text/javascript" src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
         <script type="text/javascript" src="{{ asset('js/typeahead.js') }}"></script>
         <script type="text/javascript" src="{{ asset('js/custom.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('js/sb-admin-2.min.js') }}"></script>
         <script src="{{ asset('js/backbone.marionette/underscore.js') }}"></script>
         <script src="{{ asset('js/inputmask/jquery.inputmask.js') }}"></script>
         <script src="{{ asset('js/inputmask/jquery.inputmask.extensions.js') }}"></script>
+        <script src="{{ asset('js/jquery.dataTables.js') }}"></script>
+        <script src="{{ asset('js/dataTables.bootstrap4.js') }}"></script>
+        <script src="{{ asset('js/datatables-demo.js') }}"></script>
         <script src="{{ asset('js/ria/Util.js') }}"></script>
         <script type="text/javascript">
             $(document).ready(function () {

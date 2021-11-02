@@ -1,131 +1,203 @@
 {% extends '/Admin/layout.html.twig' %}
 
-{% block body %}
-    <div class="row">
-        <div class="col-12">
-            <h3>Newest RIA's</h3>
-            {% if rias is not empty %}
-                <table class="table table-striped">
-                    <thead>
-                    <tr>
-                        <th>Firm Name</th>
-                        <th>Signed Up</th>
-                        <th>Process Step</th>
-                        <th>Main Contact</th>
-                        <th>Email</th>
-                        <th>Phone</th>
-                        <th>City</th>
-                        <th>State</th>
-                        <th>Last Login</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {% for ria in rias %}
-                        <tr>
-                            <td>{{ ria.riaCompanyInformation ? ria.riaCompanyInformation.name : '' }}</td>
-                            <td>{{ ria.created|date('m/d/Y') }}</td>
-                            <td>{{ ria.profile.riaRegistrationStep }}</td>
-                            <td>
-                                {{ ria.riaCompanyInformation ? ria.riaCompanyInformation.primaryFirstName : '' }}
-                                {{ ria.riaCompanyInformation ? ria.riaCompanyInformation.primaryLastName : '' }}
-                            </td>
-                            <td>{{ ria.email }}</td>
-                            <td>{{ ria.riaCompanyInformation ? ria.riaCompanyInformation.phoneNumber : '' }}</td>
-                            <td>{{ ria.riaCompanyInformation ? ria.riaCompanyInformation.city : '' }}</td>
-                            <td>{{ ria.riaCompanyInformation ? ria.riaCompanyInformation.state : '' }}</td>
-                            <td>{{ ria.lastLogin ? ria.lastLogin|date('m/d/Y - H:i') : 'Never' }}</td>
-                        </tr>
-                    {% endfor %}
-                    </tbody>
-                </table>
-            {% else %}
-                <p class="empty">No registered rias.</p>
-            {% endif %}
+{% block mainContent %}
+    <div class="container-fluid">
 
-            <h3>Newest Clients</h3>
-            {% if clients is not empty %}
-                <table class="table table-striped">
-                    <thead>
-                    <tr>
-                        <th>Last name</th>
-                        <th>First name</th>
-                        <th>Signed Up</th>
-                        <th>Process Step</th>
-                        <th>RIA</th>
-                        <th>Email</th>
-                        <th>City</th>
-                        <th>State</th>
-                        <th>Last Login</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {% for item in clients %}
-                        {% set client = item['user'] %}
-                        {% set nbFunds = item['nb_funds'] %}
-
-                        <tr>
-                            <td>{{ client.profile.lastName }}</td>
-                            <td>{{ client.profile.firstName }}</td>
-                            <td>{{ client.created|date('m/d/Y') }}</td>
-                            <td>{{ client.profile.clientRegistrationStep }}</td>
-                            <td>{{ client.ria.riaCompanyInformation ? client.ria.riaCompanyInformation.name : '' }}</td>
-                            <td>{{ client.email }}</td>
-                            <td>{{ client.profile.city }}</td>
-                            <td>{{ client.profile.state }}</td>
-                            <td>{{ client.lastLogin ? client.lastLogin|date('m/d/Y - H:i') : 'Never' }}</td>
-                        </tr>
-                    {% endfor %}
-                    </tbody>
-                </table>
-            {% else %}
-                <p class="empty">No registered clients.</p>
-            {% endif %}
+        <!-- Page Heading -->
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">Alerts</h1>
         </div>
-       {# <div class="col-3">
-            <h3>Alerts</h3>
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th colspan="2">PAS</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Recon Issues</td>
-                        <td><span class="red-text">10</span></td>
-                    </tr>
-                    <tr>
-                        <td>Unmapped Accounts</td>
-                        <td><span class="red-text">5</span></td>
-                    </tr>
-                    <tr>
-                        <td>Incomplete Account Data</td>
-                        <td><span class="red-text">2</span></td>
-                    </tr>
-                </tbody>
-            </table>
-
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th colspan="2">Rebalancer</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Unable to rebalance</td>
-                        <td><span class="red-text">10</span></td>
-                    </tr>
-                    <tr>
-                        <td>Reconcilliation Issues</td>
-                        <td><span class="red-text">5</span></td>
-                    </tr>
-                    <tr>
-                        <td>Other Issues</td>
-                        <td><span class="red-text">2</span></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>#}
+        <h3>PAS</h3>
+        <div class="row">
+            <div class="col-xl-4 col-md-6 mb-4">
+                <div class="card border-left-primary shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="h5 mb-0 font-weight-bold red">10</div>
+                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Recon Issues</div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-4 col-md-6 mb-4">
+                <div class="card border-left-primary shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="h5 mb-0 font-weight-bold red">5</div>
+                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Unmapped Accounts</div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-4 col-md-6 mb-4">
+                <div class="card border-left-primary shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="h5 mb-0 font-weight-bold red">2</div>
+                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Incomplete Account Data</div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <h3>Rebalancer</h3>
+        <div class="row">
+            <div class="col-xl-4 col-md-6 mb-4">
+                <div class="card border-left-primary shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="h5 mb-0 font-weight-bold red">10</div>
+                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Unable to rebalance</div>
+                            </div>
+                            <div class="col-auto">
+                                <div class="text-info glyphicon glyphicon-refresh align-right"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-4 col-md-6 mb-4">
+                <div class="card border-left-primary shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="h5 mb-0 font-weight-bold red">5</div>
+                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Reconcilliation Issues</div>
+                            </div>
+                            <div class="col-auto">
+                                <img width="48px" height="48px" src="/img/pie_chart.png" alt=""/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-4 col-md-6 mb-4">
+                <div class="card border-left-primary shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="h5 mb-0 font-weight-bold red">2</div>
+                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Other Issues</div>
+                            </div>
+                            <div class="col-auto">
+                                <div class="text-error glyphicon glyphicon-user align-right"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Newest RIA's</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                {% if rias is not empty %}
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                        <tr>
+                            <th>Firm Name</th>
+                            <th>Signed Up</th>
+                            <th>Process Step</th>
+                            <th>Main Contact</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th>City</th>
+                            <th>State</th>
+                            <th>Last Login</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for ria in rias %}
+                            <tr>
+                                <td>{{ ria.riaCompanyInformation ? ria.riaCompanyInformation.name : '' }}</td>
+                                <td>{{ ria.created|date('m/d/Y') }}</td>
+                                <td>{{ ria.profile.riaRegistrationStep }}</td>
+                                <td>
+                                    {{ ria.riaCompanyInformation ? ria.riaCompanyInformation.primaryFirstName : '' }}
+                                    {{ ria.riaCompanyInformation ? ria.riaCompanyInformation.primaryLastName : '' }}
+                                </td>
+                                <td>{{ ria.email }}</td>
+                                <td>{{ ria.riaCompanyInformation ? ria.riaCompanyInformation.phoneNumber : '' }}</td>
+                                <td>{{ ria.riaCompanyInformation ? ria.riaCompanyInformation.city : '' }}</td>
+                                <td>{{ ria.riaCompanyInformation ? ria.riaCompanyInformation.state : '' }}</td>
+                                <td>{{ ria.lastLogin ? ria.lastLogin|date('m/d/Y - H:i') : 'Never' }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                {% else %}
+                    <p class="empty">No registered rias.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Newest Clients</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                {% if clients is not empty %}
+                    <table class="table table-bordered" id="dataTable2" width="100%" cellspacing="0">
+                        <thead>
+                        <tr>
+                            <th>Last name</th>
+                            <th>First name</th>
+                            <th>Signed Up</th>
+                            <th>Process Step</th>
+                            <th>RIA</th>
+                            <th>Email</th>
+                            <th>City</th>
+                            <th>State</th>
+                            <th>Last Login</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for item in clients %}
+                            {% set client = item['user'] %}
+                            {% set nbFunds = item['nb_funds'] %}
+
+                            <tr>
+                                <td>{{ client.profile.lastName }}</td>
+                                <td>{{ client.profile.firstName }}</td>
+                                <td>{{ client.created|date('m/d/Y') }}</td>
+                                <td>{{ client.profile.clientRegistrationStep }}</td>
+                                <td>{{ client.ria.riaCompanyInformation ? client.ria.riaCompanyInformation.name : '' }}</td>
+                                <td>{{ client.email }}</td>
+                                <td>{{ client.profile.city }}</td>
+                                <td>{{ client.profile.state }}</td>
+                                <td>{{ client.lastLogin ? client.lastLogin|date('m/d/Y - H:i') : 'Never' }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                {% else %}
+                    <p class="empty">No registered clients.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
 {% endblock %}

@@ -1,0 +1,80 @@
+<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+<!-- Sidebar - Brand -->
+<a class="sidebar-brand d-flex align-items-center justify-content-center"
+   href="{{ path('rx_admin_homepage') }}">
+    <div class="sidebar-brand-icon rotate-n-15">
+        <img src="{{ asset('img/logo.png') }}" width="20" alt="Logo"/>
+    </div>
+    <div class="sidebar-brand-text mx-3"> {{ 'wealthbot.io' | trans }}</div>
+</a>
+
+<!-- Divider -->
+<hr class="sidebar-divider my-0">
+
+<!-- Nav Item - Dashboard -->
+<li class="{{ app.request.attributes.get('_route')  == 'rx_admin_homepage' ? 'active nav-item' : 'nav-item' }}">
+    <a class="nav-link" href="{{ path('rx_admin_homepage') }}">
+        <i class="fas fa-fw fa-tachometer-alt"></i>
+        <span>Dashboard</span></a>
+</li>
+
+<!-- Divider -->
+<hr class="sidebar-divider">
+    <li class="{{ app.request.attributes.get('_route')  == 'rx_admin_ria_index' ? 'active nav-item' : 'nav-item' }}">
+        <a class="nav-link" href="{{ path('rx_admin_ria_index') }}">
+            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <span>Advisors</span></a>
+    </li>
+    <li class="{{ app.request.attributes.get('_route')  == 'rx_admin_clients_index' ? 'active nav-item' : 'nav-item' }}">
+        <a class="nav-link" href="{{ path('rx_admin_clients_index') }}">
+            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <span>Clients</span></a>
+    </li>
+    <li class="{{ app.request.attributes.get('_route')  == 'rx_admin_securities' ? 'active nav-item' : 'nav-item' }}">
+        <a class="nav-link" href="{{ path('rx_admin_securities') }}">
+            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <span>Securities</span></a>
+    </li>
+    <li class="{{ app.request.attributes.get('_route')  == 'rx_admin_billing' ? 'active nav-item' : 'nav-item' }}">
+        <a class="nav-link" href="{{ path('rx_admin_billing') }}">
+            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <span>Billing</span></a>
+    </li>
+    <li class="{{ app.request.attributes.get('_route')  == 'rx_admin_rebalancer' ? 'active nav-item' : 'nav-item' }}">
+        <a class="nav-link" href="{{ path('rx_admin_rebalancer') }}">
+            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <span>Rebalancer</span></a>
+    </li>
+    <li class="{{ app.request.attributes.get('_route')  == 'rx_admin_custodians' ? 'active nav-item' : 'nav-item' }}">
+        <a class="nav-link" href="{{ path('rx_admin_custodians') }}">
+            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <span>Custodians</span></a>
+    </li>
+
+    <li class="{{ app.request.attributes.get('_route')  == 'rx_admin_models' ? 'active nav-item' : 'nav-item' }}">
+        <a class="nav-link" href="{{ path('rx_admin_models') }}">
+            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <span>Models</span></a>
+    </li>
+    <li class="{{ app.request.attributes.get('_route')  == 'rx_admin_risks' ? 'active nav-item' : 'nav-item' }}">
+        <a class="nav-link" href="{{ path('rx_admin_risks') }}">
+            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <span>Risks</span></a>
+    </li>
+    <li class="{{ app.request.attributes.get('_route')  == 'rx_admin_users' ? 'active nav-item' : 'nav-item' }}">
+        <a class="nav-link" href="{{ path('rx_admin_users') }}">
+            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <span>Admin</span></a>
+    </li>
+<!-- Nav Item - Charts -->
+<!-- Divider -->
+<hr class="sidebar-divider d-none d-md-block">
+
+<!-- Sidebar Toggler (Sidebar) -->
+<div class="text-center d-none d-md-inline">
+    <button class="rounded-circle border-0" id="sidebarToggle"></button>
+</div>
+
+
+</ul>

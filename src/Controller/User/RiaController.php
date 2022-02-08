@@ -41,7 +41,7 @@ class RiaController extends Controller
             };
         }
 
-        return $this->render('/User/Ria/registration.html.twig', ['form' => $form->createView()]);
+        return $this->render('/User/Ria/registration.html.twig', ['form' => $form->createView(),'errors' => $form->getErrors(true)]);
     }
 
     /**

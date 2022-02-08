@@ -42,9 +42,9 @@ class RiskQuestionFormType extends AbstractType
             $answersCount = $data->getAnswers()->count();
 
             if ($answersCount < 2) {
-                $form->get('title')->addError(new FormError('The question should have at least %nb_answers% answers', ['%nb_answers%' => 2]));
+                $form->get('title')->addError(new FormError('The question should have at least 2 answers'));
             } elseif ($answersCount > 5) {
-                $form->get('title')->addError(new FormError('The question should have no more than %nb_answers% answers', ['%nb_answers%' => 5]));
+                $form->get('title')->addError(new FormError('The question should have no more than 5 answers'));
             }
         });
     }

@@ -24,16 +24,8 @@
             </div>
         </div>
     </div>
+        {% include '/Ria/Profile/_company_profile_form.html.twig' with { 'form': form } %}
 
-
-    <div class="row">
-        <div class="col-6">
-            {% include '/Ria/Profile/_company_profile_form.html.twig' with { 'form': form } %}
-        </div>
-        <div class="col-6">
-
-        </div>
-    </div>
 </div>
 {% endblock %}
 

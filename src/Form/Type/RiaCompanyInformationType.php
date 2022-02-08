@@ -83,8 +83,7 @@ class RiaCompanyInformationType extends AbstractType
                 'required' => false,
                 'currency' => 'USD'
             ])
-            ->add('logo_file', FileType::class, ['required' => false])
-        ;
+            ->add('logo_file', FileType::class, ['required' => false]);
         //Proposal processing
         $builder->add('portfolio_processing', ChoiceType::class, [
             'choices' => RiaCompanyInformation::getPortfolioProcessingChoices(),

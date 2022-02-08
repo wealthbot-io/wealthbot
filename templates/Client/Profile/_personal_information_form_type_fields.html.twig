@@ -1,11 +1,7 @@
-<div class="form-title">
-    <h4>Personal Information</h4>
-    <hr/>
-</div>
 <div class="container-fluid">
 <div class="row">
     <div class="col-12">
-        <div class="form-group">
+        <div class="form-group form-inline">
             {{ form_label(form.first_name, 'First Name') }}
             {{ form_errors(form.first_name) }}
             {{ form_widget(form.first_name, {'attr': {'class': 'input-medium '}} ) }}
@@ -14,7 +10,7 @@
 </div>
 <div class="row">
     <div class="col-12">
-        <div class="form-group">
+        <div class="form-group form-inline">
             {{ form_label(form.middle_name, 'Middle Name') }}
             {{ form_errors(form.middle_name) }}
             {{ form_widget(form.middle_name, {'attr': {'class': 'input-medium '}} ) }}
@@ -23,7 +19,7 @@
 </div>
 <div class="row">
 <div class="col-12">
-    <div class="form-group">
+    <div class="form-group form-inline">
         {{ form_label(form.last_name, 'Last Name') }}
         {{ form_errors(form.last_name) }}
         {{ form_widget(form.last_name, {'attr': {'class': 'input-medium '}} ) }}
@@ -33,7 +29,7 @@
 
 <div class="row">
     <div class="col-12">
-        <div class="form-group birthdate">
+        <div class="form-group  form-inline birthdate">
             {{ form_label(form.birth_date, 'Birth Date') }}
             {{ form_errors(form.birth_date) }}
             {{ form_widget(form.birth_date, {'attr': {'placeholder': 'MM-DD-YYYY'}}) }}
@@ -41,15 +37,15 @@
     </div>
 </div>
 
-<div class="row">
-    <div class="col-12">
-        <div class="form-group">
-            {{ form_label(form.marital_status, 'Marital Status') }}
-            {{ form_errors(form.marital_status) }}
-            {{ form_widget(form.marital_status) }}
+    <div class="row">
+        <div class="col-12">
+            <div class="form-group form-inline">
+                {{ form_label(form.marital_status, 'Marital Status') }}
+                {{ form_errors(form.marital_status) }}
+                {{ form_widget(form.marital_status) }}
+            </div>
         </div>
     </div>
-</div>
 
 <div class="row">
     <div class="col-12 spouse-field">

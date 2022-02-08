@@ -1,5 +1,135 @@
 {% block form_main_tag %}
-<form action="{{ path('rx_ria_company_profile') }}" method="post" data-presave="true" data-save="true"
+
+<div class="row">
+    <div class="col-md-6 col-md-offset-3">
+        <form id="msform" action="{{ path('rx_ria_company_profile') }}" method="post" data-presave="true" data-save="true"
+              enctype="multipart/form-data">
+            <!-- progressbar -->
+            <!-- fieldsets -->
+            <fieldset>
+                <h2 class="fs-title">Company Profile</h2>
+                <div class="form-group form-inline">
+                    {{ form_label(form.slug) }}
+                    <div class="controls">
+                        <div class="input-group">
+                            {{ form_widget(form.slug) }}
+                            <div class="input-group-append">
+                                <span class="input-group-text">.{{ 'wealthbot.io' | trans }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group form-inline">
+                {{ form_label(form.name) }}
+                {{ form_widget(form.name) }}
+                </div>
+                <div class="form-group form-inline">
+                    {{ form_label(form.primary_first_name) }}
+                    {{ form_widget(form.primary_first_name) }}
+                </div>
+                <div class="form-group form-inline">
+                    {{ form_label(form.primary_last_name) }}
+                    {{ form_widget(form.primary_last_name) }}
+                </div>
+                <div class="form-group form-inline">
+                    {{ form_label(form.website) }}
+                    {{ form_widget(form.website) }}
+                </div>
+                <div class="form-group form-inline">
+                    {{ form_label(form.address) }}
+                    {{ form_widget(form.address) }}
+                </div>
+                <div class="form-group form-inline">
+                    {{ form_label(form.office) }}
+                    {{ form_widget(form.office) }}
+                </div>
+                <div class="form-group form-inline">
+                    {{ form_label(form.city) }}
+                    {{ form_widget(form.city) }}
+                </div>
+                <div class="form-group form-inline">
+                    {{ form_label(form.state) }}
+                    {{ form_widget(form.state) }}
+                </div>
+                <div class="form-group form-inline">
+                    {{ form_label(form.zipcode) }}
+                    {{ form_widget(form.zipcode) }}
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="form-group">
+                            {{ form_label(form.phone_number, 'Phone Number:', { 'label_attr': {'class': 'control-label'}}) }}
+                            <div class="form-form-control">
+                                {{ form_widget(form.phone_number, {'attr': {'placeholder': '(###) ###-####'}}) }} <a
+                                        href="#"
+                                        data-toggle="popover"
+                                        title="Primary Phone Number"
+                                        data-container="body"
+                                        data-placement="top"
+                                        data-content="This should be the primary phone number a prospect or user should contact."><i class="glyphicon glyphicon-info-sign"></i></a>
+                                {{ form_errors(form.phone_number) }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-group">
+                            {{ form_label(form.fax_number, 'Fax Number:', { 'label_attr': {'class': 'control-label'}}) }}
+                            <div class="form-form-control">
+                                {{ form_widget(form.fax_number, {'attr': {'placeholder': '(###) ###-####'}}) }} <a
+                                        href="#"
+                                        data-toggle="popover"
+                                        title="Primary Fax Number"
+                                        data-container="body"
+                                        data-placement="top"
+                                        data-content="This should be the primary fax number a prospect or user should contact."><i class="glyphicon glyphicon-info-sign"></i></a>
+                                {{ form_errors(form.fax_number) }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    {{ form_label(form.contact_email, 'Email Address:', { 'label_attr': {'class': 'control-label'}}) }}
+                    <div class="form-form-control">
+                        {{ form_widget(form.contact_email) }} <a href="#" data-toggle="popover"
+                                                                 title="Primary Contact Email"
+                                                                 data-container="body"
+                                                                 data-placement="top"
+                                                                 data-content="This should be the primary email address a prospect or user should contact"><i class="glyphicon glyphicon-info-sign"></i></a>
+                        {{ form_errors(form.contact_email) }}
+                    </div>
+                </div>
+
+                <div class="form-group form-inline">
+
+                    {{ form_label(form.min_asset_size) }}
+                    {{ form_widget(form.min_asset_size) }}
+                </div>
+                <div class="form-group form-inline">
+
+                    {{ form_label(form.logo_file) }}
+                    {{ form_widget(form.logo_file) }}
+                </div>
+                <div class="form-group form-inline">
+
+                    {{ form_label(form.portfolio_processing) }}
+                    {{ form_widget(form.portfolio_processing) }}
+                </div>
+                <input type="submit" name="next" class="next action-button" value="Continue"/>
+            </fieldset>
+            {{ form_rest(form) }}
+        </form>
+    </div>
+</div>
+{% endblock %}
+{#{% block form_actions %}
+
+    <div class="">
+        {{ form_rest(form) }}
+        <input class="btn btn-outline-info" type="submit" name="Continue" value="Next"/>
+    </div>
+{% endblock %}#}
+{#<form action="{{ path('rx_ria_company_profile') }}" method="post" data-presave="true" data-save="true"
       enctype="multipart/form-data">
     {% endblock %}
 
@@ -15,7 +145,7 @@
             </div>
         </div>
     </div>
-    {{ form_widget(form) }}
+    {{ form_widget(form) }}#}
 {#
 
         <div class="form-group">
@@ -179,11 +309,11 @@
         </div>
     </fieldset>
     #}
-    {% block form_actions %}
+  {#  {% block form_actions %}
 
         <div class="">
             {{ form_rest(form) }}
             <input class="btn btn-outline-info" type="submit" name="Continue" value="Next"/>
         </div>
-    {% endblock %}
+    {% endblock %}#}
 </form>

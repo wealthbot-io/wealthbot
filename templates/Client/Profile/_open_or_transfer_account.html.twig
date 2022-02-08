@@ -6,7 +6,13 @@
         <div class="row">
             <div class="col-10">
                 <span class="help-block">We'll save your progress. <a href="{{ path('logout') }}">Logout</a></span>
-                <h3>{% block title %}Step 3 of 3: Your Accounts{% endblock %}</h3>
+                <form id="msform">
+                    <ul id="progressbar">
+                        <li class="active">Your Information</li>
+                        <li class="active">Risk Tolerance</li>
+                        <li class="active">Account Setup</li>
+                    </ul>
+                </form>
             </div>
         </div>
     </div>
@@ -19,7 +25,8 @@
 
 <h3 id="main_title_message">What types of accounts will we be managing for you?</h3>
 
-<div class="row accounts-intake">
+
+<div class="row accounts-intake step3">
     <div class="col-6">
         <form id="account_types_form" action="{{ path('rx_client_profile_step_three') }}" method="post" data-save="false">
             <div class="form-group spec-rx">
@@ -74,14 +81,14 @@
 </div>
 
 {% block form_actions %}
-    <div class="form-actions">
-        <a class="btn btn-inverse" id="account_back_btn" href="{{ path('rx_client_step_three_back') }}">Back</a>
+    <div class="form-actions-steps" id="step3">
+        <a class="btn action-button-previous-step3" id="account_back_btn" href="{{ path('rx_client_step_three_back') }}">Back</a>
         {% if (client.clientAccounts.count > 0) %}
         {% else %}
 
         {% endif %}
-        <a class="btn btn-primary"  {{ client.clientAccounts.count > 0 ? 'style="display: none;"' : '' }} href="javascript:void(0);" id="account_continue_btn">Continue</a>
-        <a class="btn btn-primary"  {{ client.clientAccounts.count > 0 ? '' : 'style="display: none;"' }} href="javascript:void(0);"
+        <a class="next action-button"  {{ client.clientAccounts.count > 0 ? 'style="display: none;"' : '' }} href="javascript:void(0);" id="account_continue_btn">Continue</a>
+        <a class="next action-button"  {{ client.clientAccounts.count > 0 ? '' : 'style="display: none;"' }} href="javascript:void(0);"
            data-url="{{ path('rx_client_profile_step_three_complete') }}"
            data-check-url="{{ path('rx_client_profile_check_accounts_sum') }}" id="account_suggested_btn">See My Portfolio</a>
 

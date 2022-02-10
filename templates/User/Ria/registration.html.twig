@@ -9,6 +9,17 @@
                         <img src="{{ asset('img/logo.png') }}" width="200" class="brand_logo" alt="Logo"/>
                     </div>
                 </div>
+                {% block form_errors %}
+                    {% spaceless %}
+                        {% if errors|length > 0 %}
+                            <ul>
+                                {% for error in errors %}
+                                    <li>{{ error.message }}</li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
+                    {% endspaceless %}
+                {% endblock form_errors %}
                 <div class="d-flex justify-content-center">
                     <form action="{{ path("rx_ria_register") }}" method="post">
                         <div class="input-group mb-3">

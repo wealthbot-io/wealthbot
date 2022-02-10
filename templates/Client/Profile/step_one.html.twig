@@ -6,7 +6,6 @@
 {% endblock %}
 
 {% block body %}
-    <div class="container-fluid">
     <div class="row">
         <img class="img-rounded" height="60" src="{{ path('rx_file_download', {'ria_id': ria_company_information.ria.id}) }}"/>
     </div>
@@ -22,85 +21,73 @@
         </div>
     </div>
 
+
     <div class="row">
-        <div class="col-12">
-            <div class="row">
-                <div class="col-6">
-                    <h3>Step 1 of 3: Your Information</h3>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <legend><p>Please fill in some basic information about yourself for us to understand your financial situation better.</p></legend>
-
-    <form action="{{ path("rx_client_profile_step_one") }}" method="post" data-presave="false" data-save="true" >
-        <fieldset class="b-label">
-            {% include '/Client/Profile/_personal_information_form_type_fields.html.twig' with {'form': form} %}
-
-            {% include '/Client/Profile/_contact_information_form_type_fields.html.twig' with {'form': form} %}
-
-            <div class="container-fluid">
-            <div class="form-title">
-                <h4>Financial Status</h4>
-                <hr/>
-            </div>
-
-            <div class="row">
-                <div class="col-12">
-                    <div class="form-group">
-                        {{ form_label(form.annual_income, 'Annual Income') }}
-                        {{ form_errors(form.annual_income) }}
-                        {{ form_widget(form.annual_income) }}
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-12">
-                    <div class="form-group">
-                        {{ form_label(form.estimated_income_tax) }}
-                        {{ form_errors(form.estimated_income_tax) }}
-                        {{ form_widget(form.estimated_income_tax) }}
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-12">
-                    <div class="form-group">
-                        {{ form_label(form.liquid_net_worth, 'Your Estimated Liquid Net Worth') }}
-                        {{ form_errors(form.liquid_net_worth) }}
-                        {{ form_widget(form.liquid_net_worth) }}
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-12">
-                    <div class="form-group">
-                        {{ form_label(form.employment_type, 'Your Employment Status') }}
-                        <div class="controls">
-                            {{ form_errors(form.employment_type) }}
-                            {% for radio in form.employment_type %}
-                                <label for="{{ radio.vars.id }}"
-                                       class="radio inline">{{ form_widget(radio) }}</label>
-                            {% endfor %}
+        <div class="col-md-6 col-md-offset-3">
+            <form id="msform" action="{{ path("rx_client_profile_step_one") }}" method="post" data-presave="false" data-save="true">
+                <!-- progressbar -->
+                <ul id="progressbar">
+                    <li class="active">Your Information</li>
+                    <li>Risk Tolerance</li>
+                    <li>Account Setup</li>
+                </ul>
+                <!-- fieldsets -->
+                <fieldset>
+                    <h2 class="fs-title">Personal Information</h2>
+                    <h3 class="fs-subtitle">Please fill in some basic information about yourself for us to understand your financial situation better.</h3>
+                    {% include '/Client/Profile/_personal_information_form_type_fields.html.twig' with {'form': form} %}
+                    <h2 class="fs-title">Contact Information</h2>
+                    {% include '/Client/Profile/_contact_information_form_type_fields.html.twig' with {'form': form} %}
+                    <h2 class="fs-title">Financial Status</h2>
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group form-inline">
+                                {{ form_label(form.annual_income, 'Annual Income') }}
+                                {{ form_errors(form.annual_income) }}
+                                {{ form_widget(form.annual_income) }}
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
 
-            <div class="row">
-                <div class="col-12">
-                    <div class="form-actions">
-                        {{ form_rest(form) }}
-                        <input class="btn btn-primary"  type="submit" name="Continue" value="Continue"/>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="form-group">
+                                {{ form_label(form.estimated_income_tax) }}
+                                {{ form_errors(form.estimated_income_tax) }}
+                                {{ form_widget(form.estimated_income_tax) }}
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-            </div>
-        </fieldset>
-    </form>
+
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="form-group form-inline">
+                                {{ form_label(form.liquid_net_worth, 'Your Estimated Liquid Net Worth') }}
+                                {{ form_errors(form.liquid_net_worth) }}
+                                {{ form_widget(form.liquid_net_worth) }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="form-group">
+                                {{ form_label(form.employment_type, 'Your Employment Status') }}
+                                <div class="controls">
+                                    {{ form_errors(form.employment_type) }}
+                                    {% for radio in form.employment_type %}
+                                        <label for="{{ radio.vars.id }}"
+                                               class="radio inline">{{ form_widget(radio) }}</label>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <input type="submit" name="next" class="next action-button" value="Continue"/>
+                </fieldset>
+                {{ form_rest(form) }}
+            </form>
+        </div>
     </div>
+    <!-- /.MultiStep Form -->
 {% endblock %}

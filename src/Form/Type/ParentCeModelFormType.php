@@ -29,6 +29,7 @@ class ParentCeModelFormType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => 'App\Entity\CeModel',
+           'admin' => null
         ]);
     }
 

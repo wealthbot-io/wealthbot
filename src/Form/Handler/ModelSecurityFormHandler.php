@@ -22,10 +22,15 @@ class ModelSecurityFormHandler extends AbstractFormHandler
 
         $securityAssignment
             ->setModelId($this->getOption('selected_model')->getId())
-            ->setMuniSubstitution($data['muniSubstitution'])
             ->setSubclass($subclass)
             ->setSubclassId($data['subclass_id'])
+            // added the model to security assignment to fix edit and delete functionality
+            ->setModel($this->getOption('selected_model'))
             ->setRiaUserId($this->getOption('ria'));
+
+        if(isset($data['muniSubstitution'])) {
+            $securityAssignment->setMuniSubstitution($data['muniSubstitution']);
+        }
 
         $this->em->persist($securityAssignment);
         $this->em->flush();

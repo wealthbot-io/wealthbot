@@ -110,7 +110,8 @@ class ClientProfileFormType extends AbstractType
                 'required' => false,
                 'label' => 'What is your estimated income tax bracket?',
                 'attr' => [
-                    'class' => 'col-1'
+                    'class' => 'form-control',
+                     'style' => 'width:80%;margin-bottom:0;',
                 ]
             ])
             ->add('liquid_net_worth', ChoiceType::class, [

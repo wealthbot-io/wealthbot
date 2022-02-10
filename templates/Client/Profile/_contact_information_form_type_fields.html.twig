@@ -1,12 +1,4 @@
 <div class="container-fluid">
-
-
-
-    <div class="form-title">
-        <h4>Contact Information</h4>
-        <hr/>
-    </div>
-
     {% if (is_change_profile is defined and is_change_profile) %}
     <div>
         <br />
@@ -27,32 +19,32 @@
 
 {% else %}
     <div class="row">
-        <div class="col-12">
-            <div class="form-group">
+        <div class="col-6">
+            <div class="form-group form-inline">
                 {{ form_label(form.street) }}
                 {{ form_errors(form.street) }}
                 {{ form_widget(form.street) }}
             </div>
         </div>
-    </div>
-
-    <div class="row">
-        <div class="col-12">
-            <div class="form-group">
+        <div class="col-6">
+            <div class="form-group form-inline">
                 {{ form_label(form.city, 'City') }}
                 {{ form_errors(form.city) }}
                 {{ form_widget(form.city) }}
             </div>
         </div>
-        <div class="col-12">
-            <div class="form-group">
+    </div>
+
+    <div class="row">
+        <div class="col-6">
+            <div class="form-group form-inline">
                 {{ form_label(form.state) }}
                 {{ form_errors(form.state) }}
                 {{ form_widget(form.state) }}
             </div>
         </div>
-        <div class="col-12">
-            <div class="form-group">
+        <div class="col-6">
+            <div class="form-group form-inline">
                 {{ form_label(form.zip, 'Zip Code') }}
                 {{ form_errors(form.zip) }}
                 {{ form_widget(form.zip) }}
@@ -100,7 +92,7 @@
 
 <div class="row">
     <div class="col-12">
-        <div class="form-group">
+        <div class="form-group form-inline">
             {{ form_label(form.phone_number, 'Phone Number') }}
             {{ form_errors(form.phone_number) }}
             {{ form_widget(form.phone_number, {'attr': {'placeholder': '(###) ###-####', 'data-mask-type': 'phone' }}) }}

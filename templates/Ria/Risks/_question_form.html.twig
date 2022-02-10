@@ -34,7 +34,6 @@
 
     <form id="question_form" action="{{ question_id ? path('rx_ria_risks_edit_question', {'id': question_id}) : path('rx_ria_risks_create_question') }}" method="post">
         {{ form_label(form.title, 'Question:') }}
-        {{ form_errors(form.title) }}
         {{ form_widget(form.title) }}
 
         <ol class="answers-list" data-prototype="{{ _self.widget_prototype(form.answers, 'Remove')|escape }}">
